@@ -61,6 +61,21 @@ public class TwiMLResponseExample {
 
         System.out.println(response.toXML());
         
+        // Conference
+        response = new TwiMLResponse();
+        Dial dial = new Dial();
+        Conference conf = new Conference("MyRoom");
+        conf.setBeep(true); 
+        
+        try {
+            dial.append(conf);
+            response.append(dial);
+        } catch (TwiMLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(response.toXML());
+        
         // Set an arbitrary attribute / value pair
         response = new TwiMLResponse();
         

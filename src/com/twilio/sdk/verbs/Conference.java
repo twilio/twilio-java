@@ -1,6 +1,5 @@
 package com.twilio.sdk.verbs;
 
-import java.util.ArrayList;
 
 
 /*
@@ -28,47 +27,42 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
-public class Dial extends Verb {
+public class Conference extends Verb {
     
-    public Dial() {
-        super(V_DIAL, null);
-        this.allowedVerbs = new ArrayList<String>();
-        this.allowedVerbs.add(Verb.V_NUMBER);
-        this.allowedVerbs.add(Verb.V_CONFERENCE);
+    public Conference(String name) {
+        super(V_CONFERENCE , name);
+        this.allowedVerbs = null;
     }
-    
-    public Dial(String number) {
-        super(V_DIAL, number);
-        this.allowedVerbs = new ArrayList<String>();
-        this.allowedVerbs.add(Verb.V_NUMBER);
-        this.allowedVerbs.add(Verb.V_CONFERENCE);
-    }
-
-    public void setAction(String url){
-       this.set("action", url);   
-    }
-    
-    public void setMethod(String method){
-       this.set("method", method);   
-    }
-    
-    public void setTimeout(int i){
-       this.set("timeout", Integer.toString(i));   
-    }
-    
-    public void setHangupOnStar(boolean f){
-        if(f)
-            this.set("hangupOnStar", "true");  
+     
+    private void setBoolean(String attr, Boolean bool){
+        if(bool)
+            this.set(attr,"true");
         else
-            this.set("hangupOnStar", "false");          
+            this.set(attr,"false");
+    }
+        
+    public void setMuted(Boolean bool){
+        this.setBoolean("muted",bool);
     }
     
-    public void setTimeLimit(int i){
-        this.set("timeLimit", Integer.toString(i));   
+    public void setBeep(Boolean bool){
+        this.setBoolean("beep",bool);
     }
     
-    public void setCallerid(String callerid){
-       this.set("callerid", callerid);   
+    public void setStartConferenceOnEnter(Boolean bool){
+        this.setBoolean("startConferenceOnEnter",bool);
+    }
+    
+    public void setEndConferenceOnExit(Boolean bool){
+        this.setBoolean("endConferenceOnExit",bool);
+    }
+        
+    public void setWaitMethod(String method){
+        this.set("waitMethod", method);   
+    }
+    
+    public void setWaitUrl(String url){
+        this.set("waitUrl",url);
     }
 
 }

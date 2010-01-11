@@ -50,6 +50,7 @@ public class Verb {
     public static final String V_REDIRECT = "Redirect";
     public static final String V_RESPONSE = "Response";
     public static final String V_CONFERENCE = "Conference";
+    public static final String V_SMS = "Sms";
     
     public Verb(String tag, String body) {
         this.tag = tag;

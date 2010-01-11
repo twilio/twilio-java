@@ -1,7 +1,5 @@
 package com.twilio.sdk.verbs;
 
-import java.util.ArrayList;
-
 
 /*
 Copyright (c) 2008 Twilio, Inc.
@@ -28,19 +26,32 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
-public class TwiMLResponse extends Verb {
+
+public class Sms extends Verb {
     
-    public TwiMLResponse() {
-        super(Verb.V_RESPONSE, null);
-        this.allowedVerbs = new ArrayList<String>();
-        this.allowedVerbs.add(Verb.V_GATHER);
-        this.allowedVerbs.add(Verb.V_RECORD);
-        this.allowedVerbs.add(Verb.V_DIAL);
-        this.allowedVerbs.add(Verb.V_SAY);
-        this.allowedVerbs.add(Verb.V_PLAY);
-        this.allowedVerbs.add(Verb.V_REDIRECT);
-        this.allowedVerbs.add(Verb.V_HANGUP);
-        this.allowedVerbs.add(Verb.V_SMS);
+    public Sms(String message) {
+        super(V_SMS, message);
+        this.allowedVerbs = null;
+    }
+
+    public void setTo(String str){
+        this.set("to", str);
+    }
+    
+    public void setFrom(String str){
+        this.set("from", str);   
+    }
+    
+    public void setMethod(String method){
+       this.set("method", method);   
+    }
+    
+    public void setAction(String url){
+       this.set("action", url);
+    }
+    
+    public void setStatusCallback(String url){
+       this.set("statusCallback", url);   
     }
 
 }

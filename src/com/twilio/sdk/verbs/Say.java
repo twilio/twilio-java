@@ -30,7 +30,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 public class Say extends Verb {
     
     public Say(String body) {
-        super("Say", body);
+        super(V_SAY, body);
         this.allowedVerbs = null;
     }
 

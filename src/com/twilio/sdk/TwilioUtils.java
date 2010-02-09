@@ -79,7 +79,7 @@ public class TwilioUtils {
             //base64-encode the hmac
             String signature = new String(Base64.encodeBase64(rawHmac));
             
-            return signature == expectedSignature;
+            return signature.equals(expectedSignature);
         } catch (NoSuchAlgorithmException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

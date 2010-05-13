@@ -67,8 +67,8 @@ public class Dial extends Verb {
         this.set("timeLimit", Integer.toString(i));   
     }
     
-    public void setCallerid(String callerid){
-       this.set("callerid", callerid);   
+    public void setCallerId(String callerId){
+       this.set("callerId", callerId);   
     }
 
 }

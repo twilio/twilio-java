@@ -32,7 +32,7 @@ import java.util.Map;
 public class TwilioRestExample {
 
     /* Twilio REST API version */
-    public static final String APIVERSION = "2008-08-01";
+    public static final String APIVERSION = "2010-04-01";
     
     public static void main(String[] args){
 
@@ -94,16 +94,16 @@ public class TwilioRestExample {
      * 
      * @param client authenticated twilio client object
      * @param AccountSid your accountId 
-     * @param caller the caller id of the phone call
-     * @param called the phone number to be called
+     * @param from the caller id of the phone call
+     * @param to the phone number to be called
      * @param url the URL to execute when the called party answers
      */
-    private static void makeCallExample(TwilioRestClient client, String caller, String called, String url ){
+    private static void makeCallExample(TwilioRestClient client, String from, String to, String url ){
 
         //build map of post parameters 
         Map<String,String> params = new HashMap<String,String>();
-        params.put("Caller", caller);
-        params.put("Called", called);
+        params.put("From", from);
+        params.put("To", to);
         params.put("Url", url);
         TwilioRestResponse response;
         try {

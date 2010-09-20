@@ -89,6 +89,20 @@ public class TwiMLResponseExample {
         }
 
         System.out.println(response.toXML());
+        
+        // Set an arbitrary attribute / value pair
+        response = new TwiMLResponse();
+        
+        Reject reject = new Reject();
+        reject.setReason("busy");
+        
+        try {
+            response.append(reject);
+        } catch (TwiMLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(response.toXML());
 
     }
 }

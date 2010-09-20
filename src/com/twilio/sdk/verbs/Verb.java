@@ -51,6 +51,7 @@ public class Verb {
     public static final String V_RESPONSE = "Response";
     public static final String V_CONFERENCE = "Conference";
     public static final String V_SMS = "Sms";
+    public static final String V_REJECT = "Reject";
     
     public Verb(String tag, String body) {
         this.tag = tag;

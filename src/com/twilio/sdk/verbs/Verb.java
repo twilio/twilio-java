@@ -68,20 +68,21 @@ public class Verb {
            throw new TwiMLException("This is not a supported verb");    
        }
     }
-    
-    public String toXML(){
-        String xml = "<" + this.tag;
-        for (String key : attributes.keySet()) {
-            xml += " " + key + "=\"" + attributes.get(key) + "\"";
-        }
-        xml += ">";
-        if(this.body != null)
-            xml += this.body;
-        for (Verb child : children){
-            xml += child.toXML();
-        }
-        return xml += "</" + this.tag + ">";
-    }
+
+    public String toXML(){ 
+        String xml = "<" + this.tag; 
+        for (String key : attributes.keySet()) { 
+            xml += " " + key + "=\"" + attributes.get(key) + "\""; 
+        } 
+        xml += ">"; 
+        if(this.body != null) 
+            xml += "<![CDATA[" + this.body.replaceAll("]]>", 
+                    "]]>]]><![CDATA[")+ "]]>"; 
+        for (Verb child : children){ 
+            xml += child.toXML(); 
+        } 
+        return xml += "</" + this.tag + ">"; 
+    } 
     
     public String asURL(){
         try {

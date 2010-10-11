@@ -41,6 +41,7 @@ public class TwiMLResponse extends Verb {
         this.allowedVerbs.add(Verb.V_REDIRECT);
         this.allowedVerbs.add(Verb.V_REJECT);
         this.allowedVerbs.add(Verb.V_HANGUP);
+        this.allowedVerbs.add(Verb.V_PAUSE);
         this.allowedVerbs.add(Verb.V_SMS);
     }
 

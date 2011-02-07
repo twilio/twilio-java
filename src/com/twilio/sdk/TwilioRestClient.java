@@ -66,8 +66,10 @@ public class TwilioRestClient {
      */
     public TwilioRestResponse request(String path, String method , Map<String,String> vars) throws TwilioRestException {
 
+    	// JAF: If vars is empty map,
+    	// java.lang.StringIndexOutOfBoundsException: String index out of range: -1 
         String encoded = "";
-        if(vars!=null){
+        if(vars!=null && !vars.keySet().isEmpty()){
             for(String key: vars.keySet()){
                 try {
                     encoded += "&"+key+"="+ URLEncoder.encode(vars.get(key),"UTF-8");

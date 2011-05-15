@@ -44,7 +44,7 @@ public class TwilioUtils {
     protected String authToken;
     protected String accountSid;
     
-    TwilioUtils(String authToken, String accountSid){
+    public TwilioUtils(String authToken, String accountSid){
         this.authToken = authToken;
         this.accountSid = accountSid;
     }

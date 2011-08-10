@@ -134,7 +134,9 @@ public class Conference extends InstanceResource {
 	 * @return
 	 */
 	public ParticipantList getParticipants() {
-		return new ParticipantList(this.getClient(), this.getSid());
+		ParticipantList list = new ParticipantList(this.getClient(), this.getSid());
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
 	}
 	
 }

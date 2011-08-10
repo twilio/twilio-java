@@ -47,6 +47,7 @@ public class RestExamples {
 		// Get the main account (The one we used to authenticate the client
 		Account mainAccount = client.getAccount();
 
+		
 		// Get all accounts including sub accounts
 		AccountList accountList = client.getAccounts();
 

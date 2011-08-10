@@ -223,7 +223,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public Call getCall(String sid) {
-		return new Call(this.getClient(), sid);
+		Call call = new Call(this.getClient(), sid);
+		call.setRequestAccountSid(this.getRequestAccountSid());
+		return call;
 	}
 
 	/**
@@ -270,7 +272,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public Sms getSms(String sid) {
-		return new Sms(this.getClient(), sid);
+		Sms sms = new Sms(this.getClient(), sid);
+		sms.setRequestAccountSid(this.getRequestAccountSid());
+		return sms;
 	}
 	
 	/**
@@ -314,7 +318,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public Application getApplicaiton(String sid) {
-		return new Application(this.getClient(), sid);
+		Application app = new Application(this.getClient(), sid);
+		app.setRequestAccountSid(this.getRequestAccountSid());
+		return app;
 	}
 	
 	
@@ -416,7 +422,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public Conference getConference(String sid) {
-		return new Conference(this.getClient(), sid);
+		Conference conf = new Conference(this.getClient(), sid);
+		conf.setRequestAccountSid(this.getRequestAccountSid());
+		return conf;
 	}
 
 	/**
@@ -453,7 +461,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public IncomingPhoneNumber getIncomingPhoneNumber(String sid) {
-		return new IncomingPhoneNumber(this.getClient(), sid);
+		IncomingPhoneNumber pn = new IncomingPhoneNumber(this.getClient(), sid);
+		pn.setRequestAccountSid(this.getRequestAccountSid());
+		return pn;
 	}
 	
 	/**
@@ -495,7 +505,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public ShortCode getShortCode(String sid) {
-		return new ShortCode(this.getClient(), sid);
+		ShortCode sc = new ShortCode(this.getClient(), sid);
+		sc.setRequestAccountSid(this.getRequestAccountSid());
+		return sc;
 	}
 	
 	/**
@@ -526,7 +538,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public Notification getNotification(String sid) {
-		return new Notification(this.getClient(), sid);
+		Notification n = new Notification(this.getClient(), sid);
+		n.setRequestAccountSid(this.getRequestAccountSid());
+		return n;
 	}
 	
 
@@ -563,7 +577,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public OutgoingCallerId getOutgoingCallerId(String sid) {
-		return new OutgoingCallerId(this.getClient(), sid);
+		OutgoingCallerId number = new OutgoingCallerId(this.getClient(), sid);
+		number.setRequestAccountSid(this.getRequestAccountSid());
+		return number;
 	}
 	
 	
@@ -611,7 +627,9 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public Recording getRecording(String sid) {
-		return new Recording(this.getClient(), sid);
+		Recording r = new Recording(this.getClient(), sid);
+		r.setRequestAccountSid(this.getRequestAccountSid());
+		return r;
 	}
 	
 	/**
@@ -647,6 +665,8 @@ public class Account extends InstanceResource {
 	 * @return
 	 */
 	public Transcription getTranscription(String sid) {
-		return new Transcription(this.getClient(), sid);
+		Transcription tr = new Transcription(this.getClient(), sid);
+		tr.setRequestAccountSid(this.getRequestAccountSid());
+		return tr;
 	}
 }

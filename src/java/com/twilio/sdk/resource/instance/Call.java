@@ -249,7 +249,9 @@ public class Call extends InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", vars);
 
-		return new Call(this.getClient(), response.toMap());
+		Call c = new Call(this.getClient(), response.toMap());
+		c.setRequestAccountSid(this.getRequestAccountSid());
+		return c;
 	}
 
 	/**
@@ -265,7 +267,9 @@ public class Call extends InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", vars);
 
-		return new Call(this.getClient(), response.toMap());
+		Call c = new Call(this.getClient(), response.toMap());
+		c.setRequestAccountSid(this.getRequestAccountSid());
+		return c;
 	}
 
 	/**
@@ -281,6 +285,8 @@ public class Call extends InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", vars);
 
-		return new Call(this.getClient(), response.toMap());
+		Call c = new Call(this.getClient(), response.toMap());
+		c.setRequestAccountSid(this.getRequestAccountSid());
+		return c;
 	}
 }

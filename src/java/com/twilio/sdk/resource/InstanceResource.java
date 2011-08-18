@@ -73,6 +73,35 @@ public abstract class InstanceResource extends Resource {
 	}
 
 	/**
+	 * Gets the property.
+	 *
+	 * @param name the name
+	 * @return the property
+	 */
+	public Object getPropertyObject(String name) {
+		Object prop = properties.get(name);
+
+		if (prop == null && !this.isLoaded()) {
+			try {
+				this.load(new HashMap<String, String>());
+			} catch (TwilioRestException e) {
+				// TODO add log support
+				throw new RuntimeException(e);
+			}
+		}
+
+		prop = properties.get(name);
+
+		if (prop == null) {
+			throw new IllegalArgumentException("Property " + name
+					+ " does not exist");
+		}
+
+		return prop;
+	}
+
+	
+	/**
 	 * Sets the property.
 	 *
 	 * @param name the name

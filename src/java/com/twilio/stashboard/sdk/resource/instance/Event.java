@@ -44,9 +44,10 @@ public class Event extends ServicesInstanceResource {
 	/**
 	 * @param client
 	 */
-	public Event(TwilioServiceStatusReadRestClient client, Service service) {
+	public Event(TwilioServiceStatusReadRestClient client, Service service, String sid) {
 		super(client);
 		this.service = service;
+		this.setProperty(SID_PROPERTY, sid);
 	}
 
 	public Status getStatus() {

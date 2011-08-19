@@ -14,6 +14,10 @@ import com.twilio.stashboard.sdk.resource.ServicesListResource;
  */
 public class Events extends ServicesListResource<Event> {
 
+	/** The Constant STATUSES_PROPERTY . */
+	private static final String EVENTS_PROPERTY = "events";
+	
+	
 	/** The Service to which these events belong*/
 	private Service service;
 	/**
@@ -39,8 +43,9 @@ public class Events extends ServicesListResource<Event> {
 	 */
 	@Override
 	protected String getResourceLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return getClient().getEndpoint() + "/"
+		+ TwilioServiceStatusReadRestClient.DEFAULT_VERSION
+		+ "/services/"+service.getId()+"/" + EVENTS_PROPERTY;
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +55,7 @@ public class Events extends ServicesListResource<Event> {
 	protected Event makeNew(TwilioServiceStatusReadRestClient client,
 			Map<String, Object> params) {
 		// TODO Auto-generated method stub
-		return new Event(client,service);
+		return new Event(client,params);
 	}
 
 }

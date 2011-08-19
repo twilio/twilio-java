@@ -198,24 +198,12 @@ public class TwilioRestResponse {
 	}
 
 	/**
-	 * Method to determine if the response content type was a JSON type
-	 * 
-	 * @return true if this looks like a JSON response
-	 */
+	* Method to determine if the response content type was a JSON type
+	*
+	* @return true if this looks like a JSON response
+	*/
 	public boolean isJson() {
-		boolean isJson = false;
-		isJson = (this.contentType.equalsIgnoreCase("application/json"));
-		// If it is not JSON then check the response content to determine if its
-		// json or not this fix is added to handle the Twilio Status REST API
-		// response where content Type returned is not application/json but the
-		// response content is infact json
-		if(!isJson && null !=this.getResponseText() && this.getResponseText().trim().length()>0) {
-			JsonResponseParser parser = new JsonResponseParser();
-			if(!parser.parse(this).isEmpty()){
-				isJson = true;
-			}
-		}
-		return isJson;
+		return (this.contentType.equalsIgnoreCase("application/json"));
 	}
 
 	/**

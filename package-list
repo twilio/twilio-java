@@ -1,4 +1,5 @@
 com.twilio.sdk
+com.twilio.sdk.client
 com.twilio.sdk.examples
 com.twilio.sdk.parser
 com.twilio.sdk.resource

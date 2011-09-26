@@ -68,7 +68,7 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	 * @see com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory#create(java.util.Map)
 	 */
 	public IncomingPhoneNumber create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().request(
+		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());
 	}

@@ -72,6 +72,17 @@ public abstract class InstanceResource extends Resource {
 				+ " is an object.  Use getOjbect() instead.");
 	}
 
+	protected Object getObject(String name) {
+		Object prop = properties.get(name);
+
+		if (prop == null) {
+			throw new IllegalArgumentException("Property " + name
+					+ " does not exist");
+		}
+		
+		return prop;
+	}
+	
 	/**
 	 * Sets the property.
 	 *

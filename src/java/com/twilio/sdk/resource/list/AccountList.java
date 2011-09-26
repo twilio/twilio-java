@@ -55,7 +55,7 @@ public class AccountList extends ListResource<Account> implements AccountFactory
 	 * @see com.twilio.sdk.resource.factory.AccountFactory#create(java.util.Map)
 	 */
 	public Account create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().request(
+		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());
 	}

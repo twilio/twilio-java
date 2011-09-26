@@ -14,9 +14,11 @@ import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
 import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
 import com.twilio.sdk.resource.factory.SmsFactory;
 import com.twilio.sdk.resource.list.ApplicationList;
+import com.twilio.sdk.resource.list.AuthorizedConnectAppList;
 import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
 import com.twilio.sdk.resource.list.CallList;
 import com.twilio.sdk.resource.list.ConferenceList;
+import com.twilio.sdk.resource.list.ConnectAppList;
 import com.twilio.sdk.resource.list.IncomingPhoneNumberList;
 import com.twilio.sdk.resource.list.NotificationList;
 import com.twilio.sdk.resource.list.OutgoingCallerIdList;
@@ -669,4 +671,61 @@ public class Account extends InstanceResource {
 		tr.setRequestAccountSid(this.getRequestAccountSid());
 		return tr;
 	}
+	
+
+	/**
+	 * Gets the connect app list with the given filters
+	 * 
+	 *  {@see <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>}
+	 * 
+	 * @param filters
+	 *            the filters
+	 * @return the connect app list
+	 */
+	public ConnectAppList getConnectApps(Map<String, String> filters) {
+		ConnectAppList list = new ConnectAppList(this.getClient(),
+				filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+	
+	/**
+	 * Get a given connect app instance by sid
+	 * @param sid The 34 character sid starting with CN
+	 * @return the connect app
+	 */
+	public ConnectApp getConnectApp(String sid) {
+		ConnectApp cn = new ConnectApp(this.getClient(), sid);
+		cn.setRequestAccountSid(this.getRequestAccountSid());
+		return cn;
+	}
+	
+	/**
+	 * Gets the connect app list with the given filters
+	 * 
+	 *  {@see <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>}
+	 * 
+	 * @param filters
+	 *            the filters
+	 * @return the connect app list
+	 */
+	public AuthorizedConnectAppList getAuthorizedConnectApps(Map<String, String> filters) {
+		AuthorizedConnectAppList list = new AuthorizedConnectAppList(this.getClient(),
+				filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+	
+	/**
+	 * Get a given connect app instance by sid
+	 * @param sid The 34 character sid starting with CN
+	 * @return the connect app
+	 */
+	public AuthorizedConnectApp getAuthorizedConnectApp(String sid) {
+		AuthorizedConnectApp cn = new AuthorizedConnectApp(this.getClient(), sid);
+		cn.setRequestAccountSid(this.getRequestAccountSid());
+		return cn;
+	}
+	
+	
 }

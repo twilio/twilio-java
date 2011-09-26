@@ -69,7 +69,7 @@ public class OutgoingCallerIdList extends ListResource<OutgoingCallerId>
 	 * @see com.twilio.sdk.resource.factory.OutgoingCallerIdFactory#create(java.util.Map)
 	 */
 	public CallerIdValidation create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().request(
+		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return new CallerIdValidation(response);
 	}

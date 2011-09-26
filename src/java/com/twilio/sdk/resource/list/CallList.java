@@ -65,7 +65,7 @@ public class CallList extends ListResource<Call> implements CallFactory {
 	 * @see com.twilio.sdk.resource.factory.CallFactory#create(java.util.Map)
 	 */
 	public Call create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().request(
+		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());
 	}

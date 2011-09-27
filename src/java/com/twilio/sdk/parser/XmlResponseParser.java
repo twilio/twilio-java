@@ -163,7 +163,6 @@ public class XmlResponseParser implements ResponseParser {
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.parser.ResponseParser#getPagingPropertyKey(com.twilio.sdk.parser.ResponseParser.PagingProperty)
 	 */
-	@Override
 	public String getPagingPropertyKey(PagingProperty prop) {
 		switch (prop) {
 		case NEXT_PAGE_URI_KEY:

@@ -15,8 +15,7 @@ import com.twilio.sdk.TwilioRestResponse;
  * The Class JsonResponseParser.
  */
 public class JsonResponseParser implements ResponseParser {
-
-	public Map<String, Object> parse(TwilioRestResponse response) {
+	public Map<String, Object> parse(TwilioRestResponse response) {		
 		return this.parseJson(response.getResponseText());
 	}
 

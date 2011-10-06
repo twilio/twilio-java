@@ -203,15 +203,14 @@ public class TwilioCapability {
 	 * @throws DomainException
 	 */
 	public String generateToken() throws DomainException {
-		return generateToken((new Date()).getTime() + 3600);
+		return generateToken(3600);
 	}
 
 	/**
 	 * Generates a new token based on the credentials and permissions that
 	 * previously has been granted to this token.
 	 * 
-	 * @param expiresAt
-	 *            the expiration instance of the token.
+	 * @param ttl the number of seconds before this token expires
 	 * @return the newly generated token that is valid for ttl seconds
 	 * @throws DomainException
 	 */
@@ -225,7 +224,7 @@ public class TwilioCapability {
 		try {
 			Map<String, Object> payload = new LinkedHashMap<String, Object>();
 			payload.put("iss", this.accountSid);
-			payload.put("exp", String.valueOf((new Date()).getTime() + ttl));
+			payload.put("exp", String.valueOf(((new Date()).getTime() / 1000) + ttl));
 			payload.put("scope", StringUtils.join(this.scopes, ' '));
 
 			return jwtEncode(payload, this.authToken);

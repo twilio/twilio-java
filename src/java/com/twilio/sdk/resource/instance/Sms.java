@@ -55,7 +55,7 @@ public class Sms extends InstanceResource {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/SMS/Messages" + this.getSid() + ".json";
+				+ this.getRequestAccountSid() + "/SMS/Messages/" + this.getSid() + ".json";
 	}
 
 	/*

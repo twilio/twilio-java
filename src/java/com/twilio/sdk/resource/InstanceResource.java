@@ -43,7 +43,8 @@ public abstract class InstanceResource extends Resource {
 	 * Gets the property.
 	 *
 	 * @param name the name
-	 * @return the property
+	 * @return the property, 
+	 * or null if it doesn't exist or is NULL in the response
 	 */
 	public String getProperty(String name) {
 		Object prop = properties.get(name);
@@ -52,7 +53,6 @@ public abstract class InstanceResource extends Resource {
 			try {
 				this.load(new HashMap<String, String>());
 			} catch (TwilioRestException e) {
-				// TODO add log support
 				throw new RuntimeException(e);
 			}
 		}
@@ -60,8 +60,7 @@ public abstract class InstanceResource extends Resource {
 		prop = properties.get(name);
 
 		if (prop == null) {
-			throw new IllegalArgumentException("Property " + name
-					+ " does not exist");
+			return null;
 		}
 
 		if (prop instanceof String) {

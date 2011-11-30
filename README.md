@@ -16,13 +16,12 @@ If you would like to build twilio-java from source just clone the project
 	cd twilio-java
 	ant 
 
-This will build two jars in `twilio-java/dist/lib/`  The first is a jar of
-only code related to the twilio-java project useful when integrating into a
-larger project.  The second is a jar bundling twilio-java with all of the
-dependencies of it's into a standalone jar.  (see ivy.xml for the full list of
-dependencies)
+This will build two jars in `twilio-java/dist/lib/` The first is a jar of only
+code related to the twilio-java project useful when integrating into a larger
+project. The second is a jar bundling twilio-java with all of its dependencies
+into a standalone jar. (see ivy.xml for the full list of dependencies)
 
-This will also build the javadoc in `twilio-java/dist/api` you can open the
+This will also build the javadoc in `twilio-java/dist/api`. You can open the
 index.html located there to view it locally.
 
 # Examples
@@ -74,7 +73,7 @@ Here are some examples (also found in TwilioRestExamples.java)
 	smsFactory.create(smsParams);
 
 	// Search for available phone numbers & then buy a random phone number
-	AvailablePhoneNumberList phoneNumbers = mainAccount .getAvailablePhoneNumbers();
+	AvailablePhoneNumberList phoneNumbers = mainAccount.getAvailablePhoneNumbers();
 	List<AvailablePhoneNumber> list = phoneNumbers.getPageData();
 
 	// Buy the first number returned
@@ -83,7 +82,7 @@ Here are some examples (also found in TwilioRestExamples.java)
 	params.put("VoiceUrl", "http://demo.twilio.com/welcome/voice/");
 	mainAccount.getIncomingPhoneNumberFactory().create(params);
 
-	// View a conference using it's sid
+	// View a conference using its sid
 	Conference c = mainAccount.getConference("CA12345...");
 	ParticipantList participants = c.getParticipants();
 
@@ -96,7 +95,7 @@ Here are some examples (also found in TwilioRestExamples.java)
 		}
 	}
 
-	// Make a raw request to the api... note, this is deprecated style
+	// Make a raw HTTP request to the api... note, this is deprecated style
 	TwilioRestResponse resp = client.request("/2010-04-01/Accounts", "GET", null);
 	if (!resp.isError()) {
 		System.out.println(resp.getResponseText());

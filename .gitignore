@@ -1,6 +1,6 @@
 bin
 .classpath
 .project
-dist
 build
 ivy
+dist

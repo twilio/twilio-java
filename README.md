@@ -1,7 +1,12 @@
 # Installing 
 
-The pre-built jars are available at http://www.twilio.com/docs/libraries/ You
-can just add this jar to your project to get started!
+The pre-built jars are available at: 
+
+http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.5-with-dependencies.jar
+http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.5.jar  - use this if
+you have issues with conflicting jars in your project.  You'll need to include
+versions of the dependencies yourself.  See the ivy.xml for the list of
+libraries.
 
 You can view the javadocs for this project at:
 http://twilio.github.com/twilio-java

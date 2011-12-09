@@ -38,7 +38,7 @@
 
   <!-- here is the version of ivy we will use. change this property to try a newer 
   version if you want -->
-  <property name="ivy.install.version" value="2.0.0-beta1" />
+  <property name="ivy.install.version" value="2.2.0" />
   <property name="ivy.jar.dir" value="${basedir}/ivy" />
   <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
 
@@ -103,7 +103,7 @@
 
   </target>
 
-  <target name="jar" depends="compile"
+  <target name="jar" depends="compile, pom"
         description="generate the distribution" >
     <!-- Create the distribution directory -->
     <mkdir dir="${dist.dir}/lib"/>
@@ -190,10 +190,11 @@
   <!-- Ivy targets -->
   <target name="ivy-init">
 	 <property name="ivy.lib.dir" location="build/ivy/lib"/>
+	<property name="ivy.pom.version" value="${release.version}" />
   </target> 
 
   <target name="ivy-resolve" depends="ivy-init">
-	 <ivy:resolve/>
+	 <ivy:resolve conf="*" />
   </target>
 
   <target name="ivy-retrieve" depends="ivy-resolve">
@@ -224,4 +225,22 @@
 		<pathelement location="${test.classes.dir}"/>
 	 </path>
   </target>
+
+<target name="pom" depends="init, ivy-resolve">
+	<property name="pom.dir" location="${build.classes.dir}/META-INF/maven/${ivy.organisation}.${ivy.module}/${ivy.module}" />
+	<mkdir dir="${pom.dir}" /> 
+	<ivy:makepom ivyfile="${basedir}/ivy.xml" pomfile="${pom.dir}/pom.xml">
+		<mapping conf="default" scope="compile"/>
+		<mapping conf="compile" scope="compile"/>
+		<mapping conf="runtime" scope="runtime"/>
+		<mapping conf="test" scope="test" />
+	</ivy:makepom>
+	<propertyfile file="${pom.dir}/pom.properties">
+		<entry key="version" value="${release.version}" />
+		<entry key="groupId" value="${ivy.organisation}" />
+		<entry key="artifactId" value="${ivy.module}" />
+	</propertyfile>
+	<copy file="${pom.dir}/pom.xml" todir="${dist.dir}" />
+</target>
+
 </project>

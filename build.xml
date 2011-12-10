@@ -29,6 +29,7 @@
 
   <property name="target.name" value="${project.name}-${release.version}"/>
   <property name="target.jar" location="${dist.dir}/lib/${target.name}.jar"/>
+  <property name="target-sources.jar" location="${dist.dir}/lib/${target.name}-sources.jar"/>
   <property name="target-dep.jar" location="${dist.dir}/lib/${target.name}-with-dependencies.jar"/>
 
   <property name="main.class" value="."/>
@@ -135,6 +136,12 @@
     <jar destfile="${target.jar}">
 		<fileset dir="${build.classes.dir}"/>
 	</jar>
+    <jar destfile="${target-sources.jar}">
+	<fileset dir="${src.dir}/java"/>
+	<fileset dir="${build.classes.dir}">
+		<include name="META-INF/**" />
+	</fileset>
+    </jar>
 
 	<jar compress="false" destfile="${target-dep.jar}">
 	  <zipgroupfileset dir="${ivy.lib.dir}">
@@ -266,10 +273,11 @@
 	<copy file="${pom.dir}/pom.xml" todir="${dist.dir}" />
 </target>
 
-<target name="mvn-install" depends="install-mvn">
+<target name="mvn-install" depends="install-mvn, publish">
   <artifact:pom id="pom" file="${dist.dir}/pom.xml" />
   <artifact:install file="${target.jar}">
     <pom refid="pom"/>
+    <attach file="${target-sources.jar}" type="jar" classifier="sources"/>
   </artifact:install>
 </target>
 

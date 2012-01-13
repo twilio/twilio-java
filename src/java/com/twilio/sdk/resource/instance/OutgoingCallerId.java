@@ -36,6 +36,9 @@ public class OutgoingCallerId extends InstanceResource {
 	 */
 	public OutgoingCallerId(TwilioRestClient client, String sid) {
 		super(client);
+		if (sid == null) { 
+            throw new IllegalStateException("The Sid for an OutgoingCallerId can not be null");
+        }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

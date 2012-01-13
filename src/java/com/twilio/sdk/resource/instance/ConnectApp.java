@@ -50,6 +50,9 @@ public class ConnectApp extends InstanceResource {
 	 */
 	public ConnectApp(TwilioRestClient client, String sid) {
 		super(client);
+		if (sid == null) { 
+	        throw new IllegalStateException("The Sid for a ConnectApp can not be null");
+	    }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

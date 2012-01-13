@@ -39,6 +39,9 @@ public class Call extends InstanceResource {
 	 */
 	public Call(TwilioRestClient client, String sid) {
 		super(client);
+		if (sid == null) { 
+		    throw new IllegalStateException("The Sid for a Call can not be null");
+		}
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

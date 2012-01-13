@@ -38,6 +38,9 @@ public class Notification extends InstanceResource {
 	 */
 	public Notification(TwilioRestClient client, String sid) {
 		super(client);
+		if (sid == null) { 
+            throw new IllegalStateException("The Sid for a Notification can not be null");
+        }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

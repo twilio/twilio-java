@@ -36,6 +36,9 @@ public class ShortCode extends InstanceResource {
 	 */
 	public ShortCode(TwilioRestClient client, String sid) {
 		super(client);
+        if (sid == null) { 
+            throw new IllegalStateException("The Sid for a Recording can not be null");
+	    }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

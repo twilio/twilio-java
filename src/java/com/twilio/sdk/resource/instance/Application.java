@@ -48,6 +48,9 @@ public class Application extends InstanceResource {
 	 */
 	public Application(TwilioRestClient client, String sid) {
 		super(client);
+		if (sid == null) { 
+            throw new IllegalStateException("The Sid for an Application can not be null");
+        }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

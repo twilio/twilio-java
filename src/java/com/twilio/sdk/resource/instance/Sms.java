@@ -36,6 +36,9 @@ public class Sms extends InstanceResource {
 	 */
 	public Sms(TwilioRestClient client, String sid) {
 		super(client);
+        if (sid == null) { 
+            throw new IllegalStateException("The Sid for an Sms can not be null");
+        }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

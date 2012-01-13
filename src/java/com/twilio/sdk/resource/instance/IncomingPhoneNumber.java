@@ -43,6 +43,9 @@ public class IncomingPhoneNumber extends InstanceResource {
 	 */
 	public IncomingPhoneNumber(TwilioRestClient client, String sid) {
 		super(client);
+		if (sid == null) { 
+            throw new IllegalStateException("The Sid for an IncomingPhoneNumber can not be null");
+        }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

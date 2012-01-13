@@ -44,7 +44,13 @@ public class Participant extends InstanceResource {
 	public Participant(TwilioRestClient client, String conferenceSid,
 			String callSid) {
 		super(client);
-		this.setProperty(CONFERENCE_SID_PROPERTY, conferenceSid);
+		if (conferenceSid == null) { 
+            throw new IllegalStateException("The conferenceSid for a Participant can not be null");
+	    }
+		if (callSid == null) { 
+            throw new IllegalStateException("The callSid for a Participant can not be null");
+        }
+        this.setProperty(CONFERENCE_SID_PROPERTY, conferenceSid);
 		this.setProperty(CALL_SID_PROPERTY, callSid);
 	}
 

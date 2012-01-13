@@ -36,6 +36,9 @@ public class Transcription extends InstanceResource {
 	 */
 	public Transcription(TwilioRestClient client, String sid) {
 		super(client);
+	    if (sid == null) { 
+            throw new IllegalStateException("The Sid for a Transcription can not be null");
+        }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

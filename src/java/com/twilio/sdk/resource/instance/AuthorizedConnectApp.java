@@ -56,6 +56,9 @@ public class AuthorizedConnectApp extends InstanceResource {
 	 */
 	public AuthorizedConnectApp(TwilioRestClient client, String sid) {
 		super(client);
+		if (sid == null) { 
+            throw new IllegalStateException("The Sid for an AuthorizedConnectApp can not be null");
+        }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

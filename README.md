@@ -15,7 +15,6 @@ Use the following dependency in your project:
           <scope>compile</scope>
        </dependency>
 
-If you still want to install jars 
 The pre-built jars are available at: 
 
 http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.7-with-dependencies.jar

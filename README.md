@@ -1,11 +1,27 @@
 # Installing 
 
+Note! As of version 3.3.7 TwilioJava is now using Maven.
+
+At present the jars are not available from a public maven repository. 
+The simplest way to create and install is to clone this repository and run mvn install and it will
+then be available from your local maven repository.
+
+Use the following dependency in your project:
+  ```xml
+<dependency>
+      <groupId>com.twilio.sdk</groupId>
+      <artifactId>twilio-client</artifactId>
+      <version>3.3.6</version>
+      <scope>compile</scope>
+  </dependency>
+```
+If you still want to install jars 
 The pre-built jars are available at: 
 
-http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.5-with-dependencies.jar
-http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.5.jar  - use this if
+http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.7-with-dependencies.jar
+http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.7.jar  - use this if
 you have issues with conflicting jars in your project.  You'll need to include
-versions of the dependencies yourself.  See the ivy.xml for the list of
+versions of the dependencies yourself.  See the pom.xml for the list of
 libraries.
 
 You can view the javadocs for this project at:
@@ -13,20 +29,20 @@ http://twilio.github.com/twilio-java
 
 # Building From Source
 
-Important: you must have ant installed to build the project from source.
+Important: you must have maven installed to build the project from source.
 
 If you would like to build twilio-java from source just clone the project
 (located at https://github.com/twilio/twilio-java) and run:
 
 	cd twilio-java
-	ant 
+	mvn install
 
-This will build two jars in `twilio-java/dist/lib/` The first is a jar of only
+This will install the build two jars in `twilio-java/target/` The first is a jar of only
 code related to the twilio-java project useful when integrating into a larger
 project. The second is a jar bundling twilio-java with all of its dependencies
-into a standalone jar. (see ivy.xml for the full list of dependencies)
+into a standalone jar. (see pom.xml for the full list of dependencies)
 
-This will also build the javadoc in `twilio-java/dist/api`. You can open the
+This will also build the javadoc in `twilio-java/target/apidocs`. You can open the
 index.html located there to view it locally.
 
 # Examples

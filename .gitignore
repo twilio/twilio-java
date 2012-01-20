@@ -3,6 +3,8 @@
 .project
 .settings
 
+# Macisms
+.DS_Store
 # Where maven compiles by default
 target
 

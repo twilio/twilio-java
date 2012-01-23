@@ -53,7 +53,7 @@ public class ParticipantList extends ListResource<Participant> {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Conferernces/"
+				+ this.getRequestAccountSid() + "/Conferences/"
 				+ this.conferenceSid + "/Participants.json";
 	}
 

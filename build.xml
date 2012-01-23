@@ -1,4 +1,5 @@
-<project name="TwilioJava" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="TwilioJava" default="dist" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant" xmlns:ivy="antlib:org.apache.ivy.ant">
+
     <description>
 		Twilio Java Helper library
     </description>
@@ -28,9 +29,17 @@
 
   <property name="target.name" value="${project.name}-${release.version}"/>
   <property name="target.jar" location="${dist.dir}/lib/${target.name}.jar"/>
+  <property name="target-sources.jar" location="${dist.dir}/lib/${target.name}-sources.jar"/>
   <property name="target-dep.jar" location="${dist.dir}/lib/${target.name}-with-dependencies.jar"/>
 
   <property name="main.class" value="."/>
+
+  <!-- maven properties -->
+<property name="maven-snapshots-repository-id" value="sonatype-nexus-snapshots" />
+<property name="maven-snapshots-repository-url" value="https://oss.sonatype.org/content/repositories/snapshots/" />
+<property name="maven-staging-repository-id" value="sonatype-nexus-staging" />
+<property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2/" />
+
 
   <!-- junit properties -->
   <property name="junit.fork" value="true"/>
@@ -38,7 +47,7 @@
 
   <!-- here is the version of ivy we will use. change this property to try a newer 
   version if you want -->
-  <property name="ivy.install.version" value="2.0.0-beta1" />
+  <property name="ivy.install.version" value="2.2.0" />
   <property name="ivy.jar.dir" value="${basedir}/ivy" />
   <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
 
@@ -48,6 +57,13 @@
 		<echo message="installing ivy..."/>
     	<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
     		 dest="${ivy.jar.file}" usetimestamp="true"/>
+    </target>
+    <target name="download-mvn" unless="skip.download">
+    	<mkdir dir="${ivy.jar.dir}"/>
+		<!-- download mvn from web site so that it can be used even without any special installation -->
+		<echo message="installing maven tasks..."/>
+    	<get src="http://repo1.maven.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar"
+    		 dest="${ivy.jar.dir}/maven-ant-tasks.jar" usetimestamp="true"/>
     </target>
 
     <!-- ================================= 
@@ -66,6 +82,14 @@
     	</path>
     	<taskdef resource="org/apache/ivy/ant/antlib.xml"
     	          uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+
+    <target name="install-mvn" depends="download-mvn" description="--> install mvn">
+    	<path id="mvn.lib.path">
+    	    <fileset dir="${ivy.jar.dir}" includes="maven-ant-tasks.jar"/>
+    	</path>
+    	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+    	          uri="antlib:org.apache.maven.artifact.ant" classpathref="mvn.lib.path"/>
     </target>    
 
 
@@ -103,7 +127,7 @@
 
   </target>
 
-  <target name="jar" depends="compile"
+  <target name="jar" depends="compile, pom"
         description="generate the distribution" >
     <!-- Create the distribution directory -->
     <mkdir dir="${dist.dir}/lib"/>
@@ -112,6 +136,12 @@
     <jar destfile="${target.jar}">
 		<fileset dir="${build.classes.dir}"/>
 	</jar>
+    <jar destfile="${target-sources.jar}">
+	<fileset dir="${src.dir}/java"/>
+	<fileset dir="${build.classes.dir}">
+		<include name="META-INF/**" />
+	</fileset>
+    </jar>
 
 	<jar compress="false" destfile="${target-dep.jar}">
 	  <zipgroupfileset dir="${ivy.lib.dir}">
@@ -190,10 +220,11 @@
   <!-- Ivy targets -->
   <target name="ivy-init">
 	 <property name="ivy.lib.dir" location="build/ivy/lib"/>
+	<property name="ivy.pom.version" value="${release.version}" />
   </target> 
 
   <target name="ivy-resolve" depends="ivy-init">
-	 <ivy:resolve/>
+	 <ivy:resolve conf="*" />
   </target>
 
   <target name="ivy-retrieve" depends="ivy-resolve">
@@ -224,4 +255,30 @@
 		<pathelement location="${test.classes.dir}"/>
 	 </path>
   </target>
+
+<target name="pom" depends="init, ivy-resolve">
+	<property name="pom.dir" location="${build.classes.dir}/META-INF/maven/${ivy.organisation}.${ivy.module}/${ivy.module}" />
+	<mkdir dir="${pom.dir}" /> 
+	<ivy:makepom ivyfile="${basedir}/ivy.xml" pomfile="${pom.dir}/pom.xml">
+		<mapping conf="default" scope="compile"/>
+		<mapping conf="compile" scope="compile"/>
+		<mapping conf="runtime" scope="runtime"/>
+		<mapping conf="test" scope="test" />
+	</ivy:makepom>
+	<propertyfile file="${pom.dir}/pom.properties">
+		<entry key="version" value="${release.version}" />
+		<entry key="groupId" value="${ivy.organisation}" />
+		<entry key="artifactId" value="${ivy.module}" />
+	</propertyfile>
+	<copy file="${pom.dir}/pom.xml" todir="${dist.dir}" />
+</target>
+
+<target name="mvn-install" depends="install-mvn, publish">
+  <artifact:pom id="pom" file="${dist.dir}/pom.xml" />
+  <artifact:install file="${target.jar}">
+    <pom refid="pom"/>
+    <attach file="${target-sources.jar}" type="jar" classifier="sources"/>
+  </artifact:install>
+</target>
+
 </project>

@@ -1,0 +1,20 @@
+twilio-java Changelog
+=======================
+
+Here you can see the full list of changes between each twilio-java release.
+
+Version 3.3.7
+-------------
+
+Released on TBD
+
+- Mavenized the build
+- Removed unnecessary jars from dependencies
+
+Version 3.3.6
+-------------
+
+Released on January 18, 2011
+
+- Fixed a bug where the short one second HTTP Connection timeout led to connection exceptions - increased to 10 seconds
+- Fixed constructors for resource instances must not accept null Sid

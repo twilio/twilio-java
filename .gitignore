@@ -1,6 +1,20 @@
-bin
+# Make sure to ignore Eclipse files
 .classpath
 .project
-build
-ivy
-dist
+.settings
+
+# Macisms
+.DS_Store
+# Where maven compiles by default
+target
+
+# Java Files that should be ignored
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Backup files
+*.bak

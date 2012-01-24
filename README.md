@@ -1,58 +1,47 @@
 # Installing 
 
-Note! As of version 3.3.7 TwilioJava is now using Maven.
+As of version 3.3.7 TwilioJava is now using Maven.
 
-At present the jars are not available from a public maven repository. 
-The simplest way to create and install is to clone this repository and run mvn install and it will
-then be available from your local maven repository.
+At present the jars are not available from a public [maven](http://maven.apache.org/download.html) repository. 
+
+How to install:
+
+    $ git clone git@github.com:twilio/twilio-java.
+    $ cd twilio-java 
+    $ mvn install       # Requires maven, download from http://maven.apache.org/download.html
+
+This will also build the javadoc in `twilio-java/target/apidocs`. You can open the
+index.html located there to view it locally.
 
 Use the following dependency in your project:
 
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio-client</artifactId>
-          <version>3.3.6</version>
+          <version>3.3.7</version>
           <scope>compile</scope>
        </dependency>
 
 The pre-built jars are available at: 
 
-http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.7-with-dependencies.jar
-http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.7.jar  - use this if
+*   [TwilioJava-3.3.7-with-dependencies.jar](http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.7-with-dependencies.jar)
+*   [TwilioJava-3.3.7.jar](http://twilio.github.com/twilio-java/jars/TwilioJava-3.3.7.jar)  - use this if
 you have issues with conflicting jars in your project.  You'll need to include
 versions of the dependencies yourself.  See the pom.xml for the list of
 libraries.
 
 You can view the javadocs for this project at:
-http://twilio.github.com/twilio-java
-
-# Building From Source
-
-Important: you must have maven installed to build the project from source.
-
-If you would like to build twilio-java from source just clone the project
-(located at https://github.com/twilio/twilio-java) and run:
-
-    cd twilio-java
-    mvn install
-
-This will install the build two jars in `twilio-java/target/` The first is a jar of only
-code related to the twilio-java project useful when integrating into a larger
-project. The second is a jar bundling twilio-java with all of its dependencies
-into a standalone jar. (see pom.xml for the full list of dependencies)
-
-This will also build the javadoc in `twilio-java/target/apidocs`. You can open the
-index.html located there to view it locally.
+[http://twilio.github.com/twilio-java](http://twilio.github.com/twilio-java)
 
 # Examples
 
-Here are some examples (also found in TwilioRestExamples.java) 
+Here are some examples (also found in [TwilioRestExamples.java](https://github.com/twilio/twilio-java/blob/master/src/java/com/twilio/sdk/examples/RestExamples.java) ) 
 
-``` java
+```
     // Create a rest client
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
 
-    // Get the main account (The one we used to authenticate the client
+    // Get the main account (The one we used to authenticate the client)
     Account mainAccount = client.getAccount();
 
     // Get all accounts including sub accounts

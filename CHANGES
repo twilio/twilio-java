@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.3.7
+-------------
+
+Released on TBD
+
+- Mavenized the build
+- Removed unnecessary jars from dependencies
+
 Version 3.3.6
 -------------
 

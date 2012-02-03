@@ -71,7 +71,7 @@ public class ConnectAppList extends ListResource<ConnectApp> {
 	 */
 	@Override
 	protected String getListKey() {
-		return "ConnectApps";
+		return "connect_apps";
 	}
 
 }

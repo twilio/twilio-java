@@ -726,6 +726,18 @@ public class Account extends InstanceResource {
 		cn.setRequestAccountSid(this.getRequestAccountSid());
 		return cn;
 	}
+
+    /**
+     * Get the developer sandbox
+     *
+     *  {@see <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox</a>}
+     * @return the sandbox
+     */
+    public Sandbox getSandbox() {
+        Sandbox sb = new Sandbox(this.getClient());
+        sb.setRequestAccountSid(this.getRequestAccountSid());
+        return sb;
+    }
 	
 	
 }

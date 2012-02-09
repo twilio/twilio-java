@@ -8,6 +8,10 @@
 # Where maven compiles by default
 target
 
+#IntelliJ project files
+*.iml
+.idea
+
 # Java Files that should be ignored
 *.class
 

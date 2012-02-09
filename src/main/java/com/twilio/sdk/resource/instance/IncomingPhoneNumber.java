@@ -160,20 +160,20 @@ public class IncomingPhoneNumber extends InstanceResource {
 	}
 
 	/**
-	 * Gets the voice applicaiton sid.
+	 * Gets the voice application sid.
 	 * 
-	 * @return the voice applicaiton sid
+	 * @return the voice application sid
 	 */
-	public String getVoiceApplicaitonSid() {
+	public String getVoiceApplicationSid() {
 		return this.getProperty("voice_application_sid");
 	}
 
 	/**
-	 * Gets the sms applicaiton sid.
+	 * Gets the sms application sid.
 	 * 
-	 * @return the sms applicaiton sid
+	 * @return the sms application sid
 	 */
-	public String getSmsApplicaitonSid() {
+	public String getSmsApplicationSid() {
 		return this.getProperty("sms_application_sid");
 	}
 

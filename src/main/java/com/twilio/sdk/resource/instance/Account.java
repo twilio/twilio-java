@@ -315,11 +315,11 @@ public class Account extends InstanceResource {
 	}
 	
 	/**
-	 * Get a given applicaiton instance by sid
+	 * Get a given application instance by sid
 	 * @param sid The 34 character sid starting with AP
 	 * @return
 	 */
-	public Application getApplicaiton(String sid) {
+	public Application getApplication(String sid) {
 		Application app = new Application(this.getClient(), sid);
 		app.setRequestAccountSid(this.getRequestAccountSid());
 		return app;

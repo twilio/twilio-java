@@ -133,11 +133,11 @@ public class ShortCode extends InstanceResource {
 	}
 
 	/**
-	 * Gets the sms applicaiton sid.
+	 * Gets the sms application sid.
 	 *
-	 * @return the sms applicaiton sid
+	 * @return the sms application sid
 	 */
-	public String getSmsApplicaitonSid() {
+	public String getSmsApplicationSid() {
 		return this.getProperty("sms_application_sid");
 	}
 

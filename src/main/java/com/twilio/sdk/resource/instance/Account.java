@@ -26,6 +26,8 @@ import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.ShortCodeList;
 import com.twilio.sdk.resource.list.SmsList;
 import com.twilio.sdk.resource.list.TranscriptionList;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -739,5 +741,21 @@ public class Account extends InstanceResource {
         return sb;
     }
 	
-	
+	/**
+	 * Close this subaccount. This will release all phone numbers assigned to it and shut it down completely. 
+	 * You will still have access to historical data for that subaccount, but you cannot reopen a closed account.
+	 * 
+	 * @throws TwilioRestException
+	 *             if there is an error in the request
+	 * @return true, if successful
+	 * 
+	 */
+	public boolean close() throws TwilioRestException {
+		Map<String, String> vars = new HashMap<String, String>();
+		vars.put("Status", "closed");
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", vars);
+		
+		return !response.isError();
+	}	
 }

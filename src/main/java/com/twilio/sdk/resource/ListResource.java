@@ -295,6 +295,7 @@ public abstract class ListResource<T> extends Resource implements Iterable<T> {
 				if (o instanceof Map) {
 					T instance = this.makeNew(this.getClient(),
 							(Map<String, Object>) o);
+					((Resource)instance).setRequestAccountSid(this.getRequestAccountSid());
 					returnList.add(instance);
 				}
 			}

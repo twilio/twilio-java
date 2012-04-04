@@ -1,8 +1,6 @@
 # Installing 
 
-As of version 3.3.7 TwilioJava is now using Maven.
-
-At present the jars are not available from a public [maven](http://maven.apache.org/download.html) repository. 
+TwilioJava is now using Maven.  At present the jars are not available from a public [maven](http://maven.apache.org/download.html) repository. 
 
 How to install:
 
@@ -18,16 +16,14 @@ Use the following dependency in your project:
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio-client</artifactId>
-          <version>3.3.7</version>
+          <version>3.3.8</version>
           <scope>compile</scope>
        </dependency>
 
 The pre-built jars are available at: 
 
-*   [TwilioJava-3.3.7-with-dependencies.jar](https://github.com/twilio/twilio-java/raw/gh-pages/jars/twilio-client-3.3.7-jar-with-dependencies.jar)
-*   [TwilioJava-3.3.7.jar](https://github.com/twilio/twilio-java/raw/gh-pages/jars/twilio-client-3.3.7.jar)  - use this if you have issues with conflicting jars in your project.  You'll need to include
-versions of the dependencies yourself.  See the pom.xml for the list of
-libraries.
+*   [TwilioJava-3.3.8-with-dependencies.jar](https://github.com/twilio/twilio-java/raw/gh-pages/jars/twilio-client-3.3.8-jar-with-dependencies.jar)
+*   [TwilioJava-3.3.8.jar](https://github.com/twilio/twilio-java/raw/gh-pages/jars/twilio-client-3.3.8.jar)  - use this if you have issues with conflicting jars in your project.  You'll need to include versions of the dependencies yourself.  See the pom.xml for the list of libraries.
 
 You can view the javadocs for this project at:
 [http://twilio.github.com/twilio-java](http://twilio.github.com/twilio-java)

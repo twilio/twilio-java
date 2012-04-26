@@ -30,7 +30,7 @@ You can view the javadocs for this project at:
 
 # Examples
 
-Here are some examples (also found in [TwilioRestExamples.java](https://github.com/twilio/twilio-java/blob/master/src/java/com/twilio/sdk/examples/RestExamples.java) ) 
+Here are some examples (also found in [TwilioRestExamples.java](https://github.com/twilio/twilio-java/blob/master/src/main/java/com/twilio/sdk/examples/RestExamples.java) ) 
 
 ```
     // Create a rest client

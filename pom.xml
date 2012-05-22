@@ -5,6 +5,10 @@
   <artifactId>twilio-client</artifactId>
   <version>3.3.8</version>
   <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> 
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>

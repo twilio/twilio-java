@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.instance.Transcription;
 /**
  * The Class TranscriptionList.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription}
+ * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>}
  */
 public class TranscriptionList extends ListResource<Transcription> {
 

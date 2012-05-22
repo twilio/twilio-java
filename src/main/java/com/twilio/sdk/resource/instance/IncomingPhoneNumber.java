@@ -14,9 +14,9 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class IncomingPhoneNumber.
  * 
- * For more information see {@see <a
+ * For more information see {@link <a
  * href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers"
- * >http://www.twilio.com/docs/api/rest/incoming-phone-numbers}
+ * >http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>}
  */
 public class IncomingPhoneNumber extends InstanceResource {
 

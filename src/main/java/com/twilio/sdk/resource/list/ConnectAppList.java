@@ -12,9 +12,9 @@ import com.twilio.sdk.resource.instance.ConnectApp;
  * permissions you are requesting for a single Connect App as well as
  * information about the Connect App itself.
  * 
- * For more information see {@see <a
+ * For more information see {@link <a
  * href="http://www.twilio.com/docs/api/rest/connect-apps"
- * >http://www.twilio.com/docs/api/rest/connect-apps}
+ * >http://www.twilio.com/docs/api/rest/connect-apps</a>}
  */
 public class ConnectAppList extends ListResource<ConnectApp> {
 

@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.list.ParticipantList;
 /**
  * The Class Conference.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference}
+ * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>}
  */
 public class Conference extends InstanceResource {
 	
@@ -140,7 +140,6 @@ public class Conference extends InstanceResource {
 	/**
 	 * Get the participant list
 	 * 
-	 * @return
 	 */
 	public ParticipantList getParticipants() {
 		ParticipantList list = new ParticipantList(this.getClient(), this.getSid());

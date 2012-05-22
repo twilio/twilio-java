@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.instance.Participant;
 /**
  * The Class ParticipantList.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/participant">http://www.twilio.com/docs/api/rest/participant}
+ * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/participant">http://www.twilio.com/docs/api/rest/participant</a>}
  */
 public class ParticipantList extends ListResource<Participant> {
 	

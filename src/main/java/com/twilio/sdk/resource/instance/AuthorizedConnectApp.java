@@ -18,9 +18,9 @@ import com.twilio.sdk.resource.InstanceResource;
  * 
  * 
  * 
- * For more information see {@see <a
+ * For more information see {@link <a
  * href="http://www.twilio.com/docs/api/rest/authorized-connect-apps"
- * >http://www.twilio.com/docs/api/rest/authorized-connect-apps}
+ * >http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>}
  */
 public class AuthorizedConnectApp extends InstanceResource {
 

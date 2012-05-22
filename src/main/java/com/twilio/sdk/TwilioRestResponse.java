@@ -137,7 +137,6 @@ public class TwilioRestResponse {
 	/**
 	 * Get the query string that resulted in this response
 	 * 
-	 * @return
 	 */
 	public String getQueryString() {
 		return queryString;

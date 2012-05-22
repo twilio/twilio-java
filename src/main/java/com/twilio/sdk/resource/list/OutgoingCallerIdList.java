@@ -14,7 +14,7 @@ import com.twilio.sdk.resource.instance.OutgoingCallerId;
 /**
  * The Class OutgoingCallerIdList.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids}
+ * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>}
  */
 public class OutgoingCallerIdList extends ListResource<OutgoingCallerId>
 		implements OutgoingCallerIdFactory {

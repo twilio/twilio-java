@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.instance.Call;
 /**
  * The Class CallList.
  * 
- *  For more information see {@see <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call}
+ *  For more information see {@link <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>}
  */
 public class CallList extends ListResource<Call> implements CallFactory {
 	

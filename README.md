@@ -15,7 +15,7 @@ Use the following dependency in your project:
 
        <dependency>
           <groupId>com.twilio.sdk</groupId>
-          <artifactId>twilio-sdk</artifactId>
+          <artifactId>twilio-java-sdk</artifactId>
           <version>3.3.8</version>
           <scope>compile</scope>
        </dependency>

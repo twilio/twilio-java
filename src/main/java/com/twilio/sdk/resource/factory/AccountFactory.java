@@ -9,7 +9,7 @@ import com.twilio.sdk.resource.instance.Account;
 /**
  * A factory for creating Account objects.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/subaccounts">http://www.twilio.com/docs/api/rest/subaccounts}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/subaccounts">http://www.twilio.com/docs/api/rest/subaccounts</a>
  */
 public interface AccountFactory {
 	

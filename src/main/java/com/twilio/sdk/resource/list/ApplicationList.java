@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.instance.Application;
 /**
  * The Class ApplicationList.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
  */
 public class ApplicationList extends ListResource<Application> implements
 		ApplicationFactory {

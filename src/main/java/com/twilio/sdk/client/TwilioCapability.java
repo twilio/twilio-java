@@ -93,7 +93,7 @@ public class TwilioCapability {
 	/**
 	 * Allow the user of this token to make outgoing connections.
 	 * 
-	 * @param applicationSid
+	 * @param appSid
 	 *            the application to which this token grants access
 	 */
 	public void allowClientOutgoing(String appSid) {
@@ -103,7 +103,7 @@ public class TwilioCapability {
 	/**
 	 * Allow the user of this token to make outgoing connections.
 	 * 
-	 * @param applicationSid
+	 * @param appSid
 	 *            the application to which this token grants access
 	 * @param params
 	 *            signed parameters that the user of this token cannot

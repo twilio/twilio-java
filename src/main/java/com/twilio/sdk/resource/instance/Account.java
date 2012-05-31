@@ -33,9 +33,9 @@ import com.twilio.sdk.TwilioRestResponse;
 /**
  * The Class Account.
  * 
- * For more information see {@see <a
+ * For more information see <a
  * href="http://www.twilio.com/docs/api/rest/account"
- * >http://www.twilio.com/docs/api/rest/account}
+ * >http://www.twilio.com/docs/api/rest/account</a>
  */
 public class Account extends InstanceResource {
 
@@ -197,7 +197,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the calls list resource without any filters.
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>
 	 * 
 	 * @return the calls
 	 */
@@ -208,7 +208,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the calls list resource with the given filters.
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -224,7 +224,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given call instance by sid
 	 * @param sid The 34 character sid starting with CA
-	 * @return
 	 */
 	public Call getCall(String sid) {
 		Call call = new Call(this.getClient(), sid);
@@ -235,7 +234,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the call factory, which lets you make outgoing calls.
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/making_calls">http://www.twilio.com/docs/api/rest/making_calls</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/making_calls">http://www.twilio.com/docs/api/rest/making_calls</a>
 	 * 
 	 * @return the call factory
 	 */
@@ -246,7 +245,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the sms message list.
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
 	 * 
 	 * @return the sms messages
 	 */
@@ -257,7 +256,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the sms messages list with the given filters
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -273,7 +272,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given sms instance by sid
 	 * @param sid The 34 character sid starting with SM
-	 * @return
 	 */
 	public Sms getSms(String sid) {
 		Sms sms = new Sms(this.getClient(), sid);
@@ -284,7 +282,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the sms factory which lets you send sms messages
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/sending-sms">http://www.twilio.com/docs/api/rest/sending-sms</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/sending-sms">http://www.twilio.com/docs/api/rest/sending-sms</a>
 	 * @return the sms factory
 	 */
 	public SmsFactory getSmsFactory() {
@@ -294,7 +292,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the application list
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
 	 * @return the applications
 	 */
 	public ApplicationList getApplications() {
@@ -304,7 +302,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the application list with the given filters
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -319,7 +317,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given application instance by sid
 	 * @param sid The 34 character sid starting with AP
-	 * @return
 	 */
 	public Application getApplication(String sid) {
 		Application app = new Application(this.getClient(), sid);
@@ -331,7 +328,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the application factory which lets you create new applications
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/applications#list-post">http://www.twilio.com/docs/api/rest/applications#list-post</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/applications#list-post">http://www.twilio.com/docs/api/rest/applications#list-post</a>
 	 * 
 	 * @return the application factory
 	 */
@@ -344,7 +341,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the available phone numbers. Defaults to US/Local
 	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>}
+	 * See: <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
 	 * @return the available phone numbers
 	 */
 	public AvailablePhoneNumberList getAvailablePhoneNumbers() {
@@ -355,7 +352,7 @@ public class Account extends InstanceResource {
 	 * Gets the available phone numbers. With the given search filters. Defaults
 	 * to US/Local numbers
 	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>}
+	 * See: <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -372,7 +369,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the available phone numbers with the given iso country and type
 	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>}
+	 * See: <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -397,7 +394,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the conference list
 	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>}
+	 * See: <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>
 	 * 
 	 * @return the conferences
 	 */
@@ -408,7 +405,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the conferences list with the given filters
 	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>}
+	 * See: <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -423,7 +420,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given conference instance by sid
 	 * @param sid The 34 character sid starting with CF
-	 * @return
 	 */
 	public Conference getConference(String sid) {
 		Conference conf = new Conference(this.getClient(), sid);
@@ -434,7 +430,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the incoming phone numbers list
 	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>}
+	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
 	 * 
 	 * @return the incoming phone numbers
 	 */
@@ -445,7 +441,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the incoming phone numbers list with the given filters
 	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>}
+	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -462,7 +458,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given incoming phone number instance by sid
 	 * @param sid The 34 character sid starting with PN
-	 * @return
 	 */
 	public IncomingPhoneNumber getIncomingPhoneNumber(String sid) {
 		IncomingPhoneNumber pn = new IncomingPhoneNumber(this.getClient(), sid);
@@ -473,7 +468,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the incoming phone number factory.
 	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers#list-post">http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post</a>}
+	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers#list-post">http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post</a>
 	 * 
 	 * @return the incoming phone number factory
 	 */
@@ -506,7 +501,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given short code instance by sid
 	 * @param sid The 34 character sid starting with SC
-	 * @return
 	 */
 	public ShortCode getShortCode(String sid) {
 		ShortCode sc = new ShortCode(this.getClient(), sid);
@@ -539,7 +533,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given notification instance by sid
 	 * @param sid The 34 character sid starting with NO
-	 * @return
 	 */
 	public Notification getNotification(String sid) {
 		Notification n = new Notification(this.getClient(), sid);
@@ -551,7 +544,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller ids.
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 * 
 	 * @return the outgoing caller ids
 	 */
@@ -562,7 +555,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller ids.
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -578,7 +571,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given outgoing caller id instance by sid
 	 * @param sid The 34 character sid starting with PN
-	 * @return
 	 */
 	public OutgoingCallerId getOutgoingCallerId(String sid) {
 		OutgoingCallerId number = new OutgoingCallerId(this.getClient(), sid);
@@ -591,7 +583,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller id factory which lets you create outgoing caller ids
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 * 
 	 * @return the outgoing caller id factory
 	 */
@@ -602,7 +594,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the recordings list
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>
 	 * 
 	 * @return the recordings
 	 */
@@ -613,7 +605,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the recordings list 
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -628,7 +620,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given recording instance by sid
 	 * @param sid The 34 character sid starting with RE
-	 * @return
 	 */
 	public Recording getRecording(String sid) {
 		Recording r = new Recording(this.getClient(), sid);
@@ -639,7 +630,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the transcriptions list
 	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>}
+	 * <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>
 	 * 
 	 * @return the transcriptions
 	 */
@@ -650,7 +641,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the transcriptions list with the given filters
 	 * 
-	 *  {@see <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>}
+	 *  <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -666,7 +657,6 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given transcription instance by sid
 	 * @param sid The 34 character sid starting with TR
-	 * @return
 	 */
 	public Transcription getTranscription(String sid) {
 		Transcription tr = new Transcription(this.getClient(), sid);
@@ -678,7 +668,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the connect app list with the given filters
 	 * 
-	 *  {@see <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>}
+	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -705,7 +695,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the connect app list with the given filters
 	 * 
-	 *  {@see <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>}
+	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -732,7 +722,7 @@ public class Account extends InstanceResource {
     /**
      * Get the developer sandbox
      *
-     *  {@see <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox</a>}
+     *  <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox</a>
      * @return the sandbox
      */
     public Sandbox getSandbox() {

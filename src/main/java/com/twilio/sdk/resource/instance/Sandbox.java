@@ -12,7 +12,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class Sandbox.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox</a>
  */
 public class Sandbox extends InstanceResource {
 	//private static final String SID_PROPERTY = "sid";

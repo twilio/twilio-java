@@ -1,10 +1,38 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.twilio.sdk</groupId>
-  <artifactId>twilio-client</artifactId>
-  <version>3.3.8</version>
+  <artifactId>twilio-sdk</artifactId>
   <packaging>jar</packaging>
+  <name>twilio-java</name>
+  <version>3.3.9-SNAPSHOT</version>
+  <description>Java helper library for Twilio services</description>
+  <url>http://www.twilio.com</url>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>git@github.com:twilio/twilio-java.git</url>
+    <connection>scm:git:git@github.com:twilio/twilio-java.git</connection>
+    <developerConnection>scm:git:git@github.com:twilio/twilio-java.git</developerConnection>
+  </scm>
+  <developers>
+    <developer>
+      <id>support</id>
+      <name>Twilio Support</name>
+      <email>support@twilio.com</email>
+      <organization>Twilio, Inc.</organization>
+      <organizationUrl>http://www.twilio.com</organizationUrl>
+      <timezone>-7</timezone>
+    </developer>
+  </developers>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> 
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -52,7 +80,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2.2</version>
+        <version>2.3</version>
         <configuration>
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -116,12 +144,11 @@
       </plugin>
     </plugins>
   </build>
-  <repositories>
-    <repository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Repository for Maven</name>
-      <url>http://download.java.net/maven/2/</url>
-      <layout>default</layout>
-    </repository>
-  </repositories>
+
+  <!-- Sonatype repo submission stuff -->
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
 </project>

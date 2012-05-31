@@ -537,13 +537,12 @@ public class TwilioRestClient {
 
 	/**
 	 * Perform a GET request against the given fully qualified uri. This is a
-	 * shortcut to {@see <a
-	 * href="this#request(String, String, Map)">this#request(String, String,
-	 * Map)} with method "GET" and no parameters
+	 * shortcut to {@link #request(String, String, Map)} 
+	 * with method "GET" and no parameters
 	 * 
 	 * @param fullUri
 	 *            The full uri, including protocol://hostname/path
-	 * @return {@see <a href="TwilioRestResponse">TwilioRestResponse} the
+	 * @return {@link TwilioRestResponse} the
 	 *         response from the query
 	 * @throws TwilioRestException
 	 *             the twilio rest exception
@@ -593,9 +592,9 @@ public class TwilioRestClient {
 	 * Resource related methods
 	 */
 	/**
-	 * Get a list of Account objects. For more info: {@see <a
+	 * Get a list of Account objects. For more info: {@link <a
 	 * href="http://www.twilio.com/docs/api/rest/account"
-	 * >http://www.twilio.com/docs/api/rest/account}
+	 * >http://www.twilio.com/docs/api/rest/account</a>}
 	 * 
 	 * @param params
 	 *            Filter the list with the given params. See the Twilio docs for
@@ -609,9 +608,9 @@ public class TwilioRestClient {
 	}
 
 	/**
-	 * Get all accounts. For more info: {@see <a
+	 * Get all accounts. For more info: {@link <a
 	 * href="http://www.twilio.com/docs/api/rest/account"
-	 * >http://www.twilio.com/docs/api/rest/account}
+	 * >http://www.twilio.com/docs/api/rest/account</a>}
 	 * 
 	 * @return the list of accounts.
 	 */

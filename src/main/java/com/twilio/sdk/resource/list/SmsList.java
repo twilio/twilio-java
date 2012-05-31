@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.instance.Sms;
 /**
  * The Class SmsList.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
  */
 public class SmsList extends ListResource<Sms> implements SmsFactory {
 	

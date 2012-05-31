@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.instance.Notification;
 /**
  * The Class NotificationList.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/notification">http://www.twilio.com/docs/api/rest/notification</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/notification">http://www.twilio.com/docs/api/rest/notification</a>
  */
 public class NotificationList extends ListResource<Notification> {
 

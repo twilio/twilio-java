@@ -12,7 +12,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class IncomingPhoneNumber.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/shortcodes">http://www.twilio.com/docs/api/rest/shortcodes</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/shortcodes">http://www.twilio.com/docs/api/rest/shortcodes</a>
  */
 public class ShortCode extends InstanceResource {
 	

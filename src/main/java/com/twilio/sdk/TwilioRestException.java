@@ -5,7 +5,7 @@ import java.util.Map;
 
 
 /**
- * See: {@link <a href="http://www.twilio.com/docs/errors/">http://www.twilio.com/docs/errors/</a>} for more info
+ * See: <a href="http://www.twilio.com/docs/errors/">http://www.twilio.com/docs/errors/</a> for more info
  * @author FrankStratton
  *
  */

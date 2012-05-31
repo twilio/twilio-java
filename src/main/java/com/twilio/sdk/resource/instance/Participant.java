@@ -15,7 +15,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class Participant.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/participant">http://www.twilio.com/docs/api/rest/participant</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/participant">http://www.twilio.com/docs/api/rest/participant</a>
  */
 public class Participant extends InstanceResource {
 	// private static final String SID_PROPERTY = "sid";

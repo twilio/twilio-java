@@ -537,13 +537,12 @@ public class TwilioRestClient {
 
 	/**
 	 * Perform a GET request against the given fully qualified uri. This is a
-	 * shortcut to {@link <a
-	 * href="this#request(String, String, Map)">this#request(String, String,
-	 * Map)</a>} with method "GET" and no parameters
+	 * shortcut to {@link #request(String, String, Map)} 
+	 * with method "GET" and no parameters
 	 * 
 	 * @param fullUri
 	 *            The full uri, including protocol://hostname/path
-	 * @return {@link <a href="TwilioRestResponse">TwilioRestResponse</a>} the
+	 * @return {@link TwilioRestResponse} the
 	 *         response from the query
 	 * @throws TwilioRestException
 	 *             the twilio rest exception

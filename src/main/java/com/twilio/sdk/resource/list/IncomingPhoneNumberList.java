@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.instance.IncomingPhoneNumber;
 /**
  * The Class IncomingPhoneNumberList.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
  */
 public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 		implements IncomingPhoneNumberFactory {

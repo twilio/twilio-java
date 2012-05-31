@@ -9,7 +9,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class AvailablePhoneNumber.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
  */
 public class AvailablePhoneNumber extends InstanceResource {
 //	private static final String SID_PROPERTY = "sid";

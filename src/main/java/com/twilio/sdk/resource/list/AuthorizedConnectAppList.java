@@ -12,9 +12,9 @@ import com.twilio.sdk.resource.instance.AuthorizedConnectApp;
  * permissions you have authorized for a single Connect App as well as
  * information about the Connect App itself.
  * 
- * For more information see {@link <a
+ * For more information see <a
  * href="http://www.twilio.com/docs/api/rest/authorized-connect-apps"
- * >http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>}
+ * >http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
  */
 public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp> {
 

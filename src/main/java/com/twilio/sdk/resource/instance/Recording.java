@@ -15,7 +15,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class Recording.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>
  * 
  * 
  */

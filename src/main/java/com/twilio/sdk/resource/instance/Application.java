@@ -12,7 +12,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class Application.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
  */
 public class Application extends InstanceResource {
 	

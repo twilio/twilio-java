@@ -14,7 +14,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class Notification.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/notification">http://www.twilio.com/docs/api/rest/notification</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/notification">http://www.twilio.com/docs/api/rest/notification</a>
  */
 public class Notification extends InstanceResource {
 	

@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.list.ParticipantList;
 /**
  * The Class Conference.
  * 
- * For more information see {@link <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>
  */
 public class Conference extends InstanceResource {
 	

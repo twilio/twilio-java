@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.instance.AvailablePhoneNumber;
 /**
  * The Class AvailablePhoneNumberList.
  * 
- *  For more information see {@see <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers}
+ *  For more information see <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
  */
 public class AvailablePhoneNumberList extends
 		ListResource<AvailablePhoneNumber> {

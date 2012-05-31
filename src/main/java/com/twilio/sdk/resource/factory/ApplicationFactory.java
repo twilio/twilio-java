@@ -9,7 +9,7 @@ import com.twilio.sdk.resource.instance.Application;
 /**
  * A factory for creating Application objects.
  * 
- * For more information see {@see <a href=" http://www.twilio.com/docs/api/rest/applications#list-post"> http://www.twilio.com/docs/api/rest/applications#list-post}
+ * For more information see <a href=" http://www.twilio.com/docs/api/rest/applications#list-post"> http://www.twilio.com/docs/api/rest/applications#list-post</a>
  *
  */
 public interface ApplicationFactory {

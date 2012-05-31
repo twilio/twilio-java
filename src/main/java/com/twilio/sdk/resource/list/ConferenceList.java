@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.instance.Conference;
 /**
  * The Class ConferenceList.
  * 
- *  For more information see {@see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference}
+ *  For more information see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>
  */
 public class ConferenceList extends ListResource<Conference> {
 

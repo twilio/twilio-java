@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.instance.Account;
 /**
  * The Class AccountList.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/account">http://www.twilio.com/docs/api/rest/account}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/account">http://www.twilio.com/docs/api/rest/account</a>
  */
 public class AccountList extends ListResource<Account> implements AccountFactory {
 

@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.instance.Recording;
 /**
  * The Class RecordingList.
  * 
- * For more information see {@see <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording}
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>
  */
 public class RecordingList extends ListResource<Recording> {
 

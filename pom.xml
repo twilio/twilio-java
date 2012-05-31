@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.twilio.sdk</groupId>
-  <artifactId>twilio-sdk</artifactId>
+  <artifactId>twilio-java-sdk</artifactId>
   <packaging>jar</packaging>
-  <name>twilio-java</name>
+  <name>twilio-java-sdk</name>
   <version>3.3.9-SNAPSHOT</version>
   <description>Java helper library for Twilio services</description>
   <url>http://www.twilio.com</url>
@@ -23,9 +23,9 @@
     <developer>
       <id>support</id>
       <name>Twilio Support</name>
-      <email>support@twilio.com</email>
+      <email>help@twilio.com</email>
       <organization>Twilio, Inc.</organization>
-      <organizationUrl>http://www.twilio.com</organizationUrl>
+      <organizationUrl>https://www.twilio.com</organizationUrl>
       <timezone>-7</timezone>
     </developer>
   </developers>

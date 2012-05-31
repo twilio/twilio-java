@@ -15,9 +15,9 @@
     </license>
   </licenses>
   <scm>
-    <url>git@code.corp.twilio.com:anderle/twilio-java-maven-release.git</url>
-    <connection>scm:git:git@code.corp.twilio.com:anderle/twilio-java-maven-release.git</connection>
-    <developerConnection>scm:git:git@code.corp.twilio.com:anderle/twilio-java-maven-release.git</developerConnection>
+    <url>git@github.com:twilio/twilio-java.git</url>
+    <connection>scm:git:git@github.com:twilio/twilio-java.git</connection>
+    <developerConnection>scm:git:git@github.com:twilio/twilio-java.git</developerConnection>
   </scm>
   <developers>
     <developer>

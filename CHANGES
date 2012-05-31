@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.3.9
+-------------
+
+Released on June 1, 2012
+
+- Updates pom.xml for central Maven submission
+- Fixes all Javadoc warnings
+
 Version 3.3.8
 -------------
 

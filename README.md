@@ -13,7 +13,7 @@ Use the following dependency in your project:
 
 If you want to compile it yourself, here's how:
 
-    $ git clone git@github.com:twilio/twilio-java.
+    $ git clone git@github.com:twilio/twilio-java
     $ cd twilio-java 
     $ mvn install       # Requires maven, download from http://maven.apache.org/download.html
 

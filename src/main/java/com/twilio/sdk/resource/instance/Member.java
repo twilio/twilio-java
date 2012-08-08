@@ -1,5 +1,9 @@
 package com.twilio.sdk.resource.instance;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
 
@@ -31,8 +35,14 @@ public class Member extends InstanceResource {
         return this.getProperty(Member.CALL_SID);
     }
 
-    public String getDateEnqueued() {
-        return this.getProperty(Member.DATE_ENQUEUED);
+    public Date getDateEnqueued() {
+        final SimpleDateFormat format = new SimpleDateFormat(
+                "EEE, dd MMM yyyy HH:mm:ss Z");
+        try {
+            return format.parse(this.getProperty(Member.DATE_ENQUEUED));
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public String getWaitTime() {

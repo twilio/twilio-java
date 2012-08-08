@@ -6,6 +6,7 @@ import java.util.Map;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.list.MemberList;
 
 public class Queue extends InstanceResource {
     private final static String SID = "Sid";
@@ -41,6 +42,12 @@ public class Queue extends InstanceResource {
 
     public String getAverageWaitTime() {
         return this.getProperty(Queue.AVERAGE_WAIT_TIME);
+    }
+
+    public MemberList getMembers() {
+        MemberList list = new MemberList(this.getClient(), this.getSid());
+        list.setRequestAccountSid(this.getRequestAccountSid());
+        return list;
     }
 
     @Override

@@ -19,6 +19,10 @@ public class Queue extends InstanceResource {
         this.setProperty(Queue.SID, sid);
     }
 
+    public Queue(TwilioRestClient client, Map<String, Object> params) {
+        super(client, params);
+    }
+
     public String getSid() {
         return this.getProperty(Queue.SID);
     }

@@ -36,17 +36,6 @@ public class Dial extends Verb {
     
     /**
      * Instantiates a new dial.
-     */
-    public Dial() {
-        super(V_DIAL, null);
-        this.allowedVerbs = new ArrayList<String>();
-        this.allowedVerbs.add(Verb.V_NUMBER);
-        this.allowedVerbs.add(Verb.V_CONFERENCE);
-        this.allowedVerbs.add(Verb.V_CLIENT);
-    }
-    
-    /**
-     * Instantiates a new dial.
      *
      * @param number the number
      */
@@ -56,6 +45,14 @@ public class Dial extends Verb {
         this.allowedVerbs.add(Verb.V_NUMBER);
         this.allowedVerbs.add(Verb.V_CONFERENCE);
         this.allowedVerbs.add(Verb.V_CLIENT);
+        this.allowedVerbs.add(Verb.V_QUEUE);
+    }
+
+    /**
+     * Instantiates a new dial.
+     */
+    public Dial() {
+        this(null);
     }
 
     /**

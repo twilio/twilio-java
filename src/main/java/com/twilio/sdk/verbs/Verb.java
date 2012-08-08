@@ -88,6 +88,11 @@ public class Verb {
     /** The Constant V_SAY. */
     public static final String V_SAY = "Say";
 
+    /** The Constant V_CONFERENCE. */
+    public static final String V_CONFERENCE = "Conference";
+    
+    public static final String V_QUEUE = "Queue";
+    
     /** The Constant V_SMS. */
     public static final String V_SMS = "Sms";
 

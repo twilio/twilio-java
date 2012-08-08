@@ -10,13 +10,17 @@ public class Member extends InstanceResource {
     private final static String WAIT_TIME = "WaitTime";
     private final static String POSITION = "Position";
 
-    public Member(TwilioRestClient client, String queueSid) {
+    public final static String QUEUE_FRONT = "Front";
+
+    public Member(final TwilioRestClient client, final String queueSid,
+            final String callSid) {
         super(client);
         this.setProperty(Member.QUEUE_SID, queueSid);
+        this.setProperty(Member.CALL_SID, callSid);
     }
 
-    public Member(TwilioRestClient client) {
-        super(client);
+    public Member(final TwilioRestClient client, final String queueSid) {
+        this(client, queueSid, Member.QUEUE_FRONT);
     }
 
     public String getQueueSid() {
@@ -41,8 +45,9 @@ public class Member extends InstanceResource {
 
     @Override
     protected String getResourceLocation() {
-        // TODO Auto-generated method stub
-        return null;
+        return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+                + this.getRequestAccountSid() + "/Queues/" + this.getQueueSid()
+                + "/Members/" + this.getCallSid() + ".json";
     }
 
 }

@@ -93,6 +93,10 @@ public class Verb {
     
     public static final String V_QUEUE = "Queue";
     
+    public static final String V_ENQUEUE = "Enqueue";
+    
+    public static final String V_LEAVE = "Leave";
+    
     /** The Constant V_SMS. */
     public static final String V_SMS = "Sms";
 

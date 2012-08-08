@@ -3,8 +3,12 @@ package com.twilio.sdk.resource.instance;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 
 public class Member extends InstanceResource {
@@ -25,6 +29,10 @@ public class Member extends InstanceResource {
 
     public Member(final TwilioRestClient client, final String queueSid) {
         this(client, queueSid, Member.QUEUE_FRONT);
+    }
+
+    public Member(final TwilioRestClient client, final Map<String, Object> properties) {
+        super(client, properties);
     }
 
     public String getQueueSid() {
@@ -60,4 +68,15 @@ public class Member extends InstanceResource {
                 + "/Members/" + this.getCallSid() + ".json";
     }
 
+    public Member dequeue(final String url, final String method) throws TwilioRestException {
+        Map<String, String> vars = new HashMap<String, String>();
+        vars.put("url", url);
+        vars.put("method", method);
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), "POST", vars);
+
+        Member member = new Member(this.getClient(), response.toMap());
+        member.setRequestAccountSid(this.getRequestAccountSid());
+        return member;
+    }
 }

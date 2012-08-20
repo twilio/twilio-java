@@ -40,6 +40,24 @@ public class Client extends Verb {
         super(V_CLIENT, name);
         this.allowedVerbs = null;
     }
+
+    /**
+     * Sets the method.
+     *
+     * @param method the HTTP method to use when requesting the url
+     */
+    public void setUrl(String method){
+       this.set("method", method);
+    }
+
+    /**
+     * Sets the url.
+     *
+     * @param url the new url
+     */
+    public void setUrl(String url){
+       this.set("url", url);
+    }
 }
 
 

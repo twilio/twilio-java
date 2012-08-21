@@ -1,10 +1,7 @@
 package com.twilio.sdk.verbs;
 
-
-
-// TODO: Auto-generated Javadoc
 /*
-Copyright (c) 2008 Twilio, Inc.
+Copyright (c) 2012 Twilio, Inc.
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -29,40 +26,23 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /**
- * The Class Number.
+ * Class for the &lt;Client> TwiML verb. A full reference can be found online
+ * at https://www.twilio.com/docs/api/twiml/client.
  */
-public class Number extends Verb {
+public class Client extends Verb {
     
     /**
-     * Instantiates a new number.
+     * Instantiate a new client.
      *
-     * @param number the number
+     * @param name the name
      */
-    public Number(String number) {
-        super(V_NUMBER, number);
+    public Client(String name) {
+        super(V_CLIENT, name);
         this.allowedVerbs = null;
     }
 
     /**
-     * Sets the send digits.
-     *
-     * @param digits the new send digits
-     */
-    public void setSendDigits(String digits){
-       this.set("sendDigits", digits);   
-    }
-    
-    /**
-     * Sets the url.
-     *
-     * @param url the new url
-     */
-    public void setUrl(String url){
-       this.set("url", url);
-    }
-
-    /**
-     * Sets the method.
+     * Sets the method to use when requesting the URL.
      *
      * @param method the HTTP method to use when requesting the url
      */
@@ -70,5 +50,15 @@ public class Number extends Verb {
        this.set("method", method);
     }
 
+    /**
+     * Sets a url to play to one party before both parties have been connected.
+     * This can be used to reject an incoming call or play TwiML to one
+     * party before connecting the two.
+     *
+     * @param url the new url
+     */
+    public void setUrl(String url){
+       this.set("url", url);
+    }
 }
 

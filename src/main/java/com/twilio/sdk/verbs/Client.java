@@ -46,7 +46,7 @@ public class Client extends Verb {
      *
      * @param method the HTTP method to use when requesting the url
      */
-    public void setUrl(String method){
+    public void setMethod(String method){
        this.set("method", method);
     }
 

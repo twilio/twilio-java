@@ -52,42 +52,45 @@ public class Verb {
     /** The allowed verbs. */
     protected ArrayList<String> allowedVerbs;
     
-    /** The Constant V_SAY. */
-    public static final String V_SAY = "Say";
-    
-    /** The Constant V_PLAY. */
-    public static final String V_PLAY = "Play";
-    
-    /** The Constant V_GATHER. */
-    public static final String V_GATHER = "Gather";
-    
-    /** The Constant V_RECORD. */
-    public static final String V_RECORD = "Record";
-    
-    /** The Constant V_PAUSE. */
-    public static final String V_PAUSE = "Pause";
-    
-    /** The Constant V_HANGUP. */
-    public static final String V_HANGUP = "Hangup";
-    
-    /** The Constant V_DIAL. */
-    public static final String V_DIAL = "Dial";
-    
-    /** The Constant V_NUMBER. */
-    public static final String V_NUMBER = "Number";
-    
-    /** The Constant V_REDIRECT. */
-    public static final String V_REDIRECT = "Redirect";
-    
-    /** The Constant V_RESPONSE. */
-    public static final String V_RESPONSE = "Response";
-    
+    /** The Constant V_CLIENT. */
+    public static final String V_CLIENT = "Client";
+
     /** The Constant V_CONFERENCE. */
     public static final String V_CONFERENCE = "Conference";
     
+    /** The Constant V_DIAL. */
+    public static final String V_DIAL = "Dial";
+
+    /** The Constant V_HANGUP. */
+    public static final String V_HANGUP = "Hangup";
+
+    /** The Constant V_GATHER. */
+    public static final String V_GATHER = "Gather";
+    
+    /** The Constant V_NUMBER. */
+    public static final String V_NUMBER = "Number";
+
+    /** The Constant V_PAUSE. */
+    public static final String V_PAUSE = "Pause";
+
+    /** The Constant V_PLAY. */
+    public static final String V_PLAY = "Play";
+
+    /** The Constant V_RECORD. */
+    public static final String V_RECORD = "Record";
+
+    /** The Constant V_REDIRECT. */
+    public static final String V_REDIRECT = "Redirect";
+
+    /** The Constant V_RESPONSE. */
+    public static final String V_RESPONSE = "Response";
+
+    /** The Constant V_SAY. */
+    public static final String V_SAY = "Say";
+
     /** The Constant V_SMS. */
     public static final String V_SMS = "Sms";
-    
+
     /**
      * Instantiates a new verb.
      *
@@ -193,6 +196,6 @@ public class Verb {
      * @return the attributes
      */
     public HashMap<String, String> getAttributes() {
-       return this.attributes;     
+       return this.attributes;
     }
 }

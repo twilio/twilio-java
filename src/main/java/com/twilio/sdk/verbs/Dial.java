@@ -42,6 +42,7 @@ public class Dial extends Verb {
         this.allowedVerbs = new ArrayList<String>();
         this.allowedVerbs.add(Verb.V_NUMBER);
         this.allowedVerbs.add(Verb.V_CONFERENCE);
+        this.allowedVerbs.add(Verb.V_CLIENT);
     }
     
     /**
@@ -54,6 +55,7 @@ public class Dial extends Verb {
         this.allowedVerbs = new ArrayList<String>();
         this.allowedVerbs.add(Verb.V_NUMBER);
         this.allowedVerbs.add(Verb.V_CONFERENCE);
+        this.allowedVerbs.add(Verb.V_CLIENT);
     }
 
     /**
@@ -62,7 +64,7 @@ public class Dial extends Verb {
      * @param url the new action
      */
     public void setAction(String url){
-       this.set("action", url);   
+       this.set("action", url);
     }
     
     /**
@@ -110,7 +112,7 @@ public class Dial extends Verb {
      * @param callerId the new caller id
      */
     public void setCallerId(String callerId){
-       this.set(" callerId ", callerId);   
+       this.set(" callerId ", callerId);
     }
 
 }

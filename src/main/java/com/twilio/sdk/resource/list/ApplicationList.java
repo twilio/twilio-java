@@ -60,7 +60,7 @@ public class ApplicationList extends ListResource<Application> implements
 	 */
 	@Override
 	protected String getListKey() {
-		return "Applications";
+		return "applications";
 	}
 
 	/* (non-Javadoc)

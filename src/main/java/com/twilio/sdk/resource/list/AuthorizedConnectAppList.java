@@ -71,7 +71,7 @@ public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp>
 	 */
 	@Override
 	protected String getListKey() {
-		return "AuthorizedConnectApps";
+		return "authorized_connect_apps";
 	}
 
 }

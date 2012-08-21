@@ -196,6 +196,6 @@ public class Verb {
      * @return the attributes
      */
     public HashMap<String, String> getAttributes() {
-       return this.attributes;     
+       return this.attributes;
     }
 }

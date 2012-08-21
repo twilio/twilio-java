@@ -1,6 +1,5 @@
 package com.twilio.sdk.verbs;
 
-// TODO: Auto-generated Javadoc
 /*
 Copyright (c) 2012 Twilio, Inc.
 
@@ -27,12 +26,13 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /**
- * The Class Client.
+ * Class for the &lt;Client> TwiML verb. A full reference can be found online
+ * at https://www.twilio.com/docs/api/twiml/client.
  */
 public class Client extends Verb {
     
     /**
-     * Instantiates a new client.
+     * Instantiate a new client.
      *
      * @param name the name
      */
@@ -42,7 +42,7 @@ public class Client extends Verb {
     }
 
     /**
-     * Sets the method.
+     * Sets the method to use when requesting the URL.
      *
      * @param method the HTTP method to use when requesting the url
      */
@@ -51,7 +51,9 @@ public class Client extends Verb {
     }
 
     /**
-     * Sets the url.
+     * Sets a url to play to one party before both parties have been connected.
+     * This can be used to reject an incoming call or play TwiML to one
+     * party before connecting the two.
      *
      * @param url the new url
      */
@@ -59,5 +61,4 @@ public class Client extends Verb {
        this.set("url", url);
     }
 }
-
 

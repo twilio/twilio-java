@@ -1,9 +1,16 @@
-package com.twilio.sdk.verbs;
+package com.twilio.sdk.examples;
 
+import com.twilio.sdk.verbs.TwiMLResponse;
+import com.twilio.sdk.verbs.TwiMLException;
+import com.twilio.sdk.verbs.Say;
+import com.twilio.sdk.verbs.Redirect;
+import com.twilio.sdk.verbs.Gather;
+import com.twilio.sdk.verbs.Dial;
+import com.twilio.sdk.verbs.Conference;
 
 // TODO: Auto-generated Javadoc
 /*
-Copyright (c) 2008 Twilio, Inc.
+Copyright (c) 2012 Twilio, Inc.
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

@@ -25,11 +25,11 @@ import com.twilio.sdk.resource.list.ParticipantList;
  */
 public class RestExamples {
 
-	/** The Constant ACCOUNT_SID. */
-	public static final String ACCOUNT_SID = "AC...";
+	/** The Constant ACCOUNT_SID. Find it at twilio.com/user/account */
+	public static final String ACCOUNT_SID = "AC123";
 
-	/** The Constant AUTH_TOKEN. */
-	public static final String AUTH_TOKEN = "...";
+	/** The Constant AUTH_TOKEN. Find it at twilio.com/user/account */
+	public static final String AUTH_TOKEN = "456bef";
 
 	/**
 	 * The main method.
@@ -44,7 +44,7 @@ public class RestExamples {
 		// Create a rest client
 		TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
 
-		// Get the main account (The one we used to authenticate the client
+		// Get the main account (The one we used to authenticate the client)
 		Account mainAccount = client.getAccount();
 
 		// Get all accounts including sub accounts

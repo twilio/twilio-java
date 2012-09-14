@@ -441,7 +441,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the incoming phone numbers list with the given filters
 	 * 
-	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
+	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -468,7 +468,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the incoming phone number factory.
 	 * 
-	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers#list-post">http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post</a>
+	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post">http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post</a>
 	 * 
 	 * @return the incoming phone number factory
 	 */
@@ -544,7 +544,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller ids.
 	 * 
-	 * <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
+	 * <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 * 
 	 * @return the outgoing caller ids
 	 */
@@ -555,7 +555,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller ids.
 	 * 
-	 * <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
+	 * <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 * 
 	 * @param filters
 	 *            the filters
@@ -583,7 +583,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller id factory which lets you create outgoing caller ids
 	 * 
-	 * <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
+	 * <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 * 
 	 * @return the outgoing caller id factory
 	 */

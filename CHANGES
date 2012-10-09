@@ -2,6 +2,13 @@ twilio-java Changelog
 =======================
 
 Here you can see the full list of changes between each twilio-java release.
+Version 3.3.10
+-------------
+
+Released on October 10, 2012
+
+- Adds support for Queue primitive
+- Add Application delete
 
 Version 3.3.9
 -------------

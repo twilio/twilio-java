@@ -72,7 +72,7 @@ public abstract class ListResource<T> extends Resource implements Iterable<T> {
 	 * @see java.lang.Iterable#iterator()
 	 */
 	public Iterator<T> iterator() {
-		return this.new ListIterator(getPageData().iterator());
+		return new ListIterator(getPageData().iterator());
 	}
 
 	/**

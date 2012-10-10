@@ -68,7 +68,7 @@ public abstract class InstanceResource extends Resource {
 		}
 
 		throw new IllegalArgumentException("Property " + name
-				+ " is an object.  Use getOjbect() instead.");
+				+ " is an object.  Use getObject() instead.");
 	}
 
 	protected Object getObject(String name) {

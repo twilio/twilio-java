@@ -17,7 +17,7 @@ import com.twilio.sdk.resource.InstanceResource;
  * @author Christer Fahlgren
  */
 public class Member extends InstanceResource {
-    // Constants 
+    // Constants
     private final static String URL = "Url";
     private final static String METHOD = "Method";
     private final static String QUEUE_SID = "queue_sid";
@@ -72,8 +72,9 @@ public class Member extends InstanceResource {
      * @param properties
      *            the map of properties
      */
-    public Member(final TwilioRestClient client, final Map<String, Object> properties) {
+    public Member(final TwilioRestClient client, final Map<String, Object> properties, final String queueSid) {
         super(client, properties);
+        this.setProperty(Member.QUEUE_SID, queueSid);
     }
 
     /**
@@ -154,7 +155,7 @@ public class Member extends InstanceResource {
         TwilioRestResponse response = this.getClient().safeRequest(
                 this.getResourceLocation(), "POST", vars);
 
-        final Member member = new Member(this.getClient(), response.toMap());
+        final Member member = new Member(this.getClient(), response.toMap(), getQueueSid());
         member.setRequestAccountSid(this.getRequestAccountSid());
         return member;
     }

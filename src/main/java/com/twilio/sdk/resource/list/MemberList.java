@@ -74,7 +74,7 @@ public class MemberList extends ListResource<Member> {
     @Override
     protected Member makeNew(final TwilioRestClient client,
             final Map<String, Object> params) {
-        return new Member(client, params);
+        return new Member(client, params, queueSid);
     }
 
     /*

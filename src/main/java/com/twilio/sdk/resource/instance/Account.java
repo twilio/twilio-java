@@ -22,6 +22,7 @@ import com.twilio.sdk.resource.list.ConnectAppList;
 import com.twilio.sdk.resource.list.IncomingPhoneNumberList;
 import com.twilio.sdk.resource.list.NotificationList;
 import com.twilio.sdk.resource.list.OutgoingCallerIdList;
+import com.twilio.sdk.resource.list.QueueList;
 import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.ShortCodeList;
 import com.twilio.sdk.resource.list.SmsList;
@@ -417,6 +418,19 @@ public class Account extends InstanceResource {
 		return list;
 	}
 	
+	/**
+     * Gets the queue list
+     * 
+     * See: <a href="http://www.twilio.com/docs/api/rest/queue">http://www.twilio.com/docs/api/rest/queue</a>
+     * 
+     * @return the {@link QueueList}
+     */
+    public QueueList getQueues() {
+        QueueList list = new QueueList(this.getClient(), filters);
+        list.setRequestAccountSid(this.getRequestAccountSid());
+        return list;
+    }
+
 	/**
 	 * Get a given conference instance by sid
 	 * @param sid The 34 character sid starting with CF

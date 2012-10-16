@@ -2,7 +2,7 @@ package com.twilio.sdk.verbs;
 
 
 /*
-Copyright (c) 2008 Twilio, Inc.
+Copyright (c) 2008-2012 Twilio, Inc.
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -52,47 +52,36 @@ public class Verb {
     /** The allowed verbs. */
     protected ArrayList<String> allowedVerbs;
     
-    /** The Constant V_CLIENT. */
+    /** Constants */
     public static final String V_CLIENT = "Client";
 
-    /** The Constant V_CONFERENCE. */
     public static final String V_CONFERENCE = "Conference";
-    
-    /** The Constant V_DIAL. */
+
     public static final String V_DIAL = "Dial";
 
-    /** The Constant V_HANGUP. */
+    public static final String V_ENQUEUE = "Enqueue";
+
+    public static final String V_GATHER = "Gather";
+
     public static final String V_HANGUP = "Hangup";
 
-    /** The Constant V_GATHER. */
-    public static final String V_GATHER = "Gather";
-    
-    /** The Constant V_NUMBER. */
+    public static final String V_LEAVE = "Leave";
+
     public static final String V_NUMBER = "Number";
 
-    /** The Constant V_PAUSE. */
     public static final String V_PAUSE = "Pause";
 
-    /** The Constant V_PLAY. */
     public static final String V_PLAY = "Play";
 
-    /** The Constant V_RECORD. */
+    public static final String V_QUEUE = "Queue";
+
     public static final String V_RECORD = "Record";
 
-    /** The Constant V_REDIRECT. */
     public static final String V_REDIRECT = "Redirect";
 
-    /** The Constant V_RESPONSE. */
     public static final String V_RESPONSE = "Response";
 
-    /** The Constant V_SAY. */
     public static final String V_SAY = "Say";
-
-    public static final String V_QUEUE = "Queue";
-    
-    public static final String V_ENQUEUE = "Enqueue";
-    
-    public static final String V_LEAVE = "Leave";
     
     /** The Constant V_SMS. */
     public static final String V_SMS = "Sms";

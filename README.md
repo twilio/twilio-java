@@ -32,7 +32,7 @@ You can view the javadocs for this project at:
 
 Here are some examples (also found in [TwilioRestExamples.java](https://github.com/twilio/twilio-java/blob/master/src/main/java/com/twilio/sdk/examples/RestExamples.java) ) 
 
-```
+```java
 	package com.twilio.sdk.examples;
 	
 	import java.util.HashMap;

@@ -45,7 +45,7 @@ public class Queue extends InstanceResource {
      * @param params
      *            the map of properties to read from
      */
-    public Queue(TwilioRestClient client, Map<String, Object> params) {
+    public Queue(final TwilioRestClient client, final Map<String, Object> params) {
         super(client, params);
     }
 
@@ -75,11 +75,10 @@ public class Queue extends InstanceResource {
      *             if the current size is not set
      */
     public int getCurrentSize() {
-        final String prop = this.getProperty(Queue.CURRENT_SIZE);
+        final Integer prop = (Integer)this.getObject(Queue.CURRENT_SIZE);
         if (prop != null) {
-            return Integer.parseInt(prop);
-        }
-        else {
+            return prop;
+        } else {
             throw new IllegalStateException("The Queue instance doesn't have the current size property set");
         }
     }
@@ -90,9 +89,9 @@ public class Queue extends InstanceResource {
      * @return the max size of the {@link Queue}
      */
     public int getMaxSize() {
-        final String prop = this.getProperty(Queue.MAX_SIZE);
+        final Integer prop = (Integer)this.getObject(Queue.MAX_SIZE);
         if (prop != null) {
-            return Integer.parseInt(prop);
+            return prop;
         } else {
             throw new IllegalStateException("The Queue instance doesn't have the max size property set");
         }
@@ -104,9 +103,9 @@ public class Queue extends InstanceResource {
      * @return the average wait time
      */
     public int getAverageWaitTime() {
-        final String prop = this.getProperty(Queue.AVERAGE_WAIT_TIME);
+        final Integer prop = (Integer) this.getObject(Queue.AVERAGE_WAIT_TIME);
         if (prop != null) {
-            return Integer.parseInt(prop);
+            return prop;
         } else {
             throw new IllegalStateException("The Queue instance doesn't have the average wait time property set");
         }
@@ -118,7 +117,7 @@ public class Queue extends InstanceResource {
      * @return the {@link MemberList}
      */
     public MemberList getMembers() {
-        MemberList list = new MemberList(this.getClient(), this.getSid());
+        final MemberList list = new MemberList(this.getClient(), this.getSid());
         list.setRequestAccountSid(this.getRequestAccountSid());
         return list;
     }
@@ -172,7 +171,7 @@ public class Queue extends InstanceResource {
     public void setFriendlyName(final String friendlyName) throws TwilioRestException {
         final Map<String, String> vars = new HashMap<String, String>();
         vars.put(Queue.FRIENDLY_NAME, friendlyName);
-        TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
+        final TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
         if (response.isError()) {
             throw new IllegalStateException("Response indicated error:" + response.getResponseText());
         }
@@ -191,12 +190,12 @@ public class Queue extends InstanceResource {
         final Map<String, String> vars = new HashMap<String, String>();
         final String maxSizeString = Integer.toString(maxSize);
         vars.put(Queue.MAX_SIZE, maxSizeString);
-        TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
+        final TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
         if (response.isError()) {
             throw new IllegalStateException("Response indicated error:" + response.getResponseText());
         }
         // if we reached this point, store it in our own set of properties, i.e. we don't have to load the instance
         // just to get to this property
-        this.setProperty(Queue.MAX_SIZE, maxSizeString);
+        this.setProperty(Queue.MAX_SIZE, maxSize);
     }
 }

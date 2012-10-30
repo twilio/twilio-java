@@ -86,6 +86,8 @@ public class Verb {
     /** The Constant V_SMS. */
     public static final String V_SMS = "Sms";
 
+	public static final String V_REJECT = "Reject";
+
     /**
      * Instantiates a new verb.
      *
@@ -104,7 +106,7 @@ public class Verb {
      *
      * @param verb the verb
      * @return the verb
-     * @throws TwiMLException the twi ml exception
+     * @throws TwiMLException the twiml exception
      */
     public Verb append(Verb verb) throws TwiMLException {
        if(this.allowedVerbs != null && this.allowedVerbs.contains(verb.getTag())) {

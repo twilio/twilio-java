@@ -32,7 +32,7 @@ public class Queue extends InstanceResource {
      * @param sid
      *            the queue sid
      */
-    public Queue(final TwilioRestClient client, final String sid) {
+    public Queue(TwilioRestClient client, String sid) {
         super(client);
         this.setProperty(Queue.SID, sid);
     }
@@ -45,7 +45,7 @@ public class Queue extends InstanceResource {
      * @param params
      *            the map of properties to read from
      */
-    public Queue(final TwilioRestClient client, final Map<String, Object> params) {
+    public Queue(TwilioRestClient client, Map<String, Object> params) {
         super(client, params);
     }
 
@@ -75,7 +75,7 @@ public class Queue extends InstanceResource {
      *             if the current size is not set
      */
     public int getCurrentSize() {
-        final Integer prop = (Integer)this.getObject(Queue.CURRENT_SIZE);
+        Integer prop = (Integer)this.getObject(Queue.CURRENT_SIZE);
         if (prop != null) {
             return prop;
         } else {
@@ -89,7 +89,7 @@ public class Queue extends InstanceResource {
      * @return the max size of the {@link Queue}
      */
     public int getMaxSize() {
-        final Integer prop = (Integer)this.getObject(Queue.MAX_SIZE);
+        Integer prop = (Integer)this.getObject(Queue.MAX_SIZE);
         if (prop != null) {
             return prop;
         } else {
@@ -103,7 +103,7 @@ public class Queue extends InstanceResource {
      * @return the average wait time
      */
     public int getAverageWaitTime() {
-        final Integer prop = (Integer) this.getObject(Queue.AVERAGE_WAIT_TIME);
+        Integer prop = (Integer) this.getObject(Queue.AVERAGE_WAIT_TIME);
         if (prop != null) {
             return prop;
         } else {
@@ -117,7 +117,7 @@ public class Queue extends InstanceResource {
      * @return the {@link MemberList}
      */
     public MemberList getMembers() {
-        final MemberList list = new MemberList(this.getClient(), this.getSid());
+        MemberList list = new MemberList(this.getClient(), this.getSid());
         list.setRequestAccountSid(this.getRequestAccountSid());
         return list;
     }
@@ -133,9 +133,9 @@ public class Queue extends InstanceResource {
      * @return
      * @throws TwilioRestException
      */
-    public Member dequeueHeadOfQueue(final String url, final String method) throws TwilioRestException {
+    public Member dequeueHeadOfQueue(String url, String method) throws TwilioRestException {
         // Creating a {@link Member} without passing in call sid denotes a member representing the front of the queue
-        final Member m = new Member(this.getClient(), this.getSid());
+        Member m = new Member(this.getClient(), this.getSid());
         m.setRequestAccountSid(this.getRequestAccountSid());
         return m.dequeue(url, method);
     }
@@ -168,10 +168,10 @@ public class Queue extends InstanceResource {
      * @throws TwilioRestException
      *             if setting the friendly name fails
      */
-    public void setFriendlyName(final String friendlyName) throws TwilioRestException {
-        final Map<String, String> vars = new HashMap<String, String>();
+    public void setFriendlyName(String friendlyName) throws TwilioRestException {
+        Map<String, String> vars = new HashMap<String, String>();
         vars.put(Queue.FRIENDLY_NAME, friendlyName);
-        final TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
+        TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
         if (response.isError()) {
             throw new IllegalStateException("Response indicated error:" + response.getResponseText());
         }
@@ -186,11 +186,11 @@ public class Queue extends InstanceResource {
      * @throws TwilioRestException
      *             if setting the max size fails
      */
-    public void setMaxSize(final int maxSize) throws TwilioRestException {
-        final Map<String, String> vars = new HashMap<String, String>();
-        final String maxSizeString = Integer.toString(maxSize);
+    public void setMaxSize(int maxSize) throws TwilioRestException {
+        Map<String, String> vars = new HashMap<String, String>();
+        String maxSizeString = Integer.toString(maxSize);
         vars.put(Queue.MAX_SIZE, maxSizeString);
-        final TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
+        TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
         if (response.isError()) {
             throw new IllegalStateException("Response indicated error:" + response.getResponseText());
         }

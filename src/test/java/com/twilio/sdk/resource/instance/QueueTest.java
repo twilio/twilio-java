@@ -36,7 +36,7 @@ public class QueueTest {
      * Set up the mocks.
      */
     private void setupMocks() {
-        final HashMap<String, Object> map = new HashMap<String, Object>();
+        HashMap<String, Object> map = new HashMap<String, Object>();
         stub(resp.toMap()).toReturn(map);
         formattedDate = dateFormat.format(new Date());
 
@@ -60,7 +60,7 @@ public class QueueTest {
                 client.safeRequest(Matchers.eq("/2010-04-01/Accounts/" + accountSid + "/Queues/" + queueSid
                         + ".json"), Matchers.eq("GET"), Matchers.any(Map.class)))
                 .toReturn(resp);
-        final Queue q = new Queue(client, queueSid);
+        Queue q = new Queue(client, queueSid);
         q.setRequestAccountSid(accountSid);
 
         assertTrue(q.getAverageWaitTime() == 1);
@@ -85,8 +85,8 @@ public class QueueTest {
                         + ".json"), Matchers.eq("GET"), Matchers.any(Map.class)))
                 .toReturn(resp);
 
-        final TwilioRestResponse memberresp = mock(TwilioRestResponse.class);
-        final HashMap<String, Object> map = new HashMap<String, Object>();
+        TwilioRestResponse memberresp = mock(TwilioRestResponse.class);
+        HashMap<String, Object> map = new HashMap<String, Object>();
         stub(memberresp.toMap()).toReturn(map);
         formattedDate = dateFormat.format(new Date());
         map.put("call_sid", callSid);
@@ -100,11 +100,11 @@ public class QueueTest {
                         + "/Members/Front.json"), Matchers.eq("POST"), Matchers.any(Map.class)))
                 .toReturn(memberresp);
 
-        final Queue q = new Queue(client, queueSid);
+        Queue q = new Queue(client, queueSid);
         q.setRequestAccountSid(accountSid);
-        final String method = "GET";
-        final String url = "http://www.example.com";
-        final Member m = q.dequeueHeadOfQueue(url, method);
+        String method = "GET";
+        String url = "http://www.example.com";
+        Member m = q.dequeueHeadOfQueue(url, method);
 
         assertTrue(m.getPosition().equals("1"));
         assertTrue(dateFormat.format(m.getDateEnqueued()).equals(formattedDate));
@@ -124,7 +124,7 @@ public class QueueTest {
                 client.safeRequest(Matchers.eq("/2010-04-01/Accounts/" + accountSid + "/Queues/" + queueSid
                         + ".json"), Matchers.eq("POST"), Matchers.any(Map.class)))
                 .toReturn(resp);
-        final Queue q = new Queue(client, queueSid);
+        Queue q = new Queue(client, queueSid);
         q.setRequestAccountSid(accountSid);
         q.setFriendlyName("new friendly");
         assertTrue(q.getFriendlyName().equals("new friendly"));
@@ -143,7 +143,7 @@ public class QueueTest {
                 client.safeRequest(Matchers.eq("/2010-04-01/Accounts/" + accountSid + "/Queues/" + queueSid
                         + ".json"), Matchers.eq("POST"), Matchers.any(Map.class)))
                 .toReturn(resp);
-        final Queue q = new Queue(client, queueSid);
+        Queue q = new Queue(client, queueSid);
         q.setRequestAccountSid(accountSid);
         q.setMaxSize(99);
         assertTrue(q.getMaxSize() == 99);
@@ -163,8 +163,8 @@ public class QueueTest {
                         + ".json"), Matchers.eq("GET"), Matchers.any(Map.class)))
                 .toReturn(resp);
 
-        final TwilioRestResponse membersresp = mock(TwilioRestResponse.class);
-        final HashMap<String, Object> map = new HashMap<String, Object>();
+        TwilioRestResponse membersresp = mock(TwilioRestResponse.class);
+        HashMap<String, Object> map = new HashMap<String, Object>();
         stub(membersresp.toMap()).toReturn(map);
         stub(membersresp.getParser()).toReturn(new JsonResponseParser());
         
@@ -180,10 +180,10 @@ public class QueueTest {
                 client.safeRequest(Matchers.eq("/2010-04-01/Accounts/" + accountSid + "/Queues/" + queueSid
                         + "/Members.json"), Matchers.eq("GET"), Matchers.any(Map.class)))
                 .toReturn(membersresp);
-        final Queue q = new Queue(client, queueSid);
+        Queue q = new Queue(client, queueSid);
         q.setRequestAccountSid(accountSid);
-        final MemberList m = q.getMembers();
-        final Iterator<Member> memiter = m.iterator();
+        MemberList m = q.getMembers();
+        Iterator<Member> memiter = m.iterator();
         assertTrue(memiter.hasNext());
     }
 }

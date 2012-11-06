@@ -1,6 +1,8 @@
 package com.twilio.sdk.resource.instance;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 
 import java.math.BigDecimal;
@@ -21,7 +23,7 @@ public class UsageTrigger extends InstanceResource {
     /**
      * The Constant SID_PROPERTY.
      */
-    private static final String SID_PROPERTY = "sid";
+    private static final String SID_PROPERTY = "Sid";
 
     /**
      * Instantiates a new usageRecord.
@@ -34,7 +36,13 @@ public class UsageTrigger extends InstanceResource {
 
     @Override
     protected String getResourceLocation() {
-        return null;
+        return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+                + this.getRequestAccountSid() + "/Usage/Triggers/" + this.getSid() + ".json";
+
+    }
+
+    public String getSid() {
+        return this.getProperty(SID_PROPERTY);
     }
 
     /**
@@ -136,7 +144,10 @@ public class UsageTrigger extends InstanceResource {
         return getProperty("Uri");
     }
 
-    public String[] getSubresourceUris() {
-        return null;
+    public boolean delete() throws TwilioRestException {
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), "DELETE", null);
+
+        return !response.isError();
     }
 }

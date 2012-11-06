@@ -8,11 +8,7 @@ import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.factory.ApplicationFactory;
-import com.twilio.sdk.resource.factory.CallFactory;
-import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
-import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
-import com.twilio.sdk.resource.factory.SmsFactory;
+import com.twilio.sdk.resource.factory.*;
 import com.twilio.sdk.resource.list.*;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -277,7 +273,17 @@ public class Account extends InstanceResource {
 		return this.getSmsMessages();
 	}
 
-	/**
+    /**
+     * Gets the Usage Trigger factory which lets you create usage triggers
+     *
+     * @return the usage trigger factory
+     */
+    public UsageTriggerFactory getUsageTriggerFactory() {
+        return this.getUsageTriggers();
+    }
+
+
+    /**
 	 * Gets the application list
 	 * 
 	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>

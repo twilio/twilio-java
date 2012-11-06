@@ -12,6 +12,10 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
+import java.io.StringBufferInputStream;
+
 import static org.mockito.Mockito.*;
 
 public class BasicRequestTester {
@@ -40,9 +44,22 @@ public class BasicRequestTester {
         when(httpClient.execute(Matchers.<HttpUriRequest>anyObject())).thenReturn(response);
         when(response.getEntity()).thenReturn(entity);
     }
+    protected void setExpectedServerReturnCode(int code) throws Exception {
+        when(status_line.getStatusCode()).thenReturn(code);
+    }
 
     protected void setExpectedServerAnswer(String resource_name) throws Exception {
-        when(entity.getContent()).thenReturn(BasicRequestTester.class.getResourceAsStream(resource_name));
+        if (resource_name == null) {    // empty body
+            when(entity.getContent()).thenReturn(new ByteArrayInputStream(new byte[0]));
+        }
+        else
+        {
+            when(entity.getContent()).thenReturn(BasicRequestTester.class.getResourceAsStream(resource_name));
+        }
+    }
+
+    protected void setExpectedServerContentType(String content_type) {
+        when(headers[0].getValue()).thenReturn("application/json");
     }
 
 }

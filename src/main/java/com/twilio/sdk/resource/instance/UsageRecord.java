@@ -1,6 +1,5 @@
 package com.twilio.sdk.resource.instance;
 
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,10 +7,7 @@ import java.util.Date;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.instance.RecordCategory;
 
 /**
  * The Class Usage.
@@ -67,8 +63,8 @@ public class UsageRecord extends InstanceResource {
     }
 
 
-    public RecordCategory getCategory() {
-        return RecordCategory.valueOf(getProperty("Category").replace('-', '_'));
+    public UsageCategory getCategory() {
+        return UsageCategory.valueOf(getProperty("Category").replace('-', '_'));
     }
 
     public String getDescription() {

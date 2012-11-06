@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class UsageRecordTest  extends BasicRequestTester {
 
     @Test
-    public void testUnmarshal() throws Exception {
+    public void testListingUsageRecords() throws Exception {
         setExpectedServerAnswer("recordtestanswer.xml");
         UsageRecordList usageRecords = client.getAccount().getUsageRecords();
 
@@ -32,60 +32,60 @@ public class UsageRecordTest  extends BasicRequestTester {
 
         UsageRecord current;
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.calleridlookups);
+        assertEquals(current.getCategory(), UsageCategory.calleridlookups);
         assertEquals(current.getDescription(), "Caller ID Lookups");
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.calls);
+        assertEquals(current.getCategory(), UsageCategory.calls);
         assertEquals(current.getUsage(), new BigDecimal(50));
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.calls_client);
+        assertEquals(current.getCategory(), UsageCategory.calls_client);
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.calls_inbound);
+        assertEquals(current.getCategory(), UsageCategory.calls_inbound);
         assertEquals(current.getUsage(), new BigDecimal(24));
 
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.calls_inbound_local);
+        assertEquals(current.getCategory(), UsageCategory.calls_inbound_local);
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.calls_inbound_tollfree);
+        assertEquals(current.getCategory(), UsageCategory.calls_inbound_tollfree);
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.calls_outbound);
+        assertEquals(current.getCategory(), UsageCategory.calls_outbound);
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.phonenumbers_local);
+        assertEquals(current.getCategory(), UsageCategory.phonenumbers_local);
         assertEquals(current.getUsage(), new BigDecimal(1));
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.phonenumbers);
+        assertEquals(current.getCategory(), UsageCategory.phonenumbers);
         assertEquals(current.getUsage(), new BigDecimal(1));
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.phonenumbers_tollfree);
+        assertEquals(current.getCategory(), UsageCategory.phonenumbers_tollfree);
         assertEquals(current.getUsage(), new BigDecimal(0));
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.shortcodes);
+        assertEquals(current.getCategory(), UsageCategory.shortcodes);
         assertEquals(current.getUsage(), new BigDecimal(0));
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.shortcodes_customerowned);
+        assertEquals(current.getCategory(), UsageCategory.shortcodes_customerowned);
         assertEquals(current.getUsage(), new BigDecimal(0));
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.shortcodes_random);
+        assertEquals(current.getCategory(), UsageCategory.shortcodes_random);
         assertEquals(current.getUsage(), new BigDecimal(0));
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.shortcodes_vanity);
+        assertEquals(current.getCategory(), UsageCategory.shortcodes_vanity);
         assertEquals(current.getUsage(), new BigDecimal(0));
 
         current = usageRecordIterator.next();
-        assertEquals(current.getCategory(), RecordCategory.sms);
+        assertEquals(current.getCategory(), UsageCategory.sms);
         assertEquals(current.getUsage(), new BigDecimal(7));
         assertEquals(current.getPrice(), new BigDecimal("0.07"));
         assertEquals(current.getPriceUnit(), "usd");

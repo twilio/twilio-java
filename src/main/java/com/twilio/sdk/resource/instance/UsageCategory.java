@@ -1,6 +1,6 @@
 package com.twilio.sdk.resource.instance;
 
-public enum RecordCategory {
+public enum UsageCategory {
     calleridlookups,
     calls, calls_client, calls_inbound, calls_inbound_local, calls_inbound_tollfree, calls_outbound,
     phonenumbers_local, phonenumbers, phonenumbers_tollfree,

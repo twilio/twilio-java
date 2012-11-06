@@ -692,8 +692,36 @@ public class Account extends InstanceResource {
         return this.getUsageRecords(new HashMap<String, String>());
     }
 
+    /**
+     * Gets the Usage Triggers list with the given filters
+     *
+     *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
+     *
+     * @param filters
+     *            the filters
+     * @return the usage records
+     */
+    public UsageTriggerList getUsageTriggers(Map<String, String> filters) {
+        UsageTriggerList list = new UsageTriggerList(this.getClient(),
+                filters);
+        list.setRequestAccountSid(this.getRequestAccountSid());
+        return list;
+    }
 
-	/**
+    /**
+     * Gets the Usage Triggers list
+     *
+     *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
+     *
+     * @return the usage triggers
+     */
+    public UsageTriggerList getUsageTriggers() {
+        return this.getUsageTriggers(new HashMap<String, String>());
+    }
+
+
+
+    /**
 	 * Gets the connect app list with the given filters
 	 * 
 	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>

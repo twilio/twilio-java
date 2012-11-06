@@ -116,8 +116,8 @@ public class UsageRecord extends InstanceResource {
         return new BigDecimal(getProperty("Price"));
     }
 
-    public String getPriceUnits() {
-        return getProperty("PriceUnits");
+    public String getPriceUnit() {
+        return getProperty("PriceUnit");
     }
 
     public String getUri() {

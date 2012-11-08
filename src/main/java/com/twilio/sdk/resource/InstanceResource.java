@@ -38,6 +38,20 @@ public abstract class InstanceResource extends Resource {
 		this.properties = new HashMap<String, Object>(properties);
 		this.setLoaded(true);
 	}
+	
+        private Object getAndLoadIfNecessary(String name) {
+        	Object prop = properties.get(name);
+        
+        	if (prop == null && !this.isLoaded()) {
+        	    try {
+        		this.load(new HashMap<String, String>());
+        		return properties.get(name);
+        	    } catch (TwilioRestException e) {
+        		throw new RuntimeException(e);
+        	    }
+        	}
+        	return prop;
+        }
 
 	/**
 	 * Gets the property.
@@ -47,17 +61,7 @@ public abstract class InstanceResource extends Resource {
 	 * or null if it doesn't exist or is NULL in the response
 	 */
 	public String getProperty(String name) {
-		Object prop = properties.get(name);
-
-		if (prop == null && !this.isLoaded()) {
-			try {
-				this.load(new HashMap<String, String>());
-			} catch (TwilioRestException e) {
-				throw new RuntimeException(e);
-			}
-		}
-
-		prop = properties.get(name);
+		Object prop = getAndLoadIfNecessary(name);
 
 		if (prop == null) {
 			return null;
@@ -72,7 +76,7 @@ public abstract class InstanceResource extends Resource {
 	}
 
 	protected Object getObject(String name) {
-		Object prop = properties.get(name);
+	    	Object prop = getAndLoadIfNecessary(name);
 
 		if (prop == null) {
 			throw new IllegalArgumentException("Property " + name
@@ -82,15 +86,17 @@ public abstract class InstanceResource extends Resource {
 		return prop;
 	}
 	
-	/**
-	 * Sets the property.
-	 *
-	 * @param name the name
-	 * @param value the value
-	 */
-	protected void setProperty(String name, String value) {
-		properties.put(name, value);
-	}
+
+       /**
+        * Sets the property as an Object
+        *
+        * @param name the name
+        * @param value the value
+        */
+      protected void setProperty(String name, Object value) {
+	  	properties.put(name, value);
+      }
+
 	
 	/**
 	 * Update.

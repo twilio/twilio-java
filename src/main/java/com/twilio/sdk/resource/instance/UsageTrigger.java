@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * The Class Usage.
+ * The Class UsageTrigger.
  * <p/>
  * For more information see <a
  * href="http://www.twilio.com/docs/api/rest/usage-triggers"
@@ -34,6 +34,9 @@ public class UsageTrigger extends InstanceResource {
         super(client);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected String getResourceLocation() {
         return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
@@ -41,6 +44,11 @@ public class UsageTrigger extends InstanceResource {
 
     }
 
+    /**
+     * Gets the sid.
+     *
+     * @return the sid
+     */
     public String getSid() {
         return this.getProperty(SID_PROPERTY);
     }
@@ -71,6 +79,11 @@ public class UsageTrigger extends InstanceResource {
     }
 
 
+    /**
+     * Gets the date created.
+     *
+     * @return the date created
+     */
     public Date getDateCreated() {
         SimpleDateFormat format = new SimpleDateFormat(
                 "EEE, dd MMM yyyy HH:mm:ss Z");
@@ -81,6 +94,11 @@ public class UsageTrigger extends InstanceResource {
         }
     }
 
+    /**
+     * Gets the date updated.
+     *
+     * @return the date updated
+     */
     public Date getDateUpdated() {
         SimpleDateFormat format = new SimpleDateFormat(
                 "EEE, dd MMM yyyy HH:mm:ss Z");
@@ -91,42 +109,95 @@ public class UsageTrigger extends InstanceResource {
         }
     }
 
+    /**
+     * Gets the friendly name.
+     *
+     * @return the friendly name
+     */
     public String getFriendlyName() {
         return getProperty("FriendlyName");
     }
 
+    /**
+     * Gets the recurrence.
+     *
+     * @return the recurrence
+     * @see Recurrence
+     */
     public Recurrence getRecurring() {
         return Recurrence.valueOf(getProperty("Recurring"));
     }
 
+    /**
+     * Gets the usage category.
+     *
+     * @return the usage category
+     * @see UsageCategory
+     */
     public UsageCategory getUsageCategory() {
         return UsageCategory.valueOf(getProperty("UsageCategory"));
     }
 
+    /**
+     * Gets the trigger.
+     *
+     * @return the trigger
+     * @see Trigger
+     */
     public Trigger getTriggerBy() {
         return Trigger.valueOf(getProperty("TriggerBy"));
     }
 
+    /**
+     * Gets the trigger value.
+     *
+     * @return the trigger value
+     */
     public BigDecimal getTriggerValue() {
         return new BigDecimal(getProperty("TriggerValue"));
     }
 
+    /**
+     * Gets the current value.
+     *
+     * @return the current value
+     */
     public BigDecimal getCurrentValue() {
         return new BigDecimal(getProperty("CurrentValue"));
     }
 
+    /**
+     * Gets the usage record URI
+     *
+     * @return the usage record URI
+     */
     public String getUsageRecordUri() {
         return getProperty("UsageRecordUri");
     }
 
+    /**
+     * Gets the callback URL
+     *
+     * @return the callback URL
+     */
     public String getCallbackUrl() {
         return getProperty("CallbackUrl");
     }
 
+    /**
+     * Gets the callback Method
+     *
+     * @return the callback Method
+     */
     public String getCallbackMethod() {
         return getProperty("CallbackMethod");
     }
 
+    /**
+     * Gets the date fired
+     *
+     * @return the date fired
+     */
     public Date getDateFired() {
         SimpleDateFormat format = new SimpleDateFormat(
                 "EEE, dd MMM yyyy HH:mm:ss Z");
@@ -140,9 +211,21 @@ public class UsageTrigger extends InstanceResource {
         }
     }
 
+    /**
+     * Get the URI
+     *
+     * @return the URI
+     */
     public String getUri() {
         return getProperty("Uri");
     }
+
+    /**
+     * Delete
+     *
+     * @return true, if successful
+     * @throws TwilioRestException the twilio rest exception
+     */
 
     public boolean delete() throws TwilioRestException {
         TwilioRestResponse response = this.getClient().safeRequest(

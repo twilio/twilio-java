@@ -1,5 +1,12 @@
 package com.twilio.sdk.resource.instance;
 
+
+/**
+ * The Enum UsageCategory.
+ *
+ * For more information see <a href="http://www.twilio.com/docs/api/rest/usage-records#usage-categories">http://www.twilio.com/docs/api/rest/usage-records#usage-categories</a>
+ *
+ */
 public enum UsageCategory {
     calleridlookups,
     calls, calls_client, calls_inbound, calls_inbound_local, calls_inbound_tollfree, calls_outbound,

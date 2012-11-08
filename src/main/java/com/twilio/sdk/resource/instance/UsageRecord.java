@@ -32,6 +32,9 @@ public class UsageRecord extends InstanceResource {
         super(client);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected String getResourceLocation() {
         return null;

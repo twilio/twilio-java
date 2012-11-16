@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TwilioResponse>
+    <UsageTriggers numpages="1" end="0" pagesize="50" nextpageuri="" uri="/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Triggers/?UsageCategory=calls&amp;Recurring=daily" start="0" firstpageuri="/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Triggers/?UsageCategory=calls&amp;Recurring=daily&amp;Page=0&amp;PageSize=50" previouspageuri="" lastpageuri="/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Triggers/?UsageCategory=calls&amp;Recurring=daily&amp;Page=0&amp;PageSize=50" total="1" page="0">
+        <UsageTrigger>
+            <Sid>UTc2db285b0cbf4c60a2f1a8db237a5fba</Sid>
+            <AccountSid>ACed70abd024d3f57a4027b5dc2ca88d5b</AccountSid>
+            <DateCreated>Sun, 23 Sep 2012 23:07:29 +0000</DateCreated>
+            <DateUpdated>Sat, 29 Sep 2012 19:42:57 +0000</DateUpdated>
+            <DateFired />
+            <FriendlyName>a trigger</FriendlyName>
+            <UsageCategory>calls</UsageCategory>
+            <TriggerBy>count</TriggerBy>
+            <Recurring>daily</Recurring>
+            <TriggerValue>2.200000</TriggerValue>
+            <CurrentValue>3</CurrentValue>
+            <CallbackUrl>http://www.google.com</CallbackUrl>
+            <CallbackMethod>POST</CallbackMethod>
+            <UsageRecordUri>/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Today?Category=calls</UsageRecordUri>
+            <Uri>/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Triggers//UTc2db285b0cbf4c60a2f1a8db237a5fba</Uri>
+        </UsageTrigger>
+    </UsageTriggers>
+</TwilioResponse>

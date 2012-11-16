@@ -8,25 +8,8 @@ import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.factory.ApplicationFactory;
-import com.twilio.sdk.resource.factory.CallFactory;
-import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
-import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
-import com.twilio.sdk.resource.factory.SmsFactory;
-import com.twilio.sdk.resource.list.ApplicationList;
-import com.twilio.sdk.resource.list.AuthorizedConnectAppList;
-import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
-import com.twilio.sdk.resource.list.CallList;
-import com.twilio.sdk.resource.list.ConferenceList;
-import com.twilio.sdk.resource.list.ConnectAppList;
-import com.twilio.sdk.resource.list.IncomingPhoneNumberList;
-import com.twilio.sdk.resource.list.NotificationList;
-import com.twilio.sdk.resource.list.OutgoingCallerIdList;
-import com.twilio.sdk.resource.list.QueueList;
-import com.twilio.sdk.resource.list.RecordingList;
-import com.twilio.sdk.resource.list.ShortCodeList;
-import com.twilio.sdk.resource.list.SmsList;
-import com.twilio.sdk.resource.list.TranscriptionList;
+import com.twilio.sdk.resource.factory.*;
+import com.twilio.sdk.resource.list.*;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 
@@ -290,7 +273,17 @@ public class Account extends InstanceResource {
 		return this.getSmsMessages();
 	}
 
-	/**
+    /**
+     * Gets the Usage Trigger factory which lets you create usage triggers
+     *
+     * @return the usage trigger factory
+     */
+    public UsageTriggerFactory getUsageTriggerFactory() {
+        return this.getUsageTriggers();
+    }
+
+
+    /**
 	 * Gets the application list
 	 * 
 	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
@@ -667,8 +660,8 @@ public class Account extends InstanceResource {
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
 	}
-	
-	/**
+
+    /**
 	 * Get a given transcription instance by sid
 	 * @param sid The 34 character sid starting with TR
 	 */
@@ -677,9 +670,64 @@ public class Account extends InstanceResource {
 		tr.setRequestAccountSid(this.getRequestAccountSid());
 		return tr;
 	}
-	
 
-	/**
+    /**
+     * Gets the Usage Record list with the given filters
+     *
+     *  <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
+     *
+     * @param filters
+     *            the filters
+     * @return the usage records
+     */
+    public UsageRecordList getUsageRecords(Map<String, String> filters) {
+        UsageRecordList list = new UsageRecordList(this.getClient(),
+                filters);
+        list.setRequestAccountSid(this.getRequestAccountSid());
+        return list;
+    }
+
+    /**
+     * Gets the Usage Record list
+     *
+     * <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
+     *
+     * @return the usage records
+     */
+    public UsageRecordList getUsageRecords() {
+        return this.getUsageRecords(new HashMap<String, String>());
+    }
+
+    /**
+     * Gets the Usage Triggers list with the given filters
+     *
+     *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
+     *
+     * @param filters
+     *            the filters
+     * @return the usage records
+     */
+    public UsageTriggerList getUsageTriggers(Map<String, String> filters) {
+        UsageTriggerList list = new UsageTriggerList(this.getClient(),
+                filters);
+        list.setRequestAccountSid(this.getRequestAccountSid());
+        return list;
+    }
+
+    /**
+     * Gets the Usage Triggers list
+     *
+     *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
+     *
+     * @return the usage triggers
+     */
+    public UsageTriggerList getUsageTriggers() {
+        return this.getUsageTriggers(new HashMap<String, String>());
+    }
+
+
+
+    /**
 	 * Gets the connect app list with the given filters
 	 * 
 	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>

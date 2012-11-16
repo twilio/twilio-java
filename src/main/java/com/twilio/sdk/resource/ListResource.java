@@ -287,20 +287,27 @@ public abstract class ListResource<T> extends Resource implements Iterable<T> {
 
 		// Right now only json responses are used
 		Map<String, Object> list = response.toMap();
-
-		if (list.get(this.getListKey()) instanceof List) {
+        Object content = list.get(this.getListKey());
+		if (content instanceof List) {
 			List<Object> objs = (List<Object>) list.get(this.getListKey());
 
 			for (Object o : objs) {
-				if (o instanceof Map) {
-					T instance = this.makeNew(this.getClient(),
-							(Map<String, Object>) o);
-					((Resource)instance).setRequestAccountSid(this.getRequestAccountSid());
-					returnList.add(instance);
-				}
-			}
+                extract_object(returnList, o);
+            }
 		}
+        else if (content instanceof Map) { /* Some filters on lists returns only one element, this makes the response consistent */
+            extract_object(returnList, ((Map) content).values().iterator().next());
+        }
 
 		return returnList;
 	}
+
+    private void extract_object(List<T> returnList, Object o) {
+        if (o instanceof Map) {
+            T instance = this.makeNew(this.getClient(),
+                    (Map<String, Object>) o);
+            ((Resource)instance).setRequestAccountSid(this.getRequestAccountSid());
+            returnList.add(instance);
+        }
+    }
 }

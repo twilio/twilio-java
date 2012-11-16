@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TwilioResponse>
+    <UsageTrigger>
+        <Sid>UT5f539674e9b84c2ba39a4156f264a347</Sid>
+        <AccountSid>ACda23fd11f3b8e1eb20e140a9b408db72</AccountSid>
+        <DateCreated>Tue, 06 Nov 2012 22:06:35 +0000</DateCreated>
+        <DateUpdated>Tue, 06 Nov 2012 22:06:35 +0000</DateUpdated>
+        <DateFired/>
+        <FriendlyName>blah</FriendlyName>
+        <UsageCategory>sms</UsageCategory>
+        <TriggerBy>usage</TriggerBy>
+        <Recurring/>
+        <TriggerValue>10.000000</TriggerValue>
+        <CurrentValue>7</CurrentValue>
+        <CallbackUrl>http://www.domain.net</CallbackUrl>
+        <CallbackMethod>POST</CallbackMethod>
+        <UsageRecordUri>/2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records?Category=sms
+        </UsageRecordUri>
+        <Uri>/2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Triggers/UT5f539674e9b84c2ba39a4156f264a347
+        </Uri>
+    </UsageTrigger>
+</TwilioResponse>

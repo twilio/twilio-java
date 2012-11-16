@@ -12,7 +12,7 @@
         <Recurring/>
         <TriggerValue>10.000000</TriggerValue>
         <CurrentValue>7</CurrentValue>
-        <CallbackUrl>http://www.gootz.net</CallbackUrl>
+        <CallbackUrl>http://www.domain.net</CallbackUrl>
         <CallbackMethod>POST</CallbackMethod>
         <UsageRecordUri>/2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records?Category=sms
         </UsageRecordUri>

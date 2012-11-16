@@ -46,7 +46,7 @@ public class UsageTriggerTest extends BasicRequestTester {
         trigger.put("FriendlyName", "blah");
         trigger.put("UsageCategory", "sms");
         trigger.put("TriggerValue", "10");
-        trigger.put("CallbackUrl", "http://www.gootz.net");
+        trigger.put("CallbackUrl", "http://www.domain.net");
         UsageTrigger usageTrigger = usageTriggerFactory.create(trigger);
         assertEquals(usageTrigger.getFriendlyName(), "blah");
 

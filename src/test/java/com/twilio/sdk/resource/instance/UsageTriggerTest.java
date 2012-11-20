@@ -13,7 +13,6 @@ import java.util.Iterator;
 
 import static com.twilio.sdk.resource.instance.Recurrence.daily;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class UsageTriggerTest extends BasicRequestTester {
@@ -34,7 +33,6 @@ public class UsageTriggerTest extends BasicRequestTester {
         assertEquals(current.getDateUpdated(), new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z").parse("Sat, 29 Sep 2012 19:42:57 +0000"));
         assertEquals(current.getFriendlyName(), "a trigger");
         assertEquals(current.getRecurring(), daily);
-
     }
 
     @Test
@@ -49,7 +47,6 @@ public class UsageTriggerTest extends BasicRequestTester {
         trigger.put("CallbackUrl", "http://www.domain.net");
         UsageTrigger usageTrigger = usageTriggerFactory.create(trigger);
         assertEquals(usageTrigger.getFriendlyName(), "blah");
-
     }
 
     @Test
@@ -57,7 +54,6 @@ public class UsageTriggerTest extends BasicRequestTester {
         setExpectedServerAnswer(null);
         setExpectedServerReturnCode(204);
         UsageTrigger ut = new UsageTrigger(client, "UT5f539674e9b84c2ba39a4156f264a347");
-        ut.setRequestAccountSid("AC0123456789abcdef0123456789abcdef");
         assertTrue(ut.delete());
     }
 
@@ -67,7 +63,6 @@ public class UsageTriggerTest extends BasicRequestTester {
         setExpectedServerReturnCode(404);
         setExpectedServerContentType("application/json");
         UsageTrigger ut = new UsageTrigger(client, "UT0123456789abcdef0123456789abcdef");
-        ut.setRequestAccountSid("AC0123456789abcdef0123456789abcdef");
         ut.delete();
     }
 

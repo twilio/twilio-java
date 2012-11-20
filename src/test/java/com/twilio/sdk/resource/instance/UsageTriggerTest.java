@@ -57,15 +57,17 @@ public class UsageTriggerTest extends BasicRequestTester {
         setExpectedServerAnswer(null);
         setExpectedServerReturnCode(204);
         UsageTrigger ut = new UsageTrigger(client, "UT5f539674e9b84c2ba39a4156f264a347");
+        ut.setRequestAccountSid("AC0123456789abcdef0123456789abcdef");
         assertTrue(ut.delete());
     }
 
-    @Test(expected=TwilioRestException.class)
+    @Test(expected = TwilioRestException.class)
     public void testDeleteErrorUsageTrigger() throws Exception {
         setExpectedServerAnswer("404onUsageTrigger.xml"); // err this is actually json but this stupid classloader wont take the .json extension
         setExpectedServerReturnCode(404);
         setExpectedServerContentType("application/json");
         UsageTrigger ut = new UsageTrigger(client, "UT0123456789abcdef0123456789abcdef");
+        ut.setRequestAccountSid("AC0123456789abcdef0123456789abcdef");
         ut.delete();
     }
 

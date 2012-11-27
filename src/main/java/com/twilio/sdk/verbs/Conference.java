@@ -110,5 +110,14 @@ public class Conference extends Verb {
         this.set("waitUrl",url);
     }
 
+    /**
+     * Sets the maximum number of participants you want to allow 
+     *
+     * @param i the new maxParticipants value
+     */
+    public void setMaxParticipants(int i){
+       this.set("maxParticipants", Integer.toString(i));   
+    }
+
 }
 

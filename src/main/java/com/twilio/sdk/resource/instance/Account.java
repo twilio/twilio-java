@@ -768,7 +768,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the authorized connect app list with the given filters
 	 * 
-	 *  <a href="http://www.twilio.com/docs/api/rest/authorizedconnect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
+	 *  <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
 	 * 
 	 * @param filters
 	 *            the filters

@@ -32,6 +32,9 @@ public class Account extends InstanceResource {
 	/** The Constant STATUS_PROPERTY. */
 	private static final String STATUS_PROPERTY = "status";
 
+	/** The Constant TYPE_PROPERTY. */
+	private static final String TYPE_PROPERTY = "type";
+
 	/** The Constant FRIENDLY_NAME_PROPERTY. */
 	private static final String FRIENDLY_NAME_PROPERTY = "friendly_name";
 
@@ -135,6 +138,15 @@ public class Account extends InstanceResource {
 	}
 
 	/**
+	 * Gets the account type
+	 *
+	 * @return the account type
+	 */
+	public String getType() {
+		return this.getProperty(TYPE_PROPERTY);
+	}
+
+	/**
 	 * Gets the date created.
 	 * 
 	 * @return the date created
@@ -204,7 +216,7 @@ public class Account extends InstanceResource {
 
 		return calls;
 	}
-	
+
 	/**
 	 * Get a given call instance by sid
 	 * @param sid The 34 character sid starting with CA
@@ -252,7 +264,7 @@ public class Account extends InstanceResource {
 
 		return sms;
 	}
-	
+
 	/**
 	 * Get a given sms instance by sid
 	 * @param sid The 34 character sid starting with SM
@@ -262,7 +274,7 @@ public class Account extends InstanceResource {
 		sms.setRequestAccountSid(this.getRequestAccountSid());
 		return sms;
 	}
-	
+
 	/**
 	 * Gets the sms factory which lets you send sms messages
 	 * 
@@ -273,17 +285,17 @@ public class Account extends InstanceResource {
 		return this.getSmsMessages();
 	}
 
-    /**
-     * Gets the Usage Trigger factory which lets you create usage triggers
-     *
-     * @return the usage trigger factory
-     */
-    public UsageTriggerFactory getUsageTriggerFactory() {
-        return this.getUsageTriggers();
-    }
+	/**
+	 * Gets the Usage Trigger factory which lets you create usage triggers
+	 *
+	 * @return the usage trigger factory
+	 */
+	public UsageTriggerFactory getUsageTriggerFactory() {
+		return this.getUsageTriggers();
+	}
 
 
-    /**
+	/**
 	 * Gets the application list
 	 * 
 	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
@@ -307,7 +319,7 @@ public class Account extends InstanceResource {
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
 	}
-	
+
 	/**
 	 * Get a given application instance by sid
 	 * @param sid The 34 character sid starting with AP
@@ -317,8 +329,8 @@ public class Account extends InstanceResource {
 		app.setRequestAccountSid(this.getRequestAccountSid());
 		return app;
 	}
-	
-	
+
+
 	/**
 	 * Gets the application factory which lets you create new applications
 	 * 
@@ -329,8 +341,8 @@ public class Account extends InstanceResource {
 	public ApplicationFactory getApplicationFactory() {
 		return this.getApplications();
 	}
-	
-	
+
+
 
 	/**
 	 * Gets the available phone numbers. Defaults to US/Local
@@ -410,19 +422,19 @@ public class Account extends InstanceResource {
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
 	}
-	
+
 	/**
-     * Gets the queue list
-     * 
-     * See: <a href="http://www.twilio.com/docs/api/rest/queue">http://www.twilio.com/docs/api/rest/queue</a>
-     * 
-     * @return the {@link QueueList}
-     */
-    public QueueList getQueues() {
-        QueueList list = new QueueList(this.getClient(), filters);
-        list.setRequestAccountSid(this.getRequestAccountSid());
-        return list;
-    }
+	 * Gets the queue list
+	 * 
+	 * See: <a href="http://www.twilio.com/docs/api/rest/queue">http://www.twilio.com/docs/api/rest/queue</a>
+	 * 
+	 * @return the {@link QueueList}
+	 */
+	public QueueList getQueues() {
+		QueueList list = new QueueList(this.getClient(), filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
 
 	/**
 	 * Get a given conference instance by sid
@@ -461,7 +473,7 @@ public class Account extends InstanceResource {
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
 	}
-	
+
 	/**
 	 * Get a given incoming phone number instance by sid
 	 * @param sid The 34 character sid starting with PN
@@ -471,7 +483,7 @@ public class Account extends InstanceResource {
 		pn.setRequestAccountSid(this.getRequestAccountSid());
 		return pn;
 	}
-	
+
 	/**
 	 * Gets the incoming phone number factory.
 	 * 
@@ -514,7 +526,7 @@ public class Account extends InstanceResource {
 		sc.setRequestAccountSid(this.getRequestAccountSid());
 		return sc;
 	}
-	
+
 	/**
 	 * Gets the notifications.
 	 * 
@@ -546,7 +558,7 @@ public class Account extends InstanceResource {
 		n.setRequestAccountSid(this.getRequestAccountSid());
 		return n;
 	}
-	
+
 
 	/**
 	 * Gets the outgoing caller ids.
@@ -584,9 +596,9 @@ public class Account extends InstanceResource {
 		number.setRequestAccountSid(this.getRequestAccountSid());
 		return number;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Gets the outgoing caller id factory which lets you create outgoing caller ids
 	 * 
@@ -671,63 +683,63 @@ public class Account extends InstanceResource {
 		return tr;
 	}
 
-    /**
-     * Gets the Usage Record list with the given filters
-     *
-     *  <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
-     *
-     * @param filters
-     *            the filters
-     * @return the usage records
-     */
-    public UsageRecordList getUsageRecords(Map<String, String> filters) {
-        UsageRecordList list = new UsageRecordList(this.getClient(),
-                filters);
-        list.setRequestAccountSid(this.getRequestAccountSid());
-        return list;
-    }
+	/**
+	 * Gets the Usage Record list with the given filters
+	 *
+	 *  <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
+	 *
+	 * @param filters
+	 *            the filters
+	 * @return the usage records
+	 */
+	public UsageRecordList getUsageRecords(Map<String, String> filters) {
+		UsageRecordList list = new UsageRecordList(this.getClient(),
+				filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
 
-    /**
-     * Gets the Usage Record list
-     *
-     * <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
-     *
-     * @return the usage records
-     */
-    public UsageRecordList getUsageRecords() {
-        return this.getUsageRecords(new HashMap<String, String>());
-    }
+	/**
+	 * Gets the Usage Record list
+	 *
+	 * <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
+	 *
+	 * @return the usage records
+	 */
+	public UsageRecordList getUsageRecords() {
+		return this.getUsageRecords(new HashMap<String, String>());
+	}
 
-    /**
-     * Gets the Usage Triggers list with the given filters
-     *
-     *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
-     *
-     * @param filters
-     *            the filters
-     * @return the usage records
-     */
-    public UsageTriggerList getUsageTriggers(Map<String, String> filters) {
-        UsageTriggerList list = new UsageTriggerList(this.getClient(),
-                filters);
-        list.setRequestAccountSid(this.getRequestAccountSid());
-        return list;
-    }
+	/**
+	 * Gets the Usage Triggers list with the given filters
+	 *
+	 *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
+	 *
+	 * @param filters
+	 *            the filters
+	 * @return the usage records
+	 */
+	public UsageTriggerList getUsageTriggers(Map<String, String> filters) {
+		UsageTriggerList list = new UsageTriggerList(this.getClient(),
+				filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
 
-    /**
-     * Gets the Usage Triggers list
-     *
-     *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
-     *
-     * @return the usage triggers
-     */
-    public UsageTriggerList getUsageTriggers() {
-        return this.getUsageTriggers(new HashMap<String, String>());
-    }
+	/**
+	 * Gets the Usage Triggers list
+	 *
+	 *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
+	 *
+	 * @return the usage triggers
+	 */
+	public UsageTriggerList getUsageTriggers() {
+		return this.getUsageTriggers(new HashMap<String, String>());
+	}
 
 
 
-    /**
+	/**
 	 * Gets the connect app list with the given filters
 	 * 
 	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
@@ -742,7 +754,7 @@ public class Account extends InstanceResource {
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
 	}
-	
+
 	/**
 	 * Get a given connect app instance by sid
 	 * @param sid The 34 character sid starting with CN
@@ -753,7 +765,7 @@ public class Account extends InstanceResource {
 		cn.setRequestAccountSid(this.getRequestAccountSid());
 		return cn;
 	}
-	
+
 	/**
 	 * Gets the connect app list with the given filters
 	 * 
@@ -769,7 +781,7 @@ public class Account extends InstanceResource {
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
 	}
-	
+
 	/**
 	 * Get a given connect app instance by sid
 	 * @param sid The 34 character sid starting with CN
@@ -781,18 +793,18 @@ public class Account extends InstanceResource {
 		return cn;
 	}
 
-    /**
-     * Get the developer sandbox
-     *
-     *  <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox</a>
-     * @return the sandbox
-     */
-    public Sandbox getSandbox() {
-        Sandbox sb = new Sandbox(this.getClient());
-        sb.setRequestAccountSid(this.getRequestAccountSid());
-        return sb;
-    }
-	
+	/**
+	 * Get the developer sandbox
+	 *
+	 *  <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox</a>
+	 * @return the sandbox
+	 */
+	public Sandbox getSandbox() {
+		Sandbox sb = new Sandbox(this.getClient());
+		sb.setRequestAccountSid(this.getRequestAccountSid());
+		return sb;
+	}
+
 	/**
 	 * Close this subaccount. This will release all phone numbers assigned to it and shut it down completely. 
 	 * You will still have access to historical data for that subaccount, but you cannot reopen a closed account.

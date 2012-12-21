@@ -753,11 +753,22 @@ public class Account extends InstanceResource {
 		cn.setRequestAccountSid(this.getRequestAccountSid());
 		return cn;
 	}
+
+	/**
+	 * Gets the authorized connect app list
+	 * 
+	 *  <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
+	 * 
+	 * @return the connect app list
+	 */
+	public AuthorizedConnectAppList getAuthorizedConnectApps() {
+		return this.getAuthorizedConnectApps(new HashMap<String, String>());
+	}
 	
 	/**
-	 * Gets the connect app list with the given filters
+	 * Gets the authorized connect app list with the given filters
 	 * 
-	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
+	 *  <a href="http://www.twilio.com/docs/api/rest/authorizedconnect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
 	 * 
 	 * @param filters
 	 *            the filters

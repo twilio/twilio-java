@@ -424,6 +424,16 @@ public class Account extends InstanceResource {
 	}
 
 	/**
+	 * Get a given conference instance by sid
+	 * @param sid The 34 character sid starting with CF
+	 */
+	public Conference getConference(String sid) {
+		Conference conf = new Conference(this.getClient(), sid);
+		conf.setRequestAccountSid(this.getRequestAccountSid());
+		return conf;
+	}
+
+	/**
 	 * Gets the queue list
 	 * 
 	 * See: <a href="http://www.twilio.com/docs/api/rest/queue">http://www.twilio.com/docs/api/rest/queue</a>
@@ -437,13 +447,15 @@ public class Account extends InstanceResource {
 	}
 
 	/**
-	 * Get a given conference instance by sid
-	 * @param sid The 34 character sid starting with CF
+	 * Get a given queue by sid
+	 *
+	 * @param sid The Sid starting with QU
+	 * @return the queue object
 	 */
-	public Conference getConference(String sid) {
-		Conference conf = new Conference(this.getClient(), sid);
-		conf.setRequestAccountSid(this.getRequestAccountSid());
-		return conf;
+	public Queue getQueue(String sid) {
+		Queue queue = new Queue(this.getClient(), sid);
+		queue.setRequestAccountSid(this.getRequestAccountSid());
+		return queue;
 	}
 
 	/**

@@ -22,8 +22,8 @@ public class AccountList extends ListResource<Account> implements AccountFactory
 	 *
 	 * @param client the client
 	 */
-	public AccountList(TwilioRestClient client) {
-		super(client);
+	public AccountList(TwilioRestClient client, Map<String, String> filters) {
+		super(client, filters);
 	}
 
 	/* (non-Javadoc)

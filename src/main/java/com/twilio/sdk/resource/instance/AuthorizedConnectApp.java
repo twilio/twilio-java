@@ -112,6 +112,24 @@ public class AuthorizedConnectApp extends InstanceResource {
 	}
 
 	/**
+	 * Gets the friendly name.
+	 * 
+	 * @return the account sid
+	 */
+	public String getConnectAppFriendlyName() {
+		return this.getProperty("connect_app_friendly_name");
+	}
+
+	/**
+	 * Gets the description.
+	 * 
+	 * @return the description
+	 */
+	public String getDescription() {
+		return this.getProperty("connect_app_description");
+	}
+
+	/**
 	 * Gets the description.
 	 * 
 	 * @return the description
@@ -125,8 +143,26 @@ public class AuthorizedConnectApp extends InstanceResource {
 	 * 
 	 * @return the company name
 	 */
+	public String getCompanyName() {
+		return this.getProperty("connect_app_company_name");
+	}
+
+	/**
+	 * Gets the company name.
+	 * 
+	 * @return the company name
+	 */
 	public String getConnectAppCompanyName() {
 		return this.getProperty("connect_app_company_name");
+	}
+
+	/**
+	 * Gets the homepage url.
+	 * 
+	 * @return the homepage url
+	 */
+	public String getHomepageUrl() {
+		return this.getProperty("connect_app_homepage_url");
 	}
 
 	/**

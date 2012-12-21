@@ -27,15 +27,6 @@ public class AuthorizedConnectApp extends InstanceResource {
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "connect_app_sid";
 
-	/** The Constant DATE_UPDATED_PROPERTY. */
-	private static final String DATE_UPDATED_PROPERTY = "date_updated";
-
-	/** The Constant DATE_CREATED_PROPERTY. */
-	private static final String DATE_CREATED_PROPERTY = "date_created";
-
-	/** The Constant FRIENDLY_NAME_PROPERTY. */
-	private static final String FRIENDLY_NAME_PROPERTY = "friendly_name";
-
 	/**
 	 * Instantiates a new application.
 	 * 
@@ -90,6 +81,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 	/*
 	 * Property getters
 	 */
+
 	/**
 	 * Gets the sid.
 	 * 
@@ -100,42 +92,14 @@ public class AuthorizedConnectApp extends InstanceResource {
 	}
 
 	/**
-	 * Gets the friendly name.
+	 * Gets the sid. In this case AuthorizedConnectApps don't have a Sid, they
+	 * have a ConnectAppSid so we provide two helper functions that return the
+	 * same value.
 	 * 
-	 * @return the friendly name
+	 * @return the sid
 	 */
-	public String getFriendlyName() {
-		return this.getProperty(FRIENDLY_NAME_PROPERTY);
-	}
-
-	/**
-	 * Gets the date created.
-	 * 
-	 * @return the date created
-	 */
-	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty(DATE_CREATED_PROPERTY));
-		} catch (ParseException e) {
-			return null;
-		}
-	}
-
-	/**
-	 * Gets the date updated.
-	 * 
-	 * @return the date updated
-	 */
-	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty(DATE_UPDATED_PROPERTY));
-		} catch (ParseException e) {
-			return null;
-		}
+	public String getConnectAppSid() {
+		return this.getProperty(SID_PROPERTY);
 	}
 
 	/**
@@ -152,7 +116,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 	 * 
 	 * @return the description
 	 */
-	public String getDescription() {
+	public String getConnectAppDescription() {
 		return this.getProperty("connect_app_description");
 	}
 
@@ -161,7 +125,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 	 * 
 	 * @return the company name
 	 */
-	public String getCompanyName() {
+	public String getConnectAppCompanyName() {
 		return this.getProperty("connect_app_company_name");
 	}
 
@@ -170,7 +134,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 	 * 
 	 * @return the homepage url
 	 */
-	public String getHomepageUrl() {
+	public String getConnectAppHomepageUrl() {
 		return this.getProperty("connect_app_homepage_url");
 	}
 

@@ -749,7 +749,16 @@ public class Account extends InstanceResource {
 		return this.getUsageTriggers(new HashMap<String, String>());
 	}
 
-
+	/**
+	 * Gets the connect app list
+	 * 
+	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
+	 * 
+	 * @return the connect app list
+	 */
+	public ConnectAppList getConnectApps() {
+		return this.getConnectApps(new HashMap<String, String>());
+	}
 
 	/**
 	 * Gets the connect app list with the given filters

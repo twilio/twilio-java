@@ -116,7 +116,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 	 * 
 	 * @return the friendly name
 	 */
-	public String getConnectAppFriendlyName() {
+	public String getFriendlyName() {
 		return this.getProperty("connect_app_friendly_name");
 	}
 
@@ -130,21 +130,21 @@ public class AuthorizedConnectApp extends InstanceResource {
 	}
 
 	/**
-	 * Get the connect app friendly name.
-	 *
-	 * @return the connect app friendly name
-	 */
-	public String getConnectAppFriendlyName() {
-		return this.getProperty("connect_app_friendly_name");
-	}
-
-	/**
 	 * Gets the description.
 	 * 
 	 * @return the description
 	 */
 	public String getConnectAppDescription() {
 		return this.getProperty("connect_app_description");
+	}
+
+	/**
+	 * Get the connect app friendly name.
+	 *
+	 * @return the connect app friendly name
+	 */
+	public String getConnectAppFriendlyName() {
+		return this.getProperty("connect_app_friendly_name");
 	}
 
 	/**

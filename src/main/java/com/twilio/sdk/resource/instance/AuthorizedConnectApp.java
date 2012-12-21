@@ -114,7 +114,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 	/**
 	 * Gets the friendly name.
 	 * 
-	 * @return the account sid
+	 * @return the friendly name
 	 */
 	public String getConnectAppFriendlyName() {
 		return this.getProperty("connect_app_friendly_name");

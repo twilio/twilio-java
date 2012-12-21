@@ -73,4 +73,11 @@ public class CallerIdValidation {
 		throw new IllegalArgumentException("Property " + name
 				+ " is an object.  Use getOjbect() instead.");
 	}
+
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", null);
+
+		return !response.isError();
+	}
 }

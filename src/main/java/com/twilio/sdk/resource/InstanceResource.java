@@ -12,7 +12,7 @@ import com.twilio.sdk.TwilioRestResponse;
  * The Class InstanceResource.
  */
 public abstract class InstanceResource extends Resource {
-	
+
 	/** The properties. */
 	private Map<String, Object> properties;
 
@@ -38,26 +38,26 @@ public abstract class InstanceResource extends Resource {
 		this.properties = new HashMap<String, Object>(properties);
 		this.setLoaded(true);
 	}
-	
-        private Object getAndLoadIfNecessary(String name) {
-        	Object prop = properties.get(name);
-        
-        	if (prop == null && !this.isLoaded()) {
-        	    try {
-        		this.load(new HashMap<String, String>());
-        		return properties.get(name);
-        	    } catch (TwilioRestException e) {
-        		throw new RuntimeException(e);
-        	    }
-        	}
-        	return prop;
-        }
+
+	private Object getAndLoadIfNecessary(String name) {
+		Object prop = properties.get(name);
+
+		if (prop == null && !this.isLoaded()) {
+			try {
+				this.load(new HashMap<String, String>());
+				return properties.get(name);
+			} catch (TwilioRestException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return prop;
+	}
 
 	/**
 	 * Gets the property.
 	 *
 	 * @param name the name
-	 * @return the property, 
+	 * @return the property,
 	 * or null if it doesn't exist or is NULL in the response
 	 */
 	public String getProperty(String name) {
@@ -82,10 +82,10 @@ public abstract class InstanceResource extends Resource {
 			throw new IllegalArgumentException("Property " + name
 					+ " does not exist");
 		}
-		
+
 		return prop;
 	}
-	
+
 
        /**
         * Sets the property as an Object
@@ -97,7 +97,7 @@ public abstract class InstanceResource extends Resource {
 	  	properties.put(name, value);
       }
 
-	
+
 	/**
 	 * Update.
 	 *
@@ -107,7 +107,7 @@ public abstract class InstanceResource extends Resource {
 	public void update(Map<String, String> params) throws TwilioRestException {
 		this.getClient().safeRequest(this.getResourceLocation(), "POST", params);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#parseResponse(com.twilio.sdk.TwilioRestResponse)
 	 */

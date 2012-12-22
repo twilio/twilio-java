@@ -219,6 +219,7 @@ public class Account extends InstanceResource {
 
 	/**
 	 * Get a given call instance by sid
+	 *
 	 * @param sid The 34 character sid starting with CA
 	 */
 	public Call getCall(String sid) {

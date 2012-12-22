@@ -6,16 +6,18 @@ import java.util.Date;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class OutgoingCallerId.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
  */
 public class OutgoingCallerId extends InstanceResource {
-	
+
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
 
@@ -36,7 +38,7 @@ public class OutgoingCallerId extends InstanceResource {
 	 */
 	public OutgoingCallerId(TwilioRestClient client, String sid) {
 		super(client);
-		if (sid == null) { 
+		if (sid == null) {
             throw new IllegalStateException("The Sid for an OutgoingCallerId can not be null");
         }
 		this.setProperty(SID_PROPERTY, sid);
@@ -72,7 +74,7 @@ public class OutgoingCallerId extends InstanceResource {
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
 	}
-	
+
 	/**
 	 * Gets the date created.
 	 *
@@ -128,5 +130,18 @@ public class OutgoingCallerId extends InstanceResource {
 	 */
 	public String getPhoneNumber() {
 		return this.getProperty("phone_number");
+	}
+
+	/**
+	 * Delete this CallerId
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", null);
+
+		return !response.isError();
 	}
 }

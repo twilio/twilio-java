@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.instance.OutgoingCallerId;
 // TODO: Auto-generated Javadoc
 /**
  * The Class OutgoingCallerIdList.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
  */
 public class OutgoingCallerIdList extends ListResource<OutgoingCallerId>
@@ -64,13 +64,13 @@ public class OutgoingCallerIdList extends ListResource<OutgoingCallerId>
 	protected String getListKey() {
 		return "outgoing_caller_ids";
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.OutgoingCallerIdFactory#create(java.util.Map)
 	 */
 	public CallerIdValidation create(Map<String, String> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
-		return new CallerIdValidation(response);
+		return new CallerIdValidation(this.getClient(), response);
 	}
 }

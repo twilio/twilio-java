@@ -41,7 +41,7 @@ public class ShortCodeList extends ListResource<ShortCode> {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/ShortCodes.json";
+				+ this.getRequestAccountSid() + "/SMS/ShortCodes.json";
 	}
 
 	/* (non-Javadoc)

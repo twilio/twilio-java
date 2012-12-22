@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.instance.ShortCode;
 // TODO: Auto-generated Javadoc
 /**
  * The Class IncomingPhoneNumberList.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/shortcodes">http://www.twilio.com/docs/api/rest/shortcodes</a>
  */
 public class ShortCodeList extends ListResource<ShortCode> {
@@ -41,7 +41,7 @@ public class ShortCodeList extends ListResource<ShortCode> {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Shortcodes.json";
+				+ this.getRequestAccountSid() + "/ShortCodes.json";
 	}
 
 	/* (non-Javadoc)
@@ -60,5 +60,5 @@ public class ShortCodeList extends ListResource<ShortCode> {
 	protected String getListKey() {
 		return "short_codes";
 	}
-	
+
 }

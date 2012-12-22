@@ -424,6 +424,16 @@ public class Account extends InstanceResource {
 	}
 
 	/**
+	 * Get a given conference instance by sid
+	 * @param sid The 34 character sid starting with CF
+	 */
+	public Conference getConference(String sid) {
+		Conference conf = new Conference(this.getClient(), sid);
+		conf.setRequestAccountSid(this.getRequestAccountSid());
+		return conf;
+	}
+
+	/**
 	 * Gets the queue list
 	 * 
 	 * See: <a href="http://www.twilio.com/docs/api/rest/queue">http://www.twilio.com/docs/api/rest/queue</a>
@@ -437,13 +447,15 @@ public class Account extends InstanceResource {
 	}
 
 	/**
-	 * Get a given conference instance by sid
-	 * @param sid The 34 character sid starting with CF
+	 * Get a given queue by sid
+	 *
+	 * @param sid The Sid starting with QU
+	 * @return the queue object
 	 */
-	public Conference getConference(String sid) {
-		Conference conf = new Conference(this.getClient(), sid);
-		conf.setRequestAccountSid(this.getRequestAccountSid());
-		return conf;
+	public Queue getQueue(String sid) {
+		Queue queue = new Queue(this.getClient(), sid);
+		queue.setRequestAccountSid(this.getRequestAccountSid());
+		return queue;
 	}
 
 	/**
@@ -737,7 +749,16 @@ public class Account extends InstanceResource {
 		return this.getUsageTriggers(new HashMap<String, String>());
 	}
 
-
+	/**
+	 * Gets the connect app list
+	 * 
+	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
+	 * 
+	 * @return the connect app list
+	 */
+	public ConnectAppList getConnectApps() {
+		return this.getConnectApps(new HashMap<String, String>());
+	}
 
 	/**
 	 * Gets the connect app list with the given filters
@@ -767,9 +788,20 @@ public class Account extends InstanceResource {
 	}
 
 	/**
-	 * Gets the connect app list with the given filters
+	 * Gets the authorized connect app list
 	 * 
-	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
+	 *  <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
+	 * 
+	 * @return the connect app list
+	 */
+	public AuthorizedConnectAppList getAuthorizedConnectApps() {
+		return this.getAuthorizedConnectApps(new HashMap<String, String>());
+	}
+	
+	/**
+	 * Gets the authorized connect app list with the given filters
+	 * 
+	 *  <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
 	 * 
 	 * @param filters
 	 *            the filters

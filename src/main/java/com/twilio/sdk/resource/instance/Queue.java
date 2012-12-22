@@ -32,7 +32,7 @@ public class Queue extends InstanceResource {
      * @param sid
      *            the queue sid
      */
-    public Queue(final TwilioRestClient client, final String sid) {
+    public Queue(TwilioRestClient client, String sid) {
         super(client);
         this.setProperty(Queue.SID, sid);
     }
@@ -75,11 +75,10 @@ public class Queue extends InstanceResource {
      *             if the current size is not set
      */
     public int getCurrentSize() {
-        final String prop = this.getProperty(Queue.CURRENT_SIZE);
+        Integer prop = (Integer)this.getObject(Queue.CURRENT_SIZE);
         if (prop != null) {
-            return Integer.parseInt(prop);
-        }
-        else {
+            return prop;
+        } else {
             throw new IllegalStateException("The Queue instance doesn't have the current size property set");
         }
     }
@@ -90,9 +89,9 @@ public class Queue extends InstanceResource {
      * @return the max size of the {@link Queue}
      */
     public int getMaxSize() {
-        final String prop = this.getProperty(Queue.MAX_SIZE);
+        Integer prop = (Integer)this.getObject(Queue.MAX_SIZE);
         if (prop != null) {
-            return Integer.parseInt(prop);
+            return prop;
         } else {
             throw new IllegalStateException("The Queue instance doesn't have the max size property set");
         }
@@ -104,9 +103,9 @@ public class Queue extends InstanceResource {
      * @return the average wait time
      */
     public int getAverageWaitTime() {
-        final String prop = this.getProperty(Queue.AVERAGE_WAIT_TIME);
+        Integer prop = (Integer) this.getObject(Queue.AVERAGE_WAIT_TIME);
         if (prop != null) {
-            return Integer.parseInt(prop);
+            return prop;
         } else {
             throw new IllegalStateException("The Queue instance doesn't have the average wait time property set");
         }
@@ -134,9 +133,9 @@ public class Queue extends InstanceResource {
      * @return
      * @throws TwilioRestException
      */
-    public Member dequeueHeadOfQueue(final String url, final String method) throws TwilioRestException {
+    public Member dequeueHeadOfQueue(String url, String method) throws TwilioRestException {
         // Creating a {@link Member} without passing in call sid denotes a member representing the front of the queue
-        final Member m = new Member(this.getClient(), this.getSid());
+        Member m = new Member(this.getClient(), this.getSid());
         m.setRequestAccountSid(this.getRequestAccountSid());
         return m.dequeue(url, method);
     }
@@ -169,8 +168,8 @@ public class Queue extends InstanceResource {
      * @throws TwilioRestException
      *             if setting the friendly name fails
      */
-    public void setFriendlyName(final String friendlyName) throws TwilioRestException {
-        final Map<String, String> vars = new HashMap<String, String>();
+    public void setFriendlyName(String friendlyName) throws TwilioRestException {
+        Map<String, String> vars = new HashMap<String, String>();
         vars.put(Queue.FRIENDLY_NAME, friendlyName);
         TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
         if (response.isError()) {
@@ -187,9 +186,9 @@ public class Queue extends InstanceResource {
      * @throws TwilioRestException
      *             if setting the max size fails
      */
-    public void setMaxSize(final int maxSize) throws TwilioRestException {
-        final Map<String, String> vars = new HashMap<String, String>();
-        final String maxSizeString = Integer.toString(maxSize);
+    public void setMaxSize(int maxSize) throws TwilioRestException {
+        Map<String, String> vars = new HashMap<String, String>();
+        String maxSizeString = Integer.toString(maxSize);
         vars.put(Queue.MAX_SIZE, maxSizeString);
         TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
         if (response.isError()) {
@@ -197,6 +196,6 @@ public class Queue extends InstanceResource {
         }
         // if we reached this point, store it in our own set of properties, i.e. we don't have to load the instance
         // just to get to this property
-        this.setProperty(Queue.MAX_SIZE, maxSizeString);
+        this.setProperty(Queue.MAX_SIZE, maxSize);
     }
 }

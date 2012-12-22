@@ -1,7 +1,5 @@
 package com.twilio.sdk.verbs;
 
-import java.util.ArrayList;
-
 
 // TODO: Auto-generated Javadoc
 /*
@@ -30,33 +28,24 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /**
- * The Class TwiMLResponse.
+ * The Class Reject.
  */
-public class TwiMLResponse extends Verb {
-    
+public class Reject extends Verb { 
+
     /**
-     * Instantiates a new twiml response.
+     * Instantiates a new reject.
      */
-    public TwiMLResponse() {
-        super(Verb.V_RESPONSE, null);
-        this.allowedVerbs = new ArrayList<String>();
-        this.allowedVerbs.add(Verb.V_CLIENT);
-        this.allowedVerbs.add(Verb.V_CONFERENCE);
-        this.allowedVerbs.add(Verb.V_DIAL);
-        this.allowedVerbs.add(Verb.V_ENQUEUE);
-        this.allowedVerbs.add(Verb.V_GATHER);
-        this.allowedVerbs.add(Verb.V_HANGUP);
-        this.allowedVerbs.add(Verb.V_LEAVE);
-        this.allowedVerbs.add(Verb.V_NUMBER);
-        this.allowedVerbs.add(Verb.V_PAUSE);
-        this.allowedVerbs.add(Verb.V_PLAY);
-        this.allowedVerbs.add(Verb.V_QUEUE);
-        this.allowedVerbs.add(Verb.V_RECORD);
-        this.allowedVerbs.add(Verb.V_REDIRECT);
-        this.allowedVerbs.add(Verb.V_SAY);
-        this.allowedVerbs.add(Verb.V_SMS);
-        this.allowedVerbs.add(Verb.V_REJECT);
+    public Reject() { 
+        super(V_REJECT,null); 
+        this.allowedVerbs = null;
     }
 
+   /**
+     * Sets the reason.
+     *
+     * @param reason the reason (rejected or busy)
+     */
+    public void setReason(String reason) { 
+        this.set("reason", reason); 
+    } 
 }
-

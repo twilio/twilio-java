@@ -40,9 +40,9 @@ public class QueueTest {
         stub(resp.toMap()).toReturn(map);
         formattedDate = dateFormat.format(new Date());
 
-        map.put("average_wait_time", "1");
-        map.put("current_size", "2");
-        map.put("max_size", "3");
+        map.put("average_wait_time", 1);
+        map.put("current_size", 2);
+        map.put("max_size", 3);
         map.put("friendly_name", "friendly");
         map.put("sid", queueSid);
     }
@@ -102,8 +102,8 @@ public class QueueTest {
 
         Queue q = new Queue(client, queueSid);
         q.setRequestAccountSid(accountSid);
-        final String method = "GET";
-        final String url = "http://www.example.com";
+        String method = "GET";
+        String url = "http://www.example.com";
         Member m = q.dequeueHeadOfQueue(url, method);
 
         assertTrue(m.getPosition().equals("1"));

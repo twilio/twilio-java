@@ -35,6 +35,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.twilio.sdk.resource.instance.Account;
 import com.twilio.sdk.resource.list.AccountList;
+import com.twilio.sdk.resource.factory.AccountFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -626,9 +627,9 @@ public class TwilioRestClient {
      *
      * @return the list of accounts
      */
-    public AccountFactory getAccountFactory() {
-		return this.getAccounts();
-    }
+    //public AccountFactory getAccountFactory() {
+		//return this.getAccounts();
+    //}
 
 	/**
 	 * A shortcut for the most common case, returning the Account object for

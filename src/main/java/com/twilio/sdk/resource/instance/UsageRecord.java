@@ -56,7 +56,7 @@ public class UsageRecord extends InstanceResource {
     }
 
     /**
-     * Instantiates a new recordingRecord.
+     * Instantiates a new UsageRecord.
      *
      * @param client     the client
      * @param properties the properties

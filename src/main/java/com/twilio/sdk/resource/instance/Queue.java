@@ -126,7 +126,7 @@ public class Queue extends InstanceResource {
      * Return a single Member instance
      */
     public Member getMember(String callSid) {
-        Member member = new Member(this.getClient(), this.getSid(), sid);
+        Member member = new Member(this.getClient(), this.getSid(), callSid);
         member.setRequestAccountSid(this.getRequestAccountSid());
         return member;
     }

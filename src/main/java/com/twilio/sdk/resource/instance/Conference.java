@@ -153,7 +153,7 @@ public class Conference extends InstanceResource {
 	public Participant getParticipant(String callSid) {
 		Participant participant = new Participant(this.getClient(), this.getSid(), callSid);
 		participant.setRequestAccountSid(this.getRequestAccountSid());
-		return participant
+		return participant;
 	}
 
 }

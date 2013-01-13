@@ -286,16 +286,6 @@ public class Account extends InstanceResource {
 	}
 
 	/**
-	 * Gets the Usage Trigger factory which lets you create usage triggers
-	 *
-	 * @return the usage trigger factory
-	 */
-	public UsageTriggerFactory getUsageTriggerFactory() {
-		return this.getUsageTriggers();
-	}
-
-
-	/**
 	 * Gets the application list
 	 * 
 	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
@@ -720,6 +710,24 @@ public class Account extends InstanceResource {
 	 */
 	public UsageRecordList getUsageRecords() {
 		return this.getUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Get a specific Usage Trigger
+	 */
+	public UsageTrigger getUsageTrigger(String sid) {
+		UsageTrigger trigger = new UsageTrigger(this.getClient(), sid);
+		trigger.setRequestAccountSid(this.getRequestAccountSid());
+		return trigger;
+	}
+
+	/**
+	 * Gets the Usage Trigger factory which lets you create usage triggers
+	 *
+	 * @return the usage trigger factory
+	 */
+	public UsageTriggerFactory getUsageTriggerFactory() {
+		return this.getUsageTriggers();
 	}
 
 	/**

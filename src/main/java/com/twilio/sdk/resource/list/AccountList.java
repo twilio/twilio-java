@@ -12,13 +12,20 @@ import com.twilio.sdk.resource.instance.Account;
 // TODO: Auto-generated Javadoc
 /**
  * The Class AccountList.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/account">http://www.twilio.com/docs/api/rest/account</a>
  */
 public class AccountList extends ListResource<Account> implements AccountFactory {
 
 	/**
-	 * Instantiates a new account list.
+	 * Instantiate a new AccountList
+	 */
+	public AccountList(TwilioRestClient client) {
+		super(client);
+	}
+
+	/**
+	 * Instantiates a new account list with the given filters
 	 *
 	 * @param client the client
 	 */
@@ -50,7 +57,7 @@ public class AccountList extends ListResource<Account> implements AccountFactory
 	protected String getListKey() {
 		return "accounts";
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.AccountFactory#create(java.util.Map)
 	 */

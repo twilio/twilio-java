@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.InstanceResource;
 
 /**
  * The {@link Member} represents a single {@link Queue} member.
- * 
+ *
  * @author Christer Fahlgren
  */
 public class Member extends InstanceResource {
@@ -38,7 +38,7 @@ public class Member extends InstanceResource {
 
     /**
      * Creates a {@link Member}.
-     * 
+     *
      * @param client
      *            the {@link TwilioRestClient} to use.
      * @param queueSid
@@ -55,7 +55,7 @@ public class Member extends InstanceResource {
 
     /**
      * Creates a {@link Member} representing the front of the queue.
-     * 
+     *
      * @param client
      *            the {
      * @param queueSid
@@ -66,7 +66,7 @@ public class Member extends InstanceResource {
 
     /**
      * Constructs a {@link Member} by passing in the properties to read from.
-     * 
+     *
      * @param client
      *            the {@link TwilioRestClient} to use
      * @param properties
@@ -79,7 +79,7 @@ public class Member extends InstanceResource {
 
     /**
      * Retrieves the queue sid.
-     * 
+     *
      * @return the queue sid
      */
     public String getQueueSid() {
@@ -88,7 +88,7 @@ public class Member extends InstanceResource {
 
     /**
      * Retrieves the call sid.
-     * 
+     *
      * @return the call sid
      */
     public String getCallSid() {
@@ -97,7 +97,7 @@ public class Member extends InstanceResource {
 
     /**
      * Retrieves the {@link Date} the call was enqueued.
-     * 
+     *
      * @return the {@link Date} the call was enqueued.
      */
     public Date getDateEnqueued() {
@@ -110,7 +110,7 @@ public class Member extends InstanceResource {
 
     /**
      * Retrieves the wait time in the queue for this {@link Member}.
-     * 
+     *
      * @return the wait time as a String
      */
     public String getWaitTime() {
@@ -119,7 +119,7 @@ public class Member extends InstanceResource {
 
     /**
      * Retrieves the position of the {@link Member} in the queue.
-     * 
+     *
      * @return the position as a String
      */
     public String getPosition() {
@@ -139,7 +139,7 @@ public class Member extends InstanceResource {
     /**
      * Dequeue this {@link Member} and transfer control to the passed in url and method. Returns an updated
      * {@link Member} object containing the actual wait time at the time of dequeue.
-     * 
+     *
      * @param url
      *            the url to redirect to
      * @param method

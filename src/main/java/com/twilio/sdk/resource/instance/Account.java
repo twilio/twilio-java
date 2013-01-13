@@ -450,6 +450,13 @@ public class Account extends InstanceResource {
 	}
 
 	/**
+	 * Get the queue factory
+	 */
+	public QueueFactory getQueueFactory() {
+		return this.getQueues();
+	}
+
+	/**
 	 * Gets the incoming phone numbers list
 	 *
 	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>

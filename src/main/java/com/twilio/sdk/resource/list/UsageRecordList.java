@@ -8,7 +8,7 @@ import com.twilio.sdk.resource.instance.UsageRecord;
 
 /**
  * The Class UsageRecordList.
- * 
+ *
  */
 public class UsageRecordList extends ListResource<UsageRecord> {
 

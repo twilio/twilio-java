@@ -12,7 +12,7 @@ import com.twilio.sdk.resource.list.MemberList;
 
 /**
  * The {@link Queue} represents a queue resource.
- * 
+ *
  * @author Christer Fahlgren
  */
 public class Queue extends InstanceResource {
@@ -26,7 +26,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Creates a {@link Queue} instance.
-     * 
+     *
      * @param client
      *            the {@link TwilioRestClient} to use
      * @param sid
@@ -39,7 +39,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Creates a {@link Queue} instance.
-     * 
+     *
      * @param client
      *            the {@link TwilioRestClient} to use
      * @param params
@@ -51,7 +51,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Retrieves the queue sid of this {@link Queue}
-     * 
+     *
      * @return
      */
     public String getSid() {
@@ -60,7 +60,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Retrieves the friendly name of this Queue.
-     * 
+     *
      * @return the friendly name
      */
     public String getFriendlyName() {
@@ -69,7 +69,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Retrieves the current size of the {@link Queue}
-     * 
+     *
      * @return the current size
      * @throws IllegalStateException
      *             if the current size is not set
@@ -85,7 +85,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Returns the max size of the {@link Queue}
-     * 
+     *
      * @return the max size of the {@link Queue}
      */
     public int getMaxSize() {
@@ -99,7 +99,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Returns the average wait time in the {@link Queue}
-     * 
+     *
      * @return the average wait time
      */
     public int getAverageWaitTime() {
@@ -113,7 +113,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Retrieves the {@link MemberList} for this {@link Queue}
-     * 
+     *
      * @return the {@link MemberList}
      */
     public MemberList getMembers() {
@@ -123,9 +123,18 @@ public class Queue extends InstanceResource {
     }
 
     /**
+     * Return a single Member instance
+     */
+    public Member getMember(String callSid) {
+        Member member = new Member(this.getClient(), this.getSid(), callSid);
+        member.setRequestAccountSid(this.getRequestAccountSid());
+        return member;
+    }
+
+    /**
      * Dequeue the head of the {@link Queue}, returning the {@link Member} or null if the {@link Queue} is empty.
      * Control is transferred to the url and method passed in.
-     * 
+     *
      * @param url
      *            the url to transfer control to
      * @param method
@@ -151,7 +160,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Gets the resource location without specifying the format.
-     * 
+     *
      * @return the resource location
      */
     protected String getBareResourceLocation() {
@@ -162,7 +171,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Sets the friendly name of this {@link Queue}.
-     * 
+     *
      * @param friendlyName
      *            the new friendly name
      * @throws TwilioRestException
@@ -180,7 +189,7 @@ public class Queue extends InstanceResource {
 
     /**
      * Sets the max size of this {@link Queue}.
-     * 
+     *
      * @param maxSize
      *            the new max size of the queue
      * @throws TwilioRestException

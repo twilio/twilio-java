@@ -35,6 +35,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.twilio.sdk.resource.instance.Account;
 import com.twilio.sdk.resource.list.AccountList;
+import com.twilio.sdk.resource.factory.AccountFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -619,6 +620,15 @@ public class TwilioRestClient {
 	 */
 	public AccountList getAccounts() {
 		return this.getAccounts(new HashMap<String, String>());
+	}
+
+	/**
+	 * Return an account factory to create new subaccounts
+	 *
+	 * @return the list of accounts
+	 */
+	public AccountFactory getAccountFactory() {
+		return this.getAccounts();
 	}
 
 	/**

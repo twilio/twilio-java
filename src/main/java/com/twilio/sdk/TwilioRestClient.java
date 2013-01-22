@@ -44,7 +44,7 @@ import com.twilio.sdk.resource.factory.AccountFactory;
 public class TwilioRestClient {
 
 	/** The Constant VERSION. */
-	private static final String VERSION = "3.0";
+	private static final String VERSION = "3.3.13";
 
 	/** The endpoint. */
 	private String endpoint = "https://api.twilio.com";
@@ -488,7 +488,7 @@ public class TwilioRestClient {
 		HttpUriRequest request = buildMethod(method, path, params);
 
 		request.addHeader(new BasicHeader("X-Twilio-Client", "java-" + VERSION));
-		request.addHeader(new BasicHeader("User-Agent", "twilio-java-"
+		request.addHeader(new BasicHeader("User-Agent", "twilio-java/"
 				+ VERSION));
 		request.addHeader(new BasicHeader("Accept", "application/json"));
 

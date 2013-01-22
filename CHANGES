@@ -2,6 +2,28 @@ twilio-java Changelog
 =======================
 
 Here you can see the full list of changes between each twilio-java release.
+
+Version 3.3.13
+--------------
+
+Released on January 22, 2013
+
+Fixes a number of bugs in the library implementation.
+
+- You can retrieve a participant from a Conference object by referencing
+  a Call Sid. https://github.com/twilio/twilio-java/pull/77
+- You can retrieve a member from a Queue object by referencing its sid.
+  https://github.com/twilio/twilio-java/pull/76
+- The Account object can retrieve UsageTriggers. https://github.com/twilio/twilio-java/pull/75
+- You can create subaccounts via the Java library. https://github.com/twilio/twilio-java/pull/74
+- Requests for Short Code resources will not 404. https://github.com/twilio/twilio-java/pull/73
+- You can create new Queues via the Java library. https://github.com/twilio/twilio-java/pull/71
+- You can delete Caller ID's via the Java library. https://github.com/twilio/twilio-java/pull/70
+- Retrieve a list of your Connect Apps https://github.com/twilio/twilio-java/pull/67
+- AuthorizedConnectApps no longer references nonexistent properties https://github.com/twilio/twilio-java/pull/65
+- You can retrieve the Type of an Account ("Full", "Trial" etc) https://github.com/twilio/twilio-java/pull/62
+- You can filter Accounts by a FriendlyName or Type https://github.com/twilio/twilio-java/pull/63
+
 Version 3.3.10
 -------------
 

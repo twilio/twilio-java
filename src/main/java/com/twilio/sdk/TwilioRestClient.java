@@ -111,8 +111,8 @@ public class TwilioRestClient {
 	}
 
 	/**
-	 * Explcitly construct a TwilioRestClient with the given API credentials and
-	 * endpoint.
+	 * Explicitly construct a TwilioRestClient with the given API credentials
+	 * and endpoint.
 	 *
 	 * @param accountSid
 	 *            the 34 character Account identifier (starting with 'AC'). This
@@ -125,6 +125,25 @@ public class TwilioRestClient {
 	 *            'https://api.twilio.com')
 	 */
 	public TwilioRestClient(String accountSid, String authToken, String endpoint) {
+		this(accountSid, authToken, endpoint, 10);
+	}
+	/**
+	 * Explicitly construct a TwilioRestClient with the given API credentials
+	 * and endpoint.
+	 *
+	 * @param accountSid
+	 *            the 34 character Account identifier (starting with 'AC'). This
+	 *            can be found on your Twilio dashboard page.
+	 * @param authToken
+	 *            the 32 character AuthToken. This can be found on your Twilio
+	 *            dashboard page.
+	 * @param endpoint
+	 *            the url of API endpoint you wish to use. (e.g. -
+	 *            'https://api.twilio.com')
+	 * @param connections
+	 *            the number of concurrent http connections to allow
+	 */
+	public TwilioRestClient(String accountSid, String authToken, String endpoint, int maxConnections) {
 
 		validateAccountSid(accountSid);
 		validateAuthToken(authToken);
@@ -137,7 +156,7 @@ public class TwilioRestClient {
 		}
 
 		ThreadSafeClientConnManager connMgr = new ThreadSafeClientConnManager();
-		connMgr.setDefaultMaxPerRoute(10);
+		connMgr.setDefaultMaxPerRoute(maxConnections);
 		setHttpclient(new DefaultHttpClient(connMgr));
 		httpclient.getParams().setParameter("http.protocol.version",
 				HttpVersion.HTTP_1_1);

@@ -35,23 +35,23 @@ import java.net.URLEncoder;
  * The Class Verb.
  */
 public class Verb {
-    
-    
+
+
     /** The tag. */
     protected String tag;
-    
+
     /** The body. */
     protected String body;
-    
+
     /** The attributes. */
     protected HashMap<String, String> attributes;
-    
+
     /** The children. */
     protected ArrayList<Verb> children;
-    
+
     /** The allowed verbs. */
     protected ArrayList<String> allowedVerbs;
-    
+
     /** Constants */
     public static final String V_CLIENT = "Client";
 
@@ -64,6 +64,10 @@ public class Verb {
     public static final String V_GATHER = "Gather";
 
     public static final String V_HANGUP = "Hangup";
+
+    public static final String V_HEADERS = "Headers";
+
+    public static final String V_HEADER = "Header";
 
     public static final String V_LEAVE = "Leave";
 
@@ -79,14 +83,19 @@ public class Verb {
 
     public static final String V_REDIRECT = "Redirect";
 
+    public static final String V_REJECT = "Reject";
+
     public static final String V_RESPONSE = "Response";
 
     public static final String V_SAY = "Say";
-    
+
+    public static final String V_SIP = "Sip";
+
     /** The Constant V_SMS. */
     public static final String V_SMS = "Sms";
 
-	public static final String V_REJECT = "Reject";
+    public static final String V_URI = "Uri";
+
 
     /**
      * Instantiates a new verb.
@@ -100,7 +109,7 @@ public class Verb {
         this.attributes = new HashMap<String, String>();
         this.children = new ArrayList<Verb>();
     }
-    
+
     /**
      * Append.
      *
@@ -111,12 +120,12 @@ public class Verb {
     public Verb append(Verb verb) throws TwiMLException {
        if(this.allowedVerbs != null && this.allowedVerbs.contains(verb.getTag())) {
            this.children.add(verb);
-           return verb;  
+           return verb;
        } else {
-           throw new TwiMLException("This is not a supported verb");    
+           throw new TwiMLException("This is not a supported verb");
        }
     }
-    
+
     /**
      * To xml.
      *
@@ -135,7 +144,7 @@ public class Verb {
         }
         return xml += "</" + this.tag + ">";
     }
-    
+
     /**
      * As url.
      *
@@ -149,7 +158,7 @@ public class Verb {
             return null;
         }
     }
-    
+
     /**
      * Sets the.
      *
@@ -159,34 +168,34 @@ public class Verb {
     public void set (String key, String value){
        attributes.put(key,value);
     }
-    
+
     /**
      * Gets the body.
      *
      * @return the body
      */
     public String getBody() {
-       return this.body;    
+       return this.body;
     }
-    
+
     /**
      * Gets the tag.
      *
      * @return the tag
      */
     public String getTag() {
-       return this.tag;    
+       return this.tag;
     }
-    
+
     /**
      * Gets the children.
      *
      * @return the children
      */
     public ArrayList<Verb> getChildren() {
-       return this.children;     
+       return this.children;
     }
-    
+
     /**
      * Gets the attributes.
      *

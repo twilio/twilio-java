@@ -31,7 +31,7 @@ OTHER DEALINGS IN THE SOFTWARE.
  * The Class Record.
  */
 public class Record extends Verb {
-    
+
     /**
      * Instantiates a new record.
      */
@@ -46,45 +46,45 @@ public class Record extends Verb {
      * @param url the new action
      */
     public void setAction(String url){
-       this.set("action", url);   
+       this.set("action", url);
     }
-    
+
     /**
      * Sets the method.
      *
      * @param method the new method
      */
     public void setMethod(String method){
-       this.set("method", method);   
+       this.set("method", method);
     }
-    
+
     /**
      * Sets the timeout.
      *
      * @param i the new timeout
      */
     public void setTimeout(int i){
-       this.set("timeout", Integer.toString(i));   
+       this.set("timeout", Integer.toString(i));
     }
-    
+
     /**
      * Sets the finish on key.
      *
      * @param key the new finish on key
      */
     public void setFinishOnKey(String key){
-       this.set("finishOnKey", key);   
+       this.set("finishOnKey", key);
     }
-    
+
     /**
      * Sets the max length.
      *
      * @param i the new max length
      */
     public void setMaxLength(int i){
-       this.set("maxLength", Integer.toString(i));   
+       this.set("maxLength", Integer.toString(i));
     }
-    
+
     /**
      * Sets the transcribe.
      *
@@ -92,19 +92,19 @@ public class Record extends Verb {
      */
     public void setTranscribe(boolean f){
        if(f)
-           this.set("transcribe", "true");  
+           this.set("transcribe", "true");
        else
-           this.set("transcribe", "false"); 
+           this.set("transcribe", "false");
     }
-    
+
     /**
      * Sets the transcribe callback.
      *
      * @param url the new transcribe callback
      */
     public void setTranscribeCallback(String url){
-       this.set("transcribeCallback", url);    
-    }    
+       this.set("transcribeCallback", url);
+    }
 
 }
 

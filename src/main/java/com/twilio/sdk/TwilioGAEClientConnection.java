@@ -93,7 +93,6 @@ class TwilioGAEClientConnection implements ManagedClientConnection {
 		
 		//initialize the URL fetch service
 		try {
-			System.out.println(">>>"+URLFetchServiceFactory);
 			urlFS = URLFetchServiceFactory.getMethod("getURLFetchService", new Class[0]).invoke(null, new Object[0]);
 		} catch (Exception e) {
 			System.out.println("error initializing URLFetch service");
@@ -202,7 +201,6 @@ class TwilioGAEClientConnection implements ManagedClientConnection {
 			*/
 			
 			Class[] disallowTruncateTypes = new Class[0];
-			Object[] disallowTruncateArgs = new Object[0];
 			Method disallowTruncate = FetchOptionsBuilder.getMethod("disallowTruncate", disallowTruncateTypes);
 			
 			this.request = requestConstructor.newInstance(
@@ -211,7 +209,7 @@ class TwilioGAEClientConnection implements ManagedClientConnection {
 					(Class<? extends Enum>)Class.forName("com.google.appengine.api.urlfetch.HTTPMethod"), 
 					request.getRequestLine().getMethod()
 				),
-				disallowTruncate.invoke(FetchOptionsBuilder, disallowTruncateArgs)
+				disallowTruncate.invoke(FetchOptionsBuilder, new Object[0])
 			);
 			
 			Class[] addHeaderParameterTypes = new Class[1];
@@ -292,11 +290,8 @@ class TwilioGAEClientConnection implements ManagedClientConnection {
 		ByteArrayEntity bae;
 		
 		try {
-			Class[] parameterTypes = new Class[0];
-			Object[] invocationArgs = new Object[0];
-			
-			Method getContentMethod = this.response.getClass().getMethod("getContent", parameterTypes);
-			bae = new ByteArrayEntity((byte[]) getContentMethod.invoke(this.response,invocationArgs));
+			Method getContentMethod = this.response.getClass().getMethod("getContent", new Class[0]);
+			bae = new ByteArrayEntity((byte[]) getContentMethod.invoke(this.response, new Object[0]));
 			bae.setContentType(response.getFirstHeader("Content-Type"));
 			response.setEntity(bae);
 			response = null;

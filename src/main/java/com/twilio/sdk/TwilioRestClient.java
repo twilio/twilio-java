@@ -602,7 +602,7 @@ public class TwilioRestClient {
 	 * @return the list of accounts.
 	 */
 	public AccountList getAccounts(Map<String, String> params) {
-		AccountList list = new AccountList(this);
+		AccountList list = new AccountList(this, params);
 		list.setRequestAccountSid(this.accountSid);
 		return list;
 	}

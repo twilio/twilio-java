@@ -26,6 +26,16 @@ public class AccountList extends ListResource<Account> implements AccountFactory
 		super(client);
 	}
 
+	/**
+	 * Instantiates a new account list.
+	 *
+	 * @param client the client
+	 * @param filters the filters
+	 */
+	public AccountList(TwilioRestClient client, Map<String, String> filters) {
+		super(client, filters);
+	}
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */

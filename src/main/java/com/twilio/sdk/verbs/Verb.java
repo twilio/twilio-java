@@ -65,10 +65,6 @@ public class Verb {
 
     public static final String V_HANGUP = "Hangup";
 
-    public static final String V_HEADERS = "Headers";
-
-    public static final String V_HEADER = "Header";
-
     public static final String V_LEAVE = "Leave";
 
     public static final String V_NUMBER = "Number";

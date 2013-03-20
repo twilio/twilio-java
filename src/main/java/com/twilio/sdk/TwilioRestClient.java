@@ -44,7 +44,7 @@ import com.twilio.sdk.resource.factory.AccountFactory;
 public class TwilioRestClient {
 
 	/** The Constant VERSION. */
-	private static final String VERSION = "3.3.13";
+	private static final String VERSION = "3.3.14";
 
 	/** The endpoint. */
 	private String endpoint = "https://api.twilio.com";

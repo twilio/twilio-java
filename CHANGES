@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.3.14
+--------------
+
+Released on March 20, 2013
+
+Contains support for the <Sip> TwiML verb and making Sip calls via the REST
+API.
+
 Version 3.3.13
 --------------
 

@@ -32,17 +32,17 @@ OTHER DEALINGS IN THE SOFTWARE.
  * The Class Conference.
  */
 public class Conference extends Verb {
-    
+
     /**
      * Instantiates a new conference.
      *
      * @param name the name
      */
     public Conference(String name) {
-        super(V_CONFERENCE , name);
+        super(V_CONFERENCE, name);
         this.allowedVerbs = null;
     }
-     
+
     /**
      * Sets the boolean.
      *
@@ -55,7 +55,7 @@ public class Conference extends Verb {
         else
             this.set(attr,"false");
     }
-        
+
     /**
      * Sets the muted.
      *
@@ -64,7 +64,7 @@ public class Conference extends Verb {
     public void setMuted(Boolean bool){
         this.setBoolean("muted",bool);
     }
-    
+
     /**
      * Sets the beep.
      *
@@ -73,7 +73,7 @@ public class Conference extends Verb {
     public void setBeep(Boolean bool){
         this.setBoolean("beep",bool);
     }
-    
+
     /**
      * Sets the start conference on enter.
      *
@@ -82,7 +82,7 @@ public class Conference extends Verb {
     public void setStartConferenceOnEnter(Boolean bool){
         this.setBoolean("startConferenceOnEnter",bool);
     }
-    
+
     /**
      * Sets the end conference on exit.
      *
@@ -91,16 +91,16 @@ public class Conference extends Verb {
     public void setEndConferenceOnExit(Boolean bool){
         this.setBoolean("endConferenceOnExit",bool);
     }
-        
+
     /**
      * Sets the wait method.
      *
      * @param method the new wait method
      */
     public void setWaitMethod(String method){
-        this.set("waitMethod", method);   
+        this.set("waitMethod", method);
     }
-    
+
     /**
      * Sets the wait url.
      *
@@ -111,12 +111,12 @@ public class Conference extends Verb {
     }
 
     /**
-     * Sets the maximum number of participants you want to allow 
+     * Sets the maximum number of participants you want to allow
      *
      * @param i the new maxParticipants value
      */
     public void setMaxParticipants(int i){
-       this.set("maxParticipants", Integer.toString(i));   
+       this.set("maxParticipants", Integer.toString(i));
     }
 
 }

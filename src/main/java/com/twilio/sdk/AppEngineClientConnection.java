@@ -1,34 +1,10 @@
 package com.twilio.sdk;
 
 /*
-Copyright (c) 2013 Twilio, Inc.
+ This file is based on work originally published here, under a
+ BSD 3-clause license. See the LICENSE file for more details.
 
-Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without
-restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following
-conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
-
-This file is based on work originally published here, under a
- BSD license:
- 
  https://github.com/OpenRefine/OpenRefine
-
 */
 
 import java.io.ByteArrayOutputStream;
@@ -60,7 +36,7 @@ import org.apache.http.protocol.HttpContext;
 class AppEngineClientConnection implements ManagedClientConnection {
 	// Managed is the composition of ConnectionReleaseTrigger,
     //     HttpClientConnection, HttpConnection, HttpInetConnection
-	
+
 	private ClientConnectionManager connManager;
 	private HttpRoute route;
 	private Object state;
@@ -69,9 +45,9 @@ class AppEngineClientConnection implements ManagedClientConnection {
 	private Object request;
 	private Object response;
 	private boolean closed;
-	
+
 	private static Object urlFS;
-	
+
 	//GAE Classes defined via reflection
 	static Class FetchOptions;
 	static Class FetchOptionsBuilder;
@@ -81,7 +57,7 @@ class AppEngineClientConnection implements ManagedClientConnection {
 	static Class HTTPResponse;
 	static Class URLFetchService;
 	static Class URLFetchServiceFactory;
-	
+
 	static {
 		//Initialize GAE classes
 		try {
@@ -94,10 +70,10 @@ class AppEngineClientConnection implements ManagedClientConnection {
 			URLFetchServiceFactory = Class.forName("com.google.appengine.api.urlfetch.URLFetchServiceFactory");
 			FetchOptionsBuilder = FetchOptions.getClasses()[0];
 		} catch (ClassNotFoundException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		//initialize the URL fetch service
 		try {
 			urlFS = URLFetchServiceFactory.getMethod("getURLFetchService", new Class[0]).invoke(null, new Object[0]);
@@ -113,9 +89,9 @@ class AppEngineClientConnection implements ManagedClientConnection {
 		this.state = state;
 		this.closed = true;
 	}
-	
+
 	// ManagedClientConnection methods
-	
+
 	public boolean isSecure() {
 		return route.isSecure();
 	}
@@ -166,7 +142,7 @@ class AppEngineClientConnection implements ManagedClientConnection {
 	}
 
 	public void setIdleDuration(long duration, TimeUnit unit) {}
-	
+
 	public boolean isOpen() {
 		return request != null || response != null;
 	}
@@ -217,13 +193,13 @@ class AppEngineClientConnection implements ManagedClientConnection {
 	}
 
 	// HttpClientConnection methods
-	
+
 	public void flush() throws IOException {
 		if (request != null) {
 			try {
 				Class[] parameterTypes = new Class[1];
 				parameterTypes[0] = HTTPRequest;
-				
+
 				Method fetchMethod = URLFetchService.getMethod("fetch", parameterTypes);
 				response = fetchMethod.invoke(urlFS, request);
 				request = null;
@@ -235,7 +211,7 @@ class AppEngineClientConnection implements ManagedClientConnection {
 			response = null;
 		}
 	}
-	
+
 	public boolean isResponseAvailable(int timeout) throws IOException {
 		return response != null;
 	}
@@ -245,14 +221,14 @@ class AppEngineClientConnection implements ManagedClientConnection {
 		response = null;
 		closed = true;
 	}
-	
+
 	public void receiveResponseEntity(HttpResponse response) throws HttpException, IOException {
 		if (this.response == null) {
 			throw new IOException("receiveResponseEntity() called when closed");
 		}
 
 		ByteArrayEntity bae;
-		
+
 		try {
 			Method getContentMethod = this.response.getClass().getMethod("getContent", new Class[0]);
 			bae = new ByteArrayEntity((byte[]) getContentMethod.invoke(this.response, new Object[0]));
@@ -264,18 +240,18 @@ class AppEngineClientConnection implements ManagedClientConnection {
 			throw new HttpException("Error occurred while using Google App Engine URL fetch");
 		}
 	}
-	
+
 	public HttpResponse receiveResponseHeader() throws HttpException, IOException {
 		if (this.response == null) {
 			flush();
 		}
-		
+
 		HttpResponse response;
-		
+
 		try {
 			Method getResponseCode = HTTPResponse.getMethod("getResponseCode", new Class[0]);
 			response = new BasicHttpResponse(new ProtocolVersion("HTTP", 1, 1), (Integer) getResponseCode.invoke(this.response, new Object[0]), null);
-			
+
 			Method getHeaders = HTTPResponse.getMethod("getHeaders", new Class[0]);
 			for (Object h : (Iterable) getHeaders.invoke(this.response, new Object[0])) {
 				Method getName = HTTPHeader.getMethod("getName", new Class[0]);
@@ -285,53 +261,53 @@ class AppEngineClientConnection implements ManagedClientConnection {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException("error processing response headers: "+e.getMessage(), e);
-		} 
+		}
 
 		return response;
 	}
-	
+
 	public void sendRequestHeader(HttpRequest request) throws HttpException, IOException {
 		try {
 			HttpHost host = route.getTargetHost();
 
-			URI uri = new URI(host.getSchemeName() 
-					+ "://" + host.getHostName() 
+			URI uri = new URI(host.getSchemeName()
+					+ "://" + host.getHostName()
 					+ ((host.getPort() == -1) ? "" : (":" + host.getPort()))
 					+ request.getRequestLine().getUri());
-			
+
 			Class[] requestConstructorTypes = new Class[3];
 			requestConstructorTypes[0] = URL.class;
 			requestConstructorTypes[1] = HTTPMethod;
 			requestConstructorTypes[2] = FetchOptions;
-			
+
 			Constructor requestConstructor = HTTPRequest.getConstructor(requestConstructorTypes);
-			
+
 			Class[] disallowTruncateTypes = new Class[0];
 			Method disallowTruncate = FetchOptionsBuilder.getMethod("disallowTruncate", disallowTruncateTypes);
-			
+
 			this.request = requestConstructor.newInstance(
 				uri.toURL(),
 				Enum.valueOf(
-					(Class<? extends Enum>)Class.forName("com.google.appengine.api.urlfetch.HTTPMethod"), 
+					(Class<? extends Enum>)Class.forName("com.google.appengine.api.urlfetch.HTTPMethod"),
 					request.getRequestLine().getMethod()
 				),
 				disallowTruncate.invoke(FetchOptionsBuilder, new Object[0])
 			);
-			
+
 			Class[] addHeaderParameterTypes = new Class[1];
 			addHeaderParameterTypes[0] = HTTPHeader;
 			Method addHeader = HTTPRequest.getMethod("addHeader", addHeaderParameterTypes);
-			
+
 			Class[] httpHeaderConstructorTypes = new Class[2];
 			httpHeaderConstructorTypes[0] = String.class;
 			httpHeaderConstructorTypes[1] = String.class;
-			
+
 			Constructor httpHeaderConstructor = HTTPHeader.getConstructor(httpHeaderConstructorTypes);
-			
+
 			for (Header h : request.getAllHeaders()) {
 				addHeader.invoke(this.request, httpHeaderConstructor.newInstance(h.getName(), h.getValue()));
 			}
-			
+
 		} catch (Exception e) {
 			throw new IOException("Error during invocation: " + e.getMessage(), e);
 		}
@@ -343,17 +319,17 @@ class AppEngineClientConnection implements ManagedClientConnection {
 		if (request.getEntity() != null) {
 			request.getEntity().writeTo(baos);
 		}
-		
+
 		Class[] setPayloadParameterTypes = new Class[1];
 		setPayloadParameterTypes[0] = byte[].class;
-		
+
 		try {
 			Method setPayload = HTTPRequest.getMethod("setPayload", setPayloadParameterTypes);
 			setPayload.invoke(this.request, baos.toByteArray());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException("error while sending GAE request", e);
 		}
-	}	
+	}
 }

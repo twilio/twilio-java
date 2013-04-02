@@ -142,12 +142,10 @@ public class TwilioRestClient {
 		try {
 			Class.forName("com.google.appengine.api.urlfetch.HTTPRequest");
 			mgr = new AppEngineClientConnectionManager();
-			System.out.println("Using GAE Connection Manager");
 		} catch (ClassNotFoundException e) {
 			//Not GAE
 			mgr = new ThreadSafeClientConnManager();
 			((ThreadSafeClientConnManager) mgr).setDefaultMaxPerRoute(10);
-			System.out.println("Using default Connection Manager");
 		}
 
 		setHttpclient(new DefaultHttpClient(mgr));

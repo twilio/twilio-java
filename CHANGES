@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.3.15
+--------------
+
+Released on April 1, 2013
+
+- The twilio-java library now works with the Google App Engine Java SDK.
+
 Version 3.3.14
 --------------
 

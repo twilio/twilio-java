@@ -24,6 +24,11 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
+This file is based on work originally published here, under a
+ BSD license:
+ 
+ https://github.com/OpenRefine/OpenRefine
+
 */
 
 import java.io.ByteArrayOutputStream;

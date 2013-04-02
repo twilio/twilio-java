@@ -27,15 +27,16 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.twilio.sdk.resource.factory.AccountFactory;
 import com.twilio.sdk.resource.instance.Account;
 import com.twilio.sdk.resource.list.AccountList;
-import com.twilio.sdk.resource.factory.AccountFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -135,10 +136,19 @@ public class TwilioRestClient {
 		if ((endpoint != null) && (!endpoint.equals(""))) {
 			this.endpoint = endpoint;
 		}
+		
+		//Grab the proper connection manager, based on runtime environment
+		ClientConnectionManager mgr = null;
+		try {
+			Class.forName("com.google.appengine.api.urlfetch.HTTPRequest");
+			mgr = new AppEngineClientConnectionManager();
+		} catch (ClassNotFoundException e) {
+			//Not GAE
+			mgr = new ThreadSafeClientConnManager();
+			((ThreadSafeClientConnManager) mgr).setDefaultMaxPerRoute(10);
+		}
 
-		ThreadSafeClientConnManager connMgr = new ThreadSafeClientConnManager();
-		connMgr.setDefaultMaxPerRoute(10);
-		setHttpclient(new DefaultHttpClient(connMgr));
+		setHttpclient(new DefaultHttpClient(mgr));
 		httpclient.getParams().setParameter("http.protocol.version",
 				HttpVersion.HTTP_1_1);
 		httpclient.getParams().setParameter("http.socket.timeout",

@@ -7,7 +7,7 @@ Use the following dependency in your project:
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio-java-sdk</artifactId>
-          <version>3.3.10</version>
+          <version>3.3.15</version>
           <scope>compile</scope>
        </dependency>
 
@@ -22,8 +22,8 @@ index.html located there to view it locally.
 
 The pre-built jars are available at: 
 
-*   [twilio-java-sdk-3.3.13-with-dependencies.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.3.13/twilio-java-sdk-3.3.13-jar-with-dependencies.jar)
-*   [twilio-java-sdk-3.3.13.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.3.13/twilio-java-sdk-3.3.13.jar) -- use this if you have issues with conflicting jars in your project.  You'll need to include versions of the dependencies yourself.  See the pom.xml for the list of libraries.
+*   [twilio-java-sdk-3.3.15-with-dependencies.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.3.15/twilio-java-sdk-3.3.15-jar-with-dependencies.jar)
+*   [twilio-java-sdk-3.3.15.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.3.15/twilio-java-sdk-3.3.15.jar) -- use this if you have issues with conflicting jars in your project.  You'll need to include versions of the dependencies yourself.  See the pom.xml for the list of libraries.
 
 You can view the javadocs for this project at:
 [http://twilio.github.com/twilio-java](http://twilio.github.com/twilio-java)

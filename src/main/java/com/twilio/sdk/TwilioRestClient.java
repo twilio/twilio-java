@@ -136,7 +136,7 @@ public class TwilioRestClient {
 		if ((endpoint != null) && (!endpoint.equals(""))) {
 			this.endpoint = endpoint;
 		}
-		
+
 		//Grab the proper connection manager, based on runtime environment
 		ClientConnectionManager mgr = null;
 		try {
@@ -145,11 +145,13 @@ public class TwilioRestClient {
 			//Not GAE
 			mgr = new ThreadSafeClientConnManager();
 			((ThreadSafeClientConnManager) mgr).setDefaultMaxPerRoute(10);
+			System.out.println("Using default Connection Manager");
 		}
 		finally {
 			if (mgr == null) {
 				//This is GAE
 				mgr = new TwilioGAEConnectionManager();
+				System.out.println("Using GAE Connection Manager");
 			}
 		}
 

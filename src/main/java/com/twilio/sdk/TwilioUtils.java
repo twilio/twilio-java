@@ -28,6 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,8 +74,8 @@ public class TwilioUtils {
             }
           
             //compute the hmac on input data bytes
-            byte[] rawHmac = mac.doFinal(data.toString().getBytes());
-           
+            byte[] rawHmac = mac.doFinal(data.toString().getBytes("UTF-8"));
+     
             //base64-encode the hmac
             String signature = new String(Base64.encodeBase64(rawHmac));
             
@@ -85,7 +86,8 @@ public class TwilioUtils {
         } catch (InvalidKeyException e) {
           
             return false;
-        }
-    
-    }    
+        } catch (UnsupportedEncodingException e) {
+			return false;
+		}
+	}    
 }

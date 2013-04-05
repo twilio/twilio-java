@@ -26,7 +26,7 @@ The pre-built jars are available at:
 *   [twilio-java-sdk-3.3.15.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.3.15/twilio-java-sdk-3.3.15.jar) -- use this if you have issues with conflicting jars in your project.  You'll need to include versions of the dependencies yourself.  See the pom.xml for the list of libraries.
 
 You can view the javadocs for this project at:
-[http://twilio.github.com/twilio-java](http://twilio.github.com/twilio-java)
+[http://twilio.github.io/twilio-java](http://twilio.github.io/twilio-java)
 
 # Examples
 

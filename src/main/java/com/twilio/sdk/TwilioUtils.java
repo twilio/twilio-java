@@ -2,7 +2,7 @@ package com.twilio.sdk;
 
 
 /*
-Copyright (c) 2008 Twilio, Inc.
+Copyright (c) 2013 Twilio, Inc.
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -42,11 +42,9 @@ import org.apache.commons.codec.binary.Base64;
 public class TwilioUtils {
     
     protected String authToken;
-    protected String accountSid;
     
-    public TwilioUtils(String authToken, String accountSid){
+    public TwilioUtils(String authToken){
         this.authToken = authToken;
-        this.accountSid = accountSid;
     }
     
     public boolean validateRequest(String expectedSignature, String url, Map<String,String> params){

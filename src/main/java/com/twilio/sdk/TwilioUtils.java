@@ -52,7 +52,7 @@ public class TwilioUtils {
         SecretKeySpec signingKey = new SecretKeySpec(this.authToken.getBytes(), "HmacSHA1");
         
         try {
-            //initialize the hash algortihm
+            //initialize the hash algorithm
             Mac mac = Mac.getInstance("HmacSHA1");    
             mac.init(signingKey);
             

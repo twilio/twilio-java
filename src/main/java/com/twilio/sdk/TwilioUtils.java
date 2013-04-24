@@ -47,6 +47,11 @@ public class TwilioUtils {
         this.authToken = authToken;
     }
     
+    @Deprecated
+    public TwilioUtils(String authToken, String accountSid){
+    	this.authToken = authToken;
+    }
+    
     public boolean validateRequest(String expectedSignature, String url, Map<String,String> params){
         
         SecretKeySpec signingKey = new SecretKeySpec(this.authToken.getBytes(), "HmacSHA1");

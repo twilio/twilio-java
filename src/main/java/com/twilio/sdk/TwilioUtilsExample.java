@@ -45,6 +45,7 @@ public class TwilioUtilsExample {
         //These are the post params twilio sent in its request
         Map<String,String> params = new HashMap<String,String>();
 
+        // Be sure to see the signing notes at twilio.com/docs/security
         TwilioUtils util = new TwilioUtils(authToken, accountSid);
 
         boolean result = util.validateRequest(expected_sig, url, params);

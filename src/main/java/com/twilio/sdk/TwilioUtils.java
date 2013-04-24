@@ -39,30 +39,30 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 public class TwilioUtils {
-    
+
     protected String authToken;
     protected String accountSid;
-    
+
     public TwilioUtils(String authToken, String accountSid){
         this.authToken = authToken;
         this.accountSid = accountSid;
     }
-    
+
     public boolean validateRequest(String expectedSignature, String url, Map<String,String> params){
-        
+
         SecretKeySpec signingKey = new SecretKeySpec(this.authToken.getBytes(), "HmacSHA1");
-        
+
         try {
             //initialize the hash algortihm
-            Mac mac = Mac.getInstance("HmacSHA1");    
+            Mac mac = Mac.getInstance("HmacSHA1");
             mac.init(signingKey);
-            
+
             //sort the params alphabetically, and append the key and value of each to the url
-            StringBuffer data = new StringBuffer(url);        
+            StringBuffer data = new StringBuffer(url);
             if(params!=null){
                 List<String> sortedKeys = new ArrayList<String>( params.keySet());
                 Collections.sort(sortedKeys);
-               
+
                 for(String s: sortedKeys){
                     data.append(s);
                     String v="";
@@ -71,21 +71,21 @@ public class TwilioUtils {
                     data.append(v);
                 }
             }
-          
+
             //compute the hmac on input data bytes
             byte[] rawHmac = mac.doFinal(data.toString().getBytes());
-           
+
             //base64-encode the hmac
             String signature = new String(Base64.encodeBase64(rawHmac));
-            
+
             return signature.equals(expectedSignature);
         } catch (NoSuchAlgorithmException e) {
-        
+
             return false;
         } catch (InvalidKeyException e) {
-          
+
             return false;
         }
-    
-    }    
+
+    }
 }

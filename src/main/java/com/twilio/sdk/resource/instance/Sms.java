@@ -11,11 +11,11 @@ import com.twilio.sdk.resource.InstanceResource;
 // TODO: Auto-generated Javadoc
 /**
  * The Class Sms.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
  */
 public class Sms extends InstanceResource {
-	
+
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
 
@@ -36,7 +36,7 @@ public class Sms extends InstanceResource {
 	 */
 	public Sms(TwilioRestClient client, String sid) {
 		super(client);
-        if (sid == null) { 
+        if (sid == null) {
             throw new IllegalStateException("The Sid for an Sms can not be null");
         }
 		this.setProperty(SID_PROPERTY, sid);
@@ -62,11 +62,11 @@ public class Sms extends InstanceResource {
 	}
 	/**
 	 * return a date from the property string
-	 * 
+	 *
 	 * @return the date value of the input string
 	 */
 	protected Date parseDate(String inDate) {
-		if(inDate==null) {
+		if (inDate==null) {
 			return null;
 		}
 		SimpleDateFormat format = new SimpleDateFormat(
@@ -88,7 +88,7 @@ public class Sms extends InstanceResource {
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
 	}
-	
+
 	/**
 	 * Gets the date created.
 	 *
@@ -106,7 +106,7 @@ public class Sms extends InstanceResource {
 	public Date getDateUpdated() {
 		return parseDate(this.getProperty("date_updated"));
 	}
-	
+
 	/**
 	 * Gets the date sent.
 	 *
@@ -142,7 +142,7 @@ public class Sms extends InstanceResource {
 	public String getFrom() {
 		return this.getProperty("from");
 	}
-	
+
 	/**
 	 * Gets the body.
 	 *
@@ -151,7 +151,7 @@ public class Sms extends InstanceResource {
 	public String getBody() {
 		return this.getProperty("body");
 	}
-	
+
 	/**
 	 * Gets the status.
 	 *
@@ -178,7 +178,7 @@ public class Sms extends InstanceResource {
 	public String getDirection() {
 		return this.getProperty("direction");
 	}
-	
+
 	/**
 	 * Gets the api version.
 	 *
@@ -187,5 +187,5 @@ public class Sms extends InstanceResource {
 	public String getApiVersion() {
 		return this.getProperty("api_version");
 	}
-	
+
 }

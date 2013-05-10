@@ -60,7 +60,23 @@ public class Sms extends InstanceResource {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
 				+ this.getRequestAccountSid() + "/SMS/Messages/" + this.getSid() + ".json";
 	}
-
+	/**
+	 * return a date from the property string
+	 * 
+	 * @return the date value of the input string
+	 */
+	protected Date parseDate(String inDate) {
+		if(inDate==null) {
+			return null;
+		}
+		SimpleDateFormat format = new SimpleDateFormat(
+				"EEE, dd MMM yyyy HH:mm:ss Z");
+		try {
+			return format.parse(inDate);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
 	/*
 	 * Property getters
 	 */
@@ -79,13 +95,7 @@ public class Sms extends InstanceResource {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("date_created"));
-		} catch (ParseException e) {
-			return null;
-		}
+		return parseDate(this.getProperty("date_created"));
 	}
 
 	/**
@@ -94,13 +104,7 @@ public class Sms extends InstanceResource {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("date_updated"));
-		} catch (ParseException e) {
-			return null;
-		}
+		return parseDate(this.getProperty("date_updated"));
 	}
 	
 	/**
@@ -109,13 +113,7 @@ public class Sms extends InstanceResource {
 	 * @return the date sent
 	 */
 	public Date getDateSent() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("date_sent"));
-		} catch (ParseException e) {
-			return null;
-		}
+		return parseDate(this.getProperty("date_sent"));
 	}
 
 	/**
@@ -189,5 +187,5 @@ public class Sms extends InstanceResource {
 	public String getApiVersion() {
 		return this.getProperty("api_version");
 	}
-
+	
 }

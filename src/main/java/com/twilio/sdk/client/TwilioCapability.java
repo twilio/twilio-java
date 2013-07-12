@@ -14,9 +14,10 @@ import java.util.Map;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
-import org.json.simple.JSONValue;
+import org.json.JSONObject;
+
+import android.text.TextUtils;
+import android.util.Base64;
 
 /**
  * This class represents a token that will grant someone access to resources
@@ -154,7 +155,7 @@ public class TwilioCapability {
 
 			keyValues.add(key + "=" + value);
 		}
-		String paramsJoined = StringUtils.join(keyValues, '&');
+		String paramsJoined = TextUtils.join("&", keyValues);
 		return paramsJoined;
 	}
 
@@ -222,10 +223,10 @@ public class TwilioCapability {
 		buildOutgoingScope();
 
 		try {
-			Map<String, Object> payload = new LinkedHashMap<String, Object>();
+			Map<String, String> payload = new LinkedHashMap<String, String>();
 			payload.put("iss", this.accountSid);
 			payload.put("exp", String.valueOf(((new Date()).getTime() / 1000) + ttl));
-			payload.put("scope", StringUtils.join(this.scopes, ' '));
+			payload.put("scope", TextUtils.join(" ", this.scopes));
 
 			return jwtEncode(payload, this.authToken);
 		} catch (Exception e) {
@@ -284,11 +285,11 @@ public class TwilioCapability {
 		}
 	}
 
-	private static String jwtEncode(Map<String, Object> payload, String key)
+	private static String jwtEncode(Map<String, String> payload, String key)
 			throws InvalidKeyException, NoSuchAlgorithmException,
 			UnsupportedEncodingException {
 
-		Map<String, Object> header = new LinkedHashMap<String, Object>();
+		Map<String, String> header = new LinkedHashMap<String, String>();
 		header.put("typ", "JWT");
 		header.put("alg", "HS256");
 
@@ -296,15 +297,15 @@ public class TwilioCapability {
 		segments.add(encodeBase64(jsonEncode(header)));
 		segments.add(encodeBase64(jsonEncode(payload)));
 
-		String signingInput = StringUtils.join(segments, ".");
+		String signingInput = TextUtils.join(".", segments);
 		String signature = sign(signingInput, key);
 		segments.add(signature);
 
-		return StringUtils.join(segments, ".");
+		return TextUtils.join(".", segments);
 	}
 
-	private static String jsonEncode(Object object) {
-		String json = JSONValue.toJSONString(object);
+	private static String jsonEncode(Map<String, String> obj) {
+		String json = new JSONObject(obj).toString();
 		return json.replace("\\/", "/");
 	}
 
@@ -315,9 +316,8 @@ public class TwilioCapability {
 
 	private static String encodeBase64(byte[] data)
 			throws UnsupportedEncodingException {
-		String encodedString = new String(Base64.encodeBase64(data));
-		String safeString = encodedString.replace('+', '-').replace('/', '_')
-				.replace("=", "");
+		String encodedString = new String(Base64.encodeToString(data, Base64.URL_SAFE));
+		String safeString = encodedString.replace("=", "");
 		return safeString;
 	}
 

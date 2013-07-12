@@ -2,11 +2,11 @@ package com.twilio.sdk.parser;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.twilio.sdk.TwilioRestResponse;
 
@@ -29,15 +29,15 @@ public class JsonResponseParser implements ResponseParser {
 	protected Map<String, Object> parseJson(String jsonString) {
 		Map<String, Object> ret = new HashMap<String, Object>();
 
+		JSONObject json;
 		try {
-			ret = new ObjectMapper().readValue(jsonString, HashMap.class);
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+			json = new JSONObject(jsonString);
+			Iterator<String> iter = json.keys();
+			while (iter.hasNext()) {
+				String name = iter.next();
+				ret.put(name, json.get(name));
+			}
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

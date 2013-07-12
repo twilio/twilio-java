@@ -36,7 +36,7 @@ import java.util.Map;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
+import android.util.Base64;
 
 public class TwilioUtils {
     
@@ -76,7 +76,7 @@ public class TwilioUtils {
             byte[] rawHmac = mac.doFinal(data.toString().getBytes());
            
             //base64-encode the hmac
-            String signature = new String(Base64.encodeBase64(rawHmac));
+            String signature = Base64.encodeToString(rawHmac, Base64.DEFAULT);
             
             return signature.equals(expectedSignature);
         } catch (NoSuchAlgorithmException e) {

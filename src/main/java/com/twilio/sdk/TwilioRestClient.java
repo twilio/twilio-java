@@ -136,9 +136,7 @@ public class TwilioRestClient {
 			this.endpoint = endpoint;
 		}
 
-		ThreadSafeClientConnManager connMgr = new ThreadSafeClientConnManager();
-		connMgr.setDefaultMaxPerRoute(10);
-		setHttpclient(new DefaultHttpClient(connMgr));
+		setHttpclient(new DefaultHttpClient());
 		httpclient.getParams().setParameter("http.protocol.version",
 				HttpVersion.HTTP_1_1);
 		httpclient.getParams().setParameter("http.socket.timeout",

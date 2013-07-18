@@ -50,45 +50,54 @@ public class TwilioUtils {
     }
 
     public boolean validateRequest(String expectedSignature, String url, Map<String,String> params) {
-
-        SecretKeySpec signingKey = new SecretKeySpec(this.authToken.getBytes(), "HmacSHA1");
-
-        try {
-            //initialize the hash algortihm
-            Mac mac = Mac.getInstance("HmacSHA1");
-            mac.init(signingKey);
-
-            //sort the params alphabetically, and append the key and value of each to the url
-            StringBuffer data = new StringBuffer(url);
-            if (params != null) {
-                List<String> sortedKeys = new ArrayList<String>( params.keySet());
-                Collections.sort(sortedKeys);
-
-                for (String s: sortedKeys) {
-                    data.append(s);
-                    String v = "";
-                    if (params.get(s) != null) {
-                        v = params.get(s);
-                    }
-                    data.append(v);
-                }
-            }
-
-            //compute the hmac on input data bytes
-            byte[] rawHmac = mac.doFinal(data.toString().getBytes("UTF-8"));
-
-            //base64-encode the hmac
-            String signature = new String(Base64.encodeBase64(rawHmac));
-
-            return signature.equals(expectedSignature);
+        String signature = null;
+        
+        signature = getValidationSignature(url, params);
+        
+        if(signature == null) {
+        	return false;
+        } else {
+        	return signature.equals(expectedSignature);
+        }
+    }
+    
+    public String getValidationSignature(String url, Map<String,String> params) {
+    	SecretKeySpec signingKey = new SecretKeySpec(this.authToken.getBytes(), "HmacSHA1");
+   	
+    	try {
+	    	//initialize the hash algortihm
+	        Mac mac = Mac.getInstance("HmacSHA1");
+	        mac.init(signingKey);
+	
+	        //sort the params alphabetically, and append the key and value of each to the url
+	        StringBuffer data = new StringBuffer(url);
+	        if (params != null) {
+	            List<String> sortedKeys = new ArrayList<String>( params.keySet());
+	            Collections.sort(sortedKeys);
+	
+	            for (String s: sortedKeys) {
+	                data.append(s);
+	                String v = "";
+	                if (params.get(s) != null) {
+	                    v = params.get(s);
+	                }
+	                data.append(v);
+	            }
+	        }
+	
+	        //compute the hmac on input data bytes
+	        byte[] rawHmac = mac.doFinal(data.toString().getBytes("UTF-8"));
+	
+	        //base64-encode the hmac
+	        String signature = new String(Base64.encodeBase64(rawHmac));
+	
+	        return signature; 
         } catch (NoSuchAlgorithmException e) {
-
-            return false;
+            return null;
         } catch (InvalidKeyException e) {
-
-            return false;
+            return null;
         } catch (UnsupportedEncodingException e) {
-            return false;
+            return null;
         }
     }
 }

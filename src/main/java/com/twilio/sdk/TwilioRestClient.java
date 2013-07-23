@@ -97,7 +97,7 @@ public class TwilioRestClient {
 	}
 
 	/**
-	 * Explcitly construct a TwilioRestClient with the given API credentials.
+	 * Explicitly construct a TwilioRestClient with the given API credentials.
 	 *
 	 * @param accountSid
 	 *            the 34 character Account identifier (starting with 'AC'). This
@@ -112,7 +112,7 @@ public class TwilioRestClient {
 	}
 
 	/**
-	 * Explcitly construct a TwilioRestClient with the given API credentials and
+	 * Explicitly construct a TwilioRestClient with the given API credentials and
 	 * endpoint.
 	 *
 	 * @param accountSid
@@ -501,6 +501,7 @@ public class TwilioRestClient {
 		request.addHeader(new BasicHeader("User-Agent", "twilio-java/"
 				+ VERSION));
 		request.addHeader(new BasicHeader("Accept", "application/json"));
+                request.addHeader(new BasicHeader("Accept-Charset", "utf-8"));
 
 		if (httpclient instanceof DefaultHttpClient) { // as DefaultHttpClient class has final method, I need httpClient to be a plain interface to be able to mock it
             ((DefaultHttpClient) httpclient).getCredentialsProvider()

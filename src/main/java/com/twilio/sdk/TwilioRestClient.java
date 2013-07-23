@@ -501,7 +501,7 @@ public class TwilioRestClient {
 		request.addHeader(new BasicHeader("User-Agent", "twilio-java/"
 				+ VERSION));
 		request.addHeader(new BasicHeader("Accept", "application/json"));
-                request.addHeader(new BasicHeader("Accept-Charset", "utf-8"));
+		request.addHeader(new BasicHeader("Accept-Charset", "utf-8"));
 
 		if (httpclient instanceof DefaultHttpClient) { // as DefaultHttpClient class has final method, I need httpClient to be a plain interface to be able to mock it
             ((DefaultHttpClient) httpclient).getCredentialsProvider()

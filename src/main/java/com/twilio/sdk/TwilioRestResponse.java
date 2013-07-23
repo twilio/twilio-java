@@ -202,7 +202,7 @@ public class TwilioRestResponse {
 	 * @return true if this looks like a JSON response
 	 */
 	public boolean isJson() {
-		return (this.contentType.equalsIgnoreCase("application/json"));
+		return (this.contentType.toLowerCase().contains("application/json"));
 	}
 
 	/**
@@ -211,8 +211,9 @@ public class TwilioRestResponse {
 	 * @return true if this looks like an XML response
 	 */
 	public boolean isXml() {
-		return (this.contentType.equalsIgnoreCase("text/xml") || this.contentType
-				.equalsIgnoreCase("application/xml"));
+		String lowercaseContentType = this.contentType.toLowerCase();
+		return (lowercaseContentType.contains("text/xml") ||
+			lowercaseContentType.contains("application/xml"));
 	}
 
 	/**

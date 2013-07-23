@@ -88,7 +88,7 @@ public class TwilioRestClientTest {
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		
 		// Auth required
-		TwilioRestResponse response = client.get("http://api.twilio.com");	
+		TwilioRestResponse response = client.get("https://api.twilio.com");	
 		assertEquals(200, response.getHttpStatus());
 	}
 

@@ -95,6 +95,10 @@ public class TwilioRestClient {
 	public void setHttpclient(HttpClient httpclient) {
 		this.httpclient = httpclient;
 	}
+	
+	public HttpClient getHttpClient() {
+		return httpclient;
+	}
 
 	/**
 	 * Explicitly construct a TwilioRestClient with the given API credentials.

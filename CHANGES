@@ -6,6 +6,15 @@ Here you can see the full list of changes between each twilio-java release.
 Version 3.3.15
 --------------
 
+Released n/a
+
+- Content-type detection is now friendlier to charset declarations in header.
+- GET Requests now use secure HTTPS endpoint.
+- TwilioUtil for validation using accountSid deprecated because accountSid is not needed.
+
+Version 3.3.15
+--------------
+
 Released on April 1, 2013
 
 - The twilio-java library now works with the Google App Engine Java SDK.

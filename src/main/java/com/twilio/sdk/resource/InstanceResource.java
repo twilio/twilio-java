@@ -75,7 +75,13 @@ public abstract class InstanceResource extends Resource {
 				+ " is an object.  Use getObject() instead.");
 	}
 
-	protected Object getObject(String name) {
+  /**
+   * Gets the property as an Object.
+   *
+   * @param name the name of the property
+   * @return the property as an Object
+   */
+	public Object getObject(String name) {
 	    	Object prop = getAndLoadIfNecessary(name);
 
 		if (prop == null) {

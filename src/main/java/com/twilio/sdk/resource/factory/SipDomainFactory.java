@@ -15,7 +15,7 @@ import com.twilio.sdk.resource.instance.SipDomain;
 public interface SipDomainFactory {
 
 	/**
-	 * Creates the.
+	 * Creates the sip domain.
 	 *
 	 * @param params the params
 	 * @return the sip domain

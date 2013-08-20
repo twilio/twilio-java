@@ -22,7 +22,7 @@ public class SipDomainList extends ListResource<SipDomain> implements SipDomainF
 	 *
 	 * @param client the client
 	 */
-	public SipDomain(TwilioRestClient client) {
+	public SipDomainList(TwilioRestClient client) {
 		super(client);
 	}
 
@@ -32,7 +32,7 @@ public class SipDomainList extends ListResource<SipDomain> implements SipDomainF
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public SipDomain(TwilioRestClient client, Map<String, String> filters) {
+	public SipDomainList(TwilioRestClient client, Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -60,6 +60,7 @@ public class SipDomainList extends ListResource<SipDomain> implements SipDomainF
 	protected String getListKey() {
 		return "sip_domains";
 	}
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.SipDomainFactory#create(java.util.Map)
 	 */

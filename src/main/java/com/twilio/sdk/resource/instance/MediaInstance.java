@@ -9,15 +9,31 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
 
 
+/**
+ * The Class MediaInstance.
+ *
+ *  For more information see <a href="http://www.twilio.com/docs/api/rest/media">http://www.twilio.com/docs/api/rest/media</a>
+ */
 public class MediaInstance extends InstanceResource {
 
 	private static final String SID_PROPERTY = "sid";
 	private static String requestMessageSid;
 
+    /**
+     * Instantiates a new media instance.
+     *
+     * @param client the client
+     */
 	public MediaInstance(TwilioRestClient client) {
 		super(client);
 	}
 
+    /**
+     * Instantiates a new media instance.
+     *
+     * @param client the client
+     * @param mediaSid the sid
+     */
 	public MediaInstance(TwilioRestClient client, String mediaSid) {
 		super(client);
 		if (mediaSid == null) {
@@ -26,6 +42,13 @@ public class MediaInstance extends InstanceResource {
 		this.setProperty(SID_PROPERTY, mediaSid);
 	}
 
+    /**
+     * Instantiates a new media instance.
+     *
+     * @param client the client
+     * @param messageSid the sid of the parent message
+     * @param mediaSid the sid
+     */
 	public MediaInstance(TwilioRestClient client, String messageSid, String mediaSid) {
 		super(client);
 		this.requestMessageSid = messageSid;
@@ -35,10 +58,19 @@ public class MediaInstance extends InstanceResource {
 		this.setProperty(SID_PROPERTY, mediaSid);
 	}
 
+    /**
+     * Instantiates a new media instance.
+     *
+     * @param client the client
+     * @param properties the properties
+     */
 	public MediaInstance(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
+	 */
 	protected String getResourceLocation() {
 		if this.getRequestMessageSid() != null {
 			return "/" + TwilioRestClient.DEFAULT_VERSION
@@ -69,10 +101,20 @@ public class MediaInstance extends InstanceResource {
 		}
 	}
 
+	/**
+	 * Gets the sid.
+	 *
+	 * @return the sid
+	 */
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
 	}
 
+    /**
+     * Gets the sid of the requesting message
+     *
+     * @return the sid of the requesting message
+     */
 	public String getRequestMessageSid() {
 		return this.requestMessageSid;
 	}

@@ -30,12 +30,12 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 
 /**
- * The Class Sms.
+ * The Class Message.
  */
 public class Message extends Verb {
 
     /**
-     * Instantiates a new sms.
+     * Instantiates a new message.
      *
      * @param message the message
      */

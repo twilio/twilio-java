@@ -9,14 +9,43 @@ import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.MediaFactory;
 import com.twilio.sdk.resource.instance.MediaInstance;
 
+/**
+ * The Class MediaList.
+ *
+ *  For more information see <a href="http://www.twilio.com/docs/api/rest/media">http://www.twilio.com/docs/api/rest/media</a>
+ */
 public class MediaList extends ListResource<MediaInstance> implements MediaFactory {
 
+    private String requestMessageSid;
+
+    /**
+     * Instantiates a new media list.
+     *
+     * @param client the client
+     */
     public MediaList(TwilioRestClient client) {
         super(client);
     }
 
-    public MediaList(TwilioRestClient client, Map<String, String> filters) {
-        super(client, filters);
+    /**
+     * Instantiates a new media list.
+     *
+     * @param client the client
+     * @param messageSid the sid of the parent message requesting media
+     */
+    public MediaList(TwilioRestClient client, String messageSid) {
+        super(client);
+        this.requestMessageSid = messageSid;
+    }
+
+    /**
+     * Instantiates a new media list.
+     *
+     * @param client the client
+     * @param properties the properties
+     */
+    public MediaList(TwilioRestClient client, Map<String, String> properties) {
+        super(client, properties);
     }
 
 	/* (non-Javadoc)
@@ -24,8 +53,17 @@ public class MediaList extends ListResource<MediaInstance> implements MediaFacto
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Media.json";
+        if (this.requestMessageSid != null) {
+            return "/" + TwilioRestClient.DEFAULT_VERSION
+                + "/Accounts/" + this.getRequestAccountSid()
+                + "/Messages/" + this.getRequestMessageSid()
+                + "/Media.json";
+
+        } else {
+            return "/" + TwilioRestClient.DEFAULT_VERSION
+                + "/Accounts/" + this.getRequestAccountSid()
+                + "/Media.json";
+        }
 	}
 
 	/* (non-Javadoc)
@@ -52,5 +90,47 @@ public class MediaList extends ListResource<MediaInstance> implements MediaFacto
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());
 	}
+
+    /**
+     * Gets the message sid of this media *if* it was initially referenced
+     * as the child of a message.
+     *
+     * @return the message sid of the parent message
+     */
+    public String getRequestMessageSid() {
+        return this.requestMessageSid;
+    }
+
+    /**
+     * Gets the set of images in the media list
+     *
+     * @return the images for this media list
+     */
+    public ImageList getImages() {
+        if (this.getRequestMessageSid() != null) {
+            ImageList images = new ImageList(this.getClient(), this.getRequestMessageSid());
+        } else {
+            ImageList images = new ImageList(this.getClient());
+        }
+        images.setRequestAccountSid(this.getRequestAccountSid());
+        return images;
+    }
+
+    /**
+     * Gets an image by imageSid from this media list.
+     *
+     * @param imageSid the image sid
+     * @return the image
+     */
+    public Image getImage(String imageSid) {
+        Image image;
+        if (this.getRequestMessageSid() != null) {
+            image = new Image(this.getClient(), this.getRequestMessageSid(), imageSid);
+        } else {
+            image = new Image(this.getClient(), imageSid);
+        }
+        image.setRequestAccountSid(this.getRequestAccountSid());
+        return image;
+    }
 
 }

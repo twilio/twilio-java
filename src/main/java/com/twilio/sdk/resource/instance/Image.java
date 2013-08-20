@@ -9,14 +9,31 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
 
 
+/**
+ * The Class Image.
+ *
+ *  For more information see <a href="http://www.twilio.com/docs/api/rest/image">http://www.twilio.com/docs/api/rest/image</a>
+ */
 public class Image extends InstanceResource {
 
     private static final String SID_PROPERTY = "sid";
+    private String requestMessageSid;
 
+    /**
+     * Instantiates a new image.
+     *
+     * @param client the client
+     */
     public Image(TwilioRestClient client) {
         super(client);
     }
 
+    /**
+     * Instantiates a new image.
+     *
+     * @param client the client
+     * @param sid the sid of this image
+     */
     public Image(TwilioRestClient client, String sid) {
         super(client);
         if (sid == null) {
@@ -25,13 +42,47 @@ public class Image extends InstanceResource {
         this.setProperty(SID_PROPERTY, sid);
     }
 
+    /**
+     * Instantiates a new image.
+     *
+     * @param client the client
+     * @param messageSid the sid of the parent message
+     * @param sid the sid of this image
+     */
+    public Image(TwilioRestClient client, String messageSid, String sid) {
+        super(client);
+        if (sid == null) {
+            throw new IllegalStateException("The sid for an image can not be null");
+        }
+        this.setProperty(SID_PROPERTY, sid);
+        this.requestMessageSid = messageSid;
+    }
+
+
+    /**
+     * Instantiates a new image.
+     *
+     * @param client the client
+     * @param properties the properties
+     */
     public Image(TwilioRestClient client, Map<String, Object> properties) {
         super(client, properties);
     }
 
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
+	 */
     protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Media/Images" + this.getSid() + ".json";
+        if (this.getRequestMessageSid() != null) {
+            return "/" + TwilioRestClient.DEFAULT_VERSION
+                + "/Accounts/" + this.getRequestAccountSid()
+                + "/Messages/" + this.getRequestMessageSid()
+                + "/Media/Images" + this.getSid() + ".json";
+        } else {
+            return "/" + TwilioRestClient.DEFAULT_VERSION
+                + "/Accounts/" + this.getRequestAccountSid()
+                + "/Media/Images" + this.getSid() + ".json";
+        }
     }
 
 	/**
@@ -52,8 +103,22 @@ public class Image extends InstanceResource {
 		}
 	}
 
+	/**
+	 * Gets the sid.
+	 *
+	 * @return the sid
+	 */
     public String getSid() {
         return this.getProperty(SID_PROPERTY);
+    }
+
+	/**
+	 * Gets the sid of the owning message.
+	 *
+	 * @return the sid of the parent message
+	 */
+    public String getRequestMessageSid() {
+        return this.requestMessageSid;
     }
 
 	/**

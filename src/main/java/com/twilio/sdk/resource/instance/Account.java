@@ -287,6 +287,53 @@ public class Account extends InstanceResource {
 	}
 
 	/**
+	 * Gets the message list.
+	 *
+	 * <a href="http://www.twilio.com/docs/api/rest/messages">http://www.twilio.com/docs/api/rest/messages</a>
+	 *
+	 * @return the messages
+	 */
+    public MessageList getMessages() {
+        return this.getMessages(new HashMap<String, String>());
+    }
+
+	/**
+	 * Gets the messages list with the given filters
+	 *
+	 * <a href="http://www.twilio.com/docs/api/rest/messages">http://www.twilio.com/docs/api/rest/messages</a>
+	 *
+	 * @param filters
+	 *            the filters
+	 * @return the messages
+	 */
+    public MessageList getMessages(Map<String, String> filters) {
+        MessageList messages = new MessageList(this.getClient(), filters);
+        messages.setRequestAccountSid(this.getRequestAccountSid());
+
+        return messages;
+    }
+
+	/**
+	 * Gets the message factory which lets you send messages
+	 *
+	 * <a href="http://www.twilio.com/docs/api/rest/sending-messages">http://www.twilio.com/docs/api/rest/sending-messages</a>
+	 * @return the message factory
+	 */
+	public MessageFactory getMessageFactory() {
+		return this.getMessages();
+	}
+
+	/**
+	 * Get a given message instance by sid
+	 * @param sid The 34 character sid starting with MM or SM
+	 */
+    public Message getMessage(String sid) {
+        Message message = new Message(this.getClient(), sid);
+        message.setRequestAccountSid(this.getRequestAccountSid());
+        return message;
+    }
+
+	/**
 	 * Gets the application list
 	 *
 	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>

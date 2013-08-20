@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.list.MediaList;
+import com.twilio.sdk.resource.instance.MediaInstance;
 
 public class Message extends InstanceResource {
 
@@ -84,6 +86,20 @@ public class Message extends InstanceResource {
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
 	}
+
+
+    public MediaList getMediaList() {
+        MediaList media = new MediaList(this.getClient(), this.getSid());
+        media.setRequestAccountSid(this.getRequestAccountSid());
+        return media;
+    }
+
+
+    public MediaInstance getMedia(String mediaSid) {
+        MediaInstance media = new MediaInstance(this.getClient(), this.getSid(), mediaSid);
+        media.setRequestAccountSid(this.getRequestAccountSid());
+        return media;
+    }
 
 	/**
 	 * Gets the date created.

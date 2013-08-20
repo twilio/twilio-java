@@ -2,7 +2,6 @@ package com.twilio.sdk.verbs;
 
 import java.util.ArrayList;
 
-
 // TODO: Auto-generated Javadoc
 /*
 Copyright (c) 2008 Twilio, Inc.
@@ -29,34 +28,67 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
+
 /**
- * The Class TwiMLResponse.
+ * The Class Sms.
  */
-public class TwiMLResponse extends Verb {
+public class Message extends Verb {
 
     /**
-     * Instantiates a new twiml response.
+     * Instantiates a new sms.
+     *
+     * @param message the message
      */
-    public TwiMLResponse() {
-        super(Verb.V_RESPONSE, null);
+    public Message() {
+        super(V_MESSAGE, null);
         this.allowedVerbs = new ArrayList<String>();
-        this.allowedVerbs.add(Verb.V_CLIENT);
-        this.allowedVerbs.add(Verb.V_CONFERENCE);
-        this.allowedVerbs.add(Verb.V_DIAL);
-        this.allowedVerbs.add(Verb.V_ENQUEUE);
-        this.allowedVerbs.add(Verb.V_GATHER);
-        this.allowedVerbs.add(Verb.V_HANGUP);
-        this.allowedVerbs.add(Verb.V_LEAVE);
-        this.allowedVerbs.add(Verb.V_NUMBER);
-        this.allowedVerbs.add(Verb.V_PAUSE);
-        this.allowedVerbs.add(Verb.V_PLAY);
-        this.allowedVerbs.add(Verb.V_QUEUE);
-        this.allowedVerbs.add(Verb.V_RECORD);
-        this.allowedVerbs.add(Verb.V_REDIRECT);
-        this.allowedVerbs.add(Verb.V_SAY);
-        this.allowedVerbs.add(Verb.V_SMS);
-        this.allowedVerbs.add(Verb.V_MESSAGE);
-        this.allowedVerbs.add(Verb.V_REJECT);
+        this.allowedVerbs.add(Verb.V_BODY);
+        this.allowedVerbs.add(Verb.V_MEDIA);
+    }
+
+    /**
+     * Sets the to.
+     *
+     * @param str the new to
+     */
+    public void setTo(String str){
+        this.set("to", str);
+    }
+
+    /**
+     * Sets the from.
+     *
+     * @param str the new from
+     */
+    public void setFrom(String str){
+        this.set("from", str);
+    }
+
+    /**
+     * Sets the method.
+     *
+     * @param method the new method
+     */
+    public void setMethod(String method){
+       this.set("method", method);
+    }
+
+    /**
+     * Sets the action.
+     *
+     * @param url the new action
+     */
+    public void setAction(String url){
+       this.set("action", url);
+    }
+
+    /**
+     * Sets the status callback.
+     *
+     * @param url the new status callback
+     */
+    public void setStatusCallback(String url){
+       this.set("statusCallback", url);
     }
 
 }

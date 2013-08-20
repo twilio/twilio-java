@@ -53,6 +53,9 @@ public class Verb {
     protected ArrayList<String> allowedVerbs;
 
     /** Constants */
+
+    public static final String V_BODY  = "Body";
+
     public static final String V_CLIENT = "Client";
 
     public static final String V_CONFERENCE = "Conference";
@@ -66,6 +69,10 @@ public class Verb {
     public static final String V_HANGUP = "Hangup";
 
     public static final String V_LEAVE = "Leave";
+
+    public static final String V_MEDIA = "Media";
+
+    public static final String V_MESSAGE = "Message";
 
     public static final String V_NUMBER = "Number";
 
@@ -89,6 +96,7 @@ public class Verb {
 
     /** The Constant V_SMS. */
     public static final String V_SMS = "Sms";
+
 
     public static final String V_URI = "Uri";
 

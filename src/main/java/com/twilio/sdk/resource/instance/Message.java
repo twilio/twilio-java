@@ -8,47 +8,41 @@ import java.util.Map;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Sms.
- *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
- */
-public class Sms extends InstanceResource {
+public class Message extends InstanceResource {
 
 	/** The Constant SID_PROPERTY. */
-	private static final String SID_PROPERTY = "sid";
+    private static final String SID_PROPERTY = "sid";
 
 	/**
-	 * Instantiates a new sms.
+	 * Instantiates a new message.
 	 *
 	 * @param client the client
 	 */
-	public Sms(TwilioRestClient client) {
+	public Message(TwilioRestClient client) {
 		super(client);
 	}
 
 	/**
-	 * Instantiates a new sms.
+	 * Instantiates a new message.
 	 *
 	 * @param client the client
 	 * @param sid the sid
 	 */
-	public Sms(TwilioRestClient client, String sid) {
+	public Message(TwilioRestClient client, String sid) {
 		super(client);
         if (sid == null) {
-            throw new IllegalStateException("The Sid for an Sms can not be null");
+            throw new IllegalStateException("The Sid for a Message can not be null");
         }
 		this.setProperty(SID_PROPERTY, sid);
 	}
 
 	/**
-	 * Instantiates a new sms.
+	 * Instantiates a new message.
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public Sms(TwilioRestClient client, Map<String, Object> properties) {
+	public Message(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -58,7 +52,7 @@ public class Sms extends InstanceResource {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/SMS/Messages/" + this.getSid() + ".json";
+				+ this.getRequestAccountSid() + "/Messages/" + this.getSid() + ".json";
 	}
 
 	/**
@@ -170,6 +164,24 @@ public class Sms extends InstanceResource {
 	 */
 	public String getPrice() {
 		return this.getProperty("price");
+	}
+
+	/**
+	 * Gets the number of segments used to deliver this message.
+	 *
+	 * @return the number of segments
+	 */
+	public int getNumSegments() {
+		return Integer.parseInt(this.getProperty("num_segments"));
+	}
+
+	/**
+	 * Gets the number of media associated with the message.
+	 *
+	 * @return the number of segments
+	 */
+	public int getNumMedia() {
+		return Integer.parseInt(this.getProperty("num_media"));
 	}
 
 	/**

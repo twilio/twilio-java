@@ -9,7 +9,7 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.factory.CallFactory;
-import com.twilio.sdk.resource.factory.SmsFactory;
+import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Account;
 import com.twilio.sdk.resource.instance.AvailablePhoneNumber;
 import com.twilio.sdk.resource.instance.Call;
@@ -33,7 +33,7 @@ public class RestExamples {
 
 	/**
 	 * The main method.
-	 * 
+	 *
 	 * @param args
 	 *            the arguments
 	 * @throws TwilioRestException
@@ -76,15 +76,15 @@ public class RestExamples {
 		callParams.put("Url", "http://demo.twilio.com/welcome/voice/");
 		Call call = callFactory.create(callParams);
 		System.out.println(call.getSid());
-		
-		// Send an sms
-		SmsFactory smsFactory = mainAccount.getSmsFactory();
-		Map<String, String> smsParams = new HashMap<String, String>();
-		smsParams.put("To", "5105551212"); // Replace with a valid phone number
-		smsParams.put("From", "(510) 555-1212"); // Replace with a valid phone
+
+		// Send an sms (using the new messages endpoint)
+		MessageFactory messageFactory = mainAccount.getMessageFactory();
+		Map<String, String> messageParams = new HashMap<String, String>();
+		messageParams.put("To", "5105551212"); // Replace with a valid phone number
+		messageParams.put("From", "(510) 555-1212"); // Replace with a valid phone
 													// number in your account
-		smsParams.put("Body", "This is a test message!");
-		smsFactory.create(smsParams);
+		messageParams.put("Body", "This is a test message!");
+		messageFactory.create(messageParams);
 
 		// Search for available phone numbers & then buy a random phone number
 		AvailablePhoneNumberList phoneNumbers = mainAccount

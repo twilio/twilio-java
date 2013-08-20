@@ -221,18 +221,6 @@ public class SipDomain extends InstanceResource {
     }
 
     /**
-     * Updates this SipDomain.
-     *
-     * @return true, if successful
-     */
-    public boolean update() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "POST", this.properties);
-
-        return !response.isError();
-    }
-
-    /**
      * Delete this {@link SipDomain}.
      * @throws TwilioRestException
      *             if there is an error in the request

@@ -135,18 +135,6 @@ public class Credential extends InstanceResource {
     }
 
     /**
-     * Updates this Credential.
-     *
-     * @return true, if successful
-     */
-    public boolean update() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "POST", this.properties);
-
-        return !response.isError();
-    }
-
-    /**
      * Delete this {@link Credential}.
      * @throws TwilioRestException
      *             if there is an error in the request

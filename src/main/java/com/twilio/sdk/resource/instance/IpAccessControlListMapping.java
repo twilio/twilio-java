@@ -58,7 +58,7 @@ public class IpAccessControlListMapping extends InstanceResource {
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION
             + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/Domains/" + this.getRequestDomainSid()
+            + "/SIP/Domains/" + this.getRequestSipDomainSid()
             + "/IpAccessControlListMappings/" + this.getSid() + ".json";
 	}
 
@@ -73,6 +73,15 @@ public class IpAccessControlListMapping extends InstanceResource {
 	 */
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
+	}
+
+	/**
+	 * Gets the sid of the sip domain owning this mapping.
+	 *
+	 * @return the sid
+	 */
+	public String getRequestSipDomainSid() {
+		return this.requestSipDomainSid;
 	}
 
 	/**
@@ -123,18 +132,6 @@ public class IpAccessControlListMapping extends InstanceResource {
 		return this.getProperty("friendly_name");
 	}
 
-
-    /**
-     * Updates this IpAccessControlList.
-     *
-     * @return true, if successful
-     */
-    public boolean update() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "POST", this.properties);
-
-        return !response.isError();
-    }
 
     /**
      * Delete this {@link IpAccessControlList}.

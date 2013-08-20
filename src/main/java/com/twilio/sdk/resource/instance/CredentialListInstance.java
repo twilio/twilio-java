@@ -10,8 +10,8 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.instance.IpAccessControlListMapping;
-import com.twilio.sdk.resource.list.IpAccessControlListMappingList;
+import com.twilio.sdk.resource.instance.Credential;
+import com.twilio.sdk.resource.list.CredentialList;
 
 
 public class CredentialListInstance extends InstanceResource {
@@ -154,19 +154,6 @@ public class CredentialListInstance extends InstanceResource {
         Credential credential = new Credential(this.getClient(), this.getSid(), credentialSid);
         credential.setRequestAccountSid(this.getAccountSid());
         return credential;
-    }
-
-
-    /**
-     * Updates this CredentialListInstance.
-     *
-     * @return true, if successful
-     */
-    public boolean update() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "POST", this.properties);
-
-        return !response.isError();
     }
 
     /**

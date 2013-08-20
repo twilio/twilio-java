@@ -44,7 +44,7 @@ public class IpAccessControlListList extends ListResource<IpAccessControlList> i
 	 */
 	@Override
 	protected IpAccessControlList makeNew(TwilioRestClient client, Map<String, Object> params) {
-		return new IpAccessControList(client, params);
+		return new IpAccessControlList(client, params);
 	}
 
 	/* (non-Javadoc)

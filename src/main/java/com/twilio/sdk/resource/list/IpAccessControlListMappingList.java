@@ -11,7 +11,7 @@ import com.twilio.sdk.resource.instance.IpAccessControlListMapping;
 
 public class IpAccessControlListMappingList extends ListResource<IpAccessControlListMapping> implements IpAccessControlListMappingFactory {
 
-    private String requestDomainSid;
+    private String requestSipDomainSid;
 
 	/**
 	 * Instantiates a new list of ip access control list mappings
@@ -30,7 +30,7 @@ public class IpAccessControlListMappingList extends ListResource<IpAccessControl
 	 * @param filters the filters
 	 */
 	public IpAccessControlListMappingList(TwilioRestClient client, String sipDomainSid) {
-		super(client, filters);
+		super(client);
         this.requestSipDomainSid = sipDomainSid;
 	}
 
@@ -51,7 +51,7 @@ public class IpAccessControlListMappingList extends ListResource<IpAccessControl
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION
             + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/Domains/" + this.getRequestDomainSid()
+            + "/SIP/Domains/" + this.getRequestSipDomainSid()
             + "/IpAccessControlListMappings.json";
 	}
 
@@ -60,7 +60,7 @@ public class IpAccessControlListMappingList extends ListResource<IpAccessControl
 	 */
 	@Override
 	protected IpAccessControlListMapping makeNew(TwilioRestClient client, Map<String, Object> params) {
-		return new IpAccessControListMapping(client, params);
+		return new IpAccessControlListMapping(client, params);
 	}
 
 	/* (non-Javadoc)
@@ -80,8 +80,8 @@ public class IpAccessControlListMappingList extends ListResource<IpAccessControl
 		return makeNew(this.getClient(), response.toMap());
 	}
 
-    public String getRequestDomainSid() {
-        return this.requestDomainSid;
+    public String getRequestSipDomainSid() {
+        return this.requestSipDomainSid;
     }
 
 }

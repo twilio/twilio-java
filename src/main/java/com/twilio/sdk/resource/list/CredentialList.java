@@ -6,7 +6,7 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
-import com.twilio.sdk.resource.factory.CredentialFactory
+import com.twilio.sdk.resource.factory.CredentialFactory;
 import com.twilio.sdk.resource.instance.Credential;
 
 // TODO: Auto-generated Javadoc

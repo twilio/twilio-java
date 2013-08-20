@@ -3,16 +3,16 @@ package com.twilio.sdk.resource.factory;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.resource.instance.CredentiaList;
+import com.twilio.sdk.resource.instance.CredentialListInstance;
 
 // TODO: Auto-generated Javadoc
 /**
- * A factory for creating CredentialList objects.
+ * A factory for creating CredentialListInstance objects.
  *
  * For more information see <a href=" http://www.twilio.com/docs/api/rest/credential-list"> http://www.twilio.com/docs/api/rest/credential-list</a>
  *
  */
-public interface CrednetialListFactory {
+public interface CredentialListFactory {
 
 	/**
 	 * Creates the credential list.
@@ -21,5 +21,5 @@ public interface CrednetialListFactory {
 	 * @return the credential list
 	 * @throws TwilioRestException
 	 */
-	public CredentialList create(Map<String, String> params) throws TwilioRestException;
+	public CredentialListInstance create(Map<String, String> params) throws TwilioRestException;
 }

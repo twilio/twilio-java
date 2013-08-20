@@ -10,8 +10,8 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.Address;
-import com.twilio.sdk.list.AddressList;
+import com.twilio.sdk.resource.instance.Address;
+import com.twilio.sdk.resource.list.AddressList;
 
 public class IpAccessControlList extends InstanceResource {
 
@@ -139,21 +139,9 @@ public class IpAccessControlList extends InstanceResource {
      * @return an AddressList of the addresses on this list
      */
     public Address getAddress(String addressSid) {
-        Address address = new AddressList(this.getClient(), this.getSid(), addressSid);
+        Address address = new Address(this.getClient(), this.getSid(), addressSid);
         address.setRequestAccountSid(this.getAccountSid());
         return address;
-    }
-
-    /**
-     * Updates this IpAccessControlList.
-     *
-     * @return true, if successful
-     */
-    public boolean update() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "POST", this.properties);
-
-        return !response.isError();
     }
 
     /**

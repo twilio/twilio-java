@@ -7,7 +7,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.AddressFactory;
-import com.twilio.sdk.resource.instance.AddressList;
+import com.twilio.sdk.resource.instance.Address;
 
 public class AddressList extends ListResource<Address> implements AddressFactory {
 
@@ -29,8 +29,8 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 	 * @param filters the filters
 	 */
 	public AddressList(TwilioRestClient client, String ipAccessControlListSid) {
-		super(client, filters);
-        if (ipAccessControlList == null) {
+		super(client);
+        if (ipAccessControlListSid == null) {
             throw new IllegalStateException("The Sid for an ip access control list can not be null");
         }
         this.ipAccessControlListSid = ipAccessControlListSid;
@@ -78,7 +78,6 @@ public class AddressList extends ListResource<Address> implements AddressFactory
      *
      * @return the sid
 	 */
-	@Override
 	protected String getIpAccessControlListSid() {
 		return this.ipAccessControlListSid;
 	}

@@ -14,41 +14,41 @@ import com.twilio.sdk.resource.instance.IpAccessControlListMapping;
 import com.twilio.sdk.resource.list.IpAccessControlListMappingList;
 
 
-public class SipDomain extends InstanceResource {
+public class CredentialListInstance extends InstanceResource {
 
     /** The Constant SID_PROPERTY. */
     private static final String SID_PROPERTY = "sid";
 
     /**
-     * Instantiates a new SipDomain.
+     * Instantiates a new CredentialListInstance.
      *
      * @param client the client
      */
-     public SipDomain(TwilioRestClient client) {
+     public CredentialListInstance(TwilioRestClient client) {
          super(client);
      }
 
      /**
-      * Instantiates a new SipDomain.
+      * Instantiates a new CredentialList.
       *
       * @param client the client
       * @param sid the sid
       */
-     public SipDomain(TwilioRestClient client, String sid) {
+     public CredentialListInstance(TwilioRestClient client, String sid) {
          super(client);
          if (sid == null) {
-             throw new IllegalStateException("The Sid for a SipDomain can not be null");
+             throw new IllegalStateException("The Sid for a CredentialListInstance can not be null");
          }
          this.setProperty(SID_PROPERTY, sid);
      }
 
 	/**
-	 * Instantiates a new SipDomain.
+	 * Instantiates a new CredentialListInstance.
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public SipDomain(TwilioRestClient client, Map<String, Object> properties) {
+	public CredentialListInstance(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -59,7 +59,7 @@ public class SipDomain extends InstanceResource {
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION
             + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/Domains/" + this.getSid()
+            + "/SIP/CredentialLists/" + this.getSid()
             + ".json";
 	}
 
@@ -115,22 +115,14 @@ public class SipDomain extends InstanceResource {
 		return this.getProperty("account_sid");
 	}
 
-	/**
-	 * Gets the auth type
-	 *
-	 * @return the auth type
-	 */
-	public String getAuthType() {
-		return this.getProperty("auth_type");
-	}
 
 	/**
-	 * Gets the domain name
+	 * Gets the realm
 	 *
-	 * @return the domain name
+	 * @return the realm
 	 */
-	public String getDomainName() {
-		return this.getProperty("domain_name");
+	public String getRealm() {
+		return this.getProperty("realm");
 	}
 
 	/**
@@ -142,86 +134,31 @@ public class SipDomain extends InstanceResource {
 		return this.getProperty("friendly_name");
 	}
 
-	/**
-	 * Gets the voice fallback method
-	 *
-	 * @return the voice fallback method
-	 */
-	public String getVoiceFallbackMethod() {
-		return this.getProperty("voice_fallback_method");
-	}
-
-	/**
-	 * Gets the voice fallback url
-	 *
-	 * @return the voice fallback url
-	 */
-	public String getVoiceFallbackUrl() {
-		return this.getProperty("voice_fallback_url");
-	}
-
-	/**
-	 * Gets the voice method
-	 *
-	 * @return the voice method
-	 */
-	public String getVoiceMethod() {
-		return this.getProperty("voice_method");
-	}
-
-	/**
-	 * Gets the voice status callback method
-	 *
-	 * @return the voice status callback method
-	 */
-	public String getVoiceStatusCallbackMethod() {
-		return this.getProperty("voice_status_callback_method");
-	}
-
-	/**
-	 * Gets the voice status callback url
-	 *
-	 * @return the voice status callback url
-	 */
-	public String getVoiceStatusCallbackUrl() {
-		return this.getProperty("voice_status_callback_url");
-	}
-
-	/**
-	 * Gets the voice url
-	 *
-	 * @return the voice url
-	 */
-	public String getVoiceUrl() {
-		return this.getProperty("voice_url");
-	}
-
     /**
-     * Gets the list of IpAccessControlListMappings associated with this domain.
+     * Gets the credentials from the credential list
      *
-     * @return the IpAccessControlListMappingList
+     * @return the credentials
      */
-    public IpAccessControlListMappingList getIpAccessControlListMappingList() {
-        IpAccessControlListMappingList ipAccessControlListMappingList = new IpAccessControlListMappingList(
-                this.getClient(), this.getSid());
-        ipAccessControlListMappingList.setRequestAccountSid(this.getAccountSid());
-        return ipAccessControlListMappingList;
+    public CredentialList getCredentials() {
+        CredentialList credentials = new CredentialList(this.getClient(), this.getSid());
+        credentials.setRequestAccountSid(this.getAccountSid());
+        return credentials;
     }
 
     /**
-     * Gets the list of IpAccessControlListMappings associated with this domain.
+     * Gets the credentials from the credential list
      *
-     * @return the IpAccessControlListMappingList
+     * @return the credentials
      */
-    public IpAccessControlListMapping getIpAccessControlListMapping(String ipAccessControlListMappingSid) {
-        IpAccessControlListMapping ipAccessControlListMapping = new IpAccessControlListMapping(
-                this.getClient(), this.getSid(), ipAccessControlListMappingSid);
-        ipAccessControlListMapping.setRequestAccountSid(this.getAccountSid());
-        return ipAccessControlListMapping;
+    public Credential getCredential(String credentialSid) {
+        Credential credential = new Credential(this.getClient(), this.getSid(), credentialSid);
+        credential.setRequestAccountSid(this.getAccountSid());
+        return credential;
     }
 
+
     /**
-     * Updates this SipDomain.
+     * Updates this CredentialListInstance.
      *
      * @return true, if successful
      */
@@ -233,7 +170,7 @@ public class SipDomain extends InstanceResource {
     }
 
     /**
-     * Delete this {@link SipDomain}.
+     * Delete this {@link CredentialListInstance}.
      * @throws TwilioRestException
      *             if there is an error in the request
      * @return true, if successful

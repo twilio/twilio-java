@@ -7,9 +7,9 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.CredentialListFactory;
-import com.twilio.sdk.resource.instance.CredentialList;
+import com.twilio.sdk.resource.instance.CredentialListInstance;
 
-public class CredentialListList extends ListResource<CredentialList> implements CredentialListFactory {
+public class CredentialListList extends ListResource<CredentialListInstance> implements CredentialListFactory {
 
 	/**
 	 * Instantiates a new list of ip access control lists
@@ -43,8 +43,8 @@ public class CredentialListList extends ListResource<CredentialList> implements 
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected CredentialList makeNew(TwilioRestClient client, Map<String, Object> params) {
-		return new CredentialList(client, params);
+	protected CredentialListInstance makeNew(TwilioRestClient client, Map<String, Object> params) {
+		return new CredentialListInstance(client, params);
 	}
 
 	/* (non-Javadoc)
@@ -58,7 +58,7 @@ public class CredentialListList extends ListResource<CredentialList> implements 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.CredentialListFactory#create(java.util.Map)
 	 */
-	public CredentialList create(Map<String, String> params) throws TwilioRestException {
+	public CredentialListInstance create(Map<String, String> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

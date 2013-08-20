@@ -10,45 +10,45 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.instance.IpAccessControlListMapping;
-import com.twilio.sdk.resource.list.IpAccessControlListMappingList;
 
 
-public class CredentialList extends InstanceResource {
+public class Credential extends InstanceResource {
 
     /** The Constant SID_PROPERTY. */
     private static final String SID_PROPERTY = "sid";
+    private String requestCredentialListSid;
 
     /**
-     * Instantiates a new CredentialList.
+     * Instantiates a new Credential.
      *
      * @param client the client
      */
-     public CredentialList(TwilioRestClient client) {
+     public Credential(TwilioRestClient client) {
          super(client);
      }
 
      /**
-      * Instantiates a new CredentialList.
+      * Instantiates a new Credential.
       *
       * @param client the client
       * @param sid the sid
       */
-     public CredentialList(TwilioRestClient client, String sid) {
+     public Credential(TwilioRestClient client, String credentialListSid, String sid) {
          super(client);
          if (sid == null) {
-             throw new IllegalStateException("The Sid for a CredentialList can not be null");
+             throw new IllegalStateException("The Sid for a Credential can not be null");
          }
          this.setProperty(SID_PROPERTY, sid);
+         this.requestCredentialListSid = credentialListSid;
      }
 
 	/**
-	 * Instantiates a new CredentialList.
+	 * Instantiates a new Credential.
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public CredentialList(TwilioRestClient client, Map<String, Object> properties) {
+	public Credential(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -59,7 +59,8 @@ public class CredentialList extends InstanceResource {
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION
             + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/CredentialLists/" + this.getSid()
+            + "/SIP/CredentialLists/" + this.getRequestCredentialListSid()
+            + "/Credentials/" + this.getSid()
             + ".json";
 	}
 
@@ -115,28 +116,26 @@ public class CredentialList extends InstanceResource {
 		return this.getProperty("account_sid");
 	}
 
-
 	/**
-	 * Gets the realm
+	 * Gets the username
 	 *
-	 * @return the realm
+	 * @return the account sid
 	 */
-	public String getRealm() {
-		return this.getProperty("realm");
+	public String getUsername() {
+		return this.getProperty("username");
 	}
-
-	/**
-	 * Gets the friendly name
-	 *
-	 * @return the friendly name
-	 */
-	public String getFriendlyName() {
-		return this.getProperty("friendly_name");
-	}
-
 
     /**
-     * Updates this CredentialList.
+     * Gets the sid of the parent credential list
+     *
+     * @return the credential list sid
+     */
+    public String getRequestCredentialListSid() {
+        return this.requestCredentialListSid;
+    }
+
+    /**
+     * Updates this Credential.
      *
      * @return true, if successful
      */
@@ -148,7 +147,7 @@ public class CredentialList extends InstanceResource {
     }
 
     /**
-     * Delete this {@link CredentialList}.
+     * Delete this {@link Credential}.
      * @throws TwilioRestException
      *             if there is an error in the request
      * @return true, if successful

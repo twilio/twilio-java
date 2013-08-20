@@ -10,6 +10,9 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.instance.IpAccessControlListMapping;
+import com.twilio.sdk.resource.list.IpAccessControlListMappingList;
+
 
 public class SipDomain extends InstanceResource {
 
@@ -191,6 +194,30 @@ public class SipDomain extends InstanceResource {
 	public String getVoiceUrl() {
 		return this.getProperty("voice_url");
 	}
+
+    /**
+     * Gets the list of IpAccessControlListMappings associated with this domain.
+     *
+     * @return the IpAccessControlListMappingList
+     */
+    public IpAccessControlListMappingList getIpAccessControlListMappingList() {
+        IpAccessControlListMappingList ipAccessControlListMappingList = new IpAccessControlListMappingList(
+                this.getClient(), this.getSid());
+        ipAccessControlListMappingList.setRequestAccountSid(this.getAccountSid());
+        return ipAccessControlListMappingList;
+    }
+
+    /**
+     * Gets the list of IpAccessControlListMappings associated with this domain.
+     *
+     * @return the IpAccessControlListMappingList
+     */
+    public IpAccessControlListMapping getIpAccessControlListMapping(String ipAccessControlListMappingSid) {
+        IpAccessControlListMapping ipAccessControlListMapping = new IpAccessControlListMapping(
+                this.getClient(), this.getSid(), ipAccessControlListMappingSid);
+        ipAccessControlListMapping.setRequestAccountSid(this.getAccountSid());
+        return ipAccessControlListMapping;
+    }
 
     /**
      * Updates this SipDomain.

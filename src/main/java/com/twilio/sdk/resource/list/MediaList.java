@@ -8,6 +8,8 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.MediaFactory;
 import com.twilio.sdk.resource.instance.MediaInstance;
+import com.twilio.sdk.resource.instance.Image;
+import com.twilio.sdk.resource.list.ImageList;
 
 /**
  * The Class MediaList.
@@ -107,10 +109,11 @@ public class MediaList extends ListResource<MediaInstance> implements MediaFacto
      * @return the images for this media list
      */
     public ImageList getImages() {
+        ImageList images;
         if (this.getRequestMessageSid() != null) {
-            ImageList images = new ImageList(this.getClient(), this.getRequestMessageSid());
+            images = new ImageList(this.getClient(), this.getRequestMessageSid());
         } else {
-            ImageList images = new ImageList(this.getClient());
+            images = new ImageList(this.getClient());
         }
         images.setRequestAccountSid(this.getRequestAccountSid());
         return images;

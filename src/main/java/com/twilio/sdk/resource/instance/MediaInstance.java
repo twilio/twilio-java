@@ -72,15 +72,16 @@ public class MediaInstance extends InstanceResource {
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	protected String getResourceLocation() {
-		if this.getRequestMessageSid() != null {
+		if (this.getRequestMessageSid() != null) {
 			return "/" + TwilioRestClient.DEFAULT_VERSION
 				+ "/Accounts/" + this.getRequestAccountSid()
 				+ "/Messages/" + this.getRequestMessageSid()
-				+ "/Media"/ + this.getSid() + ".json";
-		}
-		return "/" + TwilioRestClient.DEFAULT_VERSION
-			+ "/Accounts/" + this.getRequestAccountSid()
-			+ "/Media/" + this.getSid() + ".json";
+				+ "/Media/" + this.getSid() + ".json";
+		} else {
+            return "/" + TwilioRestClient.DEFAULT_VERSION
+                + "/Accounts/" + this.getRequestAccountSid()
+                + "/Media/" + this.getSid() + ".json";
+        }
 	}
 
 	/**

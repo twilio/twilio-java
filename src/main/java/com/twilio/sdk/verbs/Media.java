@@ -38,7 +38,7 @@ public class Media extends Verb {
      * @params media_url the media
      */
     public Media(String media_url) {
-        super(V_Media, media_url);
+        super(V_MEDIA, media_url);
         this.allowedVerbs = null;
     }
 

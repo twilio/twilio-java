@@ -11,28 +11,45 @@ import com.twilio.sdk.resource.InstanceResource;
 
 public class MediaInstance extends InstanceResource {
 
-    private static final String SID_PROPERTY = "sid";
+	private static final String SID_PROPERTY = "sid";
+	private static String requestMessageSid;
 
-    public MediaInstance(TwilioRestClient client) {
-        super(client);
-    }
+	public MediaInstance(TwilioRestClient client) {
+		super(client);
+	}
 
-    public MediaInstance(TwilioRestClient client, String sid) {
-        super(client);
-        if (sid == null) {
-            throw new IllegalStateException("The sid for a Media instance can not be null");
-        }
-        this.setProperty(SID_PROPERTY, sid);
-    }
+	public MediaInstance(TwilioRestClient client, String mediaSid) {
+		super(client);
+		if (mediaSid == null) {
+			throw new IllegalStateException("The sid for a Media instance can not be null");
+		}
+		this.setProperty(SID_PROPERTY, mediaSid);
+	}
 
-    public MediaInstance(TwilioRestClient client, Map<String, Object> properties) {
-        super(client, properties);
-    }
+	public MediaInstance(TwilioRestClient client, String messageSid, String mediaSid) {
+		super(client);
+		this.requestMessageSid = messageSid;
+		if (mediaSid == null) {
+			throw new IllegalStateException("The sid for a Media instance can not be null");
+		}
+		this.setProperty(SID_PROPERTY, mediaSid);
+	}
 
-    protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Media/" + this.getSid() + ".json";
-    }
+	public MediaInstance(TwilioRestClient client, Map<String, Object> properties) {
+		super(client, properties);
+	}
+
+	protected String getResourceLocation() {
+		if this.getRequestMessageSid() != null {
+			return "/" + TwilioRestClient.DEFAULT_VERSION
+				+ "/Accounts/" + this.getRequestAccountSid()
+				+ "/Messages/" + this.getRequestMessageSid()
+				+ "/Media"/ + this.getSid() + ".json";
+		}
+		return "/" + TwilioRestClient.DEFAULT_VERSION
+			+ "/Accounts/" + this.getRequestAccountSid()
+			+ "/Media/" + this.getSid() + ".json";
+	}
 
 	/**
 	 * return a date from the property string
@@ -52,9 +69,13 @@ public class MediaInstance extends InstanceResource {
 		}
 	}
 
-    public String getSid() {
-        return this.getProperty(SID_PROPERTY);
-    }
+	public String getSid() {
+		return this.getProperty(SID_PROPERTY);
+	}
+
+	public String getRequestMessageSid() {
+		return this.requestMessageSid;
+	}
 
 	/**
 	 * Gets the date created.
@@ -78,7 +99,7 @@ public class MediaInstance extends InstanceResource {
 	 * Gets the account sid.
 	 *
 	 * @return the account sid
-	 */
+   */
 	public String getAccountSid() {
 		return this.getProperty("account_sid");
 	}
@@ -87,7 +108,7 @@ public class MediaInstance extends InstanceResource {
 	 * Gets the parent sid.
 	 *
 	 * @return the account sid
-	 */
+   */
 	public String getParentSid() {
 		return this.getProperty("parent_sid");
 	}
@@ -96,7 +117,7 @@ public class MediaInstance extends InstanceResource {
 	 * Gets the content type
 	 *
 	 * @return the content type
-	 */
+   */
 	public String getContentType() {
 		return this.getProperty("content_type");
 	}
@@ -105,7 +126,7 @@ public class MediaInstance extends InstanceResource {
 	 * Gets the uri of this media
 	 *
 	 * @return the uri
-	 */
+   */
 	public String getUri() {
 		return this.getProperty("uri");
 	}

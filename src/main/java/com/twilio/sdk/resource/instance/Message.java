@@ -78,6 +78,7 @@ public class Message extends InstanceResource {
 	/*
 	 * Property getters
 	 */
+
 	/**
 	 * Gets the sid.
 	 *
@@ -88,13 +89,24 @@ public class Message extends InstanceResource {
 	}
 
 
-    public MediaList getMediaList() {
+    /**
+     * Returns the a list of media.
+     *
+     * @return the MediaList associated with this message
+     */
+    public MediaList getMedia() {
         MediaList media = new MediaList(this.getClient(), this.getSid());
         media.setRequestAccountSid(this.getRequestAccountSid());
         return media;
     }
 
 
+    /**
+     * Returns the a list of media.
+     *
+     * @param the sid of a media instance associated with this message
+     * @return the MediaList associated with this message
+     */
     public MediaInstance getMedia(String mediaSid) {
         MediaInstance media = new MediaInstance(this.getClient(), this.getSid(), mediaSid);
         media.setRequestAccountSid(this.getRequestAccountSid());

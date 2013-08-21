@@ -7,7 +7,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.MediaFactory;
-import com.twilio.sdk.resource.instance.MediaInstance;
+import com.twilio.sdk.resource.instance.Media;
 import com.twilio.sdk.resource.instance.Image;
 import com.twilio.sdk.resource.list.ImageList;
 
@@ -16,7 +16,7 @@ import com.twilio.sdk.resource.list.ImageList;
  *
  *  For more information see <a href="http://www.twilio.com/docs/api/rest/media">http://www.twilio.com/docs/api/rest/media</a>
  */
-public class MediaList extends ListResource<MediaInstance> implements MediaFactory {
+public class MediaList extends ListResource<Media> implements MediaFactory {
 
     private String requestMessageSid;
 
@@ -72,8 +72,8 @@ public class MediaList extends ListResource<MediaInstance> implements MediaFacto
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected MediaInstance makeNew(TwilioRestClient client, Map<String, Object> params) {
-		return new MediaInstance(client, params);
+	protected Media makeNew(TwilioRestClient client, Map<String, Object> params) {
+		return new Media(client, params);
 	}
 
 	/* (non-Javadoc)
@@ -87,7 +87,7 @@ public class MediaList extends ListResource<MediaInstance> implements MediaFacto
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.MediaFactory#create(java.util.Map)
 	 */
-	public MediaInstance create(Map<String, String> params) throws TwilioRestException {
+	public Media create(Map<String, String> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

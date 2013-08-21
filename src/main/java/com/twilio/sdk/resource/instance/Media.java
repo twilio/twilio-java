@@ -10,11 +10,11 @@ import com.twilio.sdk.resource.InstanceResource;
 
 
 /**
- * The Class MediaInstance.
+ * The Class Media.
  *
  *  For more information see <a href="http://www.twilio.com/docs/api/rest/media">http://www.twilio.com/docs/api/rest/media</a>
  */
-public class MediaInstance extends InstanceResource {
+public class Media extends InstanceResource {
 
 	private static final String SID_PROPERTY = "sid";
 	private static String requestMessageSid;
@@ -24,7 +24,7 @@ public class MediaInstance extends InstanceResource {
      *
      * @param client the client
      */
-	public MediaInstance(TwilioRestClient client) {
+	public Media(TwilioRestClient client) {
 		super(client);
 	}
 
@@ -34,7 +34,7 @@ public class MediaInstance extends InstanceResource {
      * @param client the client
      * @param mediaSid the sid
      */
-	public MediaInstance(TwilioRestClient client, String mediaSid) {
+	public Media(TwilioRestClient client, String mediaSid) {
 		super(client);
 		if (mediaSid == null) {
 			throw new IllegalStateException("The sid for a Media instance can not be null");
@@ -49,7 +49,7 @@ public class MediaInstance extends InstanceResource {
      * @param messageSid the sid of the parent message
      * @param mediaSid the sid
      */
-	public MediaInstance(TwilioRestClient client, String messageSid, String mediaSid) {
+	public Media(TwilioRestClient client, String messageSid, String mediaSid) {
 		super(client);
 		this.requestMessageSid = messageSid;
 		if (mediaSid == null) {
@@ -64,7 +64,7 @@ public class MediaInstance extends InstanceResource {
      * @param client the client
      * @param properties the properties
      */
-	public MediaInstance(TwilioRestClient client, Map<String, Object> properties) {
+	public Media(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 

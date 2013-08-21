@@ -3,11 +3,11 @@ package com.twilio.sdk.resource.factory;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.resource.instance.MediaInstance;
+import com.twilio.sdk.resource.instance.Media;
 
 // TODO: Auto-generated Javadoc
 /**
- * A factory for creating MediaInstance objects.
+ * A factory for creating Media objects.
  */
 public interface MediaFactory {
 
@@ -15,8 +15,8 @@ public interface MediaFactory {
 	 * Creates the.
 	 *
 	 * @param params the params
-	 * @return the MediaInstance
+	 * @return the Media
 	 * @throws TwilioRestException
 	 */
-	public MediaInstance create(Map<String, String> params) throws TwilioRestException;
+	public Media create(Map<String, String> params) throws TwilioRestException;
 }

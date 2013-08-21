@@ -333,6 +333,39 @@ public class Account extends InstanceResource {
         return message;
     }
 
+    /**
+     * Gets the media list.
+     *
+     * @return the media list
+     */
+    public MediaList getMedia() {
+        return this.getMedia(new HashMap<String, String>());
+    }
+
+    /**
+     * Gets the media list with the given filters.
+     *
+     * @return the media list
+     */
+    public MediaList getMedia(Map<String, String> filters) {
+        MediaList mediaList = new MediaList(this.getClient(), filters);
+        mediaList.setRequestAccountSid(this.getRequestAccountSid());
+
+        return mediaList;
+    }
+
+
+    /**
+     * Gets the media instance for this sid.
+     *
+     * @return the media
+     */
+    public Media getMedia(String sid) {
+        Media media = new Media(this.getClient(), sid);
+        media.setRequestAccountSid(this.getRequestAccountSid());
+        return media;
+    }
+
 	/**
 	 * Gets the application list
 	 *

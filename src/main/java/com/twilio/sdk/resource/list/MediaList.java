@@ -84,15 +84,6 @@ public class MediaList extends ListResource<Media> implements MediaFactory {
 		return "media";
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.factory.MediaFactory#create(java.util.Map)
-	 */
-	public Media create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", params);
-		return makeNew(this.getClient(), response.toMap());
-	}
-
     /**
      * Gets the message sid of this media *if* it was initially referenced
      * as the child of a message.

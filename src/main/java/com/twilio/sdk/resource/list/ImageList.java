@@ -82,15 +82,6 @@ public class ImageList extends ListResource<Image> implements ImageFactory {
 		return "images";
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.factory.ImageFactory#create(java.util.Map)
-	 */
-	public Image create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", params);
-		return makeNew(this.getClient(), response.toMap());
-	}
-
     /**
      * Gets the message sid of this image *if* it was initially referenced
      * as the child of a message.

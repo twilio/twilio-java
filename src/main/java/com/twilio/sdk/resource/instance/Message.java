@@ -8,7 +8,7 @@ import java.util.Map;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
 import com.twilio.sdk.resource.list.MediaList;
-import com.twilio.sdk.resource.instance.MediaInstance;
+import com.twilio.sdk.resource.instance.Media;
 
 public class Message extends InstanceResource {
 
@@ -107,8 +107,8 @@ public class Message extends InstanceResource {
      * @param the sid of a media instance associated with this message
      * @return the MediaList associated with this message
      */
-    public MediaInstance getMedia(String mediaSid) {
-        MediaInstance media = new MediaInstance(this.getClient(), this.getSid(), mediaSid);
+    public Media getMedia(String mediaSid) {
+        Media media = new Media(this.getClient(), this.getSid(), mediaSid);
         media.setRequestAccountSid(this.getRequestAccountSid());
         return media;
     }

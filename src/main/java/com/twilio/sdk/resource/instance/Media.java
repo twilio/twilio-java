@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.InstanceResource;
 
 
@@ -172,6 +174,19 @@ public class Media extends InstanceResource {
    */
 	public String getUri() {
 		return this.getProperty("uri");
+	}
+
+	/**
+	 * Delete this Meda
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", null);
+
+		return !response.isError();
 	}
 
 }

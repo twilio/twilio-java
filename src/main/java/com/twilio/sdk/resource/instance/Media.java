@@ -177,7 +177,7 @@ public class Media extends InstanceResource {
 	}
 
 	/**
-	 * Delete this Meda
+	 * Delete this Media
 	 *
 	 * @return true, if successful
 	 * @throws TwilioRestException the twilio rest exception

@@ -6,15 +6,17 @@ import java.util.Date;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.InstanceResource;
 
 /**
  * The Class Transcription.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>
  */
 public class Transcription extends InstanceResource {
-	
+
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
 
@@ -35,7 +37,7 @@ public class Transcription extends InstanceResource {
 	 */
 	public Transcription(TwilioRestClient client, String sid) {
 		super(client);
-	    if (sid == null) { 
+	    if (sid == null) {
             throw new IllegalStateException("The Sid for a Transcription can not be null");
         }
 		this.setProperty(SID_PROPERTY, sid);
@@ -156,4 +158,18 @@ public class Transcription extends InstanceResource {
 	public String getTranscriptionText() {
 		return this.getProperty("transcription_text");
 	}
+
+	/**
+	 * Delete this Transcription
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", null);
+
+		return !response.isError();
+	}
+
 }

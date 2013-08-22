@@ -1,7 +1,5 @@
 package com.twilio.sdk.resource.instance;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -57,23 +55,6 @@ public class Message extends InstanceResource {
 				+ this.getRequestAccountSid() + "/Messages/" + this.getSid() + ".json";
 		}
 
-	/**
-	 * return a date from the property string
-	 *
-	 * @return the date value of the input string
-   */
-	protected Date parseDate(String inDate) {
-		if (inDate==null) {
-			return null;
-		}
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(inDate);
-		} catch (ParseException e) {
-			return null;
-		}
-	}
 
 	/*
 	 * Property getters

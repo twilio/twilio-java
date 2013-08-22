@@ -2,6 +2,10 @@ package com.twilio.sdk.resource;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Date;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -12,7 +16,7 @@ import com.twilio.sdk.TwilioRestResponse;
  * The Class InstanceResource.
  */
 public abstract class InstanceResource extends Resource {
-	
+
 	/** The properties. */
 	private Map<String, Object> properties;
 
@@ -38,10 +42,10 @@ public abstract class InstanceResource extends Resource {
 		this.properties = new HashMap<String, Object>(properties);
 		this.setLoaded(true);
 	}
-	
+
         private Object getAndLoadIfNecessary(String name) {
         	Object prop = properties.get(name);
-        
+
         	if (prop == null && !this.isLoaded()) {
         	    try {
         		this.load(new HashMap<String, String>());
@@ -57,7 +61,7 @@ public abstract class InstanceResource extends Resource {
 	 * Gets the property.
 	 *
 	 * @param name the name
-	 * @return the property, 
+	 * @return the property,
 	 * or null if it doesn't exist or is NULL in the response
 	 */
 	public String getProperty(String name) {
@@ -82,22 +86,22 @@ public abstract class InstanceResource extends Resource {
 			throw new IllegalArgumentException("Property " + name
 					+ " does not exist");
 		}
-		
+
 		return prop;
 	}
-	
 
-       /**
-        * Sets the property as an Object
-        *
-        * @param name the name
-        * @param value the value
-        */
-      protected void setProperty(String name, Object value) {
-	  	properties.put(name, value);
-      }
 
-	
+	/**
+	 * Sets the property as an Object
+	 *
+	 * @param name the name
+	 * @param value the value
+   */
+	protected void setProperty(String name, Object value) {
+		properties.put(name, value);
+	}
+
+
 	/**
 	 * Update.
 	 *
@@ -107,7 +111,7 @@ public abstract class InstanceResource extends Resource {
 	public void update(Map<String, String> params) throws TwilioRestException {
 		this.getClient().safeRequest(this.getResourceLocation(), "POST", params);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#parseResponse(com.twilio.sdk.TwilioRestResponse)
 	 */
@@ -116,4 +120,23 @@ public abstract class InstanceResource extends Resource {
 		Map<String, Object> properties = response.toMap();
 		this.properties = new HashMap<String, Object>(properties);
 	}
+
+	/**
+	 * return a date from the property string
+	 *
+	 * @return the date value of the input string
+   */
+	protected Date parseDate(String inDate) {
+		if (inDate==null) {
+			return null;
+		}
+		SimpleDateFormat format = new SimpleDateFormat(
+				"EEE, dd MMM yyyy HH:mm:ss Z");
+		try {
+			return format.parse(inDate);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+
 }

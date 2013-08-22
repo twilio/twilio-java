@@ -6,7 +6,6 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
-import com.twilio.sdk.resource.factory.ImageFactory;
 import com.twilio.sdk.resource.instance.Image;
 
 /**
@@ -14,7 +13,7 @@ import com.twilio.sdk.resource.instance.Image;
  *
  *  For more information see <a href="http://www.twilio.com/docs/api/rest/image">http://www.twilio.com/docs/api/rest/image</a>
  */
-public class ImageList extends ListResource<Image> implements ImageFactory {
+public class ImageList extends ListResource<Image> {
 
     private String requestMessageSid;
 

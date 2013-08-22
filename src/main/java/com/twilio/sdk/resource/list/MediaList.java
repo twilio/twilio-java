@@ -6,7 +6,6 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
-import com.twilio.sdk.resource.factory.MediaFactory;
 import com.twilio.sdk.resource.instance.Media;
 import com.twilio.sdk.resource.instance.Image;
 import com.twilio.sdk.resource.list.ImageList;
@@ -16,7 +15,7 @@ import com.twilio.sdk.resource.list.ImageList;
  *
  *  For more information see <a href="http://www.twilio.com/docs/api/rest/media">http://www.twilio.com/docs/api/rest/media</a>
  */
-public class MediaList extends ListResource<Media> implements MediaFactory {
+public class MediaList extends ListResource<Media> {
 
     private String requestMessageSid;
 

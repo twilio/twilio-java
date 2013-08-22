@@ -11,12 +11,12 @@ import com.twilio.sdk.resource.instance.Message;
  */
 public interface MessageFactory {
 
-    /**
-	 * Creates the.
+	/**
+	 * Creates the message.
 	 *
 	 * @param params the params
 	 * @return the message
 	 * @throws TwilioRestException
-	 */
+   */
 	public Message create(Map<String, String> params) throws TwilioRestException;
 }

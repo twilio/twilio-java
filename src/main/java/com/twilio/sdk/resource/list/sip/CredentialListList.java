@@ -1,4 +1,4 @@
-package com.twilio.sdk.resource.list;
+package com.twilio.sdk.resource.list.sip;
 
 import java.util.Map;
 
@@ -6,8 +6,8 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
-import com.twilio.sdk.resource.factory.CredentialListFactory;
-import com.twilio.sdk.resource.instance.CredentialListInstance;
+import com.twilio.sdk.resource.factory.sip.CredentialListFactory;
+import com.twilio.sdk.resource.instance.sip.CredentialListInstance;
 
 public class CredentialListList extends ListResource<CredentialListInstance> implements CredentialListFactory {
 

@@ -1,4 +1,4 @@
-package com.twilio.sdk.resource.instance;
+package com.twilio.sdk.resource.instance.sip;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,45 +10,48 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.instance.Credential;
-import com.twilio.sdk.resource.list.CredentialList;
 
-
-public class CredentialListInstance extends InstanceResource {
+public class Address extends InstanceResource {
 
     /** The Constant SID_PROPERTY. */
     private static final String SID_PROPERTY = "sid";
+    private String ipAccessControlListSid;
 
     /**
-     * Instantiates a new CredentialListInstance.
+     * Instantiates a new address.
      *
      * @param client the client
      */
-     public CredentialListInstance(TwilioRestClient client) {
+     public Address(TwilioRestClient client) {
          super(client);
      }
 
      /**
-      * Instantiates a new CredentialList.
+      * Instantiates a new Address.
       *
       * @param client the client
+      * @param ipAccessControlListSid the sid of list this address belongs to
       * @param sid the sid
       */
-     public CredentialListInstance(TwilioRestClient client, String sid) {
+     public Address(TwilioRestClient client, String ipAccessControlListSid, String sid) {
          super(client);
          if (sid == null) {
-             throw new IllegalStateException("The Sid for a CredentialListInstance can not be null");
+             throw new IllegalStateException("The Sid for an address can not be null");
+         }
+         if (ipAccessControlListSid == null) {
+             throw new IllegalStateException("The Sid for an ip access control list can not be null");
          }
          this.setProperty(SID_PROPERTY, sid);
+         this.ipAccessControlListSid = ipAccessControlListSid;
      }
 
 	/**
-	 * Instantiates a new CredentialListInstance.
+	 * Instantiates a new Address.
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public CredentialListInstance(TwilioRestClient client, Map<String, Object> properties) {
+	public Address(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -59,8 +62,8 @@ public class CredentialListInstance extends InstanceResource {
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION
             + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/CredentialLists/" + this.getSid()
-            + ".json";
+            + "/SIP/IpAccessControlLists/" + this.getIpAccessControlListSid()
+            + "/Addresses/" + this.getSid() + ".json";
 	}
 
 	/*
@@ -75,6 +78,10 @@ public class CredentialListInstance extends InstanceResource {
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
 	}
+
+    public String getIpAccessControlListSid() {
+        return this.ipAccessControlListSid;
+    }
 
 	/**
 	 * Gets the date created.
@@ -115,16 +122,6 @@ public class CredentialListInstance extends InstanceResource {
 		return this.getProperty("account_sid");
 	}
 
-
-	/**
-	 * Gets the realm
-	 *
-	 * @return the realm
-	 */
-	public String getRealm() {
-		return this.getProperty("realm");
-	}
-
 	/**
 	 * Gets the friendly name
 	 *
@@ -134,30 +131,17 @@ public class CredentialListInstance extends InstanceResource {
 		return this.getProperty("friendly_name");
 	}
 
-    /**
-     * Gets the credentials from the credential list
-     *
-     * @return the credentials
-     */
-    public CredentialList getCredentials() {
-        CredentialList credentials = new CredentialList(this.getClient(), this.getSid());
-        credentials.setRequestAccountSid(this.getAccountSid());
-        return credentials;
-    }
+	/**
+	 * Gets the ip address
+	 *
+	 * @return the friendly name
+	 */
+	public String getIpAddress() {
+		return this.getProperty("ip_address");
+	}
 
     /**
-     * Gets the credentials from the credential list
-     *
-     * @return the credentials
-     */
-    public Credential getCredential(String credentialSid) {
-        Credential credential = new Credential(this.getClient(), this.getSid(), credentialSid);
-        credential.setRequestAccountSid(this.getAccountSid());
-        return credential;
-    }
-
-    /**
-     * Delete this {@link CredentialListInstance}.
+     * Delete this {@link Address}.
      * @throws TwilioRestException
      *             if there is an error in the request
      * @return true, if successful

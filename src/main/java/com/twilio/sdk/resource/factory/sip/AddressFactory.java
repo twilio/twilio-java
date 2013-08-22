@@ -1,9 +1,9 @@
-package com.twilio.sdk.resource.factory;
+package com.twilio.sdk.resource.factory.sip;
 
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.resource.instance.Address;
+import com.twilio.sdk.resource.instance.sip.Address;
 
 // TODO: Auto-generated Javadoc
 /**

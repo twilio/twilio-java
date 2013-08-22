@@ -1,4 +1,4 @@
-package com.twilio.sdk.resource.list;
+package com.twilio.sdk.resource.list.sip;
 
 import java.util.Map;
 
@@ -6,8 +6,8 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
-import com.twilio.sdk.resource.factory.IpAccessControlListFactory;
-import com.twilio.sdk.resource.instance.IpAccessControlList;
+import com.twilio.sdk.resource.factory.sip.IpAccessControlListFactory;
+import com.twilio.sdk.resource.instance.sip.IpAccessControlList;
 
 public class IpAccessControlListList extends ListResource<IpAccessControlList> implements IpAccessControlListFactory {
 

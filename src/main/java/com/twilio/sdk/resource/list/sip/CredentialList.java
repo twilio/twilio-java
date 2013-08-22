@@ -1,4 +1,4 @@
-package com.twilio.sdk.resource.list;
+package com.twilio.sdk.resource.list.sip;
 
 import java.util.Map;
 
@@ -6,8 +6,8 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
-import com.twilio.sdk.resource.factory.CredentialFactory;
-import com.twilio.sdk.resource.instance.Credential;
+import com.twilio.sdk.resource.factory.sip.CredentialFactory;
+import com.twilio.sdk.resource.instance.sip.Credential;
 
 // TODO: Auto-generated Javadoc
 /**

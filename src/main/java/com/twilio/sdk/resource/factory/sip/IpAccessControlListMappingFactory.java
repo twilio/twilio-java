@@ -1,9 +1,9 @@
-package com.twilio.sdk.resource.factory;
+package com.twilio.sdk.resource.factory.sip;
 
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.resource.instance.IpAccessControlListMapping;
+import com.twilio.sdk.resource.instance.sip.IpAccessControlListMapping;
 
 // TODO: Auto-generated Javadoc
 /**

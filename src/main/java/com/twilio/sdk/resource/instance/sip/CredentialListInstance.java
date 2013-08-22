@@ -1,4 +1,4 @@
-package com.twilio.sdk.resource.instance;
+package com.twilio.sdk.resource.instance.sip;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,45 +10,45 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.instance.sip.Credential;
+import com.twilio.sdk.resource.list.sip.CredentialList;
 
 
-public class Credential extends InstanceResource {
+public class CredentialListInstance extends InstanceResource {
 
     /** The Constant SID_PROPERTY. */
     private static final String SID_PROPERTY = "sid";
-    private String requestCredentialListSid;
 
     /**
-     * Instantiates a new Credential.
+     * Instantiates a new CredentialListInstance.
      *
      * @param client the client
      */
-     public Credential(TwilioRestClient client) {
+     public CredentialListInstance(TwilioRestClient client) {
          super(client);
      }
 
      /**
-      * Instantiates a new Credential.
+      * Instantiates a new CredentialList.
       *
       * @param client the client
       * @param sid the sid
       */
-     public Credential(TwilioRestClient client, String credentialListSid, String sid) {
+     public CredentialListInstance(TwilioRestClient client, String sid) {
          super(client);
          if (sid == null) {
-             throw new IllegalStateException("The Sid for a Credential can not be null");
+             throw new IllegalStateException("The Sid for a CredentialListInstance can not be null");
          }
          this.setProperty(SID_PROPERTY, sid);
-         this.requestCredentialListSid = credentialListSid;
      }
 
 	/**
-	 * Instantiates a new Credential.
+	 * Instantiates a new CredentialListInstance.
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public Credential(TwilioRestClient client, Map<String, Object> properties) {
+	public CredentialListInstance(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -59,8 +59,7 @@ public class Credential extends InstanceResource {
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION
             + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/CredentialLists/" + this.getRequestCredentialListSid()
-            + "/Credentials/" + this.getSid()
+            + "/SIP/CredentialLists/" + this.getSid()
             + ".json";
 	}
 
@@ -116,26 +115,49 @@ public class Credential extends InstanceResource {
 		return this.getProperty("account_sid");
 	}
 
+
 	/**
-	 * Gets the username
+	 * Gets the realm
 	 *
-	 * @return the account sid
+	 * @return the realm
 	 */
-	public String getUsername() {
-		return this.getProperty("username");
+	public String getRealm() {
+		return this.getProperty("realm");
+	}
+
+	/**
+	 * Gets the friendly name
+	 *
+	 * @return the friendly name
+	 */
+	public String getFriendlyName() {
+		return this.getProperty("friendly_name");
 	}
 
     /**
-     * Gets the sid of the parent credential list
+     * Gets the credentials from the credential list
      *
-     * @return the credential list sid
+     * @return the credentials
      */
-    public String getRequestCredentialListSid() {
-        return this.requestCredentialListSid;
+    public CredentialList getCredentials() {
+        CredentialList credentials = new CredentialList(this.getClient(), this.getSid());
+        credentials.setRequestAccountSid(this.getAccountSid());
+        return credentials;
     }
 
     /**
-     * Delete this {@link Credential}.
+     * Gets the credentials from the credential list
+     *
+     * @return the credentials
+     */
+    public Credential getCredential(String credentialSid) {
+        Credential credential = new Credential(this.getClient(), this.getSid(), credentialSid);
+        credential.setRequestAccountSid(this.getAccountSid());
+        return credential;
+    }
+
+    /**
+     * Delete this {@link CredentialListInstance}.
      * @throws TwilioRestException
      *             if there is an error in the request
      * @return true, if successful

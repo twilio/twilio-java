@@ -1,4 +1,4 @@
-package com.twilio.sdk.resource.instance;
+package com.twilio.sdk.resource.instance.sip;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,45 +10,45 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.instance.IpAccessControlListMapping;
-import com.twilio.sdk.resource.list.IpAccessControlListMappingList;
+import com.twilio.sdk.resource.instance.sip.IpAccessControlListMapping;
+import com.twilio.sdk.resource.list.sip.IpAccessControlListMappingList;
 
 
-public class SipDomain extends InstanceResource {
+public class Domain extends InstanceResource {
 
     /** The Constant SID_PROPERTY. */
     private static final String SID_PROPERTY = "sid";
 
     /**
-     * Instantiates a new SipDomain.
+     * Instantiates a new Domain.
      *
      * @param client the client
      */
-     public SipDomain(TwilioRestClient client) {
+     public Domain(TwilioRestClient client) {
          super(client);
      }
 
      /**
-      * Instantiates a new SipDomain.
+      * Instantiates a new Domain.
       *
       * @param client the client
       * @param sid the sid
       */
-     public SipDomain(TwilioRestClient client, String sid) {
+     public Domain(TwilioRestClient client, String sid) {
          super(client);
          if (sid == null) {
-             throw new IllegalStateException("The Sid for a SipDomain can not be null");
+             throw new IllegalStateException("The Sid for a Domain can not be null");
          }
          this.setProperty(SID_PROPERTY, sid);
      }
 
 	/**
-	 * Instantiates a new SipDomain.
+	 * Instantiates a new Domain.
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public SipDomain(TwilioRestClient client, Map<String, Object> properties) {
+	public Domain(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -221,7 +221,7 @@ public class SipDomain extends InstanceResource {
     }
 
     /**
-     * Delete this {@link SipDomain}.
+     * Delete this {@link Domain}.
      * @throws TwilioRestException
      *             if there is an error in the request
      * @return true, if successful

@@ -1,4 +1,4 @@
-package com.twilio.sdk.resource.instance;
+package com.twilio.sdk.resource.instance.sip;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +10,8 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.instance.Address;
-import com.twilio.sdk.resource.list.AddressList;
+import com.twilio.sdk.resource.instance.sip.Address;
+import com.twilio.sdk.resource.list.sip.AddressList;
 
 public class IpAccessControlList extends InstanceResource {
 

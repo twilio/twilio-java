@@ -44,19 +44,19 @@ public class TwilioRestResponse {
 
 	/** The response text. */
 	private String responseText;
-	
+
 	/** The http status. */
 	private int httpStatus;
-	
+
 	/** The url. */
 	private String url;
-	
+
 	/** The query string. */
 	private String queryString;
-	
+
 	/** The error. */
 	private boolean error;
-	
+
 	/** The content type. */
 	private String contentType;
 
@@ -81,7 +81,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Get the raw response body as a String
-	 * 
+	 *
 	 * @return the response body
 	 */
 	public String getResponseText() {
@@ -100,7 +100,7 @@ public class TwilioRestResponse {
 	/**
 
 	 * Get the http status code associated with this response.
-	 * 
+	 *
 	 * @return the int value of the response status
 	 */
 	public int getHttpStatus() {
@@ -118,7 +118,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Get the url that resulted in this response
-	 * 
+	 *
 	 * @return the url
 	 */
 	public String getUrl() {
@@ -136,7 +136,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Get the query string that resulted in this response
-	 * 
+	 *
 	 */
 	public String getQueryString() {
 		return queryString;
@@ -153,7 +153,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Determine if this request resulted in any kind of error
-	 * 
+	 *
 	 * @return true if an error occured
 	 */
 	public boolean isError() {
@@ -171,7 +171,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Determines if the response was a client side error (HTTP 4XX status)
-	 * 
+	 *
 	 * @return true if this was a client error
 	 */
 	public boolean isClientError() {
@@ -180,7 +180,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Determines if the response was a server side error (HTTP 5XX status)
-	 * 
+	 *
 	 * @return true if this was a server error
 	 */
 	public boolean isServerError() {
@@ -198,7 +198,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Method to determine if the response content type was a JSON type
-	 * 
+	 *
 	 * @return true if this looks like a JSON response
 	 */
 	public boolean isJson() {
@@ -207,7 +207,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Method to determine if the response content type was an XML type
-	 * 
+	 *
 	 * @return true if this looks like an XML response
 	 */
 	public boolean isXml() {
@@ -217,7 +217,7 @@ public class TwilioRestResponse {
 
 	/**
 	 * Get an appropriate response parser for this response type
-	 * 
+	 *
 	 * @return a response parser capable of parsing this response body.
 	 */
 	public ResponseParser getParser() {
@@ -235,7 +235,7 @@ public class TwilioRestResponse {
 	 * Helper method to convert the response to a canonical object map. This
 	 * method will use the appropriate parser to map the response body to a Map
 	 * of elements.
-	 * 
+	 *
 	 * @return a normalized Map of objects. Repeated elements are List values,
 	 *         sub-objects are Map values. All other types are String values.
 	 */

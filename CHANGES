@@ -3,6 +3,12 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.3.16
+--------------
+
+- Adds a Makefile for consistency with other helper libraries
+- You can delete transcriptions
+
 Version 3.3.15
 --------------
 

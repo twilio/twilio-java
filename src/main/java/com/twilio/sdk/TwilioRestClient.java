@@ -45,7 +45,7 @@ import com.twilio.sdk.resource.list.AccountList;
 public class TwilioRestClient {
 
 	/** The Constant VERSION. */
-	private static final String VERSION = "3.3.15";
+	private static final String VERSION = "3.3.16";
 
 	/** The endpoint. */
 	private String endpoint = "https://api.twilio.com";
@@ -95,7 +95,7 @@ public class TwilioRestClient {
 	public void setHttpclient(HttpClient httpclient) {
 		this.httpclient = httpclient;
 	}
-	
+
 	public HttpClient getHttpClient() {
 		return httpclient;
 	}

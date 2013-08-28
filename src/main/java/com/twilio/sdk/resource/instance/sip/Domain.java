@@ -10,8 +10,12 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.factory.sip.IpAccessControlListMappingFactory;
 import com.twilio.sdk.resource.instance.sip.IpAccessControlListMapping;
 import com.twilio.sdk.resource.list.sip.IpAccessControlListMappingList;
+import com.twilio.sdk.resource.factory.sip.CredentialListMappingFactory;
+import com.twilio.sdk.resource.instance.sip.CredentialListMapping;
+import com.twilio.sdk.resource.list.sip.CredentialListMappingList;
 
 
 public class Domain extends InstanceResource {
@@ -201,10 +205,10 @@ public class Domain extends InstanceResource {
      *
      * @return the IpAccessControlListMappingList
      */
-    public IpAccessControlListMappingList getIpAccessControlListMappingList() {
+    public IpAccessControlListMappingList getIpAccessControlListMappings() {
         IpAccessControlListMappingList ipAccessControlListMappingList = new IpAccessControlListMappingList(
                 this.getClient(), this.getSid());
-        ipAccessControlListMappingList.setRequestAccountSid(this.getAccountSid());
+        ipAccessControlListMappingList.setRequestAccountSid(this.getRequestAccountSid());
         return ipAccessControlListMappingList;
     }
 
@@ -216,8 +220,50 @@ public class Domain extends InstanceResource {
     public IpAccessControlListMapping getIpAccessControlListMapping(String ipAccessControlListMappingSid) {
         IpAccessControlListMapping ipAccessControlListMapping = new IpAccessControlListMapping(
                 this.getClient(), this.getSid(), ipAccessControlListMappingSid);
-        ipAccessControlListMapping.setRequestAccountSid(this.getAccountSid());
+        ipAccessControlListMapping.setRequestAccountSid(this.getRequestAccountSid());
         return ipAccessControlListMapping;
+    }
+
+    /**
+     * Gets the CredentialListMappingFactory so you can't create new CredentialListMappings
+     *
+     * @return the CredentialListMappingFactory
+     */
+    public IpAccessControlListMappingFactory getIpAccessControlListMappingFactory() {
+        return this.getIpAccessControlListMappings();
+    }
+
+    /**
+     * Gets the list of CredentialListMappings associated with this domain.
+     *
+     * @return the CredentialListMapping
+     */
+    public CredentialListMappingList getCredentialListMappings() {
+        CredentialListMappingList credentialListMappingList = new CredentialListMappingList(
+                this.getClient(), this.getSid());
+        credentialListMappingList.setRequestAccountSid(this.getRequestAccountSid());
+        return credentialListMappingList;
+    }
+
+    /**
+     * Gets the list of CredentialListMappings associated with this domain.
+     *
+     * @return the CredentialListMapping
+     */
+    public CredentialListMapping getCredentialListMapping(String credentialListMappingSid) {
+        CredentialListMapping credentialListMapping = new CredentialListMapping(
+                this.getClient(), this.getSid(), credentialListMappingSid);
+        credentialListMapping.setRequestAccountSid(this.getRequestAccountSid());
+        return credentialListMapping;
+    }
+
+    /**
+     * Gets the CredentialListMappingFactory so you can't create new CredentialListMappings
+     *
+     * @return the CredentialListMappingFactory
+     */
+    public CredentialListMappingFactory getCredentialListMappingFactory() {
+        return this.getCredentialListMappings();
     }
 
     /**

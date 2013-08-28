@@ -10,45 +10,44 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.factory.sip.AddressFactory;
-import com.twilio.sdk.resource.instance.sip.Address;
-import com.twilio.sdk.resource.list.sip.AddressList;
 
-public class IpAccessControlList extends InstanceResource {
+public class CredentialListMapping extends InstanceResource {
 
     /** The Constant SID_PROPERTY. */
     private static final String SID_PROPERTY = "sid";
+    private String requestSipDomainSid;
 
     /**
-     * Instantiates a new IpAccessControlList.
+     * Instantiates a new CredentialListMapping.
      *
      * @param client the client
      */
-     public IpAccessControlList(TwilioRestClient client) {
+     public CredentialListMapping(TwilioRestClient client) {
          super(client);
      }
 
      /**
-      * Instantiates a new IpAccessControlList.
+      * Instantiates a new CredentialListMapping.
       *
       * @param client the client
       * @param sid the sid
       */
-     public IpAccessControlList(TwilioRestClient client, String sid) {
+     public CredentialListMapping(TwilioRestClient client, String sipDomainSid, String sid) {
          super(client);
          if (sid == null) {
-             throw new IllegalStateException("The Sid for a IpAccessControlList can not be null");
+             throw new IllegalStateException("The Sid for a CredentialListMapping can not be null");
          }
          this.setProperty(SID_PROPERTY, sid);
+         this.requestSipDomainSid = sipDomainSid;
      }
 
 	/**
-	 * Instantiates a new IpAccessControlList.
+	 * Instantiates a new CredentialListMapping.
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public IpAccessControlList(TwilioRestClient client, Map<String, Object> properties) {
+	public CredentialListMapping(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -57,9 +56,10 @@ public class IpAccessControlList extends InstanceResource {
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/SIP/IpAccessControlLists/" + this.getSid()
-				+ ".json";
+		return "/" + TwilioRestClient.DEFAULT_VERSION
+            + "/Accounts/" + this.getRequestAccountSid()
+            + "/SIP/Domains/" + this.getRequestSipDomainSid()
+            + "/CredentialListMappings/" + this.getSid() + ".json";
 	}
 
 	/*
@@ -73,6 +73,15 @@ public class IpAccessControlList extends InstanceResource {
 	 */
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
+	}
+
+	/**
+	 * Gets the sid of the sip domain owning this mapping.
+	 *
+	 * @return the sid
+	 */
+	public String getRequestSipDomainSid() {
+		return this.requestSipDomainSid;
 	}
 
 	/**
@@ -123,39 +132,9 @@ public class IpAccessControlList extends InstanceResource {
 		return this.getProperty("friendly_name");
 	}
 
-    /**
-     * Gets the ip addresses on this list.
-     *
-     * @return an AddressList of the addresses on this list
-     */
-    public AddressList getAddresses() {
-        AddressList addressList = new AddressList(this.getClient(), this.getSid());
-        addressList.setRequestAccountSid(this.getRequestAccountSid());
-        return addressList;
-    }
 
     /**
-     * Gets the address factory, which lets you make new addresses.
-     *
-     * @return an AddressList of the addresses on this list
-     */
-    public AddressFactory getAddressFactory() {
-        return this.getAddresses();
-    }
-
-    /**
-     * Gets the ip addresses on this list.
-     *
-     * @return an AddressList of the addresses on this list
-     */
-    public Address getAddress(String addressSid) {
-        Address address = new Address(this.getClient(), this.getSid(), addressSid);
-        address.setRequestAccountSid(this.getRequestAccountSid());
-        return address;
-    }
-
-    /**
-     * Delete this {@link IpAccessControlList}.
+     * Delete this {@link CredentialList}.
      * @throws TwilioRestException
      *             if there is an error in the request
      * @return true, if successful

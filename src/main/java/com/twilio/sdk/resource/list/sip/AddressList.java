@@ -54,6 +54,7 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 		return "/" + TwilioRestClient.DEFAULT_VERSION
             + "/Accounts/" + this.getRequestAccountSid()
             + "/SIP/IpAccessControlLists/" + this.getIpAccessControlListSid()
+            + "/Addresses"
             + ".json";
 	}
 

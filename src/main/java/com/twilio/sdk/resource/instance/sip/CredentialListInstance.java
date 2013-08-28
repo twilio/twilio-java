@@ -24,115 +24,115 @@ public class CredentialListInstance extends InstanceResource {
      *
      * @param client the client
      */
-     public CredentialListInstance(TwilioRestClient client) {
-         super(client);
-     }
+    public CredentialListInstance(TwilioRestClient client) {
+        super(client);
+    }
 
-     /**
-      * Instantiates a new CredentialList.
-      *
-      * @param client the client
-      * @param sid the sid
-      */
-     public CredentialListInstance(TwilioRestClient client, String sid) {
-         super(client);
-         if (sid == null) {
-             throw new IllegalStateException("The Sid for a CredentialListInstance can not be null");
-         }
-         this.setProperty(SID_PROPERTY, sid);
-     }
+    /**
+     * Instantiates a new CredentialList.
+     *
+     * @param client the client
+     * @param sid the sid
+     */
+    public CredentialListInstance(TwilioRestClient client, String sid) {
+        super(client);
+        if (sid == null) {
+            throw new IllegalStateException("The Sid for a CredentialListInstance can not be null");
+        }
+        this.setProperty(SID_PROPERTY, sid);
+    }
 
-	/**
-	 * Instantiates a new CredentialListInstance.
-	 *
-	 * @param client the client
-	 * @param properties the properties
-	 */
-	public CredentialListInstance(TwilioRestClient client, Map<String, Object> properties) {
-		super(client, properties);
-	}
+    /**
+     * Instantiates a new CredentialListInstance.
+     *
+     * @param client the client
+     * @param properties the properties
+     */
+    public CredentialListInstance(TwilioRestClient client, Map<String, Object> properties) {
+        super(client, properties);
+    }
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
-	 */
-	@Override
-	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION
-            + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/CredentialLists/" + this.getSid()
-            + ".json";
-	}
+    /* (non-Javadoc)
+     * @see com.twilio.sdk.resource.Resource#getResourceLocation()
+     */
+    @Override
+        protected String getResourceLocation() {
+            return "/" + TwilioRestClient.DEFAULT_VERSION
+                + "/Accounts/" + this.getRequestAccountSid()
+                + "/SIP/CredentialLists/" + this.getSid()
+                + ".json";
+        }
 
-	/*
-	 * Property getters
-	 */
+    /*
+     * Property getters
+     */
 
-	/**
-	 * Gets the sid.
-	 *
-	 * @return the sid
-	 */
-	public String getSid() {
-		return this.getProperty(SID_PROPERTY);
-	}
+    /**
+     * Gets the sid.
+     *
+     * @return the sid
+     */
+    public String getSid() {
+        return this.getProperty(SID_PROPERTY);
+    }
 
-	/**
-	 * Gets the date created.
-	 *
-	 * @return the date created
-	 */
-	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("date_created"));
-		} catch (ParseException e) {
-			return null;
-		}
-	}
+    /**
+     * Gets the date created.
+     *
+     * @return the date created
+     */
+    public Date getDateCreated() {
+        SimpleDateFormat format = new SimpleDateFormat(
+                "EEE, dd MMM yyyy HH:mm:ss Z");
+        try {
+            return format.parse(this.getProperty("date_created"));
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
-	/**
-	 * Gets the date updated.
-	 *
-	 * @return the date updated
-	 */
-	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("date_updated"));
-		} catch (ParseException e) {
-			return null;
-		}
-	}
+    /**
+     * Gets the date updated.
+     *
+     * @return the date updated
+     */
+    public Date getDateUpdated() {
+        SimpleDateFormat format = new SimpleDateFormat(
+                "EEE, dd MMM yyyy HH:mm:ss Z");
+        try {
+            return format.parse(this.getProperty("date_updated"));
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
-	/**
-	 * Gets the account sid.
-	 *
-	 * @return the account sid
-	 */
-	public String getAccountSid() {
-		return this.getProperty("account_sid");
-	}
+    /**
+     * Gets the account sid.
+     *
+     * @return the account sid
+     */
+    public String getAccountSid() {
+        return this.getProperty("account_sid");
+    }
 
 
-	/**
-	 * Gets the realm
-	 *
-	 * @return the realm
-	 */
-	public String getRealm() {
-		return this.getProperty("realm");
-	}
+    /**
+     * Gets the realm
+     *
+     * @return the realm
+     */
+    public String getRealm() {
+        return this.getProperty("realm");
+    }
 
-	/**
-	 * Gets the friendly name
-	 *
-	 * @return the friendly name
-	 */
-	public String getFriendlyName() {
-		return this.getProperty("friendly_name");
-	}
+    /**
+     * Gets the friendly name
+     *
+     * @return the friendly name
+     */
+    public String getFriendlyName() {
+        return this.getProperty("friendly_name");
+    }
 
     /**
      * Gets the credentials from the credential list
@@ -141,7 +141,7 @@ public class CredentialListInstance extends InstanceResource {
      */
     public CredentialList getCredentials() {
         CredentialList credentials = new CredentialList(this.getClient(), this.getSid());
-        credentials.setRequestAccountSid(this.getAccountSid());
+        credentials.setRequestAccountSid(this.getRequestAccountSid());
         return credentials;
     }
 
@@ -152,7 +152,7 @@ public class CredentialListInstance extends InstanceResource {
      */
     public Credential getCredential(String credentialSid) {
         Credential credential = new Credential(this.getClient(), this.getSid(), credentialSid);
-        credential.setRequestAccountSid(this.getAccountSid());
+        credential.setRequestAccountSid(this.getRequestAccountSid());
         return credential;
     }
 

@@ -11,7 +11,7 @@ import com.twilio.sdk.resource.instance.AuthorizedConnectApp;
  * authorized within your Twilio account. The instance resource shows you the
  * permissions you have authorized for a single Connect App as well as
  * information about the Connect App itself.
- * 
+ *
  * For more information see <a
  * href="http://www.twilio.com/docs/api/rest/authorized-connect-apps"
  * >http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
@@ -20,7 +20,7 @@ public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp>
 
 	/**
 	 * Instantiates a new AuthorizedConnectApp list.
-	 * 
+	 *
 	 * @param client
 	 *            the client
 	 */
@@ -30,7 +30,7 @@ public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp>
 
 	/**
 	 * Instantiates a new AuthorizedConnectApp list.
-	 * 
+	 *
 	 * @param client
 	 *            the client
 	 * @param filters
@@ -42,7 +42,7 @@ public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp>
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
@@ -53,7 +53,7 @@ public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp>
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient
 	 * , java.util.Map)
@@ -66,7 +66,7 @@ public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp>
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.twilio.sdk.resource.ListResource#getListKey()
 	 */
 	@Override

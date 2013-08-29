@@ -9,7 +9,7 @@ import com.twilio.sdk.resource.instance.Conference;
 // TODO: Auto-generated Javadoc
 /**
  * The Class ConferenceList.
- * 
+ *
  *  For more information see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>
  */
 public class ConferenceList extends ListResource<Conference> {
@@ -58,6 +58,6 @@ public class ConferenceList extends ListResource<Conference> {
 	protected String getListKey() {
 		return "conferences";
 	}
-	
-	
+
+
 }

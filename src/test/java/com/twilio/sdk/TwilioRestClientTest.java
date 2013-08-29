@@ -2,6 +2,7 @@ package com.twilio.sdk;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -62,18 +63,18 @@ public class TwilioRestClientTest {
 		TwilioRestClient client = new TwilioRestClient(
 				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		
+
 		// Auth required
-		TwilioRestResponse response = client.request("/2010-04-01/Accounts.json", "GET", null);	
+		TwilioRestResponse response = client.request("/2010-04-01/Accounts.json", "GET", (Map) null);
 		assertEquals(401, response.getHttpStatus());
-		
+
 		// Auth not required
-		response = client.request("/2010-04-01", "GET", null);
+		response = client.request("/2010-04-01", "GET", (Map) null);
 		assertEquals(200, response.getHttpStatus());
-		
+
 		// 404'd
-		response = client.request("/asfhrhewhwejrkasyrey", "GET", null);
-		assertEquals(404, response.getHttpStatus());	
+		response = client.request("/asfhrhewhwejrkasyrey", "GET", (Map) null);
+		assertEquals(404, response.getHttpStatus());
 	}
 
 	/**
@@ -86,9 +87,9 @@ public class TwilioRestClientTest {
 		TwilioRestClient client = new TwilioRestClient(
 				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		
+
 		// Auth required
-		TwilioRestResponse response = client.get("http://api.twilio.com");	
+		TwilioRestResponse response = client.get("http://api.twilio.com");
 		assertEquals(200, response.getHttpStatus());
 	}
 
@@ -100,7 +101,7 @@ public class TwilioRestClientTest {
 		TwilioRestClient client = new TwilioRestClient(
 				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "someendpoint");
-		
+
 		assertEquals(client.getEndpoint(), "someendpoint");
 	}
 
@@ -112,7 +113,7 @@ public class TwilioRestClientTest {
 		TwilioRestClient client = new TwilioRestClient(
 				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "someendpoint");
-		
+
 		assertEquals(client.getEndpoint(), "someendpoint");
 		client.setEndpoint("someendpoint2");
 		assertEquals(client.getEndpoint(), "someendpoint2");

@@ -8,7 +8,7 @@ import com.twilio.sdk.resource.instance.Member;
 
 /**
  * The {@link MemberList} represents the list resource for {@link Member}s.
- * 
+ *
  * For more information see <a
  * href="http://www.twilio.com/docs/api/rest/member">http://www.twilio.com/docs/api/rest/member</a>
  */
@@ -21,7 +21,7 @@ public class MemberList extends ListResource<Member> {
 
     /**
      * Instantiates a new participant list.
-     * 
+     *
      * @param client
      *            the client to use
      */
@@ -31,7 +31,7 @@ public class MemberList extends ListResource<Member> {
 
     /**
      * Instantiates a new {@link MemberList}.
-     * 
+     *
      * @param client
      *            the client
      * @param filters
@@ -43,7 +43,7 @@ public class MemberList extends ListResource<Member> {
 
     /**
      *Instantiates a new {@link MemberList}.
-     * 
+     *
      * @param client
      *            the {@link TwilioRestClient} to use
      * @param queueSid
@@ -56,7 +56,7 @@ public class MemberList extends ListResource<Member> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.twilio.sdk.resource.Resource#getResourceLocation()
      */
     @Override
@@ -68,7 +68,7 @@ public class MemberList extends ListResource<Member> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
      */
     @Override
@@ -79,7 +79,7 @@ public class MemberList extends ListResource<Member> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.twilio.sdk.resource.ListResource#getListKey()
      */
     @Override

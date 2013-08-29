@@ -19,21 +19,21 @@ public class Media extends InstanceResource {
 	private static final String SID_PROPERTY = "sid";
 	private static String requestMessageSid;
 
-    /**
-     * Instantiates a new media instance.
-     *
-     * @param client the client
-     */
+	/**
+	 * Instantiates a new media instance.
+	 *
+	 * @param client the client
+	 */
 	public Media(TwilioRestClient client) {
 		super(client);
 	}
 
-    /**
-     * Instantiates a new media instance.
-     *
-     * @param client the client
-     * @param mediaSid the sid
-     */
+	/**
+	 * Instantiates a new media instance.
+	 *
+	 * @param client the client
+	 * @param mediaSid the sid
+	 */
 	public Media(TwilioRestClient client, String mediaSid) {
 		super(client);
 		if (mediaSid == null) {
@@ -42,13 +42,13 @@ public class Media extends InstanceResource {
 		this.setProperty(SID_PROPERTY, mediaSid);
 	}
 
-    /**
-     * Instantiates a new media instance.
-     *
-     * @param client the client
-     * @param messageSid the sid of the parent message
-     * @param mediaSid the sid
-     */
+	/**
+	 * Instantiates a new media instance.
+	 *
+	 * @param client the client
+	 * @param messageSid the sid of the parent message
+	 * @param mediaSid the sid
+	 */
 	public Media(TwilioRestClient client, String messageSid, String mediaSid) {
 		super(client);
 		this.requestMessageSid = messageSid;
@@ -58,12 +58,12 @@ public class Media extends InstanceResource {
 		this.setProperty(SID_PROPERTY, mediaSid);
 	}
 
-    /**
-     * Instantiates a new media instance.
-     *
-     * @param client the client
-     * @param properties the properties
-     */
+	/**
+	 * Instantiates a new media instance.
+	 *
+	 * @param client the client
+	 * @param properties the properties
+	 */
 	public Media(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
@@ -78,10 +78,10 @@ public class Media extends InstanceResource {
 				+ "/Messages/" + this.getRequestMessageSid()
 				+ "/Media/" + this.getSid() + ".json";
 		} else {
-            return "/" + TwilioRestClient.DEFAULT_VERSION
-                + "/Accounts/" + this.getRequestAccountSid()
-                + "/Media/" + this.getSid() + ".json";
-        }
+			return "/" + TwilioRestClient.DEFAULT_VERSION
+				+ "/Accounts/" + this.getRequestAccountSid()
+				+ "/Media/" + this.getSid() + ".json";
+		}
 	}
 
 	/**
@@ -93,11 +93,11 @@ public class Media extends InstanceResource {
 		return this.getProperty(SID_PROPERTY);
 	}
 
-    /**
-     * Gets the sid of the requesting message
-     *
-     * @return the sid of the requesting message
-     */
+	/**
+	 * Gets the sid of the requesting message
+	 *
+	 * @return the sid of the requesting message
+	 */
 	public String getRequestMessageSid() {
 		return this.requestMessageSid;
 	}
@@ -124,7 +124,7 @@ public class Media extends InstanceResource {
 	 * Gets the account sid.
 	 *
 	 * @return the account sid
-   */
+	 */
 	public String getAccountSid() {
 		return this.getProperty("account_sid");
 	}
@@ -133,7 +133,7 @@ public class Media extends InstanceResource {
 	 * Gets the parent sid.
 	 *
 	 * @return the account sid
-   */
+	 */
 	public String getParentSid() {
 		return this.getProperty("parent_sid");
 	}
@@ -142,7 +142,7 @@ public class Media extends InstanceResource {
 	 * Gets the content type
 	 *
 	 * @return the content type
-   */
+	 */
 	public String getContentType() {
 		return this.getProperty("content_type");
 	}
@@ -151,7 +151,7 @@ public class Media extends InstanceResource {
 	 * Gets the uri of this media
 	 *
 	 * @return the uri
-   */
+	 */
 	public String getUri() {
 		return this.getProperty("uri");
 	}
@@ -164,7 +164,7 @@ public class Media extends InstanceResource {
 	 */
 	public boolean delete() throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "DELETE", null);
+				this.getResourceLocation(), "DELETE", (Map) null);
 
 		return !response.isError();
 	}

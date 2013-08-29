@@ -9,11 +9,11 @@ import com.twilio.sdk.resource.instance.Participant;
 // TODO: Auto-generated Javadoc
 /**
  * The Class ParticipantList.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/participant">http://www.twilio.com/docs/api/rest/participant</a>
  */
 public class ParticipantList extends ListResource<Participant> {
-	
+
 	/** The conference sid. */
 	private String conferenceSid;
 

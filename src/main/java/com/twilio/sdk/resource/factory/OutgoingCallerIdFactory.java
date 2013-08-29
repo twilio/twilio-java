@@ -1,22 +1,33 @@
 package com.twilio.sdk.resource.factory;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.instance.CallerIdValidation;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
  * A factory for creating OutgoingCallerId objects.
  */
 public interface OutgoingCallerIdFactory {
-	
+
 	/**
-	 * Creates the.
+	 * Creates the OutgoingCallerId
+	 *
+	 * @param params the params map
+	 * @return the caller id validation
+	 * @throws TwilioRestException
+	 */
+	public CallerIdValidation create(Map<String, String> params) throws TwilioRestException;
+
+	/**
+	 * Creates the OutgoingCallerId
 	 *
 	 * @param params the params
 	 * @return the caller id validation
-	 * @throws TwilioRestException 
+	 * @throws TwilioRestException
 	 */
-	public CallerIdValidation create(Map<String, String> params) throws TwilioRestException;
+	public CallerIdValidation create(List<NameValuePair> params) throws TwilioRestException;
 }

@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.ListResource;
@@ -9,7 +10,7 @@ import com.twilio.sdk.resource.instance.Recording;
 // TODO: Auto-generated Javadoc
 /**
  * The Class RecordingList.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>
  */
 public class RecordingList extends ListResource<Recording> {

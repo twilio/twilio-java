@@ -9,7 +9,7 @@ import com.twilio.sdk.resource.instance.Notification;
 // TODO: Auto-generated Javadoc
 /**
  * The Class NotificationList.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/notification">http://www.twilio.com/docs/api/rest/notification</a>
  */
 public class NotificationList extends ListResource<Notification> {

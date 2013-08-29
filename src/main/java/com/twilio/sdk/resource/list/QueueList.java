@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -8,18 +9,19 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.QueueFactory;
 import com.twilio.sdk.resource.instance.Queue;
+import org.apache.http.NameValuePair;
 
 /**
  * The {@link QueueList} represents a list of {@link Queue}s.
- * 
+ *
  * @author Christer Fahlgren
- * 
+ *
  */
 public class QueueList extends ListResource<Queue> implements QueueFactory {
 
     /**
      * Creates a {@link QueueList}
-     * 
+     *
      * @param client
      *            the {@link TwilioRestClient} to use
      */
@@ -29,7 +31,7 @@ public class QueueList extends ListResource<Queue> implements QueueFactory {
 
     /**
      * Creates a {@link QueueList} with filters.
-     * 
+     *
      * @param client
      *            the {@link TwilioRestClient} to use
      * @param filters
@@ -45,6 +47,16 @@ public class QueueList extends ListResource<Queue> implements QueueFactory {
      */
     @Override
     public Queue create(Map<String, String> params) throws TwilioRestException {
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), "POST", params);
+        return makeNew(this.getClient(), response.toMap());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Queue create(List<NameValuePair> params) throws TwilioRestException {
         TwilioRestResponse response = this.getClient().safeRequest(
                 this.getResourceLocation(), "POST", params);
         return makeNew(this.getClient(), response.toMap());

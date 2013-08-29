@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -8,15 +9,16 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.CallFactory;
 import com.twilio.sdk.resource.instance.Call;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class CallList.
- * 
+ *
  *  For more information see <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>
  */
 public class CallList extends ListResource<Call> implements CallFactory {
-	
+
 	/**
 	 * Instantiates a new call list.
 	 *
@@ -65,6 +67,15 @@ public class CallList extends ListResource<Call> implements CallFactory {
 	 * @see com.twilio.sdk.resource.factory.CallFactory#create(java.util.Map)
 	 */
 	public Call create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), response.toMap());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.factory.CallFactory#create(java.util.List)
+	 */
+	public Call create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

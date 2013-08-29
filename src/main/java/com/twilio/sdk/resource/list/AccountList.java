@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -8,6 +9,7 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.AccountFactory;
 import com.twilio.sdk.resource.instance.Account;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -62,6 +64,15 @@ public class AccountList extends ListResource<Account> implements AccountFactory
 	 * @see com.twilio.sdk.resource.factory.AccountFactory#create(java.util.Map)
 	 */
 	public Account create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), response.toMap());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.factory.AccountFactory#create(java.util.Map)
+	 */
+	public Account create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

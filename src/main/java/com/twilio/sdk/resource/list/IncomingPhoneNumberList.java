@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -8,11 +9,12 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
 import com.twilio.sdk.resource.instance.IncomingPhoneNumber;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class IncomingPhoneNumberList.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
  */
 public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
@@ -63,11 +65,20 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	protected String getListKey() {
 		return "incoming_phone_numbers";
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory#create(java.util.Map)
 	 */
 	public IncomingPhoneNumber create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), response.toMap());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory#create(java.util.List)
+	 */
+	public IncomingPhoneNumber create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

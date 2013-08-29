@@ -7,8 +7,6 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.instance.Media;
-import com.twilio.sdk.resource.instance.Image;
-import com.twilio.sdk.resource.list.ImageList;
 
 /**
  * The Class MediaList.
@@ -91,39 +89,6 @@ public class MediaList extends ListResource<Media> {
      */
     public String getRequestMessageSid() {
         return this.requestMessageSid;
-    }
-
-    /**
-     * Gets the set of images in the media list
-     *
-     * @return the images for this media list
-     */
-    public ImageList getImages() {
-        ImageList images;
-        if (this.getRequestMessageSid() != null) {
-            images = new ImageList(this.getClient(), this.getRequestMessageSid());
-        } else {
-            images = new ImageList(this.getClient());
-        }
-        images.setRequestAccountSid(this.getRequestAccountSid());
-        return images;
-    }
-
-    /**
-     * Gets an image by imageSid from this media list.
-     *
-     * @param imageSid the image sid
-     * @return the image
-     */
-    public Image getImage(String imageSid) {
-        Image image;
-        if (this.getRequestMessageSid() != null) {
-            image = new Image(this.getClient(), this.getRequestMessageSid(), imageSid);
-        } else {
-            image = new Image(this.getClient(), imageSid);
-        }
-        image.setRequestAccountSid(this.getRequestAccountSid());
-        return image;
     }
 
 }

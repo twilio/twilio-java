@@ -163,7 +163,7 @@ public class Recording extends InstanceResource {
 	 */
 	public InputStream getMedia(String extension) {
 		return this.getClient().requestStream(
-				this.getResourceLocation(extension), "GET", null);
+				this.getResourceLocation(extension), "GET", (Map) null);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class Recording extends InstanceResource {
 	 */
 	public boolean delete() throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "DELETE", null);
+				this.getResourceLocation(), "DELETE", (Map) null);
 
 		return !response.isError();
 	}

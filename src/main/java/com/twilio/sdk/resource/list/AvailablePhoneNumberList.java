@@ -9,7 +9,7 @@ import com.twilio.sdk.resource.instance.AvailablePhoneNumber;
 // TODO: Auto-generated Javadoc
 /**
  * The Class AvailablePhoneNumberList.
- * 
+ *
  *  For more information see <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
  */
 public class AvailablePhoneNumberList extends
@@ -17,10 +17,10 @@ public class AvailablePhoneNumberList extends
 
 	public static final String TYPE_LOCAL = "Local";
 	public static final String TYPE_TOLLFREE = "TollFree";
-	
+
 	/** The iso country. */
 	private String isoCountry = "US";
-	
+
 	/** The type. */
 	private String type = "Local";
 
@@ -57,14 +57,14 @@ public class AvailablePhoneNumberList extends
 		this.isoCountry = isoCountryCode;
 		this.type = type;
 	}
-	
+
 	public AvailablePhoneNumberList(TwilioRestClient client,
 			Map<String, String> filters, String isoCountryCode, String type) {
 		super(client, filters);
 		this.isoCountry = isoCountryCode;
 		this.type = type;
 	}
-	
+
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()

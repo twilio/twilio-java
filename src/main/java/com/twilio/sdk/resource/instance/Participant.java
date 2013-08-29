@@ -14,14 +14,14 @@ import com.twilio.sdk.resource.InstanceResource;
 // TODO: Auto-generated Javadoc
 /**
  * The Class Participant.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/participant">http://www.twilio.com/docs/api/rest/participant</a>
  */
 public class Participant extends InstanceResource {
 	// private static final String SID_PROPERTY = "sid";
 	/** The Constant CALL_SID_PROPERTY. */
 	private static final String CALL_SID_PROPERTY = "call_sid";
-	
+
 	/** The Constant CONFERENCE_SID_PROPERTY. */
 	private static final String CONFERENCE_SID_PROPERTY = "conference_sid";
 
@@ -44,13 +44,13 @@ public class Participant extends InstanceResource {
 	public Participant(TwilioRestClient client, String conferenceSid,
 			String callSid) {
 		super(client);
-		if (conferenceSid == null) { 
-            throw new IllegalStateException("The conferenceSid for a Participant can not be null");
-	    }
-		if (callSid == null) { 
-            throw new IllegalStateException("The callSid for a Participant can not be null");
-        }
-        this.setProperty(CONFERENCE_SID_PROPERTY, conferenceSid);
+		if (conferenceSid == null) {
+			throw new IllegalStateException("The conferenceSid for a Participant can not be null");
+		}
+		if (callSid == null) {
+			throw new IllegalStateException("The callSid for a Participant can not be null");
+		}
+		this.setProperty(CONFERENCE_SID_PROPERTY, conferenceSid);
 		this.setProperty(CALL_SID_PROPERTY, callSid);
 	}
 
@@ -68,12 +68,12 @@ public class Participant extends InstanceResource {
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
-	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+		protected String getResourceLocation() {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
 				+ this.getRequestAccountSid() + "/Conferences/"
 				+ this.getConferenceSid() + "/Participants/"
 				+ this.getCallSid() + ".json";
-	}
+		}
 
 	/*
 	 * Property getters
@@ -129,7 +129,7 @@ public class Participant extends InstanceResource {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Gets the account sid.
 	 *
@@ -138,7 +138,7 @@ public class Participant extends InstanceResource {
 	public String getAccountSid() {
 		return this.getProperty("account_sid");
 	}
-	
+
 	/**
 	 * Checks if is muted.
 	 *
@@ -147,7 +147,7 @@ public class Participant extends InstanceResource {
 	public boolean isMuted() {
 		return Boolean.parseBoolean(this.getProperty("muted"));
 	}
-	
+
 	/**
 	 * Checks if is start conference on enter.
 	 *
@@ -156,7 +156,7 @@ public class Participant extends InstanceResource {
 	public boolean isStartConferenceOnEnter() {
 		return Boolean.parseBoolean(this.getProperty("start_conference_on_enter"));
 	}
-	
+
 	/**
 	 * Checks if is end conference on exit.
 	 *
@@ -165,14 +165,14 @@ public class Participant extends InstanceResource {
 	public boolean isEndConferenceOnExit() {
 		return Boolean.parseBoolean(this.getProperty("end_conference_on_exit"));
 	}
-	
+
 	/*
 	 * Helper functions
-	 * 
-	 * 
+	 *
+	 *
 	 */
-	
-	
+
+
 	/**
 	 * Mute.
 	 *
@@ -204,8 +204,8 @@ public class Participant extends InstanceResource {
 
 		return new Participant(this.getClient(), response.toMap());
 	}
-	
-	
+
+
 
 	/**
 	 * Kick.
@@ -215,7 +215,7 @@ public class Participant extends InstanceResource {
 	 */
 	public boolean kick() throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "DELETE", null);
+				this.getResourceLocation(), "DELETE", (Map) null);
 
 		return !response.isError();
 	}

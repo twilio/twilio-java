@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.http.Header;
@@ -395,9 +396,16 @@ public class TwilioRestClient {
 	 * @return the twilio rest response
 	 */
 	public TwilioRestResponse request(String path, String method,
-			Map<String, String> vars) throws TwilioRestException {
+			Map<String, String> paramMap) throws TwilioRestException {
 
-		HttpUriRequest request = setupRequest(path, method, vars);
+		List<NameValuePair> paramList = generateParameters(paramMap);
+		return request(path, method, paramList);
+	}
+
+	public TwilioRestResponse request(String path, String method,
+			List<NameValuePair> paramList) throws TwilioRestException {
+
+		HttpUriRequest request = setupRequest(path, method, paramList);
 
 		HttpResponse response;
 		try {
@@ -446,7 +454,25 @@ public class TwilioRestClient {
 	public InputStream requestStream(String path, String method,
 			Map<String, String> vars) {
 
-		HttpUriRequest request = setupRequest(path, method, vars);
+		List<NameValuePair> paramList = generateParameters(vars);
+		return requestStream(path, method, paramList);
+	}
+
+	/**
+	 * Request stream.
+	 *
+	 * @param path
+	 *            the path
+	 * @param method
+	 *            the method
+	 * @param paramList
+	 *            the list of POST params
+	 * @return the input stream
+	 */
+	public InputStream requestStream(String path, String method,
+			List<NameValuePair> paramList) {
+
+		HttpUriRequest request = setupRequest(path, method, paramList);
 
 		HttpResponse response;
 		try {
@@ -474,8 +500,7 @@ public class TwilioRestClient {
 	 * @return the http uri request
 	 */
 	private HttpUriRequest setupRequest(String path, String method,
-			Map<String, String> vars) {
-		List<NameValuePair> params = generateParameters(vars);
+			List<NameValuePair> params) {
 
 		String normalizedPath = path.toLowerCase();
 		StringBuilder sb = new StringBuilder();
@@ -529,9 +554,32 @@ public class TwilioRestClient {
 	 */
 	public TwilioRestResponse safeRequest(String path, String method,
 			Map<String, String> vars) throws TwilioRestException {
+
+		List<NameValuePair> paramList = generateParameters(vars);
+		return safeRequest(path, method, paramList);
+	}
+
+	/**
+	 * Make a request, handles retries + back-off for server/network errors
+	 *
+	 * @param path
+	 *            the URL (absolute w.r.t. the endpoint URL - i.e.
+	 *            /2010-04-01/Accounts)
+	 * @param method
+	 *            the HTTP method to use, defaults to GET
+	 * @param paramList
+	 *            for POST or PUT, a list of data to send, for GET will be
+	 *            appended to the URL as querystring params
+	 * @return The response
+	 * @throws TwilioRestException
+	 *             if there's an client exception returned by the TwilioApi
+	 */
+	public TwilioRestResponse safeRequest(String path, String method,
+			List<NameValuePair> paramList) throws TwilioRestException {
+
 		TwilioRestResponse response = null;
 		for (int retry = 0; retry < this.numRetries; retry++) {
-			response = request(path, method, vars);
+			response = request(path, method, paramList);
 			if (response.isClientError()) {
 				throw TwilioRestException.parseResponse(response);
 			} else if (response.isServerError()) {
@@ -565,7 +613,7 @@ public class TwilioRestClient {
 		TwilioRestResponse response = null;
 
 		for (int retry = 0; retry < this.numRetries; retry++) {
-			response = request(fullUri, "GET", null);
+			response = request(fullUri, "GET", (Map) null);
 			if (response.isClientError()) {
 				throw TwilioRestException.parseResponse(response);
 			} else if (response.isServerError()) {

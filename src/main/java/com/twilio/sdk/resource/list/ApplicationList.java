@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -8,11 +9,12 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.ApplicationFactory;
 import com.twilio.sdk.resource.instance.Application;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ApplicationList.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
  */
 public class ApplicationList extends ListResource<Application> implements
@@ -67,6 +69,15 @@ public class ApplicationList extends ListResource<Application> implements
 	 * @see com.twilio.sdk.resource.factory.ApplicationFactory#create(java.util.Map)
 	 */
 	public Application create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), response.toMap());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.factory.ApplicationFactory#create(java.util.Map)
+	 */
+	public Application create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

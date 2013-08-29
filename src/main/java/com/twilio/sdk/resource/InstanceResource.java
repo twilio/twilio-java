@@ -2,10 +2,16 @@ package com.twilio.sdk.resource;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.Date;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -106,6 +112,16 @@ public abstract class InstanceResource extends Resource {
 		this.getClient().safeRequest(this.getResourceLocation(), "POST", params);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param params the params list
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public void update(List<NameValuePair> params) throws TwilioRestException {
+		this.getClient().safeRequest(this.getResourceLocation(), "POST", params);
+	}
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#parseResponse(com.twilio.sdk.TwilioRestResponse)
 	 */
@@ -113,5 +129,15 @@ public abstract class InstanceResource extends Resource {
 		protected void parseResponse(TwilioRestResponse response) {
 			Map<String, Object> properties = response.toMap();
 			this.properties = new HashMap<String, Object>(properties);
+		}
+
+	/**
+	 * return a date from the property string
+	 *
+	 * @return the date value of the input string
+	 */
+	protected Date parseDate(String inDate) {
+		if (inDate==null) {
+			return null;
 		}
 }

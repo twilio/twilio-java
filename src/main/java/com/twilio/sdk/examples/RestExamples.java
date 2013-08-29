@@ -3,6 +3,7 @@ package com.twilio.sdk.examples;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
@@ -18,6 +19,8 @@ import com.twilio.sdk.resource.instance.Participant;
 import com.twilio.sdk.resource.list.AccountList;
 import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
 import com.twilio.sdk.resource.list.ParticipantList;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -33,7 +36,7 @@ public class RestExamples {
 
 	/**
 	 * The main method.
-	 * 
+	 *
 	 * @param args
 	 *            the arguments
 	 * @throws TwilioRestException
@@ -72,11 +75,11 @@ public class RestExamples {
 		Map<String, String> callParams = new HashMap<String, String>();
 		callParams.put("To", "5105551212"); // Replace with a valid phone number
 		callParams.put("From", "(510) 555-1212"); // Replace with a valid phone
-													// number in your account
+		// number in your account
 		callParams.put("Url", "http://demo.twilio.com/welcome/voice/");
 		Call call = callFactory.create(callParams);
 		System.out.println(call.getSid());
-		
+
 		// Send an sms
 		SmsFactory smsFactory = mainAccount.getSmsFactory();
 		Map<String, String> smsParams = new HashMap<String, String>();
@@ -88,7 +91,7 @@ public class RestExamples {
 
 		// Search for available phone numbers & then buy a random phone number
 		AvailablePhoneNumberList phoneNumbers = mainAccount
-				.getAvailablePhoneNumbers();
+			.getAvailablePhoneNumbers();
 		List<AvailablePhoneNumber> list = phoneNumbers.getPageData();
 
 		// Buy the first number returned
@@ -112,7 +115,7 @@ public class RestExamples {
 
 		// Make a raw request to the api... note, this is deprecated style
 		TwilioRestResponse resp = client.request("/2010-04-01/Accounts", "GET",
-				null);
+				(Map) null);
 		if (!resp.isError()) {
 			System.out.println(resp.getResponseText());
 		}

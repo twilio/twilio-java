@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.InstanceResource;
 // TODO: Auto-generated Javadoc
 /**
  * The Class Application.
- * 
+ *
  * For more information see <a
  * href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
  */
@@ -36,7 +36,7 @@ public class Application extends InstanceResource {
 
     /**
      * Instantiates a new application.
-     * 
+     *
      * @param client
      *            the client
      */
@@ -46,7 +46,7 @@ public class Application extends InstanceResource {
 
     /**
      * Instantiates a new application.
-     * 
+     *
      * @param client
      *            the client
      * @param sid
@@ -62,7 +62,7 @@ public class Application extends InstanceResource {
 
     /**
      * Instantiates a new application.
-     * 
+     *
      * @param client
      *            the client
      * @param properties
@@ -74,7 +74,7 @@ public class Application extends InstanceResource {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.twilio.sdk.resource.Resource#getResourceLocation()
      */
     @Override
@@ -88,7 +88,7 @@ public class Application extends InstanceResource {
      */
     /**
      * Gets the sid.
-     * 
+     *
      * @return the sid
      */
     public String getSid() {
@@ -97,7 +97,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the friendly name.
-     * 
+     *
      * @return the friendly name
      */
     public String getFriendlyName() {
@@ -106,7 +106,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the status.
-     * 
+     *
      * @return the status
      */
     public String getStatus() {
@@ -115,7 +115,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the date created.
-     * 
+     *
      * @return the date created
      */
     public Date getDateCreated() {
@@ -129,7 +129,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the date updated.
-     * 
+     *
      * @return the date updated
      */
     public Date getDateUpdated() {
@@ -143,7 +143,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the account sid.
-     * 
+     *
      * @return the account sid
      */
     public String getAccountSid() {
@@ -152,7 +152,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the api version.
-     * 
+     *
      * @return the api version
      */
     public String getApiVersion() {
@@ -161,7 +161,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the voice url.
-     * 
+     *
      * @return the voice url
      */
     public String getVoiceUrl() {
@@ -170,7 +170,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the voice method.
-     * 
+     *
      * @return the voice method
      */
     public String getVoiceMethod() {
@@ -179,7 +179,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the voice fallback url.
-     * 
+     *
      * @return the voice fallback url
      */
     public String getVoiceFallbackUrl() {
@@ -188,7 +188,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the voice fallback method.
-     * 
+     *
      * @return the voice fallback method
      */
     public String getVoiceFallbackMethod() {
@@ -197,7 +197,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the status callback.
-     * 
+     *
      * @return the status callback
      */
     public String getStatusCallback() {
@@ -206,7 +206,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the status callback method.
-     * 
+     *
      * @return the status callback method
      */
     public String getStatusCallbackMethod() {
@@ -215,7 +215,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the voice caller id lookup.
-     * 
+     *
      * @return the voice caller id lookup
      */
     public String getVoiceCallerIdLookup() {
@@ -224,7 +224,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the sms url.
-     * 
+     *
      * @return the sms url
      */
     public String getSmsUrl() {
@@ -233,7 +233,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the sms method.
-     * 
+     *
      * @return the sms method
      */
     public String getSmsMethod() {
@@ -242,7 +242,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the sms fallback url.
-     * 
+     *
      * @return the sms fallback url
      */
     public String getSmsFallbackUrl() {
@@ -251,7 +251,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the sms fallback method.
-     * 
+     *
      * @return the sms fallback method
      */
     public String getSmsFallbackMethod() {
@@ -260,7 +260,7 @@ public class Application extends InstanceResource {
 
     /**
      * Gets the sms status callback.
-     * 
+     *
      * @return the sms status callback
      */
     public String getSmsStatusCallback() {
@@ -270,15 +270,15 @@ public class Application extends InstanceResource {
     /**
      * Delete this {@link Application}. This will remove it from this {@link Account}, only if it is not currently
      * linked to an {@link IncomingPhoneNumber}.
-     * 
+     *
      * @throws TwilioRestException
      *             if there is an error in the request
      * @return true, if successful
-     * 
+     *
      */
     public boolean delete() throws TwilioRestException {
         TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "DELETE", null);
+                this.getResourceLocation(), "DELETE", (Map) null);
 
         return !response.isError();
     }

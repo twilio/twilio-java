@@ -13,11 +13,11 @@ import com.twilio.sdk.resource.InstanceResource;
 // TODO: Auto-generated Javadoc
 /**
  * The Class Notification.
- * 
+ *
  * For more information see <a href="http://www.twilio.com/docs/api/rest/notification">http://www.twilio.com/docs/api/rest/notification</a>
  */
 public class Notification extends InstanceResource {
-	
+
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
 
@@ -38,7 +38,7 @@ public class Notification extends InstanceResource {
 	 */
 	public Notification(TwilioRestClient client, String sid) {
 		super(client);
-		if (sid == null) { 
+		if (sid == null) {
             throw new IllegalStateException("The Sid for a Notification can not be null");
         }
 		this.setProperty(SID_PROPERTY, sid);
@@ -74,7 +74,7 @@ public class Notification extends InstanceResource {
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
 	}
-	
+
 	/**
 	 * Gets the date created.
 	 *
@@ -113,7 +113,7 @@ public class Notification extends InstanceResource {
 	public String getAccountSid() {
 		return this.getProperty("account_sid");
 	}
-	
+
 	/**
 	 * Gets the call sid.
 	 *
@@ -122,7 +122,7 @@ public class Notification extends InstanceResource {
 	public String getCallSid() {
 		return this.getProperty("call_sid");
 	}
-	
+
 	/**
 	 * Gets the api version.
 	 *
@@ -131,7 +131,7 @@ public class Notification extends InstanceResource {
 	public String getApiVersion() {
 		return this.getProperty("api_version");
 	}
-	
+
 	/**
 	 * Gets the log.
 	 *
@@ -140,7 +140,7 @@ public class Notification extends InstanceResource {
 	public String getLog() {
 		return this.getProperty("log");
 	}
-	
+
 	/**
 	 * Gets the error code.
 	 *
@@ -149,7 +149,7 @@ public class Notification extends InstanceResource {
 	public String getErrorCode() {
 		return this.getProperty("error_code");
 	}
-	
+
 	/**
 	 * Gets the more info.
 	 *
@@ -158,7 +158,7 @@ public class Notification extends InstanceResource {
 	public String getMoreInfo() {
 		return this.getProperty("more_info");
 	}
-	
+
 	/**
 	 * Gets the message text.
 	 *
@@ -167,7 +167,7 @@ public class Notification extends InstanceResource {
 	public String getMessageText() {
 		return this.getProperty("message_text");
 	}
-	
+
 	/**
 	 * Gets the message date.
 	 *
@@ -176,7 +176,7 @@ public class Notification extends InstanceResource {
 	public String getMessageDate() {
 		return this.getProperty("message_date");
 	}
-	
+
 	/**
 	 * Gets the request url.
 	 *
@@ -185,7 +185,7 @@ public class Notification extends InstanceResource {
 	public String getRequestUrl() {
 		return this.getProperty("request_url");
 	}
-	
+
 	/**
 	 * Gets the request variables.
 	 *
@@ -194,7 +194,7 @@ public class Notification extends InstanceResource {
 	public String getRequestVariables() {
 		return this.getProperty("request_variables");
 	}
-	
+
 	/**
 	 * Gets the response headers.
 	 *
@@ -203,7 +203,7 @@ public class Notification extends InstanceResource {
 	public String getResponseHeaders() {
 		return this.getProperty("response_headers");
 	}
-	
+
 	/**
 	 * Gets the response body.
 	 *
@@ -212,7 +212,7 @@ public class Notification extends InstanceResource {
 	public String getResponseBody() {
 		return this.getProperty("response_body");
 	}
-	
+
 	/**
 	 * Delete.
 	 *
@@ -221,7 +221,7 @@ public class Notification extends InstanceResource {
 	 */
 	public boolean delete() throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "DELETE", null);
+				this.getResourceLocation(), "DELETE", (Map) null);
 
 		return !response.isError();
 	}

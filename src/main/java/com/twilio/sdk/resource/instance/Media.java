@@ -148,6 +148,29 @@ public class Media extends InstanceResource {
 	}
 
 	/**
+	 * Gets the duration
+	 *
+	 * @return the duration
+	 */
+	public Integer getDuration() {
+		Integer duration = (Integer) this.getObject("duration");
+		if (duration != null) {
+			return duration;
+		} else {
+			throw new IllegalStateException("The Media instance doesn't have the max size property set");
+		}
+	}
+
+	/**
+	 * Gets the api version.
+	 *
+	 * @return the api version
+	 */
+	public String getApiVersion() {
+		return this.getProperty("api_version");
+	}
+
+	/**
 	 * Gets the uri of this media
 	 *
 	 * @return the uri

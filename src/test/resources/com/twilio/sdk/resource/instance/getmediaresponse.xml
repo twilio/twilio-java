@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TwilioResponse>
+    <Media>
+        <Sid>ME557ce644e5ab84fa21cc21112e22c485</Sid>
+        <AccountSid>ACed70abd024d3f57a4027b5dc2ca88d5b</AccountSid>
+        <ParentSid>SM8dfedb55c129dd4d6bd1f59af9d11080</ParentSid>
+        <ContentType>image/jpeg</ContentType>
+        <DateCreated>Fri, 17 Jul 2009 01:52:49 +0000</DateCreated>
+        <DateUpdated>Fri, 17 Jul 2009 01:52:49 +0000</DateUpdated>
+        <Uri>/2010-04-01/Accounts/ACda6f1e11047ebd6fe7a55f120be3a900/Media/ME557ce644e5ab84fa21cc21112e22c485.xml</Uri>
+    </Media>
+</TwilioResponse>
+

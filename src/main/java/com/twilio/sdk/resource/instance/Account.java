@@ -52,7 +52,7 @@ public class Account extends InstanceResource {
 	 *
 	 * @param client
 	 *            the client
-	 */
+   */
 	public Account(TwilioRestClient client) {
 		super(client);
 	}
@@ -64,7 +64,7 @@ public class Account extends InstanceResource {
 	 *            the client
 	 * @param properties
 	 *            the properties
-	 */
+   */
 	public Account(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 
@@ -78,12 +78,12 @@ public class Account extends InstanceResource {
 
 	/*
 	 * Account Methods
-	 */
+   */
 	/**
 	 * Gets the sid.
 	 *
 	 * @return the sid
-	 */
+   */
 	public String getSid() {
 		if (this.getRequestAccountSid() != null) {
 			return this.getRequestAccountSid();
@@ -97,7 +97,7 @@ public class Account extends InstanceResource {
 	 *
 	 * @param accountSid
 	 *            the new sid
-	 */
+   */
 	public void setSid(String accountSid) {
 		this.setRequestAccountSid(accountSid);
 		this.setProperty(ACCOUNT_SID_PROPERTY, accountSid);
@@ -107,7 +107,7 @@ public class Account extends InstanceResource {
 	 * Gets the auth token.
 	 *
 	 * @return the auth token
-	 */
+   */
 	public String getAuthToken() {
 		return this.getProperty(AUTH_TOKEN_PROPERTY);
 	}
@@ -117,7 +117,7 @@ public class Account extends InstanceResource {
 	 *
 	 * @param authToken
 	 *            the new auth token
-	 */
+   */
 	public void setAuthToken(String authToken) {
 		this.setProperty(AUTH_TOKEN_PROPERTY, authToken);
 	}
@@ -126,7 +126,7 @@ public class Account extends InstanceResource {
 	 * Gets the friendly name.
 	 *
 	 * @return the friendly name
-	 */
+   */
 	public String getFriendlyName() {
 		return this.getProperty(FRIENDLY_NAME_PROPERTY);
 	}
@@ -135,7 +135,7 @@ public class Account extends InstanceResource {
 	 * Gets the status.
 	 *
 	 * @return the status
-	 */
+   */
 	public String getStatus() {
 		return this.getProperty(STATUS_PROPERTY);
 	}
@@ -144,7 +144,7 @@ public class Account extends InstanceResource {
 	 * Gets the account type
 	 *
 	 * @return the account type
-	 */
+   */
 	public String getType() {
 		return this.getProperty(TYPE_PROPERTY);
 	}
@@ -153,7 +153,7 @@ public class Account extends InstanceResource {
 	 * Gets the date created.
 	 *
 	 * @return the date created
-	 */
+   */
 	public Date getDateCreated() {
 		SimpleDateFormat format = new SimpleDateFormat(
 				"EEE, dd MMM yyyy HH:mm:ss Z");
@@ -168,7 +168,7 @@ public class Account extends InstanceResource {
 	 * Gets the date updated.
 	 *
 	 * @return the date updated
-	 */
+   */
 	public Date getDateUpdated() {
 		SimpleDateFormat format = new SimpleDateFormat(
 				"EEE, dd MMM yyyy HH:mm:ss Z");
@@ -183,23 +183,23 @@ public class Account extends InstanceResource {
 	 * (non-Javadoc)
 	 *
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
-	 */
+   */
 	@Override
-	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+		protected String getResourceLocation() {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
 				+ this.getRequestAccountSid() + ".json";
-	}
+		}
 
 	/*
 	 * Subresource methods
-	 */
+   */
 	/**
 	 * Gets the calls list resource without any filters.
 	 *
 	 * <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>
 	 *
 	 * @return the calls
-	 */
+   */
 	public CallList getCalls() {
 		return this.getCalls(new HashMap<String, String>());
 	}
@@ -212,7 +212,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the calls
-	 */
+   */
 	public CallList getCalls(Map<String, String> filters) {
 		CallList calls = new CallList(this.getClient(), filters);
 		calls.setRequestAccountSid(this.getRequestAccountSid());
@@ -224,7 +224,7 @@ public class Account extends InstanceResource {
 	 * Get a given call instance by sid
 	 *
 	 * @param sid The 34 character sid starting with CA
-	 */
+   */
 	public Call getCall(String sid) {
 		Call call = new Call(this.getClient(), sid);
 		call.setRequestAccountSid(this.getRequestAccountSid());
@@ -237,7 +237,7 @@ public class Account extends InstanceResource {
 	 * <a href="http://www.twilio.com/docs/api/rest/making_calls">http://www.twilio.com/docs/api/rest/making_calls</a>
 	 *
 	 * @return the call factory
-	 */
+   */
 	public CallFactory getCallFactory() {
 		return this.getCalls();
 	}
@@ -248,7 +248,7 @@ public class Account extends InstanceResource {
 	 * <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
 	 *
 	 * @return the sms messages
-	 */
+   */
 	public SmsList getSmsMessages() {
 		return this.getSmsMessages(new HashMap<String, String>());
 	}
@@ -261,7 +261,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the sms messages
-	 */
+   */
 	public SmsList getSmsMessages(Map<String, String> filters) {
 		SmsList sms = new SmsList(this.getClient(), filters);
 		sms.setRequestAccountSid(this.getRequestAccountSid());
@@ -272,7 +272,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given sms instance by sid
 	 * @param sid The 34 character sid starting with SM
-	 */
+   */
 	public Sms getSms(String sid) {
 		Sms sms = new Sms(this.getClient(), sid);
 		sms.setRequestAccountSid(this.getRequestAccountSid());
@@ -284,9 +284,89 @@ public class Account extends InstanceResource {
 	 *
 	 * <a href="http://www.twilio.com/docs/api/rest/sending-sms">http://www.twilio.com/docs/api/rest/sending-sms</a>
 	 * @return the sms factory
-	 */
+   */
 	public SmsFactory getSmsFactory() {
 		return this.getSmsMessages();
+	}
+
+	/**
+	 * Gets the message list.
+	 *
+	 * <a href="http://www.twilio.com/docs/api/rest/messages">http://www.twilio.com/docs/api/rest/messages</a>
+	 *
+	 * @return the messages
+   */
+	public MessageList getMessages() {
+		return this.getMessages(new HashMap<String, String>());
+	}
+
+	/**
+	 * Gets the messages list with the given filters
+	 *
+	 * <a href="http://www.twilio.com/docs/api/rest/messages">http://www.twilio.com/docs/api/rest/messages</a>
+	 *
+	 * @param filters
+	 *            the filters
+	 * @return the messages
+   */
+	public MessageList getMessages(Map<String, String> filters) {
+		MessageList messages = new MessageList(this.getClient(), filters);
+		messages.setRequestAccountSid(this.getRequestAccountSid());
+
+		return messages;
+	}
+
+	/**
+	 * Gets the message factory which lets you send messages
+	 *
+	 * <a href="http://www.twilio.com/docs/api/rest/sending-messages">http://www.twilio.com/docs/api/rest/sending-messages</a>
+	 * @return the message factory
+   */
+	public MessageFactory getMessageFactory() {
+		return this.getMessages();
+	}
+
+	/**
+	 * Get a given message instance by sid
+	 * @param sid The 34 character sid starting with MM or SM
+   */
+	public Message getMessage(String sid) {
+		Message message = new Message(this.getClient(), sid);
+		message.setRequestAccountSid(this.getRequestAccountSid());
+		return message;
+	}
+
+	/**
+	 * Gets the media list.
+	 *
+	 * @return the media list
+   */
+	public MediaList getMedia() {
+		return this.getMedia(new HashMap<String, String>());
+	}
+
+	/**
+	 * Gets the media list with the given filters.
+	 *
+	 * @return the media list
+   */
+	public MediaList getMedia(Map<String, String> filters) {
+		MediaList mediaList = new MediaList(this.getClient(), filters);
+		mediaList.setRequestAccountSid(this.getRequestAccountSid());
+
+		return mediaList;
+	}
+
+
+	/**
+	 * Gets the media instance for this sid.
+	 *
+	 * @return the media
+   */
+	public Media getMedia(String sid) {
+		Media media = new Media(this.getClient(), sid);
+		media.setRequestAccountSid(this.getRequestAccountSid());
+		return media;
 	}
 
 	/**
@@ -294,7 +374,7 @@ public class Account extends InstanceResource {
 	 *
 	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
 	 * @return the applications
-	 */
+   */
 	public ApplicationList getApplications() {
 		return this.getApplications(new HashMap<String, String>());
 	}
@@ -307,7 +387,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the applications
-	 */
+   */
 	public ApplicationList getApplications(Map<String, String> filters) {
 		ApplicationList list = new ApplicationList(this.getClient(), filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -317,7 +397,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given application instance by sid
 	 * @param sid The 34 character sid starting with AP
-	 */
+   */
 	public Application getApplication(String sid) {
 		Application app = new Application(this.getClient(), sid);
 		app.setRequestAccountSid(this.getRequestAccountSid());
@@ -331,7 +411,7 @@ public class Account extends InstanceResource {
 	 * <a href="http://www.twilio.com/docs/api/rest/applications#list-post">http://www.twilio.com/docs/api/rest/applications#list-post</a>
 	 *
 	 * @return the application factory
-	 */
+   */
 	public ApplicationFactory getApplicationFactory() {
 		return this.getApplications();
 	}
@@ -343,7 +423,7 @@ public class Account extends InstanceResource {
 	 *
 	 * See: <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
 	 * @return the available phone numbers
-	 */
+   */
 	public AvailablePhoneNumberList getAvailablePhoneNumbers() {
 		return this.getAvailablePhoneNumbers(new HashMap<String, String>());
 	}
@@ -357,14 +437,14 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the available phone numbers
-	 */
+   */
 	public AvailablePhoneNumberList getAvailablePhoneNumbers(
 			Map<String, String> filters) {
 		AvailablePhoneNumberList list = new AvailablePhoneNumberList(
 				this.getClient(), filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
-	}
+			}
 
 	/**
 	 * Gets the available phone numbers with the given iso country and type
@@ -381,7 +461,7 @@ public class Account extends InstanceResource {
 	 *            AvailablePhoneNumber.TYPE_TOLLFREE
 	 *
 	 * @return the available phone numbers
-	 */
+   */
 	public AvailablePhoneNumberList getAvailablePhoneNumbers(
 			Map<String, String> filters, String isoCountry, String type) {
 		AvailablePhoneNumberList list = new AvailablePhoneNumberList(
@@ -389,7 +469,7 @@ public class Account extends InstanceResource {
 		list.setRequestAccountSid(this.getRequestAccountSid());
 
 		return list;
-	}
+			}
 
 	/**
 	 * Gets the conference list
@@ -397,7 +477,7 @@ public class Account extends InstanceResource {
 	 * See: <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>
 	 *
 	 * @return the conferences
-	 */
+   */
 	public ConferenceList getConferences() {
 		return this.getConferences(new HashMap<String, String>());
 	}
@@ -410,7 +490,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the conferences
-	 */
+   */
 	public ConferenceList getConferences(Map<String, String> filters) {
 		ConferenceList list = new ConferenceList(this.getClient(), filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -420,7 +500,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given conference instance by sid
 	 * @param sid The 34 character sid starting with CF
-	 */
+   */
 	public Conference getConference(String sid) {
 		Conference conf = new Conference(this.getClient(), sid);
 		conf.setRequestAccountSid(this.getRequestAccountSid());
@@ -433,7 +513,7 @@ public class Account extends InstanceResource {
 	 * See: <a href="http://www.twilio.com/docs/api/rest/queue">http://www.twilio.com/docs/api/rest/queue</a>
 	 *
 	 * @return the {@link QueueList}
-	 */
+   */
 	public QueueList getQueues() {
 		QueueList list = new QueueList(this.getClient(), filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -445,7 +525,7 @@ public class Account extends InstanceResource {
 	 *
 	 * @param sid The Sid starting with QU
 	 * @return the queue object
-	 */
+   */
 	public Queue getQueue(String sid) {
 		Queue queue = new Queue(this.getClient(), sid);
 		queue.setRequestAccountSid(this.getRequestAccountSid());
@@ -454,7 +534,7 @@ public class Account extends InstanceResource {
 
 	/**
 	 * Get the queue factory
-	 */
+   */
 	public QueueFactory getQueueFactory() {
 		return this.getQueues();
 	}
@@ -465,7 +545,7 @@ public class Account extends InstanceResource {
 	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
 	 *
 	 * @return the incoming phone numbers
-	 */
+   */
 	public IncomingPhoneNumberList getIncomingPhoneNumbers() {
 		return this.getIncomingPhoneNumbers(new HashMap<String, String>());
 	}
@@ -478,19 +558,19 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the incoming phone numbers
-	 */
+   */
 	public IncomingPhoneNumberList getIncomingPhoneNumbers(
 			Map<String, String> filters) {
 		IncomingPhoneNumberList list = new IncomingPhoneNumberList(
 				this.getClient(), filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
-	}
+			}
 
 	/**
 	 * Get a given incoming phone number instance by sid
 	 * @param sid The 34 character sid starting with PN
-	 */
+   */
 	public IncomingPhoneNumber getIncomingPhoneNumber(String sid) {
 		IncomingPhoneNumber pn = new IncomingPhoneNumber(this.getClient(), sid);
 		pn.setRequestAccountSid(this.getRequestAccountSid());
@@ -503,7 +583,7 @@ public class Account extends InstanceResource {
 	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post">http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post</a>
 	 *
 	 * @return the incoming phone number factory
-	 */
+   */
 	public IncomingPhoneNumberFactory getIncomingPhoneNumberFactory() {
 		return this.getIncomingPhoneNumbers();
 	}
@@ -512,7 +592,7 @@ public class Account extends InstanceResource {
 	 * Gets the shortcode list.
 	 *
 	 * @return the short code list
-	 */
+   */
 	public ShortCodeList getShortCodes() {
 		return this.getShortCodes(new HashMap<String, String>());
 	}
@@ -523,7 +603,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the short code list
-	 */
+   */
 	public ShortCodeList getShortCodes(Map<String, String> filters) {
 		ShortCodeList list = new ShortCodeList(this.getClient(), filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -533,7 +613,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given short code instance by sid
 	 * @param sid The 34 character sid starting with SC
-	 */
+   */
 	public ShortCode getShortCode(String sid) {
 		ShortCode sc = new ShortCode(this.getClient(), sid);
 		sc.setRequestAccountSid(this.getRequestAccountSid());
@@ -544,7 +624,7 @@ public class Account extends InstanceResource {
 	 * Gets the notifications.
 	 *
 	 * @return the notifications
-	 */
+   */
 	public NotificationList getNotifications() {
 		return this.getNotifications(new HashMap<String, String>());
 	}
@@ -555,7 +635,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the notifications
-	 */
+   */
 	public NotificationList getNotifications(Map<String, String> filters) {
 		NotificationList list = new NotificationList(this.getClient(), filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -565,7 +645,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given notification instance by sid
 	 * @param sid The 34 character sid starting with NO
-	 */
+   */
 	public Notification getNotification(String sid) {
 		Notification n = new Notification(this.getClient(), sid);
 		n.setRequestAccountSid(this.getRequestAccountSid());
@@ -579,7 +659,7 @@ public class Account extends InstanceResource {
 	 * <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 *
 	 * @return the outgoing caller ids
-	 */
+   */
 	public OutgoingCallerIdList getOutgoingCallerIds() {
 		return this.getOutgoingCallerIds(new HashMap<String, String>());
 	}
@@ -592,7 +672,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the outgoing caller ids
-	 */
+   */
 	public OutgoingCallerIdList getOutgoingCallerIds(Map<String, String> filters) {
 		OutgoingCallerIdList list = new OutgoingCallerIdList(this.getClient(),
 				filters);
@@ -603,7 +683,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given outgoing caller id instance by sid
 	 * @param sid The 34 character sid starting with PN
-	 */
+   */
 	public OutgoingCallerId getOutgoingCallerId(String sid) {
 		OutgoingCallerId number = new OutgoingCallerId(this.getClient(), sid);
 		number.setRequestAccountSid(this.getRequestAccountSid());
@@ -618,7 +698,7 @@ public class Account extends InstanceResource {
 	 * <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 *
 	 * @return the outgoing caller id factory
-	 */
+   */
 	public OutgoingCallerIdFactory getOutgoingCallerIdFactory() {
 		return this.getOutgoingCallerIds();
 	}
@@ -629,7 +709,7 @@ public class Account extends InstanceResource {
 	 * <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>
 	 *
 	 * @return the recordings
-	 */
+   */
 	public RecordingList getRecordings() {
 		return this.getRecordings(new HashMap<String, String>());
 	}
@@ -642,7 +722,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the recordings
-	 */
+   */
 	public RecordingList getRecordings(Map<String, String> filters) {
 		RecordingList list = new RecordingList(this.getClient(), filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -652,7 +732,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Get a given recording instance by sid
 	 * @param sid The 34 character sid starting with RE
-	 */
+   */
 	public Recording getRecording(String sid) {
 		Recording r = new Recording(this.getClient(), sid);
 		r.setRequestAccountSid(this.getRequestAccountSid());
@@ -665,7 +745,7 @@ public class Account extends InstanceResource {
 	 * <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>
 	 *
 	 * @return the transcriptions
-	 */
+   */
 	public TranscriptionList getTranscriptions() {
 		return this.getTranscriptions(new HashMap<String, String>());
 	}
@@ -678,7 +758,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the transcriptions
-	 */
+   */
 	public TranscriptionList getTranscriptions(Map<String, String> filters) {
 		TranscriptionList list = new TranscriptionList(this.getClient(),
 				filters);
@@ -686,10 +766,10 @@ public class Account extends InstanceResource {
 		return list;
 	}
 
-    /**
+	/**
 	 * Get a given transcription instance by sid
 	 * @param sid The 34 character sid starting with TR
-	 */
+   */
 	public Transcription getTranscription(String sid) {
 		Transcription tr = new Transcription(this.getClient(), sid);
 		tr.setRequestAccountSid(this.getRequestAccountSid());
@@ -704,7 +784,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the usage records
-	 */
+   */
 	public UsageRecordList getUsageRecords(Map<String, String> filters) {
 		UsageRecordList list = new UsageRecordList(this.getClient(),
 				filters);
@@ -718,14 +798,14 @@ public class Account extends InstanceResource {
 	 * <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
 	 *
 	 * @return the usage records
-	 */
+   */
 	public UsageRecordList getUsageRecords() {
 		return this.getUsageRecords(new HashMap<String, String>());
 	}
 
 	/**
 	 * Get a specific Usage Trigger
-	 */
+   */
 	public UsageTrigger getUsageTrigger(String sid) {
 		UsageTrigger trigger = new UsageTrigger(this.getClient(), sid);
 		trigger.setRequestAccountSid(this.getRequestAccountSid());
@@ -736,7 +816,7 @@ public class Account extends InstanceResource {
 	 * Gets the Usage Trigger factory which lets you create usage triggers
 	 *
 	 * @return the usage trigger factory
-	 */
+   */
 	public UsageTriggerFactory getUsageTriggerFactory() {
 		return this.getUsageTriggers();
 	}
@@ -749,7 +829,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the usage records
-	 */
+   */
 	public UsageTriggerList getUsageTriggers(Map<String, String> filters) {
 		UsageTriggerList list = new UsageTriggerList(this.getClient(),
 				filters);
@@ -763,7 +843,7 @@ public class Account extends InstanceResource {
 	 *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
 	 *
 	 * @return the usage triggers
-	 */
+   */
 	public UsageTriggerList getUsageTriggers() {
 		return this.getUsageTriggers(new HashMap<String, String>());
 	}
@@ -774,7 +854,7 @@ public class Account extends InstanceResource {
 	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
 	 *
 	 * @return the connect app list
-	 */
+   */
 	public ConnectAppList getConnectApps() {
 		return this.getConnectApps(new HashMap<String, String>());
 	}
@@ -787,7 +867,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the connect app list
-	 */
+   */
 	public ConnectAppList getConnectApps(Map<String, String> filters) {
 		ConnectAppList list = new ConnectAppList(this.getClient(),
 				filters);
@@ -799,7 +879,7 @@ public class Account extends InstanceResource {
 	 * Get a given connect app instance by sid
 	 * @param sid The 34 character sid starting with CN
 	 * @return the connect app
-	 */
+   */
 	public ConnectApp getConnectApp(String sid) {
 		ConnectApp cn = new ConnectApp(this.getClient(), sid);
 		cn.setRequestAccountSid(this.getRequestAccountSid());
@@ -812,7 +892,7 @@ public class Account extends InstanceResource {
 	 *  <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
 	 *
 	 * @return the connect app list
-	 */
+   */
 	public AuthorizedConnectAppList getAuthorizedConnectApps() {
 		return this.getAuthorizedConnectApps(new HashMap<String, String>());
 	}
@@ -825,7 +905,7 @@ public class Account extends InstanceResource {
 	 * @param filters
 	 *            the filters
 	 * @return the connect app list
-	 */
+   */
 	public AuthorizedConnectAppList getAuthorizedConnectApps(Map<String, String> filters) {
 		AuthorizedConnectAppList list = new AuthorizedConnectAppList(this.getClient(),
 				filters);
@@ -837,7 +917,7 @@ public class Account extends InstanceResource {
 	 * Get a given connect app instance by sid
 	 * @param sid The 34 character sid starting with CN
 	 * @return the connect app
-	 */
+   */
 	public AuthorizedConnectApp getAuthorizedConnectApp(String sid) {
 		AuthorizedConnectApp cn = new AuthorizedConnectApp(this.getClient(), sid);
 		cn.setRequestAccountSid(this.getRequestAccountSid());
@@ -963,7 +1043,7 @@ public class Account extends InstanceResource {
 	 *
 	 *  <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox</a>
 	 * @return the sandbox
-	 */
+   */
 	public Sandbox getSandbox() {
 		Sandbox sb = new Sandbox(this.getClient());
 		sb.setRequestAccountSid(this.getRequestAccountSid());
@@ -978,7 +1058,7 @@ public class Account extends InstanceResource {
 	 *             if there is an error in the request
 	 * @return true, if successful
 	 *
-	 */
+   */
 	public boolean close() throws TwilioRestException {
 		Map<String, String> vars = new HashMap<String, String>();
 		vars.put("Status", "closed");

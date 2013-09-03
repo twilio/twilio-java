@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.InstanceResource;
 
 /**
@@ -156,4 +158,18 @@ public class Transcription extends InstanceResource {
 	public String getTranscriptionText() {
 		return this.getProperty("transcription_text");
 	}
+
+	/**
+	 * Delete this Transcription
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", (Map) null);
+
+		return !response.isError();
+	}
+
 }

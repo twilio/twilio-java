@@ -20,31 +20,31 @@ import com.twilio.sdk.resource.list.sip.CredentialListMappingList;
 
 public class Domain extends InstanceResource {
 
-    /** The Constant SID_PROPERTY. */
-    private static final String SID_PROPERTY = "sid";
+	/** The Constant SID_PROPERTY. */
+	private static final String SID_PROPERTY = "sid";
 
-    /**
-     * Instantiates a new Domain.
-     *
-     * @param client the client
-     */
-     public Domain(TwilioRestClient client) {
-         super(client);
-     }
+	/**
+	 * Instantiates a new Domain.
+	 *
+	 * @param client the client
+	 */
+	public Domain(TwilioRestClient client) {
+		super(client);
+	}
 
-     /**
-      * Instantiates a new Domain.
-      *
-      * @param client the client
-      * @param sid the sid
-      */
-     public Domain(TwilioRestClient client, String sid) {
-         super(client);
-         if (sid == null) {
-             throw new IllegalStateException("The Sid for a Domain can not be null");
-         }
-         this.setProperty(SID_PROPERTY, sid);
-     }
+	/**
+	 * Instantiates a new Domain.
+	 *
+	 * @param client the client
+	 * @param sid the sid
+	 */
+	public Domain(TwilioRestClient client, String sid) {
+		super(client);
+		if (sid == null) {
+			throw new IllegalStateException("The Sid for a Domain can not be null");
+		}
+		this.setProperty(SID_PROPERTY, sid);
+	}
 
 	/**
 	 * Instantiates a new Domain.
@@ -60,12 +60,12 @@ public class Domain extends InstanceResource {
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
-	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION
-            + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/Domains/" + this.getSid()
-            + ".json";
-	}
+		protected String getResourceLocation() {
+			return "/" + TwilioRestClient.DEFAULT_VERSION
+				+ "/Accounts/" + this.getRequestAccountSid()
+				+ "/SIP/Domains/" + this.getSid()
+				+ ".json";
+		}
 
 	/*
 	 * Property getters
@@ -200,83 +200,83 @@ public class Domain extends InstanceResource {
 		return this.getProperty("voice_url");
 	}
 
-    /**
-     * Gets the list of IpAccessControlListMappings associated with this domain.
-     *
-     * @return the IpAccessControlListMappingList
-     */
-    public IpAccessControlListMappingList getIpAccessControlListMappings() {
-        IpAccessControlListMappingList ipAccessControlListMappingList = new IpAccessControlListMappingList(
-                this.getClient(), this.getSid());
-        ipAccessControlListMappingList.setRequestAccountSid(this.getRequestAccountSid());
-        return ipAccessControlListMappingList;
-    }
+	/**
+	 * Gets the list of IpAccessControlListMappings associated with this domain.
+	 *
+	 * @return the IpAccessControlListMappingList
+	 */
+	public IpAccessControlListMappingList getIpAccessControlListMappings() {
+		IpAccessControlListMappingList ipAccessControlListMappingList = new IpAccessControlListMappingList(
+				this.getClient(), this.getSid());
+		ipAccessControlListMappingList.setRequestAccountSid(this.getRequestAccountSid());
+		return ipAccessControlListMappingList;
+	}
 
-    /**
-     * Gets the list of IpAccessControlListMappings associated with this domain.
-     *
-     * @return the IpAccessControlListMappingList
-     */
-    public IpAccessControlListMapping getIpAccessControlListMapping(String ipAccessControlListMappingSid) {
-        IpAccessControlListMapping ipAccessControlListMapping = new IpAccessControlListMapping(
-                this.getClient(), this.getSid(), ipAccessControlListMappingSid);
-        ipAccessControlListMapping.setRequestAccountSid(this.getRequestAccountSid());
-        return ipAccessControlListMapping;
-    }
+	/**
+	 * Gets the list of IpAccessControlListMappings associated with this domain.
+	 *
+	 * @return the IpAccessControlListMappingList
+	 */
+	public IpAccessControlListMapping getIpAccessControlListMapping(String ipAccessControlListMappingSid) {
+		IpAccessControlListMapping ipAccessControlListMapping = new IpAccessControlListMapping(
+				this.getClient(), this.getSid(), ipAccessControlListMappingSid);
+		ipAccessControlListMapping.setRequestAccountSid(this.getRequestAccountSid());
+		return ipAccessControlListMapping;
+	}
 
-    /**
-     * Gets the CredentialListMappingFactory so you can't create new CredentialListMappings
-     *
-     * @return the CredentialListMappingFactory
-     */
-    public IpAccessControlListMappingFactory getIpAccessControlListMappingFactory() {
-        return this.getIpAccessControlListMappings();
-    }
+	/**
+	 * Gets the CredentialListMappingFactory so you can't create new CredentialListMappings
+	 *
+	 * @return the CredentialListMappingFactory
+	 */
+	public IpAccessControlListMappingFactory getIpAccessControlListMappingFactory() {
+		return this.getIpAccessControlListMappings();
+	}
 
-    /**
-     * Gets the list of CredentialListMappings associated with this domain.
-     *
-     * @return the CredentialListMapping
-     */
-    public CredentialListMappingList getCredentialListMappings() {
-        CredentialListMappingList credentialListMappingList = new CredentialListMappingList(
-                this.getClient(), this.getSid());
-        credentialListMappingList.setRequestAccountSid(this.getRequestAccountSid());
-        return credentialListMappingList;
-    }
+	/**
+	 * Gets the list of CredentialListMappings associated with this domain.
+	 *
+	 * @return the CredentialListMapping
+	 */
+	public CredentialListMappingList getCredentialListMappings() {
+		CredentialListMappingList credentialListMappingList = new CredentialListMappingList(
+				this.getClient(), this.getSid());
+		credentialListMappingList.setRequestAccountSid(this.getRequestAccountSid());
+		return credentialListMappingList;
+	}
 
-    /**
-     * Gets the list of CredentialListMappings associated with this domain.
-     *
-     * @return the CredentialListMapping
-     */
-    public CredentialListMapping getCredentialListMapping(String credentialListMappingSid) {
-        CredentialListMapping credentialListMapping = new CredentialListMapping(
-                this.getClient(), this.getSid(), credentialListMappingSid);
-        credentialListMapping.setRequestAccountSid(this.getRequestAccountSid());
-        return credentialListMapping;
-    }
+	/**
+	 * Gets the list of CredentialListMappings associated with this domain.
+	 *
+	 * @return the CredentialListMapping
+	 */
+	public CredentialListMapping getCredentialListMapping(String credentialListMappingSid) {
+		CredentialListMapping credentialListMapping = new CredentialListMapping(
+				this.getClient(), this.getSid(), credentialListMappingSid);
+		credentialListMapping.setRequestAccountSid(this.getRequestAccountSid());
+		return credentialListMapping;
+	}
 
-    /**
-     * Gets the CredentialListMappingFactory so you can't create new CredentialListMappings
-     *
-     * @return the CredentialListMappingFactory
-     */
-    public CredentialListMappingFactory getCredentialListMappingFactory() {
-        return this.getCredentialListMappings();
-    }
+	/**
+	 * Gets the CredentialListMappingFactory so you can create new CredentialListMappings
+	 *
+	 * @return the CredentialListMappingFactory
+	 */
+	public CredentialListMappingFactory getCredentialListMappingFactory() {
+		return this.getCredentialListMappings();
+	}
 
-    /**
-     * Delete this {@link Domain}.
-     * @throws TwilioRestException
-     *             if there is an error in the request
-     * @return true, if successful
-     *
-     */
-    public boolean delete() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "DELETE", (Map) null);
+	/**
+	 * Delete this {@link Domain}.
+	 * @throws TwilioRestException
+	 *             if there is an error in the request
+	 * @return true, if successful
+	 *
+	 */
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", (Map) null);
 
-        return !response.isError();
-    }
+		return !response.isError();
+	}
 }

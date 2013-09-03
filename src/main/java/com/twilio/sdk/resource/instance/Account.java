@@ -931,8 +931,8 @@ public class Account extends InstanceResource {
      *
      * @return the sip domain
      */
-    public DomainList getDomainList() {
-        return this.getDomainList(new HashMap<String, String>());
+    public DomainList getDomains() {
+        return this.getDomains(new HashMap<String, String>());
     }
 
 	/**
@@ -944,7 +944,7 @@ public class Account extends InstanceResource {
 	 *            the filters
 	 * @return the sip domain list
 	 */
-	public DomainList getDomainList(Map<String, String> filters) {
+	public DomainList getDomains(Map<String, String> filters) {
 		DomainList list = new DomainList(this.getClient(),
 				filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -962,6 +962,14 @@ public class Account extends InstanceResource {
 		return domain;
 	}
 
+	/**
+	 * Gets a DomainFactory
+	 * @return a DomainFactory that lets you create new Domains
+	 */
+	public DomainFactory getDomainFactory() {
+		return this.getDomains();
+	}
+
     /**
      * Gets the sip IpAccessControlLists list.
      *
@@ -969,8 +977,8 @@ public class Account extends InstanceResource {
      *
      * @return the sip IpAccessControlList
      */
-    public IpAccessControlListList getIpAccessControlListList() {
-        return this.getIpAccessControlListList(new HashMap<String, String>());
+    public IpAccessControlListList getIpAccessControlLists() {
+        return this.getIpAccessControlLists(new HashMap<String, String>());
     }
 
 	/**
@@ -982,7 +990,7 @@ public class Account extends InstanceResource {
 	 *            the filters
 	 * @return the sip IpAccessControlList list
 	 */
-	public IpAccessControlListList getIpAccessControlListList(Map<String, String> filters) {
+	public IpAccessControlListList getIpAccessControlLists(Map<String, String> filters) {
 		IpAccessControlListList list = new IpAccessControlListList(this.getClient(),
 				filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -1000,6 +1008,14 @@ public class Account extends InstanceResource {
 		return ipAccessControlList;
 	}
 
+	/**
+	 * Gets an IpAccessControlListFactory
+	 * @return an IpAccessControlListFactory that lets you create new IpAccessControlLists
+	 */
+	public IpAccessControlListFactory getIpAccessControlListFactory() {
+		return this.getIpAccessControlLists();
+	}
+
     /**
      * Gets the sip CredentialLists list.
      *
@@ -1008,7 +1024,7 @@ public class Account extends InstanceResource {
      * @return the sip CredentialList
      */
     public CredentialListList getCredentialLists() {
-        return this.getCredentialListList(new HashMap<String, String>());
+        return this.getCredentialLists(new HashMap<String, String>());
     }
 
 	/**
@@ -1020,7 +1036,7 @@ public class Account extends InstanceResource {
 	 *            the filters
 	 * @return the sip CredentialList list
 	 */
-	public CredentialListList getCredentialListList(Map<String, String> filters) {
+	public CredentialListList getCredentialLists(Map<String, String> filters) {
 		CredentialListList list = new CredentialListList(this.getClient(),
 				filters);
 		list.setRequestAccountSid(this.getRequestAccountSid());
@@ -1036,6 +1052,14 @@ public class Account extends InstanceResource {
 		CredentialListInstance credentialList = new CredentialListInstance(this.getClient(), sid);
 		credentialList.setRequestAccountSid(this.getRequestAccountSid());
 		return credentialList;
+	}
+
+	/**
+	 * Gets a CredentialListFactory
+	 * @return the CredentialListFactory that lets you make new CredentialLists
+	 */
+	public CredentialListFactory getCredentialListFactory() {
+		return this.getCredentialLists();
 	}
 
 	/**

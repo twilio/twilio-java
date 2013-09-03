@@ -9,6 +9,7 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.sip.DomainFactory;
 import com.twilio.sdk.resource.instance.sip.Domain;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -66,6 +67,15 @@ public class DomainList extends ListResource<Domain> implements DomainFactory {
 	 * @see com.twilio.sdk.resource.factory.DomainFactory#create(java.util.Map)
 	 */
 	public Domain create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), response.toMap());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.factory.DomainFactory#create(java.util.List)
+	 */
+	public Domain create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

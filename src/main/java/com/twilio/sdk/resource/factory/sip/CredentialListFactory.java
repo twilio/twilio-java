@@ -1,9 +1,11 @@
 package com.twilio.sdk.resource.factory.sip;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.instance.sip.CredentialListInstance;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -17,9 +19,19 @@ public interface CredentialListFactory {
 	/**
 	 * Creates the credential list.
 	 *
-	 * @param params the params
+	 * @param params the params map
 	 * @return the credential list
 	 * @throws TwilioRestException
 	 */
 	public CredentialListInstance create(Map<String, String> params) throws TwilioRestException;
+
+	/**
+	 * Creates the credential list.
+	 *
+	 * @param params the params list
+	 * @return the credential list
+	 * @throws TwilioRestException
+	 */
+	public CredentialListInstance create(List<NameValuePair> params) throws TwilioRestException;
+
 }

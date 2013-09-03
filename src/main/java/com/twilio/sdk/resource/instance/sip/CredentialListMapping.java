@@ -13,33 +13,33 @@ import com.twilio.sdk.resource.InstanceResource;
 
 public class CredentialListMapping extends InstanceResource {
 
-    /** The Constant SID_PROPERTY. */
-    private static final String SID_PROPERTY = "sid";
-    private String requestSipDomainSid;
+	/** The Constant SID_PROPERTY. */
+	private static final String SID_PROPERTY = "sid";
+	private String requestSipDomainSid;
 
-    /**
-     * Instantiates a new CredentialListMapping.
-     *
-     * @param client the client
-     */
-     public CredentialListMapping(TwilioRestClient client) {
-         super(client);
-     }
+	/**
+	 * Instantiates a new CredentialListMapping.
+	 *
+	 * @param client the client
+	 */
+	public CredentialListMapping(TwilioRestClient client) {
+		super(client);
+	}
 
-     /**
-      * Instantiates a new CredentialListMapping.
-      *
-      * @param client the client
-      * @param sid the sid
-      */
-     public CredentialListMapping(TwilioRestClient client, String sipDomainSid, String sid) {
-         super(client);
-         if (sid == null) {
-             throw new IllegalStateException("The Sid for a CredentialListMapping can not be null");
-         }
-         this.setProperty(SID_PROPERTY, sid);
-         this.requestSipDomainSid = sipDomainSid;
-     }
+	/**
+	 * Instantiates a new CredentialListMapping.
+	 *
+	 * @param client the client
+	 * @param sid the sid
+	 */
+	public CredentialListMapping(TwilioRestClient client, String sipDomainSid, String sid) {
+		super(client);
+		if (sid == null) {
+			throw new IllegalStateException("The Sid for a CredentialListMapping can not be null");
+		}
+		this.setProperty(SID_PROPERTY, sid);
+		this.requestSipDomainSid = sipDomainSid;
+	}
 
 	/**
 	 * Instantiates a new CredentialListMapping.
@@ -55,12 +55,12 @@ public class CredentialListMapping extends InstanceResource {
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
-	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION
-            + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/Domains/" + this.getRequestSipDomainSid()
-            + "/CredentialListMappings/" + this.getSid() + ".json";
-	}
+		protected String getResourceLocation() {
+			return "/" + TwilioRestClient.DEFAULT_VERSION
+				+ "/Accounts/" + this.getRequestAccountSid()
+				+ "/SIP/Domains/" + this.getRequestSipDomainSid()
+				+ "/CredentialListMappings/" + this.getSid() + ".json";
+		}
 
 	/*
 	 * Property getters
@@ -133,17 +133,17 @@ public class CredentialListMapping extends InstanceResource {
 	}
 
 
-    /**
-     * Delete this {@link CredentialList}.
-     * @throws TwilioRestException
-     *             if there is an error in the request
-     * @return true, if successful
-     *
-     */
-    public boolean delete() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "DELETE", (Map) null);
+	/**
+	 * Delete this {@link CredentialList}.
+	 * @throws TwilioRestException
+	 *             if there is an error in the request
+	 * @return true, if successful
+	 *
+	 */
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", (Map) null);
 
-        return !response.isError();
-    }
+		return !response.isError();
+	}
 }

@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list.sip;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -8,6 +9,7 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.sip.CredentialListMappingFactory;
 import com.twilio.sdk.resource.instance.sip.CredentialListMapping;
+import org.apache.http.NameValuePair;
 
 public class CredentialListMappingList extends ListResource<CredentialListMapping> implements CredentialListMappingFactory {
 
@@ -75,6 +77,15 @@ public class CredentialListMappingList extends ListResource<CredentialListMappin
 	 * @see com.twilio.sdk.resource.factory.CredentialListMappingFactory#create(java.util.Map)
 	 */
 	public CredentialListMapping create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), response.toMap());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.factory.CredentialListMappingFactory#create(java.util.List)
+	 */
+	public CredentialListMapping create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

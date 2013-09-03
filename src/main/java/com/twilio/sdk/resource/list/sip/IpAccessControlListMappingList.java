@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list.sip;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -8,6 +9,7 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.sip.IpAccessControlListMappingFactory;
 import com.twilio.sdk.resource.instance.sip.IpAccessControlListMapping;
+import org.apache.http.NameValuePair;
 
 public class IpAccessControlListMappingList extends ListResource<IpAccessControlListMapping> implements IpAccessControlListMappingFactory {
 
@@ -75,6 +77,15 @@ public class IpAccessControlListMappingList extends ListResource<IpAccessControl
 	 * @see com.twilio.sdk.resource.factory.IpAccessControlListMappingFactory#create(java.util.Map)
 	 */
 	public IpAccessControlListMapping create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), response.toMap());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.factory.IpAccessControlListMappingFactory#create(java.util.Map)
+	 */
+	public IpAccessControlListMapping create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.list.sip;
 
 import java.util.Map;
+import java.util.List;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -8,6 +9,7 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.sip.CredentialFactory;
 import com.twilio.sdk.resource.instance.sip.Credential;
+import org.apache.http.NameValuePair;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -17,7 +19,7 @@ import com.twilio.sdk.resource.instance.sip.Credential;
  */
 public class CredentialList extends ListResource<Credential> implements CredentialFactory {
 
-    private String requestCredentialListSid;
+	private String requestCredentialListSid;
 
 	/**
 	 * Instantiates a new sip domain list.
@@ -35,7 +37,7 @@ public class CredentialList extends ListResource<Credential> implements Credenti
 	 */
 	public CredentialList(TwilioRestClient client, String credentialListSid) {
 		super(client);
-        this.requestCredentialListSid = credentialListSid;
+		this.requestCredentialListSid = credentialListSid;
 	}
 
 	/**
@@ -52,43 +54,52 @@ public class CredentialList extends ListResource<Credential> implements Credenti
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
-	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION
-            + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/CredentialLists/" + this.getRequestCredentialListSid()
-            + "/.json";
-	}
+		protected String getResourceLocation() {
+			return "/" + TwilioRestClient.DEFAULT_VERSION
+				+ "/Accounts/" + this.getRequestAccountSid()
+				+ "/SIP/CredentialLists/" + this.getRequestCredentialListSid()
+				+ "/.json";
+		}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected Credential makeNew(TwilioRestClient client, Map<String, Object> params) {
-		return new Credential(client, params);
-	}
+		protected Credential makeNew(TwilioRestClient client, Map<String, Object> params) {
+			return new Credential(client, params);
+		}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.ListResource#getListKey()
 	 */
 	@Override
-	protected String getListKey() {
-		return "credentials";
-	}
+		protected String getListKey() {
+			return "credentials";
+		}
 
-    /**
-     * Returns the sid of the containing credential list.
-     *
-     * @return the credential list sid
-     */
-    public String getRequestCredentialListSid() {
-        return this.requestCredentialListSid;
-    }
+	/**
+	 * Returns the sid of the containing credential list.
+	 *
+	 * @return the credential list sid
+	 */
+	public String getRequestCredentialListSid() {
+		return this.requestCredentialListSid;
+	}
 
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.CredentialFactory#create(java.util.Map)
 	 */
 	public Credential create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), response.toMap());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.twilio.sdk.resource.factory.CredentialFactory#create(java.util.List)
+	 */
+	public Credential create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

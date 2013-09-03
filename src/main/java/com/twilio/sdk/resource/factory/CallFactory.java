@@ -14,12 +14,20 @@ import org.apache.http.NameValuePair;
 public interface CallFactory {
 
 	/**
-	 * Creates the.
+	 * Creates the Call.
 	 *
-	 * @param params the params
+	 * @param params the params map
 	 * @return the call
 	 * @throws TwilioRestException
 	 */
 	public Call create(Map<String, String> params) throws TwilioRestException;
+
+	/**
+	 * Creates the Call.
+	 *
+	 * @param params the params list
+	 * @return the call
+	 * @throws TwilioRestException
+	 */
 	public Call create(List<NameValuePair> params) throws TwilioRestException;
 }

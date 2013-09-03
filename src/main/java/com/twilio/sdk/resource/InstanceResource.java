@@ -39,19 +39,19 @@ public abstract class InstanceResource extends Resource {
 		this.setLoaded(true);
 	}
 
-        private Object getAndLoadIfNecessary(String name) {
-        	Object prop = properties.get(name);
+	private Object getAndLoadIfNecessary(String name) {
+		Object prop = properties.get(name);
 
-        	if (prop == null && !this.isLoaded()) {
-        	    try {
-        		this.load(new HashMap<String, String>());
-        		return properties.get(name);
-        	    } catch (TwilioRestException e) {
-        		throw new RuntimeException(e);
-        	    }
-        	}
-        	return prop;
-        }
+		if (prop == null && !this.isLoaded()) {
+			try {
+				this.load(new HashMap<String, String>());
+				return properties.get(name);
+			} catch (TwilioRestException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return prop;
+	}
 
 	/**
 	 * Gets the property.
@@ -76,7 +76,7 @@ public abstract class InstanceResource extends Resource {
 	}
 
 	protected Object getObject(String name) {
-	    	Object prop = getAndLoadIfNecessary(name);
+		Object prop = getAndLoadIfNecessary(name);
 
 		if (prop == null) {
 			throw new IllegalArgumentException("Property " + name
@@ -86,16 +86,15 @@ public abstract class InstanceResource extends Resource {
 		return prop;
 	}
 
-    /**
-     * Sets the property as an Object
-     *
-     * @param name the name
-     * @param value the value
-     */
-    protected void setProperty(String name, Object value) {
-        properties.put(name, value);
-    }
-
+	/**
+	 * Sets the property as an Object
+	 *
+	 * @param name the name
+	 * @param value the value
+	 */
+	protected void setProperty(String name, Object value) {
+		properties.put(name, value);
+	}
 
 	/**
 	 * Update.
@@ -111,8 +110,8 @@ public abstract class InstanceResource extends Resource {
 	 * @see com.twilio.sdk.resource.Resource#parseResponse(com.twilio.sdk.TwilioRestResponse)
 	 */
 	@Override
-	protected void parseResponse(TwilioRestResponse response) {
-		Map<String, Object> properties = response.toMap();
-		this.properties = new HashMap<String, Object>(properties);
-	}
+		protected void parseResponse(TwilioRestResponse response) {
+			Map<String, Object> properties = response.toMap();
+			this.properties = new HashMap<String, Object>(properties);
+		}
 }

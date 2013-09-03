@@ -142,7 +142,7 @@ public class IpAccessControlListMapping extends InstanceResource {
      */
     public boolean delete() throws TwilioRestException {
         TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "DELETE", null);
+                this.getResourceLocation(), "DELETE", (Map) null);
 
         return !response.isError();
     }

@@ -140,4 +140,12 @@ public abstract class InstanceResource extends Resource {
 		if (inDate==null) {
 			return null;
 		}
+		SimpleDateFormat format = new SimpleDateFormat(
+				"EEE, dd MMM yyyy HH:mm:ss Z");
+		try {
+			return format.parse(inDate);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
 }

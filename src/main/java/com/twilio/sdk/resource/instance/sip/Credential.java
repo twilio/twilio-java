@@ -14,33 +14,33 @@ import com.twilio.sdk.resource.InstanceResource;
 
 public class Credential extends InstanceResource {
 
-    /** The Constant SID_PROPERTY. */
-    private static final String SID_PROPERTY = "sid";
-    private String requestCredentialListSid;
+	/** The Constant SID_PROPERTY. */
+	private static final String SID_PROPERTY = "sid";
+	private String requestCredentialListSid;
 
-    /**
-     * Instantiates a new Credential.
-     *
-     * @param client the client
-     */
-     public Credential(TwilioRestClient client) {
-         super(client);
-     }
+	/**
+	 * Instantiates a new Credential.
+	 *
+	 * @param client the client
+	 */
+	public Credential(TwilioRestClient client) {
+		super(client);
+	}
 
-     /**
-      * Instantiates a new Credential.
-      *
-      * @param client the client
-      * @param sid the sid
-      */
-     public Credential(TwilioRestClient client, String credentialListSid, String sid) {
-         super(client);
-         if (sid == null) {
-             throw new IllegalStateException("The Sid for a Credential can not be null");
-         }
-         this.setProperty(SID_PROPERTY, sid);
-         this.requestCredentialListSid = credentialListSid;
-     }
+	/**
+	 * Instantiates a new Credential.
+	 *
+	 * @param client the client
+	 * @param sid the sid
+	 */
+	public Credential(TwilioRestClient client, String credentialListSid, String sid) {
+		super(client);
+		if (sid == null) {
+			throw new IllegalStateException("The Sid for a Credential can not be null");
+		}
+		this.setProperty(SID_PROPERTY, sid);
+		this.requestCredentialListSid = credentialListSid;
+	}
 
 	/**
 	 * Instantiates a new Credential.
@@ -56,13 +56,13 @@ public class Credential extends InstanceResource {
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
-	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION
-            + "/Accounts/" + this.getRequestAccountSid()
-            + "/SIP/CredentialLists/" + this.getRequestCredentialListSid()
-            + "/Credentials/" + this.getSid()
-            + ".json";
-	}
+		protected String getResourceLocation() {
+			return "/" + TwilioRestClient.DEFAULT_VERSION
+				+ "/Accounts/" + this.getRequestAccountSid()
+				+ "/SIP/CredentialLists/" + this.getRequestCredentialListSid()
+				+ "/Credentials/" + this.getSid()
+				+ ".json";
+		}
 
 	/*
 	 * Property getters
@@ -125,26 +125,26 @@ public class Credential extends InstanceResource {
 		return this.getProperty("username");
 	}
 
-    /**
-     * Gets the sid of the parent credential list
-     *
-     * @return the credential list sid
-     */
-    public String getRequestCredentialListSid() {
-        return this.requestCredentialListSid;
-    }
+	/**
+	 * Gets the sid of the parent credential list
+	 *
+	 * @return the credential list sid
+	 */
+	public String getRequestCredentialListSid() {
+		return this.requestCredentialListSid;
+	}
 
-    /**
-     * Delete this {@link Credential}.
-     * @throws TwilioRestException
-     *             if there is an error in the request
-     * @return true, if successful
-     *
-     */
-    public boolean delete() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "DELETE", null);
+	/**
+	 * Delete this {@link Credential}.
+	 * @throws TwilioRestException
+	 *             if there is an error in the request
+	 * @return true, if successful
+	 *
+	 */
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", (Map) null);
 
-        return !response.isError();
-    }
+		return !response.isError();
+	}
 }

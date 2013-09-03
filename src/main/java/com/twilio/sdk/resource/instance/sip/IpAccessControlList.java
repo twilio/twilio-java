@@ -16,31 +16,31 @@ import com.twilio.sdk.resource.list.sip.AddressList;
 
 public class IpAccessControlList extends InstanceResource {
 
-    /** The Constant SID_PROPERTY. */
-    private static final String SID_PROPERTY = "sid";
+	/** The Constant SID_PROPERTY. */
+	private static final String SID_PROPERTY = "sid";
 
-    /**
-     * Instantiates a new IpAccessControlList.
-     *
-     * @param client the client
-     */
-     public IpAccessControlList(TwilioRestClient client) {
-         super(client);
-     }
+	/**
+	 * Instantiates a new IpAccessControlList.
+	 *
+	 * @param client the client
+	 */
+	public IpAccessControlList(TwilioRestClient client) {
+		super(client);
+	}
 
-     /**
-      * Instantiates a new IpAccessControlList.
-      *
-      * @param client the client
-      * @param sid the sid
-      */
-     public IpAccessControlList(TwilioRestClient client, String sid) {
-         super(client);
-         if (sid == null) {
-             throw new IllegalStateException("The Sid for a IpAccessControlList can not be null");
-         }
-         this.setProperty(SID_PROPERTY, sid);
-     }
+	/**
+	 * Instantiates a new IpAccessControlList.
+	 *
+	 * @param client the client
+	 * @param sid the sid
+	 */
+	public IpAccessControlList(TwilioRestClient client, String sid) {
+		super(client);
+		if (sid == null) {
+			throw new IllegalStateException("The Sid for a IpAccessControlList can not be null");
+		}
+		this.setProperty(SID_PROPERTY, sid);
+	}
 
 	/**
 	 * Instantiates a new IpAccessControlList.
@@ -56,11 +56,11 @@ public class IpAccessControlList extends InstanceResource {
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
-	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+		protected String getResourceLocation() {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
 				+ this.getRequestAccountSid() + "/SIP/IpAccessControlLists/" + this.getSid()
 				+ ".json";
-	}
+		}
 
 	/*
 	 * Property getters
@@ -123,48 +123,48 @@ public class IpAccessControlList extends InstanceResource {
 		return this.getProperty("friendly_name");
 	}
 
-    /**
-     * Gets the ip addresses on this list.
-     *
-     * @return an AddressList of the addresses on this list
-     */
-    public AddressList getAddresses() {
-        AddressList addressList = new AddressList(this.getClient(), this.getSid());
-        addressList.setRequestAccountSid(this.getRequestAccountSid());
-        return addressList;
-    }
+	/**
+	 * Gets the ip addresses on this list.
+	 *
+	 * @return an AddressList of the addresses on this list
+	 */
+	public AddressList getAddresses() {
+		AddressList addressList = new AddressList(this.getClient(), this.getSid());
+		addressList.setRequestAccountSid(this.getRequestAccountSid());
+		return addressList;
+	}
 
-    /**
-     * Gets the address factory, which lets you make new addresses.
-     *
-     * @return an AddressList of the addresses on this list
-     */
-    public AddressFactory getAddressFactory() {
-        return this.getAddresses();
-    }
+	/**
+	 * Gets the address factory, which lets you make new addresses.
+	 *
+	 * @return an AddressList of the addresses on this list
+	 */
+	public AddressFactory getAddressFactory() {
+		return this.getAddresses();
+	}
 
-    /**
-     * Gets the ip addresses on this list.
-     *
-     * @return an AddressList of the addresses on this list
-     */
-    public Address getAddress(String addressSid) {
-        Address address = new Address(this.getClient(), this.getSid(), addressSid);
-        address.setRequestAccountSid(this.getRequestAccountSid());
-        return address;
-    }
+	/**
+	 * Gets the ip addresses on this list.
+	 *
+	 * @return an AddressList of the addresses on this list
+	 */
+	public Address getAddress(String addressSid) {
+		Address address = new Address(this.getClient(), this.getSid(), addressSid);
+		address.setRequestAccountSid(this.getRequestAccountSid());
+		return address;
+	}
 
-    /**
-     * Delete this {@link IpAccessControlList}.
-     * @throws TwilioRestException
-     *             if there is an error in the request
-     * @return true, if successful
-     *
-     */
-    public boolean delete() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "DELETE", null);
+	/**
+	 * Delete this {@link IpAccessControlList}.
+	 * @throws TwilioRestException
+	 *             if there is an error in the request
+	 * @return true, if successful
+	 *
+	 */
+	public boolean delete() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "DELETE", (Map) null);
 
-        return !response.isError();
-    }
+		return !response.isError();
+	}
 }

@@ -11,6 +11,11 @@ import com.twilio.sdk.resource.factory.sip.IpAccessControlListFactory;
 import com.twilio.sdk.resource.instance.sip.IpAccessControlList;
 import org.apache.http.NameValuePair;
 
+/**
+ * This class is a list of IpAccessControlLists.
+ * While the name may seem odd at first, it actually is a list of lists,
+ * so the name is correct.
+ */
 public class IpAccessControlListList extends ListResource<IpAccessControlList> implements IpAccessControlListFactory {
 
 	/**

@@ -14,7 +14,13 @@ import com.twilio.sdk.resource.factory.sip.CredentialFactory;
 import com.twilio.sdk.resource.instance.sip.Credential;
 import com.twilio.sdk.resource.list.sip.CredentialList;
 
-
+/**
+ * This class is the instance resource corresponding to /CredentialLists/CLXXX.
+ *
+ * NOTE: The 'Instance' suffix in the name was added to avoid a name clash with the list resource
+ * that corresponds to /Credentials. This unfortunate quirk is caused by this library's convention of
+ * appending 'List' to instance resources to form their list counterpart.
+ */
 public class CredentialListInstance extends InstanceResource {
 
 	/** The Constant SID_PROPERTY. */
@@ -30,7 +36,7 @@ public class CredentialListInstance extends InstanceResource {
 	}
 
 	/**
-	 * Instantiates a new CredentialList.
+	 * Instantiates a new CredentialListInstance.
 	 *
 	 * @param client the client
 	 * @param sid the sid

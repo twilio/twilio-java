@@ -1,26 +1,28 @@
-# Installing 
+[![Build Status](https://travis-ci.org/twilio/twilio-java.png?branch=master)](https://travis-ci.org/twilio/twilio-java)
 
-TwilioJava is now using Maven.  At present the jars *are* available from a public [maven](http://maven.apache.org/download.html) repository. 
+# Installing
+
+TwilioJava is now using Maven.  At present the jars *are* available from a public [maven](http://maven.apache.org/download.html) repository.
 
 Use the following dependency in your project:
 
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio-java-sdk</artifactId>
-          <version>3.3.15</version>
+          <version>3.3.16</version>
           <scope>compile</scope>
        </dependency>
 
 If you want to compile it yourself, here's how:
 
     $ git clone git@github.com:twilio/twilio-java
-    $ cd twilio-java 
+    $ cd twilio-java
     $ mvn install       # Requires maven, download from http://maven.apache.org/download.html
 
 This will also build the javadoc in `twilio-java/target/apidocs`. You can open the
 index.html located there to view it locally.
 
-The pre-built jars are available at: 
+The pre-built jars are available at:
 
 *   [twilio-java-sdk-3.3.15-with-dependencies.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.3.15/twilio-java-sdk-3.3.15-jar-with-dependencies.jar)
 *   [twilio-java-sdk-3.3.15.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.3.15/twilio-java-sdk-3.3.15.jar) -- use this if you have issues with conflicting jars in your project.  You'll need to include versions of the dependencies yourself.  See the pom.xml for the list of libraries.
@@ -30,7 +32,7 @@ You can view the javadocs for this project at:
 
 # Examples
 
-Here are some examples (also found in [TwilioRestExamples.java](https://github.com/twilio/twilio-java/blob/master/src/main/java/com/twilio/sdk/examples/RestExamples.java) ) 
+Here are some examples (also found in [TwilioRestExamples.java](https://github.com/twilio/twilio-java/blob/master/src/main/java/com/twilio/sdk/examples/RestExamples.java) )
 
 ```java
 package com.twilio.sdk.examples;

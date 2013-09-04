@@ -27,9 +27,10 @@ public class AccountList extends ListResource<Account> implements AccountFactory
 	}
 
 	/**
-	 * Instantiates a new account list with the given filters
+	 * Instantiates a new account list with the given filters.
 	 *
 	 * @param client the client
+	 * @param filters the filters
 	 */
 	public AccountList(TwilioRestClient client, Map<String, String> filters) {
 		super(client, filters);

@@ -58,7 +58,7 @@ public class CredentialList extends ListResource<Credential> implements Credenti
 			return "/" + TwilioRestClient.DEFAULT_VERSION
 				+ "/Accounts/" + this.getRequestAccountSid()
 				+ "/SIP/CredentialLists/" + this.getRequestCredentialListSid()
-				+ "/.json";
+				+ "/Credentials.json";
 		}
 
 	/* (non-Javadoc)

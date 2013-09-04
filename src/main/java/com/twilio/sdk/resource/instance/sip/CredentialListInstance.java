@@ -10,6 +10,7 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.factory.sip.CredentialFactory;
 import com.twilio.sdk.resource.instance.sip.Credential;
 import com.twilio.sdk.resource.list.sip.CredentialList;
 
@@ -154,6 +155,15 @@ public class CredentialListInstance extends InstanceResource {
 		Credential credential = new Credential(this.getClient(), this.getSid(), credentialSid);
 		credential.setRequestAccountSid(this.getRequestAccountSid());
 		return credential;
+	}
+
+	/**
+	 * Gets a CredentialFactory which creates credentials
+	 *
+	 * @return the CredentialFactory
+	 */
+	public CredentialFactory getCredentialFactory() {
+		return this.getCredentials();
 	}
 
 	/**

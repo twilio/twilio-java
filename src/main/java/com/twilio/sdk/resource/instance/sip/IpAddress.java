@@ -10,45 +10,48 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.factory.sip.IpAddressFactory;
-import com.twilio.sdk.resource.instance.sip.IpAddress;
-import com.twilio.sdk.resource.list.sip.IpAddressList;
 
-public class IpAccessControlList extends InstanceResource {
+public class IpAddress extends InstanceResource {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
+	private String ipAccessControlListSid;
 
 	/**
-	 * Instantiates a new IpAccessControlList.
+	 * Instantiates a new IpAddress.
 	 *
 	 * @param client the client
 	 */
-	public IpAccessControlList(TwilioRestClient client) {
+	public IpAddress(TwilioRestClient client) {
 		super(client);
 	}
 
 	/**
-	 * Instantiates a new IpAccessControlList.
+	 * Instantiates a new IpAddress.
 	 *
 	 * @param client the client
+	 * @param ipAccessControlListSid the sid of list this IpAddress belongs to
 	 * @param sid the sid
 	 */
-	public IpAccessControlList(TwilioRestClient client, String sid) {
+	public IpAddress(TwilioRestClient client, String ipAccessControlListSid, String sid) {
 		super(client);
 		if (sid == null) {
-			throw new IllegalStateException("The Sid for a IpAccessControlList can not be null");
+			throw new IllegalStateException("The Sid for an IpAddress can not be null");
+		}
+		if (ipAccessControlListSid == null) {
+			throw new IllegalStateException("The Sid for an ip access control list can not be null");
 		}
 		this.setProperty(SID_PROPERTY, sid);
+		this.ipAccessControlListSid = ipAccessControlListSid;
 	}
 
 	/**
-	 * Instantiates a new IpAccessControlList.
+	 * Instantiates a new IpAddress.
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public IpAccessControlList(TwilioRestClient client, Map<String, Object> properties) {
+	public IpAddress(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -57,9 +60,10 @@ public class IpAccessControlList extends InstanceResource {
 	 */
 	@Override
 		protected String getResourceLocation() {
-			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/SIP/IpAccessControlLists/" + this.getSid()
-				+ ".json";
+			return "/" + TwilioRestClient.DEFAULT_VERSION
+				+ "/Accounts/" + this.getRequestAccountSid()
+				+ "/SIP/IpAccessControlLists/" + this.getIpAccessControlListSid()
+				+ "/IpAddresses/" + this.getSid() + ".json";
 		}
 
 	/*
@@ -73,6 +77,10 @@ public class IpAccessControlList extends InstanceResource {
 	 */
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
+	}
+
+	public String getIpAccessControlListSid() {
+		return this.ipAccessControlListSid;
 	}
 
 	/**
@@ -124,38 +132,16 @@ public class IpAccessControlList extends InstanceResource {
 	}
 
 	/**
-	 * Gets the ip addresses on this list.
+	 * Gets the ip IpAddress
 	 *
-	 * @return an AddressList of the addresses on this list
+	 * @return the friendly name
 	 */
-	public IpAddressList getIpAddresses() {
-		IpAddressList ipAddressList = new IpAddressList(this.getClient(), this.getSid());
-		ipAddressList.setRequestAccountSid(this.getRequestAccountSid());
-		return ipAddressList;
+	public String getIpAddress() {
+		return this.getProperty("ip_address");
 	}
 
 	/**
-	 * Gets the IpAddressFactory, which lets you make new IpAddresses.
-	 *
-	 * @return an IpAddressList of the IpAddresses on this list
-	 */
-	public IpAddressFactory getIpAddressFactory() {
-		return this.getIpAddresses();
-	}
-
-	/**
-	 * Gets the ip IpAddresses on this list.
-	 *
-	 * @return an IpAddressList of the IpAddresses on this list
-	 */
-	public IpAddress getIpAddress(String ipAddressSid) {
-		IpAddress ipAddress = new IpAddress(this.getClient(), this.getSid(), ipAddressSid);
-		ipAddress.setRequestAccountSid(this.getRequestAccountSid());
-		return ipAddress;
-	}
-
-	/**
-	 * Delete this {@link IpAccessControlList}.
+	 * Delete this {@link IpAddress}.
 	 * @throws TwilioRestException
 	 *             if there is an error in the request
 	 * @return true, if successful

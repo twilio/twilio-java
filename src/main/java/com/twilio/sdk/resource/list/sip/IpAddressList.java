@@ -7,30 +7,30 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
-import com.twilio.sdk.resource.factory.sip.AddressFactory;
-import com.twilio.sdk.resource.instance.sip.Address;
+import com.twilio.sdk.resource.factory.sip.IpAddressFactory;
+import com.twilio.sdk.resource.instance.sip.IpAddress;
 import org.apache.http.NameValuePair;
 
-public class AddressList extends ListResource<Address> implements AddressFactory {
+public class IpAddressList extends ListResource<IpAddress> implements IpAddressFactory {
 
     private String ipAccessControlListSid;
 
 	/**
-	 * Instantiates a new address list
+	 * Instantiates a new IpAddress list
 	 *
 	 * @param client the client
 	 */
-	public AddressList(TwilioRestClient client) {
+	public IpAddressList(TwilioRestClient client) {
 		super(client);
 	}
 
 	/**
-	 * Instantiates a new address list
+	 * Instantiates a new IpAddress list
 	 *
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public AddressList(TwilioRestClient client, String ipAccessControlListSid) {
+	public IpAddressList(TwilioRestClient client, String ipAccessControlListSid) {
 		super(client);
         if (ipAccessControlListSid == null) {
             throw new IllegalStateException("The Sid for an ip access control list can not be null");
@@ -39,12 +39,12 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 	}
 
 	/**
-	 * Instantiates a new address list
+	 * Instantiates a new IpAddress list
 	 *
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public AddressList(TwilioRestClient client, Map<String, String> filters) {
+	public IpAddressList(TwilioRestClient client, Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -56,7 +56,7 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 		return "/" + TwilioRestClient.DEFAULT_VERSION
             + "/Accounts/" + this.getRequestAccountSid()
             + "/SIP/IpAccessControlLists/" + this.getIpAccessControlListSid()
-            + "/Addresses"
+            + "/IpAddresses"
             + ".json";
 	}
 
@@ -64,8 +64,8 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected Address makeNew(TwilioRestClient client, Map<String, Object> params) {
-		return new Address(client, params);
+	protected IpAddress makeNew(TwilioRestClient client, Map<String, Object> params) {
+		return new IpAddress(client, params);
 	}
 
 	/* (non-Javadoc)
@@ -88,7 +88,7 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.IpAccessControlListFactory#create(java.util.Map)
 	 */
-	public Address create(Map<String, String> params) throws TwilioRestException {
+	public IpAddress create(Map<String, String> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());
@@ -97,7 +97,7 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.IpAccessControlListFactory#create(java.util.List)
 	 */
-	public Address create(List<NameValuePair> params) throws TwilioRestException {
+	public IpAddress create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());

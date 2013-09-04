@@ -655,8 +655,8 @@ public class TwilioRestClient {
 	 */
 	/**
 	 * Get a list of Account objects. For more info: {@link <a
-	 * href="http://www.twilio.com/docs/api/rest/account"
-	 * >http://www.twilio.com/docs/api/rest/account</a>}
+	 * href="https://www.twilio.com/docs/api/rest/account"
+	 * >https://www.twilio.com/docs/api/rest/account</a>}
 	 *
 	 * @param params
 	 *            Filter the list with the given params. See the Twilio docs for
@@ -671,8 +671,8 @@ public class TwilioRestClient {
 
 	/**
 	 * Get all accounts. For more info: {@link <a
-	 * href="http://www.twilio.com/docs/api/rest/account"
-	 * >http://www.twilio.com/docs/api/rest/account</a>}
+	 * href="https://www.twilio.com/docs/api/rest/account"
+	 * >https://www.twilio.com/docs/api/rest/account</a>}
 	 *
 	 * @return the list of accounts.
 	 */

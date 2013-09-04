@@ -13,7 +13,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class Transcription.
  *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/transcription">https://www.twilio.com/docs/api/rest/transcription</a>
  */
 public class Transcription extends InstanceResource {
 

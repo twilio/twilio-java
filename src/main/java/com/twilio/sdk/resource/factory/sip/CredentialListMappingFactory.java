@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 /**
  * A factory for creating SipDomain objects.
  *
- * For more information see <a href=" http://www.twilio.com/docs/api/rest/credential-list-mappings"> http://www.twilio.com/docs/api/rest/credential-list-mappings</a>
+ * For more information see <a href=" https://www.twilio.com/docs/api/rest/credential-list-mappings"> https://www.twilio.com/docs/api/rest/credential-list-mappings</a>
  *
  */
 public interface CredentialListMappingFactory {

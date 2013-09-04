@@ -15,7 +15,7 @@ import org.apache.http.NameValuePair;
 /**
  * The Class SmsList.
  *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/sms">https://www.twilio.com/docs/api/rest/sms</a>
  */
 public class SmsList extends ListResource<Sms> implements SmsFactory {
 

@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 /**
  * A factory for creating Account objects.
  *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/subaccounts">http://www.twilio.com/docs/api/rest/subaccounts</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/subaccounts">https://www.twilio.com/docs/api/rest/subaccounts</a>
  */
 public interface AccountFactory {
 

@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 /**
  * A factory for creating CredentialListInstance objects.
  *
- * For more information see <a href=" http://www.twilio.com/docs/api/rest/credential-list"> http://www.twilio.com/docs/api/rest/credential-list</a>
+ * For more information see <a href=" https://www.twilio.com/docs/api/rest/credential-list"> https://www.twilio.com/docs/api/rest/credential-list</a>
  *
  */
 public interface CredentialListFactory {

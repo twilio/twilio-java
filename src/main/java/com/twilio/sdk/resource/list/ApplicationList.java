@@ -15,7 +15,7 @@ import org.apache.http.NameValuePair;
 /**
  * The Class ApplicationList.
  *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/applications">https://www.twilio.com/docs/api/rest/applications</a>
  */
 public class ApplicationList extends ListResource<Application> implements
 		ApplicationFactory {

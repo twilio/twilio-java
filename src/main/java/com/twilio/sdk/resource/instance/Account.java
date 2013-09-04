@@ -21,8 +21,8 @@ import com.twilio.sdk.TwilioRestResponse;
  * The Class Account.
  *
  * For more information see <a
- * href="http://www.twilio.com/docs/api/rest/account"
- * >http://www.twilio.com/docs/api/rest/account</a>
+ * href="https://www.twilio.com/docs/api/rest/account"
+ * >https://www.twilio.com/docs/api/rest/account</a>
  */
 public class Account extends InstanceResource {
 
@@ -196,7 +196,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the calls list resource without any filters.
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
 	 *
 	 * @return the calls
    */
@@ -207,7 +207,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the calls list resource with the given filters.
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -234,7 +234,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the call factory, which lets you make outgoing calls.
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/making_calls">http://www.twilio.com/docs/api/rest/making_calls</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/making_calls">https://www.twilio.com/docs/api/rest/making_calls</a>
 	 *
 	 * @return the call factory
    */
@@ -245,7 +245,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the sms message list.
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/sms">https://www.twilio.com/docs/api/rest/sms</a>
 	 *
 	 * @return the sms messages
    */
@@ -256,7 +256,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the sms messages list with the given filters
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/sms">https://www.twilio.com/docs/api/rest/sms</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -282,7 +282,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the sms factory which lets you send sms messages
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/sending-sms">http://www.twilio.com/docs/api/rest/sending-sms</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/sending-sms">https://www.twilio.com/docs/api/rest/sending-sms</a>
 	 * @return the sms factory
    */
 	public SmsFactory getSmsFactory() {
@@ -292,7 +292,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the message list.
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/messages">http://www.twilio.com/docs/api/rest/messages</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/messages">https://www.twilio.com/docs/api/rest/messages</a>
 	 *
 	 * @return the messages
    */
@@ -303,7 +303,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the messages list with the given filters
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/messages">http://www.twilio.com/docs/api/rest/messages</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/messages">https://www.twilio.com/docs/api/rest/messages</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -319,7 +319,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the message factory which lets you send messages
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/sending-messages">http://www.twilio.com/docs/api/rest/sending-messages</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/sending-messages">https://www.twilio.com/docs/api/rest/sending-messages</a>
 	 * @return the message factory
    */
 	public MessageFactory getMessageFactory() {
@@ -372,7 +372,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the application list
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/applications">https://www.twilio.com/docs/api/rest/applications</a>
 	 * @return the applications
    */
 	public ApplicationList getApplications() {
@@ -382,7 +382,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the application list with the given filters
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/applications">https://www.twilio.com/docs/api/rest/applications</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -408,7 +408,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the application factory which lets you create new applications
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/applications#list-post">http://www.twilio.com/docs/api/rest/applications#list-post</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/applications#list-post">https://www.twilio.com/docs/api/rest/applications#list-post</a>
 	 *
 	 * @return the application factory
    */
@@ -421,7 +421,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the available phone numbers. Defaults to US/Local
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
 	 * @return the available phone numbers
    */
 	public AvailablePhoneNumberList getAvailablePhoneNumbers() {
@@ -432,7 +432,7 @@ public class Account extends InstanceResource {
 	 * Gets the available phone numbers. With the given search filters. Defaults
 	 * to US/Local numbers
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -449,7 +449,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the available phone numbers with the given iso country and type
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">http://www.twilio.com/docs/api/rest/available-phone-numbers</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -474,7 +474,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the conference list
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/conference">https://www.twilio.com/docs/api/rest/conference</a>
 	 *
 	 * @return the conferences
    */
@@ -485,7 +485,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the conferences list with the given filters
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/conference">https://www.twilio.com/docs/api/rest/conference</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -510,7 +510,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the queue list
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/queue">http://www.twilio.com/docs/api/rest/queue</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/queue">https://www.twilio.com/docs/api/rest/queue</a>
 	 *
 	 * @return the {@link QueueList}
    */
@@ -542,7 +542,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the incoming phone numbers list
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/incoming-phone-numbers">https://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
 	 *
 	 * @return the incoming phone numbers
    */
@@ -553,7 +553,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the incoming phone numbers list with the given filters
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/incoming-phone-numbers">https://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -580,7 +580,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the incoming phone number factory.
 	 *
-	 * See: <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post">http://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post</a>
+	 * See: <a href="https://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post">https://www.twilio.com/docs/api/rest/incoming-phone-numbers#list-post</a>
 	 *
 	 * @return the incoming phone number factory
    */
@@ -656,7 +656,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller ids.
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/outgoing-caller-ids">https://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 *
 	 * @return the outgoing caller ids
    */
@@ -667,7 +667,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller ids.
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/outgoing-caller-ids">https://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -695,7 +695,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the outgoing caller id factory which lets you create outgoing caller ids
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/outgoing-caller-ids">https://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
 	 *
 	 * @return the outgoing caller id factory
    */
@@ -706,7 +706,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the recordings list
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/recording">https://www.twilio.com/docs/api/rest/recording</a>
 	 *
 	 * @return the recordings
    */
@@ -717,7 +717,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the recordings list
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/recording">https://www.twilio.com/docs/api/rest/recording</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -742,7 +742,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the transcriptions list
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/transcription">https://www.twilio.com/docs/api/rest/transcription</a>
 	 *
 	 * @return the transcriptions
    */
@@ -753,7 +753,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the transcriptions list with the given filters
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/transcription">https://www.twilio.com/docs/api/rest/transcription</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -779,7 +779,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the Usage Record list with the given filters
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/usage-records">https://www.twilio.com/docs/api/rest/usage-records</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -795,7 +795,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the Usage Record list
 	 *
-	 * <a href="http://www.twilio.com/docs/api/rest/usage-records">http://www.twilio.com/docs/api/rest/usage-records</a>
+	 * <a href="https://www.twilio.com/docs/api/rest/usage-records">https://www.twilio.com/docs/api/rest/usage-records</a>
 	 *
 	 * @return the usage records
    */
@@ -824,7 +824,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the Usage Triggers list with the given filters
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/usage-triggers">https://www.twilio.com/docs/api/rest/usage-triggers</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -840,7 +840,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the Usage Triggers list
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/usage-triggers">http://www.twilio.com/docs/api/rest/usage-triggers</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/usage-triggers">https://www.twilio.com/docs/api/rest/usage-triggers</a>
 	 *
 	 * @return the usage triggers
    */
@@ -851,7 +851,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the connect app list
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/connect-apps">https://www.twilio.com/docs/api/rest/connect-apps</a>
 	 *
 	 * @return the connect app list
    */
@@ -862,7 +862,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the connect app list with the given filters
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/connect-apps">https://www.twilio.com/docs/api/rest/connect-apps</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -889,7 +889,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the authorized connect app list
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/authorized-connect-apps">https://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
 	 *
 	 * @return the connect app list
    */
@@ -900,7 +900,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the authorized connect app list with the given filters
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">http://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/authorized-connect-apps">https://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -927,7 +927,7 @@ public class Account extends InstanceResource {
     /**
      * Gets the sip domains list.
      *
-	 *  <a href="http://www.twilio.com/docs/api/rest/sip-domains">http://www.twilio.com/docs/api/rest/sip-domains</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-domains">https://www.twilio.com/docs/api/rest/sip-domains</a>
      *
      * @return the sip domain
      */
@@ -938,7 +938,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the domain list with the given filters
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/sip-domains">http://www.twilio.com/docs/api/rest/sip-domains</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-domains">https://www.twilio.com/docs/api/rest/sip-domains</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -973,7 +973,7 @@ public class Account extends InstanceResource {
     /**
      * Gets the sip IpAccessControlLists list.
      *
-	 *  <a href="http://www.twilio.com/docs/api/rest/sip-ip-access-control-lists">http://www.twilio.com/docs/api/rest/sip-ip-access-control-lists</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-ip-access-control-lists">https://www.twilio.com/docs/api/rest/sip-ip-access-control-lists</a>
      *
      * @return the sip IpAccessControlList
      */
@@ -984,7 +984,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the IpAccessControlList list with the given filters
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/sip-ip-access-control-lists">http://www.twilio.com/docs/api/rest/sip-ip-access-control-lists</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-ip-access-control-lists">https://www.twilio.com/docs/api/rest/sip-ip-access-control-lists</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -1019,7 +1019,7 @@ public class Account extends InstanceResource {
     /**
      * Gets the sip CredentialLists list.
      *
-	 *  <a href="http://www.twilio.com/docs/api/rest/sip-credential-lists">http://www.twilio.com/docs/api/rest/sip-credential-lists</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-credential-lists">https://www.twilio.com/docs/api/rest/sip-credential-lists</a>
      *
      * @return the sip CredentialList
      */
@@ -1030,7 +1030,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Gets the CredentialList list with the given filters
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/sip-credential-lists">http://www.twilio.com/docs/api/rest/sip-credential-lists</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-credential-lists">https://www.twilio.com/docs/api/rest/sip-credential-lists</a>
 	 *
 	 * @param filters
 	 *            the filters
@@ -1065,7 +1065,7 @@ public class Account extends InstanceResource {
 	/**
 	 * Get the developer sandbox
 	 *
-	 *  <a href="http://www.twilio.com/docs/api/rest/sandbox">http://www.twilio.com/docs/api/rest/sandbox</a>
+	 *  <a href="https://www.twilio.com/docs/api/rest/sandbox">https://www.twilio.com/docs/api/rest/sandbox</a>
 	 * @return the sandbox
    */
 	public Sandbox getSandbox() {

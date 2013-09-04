@@ -12,7 +12,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class Media.
  *
- *  For more information see <a href="http://www.twilio.com/docs/api/rest/media">http://www.twilio.com/docs/api/rest/media</a>
+ *  For more information see <a href="https://www.twilio.com/docs/api/rest/media">https://www.twilio.com/docs/api/rest/media</a>
  */
 public class Media extends InstanceResource {
 

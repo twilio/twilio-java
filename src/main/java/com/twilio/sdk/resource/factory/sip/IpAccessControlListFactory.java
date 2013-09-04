@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 /**
  * A factory for creating IpAccessControlList objects.
  *
- * For more information see <a href=" http://www.twilio.com/docs/api/rest/ipaccesscontrollist"> http://www.twilio.com/docs/api/rest/ipaccesscontrollist</a>
+ * For more information see <a href=" https://www.twilio.com/docs/api/rest/ipaccesscontrollist"> https://www.twilio.com/docs/api/rest/ipaccesscontrollist</a>
  *
  */
 public interface IpAccessControlListFactory {

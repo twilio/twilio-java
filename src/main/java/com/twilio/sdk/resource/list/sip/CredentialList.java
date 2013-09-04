@@ -15,7 +15,7 @@ import org.apache.http.NameValuePair;
 /**
  * The Class CredentialList
  *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/sip-domain">http://www.twilio.com/docs/api/rest/sip-domain</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/sip-domain">https://www.twilio.com/docs/api/rest/sip-domain</a>
  */
 public class CredentialList extends ListResource<Credential> implements CredentialFactory {
 

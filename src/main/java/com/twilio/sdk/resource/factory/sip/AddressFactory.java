@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 /**
  * A factory for creating SipDomain objects.
  *
- * For more information see <a href=" http://www.twilio.com/docs/api/rest/address"> http://www.twilio.com/docs/api/rest/address</a>
+ * For more information see <a href=" https://www.twilio.com/docs/api/rest/address"> https://www.twilio.com/docs/api/rest/address</a>
  *
  */
 public interface AddressFactory {

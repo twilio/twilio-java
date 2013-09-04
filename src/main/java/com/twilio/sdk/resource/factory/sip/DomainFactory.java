@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 /**
  * A factory for creating Domain objects.
  *
- * For more information see <a href=" http://www.twilio.com/docs/api/rest/sip-domain"> http://www.twilio.com/docs/api/rest/sip-domain</a>
+ * For more information see <a href=" https://www.twilio.com/docs/api/rest/sip-domain"> https://www.twilio.com/docs/api/rest/sip-domain</a>
  *
  */
 public interface DomainFactory {

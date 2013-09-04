@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 /**
  * A factory for creating SipDomain objects.
  *
- * For more information see <a href=" http://www.twilio.com/docs/api/rest/ipaccesscontrollistmapping"> http://www.twilio.com/docs/api/rest/ipaccesscontrollistmapping</a>
+ * For more information see <a href=" https://www.twilio.com/docs/api/rest/ipaccesscontrollistmapping"> https://www.twilio.com/docs/api/rest/ipaccesscontrollistmapping</a>
  *
  */
 public interface IpAccessControlListMappingFactory {

@@ -13,8 +13,8 @@ import com.twilio.sdk.resource.InstanceResource;
  * The Class Usage.
  * <p/>
  * For more information see <a
- * href="http://www.twilio.com/docs/api/rest/usage-records"
- * >http://www.twilio.com/docs/api/rest/usage-records</a>
+ * href="https://www.twilio.com/docs/api/rest/usage-records"
+ * >https://www.twilio.com/docs/api/rest/usage-records</a>
  */
 public class UsageRecord extends InstanceResource {
 

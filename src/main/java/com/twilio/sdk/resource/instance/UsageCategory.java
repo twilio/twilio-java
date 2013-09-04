@@ -4,7 +4,7 @@ package com.twilio.sdk.resource.instance;
 /**
  * The Enum UsageCategory.
  *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/usage-records#usage-categories">http://www.twilio.com/docs/api/rest/usage-records#usage-categories</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/usage-records#usage-categories">https://www.twilio.com/docs/api/rest/usage-records#usage-categories</a>
  *
  */
 public enum UsageCategory {

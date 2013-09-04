@@ -16,8 +16,8 @@ import com.twilio.sdk.resource.InstanceResource;
  * information about the Connect App itself.
  * 
  * For more information see <a
- * href="http://www.twilio.com/docs/api/rest/connect-apps"
- * >http://www.twilio.com/docs/api/rest/connect-apps</a>
+ * href="https://www.twilio.com/docs/api/rest/connect-apps"
+ * >https://www.twilio.com/docs/api/rest/connect-apps</a>
  */
 public class ConnectApp extends InstanceResource {
 	

@@ -15,7 +15,7 @@ import org.apache.http.NameValuePair;
 /**
  * The Class MessageList.
  *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/message">http://www.twilio.com/docs/api/rest/message</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/message">https://www.twilio.com/docs/api/rest/message</a>
  */
 public class MessageList extends ListResource<Message> implements MessageFactory {
 

@@ -16,7 +16,7 @@ import org.apache.http.NameValuePair;
 /**
  * The Class OutgoingCallerIdList.
  *
- * For more information see <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/outgoing-caller-ids">https://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
  */
 public class OutgoingCallerIdList extends ListResource<OutgoingCallerId>
 		implements OutgoingCallerIdFactory {

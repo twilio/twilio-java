@@ -15,7 +15,7 @@ import com.twilio.sdk.resource.InstanceResource;
  * The Class Application.
  *
  * For more information see <a
- * href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>
+ * href="https://www.twilio.com/docs/api/rest/applications">https://www.twilio.com/docs/api/rest/applications</a>
  */
 public class Application extends InstanceResource {
 

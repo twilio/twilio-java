@@ -15,8 +15,8 @@ import java.util.Map;
  * The Class UsageTrigger.
  * <p/>
  * For more information see <a
- * href="http://www.twilio.com/docs/api/rest/usage-triggers"
- * >http://www.twilio.com/docs/api/rest/usage-triggers</a>
+ * href="https://www.twilio.com/docs/api/rest/usage-triggers"
+ * >https://www.twilio.com/docs/api/rest/usage-triggers</a>
  */
 public class UsageTrigger extends InstanceResource {
 

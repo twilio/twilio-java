@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.instance.Member;
  * The {@link MemberList} represents the list resource for {@link Member}s.
  *
  * For more information see <a
- * href="http://www.twilio.com/docs/api/rest/member">http://www.twilio.com/docs/api/rest/member</a>
+ * href="https://www.twilio.com/docs/api/rest/member">https://www.twilio.com/docs/api/rest/member</a>
  */
 public class MemberList extends ListResource<Member> {
 

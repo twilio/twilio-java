@@ -11,7 +11,7 @@ import com.twilio.sdk.resource.instance.Media;
 /**
  * The Class MediaList.
  *
- *  For more information see <a href="http://www.twilio.com/docs/api/rest/media">http://www.twilio.com/docs/api/rest/media</a>
+ *  For more information see <a href="https://www.twilio.com/docs/api/rest/media">https://www.twilio.com/docs/api/rest/media</a>
  */
 public class MediaList extends ListResource<Media> {
 

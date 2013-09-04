@@ -15,7 +15,7 @@ import com.twilio.sdk.resource.InstanceResource;
 /**
  * The Class Call.
  * 
- * For more information see <a href="http://www.twilio.com/docs/api/rest/call">http://www.twilio.com/docs/api/rest/call</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
  */
 public class Call extends InstanceResource {
 	

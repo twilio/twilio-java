@@ -8,10 +8,7 @@ import java.util.Map;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestResponse;
-<<<<<<< HEAD
 import com.twilio.sdk.TwilioRestException;
-=======
->>>>>>> 7819b025c17f946a320e14b4ff9c1b0da44433c7
 import com.twilio.sdk.resource.InstanceResource;
 
 /**

@@ -14,11 +14,11 @@ import com.twilio.sdk.resource.InstanceResource;
 // TODO: Auto-generated Javadoc
 /**
  * The Class Call.
- * 
+ *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
  */
 public class Call extends InstanceResource {
-	
+
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
 
@@ -39,7 +39,7 @@ public class Call extends InstanceResource {
 	 */
 	public Call(TwilioRestClient client, String sid) {
 		super(client);
-		if (sid == null) { 
+		if (sid == null) {
 		    throw new IllegalStateException("The Sid for a Call can not be null");
 		}
 		this.setProperty(SID_PROPERTY, sid);
@@ -68,6 +68,7 @@ public class Call extends InstanceResource {
 	/*
 	 * Property getters
 	 */
+
 	/**
 	 * Gets the sid.
 	 *
@@ -234,7 +235,7 @@ public class Call extends InstanceResource {
 	}
 
 	/*
-	 * 
+	 *
 	 * Useful functions
 	 */
 	/**

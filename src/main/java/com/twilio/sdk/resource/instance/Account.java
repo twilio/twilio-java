@@ -10,6 +10,9 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
 import com.twilio.sdk.resource.factory.*;
 import com.twilio.sdk.resource.list.*;
+import com.twilio.sdk.resource.factory.sip.*;
+import com.twilio.sdk.resource.list.sip.*;
+import com.twilio.sdk.resource.instance.sip.*;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 
@@ -919,6 +922,144 @@ public class Account extends InstanceResource {
 		AuthorizedConnectApp cn = new AuthorizedConnectApp(this.getClient(), sid);
 		cn.setRequestAccountSid(this.getRequestAccountSid());
 		return cn;
+	}
+
+    /**
+     * Gets the sip domains list.
+     *
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-domains">https://www.twilio.com/docs/api/rest/sip-domains</a>
+     *
+     * @return the sip domain
+     */
+    public DomainList getDomains() {
+        return this.getDomains(new HashMap<String, String>());
+    }
+
+	/**
+	 * Gets the domain list with the given filters
+	 *
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-domains">https://www.twilio.com/docs/api/rest/sip-domains</a>
+	 *
+	 * @param filters
+	 *            the filters
+	 * @return the sip domain list
+	 */
+	public DomainList getDomains(Map<String, String> filters) {
+		DomainList list = new DomainList(this.getClient(),
+				filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Get a given sip domain instance by sid
+	 * @param sid The 34 character sid starting with SD
+	 * @return the sip domain
+	 */
+	public Domain getDomain(String sid) {
+		Domain domain = new Domain(this.getClient(), sid);
+		domain.setRequestAccountSid(this.getRequestAccountSid());
+		return domain;
+	}
+
+	/**
+	 * Gets a DomainFactory
+	 * @return a DomainFactory that lets you create new Domains
+	 */
+	public DomainFactory getDomainFactory() {
+		return this.getDomains();
+	}
+
+    /**
+     * Gets the sip IpAccessControlLists list.
+     *
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-ip-access-control-lists">https://www.twilio.com/docs/api/rest/sip-ip-access-control-lists</a>
+     *
+     * @return the sip IpAccessControlList
+     */
+    public IpAccessControlListList getIpAccessControlLists() {
+        return this.getIpAccessControlLists(new HashMap<String, String>());
+    }
+
+	/**
+	 * Gets the IpAccessControlList list with the given filters
+	 *
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-ip-access-control-lists">https://www.twilio.com/docs/api/rest/sip-ip-access-control-lists</a>
+	 *
+	 * @param filters
+	 *            the filters
+	 * @return the sip IpAccessControlList list
+	 */
+	public IpAccessControlListList getIpAccessControlLists(Map<String, String> filters) {
+		IpAccessControlListList list = new IpAccessControlListList(this.getClient(),
+				filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Get a given IpAccessControlList instance by sid
+	 * @param sid The 34 character sid starting with AL
+	 * @return the sip IpAccessControlList
+	 */
+	public IpAccessControlList getIpAccessControlList(String sid) {
+		IpAccessControlList ipAccessControlList = new IpAccessControlList(this.getClient(), sid);
+		ipAccessControlList.setRequestAccountSid(this.getRequestAccountSid());
+		return ipAccessControlList;
+	}
+
+	/**
+	 * Gets an IpAccessControlListFactory
+	 * @return an IpAccessControlListFactory that lets you create new IpAccessControlLists
+	 */
+	public IpAccessControlListFactory getIpAccessControlListFactory() {
+		return this.getIpAccessControlLists();
+	}
+
+    /**
+     * Gets the sip CredentialLists list.
+     *
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-credential-lists">https://www.twilio.com/docs/api/rest/sip-credential-lists</a>
+     *
+     * @return the sip CredentialList
+     */
+    public CredentialListList getCredentialLists() {
+        return this.getCredentialLists(new HashMap<String, String>());
+    }
+
+	/**
+	 * Gets the CredentialList list with the given filters
+	 *
+	 *  <a href="https://www.twilio.com/docs/api/rest/sip-credential-lists">https://www.twilio.com/docs/api/rest/sip-credential-lists</a>
+	 *
+	 * @param filters
+	 *            the filters
+	 * @return the sip CredentialList list
+	 */
+	public CredentialListList getCredentialLists(Map<String, String> filters) {
+		CredentialListList list = new CredentialListList(this.getClient(),
+				filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Get a given CredentialList instance by sid
+	 * @param sid The 34 character sid starting with AL
+	 * @return the sip CredentialList
+	 */
+	public CredentialListInstance getCredentialList(String sid) {
+		CredentialListInstance credentialList = new CredentialListInstance(this.getClient(), sid);
+		credentialList.setRequestAccountSid(this.getRequestAccountSid());
+		return credentialList;
+	}
+
+	/**
+	 * Gets a CredentialListFactory
+	 * @return the CredentialListFactory that lets you make new CredentialLists
+	 */
+	public CredentialListFactory getCredentialListFactory() {
+		return this.getCredentialLists();
 	}
 
 	/**

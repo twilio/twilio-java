@@ -98,7 +98,6 @@ public abstract class InstanceResource extends Resource {
 		return prop;
 	}
 
-
 	/**
 	 * Sets the property as an Object
 	 *
@@ -108,7 +107,6 @@ public abstract class InstanceResource extends Resource {
 	protected void setProperty(String name, Object value) {
 		properties.put(name, value);
 	}
-
 
 	/**
 	 * Update.

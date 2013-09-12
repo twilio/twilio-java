@@ -73,7 +73,7 @@ public class IpAddressList extends ListResource<IpAddress> implements IpAddressF
 	 */
 	@Override
 	protected String getListKey() {
-		return "ip_access_control_lists";
+		return "ip_addresses";
 	}
 
 	/**

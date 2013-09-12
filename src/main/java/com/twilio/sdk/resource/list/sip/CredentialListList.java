@@ -54,7 +54,7 @@ public class CredentialListList extends ListResource<CredentialListInstance> imp
 	 */
 	@Override
 	protected String getListKey() {
-		return "ip_access_control_lists";
+		return "credential_lists";
 	}
 
 	/* (non-Javadoc)

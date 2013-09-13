@@ -78,7 +78,7 @@ public class MediaList extends ListResource<Media> {
 	 */
 	@Override
 		protected String getListKey() {
-			return "media";
+			return "media_list";
 		}
 
 	/**

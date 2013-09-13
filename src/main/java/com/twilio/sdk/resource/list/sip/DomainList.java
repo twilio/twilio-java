@@ -60,7 +60,7 @@ public class DomainList extends ListResource<Domain> implements DomainFactory {
 	 */
 	@Override
 	protected String getListKey() {
-		return "sip_domains";
+		return "domains";
 	}
 
 	/* (non-Javadoc)

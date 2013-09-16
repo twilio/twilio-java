@@ -46,7 +46,7 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.factory.CallFactory;
-import com.twilio.sdk.resource.factory.SmsFactory;
+import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Account;
 import com.twilio.sdk.resource.instance.AvailablePhoneNumber;
 import com.twilio.sdk.resource.instance.Call;
@@ -56,6 +56,8 @@ import com.twilio.sdk.resource.list.AccountList;
 import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
 import com.twilio.sdk.resource.list.ParticipantList;
 import com.twilio.sdk.verbs.TwiMLException;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 public class Example {
 
@@ -100,12 +102,12 @@ public class Example {
     System.out.println(call.getSid());
 
     // Send an sms
-    final SmsFactory smsFactory = mainAccount.getSmsFactory();
-    final Map<String, String> smsParams = new HashMap<String, String>();
-    smsParams.put("To", "5105551212"); // Replace with a valid phone number
-    smsParams.put("From", "(510) 555-1212"); // Replace with a valid phone number in your account
-    smsParams.put("Body", "This is a test message!");
-    smsFactory.create(smsParams);
+    final MessageFactory messageFactory = mainAccount.getMessageFactory();
+    final List<NameValuePair> messageParams = new List<BasicNameValuePair>();
+    messageParams.add(new BasicNameValuePair("To", "5105551212")); // Replace with a valid phone number
+    messageParams.add(new BasicNameValuePair("From", "(510) 555-1212")); // Replace with a valid phone number in your account
+    messageParams.add(new BasicNameValuePair("Body", "This is a test message!"));
+    messageFactory.create(messageParams);
 
     // Search for available phone numbers & then buy a random phone number
     final AvailablePhoneNumberList phoneNumbers = mainAccount.getAvailablePhoneNumbers();

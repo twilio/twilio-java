@@ -221,6 +221,15 @@ public class UsageTrigger extends InstanceResource {
     }
 
     /**
+     * Get the account sid
+     *
+     * @return account sid
+     */
+    public String getAccountSid() {
+        return getProperty("AccountSid");
+    }
+
+    /**
      * Delete
      *
      * @return true, if successful

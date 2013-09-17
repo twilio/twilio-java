@@ -8,10 +8,17 @@ public class Sip extends Verb {
     /**
      * Instantiates a new Sip.
      */
-    public Sip() {
-        super(V_SIP, null);
+    public Sip(final String uri) {
+        super(V_SIP, uri);
         this.allowedVerbs = new ArrayList<String>();
         this.allowedVerbs.add(Verb.V_URI);
+    }
+
+    /**
+     * Instantiates a new Sip Noun with no URI.
+     */
+    public Sip() {
+        this(null);
     }
 
     public void setUsername(String username) {

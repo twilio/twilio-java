@@ -1,9 +1,6 @@
 package com.twilio.sdk.verbs;
 
-import java.util.ArrayList;
-
 public class Uri extends Verb {
-
 
     /**
      * Instantiates a new Uri to dial with Sip

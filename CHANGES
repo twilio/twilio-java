@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.4.0
+-------------
+
+Released on September 18th, 2013
+
+- Add MMS support.
+- SIP-In support.
+
 Version 3.3.16
 --------------
 

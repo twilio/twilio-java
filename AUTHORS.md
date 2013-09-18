@@ -7,6 +7,7 @@ A huge thanks to all of our contributors:
 - Adam Ballai 
 - Adam Rich 
 - Adam Richeimer 
+- Ameya Lokare 
 - Andrew Benton 
 - Beans0063 
 - Brett Gerry 

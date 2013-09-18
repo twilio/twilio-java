@@ -39,39 +39,39 @@ public class UsageTriggerList extends ListResource<UsageTrigger> implements Usag
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
-		protected String getResourceLocation() {
-			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Usage/Triggers";
-		}
+	protected String getResourceLocation() {
+		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+			+ this.getRequestAccountSid() + "/Usage/Triggers";
+	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-		protected UsageTrigger makeNew(TwilioRestClient client,
-				Map<String, Object> properties) {
-			return new UsageTrigger(client, properties);
-		}
+	protected UsageTrigger makeNew(TwilioRestClient client,
+			Map<String, Object> properties) {
+		return new UsageTrigger(client, properties);
+	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.ListResource#getListKey()
 	 */
 	@Override
-		protected String getListKey() {
-			return "UsageTriggers";
-		}
+	protected String getListKey() {
+		return "UsageTriggers";
+	}
 
 	@Override
-		public UsageTrigger create(Map<String, String> params) throws TwilioRestException {
-			TwilioRestResponse response = this.getClient().safeRequest(
-					this.getResourceLocation(), "POST", params);
-			return makeNew(this.getClient(), (Map<String, Object>) response.toMap().get("UsageTrigger"));
-		}
+	public UsageTrigger create(Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), (Map<String, Object>) response.toMap().get("UsageTriggers"));
+	}
 
 	@Override
-		public UsageTrigger create(List<NameValuePair> params) throws TwilioRestException {
-			TwilioRestResponse response = this.getClient().safeRequest(
-					this.getResourceLocation(), "POST", params);
-			return makeNew(this.getClient(), (Map<String, Object>) response.toMap().get("UsageTrigger"));
-		}
+	public UsageTrigger create(List<NameValuePair> params) throws TwilioRestException {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), "POST", params);
+		return makeNew(this.getClient(), (Map<String, Object>) response.toMap().get("UsageTriggers"));
+	}
 }

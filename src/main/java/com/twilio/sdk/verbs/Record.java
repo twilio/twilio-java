@@ -88,13 +88,10 @@ public class Record extends Verb {
     /**
      * Sets the transcribe.
      *
-     * @param f the new transcribe
+     * @param transcribe the new transcribe
      */
-    public void setTranscribe(boolean f){
-       if(f)
-           this.set("transcribe", "true");
-       else
-           this.set("transcribe", "false");
+    public void setTranscribe(boolean transcribe){
+        this.set("transcribe", String.valueOf(transcribe));
     }
 
     /**
@@ -104,6 +101,15 @@ public class Record extends Verb {
      */
     public void setTranscribeCallback(String url){
        this.set("transcribeCallback", url);
+    }
+
+    /**
+     * Sets the playBeep parameter
+     *
+     * @param playBeep
+     */
+    public void setPlayBeep(final boolean playBeep) {
+        this.set("playBeep", String.valueOf(playBeep));
     }
 
 }

@@ -75,7 +75,7 @@ public class TwiMLResponseExample {
             e.printStackTrace();
         }
 
-        System.out.println(response.toXML());
+        System.out.println(response.toEscapedXML());
         
         // Conference
         response = new TwiMLResponse();
@@ -93,7 +93,7 @@ public class TwiMLResponseExample {
             e.printStackTrace();
         }
 
-        System.out.println(response.toXML());
+        System.out.println(response.toEscapedXML());
         
         // Set an arbitrary attribute / value pair
         response = new TwiMLResponse();
@@ -107,7 +107,7 @@ public class TwiMLResponseExample {
             e.printStackTrace();
         }
 
-        System.out.println(response.toXML());
+        System.out.println(response.toEscapedXML());
 
     }
 }

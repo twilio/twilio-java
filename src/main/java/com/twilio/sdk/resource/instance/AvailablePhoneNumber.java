@@ -8,7 +8,7 @@ import com.twilio.sdk.resource.InstanceResource;
 // TODO: Auto-generated Javadoc
 /**
  * The Class AvailablePhoneNumber.
- * 
+ *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
  */
 public class AvailablePhoneNumber extends InstanceResource {
@@ -40,13 +40,13 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	 */
 	@Override
 	protected String getResourceLocation() {
-		throw new IllegalStateException("AvailablePhoneNumbers do not have an instance reource location");
+		throw new IllegalStateException("AvailablePhoneNumbers do not have an instance resource location");
 	}
 
 	/*
 	 * Property getters
 	 */
-	
+
 	/**
 	 * Gets the friendly name.
 	 *
@@ -55,7 +55,7 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getFriendlyName() {
 		return this.getProperty("friendly_name");
 	}
-	
+
 	/**
 	 * Gets the phone number.
 	 *
@@ -64,7 +64,7 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getPhoneNumber() {
 		return this.getProperty("phone_number");
 	}
-	
+
 	/**
 	 * Gets the lata.
 	 *
@@ -73,7 +73,7 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getLata() {
 		return this.getProperty("lata");
 	}
-	
+
 	/**
 	 * Gets the rate center.
 	 *
@@ -82,7 +82,7 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getRateCenter() {
 		return this.getProperty("rate_center");
 	}
-	
+
 	/**
 	 * Gets the latitude.
 	 *
@@ -91,7 +91,7 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getLatitude() {
 		return this.getProperty("latitude");
 	}
-	
+
 	/**
 	 * Gets the longitude.
 	 *
@@ -100,7 +100,7 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getLongitude() {
 		return this.getProperty("longitude");
 	}
-	
+
 	/**
 	 * Gets the region.
 	 *
@@ -109,7 +109,7 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getRegion() {
 		return this.getProperty("region");
 	}
-	
+
 	/**
 	 * Gets the postal code.
 	 *
@@ -118,7 +118,7 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getPostalCode() {
 		return this.getProperty("postal_code");
 	}
-	
+
 	/**
 	 * Gets the iso country.
 	 *

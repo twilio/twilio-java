@@ -4,7 +4,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
 
-import java.util.HashMap; import java.util.Map;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 import org.mockito.Matchers;

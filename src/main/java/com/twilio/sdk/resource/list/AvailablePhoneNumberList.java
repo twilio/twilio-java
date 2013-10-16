@@ -17,6 +17,7 @@ public class AvailablePhoneNumberList extends
 
 	public static final String TYPE_LOCAL = "Local";
 	public static final String TYPE_TOLLFREE = "TollFree";
+	public static final String TYPE_MOBILE = "Mobile";
 
 	/** The iso country. */
 	private String isoCountry = "US";

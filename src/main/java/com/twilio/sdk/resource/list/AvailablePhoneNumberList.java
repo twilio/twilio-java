@@ -66,15 +66,14 @@ public class AvailablePhoneNumberList extends
 		this.type = type;
 	}
 
-
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/AvailablePhoneNumbers/"
-				+ this.isoCountry + "/" + this.type + ".json";
+			+ this.getRequestAccountSid() + "/AvailablePhoneNumbers/"
+			+ this.isoCountry + "/" + this.type + ".json";
 	}
 
 	/* (non-Javadoc)

@@ -20,6 +20,13 @@ import org.apache.http.NameValuePair;
 public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 		implements IncomingPhoneNumberFactory {
 
+	public static final String TYPE_LOCAL = "Local";
+	public static final String TYPE_TOLLFREE = "TollFree";
+	public static final String TYPE_MOBILE = "Mobile";
+
+
+	/** The type. */
+	public String type = null;
 	/**
 	 * Instantiates a new incoming phone number list.
 	 *
@@ -40,13 +47,43 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 		super(client, filters);
 	}
 
+	/**
+	 * Instantiates a new incoming phone number list.
+	 *
+	 * @param client the client
+	 * @param type the type
+	 * @param filter the filters
+	 */
+	public IncomingPhoneNumberList(TwilioRestClient client,
+			String type, Map<String, String> filters) {
+		super(client, filters);
+		this.type = type;
+	}
+
+	/**
+	 * Instantiates a new incoming phone number list.
+	 *
+	 * @param client the client
+	 * @param type the type
+	 */
+	public IncomingPhoneNumberList(TwilioRestClient client, String type) {
+		super(client);
+		this.type = type;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+		if (type != null) {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+				+ this.getRequestAccountSid() + "/IncomingPhoneNumbers/" + type
+				+ ".json";
+		} else {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
 				+ this.getRequestAccountSid() + "/IncomingPhoneNumbers.json";
+		}
 	}
 
 	/* (non-Javadoc)

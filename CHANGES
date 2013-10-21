@@ -3,6 +3,12 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.4.1
+
+Released on October 21, 2013
+
+- Add support for searching for mobile-enabled numbers.
+
 Version 3.4.0
 -------------
 

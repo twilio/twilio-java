@@ -13,7 +13,7 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.parser.ResponseParser.PagingProperty;
 
 // TODO: Auto-generated Javadoc
-public abstract class ListResource<T> extends Resource implements Iterable<T> {
+public abstract class ListResource<T extends Resource> extends Resource implements Iterable<T> {
 	
 	/**
 	 * The Class ListIterator.
@@ -305,10 +305,9 @@ public abstract class ListResource<T> extends Resource implements Iterable<T> {
     private void extract_object(List<T> returnList, Object o) {
         if (o instanceof Map) {
             T instance = this.makeNew(this.getClient(), (Map<String, Object>) o);
-            Resource instanceAsResource = (Resource) instance;
-            if(instanceAsResource.getRequestAccountSid() == null){
+            if(instance.getRequestAccountSid() == null){
               //Only set RequestAccountSid if the makeNew instance didn't already set it.
-              instanceAsResource.setRequestAccountSid(this.getRequestAccountSid());
+              instance.setRequestAccountSid(this.getRequestAccountSid());
             }
             returnList.add(instance);
         }

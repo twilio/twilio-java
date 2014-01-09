@@ -304,9 +304,12 @@ public abstract class ListResource<T> extends Resource implements Iterable<T> {
 
     private void extract_object(List<T> returnList, Object o) {
         if (o instanceof Map) {
-            T instance = this.makeNew(this.getClient(),
-                    (Map<String, Object>) o);
-            ((Resource)instance).setRequestAccountSid(this.getRequestAccountSid());
+            T instance = this.makeNew(this.getClient(), (Map<String, Object>) o);
+            Resource instanceAsResource = (Resource) instance;
+            if(instanceAsResource.getRequestAccountSid() == null){
+              //Only set RequestAccountSid if the makeNew instance didn't already set it.
+              instanceAsResource.setRequestAccountSid(this.getRequestAccountSid());
+            }
             returnList.add(instance);
         }
     }

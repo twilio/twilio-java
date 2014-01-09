@@ -33,6 +33,13 @@ OTHER DEALINGS IN THE SOFTWARE.
  */
 public class Conference extends Verb {
 
+    /* Constants */ 
+  
+    public static final String BEEP_TRUE = "true";
+    public static final String BEEP_FALSE = "false";
+    public static final String BEEP_ONEXIT = "onExit";
+    public static final String BEEP_ONENTER = "onEnter";
+  
     /**
      * Instantiates a new conference.
      *
@@ -66,12 +73,18 @@ public class Conference extends Verb {
     }
 
     /**
-     * Sets the beep.
+     * Sets the beep behavior.
+     * <ul>
+     * <li>"true" - beep on enter and exit</li>
+     * <li>"false" - no beep</li>
+     * <li>"onEnter" - beep on enter</li>
+     * <li>"onExit" - beep on exit</li>
+     * </ul>
      *
-     * @param bool the new beep
+     * @param value the new beep behavior
      */
-    public void setBeep(Boolean bool){
-        this.setBoolean("beep",bool);
+    public void setBeep(String value){
+        this.set("beep",value);
     }
 
     /**

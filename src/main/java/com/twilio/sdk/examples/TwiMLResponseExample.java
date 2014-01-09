@@ -84,7 +84,7 @@ public class TwiMLResponseExample {
         dial.setAction("foo");
         dial.setHangupOnStar(true);
         Conference conf = new Conference("MyRoom");
-        conf.setBeep(true); 
+        conf.setBeep(Conference.BEEP_TRUE); 
         
         try {
             dial.append(conf);

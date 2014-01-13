@@ -25,6 +25,8 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.UnsupportedEncodingException;
@@ -131,22 +133,44 @@ public class Verb {
     }
 
     /**
-     * To xml.
+     * Returns (unescaped) xml representation of the Verb.
      *
      * @return the string
      */
     public String toXML(){
+        return this.toXML(false);
+    }
+
+    /**
+     * Build the XML representation of the Verb.
+     *
+     * @param escape whether to escape the XML body
+     * @return XML string
+     */
+    private String toXML(final boolean escape) {
         String xml = "<" + this.tag;
         for (String key : attributes.keySet()) {
             xml += " " + key + "=\"" + attributes.get(key) + "\"";
         }
         xml += ">";
-        if(this.body != null)
-            xml += this.body;
+        if(this.body != null) {
+            final String body = escape? StringEscapeUtils.escapeXml(this.body): this.body;
+            xml += body;
+        }
         for (Verb child : children){
             xml += child.toXML();
         }
         return xml += "</" + this.tag + ">";
+    }
+
+    /**
+     * Return escaped XML representation of the verb.
+     * See issue #110 for why this method was added.
+     *
+     * @return escaped XML String
+     */
+    public String toEscapedXML() {
+        return this.toXML(true);
     }
 
     /**

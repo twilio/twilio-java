@@ -183,7 +183,7 @@ public class Account extends InstanceResource {
 	@Override
 		protected String getResourceLocation() {
 			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + ".json";
+				+ this.getSid() + ".json";
 		}
 
 	/*

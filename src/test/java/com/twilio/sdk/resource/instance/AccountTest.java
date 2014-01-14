@@ -15,9 +15,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
 
-/**
- * Created by skimbrel on 1/14/14.
- */
 public class AccountTest {
     final SimpleDateFormat dateFormat = new SimpleDateFormat(
             "EEE, dd MMM yyyy HH:mm:ss Z");

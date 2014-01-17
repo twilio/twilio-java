@@ -92,6 +92,8 @@ public class UsageRecordTest extends BasicRequestTester {
             assertEquals(current.getUsage(), new BigDecimal(7));
             assertEquals(current.getPrice(), new BigDecimal("0.07"));
             assertEquals(current.getPriceUnit(), "usd");
+            assertEquals(current.getUsageUnit(), "messages");
+            assertEquals(current.getCountUnit(), "messages");
 
         } catch (Exception e) {
             e.printStackTrace();

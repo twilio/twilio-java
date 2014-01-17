@@ -98,8 +98,13 @@ public class UsageRecord extends InstanceResource {
 		return new BigDecimal(getProperty("Usage"));
 	}
 
+	@Deprecated
 	public String getUsageUnits() {
 		return getProperty("UsageUnits");
+	}
+
+	public String getUsageUnit() {
+		return getProperty("UsageUnit");
 	}
 
 	public Long getCount() {
@@ -107,8 +112,13 @@ public class UsageRecord extends InstanceResource {
 		return count == null ? null : Long.parseLong(getProperty("Count"));
 	}
 
+	@Deprecated
 	public String getCountUnits() {
 		return getProperty("CountUnits");
+	}
+
+	public String getCountUnit() {
+		return getProperty("CountUnit");
 	}
 
 	public BigDecimal getPrice() {

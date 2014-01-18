@@ -16,6 +16,7 @@ A huge thanks to all of our contributors:
 - Christer Fahlgren 
 - ChristerF 
 - Christopher C. Merris 
+- Cody Lerum 
 - D Keith Casey Jr 
 - Doug Black 
 - Eric Anderle 

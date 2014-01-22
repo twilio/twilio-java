@@ -282,6 +282,46 @@
             </SubresourceUris>
         </UsageRecord>
         <UsageRecord>
+            <Category>calls-sip</Category>
+            <Description>Outbound Calls</Description>
+            <AccountSid>ACda23fd11f3b8e1eb20e140a9b408db72</AccountSid>
+            <StartDate>2012-10-26</StartDate>
+            <EndDate>2012-11-05</EndDate>
+            <Count>26</Count>
+            <CountUnit>calls</CountUnit>
+            <Usage>26</Usage>
+            <UsageUnit>minutes</UsageUnit>
+            <Price>0.52</Price>
+            <PriceUnit>usd</PriceUnit>
+            <Uri>/2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records?Category=calls-sip&amp;StartDate=2012-10-26&amp;EndDate=2012-11-05</Uri>
+            <SubresourceUris>
+                <AllTime>
+                    /2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records/AllTime?Category=calls-sip
+                </AllTime>
+                <Today>
+                    /2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records/Today?Category=calls-sip
+                </Today>
+                <Yesterday>
+                    /2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records/Yesterday?Category=calls-sip
+                </Yesterday>
+                <ThisMonth>
+                    /2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records/ThisMonth?Category=calls-sip
+                </ThisMonth>
+                <LastMonth>
+                    /2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records/LastMonth?Category=calls-sip
+                </LastMonth>
+                <Daily>
+                    /2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records/Daily?Category=calls-sip
+                </Daily>
+                <Monthly>
+                    /2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records/Monthly?Category=calls-sip
+                </Monthly>
+                <Yearly>
+                    /2010-04-01/Accounts/ACda23fd11f3b8e1eb20e140a9b408db72/Usage/Records/Yearly?Category=calls-sip
+                </Yearly>
+            </SubresourceUris>
+        </UsageRecord>
+        <UsageRecord>
             <Category>phonenumbers</Category>
             <Description>Total PhoneNumbers</Description>
             <AccountSid>ACda23fd11f3b8e1eb20e140a9b408db72</AccountSid>

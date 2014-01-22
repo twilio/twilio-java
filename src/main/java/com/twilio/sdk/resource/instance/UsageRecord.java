@@ -65,9 +65,13 @@ public class UsageRecord extends InstanceResource {
 		super(client, properties);
 	}
 
-
 	public UsageCategory getCategory() {
-		return UsageCategory.valueOf(getProperty("Category").replace('-', '_'));
+		try {
+			return UsageCategory.valueOf(getProperty("Category").replace('-', '_'));
+        } catch (IllegalArgumentException e) {
+			return null;
+		}
+
 	}
 
 	public String getDescription() {

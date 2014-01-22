@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.instance;
 
 import com.twilio.sdk.resource.list.UsageRecordList;
+import com.twilio.sdk.resource.instance.UsageCategory;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -22,7 +23,15 @@ public class UsageRecordTest extends BasicRequestTester {
 			TreeSet<UsageRecord> answers = new TreeSet<UsageRecord>(new Comparator<UsageRecord>() {
 				@Override
 				public int compare(UsageRecord o1, UsageRecord o2) {
-					return o1.getCategory().compareTo(o2.getCategory());
+					UsageCategory o1_category = o1.getCategory();
+					UsageCategory o2_category = o2.getCategory();
+					if (o1_category == null) {
+						return 1;
+					} else if (o2_category == null) {
+						return -1;
+					} else {
+						return o1_category.compareTo(o2_category);
+					}
 				}
 			});
 			Iterator<UsageRecord> usageRecordsIter = usageRecords.iterator();
@@ -96,6 +105,42 @@ public class UsageRecordTest extends BasicRequestTester {
 			assertEquals(current.getPriceUnit(), "usd");
 			assertEquals(current.getUsageUnit(), "messages");
 			assertEquals(current.getCountUnit(), "messages");
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.sms_inbound);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.sms_inbound_longcode);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.sms_inbound_shortcode);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.sms_outbound);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.sms_outbound_longcode);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.sms_outbound_shortcode);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.recordings);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.recordingstorage);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.transcriptions);
+
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), UsageCategory.totalprice);
+
+			// Non-enumerated UsageCategories should be returned
+			// to the user as null. This protectes the client from
+			// changes in the API.
+			current = usageRecordIterator.next();
+			assertEquals(current.getCategory(), null);
 
 		} catch (Exception e) {
 			e.printStackTrace();

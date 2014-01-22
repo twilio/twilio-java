@@ -14,6 +14,8 @@ import com.twilio.sdk.resource.instance.Transcription;
  */
 public class TranscriptionList extends ListResource<Transcription> {
 
+	private static String requestCallSid;
+
 	/**
 	 * Instantiates a new transcription list.
 	 *
@@ -34,13 +36,44 @@ public class TranscriptionList extends ListResource<Transcription> {
 		super(client, filters);
 	}
 
+	/**
+	 * Instantiates a new transcription list from a call.
+	 *
+	 * @param client the client
+	 * @param callSid the sid of the parent call
+	 */
+	public TranscriptionList(TwilioRestClient client, String callSid) {
+		super(client);
+		this.requestCallSid = callSid;
+	}
+
+	/**
+	 * Instantiates a new transcription list from a call with filters.
+	 *
+	 * @param client the client
+	 * @param callSid the sid of the parent call
+	 * @param filters the filters
+	 */
+	public TranscriptionList(TwilioRestClient client, String callSid,
+			Map<String, String> filters) {
+		super(client, filters);
+		this.requestCallSid = callSid;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Transcriptions.json";
+		if (this.requestCallSid != null) {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+					+ this.getRequestAccountSid() + "/Calls/"
+					+ this.getRequestCallSid() + "/Transcriptions.json";
+		} else {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+					+ this.getRequestAccountSid() + "/Transcriptions.json";
+		}
+
 	}
 
 	/* (non-Javadoc)
@@ -58,5 +91,15 @@ public class TranscriptionList extends ListResource<Transcription> {
 	@Override
 	protected String getListKey() {
 		return "transcriptions";
+	}
+
+	/**
+	 * Gets the call sid of the transcription *if* it was constructed
+	 * with a call sid.
+	 *
+	 * @return the call sid of the parent call
+	 */
+	public String getRequestCallSid() {
+		return this.requestCallSid;
 	}
 }

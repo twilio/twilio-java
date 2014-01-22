@@ -15,6 +15,8 @@ import com.twilio.sdk.resource.instance.Recording;
  */
 public class RecordingList extends ListResource<Recording> {
 
+	private static String requestCallSid;
+
 	/**
 	 * Instantiates a new recording list.
 	 *
@@ -34,13 +36,44 @@ public class RecordingList extends ListResource<Recording> {
 		super(client, filters);
 	}
 
+	/**
+	 * Instantiates a new recording list belonging to call.
+	 *
+	 * @param client the client
+	 * @param callSid the sid of the owning call
+	 */
+	public RecordingList(TwilioRestClient client, String callSid) {
+		super(client);
+		this.requestCallSid = callSid;
+	}
+
+	/**
+	 * Instantiates a new recording list belonging to call with filters.
+	 *
+	 * @param client the client
+	 * @param callSid the sid of the owning call
+	 * @param filters the filters
+	 */
+	public RecordingList(TwilioRestClient client, String callSid,
+			Map<String, String> filters) {
+		super(client, filters);
+		this.requestCallSid = callSid;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Recordings.json";
+		if (this.requestCallSid != null) {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+					+ this.getRequestAccountSid() + "/Calls/"
+					+ this.getRequestCallSid() + "/Recordings.json";
+		} else {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+					+ this.getRequestAccountSid() + "/Recordings.json";
+		}
+
 	}
 
 	/* (non-Javadoc)
@@ -58,5 +91,15 @@ public class RecordingList extends ListResource<Recording> {
 	@Override
 	protected String getListKey() {
 		return "recordings";
+	}
+
+	/**
+	 * Gets the call sid of the recording *if* it was constructed
+	 * with a call sid.
+	 *
+	 * @return the call sid of the parent call
+	 */
+	public String getRequestCallSid() {
+		return this.requestCallSid;
 	}
 }

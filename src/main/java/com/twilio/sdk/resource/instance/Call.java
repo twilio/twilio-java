@@ -10,6 +10,8 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.list.RecordingList;
+import com.twilio.sdk.resource.list.TranscriptionList;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -76,6 +78,28 @@ public class Call extends InstanceResource {
 	 */
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
+	}
+
+	/**
+	 * Returns the list of associated transcriptions
+	 *
+	 * @return the TranscriptionList associated this this call
+	 */
+	public TranscriptionList getTranscriptions() {
+		TranscriptionList transcriptions = new TranscriptionList(this.getClient(), this.getSid());
+		transcriptions.setRequestAccountSid(this.getRequestAccountSid());
+		return transcriptions;
+	}
+
+	/**
+	 * Returns the list of associated recordings
+	 *
+	 * @return the RecordingList associated this this call
+	 */
+	public RecordingList getRecordings() {
+		RecordingList recordings = new RecordingList(this.getClient(), this.getSid());
+		recordings.setRequestAccountSid(this.getRequestAccountSid());
+		return recordings;
 	}
 
 	/**

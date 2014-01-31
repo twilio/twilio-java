@@ -32,4 +32,13 @@ public class VerbTest {
         Say say = new Say("2 > 1");
         assertEquals("<Say>2 > 1</Say>", say.toXML());
     }
+
+    @Test
+    public void testMessageConstructor() {
+        Message msg = new Message("foo bar");
+        assertEquals("<Message>foo bar</Message>", msg.toXML());
+
+        msg = new Message();
+        assertEquals("<Message></Message>", msg.toXML());
+    }
 }

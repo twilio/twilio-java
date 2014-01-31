@@ -39,7 +39,11 @@ public class Message extends Verb {
 	 *
    */
 	public Message() {
-		super(V_MESSAGE, null);
+		this(null);
+	}
+
+	public Message(String message) {
+		super(V_MESSAGE, message);
 		this.allowedVerbs = new ArrayList<String>();
 		this.allowedVerbs.add(Verb.V_BODY);
 		this.allowedVerbs.add(Verb.V_MEDIA);

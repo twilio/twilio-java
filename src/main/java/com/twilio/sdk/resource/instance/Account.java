@@ -73,7 +73,6 @@ public class Account extends InstanceResource {
 			String accountSid = (String) ac;
 			this.setRequestAccountSid(accountSid);
 		}
-
 	}
 
 	/*
@@ -181,10 +180,10 @@ public class Account extends InstanceResource {
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
    */
 	@Override
-		protected String getResourceLocation() {
-			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getSid() + ".json";
-		}
+	protected String getResourceLocation() {
+		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+			+ this.getSid() + ".json";
+	}
 
 	/*
 	 * Subresource methods

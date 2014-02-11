@@ -35,7 +35,7 @@ public class Body extends Verb {
     /**
      * Instantiates a new body.
      *
-     * @params body the body
+     * @param body the body
      */
     public Body(String body) {
         super(V_BODY, body);

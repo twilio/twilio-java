@@ -1,8 +1,5 @@
 package com.twilio.sdk.resource.list.sip;
 
-import java.util.Map;
-import java.util.List;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -10,6 +7,9 @@ import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.sip.IpAddressFactory;
 import com.twilio.sdk.resource.instance.sip.IpAddress;
 import org.apache.http.NameValuePair;
+
+import java.util.List;
+import java.util.Map;
 
 public class IpAddressList extends ListResource<IpAddress> implements IpAddressFactory {
 
@@ -28,7 +28,7 @@ public class IpAddressList extends ListResource<IpAddress> implements IpAddressF
 	 * Instantiates a new IpAddress list
 	 *
 	 * @param client the client
-	 * @param filters the filters
+	 * @param ipAccessControlListSid ip access control list sid
 	 */
 	public IpAddressList(TwilioRestClient client, String ipAccessControlListSid) {
 		super(client);

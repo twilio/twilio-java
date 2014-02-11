@@ -1,18 +1,16 @@
 package com.twilio.sdk.resource.instance.sip;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 import com.twilio.sdk.resource.factory.sip.IpAddressFactory;
-import com.twilio.sdk.resource.instance.sip.IpAddress;
 import com.twilio.sdk.resource.list.sip.IpAddressList;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 public class IpAccessControlList extends InstanceResource {
 

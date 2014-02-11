@@ -1,22 +1,16 @@
 package com.twilio.sdk.resource.instance;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.stub;
-
-import java.util.Map;
-import java.util.HashMap;
-import java.text.SimpleDateFormat;
-
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestResponse;
 import org.junit.Test;
 import org.mockito.Matchers;
 
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-import com.twilio.sdk.resource.instance.Media;
-import com.twilio.sdk.resource.list.MediaList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.stub;
 
 public class MediaTest extends BasicRequestTester {
 

@@ -1,14 +1,13 @@
 package com.twilio.sdk.resource.instance;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
-
 import com.twilio.sdk.resource.InstanceResource;
 import com.twilio.sdk.resource.list.MemberList;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The {@link Queue} represents a queue resource.
@@ -52,7 +51,7 @@ public class Queue extends InstanceResource {
     /**
      * Retrieves the queue sid of this {@link Queue}
      *
-     * @return
+     * @return the queue sid
      */
     public String getSid() {
         return this.getProperty(Queue.SID);
@@ -139,7 +138,7 @@ public class Queue extends InstanceResource {
      *            the url to transfer control to
      * @param method
      *            the method to use.
-     * @return
+     * @return the queue member
      * @throws TwilioRestException
      */
     public Member dequeueHeadOfQueue(String url, String method) throws TwilioRestException {

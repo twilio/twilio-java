@@ -1,26 +1,18 @@
 package com.twilio.sdk.examples;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.factory.CallFactory;
 import com.twilio.sdk.resource.factory.MessageFactory;
-import com.twilio.sdk.resource.instance.Account;
-import com.twilio.sdk.resource.instance.AvailablePhoneNumber;
-import com.twilio.sdk.resource.instance.Call;
-import com.twilio.sdk.resource.instance.Conference;
-import com.twilio.sdk.resource.instance.Participant;
+import com.twilio.sdk.resource.instance.*;
 import com.twilio.sdk.resource.list.AccountList;
 import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
 import com.twilio.sdk.resource.list.ParticipantList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+
+import java.util.*;
 
 // TODO: Auto-generated Javadoc
 /**

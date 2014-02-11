@@ -1,21 +1,18 @@
 package com.twilio.sdk.resource.instance.sip;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.factory.sip.IpAccessControlListMappingFactory;
-import com.twilio.sdk.resource.instance.sip.IpAccessControlListMapping;
-import com.twilio.sdk.resource.list.sip.IpAccessControlListMappingList;
 import com.twilio.sdk.resource.factory.sip.CredentialListMappingFactory;
-import com.twilio.sdk.resource.instance.sip.CredentialListMapping;
+import com.twilio.sdk.resource.factory.sip.IpAccessControlListMappingFactory;
 import com.twilio.sdk.resource.list.sip.CredentialListMappingList;
+import com.twilio.sdk.resource.list.sip.IpAccessControlListMappingList;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 
 public class Domain extends InstanceResource {

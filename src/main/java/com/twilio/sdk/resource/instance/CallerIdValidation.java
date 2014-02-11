@@ -1,9 +1,9 @@
 package com.twilio.sdk.resource.instance;
 
+import com.twilio.sdk.TwilioRestResponse;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.twilio.sdk.TwilioRestResponse;
 
 public class CallerIdValidation {
 	

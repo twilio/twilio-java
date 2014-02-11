@@ -1,13 +1,13 @@
 package com.twilio.sdk.resource.instance;
 
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.resource.InstanceResource;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.resource.InstanceResource;
 
 /**
  * The Class Usage.

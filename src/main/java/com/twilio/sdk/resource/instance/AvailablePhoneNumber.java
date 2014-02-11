@@ -1,9 +1,9 @@
 package com.twilio.sdk.resource.instance;
 
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
+
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**

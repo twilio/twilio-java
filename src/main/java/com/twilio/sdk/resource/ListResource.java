@@ -1,16 +1,11 @@
 package com.twilio.sdk.resource;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.parser.ResponseParser.PagingProperty;
+
+import java.util.*;
 
 // TODO: Auto-generated Javadoc
 public abstract class ListResource<T extends Resource> extends Resource implements Iterable<T> {

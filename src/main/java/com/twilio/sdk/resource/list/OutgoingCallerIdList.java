@@ -1,8 +1,5 @@
 package com.twilio.sdk.resource.list;
 
-import java.util.Map;
-import java.util.List;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -11,6 +8,9 @@ import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
 import com.twilio.sdk.resource.instance.CallerIdValidation;
 import com.twilio.sdk.resource.instance.OutgoingCallerId;
 import org.apache.http.NameValuePair;
+
+import java.util.List;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**

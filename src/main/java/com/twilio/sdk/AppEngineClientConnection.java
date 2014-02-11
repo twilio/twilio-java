@@ -7,6 +7,15 @@ package com.twilio.sdk;
  https://github.com/OpenRefine/OpenRefine
 */
 
+import org.apache.http.*;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.ManagedClientConnection;
+import org.apache.http.conn.routing.HttpRoute;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.message.BasicHttpResponse;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HttpContext;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -15,22 +24,6 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.http.Header;
-import org.apache.http.HttpConnectionMetrics;
-import org.apache.http.HttpEntityEnclosingRequest;
-import org.apache.http.HttpException;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.ProtocolVersion;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.ManagedClientConnection;
-import org.apache.http.conn.routing.HttpRoute;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.message.BasicHttpResponse;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HttpContext;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 class AppEngineClientConnection implements ManagedClientConnection {

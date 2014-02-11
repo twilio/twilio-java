@@ -66,7 +66,8 @@ public class TwilioRestClient {
 	/**
 	 * The default HTTP Connection timeout, also used for socket timeout.
 	 */
-	private static final int CONNECTION_TIMEOUT = 10000;
+	private static final int CONNECTION_TIMEOUT = 3100;
+	private static final int READ_TIMEOUT = 30500;
 
 	/**
 	 * Gets the num retries.
@@ -157,7 +158,7 @@ public class TwilioRestClient {
 		httpclient.getParams().setParameter("http.protocol.version",
 				HttpVersion.HTTP_1_1);
 		httpclient.getParams().setParameter("http.socket.timeout",
-				new Integer(CONNECTION_TIMEOUT));
+				new Integer(READ_TIMEOUT));
 		httpclient.getParams().setParameter("http.connection.timeout",
 				new Integer(CONNECTION_TIMEOUT));
 		httpclient.getParams().setParameter("http.protocol.content-charset",

@@ -1,12 +1,11 @@
 package com.twilio.sdk;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import com.twilio.sdk.parser.JsonResponseParser;
 import com.twilio.sdk.parser.XmlResponseParser;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 /**

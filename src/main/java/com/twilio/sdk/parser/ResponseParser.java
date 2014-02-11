@@ -1,8 +1,8 @@
 package com.twilio.sdk.parser;
 
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestResponse;
+
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**

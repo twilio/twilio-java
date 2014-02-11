@@ -1,12 +1,11 @@
 package com.twilio.sdk.resource.instance;
 
-import java.util.Date;
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
 import com.twilio.sdk.resource.list.MediaList;
-import com.twilio.sdk.resource.instance.Media;
+
+import java.util.Date;
+import java.util.Map;
 
 public class Message extends InstanceResource {
 
@@ -85,7 +84,7 @@ public class Message extends InstanceResource {
 	/**
 	 * Returns the a list of media.
 	 *
-	 * @param the sid of a media instance associated with this message
+	 * @param mediaSid the sid of a media instance associated with this message
 	 * @return the MediaList associated with this message
 	 */
 	public Media getMedia(String mediaSid) {

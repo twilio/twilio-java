@@ -1,11 +1,10 @@
 package com.twilio.sdk.resource.list;
 
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.instance.ShortCode;
+
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**

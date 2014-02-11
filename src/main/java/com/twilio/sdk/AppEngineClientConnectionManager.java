@@ -7,10 +7,6 @@ package com.twilio.sdk;
  https://github.com/OpenRefine/OpenRefine
 */
 
-import java.net.InetAddress;
-import java.net.Socket;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.ClientConnectionRequest;
 import org.apache.http.conn.ManagedClientConnection;
@@ -19,6 +15,10 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.scheme.SocketFactory;
 import org.apache.http.params.HttpParams;
+
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("deprecation")
 public class AppEngineClientConnectionManager implements ClientConnectionManager {

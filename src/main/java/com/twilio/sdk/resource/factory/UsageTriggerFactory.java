@@ -1,12 +1,11 @@
 package com.twilio.sdk.resource.factory;
 
 import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.resource.instance.Sms;
 import com.twilio.sdk.resource.instance.UsageTrigger;
 import org.apache.http.NameValuePair;
 
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A factory for creating Usage Trigger objects.

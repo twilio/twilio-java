@@ -1,21 +1,19 @@
 package com.twilio.sdk.resource.instance;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.stub;
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.resource.list.RecordingList;
+import com.twilio.sdk.resource.list.TranscriptionList;
+import org.junit.Test;
+import org.mockito.Matchers;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
-import org.mockito.Matchers;
-
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-import com.twilio.sdk.resource.instance.Call;
-import com.twilio.sdk.resource.list.RecordingList;
-import com.twilio.sdk.resource.list.TranscriptionList;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.stub;
 
 public class CallTest {
 	final String callSid = "CA12345678901234567890123456789012";

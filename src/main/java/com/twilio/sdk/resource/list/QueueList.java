@@ -1,8 +1,5 @@
 package com.twilio.sdk.resource.list;
 
-import java.util.Map;
-import java.util.List;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -10,6 +7,9 @@ import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.QueueFactory;
 import com.twilio.sdk.resource.instance.Queue;
 import org.apache.http.NameValuePair;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * The {@link QueueList} represents a list of {@link Queue}s.

@@ -1,12 +1,10 @@
 package com.twilio.sdk.resource.list;
 
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.instance.Media;
+
+import java.util.Map;
 
 /**
  * The Class MediaList.

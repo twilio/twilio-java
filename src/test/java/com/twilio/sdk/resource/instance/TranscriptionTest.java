@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.instance;
 
-import com.twilio.sdk.resource.instance.Transcription;
 import org.junit.Test;
+
 import static org.junit.Assert.assertTrue;
 public class TranscriptionTest extends BasicRequestTester {
 

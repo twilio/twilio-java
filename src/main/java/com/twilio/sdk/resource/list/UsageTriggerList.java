@@ -1,16 +1,15 @@
 package com.twilio.sdk.resource.list;
 
-import java.util.Map;
-import java.util.List;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.UsageTriggerFactory;
-import com.twilio.sdk.resource.instance.UsageRecord;
 import com.twilio.sdk.resource.instance.UsageTrigger;
 import org.apache.http.NameValuePair;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class UsageTriggerList extends ListResource<UsageTrigger> implements UsageTriggerFactory {

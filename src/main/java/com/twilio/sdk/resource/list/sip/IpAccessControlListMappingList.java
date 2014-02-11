@@ -1,8 +1,5 @@
 package com.twilio.sdk.resource.list.sip;
 
-import java.util.Map;
-import java.util.List;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -10,6 +7,9 @@ import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.sip.IpAccessControlListMappingFactory;
 import com.twilio.sdk.resource.instance.sip.IpAccessControlListMapping;
 import org.apache.http.NameValuePair;
+
+import java.util.List;
+import java.util.Map;
 
 public class IpAccessControlListMappingList extends ListResource<IpAccessControlListMapping> implements IpAccessControlListMappingFactory {
 
@@ -29,7 +29,6 @@ public class IpAccessControlListMappingList extends ListResource<IpAccessControl
 	 *
 	 * @param client the client
      * @param sipDomainSid the sid of the sip domain owning this set of mappings
-	 * @param filters the filters
 	 */
 	public IpAccessControlListMappingList(TwilioRestClient client, String sipDomainSid) {
 		super(client);

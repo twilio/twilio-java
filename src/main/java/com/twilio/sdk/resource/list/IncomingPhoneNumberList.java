@@ -1,8 +1,5 @@
 package com.twilio.sdk.resource.list;
 
-import java.util.Map;
-import java.util.List;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -10,6 +7,9 @@ import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
 import com.twilio.sdk.resource.instance.IncomingPhoneNumber;
 import org.apache.http.NameValuePair;
+
+import java.util.List;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -52,7 +52,7 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	 *
 	 * @param client the client
 	 * @param type the type
-	 * @param filter the filters
+	 * @param filters the filters
 	 */
 	public IncomingPhoneNumberList(TwilioRestClient client,
 			String type, Map<String, String> filters) {

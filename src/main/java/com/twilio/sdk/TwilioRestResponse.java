@@ -1,12 +1,12 @@
 package com.twilio.sdk;
 
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.twilio.sdk.parser.JsonResponseParser;
 import com.twilio.sdk.parser.ResponseParser;
 import com.twilio.sdk.parser.XmlResponseParser;
+
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // TODO: Auto-generated Javadoc
 /*

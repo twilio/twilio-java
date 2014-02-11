@@ -1,10 +1,10 @@
 package com.twilio.sdk.resource.list;
 
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.ListResource;
 import com.twilio.sdk.resource.instance.ConnectApp;
+
+import java.util.Map;
 
 /**
  * The ConnectApps list resource shows all of the Connect Apps that you have

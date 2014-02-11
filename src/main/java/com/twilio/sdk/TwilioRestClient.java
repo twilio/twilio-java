@@ -66,7 +66,7 @@ public class TwilioRestClient {
 	/**
 	 * The default HTTP Connection timeout
 	 */
-	private static final int CONNECTION_TIMEOUT = 3100;
+	private static final int CONNECTION_TIMEOUT = 10000;
 
 	/**
 	 * The default timeout to use for requests to Twilio

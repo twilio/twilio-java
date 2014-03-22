@@ -22,7 +22,7 @@ If you want to compile it yourself, here's how:
 This will also build the javadoc in `twilio-java/target/apidocs`. You can open the
 index.html located there to view it locally.
 
-Pre-built jars are also available [here](http://search.maven.org/#browse%7C-1416163511). Select the directory for
+Pre-built jars are available [here](http://search.maven.org/#browse%7C-1416163511). Select the directory for
 the latest version and download one of these jar files:
 
 * twilio-java-sdk-3.x.x-with-dependencies.jar

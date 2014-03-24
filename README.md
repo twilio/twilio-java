@@ -22,10 +22,11 @@ If you want to compile it yourself, here's how:
 This will also build the javadoc in `twilio-java/target/apidocs`. You can open the
 index.html located there to view it locally.
 
-The pre-built jars are available at:
+Pre-built jars are available [here](http://search.maven.org/#browse%7C-1416163511). Select the directory for
+the latest version and download one of these jar files:
 
-*   [twilio-java-sdk-3.4.2-with-dependencies.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.4.2/twilio-java-sdk-3.4.1-jar-with-dependencies.jar)
-*   [twilio-java-sdk-3.4.2.jar](http://search.maven.org/remotecontent?filepath=com/twilio/sdk/twilio-java-sdk/3.4.1/twilio-java-sdk-3.4.2.jar) -- use this if you have issues with conflicting jars in your project.  You'll need to include versions of the dependencies yourself.  See the pom.xml for the list of libraries.
+* twilio-java-sdk-3.x.x-with-dependencies.jar
+* twilio-java-sdk-3.x.x.jar -- use this if you have issues with conflicting jars in your project. You'll need to include versions of the dependencies yourself. See the [pom.xml](https://github.com/twilio/twilio-java/blob/master/pom.xml) file in [twilio-java](https://github.com/twilio/twilio-java) for the list of libraries.
 
 You can view the javadocs for this project at:
 [http://twilio.github.io/twilio-java](http://twilio.github.io/twilio-java)

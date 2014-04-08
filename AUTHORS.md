@@ -6,7 +6,8 @@ A huge thanks to all of our contributors:
 
 - Adam Ballai 
 - Adam Rich 
-- Adam Richeimer 
+- Adam Richeimer
+- Alexandre Payment
 - Ameya Lokare 
 - Andrew Benton 
 - Beans0063 
@@ -35,7 +36,6 @@ A huge thanks to all of our contributors:
 - Mario Niebla
 - Matt Nowack
 - RonaldWentworth 
-- Sam Kimbrel 
-- Thomas Wilsher 
 - rschiffert@twilio.com
-- Mario Niebla
+- Sam Kimbrel
+- Thomas Wilsher

@@ -4,7 +4,14 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.factory.*;
+import com.twilio.sdk.resource.factory.ApplicationFactory;
+import com.twilio.sdk.resource.factory.CallFactory;
+import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
+import com.twilio.sdk.resource.factory.MessageFactory;
+import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
+import com.twilio.sdk.resource.factory.QueueFactory;
+import com.twilio.sdk.resource.factory.SmsFactory;
+import com.twilio.sdk.resource.factory.UsageTriggerFactory;
 import com.twilio.sdk.resource.factory.sip.CredentialListFactory;
 import com.twilio.sdk.resource.factory.sip.DomainFactory;
 import com.twilio.sdk.resource.factory.sip.IpAccessControlListFactory;
@@ -21,46 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.factory.ApplicationFactory;
-import com.twilio.sdk.resource.factory.CallFactory;
-import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
-import com.twilio.sdk.resource.factory.MessageFactory;
-import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
-import com.twilio.sdk.resource.factory.QueueFactory;
-import com.twilio.sdk.resource.factory.SmsFactory;
-import com.twilio.sdk.resource.factory.UsageTriggerFactory;
-import com.twilio.sdk.resource.factory.sip.CredentialListFactory;
-import com.twilio.sdk.resource.factory.sip.DomainFactory;
-import com.twilio.sdk.resource.factory.sip.IpAccessControlListFactory;
-import com.twilio.sdk.resource.instance.sip.CredentialListInstance;
-import com.twilio.sdk.resource.instance.sip.Domain;
-import com.twilio.sdk.resource.instance.sip.IpAccessControlList;
-import com.twilio.sdk.resource.list.ApplicationList;
-import com.twilio.sdk.resource.list.AuthorizedConnectAppList;
-import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
-import com.twilio.sdk.resource.list.CallList;
-import com.twilio.sdk.resource.list.ConferenceList;
-import com.twilio.sdk.resource.list.ConnectAppList;
-import com.twilio.sdk.resource.list.IncomingPhoneNumberList;
-import com.twilio.sdk.resource.list.MediaList;
-import com.twilio.sdk.resource.list.MessageList;
-import com.twilio.sdk.resource.list.NotificationList;
-import com.twilio.sdk.resource.list.OutgoingCallerIdList;
-import com.twilio.sdk.resource.list.QueueList;
-import com.twilio.sdk.resource.list.RecordingList;
-import com.twilio.sdk.resource.list.ShortCodeList;
-import com.twilio.sdk.resource.list.SmsList;
-import com.twilio.sdk.resource.list.TranscriptionList;
-import com.twilio.sdk.resource.list.UsageRecordList;
-import com.twilio.sdk.resource.list.UsageTriggerList;
-import com.twilio.sdk.resource.list.sip.CredentialListList;
-import com.twilio.sdk.resource.list.sip.DomainList;
-import com.twilio.sdk.resource.list.sip.IpAccessControlListList;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -1135,18 +1102,4 @@ public class Account extends InstanceResource {
 
 		return !response.isError();
 	}
-
-    /**
-     * Gets the call feedback summary for this account's calls.
-     *
-     * @param filters the filters
-     * @return the call feedback summary
-     * @throws TwilioRestException the twilio rest exception
-     */
-    public CallFeedbackSummary getCallFeedbackSummary(Map<String, String> filters) throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation("") + "/Calls/Feedback/Summary.json", "GET", filters);
-
-        return new CallFeedbackSummary(this.getClient(), response.toMap());
-    }
 }

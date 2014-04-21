@@ -16,13 +16,16 @@ import java.util.List;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class Call. For more information see <a
  * href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
  */
 public class Call extends InstanceResource {
 
-    /** The Constant SID_PROPERTY. */
+    /**
+     * The Constant SID_PROPERTY.
+     */
     private static final String SID_PROPERTY = "sid";
 
     /**
@@ -38,7 +41,7 @@ public class Call extends InstanceResource {
      * Instantiates a new call.
      *
      * @param client the client
-     * @param sid the sid
+     * @param sid    the sid
      */
     public Call(TwilioRestClient client, String sid) {
         super(client);
@@ -51,7 +54,7 @@ public class Call extends InstanceResource {
     /**
      * Instantiates a new call.
      *
-     * @param client the client
+     * @param client     the client
      * @param properties the properties
      */
     public Call(TwilioRestClient client, Map<String, Object> properties) {
@@ -242,9 +245,22 @@ public class Call extends InstanceResource {
      * Gets the feedback factory, which lets add feedback to this call.
      *
      * @return the feedback factory
-   */
+     */
     public FeedbackFactory getFeedbackFactory() {
         return new FeedbackFactoryImpl(this.getClient(), this.getResourceLocation(""));
+    }
+
+    /**
+     * Delete the call feedback.
+     *
+     * @return true, if successful
+     * @throws TwilioRestException if there is an error in the request
+     */
+    public boolean deleteFeedback() throws TwilioRestException {
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation("") + "/Feedback.json", "DELETE", (Map) null);
+
+        return !response.isError();
     }
 
     /**
@@ -274,10 +290,11 @@ public class Call extends InstanceResource {
      *
      * Useful functions
      */
+
     /**
      * Redirect.
      *
-     * @param url the url
+     * @param url    the url
      * @param method the method
      * @return the call
      * @throws TwilioRestException the twilio rest exception

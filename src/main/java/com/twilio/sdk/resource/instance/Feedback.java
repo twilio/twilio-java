@@ -1,14 +1,16 @@
 package com.twilio.sdk.resource.instance;
 
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.resource.InstanceResource;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.resource.InstanceResource;
 
 /**
  * A Feedback class. Used to submit feedback for a resource.
@@ -45,6 +47,19 @@ public class Feedback extends InstanceResource {
     public Feedback(TwilioRestClient client, String parentLocation) {
         super(client);
         this.parentLocation = parentLocation;
+    }
+
+    /**
+     * Delete the call feedback.
+     *
+     * @return true, if successful
+     * @throws TwilioRestException if there is an error in the request
+     */
+    public boolean delete() throws TwilioRestException {
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), "DELETE", (Map) null);
+
+        return !response.isError();
     }
     
     /**

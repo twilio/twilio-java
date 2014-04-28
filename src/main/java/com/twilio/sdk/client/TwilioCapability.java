@@ -175,15 +175,8 @@ public class TwilioCapability {
 		Map<String, String> value = new LinkedHashMap<String, String>();
 		value.put("path", "/2010-04-01/Events");
 		if (filters != null) {
-			String filterString = "";
 			String paramsJoined = generateParamString(filters);
-
-			try {
-				filterString = (URLEncoder.encode(paramsJoined, "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				// need to warn here
-			}
-			value.put("params", filterString);
+			value.put("params", paramsJoined);
 		}
 
 		this.scopes.add(this.buildScopeString("stream", "subscribe", value));
@@ -245,16 +238,8 @@ public class TwilioCapability {
 
 			// Build outgoing scopes
 			if (this.outgoingParams != null) {
-				String appParamString = "";
 				String paramsJoined = generateParamString(this.outgoingParams);
-
-				try {
-					appParamString = (URLEncoder.encode(paramsJoined, "UTF-8"));
-				} catch (UnsupportedEncodingException e) {
-					// need to warn here
-				}
-
-				values.put("appParams", appParamString);
+				values.put("appParams", paramsJoined);
 			}
 
 			this.scopes

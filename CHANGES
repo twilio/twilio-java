@@ -3,6 +3,24 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.4.3
+
+Released on April 28, 2014
+
+- Fix double-escape in Client token generation.
+- Update documentation links.
+- Update HTTP connection timeout.
+- Improved error handling in UsageRecord category.
+- Support for Call instance Recordings and Transcriptions subresources.
+
+Version 3.4.2
+
+Released on January 17, 2014
+
+- Support Conference "beep" behavior in TwiML generation.
+- Provide an escaped XML representation of TwiML verbs (#110).
+- Fix Account URL-generation bugs
+
 Version 3.4.1
 
 Released on October 21, 2013

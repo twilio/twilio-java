@@ -11,6 +11,7 @@ A huge thanks to all of our contributors:
 - Andrew Benton 
 - Beans0063 
 - Brett Gerry 
+- Brian J. Tarricone 
 - Brian Levine 
 - Carlos Diaz-Padron 
 - Christer Fahlgren 
@@ -31,6 +32,7 @@ A huge thanks to all of our contributors:
 - Kevin Whinnery 
 - Kyle 
 - Kyle Conroy 
+- Mario Niebla 
 - RonaldWentworth 
 - Sam Kimbrel 
 - Thomas Wilsher 

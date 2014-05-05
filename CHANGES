@@ -3,6 +3,12 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.4.4
+
+Released on May 5, 2014
+
+- Fix an issue where native boolean values could not be read properly for the Participant resource.
+
 Version 3.4.3
 
 Released on April 28, 2014

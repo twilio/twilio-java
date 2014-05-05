@@ -32,7 +32,8 @@ A huge thanks to all of our contributors:
 - Kevin Whinnery 
 - Kyle 
 - Kyle Conroy 
-- Mario Niebla 
+- Mario Niebla
+- Matt Nowack
 - RonaldWentworth 
 - Sam Kimbrel 
 - Thomas Wilsher 

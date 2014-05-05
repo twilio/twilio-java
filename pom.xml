@@ -4,13 +4,13 @@
   <artifactId>twilio-java-sdk</artifactId>
   <packaging>jar</packaging>
   <name>twilio-java-sdk</name>
-  <version>3.4.4-SNAPSHOT</version>
+  <version>3.4.4</version>
   <description>Java helper library for Twilio services</description>
   <url>http://www.twilio.com</url>
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <url>http://www.opensource.org/licenseås/mit-license.php</url>
       <distribution>repo</distribution>
     </license>
   </licenses>

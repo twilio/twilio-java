@@ -145,7 +145,7 @@ public class Participant extends InstanceResource {
 	 * @return true, if is muted
 	 */
 	public boolean isMuted() {
-		return Boolean.parseBoolean(this.getProperty("muted"));
+		return (Boolean)this.getObject("muted");
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class Participant extends InstanceResource {
 	 * @return true, if is start conference on enter
 	 */
 	public boolean isStartConferenceOnEnter() {
-		return Boolean.parseBoolean(this.getProperty("start_conference_on_enter"));
+		return (Boolean)this.getObject("start_conference_on_enter");
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class Participant extends InstanceResource {
 	 * @return true, if is end conference on exit
 	 */
 	public boolean isEndConferenceOnExit() {
-		return Boolean.parseBoolean(this.getProperty("end_conference_on_exit"));
+		return (Boolean)this.getObject("end_conference_on_exit");
 	}
 
 	/*

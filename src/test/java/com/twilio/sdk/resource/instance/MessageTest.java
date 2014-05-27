@@ -33,6 +33,8 @@ public class MessageTest {
 		map.put("api_version", "2010-04-01");
 		map.put("sid", messageSid);
 		map.put("account_sid", accountSid);
+		map.put("error_code", "30001");
+		map.put("error_message", "Queue overflow");
 	}
 
 	@Test
@@ -54,6 +56,8 @@ public class MessageTest {
 		assertTrue(m.getApiVersion().equals("2010-04-01"));
 		assertTrue(m.getSid().equals(messageSid));
 		assertTrue(m.getAccountSid().equals(accountSid));
+		assertTrue(m.getErrorCode().equals(30001));
+		assertTrue(m.getErrorMessage().equals("Queue overflow"));
 	}
 
 }

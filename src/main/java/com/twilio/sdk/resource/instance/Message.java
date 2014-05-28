@@ -227,7 +227,11 @@ public class Message extends InstanceResource {
 	 * @return the error code
 	 */
 	public Integer getErrorCode() {
-		return Integer.parseInt(this.getProperty("error_code"));
+		try {
+			return Integer.parseInt(this.getProperty("error_code"));
+		} catch (NumberFormatException e) {
+			return null;
+		}
 	}
 
 	/**

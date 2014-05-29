@@ -35,7 +35,7 @@ import java.util.Map;
 public class TwilioRestClient {
 
 	/** The Constant VERSION. */
-	private static final String VERSION = "3.4.4";
+	private static final String VERSION = "3.4.5";
 
 	/** The endpoint. */
 	private String endpoint = "https://api.twilio.com";

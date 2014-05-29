@@ -3,13 +3,22 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.4.5
+-------------
+
+Released on May 29, 2014
+
+- Add support for new message delivery error fields.
+
 Version 3.4.4
+-------------
 
 Released on May 5, 2014
 
 - Fix an issue where native boolean values could not be read properly for the Participant resource.
 
 Version 3.4.3
+-------------
 
 Released on April 28, 2014
 
@@ -20,6 +29,7 @@ Released on April 28, 2014
 - Support for Call instance Recordings and Transcriptions subresources.
 
 Version 3.4.2
+-------------
 
 Released on January 17, 2014
 
@@ -28,6 +38,7 @@ Released on January 17, 2014
 - Fix Account URL-generation bugs
 
 Version 3.4.1
+-------------
 
 Released on October 21, 2013
 

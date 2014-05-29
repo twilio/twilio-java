@@ -219,4 +219,30 @@ public class Message extends InstanceResource {
 		return this.getProperty("api_version");
 	}
 
+	/**
+	 * Gets the error code for this message.
+	 * If there is no error for the message this code
+	 * will be null.
+	 *
+	 * @return the error code
+	 */
+	public Integer getErrorCode() {
+		try {
+			return Integer.parseInt(this.getProperty("error_code"));
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Gets the error message for this message.
+	 * If there is no error for this message this
+	 * error message will be null.
+	 *
+	 * @return the error message
+	 */
+	public String getErrorMessage() {
+		return this.getProperty("error_message");
+	}
+
 }

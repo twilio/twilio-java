@@ -6,14 +6,12 @@ import com.twilio.sdk.resource.instance.AvailablePhoneNumber;
 
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AvailablePhoneNumberList.
- *
- *  For more information see <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
+ * <p/>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
  */
-public class AvailablePhoneNumberList extends
-		ListResource<AvailablePhoneNumber> {
+public class AvailablePhoneNumberList extends ListResource<AvailablePhoneNumber> {
 
 	public static final String TYPE_LOCAL = "Local";
 	public static final String TYPE_TOLLFREE = "TollFree";
@@ -30,7 +28,7 @@ public class AvailablePhoneNumberList extends
 	 *
 	 * @param client the client
 	 */
-	public AvailablePhoneNumberList(TwilioRestClient client) {
+	public AvailablePhoneNumberList(final TwilioRestClient client) {
 		super(client);
 	}
 
@@ -40,8 +38,7 @@ public class AvailablePhoneNumberList extends
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public AvailablePhoneNumberList(TwilioRestClient client,
-			Map<String, String> filters) {
+	public AvailablePhoneNumberList(final TwilioRestClient client, final Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -52,17 +49,16 @@ public class AvailablePhoneNumberList extends
 	 * @param isoCountryCode the iso country code
 	 * @param type the type
 	 */
-	public AvailablePhoneNumberList(TwilioRestClient client,
-			String isoCountryCode, String type) {
+	public AvailablePhoneNumberList(final TwilioRestClient client, final String isoCountryCode, final String type) {
 		super(client);
-		this.isoCountry = isoCountryCode;
+		isoCountry = isoCountryCode;
 		this.type = type;
 	}
 
-	public AvailablePhoneNumberList(TwilioRestClient client,
-			Map<String, String> filters, String isoCountryCode, String type) {
+	public AvailablePhoneNumberList(final TwilioRestClient client, final Map<String, String> filters,
+	                                final String isoCountryCode, final String type) {
 		super(client, filters);
-		this.isoCountry = isoCountryCode;
+		isoCountry = isoCountryCode;
 		this.type = type;
 	}
 
@@ -71,17 +67,14 @@ public class AvailablePhoneNumberList extends
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-			+ this.getRequestAccountSid() + "/AvailablePhoneNumbers/"
-			+ this.isoCountry + "/" + this.type + ".json";
+		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/AvailablePhoneNumbers/" + isoCountry + "/" + type + ".json";
 	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected AvailablePhoneNumber makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
+	protected AvailablePhoneNumber makeNew(final TwilioRestClient client, final Map<String, Object> params) {
 		return new AvailablePhoneNumber(client, params);
 	}
 

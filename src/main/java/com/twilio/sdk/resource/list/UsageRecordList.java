@@ -8,17 +8,29 @@ import java.util.Map;
 
 /**
  * The Class UsageRecordList.
- *
  */
 public class UsageRecordList extends ListResource<UsageRecord> {
+
+	private final Type type;
 
 	/**
 	 * Instantiates a new usage record list.
 	 *
 	 * @param client the client
 	 */
-	public UsageRecordList(TwilioRestClient client) {
+	public UsageRecordList(final TwilioRestClient client) {
+		this(client, (Type) null);
+	}
+
+	/**
+	 * Instantiates a new usage record list.
+	 *
+	 * @param client the client
+	 * @param type
+	 */
+	public UsageRecordList(final TwilioRestClient client, final Type type) {
 		super(client);
+		this.type = type;
 	}
 
 	/**
@@ -27,9 +39,24 @@ public class UsageRecordList extends ListResource<UsageRecord> {
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public UsageRecordList(TwilioRestClient client,
-			Map<String, String> filters) {
+	public UsageRecordList(final TwilioRestClient client, final Map<String, String> filters) {
+		this(client, filters, null);
+	}
+
+	/**
+	 * Instantiates a new usage record list.
+	 *
+	 * @param client the client
+	 * @param filters the filters
+	 * @param type
+	 */
+	public UsageRecordList(final TwilioRestClient client, final Map<String, String> filters, final Type type) {
 		super(client, filters);
+		this.type = type;
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 	/* (non-Javadoc)
@@ -37,16 +64,19 @@ public class UsageRecordList extends ListResource<UsageRecord> {
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Usage/Records";
+		if (type == null) {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Usage/Records";
+		} else {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Usage/Records/" + type
+					.getValue();
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected UsageRecord makeNew(TwilioRestClient client,
-			Map<String, Object> properties) {
+	protected UsageRecord makeNew(final TwilioRestClient client, final Map<String, Object> properties) {
 		return new UsageRecord(client, properties);
 	}
 
@@ -56,5 +86,26 @@ public class UsageRecordList extends ListResource<UsageRecord> {
 	@Override
 	protected String getListKey() {
 		return "UsageRecords";
+	}
+
+	public enum Type {
+		ALL_TIME("AllTime"),
+		DAILY("Daily"),
+		LAST_MONTH("LastMonth"),
+		MONTHLY("Monthly"),
+		THIS_MONTH("ThisMonth"),
+		TODAY("Today"),
+		YEARLY("Yearly"),
+		YESTERDAY("Yesterday");
+
+		private final String value;
+
+		private Type(final String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
 	}
 }

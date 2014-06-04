@@ -11,28 +11,26 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class IncomingPhoneNumberList.
- *
+ * <p/>
  * For more information see <a href="https://www.twilio.com/docs/api/rest/incoming-phone-numbers">https://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
  */
-public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
-		implements IncomingPhoneNumberFactory {
+public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber> implements IncomingPhoneNumberFactory {
 
 	public static final String TYPE_LOCAL = "Local";
 	public static final String TYPE_TOLLFREE = "TollFree";
 	public static final String TYPE_MOBILE = "Mobile";
 
-
 	/** The type. */
 	public String type = null;
+
 	/**
 	 * Instantiates a new incoming phone number list.
 	 *
 	 * @param client the client
 	 */
-	public IncomingPhoneNumberList(TwilioRestClient client) {
+	public IncomingPhoneNumberList(final TwilioRestClient client) {
 		super(client);
 	}
 
@@ -42,8 +40,7 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public IncomingPhoneNumberList(TwilioRestClient client,
-			Map<String, String> filters) {
+	public IncomingPhoneNumberList(final TwilioRestClient client, final Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -54,8 +51,8 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	 * @param type the type
 	 * @param filters the filters
 	 */
-	public IncomingPhoneNumberList(TwilioRestClient client,
-			String type, Map<String, String> filters) {
+	public IncomingPhoneNumberList(final TwilioRestClient client, final String type,
+	                               final Map<String, String> filters) {
 		super(client, filters);
 		this.type = type;
 	}
@@ -66,7 +63,7 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	 * @param client the client
 	 * @param type the type
 	 */
-	public IncomingPhoneNumberList(TwilioRestClient client, String type) {
+	public IncomingPhoneNumberList(final TwilioRestClient client, final String type) {
 		super(client);
 		this.type = type;
 	}
@@ -77,12 +74,9 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	@Override
 	protected String getResourceLocation() {
 		if (type != null) {
-			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/IncomingPhoneNumbers/" + type
-				+ ".json";
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/IncomingPhoneNumbers/" + type + ".json";
 		} else {
-			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/IncomingPhoneNumbers.json";
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/IncomingPhoneNumbers.json";
 		}
 	}
 
@@ -90,8 +84,7 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected IncomingPhoneNumber makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
+	protected IncomingPhoneNumber makeNew(final TwilioRestClient client, final Map<String, Object> params) {
 		return new IncomingPhoneNumber(client, params);
 	}
 
@@ -106,18 +99,16 @@ public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber>
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory#create(java.util.Map)
 	 */
-	public IncomingPhoneNumber create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", params);
-		return makeNew(this.getClient(), response.toMap());
+	public IncomingPhoneNumber create(final Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+		return makeNew(getClient(), response.toMap());
 	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory#create(java.util.List)
 	 */
-	public IncomingPhoneNumber create(List<NameValuePair> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", params);
-		return makeNew(this.getClient(), response.toMap());
+	public IncomingPhoneNumber create(final List<NameValuePair> params) throws TwilioRestException {
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+		return makeNew(getClient(), response.toMap());
 	}
 }

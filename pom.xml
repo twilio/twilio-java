@@ -29,37 +29,55 @@
       <timezone>-7</timezone>
     </developer>
   </developers>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> 
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
+
+    <properties>
+        <jackson.version>1.9.3</jackson.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+
+        <!-- HttpComponents -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>4.1.2</version>
-      <scope>compile</scope>
-    </dependency>
+            <version>4.2.6</version>
+            <scope>compile</scope>
+        </dependency>
     <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpcore</artifactId>
+        <version>4.2.5</version>
+    </dependency>
+
+        <!-- Commons -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
       <version>2.6</version>
-      <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>com.googlecode.json-simple</groupId>
+
+        <dependency>
+        <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1</version>
-      <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
-      <version>1.9.3</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- test dependencies -->
-    <dependency>
+
+        <!-- Jackson -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.8.1</version>

@@ -67,7 +67,8 @@ public class AvailablePhoneNumberList extends ListResource<AvailablePhoneNumber>
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/AvailablePhoneNumbers/" + isoCountry + "/" + type + ".json";
+		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() +
+		       "/AvailablePhoneNumbers/" + isoCountry + "/" + type + ".json";
 	}
 
 	/* (non-Javadoc)

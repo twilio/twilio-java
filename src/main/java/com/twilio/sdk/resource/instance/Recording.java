@@ -89,7 +89,7 @@ public class Recording extends InstanceResource {
 	/**
 	 * Returns the list of associated transcriptions
 	 *
-	 * @return the TranscriptionList associated this recording
+	 * @return the TranscriptionList associated with the recording
 	 */
 	public TranscriptionList getTranscriptions() {
 		TranscriptionList transcriptions = TranscriptionList.recordingTranscriptionList(getClient(), getSid());

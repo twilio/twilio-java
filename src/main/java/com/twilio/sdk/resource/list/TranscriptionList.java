@@ -6,22 +6,76 @@ import com.twilio.sdk.resource.instance.Transcription;
 
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TranscriptionList.
- *
+ * <p/>
  * For more information see <a href="https://www.twilio.com/docs/api/rest/transcription">https://www.twilio.com/docs/api/rest/transcription</a>
  */
 public class TranscriptionList extends ListResource<Transcription> {
 
 	private static String requestCallSid;
 
+	private static String requestRecordingSid;
+
+	/**
+	 * Instantiates a new transcription list from a call.
+	 *
+	 * @param client
+	 * @param callSid
+	 * @return a call transcription list
+	 */
+	public static TranscriptionList callTranscriptionList(final TwilioRestClient client, final String callSid) {
+		return new TranscriptionList(client, callSid);
+	}
+
+	/**
+	 * Instantiates a new transcription list from a call.
+	 *
+	 * @param client
+	 * @param callSid
+	 * @param filters
+	 * @return a call transcription list
+	 */
+	public static TranscriptionList callTranscriptionList(final TwilioRestClient client, final String callSid,
+	                                                      final Map<String, String> filters) {
+		return new TranscriptionList(client, callSid, filters);
+	}
+
+	/**
+	 * Instantiates a new transcription list from a recording.
+	 *
+	 * @param client
+	 * @param recordingSid
+	 * @return a call transcription list
+	 */
+	public static TranscriptionList recordingTranscriptionList(final TwilioRestClient client,
+	                                                           final String recordingSid) {
+		TranscriptionList transcriptions = new TranscriptionList(client);
+		requestRecordingSid = recordingSid;
+		return transcriptions;
+	}
+
+	/**
+	 * Instantiates a new transcription list from a recording.
+	 *
+	 * @param client
+	 * @param recordingSid
+	 * @param filters
+	 * @return a call transcription list
+	 */
+	public static TranscriptionList recordingTranscriptionList(final TwilioRestClient client, final String recordingSid,
+	                                                           final Map<String, String> filters) {
+		TranscriptionList transcriptions = new TranscriptionList(client, filters);
+		requestRecordingSid = recordingSid;
+		return transcriptions;
+	}
+
 	/**
 	 * Instantiates a new transcription list.
 	 *
 	 * @param client the client
 	 */
-	public TranscriptionList(TwilioRestClient client) {
+	public TranscriptionList(final TwilioRestClient client) {
 		super(client);
 	}
 
@@ -31,8 +85,7 @@ public class TranscriptionList extends ListResource<Transcription> {
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public TranscriptionList(TwilioRestClient client,
-			Map<String, String> filters) {
+	public TranscriptionList(final TwilioRestClient client, final Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -42,9 +95,9 @@ public class TranscriptionList extends ListResource<Transcription> {
 	 * @param client the client
 	 * @param callSid the sid of the parent call
 	 */
-	public TranscriptionList(TwilioRestClient client, String callSid) {
+	public TranscriptionList(final TwilioRestClient client, final String callSid) {
 		super(client);
-		this.requestCallSid = callSid;
+		requestCallSid = callSid;
 	}
 
 	/**
@@ -54,10 +107,9 @@ public class TranscriptionList extends ListResource<Transcription> {
 	 * @param callSid the sid of the parent call
 	 * @param filters the filters
 	 */
-	public TranscriptionList(TwilioRestClient client, String callSid,
-			Map<String, String> filters) {
+	public TranscriptionList(final TwilioRestClient client, final String callSid, final Map<String, String> filters) {
 		super(client, filters);
-		this.requestCallSid = callSid;
+		requestCallSid = callSid;
 	}
 
 	/* (non-Javadoc)
@@ -65,13 +117,12 @@ public class TranscriptionList extends ListResource<Transcription> {
 	 */
 	@Override
 	protected String getResourceLocation() {
-		if (this.requestCallSid != null) {
-			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-					+ this.getRequestAccountSid() + "/Calls/"
-					+ this.getRequestCallSid() + "/Transcriptions.json";
+		if (requestCallSid != null) {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Calls/" + getRequestCallSid() + "/Transcriptions.json";
+		} else if (requestRecordingSid != null) {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Recordings/" + requestRecordingSid + "/Transcriptions.json";
 		} else {
-			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-					+ this.getRequestAccountSid() + "/Transcriptions.json";
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Transcriptions.json";
 		}
 
 	}
@@ -80,8 +131,7 @@ public class TranscriptionList extends ListResource<Transcription> {
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected Transcription makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
+	protected Transcription makeNew(final TwilioRestClient client, final Map<String, Object> params) {
 		return new Transcription(client, params);
 	}
 
@@ -94,12 +144,20 @@ public class TranscriptionList extends ListResource<Transcription> {
 	}
 
 	/**
-	 * Gets the call sid of the transcription *if* it was constructed
-	 * with a call sid.
+	 * Gets the call sid of the transcription *if* it was constructed with a call sid.
 	 *
 	 * @return the call sid of the parent call
 	 */
 	public String getRequestCallSid() {
-		return this.requestCallSid;
+		return requestCallSid;
+	}
+
+	/**
+	 * Gets the recording sid of the transcription *if* it was constructed with a recording sid.
+	 *
+	 * @return the recording sid of the parent recording
+	 */
+	public String getRequestRecordingSid() {
+		return requestRecordingSid;
 	}
 }

@@ -4,6 +4,7 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.list.TranscriptionList;
 
 import java.io.InputStream;
 import java.text.ParseException;
@@ -11,13 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Recording.
- *
+ * <p/>
  * For more information see <a href="https://www.twilio.com/docs/api/rest/recording">https://www.twilio.com/docs/api/rest/recording</a>
- *
- *
  */
 public class Recording extends InstanceResource {
 
@@ -29,7 +27,7 @@ public class Recording extends InstanceResource {
 	 *
 	 * @param client the client
 	 */
-	public Recording(TwilioRestClient client) {
+	public Recording(final TwilioRestClient client) {
 		super(client);
 	}
 
@@ -39,12 +37,12 @@ public class Recording extends InstanceResource {
 	 * @param client the client
 	 * @param sid the sid
 	 */
-	public Recording(TwilioRestClient client, String sid) {
+	public Recording(final TwilioRestClient client, final String sid) {
 		super(client);
 		if (sid == null) {
-            throw new IllegalStateException("The Sid for a Recording can not be null");
-        }
-		this.setProperty(SID_PROPERTY, sid);
+			throw new IllegalStateException("The Sid for a Recording can not be null");
+		}
+		setProperty(SID_PROPERTY, sid);
 	}
 
 	/**
@@ -53,7 +51,7 @@ public class Recording extends InstanceResource {
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public Recording(TwilioRestClient client, Map<String, Object> properties) {
+	public Recording(final TwilioRestClient client, final Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -62,7 +60,7 @@ public class Recording extends InstanceResource {
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return this.getResourceLocation(".json");
+		return getResourceLocation(".json");
 	}
 
 	/**
@@ -71,22 +69,32 @@ public class Recording extends InstanceResource {
 	 * @param extension the extension
 	 * @return the resource location
 	 */
-	protected String getResourceLocation(String extension) {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Recordings/" + this.getSid()
-				+ extension;
+	protected String getResourceLocation(final String extension) {
+		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Recordings/" + getSid() + extension;
 	}
 
 	/*
 	 * Property getters
 	 */
+
 	/**
 	 * Gets the sid.
 	 *
 	 * @return the sid
 	 */
 	public String getSid() {
-		return this.getProperty(SID_PROPERTY);
+		return getProperty(SID_PROPERTY);
+	}
+
+	/**
+	 * Returns the list of associated transcriptions
+	 *
+	 * @return the TranscriptionList associated with the recording
+	 */
+	public TranscriptionList getTranscriptions() {
+		TranscriptionList transcriptions = TranscriptionList.recordingTranscriptionList(getClient(), getSid());
+		transcriptions.setRequestAccountSid(getRequestAccountSid());
+		return transcriptions;
 	}
 
 	/**
@@ -95,11 +103,10 @@ public class Recording extends InstanceResource {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
 		try {
-			return format.parse(this.getProperty("date_created"));
-		} catch (ParseException e) {
+			return format.parse(getProperty("date_created"));
+		} catch (final ParseException e) {
 			return null;
 		}
 	}
@@ -110,11 +117,10 @@ public class Recording extends InstanceResource {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
 		try {
-			return format.parse(this.getProperty("date_updated"));
-		} catch (ParseException e) {
+			return format.parse(getProperty("date_updated"));
+		} catch (final ParseException e) {
 			return null;
 		}
 	}
@@ -125,7 +131,7 @@ public class Recording extends InstanceResource {
 	 * @return the account sid
 	 */
 	public String getAccountSid() {
-		return this.getProperty("account_sid");
+		return getProperty("account_sid");
 	}
 
 	/**
@@ -134,7 +140,7 @@ public class Recording extends InstanceResource {
 	 * @return the call sid
 	 */
 	public String getCallSid() {
-		return this.getProperty("call_sid");
+		return getProperty("call_sid");
 	}
 
 	/**
@@ -143,7 +149,7 @@ public class Recording extends InstanceResource {
 	 * @return the duration
 	 */
 	public int getDuration() {
-		return Integer.parseInt(this.getProperty("duration"));
+		return Integer.parseInt(getProperty("duration"));
 	}
 
 	/**
@@ -152,7 +158,7 @@ public class Recording extends InstanceResource {
 	 * @return the api version
 	 */
 	public String getApiVersion() {
-		return this.getProperty("api_version");
+		return getProperty("api_version");
 	}
 
 	/**
@@ -161,9 +167,8 @@ public class Recording extends InstanceResource {
 	 * @param extension the extension
 	 * @return the media
 	 */
-	public InputStream getMedia(String extension) {
-		return this.getClient().requestStream(
-				this.getResourceLocation(extension), "GET", (Map) null);
+	public InputStream getMedia(final String extension) {
+		return getClient().requestStream(getResourceLocation(extension), "GET", (Map) null);
 	}
 
 	/**
@@ -173,8 +178,7 @@ public class Recording extends InstanceResource {
 	 * @throws TwilioRestException the twilio rest exception
 	 */
 	public boolean delete() throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "DELETE", (Map) null);
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "DELETE", (Map) null);
 
 		return !response.isError();
 	}

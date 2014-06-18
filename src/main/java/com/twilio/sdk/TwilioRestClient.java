@@ -3,17 +3,26 @@ package com.twilio.sdk;
 import com.twilio.sdk.resource.factory.AccountFactory;
 import com.twilio.sdk.resource.instance.Account;
 import com.twilio.sdk.resource.list.AccountList;
-import org.apache.http.*;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -28,11 +37,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TwilioRestClient.
  */
 public class TwilioRestClient {
+
+	private static final int ACCOUNT_SID_LENGTH = 34;
+
+	private static final int AUTH_TOKEN_LENGTH = 32;
 
 	/** The Constant VERSION. */
 	private static final String VERSION = "3.4.5";
@@ -44,10 +56,10 @@ public class TwilioRestClient {
 	public static final String DEFAULT_VERSION = "2010-04-01";
 
 	/** The account sid. */
-	private String accountSid;
+	private final String accountSid;
 
 	/** The auth token. */
-	private String authToken;
+	private final String authToken;
 
 	/** The num retries. */
 	private int numRetries = 3;
@@ -74,20 +86,19 @@ public class TwilioRestClient {
 	/**
 	 * Sets the num retries.
 	 *
-	 * @param numRetries
-	 *            the new num retries
+	 * @param numRetries the new num retries
 	 */
-	public void setNumRetries(int numRetries) {
+	public void setNumRetries(final int numRetries) {
 		this.numRetries = numRetries;
 	}
 
 	/** The auth account. */
-	private Account authAccount;
+	private final Account authAccount;
 
 	/** The httpclient. */
 	private HttpClient httpclient;
 
-	public void setHttpclient(HttpClient httpclient) {
+	public void setHttpclient(final HttpClient httpclient) {
 		this.httpclient = httpclient;
 	}
 
@@ -98,33 +109,23 @@ public class TwilioRestClient {
 	/**
 	 * Explicitly construct a TwilioRestClient with the given API credentials.
 	 *
-	 * @param accountSid
-	 *            the 34 character Account identifier (starting with 'AC'). This
-	 *            can be found on your Twilio dashboard page.
-	 * @param authToken
-	 *            the 32 character AuthToken. This can be found on your Twilio
-	 *            dashboard page.
-	 *
+	 * @param accountSid the 34 character Account identifier (starting with 'AC'). This can be found on your Twilio
+	 * dashboard page.
+	 * @param authToken the 32 character AuthToken. This can be found on your Twilio dashboard page.
 	 */
-	public TwilioRestClient(String accountSid, String authToken) {
+	public TwilioRestClient(final String accountSid, final String authToken) {
 		this(accountSid, authToken, null);
 	}
 
 	/**
-	 * Explicitly construct a TwilioRestClient with the given API credentials and
-	 * endpoint.
+	 * Explicitly construct a TwilioRestClient with the given API credentials and endpoint.
 	 *
-	 * @param accountSid
-	 *            the 34 character Account identifier (starting with 'AC'). This
-	 *            can be found on your Twilio dashboard page.
-	 * @param authToken
-	 *            the 32 character AuthToken. This can be found on your Twilio
-	 *            dashboard page.
-	 * @param endpoint
-	 *            the url of API endpoint you wish to use. (e.g. -
-	 *            'https://api.twilio.com')
+	 * @param accountSid the 34 character Account identifier (starting with 'AC'). This can be found on your Twilio
+	 * dashboard page.
+	 * @param authToken the 32 character AuthToken. This can be found on your Twilio dashboard page.
+	 * @param endpoint the url of API endpoint you wish to use. (e.g. - 'https://api.twilio.com')
 	 */
-	public TwilioRestClient(String accountSid, String authToken, String endpoint) {
+	public TwilioRestClient(final String accountSid, final String authToken, final String endpoint) {
 
 		validateAccountSid(accountSid);
 		validateAuthToken(authToken);
@@ -137,76 +138,66 @@ public class TwilioRestClient {
 		}
 
 		//Grab the proper connection manager, based on runtime environment
-		ClientConnectionManager mgr = null;
+		ClientConnectionManager mgr;
 		try {
 			Class.forName("com.google.appengine.api.urlfetch.HTTPRequest");
 			mgr = new AppEngineClientConnectionManager();
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			//Not GAE
-			mgr = new ThreadSafeClientConnManager();
-			((ThreadSafeClientConnManager) mgr).setDefaultMaxPerRoute(10);
+			mgr = new PoolingClientConnectionManager();
+			((PoolingClientConnectionManager) mgr).setDefaultMaxPerRoute(10);
 		}
 
 		setHttpclient(new DefaultHttpClient(mgr));
-		httpclient.getParams().setParameter("http.protocol.version",
-				HttpVersion.HTTP_1_1);
-		httpclient.getParams().setParameter("http.socket.timeout",
-				new Integer(READ_TIMEOUT));
-		httpclient.getParams().setParameter("http.connection.timeout",
-				new Integer(CONNECTION_TIMEOUT));
-		httpclient.getParams().setParameter("http.protocol.content-charset",
-				"UTF-8");
+		httpclient.getParams().setParameter("http.protocol.version", HttpVersion.HTTP_1_1);
+		httpclient.getParams().setParameter("http.socket.timeout", new Integer(READ_TIMEOUT));
+		httpclient.getParams().setParameter("http.connection.timeout", new Integer(CONNECTION_TIMEOUT));
+		httpclient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
 
-		this.authAccount = new Account(this);
-		this.authAccount.setSid(this.accountSid);
-		this.authAccount.setAuthToken(this.authToken);
+		authAccount = new Account(this);
+		authAccount.setSid(this.accountSid);
+		authAccount.setAuthToken(this.authToken);
 
 	}
 
 	// Check for a valid 32 character auth token
+
 	/**
 	 * Validate auth token.
 	 *
-	 * @param authToken
-	 *            the auth token
+	 * @param authToken the auth token
 	 */
-	private void validateAuthToken(String authToken) {
-		if (authToken == null || authToken.length() != 32) {
-			throw new IllegalArgumentException("AuthToken '" + authToken
-					+ "' is not valid.");
+	private void validateAuthToken(final String authToken) {
+		if (authToken == null || authToken.length() != AUTH_TOKEN_LENGTH) {
+			throw new IllegalArgumentException("AuthToken '" + authToken + "' is not valid.");
 		}
 	}
 
 	// Check for a valid 34 character account sid starting with 'AC'
+
 	/**
 	 * Validate account sid.
 	 *
-	 * @param accountSid
-	 *            the account sid
+	 * @param accountSid the account sid
 	 */
-	private void validateAccountSid(String accountSid) {
-		if (accountSid == null || !accountSid.startsWith("AC")
-				|| accountSid.length() != 34) {
+	private void validateAccountSid(final String accountSid) {
+		if (accountSid == null || !accountSid.startsWith("AC") || accountSid.length() != ACCOUNT_SID_LENGTH) {
 			throw new IllegalArgumentException(
-					"AccountSid '"
-							+ accountSid
-							+ "' is not valid.  It should be the 34 character unique identifier starting with 'AC'");
+					"AccountSid '" + accountSid + "' is not valid.  It should be the 34 character unique identifier starting with 'AC'");
 		}
 	}
 
 	/**
 	 * Generate parameters.
 	 *
-	 * @param vars
-	 *            the vars
+	 * @param vars the vars
 	 * @return the list
 	 */
-	private static List<NameValuePair> generateParameters(
-			Map<String, String> vars) {
+	private static List<NameValuePair> generateParameters(final Map<String, String> vars) {
 		List<NameValuePair> qparams = new ArrayList<NameValuePair>();
 
 		if (vars != null) {
-			for (String var : vars.keySet()) {
+			for (final String var : vars.keySet()) {
 				qparams.add(new BasicNameValuePair(var, vars.get(var)));
 			}
 		}
@@ -218,19 +209,16 @@ public class TwilioRestClient {
 	 *
 	 * Method builders
 	 */
+
 	/**
 	 * Builds the method.
 	 *
-	 * @param method
-	 *            the method
-	 * @param path
-	 *            the path
-	 * @param params
-	 *            the params
+	 * @param method the method
+	 * @param path the path
+	 * @param params the params
 	 * @return the http uri request
 	 */
-	private HttpUriRequest buildMethod(String method, String path,
-			List<NameValuePair> params) {
+	private HttpUriRequest buildMethod(final String method, final String path, final List<NameValuePair> params) {
 		if (method.equalsIgnoreCase("GET")) {
 			return generateGetRequest(path, params);
 		} else if (method.equalsIgnoreCase("POST")) {
@@ -247,13 +235,11 @@ public class TwilioRestClient {
 	/**
 	 * Generate get request.
 	 *
-	 * @param path
-	 *            the path
-	 * @param params
-	 *            the params
+	 * @param path the path
+	 * @param params the params
 	 * @return the http get
 	 */
-	private HttpGet generateGetRequest(String path, List<NameValuePair> params) {
+	private HttpGet generateGetRequest(final String path, final List<NameValuePair> params) {
 
 		URI uri = buildUri(path, params);
 		return new HttpGet(uri);
@@ -262,13 +248,11 @@ public class TwilioRestClient {
 	/**
 	 * Generate post request.
 	 *
-	 * @param path
-	 *            the path
-	 * @param params
-	 *            the params
+	 * @param path the path
+	 * @param params the params
 	 * @return the http post
 	 */
-	private HttpPost generatePostRequest(String path, List<NameValuePair> params) {
+	private HttpPost generatePostRequest(final String path, final List<NameValuePair> params) {
 		URI uri = buildUri(path);
 
 		UrlEncodedFormEntity entity = buildEntityBody(params);
@@ -282,13 +266,11 @@ public class TwilioRestClient {
 	/**
 	 * Generate put request.
 	 *
-	 * @param path
-	 *            the path
-	 * @param params
-	 *            the params
+	 * @param path the path
+	 * @param params the params
 	 * @return the http put
 	 */
-	private HttpPut generatePutRequest(String path, List<NameValuePair> params) {
+	private HttpPut generatePutRequest(final String path, final List<NameValuePair> params) {
 		URI uri = buildUri(path);
 
 		UrlEncodedFormEntity entity = buildEntityBody(params);
@@ -302,36 +284,31 @@ public class TwilioRestClient {
 	/**
 	 * Generate delete request.
 	 *
-	 * @param path
-	 *            the path
-	 * @param params
-	 *            the params
+	 * @param path the path
+	 * @param params the params
 	 * @return the http delete
 	 */
-	private HttpDelete generateDeleteRequest(String path,
-			List<NameValuePair> params) {
+	private HttpDelete generateDeleteRequest(final String path, final List<NameValuePair> params) {
 		URI uri = buildUri(path);
-
-		HttpDelete delete = new HttpDelete(uri);
-		return delete;
+		return new HttpDelete(uri);
 	}
 
 	/*
 	 *
 	 * Helper functions for building methods
 	 */
+
 	/**
 	 * Builds the entity body.
 	 *
-	 * @param params
-	 *            the params
+	 * @param params the params
 	 * @return the url encoded form entity
 	 */
-	private UrlEncodedFormEntity buildEntityBody(List<NameValuePair> params) {
-		UrlEncodedFormEntity entity = null;
+	private UrlEncodedFormEntity buildEntityBody(final List<NameValuePair> params) {
+		UrlEncodedFormEntity entity;
 		try {
 			entity = new UrlEncodedFormEntity(params, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
 
@@ -341,24 +318,21 @@ public class TwilioRestClient {
 	/**
 	 * Builds the uri.
 	 *
-	 * @param path
-	 *            the path
+	 * @param path the path
 	 * @return the uRI
 	 */
-	private URI buildUri(String path) {
+	private URI buildUri(final String path) {
 		return buildUri(path, null);
 	}
 
 	/**
 	 * Builds the uri.
 	 *
-	 * @param path
-	 *            the path
-	 * @param queryStringParams
-	 *            the query string params
+	 * @param path the path
+	 * @param queryStringParams the query string params
 	 * @return the uRI
 	 */
-	private URI buildUri(String path, List<NameValuePair> queryStringParams) {
+	private URI buildUri(final String path, final List<NameValuePair> queryStringParams) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(path);
 
@@ -370,7 +344,7 @@ public class TwilioRestClient {
 		URI uri;
 		try {
 			uri = new URI(sb.toString());
-		} catch (URISyntaxException e) {
+		} catch (final URISyntaxException e) {
 			throw new IllegalStateException("Invalid uri", e);
 		}
 
@@ -380,28 +354,23 @@ public class TwilioRestClient {
 	/**
 	 * sendRequst Sends a REST Request to the Twilio REST API.
 	 *
-	 * @param path
-	 *            the URL (absolute w.r.t. the endpoint URL - i.e.
-	 *            /2010-04-01/Accounts)
-	 * @param method
-	 *            the HTTP method to use, defaults to GET
-	 * @param paramMap
-	 *            for POST or PUT, a map of data to send, for GET will be
-	 *            appended to the URL as querystring params
-	 *
-	 *            This method is public for backwards compatibility with the old
-	 *            twilio helper library
+	 * @param path the URL (absolute w.r.t. the endpoint URL - i.e. /2010-04-01/Accounts)
+	 * @param method the HTTP method to use, defaults to GET
+	 * @param paramMap for POST or PUT, a map of data to send, for GET will be appended to the URL as querystring
+	 * params
+	 * <p/>
+	 * This method is public for backwards compatibility with the old twilio helper library
 	 * @return the twilio rest response
 	 */
-	public TwilioRestResponse request(String path, String method,
-			Map<String, String> paramMap) throws TwilioRestException {
+	public TwilioRestResponse request(final String path, final String method, final Map<String, String> paramMap) throws
+	                                                                                                              TwilioRestException {
 
 		List<NameValuePair> paramList = generateParameters(paramMap);
 		return request(path, method, paramList);
 	}
 
-	public TwilioRestResponse request(String path, String method,
-			List<NameValuePair> paramList) throws TwilioRestException {
+	public TwilioRestResponse request(final String path, final String method,
+	                                  final List<NameValuePair> paramList) throws TwilioRestException {
 
 		HttpUriRequest request = setupRequest(path, method, paramList);
 
@@ -420,20 +389,20 @@ public class TwilioRestClient {
 			StatusLine status = response.getStatusLine();
 			int statusCode = status.getStatusCode();
 
-			TwilioRestResponse restResponse = new TwilioRestResponse(request
-					.getURI().toString(), responseBody, statusCode);
+			TwilioRestResponse restResponse = new TwilioRestResponse(request.getURI().toString(), responseBody,
+			                                                         statusCode);
 
 			// For now we only set the first content type seen
-			for (Header h : contentTypeHeaders) {
+			for (final Header h : contentTypeHeaders) {
 				restResponse.setContentType(h.getValue());
 				break;
 			}
 
 			return restResponse;
 
-		} catch (ClientProtocolException e1) {
+		} catch (final ClientProtocolException e1) {
 			throw new RuntimeException(e1);
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			throw new RuntimeException(e1);
 		}
 	}
@@ -441,16 +410,12 @@ public class TwilioRestClient {
 	/**
 	 * Request stream.
 	 *
-	 * @param path
-	 *            the path
-	 * @param method
-	 *            the method
-	 * @param vars
-	 *            the vars
+	 * @param path the path
+	 * @param method the method
+	 * @param vars the vars
 	 * @return the input stream
 	 */
-	public InputStream requestStream(String path, String method,
-			Map<String, String> vars) {
+	public InputStream requestStream(final String path, final String method, final Map<String, String> vars) {
 
 		List<NameValuePair> paramList = generateParameters(vars);
 		return requestStream(path, method, paramList);
@@ -459,16 +424,12 @@ public class TwilioRestClient {
 	/**
 	 * Request stream.
 	 *
-	 * @param path
-	 *            the path
-	 * @param method
-	 *            the method
-	 * @param paramList
-	 *            the list of POST params
+	 * @param path the path
+	 * @param method the method
+	 * @param paramList the list of POST params
 	 * @return the input stream
 	 */
-	public InputStream requestStream(String path, String method,
-			List<NameValuePair> paramList) {
+	public InputStream requestStream(final String path, final String method, final List<NameValuePair> paramList) {
 
 		HttpUriRequest request = setupRequest(path, method, paramList);
 
@@ -479,9 +440,9 @@ public class TwilioRestClient {
 
 			return entity.getContent();
 
-		} catch (ClientProtocolException e1) {
+		} catch (final ClientProtocolException e1) {
 			throw new RuntimeException(e1);
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			throw new RuntimeException(e1);
 		}
 	}
@@ -489,26 +450,21 @@ public class TwilioRestClient {
 	/**
 	 * Setup request.
 	 *
-	 * @param path
-	 *            the path
-	 * @param method
-	 *            the method
-	 * @param vars
-	 *            the vars
+	 * @param path the path
+	 * @param method the method
+	 * @param params the vars
 	 * @return the http uri request
 	 */
-	private HttpUriRequest setupRequest(String path, String method,
-			List<NameValuePair> params) {
+	private HttpUriRequest setupRequest(String path, final String method, final List<NameValuePair> params) {
 
 		String normalizedPath = path.toLowerCase();
 		StringBuilder sb = new StringBuilder();
 
 		// If we've given a fully qualified uri then skip building the endpoint
-		if (normalizedPath.startsWith("http://")
-				|| normalizedPath.startsWith("https://")) {
+		if (normalizedPath.startsWith("http://") || normalizedPath.startsWith("https://")) {
 			sb.append(path);
 		} else {
-			sb.append(this.getEndpoint());
+			sb.append(getEndpoint());
 
 			if (!normalizedPath.startsWith("/")) {
 				sb.append("/");
@@ -521,38 +477,29 @@ public class TwilioRestClient {
 		HttpUriRequest request = buildMethod(method, path, params);
 
 		request.addHeader(new BasicHeader("X-Twilio-Client", "java-" + VERSION));
-		request.addHeader(new BasicHeader("User-Agent", "twilio-java/"
-				+ VERSION));
+		request.addHeader(new BasicHeader("User-Agent", "twilio-java/" + VERSION));
 		request.addHeader(new BasicHeader("Accept", "application/json"));
 		request.addHeader(new BasicHeader("Accept-Charset", "utf-8"));
 
 		if (httpclient instanceof DefaultHttpClient) { // as DefaultHttpClient class has final method, I need httpClient to be a plain interface to be able to mock it
-            ((DefaultHttpClient) httpclient).getCredentialsProvider()
-				.setCredentials(
-						new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-						new UsernamePasswordCredentials(this.accountSid,
-        						this.authToken));
-        }
+			((DefaultHttpClient) httpclient).getCredentialsProvider()
+			                                .setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
+			                                                new UsernamePasswordCredentials(accountSid, authToken));
+		}
 		return request;
 	}
 
 	/**
 	 * Make a request, handles retries + back-off for server/network errors
 	 *
-	 * @param path
-	 *            the URL (absolute w.r.t. the endpoint URL - i.e.
-	 *            /2010-04-01/Accounts)
-	 * @param method
-	 *            the HTTP method to use, defaults to GET
-	 * @param vars
-	 *            for POST or PUT, a map of data to send, for GET will be
-	 *            appended to the URL as querystring params
+	 * @param path the URL (absolute w.r.t. the endpoint URL - i.e. /2010-04-01/Accounts)
+	 * @param method the HTTP method to use, defaults to GET
+	 * @param vars for POST or PUT, a map of data to send, for GET will be appended to the URL as querystring params
 	 * @return The response
-	 * @throws TwilioRestException
-	 *             if there's an client exception returned by the TwilioApi
+	 * @throws TwilioRestException if there's an client exception returned by the TwilioApi
 	 */
-	public TwilioRestResponse safeRequest(String path, String method,
-			Map<String, String> vars) throws TwilioRestException {
+	public TwilioRestResponse safeRequest(final String path, final String method, final Map<String, String> vars) throws
+	                                                                                                              TwilioRestException {
 
 		List<NameValuePair> paramList = generateParameters(vars);
 		return safeRequest(path, method, paramList);
@@ -561,30 +508,25 @@ public class TwilioRestClient {
 	/**
 	 * Make a request, handles retries + back-off for server/network errors
 	 *
-	 * @param path
-	 *            the URL (absolute w.r.t. the endpoint URL - i.e.
-	 *            /2010-04-01/Accounts)
-	 * @param method
-	 *            the HTTP method to use, defaults to GET
-	 * @param paramList
-	 *            for POST or PUT, a list of data to send, for GET will be
-	 *            appended to the URL as querystring params
+	 * @param path the URL (absolute w.r.t. the endpoint URL - i.e. /2010-04-01/Accounts)
+	 * @param method the HTTP method to use, defaults to GET
+	 * @param paramList for POST or PUT, a list of data to send, for GET will be appended to the URL as querystring
+	 * params
 	 * @return The response
-	 * @throws TwilioRestException
-	 *             if there's an client exception returned by the TwilioApi
+	 * @throws TwilioRestException if there's an client exception returned by the TwilioApi
 	 */
-	public TwilioRestResponse safeRequest(String path, String method,
-			List<NameValuePair> paramList) throws TwilioRestException {
+	public TwilioRestResponse safeRequest(final String path, final String method,
+	                                      final List<NameValuePair> paramList) throws TwilioRestException {
 
 		TwilioRestResponse response = null;
-		for (int retry = 0; retry < this.numRetries; retry++) {
+		for (int retry = 0; retry < numRetries; retry++) {
 			response = request(path, method, paramList);
 			if (response.isClientError()) {
 				throw TwilioRestException.parseResponse(response);
 			} else if (response.isServerError()) {
 				try {
 					Thread.sleep(100 * retry); // Backoff on our sleep
-				} catch (InterruptedException e) {
+				} catch (final InterruptedException e) {
 				}
 				continue;
 			}
@@ -592,33 +534,28 @@ public class TwilioRestClient {
 			return response;
 		}
 		int errorCode = response == null ? -1 : response.getHttpStatus();
-		throw new TwilioRestException("Cannot fetch: " + method + " " + path,
-				errorCode);
+		throw new TwilioRestException("Cannot fetch: " + method + " " + path, errorCode);
 	}
 
 	/**
-	 * Perform a GET request against the given fully qualified uri. This is a
-	 * shortcut to {@link #request(String, String, Map)}
-	 * with method "GET" and no parameters
+	 * Perform a GET request against the given fully qualified uri. This is a shortcut to {@link #request(String,
+	 * String, Map)} with method "GET" and no parameters
 	 *
-	 * @param fullUri
-	 *            The full uri, including protocol://hostname/path
-	 * @return {@link TwilioRestResponse} the
-	 *         response from the query
-	 * @throws TwilioRestException
-	 *             the twilio rest exception
+	 * @param fullUri The full uri, including protocol://hostname/path
+	 * @return {@link TwilioRestResponse} the response from the query
+	 * @throws TwilioRestException the twilio rest exception
 	 */
-	public TwilioRestResponse get(String fullUri) throws TwilioRestException {
+	public TwilioRestResponse get(final String fullUri) throws TwilioRestException {
 		TwilioRestResponse response = null;
 
-		for (int retry = 0; retry < this.numRetries; retry++) {
+		for (int retry = 0; retry < numRetries; retry++) {
 			response = request(fullUri, "GET", (Map) null);
 			if (response.isClientError()) {
 				throw TwilioRestException.parseResponse(response);
 			} else if (response.isServerError()) {
 				try {
 					Thread.sleep(100 * retry); // Backoff on our sleep
-				} catch (InterruptedException e) {
+				} catch (final InterruptedException e) {
 				}
 				continue;
 			}
@@ -626,8 +563,7 @@ public class TwilioRestClient {
 			return response;
 		}
 		int errorCode = response == null ? -1 : response.getHttpStatus();
-		throw new TwilioRestException("Cannot fetch: " + fullUri + " ",
-				errorCode);
+		throw new TwilioRestException("Cannot fetch: " + fullUri + " ", errorCode);
 	}
 
 	/**
@@ -642,41 +578,36 @@ public class TwilioRestClient {
 	/**
 	 * Set the endpoint this rest client uses.
 	 *
-	 * @param endpoint
-	 *            The location of the endpoint (e.g. https://api.twilio.com)
+	 * @param endpoint The location of the endpoint (e.g. https://api.twilio.com)
 	 */
-	public void setEndpoint(String endpoint) {
+	public void setEndpoint(final String endpoint) {
 		this.endpoint = endpoint;
 	}
 
 	/*
 	 * Resource related methods
 	 */
+
 	/**
-	 * Get a list of Account objects. For more info: {@link <a
-	 * href="https://www.twilio.com/docs/api/rest/account"
-	 * >https://www.twilio.com/docs/api/rest/account</a>}
+	 * Get a list of Account objects. For more info: {@link <a href="https://www.twilio.com/docs/api/rest/account">https://www.twilio.com/docs/api/rest/account</a>}
 	 *
-	 * @param params
-	 *            Filter the list with the given params. See the Twilio docs for
-	 *            available filters.
+	 * @param params Filter the list with the given params. See the Twilio docs for available filters.
 	 * @return the list of accounts.
 	 */
-	public AccountList getAccounts(Map<String, String> params) {
+	public AccountList getAccounts(final Map<String, String> params) {
 		AccountList list = new AccountList(this, params);
-		list.setRequestAccountSid(this.accountSid);
+		list.setRequestAccountSid(accountSid);
 		return list;
 	}
 
 	/**
-	 * Get all accounts. For more info: {@link <a
-	 * href="https://www.twilio.com/docs/api/rest/account"
+	 * Get all accounts. For more info: {@link <a href="https://www.twilio.com/docs/api/rest/account"
 	 * >https://www.twilio.com/docs/api/rest/account</a>}
 	 *
 	 * @return the list of accounts.
 	 */
 	public AccountList getAccounts() {
-		return this.getAccounts(new HashMap<String, String>());
+		return getAccounts(new HashMap<String, String>());
 	}
 
 	/**
@@ -685,27 +616,25 @@ public class TwilioRestClient {
 	 * @return the list of accounts
 	 */
 	public AccountFactory getAccountFactory() {
-		return this.getAccounts();
+		return getAccounts();
 	}
 
 	/**
-	 * A shortcut for the most common case, returning the Account object for
-	 * this authenticated client.
+	 * A shortcut for the most common case, returning the Account object for this authenticated client.
 	 *
 	 * @return Account that maps to the authenticated account.
 	 */
 	public Account getAccount() {
-		return this.authAccount;
+		return authAccount;
 	}
 
 	/**
 	 * Get an account by account sid.
 	 *
-	 * @param sid
-	 *            The sid of the account you want to fetch.
+	 * @param sid The sid of the account you want to fetch.
 	 * @return the account
 	 */
-	public Account getAccount(String sid) {
+	public Account getAccount(final String sid) {
 		Account account = new Account(this);
 		account.setSid(sid);
 		account.setRequestAccountSid(sid);

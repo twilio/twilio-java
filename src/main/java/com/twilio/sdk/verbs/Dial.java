@@ -47,6 +47,8 @@ public class Dial extends Verb {
         this.allowedVerbs.add(Verb.V_CONFERENCE);
         this.allowedVerbs.add(Verb.V_CLIENT);
         this.allowedVerbs.add(Verb.V_QUEUE);
+        this.allowedVerbs.add(Verb.V_SIP);
+        
     }
 
     /**

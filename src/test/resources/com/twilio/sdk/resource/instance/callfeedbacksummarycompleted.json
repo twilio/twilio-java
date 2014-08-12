@@ -1,0 +1,19 @@
+{
+	"sid": "FS0123456789abcdef0123456789abcdef",
+    "start_date": "2014-01-01",
+	"end_date" : "2014-01-31",
+	"account_sid": "AC0123456789abcdef0123456789abcdef",
+    "include_subaccounts": true,
+    "status": "completed",
+	"call_count": 10200,
+	"call_feedback_count": 729,
+	"quality_score_average": 4.5,
+	"quality_score_median": 4,
+	"quality_score_standard_deviation": 1,
+	"issues": [{"description": "imperfect-audio",
+				"count": 45,
+				"percentage_of_total_calls": "0.04%"}
+	],
+    "date_created": "Thu, 19 Aug 2010 00:25:48 +0000",
+    "date_updated": "Thu, 19 Aug 2010 00:25:48 +0000"
+}

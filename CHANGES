@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.4.6
+-------------
+
+Released on August 26, 2014
+
+- Add support for new CallFeedback and FeedbackSummary resources.
+
 Version 3.4.5
 -------------
 

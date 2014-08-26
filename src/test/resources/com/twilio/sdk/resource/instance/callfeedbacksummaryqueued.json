@@ -1,0 +1,16 @@
+{
+	"sid": "FS0123456789abcdef0123456789abcdef",
+    "start_date": "2014-01-01",
+	"end_date" : "2014-01-31",
+	"account_sid": "AC0123456789abcdef0123456789abcdef",
+    "include_subaccounts": true,
+    "status": "queued",
+	"call_count": null,
+	"call_feedback_count": null,
+	"quality_score_average": null,
+	"quality_score_median": null,
+	"quality_score_standard_deviation": null,
+	"issues": null,
+    "date_created": "Thu, 19 Aug 2010 00:25:48 +0000",
+    "date_updated": "Thu, 19 Aug 2010 00:25:48 +0000"
+}

@@ -4,24 +4,29 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.factory.FeedbackFactory;
+import com.twilio.sdk.resource.factory.impl.FeedbackFactoryImpl;
 import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.TranscriptionList;
+import org.apache.http.NameValuePair;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
+
 /**
- * The Class Call.
- *
- * For more information see <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
+ * The Class Call. For more information see <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
  */
 public class Call extends InstanceResource {
 
-	/** The Constant SID_PROPERTY. */
+	/**
+	 * The Constant SID_PROPERTY.
+	 */
 	private static final String SID_PROPERTY = "sid";
 
 	/**
@@ -42,7 +47,7 @@ public class Call extends InstanceResource {
 	public Call(TwilioRestClient client, String sid) {
 		super(client);
 		if (sid == null) {
-		    throw new IllegalStateException("The Sid for a Call can not be null");
+			throw new IllegalStateException("The Sid for a Call can not be null");
 		}
 		this.setProperty(SID_PROPERTY, sid);
 	}
@@ -62,14 +67,17 @@ public class Call extends InstanceResource {
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Calls/" + this.getSid()
-				+ ".json";
+		return getResourceLocation(".json");
 	}
 
-	/*
-	 * Property getters
-	 */
+	private String getResourceLocation(String extension) {
+		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/" + this.getRequestAccountSid() + "/Calls/" +
+		       this.getSid() + extension;
+	}
+
+    /*
+     * Property getters
+     */
 
 	/**
 	 * Gets the sid.
@@ -117,8 +125,7 @@ public class Call extends InstanceResource {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
 		try {
 			return format.parse(this.getProperty("date_created"));
 		} catch (ParseException e) {
@@ -132,8 +139,7 @@ public class Call extends InstanceResource {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
 		try {
 			return format.parse(this.getProperty("date_updated"));
 		} catch (ParseException e) {
@@ -258,10 +264,56 @@ public class Call extends InstanceResource {
 		return this.getProperty("caller_name");
 	}
 
-	/*
+	/**
+	 * Gets the feedback factory, which lets add feedback to this call.
 	 *
-	 * Useful functions
+	 * @return the feedback factory
 	 */
+	public FeedbackFactory getFeedbackFactory() {
+		return new FeedbackFactoryImpl(this.getClient(), this.getResourceLocation(""));
+	}
+
+	/**
+	 * Delete the call feedback.
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException if there is an error in the request
+	 */
+	public boolean deleteFeedback() throws TwilioRestException {
+		TwilioRestResponse response = this.getClient()
+		                                  .safeRequest(this.getResourceLocation("") + "/Feedback.json", "DELETE",
+		                                               (Map) null);
+
+		return !response.isError();
+	}
+
+	/**
+	 * Sets the call feedback. This method is a synonym of {@link com.twilio.sdk.resource.factory.FeedbackFactory#create}.
+	 *
+	 * @param params the feedback parameters
+	 * @throws TwilioRestException
+	 */
+	public void setFeedback(List<NameValuePair> params) throws TwilioRestException {
+		FeedbackFactory factory = getFeedbackFactory();
+		factory.create(params);
+	}
+
+	/**
+	 * Gets the feedback for the call.
+	 *
+	 * @return The call feedback object.
+	 */
+	public Feedback getFeedback() {
+		Feedback feedback = new Feedback(this.getClient(), this.getResourceLocation());
+		feedback.setRequestAccountSid(this.getRequestAccountSid());
+		return feedback;
+	}
+
+    /*
+     *
+     * Useful functions
+     */
+
 	/**
 	 * Redirect.
 	 *
@@ -274,8 +326,7 @@ public class Call extends InstanceResource {
 		Map<String, String> vars = new HashMap<String, String>();
 		vars.put("Method", method);
 		vars.put("Url", url);
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", vars);
+		TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
 
 		Call c = new Call(this.getClient(), response.toMap());
 		c.setRequestAccountSid(this.getRequestAccountSid());
@@ -292,8 +343,7 @@ public class Call extends InstanceResource {
 		Map<String, String> vars = new HashMap<String, String>();
 		vars.put("Status", "completed");
 
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", vars);
+		TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
 
 		Call c = new Call(this.getClient(), response.toMap());
 		c.setRequestAccountSid(this.getRequestAccountSid());
@@ -310,8 +360,7 @@ public class Call extends InstanceResource {
 		Map<String, String> vars = new HashMap<String, String>();
 		vars.put("Status", "canceled");
 
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", vars);
+		TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), "POST", vars);
 
 		Call c = new Call(this.getClient(), response.toMap());
 		c.setRequestAccountSid(this.getRequestAccountSid());

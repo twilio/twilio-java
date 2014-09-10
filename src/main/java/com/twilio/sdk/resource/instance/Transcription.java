@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/transcription">https://www.twilio.com/docs/api/rest/transcription</a>
  */
-public class Transcription extends InstanceResource {
+public class Transcription extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";

@@ -10,7 +10,7 @@ import com.twilio.sdk.resource.list.sip.IpAddressList;
 import java.util.Date;
 import java.util.Map;
 
-public class IpAccessControlList extends InstanceResource {
+public class IpAccessControlList extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";

@@ -9,11 +9,10 @@ import java.util.Map;
 // TODO: Auto-generated Javadoc
 /**
  * The Class Sandbox.
- * 
+ *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/sandbox">https://www.twilio.com/docs/api/rest/sandbox</a>
  */
-public class Sandbox extends InstanceResource {
-	//private static final String SID_PROPERTY = "sid";
+public class Sandbox extends InstanceResource<TwilioRestClient> {
 
 	/**
 	 * Instantiates a new sandbox.
@@ -46,7 +45,7 @@ public class Sandbox extends InstanceResource {
 	/*
 	 * Property getters
 	 */
-	
+
 	/**
 	 * Gets the date created.
 	 *
@@ -64,7 +63,7 @@ public class Sandbox extends InstanceResource {
 	public Date getDateUpdated() {
 		return getDateProperty("date_updated");
 	}
-	
+
 	/**
 	 * Gets the phone number.
 	 *
@@ -91,7 +90,7 @@ public class Sandbox extends InstanceResource {
 	public String getApiVersion() {
 		return this.getProperty("api_version");
 	}
-	
+
 	/**
 	 * Gets the voice url.
 	 *
@@ -127,7 +126,7 @@ public class Sandbox extends InstanceResource {
 	public String getSmsMethod() {
 		return this.getProperty("sms_method");
 	}
-	
+
 	/**
 	 * Gets the pin.
 	 *

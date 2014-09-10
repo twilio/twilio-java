@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/outgoing-caller-ids">https://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
  */
-public class OutgoingCallerId extends InstanceResource {
+public class OutgoingCallerId extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";

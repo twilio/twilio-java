@@ -14,7 +14,7 @@ import java.util.Map;
  *
  *  For more information see <a href="https://www.twilio.com/docs/api/rest/media">https://www.twilio.com/docs/api/rest/media</a>
  */
-public class Media extends InstanceResource {
+public class Media extends InstanceResource<TwilioRestClient> {
 
 	private static final String SID_PROPERTY = "sid";
 	private static String requestMessageSid;

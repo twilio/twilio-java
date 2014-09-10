@@ -15,7 +15,7 @@ import java.util.Map;
  * <p/>
  * For more information see <a href="https://www.twilio.com/docs/api/rest/recording">https://www.twilio.com/docs/api/rest/recording</a>
  */
-public class Recording extends InstanceResource {
+public class Recording extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";

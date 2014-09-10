@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/recording">https://www.twilio.com/docs/api/rest/recording</a>
  */
-public class RecordingList extends ListResource<Recording> {
+public class RecordingList extends ListResource<Recording, TwilioRestClient> {
 
 	private static String requestCallSid;
 

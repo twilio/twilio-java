@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/shortcodes">https://www.twilio.com/docs/api/rest/shortcodes</a>
  */
-public class ShortCodeList extends ListResource<ShortCode> {
+public class ShortCodeList extends ListResource<ShortCode, TwilioRestClient> {
 
 	/**
 	 * Instantiates a new incoming phone number list.

@@ -55,7 +55,7 @@ import java.util.Map;
  * For more information see <a href="https://www.twilio.com/docs/api/rest/account"
  * >https://www.twilio.com/docs/api/rest/account</a>
  */
-public class Account extends InstanceResource {
+public class Account extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant DATE_UPDATED_PROPERTY. */
 	private static final String DATE_UPDATED_PROPERTY = "date_updated";

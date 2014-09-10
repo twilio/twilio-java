@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 import java.util.Map;
 
-public class CredentialListMappingList extends ListResource<CredentialListMapping> implements CredentialListMappingFactory {
+public class CredentialListMappingList extends ListResource<CredentialListMapping, TwilioRestClient> implements CredentialListMappingFactory {
 
     private String requestSipDomainSid;
 

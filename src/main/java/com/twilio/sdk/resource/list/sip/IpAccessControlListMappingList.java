@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 import java.util.Map;
 
-public class IpAccessControlListMappingList extends ListResource<IpAccessControlListMapping> implements IpAccessControlListMappingFactory {
+public class IpAccessControlListMappingList extends ListResource<IpAccessControlListMapping, TwilioRestClient> implements IpAccessControlListMappingFactory {
 
     private String requestSipDomainSid;
 

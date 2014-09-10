@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/participant">https://www.twilio.com/docs/api/rest/participant</a>
  */
-public class Participant extends InstanceResource {
+public class Participant extends InstanceResource<TwilioRestClient> {
 	// private static final String SID_PROPERTY = "sid";
 	/** The Constant CALL_SID_PROPERTY. */
 	private static final String CALL_SID_PROPERTY = "call_sid";

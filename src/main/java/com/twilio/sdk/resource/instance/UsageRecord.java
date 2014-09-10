@@ -14,7 +14,7 @@ import java.util.Map;
  * href="https://www.twilio.com/docs/api/rest/usage-records"
  * >https://www.twilio.com/docs/api/rest/usage-records</a>
  */
-public class UsageRecord extends InstanceResource {
+public class UsageRecord extends InstanceResource<TwilioRestClient> {
 
 	/**
 	 * The Constant SID_PROPERTY.

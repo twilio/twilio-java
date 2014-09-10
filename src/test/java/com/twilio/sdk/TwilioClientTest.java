@@ -10,9 +10,9 @@ import static org.junit.Assert.assertTrue;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TwilioRestClientTest.
+ * The Class TwilioClientTest.
  */
-public class TwilioRestClientTest {
+public class TwilioClientTest {
 
 	/**
 	 * Test twilio rest client string string.
@@ -22,36 +22,16 @@ public class TwilioRestClientTest {
 
 		// Should fail with invallid auth and token
 		try {
-			TwilioRestClient bad_client = new TwilioRestClient("fake sid",
+			TwilioClient bad_client = new TwilioRestClient("fake sid",
 					"fake auth token");
 		} catch (IllegalArgumentException e) {
 			assertTrue(true);
 		}
 
 		// Should construct with valid looking account sid and auth token
-		TwilioRestClient client = new TwilioRestClient(
+		TwilioClient client = new TwilioRestClient(
 				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-	}
-
-	/**
-	 * Test twilio rest client string string string.
-	 */
-	@Test
-	public void testTwilioRestClientStringStringString() {
-		// Should fail with invallid auth and token
-		try {
-			TwilioRestClient bad_client = new TwilioRestClient("fake sid",
-					"fake auth token", "some endpoint");
-		} catch (IllegalArgumentException e) {
-			assertTrue(true);
-		}
-
-		// Should construct with valid looking account sid and auth token
-		TwilioRestClient client = new TwilioRestClient(
-				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "someendpoint");
-
 	}
 
 	/**
@@ -61,7 +41,7 @@ public class TwilioRestClientTest {
 	 */
 	@Test
 	public void testRequest() throws TwilioRestException {
-		TwilioRestClient client = new TwilioRestClient(
+		TwilioClient client = new TwilioRestClient(
 				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
@@ -85,39 +65,13 @@ public class TwilioRestClientTest {
 	 */
 	@Test
 	public void testGet() throws TwilioRestException {
-		TwilioRestClient client = new TwilioRestClient(
+		TwilioClient client = new TwilioRestClient(
 				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
 		// Auth required
 		TwilioRestResponse response = client.get("https://api.twilio.com");
 		assertEquals(200, response.getHttpStatus());
-	}
-
-	/**
-	 * Test get endpoint.
-	 */
-	@Test
-	public void testGetEndpoint() {
-		TwilioRestClient client = new TwilioRestClient(
-				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "someendpoint");
-
-		assertEquals(client.getEndpoint(), "someendpoint");
-	}
-
-	/**
-	 * Test set endpoint.
-	 */
-	@Test
-	public void testSetEndpoint() {
-		TwilioRestClient client = new TwilioRestClient(
-				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "someendpoint");
-
-		assertEquals(client.getEndpoint(), "someendpoint");
-		client.setEndpoint("someendpoint2");
-		assertEquals(client.getEndpoint(), "someendpoint2");
 	}
 
 }

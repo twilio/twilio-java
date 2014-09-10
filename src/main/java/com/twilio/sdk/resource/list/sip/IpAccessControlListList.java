@@ -16,7 +16,7 @@ import java.util.Map;
  * While the name may seem odd at first, it actually is a list of lists,
  * so the name is correct.
  */
-public class IpAccessControlListList extends ListResource<IpAccessControlList> implements IpAccessControlListFactory {
+public class IpAccessControlListList extends ListResource<IpAccessControlList, TwilioRestClient> implements IpAccessControlListFactory {
 
 	/**
 	 * Instantiates a new list of ip access control lists

@@ -1,6 +1,6 @@
 package com.twilio.sdk.resource;
 
-import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import org.apache.http.NameValuePair;
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * The Class InstanceResource.
  */
-public abstract class InstanceResource extends Resource {
+public abstract class InstanceResource<C extends TwilioClient> extends Resource<C> {
 
 	/** The properties. */
 	private Map<String, Object> properties;
@@ -27,7 +27,7 @@ public abstract class InstanceResource extends Resource {
 	 *
 	 * @param client the client
 	 */
-	public InstanceResource(TwilioRestClient client) {
+	public InstanceResource(final C client) {
 		super(client);
 		this.properties = new HashMap<String, Object>();
 	}
@@ -38,7 +38,7 @@ public abstract class InstanceResource extends Resource {
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public InstanceResource(TwilioRestClient client,
+	public InstanceResource(final C client,
 			Map<String, Object> properties) {
 		super(client);
 		this.properties = new HashMap<String, Object>(properties);

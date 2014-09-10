@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 import java.util.Map;
 
-public class IpAddressList extends ListResource<IpAddress> implements IpAddressFactory {
+public class IpAddressList extends ListResource<IpAddress, TwilioRestClient> implements IpAddressFactory {
 
     private String ipAccessControlListSid;
 

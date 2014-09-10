@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
  */
-public class AvailablePhoneNumber extends InstanceResource {
+public class AvailablePhoneNumber extends InstanceResource<TwilioRestClient> {
 //	private static final String SID_PROPERTY = "sid";
 
 	/**

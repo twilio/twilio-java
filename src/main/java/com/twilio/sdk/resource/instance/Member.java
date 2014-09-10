@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author Christer Fahlgren
  */
-public class Member extends InstanceResource {
+public class Member extends InstanceResource<TwilioRestClient> {
     // Constants
     private final static String URL = "Url";
     private final static String METHOD = "Method";

@@ -11,7 +11,7 @@ import java.util.Map;
  *
  *  For more information see <a href="https://www.twilio.com/docs/api/rest/media">https://www.twilio.com/docs/api/rest/media</a>
  */
-public class MediaList extends ListResource<Media> {
+public class MediaList extends ListResource<Media, TwilioRestClient> {
 
 	private String requestMessageSid;
 

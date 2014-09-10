@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/sip-domain">https://www.twilio.com/docs/api/rest/sip-domain</a>
  */
-public class DomainList extends ListResource<Domain> implements DomainFactory {
+public class DomainList extends ListResource<Domain, TwilioRestClient> implements DomainFactory {
 
 	/**
 	 * Instantiates a new sip domain list.

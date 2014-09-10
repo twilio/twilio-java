@@ -8,7 +8,7 @@ import com.twilio.sdk.resource.InstanceResource;
 import java.util.Date;
 import java.util.Map;
 
-public class IpAccessControlListMapping extends InstanceResource {
+public class IpAccessControlListMapping extends InstanceResource<TwilioRestClient> {
 
     /** The Constant SID_PROPERTY. */
     private static final String SID_PROPERTY = "sid";

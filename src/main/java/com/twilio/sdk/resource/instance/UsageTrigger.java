@@ -16,7 +16,7 @@ import java.util.Map;
  * href="https://www.twilio.com/docs/api/rest/usage-triggers"
  * >https://www.twilio.com/docs/api/rest/usage-triggers</a>
  */
-public class UsageTrigger extends InstanceResource {
+public class UsageTrigger extends InstanceResource<TwilioRestClient> {
 
     /**
      * The Constant SID_PROPERTY.

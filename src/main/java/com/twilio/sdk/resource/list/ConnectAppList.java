@@ -16,7 +16,7 @@ import java.util.Map;
  * href="https://www.twilio.com/docs/api/rest/connect-apps"
  * >https://www.twilio.com/docs/api/rest/connect-apps</a>
  */
-public class ConnectAppList extends ListResource<ConnectApp> {
+public class ConnectAppList extends ListResource<ConnectApp, TwilioRestClient> {
 
 	/**
 	 * Instantiates a new ConnectApp list.

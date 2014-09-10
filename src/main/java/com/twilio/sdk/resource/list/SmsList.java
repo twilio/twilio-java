@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/sms">https://www.twilio.com/docs/api/rest/sms</a>
  */
-public class SmsList extends ListResource<Sms> implements SmsFactory {
+public class SmsList extends ListResource<Sms, TwilioRestClient> implements SmsFactory {
 
 	/**
 	 * Instantiates a new sms list.

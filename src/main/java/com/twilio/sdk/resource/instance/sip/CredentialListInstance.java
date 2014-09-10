@@ -17,7 +17,7 @@ import java.util.Map;
  * that corresponds to /Credentials. This unfortunate quirk is caused by this library's convention of
  * appending 'List' to instance resources to form their list counterpart.
  */
-public class CredentialListInstance extends InstanceResource {
+public class CredentialListInstance extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";

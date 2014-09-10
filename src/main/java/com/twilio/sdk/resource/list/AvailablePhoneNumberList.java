@@ -11,7 +11,7 @@ import java.util.Map;
  * <p/>
  * For more information see <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
  */
-public class AvailablePhoneNumberList extends ListResource<AvailablePhoneNumber> {
+public class AvailablePhoneNumberList extends ListResource<AvailablePhoneNumber, TwilioRestClient> {
 
 	public static final String TYPE_LOCAL = "Local";
 	public static final String TYPE_TOLLFREE = "TollFree";

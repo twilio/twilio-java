@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/sip-domain">https://www.twilio.com/docs/api/rest/sip-domain</a>
  */
-public class CredentialList extends ListResource<Credential> implements CredentialFactory {
+public class CredentialList extends ListResource<Credential, TwilioRestClient> implements CredentialFactory {
 
 	private String requestCredentialListSid;
 

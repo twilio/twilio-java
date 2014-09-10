@@ -15,17 +15,17 @@ import java.util.Set;
 /**
  * A Feedback class. Used to submit feedback for a resource.
  */
-public class Feedback extends InstanceResource {
-    
+public class Feedback extends InstanceResource<TwilioRestClient> {
+
     public static final String QUALITY_SCORE_PROP = "quality_score";
     public static final String ISSUES_PROP = "issues";
     public static final String DATE_CREATED_PROP = "date_created";
     public static final String DATE_UPDATED_PROP = "date_updated";
     public static final String QUALITY_SCORE_PARAM = "QualityScore";
     public static final String ISSUE_PARAM = "Issue";
-    
+
     private String parentLocation;
-    
+
     /**
      * Instantiates a new feedback.
      *
@@ -37,7 +37,7 @@ public class Feedback extends InstanceResource {
         super(client, properties);
         this.parentLocation = parentLocation;
     }
-    
+
     /**
      * Instantiates a new feedback.
      *
@@ -61,7 +61,7 @@ public class Feedback extends InstanceResource {
 
         return !response.isError();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -69,7 +69,7 @@ public class Feedback extends InstanceResource {
     protected String getResourceLocation() {
         return this.parentLocation + "/Feedback.json";
     }
-    
+
     /**
      * Gets the quality score.
      *
@@ -77,14 +77,14 @@ public class Feedback extends InstanceResource {
      */
     public int getQualityScore() {
         Integer prop = (Integer) this.getObject(QUALITY_SCORE_PROP);
-        
+
         if (prop != null) {
             return prop;
         }
-        
+
         throw new IllegalStateException("The Feedback instance doesn't have the quality score property set.");
     }
-    
+
     /**
      * Gets the issues.
      *
@@ -92,27 +92,27 @@ public class Feedback extends InstanceResource {
      */
     public Set<String> getIssues() {
         List<String> props = (List<String>) this.getObject(ISSUES_PROP);
-        
+
         if (props != null) {
             Set<String> issues = new HashSet<String>(props);
             return Collections.unmodifiableSet(issues);
         }
-        
+
         return null;
     }
-    
+
     /**
      * Gets the date created.
-     * 
+     *
      * @return the date created
      */
     public Date getDateCreated() {
         return parseDate(this.getProperty(DATE_CREATED_PROP));
     }
-    
+
     /**
      * Gets the date updated.
-     * 
+     *
      * @return the date updated
      */
     public Date getDateUpdated() {

@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/applications">https://www.twilio.com/docs/api/rest/applications</a>
  */
-public class ApplicationList extends ListResource<Application> implements
+public class ApplicationList extends ListResource<Application, TwilioRestClient> implements
 		ApplicationFactory {
 
 	/**

@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * A FeedbackSummary class. Used to get feedback summary resource.
  */
-public class FeedbackSummary extends InstanceResource {
+public class FeedbackSummary extends InstanceResource<TwilioRestClient> {
 
 	public static final String ACCOUNT_SID_PROPERTY = "account_sid";
 	public static final String CALL_COUNT_PROPERTY = "call_count";

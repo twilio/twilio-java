@@ -1,15 +1,20 @@
 package com.twilio.sdk.resource;
 
-import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.parser.ResponseParser.PagingProperty;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
-public abstract class ListResource<T extends Resource> extends Resource implements Iterable<T> {
-	
+public abstract class ListResource<T extends Resource, C extends TwilioClient> extends Resource<C> implements Iterable<T> {
+
 	/**
 	 * The Class ListIterator.
 	 */
@@ -75,7 +80,7 @@ public abstract class ListResource<T extends Resource> extends Resource implemen
 	 *
 	 * @param client the client
 	 */
-	public ListResource(TwilioRestClient client) {
+	public ListResource(final C client) {
 		this(client, new HashMap<String, String>());
 	}
 
@@ -85,29 +90,29 @@ public abstract class ListResource<T extends Resource> extends Resource implemen
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public ListResource(TwilioRestClient client, Map<String, String> filters) {
+	public ListResource(final C client, Map<String, String> filters) {
 		super(client);
 		this.filters = filters;
 	}
 
 	/** The page data. */
 	protected List<T> pageData;
-	
+
 	/** The next uri. */
 	private String nextUri = null;
-	
+
 	/** The start. */
 	private int start = 0;
-	
+
 	/** The end. */
 	private int end = 0;
-	
+
 	/** The page. */
 	private int page = 0;
-	
+
 	/** The num pages. */
 	private int numPages = 0;
-	
+
 	/** The total. */
 	private int total = 0;
 
@@ -198,7 +203,7 @@ public abstract class ListResource<T extends Resource> extends Resource implemen
 				throw new RuntimeException(e);
 			}
 		}
-		
+
 		return Collections.unmodifiableList(this.pageData);
 	}
 
@@ -254,18 +259,18 @@ public abstract class ListResource<T extends Resource> extends Resource implemen
 	 * @param params the params
 	 * @return a fully constructed object of type T
 	 */
-	protected abstract T makeNew(TwilioRestClient client,
+	protected abstract T makeNew(C client,
 			Map<String, Object> params);
 
 	/**
 	 * Returns the string key for finding this list of objects in the response.
 	 * For example:
-	 * 
+	 *
 	 * <TwilioResponse> <Accounts> <Account> </Account> <Account> </Account>
 	 * </Accounts> </TwilioResponse>
-	 * 
+	 *
 	 * this should return "Accounts"
-	 * 
+	 *
 	 * @return the string key for finding this list objects in the response
 	 */
 	protected abstract String getListKey();

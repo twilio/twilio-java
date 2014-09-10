@@ -12,22 +12,22 @@ import java.util.Map;
  * created within your Twilio account. The instance resource shows you the
  * permissions you are requesting for a single Connect App as well as
  * information about the Connect App itself.
- * 
+ *
  * For more information see <a
  * href="https://www.twilio.com/docs/api/rest/connect-apps"
  * >https://www.twilio.com/docs/api/rest/connect-apps</a>
  */
-public class ConnectApp extends InstanceResource {
-	
+public class ConnectApp extends InstanceResource<TwilioRestClient> {
+
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
-	
+
 	/** The Constant DATE_UPDATED_PROPERTY. */
 	private static final String DATE_UPDATED_PROPERTY = "date_updated";
-	
+
 	/** The Constant DATE_CREATED_PROPERTY. */
 	private static final String DATE_CREATED_PROPERTY = "date_created";
-		
+
 	/** The Constant FRIENDLY_NAME_PROPERTY. */
 	private static final String FRIENDLY_NAME_PROPERTY = "friendly_name";
 
@@ -48,7 +48,7 @@ public class ConnectApp extends InstanceResource {
 	 */
 	public ConnectApp(TwilioRestClient client, String sid) {
 		super(client);
-		if (sid == null) { 
+		if (sid == null) {
 	        throw new IllegalStateException("The Sid for a ConnectApp can not be null");
 	    }
 		this.setProperty(SID_PROPERTY, sid);
@@ -84,7 +84,7 @@ public class ConnectApp extends InstanceResource {
 	public String getSid() {
 		return this.getProperty(SID_PROPERTY);
 	}
-	
+
 	/**
 	 * Gets the friendly name.
 	 *
@@ -93,8 +93,8 @@ public class ConnectApp extends InstanceResource {
 	public String getFriendlyName() {
 		return this.getProperty(FRIENDLY_NAME_PROPERTY);
 	}
-	
-	
+
+
 	/**
 	 * Gets the date created.
 	 *
@@ -103,7 +103,7 @@ public class ConnectApp extends InstanceResource {
 	public Date getDateCreated() {
 		return getDateProperty(DATE_CREATED_PROPERTY);
 	}
-	
+
 	/**
 	 * Gets the date updated.
 	 *
@@ -112,7 +112,7 @@ public class ConnectApp extends InstanceResource {
 	public Date getDateUpdated() {
 		return getDateProperty(DATE_UPDATED_PROPERTY);
 	}
-	
+
 	/**
 	 * Gets the account sid.
 	 *
@@ -121,7 +121,7 @@ public class ConnectApp extends InstanceResource {
 	public String getAccountSid() {
 		return this.getProperty("account_sid");
 	}
-	
+
 	/**
 	 * Gets the description.
 	 *
@@ -130,7 +130,7 @@ public class ConnectApp extends InstanceResource {
 	public String getDescription() {
 		return this.getProperty("description");
 	}
-	
+
 	/**
 	 * Gets the company name.
 	 *
@@ -139,7 +139,7 @@ public class ConnectApp extends InstanceResource {
 	public String getCompanyName() {
 		return this.getProperty("company_name");
 	}
-	
+
 	/**
 	 * Gets the homepage url.
 	 *
@@ -148,7 +148,7 @@ public class ConnectApp extends InstanceResource {
 	public String getHomepageUrl() {
 		return this.getProperty("homepage_url");
 	}
-	
+
 	/**
 	 * Gets the deauthorize callback url.
 	 *
@@ -157,7 +157,7 @@ public class ConnectApp extends InstanceResource {
 	public String getDeauthorizeCallbackUrl() {
 		return this.getProperty("deauthorize_callback_url");
 	}
-	
+
 	/**
 	 * Gets the authorize redirect url.
 	 *
@@ -166,7 +166,7 @@ public class ConnectApp extends InstanceResource {
 	public String getAuthorizeRedirectUrl() {
 		return this.getProperty("authorize_redirect_url");
 	}
-	
+
 	/**
 	 * Gets the deauthorize callback method.
 	 *
@@ -175,10 +175,10 @@ public class ConnectApp extends InstanceResource {
 	public String getDeauthorizeCallbackMethod() {
 		return this.getProperty("deauthorize_callback_method");
 	}
-	
+
 	public List<String> getPermissions() {
 		Object obj = this.getObject("permissions");
 		return (List<String>) obj;
 	}
-	
+
 }

@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/participant">https://www.twilio.com/docs/api/rest/participant</a>
  */
-public class ParticipantList extends ListResource<Participant> {
+public class ParticipantList extends ListResource<Participant, TwilioRestClient> {
 
 	/** The conference sid. */
 	private String conferenceSid;

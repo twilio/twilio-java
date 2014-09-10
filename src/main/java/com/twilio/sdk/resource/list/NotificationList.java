@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/notification">https://www.twilio.com/docs/api/rest/notification</a>
  */
-public class NotificationList extends ListResource<Notification> {
+public class NotificationList extends ListResource<Notification, TwilioRestClient> {
 
 	/**
 	 * Instantiates a new notification list.

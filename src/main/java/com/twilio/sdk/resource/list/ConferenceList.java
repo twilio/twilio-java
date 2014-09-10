@@ -12,7 +12,7 @@ import java.util.Map;
  *
  *  For more information see <a href="https://www.twilio.com/docs/api/rest/conference">https://www.twilio.com/docs/api/rest/conference</a>
  */
-public class ConferenceList extends ListResource<Conference> {
+public class ConferenceList extends ListResource<Conference, TwilioRestClient> {
 
 	/**
 	 * Instantiates a new conference list.

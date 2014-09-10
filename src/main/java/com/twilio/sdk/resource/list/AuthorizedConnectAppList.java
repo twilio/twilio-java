@@ -16,7 +16,7 @@ import java.util.Map;
  * href="https://www.twilio.com/docs/api/rest/authorized-connect-apps"
  * >https://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
  */
-public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp> {
+public class AuthorizedConnectAppList extends ListResource<AuthorizedConnectApp, TwilioRestClient> {
 
 	/**
 	 * Instantiates a new AuthorizedConnectApp list.

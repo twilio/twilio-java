@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/notification">https://www.twilio.com/docs/api/rest/notification</a>
  */
-public class Notification extends InstanceResource {
+public class Notification extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";

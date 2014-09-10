@@ -17,7 +17,7 @@ import java.util.Map;
  *
  *  For more information see <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
  */
-public class CallList extends ListResource<Call> implements CallFactory {
+public class CallList extends ListResource<Call, TwilioRestClient> implements CallFactory {
 
 	/**
 	 * Instantiates a new call list.

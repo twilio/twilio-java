@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Christer Fahlgren
  */
-public class Queue extends InstanceResource {
+public class Queue extends InstanceResource<TwilioRestClient> {
 
     // Constants
     private final static String SID = "sid";

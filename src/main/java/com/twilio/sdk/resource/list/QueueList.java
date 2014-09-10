@@ -17,7 +17,7 @@ import java.util.Map;
  * @author Christer Fahlgren
  *
  */
-public class QueueList extends ListResource<Queue> implements QueueFactory {
+public class QueueList extends ListResource<Queue, TwilioRestClient> implements QueueFactory {
 
     /**
      * Creates a {@link QueueList}

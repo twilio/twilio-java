@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/outgoing-caller-ids">https://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>
  */
-public class OutgoingCallerIdList extends ListResource<OutgoingCallerId>
+public class OutgoingCallerIdList extends ListResource<OutgoingCallerId, TwilioRestClient>
 		implements OutgoingCallerIdFactory {
 
 	/**

@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/account">https://www.twilio.com/docs/api/rest/account</a>
  */
-public class AccountList extends ListResource<Account> implements AccountFactory {
+public class AccountList extends ListResource<Account, TwilioRestClient> implements AccountFactory {
 
 	/**
 	 * Instantiate a new AccountList

@@ -16,7 +16,7 @@ import java.util.Map;
  * href="https://www.twilio.com/docs/api/rest/incoming-phone-numbers"
  * >https://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
  */
-public class IncomingPhoneNumber extends InstanceResource {
+public class IncomingPhoneNumber extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";

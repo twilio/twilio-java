@@ -16,7 +16,8 @@ import java.util.Map;
  * <p/>
  * For more information see <a href="https://www.twilio.com/docs/api/rest/incoming-phone-numbers">https://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
  */
-public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber> implements IncomingPhoneNumberFactory {
+public class IncomingPhoneNumberList extends ListResource<IncomingPhoneNumber, TwilioRestClient>
+		implements IncomingPhoneNumberFactory {
 
 	public static final String TYPE_LOCAL = "Local";
 	public static final String TYPE_TOLLFREE = "TollFree";

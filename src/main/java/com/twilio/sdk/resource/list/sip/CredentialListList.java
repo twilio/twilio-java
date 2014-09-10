@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 import java.util.Map;
 
-public class CredentialListList extends ListResource<CredentialListInstance> implements CredentialListFactory {
+public class CredentialListList extends ListResource<CredentialListInstance, TwilioRestClient> implements CredentialListFactory {
 
 	/**
 	 * Instantiates a new list of ip access control lists

@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * The Class UsageRecordList.
  */
-public class UsageRecordList extends ListResource<UsageRecord> {
+public class UsageRecordList extends ListResource<UsageRecord, TwilioRestClient> {
 
 	private final Type type;
 

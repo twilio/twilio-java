@@ -11,7 +11,7 @@ import java.util.Map;
  * <p/>
  * For more information see <a href="https://www.twilio.com/docs/api/rest/transcription">https://www.twilio.com/docs/api/rest/transcription</a>
  */
-public class TranscriptionList extends ListResource<Transcription> {
+public class TranscriptionList extends ListResource<Transcription, TwilioRestClient> {
 
 	private static String requestCallSid;
 

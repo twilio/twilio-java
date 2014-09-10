@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * The Class Call. For more information see <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
  */
-public class Call extends InstanceResource {
+public class Call extends InstanceResource<TwilioRestClient> {
 
 	/**
 	 * The Constant SID_PROPERTY.

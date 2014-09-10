@@ -12,21 +12,21 @@ import java.util.Map;
  * subaccount within your Twilio account, which acts as that Connect App's
  * sandbox. The instance resource shows you the permissions you have granted for
  * a Connect App as well as information about the Connect App itself.
- * 
- * 
- * 
+ *
+ *
+ *
  * For more information see <a
  * href="https://www.twilio.com/docs/api/rest/authorized-connect-apps"
  * >https://www.twilio.com/docs/api/rest/authorized-connect-apps</a>
  */
-public class AuthorizedConnectApp extends InstanceResource {
+public class AuthorizedConnectApp extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "connect_app_sid";
 
 	/**
 	 * Instantiates a new application.
-	 * 
+	 *
 	 * @param client
 	 *            the client
 	 */
@@ -36,7 +36,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Instantiates a new application.
-	 * 
+	 *
 	 * @param client
 	 *            the client
 	 * @param sid
@@ -44,7 +44,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 	 */
 	public AuthorizedConnectApp(TwilioRestClient client, String sid) {
 		super(client);
-		if (sid == null) { 
+		if (sid == null) {
             throw new IllegalStateException("The Sid for an AuthorizedConnectApp can not be null");
         }
 		this.setProperty(SID_PROPERTY, sid);
@@ -52,7 +52,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Instantiates a new application.
-	 * 
+	 *
 	 * @param client
 	 *            the client
 	 * @param properties
@@ -65,7 +65,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
@@ -81,7 +81,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the sid.
-	 * 
+	 *
 	 * @return the sid
 	 */
 	public String getSid() {
@@ -92,7 +92,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 	 * Gets the sid. In this case AuthorizedConnectApps don't have a Sid, they
 	 * have a ConnectAppSid so we provide two helper functions that return the
 	 * same value.
-	 * 
+	 *
 	 * @return the sid
 	 */
 	public String getConnectAppSid() {
@@ -101,7 +101,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the account sid.
-	 * 
+	 *
 	 * @return the account sid
 	 */
 	public String getAccountSid() {
@@ -110,7 +110,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the friendly name.
-	 * 
+	 *
 	 * @return the friendly name
 	 */
 	public String getFriendlyName() {
@@ -119,7 +119,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the description.
-	 * 
+	 *
 	 * @return the description
 	 */
 	public String getDescription() {
@@ -128,7 +128,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the description.
-	 * 
+	 *
 	 * @return the description
 	 */
 	public String getConnectAppDescription() {
@@ -146,7 +146,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the company name.
-	 * 
+	 *
 	 * @return the company name
 	 */
 	public String getCompanyName() {
@@ -155,7 +155,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the company name.
-	 * 
+	 *
 	 * @return the company name
 	 */
 	public String getConnectAppCompanyName() {
@@ -164,7 +164,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the homepage url.
-	 * 
+	 *
 	 * @return the homepage url
 	 */
 	public String getHomepageUrl() {
@@ -173,7 +173,7 @@ public class AuthorizedConnectApp extends InstanceResource {
 
 	/**
 	 * Gets the homepage url.
-	 * 
+	 *
 	 * @return the homepage url
 	 */
 	public String getConnectAppHomepageUrl() {

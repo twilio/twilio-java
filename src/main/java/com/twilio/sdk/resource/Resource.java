@@ -1,6 +1,6 @@
 package com.twilio.sdk.resource;
 
-import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 
@@ -10,35 +10,35 @@ import java.util.Map;
 /**
  * The Class Resource.
  */
-public abstract class Resource {
+public abstract class Resource<C extends TwilioClient> {
 
 	/** The client. */
-	private TwilioRestClient client;
-	
+	private C client;
+
 	/** The request account sid. */
 	private String requestAccountSid;
-	
+
 	/** The filters. */
 	protected Map<String, String> filters;
-	
+
 	/**
 	 * Instantiates a new resource.
 	 *
 	 * @param client the client
 	 */
-	public Resource(TwilioRestClient client) {
+	public Resource(C client) {
 		this.client = client;
 	}
-	
+
 	/**
 	 * Gets the client.
 	 *
 	 * @return the client
 	 */
-	protected TwilioRestClient getClient() {
+	protected C getClient() {
 		return this.client;
 	}
-	
+
 	/**
 	 * Load.
 	 *
@@ -53,14 +53,14 @@ public abstract class Resource {
 		this.parseResponse(response);
 		this.loaded = true;
 	}
-	
+
 	/**
 	 * Parses the response.
 	 *
 	 * @param response the response
 	 */
 	protected abstract void parseResponse(TwilioRestResponse response);
-	
+
 	// flags whether or not the HTTP request to popluate
 	// this data has occured. We can construct resources
 	// that are lazily loaded
@@ -75,7 +75,7 @@ public abstract class Resource {
 	protected boolean isLoaded() {
 		return loaded;
 	}
-	
+
 	/**
 	 * Sets the loaded.
 	 *
@@ -94,7 +94,7 @@ public abstract class Resource {
 	protected String getRequestAccountSid() {
 		return this.requestAccountSid;
 	}
-	
+
 	/**
 	 * Sets the request account sid.
 	 *

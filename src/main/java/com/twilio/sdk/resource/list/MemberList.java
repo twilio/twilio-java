@@ -12,7 +12,7 @@ import java.util.Map;
  * For more information see <a
  * href="https://www.twilio.com/docs/api/rest/member">https://www.twilio.com/docs/api/rest/member</a>
  */
-public class MemberList extends ListResource<Member> {
+public class MemberList extends ListResource<Member, TwilioRestClient> {
 
     /**
      * The queue sid.

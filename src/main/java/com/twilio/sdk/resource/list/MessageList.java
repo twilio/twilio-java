@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/message">https://www.twilio.com/docs/api/rest/message</a>
  */
-public class MessageList extends ListResource<Message> implements MessageFactory {
+public class MessageList extends ListResource<Message, TwilioRestClient> implements MessageFactory {
 
 	/**
 	 * Instantiates a new Message list.

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class UsageTriggerList extends ListResource<UsageTrigger> implements UsageTriggerFactory {
+public class UsageTriggerList extends ListResource<UsageTrigger, TwilioRestClient> implements UsageTriggerFactory {
 
 	/**
 	 * Instantiates a new usage trigger list.

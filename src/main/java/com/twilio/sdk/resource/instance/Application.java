@@ -17,15 +17,6 @@ import java.util.Map;
  */
 public class Application extends InstanceResource<TwilioRestClient> {
 
-    /** The Constant SID_PROPERTY. */
-    private static final String SID_PROPERTY = "sid";
-
-    /** The Constant DATE_UPDATED_PROPERTY. */
-    private static final String DATE_UPDATED_PROPERTY = "date_updated";
-
-    /** The Constant DATE_CREATED_PROPERTY. */
-    private static final String DATE_CREATED_PROPERTY = "date_created";
-
     /** The Constant STATUS_PROPERTY. */
     private static final String STATUS_PROPERTY = "status";
 

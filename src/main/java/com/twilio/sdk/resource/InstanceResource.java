@@ -19,6 +19,15 @@ import java.util.Map;
  */
 public abstract class InstanceResource<C extends TwilioClient> extends Resource<C> {
 
+	protected static final String DATE_CREATED_PROPERTY = "date_created";
+
+	protected static final String DATE_UPDATED_PROPERTY = "date_updated";
+
+	protected static final SimpleDateFormat RFC_2822_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+
+	/** The Constant SID_PROPERTY. */
+	protected static final String SID_PROPERTY = "sid";
+
 	/** The properties. */
 	private Map<String, Object> properties;
 
@@ -152,14 +161,12 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 *
 	 * @return the date value of the input string
 	 */
-	protected Date parseDate(String inDate) {
-		if (inDate==null) {
+	protected Date parseDate(final String inDate) {
+		if (inDate == null) {
 			return null;
 		}
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
-			return format.parse(inDate);
+			return RFC_2822_FORMAT.parse(inDate);
 		} catch (ParseException e) {
 			return null;
 		}

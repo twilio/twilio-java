@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.instance;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioWdsClient;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -24,7 +25,8 @@ public class BasicRequestTester {
     @Mock
     HttpClient httpClient;
 
-    protected TwilioRestClient client = new TwilioRestClient(accountSid, authtoken);
+    protected TwilioRestClient restClient = new TwilioRestClient(accountSid, authtoken);
+	protected TwilioWdsClient wdsClient = new TwilioWdsClient(accountSid, authtoken);
 
     protected BasicHttpResponse response = mock(BasicHttpResponse.class);
     protected Header[] headers = {mock(Header.class)};
@@ -34,7 +36,8 @@ public class BasicRequestTester {
     @Before
     public void init() throws Exception {
         MockitoAnnotations.initMocks(this);
-        client.setHttpclient(httpClient);
+        restClient.setHttpclient(httpClient);
+	    wdsClient.setHttpclient(httpClient);
 
         when(headers[0].getValue()).thenReturn("application/xml");
         when(response.getHeaders("Content-Type")).thenReturn(headers);

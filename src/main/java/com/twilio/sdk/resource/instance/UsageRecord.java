@@ -17,11 +17,6 @@ import java.util.Map;
 public class UsageRecord extends InstanceResource<TwilioRestClient> {
 
 	/**
-	 * The Constant SID_PROPERTY.
-	 */
-	private static final String SID_PROPERTY = "sid";
-
-	/**
 	 * Instantiates a new usageRecord.
 	 *
 	 * @param client the client

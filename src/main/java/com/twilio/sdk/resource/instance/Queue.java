@@ -17,7 +17,6 @@ import java.util.Map;
 public class Queue extends InstanceResource<TwilioRestClient> {
 
     // Constants
-    private final static String SID = "sid";
     private final static String FRIENDLY_NAME = "friendly_name";
     private final static String CURRENT_SIZE = "current_size";
     private final static String MAX_SIZE = "max_size";
@@ -33,7 +32,7 @@ public class Queue extends InstanceResource<TwilioRestClient> {
      */
     public Queue(TwilioRestClient client, String sid) {
         super(client);
-        this.setProperty(Queue.SID, sid);
+        this.setProperty(SID_PROPERTY, sid);
     }
 
     /**
@@ -54,7 +53,7 @@ public class Queue extends InstanceResource<TwilioRestClient> {
      * @return the queue sid
      */
     public String getSid() {
-        return this.getProperty(Queue.SID);
+        return this.getProperty(SID_PROPERTY);
     }
 
     /**

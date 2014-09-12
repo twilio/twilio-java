@@ -20,7 +20,7 @@ public class UsageTriggerTest extends BasicRequestTester {
     @Test
     public void testListingUsageTrigger() throws Exception {
         setExpectedServerAnswer("usagetriggertestanswer.xml");
-        UsageTriggerList usageTriggers = client.getAccount().getUsageTriggers();
+        UsageTriggerList usageTriggers = restClient.getAccount().getUsageTriggers();
         Iterator<UsageTrigger> usageRecordIterator = usageTriggers.iterator();
 
         UsageTrigger current;
@@ -38,7 +38,7 @@ public class UsageTriggerTest extends BasicRequestTester {
     @Test
     public void testCreateUsageTrigger() throws Exception {
         setExpectedServerAnswer("createusagetriggerresponse.xml");
-        Account mainAccount = client.getAccount();
+        Account mainAccount = restClient.getAccount();
         UsageTriggerFactory usageTriggerFactory = mainAccount.getUsageTriggerFactory();
         HashMap<String, String> trigger = new HashMap<String, String>();
         trigger.put("FriendlyName", "blah");
@@ -53,7 +53,7 @@ public class UsageTriggerTest extends BasicRequestTester {
     public void testDeleteUsageTrigger() throws Exception {
         setExpectedServerAnswer(null);
         setExpectedServerReturnCode(204);
-        UsageTrigger ut = new UsageTrigger(client, "UT5f539674e9b84c2ba39a4156f264a347");
+        UsageTrigger ut = new UsageTrigger(restClient, "UT5f539674e9b84c2ba39a4156f264a347");
         assertTrue(ut.delete());
     }
 
@@ -62,7 +62,7 @@ public class UsageTriggerTest extends BasicRequestTester {
         setExpectedServerAnswer("404onUsageTrigger.xml"); // err this is actually json but this stupid classloader wont take the .json extension
         setExpectedServerReturnCode(404);
         setExpectedServerContentType("application/json");
-        UsageTrigger ut = new UsageTrigger(client, "UT0123456789abcdef0123456789abcdef");
+        UsageTrigger ut = new UsageTrigger(restClient, "UT0123456789abcdef0123456789abcdef");
         ut.delete();
     }
 

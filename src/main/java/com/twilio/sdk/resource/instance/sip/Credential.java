@@ -11,8 +11,6 @@ import java.util.Map;
 
 public class Credential extends InstanceResource<TwilioRestClient> {
 
-	/** The Constant SID_PROPERTY. */
-	private static final String SID_PROPERTY = "sid";
 	private String requestCredentialListSid;
 
 	/**

@@ -14,9 +14,6 @@ import java.util.Map;
  */
 public class ShortCode extends InstanceResource<TwilioRestClient> {
 
-	/** The Constant SID_PROPERTY. */
-	private static final String SID_PROPERTY = "sid";
-
 	/**
 	 * Instantiates a new incoming phone number.
 	 *

@@ -23,11 +23,6 @@ import java.util.Map;
 public class Call extends InstanceResource<TwilioRestClient> {
 
 	/**
-	 * The Constant SID_PROPERTY.
-	 */
-	private static final String SID_PROPERTY = "sid";
-
-	/**
 	 * Instantiates a new call.
 	 *
 	 * @param client the client

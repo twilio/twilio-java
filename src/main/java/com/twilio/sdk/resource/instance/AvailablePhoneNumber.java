@@ -6,24 +6,22 @@ import com.twilio.sdk.resource.InstanceResource;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class AvailablePhoneNumber.
- *
+ * <p/>
  * For more information see <a href="https://www.twilio.com/docs/api/rest/available-phone-numbers">https://www.twilio.com/docs/api/rest/available-phone-numbers</a>
  */
 public class AvailablePhoneNumber extends InstanceResource<TwilioRestClient> {
-//	private static final String SID_PROPERTY = "sid";
 
 	/**
- * Instantiates a new available phone number.
- *
- * @param client the client
- */
-public AvailablePhoneNumber(TwilioRestClient client) {
+	 * Instantiates a new available phone number.
+	 *
+	 * @param client the client
+	 */
+	public AvailablePhoneNumber(TwilioRestClient client) {
 		super(client);
 	}
-
-
 
 	/**
 	 * Instantiates a new available phone number.

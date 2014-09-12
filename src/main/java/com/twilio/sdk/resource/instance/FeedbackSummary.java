@@ -20,16 +20,12 @@ public class FeedbackSummary extends InstanceResource<TwilioRestClient> {
 	public static final String ACCOUNT_SID_PROPERTY = "account_sid";
 	public static final String CALL_COUNT_PROPERTY = "call_count";
 	public static final String CALL_FEEDBACK_COUNT_PROPERTY = "call_feedback_count";
-	public static final String DATE_CREATED_PROPERTY = "date_created";
-	public static final String DATE_UPDATED_PROPERTY = "date_updated";
 	public static final String END_DATE_PROPERTY = "end_date";
 	public static final String INCLUDE_SUB_ACCOUNTS_PROPERTY = "include_subaccounts";
 	public static final String ISSUES_PROPERTY = "issues";
 	public static final String QUALITY_SCORE_AVERAGE_PROPERTY = "quality_score_average";
 	public static final String QUALITY_SCORE_MEDIAN_PROPERTY = "quality_score_median";
 	public static final String QUALITY_SCORE_STANDARD_DEVIATION_PROPERTY = "quality_score_standard_deviation";
-	/** The Constant SID_PROPERTY. */
-	public static final String SID_PROPERTY = "sid";
 	public static final String START_DATE_PROPERTY = "start_date";
 	public static final String STATUS_PROPERTY = "status";
 

@@ -1,7 +1,6 @@
 package com.twilio.sdk.resource.instance;
 
 import com.twilio.sdk.resource.list.UsageRecordList;
-import com.twilio.sdk.resource.instance.UsageCategory;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -18,7 +17,7 @@ public class UsageRecordTest extends BasicRequestTester {
 
 		try {
 			setExpectedServerAnswer("recordtestanswer.xml");
-			UsageRecordList usageRecords = client.getAccount().getUsageRecords();
+			UsageRecordList usageRecords = restClient.getAccount().getUsageRecords();
 
 			TreeSet<UsageRecord> answers = new TreeSet<UsageRecord>(new Comparator<UsageRecord>() {
 				@Override

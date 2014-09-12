@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 public class FeedbackTest extends BasicRequestTester {
@@ -32,7 +34,7 @@ public class FeedbackTest extends BasicRequestTester {
 
     @Before
     public void setup() throws Exception {
-        when(call.getFeedbackFactory()).thenReturn(new FeedbackFactoryImpl(client, getResourceLocation()));
+        when(call.getFeedbackFactory()).thenReturn(new FeedbackFactoryImpl(restClient, getResourceLocation()));
 
         FeedbackFactory factory = call.getFeedbackFactory();
 
@@ -57,7 +59,7 @@ public class FeedbackTest extends BasicRequestTester {
     public void testDelete() throws Exception {
         setExpectedServerAnswer(null);
         setExpectedServerReturnCode(204);
-        Feedback feedback = new Feedback(client, getResourceLocation());
+        Feedback feedback = new Feedback(restClient, getResourceLocation());
         assertTrue(feedback.delete());
     }
 
@@ -65,7 +67,7 @@ public class FeedbackTest extends BasicRequestTester {
     public void testDeleteFeedback() throws Exception {
         setExpectedServerAnswer(null);
         setExpectedServerReturnCode(204);
-        Call call = new Call(client, CALL_SID);
+        Call call = new Call(restClient, CALL_SID);
         assertTrue(call.deleteFeedback());
     }
 

@@ -57,12 +57,6 @@ import java.util.Map;
  */
 public class Account extends InstanceResource<TwilioRestClient> {
 
-	/** The Constant DATE_UPDATED_PROPERTY. */
-	private static final String DATE_UPDATED_PROPERTY = "date_updated";
-
-	/** The Constant DATE_CREATED_PROPERTY. */
-	private static final String DATE_CREATED_PROPERTY = "date_created";
-
 	/** The Constant STATUS_PROPERTY. */
 	private static final String STATUS_PROPERTY = "status";
 
@@ -71,9 +65,6 @@ public class Account extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant FRIENDLY_NAME_PROPERTY. */
 	private static final String FRIENDLY_NAME_PROPERTY = "friendly_name";
-
-	/** The Constant ACCOUNT_SID_PROPERTY. */
-	private static final String ACCOUNT_SID_PROPERTY = "sid";
 
 	/** The Constant AUTH_TOKEN_PROPERTY. */
 	private static final String AUTH_TOKEN_PROPERTY = "auth_token";
@@ -96,7 +87,7 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	public Account(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 
-		Object ac = properties.get(ACCOUNT_SID_PROPERTY);
+		Object ac = properties.get(SID_PROPERTY);
 		if (ac != null && ac instanceof String) {
 			String accountSid = (String) ac;
 			this.setRequestAccountSid(accountSid);
@@ -114,7 +105,7 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 * @return the sid
 	 */
 	public String getSid() {
-		return this.getProperty(ACCOUNT_SID_PROPERTY);
+		return this.getProperty(SID_PROPERTY);
 	}
 
 	/**
@@ -124,7 +115,7 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 */
 	public void setSid(String accountSid) {
 		this.setRequestAccountSid(accountSid);
-		this.setProperty(ACCOUNT_SID_PROPERTY, accountSid);
+		this.setProperty(SID_PROPERTY, accountSid);
 	}
 
 	/**

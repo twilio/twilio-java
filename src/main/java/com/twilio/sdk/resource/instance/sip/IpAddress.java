@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class IpAddress extends InstanceResource<TwilioRestClient> {
 
-	/** The Constant SID_PROPERTY. */
-	private static final String SID_PROPERTY = "sid";
 	private String ipAccessControlListSid;
 
 	/**

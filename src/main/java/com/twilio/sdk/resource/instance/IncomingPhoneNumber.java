@@ -18,9 +18,6 @@ import java.util.Map;
  */
 public class IncomingPhoneNumber extends InstanceResource<TwilioRestClient> {
 
-	/** The Constant SID_PROPERTY. */
-	private static final String SID_PROPERTY = "sid";
-
 	/**
 	 * Instantiates a new incoming phone number.
 	 *

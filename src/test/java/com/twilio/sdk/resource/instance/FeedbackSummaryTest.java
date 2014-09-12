@@ -12,7 +12,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class FeedbackSummaryTest extends BasicRequestTester {
 
@@ -32,9 +34,9 @@ public class FeedbackSummaryTest extends BasicRequestTester {
 		Map<String, String> filters = new HashMap<String, String>();
 		filters.put("StartDate", "2014-01-01");
 		filters.put("EndDate", "2014-01-31");
-		feedbackSummaryQueued = client.getAccount().createFeedbackSummary(filters);
+		feedbackSummaryQueued = restClient.getAccount().createFeedbackSummary(filters);
 		setExpectedServerAnswer("callfeedbacksummarycompleted.json");
-		feedbackSummaryCompleted = client.getAccount().getFeedbackSummary("FS0123456789abcdef0123456789abcdef");
+		feedbackSummaryCompleted = restClient.getAccount().getFeedbackSummary("FS0123456789abcdef0123456789abcdef");
 	}
 
 	@Test

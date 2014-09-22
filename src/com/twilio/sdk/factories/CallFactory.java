@@ -1,13 +1,11 @@
 package com.twilio.sdk.factories;
 
 import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.exceptions.RequiredFieldException;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 
 import java.net.URL;
-import java.util.ArrayList;
 
 public class CallFactory extends Factory {
 
@@ -15,96 +13,58 @@ public class CallFactory extends Factory {
         super(client);
     }
 
-    public CallCreator create() {
-        return new CallCreator(this);
-    }
-
     public CallCreator create(String to, String from, URL url) {
-        return new CallCreator(this).setTo(to)
-                                    .setFrom(from)
-                                    .setUrl(url);
+        return new CallCreator(this, to, from, url);
     }
 
     public CallUpdater update() {
         return new CallUpdater(this);
     }
 
-    public CallUpdater update(Call call) {
-        return new CallUpdater(this, call);
-    }
-
-    public static class CallCreator extends Creator {
+    public static class CallCreator extends Creator<Call> {
         protected String to;
         protected String from;
         protected URL url;
         protected String friendlyName;
 
-        public CallCreator(Factory factory) {
+        /**
+         * @param factory The Factory that owns the Creator
+         * @param to The phone number to dial
+         * @param from The twilio number to originate the call from
+         * @param url The url to fetch twiml from
+         */
+        public CallCreator(Factory factory, String to, String from, URL url) {
             super(factory);
+            this.to = to;
+            this.from = from;
+            this.url = url;
         }
 
-        public void checkRequiredFields() {
-            ArrayList<String> fields = new ArrayList<String>();
-
-            if (this.to == null) {
-                fields.add("to");
-            }
-
-            if (this.from == null) {
-                fields.add("from");
-            }
-
-            if (this.url == null) {
-                fields.add("url");
-            }
-
-            if (!fields.isEmpty()) {
-                throw new RequiredFieldException(fields);
-            }
-        }
-
+        @Override
         public Call go() {
-            checkRequiredFields();
-
             Request request = new Request();
             Response response = new Response();
             Call call = new Call(this.to, this.from, this.url, this.friendlyName);
             response.setPayload(call);
             request.setResponse(response);
 
-            Response actualResponse = this.factory.makeRequest(request);
+            try {
+                Thread.sleep(1000L);
+            } catch(InterruptedException e) {
+                // ignore
+            }
+
+            Response actualResponse = this.makeRequest(request);
 
             return (Call)actualResponse.getPayload();
         }
-
-        public CallCreator setTo(String to) {
-            this.to = to;
-            return this;
-        }
-
-        public CallCreator setFrom(String from) {
-            this.from = from;
-            return this;
-        }
-
-        public CallCreator setUrl(URL url) {
-            this.url = url;
-            return this;
-        }
     }
 
-    public static class CallUpdater {
-        private CallFactory factory;
-        private Call target;
+    public static class CallUpdater extends Updater<Call> {
         private String friendlyName;
 
-        public CallUpdater(CallFactory factory) {
-            this.factory = factory;
-        }
-
-        public CallUpdater(CallFactory factory, Call target) {
-            this.factory = factory;
-            this.target = target;
+        public CallUpdater(Factory factory) {
+            super(factory);
         }
 
         public CallUpdater setFriendlyName(String friendlyName) {
@@ -112,12 +72,8 @@ public class CallFactory extends Factory {
             return this;
         }
 
+        @Override
         public Call go(Call target) {
-            this.target = target;
-            return this.go();
-        }
-
-        public Call go() {
             Request request = new Request();
             Response response = new Response();
             Call updatedCall = new Call(target.getTo(), target.getFrom(), target.getUrl(), this.friendlyName);

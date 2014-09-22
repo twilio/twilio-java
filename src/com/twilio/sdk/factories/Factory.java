@@ -4,6 +4,8 @@ import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 
+import java.util.concurrent.ExecutorService;
+
 public class Factory {
 
     protected TwilioRestClient client;
@@ -16,4 +18,7 @@ public class Factory {
         return this.client.makeRequest(request);
     }
 
+    public ExecutorService getExecutor() {
+        return this.client.getExecutor();
+    }
 }

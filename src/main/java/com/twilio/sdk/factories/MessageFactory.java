@@ -40,7 +40,7 @@ public class MessageFactory extends Factory {
         }
 
         @Override
-        public Message go() {
+        public Message build() {
             Request request = new Request();
             Response response = new Response();
             Message message = new Message(this.to, this.from, this.body, this.friendlyName);
@@ -67,7 +67,7 @@ public class MessageFactory extends Factory {
         }
 
         @Override
-        public Message go(Message target) {
+        public Message build(Message target) {
             Request request = new Request();
             Response response = new Response();
             Message message = new Message(target.getTo(), target.getFrom(), target.getBody(), this.friendlyName);

@@ -10,14 +10,17 @@ public class Querying {
     public static void main(String[] args) {
         TwilioRestClient client = new TwilioRestClient("AC123", "AUTH");
 
-        List<Call> calls = client.calls.find().go();
+        List<Call> calls = client.calls.find()
+                                       .build();
 
         System.out.println("All Calls");
         for (Call call : calls) {
             System.out.println(call.getFriendlyName());
         }
 
-        calls = client.calls.find().byFriendlyName("Sample Call #1").go();
+        calls = client.calls.find()
+                            .byFriendlyName("Sample Call #1")
+                            .build();
 
         System.out.println("By FriendlyName");
         for (Call call : calls) {

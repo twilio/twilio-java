@@ -1,5 +1,7 @@
 package com.twilio.sdk.factories;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
@@ -36,7 +38,7 @@ public class CallFactory extends Factory {
         }
     }
 
-    public Future<Call> getAsync(final String sid) {
+    public ListenableFuture<Call> getAsync(final String sid) {
         return this.getExecutor().submit(new Callable<Call>() {
             public Call call() {
                 return get(sid);
@@ -64,13 +66,14 @@ public class CallFactory extends Factory {
         }
 
         @Override
-        public Call go() {
+        public Call build() {
             Request request = new Request();
             Response response = new Response();
             Call call = new Call(this.to, this.from, this.url, this.friendlyName);
             response.setPayload(call);
             request.setResponse(response);
 
+            // Simulate network delay
             try {
                 Thread.sleep(1000L);
             } catch(InterruptedException e) {
@@ -96,7 +99,7 @@ public class CallFactory extends Factory {
         }
 
         @Override
-        public Call go(Call target) {
+        public Call build(Call target) {
             Request request = new Request();
             Response response = new Response();
             Call updatedCall = new Call(target.getTo(), target.getFrom(), target.getUrl(), this.friendlyName);
@@ -117,7 +120,7 @@ public class CallFactory extends Factory {
         }
 
         @Override
-        public List<Call> go() {
+        public List<Call> build() {
             Request request = new Request();
             Response response = new Response();
             List<Call> callList = new ArrayList<Call>();

@@ -18,7 +18,7 @@ public class PhoneNumberGroupExample {
         group.add("+14155557890");
 
         Call call = group.create("+14155555555", new URL("http://www.twilio.com"))
-                         .go();
+                         .build();
 
         System.out.println(call.getFrom());
 

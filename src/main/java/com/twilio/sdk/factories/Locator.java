@@ -1,11 +1,11 @@
 package com.twilio.sdk.factories;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 public abstract class Locator<T> {
     protected Factory factory;
@@ -14,12 +14,12 @@ public abstract class Locator<T> {
         this.factory = factory;
     }
 
-    public abstract List<T> go();
+    public abstract List<T> build();
 
-    public Future<List<T>> async() {
+    public ListenableFuture<List<T>> async() {
         return this.factory.getExecutor().submit(new Callable<List<T>>() {
             public List<T> call() {
-                return go();
+                return build();
             }
         });
     }

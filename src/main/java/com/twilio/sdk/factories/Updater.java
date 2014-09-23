@@ -1,5 +1,6 @@
 package com.twilio.sdk.factories;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 
@@ -12,12 +13,12 @@ public abstract class Updater<T> {
         this.factory = factory;
     }
 
-    public abstract T go(final T target);
+    public abstract T build(final T target);
 
-    public Future<T> async(final T target) {
+    public ListenableFuture<T> async(final T target) {
         return this.factory.getExecutor().submit(new Callable<T>() {
            public T call() {
-               return go(target);
+               return build(target);
            }
         });
     }

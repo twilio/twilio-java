@@ -1,5 +1,7 @@
 package com.twilio.sdk.clients;
 
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.sdk.factories.CallFactory;
 import com.twilio.sdk.factories.MessageFactory;
 import com.twilio.sdk.http.Request;
@@ -12,7 +14,7 @@ public class TwilioRestClient {
 
     protected String accountSid;
     protected String authToken;
-    protected ExecutorService executor;
+    protected ListeningExecutorService executor;
 
     public CallFactory calls;
     public MessageFactory messages;
@@ -20,7 +22,7 @@ public class TwilioRestClient {
     public TwilioRestClient(String accountSid, String authToken) {
         this.accountSid = accountSid;
         this.authToken = authToken;
-        this.executor = Executors.newCachedThreadPool();
+        this.executor = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
 
         this.calls = new CallFactory(this);
         this.messages = new MessageFactory(this);
@@ -30,7 +32,7 @@ public class TwilioRestClient {
         return request.getResponse();
     }
 
-    public ExecutorService getExecutor() {
+    public ListeningExecutorService getExecutor() {
         return this.executor;
     }
 }

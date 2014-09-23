@@ -15,15 +15,18 @@ public class Synchronous {
         Stopwatch watch = new Stopwatch();
 
         watch.start();
-        client.calls.create("+14155551234", "+14155557890", new URL("http://www.twilio.com")).go();
+        client.calls.create("+14155551234", "+14155557890", new URL("http://www.twilio.com"))
+                    .build();
         watch.stop(); watch.debug("Create call 1");
 
         watch.start();
-        client.calls.create("+14155551234", "+14155557890", new URL("http://www.twilio.com")).go();
+        client.calls.create("+14155551234", "+14155557890", new URL("http://www.twilio.com"))
+                    .build();
         watch.stop(); watch.debug("Create call 2");
 
         watch.start();
-        client.calls.create("+14155551234", "+14155557890", new URL("http://www.twilio.com")).go();
+        client.calls.create("+14155551234", "+14155557890", new URL("http://www.twilio.com"))
+                    .build();
         watch.stop(); watch.debug("Create call 3");
     }
 }

@@ -1,10 +1,10 @@
 package com.twilio.sdk.factories;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 public abstract class Creator<T> {
     protected Factory factory;
@@ -13,12 +13,12 @@ public abstract class Creator<T> {
         this.factory = factory;
     }
 
-    public abstract T go();
+    public abstract T build();
 
-    public Future<T> async() {
+    public ListenableFuture<T> async() {
         return this.factory.getExecutor().submit(new Callable<T>() {
             public T call() {
-                return go();
+                return build();
             }
         });
     }

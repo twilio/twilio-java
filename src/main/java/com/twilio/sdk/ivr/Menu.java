@@ -1,5 +1,6 @@
 package com.twilio.sdk.ivr;
 
+import com.google.common.xml.XmlEscapers;
 import com.twilio.sdk.util.Pair;
 
 import java.util.HashMap;
@@ -89,11 +90,13 @@ public class Menu extends Action {
 
         if (this.getPreRoll() != null && !this.getPreRoll().isEmpty()) {
             result.append("\t\t<Say>");
-            result.append(this.getPreRoll());
+            result.append(XmlEscapers.xmlContentEscaper().escape(this.getPreRoll()));
             result.append("</Say>\n");
         }
 
         result.append("\t\t<Say>\n");
+
+        StringBuilder menuText = new StringBuilder();
 
         for (String key : order) {
             if (!menu.containsKey(key)) {
@@ -104,13 +107,15 @@ public class Menu extends Action {
             String prompt = pair.left;
 
             if (prompt != null && !prompt.isEmpty()) {
-                result.append("\t\t\tPress ");
-                result.append(key);
-                result.append(" ");
-                result.append(prompt);
-                result.append(".\n");
+                menuText.append("\t\t\tPress ");
+                menuText.append(key);
+                menuText.append(" ");
+                menuText.append(prompt);
+                menuText.append(".\n");
             }
         }
+
+        result.append(XmlEscapers.xmlContentEscaper().escape(menuText.toString()));
 
         result.append("\t\t<Say>\n");
 
@@ -131,7 +136,7 @@ public class Menu extends Action {
 
         if (this.getRetryMessage() != null && !this.getRetryMessage().isEmpty()) {
             result.append("\t<Say>");
-            result.append(this.getRetryMessage());
+            result.append(XmlEscapers.xmlContentEscaper().escape(this.getRetryMessage()));
             result.append("</Say>\n");
         }
 
@@ -190,7 +195,7 @@ public class Menu extends Action {
             result = result.substring(0, result.length() - 1);
         }
 
-        return result;
+        return XmlEscapers.xmlAttributeEscaper().escape(result);
     }
 
     public String getAction() {

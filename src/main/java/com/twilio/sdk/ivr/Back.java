@@ -1,5 +1,7 @@
 package com.twilio.sdk.ivr;
 
+import com.google.common.xml.XmlEscapers;
+
 import java.util.Map;
 
 public class Back extends Action {
@@ -30,7 +32,7 @@ public class Back extends Action {
 
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<Response>\n" +
-                "\t<Redirect>" + payload + "</Redirect>\n" +
+                "\t<Redirect>" + XmlEscapers.xmlContentEscaper().escape(payload) + "</Redirect>\n" +
                 "</Response>";
     }
 

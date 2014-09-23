@@ -1,5 +1,7 @@
 package com.twilio.sdk.ivr;
 
+import com.google.common.xml.XmlEscapers;
+
 import java.util.Map;
 
 public class Dial extends Action {
@@ -14,7 +16,7 @@ public class Dial extends Action {
     public String execute(Map<String, String> context) {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                "<Response>\n" +
-                    "\t<Dial>" + this.number + "</Dial>\n" +
+                    "\t<Dial>" + XmlEscapers.xmlAttributeEscaper().escape(this.number) + "</Dial>\n" +
                 "</Response>";
     }
 }

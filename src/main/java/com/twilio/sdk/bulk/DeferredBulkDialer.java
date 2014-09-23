@@ -3,8 +3,7 @@ package com.twilio.sdk.bulk;
 import com.twilio.sdk.factories.CallFactory;
 import com.twilio.sdk.resources.Call;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -67,5 +66,15 @@ public class DeferredBulkDialer implements BulkDialer {
         for (String key : results.keySet()) {
             get(key);
         }
+    }
+
+    @Override
+    public Iterator<Call> iterator() {
+        List<Call> calls = new ArrayList<Call>();
+        for (String key : results.keySet()) {
+            calls.add(get(key));
+        }
+
+        return calls.iterator();
     }
 }

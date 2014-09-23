@@ -5,7 +5,12 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 public class CallFactory extends Factory {
 
@@ -19,6 +24,24 @@ public class CallFactory extends Factory {
 
     public CallUpdater update() {
         return new CallUpdater(this);
+    }
+
+    public CallLocator find() { return new CallLocator(this); }
+
+    public Call get(final String sid) {
+        try {
+            return new Call("+14155551234", "+14155555551", new URL("http://www.twilio.com"), "Sample Call #1");
+        } catch (MalformedURLException e) {
+            return null;
+        }
+    }
+
+    public Future<Call> getAsync(final String sid) {
+        return this.getExecutor().submit(new Callable<Call>() {
+            public Call call() {
+                return get(sid);
+            }
+        });
     }
 
     public static class CallCreator extends Creator<Call> {
@@ -81,8 +104,50 @@ public class CallFactory extends Factory {
             response.setPayload(updatedCall);
             request.setResponse(response);
 
-            Response actualResponse = this.factory.makeRequest(request);
+            Response actualResponse = this.makeRequest(request);
             return (Call)actualResponse.getPayload();
+        }
+    }
+
+    public static class CallLocator extends Locator<Call> {
+        protected String friendlyName;
+
+        public CallLocator(Factory factory) {
+            super(factory);
+        }
+
+        @Override
+        public List<Call> go() {
+            Request request = new Request();
+            Response response = new Response();
+            List<Call> callList = new ArrayList<Call>();
+            try {
+                if (friendlyName == null || "Sample Call #1".equals(friendlyName)) {
+                    callList.add(new Call("+14155551234", "+14155555551", new URL("http://www.twilio.com"), "Sample Call #1"));
+                }
+
+                if (friendlyName == null || "Sample Call #2".equals(friendlyName)) {
+                    callList.add(new Call("+14155554567", "+14155555552", new URL("http://www.twilio.com"), "Sample Call #2"));
+                }
+
+                if (friendlyName == null || "Sample Call #3".equals(friendlyName)) {
+                    callList.add(new Call("+14155557890", "+14155555553", new URL("http://www.twilio.com"), "Sample Call #3"));
+                }
+            } catch(MalformedURLException e) {
+                // Ignore
+            }
+
+            response.setPayload(callList);
+            request.setResponse(response);
+
+            Response actualResponse = this.makeRequest(request);
+
+            return (List<Call>)actualResponse.getPayload();
+        }
+
+        public CallLocator byFriendlyName(String friendlyName) {
+            this.friendlyName = friendlyName;
+            return this;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.twilio.sdk.numbers;
 
+import com.twilio.sdk.clients.TwilioRestClient;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +11,9 @@ public class PhoneNumberGroupTest {
 
     @Before
     public void setUp() throws Exception {
-        group = new PhoneNumberGroup();
+        TwilioRestClient client = new TwilioRestClient("AC123", "AUTH");
+
+        group = new PhoneNumberGroup(client);
         group.add("+14155551234");
         group.add("+14155554567");
         group.add("+14155557890");

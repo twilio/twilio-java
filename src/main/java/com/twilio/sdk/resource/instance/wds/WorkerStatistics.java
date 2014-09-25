@@ -17,6 +17,8 @@ public class WorkerStatistics extends InstanceResource<TwilioWdsClient> {
 
 	private static final String CUMULATIVE_PROPERTY = "cumulative";
 
+	private static final String WORKER_SID_PROPERTY = "worker_sid";
+
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 
 	/**
@@ -47,7 +49,7 @@ public class WorkerStatistics extends InstanceResource<TwilioWdsClient> {
 			throw new IllegalArgumentException("The workerSid for a WorkerStatistics cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
-		setProperty(SID_PROPERTY, workerSid);
+		setProperty(WORKER_SID_PROPERTY, workerSid);
 		this.filters = filters;
 	}
 
@@ -110,15 +112,6 @@ public class WorkerStatistics extends InstanceResource<TwilioWdsClient> {
 	}
 
 	/**
-	 * Gets the sid.
-	 *
-	 * @return the sid
-	 */
-	public String getSid() {
-		return getProperty(SID_PROPERTY);
-	}
-
-	/**
 	 * Get the start time.
 	 *
 	 * @return the start time
@@ -137,6 +130,15 @@ public class WorkerStatistics extends InstanceResource<TwilioWdsClient> {
 	}
 
 	/**
+	 * Gets the worker's sid.
+	 *
+	 * @return the worker's sid
+	 */
+	public String getWorkerSid() {
+		return getProperty(WORKER_SID_PROPERTY);
+	}
+
+	/**
 	 * Gets the workspace sid.
 	 *
 	 * @return the workspace sid
@@ -148,7 +150,7 @@ public class WorkerStatistics extends InstanceResource<TwilioWdsClient> {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioWdsClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
-		       getWorkspaceSid() + "Statistics/Workers/" + getSid();
+		       getWorkspaceSid() + "Statistics/Workers/" + getWorkerSid();
 	}
 
 	private Map<String, Object> getCumulative() {

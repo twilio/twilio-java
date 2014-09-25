@@ -3,17 +3,13 @@ package com.twilio.sdk.resource.instance.wds;
 import com.twilio.sdk.TwilioWdsClient;
 import com.twilio.sdk.resource.InstanceResource;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
- * Statistics about task distribution.
+ * Statistics about {@link com.twilio.sdk.resource.instance.wds.Workflow}
  */
-public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
+public class WorkflowStatistics extends InstanceResource<TwilioWdsClient> {
 
 	private static final String CUMULATIVE_PROPERTY = "cumulative";
 
@@ -21,62 +17,40 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 
 	private static final String TASKS_BY_STATUS_PROPERTY = "tasks_by_status";
 
-	private static final String TASK_QUEUE_SID_PROPERTY = "task_queue_sid";
+	private static final String WORKFLOW_SID_PROPERTY = "workflow_sid";
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 
 	/**
-	 * Instantiates a queue statistics.
+	 * Instantiates a workflow statistics.
 	 *
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
-	 * @param queueSid the queue sid
+	 * @param workflowSid the workflow sid
 	 */
-	public QueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid) {
-		this(client, workspaceSid, queueSid, null);
+	public WorkflowStatistics(final TwilioWdsClient client, final String workspaceSid, final String workflowSid) {
+		this(client, workspaceSid, workflowSid, null);
 	}
 
 	/**
-	 * Instantiates a queue statistics.
+	 * Instantiates a workflow statistics.
 	 *
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
-	 * @param queueSid the queue sid
+	 * @param workflowSid the workflow sid
 	 */
-	public QueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid,
-	                       final Map<String, String> filters) {
+	public WorkflowStatistics(final TwilioWdsClient client, final String workspaceSid, final String workflowSid,
+	                          final Map<String, String> filters) {
 		super(client);
 		if (workspaceSid == null || "".equals(workspaceSid)) {
-			throw new IllegalArgumentException("The workspaceSid for a QueueStatistics cannot be null");
+			throw new IllegalArgumentException("The workspaceSid for a WorkflowStatistics cannot be null");
 		}
-		if (queueSid == null || "".equals(queueSid)) {
-			throw new IllegalArgumentException("The queueSid for a QueueStatistics cannot be null");
+		if (workflowSid == null || "".equals(workflowSid)) {
+			throw new IllegalArgumentException("The workflowSid for a WorkflowStatistics cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
-		setProperty(TASK_QUEUE_SID_PROPERTY, queueSid);
+		setProperty(WORKFLOW_SID_PROPERTY, workflowSid);
 		this.filters = filters;
-	}
-
-	/**
-	 * Get the activity statistics.
-	 *
-	 * @return the activity statistics
-	 */
-	public Set<ActivityStatistic> getActivityStatistics() {
-		try {
-			List<Map<String, Object>> props = (List<Map<String, Object>>) getRealtime().get("activity_statistics");
-
-			Set<ActivityStatistic> activityStatistics = new HashSet<ActivityStatistic>();
-
-			for (Map<String, Object> prop : props) {
-				ActivityStatistic activityStatistic = mapToActivityStatistic(prop);
-				activityStatistics.add(activityStatistic);
-			}
-
-			return Collections.unmodifiableSet(activityStatistics);
-		} catch (IllegalArgumentException e) {
-			return null;
-		}
 	}
 
 	/**
@@ -142,15 +116,6 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	public Integer getPendingTasks() {
 		Map<String, Object> tasksByStatus = (Map<String, Object>) getRealtime().get(TASKS_BY_STATUS_PROPERTY);
 		return (Integer) tasksByStatus.get("pending");
-	}
-
-	/**
-	 * Gets the queue's sid.
-	 *
-	 * @return the queue's sid
-	 */
-	public String getQueueSid() {
-		return getProperty(TASK_QUEUE_SID_PROPERTY);
 	}
 
 	/**
@@ -227,21 +192,12 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	}
 
 	/**
-	 * Get the total number of available workers.
+	 * Get the number of tasks that timed out in the workflow.
 	 *
-	 * @return the total number of available workers
+	 * @return the number of tasks that timed out in the workflow
 	 */
-	public Integer getTotalAvailableWorkers() {
-		return (Integer) getRealtime().get("total_available_workers");
-	}
-
-	/**
-	 * Get the total number of eligible workers.
-	 *
-	 * @return the total number of eligible workers
-	 */
-	public Integer getTotalEligibleWorkers() {
-		return (Integer) getRealtime().get("total_eligible_workers");
+	public Integer getTasksTimedOutInWorkflow() {
+		return (Integer) getCumulative().get("tasks_timed_out_in_workflow");
 	}
 
 	/**
@@ -251,6 +207,15 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	 */
 	public Integer getTotalTasks() {
 		return (Integer) getRealtime().get("total_tasks");
+	}
+
+	/**
+	 * Gets the workflow's sid.
+	 *
+	 * @return the workflow's sid
+	 */
+	public String getWorkflowSid() {
+		return getProperty(WORKFLOW_SID_PROPERTY);
 	}
 
 	/**
@@ -265,7 +230,7 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioWdsClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
-		       getWorkspaceSid() + "Statistics/TaskQueues/" + getQueueSid();
+		       getWorkspaceSid() + "Statistics/Workflows/" + getWorkflowSid();
 	}
 
 	private Map<String, Object> getCumulative() {
@@ -274,21 +239,5 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 
 	private Map<String, Object> getRealtime() {
 		return (Map<String, Object>) getObject(REALTIME_PROPERTY);
-	}
-
-	private ActivityStatistic mapToActivityStatistic(final Map<String, Object> data) {
-		String sid;
-		String friendlyName;
-		Integer workers;
-
-		try {
-			sid = (String) data.get(SID_PROPERTY);
-			friendlyName = (String) data.get(ActivityStatistic.FRIENDLY_NAME_PROPERTY);
-			workers = (Integer) data.get(ActivityStatistic.WORKERS_PROPERTY);
-		} catch (Exception e) {
-			throw new IllegalStateException("An Activity Statistic contained improperly formatted data.", e);
-		}
-
-		return new ActivityStatistic(sid, friendlyName, workers);
 	}
 }

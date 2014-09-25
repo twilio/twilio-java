@@ -36,6 +36,7 @@ public class WorkersStatistics extends InstanceResource<TwilioWdsClient> {
 	 *
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
+	 * @param filters the filters
 	 */
 	public WorkersStatistics(final TwilioWdsClient client, final String workspaceSid,
 	                         final Map<String, String> filters) {

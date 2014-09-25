@@ -42,6 +42,7 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
 	 * @param queueSid the queue sid
+	 * @param filters the filters
 	 */
 	public QueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid,
 	                       final Map<String, String> filters) {

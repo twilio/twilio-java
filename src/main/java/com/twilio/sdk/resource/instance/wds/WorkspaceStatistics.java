@@ -3,13 +3,17 @@ package com.twilio.sdk.resource.instance.wds;
 import com.twilio.sdk.TwilioWdsClient;
 import com.twilio.sdk.resource.InstanceResource;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
- * Statistics about {@link com.twilio.sdk.resource.instance.wds.Workflow}
+ * Statistics about {@link com.twilio.sdk.resource.instance.wds.Workspace}
  */
-public class WorkflowStatistics extends InstanceResource<TwilioWdsClient> {
+public class WorkspaceStatistics extends InstanceResource<TwilioWdsClient> {
 
 	private static final String CUMULATIVE_PROPERTY = "cumulative";
 
@@ -17,41 +21,55 @@ public class WorkflowStatistics extends InstanceResource<TwilioWdsClient> {
 
 	private static final String TASKS_BY_STATUS_PROPERTY = "tasks_by_status";
 
-	private static final String WORKFLOW_SID_PROPERTY = "workflow_sid";
-
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 
 	/**
-	 * Instantiates a workflow statistics.
+	 * Instantiates a workspace statistics.
 	 *
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
-	 * @param workflowSid the workflow sid
 	 */
-	public WorkflowStatistics(final TwilioWdsClient client, final String workspaceSid, final String workflowSid) {
-		this(client, workspaceSid, workflowSid, null);
+	public WorkspaceStatistics(final TwilioWdsClient client, final String workspaceSid) {
+		this(client, workspaceSid, null);
 	}
 
 	/**
-	 * Instantiates a workflow statistics.
+	 * Instantiates a workspace statistics.
 	 *
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
-	 * @param workflowSid the workflow sid
 	 * @param filters the filters
 	 */
-	public WorkflowStatistics(final TwilioWdsClient client, final String workspaceSid, final String workflowSid,
-	                          final Map<String, String> filters) {
+	public WorkspaceStatistics(final TwilioWdsClient client, final String workspaceSid,
+	                           final Map<String, String> filters) {
 		super(client);
 		if (workspaceSid == null || "".equals(workspaceSid)) {
-			throw new IllegalArgumentException("The workspaceSid for a WorkflowStatistics cannot be null");
-		}
-		if (workflowSid == null || "".equals(workflowSid)) {
-			throw new IllegalArgumentException("The workflowSid for a WorkflowStatistics cannot be null");
+			throw new IllegalArgumentException("The workspaceSid for a WorkspaceStatistics cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
-		setProperty(WORKFLOW_SID_PROPERTY, workflowSid);
 		this.filters = filters;
+	}
+
+	/**
+	 * Get the activity statistics.
+	 *
+	 * @return the activity statistics
+	 */
+	public Set<ActivityStatistic> getActivityStatistics() {
+		try {
+			List<Map<String, Object>> props = (List<Map<String, Object>>) getRealtime().get("activity_statistics");
+
+			Set<ActivityStatistic> activityStatistics = new HashSet<ActivityStatistic>();
+
+			for (Map<String, Object> prop : props) {
+				ActivityStatistic activityStatistic = mapToActivityStatistic(prop);
+				activityStatistics.add(activityStatistic);
+			}
+
+			return Collections.unmodifiableSet(activityStatistics);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -175,12 +193,12 @@ public class WorkflowStatistics extends InstanceResource<TwilioWdsClient> {
 	}
 
 	/**
-	 * Get the number of tasks entered.
+	 * Get the number of tasks created.
 	 *
-	 * @return the number of tasks entered
+	 * @return the number of tasks created
 	 */
-	public Integer getTasksEntered() {
-		return (Integer) getCumulative().get("tasks_entered");
+	public Integer getTasksCreated() {
+		return (Integer) getCumulative().get("tasks_created");
 	}
 
 	/**
@@ -211,12 +229,12 @@ public class WorkflowStatistics extends InstanceResource<TwilioWdsClient> {
 	}
 
 	/**
-	 * Gets the workflow's sid.
+	 * Get the total number of workers.
 	 *
-	 * @return the workflow's sid
+	 * @return the total number of workers
 	 */
-	public String getWorkflowSid() {
-		return getProperty(WORKFLOW_SID_PROPERTY);
+	public Integer getTotalWorkers() {
+		return (Integer) getRealtime().get("total_workers");
 	}
 
 	/**
@@ -231,7 +249,7 @@ public class WorkflowStatistics extends InstanceResource<TwilioWdsClient> {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioWdsClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
-		       getWorkspaceSid() + "Statistics/Workflows/" + getWorkflowSid();
+		       getWorkspaceSid() + "Statistics";
 	}
 
 	private Map<String, Object> getCumulative() {
@@ -240,5 +258,21 @@ public class WorkflowStatistics extends InstanceResource<TwilioWdsClient> {
 
 	private Map<String, Object> getRealtime() {
 		return (Map<String, Object>) getObject(REALTIME_PROPERTY);
+	}
+
+	private ActivityStatistic mapToActivityStatistic(final Map<String, Object> data) {
+		String sid;
+		String friendlyName;
+		Integer workers;
+
+		try {
+			sid = (String) data.get(SID_PROPERTY);
+			friendlyName = (String) data.get(ActivityStatistic.FRIENDLY_NAME_PROPERTY);
+			workers = (Integer) data.get(ActivityStatistic.WORKERS_PROPERTY);
+		} catch (Exception e) {
+			throw new IllegalStateException("An Activity Statistic contained improperly formatted data.", e);
+		}
+
+		return new ActivityStatistic(sid, friendlyName, workers);
 	}
 }

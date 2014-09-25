@@ -17,6 +17,7 @@ import com.twilio.sdk.resource.instance.wds.WorkersStatistics;
 import com.twilio.sdk.resource.instance.wds.Workflow;
 import com.twilio.sdk.resource.instance.wds.WorkflowStatistics;
 import com.twilio.sdk.resource.instance.wds.Workspace;
+import com.twilio.sdk.resource.instance.wds.WorkspaceStatistics;
 import com.twilio.sdk.resource.list.wds.ActivityList;
 import com.twilio.sdk.resource.list.wds.QueueListStatistics;
 import com.twilio.sdk.resource.list.wds.ReservationList;
@@ -571,6 +572,29 @@ public class TwilioWdsClient extends TwilioClient {
 		WorkspaceList list = new WorkspaceList(this, filters);
 		list.setRequestAccountSid(getAccountSid());
 		return list;
+	}
+
+	/**
+	 * Get workspace statistics.
+	 *
+	 * @param workspaceSid The 34 character sid starting with WS
+	 * @return queues statistics
+	 */
+	public WorkspaceStatistics getWorkspaceStatistics(final String workspaceSid) {
+		return getWorkspaceStatistics(workspaceSid, null);
+	}
+
+	/**
+	 * Get workspace statistics.
+	 *
+	 * @param workspaceSid The 34 character sid starting with WS
+	 * @param filters the filters
+	 * @return queues statistics
+	 */
+	public WorkspaceStatistics getWorkspaceStatistics(final String workspaceSid, final Map<String, String> filters) {
+		WorkspaceStatistics workspaceStatistics = new WorkspaceStatistics(this, workspaceSid, filters);
+		workspaceStatistics.setRequestAccountSid(getAccountSid());
+		return workspaceStatistics;
 	}
 
 }

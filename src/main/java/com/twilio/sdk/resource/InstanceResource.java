@@ -38,7 +38,8 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 */
 	public InstanceResource(final C client) {
 		super(client);
-		this.properties = new HashMap<String, Object>();
+		properties = new HashMap<String, Object>(0);
+		filters = new HashMap<String, String>(0);
 	}
 
 	/**
@@ -47,19 +48,33 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public InstanceResource(final C client,
-			Map<String, Object> properties) {
+	public InstanceResource(final C client, final Map<String, Object> properties) {
 		super(client);
 		this.properties = new HashMap<String, Object>(properties);
-		this.setLoaded(true);
+		filters = new HashMap<String, String>(0);
+		setLoaded(true);
 	}
 
-	private Object getAndLoadIfNecessary(String name) {
+	/**
+	 * Instantiates a new instance resource.
+	 *
+	 * @param client the client
+	 * @param properties the properties
+	 * @param filters the filters
+	 */
+	public InstanceResource(final C client, final Map<String, Object> properties, final Map<String, String> filters) {
+		super(client);
+		this.properties = new HashMap<String, Object>(properties);
+		this.filters = new HashMap<String, String>(filters);
+		setLoaded(true);
+	}
+
+	private Object getAndLoadIfNecessary(final String name) {
 		Object prop = properties.get(name);
 
-		if (prop == null && !this.isLoaded()) {
+		if (prop == null && !isLoaded()) {
 			try {
-				this.load(new HashMap<String, String>());
+				load(filters);
 				return properties.get(name);
 			} catch (TwilioRestException e) {
 				throw new RuntimeException(e);

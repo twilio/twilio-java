@@ -39,7 +39,11 @@ public class QueueListStatistics extends ListResource<QueueStatistics, TwilioWds
 
 	@Override
 	protected QueueStatistics makeNew(final TwilioWdsClient client, final Map<String, Object> params) {
-		return new QueueStatistics(client, params);
+		String queueSid = null;
+		if (params != null) {
+			queueSid = (String) params.get("task_queue_sid");
+		}
+		return new QueueStatistics(client, workspaceSid, queueSid);
 	}
 
 	@Override

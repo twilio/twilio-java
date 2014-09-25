@@ -24,32 +24,25 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 
 	/**
-	 * Instantiates a queue.
-	 *
-	 * @param client the client
-	 */
-	public QueueStatistics(final TwilioWdsClient client) {
-		super(client);
-	}
-
-	/**
-	 * Instantiates a queue.
-	 *
-	 * @param client the client
-	 * @param properties the properties
-	 */
-	public QueueStatistics(final TwilioWdsClient client, final Map<String, Object> properties) {
-		super(client, properties);
-	}
-
-	/**
-	 * Instantiates a queue.
+	 * Instantiates a queue statistics.
 	 *
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
 	 * @param queueSid the queue sid
 	 */
 	public QueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid) {
+		this(client, workspaceSid, queueSid, null);
+	}
+
+	/**
+	 * Instantiates a queue statistics.
+	 *
+	 * @param client the client
+	 * @param workspaceSid the workspace sid
+	 * @param queueSid the queue sid
+	 */
+	public QueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid,
+	                       final Map<String, String> filters) {
 		super(client);
 		if (workspaceSid == null || "".equals(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a QueueStatistics cannot be null");
@@ -59,6 +52,7 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(SID_PROPERTY, queueSid);
+		this.filters = filters;
 	}
 
 	/**
@@ -280,7 +274,7 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 		return (Map<String, Object>) getObject(REALTIME_PROPERTY);
 	}
 
-	private ActivityStatistic mapToActivityStatistic(Map<String, Object> data) {
+	private ActivityStatistic mapToActivityStatistic(final Map<String, Object> data) {
 		String sid;
 		String friendlyName;
 		Integer workers;

@@ -46,12 +46,11 @@ public abstract class Resource<C extends TwilioClient> {
 	 * @throws TwilioRestException the twilio rest exception
 	 */
 	protected void load(Map<String, String> params) throws TwilioRestException {
-		String path = this.getResourceLocation();
-		TwilioRestResponse response = this.getClient().safeRequest(path, "GET",
-				params);
+		String path = getResourceLocation();
+		TwilioRestResponse response = getClient().safeRequest(path, "GET", params);
 
-		this.parseResponse(response);
-		this.loaded = true;
+		parseResponse(response);
+		loaded = true;
 	}
 
 	/**

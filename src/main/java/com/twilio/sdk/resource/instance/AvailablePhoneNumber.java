@@ -127,5 +127,14 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getIsoCountry() {
 		return this.getProperty("iso_country");
 	}
+
+	/**
+	 * Gets the address requirements.
+	 *
+	 * @return the address requirements
+	 */
+	public String getAddressRequirements() {
+		return this.getProperty("address_requirements");
+	}
 }
 

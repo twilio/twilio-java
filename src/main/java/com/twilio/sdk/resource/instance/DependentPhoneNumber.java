@@ -1,8 +1,6 @@
 package com.twilio.sdk.resource.instance;
 
 import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 
 import java.text.ParseException;
@@ -12,87 +10,67 @@ import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class IncomingPhoneNumber.
+ * The Class DependentPhoneNumber.
  *
- * For more information see <a
- * href="https://www.twilio.com/docs/api/rest/incoming-phone-numbers"
- * >https://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/address">https://www.twilio.com/docs/api/rest/address</a>
  */
-public class IncomingPhoneNumber extends InstanceResource {
+public class DependentPhoneNumber extends InstanceResource {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
 
 	/**
-	 * Instantiates a new incoming phone number.
+	 * Instantiates a new dependent phone number.
 	 *
-	 * @param client
-	 *            the client
+	 * @param client the client
 	 */
-	public IncomingPhoneNumber(TwilioRestClient client) {
+	public DependentPhoneNumber(TwilioRestClient client) {
 		super(client);
+
+		//Object ac = properties.get("account_sid");
+		//if (ac != null && ac instanceof String) {
+		//    String accountSid = (String) ac;
+		//    this.setRequestAccountSid(accountSid);
+		//}
 	}
 
 	/**
-	 * Instantiates a new incoming phone number.
+	 * Instantiates a new dependent phone number.
 	 *
-	 * @param client
-	 *            the client
-	 * @param sid
-	 *            the sid
+	 * @param client the client
+	 * @param sid the sid
 	 */
-	public IncomingPhoneNumber(TwilioRestClient client, String sid) {
+	public DependentPhoneNumber(TwilioRestClient client, String sid) {
 		super(client);
 		if (sid == null) {
-            throw new IllegalStateException("The Sid for an IncomingPhoneNumber can not be null");
-        }
+			throw new IllegalStateException("The Sid for a Conference can not be null");
+		}
 		this.setProperty(SID_PROPERTY, sid);
 	}
 
 	/**
-	 * Instantiates a new incoming phone number.
+	 * Instantiates a new conference.
 	 *
-	 * @param client
-	 *            the client
-	 * @param properties
-	 *            the properties
+	 * @param client the client
+	 * @param properties the properties
 	 */
-	public IncomingPhoneNumber(TwilioRestClient client,
-			Map<String, Object> properties) {
+	public DependentPhoneNumber(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
+	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/IncomingPhoneNumbers/"
-				+ this.getSid() + ".json";
-	}
-
-	/**
-	 * Deprovision this IncomingPhoneNumber. This will remove it from your
-	 * account.
-	 *
-	 * @throws TwilioRestException
-	 *             if there is an error in the request
-	 * @return true, if successful
-	 *
-	 */
-	public boolean delete() throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "DELETE", (Map) null);
-
-		return !response.isError();
+				+ this.getRequestAccountSid() + "/Addresses/" + this.getSid() + ".json";
 	}
 
 	/*
 	 * Property getters
 	 */
+
 	/**
 	 * Gets the sid.
 	 *
@@ -130,15 +108,6 @@ public class IncomingPhoneNumber extends InstanceResource {
 		} catch (ParseException e) {
 			return null;
 		}
-	}
-
-	/**
-	 * Gets the friendly name.
-	 *
-	 * @return the friendly name
-	 */
-	public String getFriendlyName() {
-		return this.getProperty("friendly_name");
 	}
 
 	/**

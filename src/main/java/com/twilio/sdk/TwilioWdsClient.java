@@ -7,6 +7,7 @@ import com.twilio.sdk.resource.factory.wds.WorkerFactory;
 import com.twilio.sdk.resource.factory.wds.WorkflowFactory;
 import com.twilio.sdk.resource.factory.wds.WorkspaceFactory;
 import com.twilio.sdk.resource.instance.wds.Activity;
+import com.twilio.sdk.resource.instance.wds.QueueStatistics;
 import com.twilio.sdk.resource.instance.wds.Reservation;
 import com.twilio.sdk.resource.instance.wds.Task;
 import com.twilio.sdk.resource.instance.wds.TaskQueue;
@@ -14,6 +15,7 @@ import com.twilio.sdk.resource.instance.wds.Worker;
 import com.twilio.sdk.resource.instance.wds.Workflow;
 import com.twilio.sdk.resource.instance.wds.Workspace;
 import com.twilio.sdk.resource.list.wds.ActivityList;
+import com.twilio.sdk.resource.list.wds.QueueListStatistics;
 import com.twilio.sdk.resource.list.wds.ReservationList;
 import com.twilio.sdk.resource.list.wds.TaskList;
 import com.twilio.sdk.resource.list.wds.TaskQueueList;
@@ -28,6 +30,8 @@ import java.util.Map;
  * The client class that access http://wds.twilio.com.
  */
 public class TwilioWdsClient extends TwilioClient {
+
+	public static final String DEFAULT_VERSION = "v1";
 
 	public TwilioWdsClient(final String accountSid, final String authToken) {
 		super(accountSid, authToken, "http://wds.twilio.com");
@@ -305,6 +309,31 @@ public class TwilioWdsClient extends TwilioClient {
 		TaskQueueList list = new TaskQueueList(this, workspaceSid, filters);
 		list.setRequestAccountSid(getAccountSid());
 		return list;
+	}
+
+	/**
+	 * Get queues statistics.
+	 *
+	 * @param workspaceSid The 34 character sid starting with WS
+	 * @return queues statistics
+	 */
+	public QueueListStatistics getQueuesStatistics(final String workspaceSid) {
+		QueueListStatistics list = new QueueListStatistics(this, workspaceSid);
+		list.setRequestAccountSid(getAccountSid());
+		return list;
+	}
+
+	/**
+	 * Get a queue statistics.
+	 *
+	 * @param workspaceSid The 34 character sid starting with WS
+	 * @param queueSid The 34 character sid starting with WQ
+	 * @return queue statistics
+	 */
+	public QueueStatistics getQueueStatistics(final String workspaceSid, final String queueSid) {
+		QueueStatistics queueStatistics = new QueueStatistics(this, workspaceSid, queueSid);
+		queueStatistics.setRequestAccountSid(getAccountSid());
+		return queueStatistics;
 	}
 
 	/**

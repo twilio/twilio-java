@@ -11,7 +11,7 @@ import java.net.URL;
 public class BulkWithPhoneNumberGroup {
 
     public static void main(String[] args) throws MalformedURLException {
-        TwilioRestClient client = new TwilioRestClient("AC123", "AUTH");
+        TwilioRestClient client = TwilioRestClient.mock();
 
         PhoneNumberGroup group = new PhoneNumberGroup(client);
         group.add("+14155551234");

@@ -8,7 +8,7 @@ import java.util.List;
 public class Querying {
 
     public static void main(String[] args) {
-        TwilioRestClient client = new TwilioRestClient("AC123", "AUTH");
+        TwilioRestClient client = TwilioRestClient.mock();
 
         List<Call> calls = client.calls.find()
                                        .build();

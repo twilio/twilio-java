@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 public class Asynchronous {
 
     public static void main(String[] args) throws MalformedURLException, ExecutionException, InterruptedException {
-        TwilioRestClient client = new TwilioRestClient("AC123", "Auth");
+        TwilioRestClient client = TwilioRestClient.mock(200, 1000);
 
         Stopwatch watch = new Stopwatch();
 

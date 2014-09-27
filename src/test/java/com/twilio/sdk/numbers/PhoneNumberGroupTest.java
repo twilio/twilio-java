@@ -11,7 +11,7 @@ public class PhoneNumberGroupTest {
 
     @Before
     public void setUp() throws Exception {
-        TwilioRestClient client = new TwilioRestClient("AC123", "AUTH");
+        TwilioRestClient client = TwilioRestClient.mock();
 
         group = new PhoneNumberGroup(client);
         group.add("+14155551234");

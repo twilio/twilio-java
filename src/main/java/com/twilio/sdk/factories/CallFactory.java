@@ -1,7 +1,6 @@
 package com.twilio.sdk.factories;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
@@ -12,7 +11,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 public class CallFactory extends Factory {
 
@@ -72,13 +70,6 @@ public class CallFactory extends Factory {
             Call call = new Call(this.to, this.from, this.url, this.friendlyName);
             response.setPayload(call);
             request.setResponse(response);
-
-            // Simulate network delay
-            try {
-                Thread.sleep(1000L);
-            } catch(InterruptedException e) {
-                // ignore
-            }
 
             Response actualResponse = this.makeRequest(request);
 

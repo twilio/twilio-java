@@ -11,7 +11,7 @@ import java.net.URL;
 public class Bulk {
 
     public static void main(String[] args) throws MalformedURLException {
-        TwilioRestClient client = new TwilioRestClient("AC123", "Auth");
+        TwilioRestClient client = TwilioRestClient.mock();
 
         Stopwatch immediateWatch = new Stopwatch();
 

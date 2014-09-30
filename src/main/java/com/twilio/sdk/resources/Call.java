@@ -10,31 +10,31 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Call {
-    private String accountSid;
-    private String annotation;
-    private String answeredBy;
-    private String apiVersion;
-    private String callerName;
-    private String dateCreated;
-    private String dateUpdated;
-    private String direction;
-    private Integer duration;
-    private String endTime;
-    private String forwardedFrom;
-    private String from;
-    private String fromFormatted;
-    private String groupSid;
-    private String parentCallSid;
-    private String phoneNumberSid;
-    private Double price;
-    private String priceUnit;
-    private String sid;
-    private String startTime;
-    private String status;
-    private Map<String, String> subresourceUris;
-    private String to;
-    private String toFormatted;
-    private String uri;
+    private final String accountSid;
+    private final String annotation;
+    private final String answeredBy;
+    private final String apiVersion;
+    private final String callerName;
+    private final String dateCreated;
+    private final String dateUpdated;
+    private final String direction;
+    private final Integer duration;
+    private final String endTime;
+    private final String forwardedFrom;
+    private final String from;
+    private final String fromFormatted;
+    private final String groupSid;
+    private final String parentCallSid;
+    private final String phoneNumberSid;
+    private final Double price;
+    private final String priceUnit;
+    private final String sid;
+    private final String startTime;
+    private final String status;
+    private final Map<String, String> subresourceUris;
+    private final String to;
+    private final String toFormatted;
+    private final String uri;
 
     @JsonCreator
     private Call(@JsonProperty("account_sid")       String accountSid,
@@ -93,6 +93,7 @@ public class Call {
     public static Call fromJson(String json) {
         ObjectMapper mapper = new ObjectMapper();
 
+        // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
         } catch (JsonMappingException e) {
@@ -104,103 +105,103 @@ public class Call {
         }
     }
 
-    public String getAccountSid() {
+    public final String getAccountSid() {
         return accountSid;
     }
 
-    public String getAnnotation() {
+    public final String getAnnotation() {
         return annotation;
     }
 
-    public String getAnsweredBy() {
+    public final String getAnsweredBy() {
         return answeredBy;
     }
 
-    public String getApiVersion() {
+    public final String getApiVersion() {
         return apiVersion;
     }
 
-    public String getCallerName() {
+    public final String getCallerName() {
         return callerName;
     }
 
-    public String getDateCreated() {
+    public final String getDateCreated() {
         return dateCreated;
     }
 
-    public String getDateUpdated() {
+    public final String getDateUpdated() {
         return dateUpdated;
     }
 
-    public String getDirection() {
+    public final String getDirection() {
         return direction;
     }
 
-    public Integer getDuration() {
+    public final Integer getDuration() {
         return duration != null ? duration : 0;
     }
 
-    public String getEndTime() {
+    public final String getEndTime() {
         return endTime;
     }
 
-    public String getForwardedFrom() {
+    public final String getForwardedFrom() {
         return forwardedFrom;
     }
 
-    public String getFrom() {
+    public final String getFrom() {
         return from;
     }
 
-    public String getFromFormatted() {
+    public final String getFromFormatted() {
         return fromFormatted;
     }
 
-    public String getGroupSid() {
+    public final String getGroupSid() {
         return groupSid;
     }
 
-    public String getParentCallSid() {
+    public final String getParentCallSid() {
         return parentCallSid;
     }
 
-    public String getPhoneNumberSid() {
+    public final String getPhoneNumberSid() {
         return phoneNumberSid;
     }
 
-    public Double getPrice() {
+    public final Double getPrice() {
         return price;
     }
 
-    public String getPriceUnit() {
+    public final String getPriceUnit() {
         return priceUnit;
     }
 
-    public String getSid() {
+    public final String getSid() {
         return sid;
     }
 
-    public String getStartTime() {
+    public final String getStartTime() {
         return startTime;
     }
 
-    public String getStatus() {
+    public final String getStatus() {
         return status;
     }
 
-    public Map<String, String> getSubresourceUris() {
+    public final Map<String, String> getSubresourceUris() {
         return subresourceUris;
     }
 
-    public String getTo() {
+    public final String getTo() {
         return to;
     }
 
-    public String getToFormatted() {
+    public final String getToFormatted() {
         return toFormatted;
     }
 
-    public String getUri() {
+    public final String getUri() {
         return uri;
     }
 }

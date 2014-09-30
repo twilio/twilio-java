@@ -2,14 +2,11 @@ package com.twilio.sdk.factories;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.ConsumableResponse;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 import org.junit.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -89,6 +86,45 @@ public class CallCreatorTest {
 
         assertCall(call);
     }
+
+    @Test
+    public void testCreateCallMoreSevereTransientError() throws MalformedURLException {
+        TwilioRestClient client = TwilioRestClient.mock(
+                // Serve 500 Error x 2 times
+                new ConsumableResponse("Internal Server Error", 500, 2),
+                // Return to normal operations
+                new ConsumableResponse(JSON, 201)
+        );
+
+        Call call = client.calls.create("+14155551234",
+                                        "+14155557890",
+                                        new URL("http://www.twilio.com"))
+                                .build();
+
+        assertCall(call);
+    }
+
+    @Test
+    public void testCreateCallTooSevereTransientError() throws MalformedURLException {
+        TwilioRestClient client = TwilioRestClient.mock(
+                // Serve 500 Error x 3 times
+                new ConsumableResponse("Internal Server Error", 500, 3),
+                // Return to normal operations
+                new ConsumableResponse(JSON, 201)
+        );
+
+        try {
+            client.calls.create("+14155551234",
+                                "+14155557890",
+                                new URL("http://www.twilio.com"))
+                        .build();
+            fail("Call creation should fail if the server fails 3 or more times");
+        } catch (Exception e) {
+            assertNotNull(e);
+        }
+    }
+
+
 
     @Test
     public void testCreateCallClientError() throws Exception {

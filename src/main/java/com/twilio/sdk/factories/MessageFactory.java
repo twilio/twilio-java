@@ -1,8 +1,6 @@
 package com.twilio.sdk.factories;
 
 import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Message;
 
 public class MessageFactory extends Factory {

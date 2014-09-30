@@ -5,11 +5,8 @@ import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
-import org.apache.commons.httpclient.URI;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 

@@ -4,7 +4,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
 
 public abstract class Updater<T> {
     protected Factory factory;

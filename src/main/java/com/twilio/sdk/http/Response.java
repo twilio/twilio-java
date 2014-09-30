@@ -1,13 +1,19 @@
 package com.twilio.sdk.http;
 
 public class Response {
-    private Object payload;
+    private String content;
+    private int statusCode;
 
-    public Object getPayload() {
-        return payload;
+    public Response(String content, int statusCode) {
+        this.content = content;
+        this.statusCode = statusCode;
     }
 
-    public void setPayload(Object payload) {
-        this.payload = payload;
+    public String getContent() {
+        return content;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
     }
 }

@@ -5,6 +5,7 @@ import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
+import org.apache.commons.httpclient.URI;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,11 +30,7 @@ public class CallFactory extends Factory {
     public CallLocator find() { return new CallLocator(this); }
 
     public Call get(final String sid) {
-        try {
-            return new Call("+14155551234", "+14155555551", new URL("http://www.twilio.com"), "Sample Call #1");
-        } catch (MalformedURLException e) {
-            return null;
-        }
+        return null;
     }
 
     public ListenableFuture<Call> getAsync(final String sid) {
@@ -65,15 +62,14 @@ public class CallFactory extends Factory {
 
         @Override
         public Call build() {
-            Request request = new Request();
-            Response response = new Response();
-            Call call = new Call(this.to, this.from, this.url, this.friendlyName);
-            response.setPayload(call);
-            request.setResponse(response);
+            Request request = new Request("POST", "/Accounts/{AccountSid}/Calls");
+            Response response = this.makeRequest(request);
 
-            Response actualResponse = this.makeRequest(request);
+            if (response.getStatusCode() != 201) {
+                throw new RuntimeException("Call creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            }
 
-            return (Call)actualResponse.getPayload();
+            return Call.fromJson(response.getContent());
         }
     }
 
@@ -91,15 +87,7 @@ public class CallFactory extends Factory {
 
         @Override
         public Call build(Call target) {
-            Request request = new Request();
-            Response response = new Response();
-            Call updatedCall = new Call(target.getTo(), target.getFrom(), target.getUrl(), this.friendlyName);
-
-            response.setPayload(updatedCall);
-            request.setResponse(response);
-
-            Response actualResponse = this.makeRequest(request);
-            return (Call)actualResponse.getPayload();
+            return null;
         }
     }
 
@@ -112,31 +100,7 @@ public class CallFactory extends Factory {
 
         @Override
         public List<Call> build() {
-            Request request = new Request();
-            Response response = new Response();
-            List<Call> callList = new ArrayList<Call>();
-            try {
-                if (friendlyName == null || "Sample Call #1".equals(friendlyName)) {
-                    callList.add(new Call("+14155551234", "+14155555551", new URL("http://www.twilio.com"), "Sample Call #1"));
-                }
-
-                if (friendlyName == null || "Sample Call #2".equals(friendlyName)) {
-                    callList.add(new Call("+14155554567", "+14155555552", new URL("http://www.twilio.com"), "Sample Call #2"));
-                }
-
-                if (friendlyName == null || "Sample Call #3".equals(friendlyName)) {
-                    callList.add(new Call("+14155557890", "+14155555553", new URL("http://www.twilio.com"), "Sample Call #3"));
-                }
-            } catch(MalformedURLException e) {
-                // Ignore
-            }
-
-            response.setPayload(callList);
-            request.setResponse(response);
-
-            Response actualResponse = this.makeRequest(request);
-
-            return (List<Call>)actualResponse.getPayload();
+            return null;
         }
 
         public CallLocator byFriendlyName(String friendlyName) {

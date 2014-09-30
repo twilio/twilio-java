@@ -15,7 +15,7 @@ public class Querying {
 
         System.out.println("All Calls");
         for (Call call : calls) {
-            System.out.println(call.getFriendlyName());
+            System.out.println(call.getSid());
         }
 
         calls = client.calls.find()
@@ -24,12 +24,12 @@ public class Querying {
 
         System.out.println("By FriendlyName");
         for (Call call : calls) {
-            System.out.println(call.getFriendlyName());
+            System.out.println(call.getSid());
         }
 
         Call call = client.calls.get("CA123");
 
         System.out.println("By Sid");
-        System.out.println(call.getFriendlyName());
+        System.out.println(call.getSid());
     }
 }

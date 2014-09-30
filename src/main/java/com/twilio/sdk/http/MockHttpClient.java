@@ -1,9 +1,17 @@
 package com.twilio.sdk.http;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MockHttpClient extends HttpClient {
     protected boolean withDelay = false;
     protected long delayLowerMillis;
     protected long delaySpreadMillis;
+    protected List<ConsumableResponse> responses;
+
+    public MockHttpClient() {
+        this.responses = new ArrayList<ConsumableResponse>();
+    }
 
     @Override
     public Response makeRequest(Request request) {
@@ -17,7 +25,21 @@ public class MockHttpClient extends HttpClient {
                 // ignore
             }
         }
-        return request.getResponse();
+
+        ConsumableResponse response;
+
+        if (this.responses.isEmpty()) {
+            response = new ConsumableResponse("Mock Response Not Found", 404);
+        } else {
+            response = this.responses.get(0);
+        }
+
+        response.consume();
+        if (response.isExhausted()) {
+            this.responses.remove(0);
+        }
+
+        return response;
     }
 
     public void setDelay(long lowerMillis, long upperMillis) {
@@ -28,5 +50,13 @@ public class MockHttpClient extends HttpClient {
 
     public void clearDelay() {
         this.withDelay = false;
+    }
+
+    public void setResponses(List<ConsumableResponse> responses) {
+        this.responses = responses;
+    }
+
+    public void addResponse(ConsumableResponse response) {
+        this.responses.add(response);
     }
 }

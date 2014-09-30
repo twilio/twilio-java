@@ -41,15 +41,7 @@ public class MessageFactory extends Factory {
 
         @Override
         public Message build() {
-            Request request = new Request();
-            Response response = new Response();
-            Message message = new Message(this.to, this.from, this.body, this.friendlyName);
-            response.setPayload(message);
-            request.setResponse(response);
-
-            Response actualResponse = this.factory.makeRequest(request);
-
-            return (Message)actualResponse.getPayload();
+            return null;
         }
     }
 
@@ -68,16 +60,7 @@ public class MessageFactory extends Factory {
 
         @Override
         public Message build(Message target) {
-            Request request = new Request();
-            Response response = new Response();
-            Message message = new Message(target.getTo(), target.getFrom(), target.getBody(), this.friendlyName);
-
-            response.setPayload(message);
-            request.setResponse(response);
-
-            Response actualResponse = this.makeRequest(request);
-
-            return (Message)actualResponse.getPayload();
+            return null;
         }
     }
 }

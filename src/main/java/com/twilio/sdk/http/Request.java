@@ -1,17 +1,28 @@
 package com.twilio.sdk.http;
 
+
 public class Request {
-    protected Response response;
+    protected String method;
+    protected String uri;
 
-    public Request() {
-
+    public Request(String method, String uri) {
+        this.method = method;
+        this.uri = uri;
     }
 
-    public Response getResponse() {
-        return response;
+    public String getMethod() {
+        return method;
     }
 
-    public void setResponse(Response response) {
-        this.response = response;
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 }

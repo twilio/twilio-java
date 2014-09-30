@@ -6,6 +6,8 @@ import com.twilio.sdk.factories.CallFactory;
 import com.twilio.sdk.factories.MessageFactory;
 import com.twilio.sdk.http.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 public class TwilioRestClient {
@@ -20,6 +22,14 @@ public class TwilioRestClient {
 
     public static TwilioRestClient mock() {
         return new TwilioRestClient("AC123", "AUTH", new MockHttpClient());
+    }
+
+    public static TwilioRestClient mock(ConsumableResponse... responses) {
+        TwilioRestClient result = mock();
+        for (ConsumableResponse response : responses) {
+            ((MockHttpClient)result.getHttpClient()).addResponse(response);
+        }
+        return result;
     }
 
     public static TwilioRestClient mock(long delayLowerMillis, long delayUpperMillis) {
@@ -53,7 +63,7 @@ public class TwilioRestClient {
 
 
     public Response makeRequest(Request request) {
-        return this.httpClient.makeRequest(request);
+        return this.httpClient.reliableRequest(request);
     }
 
     public ListeningExecutorService getExecutor() {

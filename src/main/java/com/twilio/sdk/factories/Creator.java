@@ -23,6 +23,14 @@ public abstract class Creator<T> {
         });
     }
 
+    protected Response reliableRequest(Request request) {
+        return this.factory.reliableRequest(request);
+    }
+
+    protected Response reliableRequest(Request request, int[] retryCodes, int retries, long delayMillis) {
+        return this.factory.reliableRequest(request, retryCodes, retries, delayMillis);
+    }
+
     protected Response makeRequest(Request request) {
         return this.factory.makeRequest(request);
     }

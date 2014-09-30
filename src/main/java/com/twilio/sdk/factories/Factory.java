@@ -2,6 +2,7 @@ package com.twilio.sdk.factories;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.http.HttpClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 
@@ -15,7 +16,15 @@ public class Factory {
         this.client = client;
     }
 
-    Response makeRequest(Request request) {
+    public Response reliableRequest(Request request) {
+        return this.client.reliableRequest(request);
+    }
+
+    public Response reliableRequest(Request request, int[] retryCodes, int retries, long delayMillis) {
+        return this.client.reliableRequest(request, retryCodes, retries, delayMillis);
+    }
+
+    public Response makeRequest(Request request) {
         return this.client.makeRequest(request);
     }
 

@@ -52,10 +52,6 @@ public class MockHttpClient extends HttpClient {
         this.withDelay = false;
     }
 
-    public void setResponses(List<ConsumableResponse> responses) {
-        this.responses = responses;
-    }
-
     public void addResponse(ConsumableResponse response) {
         this.responses.add(response);
     }

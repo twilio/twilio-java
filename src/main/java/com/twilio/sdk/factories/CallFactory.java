@@ -63,9 +63,11 @@ public class CallFactory extends Factory {
         @Override
         public Call build() {
             Request request = new Request("POST", "/Accounts/{AccountSid}/Calls");
-            Response response = this.makeRequest(request);
+            Response response = this.reliableRequest(request);
 
-            if (response.getStatusCode() != 201) {
+            if (response == null) {
+                throw new RuntimeException("Call creation failed: Unable to connect to server");
+            } else if (response.getStatusCode() != 201) {
                 throw new RuntimeException("Call creation failed: [" + response.getStatusCode() + "] " + response.getContent());
             }
 

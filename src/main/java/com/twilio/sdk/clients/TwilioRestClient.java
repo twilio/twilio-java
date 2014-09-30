@@ -6,8 +6,6 @@ import com.twilio.sdk.factories.CallFactory;
 import com.twilio.sdk.factories.MessageFactory;
 import com.twilio.sdk.http.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Executors;
 
 public class TwilioRestClient {
@@ -60,10 +58,16 @@ public class TwilioRestClient {
         this.messages = new MessageFactory(this);
     }
 
+    public Response reliableRequest(Request request) {
+        return this.httpClient.reliableRequest(request);
+    }
 
+    public Response reliableRequest(Request request, int[] retryCodes, int retries, long delayMillis) {
+        return this.httpClient.reliableRequest(request, retryCodes, retries, delayMillis);
+    }
 
     public Response makeRequest(Request request) {
-        return this.httpClient.reliableRequest(request);
+        return this.httpClient.makeRequest(request);
     }
 
     public ListeningExecutorService getExecutor() {

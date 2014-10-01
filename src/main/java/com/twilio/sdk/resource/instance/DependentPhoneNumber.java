@@ -29,11 +29,6 @@ public class DependentPhoneNumber extends InstanceResource {
 	public DependentPhoneNumber(TwilioRestClient client) {
 		super(client);
 
-		//Object ac = properties.get("account_sid");
-		//if (ac != null && ac instanceof String) {
-		//    String accountSid = (String) ac;
-		//    this.setRequestAccountSid(accountSid);
-		//}
 	}
 
 	/**

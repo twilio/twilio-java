@@ -11,7 +11,20 @@ import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Address.
+ * An Address instance resource.
+ *
+ * An Address instance resource represents your or your customer’s physical location within a country.
+ * Around the world, some local authorities require the name and address of
+ * the user to be on file with Twilio to purchase and own a phone number.
+ *
+ * Addresses are represented by the following properties:
+ * - FriendlyName: an optional, user-defined string describing this Address. 64 characters maximum.
+ * - CustomerName: You or your customer's business name.
+ * - Street: The number and street of this address.
+ * - City: The city of this address.
+ * - Region: The state or region of the address.
+ * - PostalCode: The postal code (zip code).
+ * - IsoCountry: The country, in ISO-3166-1 alpha-2 (two-character) format, e.g. "CA" for Canada
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/address">https://www.twilio.com/docs/api/rest/address</a>
  */
@@ -21,7 +34,7 @@ public class Address extends InstanceResource {
 	private static final String SID_PROPERTY = "sid";
 
 	/**
-	 * Instantiates a new conference.
+	 * Instantiates a new Address.
 	 *
 	 * @param client the client
 	 * @param sid the sid
@@ -57,7 +70,7 @@ public class Address extends InstanceResource {
 	 * Property getters
 	 */
 	/**
-	 * Gets the sid.
+	 * A unique identifier for this Address.
 	 *
 	 * @return the sid
 	 */
@@ -66,7 +79,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the date created.
+	 * The date/time the Address resource was created.
 	 *
 	 * @return the date created
 	 */
@@ -81,7 +94,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the date updated.
+	 * Date/time this Address was last updated.
 	 *
 	 * @return the date updated
 	 */
@@ -96,7 +109,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the account sid.
+	 * Identifier for the account owning this Address.
 	 *
 	 * @return the account sid
 	 */
@@ -105,7 +118,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the friendly name.
+	 * An optional user-defined string describing this Address.
 	 *
 	 * @return the friendly name
 	 */
@@ -114,7 +127,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the customer name.
+	 * You or your customer's business name for this Address.
 	 *
 	 * @return the customer name
 	 */
@@ -123,7 +136,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the street component of the address.
+	 * The number and street of this Address.
 	 *
 	 * @return the street number
 	 */
@@ -132,7 +145,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the city.
+	 * The city for this Address.
 	 *
 	 * @return the city
 	 */
@@ -141,7 +154,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the region.
+	 * The state or region for this Address.
 	 *
 	 * @return the region
 	 */
@@ -150,7 +163,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the postal code.
+	 * The postal or zip code for this Address.
 	 *
 	 * @return the postal code
 	 */
@@ -159,7 +172,7 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Gets the ISO country code.
+	 * The country for this address, specified in ISO 3166-1 alpha-2 (two characters) format.
 	 *
 	 * @return the country code
 	 */
@@ -168,7 +181,10 @@ public class Address extends InstanceResource {
 	}
 
 	/**
-	 * Get the participant list
+	 * A list of phone numbers owned by this Address's account that depend on it
+	 * to satisfy legal requirements. If this list is non-empty, the Address cannot
+	 * be deleted until another Address(es) satisfying the requirements for these numbers
+	 * is created.
 	 *
 	 */
 	public DependentPhoneNumberList getDependentPhoneNumbers() {

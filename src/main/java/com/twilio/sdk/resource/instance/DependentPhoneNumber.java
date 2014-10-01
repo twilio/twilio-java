@@ -10,7 +10,9 @@ import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class DependentPhoneNumber.
+ * An incoming phone number that depends on a particular address.
+ * Fields match IncomingPhoneNumber.
+ *
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/address">https://www.twilio.com/docs/api/rest/address</a>
  */

@@ -8,7 +8,11 @@ import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class DependentPhoneNumberList.
+ * A list of phone numbers depending on a particular Address for legal requirements.
+ * If non-empty, the corresponding Address cannot be deleted until another Address
+ * is created on the account to satisfy these requirements (or the numbers are released).
+ *
+ * Fields on the DependentPhoneNumber instances match those on IncomingPhoneNumber.
  *
  *  For more information see <a href="https://www.twilio.com/docs/api/rest/address">https://www.twilio.com/docs/api/rest/address</a>
  */

@@ -129,7 +129,8 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	}
 
 	/**
-	 * Gets the address requirements.
+	 * Indicates whether this number requires an Address to be on file with Twilio.
+	 * Potential values are "any", "local", "foreign", or "none".
 	 *
 	 * @return the address requirements
 	 */

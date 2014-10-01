@@ -102,7 +102,7 @@ public class Example {
     final Call call = callFactory.create(callParams);
     System.out.println(call.getSid());
 
-    // Send an sms
+    // Send an SMS (Requires version 3.4+)
     final MessageFactory messageFactory = mainAccount.getMessageFactory();
     final List<NameValuePair> messageParams = new List<BasicNameValuePair>();
     messageParams.add(new BasicNameValuePair("To", "5105551212")); // Replace with a valid phone number

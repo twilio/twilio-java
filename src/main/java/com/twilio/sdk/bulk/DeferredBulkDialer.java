@@ -1,6 +1,6 @@
 package com.twilio.sdk.bulk;
 
-import com.twilio.sdk.factories.CallFactory;
+import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.resources.Call;
 
 import java.util.*;
@@ -8,16 +8,16 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class DeferredBulkDialer implements BulkDialer {
-    protected Map<String, CallFactory.CallCreator> promises;
+    protected Map<String, CallCreator> promises;
     protected Map<String, Future<Call>> results;
 
     public DeferredBulkDialer() {
-        this.promises = new HashMap<String, CallFactory.CallCreator>();
+        this.promises = new HashMap<String, CallCreator>();
         this.results = new HashMap<String, Future<Call>>();
     }
 
     @Override
-    public void add(String key, CallFactory.CallCreator callCreator) {
+    public void add(String key, CallCreator callCreator) {
         this.promises.put(key, callCreator);
     }
 

@@ -1,5 +1,7 @@
 package com.twilio.sdk.http;
 
+import sun.misc.BASE64Encoder;
+
 public abstract class HttpClient {
     public static final int ANY_500 = -500;
     public static final int ANY_400 = -400;
@@ -82,4 +84,9 @@ public abstract class HttpClient {
     }
 
     public abstract Response makeRequest(Request request);
+
+    protected String authentication(String username, String password) {
+        String credentials = username + ":" + password;
+        return "Basic " + new BASE64Encoder().encode(credentials.getBytes());
+    }
 }

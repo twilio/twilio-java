@@ -1,17 +1,15 @@
 package com.twilio.sdk.numbers;
 
-import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.factories.CallFactory;
+import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.hash.ConsistentHashRing;
+import com.twilio.sdk.resources.Call;
 
 import java.net.URL;
 
 public class PhoneNumberGroup {
     protected ConsistentHashRing<String> ring;
-    protected TwilioRestClient client;
 
-    public PhoneNumberGroup(TwilioRestClient client) {
-        this.client = client;
+    public PhoneNumberGroup() {
         this.ring = new ConsistentHashRing<String>();
     }
 
@@ -24,7 +22,7 @@ public class PhoneNumberGroup {
         return ring.get(receiver);
     }
 
-    public CallFactory.CallCreator create(String to, URL url) {
-        return this.client.calls.create(to, get(to), url);
+    public CallCreator create(String to, URL url) {
+        return Call.create(to, get(to), url);
     }
 }

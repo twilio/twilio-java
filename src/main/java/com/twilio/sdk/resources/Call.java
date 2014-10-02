@@ -5,8 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.twilio.sdk.creators.CallCreator;
+import com.twilio.sdk.locators.CallLocator;
+import com.twilio.sdk.updaters.CallUpdater;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 
 public class Call {
@@ -203,5 +208,27 @@ public class Call {
 
     public final String getUri() {
         return uri;
+    }
+
+    // Factory functions
+
+    public static CallCreator create(String to, String from, URL url) {
+        return new CallCreator(to, from, url);
+    }
+
+    public static CallUpdater update() {
+        return new CallUpdater();
+    }
+
+    public static CallLocator find() {
+        return new CallLocator();
+    }
+
+    public static Call build(String sid) {
+        return new CallLocator().buildBySid(sid);
+    }
+
+    public static ListenableFuture<Call> async(String sid) {
+        return new CallLocator().asyncBySid(sid);
     }
 }

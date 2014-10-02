@@ -1,6 +1,6 @@
 package com.twilio.sdk.bulk;
 
-import com.twilio.sdk.factories.CallFactory;
+import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.resources.Call;
 
 import java.util.*;
@@ -15,7 +15,7 @@ public class ImmediateBulkDialer implements BulkDialer {
     }
 
     @Override
-    public void add(String key, CallFactory.CallCreator callCreator) {
+    public void add(String key, CallCreator callCreator) {
         this.results.put(key, callCreator.async());
     }
 

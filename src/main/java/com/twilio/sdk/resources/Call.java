@@ -15,6 +15,31 @@ import java.net.URL;
 import java.util.Map;
 
 public class Call {
+
+    public static CallCreator create(String to, String from, URL url) {
+        return new CallCreator(to, from, url);
+    }
+
+    public static CallCreator create(String to, String from, String applicationSid) {
+        return new CallCreator(to, from, applicationSid);
+    }
+
+    public static CallUpdater update() {
+        return new CallUpdater();
+    }
+
+    public static CallLocator find() {
+        return new CallLocator();
+    }
+
+    public static Call build(String sid) {
+        return new CallLocator().buildBySid(sid);
+    }
+
+    public static ListenableFuture<Call> async(String sid) {
+        return new CallLocator().asyncBySid(sid);
+    }
+
     private final String accountSid;
     private final String annotation;
     private final String answeredBy;
@@ -208,27 +233,5 @@ public class Call {
 
     public final String getUri() {
         return uri;
-    }
-
-    // Factory functions
-
-    public static CallCreator create(String to, String from, URL url) {
-        return new CallCreator(to, from, url);
-    }
-
-    public static CallUpdater update() {
-        return new CallUpdater();
-    }
-
-    public static CallLocator find() {
-        return new CallLocator();
-    }
-
-    public static Call build(String sid) {
-        return new CallLocator().buildBySid(sid);
-    }
-
-    public static ListenableFuture<Call> async(String sid) {
-        return new CallLocator().asyncBySid(sid);
     }
 }

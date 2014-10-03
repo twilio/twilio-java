@@ -1,5 +1,8 @@
 package com.twilio.sdk.updaters;
 
+import com.twilio.sdk.Twilio;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 
 public class CallUpdater extends Updater<Call> {
@@ -12,6 +15,15 @@ public class CallUpdater extends Updater<Call> {
 
     @Override
     public Call build(Call target) {
-        return null;
+        Request request = new Request("POST", "/Accounts/{AccountSid}/Calls/" + target.getSid());
+        Response response = Twilio.getRestClient().request(request);
+
+        if (response == null) {
+            throw new RuntimeException("Call update failed: Unable to connect to server");
+        } else if (response.getStatusCode() != 200) {
+            throw new RuntimeException("Call update failed: [" + response.getStatusCode() + "] " + response.getContent());
+        }
+
+        return Call.fromJson(response.getContent());
     }
 }

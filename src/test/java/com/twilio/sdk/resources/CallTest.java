@@ -1,8 +1,11 @@
 package com.twilio.sdk.resources;
 
 import com.twilio.sdk.Twilio;
+import com.twilio.sdk.http.ConsumableResponse;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.net.URL;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -39,6 +42,12 @@ public class CallTest {
             "\"uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls/CA9e966bd3ef2abcfe941fb0a06e3fc027.json\"\n" +
             "}";
 
+    @Before
+    public void setUp() throws Exception {
+        Twilio.setAccountSid("ACca498dbda0fef21f361a9a3326354175");
+        Twilio.setAuthToken("8b20fad4aaf29e4d9f30ee0994a2e3bd");
+    }
+
     @Test
     public void testFromJson() throws Exception {
         Call call = Call.fromJson(JSON);
@@ -47,10 +56,28 @@ public class CallTest {
 
     @Test
     public void testBuild() throws Exception {
-        Twilio.setAccountSid("ACca498dbda0fef21f361a9a3326354175");
-        Twilio.setAuthToken("8b20fad4aaf29e4d9f30ee0994a2e3bd");
-
+        Twilio.useMockResponses(new ConsumableResponse(JSON, 200));
         Call call = Call.build("CA9e966bd3ef2abcfe941fb0a06e3fc027");
+        validateCall(call);
+    }
+
+    @Test
+    public void testCreate() throws Exception {
+        Twilio.useMockResponses(new ConsumableResponse(JSON, 201));
+        Call call = Call.create("+14155551234", "+14155557890", new URL("http://www.twilio.com"))
+                        .build();
+        validateCall(call);
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        Twilio.useMockResponses(new ConsumableResponse(JSON, 200));
+        Call call = Call.build("CA9e966bd3ef2abcfe941fb0a06e3fc027");
+
+        call = Call.update()
+                   .setFriendlyName("Hello World")
+                   .build(call);
+
         validateCall(call);
     }
 

@@ -17,6 +17,8 @@ public class Twilio {
     private static TwilioRestClient restClient;
     private static ListeningExecutorService executorService;
     private static List<ConsumableResponse> mockResponses;
+    private static Long mockLowMillis;
+    private static Long mockHighMillis;
 
     public static void setAccountSid(String accountSid) {
         if (accountSid == null) {
@@ -48,6 +50,20 @@ public class Twilio {
         Twilio.invalidate();
     }
 
+    public static void setMockDelay(long millis) {
+        Twilio.setMockDelay(millis, millis);
+    }
+
+    public static void setMockDelay(long lowMillis, long highMillis) {
+        Twilio.mockLowMillis = lowMillis;
+        Twilio.mockHighMillis = highMillis;
+    }
+
+    public static void clearMockDelay() {
+        Twilio.mockLowMillis = null;
+        Twilio.mockHighMillis = null;
+    }
+
     public static TwilioRestClient getRestClient() {
         if (Twilio.restClient == null) {
             if (Twilio.accountSid == null || Twilio.authToken == null) {
@@ -58,6 +74,9 @@ public class Twilio {
 
             if (Twilio.isMockingEnabled()) {
                 MockHttpClient mockClient = new MockHttpClient();
+                if (Twilio.mockLowMillis != null && Twilio.mockHighMillis != null) {
+                    mockClient.setDelay(Twilio.mockLowMillis, Twilio.mockHighMillis);
+                }
                 mockClient.setResponses(Twilio.mockResponses);
                 Twilio.restClient.setHttpClient(mockClient);
             }

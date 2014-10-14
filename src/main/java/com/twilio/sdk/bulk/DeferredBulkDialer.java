@@ -1,19 +1,19 @@
 package com.twilio.sdk.bulk;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.resources.Call;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 public class DeferredBulkDialer implements BulkDialer {
     protected Map<String, CallCreator> promises;
-    protected Map<String, Future<Call>> results;
+    protected Map<String, ListenableFuture<Call>> results;
 
     public DeferredBulkDialer() {
         this.promises = new HashMap<String, CallCreator>();
-        this.results = new HashMap<String, Future<Call>>();
+        this.results = new HashMap<String, ListenableFuture<Call>>();
     }
 
     @Override

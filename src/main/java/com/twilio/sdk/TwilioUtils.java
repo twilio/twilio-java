@@ -53,14 +53,9 @@ public class TwilioUtils {
 
     public boolean validateRequest(String expectedSignature, String url, Map<String,String> params) {
         String signature = null;
-        
+
         signature = getValidationSignature(url, params);
-        
-        if(signature == null) {
-        	return false;
-        } else {
-        	return signature.equals(expectedSignature);
-        }
+        return secureCompare(signature, expectedSignature);
     }
     
     public String getValidationSignature(String url, Map<String,String> params) {
@@ -101,5 +96,28 @@ public class TwilioUtils {
         } catch (UnsupportedEncodingException e) {
             return null;
         }
+    }
+
+    /**
+     * Securely compare two strings, using constant time to avoid timing
+     * attacks.  We can't use MessageDigest.isEqual because it didn't do
+     * constant-time compares until JDK6u17 - see:
+     * http://codahale.com/a-lesson-in-timing-attacks/
+     */
+    static boolean secureCompare(String a, String b) {
+      if (a == null || b == null) {
+        return false;
+      }
+      int n = a.length();
+      if (n != b.length()) {
+        return false;
+      }
+      int mismatch = 0;
+      for (int i = 0; i < n; ++i) {
+        char chA = a.charAt(i);
+        char chB = b.charAt(i);
+        mismatch |= chA ^ chB;
+      }
+      return mismatch == 0;
     }
 }

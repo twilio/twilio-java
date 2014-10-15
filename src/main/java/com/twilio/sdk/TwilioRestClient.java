@@ -21,17 +21,26 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -153,6 +162,19 @@ public class TwilioRestClient {
 		httpclient.getParams().setParameter("http.socket.timeout", new Integer(READ_TIMEOUT));
 		httpclient.getParams().setParameter("http.connection.timeout", new Integer(CONNECTION_TIMEOUT));
 		httpclient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
+
+		// Install custom SSL socket factory so we can disable SSL 3.0.
+		// Thanks, Java, for making this so *fun*.
+		try {
+			SSLContext context = SSLContext.getInstance("TLS");
+			context.init(null, null, null);
+			Scheme scheme = new Scheme("https", 443, new TlsSocketFactory(context));
+			httpclient.getConnectionManager().getSchemeRegistry().register(scheme);
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("Couldn't get a TLS-supporting context. Check that your JVM supports TLS >= 1.0.", e);
+		} catch (KeyManagementException e) {
+			throw new RuntimeException("Couldn't init SSL context", e);
+		}
 
 		authAccount = new Account(this);
 		authAccount.setSid(this.accountSid);
@@ -644,5 +666,26 @@ public class TwilioRestClient {
 
 	public String getAccountSid() {
 		return accountSid;
+	}
+
+	public class TlsSocketFactory extends SSLSocketFactory {
+
+		public TlsSocketFactory(SSLContext context) {
+			super(context);
+		}
+
+		@Override
+		public Socket createSocket(HttpParams params) throws IOException {
+			SSLSocket socket = (SSLSocket) super.createSocket(params);
+			String[] supported = socket.getSupportedProtocols();
+			ArrayList<String> filtered = new ArrayList<String>();
+			for (String protocol : supported) {
+				if (protocol.indexOf("TLS") == 0) {
+					filtered.add(protocol);
+				}
+			}
+			socket.setEnabledProtocols(filtered.toArray(new String[]{}));
+			return socket;
+		}
 	}
 }

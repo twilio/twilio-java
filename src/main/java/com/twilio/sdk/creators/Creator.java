@@ -2,16 +2,26 @@ package com.twilio.sdk.creators;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.Twilio;
+import com.twilio.sdk.clients.TwilioRestClient;
 
 import java.util.concurrent.Callable;
 
 public abstract class Creator<T> {
-    public abstract T build();
+    public T build() {
+        return build(Twilio.getRestClient());
+    }
+
+    public abstract T build(final TwilioRestClient client);
+
 
     public ListenableFuture<T> async() {
+        return async(Twilio.getRestClient());
+    }
+
+    public ListenableFuture<T> async(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<T>() {
             public T call() {
-                return build();
+                return build(client);
             }
         });
     }

@@ -1,6 +1,6 @@
 package com.twilio.sdk.updaters;
 
-import com.twilio.sdk.Twilio;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
@@ -14,9 +14,9 @@ public class CallUpdater extends Updater<Call> {
     }
 
     @Override
-    public Call build(Call target) {
+    public Call build(Call target, TwilioRestClient client) {
         Request request = new Request("POST", "/Accounts/{AccountSid}/Calls/" + target.getSid());
-        Response response = Twilio.getRestClient().request(request);
+        Response response = client.request(request);
 
         if (response == null) {
             throw new RuntimeException("Call update failed: Unable to connect to server");

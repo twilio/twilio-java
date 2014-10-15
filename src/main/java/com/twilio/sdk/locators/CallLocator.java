@@ -1,6 +1,6 @@
 package com.twilio.sdk.locators;
 
-import com.twilio.sdk.Twilio;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
@@ -15,14 +15,14 @@ public class CallLocator extends Locator<Call> {
 
 
     @Override
-    public List<Call> build() {
+    public List<Call> build(final TwilioRestClient client) {
         return null;
     }
 
     @Override
-    public Call buildBySid(String sid) {
+    public Call buildBySid(String sid, final TwilioRestClient client) {
         Request request = new Request("GET", "/Accounts/{AccountSid}/Calls/" + sid);
-        Response response = Twilio.getRestClient().request(request);
+        Response response = client.request(request);
 
         if (response.getStatusCode() != 200) {
             throw new RuntimeException("Unable to find Call for Sid " + sid);

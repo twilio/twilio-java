@@ -1,6 +1,6 @@
 package com.twilio.sdk.creators;
 
-import com.twilio.sdk.Twilio;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
@@ -78,7 +78,8 @@ public class CallCreator extends Creator<Call> {
      * Tell Twilio to try and determine if a machine (like voicemail) or a human
      * has answered the call. Possible values are Continue and Hangup. See the
      * answering machines section below for more info.
-     * @param ifMachine Action to take if a machine has answered the call, valid values are "Continue" and "Hangup"
+     * @param ifMachine Action to take if a machine has answered the call, valid
+     *                  values are "Continue" and "Hangup"
      * @return Instance for fluent API
      */
     public CallCreator setIfMachine(String ifMachine) {
@@ -97,9 +98,9 @@ public class CallCreator extends Creator<Call> {
     }
 
     @Override
-    public Call build() {
+    public Call build(final TwilioRestClient client) {
         Request request = new Request("POST", "/Accounts/{AccountSid}/Calls");
-        Response response = Twilio.getRestClient().request(request);
+        Response response = client.request(request);
 
         if (response == null) {
             throw new RuntimeException("Call creation failed: Unable to connect to server");

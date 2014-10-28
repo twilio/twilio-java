@@ -60,7 +60,6 @@ public class NetworkHttpClient extends HttpClient {
 
     private void addPostBody(Request request, HttpURLConnection conn) {
         // XXX add post parameters
-
     }
 
 }

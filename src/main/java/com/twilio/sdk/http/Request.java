@@ -1,20 +1,25 @@
 package com.twilio.sdk.http;
 
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.UnsupportedEncodingException;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Request {
     protected String method;
     protected String uri;
     protected String username;
     protected String password;
+    protected Map<String, ArrayList<String>> queryParams;
+    protected Map<String, ArrayList<String>> postParams;
 
     public Request(String method, String uri) {
         this.method = method;
         this.uri = uri;
+        this.queryParams = new HashMap<String, ArrayList<String>>();
+        this.postParams = new HashMap<String, ArrayList<String>>();
     }
 
     public String getMethod() {
@@ -63,9 +68,51 @@ public class Request {
         }
     }
 
-    private String encodeQueryParams() {
-        return ""; // TODO implement this
+    public void addQueryParam(String name, String value) {
+        if (!this.queryParams.containsKey(name)) {
+            this.queryParams.put(name, new ArrayList<String>());
+        }
+
+        this.queryParams.get(name).add(value);
     }
 
+    public void addPostParam(String name, String value) {
+        if (!this.postParams.containsKey(name)) {
+            this.postParams.put(name, new ArrayList<String>());
+        }
+
+        this.postParams.get(name).add(value);
+    }
+
+    private static String encodeParameters(Map<String, ArrayList<String>> params) {
+        StringBuilder builder = new StringBuilder();
+        try {
+            for (Map.Entry<String, ArrayList<String>> entry : params.entrySet()) {
+                String encodedName = URLEncoder.encode(entry.getKey(), "UTF-8");
+                for (String value : entry.getValue()) {
+                    String encodedValue = URLEncoder.encode(value, "UTF-8");
+                    builder.append(encodedName);
+                    builder.append("=");
+                    builder.append(encodedValue);
+                    builder.append("&");
+                }
+            }
+            String encoded = builder.toString();
+            if (encoded.endsWith("&")) {
+                encoded = encoded.substring(0, encoded.length() - 1);
+            }
+            return encoded;
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Couldn't encode params");
+        }
+    }
+
+    public String encodeFormBody() {
+        return encodeParameters(this.postParams);
+    }
+
+    public String encodeQueryParams() {
+        return encodeParameters(this.queryParams);
+    }
 
 }

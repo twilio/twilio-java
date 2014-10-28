@@ -4,19 +4,29 @@ import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
+import org.joda.time.LocalDate;
 
-import java.net.URL;
 import java.util.List;
 
 public class CallLocator extends Locator<Call> {
     private String to;
     private String from;
-    private URL url;
+    private String parentCallSid;
+    private String status;
+    private LocalDate startTime;
 
 
     @Override
     public List<Call> build(final TwilioRestClient client) {
-        return null;
+        Request request = new Request("GET", "/Accounts/{AccountSid}/Calls");
+        this.addQueryParams(request);
+        if (this.to != null) {
+            request.addQueryParam("To", this.to);
+        }
+        if (this.from != null) {
+            request.addQueryParam("From", this.from);
+        }
+
     }
 
     @Override
@@ -41,8 +51,37 @@ public class CallLocator extends Locator<Call> {
         return this;
     }
 
-    public CallLocator byUrl(URL url) {
-        this.url = url;
+    public CallLocator byParentCallSid(String parentCallSid) {
+        this.parentCallSid = parentCallSid;
         return this;
     }
+
+    public CallLocator byStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    private void addQueryParams(Request request) {
+        if (this.to != null) {
+            request.addQueryParam("To", this.to);
+        }
+
+        if (this.from != null) {
+            request.addQueryParam("From", this.from);
+        }
+
+        if (this.parentCallSid != null) {
+            request.addQueryParam("ParentCallSid", this.parentCallSid);
+        }
+
+        if (this.status != null) {
+            request.addQueryParam("Status", this.status);
+        }
+
+        if (this.startTime != null) {
+            String value = this.startTime.toString("yyyy-MM-dd");
+        }
+
+    }
+
 }

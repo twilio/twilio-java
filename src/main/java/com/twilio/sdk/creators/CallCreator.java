@@ -1,16 +1,17 @@
 package com.twilio.sdk.creators;
 
+import com.google.common.base.CaseFormat;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 
-import java.net.URL;
+import java.net.URI;
 
 public class CallCreator extends Creator<Call> {
     protected String to;
     protected String from;
-    protected URL url;
+    protected URI url;
     protected String applicationSid;
     protected String method;
     protected String fallbackUrl;
@@ -27,7 +28,7 @@ public class CallCreator extends Creator<Call> {
      * @param from The twilio number to originate the call from
      * @param url The url to fetch twiml from
      */
-    public CallCreator(String to, String from, URL url) {
+    public CallCreator(String to, String from, URI url) {
         this.to = to;
         this.from = from;
         this.url = url;
@@ -100,6 +101,7 @@ public class CallCreator extends Creator<Call> {
     @Override
     public Call build(final TwilioRestClient client) {
         Request request = new Request("POST", "/Accounts/{AccountSid}/Calls");
+        this.addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -110,4 +112,60 @@ public class CallCreator extends Creator<Call> {
 
         return Call.fromJson(response.getStream());
     }
+
+    private void addPostParams(Request request) {
+        if (this.to != null) {
+            request.addPostParam("To", this.to);
+        }
+
+        if (this.from != null) {
+            request.addPostParam("From", this.from);
+        }
+
+        if (this.url != null) {
+            request.addPostParam("Url", this.url.toString());
+        }
+
+        if (this.applicationSid != null) {
+            request.addPostParam("ApplicationSid", this.applicationSid);
+        }
+
+        if (this.method != null) {
+            request.addPostParam("Method", this.method);
+        }
+
+        if (this.fallbackUrl != null) {
+            request.addPostParam("FallbackUrl", this.fallbackUrl);
+        }
+
+        if (this.fallbackMethod != null) {
+            request.addPostParam("FallbackMethod", this.fallbackMethod);
+        }
+
+        if (this.statusCallback != null) {
+            request.addPostParam("StatusCallback", this.statusCallback);
+        }
+
+        if (this.statusCallbackMethod != null) {
+            request.addPostParam("StatusCallbackMethod", this.statusCallbackMethod);
+        }
+
+        if (this.sendDigits != null) {
+            request.addPostParam("SendDigits", this.sendDigits);
+        }
+
+        if (this.ifMachine != null) {
+            request.addPostParam("IfMachine", this.ifMachine);
+        }
+
+        if (this.timeout != null) {
+            request.addPostParam("Timeout", this.timeout.toString());
+        }
+
+        if (this.record != null) {
+            String value = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, this.timeout.toString());
+            request.addPostParam("Record", value);
+        }
+    }
+
 }

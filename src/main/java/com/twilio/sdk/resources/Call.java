@@ -61,7 +61,7 @@ public class Call {
     private final String priceUnit;
     private final String sid;
     private final String startTime;
-    private final String status;
+    private final String status; // XXX should we make this an enum? Would be more typeful.
     private final Map<String, String> subresourceUris;
     private final String to;
     private final String toFormatted;

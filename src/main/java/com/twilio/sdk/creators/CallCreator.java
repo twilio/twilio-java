@@ -108,6 +108,6 @@ public class CallCreator extends Creator<Call> {
             throw new RuntimeException("Call creation failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
 
-        return Call.fromJson(response.getContent());
+        return Call.fromJson(response.getStream());
     }
 }

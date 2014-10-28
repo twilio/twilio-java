@@ -28,7 +28,7 @@ public class CallLocator extends Locator<Call> {
             throw new RuntimeException("Unable to find Call for Sid " + sid);
         }
 
-        return Call.fromJson(response.getContent());
+        return Call.fromJson(response.getStream());
     }
 
     public CallLocator byTo(String to) {

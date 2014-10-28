@@ -1,9 +1,6 @@
 package com.twilio.sdk.clients;
 
-import com.twilio.sdk.http.HttpClient;
-import com.twilio.sdk.http.NingHttpClient;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
+import com.twilio.sdk.http.*;
 
 public class TwilioRestClient {
 
@@ -12,7 +9,7 @@ public class TwilioRestClient {
     protected String authToken;
 
     public TwilioRestClient(String accountSid, String authToken) {
-        this(accountSid, authToken, new NingHttpClient());
+        this(accountSid, authToken, new NetworkHttpClient());
     }
 
     public TwilioRestClient(String accountSid, String authToken, HttpClient httpClient) {
@@ -23,7 +20,9 @@ public class TwilioRestClient {
 
     public Response request(Request request) {
         String resolvedUri = "https://api.twilio.com/2010-04-01"
-                           + request.getUri().replace("{AccountSid}", this.accountSid);
+                           + request.getUri().replace("{AccountSid}", this.accountSid)
+		                   + ".json"; // XXX is this the right place to do this?
+	                                  // why the hell don't we just do accept headers :(
         request.setUri(resolvedUri);
         request.setAuth(this.accountSid, this.authToken);
 

@@ -1,6 +1,8 @@
 package com.twilio.sdk.http;
 
-import sun.misc.BASE64Encoder;
+import org.apache.commons.codec.binary.Base64;
+
+import java.io.UnsupportedEncodingException;
 
 public abstract class HttpClient {
     public static final int ANY_500 = -500;
@@ -87,6 +89,11 @@ public abstract class HttpClient {
 
     protected String authentication(String username, String password) {
         String credentials = username + ":" + password;
-        return "Basic " + new BASE64Encoder().encode(credentials.getBytes());
+	    try {
+		    String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));
+			return "Basic " + encoded;
+	    } catch(UnsupportedEncodingException e) {
+		    throw new RuntimeException("We don't have ASCII, can't do much here");
+	    }
     }
 }

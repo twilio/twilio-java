@@ -11,6 +11,7 @@ import com.twilio.sdk.locators.CallLocator;
 import com.twilio.sdk.updaters.CallUpdater;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
@@ -134,6 +135,21 @@ public class Call {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+	public static Call fromJson(InputStream json) {
+		ObjectMapper mapper = new ObjectMapper();
+
+		// Convert all checked exceptions to Runtime
+		try {
+			return mapper.readValue(json, Call.class);
+		} catch (JsonMappingException e) {
+			throw new RuntimeException(e.getMessage());
+		} catch (JsonParseException e) {
+			throw new RuntimeException(e.getMessage());
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
 
     public final String getAccountSid() {
         return accountSid;

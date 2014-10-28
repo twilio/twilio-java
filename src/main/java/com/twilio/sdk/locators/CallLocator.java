@@ -29,7 +29,8 @@ public class CallLocator extends Locator<Call> {
             throw new RuntimeException("Unable to build list of Calls");
         }
 
-        // TODO: This needs to be made real
+
+
         return new ArrayList<Call>();
     }
 

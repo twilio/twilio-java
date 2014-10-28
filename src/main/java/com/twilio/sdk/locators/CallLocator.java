@@ -18,7 +18,6 @@ public class CallLocator extends Locator<Call> {
     private LocalDate absoluteStartTime;
     private Range<LocalDate> rangeStartTime;
 
-
     @Override
     public List<Call> build(final TwilioRestClient client) {
         Request request = new Request("GET", "/Accounts/{AccountSid}/Calls");

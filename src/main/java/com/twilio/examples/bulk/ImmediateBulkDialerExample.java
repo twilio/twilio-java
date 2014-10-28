@@ -29,7 +29,7 @@ import java.net.URL;
  */
 public class ImmediateBulkDialerExample {
 
-    public static void main(String[] args) throws MalformedURLException, URISyntaxException {
+    public static void main(String[] args) throws URISyntaxException {
         // First we are going to mock out the network and give every request a
         // uniform delay of 1000ms (1 second)
         long requestDelay = 1000L;

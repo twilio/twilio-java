@@ -1,12 +1,11 @@
 package com.twilio.sdk.http;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 public class NetworkHttpClient extends HttpClient {
 
@@ -27,13 +26,16 @@ public class NetworkHttpClient extends HttpClient {
             }
 
             if (request.getMethod().equals("POST")) {
-                addPostBody(request, connection);
+                connection.setDoOutput(true);
+                connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             }
 
             // TODO set up timeouts, caching, etc
-            // TODO add querystring parameters
-            // TODO add post body
             connection.connect();
+
+            if (request.getMethod().equals("POST")) {
+                sendPostBody(request, connection);
+            }
 
             int responseCode = connection.getResponseCode();
             InputStream errorStream = connection.getErrorStream();
@@ -58,8 +60,15 @@ public class NetworkHttpClient extends HttpClient {
         conn.setRequestProperty("Authorization", auth);
     }
 
-    private void addPostBody(Request request, HttpURLConnection conn) {
-        // XXX add post parameters
+    private void sendPostBody(Request request, HttpURLConnection conn) {
+        String postBody = request.encodeFormBody();
+        try {
+            OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+            writer.write(postBody);
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException("oops"); // XXX needs improvement
+        }
     }
 
 }

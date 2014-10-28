@@ -8,6 +8,7 @@ import com.twilio.sdk.timing.Stopwatch;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 
@@ -60,7 +61,7 @@ public class ImmediateBulkDialerTest {
         Twilio.useMockResponses(new ConsumableResponse(JSON, 201));
         Twilio.setMockDelay(requestDelay);
 
-        URL applicationUrl = new URL("http://example.com");
+        URI applicationUri = new URI("http://example.com");
 
         BulkDialer dialer = new ImmediateBulkDialer();
         Stopwatch stopwatch = new Stopwatch();
@@ -69,11 +70,11 @@ public class ImmediateBulkDialerTest {
         stopwatch.start();
 
         // Add five calls (each one delays 1000ms)
-        dialer.add("sales-call", Call.create("+14155551234", "+14155556789", applicationUrl));
-        dialer.add("other-call", Call.create("+14155551234", "+14155550000", applicationUrl));
-        dialer.add("mrktg-call", Call.create("+14155551234", "+14155559876", applicationUrl));
-        dialer.add("legal-call", Call.create("+14155551234", "+14155559876", applicationUrl));
-        dialer.add("final-call", Call.create("+14155551234", "+14155559876", applicationUrl));
+        dialer.add("sales-call", Call.create("+14155551234", "+14155556789", applicationUri));
+        dialer.add("other-call", Call.create("+14155551234", "+14155550000", applicationUri));
+        dialer.add("mrktg-call", Call.create("+14155551234", "+14155559876", applicationUri));
+        dialer.add("legal-call", Call.create("+14155551234", "+14155559876", applicationUri));
+        dialer.add("final-call", Call.create("+14155551234", "+14155559876", applicationUri));
 
         // Wait for all calls to complete
         dialer.complete();

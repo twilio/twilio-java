@@ -4,6 +4,7 @@ import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.hash.ConsistentHashRing;
 import com.twilio.sdk.resources.Call;
 
+import java.net.URI;
 import java.net.URL;
 
 public class PhoneNumberGroup {
@@ -22,7 +23,7 @@ public class PhoneNumberGroup {
         return ring.get(receiver);
     }
 
-    public CallCreator create(String to, URL url) {
-        return Call.create(to, get(to), url);
+    public CallCreator create(String to, URI uri) {
+        return Call.create(to, get(to), uri);
     }
 }

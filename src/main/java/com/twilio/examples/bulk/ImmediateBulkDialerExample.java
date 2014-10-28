@@ -8,6 +8,8 @@ import com.twilio.sdk.resources.Call;
 import com.twilio.sdk.timing.Stopwatch;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -27,7 +29,7 @@ import java.net.URL;
  */
 public class ImmediateBulkDialerExample {
 
-    public static void main(String[] args) throws MalformedURLException {
+    public static void main(String[] args) throws MalformedURLException, URISyntaxException {
         // First we are going to mock out the network and give every request a
         // uniform delay of 1000ms (1 second)
         long requestDelay = 1000L;
@@ -42,7 +44,7 @@ public class ImmediateBulkDialerExample {
         int callsToMake = 10;
 
         // Create a URL to use as the Action URL for the call creation
-        URL url = new URL("http://example.com");
+        URI uri = new URI("http://example.com");
 
         // To see how the bulk dialer is more efficient, let's start a timer
         Stopwatch stopwatch = new Stopwatch();
@@ -50,7 +52,7 @@ public class ImmediateBulkDialerExample {
 
         // Create callsToMake number of calls, using the bulk dialer
         for (int i = 0; i < callsToMake; i++) {
-            dialer.add("call-" + i, Call.create("+14155551234", "+14155557890", url));
+            dialer.add("call-" + i, Call.create("+14155551234", "+14155557890", uri));
         }
 
         // The dialer makes the calls asynchronously with a pool of workers, it

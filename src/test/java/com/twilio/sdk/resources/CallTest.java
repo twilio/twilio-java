@@ -5,6 +5,7 @@ import com.twilio.sdk.http.ConsumableResponse;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public class CallTest {
     @Test
     public void testCreate() throws Exception {
         Twilio.useMockResponses(new ConsumableResponse(JSON, 201));
-        Call call = Call.create("+14155551234", "+14155557890", new URL("http://www.twilio.com"))
+        Call call = Call.create("+14155551234", "+14155557890", new URI("http://www.twilio.com"))
                         .build();
         validateCall(call);
     }

@@ -12,12 +12,12 @@ import com.twilio.sdk.updaters.CallUpdater;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.net.URI;
 import java.util.Map;
 
 public class Call {
 
-    public static CallCreator create(String to, String from, URL url) {
+    public static CallCreator create(String to, String from, URI url) {
         return new CallCreator(to, from, url);
     }
 

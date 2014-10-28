@@ -8,6 +8,7 @@ import com.twilio.sdk.timing.Stopwatch;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 
@@ -60,7 +61,7 @@ public class ImmediateBulkDialerTest {
         Twilio.useMockResponses(new ConsumableResponse(JSON, 201));
         Twilio.setMockDelay(requestDelay);
 
-        URL applicationUrl = new URL("http://example.com");
+        URI applicationUrl = new URI("http://example.com");
 
         BulkDialer dialer = new ImmediateBulkDialer();
         Stopwatch stopwatch = new Stopwatch();

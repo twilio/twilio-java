@@ -1,11 +1,13 @@
 package com.twilio.sdk.locators;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CallLocator extends Locator<Call> {
@@ -13,20 +15,22 @@ public class CallLocator extends Locator<Call> {
     private String from;
     private String parentCallSid;
     private String status;
-    private LocalDate startTime;
+    private LocalDate absoluteStartTime;
+    private Range<LocalDate> rangeStartTime;
 
 
     @Override
     public List<Call> build(final TwilioRestClient client) {
         Request request = new Request("GET", "/Accounts/{AccountSid}/Calls");
         this.addQueryParams(request);
-        if (this.to != null) {
-            request.addQueryParam("To", this.to);
-        }
-        if (this.from != null) {
-            request.addQueryParam("From", this.from);
+        Response response = client.request(request);
+
+        if (response.getStatusCode() != 200) {
+            throw new RuntimeException("Unable to build list of Calls");
         }
 
+        // TODO: This needs to be made real
+        return new ArrayList<Call>();
     }
 
     @Override
@@ -61,6 +65,18 @@ public class CallLocator extends Locator<Call> {
         return this;
     }
 
+    public CallLocator byStartTime(LocalDate time) {
+        this.absoluteStartTime = time;
+        this.rangeStartTime = null;
+        return this;
+    }
+
+    public CallLocator byStartTime(Range<LocalDate> timeRange) {
+        this.absoluteStartTime = null;
+        this.rangeStartTime = timeRange;
+        return this;
+    }
+
     private void addQueryParams(Request request) {
         if (this.to != null) {
             request.addQueryParam("To", this.to);
@@ -78,10 +94,14 @@ public class CallLocator extends Locator<Call> {
             request.addQueryParam("Status", this.status);
         }
 
-        if (this.startTime != null) {
-            String value = this.startTime.toString("yyyy-MM-dd");
+        if (this.absoluteStartTime != null) {
+            String value = this.absoluteStartTime.toString(Request.QUERY_STRING_DATE_FORMAT);
+            request.addQueryParam("StartTime", value);
         }
 
+        if (this.rangeStartTime != null) {
+            request.addQueryDateRange("StartTime", this.rangeStartTime);
+        }
     }
 
 }

@@ -1,6 +1,9 @@
 package com.twilio.sdk.http;
 
 
+import com.google.common.collect.Range;
+import org.joda.time.LocalDate;
+
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.util.ArrayList;
@@ -8,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Request {
+    public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
+
     protected String method;
     protected String uri;
     protected String username;
@@ -74,6 +79,21 @@ public class Request {
         }
 
         this.queryParams.get(name).add(value);
+    }
+
+    public void addQueryDateRange(String name, Range<LocalDate> range) {
+        LocalDate lowerEndpoint = range.lowerEndpoint();
+        LocalDate upperEndpoint = range.upperEndpoint();
+
+        if (lowerEndpoint != null) {
+            String value = lowerEndpoint.toString(QUERY_STRING_DATE_FORMAT);
+            this.addQueryParam(name + ">", value);
+        }
+
+        if (upperEndpoint != null) {
+            String value = upperEndpoint.toString(QUERY_STRING_DATE_FORMAT);
+            this.addQueryParam(name + "<", value);
+        }
     }
 
     public void addPostParam(String name, String value) {

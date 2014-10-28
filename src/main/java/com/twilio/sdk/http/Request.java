@@ -50,22 +50,22 @@ public class Request {
         return username != null || password != null;
     }
 
-	public URL constructURL() {
-		String params = this.encodeQueryParams();
-		String stringUri = this.uri + "?" + params;
-		try {
-			URI uri = new URI(stringUri);
-			return uri.toURL();
-		} catch(URISyntaxException e) {
-			throw new RuntimeException("Bad URI: " + stringUri);
-		} catch(MalformedURLException e) {
-			throw new RuntimeException("Bad URL: " + stringUri);
-		}
-	}
+    public URL constructURL() {
+        String params = this.encodeQueryParams();
+        String stringUri = this.uri + "?" + params;
+        try {
+            URI uri = new URI(stringUri);
+            return uri.toURL();
+        } catch(URISyntaxException e) {
+            throw new RuntimeException("Bad URI: " + stringUri);
+        } catch(MalformedURLException e) {
+            throw new RuntimeException("Bad URL: " + stringUri);
+        }
+    }
 
-	private String encodeQueryParams() {
-		return ""; // TODO implement this
-	}
+    private String encodeQueryParams() {
+        return ""; // TODO implement this
+    }
 
 
 }

@@ -89,11 +89,11 @@ public abstract class HttpClient {
 
     protected String authentication(String username, String password) {
         String credentials = username + ":" + password;
-	    try {
-		    String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));
-			return "Basic " + encoded;
-	    } catch(UnsupportedEncodingException e) {
-		    throw new RuntimeException("We don't have ASCII, can't do much here");
-	    }
+        try {
+            String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));
+            return "Basic " + encoded;
+        } catch(UnsupportedEncodingException e) {
+            throw new RuntimeException("We don't have ASCII, can't do much here");
+        }
     }
 }

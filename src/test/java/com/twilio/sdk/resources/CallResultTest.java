@@ -53,11 +53,28 @@ public class CallResultTest {
             "    \"uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls.json?PageSize=50&Page=0\"\n" +
             "}\n";
 
+    public static final String EMPTY_JSON = "{\n" +
+            "    \"calls\": [], \n" +
+            "    \"end\": 49, \n" +
+            "    \"first_page_uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls.json?PageSize=50&Page=0\", \n" +
+            "    \"last_page_uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls.json?PageSize=50&Page=33\", \n" +
+            "    \"next_page_uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls.json?PageSize=50&Page=1&AfterSid=CA7e123477b24eb76416705b82a02a1e8b\", \n" +
+            "    \"num_pages\": 34, \n" +
+            "    \"page\": 0, \n" +
+            "    \"page_size\": 50, \n" +
+            "    \"previous_page_uri\": null, \n" +
+            "    \"start\": 0, \n" +
+            "    \"total\": 1682, \n" +
+            "    \"uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls.json?PageSize=50&Page=0\"\n" +
+            "}\n";
+
+
     @Test
     public void testFromJson() throws Exception {
         Twilio.setAccountSid("AC123");
         Twilio.setAuthToken("AUTH TOKEN");
-        Twilio.useMockResponses(new ConsumableResponse(JSON, 200, 5));
+        Twilio.useMockResponses(new ConsumableResponse(JSON, 200, 5),
+                                new ConsumableResponse(EMPTY_JSON, 200));
 
         Result<Call> result = Call.find().build();
 

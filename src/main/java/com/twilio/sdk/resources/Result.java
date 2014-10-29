@@ -35,7 +35,6 @@ public abstract class Result<E> implements Iterable<E> {
         public boolean hasNext() {
             if (!this.result.iterator.hasNext() && this.result.autoPage) {
                 // The page is exhausted, attempt to fetch the next page of results
-                System.out.println("Page is exhausted, fetching next page");
                 this.result.fetchNextPage();
             }
 

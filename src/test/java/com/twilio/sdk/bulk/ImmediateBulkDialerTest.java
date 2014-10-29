@@ -2,18 +2,15 @@ package com.twilio.sdk.bulk;
 
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.http.ConsumableResponse;
-import com.twilio.sdk.http.MockHttpClient;
 import com.twilio.sdk.resources.Call;
 import com.twilio.sdk.timing.Stopwatch;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.Map;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class ImmediateBulkDialerTest {
     public static final String JSON = "{" +

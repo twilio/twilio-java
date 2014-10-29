@@ -5,7 +5,6 @@ import com.twilio.sdk.hash.ConsistentHashRing;
 import com.twilio.sdk.resources.Call;
 
 import java.net.URI;
-import java.net.URL;
 
 public class PhoneNumberGroup {
     protected ConsistentHashRing<String> ring;

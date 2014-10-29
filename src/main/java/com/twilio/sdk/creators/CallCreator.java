@@ -163,7 +163,7 @@ public class CallCreator extends Creator<Call> {
         }
 
         if (this.record != null) {
-            String value = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, this.timeout.toString());
+            String value = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, this.record.toString());
             request.addPostParam("Record", value);
         }
     }

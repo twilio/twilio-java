@@ -3,11 +3,8 @@ package com.twilio.sdk.locators;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Result;
 
-import java.util.List;
 import java.util.concurrent.Callable;
 
 public abstract class Locator<T> {

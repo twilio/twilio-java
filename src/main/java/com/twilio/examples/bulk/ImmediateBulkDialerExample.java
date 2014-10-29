@@ -7,10 +7,8 @@ import com.twilio.sdk.http.ConsumableResponse;
 import com.twilio.sdk.resources.Call;
 import com.twilio.sdk.timing.Stopwatch;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 /**
  * Example of how to use the ImmediateBulkDialer.
@@ -61,7 +59,7 @@ public class ImmediateBulkDialerExample {
         // by calling the .complete() method
         dialer.complete();
 
-        // Once we get here we know that all the inflight requests are complete
+        // Once we get here we know that all the in-flight requests are complete
         stopwatch.stop();
 
         // Let's see how long that took.

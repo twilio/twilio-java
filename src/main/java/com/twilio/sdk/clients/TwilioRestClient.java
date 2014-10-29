@@ -1,6 +1,9 @@
 package com.twilio.sdk.clients;
 
-import com.twilio.sdk.http.*;
+import com.twilio.sdk.http.HttpClient;
+import com.twilio.sdk.http.NetworkHttpClient;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
 
 public class TwilioRestClient {
 

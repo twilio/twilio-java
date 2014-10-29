@@ -2,6 +2,7 @@ package com.twilio.sdk.locators;
 
 import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.*;
@@ -19,7 +20,7 @@ public class CallLocator extends Locator<Call> {
 
     @Override
     public Result<Call> build(final TwilioRestClient client) {
-        Request request = new Request("GET", "/Accounts/{AccountSid}/Calls");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls");
         this.addQueryParams(request);
 
         Page<Call> page = this.pageForRequest(client, request);
@@ -29,7 +30,7 @@ public class CallLocator extends Locator<Call> {
 
     @Override
     public Call buildBySid(String sid, final TwilioRestClient client) {
-        Request request = new Request("GET", "/Accounts/{AccountSid}/Calls/" + sid);
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid);
         Response response = client.request(request);
 
         if (response.getStatusCode() != 200) {

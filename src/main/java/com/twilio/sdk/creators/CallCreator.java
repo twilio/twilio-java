@@ -2,6 +2,7 @@ package com.twilio.sdk.creators;
 
 import com.google.common.base.CaseFormat;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
@@ -13,11 +14,11 @@ public class CallCreator extends Creator<Call> {
     protected String from;
     protected URI url;
     protected String applicationSid;
-    protected String method;
+    protected HttpMethod method;
     protected String fallbackUrl;
-    protected String fallbackMethod;
+    protected HttpMethod fallbackMethod;
     protected String statusCallback;
-    protected String statusCallbackMethod;
+    protected HttpMethod statusCallbackMethod;
     protected String sendDigits;
     protected String ifMachine;
     protected Integer timeout;
@@ -45,7 +46,7 @@ public class CallCreator extends Creator<Call> {
         this.applicationSid = applicationSid;
     }
 
-    public CallCreator setMethod(String method) {
+    public CallCreator setMethod(HttpMethod method) {
         this.method = method;
         return this;
     }
@@ -55,7 +56,7 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
-    public CallCreator setFallbackMethod(String fallbackMethod) {
+    public CallCreator setFallbackMethod(HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
         return this;
     }
@@ -65,7 +66,7 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
-    public CallCreator setStatusCallbackMethod(String statusCallbackMethod) {
+    public CallCreator setStatusCallbackMethod(HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
@@ -100,7 +101,7 @@ public class CallCreator extends Creator<Call> {
 
     @Override
     public Call build(final TwilioRestClient client) {
-        Request request = new Request("POST", "/Accounts/{AccountSid}/Calls");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls");
         this.addPostParams(request);
         Response response = client.request(request);
 
@@ -131,7 +132,7 @@ public class CallCreator extends Creator<Call> {
         }
 
         if (this.method != null) {
-            request.addPostParam("Method", this.method);
+            request.addPostParam("Method", this.method.toString());
         }
 
         if (this.fallbackUrl != null) {
@@ -139,7 +140,7 @@ public class CallCreator extends Creator<Call> {
         }
 
         if (this.fallbackMethod != null) {
-            request.addPostParam("FallbackMethod", this.fallbackMethod);
+            request.addPostParam("FallbackMethod", this.fallbackMethod.toString());
         }
 
         if (this.statusCallback != null) {
@@ -147,7 +148,7 @@ public class CallCreator extends Creator<Call> {
         }
 
         if (this.statusCallbackMethod != null) {
-            request.addPostParam("StatusCallbackMethod", this.statusCallbackMethod);
+            request.addPostParam("StatusCallbackMethod", this.statusCallbackMethod.toString());
         }
 
         if (this.sendDigits != null) {

@@ -17,7 +17,7 @@ public class NingHttpClient extends HttpClient {
         AsyncHttpClient client = new AsyncHttpClient();
         AsyncHttpClient.BoundRequestBuilder builder;
 
-        String method = request.getMethod().trim().toUpperCase();
+        String method = request.getMethod().toString();
 
         if (method.equals("GET")) {
             builder = client.prepareGet(request.getUri());

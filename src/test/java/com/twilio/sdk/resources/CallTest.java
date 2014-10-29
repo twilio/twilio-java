@@ -94,8 +94,8 @@ public class CallTest {
         Call call = Call.build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         call = Call.update()
-                .setFriendlyName("Hello World")
-                .build(call);
+                   .setStatus(Call.Status.COMPLETED)
+                   .build(call);
 
         validateCall(call);
     }

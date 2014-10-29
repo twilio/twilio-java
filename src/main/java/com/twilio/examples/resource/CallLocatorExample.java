@@ -14,7 +14,7 @@ public class CallLocatorExample {
         Call call = new CallLocator().buildBySid(callSid);
 
         System.out.println(call.getSid());
-        System.out.println(call.getTo());
+        System.out.println(call.getStatus().toString());
 
     }
 }

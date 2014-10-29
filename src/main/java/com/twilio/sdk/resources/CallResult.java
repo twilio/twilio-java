@@ -1,42 +1,25 @@
 package com.twilio.sdk.resources;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 
-import java.util.Iterator;
-import java.util.List;
-
 public class CallResult extends Result<Call> {
-
-    @JsonCreator
-    private CallResult(@JsonProperty("calls") List<Call> calls,
-                       @JsonProperty("first_page_uri") String firstPageUri,
-                       @JsonProperty("next_page_uri") String nextPageUri,
-                       @JsonProperty("previous_page_uri") String previousPageUri,
-                       @JsonProperty("uri") String uri) {
-        this.records = calls;
-        this.firstPageUri = firstPageUri;
-        this.nextPageUri = nextPageUri;
-        this.previousPageUri = previousPageUri;
-        this.uri = uri;
+    public CallResult(TwilioRestClient client, Page<Call> page) {
+        super(client, page);
     }
 
-    public static CallResult fromJson(String json) {
-        return Result.fromJson(json, CallResult.class);
-    }
+    @Override
+    protected void fetchNextPage() {
+        Request request = new Request("GET", this.page.getNextPageUri());
+        Response response = this.client.request(request);
 
-    public Iterator<Call> fetchNextPage() {
-        if (!this.autoPage) {
-            return null;
+        if (response.getStatusCode() == 200) {
+            this.page = CallPage.fromJson(response.getContent());
+            this.iterator = this.page.getRecords().iterator();
+        } else {
+            this.page = null;
+            this.iterator = null;
         }
-
-        Request request = new Request("GET", this.getNextPageUri());
-        Response response = client.request(request);
-
-        CallResult nextPage = CallResult.fromJson(response.getContent());
-        this.records = nextPage.records;
-        return this.records.iterator();
     }
 }

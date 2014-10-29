@@ -1,69 +1,62 @@
 package com.twilio.sdk.resources;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.clients.TwilioRestClient;
 
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 
-@JsonIgnoreProperties({ "end", "start", "last_page_uri", "num_pages", "page", "page_size", "start", "total" })
-abstract public class Result<T> implements Iterable<T> {
-    protected List<T> records;
-    protected String firstPageUri;
-    protected String nextPageUri;
-    protected String previousPageUri;
-    protected String uri;
-    protected boolean autoPage = true;
+public abstract class Result<E> implements Iterable<E> {
+    protected Page<E> page;
+    protected boolean autoPage;
     protected TwilioRestClient client;
+    protected Iterator<E> iterator;
 
-    public String getFirstPageUri() {
-        return firstPageUri;
-    }
-
-    public String getNextPageUri() {
-        return nextPageUri;
-    }
-
-    public String getPreviousPageUri() {
-        return previousPageUri;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public Result<T> setAutoPage(boolean autoPage) {
-        this.autoPage = autoPage;
-        return this;
-    }
-
-    public Result<T> setRestClient(TwilioRestClient client) {
+    public Result(TwilioRestClient client, Page<E> page) {
         this.client = client;
-        return this;
+        this.page = page;
+        this.iterator = page.getRecords().iterator();
+        this.autoPage = true;
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new ResultIterator<T>(this, this.records.iterator());
+    public Iterator<E> iterator() {
+        return new ResultIterator<E>(this);
     }
 
-    public static <S> S fromJson(String json, Class<S> valueType) {
-        ObjectMapper mapper = new ObjectMapper();
+    protected abstract void fetchNextPage();
 
-        try {
-            return mapper.readValue(json, valueType);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (JsonParseException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+    public static class ResultIterator<E> implements Iterator<E> {
+        private Result<E> result;
+
+        public ResultIterator(Result<E> result) {
+            this.result = result;
         }
-    }
 
-    public abstract Iterator<T> fetchNextPage();
+        @Override
+        public boolean hasNext() {
+            if (!this.result.iterator.hasNext() && this.result.autoPage) {
+                // The page is exhausted, attempt to fetch the next page of results
+                System.out.println("Page is exhausted, fetching next page");
+                this.result.fetchNextPage();
+            }
+
+            return this.result.iterator != null
+                && this.result.iterator.hasNext();
+        }
+
+        @Override
+        public E next() {
+            if (this.result.iterator != null) {
+                return this.result.iterator.next();
+            }
+            return null;
+        }
+
+        @Override
+        public void remove() {
+            if (this.result.iterator != null) {
+                this.result.iterator.remove();
+            }
+        }
+
+    }
 }

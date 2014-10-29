@@ -57,13 +57,9 @@ public class CallResultTest {
     public void testFromJson() throws Exception {
         Twilio.setAccountSid("AC123");
         Twilio.setAuthToken("AUTH TOKEN");
-        Twilio.useMockResponses(new ConsumableResponse(JSON, 200));
+        Twilio.useMockResponses(new ConsumableResponse(JSON, 200, 5));
 
-
-        CallResult result = CallResult.fromJson(JSON);
-        result.setRestClient(Twilio.getRestClient());
-
-        System.out.println(result);
+        Result<Call> result = Call.find().build();
 
         int i = 0;
 
@@ -74,8 +70,6 @@ public class CallResultTest {
                 break;
             }
         }
-
-        System.out.println(result.getNextPageUri());
 
         assertNotNull(result);
     }

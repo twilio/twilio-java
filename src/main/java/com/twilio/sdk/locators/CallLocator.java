@@ -4,11 +4,8 @@ import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.Call;
+import com.twilio.sdk.resources.*;
 import org.joda.time.LocalDate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CallLocator extends Locator<Call> {
     private String to;
@@ -19,7 +16,7 @@ public class CallLocator extends Locator<Call> {
     private Range<LocalDate> rangeStartTime;
 
     @Override
-    public List<Call> build(final TwilioRestClient client) {
+    public Result<Call> build(final TwilioRestClient client) {
         Request request = new Request("GET", "/Accounts/{AccountSid}/Calls");
         this.addQueryParams(request);
         Response response = client.request(request);
@@ -28,9 +25,8 @@ public class CallLocator extends Locator<Call> {
             throw new RuntimeException("Unable to build list of Calls");
         }
 
-
-
-        return new ArrayList<Call>();
+        Page<Call> firstPage = CallPage.fromJson(response.getContent());
+        return new CallResult(client, firstPage);
     }
 
     @Override

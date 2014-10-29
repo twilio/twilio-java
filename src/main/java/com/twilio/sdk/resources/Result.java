@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public abstract class Result<E> implements Iterable<E> {
     protected Page<E> page;
-    protected boolean autoPage;
+    protected boolean autoPaging;
     protected TwilioRestClient client;
     protected Iterator<E> iterator;
 
@@ -14,7 +14,15 @@ public abstract class Result<E> implements Iterable<E> {
         this.client = client;
         this.page = page;
         this.iterator = page.getRecords().iterator();
-        this.autoPage = true;
+        this.autoPaging = true;
+    }
+
+    public boolean isAutoPaging() {
+        return autoPaging;
+    }
+
+    public void setAutoPaging(boolean autoPaging) {
+        this.autoPaging = autoPaging;
     }
 
     @Override
@@ -33,8 +41,8 @@ public abstract class Result<E> implements Iterable<E> {
 
         @Override
         public boolean hasNext() {
-            if (!this.result.iterator.hasNext() && this.result.autoPage) {
-                // The page is exhausted, attempt to fetch the next page of results
+            if (!this.result.iterator.hasNext() && this.result.isAutoPaging()) {
+                // The page is exhausted, fetch the next page
                 this.result.fetchNextPage();
             }
 

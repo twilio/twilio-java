@@ -1,15 +1,13 @@
 package com.twilio.sdk.resources;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-@JsonIgnoreProperties({ "end", "start", "last_page_uri", "num_pages", "page", "page_size", "start", "total" })
-abstract public class Page<T> {
+public class Page<T> {
     protected List<T> records;
     protected String firstPageUri;
     protected String nextPageUri;
@@ -36,17 +34,25 @@ abstract public class Page<T> {
         return uri;
     }
 
-    public static <S> S fromJson(String json, Class<S> valueType) {
+    public void deserialize(String recordKey, String json, Class<T> recordType) {
         ObjectMapper mapper = new ObjectMapper();
 
+        this.records = new ArrayList<T>();
+
         try {
-            return mapper.readValue(json, valueType);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (JsonParseException e) {
-            throw new RuntimeException(e.getMessage());
+            JsonNode root = mapper.readTree(json);
+            JsonNode records = root.get(recordKey);
+            for (JsonNode record : records) {
+                this.records.add(mapper.readValue(record.toString(), recordType));
+            }
+            this.firstPageUri = root.get("first_page_uri").asText();
+            this.nextPageUri = root.get("next_page_uri").asText();
+            this.previousPageUri = root.get("previous_page_uri").asText();
+            this.uri = root.get("uri").asText();
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Unable to deserialize reponse: " + e.getMessage());
         }
     }
+
+
 }

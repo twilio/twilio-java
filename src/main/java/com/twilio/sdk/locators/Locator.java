@@ -3,6 +3,7 @@ package com.twilio.sdk.locators;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.Result;
 
 import java.util.concurrent.Callable;
@@ -43,4 +44,10 @@ public abstract class Locator<T> {
             }
         });
     }
+
+    public Page<T> nextPage(final String nextPageUri) {
+        return nextPage(nextPageUri, Twilio.getRestClient());
+    }
+
+    public abstract Page<T> nextPage(final String nextPageUri, final TwilioRestClient client);
 }

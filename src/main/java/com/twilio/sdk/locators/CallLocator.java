@@ -19,14 +19,10 @@ public class CallLocator extends Locator<Call> {
     public Result<Call> build(final TwilioRestClient client) {
         Request request = new Request("GET", "/Accounts/{AccountSid}/Calls");
         this.addQueryParams(request);
-        Response response = client.request(request);
 
-        if (response.getStatusCode() != 200) {
-            throw new RuntimeException("Unable to build list of Calls");
-        }
+        Page<Call> page = this.pageForRequest(client, request);
 
-        Page<Call> firstPage = CallPage.fromJson(response.getContent());
-        return new CallResult(client, firstPage);
+        return new Result<Call>(this, client, page);
     }
 
     @Override
@@ -39,6 +35,25 @@ public class CallLocator extends Locator<Call> {
         }
 
         return Call.fromJson(response.getStream());
+    }
+
+    @Override
+    public Page<Call> nextPage(String nextPageUri, TwilioRestClient client) {
+        Request request = new Request("GET", nextPageUri);
+        return this.pageForRequest(client, request);
+    }
+
+    protected Page<Call> pageForRequest(final TwilioRestClient client, Request request) {
+        Response response = client.request(request);
+
+        if (response.getStatusCode() != 200) {
+            throw new RuntimeException("Unable to build page of Calls");
+        }
+
+        Page<Call> result = new Page<Call>();
+        result.deserialize("calls", response.getContent(), Call.class);
+
+        return result;
     }
 
     public CallLocator byTo(String to) {

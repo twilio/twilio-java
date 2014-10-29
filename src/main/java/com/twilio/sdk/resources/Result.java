@@ -1,16 +1,19 @@
 package com.twilio.sdk.resources;
 
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.locators.Locator;
 
 import java.util.Iterator;
 
-public abstract class Result<E> implements Iterable<E> {
+public class Result<E> implements Iterable<E> {
     protected Page<E> page;
     protected boolean autoPaging;
+    protected Locator<E> locator;
     protected TwilioRestClient client;
     protected Iterator<E> iterator;
 
-    public Result(TwilioRestClient client, Page<E> page) {
+    public Result(Locator<E> locator, TwilioRestClient client, Page<E> page) {
+        this.locator = locator;
         this.client = client;
         this.page = page;
         this.iterator = page.getRecords().iterator();
@@ -30,7 +33,12 @@ public abstract class Result<E> implements Iterable<E> {
         return new ResultIterator<E>(this);
     }
 
-    protected abstract void fetchNextPage();
+    protected void fetchNextPage() {
+        this.page = this.locator.nextPage(this.page.getNextPageUri(), this.client);
+        if (this.page != null) {
+            this.iterator = this.page.getRecords().iterator();
+        }
+    }
 
     public static class ResultIterator<E> implements Iterator<E> {
         private Result<E> result;

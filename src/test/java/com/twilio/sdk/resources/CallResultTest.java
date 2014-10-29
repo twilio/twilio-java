@@ -4,6 +4,7 @@ import com.twilio.sdk.Twilio;
 import com.twilio.sdk.http.ConsumableResponse;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class CallResultTest {
@@ -125,11 +126,12 @@ public class CallResultTest {
 
         Result<Call> result = Call.find().build();
 
-        int safetySentinel = 0;
+        int i = 1;
 
         for (Call call : result) {
-            System.out.println(call.getSid());
-            if (safetySentinel++ > 10) {
+            assertEquals(call.getSid(), "CA00000000000000000000000000000" + i);
+            i++;
+            if (i > 10) {
                 break;
             }
         }

@@ -108,8 +108,8 @@ public class CallTest {
 
         Request request = Twilio.getMockRequest();
 
-        URL url = request.constructURL();
         // TODO: Is this right?
+//        URL url = request.constructURL();
 //        assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json", url.toString());
     }
 

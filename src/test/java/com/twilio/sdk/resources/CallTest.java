@@ -106,9 +106,8 @@ public class CallTest {
 
         Call.find().byEndTime(Range.lessThan(LocalDate.now())).build();
 
-        Request request = Twilio.getMockRequest();
-
         // TODO: Is this right?
+//        Request request = Twilio.getMockRequest();
 //        URL url = request.constructURL();
 //        assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json", url.toString());
     }

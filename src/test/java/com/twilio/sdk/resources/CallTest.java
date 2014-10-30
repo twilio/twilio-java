@@ -74,7 +74,7 @@ public class CallTest {
         Call call = Call.build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         Call.update()
-            .setFriendlyName("Hello World")
+            .setStatus(Call.Status.COMPLETED)
             .build(call);
 
         Request request = Twilio.getMockRequest(1);

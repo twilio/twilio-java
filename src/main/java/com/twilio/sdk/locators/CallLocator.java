@@ -42,7 +42,7 @@ public class CallLocator extends Locator<Call> {
 
     @Override
     public Page<Call> nextPage(String nextPageUri, TwilioRestClient client) {
-        Request request = new Request("GET", nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri);
         return this.pageForRequest(client, request);
     }
 

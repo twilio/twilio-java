@@ -118,8 +118,8 @@ public class CallResultTest {
 
     @Test
     public void testFromJson() throws Exception {
-        Twilio.setAccountSid("AC123");
-        Twilio.setAuthToken("AUTH TOKEN");
+        Twilio.init("AC123", "AUTH TOKEN");
+
         Twilio.useMockResponses(new ConsumableResponse(FIRST_PAGE_JSON, 200, 1),
                                 new ConsumableResponse(SECOND_PAGE_JSON, 200, 1),
                                 new ConsumableResponse(EMPTY_PAGE_JSON, 200));

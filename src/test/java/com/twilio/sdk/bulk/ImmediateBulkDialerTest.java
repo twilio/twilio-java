@@ -46,8 +46,7 @@ public class ImmediateBulkDialerTest {
 
     @Before
     public void setUp() throws Exception {
-        Twilio.setAccountSid("ACca498dbda0fef21f361a9a3326354175");
-        Twilio.setAuthToken("8b20fad4aaf29e4d9f30ee0994a2e3bd");
+        Twilio.init("AC123", "AUTH TOKEN");
     }
 
     @Test

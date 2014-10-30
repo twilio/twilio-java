@@ -11,8 +11,7 @@ import java.net.URISyntaxException;
 public class CallCreatorExample {
 
     public static void main(String[] args) {
-        Twilio.setAccountSid("ACf03058d205530a5dbded37b9ee6fe61b");
-        Twilio.setAuthToken("b066e13bd65fced5bef47dd51903ba18");
+        Twilio.init("AC123", "AUTH TOKEN");
 
         try {
             URI u = new URI("http://twimlbin.com/4397e62f");

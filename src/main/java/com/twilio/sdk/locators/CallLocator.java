@@ -14,6 +14,8 @@ public class CallLocator extends Locator<Call> {
     private String status;
     private LocalDate absoluteStartTime;
     private Range<LocalDate> rangeStartTime;
+    private LocalDate absoluteEndTime;
+    private Range<LocalDate> rangeEndTime;
 
     @Override
     public Result<Call> build(final TwilioRestClient client) {
@@ -88,6 +90,18 @@ public class CallLocator extends Locator<Call> {
         return this;
     }
 
+    public CallLocator byEndTime(LocalDate time) {
+        this.absoluteEndTime = time;
+        this.rangeEndTime = null;
+        return this;
+    }
+
+    public CallLocator byEndTime(Range<LocalDate> timeRange) {
+        this.absoluteEndTime = null;
+        this.rangeEndTime = timeRange;
+        return this;
+    }
+
     private void addQueryParams(Request request) {
         if (this.to != null) {
             request.addQueryParam("To", this.to);
@@ -106,12 +120,21 @@ public class CallLocator extends Locator<Call> {
         }
 
         if (this.absoluteStartTime != null) {
-            String value = this.absoluteStartTime.toString(Request.QUERY_STRING_DATE_FORMAT);
-            request.addQueryParam("StartTime", value);
+            request.addQueryParam(
+                "StartTime",
+                this.absoluteStartTime.toString(Request.QUERY_STRING_DATE_FORMAT)
+            );
+        } else if (this.rangeStartTime != null) {
+            request.addQueryDateRange("StartTime", this.rangeStartTime);
         }
 
-        if (this.rangeStartTime != null) {
-            request.addQueryDateRange("StartTime", this.rangeStartTime);
+        if (this.absoluteEndTime != null) {
+            request.addQueryParam(
+                "EndTime",
+                this.absoluteEndTime.toString(Request.QUERY_STRING_DATE_FORMAT)
+            );
+        } else if (this.rangeEndTime != null) {
+            request.addQueryDateRange("EndTime", this.rangeEndTime);
         }
     }
 

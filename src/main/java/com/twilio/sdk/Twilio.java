@@ -20,6 +20,11 @@ public class Twilio {
     private static Long mockLowMillis;
     private static Long mockHighMillis;
 
+    public static void init(String accountSid, String authToken) {
+        Twilio.setAccountSid(accountSid);
+        Twilio.setAuthToken(authToken);
+    }
+
     public static void setAccountSid(String accountSid) {
         if (accountSid == null) {
             throw new RuntimeException("AccountSid can not be null");

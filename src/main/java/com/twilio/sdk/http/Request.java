@@ -62,7 +62,12 @@ public class Request {
 
     public URL constructURL() {
         String params = this.encodeQueryParams();
-        String stringUri = this.uri + "?" + params;
+        String stringUri = this.uri;
+
+        if (params.length() > 0) {
+            stringUri += "?" + params;
+        }
+
         try {
             URI uri = new URI(stringUri);
             return uri.toURL();
@@ -82,16 +87,13 @@ public class Request {
     }
 
     public void addQueryDateRange(String name, Range<LocalDate> range) {
-        LocalDate lowerEndpoint = range.lowerEndpoint();
-        LocalDate upperEndpoint = range.upperEndpoint();
-
-        if (lowerEndpoint != null) {
-            String value = lowerEndpoint.toString(QUERY_STRING_DATE_FORMAT);
+        if (range.hasLowerBound()) {
+            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
             this.addQueryParam(name + ">", value);
         }
 
-        if (upperEndpoint != null) {
-            String value = upperEndpoint.toString(QUERY_STRING_DATE_FORMAT);
+        if (range.hasUpperBound()) {
+            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_FORMAT);
             this.addQueryParam(name + "<", value);
         }
     }

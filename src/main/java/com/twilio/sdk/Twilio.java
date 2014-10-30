@@ -3,7 +3,8 @@ package com.twilio.sdk;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.http.ConsumableResponse;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
 import com.twilio.sdk.http.MockHttpClient;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Twilio {
     private static String authToken;
     private static TwilioRestClient restClient;
     private static ListeningExecutorService executorService;
-    private static List<ConsumableResponse> mockResponses;
+    private static List<Response> mockResponses;
     private static Long mockLowMillis;
     private static Long mockHighMillis;
 
@@ -49,8 +50,8 @@ public class Twilio {
         Twilio.authToken = authToken;
     }
 
-    public static void setMockResponses(ConsumableResponse... responses) {
-        Twilio.mockResponses = new ArrayList<ConsumableResponse>();
+    public static void setMockResponses(Response... responses) {
+        Twilio.mockResponses = new ArrayList<Response>();
         Collections.addAll(Twilio.mockResponses, responses);
         Twilio.invalidate();
     }
@@ -108,6 +109,27 @@ public class Twilio {
 
     public static void setExecutorService(ListeningExecutorService executorService) {
         Twilio.executorService = executorService;
+    }
+
+    public static Request getMockRequest() {
+        return Twilio.getMockRequest(0);
+    }
+
+    public static Request getMockRequest(int index) {
+        List<Request> requests = Twilio.getMockRequests();
+        if (index < requests.size()) {
+            return requests.get(index);
+        }
+        return null;
+    }
+
+    public static List<Request> getMockRequests() {
+        if (isMockingEnabled() &&
+            (Twilio.getRestClient().getHttpClient() instanceof MockHttpClient)) {
+            return ((MockHttpClient)Twilio.getRestClient().getHttpClient()).getRequests();
+        }
+
+        return new ArrayList<Request>();
     }
 
     /**

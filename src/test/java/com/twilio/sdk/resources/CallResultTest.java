@@ -120,9 +120,9 @@ public class CallResultTest {
     public void testFromJson() throws Exception {
         Twilio.init("AC123", "AUTH TOKEN");
 
-        Twilio.useMockResponses(new ConsumableResponse(FIRST_PAGE_JSON, 200, 1),
-                                new ConsumableResponse(SECOND_PAGE_JSON, 200, 1),
-                                new ConsumableResponse(EMPTY_PAGE_JSON, 200));
+        Twilio.setMockResponses(new ConsumableResponse(FIRST_PAGE_JSON, 200, 1),
+                new ConsumableResponse(SECOND_PAGE_JSON, 200, 1),
+                new ConsumableResponse(EMPTY_PAGE_JSON, 200));
 
         Result<Call> result = Call.find().build();
 

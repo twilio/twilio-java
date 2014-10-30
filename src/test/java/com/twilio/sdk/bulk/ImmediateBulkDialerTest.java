@@ -54,7 +54,7 @@ public class ImmediateBulkDialerTest {
         long overhead = 500;
         long requestDelay = 1000;
 
-        Twilio.useMockResponses(new ConsumableResponse(JSON, 201));
+        Twilio.setMockResponses(new ConsumableResponse(JSON, 201));
         Twilio.setMockDelay(requestDelay);
 
         URI applicationUri = new URI("http://example.com");

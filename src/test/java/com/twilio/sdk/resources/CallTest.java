@@ -55,14 +55,14 @@ public class CallTest {
 
     @Test
     public void testBuild() throws Exception {
-        Twilio.useMockResponses(new ConsumableResponse(JSON, 200));
+        Twilio.setMockResponses(new ConsumableResponse(JSON, 200));
         Call call = Call.build("CA9e966bd3ef2abcfe941fb0a06e3fc027");
         validateCall(call);
     }
 
     @Test
     public void testCreate() throws Exception {
-        Twilio.useMockResponses(new ConsumableResponse(JSON, 201));
+        Twilio.setMockResponses(new ConsumableResponse(JSON, 201));
         Call call = Call.create("+14155551234", "+14155557890", new URI("http://www.twilio.com"))
                         .build();
         validateCall(call);
@@ -70,7 +70,7 @@ public class CallTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Twilio.useMockResponses(new ConsumableResponse(JSON, 200));
+        Twilio.setMockResponses(new ConsumableResponse(JSON, 200));
         Call call = Call.build("CA9e966bd3ef2abcfe941fb0a06e3fc027");
 
         call = Call.update()

@@ -127,7 +127,7 @@ public class ImmediateBulkDialerExample {
     private static void setupMocking(long delay) {
         Twilio.init("AC123", "AUTH TOKEN");
         Twilio.setMockDelay(delay);
-        Twilio.useMockResponses(new ConsumableResponse(JSON, 201));
+        Twilio.setMockResponses(new ConsumableResponse(JSON, 201));
     }
 
 }

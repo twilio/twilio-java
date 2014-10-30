@@ -49,9 +49,14 @@ public class Twilio {
         Twilio.authToken = authToken;
     }
 
-    public static void useMockResponses(ConsumableResponse... responses) {
+    public static void setMockResponses(ConsumableResponse... responses) {
         Twilio.mockResponses = new ArrayList<ConsumableResponse>();
         Collections.addAll(Twilio.mockResponses, responses);
+        Twilio.invalidate();
+    }
+
+    public static void clearMockResponses() {
+        Twilio.mockResponses = null;
         Twilio.invalidate();
     }
 
@@ -72,7 +77,7 @@ public class Twilio {
     public static TwilioRestClient getRestClient() {
         if (Twilio.restClient == null) {
             if (Twilio.accountSid == null || Twilio.authToken == null) {
-                throw new RuntimeException("TwilioRestClient was used before AccountSid and AuthToken were set, make sure you call Twilio.setAccountSid() and Twilio.setAuthToken");
+                throw new RuntimeException("TwilioRestClient was used before AccountSid and AuthToken were set, make sure you call Twilio.init()");
             }
 
             Twilio.restClient = new TwilioRestClient(Twilio.accountSid, Twilio.authToken);

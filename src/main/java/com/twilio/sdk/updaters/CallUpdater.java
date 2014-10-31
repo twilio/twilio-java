@@ -64,7 +64,7 @@ public class CallUpdater extends SidUpdater<Call> {
             throw new RuntimeException("Call update failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
 
-        return Call.fromJson(response.getContent());
+        return Call.fromJson(response.getStream());
     }
 
     private void addPostParams(Request request) {

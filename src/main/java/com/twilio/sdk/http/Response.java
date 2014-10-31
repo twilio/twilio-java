@@ -1,6 +1,7 @@
 package com.twilio.sdk.http;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
@@ -28,6 +29,13 @@ public class Response {
         }
         // XXX we probably don't need this and should convert strings into
         // streams in the mock scaffolding
+        try {
+            if (this.stream.available() == 0) {
+                return "";
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("whoops"); // XXX
+        }
         return (new Scanner(this.stream, "UTF-8").useDelimiter("\\A")).next();
 
     }

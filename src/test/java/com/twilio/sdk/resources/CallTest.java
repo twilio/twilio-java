@@ -70,21 +70,22 @@ public class CallTest {
     @Test
     public void testUpdateRequest() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 200));
-        Call call = Call.build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         Call.update()
-            .setFriendlyName("Hello World")
-            .build(call);
+            .setUri("https://www.twilio.com")
+            .setMethod("POST")
+            .build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-        Request request = Twilio.getMockRequest(1);
-        assertNotNull(request);
+        Request request = Twilio.getMockRequest();
 
         URL url = request.constructURL();
-        assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", url.toString());
+        assertEquals(
+            "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+            url.toString()
+        );
 
-        // TODO: Make this work
-//        String formBody = request.encodeFormBody();
-//        assertEquals("FriendlyName=Hello+World", formBody);
+        String formBody = request.encodeFormBody();
+        assertQueryStringsEqual("Uri=https://www.twilio.com&Method=POST", formBody);
     }
 
     @Test
@@ -93,8 +94,9 @@ public class CallTest {
         Call call = Call.build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         call = Call.update()
-                .setFriendlyName("Hello World")
-                .build(call);
+                   .setUri("https://www.twilio.com")
+                   .setMethod("POST")
+                   .build(call);
 
         validateCall(call);
     }
@@ -109,8 +111,8 @@ public class CallTest {
 
         Request request = Twilio.getMockRequest();
         assertUrlsEqual(
-                "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json?EndTime<=2014-01-01",
-                request.constructURL()
+            "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json?EndTime<=2014-01-01",
+            request.constructURL()
         );
     }
 

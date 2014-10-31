@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
 
-public class Call {
+public class Call extends SidResource {
 
     public static CallCreator create(String to, String from, URI uri) {
         return new CallCreator(to, from, uri);

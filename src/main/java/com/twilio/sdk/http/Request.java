@@ -120,11 +120,10 @@ public class Request {
                     builder.append("&");
                 }
             }
-            String encoded = builder.toString();
-            if (encoded.endsWith("&")) {
-                encoded = encoded.substring(0, encoded.length() - 1);
+            if (builder.length() > 0 && builder.charAt(builder.length() - 1) == '&') {
+                builder.deleteCharAt(builder.length() - 1);
             }
-            return encoded;
+            return builder.toString();
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't encode params");
         }

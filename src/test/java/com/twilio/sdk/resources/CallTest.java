@@ -9,13 +9,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Map;
 
+import static com.twilio.sdk.junit.Assert.assertQueryStringsEqual;
+import static com.twilio.sdk.junit.Assert.assertUrlsEqual;
 import static org.junit.Assert.*;
 
 public class CallTest {
@@ -55,7 +54,7 @@ public class CallTest {
         assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json", url.toString());
 
         String formBody = request.encodeFormBody();
-        validateQueryParams("To=+14155551234&From=+14155557890&Url=http://www.twilio.com", formBody);
+        assertQueryStringsEqual("To=+14155551234&From=+14155557890&Url=http://www.twilio.com", formBody);
     }
 
     @Test
@@ -104,12 +103,15 @@ public class CallTest {
     public void testListRequest() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.FIRST_PAGE_JSON, 200));
 
-        Call.find().byEndTime(Range.lessThan(LocalDate.now())).build();
+        Call.find()
+            .byEndTime(Range.lessThan(LocalDate.parse("2014-01-01")))
+            .build();
 
-        // TODO: Is this right?
-//        Request request = Twilio.getMockRequest();
-//        URL url = request.constructURL();
-//        assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json", url.toString());
+        Request request = Twilio.getMockRequest();
+        assertUrlsEqual(
+                "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json?EndTime<=2014-01-01",
+                request.constructURL()
+        );
     }
 
     private void validateCall(Call call) {
@@ -153,43 +155,7 @@ public class CallTest {
         assertEquals("/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", call.getUri());
     }
 
-    private void validateQueryParams(String expected, String actual) {
-        Map<String, String> expectedMap = queryStringToMap(expected, true);
-        Map<String, String> actualMap = queryStringToMap(actual);
 
-        assertEquals(expectedMap, actualMap);
-    }
 
-    private Map<String, String> queryStringToMap(String queryString) {
-        return queryStringToMap(queryString, false);
-    }
 
-    private Map<String, String> queryStringToMap(String queryString, boolean encode) {
-        Map<String, String> result = new HashMap<String, String>();
-        String[] parts = queryString.split("&");
-        for (String part : parts) {
-            String[] keyValue = part.split("=");
-            if (keyValue.length == 2) {
-                String key = keyValue[0];
-                String value = keyValue[1];
-
-                if (encode) {
-                    try {
-                        key = URLEncoder.encode(key, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        // Ignore, just use the non-encoded
-                    }
-
-                    try {
-                        value = URLEncoder.encode(value, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        // Ignore, just use the non-encoded
-                    }
-                }
-
-                result.put(key, value);
-            }
-        }
-        return result;
-    }
 }

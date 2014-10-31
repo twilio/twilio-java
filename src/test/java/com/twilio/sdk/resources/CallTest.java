@@ -3,6 +3,7 @@ package com.twilio.sdk.resources;
 import com.google.common.collect.Range;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.http.ConsumableResponse;
+import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import org.joda.time.LocalDate;
 import org.junit.After;
@@ -72,20 +73,20 @@ public class CallTest {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 200));
 
         Call.update()
-            .setUri("https://www.twilio.com")
-            .setMethod("POST")
+            .setUrl(new URI("https://www.twilio.com"))
+            .setMethod(HttpMethod.POST)
             .build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         Request request = Twilio.getMockRequest();
 
         URL url = request.constructURL();
         assertEquals(
-            "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
-            url.toString()
+                "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                url.toString()
         );
 
         String formBody = request.encodeFormBody();
-        assertQueryStringsEqual("Uri=https://www.twilio.com&Method=POST", formBody);
+        assertQueryStringsEqual("Url=https://www.twilio.com&Method=POST", formBody);
     }
 
     @Test
@@ -94,8 +95,8 @@ public class CallTest {
         Call call = Call.build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         call = Call.update()
-                   .setUri("https://www.twilio.com")
-                   .setMethod("POST")
+                   .setUrl(new URI("https://www.twilio.com"))
+                   .setMethod(HttpMethod.POST)
                    .build(call);
 
         validateCall(call);
@@ -138,7 +139,7 @@ public class CallTest {
         assertEquals("USD", call.getPriceUnit());
         assertEquals("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", call.getSid());
         assertEquals("Mon, 29 Sep 2014 20:39:42 +0000", call.getStartTime());
-        assertEquals("completed", call.getStatus());
+        assertEquals(Call.Status.COMPLETED, call.getStatus());
 
         Map<String, String> uris = call.getSubresourceUris();
 

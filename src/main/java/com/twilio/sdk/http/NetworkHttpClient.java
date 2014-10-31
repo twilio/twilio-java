@@ -12,6 +12,7 @@ public class NetworkHttpClient extends HttpClient {
     public Response makeRequest(Request request) {
         try {
             URL url = request.constructURL();
+            HttpMethod method = request.getMethod();
             // TODO If we support proxying, plumb it through here.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setAllowUserInteraction(false);
@@ -19,13 +20,13 @@ public class NetworkHttpClient extends HttpClient {
             connection.addRequestProperty("Accept-Encoding", "utf-8");
             connection.setInstanceFollowRedirects(true);
 
-            connection.setRequestMethod(request.getMethod().toString());
+            connection.setRequestMethod(method.toString());
 
             if (request.requiresAuthentication()) {
                 addAuth(request, connection);
             }
 
-            if (request.getMethod() == HttpMethod.POST) {
+            if (method == HttpMethod.POST) {
                 connection.setDoOutput(true);
                 connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             }
@@ -33,7 +34,7 @@ public class NetworkHttpClient extends HttpClient {
             // TODO set up timeouts, caching, etc
             connection.connect();
 
-            if (request.getMethod() == HttpMethod.POST) {
+            if (method == HttpMethod.POST) {
                 sendPostBody(request, connection);
             }
 

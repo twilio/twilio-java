@@ -1,4 +1,4 @@
-package com.twilio.sdk.junit;
+package com.twilio.sdk;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class Assert {
 

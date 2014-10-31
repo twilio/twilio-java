@@ -14,8 +14,8 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 
-import static com.twilio.sdk.junit.Assert.assertQueryStringsEqual;
-import static com.twilio.sdk.junit.Assert.assertUrlsEqual;
+import static com.twilio.sdk.Assert.assertQueryStringsEqual;
+import static com.twilio.sdk.Assert.assertUrlsEqual;
 import static org.junit.Assert.*;
 
 public class CallTest {

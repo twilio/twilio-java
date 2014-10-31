@@ -17,6 +17,34 @@ import java.util.Map;
 
 public class Call extends SidResource {
 
+    public enum Status {
+        QUEUED ("queued"),
+        RINGING ("ringing"),
+        IN_PROGRESS ("in-progress"),
+        COMPLETED ("completed"),
+        BUSY ("busy"),
+        FAILED ("failed"),
+        NO_ANSWER ("no-answer"),
+        CANCELED ("canceled");
+
+        private String status;
+
+        Status(String status) {
+            this.status = status;
+        }
+
+        public String toString() {
+            return this.status;
+        }
+
+        @JsonCreator
+        public static Status forValue(String value) {
+            String munged = value.replace("-", "_").toUpperCase();
+            return Status.valueOf(munged);
+        }
+
+    }
+
     public static CallCreator create(String to, String from, URI uri) {
         return new CallCreator(to, from, uri);
     }
@@ -61,7 +89,7 @@ public class Call extends SidResource {
     private final String priceUnit;
     private final String sid;
     private final String startTime;
-    private final String status; // XXX should we make this an enum? Would be more typeful.
+    private final Status status;
     private final Map<String, String> subresourceUris;
     private final String to;
     private final String toFormatted;
@@ -88,7 +116,7 @@ public class Call extends SidResource {
                  @JsonProperty("price_unit")        String priceUnit,
                  @JsonProperty("sid")               String sid,
                  @JsonProperty("start_time")        String startTime,
-                 @JsonProperty("status")            String status,
+                 @JsonProperty("status")            Status status,
                  @JsonProperty("subresource_uris")  Map<String, String> subresourceUris,
                  @JsonProperty("to")                String to,
                  @JsonProperty("to_formatted")      String toFormatted,
@@ -231,7 +259,7 @@ public class Call extends SidResource {
         return startTime;
     }
 
-    public final String getStatus() {
+    public final Status getStatus() {
         return status;
     }
 

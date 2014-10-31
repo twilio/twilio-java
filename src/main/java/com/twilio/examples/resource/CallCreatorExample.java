@@ -20,6 +20,7 @@ public class CallCreatorExample {
             Call call = c.build();
 
             System.out.println(call.getSid());
+            System.out.println(call.getStatus().toString());
         } catch(URISyntaxException e) {
             System.err.println("womp womp");
             System.exit(1);

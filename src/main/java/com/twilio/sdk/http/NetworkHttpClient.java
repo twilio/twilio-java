@@ -19,13 +19,13 @@ public class NetworkHttpClient extends HttpClient {
             connection.addRequestProperty("Accept-Encoding", "utf-8");
             connection.setInstanceFollowRedirects(true);
 
-            connection.setRequestMethod(request.getMethod());
+            connection.setRequestMethod(request.getMethod().toString());
 
             if (request.requiresAuthentication()) {
                 addAuth(request, connection);
             }
 
-            if (request.getMethod().equals("POST")) {
+            if (request.getMethod() == HttpMethod.POST) {
                 connection.setDoOutput(true);
                 connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             }
@@ -33,7 +33,7 @@ public class NetworkHttpClient extends HttpClient {
             // TODO set up timeouts, caching, etc
             connection.connect();
 
-            if (request.getMethod().equals("POST")) {
+            if (request.getMethod() == HttpMethod.POST) {
                 sendPostBody(request, connection);
             }
 

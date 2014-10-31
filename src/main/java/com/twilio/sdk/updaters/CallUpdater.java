@@ -1,57 +1,60 @@
 package com.twilio.sdk.updaters;
 
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 
-public class CallUpdater extends SidUpdater<Call> {
-    private String uri;
-    private String method;
-    private String status;
-    private String fallbackUri;
-    private String fallbackMethod;
-    private String statusCallback;
-    private String statusCallbackMethod;
+import java.net.URI;
 
-    public CallUpdater setUri(String uri) {
-        this.uri = uri;
+public class CallUpdater extends SidUpdater<Call> {
+    private URI url;
+    private HttpMethod method;
+    private Call.Status status;
+    private URI fallbackUrl;
+    private HttpMethod fallbackMethod;
+    private URI statusCallback;
+    private HttpMethod statusCallbackMethod;
+
+    public CallUpdater setUrl(URI url) {
+        this.url = url;
         return this;
     }
 
-    public CallUpdater setMethod(String method) {
+    public CallUpdater setMethod(HttpMethod method) {
         this.method = method;
         return this;
     }
 
-    public CallUpdater setStatus(String status) {
+    public CallUpdater setStatus(Call.Status status) {
         this.status = status;
         return this;
     }
 
-    public CallUpdater setFallbackUri(String fallbackUri) {
-        this.fallbackUri = fallbackUri;
+    public CallUpdater setFallbackUrl(URI fallbackUrl) {
+        this.fallbackUrl = fallbackUrl;
         return this;
     }
 
-    public CallUpdater setFallbackMethod(String fallbackMethod) {
+    public CallUpdater setFallbackMethod(HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
         return this;
     }
 
-    public CallUpdater setStatusCallback(String statusCallback) {
+    public CallUpdater setStatusCallback(URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public CallUpdater setStatusCallbackMethod(String statusCallbackMethod) {
+    public CallUpdater setStatusCallbackMethod(HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
     @Override
-    public Call build(String id, TwilioRestClient client) {
-        Request request = new Request("POST", "/Accounts/{AccountSid}/Calls/" + id);
+    public Call build(String sid, TwilioRestClient client) {
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls/" + sid);
         this.addPostParams(request);
         Response response = client.request(request);
 
@@ -65,32 +68,32 @@ public class CallUpdater extends SidUpdater<Call> {
     }
 
     private void addPostParams(Request request) {
-        if (this.uri != null) {
-            request.addPostParam("Uri", this.uri);
+        if (this.url != null) {
+            request.addPostParam("Url", this.url.toString());
         }
 
         if (this.method != null) {
-            request.addPostParam("Method", this.method);
+            request.addPostParam("Method", this.method.toString());
         }
 
         if (this.status != null) {
-            request.addPostParam("Status", this.status);
+            request.addPostParam("Status", this.status.toString());
         }
 
-        if (this.fallbackUri != null) {
-            request.addPostParam("FallbackUri", this.fallbackUri);
+        if (this.fallbackUrl != null) {
+            request.addPostParam("FallbackUrl", this.fallbackUrl.toString());
         }
 
         if (this.fallbackMethod != null) {
-            request.addPostParam("FallbackMethod", this.fallbackMethod);
+            request.addPostParam("FallbackMethod", this.fallbackMethod.toString());
         }
 
         if (this.statusCallback != null) {
-            request.addPostParam("StatusCallback", this.statusCallback);
+            request.addPostParam("StatusCallback", this.statusCallback.toString());
         }
 
         if (this.statusCallbackMethod != null) {
-            request.addPostParam("StatusCallbackMethod", this.statusCallbackMethod);
+            request.addPostParam("StatusCallbackMethod", this.statusCallbackMethod.toString());
         }
     }
 }

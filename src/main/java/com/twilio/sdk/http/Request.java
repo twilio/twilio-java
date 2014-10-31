@@ -11,27 +11,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Request {
+
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
-    protected String method;
+    protected HttpMethod method;
     protected String uri;
     protected String username;
     protected String password;
     protected Map<String, ArrayList<String>> queryParams;
     protected Map<String, ArrayList<String>> postParams;
 
-    public Request(String method, String uri) {
+    public Request(HttpMethod method, String uri) {
         this.method = method;
         this.uri = uri;
         this.queryParams = new HashMap<String, ArrayList<String>>();
         this.postParams = new HashMap<String, ArrayList<String>>();
     }
 
-    public String getMethod() {
-        return method;
+    public HttpMethod getMethod() {
+        return this.method;
     }
 
-    public void setMethod(String method) {
+    public void setMethod(HttpMethod method) {
         this.method = method;
     }
 

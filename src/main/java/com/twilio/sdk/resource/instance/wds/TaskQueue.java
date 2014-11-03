@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Queues distribute tasks to workers, and collect statistics about task distribution.
  */
-public class Queue extends InstanceResource<TwilioWdsClient> {
+public class TaskQueue extends InstanceResource<TwilioWdsClient> {
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 
@@ -18,7 +18,7 @@ public class Queue extends InstanceResource<TwilioWdsClient> {
 	 *
 	 * @param client the client
 	 */
-	public Queue(final TwilioWdsClient client) {
+	public TaskQueue(final TwilioWdsClient client) {
 		super(client);
 	}
 
@@ -28,7 +28,7 @@ public class Queue extends InstanceResource<TwilioWdsClient> {
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public Queue(final TwilioWdsClient client, final Map<String, Object> properties) {
+	public TaskQueue(final TwilioWdsClient client, final Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -39,13 +39,13 @@ public class Queue extends InstanceResource<TwilioWdsClient> {
 	 * @param workspaceSid the workspace sid
 	 * @param queueSid the queue sid
 	 */
-	public Queue(final TwilioWdsClient client, final String workspaceSid, final String queueSid) {
+	public TaskQueue(final TwilioWdsClient client, final String workspaceSid, final String queueSid) {
 		super(client);
 		if (workspaceSid == null || "".equals(workspaceSid)) {
-			throw new IllegalArgumentException("The workspaceSid for a Queue cannot be null");
+			throw new IllegalArgumentException("The workspaceSid for a TaskQueue cannot be null");
 		}
 		if (queueSid == null || "".equals(queueSid)) {
-			throw new IllegalArgumentException("The queueSid for a Queue cannot be null");
+			throw new IllegalArgumentException("The queueSid for a TaskQueue cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(SID_PROPERTY, queueSid);

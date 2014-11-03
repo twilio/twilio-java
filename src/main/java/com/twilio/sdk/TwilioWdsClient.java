@@ -1,22 +1,22 @@
 package com.twilio.sdk;
 
 import com.twilio.sdk.resource.factory.wds.ActivityFactory;
-import com.twilio.sdk.resource.factory.wds.QueueFactory;
 import com.twilio.sdk.resource.factory.wds.TaskFactory;
+import com.twilio.sdk.resource.factory.wds.TaskQueueFactory;
 import com.twilio.sdk.resource.factory.wds.WorkerFactory;
 import com.twilio.sdk.resource.factory.wds.WorkflowFactory;
 import com.twilio.sdk.resource.factory.wds.WorkspaceFactory;
 import com.twilio.sdk.resource.instance.wds.Activity;
-import com.twilio.sdk.resource.instance.wds.Queue;
 import com.twilio.sdk.resource.instance.wds.Reservation;
 import com.twilio.sdk.resource.instance.wds.Task;
+import com.twilio.sdk.resource.instance.wds.TaskQueue;
 import com.twilio.sdk.resource.instance.wds.Worker;
 import com.twilio.sdk.resource.instance.wds.Workflow;
 import com.twilio.sdk.resource.instance.wds.Workspace;
 import com.twilio.sdk.resource.list.wds.ActivityList;
-import com.twilio.sdk.resource.list.wds.QueueList;
 import com.twilio.sdk.resource.list.wds.ReservationList;
 import com.twilio.sdk.resource.list.wds.TaskList;
+import com.twilio.sdk.resource.list.wds.TaskQueueList;
 import com.twilio.sdk.resource.list.wds.WorkerList;
 import com.twilio.sdk.resource.list.wds.WorkflowList;
 import com.twilio.sdk.resource.list.wds.WorkspaceList;
@@ -47,16 +47,16 @@ public class TwilioWdsClient extends TwilioClient {
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.wds.Queue}.
+	 * Create an {@link com.twilio.sdk.resource.instance.wds.TaskQueue}.
 	 *
 	 * @param properties queue properties
 	 * @return created queue
 	 * @throws TwilioRestException
 	 */
-	public Queue createQueue(final String workspaceSid, final Map<String, String> properties) throws
+	public TaskQueue createTaskQueue(final String workspaceSid, final Map<String, String> properties) throws
 	                                                                                          TwilioRestException {
-		QueueFactory queueFactory = new QueueList(this, workspaceSid);
-		return queueFactory.create(properties);
+		TaskQueueFactory taskQueueFactory = new TaskQueueList(this, workspaceSid);
+		return taskQueueFactory.create(properties);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class TwilioWdsClient extends TwilioClient {
 	 * @return true, if successful
 	 * @throws TwilioRestException the twilio rest exception
 	 */
-	public boolean deleteQueue(final String workspaceSid, final String queueSid) throws TwilioRestException {
+	public boolean deleteTaskQueue(final String workspaceSid, final String queueSid) throws TwilioRestException {
 		TwilioRestResponse response = safeRequest(
 				"/" + TwilioWdsClient.DEFAULT_VERSION + "/Accounts/" + getAccountSid() + "/Workspaces/" + workspaceSid +
 				"/TaskQueues/" + queueSid, "DELETE", (Map) null);
@@ -279,10 +279,10 @@ public class TwilioWdsClient extends TwilioClient {
 	 * @param workspaceSid The 34 character sid starting with WS
 	 * @param queueSid The 34 character sid starting with WQ
 	 */
-	public Queue getQueue(final String workspaceSid, final String queueSid) {
-		Queue queue = new Queue(this, workspaceSid, queueSid);
-		queue.setRequestAccountSid(getAccountSid());
-		return queue;
+	public TaskQueue getTaskQueue(final String workspaceSid, final String queueSid) {
+		TaskQueue taskQueue = new TaskQueue(this, workspaceSid, queueSid);
+		taskQueue.setRequestAccountSid(getAccountSid());
+		return taskQueue;
 	}
 
 	/**
@@ -290,8 +290,8 @@ public class TwilioWdsClient extends TwilioClient {
 	 *
 	 * @return the queues
 	 */
-	public QueueList getQueues(final String workspaceSid) {
-		return getQueues(workspaceSid, new HashMap<String, String>(0));
+	public TaskQueueList getTaskQueues(final String workspaceSid) {
+		return getTaskQueues(workspaceSid, new HashMap<String, String>(0));
 	}
 
 	/**
@@ -301,8 +301,8 @@ public class TwilioWdsClient extends TwilioClient {
 	 * @param filters the filters
 	 * @return queues matching the filters
 	 */
-	public QueueList getQueues(final String workspaceSid, final Map<String, String> filters) {
-		QueueList list = new QueueList(this, workspaceSid, filters);
+	public TaskQueueList getTaskQueues(final String workspaceSid, final Map<String, String> filters) {
+		TaskQueueList list = new TaskQueueList(this, workspaceSid, filters);
 		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}

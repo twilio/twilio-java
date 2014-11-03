@@ -125,9 +125,9 @@ public class Task extends InstanceResource<TwilioWdsClient> {
 	}
 
 	/**
-	 * Gets the {@link com.twilio.sdk.resource.instance.wds.Queue} sid.
+	 * Gets the {@link TaskQueue} sid.
 	 *
-	 * @return the {@link com.twilio.sdk.resource.instance.wds.Queue} sid
+	 * @return the {@link TaskQueue} sid
 	 */
 	public String getQueueSid() {
 		return getProperty("task_queue_sid");

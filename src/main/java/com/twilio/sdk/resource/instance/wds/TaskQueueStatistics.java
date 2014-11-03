@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Statistics about task distribution.
  */
-public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
+public class TaskQueueStatistics extends InstanceResource<TwilioWdsClient> {
 
 	private static final String CUMULATIVE_PROPERTY = "cumulative";
 
@@ -32,7 +32,7 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	 * @param workspaceSid the workspace sid
 	 * @param queueSid the queue sid
 	 */
-	public QueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid) {
+	public TaskQueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid) {
 		this(client, workspaceSid, queueSid, null);
 	}
 
@@ -44,14 +44,28 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	 * @param queueSid the queue sid
 	 * @param filters the filters
 	 */
-	public QueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid,
-	                       final Map<String, String> filters) {
-		super(client);
+	public TaskQueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid,
+	                           final Map<String, String> filters) {
+		this(client, workspaceSid, queueSid, filters, null);
+	}
+
+	/**
+	 * Instantiates a queue statistics.
+	 *
+	 * @param client the client
+	 * @param workspaceSid the workspace sid
+	 * @param queueSid the queue sid
+	 * @param filters the filters
+	 * @param properties the properties
+	 */
+	public TaskQueueStatistics(final TwilioWdsClient client, final String workspaceSid, final String queueSid,
+	                           final Map<String, String> filters, final Map<String, Object> properties) {
+		super(client, properties);
 		if (workspaceSid == null || "".equals(workspaceSid)) {
-			throw new IllegalArgumentException("The workspaceSid for a QueueStatistics cannot be null");
+			throw new IllegalArgumentException("The workspaceSid for a TaskQueueStatistics cannot be null");
 		}
 		if (queueSid == null || "".equals(queueSid)) {
-			throw new IllegalArgumentException("The queueSid for a QueueStatistics cannot be null");
+			throw new IllegalArgumentException("The queueSid for a TaskQueueStatistics cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(TASK_QUEUE_SID_PROPERTY, queueSid);
@@ -266,7 +280,7 @@ public class QueueStatistics extends InstanceResource<TwilioWdsClient> {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioWdsClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
-		       getWorkspaceSid() + "Statistics/TaskQueues/" + getQueueSid();
+		       getWorkspaceSid() + "/Statistics/TaskQueues/" + getQueueSid();
 	}
 
 	private Map<String, Object> getCumulative() {

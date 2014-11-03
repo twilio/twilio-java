@@ -13,7 +13,7 @@ public class TaskQueueListTest extends BasicRequestTester {
 	@Before
 	public void setup() throws Exception {
 		setExpectedServerContentType("application/json");
-		setExpectedServerAnswer("/" + getClass().getPackage().getName().replace(".", "/") + "/taskqueues.json");
+		setExpectedServerAnswer("/" + getClass().getPackage().getName().replace(".", "/") + "/task_queues.json");
 	}
 
 	@Test

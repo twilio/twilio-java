@@ -7,10 +7,10 @@ import com.twilio.sdk.resource.factory.wds.WorkerFactory;
 import com.twilio.sdk.resource.factory.wds.WorkflowFactory;
 import com.twilio.sdk.resource.factory.wds.WorkspaceFactory;
 import com.twilio.sdk.resource.instance.wds.Activity;
-import com.twilio.sdk.resource.instance.wds.QueueStatistics;
 import com.twilio.sdk.resource.instance.wds.Reservation;
 import com.twilio.sdk.resource.instance.wds.Task;
 import com.twilio.sdk.resource.instance.wds.TaskQueue;
+import com.twilio.sdk.resource.instance.wds.TaskQueueStatistics;
 import com.twilio.sdk.resource.instance.wds.Worker;
 import com.twilio.sdk.resource.instance.wds.WorkerStatistics;
 import com.twilio.sdk.resource.instance.wds.WorkersStatistics;
@@ -19,10 +19,10 @@ import com.twilio.sdk.resource.instance.wds.WorkflowStatistics;
 import com.twilio.sdk.resource.instance.wds.Workspace;
 import com.twilio.sdk.resource.instance.wds.WorkspaceStatistics;
 import com.twilio.sdk.resource.list.wds.ActivityList;
-import com.twilio.sdk.resource.list.wds.QueueListStatistics;
 import com.twilio.sdk.resource.list.wds.ReservationList;
 import com.twilio.sdk.resource.list.wds.TaskList;
 import com.twilio.sdk.resource.list.wds.TaskQueueList;
+import com.twilio.sdk.resource.list.wds.TaskQueueListStatistics;
 import com.twilio.sdk.resource.list.wds.WorkerList;
 import com.twilio.sdk.resource.list.wds.WorkflowList;
 import com.twilio.sdk.resource.list.wds.WorkspaceList;
@@ -322,7 +322,7 @@ public class TwilioWdsClient extends TwilioClient {
 	 * @param workspaceSid The 34 character sid starting with WS
 	 * @return queues statistics
 	 */
-	public QueueListStatistics getQueuesStatistics(final String workspaceSid) {
+	public TaskQueueListStatistics getQueuesStatistics(final String workspaceSid) {
 		return getQueuesStatistics(workspaceSid, null);
 	}
 
@@ -333,8 +333,8 @@ public class TwilioWdsClient extends TwilioClient {
 	 * @param filters the filters
 	 * @return queues statistics
 	 */
-	public QueueListStatistics getQueuesStatistics(final String workspaceSid, final Map<String, String> filters) {
-		QueueListStatistics list = new QueueListStatistics(this, workspaceSid, filters);
+	public TaskQueueListStatistics getQueuesStatistics(final String workspaceSid, final Map<String, String> filters) {
+		TaskQueueListStatistics list = new TaskQueueListStatistics(this, workspaceSid, filters);
 		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
@@ -346,7 +346,7 @@ public class TwilioWdsClient extends TwilioClient {
 	 * @param queueSid The 34 character sid starting with WQ
 	 * @return queue statistics
 	 */
-	public QueueStatistics getQueueStatistics(final String workspaceSid, final String queueSid) {
+	public TaskQueueStatistics getQueueStatistics(final String workspaceSid, final String queueSid) {
 		return getQueueStatistics(workspaceSid, queueSid, null);
 	}
 
@@ -358,11 +358,11 @@ public class TwilioWdsClient extends TwilioClient {
 	 * @param filters the filters
 	 * @return queue statistics
 	 */
-	public QueueStatistics getQueueStatistics(final String workspaceSid, final String queueSid,
+	public TaskQueueStatistics getQueueStatistics(final String workspaceSid, final String queueSid,
 	                                          final Map<String, String> filters) {
-		QueueStatistics queueStatistics = new QueueStatistics(this, workspaceSid, queueSid, filters);
-		queueStatistics.setRequestAccountSid(getAccountSid());
-		return queueStatistics;
+		TaskQueueStatistics taskQueueStatistics = new TaskQueueStatistics(this, workspaceSid, queueSid, filters);
+		taskQueueStatistics.setRequestAccountSid(getAccountSid());
+		return taskQueueStatistics;
 	}
 
 	/**

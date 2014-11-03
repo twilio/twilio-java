@@ -50,9 +50,13 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 */
 	public InstanceResource(final C client, final Map<String, Object> properties) {
 		super(client);
-		this.properties = new HashMap<String, Object>(properties);
 		filters = new HashMap<String, String>(0);
-		setLoaded(true);
+		if (properties != null && !properties.isEmpty()) {
+			this.properties = new HashMap<String, Object>(properties);
+			setLoaded(true);
+		} else {
+			this.properties = new HashMap<String, Object>(0);
+		}
 	}
 
 	/**
@@ -64,9 +68,13 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 */
 	public InstanceResource(final C client, final Map<String, Object> properties, final Map<String, String> filters) {
 		super(client);
-		this.properties = new HashMap<String, Object>(properties);
 		this.filters = new HashMap<String, String>(filters);
-		setLoaded(true);
+		if (properties != null && !properties.isEmpty()) {
+			this.properties = new HashMap<String, Object>(properties);
+			setLoaded(true);
+		} else {
+			this.properties = new HashMap<String, Object>(0);
+		}
 	}
 
 	private Object getAndLoadIfNecessary(final String name) {

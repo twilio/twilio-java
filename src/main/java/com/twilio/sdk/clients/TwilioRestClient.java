@@ -7,6 +7,37 @@ import com.twilio.sdk.http.Response;
 
 public class TwilioRestClient {
 
+    public enum Domains {
+        API ("api"),
+        WDS ("wds");
+
+        private String domain;
+
+        Domains(String domain) {
+            this.domain = domain;
+        }
+
+        public String toString() {
+            return this.domain;
+        }
+    }
+
+    public enum Versions {
+        v1 ("v1"),
+        v2008 ("2008-08-01"),
+        v2010 ("2010-04-01");
+
+        private String version;
+
+        Versions(String version) {
+            this.version = version;
+        }
+
+        public String toString() {
+            return this.version;
+        }
+    }
+
     protected HttpClient httpClient;
     protected String accountSid;
     protected String authToken;
@@ -22,10 +53,12 @@ public class TwilioRestClient {
     }
 
     public Response request(Request request) {
-        String resolvedUri = "https://api.twilio.com/2010-04-01"
-                           + request.getUri().replace("{AccountSid}", this.accountSid)
-		                   + ".json"; // XXX is this the right place to do this?
-	                                  // why the hell don't we just do accept headers :(
+        String resolvedUri = "https://"
+                           + request.getDomain().toString()
+                           + ".twilio.com/"
+                           + request.getVersion().toString()
+                           + request.getUri().replace("{AccountSid}", this.accountSid);
+
         request.setUri(resolvedUri);
         request.setAuth(this.accountSid, this.authToken);
 

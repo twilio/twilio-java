@@ -10,6 +10,15 @@
 
 [X] Add Deleters
 
+[X] Requests should have the following arguments:
+
+Request request = new Request(
+        HttpMethod.POST,                    // Method
+        TwilioRestClient.API,               // Subdomain
+        TwilioRestClient.API_2010_04_01,    // Version
+        "/Accounts/{AccountSid}/Calls"      // Relative Uri
+);
+
 [ ] Should .update() take the target or .execute() on the Updater object?
 
 [ ] Result should be renamed to:
@@ -21,15 +30,3 @@
         Resource*
         ResourceCollection
 
-
-
-
-
-Requests should have the following arguments:
-
-Request request = new Request(
-        HttpMethod.POST,                    // Method
-        TwilioRestClient.API,               // Subdomain
-        TwilioRestClient.API_2010_04_01,    // Version
-        "/Accounts/{AccountSid}/Calls"      // Relative Uri
-);

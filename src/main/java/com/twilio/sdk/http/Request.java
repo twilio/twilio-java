@@ -2,6 +2,7 @@ package com.twilio.sdk.http;
 
 
 import com.google.common.collect.Range;
+import com.twilio.sdk.clients.TwilioRestClient;
 import org.joda.time.LocalDate;
 
 import java.io.UnsupportedEncodingException;
@@ -15,6 +16,8 @@ public class Request {
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
     protected HttpMethod method;
+    protected TwilioRestClient.Domains domain;
+    protected TwilioRestClient.Versions version;
     protected String uri;
     protected String username;
     protected String password;
@@ -22,7 +25,25 @@ public class Request {
     protected Map<String, ArrayList<String>> postParams;
 
     public Request(HttpMethod method, String uri) {
+        this(method,
+             TwilioRestClient.Domains.API,
+             TwilioRestClient.Versions.v2010,
+             uri);
+    }
+
+    public Request(HttpMethod method, TwilioRestClient.Domains domain, String uri) {
+        this(method,
+             domain,
+             domain == TwilioRestClient.Domains.API
+                     ? TwilioRestClient.Versions.v2010
+                     : TwilioRestClient.Versions.v1,
+             uri);
+    }
+
+    public Request(HttpMethod method, TwilioRestClient.Domains domain, TwilioRestClient.Versions version, String uri) {
         this.method = method;
+        this.domain = domain;
+        this.version = version;
         this.uri = uri;
         this.queryParams = new HashMap<String, ArrayList<String>>();
         this.postParams = new HashMap<String, ArrayList<String>>();
@@ -42,6 +63,14 @@ public class Request {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public TwilioRestClient.Domains getDomain() {
+        return domain;
+    }
+
+    public TwilioRestClient.Versions getVersion() {
+        return version;
     }
 
     public void setAuth(String username, String password) {

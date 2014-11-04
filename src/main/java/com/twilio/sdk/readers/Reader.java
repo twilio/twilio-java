@@ -4,11 +4,12 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.resources.Page;
+import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.Result;
 
 import java.util.concurrent.Callable;
 
-public abstract class Reader<T> {
+public abstract class Reader<T extends Resource> {
     public Result<T> execute() {
         return execute(Twilio.getRestClient());
     }
@@ -23,24 +24,6 @@ public abstract class Reader<T> {
         return Twilio.getExecutorService().submit(new Callable<Result<T>>() {
             public Result<T> call() {
                 return execute(client);
-            }
-        });
-    }
-
-    public T fetch(final String sid) {
-        return fetch(sid, Twilio.getRestClient());
-    }
-
-    public abstract T fetch(final String sid, final TwilioRestClient client);
-
-    public ListenableFuture<T> fetchAsync(final String sid) {
-        return fetchAsync(sid, Twilio.getRestClient());
-    }
-
-    public ListenableFuture<T> fetchAsync(final String sid, final TwilioRestClient client) {
-        return Twilio.getExecutorService().submit(new Callable<T>() {
-            public T call() {
-                return fetch(sid, client);
             }
         });
     }

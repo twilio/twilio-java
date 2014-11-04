@@ -5,7 +5,7 @@ import com.twilio.sdk.readers.Reader;
 
 import java.util.Iterator;
 
-public class Result<E> implements Iterable<E> {
+public class Result<E extends Resource> implements Iterable<E> {
     protected Page<E> page;
     protected boolean autoPaging;
     protected Reader<E> reader;
@@ -40,7 +40,7 @@ public class Result<E> implements Iterable<E> {
         }
     }
 
-    public static class ResultIterator<E> implements Iterator<E> {
+    public static class ResultIterator<E extends Resource> implements Iterator<E> {
         private Result<E> result;
 
         public ResultIterator(Result<E> result) {

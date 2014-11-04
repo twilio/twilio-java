@@ -14,10 +14,6 @@ public abstract class SidUpdater<T extends SidResource> extends Updater<T> {
 
     public abstract T execute(final String sid, final TwilioRestClient client);
 
-    public T execute(final T target) {
-        return execute(target, Twilio.getRestClient());
-    }
-
     public T execute(final T target, final TwilioRestClient client) {
         return execute(target.getSid(), client);
     }
@@ -32,10 +28,6 @@ public abstract class SidUpdater<T extends SidResource> extends Updater<T> {
                 return execute(sid, client);
             }
         });
-    }
-
-    public ListenableFuture<T> async(final T target) {
-        return async(target, Twilio.getRestClient());
     }
 
     public ListenableFuture<T> async(final T target, final TwilioRestClient client) {

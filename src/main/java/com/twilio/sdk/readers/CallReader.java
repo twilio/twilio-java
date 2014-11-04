@@ -8,7 +8,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.*;
 import org.joda.time.LocalDate;
 
-public class CallReader extends Reader<Call> {
+public class CallReader extends SidReader<Call> {
     private String to;
     private String from;
     private String parentCallSid;

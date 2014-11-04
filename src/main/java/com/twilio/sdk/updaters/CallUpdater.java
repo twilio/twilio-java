@@ -53,7 +53,7 @@ public class CallUpdater extends SidUpdater<Call> {
     }
 
     @Override
-    public Call build(String sid, TwilioRestClient client) {
+    public Call execute(String sid, TwilioRestClient client) {
         Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls/" + sid);
         this.addPostParams(request);
         Response response = client.request(request);

@@ -1,0 +1,35 @@
+[X] .build() -> .execute()
+[X] .find() -> .list()
+
+[X] .build("Sid") -> .fetch("Sid");
+[X] .async("Sid") -> .fetchAsync("Sid");
+
+[X] Does autopaging work?
+
+[X] Locator should be named Reader
+
+[X] Add Deleters
+
+[ ] Should .update() take the target or .execute() on the Updater object?
+
+[ ] Result should be renamed to:
+        ResultSet
+        ResultList
+        ResultCollection
+        Result??
+            or
+        Resource*
+        ResourceCollection
+
+
+
+
+
+Requests should have the following arguments:
+
+Request request = new Request(
+        HttpMethod.POST,                    // Method
+        TwilioRestClient.API,               // Subdomain
+        TwilioRestClient.API_2010_04_01,    // Version
+        "/Accounts/{AccountSid}/Calls"      // Relative Uri
+);

@@ -1,4 +1,4 @@
-package com.twilio.sdk.locators;
+package com.twilio.sdk.readers;
 
 import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
@@ -8,7 +8,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.*;
 import org.joda.time.LocalDate;
 
-public class CallLocator extends Locator<Call> {
+public class CallReader extends Reader<Call> {
     private String to;
     private String from;
     private String parentCallSid;
@@ -19,7 +19,7 @@ public class CallLocator extends Locator<Call> {
     private Range<LocalDate> rangeEndTime;
 
     @Override
-    public Result<Call> build(final TwilioRestClient client) {
+    public Result<Call> execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls");
         this.addQueryParams(request);
 
@@ -29,7 +29,7 @@ public class CallLocator extends Locator<Call> {
     }
 
     @Override
-    public Call buildBySid(String sid, final TwilioRestClient client) {
+    public Call fetch(String sid, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid);
         Response response = client.request(request);
 
@@ -59,45 +59,45 @@ public class CallLocator extends Locator<Call> {
         return result;
     }
 
-    public CallLocator byTo(String to) {
+    public CallReader byTo(String to) {
         this.to = to;
         return this;
     }
 
-    public CallLocator byFrom(String from) {
+    public CallReader byFrom(String from) {
         this.from = from;
         return this;
     }
 
-    public CallLocator byParentCallSid(String parentCallSid) {
+    public CallReader byParentCallSid(String parentCallSid) {
         this.parentCallSid = parentCallSid;
         return this;
     }
 
-    public CallLocator byStatus(String status) {
+    public CallReader byStatus(String status) {
         this.status = status;
         return this;
     }
 
-    public CallLocator byStartTime(LocalDate time) {
+    public CallReader byStartTime(LocalDate time) {
         this.absoluteStartTime = time;
         this.rangeStartTime = null;
         return this;
     }
 
-    public CallLocator byStartTime(Range<LocalDate> timeRange) {
+    public CallReader byStartTime(Range<LocalDate> timeRange) {
         this.absoluteStartTime = null;
         this.rangeStartTime = timeRange;
         return this;
     }
 
-    public CallLocator byEndTime(LocalDate time) {
+    public CallReader byEndTime(LocalDate time) {
         this.absoluteEndTime = time;
         this.rangeEndTime = null;
         return this;
     }
 
-    public CallLocator byEndTime(Range<LocalDate> timeRange) {
+    public CallReader byEndTime(Range<LocalDate> timeRange) {
         this.absoluteEndTime = null;
         this.rangeEndTime = timeRange;
         return this;

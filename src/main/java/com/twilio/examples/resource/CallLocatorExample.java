@@ -1,7 +1,7 @@
 package com.twilio.examples.resource;
 
 import com.twilio.sdk.Twilio;
-import com.twilio.sdk.locators.CallLocator;
+import com.twilio.sdk.readers.CallReader;
 import com.twilio.sdk.resources.Call;
 
 public class CallLocatorExample {
@@ -11,7 +11,7 @@ public class CallLocatorExample {
 
         String callSid = "CAa4df5c8404a784212bc026f48c497219";
 
-        Call call = new CallLocator().buildBySid(callSid);
+        Call call = new CallReader().fetch(callSid);
 
         System.out.println(call.getSid());
         System.out.println(call.getStatus().toString());

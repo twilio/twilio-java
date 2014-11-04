@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.creators.CallCreator;
-import com.twilio.sdk.locators.CallLocator;
+import com.twilio.sdk.readers.CallReader;
 import com.twilio.sdk.updaters.CallUpdater;
 
 import java.io.IOException;
@@ -57,16 +57,16 @@ public class Call extends SidResource {
         return new CallUpdater();
     }
 
-    public static CallLocator find() {
-        return new CallLocator();
+    public static CallReader list() {
+        return new CallReader();
     }
 
-    public static Call build(String sid) {
-        return new CallLocator().buildBySid(sid);
+    public static Call fetch(String sid) {
+        return new CallReader().fetch(sid);
     }
 
-    public static ListenableFuture<Call> async(String sid) {
-        return new CallLocator().asyncBySid(sid);
+    public static ListenableFuture<Call> fetchAsync(String sid) {
+        return new CallReader().fetchAsync(sid);
     }
 
     private final String accountSid;

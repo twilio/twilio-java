@@ -8,18 +8,18 @@ import com.twilio.sdk.resources.SidResource;
 import java.util.concurrent.Callable;
 
 public abstract class SidUpdater<T extends SidResource> extends Updater<T> {
-    public T build(final String sid) {
-        return build(sid, Twilio.getRestClient());
+    public T execute(final String sid) {
+        return execute(sid, Twilio.getRestClient());
     }
 
-    public abstract T build(final String sid, final TwilioRestClient client);
+    public abstract T execute(final String sid, final TwilioRestClient client);
 
-    public T build(final T target) {
-        return build(target, Twilio.getRestClient());
+    public T execute(final T target) {
+        return execute(target, Twilio.getRestClient());
     }
 
-    public T build(final T target, final TwilioRestClient client) {
-        return build(target.getSid(), client);
+    public T execute(final T target, final TwilioRestClient client) {
+        return execute(target.getSid(), client);
     }
 
     public ListenableFuture<T> async(final String sid) {
@@ -29,7 +29,7 @@ public abstract class SidUpdater<T extends SidResource> extends Updater<T> {
     public ListenableFuture<T> async(final String sid, final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<T>() {
             public T call() {
-                return build(sid, client);
+                return execute(sid, client);
             }
         });
     }

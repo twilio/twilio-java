@@ -17,7 +17,7 @@ public class CallCreatorExample {
             URI u = new URI("http://twimlbin.com/4397e62f");
             CallCreator c = new CallCreator("+14156085895", "+14154888928", u);
 
-            Call call = c.build();
+            Call call = c.execute();
 
             System.out.println(call.getSid());
             System.out.println(call.getStatus().toString());

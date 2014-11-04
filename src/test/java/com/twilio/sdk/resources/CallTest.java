@@ -38,7 +38,7 @@ public class CallTest {
     @Test
     public void testBuild() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 200));
-        Call call = Call.build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        Call call = Call.fetch("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         validateCall(call);
     }
 
@@ -47,7 +47,7 @@ public class CallTest {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 201));
 
         Call.create("+14155551234", "+14155557890", new URI("http://www.twilio.com"))
-            .build();
+            .execute();
 
         Request request = Twilio.getMockRequest();
 
@@ -63,7 +63,7 @@ public class CallTest {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 201));
 
         Call call = Call.create("+14155551234", "+14155557890", new URI("http://www.twilio.com"))
-                        .build();
+                        .execute();
 
         validateCall(call);
     }
@@ -75,7 +75,7 @@ public class CallTest {
         Call.update()
             .setUrl(new URI("https://www.twilio.com"))
             .setMethod(HttpMethod.POST)
-            .build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            .execute("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         Request request = Twilio.getMockRequest();
 
@@ -92,12 +92,12 @@ public class CallTest {
     @Test
     public void testUpdateResponse() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 200));
-        Call call = Call.build("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        Call call = Call.fetch("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         call = Call.update()
                    .setUrl(new URI("https://www.twilio.com"))
                    .setMethod(HttpMethod.POST)
-                   .build(call);
+                   .execute(call);
 
         validateCall(call);
     }
@@ -106,9 +106,9 @@ public class CallTest {
     public void testListRequest() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.FIRST_PAGE_JSON, 200));
 
-        Call.find()
+        Call.list()
             .byEndTime(Range.lessThan(LocalDate.parse("2014-01-01")))
-            .build();
+            .execute();
 
         Request request = Twilio.getMockRequest();
         assertUrlsEqual(

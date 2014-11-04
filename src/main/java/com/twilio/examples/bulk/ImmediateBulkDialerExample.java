@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
  *
  * Twilio's next-generation helper library comes with a built in thread pool
  * executor service.  You can use this directly by replacing any calls to
- * build() with calls to async() instead.
+ * execute() with calls to async() instead.
  *
  * This can be cumbersome though for common use cases, keeping track of futures
  * and making sure you understand how to pool workers correctly.  Twilio makes

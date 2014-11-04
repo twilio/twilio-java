@@ -8,11 +8,11 @@ import com.twilio.sdk.resources.Resource;
 import java.util.concurrent.Callable;
 
 public abstract class Updater<T extends Resource> {
-    public T build(final T target) {
-        return build(target, Twilio.getRestClient());
+    public T execute(final T target) {
+        return execute(target, Twilio.getRestClient());
     }
 
-    public abstract T build(final T target, final TwilioRestClient client);
+    public abstract T execute(final T target, final TwilioRestClient client);
 
     public ListenableFuture<T> async(final T target) {
         return async(target, Twilio.getRestClient());
@@ -21,7 +21,7 @@ public abstract class Updater<T extends Resource> {
     public ListenableFuture<T> async(final T target, final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<T>() {
             public T call() {
-                return build(target, client);
+                return execute(target, client);
             }
         });
     }

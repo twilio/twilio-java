@@ -124,7 +124,7 @@ public class CallResultTest {
                 new ConsumableResponse(SECOND_PAGE_JSON, 200, 1),
                 new ConsumableResponse(EMPTY_PAGE_JSON, 200));
 
-        Result<Call> result = Call.find().build();
+        Result<Call> result = Call.list().execute();
 
         int i = 1;
 

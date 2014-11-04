@@ -18,7 +18,7 @@ public class CallUpdaterExample {
             URI u = new URI("http://twimlbin.com/cc413d9d");
             CallCreator c = new CallCreator("+14156085895", "+14154888928", u);
 
-            Call call = c.build();
+            Call call = c.execute();
 
             System.out.println(call.getSid());
             System.out.println(call.getStatus().toString());
@@ -33,7 +33,7 @@ public class CallUpdaterExample {
 
             CallUpdater updater = new CallUpdater();
             updater.setUrl(new URI("http://twimlbin.com/4397e62f"));
-            Call updated = updater.build(call);
+            Call updated = updater.execute(call);
 
             System.out.println(updated.getSid());
             System.out.println(updated.getStatus().toString());

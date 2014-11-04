@@ -113,8 +113,8 @@ public class Member extends InstanceResource {
      *
      * @return the wait time as a String
      */
-    public String getWaitTime() {
-        return this.getProperty(Member.WAIT_TIME);
+    public Integer getWaitTime() {
+        return (Integer) this.getObject(Member.WAIT_TIME);
     }
 
     /**
@@ -122,8 +122,8 @@ public class Member extends InstanceResource {
      *
      * @return the position as a String
      */
-    public String getPosition() {
-        return this.getProperty(Member.POSITION);
+    public Integer getPosition() {
+        return (Integer) this.getObject(Member.POSITION);
     }
 
     /**

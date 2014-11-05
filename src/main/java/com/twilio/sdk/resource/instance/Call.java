@@ -366,4 +366,19 @@ public class Call extends InstanceResource {
 		c.setRequestAccountSid(this.getRequestAccountSid());
 		return c;
 	}
+
+    /**
+     * Delete this {@link Call}. This will remove it from this {@link Account}.
+     *
+     * @throws com.twilio.sdk.TwilioRestException
+     *             if there is an error in the request
+     * @return true, if successful
+     *
+     */
+    public boolean delete() throws TwilioRestException {
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), "DELETE", (Map) null);
+
+        return !response.isError();
+    }
 }

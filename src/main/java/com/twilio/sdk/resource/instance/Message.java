@@ -1,10 +1,14 @@
 package com.twilio.sdk.resource.instance;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 import com.twilio.sdk.resource.list.MediaList;
+import com.twilio.sdk.resource.list.MessageList;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Message extends InstanceResource {
@@ -245,4 +249,34 @@ public class Message extends InstanceResource {
 		return this.getProperty("error_message");
 	}
 
+    /**
+     * Delete this {@link Message}. This will remove it from this {@link Account}.
+     *
+     * @throws com.twilio.sdk.TwilioRestException
+     *             if there is an error in the request
+     * @return true, if successful
+     *
+     */
+    public boolean delete() throws TwilioRestException {
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), "DELETE", (Map) null);
+
+        return !response.isError();
+    }
+
+    /**
+     * Redact the body of this {@link Message}.
+     * @return The redacted Message object
+     * @throws TwilioRestException
+     */
+    public Message redact() throws TwilioRestException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Body", "");
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), "POST", params);
+
+        final Message redacted = new Message(this.getClient(), response.toMap());
+        redacted.setRequestAccountSid(this.getRequestAccountSid());
+        return redacted;
+    }
 }

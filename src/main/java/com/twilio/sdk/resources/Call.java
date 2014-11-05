@@ -278,4 +278,93 @@ public class Call extends SidResource {
     public final String getUri() {
         return uri;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Call call = (Call) o;
+
+        if (accountSid != null ? !accountSid.equals(call.accountSid) : call.accountSid != null)
+            return false;
+        if (annotation != null ? !annotation.equals(call.annotation) : call.annotation != null)
+            return false;
+        if (answeredBy != null ? !answeredBy.equals(call.answeredBy) : call.answeredBy != null)
+            return false;
+        if (apiVersion != null ? !apiVersion.equals(call.apiVersion) : call.apiVersion != null)
+            return false;
+        if (callerName != null ? !callerName.equals(call.callerName) : call.callerName != null)
+            return false;
+        if (dateCreated != null ? !dateCreated.equals(call.dateCreated) : call.dateCreated != null)
+            return false;
+        if (dateUpdated != null ? !dateUpdated.equals(call.dateUpdated) : call.dateUpdated != null)
+            return false;
+        if (direction != null ? !direction.equals(call.direction) : call.direction != null)
+            return false;
+        if (duration != null ? !duration.equals(call.duration) : call.duration != null)
+            return false;
+        if (endTime != null ? !endTime.equals(call.endTime) : call.endTime != null)
+            return false;
+        if (forwardedFrom != null ? !forwardedFrom.equals(call.forwardedFrom) : call.forwardedFrom != null)
+            return false;
+        if (from != null ? !from.equals(call.from) : call.from != null)
+            return false;
+        if (fromFormatted != null ? !fromFormatted.equals(call.fromFormatted) : call.fromFormatted != null)
+            return false;
+        if (groupSid != null ? !groupSid.equals(call.groupSid) : call.groupSid != null)
+            return false;
+        if (parentCallSid != null ? !parentCallSid.equals(call.parentCallSid) : call.parentCallSid != null)
+            return false;
+        if (phoneNumberSid != null ? !phoneNumberSid.equals(call.phoneNumberSid) : call.phoneNumberSid != null)
+            return false;
+        if (price != null ? !price.equals(call.price) : call.price != null)
+            return false;
+        if (priceUnit != null ? !priceUnit.equals(call.priceUnit) : call.priceUnit != null)
+            return false;
+        if (sid != null ? !sid.equals(call.sid) : call.sid != null)
+            return false;
+        if (startTime != null ? !startTime.equals(call.startTime) : call.startTime != null)
+            return false;
+        if (status != call.status) return false;
+        if (subresourceUris != null ? !subresourceUris.equals(call.subresourceUris) : call.subresourceUris != null)
+            return false;
+        if (to != null ? !to.equals(call.to) : call.to != null) return false;
+        if (toFormatted != null ? !toFormatted.equals(call.toFormatted) : call.toFormatted != null)
+            return false;
+        if (uri != null ? !uri.equals(call.uri) : call.uri != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = accountSid != null ? accountSid.hashCode() : 0;
+        result = 31 * result + (annotation != null ? annotation.hashCode() : 0);
+        result = 31 * result + (answeredBy != null ? answeredBy.hashCode() : 0);
+        result = 31 * result + (apiVersion != null ? apiVersion.hashCode() : 0);
+        result = 31 * result + (callerName != null ? callerName.hashCode() : 0);
+        result = 31 * result + (dateCreated != null ? dateCreated.hashCode() : 0);
+        result = 31 * result + (dateUpdated != null ? dateUpdated.hashCode() : 0);
+        result = 31 * result + (direction != null ? direction.hashCode() : 0);
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (forwardedFrom != null ? forwardedFrom.hashCode() : 0);
+        result = 31 * result + (from != null ? from.hashCode() : 0);
+        result = 31 * result + (fromFormatted != null ? fromFormatted.hashCode() : 0);
+        result = 31 * result + (groupSid != null ? groupSid.hashCode() : 0);
+        result = 31 * result + (parentCallSid != null ? parentCallSid.hashCode() : 0);
+        result = 31 * result + (phoneNumberSid != null ? phoneNumberSid.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (priceUnit != null ? priceUnit.hashCode() : 0);
+        result = 31 * result + (sid != null ? sid.hashCode() : 0);
+        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (subresourceUris != null ? subresourceUris.hashCode() : 0);
+        result = 31 * result + (to != null ? to.hashCode() : 0);
+        result = 31 * result + (toFormatted != null ? toFormatted.hashCode() : 0);
+        result = 31 * result + (uri != null ? uri.hashCode() : 0);
+        return result;
+    }
 }

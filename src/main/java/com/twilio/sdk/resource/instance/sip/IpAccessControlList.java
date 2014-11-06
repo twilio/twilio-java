@@ -10,6 +10,7 @@ import com.twilio.sdk.resource.list.sip.IpAddressList;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class IpAccessControlList extends InstanceResource {
@@ -80,7 +81,7 @@ public class IpAccessControlList extends InstanceResource {
 	 */
 	public Date getDateCreated() {
 		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(this.getProperty("date_created"));
 		} catch (ParseException e) {
@@ -95,7 +96,7 @@ public class IpAccessControlList extends InstanceResource {
 	 */
 	public Date getDateUpdated() {
 		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(this.getProperty("date_updated"));
 		} catch (ParseException e) {

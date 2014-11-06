@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 
 import static com.twilio.sdk.resource.instance.Recurrence.daily;
 import static org.junit.Assert.assertEquals;
@@ -27,9 +28,9 @@ public class UsageTriggerTest extends BasicRequestTester {
         assertEquals(current.getCallbackMethod(), "POST");
         assertEquals(current.getCallbackUrl(), "http://www.google.com");
         assertEquals(current.getCurrentValue(), new BigDecimal(3));
-        assertEquals(current.getDateCreated(), new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z").parse("Sun, 23 Sep 2012 23:07:29 +0000"));
+        assertEquals(current.getDateCreated(), new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH).parse("Sun, 23 Sep 2012 23:07:29 +0000"));
         assertEquals(current.getDateFired(), null);
-        assertEquals(current.getDateUpdated(), new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z").parse("Sat, 29 Sep 2012 19:42:57 +0000"));
+        assertEquals(current.getDateUpdated(), new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH).parse("Sat, 29 Sep 2012 19:42:57 +0000"));
         assertEquals(current.getFriendlyName(), "a trigger");
         assertEquals(current.getRecurring(), daily);
     }

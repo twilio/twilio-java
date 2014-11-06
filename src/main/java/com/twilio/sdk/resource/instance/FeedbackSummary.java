@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -81,7 +82,7 @@ public class FeedbackSummary extends InstanceResource {
 	}
 
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(getProperty(DATE_CREATED_PROPERTY));
 		} catch (ParseException e) {
@@ -90,7 +91,7 @@ public class FeedbackSummary extends InstanceResource {
 	}
 
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(getProperty(DATE_UPDATED_PROPERTY));
 		} catch (ParseException e) {

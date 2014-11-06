@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -103,7 +104,7 @@ public class Recording extends InstanceResource {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(getProperty("date_created"));
 		} catch (final ParseException e) {
@@ -117,7 +118,7 @@ public class Recording extends InstanceResource {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(getProperty("date_updated"));
 		} catch (final ParseException e) {

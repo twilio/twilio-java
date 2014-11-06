@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -80,7 +81,7 @@ public class UsageRecord extends InstanceResource {
 
 	public Date getStartDate() {
 		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(this.getProperty("StartDate"));
 		} catch (ParseException e) {
@@ -90,7 +91,7 @@ public class UsageRecord extends InstanceResource {
 
 	public Date getEndDate() {
 		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(this.getProperty("EndDate"));
 		} catch (ParseException e) {

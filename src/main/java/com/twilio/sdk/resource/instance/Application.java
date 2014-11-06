@@ -8,6 +8,7 @@ import com.twilio.sdk.resource.InstanceResource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
@@ -119,7 +120,7 @@ public class Application extends InstanceResource {
      * @return the date created
      */
     public Date getDateCreated() {
-        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
         try {
             return format.parse(this.getProperty(DATE_CREATED_PROPERTY));
         } catch (ParseException e) {
@@ -133,7 +134,7 @@ public class Application extends InstanceResource {
      * @return the date updated
      */
     public Date getDateUpdated() {
-        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
         try {
             return format.parse(this.getProperty(DATE_UPDATED_PROPERTY));
         } catch (ParseException e) {

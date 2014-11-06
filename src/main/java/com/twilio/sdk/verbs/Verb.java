@@ -32,6 +32,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -113,7 +114,7 @@ public class Verb {
     public Verb(String tag, String body) {
         this.tag = tag;
         this.body = body;
-        this.attributes = new HashMap<String, String>();
+        this.attributes = new LinkedHashMap<String, String>();
         this.children = new ArrayList<Verb>();
     }
 

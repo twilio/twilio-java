@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class CallResultTest {
+public class CallResourceSetTest {
     public static final String FIRST_PAGE_JSON = "{\n" +
             "    \"calls\": [\n" +
             "        {\n" +
@@ -47,7 +47,7 @@ public class CallResultTest {
             "    \"next_page_uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls.json?PageSize=50&Page=1&AfterSid=CA7e123477b24eb76416705b82a02a1e8b\", \n" +
             "    \"num_pages\": 34, \n" +
             "    \"page\": 0, \n" +
-            "    \"page_size\": 50, \n" +
+            "    \"page_size\": 100, \n" +
             "    \"previous_page_uri\": null, \n" +
             "    \"start\": 0, \n" +
             "    \"total\": 1682, \n" +
@@ -93,7 +93,7 @@ public class CallResultTest {
             "    \"next_page_uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls.json?PageSize=50&Page=1&AfterSid=CA7e123477b24eb76416705b82a02a1e8b\", \n" +
             "    \"num_pages\": 34, \n" +
             "    \"page\": 0, \n" +
-            "    \"page_size\": 50, \n" +
+            "    \"page_size\": 100, \n" +
             "    \"previous_page_uri\": null, \n" +
             "    \"start\": 0, \n" +
             "    \"total\": 1682, \n" +
@@ -108,7 +108,7 @@ public class CallResultTest {
             "    \"next_page_uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls.json?PageSize=50&Page=1&AfterSid=CA7e123477b24eb76416705b82a02a1e8b\", \n" +
             "    \"num_pages\": 34, \n" +
             "    \"page\": 0, \n" +
-            "    \"page_size\": 50, \n" +
+            "    \"page_size\": 100, \n" +
             "    \"previous_page_uri\": null, \n" +
             "    \"start\": 0, \n" +
             "    \"total\": 1682, \n" +
@@ -124,11 +124,11 @@ public class CallResultTest {
                 new ConsumableResponse(SECOND_PAGE_JSON, 200, 1),
                 new ConsumableResponse(EMPTY_PAGE_JSON, 200));
 
-        Result<Call> result = Call.list().execute();
+        ResourceSet<Call> resourceSet = Call.list().execute();
 
         int i = 1;
 
-        for (Call call : result) {
+        for (Call call : resourceSet) {
             assertEquals(call.getSid(), "CA00000000000000000000000000000" + i);
             i++;
             if (i > 10) {
@@ -136,7 +136,20 @@ public class CallResultTest {
             }
         }
 
-        assertNotNull(result);
+        assertNotNull(resourceSet);
+    }
+
+    @Test
+    public void testPageSize() {
+        Twilio.init("AC123", "AUTH TOKEN");
+
+        Twilio.setMockResponses(new ConsumableResponse(FIRST_PAGE_JSON, 200, 1),
+                                new ConsumableResponse(SECOND_PAGE_JSON, 200, 1),
+                                new ConsumableResponse(EMPTY_PAGE_JSON, 200));
+
+        ResourceSet<Call> resourceSet = Call.list().pageSize(100).execute();
+
+        assertEquals(100, resourceSet.getPageSize());
     }
 
 }

@@ -19,14 +19,14 @@ Request request = new Request(
         "/Accounts/{AccountSid}/Calls"      // Relative Uri
 );
 
-[ ] setPageSize() should be supported in the list() and ResourceSet
+[X] setPageSize() should be supported in the list() and ResourceSet
 
 [ ] Should .update() take the target or .execute() on the Updater object?
 
-[ ] Result should be renamed to ResultSet / ResourceSet ???
+[X] Result should be renamed to ResultSet / ResourceSet ???
 
-[ ] Should our Resources implement equals and hashcode, what should be the criteria of equality?
+[X] Should our Resources implement equals and hashcode, what should be the criteria of equality?
 
-[ ] Make nice human friendly toStrings() for all our Resources.
+[X] Make nice human friendly toStrings() for all our Resources.
 
-[ ] Make the Resources Serializable
+[X] Make the Resources Serializable

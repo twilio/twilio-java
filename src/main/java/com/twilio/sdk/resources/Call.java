@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.MoreObjects;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.readers.CallReader;
@@ -14,42 +15,45 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
+import java.util.Objects;
 
 public class Call extends SidResource {
 
+    private static final long serialVersionUID = -5732541214023360255L;
+
     public enum Status {
-        QUEUED ("queued"),
-        RINGING ("ringing"),
-        IN_PROGRESS ("in-progress"),
-        COMPLETED ("completed"),
-        BUSY ("busy"),
-        FAILED ("failed"),
-        NO_ANSWER ("no-answer"),
-        CANCELED ("canceled");
+        QUEUED("queued"),
+        RINGING("ringing"),
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        BUSY("busy"),
+        FAILED("failed"),
+        NO_ANSWER("no-answer"),
+        CANCELED("canceled");
 
-        private String status;
+        private final String status;
 
-        Status(String status) {
+        private Status(final String status) {
             this.status = status;
         }
 
         public String toString() {
-            return this.status;
+            return status;
         }
 
         @JsonCreator
-        public static Status forValue(String value) {
+        public static Status forValue(final String value) {
             String munged = value.replace("-", "_").toUpperCase();
             return Status.valueOf(munged);
         }
 
     }
 
-    public static CallCreator create(String to, String from, URI uri) {
+    public static CallCreator create(final String to, final String from, final URI uri) {
         return new CallCreator(to, from, uri);
     }
 
-    public static CallCreator create(String to, String from, String applicationSid) {
+    public static CallCreator create(final String to, final String from, final String applicationSid) {
         return new CallCreator(to, from, applicationSid);
     }
 
@@ -61,11 +65,11 @@ public class Call extends SidResource {
         return new CallReader();
     }
 
-    public static Call fetch(String sid) {
+    public static Call fetch(final String sid) {
         return new CallReader().fetch(sid);
     }
 
-    public static ListenableFuture<Call> fetchAsync(String sid) {
+    public static ListenableFuture<Call> fetchAsync(final String sid) {
         return new CallReader().fetchAsync(sid);
     }
 
@@ -96,31 +100,26 @@ public class Call extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Call(@JsonProperty("account_sid")       String accountSid,
-                 @JsonProperty("annotation")        String annotation,
-                 @JsonProperty("answered_by")       String answeredBy,
-                 @JsonProperty("api_version")       String apiVersion,
-                 @JsonProperty("caller_name")       String callerName,
-                 @JsonProperty("date_created")      String dateCreated,
-                 @JsonProperty("date_updated")      String dateUpdated,
-                 @JsonProperty("direction")         String direction,
-                 @JsonProperty("duration")          Integer duration,
-                 @JsonProperty("end_time")          String endTime,
-                 @JsonProperty("forwarded_from")    String forwardedFrom,
-                 @JsonProperty("from")              String from,
-                 @JsonProperty("from_formatted")    String fromFormatted,
-                 @JsonProperty("group_sid")         String groupSid,
-                 @JsonProperty("parent_call_sid")   String parentCallSid,
-                 @JsonProperty("phone_number_sid")  String phoneNumberSid,
-                 @JsonProperty("price")             Double price,
-                 @JsonProperty("price_unit")        String priceUnit,
-                 @JsonProperty("sid")               String sid,
-                 @JsonProperty("start_time")        String startTime,
-                 @JsonProperty("status")            Status status,
-                 @JsonProperty("subresource_uris")  Map<String, String> subresourceUris,
-                 @JsonProperty("to")                String to,
-                 @JsonProperty("to_formatted")      String toFormatted,
-                 @JsonProperty("uri")               String uri) {
+    private Call(@JsonProperty("account_sid") final String accountSid,
+                 @JsonProperty("annotation") final String annotation,
+                 @JsonProperty("answered_by") final String answeredBy,
+                 @JsonProperty("api_version") final String apiVersion,
+                 @JsonProperty("caller_name") final String callerName,
+                 @JsonProperty("date_created") final String dateCreated,
+                 @JsonProperty("date_updated") final String dateUpdated,
+                 @JsonProperty("direction") final String direction, @JsonProperty("duration") final Integer duration,
+                 @JsonProperty("end_time") final String endTime,
+                 @JsonProperty("forwarded_from") final String forwardedFrom, @JsonProperty("from") final String from,
+                 @JsonProperty("from_formatted") final String fromFormatted,
+                 @JsonProperty("group_sid") final String groupSid,
+                 @JsonProperty("parent_call_sid") final String parentCallSid,
+                 @JsonProperty("phone_number_sid") final String phoneNumberSid,
+                 @JsonProperty("price") final Double price, @JsonProperty("price_unit") final String priceUnit,
+                 @JsonProperty("sid") final String sid, @JsonProperty("start_time") final String startTime,
+                 @JsonProperty("status") final Status status,
+                 @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
+                 @JsonProperty("to") final String to, @JsonProperty("to_formatted") final String toFormatted,
+                 @JsonProperty("uri") final String uri) {
         this.accountSid = accountSid;
         this.annotation = annotation;
         this.answeredBy = answeredBy;
@@ -149,32 +148,32 @@ public class Call extends SidResource {
 
     }
 
-    public static Call fromJson(String json) {
+    public static Call fromJson(final String json) {
         ObjectMapper mapper = new ObjectMapper();
 
         // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
-        } catch (JsonMappingException e) {
+        } catch (final JsonMappingException e) {
             throw new RuntimeException(e.getMessage());
-        } catch (JsonParseException e) {
+        } catch (final JsonParseException e) {
             throw new RuntimeException(e.getMessage());
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
-    public static Call fromJson(InputStream json) {
+    public static Call fromJson(final InputStream json) {
         ObjectMapper mapper = new ObjectMapper();
 
         // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
-        } catch (JsonMappingException e) {
+        } catch (final JsonMappingException e) {
             throw new RuntimeException(e.getMessage());
-        } catch (JsonParseException e) {
+        } catch (final JsonParseException e) {
             throw new RuntimeException(e.getMessage());
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -280,91 +279,49 @@ public class Call extends SidResource {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Call call = (Call) o;
 
-        if (accountSid != null ? !accountSid.equals(call.accountSid) : call.accountSid != null)
-            return false;
-        if (annotation != null ? !annotation.equals(call.annotation) : call.annotation != null)
-            return false;
-        if (answeredBy != null ? !answeredBy.equals(call.answeredBy) : call.answeredBy != null)
-            return false;
-        if (apiVersion != null ? !apiVersion.equals(call.apiVersion) : call.apiVersion != null)
-            return false;
-        if (callerName != null ? !callerName.equals(call.callerName) : call.callerName != null)
-            return false;
-        if (dateCreated != null ? !dateCreated.equals(call.dateCreated) : call.dateCreated != null)
-            return false;
-        if (dateUpdated != null ? !dateUpdated.equals(call.dateUpdated) : call.dateUpdated != null)
-            return false;
-        if (direction != null ? !direction.equals(call.direction) : call.direction != null)
-            return false;
-        if (duration != null ? !duration.equals(call.duration) : call.duration != null)
-            return false;
-        if (endTime != null ? !endTime.equals(call.endTime) : call.endTime != null)
-            return false;
-        if (forwardedFrom != null ? !forwardedFrom.equals(call.forwardedFrom) : call.forwardedFrom != null)
-            return false;
-        if (from != null ? !from.equals(call.from) : call.from != null)
-            return false;
-        if (fromFormatted != null ? !fromFormatted.equals(call.fromFormatted) : call.fromFormatted != null)
-            return false;
-        if (groupSid != null ? !groupSid.equals(call.groupSid) : call.groupSid != null)
-            return false;
-        if (parentCallSid != null ? !parentCallSid.equals(call.parentCallSid) : call.parentCallSid != null)
-            return false;
-        if (phoneNumberSid != null ? !phoneNumberSid.equals(call.phoneNumberSid) : call.phoneNumberSid != null)
-            return false;
-        if (price != null ? !price.equals(call.price) : call.price != null)
-            return false;
-        if (priceUnit != null ? !priceUnit.equals(call.priceUnit) : call.priceUnit != null)
-            return false;
-        if (sid != null ? !sid.equals(call.sid) : call.sid != null)
-            return false;
-        if (startTime != null ? !startTime.equals(call.startTime) : call.startTime != null)
-            return false;
-        if (status != call.status) return false;
-        if (subresourceUris != null ? !subresourceUris.equals(call.subresourceUris) : call.subresourceUris != null)
-            return false;
-        if (to != null ? !to.equals(call.to) : call.to != null) return false;
-        if (toFormatted != null ? !toFormatted.equals(call.toFormatted) : call.toFormatted != null)
-            return false;
-        if (uri != null ? !uri.equals(call.uri) : call.uri != null)
-            return false;
-
-        return true;
+        return Objects.equals(accountSid, call.accountSid) && Objects.equals(annotation, call.annotation) &&
+               Objects.equals(answeredBy, call.answeredBy) && Objects.equals(apiVersion, call.apiVersion) &&
+               Objects.equals(callerName, call.callerName) && Objects.equals(dateCreated, call.dateCreated) &&
+               Objects.equals(dateUpdated, call.dateUpdated) && Objects.equals(direction, call.direction) &&
+               Objects.equals(duration, call.duration) && Objects.equals(endTime, call.endTime) &&
+               Objects.equals(forwardedFrom, call.forwardedFrom) && Objects.equals(from, call.from) &&
+               Objects.equals(fromFormatted, call.fromFormatted) && Objects.equals(groupSid, call.groupSid) &&
+               Objects.equals(parentCallSid, call.parentCallSid) &&
+               Objects.equals(phoneNumberSid, call.phoneNumberSid) && Objects.equals(price, call.price) &&
+               Objects.equals(priceUnit, call.priceUnit) && Objects.equals(sid, call.sid) &&
+               Objects.equals(startTime, call.startTime) && Objects.equals(status, call.status) &&
+               Objects.equals(subresourceUris, call.subresourceUris) && Objects.equals(to, call.to) &&
+               Objects.equals(toFormatted, call.toFormatted) && Objects.equals(uri, call.uri);
     }
 
     @Override
     public int hashCode() {
-        int result = accountSid != null ? accountSid.hashCode() : 0;
-        result = 31 * result + (annotation != null ? annotation.hashCode() : 0);
-        result = 31 * result + (answeredBy != null ? answeredBy.hashCode() : 0);
-        result = 31 * result + (apiVersion != null ? apiVersion.hashCode() : 0);
-        result = 31 * result + (callerName != null ? callerName.hashCode() : 0);
-        result = 31 * result + (dateCreated != null ? dateCreated.hashCode() : 0);
-        result = 31 * result + (dateUpdated != null ? dateUpdated.hashCode() : 0);
-        result = 31 * result + (direction != null ? direction.hashCode() : 0);
-        result = 31 * result + (duration != null ? duration.hashCode() : 0);
-        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
-        result = 31 * result + (forwardedFrom != null ? forwardedFrom.hashCode() : 0);
-        result = 31 * result + (from != null ? from.hashCode() : 0);
-        result = 31 * result + (fromFormatted != null ? fromFormatted.hashCode() : 0);
-        result = 31 * result + (groupSid != null ? groupSid.hashCode() : 0);
-        result = 31 * result + (parentCallSid != null ? parentCallSid.hashCode() : 0);
-        result = 31 * result + (phoneNumberSid != null ? phoneNumberSid.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (priceUnit != null ? priceUnit.hashCode() : 0);
-        result = 31 * result + (sid != null ? sid.hashCode() : 0);
-        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (subresourceUris != null ? subresourceUris.hashCode() : 0);
-        result = 31 * result + (to != null ? to.hashCode() : 0);
-        result = 31 * result + (toFormatted != null ? toFormatted.hashCode() : 0);
-        result = 31 * result + (uri != null ? uri.hashCode() : 0);
-        return result;
+        return Objects
+                .hash(accountSid, annotation, answeredBy, apiVersion, callerName, dateCreated, dateUpdated, direction,
+                      duration, endTime, forwardedFrom, from, fromFormatted, groupSid, parentCallSid, phoneNumberSid,
+                      price, priceUnit, sid, startTime, status, subresourceUris, to, toFormatted, uri);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).add("accountSid", accountSid).add("annotation", annotation)
+                          .add("answeredBy", answeredBy).add("apiVersion", apiVersion).add("callerName", callerName)
+                          .add("dateCreated", dateCreated).add("dateUpdated", dateUpdated).add("direction", direction)
+                          .add("duration", duration).add("endTime", endTime).add("forwardedFrom", forwardedFrom)
+                          .add("from", from).add("fromFormatted", fromFormatted).add("groupSid", groupSid)
+                          .add("parentCallSid", parentCallSid).add("phoneNumberSid", phoneNumberSid).add("price", price)
+                          .add("priceUnit", priceUnit).add("sid", sid).add("startTime", startTime).add("status", status)
+                          .add("subresourceUris", subresourceUris).add("to", to).add("toFormatted", toFormatted)
+                          .add("uri", uri).toString();
     }
 }

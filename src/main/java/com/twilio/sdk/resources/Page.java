@@ -13,6 +13,7 @@ public class Page<T> {
     protected String nextPageUri;
     protected String previousPageUri;
     protected String uri;
+    protected int pageSize;
 
     public List<T> getRecords() {
         return records;
@@ -30,27 +31,32 @@ public class Page<T> {
         return previousPageUri;
     }
 
+    public int getPageSize() {
+        return pageSize;
+    }
+
     public String getUri() {
         return uri;
     }
 
-    public void deserialize(String recordKey, String json, Class<T> recordType) {
+    public void deserialize(final String recordKey, final String json, final Class<T> recordType) {
         ObjectMapper mapper = new ObjectMapper();
 
-        this.records = new ArrayList<T>();
+        records = new ArrayList<>();
 
         try {
             JsonNode root = mapper.readTree(json);
             JsonNode records = root.get(recordKey);
-            for (JsonNode record : records) {
+            for (final JsonNode record : records) {
                 this.records.add(mapper.readValue(record.toString(), recordType));
             }
-            this.firstPageUri = root.get("first_page_uri").asText();
-            this.nextPageUri = root.get("next_page_uri").asText();
-            this.previousPageUri = root.get("previous_page_uri").asText();
-            this.uri = root.get("uri").asText();
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to deserialize reponse: " + e.getMessage());
+            firstPageUri = root.get("first_page_uri").asText();
+            nextPageUri = root.get("next_page_uri").asText();
+            previousPageUri = root.get("previous_page_uri").asText();
+            uri = root.get("uri").asText();
+            pageSize = root.get("page_size").asInt();
+        } catch (final IOException e) {
+            throw new RuntimeException("Unable to deserialize response: " + e.getMessage());
         }
     }
 

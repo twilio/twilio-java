@@ -1,5 +1,7 @@
 package com.twilio.sdk.resources;
 
-public abstract class Resource {
+import java.io.Serializable;
+
+public abstract class Resource implements Serializable {
 
 }

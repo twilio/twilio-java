@@ -9,8 +9,8 @@ public class CallDeleterExample {
     public static void main(String[] args) {
         Twilio.init("AC123", "AUTH TOKEN");
 
-        CallDeleter c = new CallDeleter();
-        c.execute("CA123");
+        CallDeleter c = new CallDeleter("CA123");
+        c.execute();
         System.out.println("Deleted");
     }
 }

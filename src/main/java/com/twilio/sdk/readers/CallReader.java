@@ -10,7 +10,8 @@ import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import org.joda.time.LocalDate;
 
-public class CallReader extends SidReader<Call> {
+public class CallReader extends Reader<Call> {
+
     private String to;
     private String from;
     private String parentCallSid;
@@ -28,18 +29,6 @@ public class CallReader extends SidReader<Call> {
         Page<Call> page = pageForRequest(client, request);
 
         return new ResourceSet<>(this, client, page);
-    }
-
-    @Override
-    public Call fetch(final String sid, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
-        Response response = client.request(request);
-
-        if (response.getStatusCode() != 200) {
-            throw new RuntimeException("Unable to find Call for Sid " + sid);
-        }
-
-        return Call.fromJson(response.getStream());
     }
 
     @Override

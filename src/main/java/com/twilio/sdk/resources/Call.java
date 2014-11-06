@@ -6,8 +6,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.creators.CallCreator;
+import com.twilio.sdk.deleters.CallDeleter;
+import com.twilio.sdk.fetchers.CallFetcher;
 import com.twilio.sdk.readers.CallReader;
 import com.twilio.sdk.updaters.CallUpdater;
 
@@ -57,20 +58,28 @@ public class Call extends SidResource {
         return new CallCreator(to, from, applicationSid);
     }
 
-    public static CallUpdater update() {
-        return new CallUpdater();
+    public static CallDeleter delete(final String sid) {
+        return new CallDeleter(sid);
+    }
+
+    public static CallDeleter delete(final Call call) {
+        return new CallDeleter(call);
+    }
+
+    public static CallUpdater update(final String sid) {
+        return new CallUpdater(sid);
+    }
+
+    public static CallUpdater update(final Call call) {
+        return new CallUpdater(call);
     }
 
     public static CallReader list() {
         return new CallReader();
     }
 
-    public static Call fetch(final String sid) {
-        return new CallReader().fetch(sid);
-    }
-
-    public static ListenableFuture<Call> fetchAsync(final String sid) {
-        return new CallReader().fetchAsync(sid);
+    public static CallFetcher fetch(final String sid) {
+        return new CallFetcher(sid);
     }
 
     private final String accountSid;
@@ -154,9 +163,7 @@ public class Call extends SidResource {
         // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
-        } catch (final JsonMappingException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (final JsonParseException e) {
+        } catch (final JsonMappingException | JsonParseException e) {
             throw new RuntimeException(e.getMessage());
         } catch (final IOException e) {
             throw new RuntimeException(e.getMessage());
@@ -169,9 +176,7 @@ public class Call extends SidResource {
         // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
-        } catch (final JsonMappingException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (final JsonParseException e) {
+        } catch (final JsonMappingException | JsonParseException e) {
             throw new RuntimeException(e.getMessage());
         } catch (final IOException e) {
             throw new RuntimeException(e.getMessage());

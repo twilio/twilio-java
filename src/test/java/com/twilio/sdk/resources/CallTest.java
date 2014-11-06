@@ -40,7 +40,7 @@ public class CallTest {
     @Test
     public void testBuild() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 200));
-        Call call = Call.fetch("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        Call call = Call.fetch("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
         validateCall(call);
     }
 
@@ -71,13 +71,24 @@ public class CallTest {
     }
 
     @Test
+    public void testFetchRequest() throws Exception {
+        Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 200));
+
+        Call.fetch("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+
+        Request request = Twilio.getMockRequest();
+        assertUrlsEqual(
+                "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                request.constructURL());
+    }
+
+    @Test
     public void testUpdateRequest() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 200));
 
-        Call.update()
+        Call.update("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             .setUrl(new URI("https://www.twilio.com"))
-            .setMethod(HttpMethod.POST)
-            .execute("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            .setMethod(HttpMethod.POST).execute();
 
         Request request = Twilio.getMockRequest();
 
@@ -94,12 +105,11 @@ public class CallTest {
     @Test
     public void testUpdateResponse() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.INSTANCE_JSON, 200));
-        Call call = Call.fetch("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        Call call = Call.fetch("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
 
-        call = Call.update()
+        call = Call.update(call)
                    .setUrl(new URI("https://www.twilio.com"))
-                   .setMethod(HttpMethod.POST)
-                   .execute(call);
+                   .setMethod(HttpMethod.POST).execute();
 
         validateCall(call);
     }

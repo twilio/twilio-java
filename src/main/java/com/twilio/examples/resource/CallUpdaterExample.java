@@ -31,14 +31,14 @@ public class CallUpdaterExample {
                 System.out.println("whoops");
             }
 
-            CallUpdater updater = new CallUpdater();
+            CallUpdater updater = new CallUpdater(call);
             updater.setUrl(new URI("http://twimlbin.com/4397e62f"));
-            Call updated = updater.execute(call);
+            Call updated = updater.execute();
 
             System.out.println(updated.getSid());
             System.out.println(updated.getStatus().toString());
 
-        } catch(URISyntaxException e) {
+        } catch (URISyntaxException e) {
             System.err.println("womp womp");
             System.exit(1);
         }

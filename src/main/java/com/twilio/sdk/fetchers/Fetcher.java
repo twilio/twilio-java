@@ -1,4 +1,4 @@
-package com.twilio.sdk.updaters;
+package com.twilio.sdk.fetchers;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.Twilio;
@@ -7,7 +7,7 @@ import com.twilio.sdk.resources.Resource;
 
 import java.util.concurrent.Callable;
 
-public abstract class Updater<T extends Resource> {
+public abstract class Fetcher<T extends Resource> {
 
     public T execute() {
         return execute(Twilio.getRestClient());

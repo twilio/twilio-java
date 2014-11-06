@@ -21,7 +21,7 @@ Request request = new Request(
 
 [X] setPageSize() should be supported in the list() and ResourceSet
 
-[ ] Should .update() take the target or .execute() on the Updater object?
+[X] Should .update() take the target or .execute() on the Updater object?
 
 [X] Result should be renamed to ResultSet / ResourceSet ???
 

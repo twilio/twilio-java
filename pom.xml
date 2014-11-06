@@ -60,7 +60,7 @@
     <dependency>
       <groupId>org.jmockit</groupId>
       <artifactId>jmockit</artifactId>
-      <version>1.13</version>
+      <version>1.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

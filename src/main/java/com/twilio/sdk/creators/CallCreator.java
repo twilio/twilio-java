@@ -101,7 +101,7 @@ public class CallCreator extends Creator<Call> {
 
     @Override
     public Call execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls.json");
         this.addPostParams(request);
         Response response = client.request(request);
 

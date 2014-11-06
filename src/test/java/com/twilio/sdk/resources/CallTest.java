@@ -16,7 +16,9 @@ import java.util.Map;
 
 import static com.twilio.sdk.Assert.assertQueryStringsEqual;
 import static com.twilio.sdk.Assert.assertUrlsEqual;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class CallTest {
     @Before
@@ -107,12 +109,11 @@ public class CallTest {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.FIRST_PAGE_JSON, 200));
 
         Call.list()
-            .byEndTime(Range.lessThan(LocalDate.parse("2014-01-01")))
+            .byEndTime(Range.lessThan(LocalDate.parse("2014-01-01"))).pageSize(51)
             .execute();
 
         Request request = Twilio.getMockRequest();
-        assertUrlsEqual(
-            "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json?EndTime<=2014-01-01",
+        assertUrlsEqual("https://api.twilio.com/2010-04-01/Accounts/AC123/Calls.json?PageSize=51&EndTime<=2014-01-01",
             request.constructURL()
         );
     }

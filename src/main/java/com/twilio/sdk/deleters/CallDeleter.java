@@ -9,7 +9,7 @@ import com.twilio.sdk.resources.Call;
 public class CallDeleter extends SidDeleter<Call> {
     @Override
     public void execute(String sid, TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Calls/" + sid);
+        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {

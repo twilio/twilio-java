@@ -22,7 +22,7 @@ public class CallReader extends SidReader<Call> {
 
     @Override
     public ResourceSet<Call> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls.json");
         addQueryParams(request);
 
         Page<Call> page = pageForRequest(client, request);
@@ -32,7 +32,7 @@ public class CallReader extends SidReader<Call> {
 
     @Override
     public Call fetch(final String sid, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid);
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
         Response response = client.request(request);
 
         if (response.getStatusCode() != 200) {

@@ -10,12 +10,9 @@ import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.TranscriptionList;
 import org.apache.http.NameValuePair;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
@@ -126,12 +123,7 @@ public class Call extends InstanceResource {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-		try {
-			return format.parse(this.getProperty("date_created"));
-		} catch (ParseException e) {
-			return null;
-		}
+        return getDateProperty("date_created");
 	}
 
 	/**
@@ -140,12 +132,7 @@ public class Call extends InstanceResource {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-		try {
-			return format.parse(this.getProperty("date_updated"));
-		} catch (ParseException e) {
-			return null;
-		}
+        return getDateProperty("date_updated");
 	}
 
 	/**

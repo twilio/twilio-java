@@ -86,13 +86,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date created
      */
     public Date getDateCreated() {
-        SimpleDateFormat format = new SimpleDateFormat(
-                "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-        try {
-            return format.parse(this.getProperty("DateCreated"));
-        } catch (ParseException e) {
-            return null;
-        }
+        return getDateProperty("DateCreated");
     }
 
     /**
@@ -101,13 +95,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date updated
      */
     public Date getDateUpdated() {
-        SimpleDateFormat format = new SimpleDateFormat(
-                "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-        try {
-            return format.parse(this.getProperty("DateUpdated"));
-        } catch (ParseException e) {
-            return null;
-        }
+        return getDateProperty("DateUpdated");
     }
 
     /**
@@ -200,16 +188,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date fired
      */
     public Date getDateFired() {
-        SimpleDateFormat format = new SimpleDateFormat(
-                "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-        try {
-            String dateFired = this.getProperty("DateFired");
-            if (dateFired == null)
-                return null;
-            return format.parse(dateFired);
-        } catch (ParseException e) {
-            return null;
-        }
+        return getDateProperty("DateFired");
     }
 
     /**

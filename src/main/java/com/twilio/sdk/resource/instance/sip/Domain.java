@@ -84,13 +84,7 @@ public class Domain extends InstanceResource {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-		try {
-			return format.parse(this.getProperty("date_created"));
-		} catch (ParseException e) {
-			return null;
-		}
+        return getDateProperty("date_created");
 	}
 
 	/**
@@ -99,13 +93,7 @@ public class Domain extends InstanceResource {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-		try {
-			return format.parse(this.getProperty("date_updated"));
-		} catch (ParseException e) {
-			return null;
-		}
+        return getDateProperty("date_updated");
 	}
 
 	/**

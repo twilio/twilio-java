@@ -82,21 +82,11 @@ public class FeedbackSummary extends InstanceResource {
 	}
 
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-		try {
-			return format.parse(getProperty(DATE_CREATED_PROPERTY));
-		} catch (ParseException e) {
-			return null;
-		}
+        return getDateProperty(DATE_CREATED_PROPERTY);
 	}
 
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-		try {
-			return format.parse(getProperty(DATE_UPDATED_PROPERTY));
-		} catch (ParseException e) {
-			return null;
-		}
+        return getDateProperty(DATE_UPDATED_PROPERTY);
 	}
 
 	public Date getEndDate() {

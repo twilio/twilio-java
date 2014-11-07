@@ -98,17 +98,17 @@ public abstract class InstanceResource extends Resource {
 		return prop;
 	}
 
-    /**
-     * Gets the property as a Date.
-     * @param name
-     * @return
-     */
-    protected Date getDateProperty(String name) {
-        return parseDate(getProperty(name));
-    }
+	/**
+	 * Gets the property as a Date.
+	 * @param name
+	 * @return
+	 */
+	protected Date getDateProperty(String name) {
+		return parseDate(getProperty(name));
+	}
 
 
-    /**
+	/**
 	 * Sets the property as an Object
 	 *
 	 * @param name the name

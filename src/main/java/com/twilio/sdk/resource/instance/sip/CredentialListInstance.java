@@ -85,7 +85,7 @@ public class CredentialListInstance extends InstanceResource {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-        return getDateProperty("date_created");
+		return getDateProperty("date_created");
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class CredentialListInstance extends InstanceResource {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-        return getDateProperty("date_updated");
+		return getDateProperty("date_updated");
 	}
 
 	/**

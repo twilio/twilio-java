@@ -81,7 +81,7 @@ public class UsageRecord extends InstanceResource {
 	}
 
 	public Date getEndDate() {
-        return getDateProperty("EndDate");
+		return getDateProperty("EndDate");
 	}
 
 	public BigDecimal getUsage() {

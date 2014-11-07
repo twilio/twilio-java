@@ -81,11 +81,11 @@ public class FeedbackSummary extends InstanceResource {
 	}
 
 	public Date getDateCreated() {
-        return getDateProperty(DATE_CREATED_PROPERTY);
+		return getDateProperty(DATE_CREATED_PROPERTY);
 	}
 
 	public Date getDateUpdated() {
-        return getDateProperty(DATE_UPDATED_PROPERTY);
+		return getDateProperty(DATE_UPDATED_PROPERTY);
 	}
 
 	public Date getEndDate() {

@@ -1,5 +1,8 @@
 package com.twilio.sdk.clients;
 
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.HttpClient;
 import com.twilio.sdk.http.NetworkHttpClient;
 import com.twilio.sdk.http.Request;
@@ -8,33 +11,33 @@ import com.twilio.sdk.http.Response;
 public class TwilioRestClient {
 
     public enum Domains {
-        API ("api"),
-        WDS ("wds");
+        API("api"),
+        WDS("wds");
 
         private String domain;
 
-        Domains(String domain) {
+        Domains(final String domain) {
             this.domain = domain;
         }
 
         public String toString() {
-            return this.domain;
+            return domain;
         }
     }
 
     public enum Versions {
-        v1 ("v1"),
-        v2008 ("2008-08-01"),
-        v2010 ("2010-04-01");
+        v1("v1"),
+        v2008("2008-08-01"),
+        v2010("2010-04-01");
 
         private String version;
 
-        Versions(String version) {
+        Versions(final String version) {
             this.version = version;
         }
 
         public String toString() {
-            return this.version;
+            return version;
         }
     }
 
@@ -42,34 +45,33 @@ public class TwilioRestClient {
     protected String accountSid;
     protected String authToken;
 
-    public TwilioRestClient(String accountSid, String authToken) {
+    public TwilioRestClient(final String accountSid, final String authToken) {
         this(accountSid, authToken, new NetworkHttpClient());
     }
 
-    public TwilioRestClient(String accountSid, String authToken, HttpClient httpClient) {
+    public TwilioRestClient(final String accountSid, final String authToken, final HttpClient httpClient) {
         this.accountSid = accountSid;
         this.authToken = authToken;
         this.httpClient = httpClient;
     }
 
-    public Response request(Request request) {
-        String resolvedUri = "https://"
-                           + request.getDomain().toString()
-                           + ".twilio.com/"
-                           + request.getVersion().toString()
-                           + request.getUri().replace("{AccountSid}", this.accountSid);
+    public Response request(final Request request) throws InvalidRequestException, ApiConnectionException,
+                                                          ApiException {
+        String resolvedUri =
+                "https://" + request.getDomain().toString() + ".twilio.com/" + request.getVersion().toString() +
+                request.getUri().replace("{AccountSid}", accountSid);
 
         request.setUri(resolvedUri);
-        request.setAuth(this.accountSid, this.authToken);
+        request.setAuth(accountSid, authToken);
 
-        return this.httpClient.reliableRequest(request);
+        return httpClient.reliableRequest(request);
     }
 
     public HttpClient getHttpClient() {
         return httpClient;
     }
 
-    public void setHttpClient(HttpClient httpClient) {
+    public void setHttpClient(final HttpClient httpClient) {
         this.httpClient = httpClient;
     }
 }

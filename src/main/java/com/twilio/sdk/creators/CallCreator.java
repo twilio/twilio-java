@@ -2,6 +2,9 @@ package com.twilio.sdk.creators;
 
 import com.google.common.base.CaseFormat;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
@@ -29,7 +32,7 @@ public class CallCreator extends Creator<Call> {
      * @param from The twilio number to originate the call from
      * @param url The url to fetch twiml from
      */
-    public CallCreator(String to, String from, URI url) {
+    public CallCreator(final String to, final String from, final URI url) {
         this.to = to;
         this.from = from;
         this.url = url;
@@ -40,131 +43,132 @@ public class CallCreator extends Creator<Call> {
      * @param from The twilio number to originate the call from
      * @param applicationSid The ApplicationSid that configures where to fetch twiml from
      */
-    public CallCreator(String to, String from, String applicationSid) {
+    public CallCreator(final String to, final String from, final String applicationSid) {
         this.to = to;
         this.from = from;
         this.applicationSid = applicationSid;
     }
 
-    public CallCreator setMethod(HttpMethod method) {
+    public CallCreator setMethod(final HttpMethod method) {
         this.method = method;
         return this;
     }
 
-    public CallCreator setFallbackUrl(String fallbackUrl) {
+    public CallCreator setFallbackUrl(final String fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
         return this;
     }
 
-    public CallCreator setFallbackMethod(HttpMethod fallbackMethod) {
+    public CallCreator setFallbackMethod(final HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
         return this;
     }
 
-    public CallCreator setStatusCallback(String statusCallback) {
+    public CallCreator setStatusCallback(final String statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public CallCreator setStatusCallbackMethod(HttpMethod statusCallbackMethod) {
+    public CallCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-    public CallCreator setSendDigits(String sendDigits) {
+    public CallCreator setSendDigits(final String sendDigits) {
         this.sendDigits = sendDigits;
         return this;
     }
 
     /**
-     * Tell Twilio to try and determine if a machine (like voicemail) or a human
-     * has answered the call. Possible values are Continue and Hangup. See the
-     * answering machines section below for more info.
-     * @param ifMachine Action to take if a machine has answered the call, valid
-     *                  values are "Continue" and "Hangup"
+     * Tell Twilio to try and determine if a machine (like voicemail) or a human has answered the call. Possible values
+     * are Continue and Hangup. See the answering machines section below for more info.
+     *
+     * @param ifMachine Action to take if a machine has answered the call, valid values are "Continue" and "Hangup"
      * @return Instance for fluent API
      */
-    public CallCreator setIfMachine(String ifMachine) {
+    public CallCreator setIfMachine(final String ifMachine) {
         this.ifMachine = ifMachine;
         return this;
     }
 
-    public CallCreator setTimeout(int timeout) {
+    public CallCreator setTimeout(final int timeout) {
         this.timeout = timeout;
         return this;
     }
 
-    public CallCreator setRecord(boolean record) {
+    public CallCreator setRecord(final boolean record) {
         this.record = record;
         return this;
     }
 
     @Override
-    public Call execute(final TwilioRestClient client) {
+    public Call execute(final TwilioRestClient client) throws InvalidRequestException, ApiConnectionException,
+                                                              ApiException {
         Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls.json");
-        this.addPostParams(request);
+        addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new RuntimeException("Call creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != 201) {
-            throw new RuntimeException("Call creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new RuntimeException(
+                    "Call creation failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
 
         return Call.fromJson(response.getStream());
     }
 
-    private void addPostParams(Request request) {
-        if (this.to != null) {
-            request.addPostParam("To", this.to);
+    private void addPostParams(final Request request) {
+        if (to != null) {
+            request.addPostParam("To", to);
         }
 
-        if (this.from != null) {
-            request.addPostParam("From", this.from);
+        if (from != null) {
+            request.addPostParam("From", from);
         }
 
-        if (this.url != null) {
-            request.addPostParam("Url", this.url.toString());
+        if (url != null) {
+            request.addPostParam("Url", url.toString());
         }
 
-        if (this.applicationSid != null) {
-            request.addPostParam("ApplicationSid", this.applicationSid);
+        if (applicationSid != null) {
+            request.addPostParam("ApplicationSid", applicationSid);
         }
 
-        if (this.method != null) {
-            request.addPostParam("Method", this.method.toString());
+        if (method != null) {
+            request.addPostParam("Method", method.toString());
         }
 
-        if (this.fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", this.fallbackUrl);
+        if (fallbackUrl != null) {
+            request.addPostParam("FallbackUrl", fallbackUrl);
         }
 
-        if (this.fallbackMethod != null) {
-            request.addPostParam("FallbackMethod", this.fallbackMethod.toString());
+        if (fallbackMethod != null) {
+            request.addPostParam("FallbackMethod", fallbackMethod.toString());
         }
 
-        if (this.statusCallback != null) {
-            request.addPostParam("StatusCallback", this.statusCallback);
+        if (statusCallback != null) {
+            request.addPostParam("StatusCallback", statusCallback);
         }
 
-        if (this.statusCallbackMethod != null) {
-            request.addPostParam("StatusCallbackMethod", this.statusCallbackMethod.toString());
+        if (statusCallbackMethod != null) {
+            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
         }
 
-        if (this.sendDigits != null) {
-            request.addPostParam("SendDigits", this.sendDigits);
+        if (sendDigits != null) {
+            request.addPostParam("SendDigits", sendDigits);
         }
 
-        if (this.ifMachine != null) {
-            request.addPostParam("IfMachine", this.ifMachine);
+        if (ifMachine != null) {
+            request.addPostParam("IfMachine", ifMachine);
         }
 
-        if (this.timeout != null) {
-            request.addPostParam("Timeout", this.timeout.toString());
+        if (timeout != null) {
+            request.addPostParam("Timeout", timeout.toString());
         }
 
-        if (this.record != null) {
-            String value = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, this.record.toString());
+        if (record != null) {
+            String value = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, record.toString());
             request.addPostParam("Record", value);
         }
     }

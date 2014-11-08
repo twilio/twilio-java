@@ -1,5 +1,8 @@
 package com.twilio.sdk.http;
 
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
@@ -15,11 +18,14 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
-    public Response reliableRequest(Request request) {
-        return this.reliableRequest(request, RETRY_CODES, RETRIES, DELAY_MILLIS);
+    public Response reliableRequest(final Request request) throws InvalidRequestException, ApiConnectionException,
+                                                                  ApiException {
+        return reliableRequest(request, RETRY_CODES, RETRIES, DELAY_MILLIS);
     }
 
-    public Response reliableRequest(Request request, int[] retryCodes, int retries, long delayMillis) {
+    public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
+                                    final long delayMillis) throws InvalidRequestException, ApiConnectionException,
+                                                                   ApiException {
         Response response = null;
         while (retries > 0) {
             response = makeRequest(request);
@@ -30,7 +36,7 @@ public abstract class HttpClient {
 
             try {
                 Thread.sleep(delayMillis);
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 // Delay failed, continue
             }
 
@@ -40,15 +46,15 @@ public abstract class HttpClient {
         return response;
     }
 
-    protected boolean shouldRetry(Response response, int[] retryCodes) {
+    protected boolean shouldRetry(final Response response, final int[] retryCodes) {
         if (response == null) {
             return true;
         }
 
         int statusCode = response.getStatusCode();
-        int category = (int)Math.floor(statusCode / 100.0);
+        int category = (int) Math.floor(statusCode / 100.0);
 
-        for (int retryCode : retryCodes) {
+        for (final int retryCode : retryCodes) {
             switch (retryCode) {
                 case ANY_100:
                     if (category == 1) {
@@ -85,15 +91,16 @@ public abstract class HttpClient {
         return false;
     }
 
-    public abstract Response makeRequest(Request request);
+    public abstract Response makeRequest(Request request) throws InvalidRequestException, ApiConnectionException,
+                                                                 ApiException;
 
-    protected String authentication(String username, String password) {
+    protected String authentication(final String username, final String password) throws InvalidRequestException {
         String credentials = username + ":" + password;
         try {
             String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));
             return "Basic " + encoded;
-        } catch(UnsupportedEncodingException e) {
-            throw new RuntimeException("We don't have ASCII, can't do much here");
+        } catch (final UnsupportedEncodingException e) {
+            throw new InvalidRequestException("We don't have ASCII, can't do much here", credentials, e);
         }
     }
 }

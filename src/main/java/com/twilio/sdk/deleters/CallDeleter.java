@@ -1,6 +1,9 @@
 package com.twilio.sdk.deleters;
 
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
@@ -19,7 +22,8 @@ public class CallDeleter extends Deleter<Call> {
     }
 
     @Override
-    public void execute(final TwilioRestClient client) {
+    public void execute(final TwilioRestClient client) throws InvalidRequestException, ApiConnectionException,
+                                                              ApiException {
         Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
         Response response = client.request(request);
 

@@ -1,5 +1,8 @@
 package com.twilio.sdk.http;
 
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,43 +14,43 @@ public class Response {
     private String content;
     private int statusCode;
 
-    public Response(String content, int statusCode) {
+    public Response(final String content, final int statusCode) {
         this.content = content;
-        this.stream = null;
+        stream = null;
         this.statusCode = statusCode;
     }
 
-    public Response(InputStream stream, int statusCode) {
+    public Response(final InputStream stream, final int statusCode) {
         this.stream = stream;
-        this.content = null;
+        content = null;
         this.statusCode = statusCode;
     }
 
-    public String getContent() {
-        if (this.content != null) {
+    public String getContent() throws ApiConnectionException {
+        if (content != null) {
             return content;
         }
         // XXX we probably don't need this and should convert strings into
         // streams in the mock scaffolding
         try {
-            if (this.stream.available() == 0) {
+            if (stream.available() == 0) {
                 return "";
             }
-        } catch (IOException e) {
-            throw new RuntimeException("whoops"); // XXX
+        } catch (final IOException e) {
+            throw new ApiConnectionException("IOException during API request to Twilio", e);
         }
-        return (new Scanner(this.stream, "UTF-8").useDelimiter("\\A")).next();
+        return (new Scanner(stream, "UTF-8").useDelimiter("\\A")).next();
 
     }
 
-    public InputStream getStream() {
-        if (this.stream != null) {
-            return this.stream;
+    public InputStream getStream() throws ApiException {
+        if (stream != null) {
+            return stream;
         }
         try {
-            return new ByteArrayInputStream(this.content.getBytes("utf-8"));
-        } catch(UnsupportedEncodingException e) {
-            throw new RuntimeException("UTF-8 encoding not supported?");
+            return new ByteArrayInputStream(content.getBytes("utf-8"));
+        } catch (final UnsupportedEncodingException e) {
+            throw new ApiException("UTF-8 encoding not supported?", e);
         }
     }
 

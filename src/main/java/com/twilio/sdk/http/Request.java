@@ -3,10 +3,15 @@ package com.twilio.sdk.http;
 
 import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.exceptions.ApiException;
 import org.joda.time.LocalDate;
 
 import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,36 +29,31 @@ public class Request {
     protected Map<String, ArrayList<String>> queryParams;
     protected Map<String, ArrayList<String>> postParams;
 
-    public Request(HttpMethod method, String uri) {
-        this(method,
-             TwilioRestClient.Domains.API,
-             TwilioRestClient.Versions.v2010,
+    public Request(final HttpMethod method, final String uri) {
+        this(method, TwilioRestClient.Domains.API, TwilioRestClient.Versions.v2010, uri);
+    }
+
+    public Request(final HttpMethod method, final TwilioRestClient.Domains domain, final String uri) {
+        this(method, domain,
+             domain == TwilioRestClient.Domains.API ? TwilioRestClient.Versions.v2010 : TwilioRestClient.Versions.v1,
              uri);
     }
 
-    public Request(HttpMethod method, TwilioRestClient.Domains domain, String uri) {
-        this(method,
-             domain,
-             domain == TwilioRestClient.Domains.API
-                     ? TwilioRestClient.Versions.v2010
-                     : TwilioRestClient.Versions.v1,
-             uri);
-    }
-
-    public Request(HttpMethod method, TwilioRestClient.Domains domain, TwilioRestClient.Versions version, String uri) {
+    public Request(final HttpMethod method, final TwilioRestClient.Domains domain,
+                   final TwilioRestClient.Versions version, final String uri) {
         this.method = method;
         this.domain = domain;
         this.version = version;
         this.uri = uri;
-        this.queryParams = new HashMap<String, ArrayList<String>>();
-        this.postParams = new HashMap<String, ArrayList<String>>();
+        queryParams = new HashMap<>();
+        postParams = new HashMap<>();
     }
 
     public HttpMethod getMethod() {
-        return this.method;
+        return method;
     }
 
-    public void setMethod(HttpMethod method) {
+    public void setMethod(final HttpMethod method) {
         this.method = method;
     }
 
@@ -61,7 +61,7 @@ public class Request {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 
@@ -73,7 +73,7 @@ public class Request {
         return version;
     }
 
-    public void setAuth(String username, String password) {
+    public void setAuth(final String username, final String password) {
         this.username = username;
         this.password = password;
     }
@@ -90,9 +90,9 @@ public class Request {
         return username != null || password != null;
     }
 
-    public URL constructURL() {
-        String params = this.encodeQueryParams();
-        String stringUri = this.uri;
+    public URL constructURL() throws ApiException {
+        String params = encodeQueryParams();
+        String stringUri = uri;
 
         if (params.length() > 0) {
             stringUri += "?" + params;
@@ -101,47 +101,47 @@ public class Request {
         try {
             URI uri = new URI(stringUri);
             return uri.toURL();
-        } catch(URISyntaxException e) {
-            throw new RuntimeException("Bad URI: " + stringUri);
-        } catch(MalformedURLException e) {
-            throw new RuntimeException("Bad URL: " + stringUri);
+        } catch (final URISyntaxException e) {
+            throw new ApiException("Bad URI: " + stringUri, e);
+        } catch (final MalformedURLException e) {
+            throw new ApiException("Bad URL: " + stringUri, e);
         }
     }
 
-    public void addQueryParam(String name, String value) {
-        if (!this.queryParams.containsKey(name)) {
-            this.queryParams.put(name, new ArrayList<String>());
+    public void addQueryParam(final String name, final String value) {
+        if (!queryParams.containsKey(name)) {
+            queryParams.put(name, new ArrayList<String>());
         }
 
-        this.queryParams.get(name).add(value);
+        queryParams.get(name).add(value);
     }
 
-    public void addQueryDateRange(String name, Range<LocalDate> range) {
+    public void addQueryDateRange(final String name, final Range<LocalDate> range) {
         if (range.hasLowerBound()) {
             String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
-            this.addQueryParam(name + ">", value);
+            addQueryParam(name + ">", value);
         }
 
         if (range.hasUpperBound()) {
             String value = range.upperEndpoint().toString(QUERY_STRING_DATE_FORMAT);
-            this.addQueryParam(name + "<", value);
+            addQueryParam(name + "<", value);
         }
     }
 
-    public void addPostParam(String name, String value) {
-        if (!this.postParams.containsKey(name)) {
-            this.postParams.put(name, new ArrayList<String>());
+    public void addPostParam(final String name, final String value) {
+        if (!postParams.containsKey(name)) {
+            postParams.put(name, new ArrayList<String>());
         }
 
-        this.postParams.get(name).add(value);
+        postParams.get(name).add(value);
     }
 
-    private static String encodeParameters(Map<String, ArrayList<String>> params) {
+    private static String encodeParameters(final Map<String, ArrayList<String>> params) {
         StringBuilder builder = new StringBuilder();
         try {
-            for (Map.Entry<String, ArrayList<String>> entry : params.entrySet()) {
+            for (final Map.Entry<String, ArrayList<String>> entry : params.entrySet()) {
                 String encodedName = URLEncoder.encode(entry.getKey(), "UTF-8");
-                for (String value : entry.getValue()) {
+                for (final String value : entry.getValue()) {
                     String encodedValue = URLEncoder.encode(value, "UTF-8");
                     builder.append(encodedName);
                     builder.append("=");
@@ -153,17 +153,17 @@ public class Request {
                 builder.deleteCharAt(builder.length() - 1);
             }
             return builder.toString();
-        } catch (UnsupportedEncodingException e) {
+        } catch (final UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't encode params");
         }
     }
 
     public String encodeFormBody() {
-        return encodeParameters(this.postParams);
+        return encodeParameters(postParams);
     }
 
     public String encodeQueryParams() {
-        return encodeParameters(this.queryParams);
+        return encodeParameters(queryParams);
     }
 
 }

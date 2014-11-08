@@ -1,6 +1,9 @@
 package com.twilio.sdk.resources;
 
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.readers.Reader;
 
 import java.util.Iterator;
@@ -41,7 +44,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         return new ResourceSetIterator<E>(this);
     }
 
-    protected void fetchNextPage() {
+    protected void fetchNextPage() throws InvalidRequestException, ApiConnectionException, ApiException {
         page = reader.nextPage(page.getNextPageUri(), client);
         if (page != null) {
             iterator = page.getRecords().iterator();
@@ -59,7 +62,11 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         public boolean hasNext() {
             if (!resourceSet.iterator.hasNext() && resourceSet.isAutoPaging()) {
                 // The page is exhausted, fetch the next page
-                resourceSet.fetchNextPage();
+                try {
+                    resourceSet.fetchNextPage();
+                } catch (final InvalidRequestException | ApiConnectionException | ApiException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             return resourceSet.iterator != null && resourceSet.iterator.hasNext();

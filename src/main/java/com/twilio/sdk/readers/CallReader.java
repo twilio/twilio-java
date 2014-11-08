@@ -2,6 +2,9 @@ package com.twilio.sdk.readers;
 
 import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
@@ -22,7 +25,8 @@ public class CallReader extends Reader<Call> {
     private Range<LocalDate> rangeEndTime;
 
     @Override
-    public ResourceSet<Call> execute(final TwilioRestClient client) {
+    public ResourceSet<Call> execute(final TwilioRestClient client) throws InvalidRequestException,
+                                                                           ApiConnectionException, ApiException {
         Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls.json");
         addQueryParams(request);
 
@@ -32,12 +36,17 @@ public class CallReader extends Reader<Call> {
     }
 
     @Override
-    public Page<Call> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Call> nextPage(final String nextPageUri, final TwilioRestClient client) throws InvalidRequestException,
+                                                                                               ApiConnectionException,
+                                                                                               ApiException {
         Request request = new Request(HttpMethod.GET, nextPageUri);
         return pageForRequest(client, request);
     }
 
-    protected Page<Call> pageForRequest(final TwilioRestClient client, final Request request) {
+    protected Page<Call> pageForRequest(final TwilioRestClient client, final Request request) throws
+                                                                                              InvalidRequestException,
+                                                                                              ApiConnectionException,
+                                                                                              ApiException {
         Response response = client.request(request);
 
         if (response.getStatusCode() != 200) {

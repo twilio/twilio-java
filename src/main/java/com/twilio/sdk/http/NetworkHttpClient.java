@@ -1,15 +1,19 @@
 package com.twilio.sdk.http;
 
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class NetworkHttpClient extends HttpClient {
 
-    public Response makeRequest(Request request) {
+    public Response makeRequest(final Request request) throws InvalidRequestException, ApiConnectionException,
+                                                              ApiException {
         try {
             URL url = request.constructURL();
             HttpMethod method = request.getMethod();
@@ -48,27 +52,24 @@ public class NetworkHttpClient extends HttpClient {
 
             return new Response(stream, responseCode);
 
-        } catch(MalformedURLException e) {
-            // XXX womp womp
-            return null;
-        } catch(IOException e) {
-            return null;
+        } catch (final IOException e) {
+            throw new ApiConnectionException("IOException during API request to Twilio", e);
         }
     }
 
-    private void addAuth(Request request, HttpURLConnection conn) {
-        String auth = this.authentication(request.getUsername(), request.getPassword());
+    private void addAuth(final Request request, final HttpURLConnection conn) throws InvalidRequestException {
+        String auth = authentication(request.getUsername(), request.getPassword());
         conn.setRequestProperty("Authorization", auth);
     }
 
-    private void sendPostBody(Request request, HttpURLConnection conn) {
+    private void sendPostBody(final Request request, final HttpURLConnection conn) throws ApiConnectionException {
         String postBody = request.encodeFormBody();
         try {
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
             writer.write(postBody);
             writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException("oops"); // XXX needs improvement
+        } catch (final IOException e) {
+            throw new ApiConnectionException("IOException during API request to Twilio", e);
         }
     }
 

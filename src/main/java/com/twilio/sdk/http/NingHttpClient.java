@@ -2,6 +2,8 @@ package com.twilio.sdk.http;
 
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.ListenableFuture;
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -9,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 public class NingHttpClient extends HttpClient {
 
     @Override
-    public Response makeRequest(Request request) {
+    public Response makeRequest(Request request) throws InvalidRequestException, ApiConnectionException {
         if (request.getMethod() == null) {
             throw new RuntimeException("Request has no method");
         }
@@ -26,7 +28,7 @@ public class NingHttpClient extends HttpClient {
         } else if (method.equals("DELETE")) {
             builder = client.preparePost(request.getUri());
         } else {
-            throw new RuntimeException(method + " is not a supported HTTP Method");
+            throw new ApiConnectionException(method + " is not a supported HTTP Method");
         }
 
         if (request.requiresAuthentication()) {
@@ -36,12 +38,9 @@ public class NingHttpClient extends HttpClient {
         try {
             ListenableFuture<com.ning.http.client.Response> future = builder.execute();
             com.ning.http.client.Response response = future.get();
-            return new Response(
-                    response.getResponseBody(),
-                    response.getStatusCode()
-            );
+            return new Response(response.getResponseBody(), response.getStatusCode());
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ApiConnectionException("IOException during API request to Twilio", e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e.getMessage());
         } catch (ExecutionException e) {

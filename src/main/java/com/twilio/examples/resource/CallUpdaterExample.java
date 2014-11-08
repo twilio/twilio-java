@@ -2,6 +2,9 @@ package com.twilio.examples.resource;
 
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.CallCreator;
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.resources.Call;
 import com.twilio.sdk.updaters.CallUpdater;
 
@@ -38,7 +41,7 @@ public class CallUpdaterExample {
             System.out.println(updated.getSid());
             System.out.println(updated.getStatus().toString());
 
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | InvalidRequestException | ApiConnectionException | ApiException e) {
             System.err.println("womp womp");
             System.exit(1);
         }

@@ -11,62 +11,62 @@ public class MockHttpClient extends HttpClient {
     protected List<Request> requests;
 
     public MockHttpClient() {
-        this.responses = new ArrayList<Response>();
-        this.requests = new ArrayList<Request>();
+        responses = new ArrayList<>();
+        requests = new ArrayList<>();
     }
 
     @Override
-    public Response makeRequest(Request request) {
-        if (this.withDelay) {
+    public Response makeRequest(final Request request) {
+        if (withDelay) {
             // Simulate network delay
             try {
-                long delay = this.delayLowerMillis;
-                delay += (this.delaySpreadMillis * Math.random());
+                long delay = delayLowerMillis;
+                delay += (delaySpreadMillis * Math.random());
                 Thread.sleep(delay);
-            } catch(InterruptedException e) {
+            } catch (final InterruptedException e) {
                 // ignore
             }
         }
 
         Response response;
 
-        if (this.responses.isEmpty()) {
+        if (responses.isEmpty()) {
             response = new ConsumableResponse("Mock Response Not Found", 404);
         } else {
-            response = this.responses.get(0);
+            response = responses.get(0);
         }
 
         if (response instanceof ConsumableResponse) {
-            ((ConsumableResponse)response).consume();
-            if (((ConsumableResponse)response).isExhausted()) {
-                this.responses.remove(0);
+            ((ConsumableResponse) response).consume();
+            if (((ConsumableResponse) response).isExhausted()) {
+                responses.remove(0);
             }
         }
 
-        this.requests.add(request);
+        requests.add(request);
 
         return response;
     }
 
-    public void setDelay(long lowerMillis, long upperMillis) {
-        this.withDelay = true;
-        this.delayLowerMillis = lowerMillis;
-        this.delaySpreadMillis = upperMillis - lowerMillis;
+    public void setDelay(final long lowerMillis, final long upperMillis) {
+        withDelay = true;
+        delayLowerMillis = lowerMillis;
+        delaySpreadMillis = upperMillis - lowerMillis;
     }
 
     public void clearDelay() {
-        this.withDelay = false;
+        withDelay = false;
     }
 
-    public void setResponses(List<Response> responses) {
+    public void setResponses(final List<Response> responses) {
         this.responses = responses;
     }
 
-    public void addResponse(Response response) {
-        this.responses.add(response);
+    public void addResponse(final Response response) {
+        responses.add(response);
     }
 
     public List<Request> getRequests() {
-        return this.requests;
+        return requests;
     }
 }

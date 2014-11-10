@@ -2,9 +2,14 @@ package com.twilio.sdk.bulk;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.creators.CallCreator;
+import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.resources.Call;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class DeferredBulkDialer implements BulkDialer {
@@ -12,17 +17,17 @@ public class DeferredBulkDialer implements BulkDialer {
     protected Map<String, ListenableFuture<Call>> results;
 
     public DeferredBulkDialer() {
-        this.promises = new HashMap<String, CallCreator>();
-        this.results = new HashMap<String, ListenableFuture<Call>>();
+        promises = new HashMap<>();
+        results = new HashMap<>();
     }
 
     @Override
-    public void add(String key, CallCreator callCreator) {
-        this.promises.put(key, callCreator);
+    public void add(final String key, final CallCreator callCreator) {
+        promises.put(key, callCreator);
     }
 
     @Override
-    public Call get(String key) {
+    public Call get(final String key) throws AuthenticationException {
         // If there is no Future to resolve, bail
         if (!async(key)) {
             return null;
@@ -30,16 +35,14 @@ public class DeferredBulkDialer implements BulkDialer {
 
         try {
             return results.get(key).get();
-        } catch (InterruptedException e) {
-            // Log and continue
-        } catch (ExecutionException e) {
+        } catch (final InterruptedException | ExecutionException e) {
             // Log and continue
         }
 
         return null;
     }
 
-    protected boolean async(String key) {
+    protected boolean async(final String key) throws AuthenticationException {
         // No promise, abort
         if (!promises.containsKey(key)) {
             return false;
@@ -56,23 +59,27 @@ public class DeferredBulkDialer implements BulkDialer {
     }
 
     @Override
-    public void complete() {
+    public void complete() throws AuthenticationException {
         // First make sure every promise gets converted into a result
-        for (String key : promises.keySet()) {
+        for (final String key : promises.keySet()) {
             async(key);
         }
 
         // Then make sure every result gets resolved
-        for (String key : results.keySet()) {
+        for (final String key : results.keySet()) {
             get(key);
         }
     }
 
     @Override
     public Iterator<Call> iterator() {
-        List<Call> calls = new ArrayList<Call>();
-        for (String key : results.keySet()) {
-            calls.add(get(key));
+        List<Call> calls = new ArrayList<>();
+        for (final String key : results.keySet()) {
+            try {
+                calls.add(get(key));
+            } catch (final AuthenticationException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         return calls.iterator();

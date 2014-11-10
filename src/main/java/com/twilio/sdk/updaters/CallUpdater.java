@@ -72,10 +72,10 @@ public class CallUpdater extends Updater<Call> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new RuntimeException("Call update failed: Unable to connect to server");
+            throw new ApiConnectionException("Call update failed: Unable to connect to server");
         } else if (response.getStatusCode() != 200) {
-            throw new RuntimeException(
-                    "Call update failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException("Call update failed: [" + response.getStatusCode() + "] " + response.getContent(),
+                                   null);
         }
 
         return Call.fromJson(response.getStream());

@@ -2,33 +2,36 @@ package com.twilio.sdk.bulk;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.creators.CallCreator;
+import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.resources.Call;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class ImmediateBulkDialer implements BulkDialer {
     protected Map<String, ListenableFuture<Call>> results;
 
     public ImmediateBulkDialer() {
-        this.results = new HashMap<String, ListenableFuture<Call>>();
+        results = new HashMap<>();
     }
 
     @Override
-    public void add(String key, CallCreator callCreator) {
-        this.results.put(key, callCreator.async());
+    public void add(final String key, final CallCreator callCreator) throws AuthenticationException {
+        results.put(key, callCreator.async());
     }
 
-    public Call get(String key) {
+    public Call get(final String key) {
         if (!results.containsKey(key)) {
             return null;
         }
 
         try {
             return results.get(key).get();
-        } catch (InterruptedException e) {
-            // Log and continue
-        } catch (ExecutionException e) {
+        } catch (final InterruptedException | ExecutionException e) {
             // Log and continue
         }
 
@@ -36,15 +39,15 @@ public class ImmediateBulkDialer implements BulkDialer {
     }
 
     public void complete() {
-        for (String key : results.keySet()) {
+        for (final String key : results.keySet()) {
             get(key);
         }
     }
 
     @Override
     public Iterator<Call> iterator() {
-        List<Call> calls = new ArrayList<Call>();
-        for (String key : results.keySet()) {
+        List<Call> calls = new ArrayList<>();
+        for (final String key : results.keySet()) {
             calls.add(get(key));
         }
 

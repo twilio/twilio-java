@@ -23,7 +23,8 @@ public class CallFetcher extends Fetcher<Call> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != 200) {
-            throw new RuntimeException("Unable to find Call for Sid " + sid);
+            throw new ApiException("Call fetch failed: [" + response.getStatusCode() + "] " + response.getContent(),
+                                   null);
         }
 
         return Call.fromJson(response.getStream());

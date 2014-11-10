@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.deleters.CallDeleter;
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.CallFetcher;
 import com.twilio.sdk.readers.CallReader;
 import com.twilio.sdk.updaters.CallUpdater;
@@ -155,25 +157,29 @@ public class Call extends SidResource {
 
     }
 
-    public static Call fromJson(final String json) {
+    public static Call fromJson(final String json) throws ApiException, ApiConnectionException {
         ObjectMapper mapper = new ObjectMapper();
 
         // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public static Call fromJson(final InputStream json) {
+    public static Call fromJson(final InputStream json) throws ApiException, ApiConnectionException {
         ObjectMapper mapper = new ObjectMapper();
 
         // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

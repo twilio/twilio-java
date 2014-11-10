@@ -3,9 +3,10 @@ package com.twilio.sdk;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.exceptions.AuthenticationException;
+import com.twilio.sdk.http.MockHttpClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.http.MockHttpClient;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,14 +22,14 @@ public class Twilio {
     private static Long mockLowMillis;
     private static Long mockHighMillis;
 
-    public static void init(String accountSid, String authToken) {
+    public static void init(final String accountSid, final String authToken) throws AuthenticationException {
         Twilio.setAccountSid(accountSid);
         Twilio.setAuthToken(authToken);
     }
 
-    public static void setAccountSid(String accountSid) {
+    public static void setAccountSid(final String accountSid) throws AuthenticationException {
         if (accountSid == null) {
-            throw new RuntimeException("AccountSid can not be null");
+            throw new AuthenticationException("AccountSid can not be null");
         }
 
         if (!accountSid.equals(Twilio.accountSid)) {
@@ -38,9 +39,9 @@ public class Twilio {
         Twilio.accountSid = accountSid;
     }
 
-    public static void setAuthToken(String authToken) {
+    public static void setAuthToken(final String authToken) throws AuthenticationException {
         if (authToken == null) {
-            throw new RuntimeException("AuthToken can not be null");
+            throw new AuthenticationException("AuthToken can not be null");
         }
 
         if (!authToken.equals(Twilio.authToken)) {
@@ -50,8 +51,8 @@ public class Twilio {
         Twilio.authToken = authToken;
     }
 
-    public static void setMockResponses(Response... responses) {
-        Twilio.mockResponses = new ArrayList<Response>();
+    public static void setMockResponses(final Response... responses) {
+        Twilio.mockResponses = new ArrayList<>();
         Collections.addAll(Twilio.mockResponses, responses);
         Twilio.invalidate();
     }
@@ -61,11 +62,11 @@ public class Twilio {
         Twilio.invalidate();
     }
 
-    public static void setMockDelay(long millis) {
+    public static void setMockDelay(final long millis) {
         Twilio.setMockDelay(millis, millis);
     }
 
-    public static void setMockDelay(long lowMillis, long highMillis) {
+    public static void setMockDelay(final long lowMillis, final long highMillis) {
         Twilio.mockLowMillis = lowMillis;
         Twilio.mockHighMillis = highMillis;
     }
@@ -75,10 +76,11 @@ public class Twilio {
         Twilio.mockHighMillis = null;
     }
 
-    public static TwilioRestClient getRestClient() {
+    public static TwilioRestClient getRestClient() throws AuthenticationException {
         if (Twilio.restClient == null) {
             if (Twilio.accountSid == null || Twilio.authToken == null) {
-                throw new RuntimeException("TwilioRestClient was used before AccountSid and AuthToken were set, make sure you call Twilio.init()");
+                throw new AuthenticationException(
+                        "TwilioRestClient was used before AccountSid and AuthToken were set, make sure you call Twilio.init()");
             }
 
             Twilio.restClient = new TwilioRestClient(Twilio.accountSid, Twilio.authToken);
@@ -96,7 +98,7 @@ public class Twilio {
         return Twilio.restClient;
     }
 
-    public static void setRestClient(TwilioRestClient restClient) {
+    public static void setRestClient(final TwilioRestClient restClient) {
         Twilio.restClient = restClient;
     }
 
@@ -107,15 +109,15 @@ public class Twilio {
         return Twilio.executorService;
     }
 
-    public static void setExecutorService(ListeningExecutorService executorService) {
+    public static void setExecutorService(final ListeningExecutorService executorService) {
         Twilio.executorService = executorService;
     }
 
-    public static Request getMockRequest() {
+    public static Request getMockRequest() throws AuthenticationException {
         return Twilio.getMockRequest(0);
     }
 
-    public static Request getMockRequest(int index) {
+    public static Request getMockRequest(final int index) throws AuthenticationException {
         List<Request> requests = Twilio.getMockRequests();
         if (index < requests.size()) {
             return requests.get(index);
@@ -123,13 +125,12 @@ public class Twilio {
         return null;
     }
 
-    public static List<Request> getMockRequests() {
-        if (isMockingEnabled() &&
-            (Twilio.getRestClient().getHttpClient() instanceof MockHttpClient)) {
-            return ((MockHttpClient)Twilio.getRestClient().getHttpClient()).getRequests();
+    public static List<Request> getMockRequests() throws AuthenticationException {
+        if (isMockingEnabled() && (Twilio.getRestClient().getHttpClient() instanceof MockHttpClient)) {
+            return ((MockHttpClient) Twilio.getRestClient().getHttpClient()).getRequests();
         }
 
-        return new ArrayList<Request>();
+        return new ArrayList<>();
     }
 
     /**

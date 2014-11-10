@@ -44,7 +44,7 @@ public class CallReader extends Reader<Call> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != 200) {
-            throw new RuntimeException("Unable to build page of Calls");
+            throw new ApiException("Unable to build page of Calls", null);
         }
 
         Page<Call> result = new Page<>();

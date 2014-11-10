@@ -2,6 +2,7 @@ package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.sdk.exceptions.ApiConnectionException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ public class Page<T> {
         return uri;
     }
 
-    public void deserialize(final String recordKey, final String json, final Class<T> recordType) {
+    public void deserialize(final String recordKey, final String json, final Class<T> recordType) throws
+                                                                                                  ApiConnectionException {
         ObjectMapper mapper = new ObjectMapper();
 
         records = new ArrayList<>();
@@ -56,7 +58,7 @@ public class Page<T> {
             uri = root.get("uri").asText();
             pageSize = root.get("page_size").asInt();
         } catch (final IOException e) {
-            throw new RuntimeException("Unable to deserialize response: " + e.getMessage());
+            throw new ApiConnectionException("Unable to deserialize response: " + e.getMessage(), e);
         }
     }
 

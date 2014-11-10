@@ -61,7 +61,8 @@ public class NetworkHttpClient extends HttpClient {
         conn.setRequestProperty("Authorization", auth);
     }
 
-    private void sendPostBody(final Request request, final HttpURLConnection conn) {
+    private void sendPostBody(final Request request, final HttpURLConnection conn) throws ApiConnectionException,
+                                                                                          InvalidRequestException {
         String postBody = request.encodeFormBody();
         try {
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());

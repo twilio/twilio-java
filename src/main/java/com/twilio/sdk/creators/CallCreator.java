@@ -108,10 +108,10 @@ public class CallCreator extends Creator<Call> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new RuntimeException("Call creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Call creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != 201) {
-            throw new RuntimeException(
-                    "Call creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException("Call creation failed: [" + response.getStatusCode() + "] " + response.getContent(),
+                                   null);
         }
 
         return Call.fromJson(response.getStream());

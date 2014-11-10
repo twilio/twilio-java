@@ -5,6 +5,7 @@ import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.Resource;
@@ -16,13 +17,14 @@ public abstract class Reader<T extends Resource> {
 
     private int pageSize = 50;
 
-    public ResourceSet<T> execute() {
+    public ResourceSet<T> execute() throws InvalidRequestException, ApiConnectionException, ApiException,
+                                           AuthenticationException {
         return execute(Twilio.getRestClient());
     }
 
     public abstract ResourceSet<T> execute(final TwilioRestClient client);
 
-    public ListenableFuture<ResourceSet<T>> async() {
+    public ListenableFuture<ResourceSet<T>> async() throws AuthenticationException {
         return async(Twilio.getRestClient());
     }
 
@@ -34,7 +36,8 @@ public abstract class Reader<T extends Resource> {
         });
     }
 
-    public Page<T> nextPage(final String nextPageUri) {
+    public Page<T> nextPage(final String nextPageUri) throws InvalidRequestException, ApiConnectionException,
+                                                             ApiException, AuthenticationException {
         return nextPage(nextPageUri, Twilio.getRestClient());
     }
 

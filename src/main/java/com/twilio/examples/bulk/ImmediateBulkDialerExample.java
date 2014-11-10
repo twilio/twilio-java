@@ -3,6 +3,7 @@ package com.twilio.examples.bulk;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.bulk.BulkDialer;
 import com.twilio.sdk.bulk.ImmediateBulkDialer;
+import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.http.ConsumableResponse;
 import com.twilio.sdk.resources.Call;
 import com.twilio.sdk.timing.Stopwatch;
@@ -12,22 +13,19 @@ import java.net.URISyntaxException;
 
 /**
  * Example of how to use the ImmediateBulkDialer.
- *
- * Twilio's next-generation helper library comes with a built in thread pool
- * executor service.  You can use this directly by replacing any calls to
- * execute() with calls to async() instead.
- *
- * This can be cumbersome though for common use cases, keeping track of futures
- * and making sure you understand how to pool workers correctly.  Twilio makes
- * this easier by providing a higher level abstract, the BulkDialer.
- *
- * BulkDialer comes in two flavors, this example shows off the
- * ImmediateBulkDialer.  ImmediateBulkDialer bulk dials as quickly as possible,
- * starting every call immediately after you add it to the bulk dialer.
+ * <p/>
+ * Twilio's next-generation helper library comes with a built in thread pool executor service.  You can use this
+ * directly by replacing any calls to execute() with calls to async() instead.
+ * <p/>
+ * This can be cumbersome though for common use cases, keeping track of futures and making sure you understand how to
+ * pool workers correctly.  Twilio makes this easier by providing a higher level abstract, the BulkDialer.
+ * <p/>
+ * BulkDialer comes in two flavors, this example shows off the ImmediateBulkDialer.  ImmediateBulkDialer bulk dials as
+ * quickly as possible, starting every call immediately after you add it to the bulk dialer.
  */
 public class ImmediateBulkDialerExample {
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(final String[] args) throws URISyntaxException, AuthenticationException {
         // First we are going to mock out the network and give every request a
         // uniform delay of 1000ms (1 second)
         long requestDelay = 1000L;
@@ -83,7 +81,7 @@ public class ImmediateBulkDialerExample {
 
         // We can also iterate over the dialer to get every call
         System.out.println("All the calls are:");
-        for (Call call : dialer) {
+        for (final Call call : dialer) {
             System.out.println("\t" + call);
         }
 
@@ -93,38 +91,38 @@ public class ImmediateBulkDialerExample {
     }
 
     private static final String JSON = "{" +
-            "\"account_sid\": \"ACca498dbda0fef21f361a9a3326354175\",\n" +
-            "\"annotation\": null,\n" +
-            "\"answered_by\": null,\n" +
-            "\"api_version\": \"2008-08-01\",\n" +
-            "\"caller_name\": null,\n" +
-            "\"date_created\": \"Mon, 29 Sep 2014 20:39:42 +0000\",\n" +
-            "\"date_updated\": \"Mon, 29 Sep 2014 20:39:50 +0000\",\n" +
-            "\"direction\": \"inbound\",\n" +
-            "\"duration\": \"8\",\n" +
-            "\"end_time\": \"Mon, 29 Sep 2014 20:39:50 +0000\",\n" +
-            "\"forwarded_from\": \"+19143689587\",\n" +
-            "\"from\": \"+16507843280\",\n" +
-            "\"from_formatted\": \"(650) 784-3280\",\n" +
-            "\"group_sid\": null,\n" +
-            "\"parent_call_sid\": null,\n" +
-            "\"phone_number_sid\": \"PN5c269861c7f337f6876d6ef214a094cc\",\n" +
-            "\"price\": \"-0.01000\",\n" +
-            "\"price_unit\": \"USD\",\n" +
-            "\"sid\": \"CA9e966bd3ef2abcfe941fb0a06e3fc027\",\n" +
-            "\"start_time\": \"Mon, 29 Sep 2014 20:39:42 +0000\",\n" +
-            "\"status\": \"completed\",\n" +
-            "\"subresource_uris\": {\n" +
-            "    \"notifications\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls/CA9e966bd3ef2abcfe941fb0a06e3fc027/Notifications.json\",\n" +
-            "    \"recordings\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls/CA9e966bd3ef2abcfe941fb0a06e3fc027/Recordings.json\"\n" +
-            "},\n" +
-            "\"to\": \"+19143689587\",\n" +
-            "\"to_formatted\": \"(914) 368-9587\",\n" +
-            "\"uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls/CA9e966bd3ef2abcfe941fb0a06e3fc027.json\"\n" +
-            "}";
+                                       "\"account_sid\": \"ACca498dbda0fef21f361a9a3326354175\",\n" +
+                                       "\"annotation\": null,\n" +
+                                       "\"answered_by\": null,\n" +
+                                       "\"api_version\": \"2008-08-01\",\n" +
+                                       "\"caller_name\": null,\n" +
+                                       "\"date_created\": \"Mon, 29 Sep 2014 20:39:42 +0000\",\n" +
+                                       "\"date_updated\": \"Mon, 29 Sep 2014 20:39:50 +0000\",\n" +
+                                       "\"direction\": \"inbound\",\n" +
+                                       "\"duration\": \"8\",\n" +
+                                       "\"end_time\": \"Mon, 29 Sep 2014 20:39:50 +0000\",\n" +
+                                       "\"forwarded_from\": \"+19143689587\",\n" +
+                                       "\"from\": \"+16507843280\",\n" +
+                                       "\"from_formatted\": \"(650) 784-3280\",\n" +
+                                       "\"group_sid\": null,\n" +
+                                       "\"parent_call_sid\": null,\n" +
+                                       "\"phone_number_sid\": \"PN5c269861c7f337f6876d6ef214a094cc\",\n" +
+                                       "\"price\": \"-0.01000\",\n" +
+                                       "\"price_unit\": \"USD\",\n" +
+                                       "\"sid\": \"CA9e966bd3ef2abcfe941fb0a06e3fc027\",\n" +
+                                       "\"start_time\": \"Mon, 29 Sep 2014 20:39:42 +0000\",\n" +
+                                       "\"status\": \"completed\",\n" +
+                                       "\"subresource_uris\": {\n" +
+                                       "    \"notifications\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls/CA9e966bd3ef2abcfe941fb0a06e3fc027/Notifications.json\",\n" +
+                                       "    \"recordings\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls/CA9e966bd3ef2abcfe941fb0a06e3fc027/Recordings.json\"\n" +
+                                       "},\n" +
+                                       "\"to\": \"+19143689587\",\n" +
+                                       "\"to_formatted\": \"(914) 368-9587\",\n" +
+                                       "\"uri\": \"/2010-04-01/Accounts/ACca498dbda0fef21f361a9a3326354175/Calls/CA9e966bd3ef2abcfe941fb0a06e3fc027.json\"\n" +
+                                       "}";
 
 
-    private static void setupMocking(long delay) {
+    private static void setupMocking(final long delay) throws AuthenticationException {
         Twilio.init("AC123", "AUTH TOKEN");
         Twilio.setMockDelay(delay);
         Twilio.setMockResponses(new ConsumableResponse(JSON, 201));

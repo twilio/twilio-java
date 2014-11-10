@@ -27,10 +27,10 @@ public class CallDeleter extends Deleter<Call> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new RuntimeException("Call delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Call delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != 204) {
-            throw new RuntimeException(
-                    "Call delete failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException("Call delete failed: [" + response.getStatusCode() + "] " + response.getContent(),
+                                   null);
         }
     }
 }

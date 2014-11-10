@@ -4,6 +4,7 @@ package com.twilio.sdk.http;
 import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import org.joda.time.LocalDate;
 
 import java.io.UnsupportedEncodingException;
@@ -90,7 +91,7 @@ public class Request {
         return username != null || password != null;
     }
 
-    public URL constructURL() {
+    public URL constructURL() throws ApiException, InvalidRequestException {
         String params = encodeQueryParams();
         String stringUri = uri;
 
@@ -136,10 +137,11 @@ public class Request {
         postParams.get(name).add(value);
     }
 
-    private static String encodeParameters(final Map<String, ArrayList<String>> params) {
+    private static String encodeParameters(final Map<String, ArrayList<String>> params) throws InvalidRequestException {
         StringBuilder builder = new StringBuilder();
-        try {
-            for (final Map.Entry<String, ArrayList<String>> entry : params.entrySet()) {
+
+        for (final Map.Entry<String, ArrayList<String>> entry : params.entrySet()) {
+            try {
                 String encodedName = URLEncoder.encode(entry.getKey(), "UTF-8");
                 for (final String value : entry.getValue()) {
                     String encodedValue = URLEncoder.encode(value, "UTF-8");
@@ -148,21 +150,21 @@ public class Request {
                     builder.append(encodedValue);
                     builder.append("&");
                 }
+            } catch (final UnsupportedEncodingException e) {
+                throw new InvalidRequestException("Couldn't encode params", entry.getKey(), e);
             }
-            if (builder.length() > 0 && builder.charAt(builder.length() - 1) == '&') {
-                builder.deleteCharAt(builder.length() - 1);
-            }
-            return builder.toString();
-        } catch (final UnsupportedEncodingException e) {
-            throw new RuntimeException("Couldn't encode params");
         }
+        if (builder.length() > 0 && builder.charAt(builder.length() - 1) == '&') {
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        return builder.toString();
     }
 
-    public String encodeFormBody() {
+    public String encodeFormBody() throws InvalidRequestException {
         return encodeParameters(postParams);
     }
 
-    public String encodeQueryParams() {
+    public String encodeQueryParams() throws InvalidRequestException {
         return encodeParameters(queryParams);
     }
 

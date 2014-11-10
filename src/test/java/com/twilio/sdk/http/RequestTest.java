@@ -2,6 +2,7 @@ package com.twilio.sdk.http;
 
 import com.google.common.collect.Range;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.InvalidRequestException;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ import static com.twilio.sdk.Assert.assertUrlsEqual;
 public class RequestTest {
 
     @Test
-    public void testConstructURL() throws MalformedURLException, ApiException {
+    public void testConstructURL() throws MalformedURLException, ApiException, InvalidRequestException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
         URL url = r.constructURL();
         URL expected = new URL("http://example.com/foobar");
@@ -22,7 +23,7 @@ public class RequestTest {
     }
 
     @Test
-    public void testConstructURLWithParam() throws MalformedURLException, ApiException {
+    public void testConstructURLWithParam() throws MalformedURLException, ApiException, InvalidRequestException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
         r.addQueryParam("baz", "quux");
         URL url = r.constructURL();
@@ -31,7 +32,7 @@ public class RequestTest {
     }
 
     @Test
-    public void testConstructURLWithParams() throws MalformedURLException, ApiException {
+    public void testConstructURLWithParams() throws MalformedURLException, ApiException, InvalidRequestException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
         r.addQueryParam("baz", "quux");
         r.addQueryParam("garply", "xyzzy");
@@ -41,7 +42,8 @@ public class RequestTest {
     }
 
     @Test
-    public void testConstructURLWithMultivaluedParam() throws MalformedURLException, ApiException {
+    public void testConstructURLWithMultivaluedParam() throws MalformedURLException, ApiException,
+                                                              InvalidRequestException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
         r.addQueryParam("baz", "quux");
         r.addQueryParam("baz", "xyzzy");
@@ -51,7 +53,8 @@ public class RequestTest {
     }
 
     @Test
-    public void testConstructURLWithInequalityParam() throws MalformedURLException, ApiException {
+    public void testConstructURLWithInequalityParam() throws MalformedURLException, ApiException,
+                                                             InvalidRequestException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
         r.addQueryParam("baz>", "3");
         URL url = r.constructURL();
@@ -60,7 +63,7 @@ public class RequestTest {
     }
 
     @Test
-    public void testAddQueryDateRangeLowerBound() throws MalformedURLException, ApiException {
+    public void testAddQueryDateRangeLowerBound() throws MalformedURLException, ApiException, InvalidRequestException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
         r.addQueryDateRange("baz", Range.greaterThan(new LocalDate(2014, 1, 1)));
         URL url = r.constructURL();
@@ -69,7 +72,7 @@ public class RequestTest {
     }
 
     @Test
-    public void testAddQueryDateRangeUpperBound() throws MalformedURLException, ApiException {
+    public void testAddQueryDateRangeUpperBound() throws MalformedURLException, ApiException, InvalidRequestException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
         r.addQueryDateRange("baz", Range.lessThan(new LocalDate(2014, 1, 1)));
         URL url = r.constructURL();
@@ -78,7 +81,7 @@ public class RequestTest {
     }
 
     @Test
-    public void testAddQueryDateRangeClosed() throws MalformedURLException, ApiException {
+    public void testAddQueryDateRangeClosed() throws MalformedURLException, ApiException, InvalidRequestException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
         r.addQueryDateRange("baz", Range.closed(new LocalDate(2014, 1, 1), new LocalDate(2014, 6, 1)));
         URL url = r.constructURL();
@@ -87,7 +90,7 @@ public class RequestTest {
     }
 
     @Test
-    public void testEncodeFormBody() {
+    public void testEncodeFormBody() throws InvalidRequestException {
         Request r = new Request(HttpMethod.POST, "http://example.com/foobar");
         r.addPostParam("baz", "quux");
         r.addPostParam("garply", "xyzzy");

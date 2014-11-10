@@ -3,6 +3,7 @@ package com.twilio.sdk.resources;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.ConsumableResponse;
 import org.junit.Test;
@@ -131,7 +132,7 @@ public class CallResourceSetTest {
 
         int i = 1;
 
-        for (Call call : resourceSet) {
+        for (final Call call : resourceSet) {
             assertEquals(call.getSid(), "CA00000000000000000000000000000" + i);
             i++;
             if (i > 10) {
@@ -143,7 +144,8 @@ public class CallResourceSetTest {
     }
 
     @Test
-    public void testPageSize() throws InvalidRequestException, ApiConnectionException, ApiException {
+    public void testPageSize() throws InvalidRequestException, ApiConnectionException, ApiException,
+                                      AuthenticationException {
         Twilio.init("AC123", "AUTH TOKEN");
 
         Twilio.setMockResponses(new ConsumableResponse(FIRST_PAGE_JSON, 200, 1),

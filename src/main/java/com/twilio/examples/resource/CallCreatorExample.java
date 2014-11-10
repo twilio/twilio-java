@@ -5,6 +5,7 @@ import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.resources.Call;
 
@@ -13,7 +14,7 @@ import java.net.URISyntaxException;
 
 public class CallCreatorExample {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) throws AuthenticationException {
         Twilio.init("AC123", "AUTH TOKEN");
 
         try {
@@ -24,7 +25,7 @@ public class CallCreatorExample {
 
             System.out.println(call.getSid());
             System.out.println(call.getStatus().toString());
-        } catch (URISyntaxException | InvalidRequestException | ApiConnectionException | ApiException e) {
+        } catch (URISyntaxException | InvalidRequestException | ApiConnectionException | ApiException | AuthenticationException e) {
             System.err.println("womp womp");
             System.exit(1);
         }

@@ -294,39 +294,90 @@ public class Call extends SidResource {
 
         Call call = (Call) o;
 
-        return Objects.equals(accountSid, call.accountSid) && Objects.equals(annotation, call.annotation) &&
-               Objects.equals(answeredBy, call.answeredBy) && Objects.equals(apiVersion, call.apiVersion) &&
-               Objects.equals(callerName, call.callerName) && Objects.equals(dateCreated, call.dateCreated) &&
-               Objects.equals(dateUpdated, call.dateUpdated) && Objects.equals(direction, call.direction) &&
-               Objects.equals(duration, call.duration) && Objects.equals(endTime, call.endTime) &&
-               Objects.equals(forwardedFrom, call.forwardedFrom) && Objects.equals(from, call.from) &&
-               Objects.equals(fromFormatted, call.fromFormatted) && Objects.equals(groupSid, call.groupSid) &&
+        return Objects.equals(accountSid, call.accountSid) &&
+               Objects.equals(annotation, call.annotation) &&
+               Objects.equals(answeredBy, call.answeredBy) &&
+               Objects.equals(apiVersion, call.apiVersion) &&
+               Objects.equals(callerName, call.callerName) &&
+               Objects.equals(dateCreated, call.dateCreated) &&
+               Objects.equals(dateUpdated, call.dateUpdated) &&
+               Objects.equals(direction, call.direction) &&
+               Objects.equals(duration, call.duration) &&
+               Objects.equals(endTime, call.endTime) &&
+               Objects.equals(forwardedFrom, call.forwardedFrom) &&
+               Objects.equals(from, call.from) &&
+               Objects.equals(fromFormatted, call.fromFormatted) &&
+               Objects.equals(groupSid, call.groupSid) &&
                Objects.equals(parentCallSid, call.parentCallSid) &&
-               Objects.equals(phoneNumberSid, call.phoneNumberSid) && Objects.equals(price, call.price) &&
-               Objects.equals(priceUnit, call.priceUnit) && Objects.equals(sid, call.sid) &&
-               Objects.equals(startTime, call.startTime) && Objects.equals(status, call.status) &&
-               Objects.equals(subresourceUris, call.subresourceUris) && Objects.equals(to, call.to) &&
-               Objects.equals(toFormatted, call.toFormatted) && Objects.equals(uri, call.uri);
+               Objects.equals(phoneNumberSid, call.phoneNumberSid) &&
+               Objects.equals(price, call.price) &&
+               Objects.equals(priceUnit, call.priceUnit) &&
+               Objects.equals(sid, call.sid) &&
+               Objects.equals(startTime, call.startTime) &&
+               Objects.equals(status, call.status) &&
+               Objects.equals(subresourceUris, call.subresourceUris) &&
+               Objects.equals(to, call.to) &&
+               Objects.equals(toFormatted, call.toFormatted) &&
+               Objects.equals(uri, call.uri);
     }
 
     @Override
     public int hashCode() {
-        return Objects
-                .hash(accountSid, annotation, answeredBy, apiVersion, callerName, dateCreated, dateUpdated, direction,
-                      duration, endTime, forwardedFrom, from, fromFormatted, groupSid, parentCallSid, phoneNumberSid,
-                      price, priceUnit, sid, startTime, status, subresourceUris, to, toFormatted, uri);
+        return Objects.hash(accountSid,
+                            annotation,
+                            answeredBy,
+                            apiVersion,
+                            callerName,
+                            dateCreated,
+                            dateUpdated,
+                            direction,
+                            duration,
+                            endTime,
+                            forwardedFrom,
+                            from,
+                            fromFormatted,
+                            groupSid,
+                            parentCallSid,
+                            phoneNumberSid,
+                            price,
+                            priceUnit,
+                            sid,
+                            startTime,
+                            status,
+                            subresourceUris,
+                            to,
+                            toFormatted,
+                            uri);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("accountSid", accountSid).add("annotation", annotation)
-                          .add("answeredBy", answeredBy).add("apiVersion", apiVersion).add("callerName", callerName)
-                          .add("dateCreated", dateCreated).add("dateUpdated", dateUpdated).add("direction", direction)
-                          .add("duration", duration).add("endTime", endTime).add("forwardedFrom", forwardedFrom)
-                          .add("from", from).add("fromFormatted", fromFormatted).add("groupSid", groupSid)
-                          .add("parentCallSid", parentCallSid).add("phoneNumberSid", phoneNumberSid).add("price", price)
-                          .add("priceUnit", priceUnit).add("sid", sid).add("startTime", startTime).add("status", status)
-                          .add("subresourceUris", subresourceUris).add("to", to).add("toFormatted", toFormatted)
-                          .add("uri", uri).toString();
+        return MoreObjects.toStringHelper(this)
+                          .add("accountSid", accountSid)
+                          .add("annotation", annotation)
+                          .add("answeredBy", answeredBy)
+                          .add("apiVersion", apiVersion)
+                          .add("callerName", callerName)
+                          .add("dateCreated", dateCreated)
+                          .add("dateUpdated", dateUpdated)
+                          .add("direction", direction)
+                          .add("duration", duration)
+                          .add("endTime", endTime)
+                          .add("forwardedFrom", forwardedFrom)
+                          .add("from", from)
+                          .add("fromFormatted", fromFormatted)
+                          .add("groupSid", groupSid)
+                          .add("parentCallSid", parentCallSid)
+                          .add("phoneNumberSid", phoneNumberSid)
+                          .add("price", price)
+                          .add("priceUnit", priceUnit)
+                          .add("sid", sid)
+                          .add("startTime", startTime)
+                          .add("status", status)
+                          .add("subresourceUris", subresourceUris)
+                          .add("to", to)
+                          .add("toFormatted", toFormatted)
+                          .add("uri", uri)
+                          .toString();
     }
 }

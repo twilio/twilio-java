@@ -2,8 +2,6 @@ package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.creators.CallCreator;
@@ -163,8 +161,6 @@ public class Call extends SidResource {
         // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new RuntimeException(e.getMessage());
         } catch (final IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -176,8 +172,6 @@ public class Call extends SidResource {
         // Convert all checked exceptions to Runtime
         try {
             return mapper.readValue(json, Call.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new RuntimeException(e.getMessage());
         } catch (final IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -324,30 +318,30 @@ public class Call extends SidResource {
     @Override
     public int hashCode() {
         return Objects.hash(accountSid,
-                            annotation,
-                            answeredBy,
-                            apiVersion,
-                            callerName,
-                            dateCreated,
-                            dateUpdated,
-                            direction,
-                            duration,
-                            endTime,
-                            forwardedFrom,
-                            from,
-                            fromFormatted,
-                            groupSid,
-                            parentCallSid,
-                            phoneNumberSid,
-                            price,
-                            priceUnit,
-                            sid,
-                            startTime,
-                            status,
-                            subresourceUris,
-                            to,
-                            toFormatted,
-                            uri);
+                annotation,
+                answeredBy,
+                apiVersion,
+                callerName,
+                dateCreated,
+                dateUpdated,
+                direction,
+                duration,
+                endTime,
+                forwardedFrom,
+                from,
+                fromFormatted,
+                groupSid,
+                parentCallSid,
+                phoneNumberSid,
+                price,
+                priceUnit,
+                sid,
+                startTime,
+                status,
+                subresourceUris,
+                to,
+                toFormatted,
+                uri);
     }
 
     @Override

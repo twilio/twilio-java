@@ -2,6 +2,8 @@ package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.creators.CallCreator;
@@ -323,61 +325,22 @@ public class Call extends SidResource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid,
-                annotation,
-                answeredBy,
-                apiVersion,
-                callerName,
-                dateCreated,
-                dateUpdated,
-                direction,
-                duration,
-                endTime,
-                forwardedFrom,
-                from,
-                fromFormatted,
-                groupSid,
-                parentCallSid,
-                phoneNumberSid,
-                price,
-                priceUnit,
-                sid,
-                startTime,
-                status,
-                subresourceUris,
-                to,
-                toFormatted,
-                uri);
+        return Objects
+                .hash(accountSid, annotation, answeredBy, apiVersion, callerName, dateCreated, dateUpdated, direction,
+                      duration, endTime, forwardedFrom, from, fromFormatted, groupSid, parentCallSid, phoneNumberSid,
+                      price, priceUnit, sid, startTime, status, subresourceUris, to, toFormatted, uri);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("annotation", annotation)
-                          .add("answeredBy", answeredBy)
-                          .add("apiVersion", apiVersion)
-                          .add("callerName", callerName)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("direction", direction)
-                          .add("duration", duration)
-                          .add("endTime", endTime)
-                          .add("forwardedFrom", forwardedFrom)
-                          .add("from", from)
-                          .add("fromFormatted", fromFormatted)
-                          .add("groupSid", groupSid)
-                          .add("parentCallSid", parentCallSid)
-                          .add("phoneNumberSid", phoneNumberSid)
-                          .add("price", price)
-                          .add("priceUnit", priceUnit)
-                          .add("sid", sid)
-                          .add("startTime", startTime)
-                          .add("status", status)
-                          .add("subresourceUris", subresourceUris)
-                          .add("to", to)
-                          .add("toFormatted", toFormatted)
-                          .add("uri", uri)
-                          .toString();
+        return MoreObjects.toStringHelper(this).add("accountSid", accountSid).add("annotation", annotation)
+                          .add("answeredBy", answeredBy).add("apiVersion", apiVersion).add("callerName", callerName)
+                          .add("dateCreated", dateCreated).add("dateUpdated", dateUpdated).add("direction", direction)
+                          .add("duration", duration).add("endTime", endTime).add("forwardedFrom", forwardedFrom)
+                          .add("from", from).add("fromFormatted", fromFormatted).add("groupSid", groupSid)
+                          .add("parentCallSid", parentCallSid).add("phoneNumberSid", phoneNumberSid).add("price", price)
+                          .add("priceUnit", priceUnit).add("sid", sid).add("startTime", startTime).add("status", status)
+                          .add("subresourceUris", subresourceUris).add("to", to).add("toFormatted", toFormatted)
+                          .add("uri", uri).toString();
     }
 }

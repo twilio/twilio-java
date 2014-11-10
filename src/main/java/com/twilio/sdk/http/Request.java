@@ -90,7 +90,7 @@ public class Request {
         return username != null || password != null;
     }
 
-    public URL constructURL() throws ApiException {
+    public URL constructURL() {
         String params = encodeQueryParams();
         String stringUri = uri;
 

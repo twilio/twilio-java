@@ -26,7 +26,7 @@ public class Response {
         this.statusCode = statusCode;
     }
 
-    public String getContent() throws ApiConnectionException {
+    public String getContent() {
         if (content != null) {
             return content;
         }
@@ -43,14 +43,14 @@ public class Response {
 
     }
 
-    public InputStream getStream() throws ApiException {
+    public InputStream getStream() {
         if (stream != null) {
             return stream;
         }
         try {
             return new ByteArrayInputStream(content.getBytes("utf-8"));
         } catch (final UnsupportedEncodingException e) {
-            throw new ApiException("UTF-8 encoding not supported?", e);
+            throw new ApiException("UTF-8 encoding not supported", e);
         }
     }
 

@@ -18,14 +18,12 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
-    public Response reliableRequest(final Request request) throws InvalidRequestException, ApiConnectionException,
-                                                                  ApiException {
+    public Response reliableRequest(final Request request) {
         return reliableRequest(request, RETRY_CODES, RETRIES, DELAY_MILLIS);
     }
 
     public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
-                                    final long delayMillis) throws InvalidRequestException, ApiConnectionException,
-                                                                   ApiException {
+                                    final long delayMillis) {
         Response response = null;
         while (retries > 0) {
             response = makeRequest(request);
@@ -91,16 +89,15 @@ public abstract class HttpClient {
         return false;
     }
 
-    public abstract Response makeRequest(Request request) throws InvalidRequestException, ApiConnectionException,
-                                                                 ApiException;
+    public abstract Response makeRequest(Request request);
 
-    protected String authentication(final String username, final String password) throws InvalidRequestException {
+    protected String authentication(final String username, final String password) {
         String credentials = username + ":" + password;
         try {
             String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));
             return "Basic " + encoded;
         } catch (final UnsupportedEncodingException e) {
-            throw new InvalidRequestException("We don't have ASCII, can't do much here", credentials, e);
+            throw new InvalidRequestException("Credentials must be encodable as ascii", credentials, e);
         }
     }
 }

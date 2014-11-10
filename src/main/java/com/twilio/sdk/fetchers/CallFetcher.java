@@ -18,8 +18,7 @@ public class CallFetcher extends Fetcher<Call> {
     }
 
     @Override
-    public Call execute(final TwilioRestClient client) throws InvalidRequestException, ApiConnectionException,
-                                                              ApiException {
+    public Call execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
         Response response = client.request(request);
 

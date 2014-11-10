@@ -25,8 +25,7 @@ public class CallReader extends Reader<Call> {
     private Range<LocalDate> rangeEndTime;
 
     @Override
-    public ResourceSet<Call> execute(final TwilioRestClient client) throws InvalidRequestException,
-                                                                           ApiConnectionException, ApiException {
+    public ResourceSet<Call> execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls.json");
         addQueryParams(request);
 
@@ -36,17 +35,12 @@ public class CallReader extends Reader<Call> {
     }
 
     @Override
-    public Page<Call> nextPage(final String nextPageUri, final TwilioRestClient client) throws InvalidRequestException,
-                                                                                               ApiConnectionException,
-                                                                                               ApiException {
+    public Page<Call> nextPage(final String nextPageUri, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, nextPageUri);
         return pageForRequest(client, request);
     }
 
-    protected Page<Call> pageForRequest(final TwilioRestClient client, final Request request) throws
-                                                                                              InvalidRequestException,
-                                                                                              ApiConnectionException,
-                                                                                              ApiException {
+    protected Page<Call> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response.getStatusCode() != 200) {

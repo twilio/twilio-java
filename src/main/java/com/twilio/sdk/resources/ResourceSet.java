@@ -44,7 +44,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         return new ResourceSetIterator<E>(this);
     }
 
-    protected void fetchNextPage() throws InvalidRequestException, ApiConnectionException, ApiException {
+    protected void fetchNextPage() {
         page = reader.nextPage(page.getNextPageUri(), client);
         if (page != null) {
             iterator = page.getRecords().iterator();

@@ -55,8 +55,7 @@ public class TwilioRestClient {
         this.httpClient = httpClient;
     }
 
-    public Response request(final Request request) throws InvalidRequestException, ApiConnectionException,
-                                                          ApiException {
+    public Response request(final Request request) {
         String resolvedUri =
                 "https://" + request.getDomain().toString() + ".twilio.com/" + request.getVersion().toString() +
                 request.getUri().replace("{AccountSid}", accountSid);

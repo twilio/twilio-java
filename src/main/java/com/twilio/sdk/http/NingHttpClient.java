@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 public class NingHttpClient extends HttpClient {
 
     @Override
-    public Response makeRequest(Request request) throws InvalidRequestException, ApiConnectionException {
+    public Response makeRequest(Request request) {
         if (request.getMethod() == null) {
             throw new RuntimeException("Request has no method");
         }

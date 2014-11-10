@@ -16,12 +16,11 @@ public abstract class Reader<T extends Resource> {
 
     private int pageSize = 50;
 
-    public ResourceSet<T> execute() throws InvalidRequestException, ApiConnectionException, ApiException {
+    public ResourceSet<T> execute() {
         return execute(Twilio.getRestClient());
     }
 
-    public abstract ResourceSet<T> execute(final TwilioRestClient client) throws InvalidRequestException,
-                                                                                 ApiConnectionException, ApiException;
+    public abstract ResourceSet<T> execute(final TwilioRestClient client);
 
     public ListenableFuture<ResourceSet<T>> async() {
         return async(Twilio.getRestClient());
@@ -29,21 +28,17 @@ public abstract class Reader<T extends Resource> {
 
     public ListenableFuture<ResourceSet<T>> async(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<ResourceSet<T>>() {
-            public ResourceSet<T> call() throws InvalidRequestException, ApiConnectionException, ApiException {
+            public ResourceSet<T> call() {
                 return execute(client);
             }
         });
     }
 
-    public Page<T> nextPage(final String nextPageUri) throws InvalidRequestException, ApiConnectionException,
-                                                             ApiException {
+    public Page<T> nextPage(final String nextPageUri) {
         return nextPage(nextPageUri, Twilio.getRestClient());
     }
 
-    public abstract Page<T> nextPage(final String nextPageUri, final TwilioRestClient client) throws
-                                                                                              InvalidRequestException,
-                                                                                              ApiConnectionException,
-                                                                                              ApiException;
+    public abstract Page<T> nextPage(final String nextPageUri, final TwilioRestClient client);
 
     public int getPageSize() {
         return pageSize;

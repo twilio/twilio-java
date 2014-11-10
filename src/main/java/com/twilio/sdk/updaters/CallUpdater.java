@@ -66,8 +66,7 @@ public class CallUpdater extends Updater<Call> {
     }
 
     @Override
-    public Call execute(final TwilioRestClient client) throws InvalidRequestException, ApiConnectionException,
-                                                              ApiException {
+    public Call execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
         addPostParams(request);
         Response response = client.request(request);

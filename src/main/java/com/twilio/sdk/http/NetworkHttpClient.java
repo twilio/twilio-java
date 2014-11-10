@@ -12,8 +12,7 @@ import java.net.URL;
 
 public class NetworkHttpClient extends HttpClient {
 
-    public Response makeRequest(final Request request) throws InvalidRequestException, ApiConnectionException,
-                                                              ApiException {
+    public Response makeRequest(final Request request)  {
         try {
             URL url = request.constructURL();
             HttpMethod method = request.getMethod();
@@ -57,12 +56,12 @@ public class NetworkHttpClient extends HttpClient {
         }
     }
 
-    private void addAuth(final Request request, final HttpURLConnection conn) throws InvalidRequestException {
+    private void addAuth(final Request request, final HttpURLConnection conn) {
         String auth = authentication(request.getUsername(), request.getPassword());
         conn.setRequestProperty("Authorization", auth);
     }
 
-    private void sendPostBody(final Request request, final HttpURLConnection conn) throws ApiConnectionException {
+    private void sendPostBody(final Request request, final HttpURLConnection conn) {
         String postBody = request.encodeFormBody();
         try {
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());

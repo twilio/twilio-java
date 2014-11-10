@@ -11,12 +11,11 @@ import com.twilio.sdk.resources.Resource;
 import java.util.concurrent.Callable;
 
 public abstract class Creator<T extends Resource> {
-    public T execute() throws InvalidRequestException, ApiConnectionException, ApiException {
+    public T execute() {
         return execute(Twilio.getRestClient());
     }
 
-    public abstract T execute(final TwilioRestClient client) throws InvalidRequestException, ApiConnectionException,
-                                                                    ApiException;
+    public abstract T execute(final TwilioRestClient client);
 
     public ListenableFuture<T> async() {
         return async(Twilio.getRestClient());
@@ -24,7 +23,7 @@ public abstract class Creator<T extends Resource> {
 
     public ListenableFuture<T> async(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<T>() {
-            public T call() throws InvalidRequestException, ApiConnectionException, ApiException {
+            public T call() {
                 return execute(client);
             }
         });

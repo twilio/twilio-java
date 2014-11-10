@@ -12,12 +12,11 @@ import java.util.concurrent.Callable;
 
 public abstract class Deleter<T extends Resource> {
 
-    public void execute() throws InvalidRequestException, ApiConnectionException, ApiException {
+    public void execute() {
         execute(Twilio.getRestClient());
     }
 
-    public abstract void execute(final TwilioRestClient client) throws InvalidRequestException, ApiConnectionException,
-                                                                       ApiException;
+    public abstract void execute(final TwilioRestClient client);
 
     public ListenableFuture async() {
         return async(Twilio.getRestClient());
@@ -25,7 +24,7 @@ public abstract class Deleter<T extends Resource> {
 
     public ListenableFuture async(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable() {
-            public Object call() throws InvalidRequestException, ApiConnectionException, ApiException {
+            public Object call() {
                 execute(client);
                 return null;
             }

@@ -26,7 +26,7 @@ public class Response {
         this.statusCode = statusCode;
     }
 
-    public String getContent() {
+    public String getContent() throws ApiConnectionException {
         if (content != null) {
             return content;
         }
@@ -43,7 +43,7 @@ public class Response {
 
     }
 
-    public InputStream getStream() {
+    public InputStream getStream() throws ApiException {
         if (stream != null) {
             return stream;
         }

@@ -12,7 +12,8 @@ import java.net.URL;
 
 public class NetworkHttpClient extends HttpClient {
 
-    public Response makeRequest(final Request request)  {
+    public Response makeRequest(final Request request) throws ApiConnectionException, InvalidRequestException,
+                                                              ApiException {
         try {
             URL url = request.constructURL();
             HttpMethod method = request.getMethod();
@@ -56,7 +57,7 @@ public class NetworkHttpClient extends HttpClient {
         }
     }
 
-    private void addAuth(final Request request, final HttpURLConnection conn) {
+    private void addAuth(final Request request, final HttpURLConnection conn) throws InvalidRequestException {
         String auth = authentication(request.getUsername(), request.getPassword());
         conn.setRequestProperty("Authorization", auth);
     }

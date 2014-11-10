@@ -102,7 +102,8 @@ public class CallCreator extends Creator<Call> {
     }
 
     @Override
-    public Call execute(final TwilioRestClient client) {
+    public Call execute(final TwilioRestClient client) throws ApiConnectionException, ApiException,
+                                                              InvalidRequestException {
         Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls.json");
         addPostParams(request);
         Response response = client.request(request);

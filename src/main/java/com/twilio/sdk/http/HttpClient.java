@@ -18,12 +18,14 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
-    public Response reliableRequest(final Request request) {
+    public Response reliableRequest(final Request request) throws ApiConnectionException, ApiException,
+                                                                  InvalidRequestException {
         return reliableRequest(request, RETRY_CODES, RETRIES, DELAY_MILLIS);
     }
 
     public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
-                                    final long delayMillis) {
+                                    final long delayMillis) throws ApiConnectionException, ApiException,
+                                                                   InvalidRequestException {
         Response response = null;
         while (retries > 0) {
             response = makeRequest(request);
@@ -89,9 +91,10 @@ public abstract class HttpClient {
         return false;
     }
 
-    public abstract Response makeRequest(Request request);
+    public abstract Response makeRequest(Request request) throws InvalidRequestException, ApiConnectionException,
+                                                                 ApiException;
 
-    protected String authentication(final String username, final String password) {
+    protected String authentication(final String username, final String password) throws InvalidRequestException {
         String credentials = username + ":" + password;
         try {
             String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));

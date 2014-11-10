@@ -17,7 +17,8 @@ public abstract class Updater<T extends Resource> {
         return execute(Twilio.getRestClient());
     }
 
-    public abstract T execute(final TwilioRestClient client);
+    public abstract T execute(final TwilioRestClient client) throws ApiConnectionException, ApiException,
+                                                                    InvalidRequestException;
 
     public ListenableFuture<T> async() throws AuthenticationException {
         return async(Twilio.getRestClient());
@@ -25,7 +26,7 @@ public abstract class Updater<T extends Resource> {
 
     public ListenableFuture<T> async(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<T>() {
-            public T call() {
+            public T call() throws ApiConnectionException, ApiException, InvalidRequestException {
                 return execute(client);
             }
         });

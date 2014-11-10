@@ -22,7 +22,8 @@ public abstract class Reader<T extends Resource> {
         return execute(Twilio.getRestClient());
     }
 
-    public abstract ResourceSet<T> execute(final TwilioRestClient client);
+    public abstract ResourceSet<T> execute(final TwilioRestClient client) throws ApiConnectionException, ApiException,
+                                                                                 InvalidRequestException;
 
     public ListenableFuture<ResourceSet<T>> async() throws AuthenticationException {
         return async(Twilio.getRestClient());
@@ -30,7 +31,7 @@ public abstract class Reader<T extends Resource> {
 
     public ListenableFuture<ResourceSet<T>> async(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<ResourceSet<T>>() {
-            public ResourceSet<T> call() {
+            public ResourceSet<T> call() throws ApiConnectionException, ApiException, InvalidRequestException {
                 return execute(client);
             }
         });
@@ -41,7 +42,10 @@ public abstract class Reader<T extends Resource> {
         return nextPage(nextPageUri, Twilio.getRestClient());
     }
 
-    public abstract Page<T> nextPage(final String nextPageUri, final TwilioRestClient client);
+    public abstract Page<T> nextPage(final String nextPageUri, final TwilioRestClient client) throws
+                                                                                              ApiConnectionException,
+                                                                                              ApiException,
+                                                                                              InvalidRequestException;
 
     public int getPageSize() {
         return pageSize;

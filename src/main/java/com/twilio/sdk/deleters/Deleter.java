@@ -18,7 +18,8 @@ public abstract class Deleter<T extends Resource> {
         execute(Twilio.getRestClient());
     }
 
-    public abstract void execute(final TwilioRestClient client);
+    public abstract void execute(final TwilioRestClient client) throws ApiConnectionException, ApiException,
+                                                                       InvalidRequestException;
 
     public ListenableFuture async() throws AuthenticationException {
         return async(Twilio.getRestClient());
@@ -26,7 +27,7 @@ public abstract class Deleter<T extends Resource> {
 
     public ListenableFuture async(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable() {
-            public Object call() {
+            public Object call() throws ApiConnectionException, ApiException, InvalidRequestException {
                 execute(client);
                 return null;
             }

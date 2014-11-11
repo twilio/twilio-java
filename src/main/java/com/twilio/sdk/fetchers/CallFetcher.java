@@ -28,6 +28,6 @@ public class CallFetcher extends Fetcher<Call> {
                                    null);
         }
 
-        return Call.fromJson(response.getStream());
+        return Call.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

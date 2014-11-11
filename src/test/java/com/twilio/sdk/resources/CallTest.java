@@ -8,11 +8,14 @@ import com.twilio.sdk.http.Request;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.net.URI;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.twilio.sdk.Assert.assertQueryStringsEqual;
 import static com.twilio.sdk.Assert.assertUrlsEqual;
@@ -21,6 +24,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 public class CallTest {
+
+    private static final SimpleDateFormat RFC_2822_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+
+    @BeforeClass
+    public static void init() {
+        RFC_2822_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
+
     @Before
     public void setUp() throws Exception {
         Twilio.init("AC123", "AUTH TOKEN");
@@ -33,7 +44,7 @@ public class CallTest {
 
     @Test
     public void testFromJson() throws Exception {
-        Call call = Call.fromJson(CallMocks.INSTANCE_JSON);
+        Call call = Call.fromJson(CallMocks.INSTANCE_JSON, Twilio.getRestClient().getObjectMapper());
         validateCall(call);
     }
 
@@ -135,11 +146,11 @@ public class CallTest {
         assertEquals(null, call.getAnsweredBy());
         assertEquals("2008-08-01", call.getApiVersion());
         assertEquals(null, call.getCallerName());
-        assertEquals("Mon, 29 Sep 2014 20:39:42 +0000", call.getDateCreated());
-        assertEquals("Mon, 29 Sep 2014 20:39:50 +0000", call.getDateUpdated());
+        assertEquals("Mon, 29 Sep 2014 20:39:42 +0000", RFC_2822_FORMAT.format(call.getDateCreated().getTime()));
+        assertEquals("Mon, 29 Sep 2014 20:39:50 +0000", RFC_2822_FORMAT.format(call.getDateUpdated().getTime()));
         assertEquals("inbound", call.getDirection());
         assertEquals(8, call.getDuration().intValue());
-        assertEquals("Mon, 29 Sep 2014 20:39:50 +0000", call.getEndTime());
+        assertEquals("Mon, 29 Sep 2014 20:39:50 +0000", RFC_2822_FORMAT.format(call.getEndTime().getTime()));
         assertEquals("+19143689587", call.getForwardedFrom());
         assertEquals("+16507843280", call.getFrom());
         assertEquals("(650) 784-3280", call.getFromFormatted());
@@ -149,7 +160,7 @@ public class CallTest {
         assertEquals(-0.01, call.getPrice(), 0.0001);
         assertEquals("USD", call.getPriceUnit());
         assertEquals("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", call.getSid());
-        assertEquals("Mon, 29 Sep 2014 20:39:42 +0000", call.getStartTime());
+        assertEquals("Mon, 29 Sep 2014 20:39:42 +0000", RFC_2822_FORMAT.format(call.getStartTime().getTime()));
         assertEquals(Call.Status.COMPLETED, call.getStatus());
 
         Map<String, String> uris = call.getSubresourceUris();

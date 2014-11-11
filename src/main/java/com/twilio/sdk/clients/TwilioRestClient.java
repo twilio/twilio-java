@@ -1,5 +1,6 @@
 package com.twilio.sdk.clients;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.exceptions.InvalidRequestException;
@@ -42,6 +43,7 @@ public class TwilioRestClient {
     }
 
     protected HttpClient httpClient;
+    protected ObjectMapper objectMapper;
     protected String accountSid;
     protected String authToken;
 
@@ -53,6 +55,7 @@ public class TwilioRestClient {
         this.accountSid = accountSid;
         this.authToken = authToken;
         this.httpClient = httpClient;
+        objectMapper = new ObjectMapper();
     }
 
     public Response request(final Request request) throws ApiConnectionException, ApiException,
@@ -69,6 +72,10 @@ public class TwilioRestClient {
 
     public HttpClient getHttpClient() {
         return httpClient;
+    }
+
+    public ObjectMapper getObjectMapper() {
+        return objectMapper;
     }
 
     public void setHttpClient(final HttpClient httpClient) {

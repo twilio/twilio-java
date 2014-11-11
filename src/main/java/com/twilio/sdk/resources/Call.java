@@ -17,6 +17,7 @@ import com.twilio.sdk.updaters.CallUpdater;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Objects;
 
@@ -89,11 +90,11 @@ public class Call extends SidResource {
     private final String answeredBy;
     private final String apiVersion;
     private final String callerName;
-    private final String dateCreated;
-    private final String dateUpdated;
+    private final Calendar dateCreated;
+    private final Calendar dateUpdated;
     private final String direction;
     private final Integer duration;
-    private final String endTime;
+    private final Calendar endTime;
     private final String forwardedFrom;
     private final String from;
     private final String fromFormatted;
@@ -103,7 +104,7 @@ public class Call extends SidResource {
     private final Double price;
     private final String priceUnit;
     private final String sid;
-    private final String startTime;
+    private final Calendar startTime;
     private final Status status;
     private final Map<String, String> subresourceUris;
     private final String to;
@@ -116,17 +117,17 @@ public class Call extends SidResource {
                  @JsonProperty("answered_by") final String answeredBy,
                  @JsonProperty("api_version") final String apiVersion,
                  @JsonProperty("caller_name") final String callerName,
-                 @JsonProperty("date_created") final String dateCreated,
-                 @JsonProperty("date_updated") final String dateUpdated,
+                 @JsonProperty("date_created") final Calendar dateCreated,
+                 @JsonProperty("date_updated") final Calendar dateUpdated,
                  @JsonProperty("direction") final String direction, @JsonProperty("duration") final Integer duration,
-                 @JsonProperty("end_time") final String endTime,
+                 @JsonProperty("end_time") final Calendar endTime,
                  @JsonProperty("forwarded_from") final String forwardedFrom, @JsonProperty("from") final String from,
                  @JsonProperty("from_formatted") final String fromFormatted,
                  @JsonProperty("group_sid") final String groupSid,
                  @JsonProperty("parent_call_sid") final String parentCallSid,
                  @JsonProperty("phone_number_sid") final String phoneNumberSid,
                  @JsonProperty("price") final Double price, @JsonProperty("price_unit") final String priceUnit,
-                 @JsonProperty("sid") final String sid, @JsonProperty("start_time") final String startTime,
+                 @JsonProperty("sid") final String sid, @JsonProperty("start_time") final Calendar startTime,
                  @JsonProperty("status") final Status status,
                  @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
                  @JsonProperty("to") final String to, @JsonProperty("to_formatted") final String toFormatted,
@@ -159,12 +160,11 @@ public class Call extends SidResource {
 
     }
 
-    public static Call fromJson(final String json) throws ApiException, ApiConnectionException {
-        ObjectMapper mapper = new ObjectMapper();
-
+    public static Call fromJson(final String json, final ObjectMapper objectMapper) throws ApiException,
+                                                                                           ApiConnectionException {
         // Convert all checked exceptions to Runtime
         try {
-            return mapper.readValue(json, Call.class);
+            return objectMapper.readValue(json, Call.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -172,12 +172,11 @@ public class Call extends SidResource {
         }
     }
 
-    public static Call fromJson(final InputStream json) throws ApiException, ApiConnectionException {
-        ObjectMapper mapper = new ObjectMapper();
-
+    public static Call fromJson(final InputStream json, final ObjectMapper objectMapper) throws ApiException,
+                                                                                                ApiConnectionException {
         // Convert all checked exceptions to Runtime
         try {
-            return mapper.readValue(json, Call.class);
+            return objectMapper.readValue(json, Call.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -205,11 +204,11 @@ public class Call extends SidResource {
         return callerName;
     }
 
-    public final String getDateCreated() {
+    public final Calendar getDateCreated() {
         return dateCreated;
     }
 
-    public final String getDateUpdated() {
+    public final Calendar getDateUpdated() {
         return dateUpdated;
     }
 
@@ -221,7 +220,7 @@ public class Call extends SidResource {
         return duration != null ? duration : 0;
     }
 
-    public final String getEndTime() {
+    public final Calendar getEndTime() {
         return endTime;
     }
 
@@ -261,7 +260,7 @@ public class Call extends SidResource {
         return sid;
     }
 
-    public final String getStartTime() {
+    public final Calendar getStartTime() {
         return startTime;
     }
 

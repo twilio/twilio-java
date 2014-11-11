@@ -40,17 +40,15 @@ public class Page<T> {
         return uri;
     }
 
-    public void deserialize(final String recordKey, final String json, final Class<T> recordType) throws
-                                                                                                  ApiConnectionException {
-        ObjectMapper mapper = new ObjectMapper();
-
+    public void deserialize(final String recordKey, final String json, final Class<T> recordType,
+                            final ObjectMapper objectMapper) throws ApiConnectionException {
         records = new ArrayList<>();
 
         try {
-            JsonNode root = mapper.readTree(json);
+            JsonNode root = objectMapper.readTree(json);
             JsonNode records = root.get(recordKey);
             for (final JsonNode record : records) {
-                this.records.add(mapper.readValue(record.toString(), recordType));
+                this.records.add(objectMapper.readValue(record.toString(), recordType));
             }
             firstPageUri = root.get("first_page_uri").asText();
             nextPageUri = root.get("next_page_uri").asText();

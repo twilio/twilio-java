@@ -115,7 +115,7 @@ public class CallCreator extends Creator<Call> {
                                    null);
         }
 
-        return Call.fromJson(response.getStream());
+        return Call.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {

@@ -54,7 +54,7 @@ public class CallReader extends Reader<Call> {
         }
 
         Page<Call> result = new Page<>();
-        result.deserialize("calls", response.getContent(), Call.class);
+        result.deserialize("calls", response.getContent(), Call.class, client.getObjectMapper());
 
         return result;
     }

@@ -45,4 +45,34 @@ public class ConferenceTest {
         c.setBeep(Conference.BEEP_TRUE);
         assertEquals("<Conference beep=\"true\">foo_room</Conference>", c.toXML());
     }
+
+    /**
+     * Test the conference record attribute.
+     */
+    @Test
+    public void testConferenceRecord() {
+        final Conference conference = new Conference("foo_room");
+        conference.setRecord(Conference.Record.RECORD_FROM_START);
+        assertEquals("<Conference record=\"record-from-start\">foo_room</Conference>", conference.toXML());
+    }
+
+    /**
+     * Test the conference trim attribute.
+     */
+    @Test
+    public void testConferenceTrim() {
+        final Conference conference = new Conference("foo_room");
+        conference.setTrim(Conference.Trim.DO_NOT_TRIM);
+        assertEquals("<Conference trim=\"do-not-trim\">foo_room</Conference>", conference.toXML());
+    }
+
+    /**
+     * Test the conference eventCallbackUrl.
+     */
+    @Test
+    public void testEventCallbackUrl() {
+        final Conference conference = new Conference("foo_room");
+        conference.setEventCallbackUrl("http://call.me");
+        assertEquals("<Conference eventCallbackUrl=\"http://call.me\">foo_room</Conference>", conference.toXML());
+    }
 }

@@ -39,6 +39,44 @@ public class Conference extends Verb {
     public static final String BEEP_FALSE = "false";
     public static final String BEEP_ONEXIT = "onExit";
     public static final String BEEP_ONENTER = "onEnter";
+
+    /**
+     * Values for the record attribute
+     */
+    public enum Record {
+        DO_NOT_RECORD("do-not-record"),
+        RECORD_FROM_START("record-from-start");
+
+        private final String value;
+
+        private Record(final String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
+
+    /**
+     * Values for the trim attribute
+     */
+    public enum Trim {
+        TRIM_SILENCE("trim-silence"),
+        DO_NOT_TRIM("do-not-trim");
+
+        private final String value;
+
+        private Trim(final String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
   
     /**
      * Instantiates a new conference.
@@ -130,6 +168,51 @@ public class Conference extends Verb {
      */
     public void setMaxParticipants(int i){
        this.set("maxParticipants", Integer.toString(i));
+    }
+
+    /**
+     * Sets the record attribute on the conference.
+     *
+     * @param record one of the {@link Record} values
+     */
+    public void setRecord(final Record record) {
+        this.setRecord(record.toString());
+    }
+
+    /**
+     * Sets the record attribute on the conference.
+     *
+     * @param record value of the record attribute
+     */
+    public void setRecord(final String record) {
+        this.set("record", record);
+    }
+
+    /**
+     * Sets the trim value for recordings of the conference.
+     *
+     * @param trim one of the {@link Trim} values
+     */
+    public void setTrim(final Trim trim) {
+        this.setTrim(trim.toString());
+    }
+
+    /**
+     * Sets the trim value for recordings of the conference.
+     *
+     * @param trim value of the trim attribute
+     */
+    public void setTrim(final String trim) {
+        this.set("trim", trim);
+    }
+
+    /**
+     * Sets a URL that Twilio will POST to when the conference ends.
+     *
+     * @param eventCallbackUrl
+     */
+    public void setEventCallbackUrl(final String eventCallbackUrl) {
+        this.set("eventCallbackUrl", eventCallbackUrl);
     }
 
 }

@@ -89,9 +89,9 @@ public class QueueTest {
 		formattedDate = dateFormat.format(new Date());
 		map.put("call_sid", callSid);
 		map.put("queue_sid", queueSid);
-		map.put("position", "1");
+		map.put("position", 1);
 		map.put("date_enqueued", formattedDate);
-		map.put("wait_time", "10");
+		map.put("wait_time", 10);
 
 		stub(
 				client.safeRequest(Matchers.eq("/2010-04-01/Accounts/" + accountSid + "/Queues/" + queueSid
@@ -104,9 +104,9 @@ public class QueueTest {
 		String url = "http://www.example.com";
 		Member m = q.dequeueHeadOfQueue(url, method);
 
-		assertTrue(m.getPosition().equals("1"));
+		assertTrue(m.getPosition() == 1);
 		assertTrue(dateFormat.format(m.getDateEnqueued()).equals(formattedDate));
-		assertTrue(m.getWaitTime().equals("10"));
+		assertTrue(m.getWaitTime() == 10);
 	}
 
 	/**

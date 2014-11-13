@@ -8,11 +8,7 @@ import com.twilio.sdk.exceptions.InvalidRequestException;
 import org.joda.time.LocalDate;
 
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -91,7 +87,7 @@ public class Request {
         return username != null || password != null;
     }
 
-    public URL constructURL() throws ApiException, InvalidRequestException {
+    public URL constructURL() {
         String params = encodeQueryParams();
         String stringUri = uri;
 
@@ -137,7 +133,7 @@ public class Request {
         postParams.get(name).add(value);
     }
 
-    private static String encodeParameters(final Map<String, ArrayList<String>> params) throws InvalidRequestException {
+    private static String encodeParameters(final Map<String, ArrayList<String>> params) {
         StringBuilder builder = new StringBuilder();
 
         for (final Map.Entry<String, ArrayList<String>> entry : params.entrySet()) {
@@ -160,11 +156,11 @@ public class Request {
         return builder.toString();
     }
 
-    public String encodeFormBody() throws InvalidRequestException {
+    public String encodeFormBody() {
         return encodeParameters(postParams);
     }
 
-    public String encodeQueryParams() throws InvalidRequestException {
+    public String encodeQueryParams() {
         return encodeParameters(queryParams);
     }
 

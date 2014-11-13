@@ -3,7 +3,6 @@ package com.twilio.sdk.updaters;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
@@ -66,8 +65,7 @@ public class CallUpdater extends Updater<Call> {
     }
 
     @Override
-    public Call execute(final TwilioRestClient client) throws ApiConnectionException, ApiException,
-                                                              InvalidRequestException {
+    public Call execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
         addPostParams(request);
         Response response = client.request(request);

@@ -10,7 +10,7 @@ import com.twilio.sdk.exceptions.InvalidRequestException;
 
 public class CallDeleterExample {
 
-    public static void main(final String[] args) throws AuthenticationException {
+    public static void main(final String[] args) {
         Twilio.init("AC123", "AUTH TOKEN");
 
         CallDeleter c = new CallDeleter("CA123");

@@ -1,8 +1,5 @@
 package com.twilio.sdk.http;
 
-import com.twilio.sdk.exceptions.ApiConnectionException;
-import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.exceptions.InvalidRequestException;
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
@@ -10,11 +7,7 @@ import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -36,7 +29,7 @@ public class NetworkHttpClientTest {
     OutputStreamWriter mockWriter;
 
     @Test
-    public void testGet() throws IOException, InvalidRequestException, ApiConnectionException, ApiException {
+    public void testGet() throws IOException {
         String content = "frobozz";
         final InputStream stream = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
@@ -74,7 +67,7 @@ public class NetworkHttpClientTest {
     }
 
     @Test
-    public void testPost() throws IOException, InvalidRequestException, ApiConnectionException, ApiException {
+    public void testPost() throws IOException {
         String content = "frobozz";
         final InputStream stream = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
@@ -123,7 +116,7 @@ public class NetworkHttpClientTest {
     }
 
     @Test
-    public void testDelete() throws IOException, InvalidRequestException, ApiConnectionException, ApiException {
+    public void testDelete() throws IOException {
         String content = "";
         final InputStream stream = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
@@ -161,7 +154,7 @@ public class NetworkHttpClientTest {
     }
 
     @Test
-    public void testAuthedGet() throws IOException, InvalidRequestException, ApiConnectionException, ApiException {
+    public void testAuthedGet() throws IOException {
         String content = "frobozz";
         final InputStream stream = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
@@ -205,7 +198,7 @@ public class NetworkHttpClientTest {
     }
 
     @Test
-    public void testErrorResponse() throws IOException, InvalidRequestException, ApiConnectionException, ApiException {
+    public void testErrorResponse() throws IOException {
         String error = "womp";
         final InputStream stream = new ByteArrayInputStream(error.getBytes("UTF-8"));
 

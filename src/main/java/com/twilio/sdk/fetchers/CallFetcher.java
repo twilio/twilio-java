@@ -1,9 +1,7 @@
 package com.twilio.sdk.fetchers;
 
 import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
@@ -18,8 +16,7 @@ public class CallFetcher extends Fetcher<Call> {
     }
 
     @Override
-    public Call execute(final TwilioRestClient client) throws ApiConnectionException, ApiException,
-                                                              InvalidRequestException {
+    public Call execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
         Response response = client.request(request);
 

@@ -5,11 +5,7 @@ import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.resources.Call;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class DeferredBulkDialer implements BulkDialer {
@@ -27,7 +23,7 @@ public class DeferredBulkDialer implements BulkDialer {
     }
 
     @Override
-    public Call get(final String key) throws AuthenticationException {
+    public Call get(final String key) {
         // If there is no Future to resolve, bail
         if (!async(key)) {
             return null;
@@ -42,7 +38,7 @@ public class DeferredBulkDialer implements BulkDialer {
         return null;
     }
 
-    protected boolean async(final String key) throws AuthenticationException {
+    protected boolean async(final String key) {
         // No promise, abort
         if (!promises.containsKey(key)) {
             return false;
@@ -59,7 +55,7 @@ public class DeferredBulkDialer implements BulkDialer {
     }
 
     @Override
-    public void complete() throws AuthenticationException {
+    public void complete() {
         // First make sure every promise gets converted into a result
         for (final String key : promises.keySet()) {
             async(key);

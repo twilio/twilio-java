@@ -166,8 +166,7 @@ public class Call extends SidResource {
 
     }
 
-    public static Call fromJson(final String json, final ObjectMapper objectMapper) throws ApiException,
-                                                                                           ApiConnectionException {
+    public static Call fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Call.class);
@@ -178,8 +177,7 @@ public class Call extends SidResource {
         }
     }
 
-    public static Call fromJson(final InputStream json, final ObjectMapper objectMapper) throws ApiException,
-                                                                                                ApiConnectionException {
+    public static Call fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Call.class);

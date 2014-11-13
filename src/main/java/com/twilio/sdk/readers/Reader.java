@@ -3,10 +3,6 @@ package com.twilio.sdk.readers;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.exceptions.ApiConnectionException;
-import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.exceptions.AuthenticationException;
-import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.ResourceSet;
@@ -17,35 +13,29 @@ public abstract class Reader<T extends Resource> {
 
     private int pageSize = 50;
 
-    public ResourceSet<T> execute() throws InvalidRequestException, ApiConnectionException, ApiException,
-                                           AuthenticationException {
+    public ResourceSet<T> execute() {
         return execute(Twilio.getRestClient());
     }
 
-    public abstract ResourceSet<T> execute(final TwilioRestClient client) throws ApiConnectionException, ApiException,
-                                                                                 InvalidRequestException;
+    public abstract ResourceSet<T> execute(final TwilioRestClient client);
 
-    public ListenableFuture<ResourceSet<T>> async() throws AuthenticationException {
+    public ListenableFuture<ResourceSet<T>> async() {
         return async(Twilio.getRestClient());
     }
 
     public ListenableFuture<ResourceSet<T>> async(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<ResourceSet<T>>() {
-            public ResourceSet<T> call() throws ApiConnectionException, ApiException, InvalidRequestException {
+            public ResourceSet<T> call() {
                 return execute(client);
             }
         });
     }
 
-    public Page<T> nextPage(final String nextPageUri) throws InvalidRequestException, ApiConnectionException,
-                                                             ApiException, AuthenticationException {
+    public Page<T> nextPage(final String nextPageUri) {
         return nextPage(nextPageUri, Twilio.getRestClient());
     }
 
-    public abstract Page<T> nextPage(final String nextPageUri, final TwilioRestClient client) throws
-                                                                                              ApiConnectionException,
-                                                                                              ApiException,
-                                                                                              InvalidRequestException;
+    public abstract Page<T> nextPage(final String nextPageUri, final TwilioRestClient client);
 
     public int getPageSize() {
         return pageSize;

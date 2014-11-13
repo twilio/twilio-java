@@ -29,12 +29,12 @@ public class Twilio {
     private static Long mockLowMillis;
     private static Long mockHighMillis;
 
-    public static void init(final String accountSid, final String authToken) throws AuthenticationException {
+    public static void init(final String accountSid, final String authToken) {
         Twilio.setAccountSid(accountSid);
         Twilio.setAuthToken(authToken);
     }
 
-    public static void setAccountSid(final String accountSid) throws AuthenticationException {
+    public static void setAccountSid(final String accountSid) {
         if (accountSid == null) {
             throw new AuthenticationException("AccountSid can not be null");
         }
@@ -46,7 +46,7 @@ public class Twilio {
         Twilio.accountSid = accountSid;
     }
 
-    public static void setAuthToken(final String authToken) throws AuthenticationException {
+    public static void setAuthToken(final String authToken) {
         if (authToken == null) {
             throw new AuthenticationException("AuthToken can not be null");
         }
@@ -83,7 +83,7 @@ public class Twilio {
         Twilio.mockHighMillis = null;
     }
 
-    public static TwilioRestClient getRestClient() throws AuthenticationException {
+    public static TwilioRestClient getRestClient() {
         if (Twilio.restClient == null) {
             if (Twilio.accountSid == null || Twilio.authToken == null) {
                 throw new AuthenticationException(
@@ -120,11 +120,11 @@ public class Twilio {
         Twilio.executorService = executorService;
     }
 
-    public static Request getMockRequest() throws AuthenticationException {
+    public static Request getMockRequest() {
         return Twilio.getMockRequest(0);
     }
 
-    public static Request getMockRequest(final int index) throws AuthenticationException {
+    public static Request getMockRequest(final int index) {
         List<Request> requests = Twilio.getMockRequests();
         if (index < requests.size()) {
             return requests.get(index);
@@ -132,7 +132,7 @@ public class Twilio {
         return null;
     }
 
-    public static List<Request> getMockRequests() throws AuthenticationException {
+    public static List<Request> getMockRequests() {
         if (isMockingEnabled() && (Twilio.getRestClient().getHttpClient() instanceof MockHttpClient)) {
             return ((MockHttpClient) Twilio.getRestClient().getHttpClient()).getRequests();
         }

@@ -1,8 +1,6 @@
 package com.twilio.sdk.http;
 
 import com.twilio.sdk.exceptions.ApiConnectionException;
-import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.exceptions.InvalidRequestException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +10,7 @@ import java.net.URL;
 
 public class NetworkHttpClient extends HttpClient {
 
-    public Response makeRequest(final Request request) throws ApiConnectionException, InvalidRequestException,
-                                                              ApiException {
+    public Response makeRequest(final Request request) {
         try {
             URL url = request.constructURL();
             HttpMethod method = request.getMethod();
@@ -57,13 +54,12 @@ public class NetworkHttpClient extends HttpClient {
         }
     }
 
-    private void addAuth(final Request request, final HttpURLConnection conn) throws InvalidRequestException {
+    private void addAuth(final Request request, final HttpURLConnection conn) {
         String auth = authentication(request.getUsername(), request.getPassword());
         conn.setRequestProperty("Authorization", auth);
     }
 
-    private void sendPostBody(final Request request, final HttpURLConnection conn) throws ApiConnectionException,
-                                                                                          InvalidRequestException {
+    private void sendPostBody(final Request request, final HttpURLConnection conn) {
         String postBody = request.encodeFormBody();
         try {
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());

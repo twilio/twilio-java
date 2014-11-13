@@ -1,9 +1,6 @@
 package com.twilio.sdk.clients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.sdk.exceptions.ApiConnectionException;
-import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.HttpClient;
 import com.twilio.sdk.http.NetworkHttpClient;
 import com.twilio.sdk.http.Request;
@@ -58,8 +55,7 @@ public class TwilioRestClient {
         this.objectMapper = new ObjectMapper();
     }
 
-    public Response request(final Request request) throws ApiConnectionException, ApiException,
-                                                          InvalidRequestException {
+    public Response request(final Request request) {
         String resolvedUri =
                 "https://" + request.getDomain().toString() + ".twilio.com/" + request.getVersion().toString() +
                 request.getUri().replace("{AccountSid}", accountSid);

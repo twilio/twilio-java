@@ -4,7 +4,6 @@ import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.ListenableFuture;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.exceptions.InvalidRequestException;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -12,8 +11,7 @@ import java.util.concurrent.ExecutionException;
 public class NingHttpClient extends HttpClient {
 
     @Override
-    public Response makeRequest(final Request request) throws InvalidRequestException, ApiConnectionException,
-                                                              ApiException {
+    public Response makeRequest(final Request request) {
         if (request.getMethod() == null) {
             throw new ApiConnectionException("Request has no method");
         }

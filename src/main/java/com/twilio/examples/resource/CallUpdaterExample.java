@@ -14,7 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class CallUpdaterExample {
-    public static void main(final String[] args) throws AuthenticationException {
+    public static void main(final String[] args) {
         Twilio.setAccountSid("ACf03058d205530a5dbded37b9ee6fe61b");
         Twilio.setAuthToken("b066e13bd65fced5bef47dd51903ba18");
 

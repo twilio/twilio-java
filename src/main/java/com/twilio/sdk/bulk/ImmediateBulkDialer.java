@@ -5,11 +5,7 @@ import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.resources.Call;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class ImmediateBulkDialer implements BulkDialer {
@@ -20,7 +16,7 @@ public class ImmediateBulkDialer implements BulkDialer {
     }
 
     @Override
-    public void add(final String key, final CallCreator callCreator) throws AuthenticationException {
+    public void add(final String key, final CallCreator callCreator) {
         results.put(key, callCreator.async());
     }
 

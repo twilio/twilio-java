@@ -25,7 +25,7 @@ import java.net.URISyntaxException;
  */
 public class ImmediateBulkDialerExample {
 
-    public static void main(final String[] args) throws URISyntaxException, AuthenticationException {
+    public static void main(final String[] args) throws URISyntaxException {
         // First we are going to mock out the network and give every request a
         // uniform delay of 1000ms (1 second)
         long requestDelay = 1000L;
@@ -122,7 +122,7 @@ public class ImmediateBulkDialerExample {
                                        "}";
 
 
-    private static void setupMocking(final long delay) throws AuthenticationException {
+    private static void setupMocking(final long delay) {
         Twilio.init("AC123", "AUTH TOKEN");
         Twilio.setMockDelay(delay);
         Twilio.setMockResponses(new ConsumableResponse(JSON, 201));

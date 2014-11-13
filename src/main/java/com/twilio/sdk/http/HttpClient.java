@@ -1,7 +1,5 @@
 package com.twilio.sdk.http;
 
-import com.twilio.sdk.exceptions.ApiConnectionException;
-import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.exceptions.InvalidRequestException;
 import org.apache.commons.codec.binary.Base64;
 
@@ -18,14 +16,11 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
-    public Response reliableRequest(final Request request) throws ApiConnectionException, ApiException,
-                                                                  InvalidRequestException {
+    public Response reliableRequest(final Request request) {
         return reliableRequest(request, RETRY_CODES, RETRIES, DELAY_MILLIS);
     }
 
-    public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
-                                    final long delayMillis) throws ApiConnectionException, ApiException,
-                                                                   InvalidRequestException {
+    public Response reliableRequest(final Request request, final int[] retryCodes, int retries, final long delayMillis) {
         Response response = null;
         while (retries > 0) {
             response = makeRequest(request);
@@ -91,16 +86,15 @@ public abstract class HttpClient {
         return false;
     }
 
-    public abstract Response makeRequest(Request request) throws InvalidRequestException, ApiConnectionException,
-                                                                 ApiException;
+    public abstract Response makeRequest(Request request);
 
-    protected String authentication(final String username, final String password) throws InvalidRequestException {
+    protected String authentication(final String username, final String password) {
         String credentials = username + ":" + password;
         try {
             String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));
             return "Basic " + encoded;
         } catch (final UnsupportedEncodingException e) {
-            throw new InvalidRequestException("Credentials must be encodable as ascii", credentials, e);
+            throw new InvalidRequestException("It must be possible to encode credentials as ascii", credentials, e);
         }
     }
 }

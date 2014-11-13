@@ -41,7 +41,7 @@ public class Page<T> {
     }
 
     public void deserialize(final String recordKey, final String json, final Class<T> recordType,
-                            final ObjectMapper objectMapper) throws ApiConnectionException {
+                            final ObjectMapper objectMapper) {
         records = new ArrayList<>();
 
         try {

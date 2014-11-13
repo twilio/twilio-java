@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 
 public class CallCreatorExample {
 
-    public static void main(final String[] args) throws AuthenticationException {
+    public static void main(final String[] args) {
         Twilio.init("AC123", "AUTH TOKEN");
 
         try {

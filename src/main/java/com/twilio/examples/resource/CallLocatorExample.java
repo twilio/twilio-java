@@ -10,7 +10,7 @@ import com.twilio.sdk.resources.Call;
 
 public class CallLocatorExample {
 
-    public static void main(final String[] args) throws AuthenticationException {
+    public static void main(final String[] args) {
         Twilio.init("AC123", "AUTH TOKEN");
 
         String callSid = "CAa4df5c8404a784212bc026f48c497219";

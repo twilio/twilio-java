@@ -26,7 +26,7 @@ public class Response {
         this.statusCode = statusCode;
     }
 
-    public String getContent() throws ApiConnectionException {
+    public String getContent() {
         if (content != null) {
             return content;
         }

@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
@@ -98,6 +99,16 @@ public abstract class InstanceResource extends Resource {
 	}
 
 	/**
+	 * Gets the property as a Date.
+	 * @param name
+	 * @return
+	 */
+	protected Date getDateProperty(String name) {
+		return parseDate(getProperty(name));
+	}
+
+
+	/**
 	 * Sets the property as an Object
 	 *
 	 * @param name the name
@@ -146,7 +157,7 @@ public abstract class InstanceResource extends Resource {
 			return null;
 		}
 		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
+				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		try {
 			return format.parse(inDate);
 		} catch (ParseException e) {

@@ -4,8 +4,6 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.InstanceResource;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -79,23 +77,11 @@ public class UsageRecord extends InstanceResource {
 	}
 
 	public Date getStartDate() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("StartDate"));
-		} catch (ParseException e) {
-			return null;
-		}
+        return getDateProperty("StartDate");
 	}
 
 	public Date getEndDate() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("EndDate"));
-		} catch (ParseException e) {
-			return null;
-		}
+		return getDateProperty("EndDate");
 	}
 
 	public BigDecimal getUsage() {

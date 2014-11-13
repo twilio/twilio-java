@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -29,7 +30,7 @@ public class Member extends InstanceResource {
      * The {@link SimpleDateFormat} string to use for formatting dates.
      */
     final static SimpleDateFormat format = new SimpleDateFormat(
-            "EEE, dd MMM yyyy HH:mm:ss Z");
+            "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 
     /**
      * The front of the queue is identified with a special id, "Front".

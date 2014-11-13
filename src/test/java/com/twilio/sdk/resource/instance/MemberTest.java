@@ -9,6 +9,7 @@ import org.mockito.Matchers;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.stub;
  */
 public class MemberTest {
     final SimpleDateFormat dateFormat = new SimpleDateFormat(
-            "EEE, dd MMM yyyy HH:mm:ss Z");
+            "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
     final String callSid = "CA12345678901234567890123456789012";
     final String queueSid = "QU12345678901234567890123456789012";
 

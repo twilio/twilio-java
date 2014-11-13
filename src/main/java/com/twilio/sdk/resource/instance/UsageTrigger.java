@@ -6,8 +6,6 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -85,13 +83,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date created
      */
     public Date getDateCreated() {
-        SimpleDateFormat format = new SimpleDateFormat(
-                "EEE, dd MMM yyyy HH:mm:ss Z");
-        try {
-            return format.parse(this.getProperty("DateCreated"));
-        } catch (ParseException e) {
-            return null;
-        }
+        return getDateProperty("DateCreated");
     }
 
     /**
@@ -100,13 +92,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date updated
      */
     public Date getDateUpdated() {
-        SimpleDateFormat format = new SimpleDateFormat(
-                "EEE, dd MMM yyyy HH:mm:ss Z");
-        try {
-            return format.parse(this.getProperty("DateUpdated"));
-        } catch (ParseException e) {
-            return null;
-        }
+        return getDateProperty("DateUpdated");
     }
 
     /**
@@ -199,16 +185,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date fired
      */
     public Date getDateFired() {
-        SimpleDateFormat format = new SimpleDateFormat(
-                "EEE, dd MMM yyyy HH:mm:ss Z");
-        try {
-            String dateFired = this.getProperty("DateFired");
-            if (dateFired == null)
-                return null;
-            return format.parse(dateFired);
-        } catch (ParseException e) {
-            return null;
-        }
+        return getDateProperty("DateFired");
     }
 
     /**

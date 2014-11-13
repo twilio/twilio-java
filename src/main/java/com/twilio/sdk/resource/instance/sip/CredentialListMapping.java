@@ -5,8 +5,6 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -89,13 +87,7 @@ public class CredentialListMapping extends InstanceResource {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("date_created"));
-		} catch (ParseException e) {
-			return null;
-		}
+		return getDateProperty("date_created");
 	}
 
 	/**
@@ -104,13 +96,7 @@ public class CredentialListMapping extends InstanceResource {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		SimpleDateFormat format = new SimpleDateFormat(
-				"EEE, dd MMM yyyy HH:mm:ss Z");
-		try {
-			return format.parse(this.getProperty("date_updated"));
-		} catch (ParseException e) {
-			return null;
-		}
+		return getDateProperty("date_updated");
 	}
 
 	/**

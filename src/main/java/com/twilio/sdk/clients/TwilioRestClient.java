@@ -55,7 +55,7 @@ public class TwilioRestClient {
         this.accountSid = accountSid;
         this.authToken = authToken;
         this.httpClient = httpClient;
-        objectMapper = new ObjectMapper();
+        this.objectMapper = new ObjectMapper();
     }
 
     public Response request(final Request request) throws ApiConnectionException, ApiException,

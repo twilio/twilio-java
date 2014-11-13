@@ -7,6 +7,9 @@ import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.http.MockHttpClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +17,10 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 public class Twilio {
+    public static final String DATE_TIME_PATTERN = "EEE, dd MMM yyyy HH:mm:ss Z";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern(Twilio.DATE_TIME_PATTERN)
+                                                                              .withZone(DateTimeZone.UTC);
+
     private static String accountSid;
     private static String authToken;
     private static TwilioRestClient restClient;

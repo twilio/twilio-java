@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.deleters.CallDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -13,11 +14,11 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.CallFetcher;
 import com.twilio.sdk.readers.CallReader;
 import com.twilio.sdk.updaters.CallUpdater;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Calendar;
 import java.util.Map;
 import java.util.Objects;
 
@@ -90,11 +91,11 @@ public class Call extends SidResource {
     private final String answeredBy;
     private final String apiVersion;
     private final String callerName;
-    private final Calendar dateCreated;
-    private final Calendar dateUpdated;
+    private final DateTime dateCreated;
+    private final DateTime dateUpdated;
     private final String direction;
     private final Integer duration;
-    private final Calendar endTime;
+    private final DateTime endTime;
     private final String forwardedFrom;
     private final String from;
     private final String fromFormatted;
@@ -104,7 +105,7 @@ public class Call extends SidResource {
     private final Double price;
     private final String priceUnit;
     private final String sid;
-    private final Calendar startTime;
+    private final DateTime startTime;
     private final Status status;
     private final Map<String, String> subresourceUris;
     private final String to;
@@ -117,31 +118,36 @@ public class Call extends SidResource {
                  @JsonProperty("answered_by") final String answeredBy,
                  @JsonProperty("api_version") final String apiVersion,
                  @JsonProperty("caller_name") final String callerName,
-                 @JsonProperty("date_created") final Calendar dateCreated,
-                 @JsonProperty("date_updated") final Calendar dateUpdated,
-                 @JsonProperty("direction") final String direction, @JsonProperty("duration") final Integer duration,
-                 @JsonProperty("end_time") final Calendar endTime,
-                 @JsonProperty("forwarded_from") final String forwardedFrom, @JsonProperty("from") final String from,
+                 @JsonProperty("date_created") final String dateCreated,
+                 @JsonProperty("date_updated") final String dateUpdated,
+                 @JsonProperty("direction") final String direction,
+                 @JsonProperty("duration") final Integer duration,
+                 @JsonProperty("end_time") final String endTime,
+                 @JsonProperty("forwarded_from") final String forwardedFrom,
+                 @JsonProperty("from") final String from,
                  @JsonProperty("from_formatted") final String fromFormatted,
                  @JsonProperty("group_sid") final String groupSid,
                  @JsonProperty("parent_call_sid") final String parentCallSid,
                  @JsonProperty("phone_number_sid") final String phoneNumberSid,
-                 @JsonProperty("price") final Double price, @JsonProperty("price_unit") final String priceUnit,
-                 @JsonProperty("sid") final String sid, @JsonProperty("start_time") final Calendar startTime,
+                 @JsonProperty("price") final Double price,
+                 @JsonProperty("price_unit") final String priceUnit,
+                 @JsonProperty("sid") final String sid,
+                 @JsonProperty("start_time") final String startTime,
                  @JsonProperty("status") final Status status,
                  @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
-                 @JsonProperty("to") final String to, @JsonProperty("to_formatted") final String toFormatted,
+                 @JsonProperty("to") final String to,
+                 @JsonProperty("to_formatted") final String toFormatted,
                  @JsonProperty("uri") final String uri) {
         this.accountSid = accountSid;
         this.annotation = annotation;
         this.answeredBy = answeredBy;
         this.apiVersion = apiVersion;
         this.callerName = callerName;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
+        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
         this.direction = direction;
         this.duration = duration;
-        this.endTime = endTime;
+        this.endTime = DateTime.parse(endTime, Twilio.DATE_TIME_FORMATTER);
         this.forwardedFrom = forwardedFrom;
         this.from = from;
         this.fromFormatted = fromFormatted;
@@ -151,7 +157,7 @@ public class Call extends SidResource {
         this.price = price;
         this.priceUnit = priceUnit;
         this.sid = sid;
-        this.startTime = startTime;
+        this.startTime = DateTime.parse(startTime, Twilio.DATE_TIME_FORMATTER);
         this.status = status;
         this.subresourceUris = subresourceUris;
         this.to = to;
@@ -204,11 +210,11 @@ public class Call extends SidResource {
         return callerName;
     }
 
-    public final Calendar getDateCreated() {
+    public final DateTime getDateCreated() {
         return dateCreated;
     }
 
-    public final Calendar getDateUpdated() {
+    public final DateTime getDateUpdated() {
         return dateUpdated;
     }
 
@@ -220,7 +226,7 @@ public class Call extends SidResource {
         return duration != null ? duration : 0;
     }
 
-    public final Calendar getEndTime() {
+    public final DateTime getEndTime() {
         return endTime;
     }
 
@@ -260,7 +266,7 @@ public class Call extends SidResource {
         return sid;
     }
 
-    public final Calendar getStartTime() {
+    public final DateTime getStartTime() {
         return startTime;
     }
 

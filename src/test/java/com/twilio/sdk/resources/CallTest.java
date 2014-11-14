@@ -10,8 +10,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URL;
+import java.util.Currency;
 import java.util.Map;
 
 import static com.twilio.sdk.Assert.assertQueryStringsEqual;
@@ -144,8 +146,8 @@ public class CallTest {
         assertEquals(null, call.getGroupSid());
         assertEquals(null, call.getParentCallSid());
         assertEquals("PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", call.getPhoneNumberSid());
-        assertEquals(-0.01, call.getPrice(), 0.0001);
-        assertEquals("USD", call.getPriceUnit());
+        assertEquals(new BigDecimal("-0.01000"), call.getPrice());
+        assertEquals(Currency.getInstance("USD"), call.getPriceUnit());
         assertEquals("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", call.getSid());
         assertEquals("Mon, 29 Sep 2014 20:39:42 +0000", call.getStartTime().toString(Twilio.DATE_TIME_FORMATTER));
         assertEquals(Call.Status.COMPLETED, call.getStatus());

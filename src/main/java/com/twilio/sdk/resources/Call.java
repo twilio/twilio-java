@@ -18,7 +18,9 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
+import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
 
@@ -102,8 +104,8 @@ public class Call extends SidResource {
     private final String groupSid;
     private final String parentCallSid;
     private final String phoneNumberSid;
-    private final Double price;
-    private final String priceUnit;
+    private final BigDecimal price;
+    private final Currency priceUnit;
     private final String sid;
     private final DateTime startTime;
     private final Status status;
@@ -129,7 +131,7 @@ public class Call extends SidResource {
                  @JsonProperty("group_sid") final String groupSid,
                  @JsonProperty("parent_call_sid") final String parentCallSid,
                  @JsonProperty("phone_number_sid") final String phoneNumberSid,
-                 @JsonProperty("price") final Double price,
+                 @JsonProperty("price") final String price,
                  @JsonProperty("price_unit") final String priceUnit,
                  @JsonProperty("sid") final String sid,
                  @JsonProperty("start_time") final String startTime,
@@ -154,8 +156,8 @@ public class Call extends SidResource {
         this.groupSid = groupSid;
         this.parentCallSid = parentCallSid;
         this.phoneNumberSid = phoneNumberSid;
-        this.price = price;
-        this.priceUnit = priceUnit;
+        this.price = new BigDecimal(price);
+        this.priceUnit = Currency.getInstance(priceUnit);
         this.sid = sid;
         this.startTime = DateTime.parse(startTime, Twilio.DATE_TIME_FORMATTER);
         this.status = status;
@@ -252,11 +254,9 @@ public class Call extends SidResource {
         return phoneNumberSid;
     }
 
-    public final Double getPrice() {
-        return price;
-    }
+    public final BigDecimal getPrice() { return price; }
 
-    public final String getPriceUnit() {
+    public final Currency getPriceUnit() {
         return priceUnit;
     }
 

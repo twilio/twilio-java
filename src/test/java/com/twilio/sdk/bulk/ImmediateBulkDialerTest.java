@@ -7,7 +7,9 @@ import com.twilio.sdk.timing.Stopwatch;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.net.URI;
+import java.util.Currency;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -107,8 +109,8 @@ public class ImmediateBulkDialerTest {
         assertEquals(call.getGroupSid(), null);
         assertEquals(call.getParentCallSid(), null);
         assertEquals(call.getPhoneNumberSid(), "PN5c269861c7f337f6876d6ef214a094cc");
-        assertEquals(call.getPrice(), -0.01, 0.0001);
-        assertEquals(call.getPriceUnit(), "USD");
+        assertEquals(call.getPrice(), new BigDecimal("-0.01"));
+        assertEquals(call.getPriceUnit(), Currency.getInstance("USD"));
         assertEquals(call.getSid(), "CA9e966bd3ef2abcfe941fb0a06e3fc027");
         assertEquals(call.getStartTime(), "Mon, 29 Sep 2014 20:39:42 +0000");
         assertEquals(call.getStatus(), "completed");

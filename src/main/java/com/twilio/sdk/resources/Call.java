@@ -131,8 +131,7 @@ public class Call extends SidResource {
                  @JsonProperty("group_sid") final String groupSid,
                  @JsonProperty("parent_call_sid") final String parentCallSid,
                  @JsonProperty("phone_number_sid") final String phoneNumberSid,
-                 @JsonProperty("price") final String price,
-                 @JsonProperty("price_unit") final String priceUnit,
+                 @JsonProperty("price") final BigDecimal price, @JsonProperty("price_unit") final Currency priceUnit,
                  @JsonProperty("sid") final String sid,
                  @JsonProperty("start_time") final String startTime,
                  @JsonProperty("status") final Status status,
@@ -156,8 +155,8 @@ public class Call extends SidResource {
         this.groupSid = groupSid;
         this.parentCallSid = parentCallSid;
         this.phoneNumberSid = phoneNumberSid;
-        this.price = new BigDecimal(price);
-        this.priceUnit = Currency.getInstance(priceUnit);
+        this.price = price;
+        this.priceUnit = priceUnit;
         this.sid = sid;
         this.startTime = DateTime.parse(startTime, Twilio.DATE_TIME_FORMATTER);
         this.status = status;

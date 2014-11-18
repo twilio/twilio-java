@@ -5,23 +5,23 @@ public class Stopwatch {
     private long stop;
 
     public Stopwatch() {
-        this.start = 0L;
-        this.stop = 0L;
+        start = 0L;
+        stop = 0L;
     }
 
     public void start() {
-        this.start = System.currentTimeMillis();
+        start = System.currentTimeMillis();
     }
 
     public void stop() {
-        this.stop = System.currentTimeMillis();
+        stop = System.currentTimeMillis();
     }
 
     public long getElapsed() {
-        return this.stop - this.start;
+        return stop - start;
     }
 
-    public void debug(String message) {
-        System.out.println(message + " took " + this.getElapsed() + "ms");
+    public void debug(final String message) {
+        System.out.println(message + " took " + getElapsed() + "ms");
     }
 }

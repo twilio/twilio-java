@@ -10,19 +10,19 @@ public class PhoneNumberGroup {
     protected ConsistentHashRing<String> ring;
 
     public PhoneNumberGroup() {
-        this.ring = new ConsistentHashRing<String>();
+        ring = new ConsistentHashRing<>();
     }
 
-    public PhoneNumberGroup add(String number) {
+    public PhoneNumberGroup add(final String number) {
         ring.add(number);
         return this;
     }
 
-    public String get(String receiver) {
+    public String get(final String receiver) {
         return ring.get(receiver);
     }
 
-    public CallCreator create(String to, URI uri) {
+    public CallCreator create(final String to, final URI uri) {
         return Call.create(to, get(to), uri);
     }
 }

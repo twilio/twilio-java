@@ -4,7 +4,6 @@ import com.google.common.base.CaseFormat;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
@@ -13,19 +12,19 @@ import com.twilio.sdk.resources.Call;
 import java.net.URI;
 
 public class CallCreator extends Creator<Call> {
-    protected String to;
-    protected String from;
-    protected URI url;
-    protected String applicationSid;
-    protected HttpMethod method;
-    protected String fallbackUrl;
-    protected HttpMethod fallbackMethod;
-    protected String statusCallback;
-    protected HttpMethod statusCallbackMethod;
-    protected String sendDigits;
-    protected String ifMachine;
-    protected Integer timeout;
-    protected Boolean record;
+    private final String to;
+    private final String from;
+    private URI url;
+    private String applicationSid;
+    private HttpMethod method;
+    private String fallbackUrl;
+    private HttpMethod fallbackMethod;
+    private String statusCallback;
+    private HttpMethod statusCallbackMethod;
+    private String sendDigits;
+    private String ifMachine;
+    private Integer timeout;
+    private Boolean record;
 
     /**
      * @param to The phone number to dial

@@ -3,22 +3,22 @@ package com.twilio.sdk.http;
 public class ConsumableResponse extends Response {
     protected int lives;
 
-    public ConsumableResponse(String content, int statusCode) {
+    public ConsumableResponse(final String content, final int statusCode) {
         this(content, statusCode, -1);
     }
 
-    public ConsumableResponse(String content, int statusCode, int lives) {
+    public ConsumableResponse(final String content, final int statusCode, final int lives) {
         super(content, statusCode);
         this.lives = lives;
     }
 
     public void consume() {
-        if (this.lives > 0) {
-            this.lives--;
+        if (lives > 0) {
+            lives--;
         }
     }
 
     public boolean isExhausted() {
-        return this.lives == 0;
+        return lives == 0;
     }
 }

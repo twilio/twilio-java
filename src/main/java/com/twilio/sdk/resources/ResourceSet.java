@@ -41,7 +41,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new ResourceSetIterator<E>(this);
+        return new ResourceSetIterator<>(this);
     }
 
     protected void fetchNextPage() {

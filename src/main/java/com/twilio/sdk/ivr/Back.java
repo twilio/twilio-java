@@ -7,16 +7,16 @@ import java.util.Map;
 public class Back extends Action {
     protected Menu menu;
 
-    public void setMenu(Menu menu) {
+    public void setMenu(final Menu menu) {
         this.menu = menu;
     }
 
     @Override
-    public String execute(Map<String, String> context) {
+    public String execute(final Map<String, String> context) {
         context.remove(menu.getKey());
 
         String longestKey = "";
-        for (String key : context.keySet()) {
+        for (final String key : context.keySet()) {
             if (!key.startsWith(CONTEXT_PREFIX)) {
                 continue;
             }
@@ -31,9 +31,9 @@ public class Back extends Action {
         String payload = menu.getContextualizedAction(context);
 
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<Response>\n" +
-                "\t<Redirect>" + XmlEscapers.xmlContentEscaper().escape(payload) + "</Redirect>\n" +
-                "</Response>";
+               "<Response>\n" +
+               "\t<Redirect>" + XmlEscapers.xmlContentEscaper().escape(payload) + "</Redirect>\n" +
+               "</Response>";
     }
 
 

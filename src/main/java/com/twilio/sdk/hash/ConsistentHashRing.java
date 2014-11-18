@@ -11,7 +11,7 @@ public class ConsistentHashRing<T> {
 
     private final HashFunction hashFunction;
     private final int iterations;
-    private final SortedMap<Integer, T> circle = new TreeMap<Integer, T>();
+    private final SortedMap<Integer, T> circle = new TreeMap<>();
 
     public static final int DEFAULT_ITERATIONS = 10;
     public static final HashFunction DEFAULT_HASH_FUNCTION = Hashing.md5();
@@ -20,30 +20,30 @@ public class ConsistentHashRing<T> {
         this(DEFAULT_HASH_FUNCTION);
     }
 
-    public ConsistentHashRing(HashFunction hashFunction) {
+    public ConsistentHashRing(final HashFunction hashFunction) {
         this(hashFunction, DEFAULT_ITERATIONS);
     }
 
-    public ConsistentHashRing(HashFunction hashFunction, int iterations) {
+    public ConsistentHashRing(final HashFunction hashFunction, final int iterations) {
         this.hashFunction = hashFunction;
         this.iterations = iterations;
     }
 
-    public ConsistentHashRing<T> add(T node) {
+    public ConsistentHashRing<T> add(final T node) {
         for (int i = 0; i < iterations; i++) {
             circle.put(hash(node.toString() + i), node);
         }
         return this;
     }
 
-    public ConsistentHashRing<T> remove(T node) {
+    public ConsistentHashRing<T> remove(final T node) {
         for (int i = 0; i < iterations; i++) {
             circle.remove(hash(node.toString() + i));
         }
         return this;
     }
 
-    public T get(String key) {
+    public T get(final String key) {
         if (circle.isEmpty()) {
             return null;
         }
@@ -57,11 +57,8 @@ public class ConsistentHashRing<T> {
         return circle.get(hash);
     }
 
-    protected int hash(String payload) {
-        return hashFunction.newHasher()
-                           .putString(payload, Charsets.UTF_8)
-                           .hash()
-                           .asInt() % 360;
+    protected int hash(final String payload) {
+        return hashFunction.newHasher().putString(payload, Charsets.UTF_8).hash().asInt() % 360;
     }
 
 }

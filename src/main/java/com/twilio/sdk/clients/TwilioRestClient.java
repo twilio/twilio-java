@@ -12,7 +12,7 @@ public class TwilioRestClient {
         API("api"),
         WDS("wds");
 
-        private String domain;
+        private final String domain;
 
         Domains(final String domain) {
             this.domain = domain;
@@ -28,7 +28,7 @@ public class TwilioRestClient {
         v2008("2008-08-01"),
         v2010("2010-04-01");
 
-        private String version;
+        private final String version;
 
         Versions(final String version) {
             this.version = version;
@@ -40,9 +40,9 @@ public class TwilioRestClient {
     }
 
     protected HttpClient httpClient;
-    protected ObjectMapper objectMapper;
-    protected String accountSid;
-    protected String authToken;
+    protected final ObjectMapper objectMapper;
+    protected final String accountSid;
+    protected final String authToken;
 
     public TwilioRestClient(final String accountSid, final String authToken) {
         this(accountSid, authToken, new NetworkHttpClient());
@@ -52,7 +52,7 @@ public class TwilioRestClient {
         this.accountSid = accountSid;
         this.authToken = authToken;
         this.httpClient = httpClient;
-        this.objectMapper = new ObjectMapper();
+        objectMapper = new ObjectMapper();
     }
 
     public Response request(final Request request) {

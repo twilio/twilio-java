@@ -8,6 +8,10 @@ import com.twilio.sdk.http.Response;
 
 public class TwilioRestClient {
 
+    public static final int HTTP_STATUS_CODE_CREATED = 201;
+    public static final int HTTP_STATUS_CODE_NO_CONTENT = 204;
+    public static final int HTTP_STATUS_CODE_OK = 200;
+
     public enum Domains {
         API("api"),
         WDS("wds");

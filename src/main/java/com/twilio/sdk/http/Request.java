@@ -5,10 +5,14 @@ import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.exceptions.InvalidRequestException;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,7 +117,7 @@ public class Request {
         queryParams.get(name).add(value);
     }
 
-    public void addQueryDateRange(final String name, final Range<LocalDate> range) {
+    public void addQueryDateRange(final String name, final Range<DateTime> range) {
         if (range.hasLowerBound()) {
             String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
             addQueryParam(name + ">", value);

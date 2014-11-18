@@ -9,7 +9,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 public class CallReader extends Reader<Call> {
 
@@ -17,10 +17,10 @@ public class CallReader extends Reader<Call> {
     private String from;
     private String parentCallSid;
     private String status;
-    private LocalDate absoluteStartTime;
-    private Range<LocalDate> rangeStartTime;
-    private LocalDate absoluteEndTime;
-    private Range<LocalDate> rangeEndTime;
+    private DateTime absoluteStartTime;
+    private Range<DateTime> rangeStartTime;
+    private DateTime absoluteEndTime;
+    private Range<DateTime> rangeEndTime;
 
     @Override
     public ResourceSet<Call> execute(final TwilioRestClient client) {
@@ -71,25 +71,25 @@ public class CallReader extends Reader<Call> {
         return this;
     }
 
-    public CallReader byStartTime(final LocalDate time) {
+    public CallReader byStartTime(final DateTime time) {
         absoluteStartTime = time;
         rangeStartTime = null;
         return this;
     }
 
-    public CallReader byStartTime(final Range<LocalDate> timeRange) {
+    public CallReader byStartTime(final Range<DateTime> timeRange) {
         absoluteStartTime = null;
         rangeStartTime = timeRange;
         return this;
     }
 
-    public CallReader byEndTime(final LocalDate time) {
+    public CallReader byEndTime(final DateTime time) {
         absoluteEndTime = time;
         rangeEndTime = null;
         return this;
     }
 
-    public CallReader byEndTime(final Range<LocalDate> timeRange) {
+    public CallReader byEndTime(final Range<DateTime> timeRange) {
         absoluteEndTime = null;
         rangeEndTime = timeRange;
         return this;

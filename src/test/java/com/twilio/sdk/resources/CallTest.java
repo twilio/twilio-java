@@ -5,7 +5,7 @@ import com.twilio.sdk.Twilio;
 import com.twilio.sdk.http.ConsumableResponse;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,9 @@ import java.util.Map;
 
 import static com.twilio.sdk.Assert.assertQueryStringsEqual;
 import static com.twilio.sdk.Assert.assertUrlsEqual;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class CallTest {
     @Before
@@ -118,8 +120,7 @@ public class CallTest {
     public void testListRequest() throws Exception {
         Twilio.setMockResponses(new ConsumableResponse(CallMocks.FIRST_PAGE_JSON, 200));
 
-        Call.list()
-            .byEndTime(Range.lessThan(LocalDate.parse("2014-01-01"))).pageSize(51)
+        Call.list().byEndTime(Range.lessThan(DateTime.parse("2014-01-01"))).pageSize(51)
             .execute();
 
         Request request = Twilio.getMockRequest();

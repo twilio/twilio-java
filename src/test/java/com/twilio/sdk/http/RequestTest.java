@@ -1,7 +1,7 @@
 package com.twilio.sdk.http;
 
 import com.google.common.collect.Range;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.net.MalformedURLException;
@@ -61,7 +61,7 @@ public class RequestTest {
     @Test
     public void testAddQueryDateRangeLowerBound() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
-        r.addQueryDateRange("baz", Range.greaterThan(new LocalDate(2014, 1, 1)));
+        r.addQueryDateRange("baz", Range.greaterThan(new DateTime(2014, 1, 1, 0, 0)));
         URL url = r.constructURL();
         URL expected = new URL("http://example.com/foobar?baz>=2014-01-01");
         assertUrlsEqual(expected, url);
@@ -70,7 +70,7 @@ public class RequestTest {
     @Test
     public void testAddQueryDateRangeUpperBound() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
-        r.addQueryDateRange("baz", Range.lessThan(new LocalDate(2014, 1, 1)));
+        r.addQueryDateRange("baz", Range.lessThan(new DateTime(2014, 1, 1, 0, 0)));
         URL url = r.constructURL();
         URL expected = new URL("http://example.com/foobar?baz<=2014-01-01");
         assertUrlsEqual(expected, url);
@@ -79,7 +79,7 @@ public class RequestTest {
     @Test
     public void testAddQueryDateRangeClosed() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, "http://example.com/foobar");
-        r.addQueryDateRange("baz", Range.closed(new LocalDate(2014, 1, 1), new LocalDate(2014, 6, 1)));
+        r.addQueryDateRange("baz", Range.closed(new DateTime(2014, 1, 1, 0, 0), new DateTime(2014, 6, 1, 0, 0)));
         URL url = r.constructURL();
         URL expected = new URL("http://example.com/foobar?baz>=2014-01-01&baz<=2014-06-01");
         assertUrlsEqual(expected, url);

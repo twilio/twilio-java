@@ -108,7 +108,7 @@ public class CallCreator extends Creator<Call> {
 
         if (response == null) {
             throw new ApiConnectionException("Call creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != 201) {
+        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             throw new ApiException("Call creation failed: [" + response.getStatusCode() + "] " + response.getContent(),
                                    null);
         }

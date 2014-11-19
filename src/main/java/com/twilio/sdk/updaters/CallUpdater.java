@@ -72,7 +72,7 @@ public class CallUpdater extends Updater<Call> {
 
         if (response == null) {
             throw new ApiConnectionException("Call update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != 200) {
+        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             throw new ApiException("Call update failed: [" + response.getStatusCode() + "] " + response.getContent(),
                                    null);
         }

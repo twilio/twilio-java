@@ -107,58 +107,95 @@ public class Token extends InstanceResource {
 		return Integer.parseInt(this.getProperty("ttl"));
 	}
 
+	/**
+	 *
+	 * An IceServer is a plain old java object that
+	 * stores the url of the server, and an optional
+	 * username and credential.
+	 */
 	class IceServer {
 		public final String url;
 		public final String username;
 		public final String credential;
 
 		public IceServer(Map<String, String> params) {
-            String server_url = null;
-            String server_username = null;
-            String server_credential = null;
-            if (params.containsKey("url")) {
-                server_url = params.get("url");
-            }
-            if (params.containsKey("username")) {
-                server_username = params.get("username");
-            }
-            if (params.containsKey("credential")) {
-                server_credential = params.get("credential");
-            }
+			String server_url = null;
+			String server_username = null;
+			String server_credential = null;
+			if (params.containsKey("url")) {
+				server_url = params.get("url");
+			}
+			if (params.containsKey("username")) {
+				server_username = params.get("username");
+			}
+			if (params.containsKey("credential")) {
+				server_credential = params.get("credential");
+			}
 			this.url = server_url;
 			this.username = server_username;
 			this.credential = server_credential;
 		}
 
-        public boolean hasUsername() {
-            return this.url != null;
-        }
 
-        public boolean hasCredential() {
-            return this.url != null;
-        }
+		/**
+		 * Check if username is set for this server.
+		 *
+		 * @return true if username exists
+		 */
+		public boolean hasUsername() {
+			return this.url != null;
+		}
 
+		/**
+		 * Check if a credential is set for this server.
+		 *
+		 * @return true if credential exists
+		 */
+		public boolean hasCredential() {
+			return this.url != null;
+		}
+
+		/**
+		 * Get the url.
+		 *
+		 * @return the url
+		 */
 		public String getUrl() {
 			return this.url;
 		}
 
+		/**
+		 * Get the username.
+		 *
+		 * @return the username
+		 */
 		public String getUsername() {
 			return this.username;
 		}
 
+		/**
+		 * Get the credential.
+		 *
+		 * @return the credential
+		 */
 		public String getCredential() {
 			return this.credential;
 		}
 	}
 
+	/**
+	 * Returns the ice servers associated with this token.
+	 *
+	 * @return the list of ice servers.
+	 */
 	public List<IceServer> getIceServers() {
 
-        List<IceServer> iceServers = new ArrayList<IceServer>();
+		List<IceServer> iceServers = new ArrayList<IceServer>();
 		for (Map<String, String> server : (List<HashMap<String, String>>) this.getObject("ice_servers")) {
 			IceServer token = new IceServer(server);
-            iceServers.add(token);
+			iceServers.add(token);
 		}
-        return iceServers;
+		return iceServers;
 	}
 
 }

@@ -20,7 +20,7 @@ public class CallFetcher extends Fetcher<Call> {
         Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid + ".json");
         Response response = client.request(request);
 
-        if (response.getStatusCode() != 200) {
+        if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             throw new ApiException("Call fetch failed: [" + response.getStatusCode() + "] " + response.getContent(),
                                    null);
         }

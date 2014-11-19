@@ -41,7 +41,7 @@ public class CallReader extends Reader<Call> {
     protected Page<Call> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
-        if (response.getStatusCode() != 200) {
+        if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             throw new ApiException("Unable to build page of Calls", null);
         }
 

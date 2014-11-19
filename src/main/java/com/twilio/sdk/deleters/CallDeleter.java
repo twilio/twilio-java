@@ -27,7 +27,7 @@ public class CallDeleter extends Deleter<Call> {
 
         if (response == null) {
             throw new ApiConnectionException("Call delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != 204) {
+        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
             throw new ApiException("Call delete failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
     }

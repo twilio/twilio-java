@@ -17,9 +17,9 @@ public class CallCreator extends Creator<Call> {
     private URI url;
     private String applicationSid;
     private HttpMethod method;
-    private String fallbackUrl;
+    private URI fallbackUrl;
     private HttpMethod fallbackMethod;
-    private String statusCallback;
+    private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private String sendDigits;
     private String ifMachine;
@@ -53,7 +53,7 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
-    public CallCreator setFallbackUrl(final String fallbackUrl) {
+    public CallCreator setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
         return this;
     }
@@ -63,7 +63,7 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
-    public CallCreator setStatusCallback(final String statusCallback) {
+    public CallCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
@@ -138,7 +138,7 @@ public class CallCreator extends Creator<Call> {
         }
 
         if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl);
+            request.addPostParam("FallbackUrl", fallbackUrl.toString());
         }
 
         if (fallbackMethod != null) {
@@ -146,7 +146,7 @@ public class CallCreator extends Creator<Call> {
         }
 
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback);
+            request.addPostParam("StatusCallback", statusCallback.toString());
         }
 
         if (statusCallbackMethod != null) {

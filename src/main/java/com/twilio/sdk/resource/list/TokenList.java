@@ -55,13 +55,17 @@ public class TokenList extends ListResource<Token> implements TokenFactory {
 		return new Token(client, params);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.factory.TokenFactory#create(java.util.Map)
-	 */
+    @Override
+    protected String getListKey() {
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see com.twilio.sdk.resource.factory.TokenFactory#create(java.util.Map)
+     */
 	public Token create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
 		return makeNew(this.getClient(), response.toMap());
 	}
-
 }

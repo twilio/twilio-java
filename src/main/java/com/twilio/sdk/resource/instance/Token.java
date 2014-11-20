@@ -16,7 +16,12 @@ public class Token extends InstanceResource {
 		super(client);
 	}
 
-	/**
+    @Override
+    protected String getResourceLocation() {
+        return null;
+    }
+
+    /**
 	 * Instantiates a new token.
 	 *
 	 * @param client the client
@@ -50,7 +55,7 @@ public class Token extends InstanceResource {
 	 * @return the sid
 	 */
 	public String getSid() {
-		return this.getProperty(SID_PROPERTY);
+		return this.getProperty("username");
 	}
 
 	/**
@@ -119,21 +124,21 @@ public class Token extends InstanceResource {
 		public final String credential;
 
 		public IceServer(Map<String, String> params) {
-			String server_url = null;
-			String server_username = null;
-			String server_credential = null;
+			String serverUrl = null;
+			String serverUsername = null;
+			String serverCredential = null;
 			if (params.containsKey("url")) {
-				server_url = params.get("url");
+				serverUrl = params.get("url");
 			}
 			if (params.containsKey("username")) {
-				server_username = params.get("username");
+				serverUsername = params.get("username");
 			}
 			if (params.containsKey("credential")) {
-				server_credential = params.get("credential");
+				serverCredential = params.get("credential");
 			}
-			this.url = server_url;
-			this.username = server_username;
-			this.credential = server_credential;
+			this.url = serverUrl;
+			this.username = serverUsername;
+			this.credential = serverCredential;
 		}
 
 

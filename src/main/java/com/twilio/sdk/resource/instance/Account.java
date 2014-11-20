@@ -34,6 +34,7 @@ import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.ShortCodeList;
 import com.twilio.sdk.resource.list.SmsList;
 import com.twilio.sdk.resource.list.TranscriptionList;
+import com.twilio.sdk.resource.list.TokenList;
 import com.twilio.sdk.resource.list.UsageRecordList;
 import com.twilio.sdk.resource.list.UsageTriggerList;
 import com.twilio.sdk.resource.list.sip.CredentialListList;
@@ -1115,5 +1116,19 @@ public class Account extends InstanceResource {
 		TwilioRestResponse response = getClient()
 				.safeRequest(getResourceLocation("") + "/Calls/FeedbackSummary/" + sid + ".json", "GET", (Map) null);
 		return new FeedbackSummary(getClient(), response.toMap());
+	}
+
+	/**
+	 * Gets the factory for creating new tokens.
+	 * <p/>
+	 * <a href="https://www.twilio.com/docs/api/rest/tokens">https://www.twilio.com/docs/api/rest/tokens</a>
+	 *
+	 * @param filters the filters
+	 * @return the token factory
+	 */
+	public TokenList getTokenFactory() {
+		TokenList tokens = new TokenList(this.getClient());
+		tokens.setRequestAccountSid(this.getRequestAccountSid());
+		return tokens;
 	}
 }

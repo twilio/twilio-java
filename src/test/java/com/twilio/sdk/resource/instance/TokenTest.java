@@ -3,70 +3,69 @@ package com.twilio.sdk.resource.instance;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.resource.list.TokenList;
+import com.twilio.sdk.resource.instance.Token;
+
+import org.apache.http.NameValuePair;
+
 import org.junit.Test;
-import org.mockito.Matchers;
+import org.junit.Before;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.twilio.sdk.resource.instance.Token;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
 
-public class TokenTest {
+public class TokenTest extends BasicRequestTester {
 
-	final String accountSid = "AC12345678901234567890123456789012";
+	@Mock
+	private Account account;
 
-	TwilioRestClient client = mock(TwilioRestClient.class);
-	TwilioRestResponse resp = mock(TwilioRestResponse.class);
+	private Token token;
 
-	private void setupMocks() {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		stub(resp.toMap()).toReturn(map);
-
-		map.put("account_sid", accountSid);
-		map.put("password", "M87Dd74GbNfyrAydvEKiDR43go52fo6ldoJBHB6gim0");
-		map.put("registrars", null);
-		map.put("ttl", "86400");
-		map.put("username", "b759d275ddc641cd379f329882abe3c0618c8afdfc5e24be1b4d59482244240f");
-
-		List<Map<String, String>> serverList = new ArrayList<Map<String, String>>();
-		Map<String, String> serverMap = new HashMap<String, String>();
-
-		serverMap.put("url", "stun:global.stun.twilio.com:3478?transport=udp");
-		serverMap.put("username", "b759d275ddc641cd379f329882abe3c0618c8afdfc5e24be1b4d59482244240f");
-		serverMap.put("credential", "M87Dd74GbNfyrAydvEKiDR43go52fo6ldoJBHB6gim0=");
-
-		serverList.add(serverMap);
-
-		map.put("ice_servers", serverList);
-
+	@Before
+	public void setup() throws Exception {
+		setExpectedServerContentType("application/json");
+		setExpectedServerAnswer("token.json");
+		token = client.getAccount().getTokenFactory().create(new ArrayList<NameValuePair>());
 	}
 
 	@Test
-	public void testCreation() throws TwilioRestException {
-		setupMocks();
-		stub(
-				client.safeRequest(Matchers.eq("/2010-04-01/Accounts/" + accountSid + "/Tokens.json"),
-					Matchers.eq("POST"), Matchers.any(Map.class)))
-			.toReturn(resp);
-
-		final Token token = new Token(client, accountSid);
-		token.setRequestAccountSid(accountSid);
-
-		assertTrue(token.getPassword().equals("M87Dd74GbNfyrAydvEKiDR43go52fo6ldoJBHB6gim0"));
-		assertTrue(token.getTtl().equals(86400));
-
-		List<Token.IceServer> servers = token.getIceServers();
-
-        for (Token.IceServer server : servers) {
-            assertTrue(server.getUsername().equals("b759d275ddc641cd379f329882abe3c0618c8afdfc5e24be1b4d59482244240f"));
-        }
-
+	public void testUsername() throws TwilioRestException {
+		assertEquals("b759d275ddc641cd379f329882abe3c0618c8afdfc5e24be1b4d59482244240f", token.getUsername());
 	}
+
+	@Test
+	public void testPassword() throws TwilioRestException {
+		assertEquals("M87Dd74GbNfyrAydvEKiDR43go52fo6ldoJBHB6gim0", token.getPassword());
+	}
+
+	@Test
+	public void testAccountSid() throws TwilioRestException {
+		assertEquals("AC12345678901234567890123456789012", token.getAccountSid());
+	}
+
+	@Test
+	public void testGetTtl() throws TwilioRestException {
+		assertEquals(86400, token.getTtl());
+	}
+
+    @Test
+    public void testGetIceServers() throws TwilioRestException {
+        List<Token.IceServer> servers = token.getIceServers();
+        Token.IceServer server = servers.get(0);
+        assertEquals("stun:global.stun.twilio.com:3478?transport=udp", server.getUrl());
+        assertEquals("b759d275ddc641cd379f329882abe3c0618c8afdfc5e24be1b4d59482244240f", server.getUsername());
+        assertEquals("M87Dd74GbNfyrAydvEKiDR43go52fo6ldoJBHB6gim0=", server.getCredential());
+        assertTrue(server.hasUsername());
+        assertTrue(server.hasCredential());
+    }
 
 }

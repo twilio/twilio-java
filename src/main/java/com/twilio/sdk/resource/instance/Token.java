@@ -108,7 +108,7 @@ public class Token extends InstanceResource {
 	 *
 	 * @return the ttl
 	 */
-	public Integer getTtl() {
+	public int getTtl() {
 		return Integer.parseInt(this.getProperty("ttl"));
 	}
 

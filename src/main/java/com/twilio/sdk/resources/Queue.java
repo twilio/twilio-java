@@ -12,13 +12,17 @@ import com.twilio.sdk.creators.QueueCreator;
 import com.twilio.sdk.deleters.QueueDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.fetchers.MemberFetcher;
 import com.twilio.sdk.fetchers.QueueFetcher;
+import com.twilio.sdk.readers.MemberReader;
 import com.twilio.sdk.readers.QueueReader;
+import com.twilio.sdk.updaters.MemberUpdater;
 import com.twilio.sdk.updaters.QueueUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -79,6 +83,26 @@ public class Queue extends SidResource {
 
     public static QueueUpdater update(final String sid) {
         return new QueueUpdater(sid);
+    }
+
+    public MemberFetcher fetchMember(final String sid) {
+        return new MemberFetcher(this, sid);
+    }
+
+    public MemberFetcher fetchFront() {
+        return new MemberFetcher(this, "Front");
+    }
+
+    public MemberReader listMembers() {
+        return new MemberReader(this);
+    }
+
+    public MemberUpdater dequeue(String sid, URI url) {
+        return new MemberUpdater(this, sid, url);
+    }
+
+    public MemberUpdater dequeue(URI url) {
+        return new MemberUpdater(this, "Front", url);
     }
 
     public static Queue fromJson(final String json, final ObjectMapper objectMapper) {

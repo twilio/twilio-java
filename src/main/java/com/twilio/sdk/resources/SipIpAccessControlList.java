@@ -17,6 +17,7 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Objects;
 
 public class SipIpAccessControlList extends SidResource {
@@ -28,6 +29,7 @@ public class SipIpAccessControlList extends SidResource {
     private final String friendlyName;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final Map<String, String> subresourceUris;
     private final String uri;
 
     @JsonCreator
@@ -36,12 +38,14 @@ public class SipIpAccessControlList extends SidResource {
                                    @JsonProperty("friendly_name") final String friendlyName,
                                    @JsonProperty("date_created") final String dateCreated,
                                    @JsonProperty("date_updated") final String dateUpdated,
+                                   @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
                                    @JsonProperty("uri") final String uri) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
         this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
         this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.subresourceUris = subresourceUris;
         this.uri = uri;
     }
     
@@ -91,6 +95,10 @@ public class SipIpAccessControlList extends SidResource {
 
     public DateTime getDateUpdated() {
         return dateUpdated;
+    }
+
+    public Map<String, String> getSubresourceUris() {
+        return subresourceUris;
     }
 
     public String getUri() {

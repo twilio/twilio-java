@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class SipDomain extends SidResource {
@@ -42,6 +43,7 @@ public class SipDomain extends SidResource {
     private final HttpMethod voiceStatusCallbackMethod;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final Map<String, String> subresourceUris;
     private final String uri;
 
     @JsonCreator
@@ -59,6 +61,7 @@ public class SipDomain extends SidResource {
                       @JsonProperty("voice_status_callback_method") final HttpMethod voiceStatusCallbackMethod,
                       @JsonProperty("date_created") final String dateCreated,
                       @JsonProperty("date_updated") final String dateUpdated,
+                      @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
                       @JsonProperty("uri") final String uri) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -74,6 +77,7 @@ public class SipDomain extends SidResource {
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;
         this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
         this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.subresourceUris = subresourceUris;
         this.uri = uri;
     }
 
@@ -173,6 +177,10 @@ public class SipDomain extends SidResource {
 
     public final DateTime getDateUpdated() {
         return dateUpdated;
+    }
+
+    public final Map<String, String> getSubresourceUris() {
+        return subresourceUris;
     }
 
     public final String getUri() {

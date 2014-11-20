@@ -21,6 +21,7 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class SipCredentialList extends SidResource {
@@ -32,24 +33,24 @@ public class SipCredentialList extends SidResource {
     private final String uri;
     private final String accountSid;
     private final String sid;
+    private final Map<String, String> subresourceUris;
     private final DateTime dateCreated;
 
     @JsonCreator
-    private SipCredentialList(
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("date_created") final String dateCreated
-        ) {
+    private SipCredentialList(@JsonProperty("date_updated") final String dateUpdated,
+                              @JsonProperty("friendly_name") final String friendlyName,
+                              @JsonProperty("uri") final String uri,
+                              @JsonProperty("account_sid") final String accountSid,
+                              @JsonProperty("sid") final String sid,
+                              @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
+                              @JsonProperty("date_created") final String dateCreated) {
         this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
-            this.friendlyName = friendlyName;
-            this.uri = uri;
-            this.accountSid = accountSid;
-            this.sid = sid;
-            this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
-            
+        this.friendlyName = friendlyName;
+        this.uri = uri;
+        this.accountSid = accountSid;
+        this.sid = sid;
+        this.subresourceUris = subresourceUris;
+        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
     }
 
     public static SipCredentialListCreator create(final String friendlyName) {
@@ -118,7 +119,10 @@ public class SipCredentialList extends SidResource {
     public final DateTime getDateCreated() {
         return dateCreated;
     }
-    
+
+    public final Map<String, String> getSubresourceUris() {
+        return subresourceUris;
+    }
 
     @Override
     public boolean equals(final Object o) {

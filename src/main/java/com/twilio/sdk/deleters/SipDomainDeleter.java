@@ -21,7 +21,7 @@ public class SipDomainDeleter extends Deleter<SipDomain> {
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/SIP/Domains/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/SIP/Domains/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {

@@ -18,7 +18,7 @@ public class SipIpAccessControlListCreator extends Creator<SipIpAccessControlLis
     
     @Override
     public SipIpAccessControlList execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/SIP/IpAccessControlLists.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/SIP/IpAccessControlLists.json");
         addPostParams(request);
         Response response = client.request(request);
 

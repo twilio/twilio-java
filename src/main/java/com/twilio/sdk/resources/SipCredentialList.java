@@ -7,15 +7,20 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.Twilio;
+import com.twilio.sdk.creators.SipCredentialCreator;
 import com.twilio.sdk.creators.SipCredentialListCreator;
+import com.twilio.sdk.deleters.SipCredentialDeleter;
 import com.twilio.sdk.deleters.SipCredentialListDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.fetchers.SipCredentialFetcher;
 import com.twilio.sdk.fetchers.SipCredentialListFetcher;
 
 import com.twilio.sdk.readers.SipCredentialListReader;
+import com.twilio.sdk.readers.SipCredentialReader;
 import com.twilio.sdk.updaters.SipCredentialListUpdater;
 
+import com.twilio.sdk.updaters.SipCredentialUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -81,6 +86,26 @@ public class SipCredentialList extends SidResource {
         return new SipCredentialListUpdater(sid);
     }
 
+    public SipCredentialReader listCredentials() {
+        return new SipCredentialReader(this);
+    }
+
+    public SipCredentialFetcher fetchCredential(final String sid) {
+        return new SipCredentialFetcher(this, sid);
+    }
+
+    public SipCredentialCreator createCredential(final String username, final String password) {
+        return new SipCredentialCreator(this, username, password);
+    }
+
+    public SipCredentialUpdater updateCredential(final String sid, final String password) {
+        return new SipCredentialUpdater(this, sid, password);
+    }
+
+    public SipCredentialDeleter deleteCredential(final String sid) {
+        return new SipCredentialDeleter(this, sid);
+    }
+
     public static SipCredentialList fromJson(final String json, final ObjectMapper objectMapper) {
         try {
             return objectMapper.readValue(json, SipCredentialList.class);
@@ -142,7 +167,7 @@ public class SipCredentialList extends SidResource {
             Objects.equals(accountSid, self.accountSid) &&
             Objects.equals(sid, self.sid) &&
             Objects.equals(dateCreated, self.dateCreated) 
-            );
+        );
     }
 
     @Override

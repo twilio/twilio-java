@@ -22,7 +22,7 @@ public class SipIpAccessControlListDeleter extends Deleter<SipIpAccessControlLis
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/SIP/IpAccessControlLists/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {

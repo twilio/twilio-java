@@ -22,7 +22,7 @@ public class SipCredentialListDeleter extends Deleter<SipCredentialList> {
 
     @Override
     public void execute(final TwilioRestClient client)  {
-        Request request = new Request(HttpMethod.DELETE, "/SIP/CredentialLists/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/SIP/CredentialLists/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {

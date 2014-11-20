@@ -33,8 +33,6 @@ public class SipCredentialList extends SidResource {
     private final String accountSid;
     private final String sid;
     private final DateTime dateCreated;
-    
-    
 
     @JsonCreator
     private SipCredentialList(

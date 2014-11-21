@@ -8,10 +8,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.Twilio;
+import com.twilio.sdk.deleters.ParticipantDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.ConferenceFetcher;
+import com.twilio.sdk.fetchers.ParticipantFetcher;
 import com.twilio.sdk.readers.ConferenceReader;
+import com.twilio.sdk.readers.ParticipantReader;
+import com.twilio.sdk.updaters.ParticipantUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -53,6 +57,34 @@ public class Conference extends SidResource {
 
     public static ConferenceReader list() {
         return new ConferenceReader();
+    }
+
+    public ParticipantFetcher fetchParticipant(final String sid) {
+        return new ParticipantFetcher(this, sid);
+    }
+
+    public ParticipantReader listParticipants() {
+        return new ParticipantReader(this);
+    }
+
+    public ParticipantUpdater updateParticipant(final String sid, final Boolean muted) {
+        return new ParticipantUpdater(this, sid, muted);
+    }
+
+    public ParticipantUpdater muteParticipant(final String sid) {
+        return new ParticipantUpdater(this, sid, true);
+    }
+
+    public ParticipantUpdater unmuteParticipant(final String sid) {
+        return new ParticipantUpdater(this, sid, false);
+    }
+
+    public ParticipantDeleter deleteParticipant(final String sid) {
+        return new ParticipantDeleter(this, sid);
+    }
+
+    public ParticipantDeleter kickParticipant(final String sid) {
+        return new ParticipantDeleter(this, sid);
     }
 
     public static Conference fromJson(final String json, final ObjectMapper objectMapper) {

@@ -2,9 +2,6 @@ package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-/**
-* Created by skimbrel on 14-11-24.
-*/
 public enum AddressRequirement {
     NONE("none"), ANY("any"), LOCAL("local"), FOREIGN("foreign");
     private final String addressRequirement;

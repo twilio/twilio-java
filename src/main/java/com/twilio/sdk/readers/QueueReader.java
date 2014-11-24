@@ -8,12 +8,13 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.Queue;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 
 public class QueueReader extends Reader<Queue> {
 
     @Override
     public ResourceSet<Queue> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Queues.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Queues.json");
 
         Page<Queue> page = pageForRequest(client, request);
 
@@ -30,7 +31,9 @@ public class QueueReader extends Reader<Queue> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for Queue");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<Queue> result = new Page<>();

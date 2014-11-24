@@ -1,32 +1,32 @@
 package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.ConnectAppFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.readers.ConnectAppReader;
 import com.twilio.sdk.updaters.ConnectAppUpdater;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ConnectApp extends SidResource {
 
     private static final long serialVersionUID = -5732541214023360255L;
 
     private final URI authorizeRedirectUrl;
     private final String description;
-    private final DateTime dateUpdated;
     private final HttpMethod deauthorizeCallbackMethod;
     private final String friendlyName;
     private final String uri;
@@ -35,24 +35,20 @@ public class ConnectApp extends SidResource {
     private final URI homepageUrl;
     private final String companyName;
     private final String sid;
-    private final DateTime dateCreated;
-    private final String permissions;
+    private final List<ConnectApp.Permission> permissions;
 
     @JsonCreator
     private ConnectApp(@JsonProperty("authorize_redirect_url") final URI authorizeRedirectUrl,
                        @JsonProperty("description") final String description,
-                       @JsonProperty("date_updated") final String dateUpdated,
                        @JsonProperty("deauthorize_callback_method") final HttpMethod deauthorizeCallbackMethod,
                        @JsonProperty("friendly_name") final String friendlyName, @JsonProperty("uri") final String uri,
                        @JsonProperty("deauthorize_callback_url") final URI deauthorizeCallbackUrl,
                        @JsonProperty("account_sid") final String accountSid,
                        @JsonProperty("homepage_url") final URI homepageUrl,
                        @JsonProperty("company_name") final String companyName, @JsonProperty("sid") final String sid,
-                       @JsonProperty("date_created") final String dateCreated,
-                       @JsonProperty("permissions") final String permissions) {
+                       @JsonProperty("permissions") final List<ConnectApp.Permission> permissions) {
         this.authorizeRedirectUrl = authorizeRedirectUrl;
         this.description = description;
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
         this.deauthorizeCallbackMethod = deauthorizeCallbackMethod;
         this.friendlyName = friendlyName;
         this.uri = uri;
@@ -61,7 +57,6 @@ public class ConnectApp extends SidResource {
         this.homepageUrl = homepageUrl;
         this.companyName = companyName;
         this.sid = sid;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
         this.permissions = permissions;
 
     }
@@ -110,10 +105,6 @@ public class ConnectApp extends SidResource {
         return description;
     }
 
-    public final DateTime getDateUpdated() {
-        return dateUpdated;
-    }
-
     public final HttpMethod getDeauthorizeCallbackMethod() {
         return deauthorizeCallbackMethod;
     }
@@ -146,11 +137,7 @@ public class ConnectApp extends SidResource {
         return sid;
     }
 
-    public final DateTime getDateCreated() {
-        return dateCreated;
-    }
-
-    public final String getPermissions() {
+    public final List<ConnectApp.Permission> getPermissions() {
         return permissions;
     }
 
@@ -167,7 +154,6 @@ public class ConnectApp extends SidResource {
 
         return (Objects.equals(authorizeRedirectUrl, self.authorizeRedirectUrl) &&
                 Objects.equals(description, self.description) &&
-                Objects.equals(dateUpdated, self.dateUpdated) &&
                 Objects.equals(deauthorizeCallbackMethod, self.deauthorizeCallbackMethod) &&
                 Objects.equals(friendlyName, self.friendlyName) &&
                 Objects.equals(uri, self.uri) &&
@@ -176,15 +162,13 @@ public class ConnectApp extends SidResource {
                 Objects.equals(homepageUrl, self.homepageUrl) &&
                 Objects.equals(companyName, self.companyName) &&
                 Objects.equals(sid, self.sid) &&
-                Objects.equals(dateCreated, self.dateCreated) &&
                 Objects.equals(permissions, self.permissions));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorizeRedirectUrl, description, dateUpdated, deauthorizeCallbackMethod, friendlyName,
-                            uri, deauthorizeCallbackUrl, accountSid, homepageUrl, companyName, sid, dateCreated,
-                            permissions);
+        return Objects.hash(authorizeRedirectUrl, description, deauthorizeCallbackMethod, friendlyName, uri,
+                            deauthorizeCallbackUrl, accountSid, homepageUrl, companyName, sid, permissions);
     }
 
     @Override
@@ -192,7 +176,6 @@ public class ConnectApp extends SidResource {
         return MoreObjects.toStringHelper(this)
                           .add("authorizeRedirectUrl", authorizeRedirectUrl)
                           .add("description", description)
-                          .add("dateUpdated", dateUpdated)
                           .add("deauthorizeCallbackMethod", deauthorizeCallbackMethod)
                           .add("friendlyName", friendlyName)
                           .add("uri", uri)
@@ -201,8 +184,27 @@ public class ConnectApp extends SidResource {
                           .add("homepageUrl", homepageUrl)
                           .add("companyName", companyName)
                           .add("sid", sid)
-                          .add("dateCreated", dateCreated)
                           .add("permissions", permissions)
                           .toString();
+    }
+
+    public enum Permission {
+        GET_ALL("get-all"), POST_ALL("post-all");
+        private final String permission;
+
+        private Permission(final String permission) {
+            this.permission = permission;
+        }
+
+        public String toString() {
+            return permission;
+        }
+
+        @JsonCreator
+        public static Permission forValue(final String value) {
+            String munged = value.replace("-", "_")
+                                 .toUpperCase();
+            return Permission.valueOf(munged);
+        }
     }
 }

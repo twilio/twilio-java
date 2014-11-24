@@ -7,6 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Application;
+import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -169,15 +170,16 @@ public class ApplicationCreator extends Creator<Application> {
 
     @Override
     public Application execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Applications.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Applications.json");
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Application creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
-            throw new ApiException(
-                    "Application creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return Application.fromJson(response.getStream(), client.getObjectMapper());

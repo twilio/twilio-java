@@ -1,6 +1,7 @@
 package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends SidResource {
 
     private static final long serialVersionUID = -5732541214023360255L;

@@ -7,6 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Queue;
+import com.twilio.sdk.resources.RestException;
 
 public class QueueDeleter extends Deleter<Queue> {
 
@@ -22,13 +23,15 @@ public class QueueDeleter extends Deleter<Queue> {
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Queues/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Queues/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Queue delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
-            throw new ApiException("Queue delete failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Transcription extends SidResource {
 
     private static final long serialVersionUID = -5732541214023360255L;

@@ -9,6 +9,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Conference;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 import org.joda.time.DateTime;
 
 public class ConferenceReader extends Reader<Conference> {
@@ -22,7 +23,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     @Override
     public ResourceSet<Conference> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Conferences.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Conferences.json");
         addQueryParams(request);
 
         Page<Conference> page = pageForRequest(client, request);
@@ -40,7 +41,9 @@ public class ConferenceReader extends Reader<Conference> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for Conference");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<Conference> result = new Page<>();

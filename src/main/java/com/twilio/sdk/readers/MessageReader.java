@@ -9,9 +9,11 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Message;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 import org.joda.time.DateTime;
 
 public class MessageReader extends Reader<Message> {
+
     private DateTime absoluteDateSent;
     private Range<DateTime> rangeDateSent;
     private String to;
@@ -19,7 +21,7 @@ public class MessageReader extends Reader<Message> {
 
     @Override
     public ResourceSet<Message> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Messages.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Messages.json");
         addQueryParams(request);
 
         Page<Message> page = pageForRequest(client, request);
@@ -37,11 +39,13 @@ public class MessageReader extends Reader<Message> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for Message");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<Message> result = new Page<>();
-        result.deserialize("messages", response.getContent(), Message.class, client.getObjectMapper());
+        result.deserialize("sms_messages", response.getContent(), Message.class, client.getObjectMapper());
 
         return result;
     }
@@ -74,11 +78,11 @@ public class MessageReader extends Reader<Message> {
         } else if (rangeDateSent != null) {
             request.addQueryDateRange("DateSent", rangeDateSent);
         }
-            if (to != null) {
-                request.addQueryParam("To", to);
-                }
-            if (from != null) {
-                request.addQueryParam("From", from);
-                }
-            }
+        if (to != null) {
+            request.addQueryParam("To", to);
+        }
+        if (from != null) {
+            request.addQueryParam("From", from);
+        }
+    }
 }

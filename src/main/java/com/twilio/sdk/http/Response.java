@@ -10,9 +10,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class Response {
-    private InputStream stream;
-    private String content;
-    private int statusCode;
+
+    private final InputStream stream;
+    private final String content;
+    private final int statusCode;
 
     public Response(final String content, final int statusCode) {
         this.content = content;
@@ -43,7 +44,7 @@ public class Response {
 
     }
 
-    public InputStream getStream() throws ApiException {
+    public InputStream getStream() {
         if (stream != null) {
             return stream;
         }

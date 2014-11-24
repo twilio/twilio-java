@@ -8,6 +8,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.OutgoingCallerId;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 
 public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
@@ -16,7 +17,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     @Override
     public ResourceSet<OutgoingCallerId> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/OutgoingCallerIds.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/OutgoingCallerIds.json");
         addQueryParams(request);
 
         Page<OutgoingCallerId> page = pageForRequest(client, request);
@@ -34,7 +35,9 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for OutgoingCallerId");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<OutgoingCallerId> result = new Page<>();

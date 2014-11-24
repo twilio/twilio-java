@@ -7,6 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.OutgoingCallerId;
+import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -61,15 +62,16 @@ public class OutgoingCallerIdCreator extends Creator<OutgoingCallerId> {
 
     @Override
     public OutgoingCallerId execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/OutgoingCallerIds.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/OutgoingCallerIds.json");
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("OutgoingCallerId creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
-            throw new ApiException(
-                    "OutgoingCallerId creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return OutgoingCallerId.fromJson(response.getStream(), client.getObjectMapper());

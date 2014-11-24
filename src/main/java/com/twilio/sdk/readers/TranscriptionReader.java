@@ -7,13 +7,14 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.Transcription;
 
 public class TranscriptionReader extends Reader<Transcription> {
 
     @Override
     public ResourceSet<Transcription> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Transcriptions.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Transcriptions.json");
 
         Page<Transcription> page = pageForRequest(client, request);
 
@@ -30,7 +31,9 @@ public class TranscriptionReader extends Reader<Transcription> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for Transcription");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<Transcription> result = new Page<>();

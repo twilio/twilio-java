@@ -7,9 +7,11 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.ConnectApp;
+import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class ConnectAppUpdater extends Updater<ConnectApp> {
 
@@ -21,7 +23,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     private URI homepageUrl;
     private String companyName;
     private HttpMethod deauthorizeCallbackMethod;
-    private String permissions;
+    private List<ConnectApp.Permission> permissions;
 
     public ConnectAppUpdater(final String sid) {
         this.sid = sid;
@@ -93,22 +95,23 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         return this;
     }
 
-    public ConnectAppUpdater setPermissions(final String permissions) {
+    public ConnectAppUpdater setPermissions(final List<ConnectApp.Permission> permissions) {
         this.permissions = permissions;
         return this;
     }
 
     @Override
     public ConnectApp execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/ConnectApps/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/ConnectApps/" + sid + ".json");
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("ConnectApp update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException(
-                    "ConnectApp update failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return ConnectApp.fromJson(response.getStream(), client.getObjectMapper());
@@ -145,7 +148,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         }
 
         if (permissions != null) {
-            request.addPostParam("Permissions", permissions);
+            request.addPostParam("Permissions", permissions.toString());
         }
 
     }

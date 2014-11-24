@@ -9,6 +9,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 import org.joda.time.DateTime;
 
 public class CallReader extends Reader<Call> {
@@ -42,7 +43,9 @@ public class CallReader extends Reader<Call> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page of Calls", null);
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<Call> result = new Page<>();

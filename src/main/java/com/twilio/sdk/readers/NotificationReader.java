@@ -9,6 +9,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Notification;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 import org.joda.time.DateTime;
 
 public class NotificationReader extends Reader<Notification> {
@@ -19,7 +20,7 @@ public class NotificationReader extends Reader<Notification> {
 
     @Override
     public ResourceSet<Notification> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Notifications.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Notifications.json");
         addQueryParams(request);
 
         Page<Notification> page = pageForRequest(client, request);
@@ -37,7 +38,9 @@ public class NotificationReader extends Reader<Notification> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for Notification");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<Notification> result = new Page<>();

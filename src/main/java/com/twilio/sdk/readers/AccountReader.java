@@ -8,6 +8,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Account;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 
 public class AccountReader extends Reader<Account> {
 
@@ -34,7 +35,9 @@ public class AccountReader extends Reader<Account> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for Account");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<Account> result = new Page<>();

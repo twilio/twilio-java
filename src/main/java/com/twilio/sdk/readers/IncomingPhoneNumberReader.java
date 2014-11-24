@@ -12,7 +12,6 @@ import com.twilio.sdk.resources.RestException;
 
 public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
-    private IncomingPhoneNumber.Status status;
     private String friendlyName;
 
     @Override
@@ -47,20 +46,12 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         return result;
     }
 
-    public IncomingPhoneNumberReader byStatus(final IncomingPhoneNumber.Status status) {
-        this.status = status;
-        return this;
-    }
-
     public IncomingPhoneNumberReader byFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
     private void addQueryParams(final Request request) {
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
         if (friendlyName != null) {
             request.addQueryParam("FriendlyName", friendlyName);
         }

@@ -12,7 +12,6 @@ import com.twilio.sdk.resources.RestException;
 public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
     private final String sid;
-    private IncomingPhoneNumber.Status status;
     private String friendlyName;
 
     public IncomingPhoneNumberUpdater(final String sid) {
@@ -21,11 +20,6 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
     public IncomingPhoneNumberUpdater(final IncomingPhoneNumber target) {
         this(target.getSid());
-    }
-
-    public IncomingPhoneNumberUpdater setStatus(final IncomingPhoneNumber.Status status) {
-        this.status = status;
-        return this;
     }
 
     public IncomingPhoneNumberUpdater setFriendlyName(final String friendlyName) {
@@ -51,10 +45,6 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     private void addPostParams(final Request request) {
-
-        if (status != null) {
-            request.addPostParam("Status", status.toString());
-        }
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);

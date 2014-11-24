@@ -7,6 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
+import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 
@@ -73,8 +74,9 @@ public class CallUpdater extends Updater<Call> {
         if (response == null) {
             throw new ApiConnectionException("Call update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Call update failed: [" + response.getStatusCode() + "] " + response.getContent(),
-                                   null);
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());

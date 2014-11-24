@@ -6,6 +6,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Notification;
+import com.twilio.sdk.resources.RestException;
 
 public class NotificationFetcher extends Fetcher<Notification> {
 
@@ -17,11 +18,13 @@ public class NotificationFetcher extends Fetcher<Notification> {
 
     @Override
     public Notification execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Notifications/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Notifications/" + sid + ".json");
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to find Notification for Sid " + sid);
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return Notification.fromJson(response.getStream(), client.getObjectMapper());

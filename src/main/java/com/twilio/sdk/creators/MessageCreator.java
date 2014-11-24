@@ -7,13 +7,13 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Message;
-
+import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
 public class MessageCreator extends Creator<Message> {
+
     private final String to;
     private final String from;
     private String body;
@@ -22,24 +22,26 @@ public class MessageCreator extends Creator<Message> {
     private String mediaUrl;
 
     public MessageCreator(final String to, final String from) {
-        
+
         this.to = to;
         this.from = from;
     }
 
-    
     public MessageCreator setBody(final String body) {
         this.body = body;
         return this;
     }
+
     public MessageCreator setApplicationSid(final String applicationSid) {
         this.applicationSid = applicationSid;
         return this;
     }
+
     public MessageCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
+
     public MessageCreator setStatusCallback(final String statusCallback) {
         try {
             this.statusCallback = new URI(statusCallback);
@@ -48,6 +50,7 @@ public class MessageCreator extends Creator<Message> {
         }
         return this;
     }
+
     public MessageCreator setMediaUrl(final String mediaUrl) {
         this.mediaUrl = mediaUrl;
         return this;
@@ -55,14 +58,16 @@ public class MessageCreator extends Creator<Message> {
 
     @Override
     public Message execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Messages.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Messages.json");
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Message creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
-            throw new ApiException("Message creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());

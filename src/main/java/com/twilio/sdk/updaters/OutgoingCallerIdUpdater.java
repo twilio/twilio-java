@@ -7,6 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.OutgoingCallerId;
+import com.twilio.sdk.resources.RestException;
 
 public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
@@ -28,15 +29,16 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     @Override
     public OutgoingCallerId execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/OutgoingCallerIds/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json");
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("OutgoingCallerId update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException(
-                    "OutgoingCallerId update failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return OutgoingCallerId.fromJson(response.getStream(), client.getObjectMapper());

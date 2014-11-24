@@ -8,12 +8,13 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.ConnectApp;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 
 public class ConnectAppReader extends Reader<ConnectApp> {
 
     @Override
     public ResourceSet<ConnectApp> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/ConnectApps.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/ConnectApps.json");
 
         Page<ConnectApp> page = pageForRequest(client, request);
 
@@ -30,7 +31,9 @@ public class ConnectAppReader extends Reader<ConnectApp> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for ConnectApp");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<ConnectApp> result = new Page<>();

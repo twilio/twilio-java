@@ -1,56 +1,51 @@
 package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.AuthorizedConnectAppFetcher;
 import com.twilio.sdk.readers.AuthorizedConnectAppReader;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthorizedConnectApp extends SidResource {
 
     private static final long serialVersionUID = -5732541214023360255L;
 
     private final String connectAppSid;
-    private final DateTime dateUpdated;
     private final String connectAppFriendlyName;
     private final String connectAppCompanyName;
     private final String uri;
     private final String accountSid;
-    private final DateTime dateCreated;
     private final String connectAppDescription;
     private final URI connectAppHomepageUrl;
-    private final String permissions;
+    private final List<AuthorizedConnectApp.Permission> permissions;
 
     @JsonCreator
     private AuthorizedConnectApp(@JsonProperty("connect_app_sid") final String connectAppSid,
-                                 @JsonProperty("date_updated") final String dateUpdated,
                                  @JsonProperty("connect_app_friendly_name") final String connectAppFriendlyName,
                                  @JsonProperty("connect_app_company_name") final String connectAppCompanyName,
                                  @JsonProperty("uri") final String uri,
                                  @JsonProperty("account_sid") final String accountSid,
-                                 @JsonProperty("date_created") final String dateCreated,
                                  @JsonProperty("connect_app_description") final String connectAppDescription,
                                  @JsonProperty("connect_app_homepage_url") final URI connectAppHomepageUrl,
-                                 @JsonProperty("permissions") final String permissions) {
+                                 @JsonProperty("permissions") final List<AuthorizedConnectApp.Permission> permissions) {
         this.connectAppSid = connectAppSid;
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
         this.connectAppFriendlyName = connectAppFriendlyName;
         this.connectAppCompanyName = connectAppCompanyName;
         this.uri = uri;
         this.accountSid = accountSid;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
         this.connectAppDescription = connectAppDescription;
         this.connectAppHomepageUrl = connectAppHomepageUrl;
         this.permissions = permissions;
@@ -89,10 +84,6 @@ public class AuthorizedConnectApp extends SidResource {
         return connectAppSid;
     }
 
-    public final DateTime getDateUpdated() {
-        return dateUpdated;
-    }
-
     public final String getConnectAppFriendlyName() {
         return connectAppFriendlyName;
     }
@@ -109,10 +100,6 @@ public class AuthorizedConnectApp extends SidResource {
         return accountSid;
     }
 
-    public final DateTime getDateCreated() {
-        return dateCreated;
-    }
-
     public final String getConnectAppDescription() {
         return connectAppDescription;
     }
@@ -121,7 +108,7 @@ public class AuthorizedConnectApp extends SidResource {
         return connectAppHomepageUrl;
     }
 
-    public final String getPermissions() {
+    public final List<AuthorizedConnectApp.Permission> getPermissions() {
         return permissions;
     }
 
@@ -137,12 +124,10 @@ public class AuthorizedConnectApp extends SidResource {
         AuthorizedConnectApp self = (AuthorizedConnectApp) o;
 
         return (Objects.equals(connectAppSid, self.connectAppSid) &&
-                Objects.equals(dateUpdated, self.dateUpdated) &&
                 Objects.equals(connectAppFriendlyName, self.connectAppFriendlyName) &&
                 Objects.equals(connectAppCompanyName, self.connectAppCompanyName) &&
                 Objects.equals(uri, self.uri) &&
                 Objects.equals(accountSid, self.accountSid) &&
-                Objects.equals(dateCreated, self.dateCreated) &&
                 Objects.equals(connectAppDescription, self.connectAppDescription) &&
                 Objects.equals(connectAppHomepageUrl, self.connectAppHomepageUrl) &&
                 Objects.equals(permissions, self.permissions));
@@ -150,20 +135,18 @@ public class AuthorizedConnectApp extends SidResource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(connectAppSid, dateUpdated, connectAppFriendlyName, connectAppCompanyName, uri, accountSid,
-                            dateCreated, connectAppDescription, connectAppHomepageUrl, permissions);
+        return Objects.hash(connectAppSid, connectAppFriendlyName, connectAppCompanyName, uri, accountSid,
+                            connectAppDescription, connectAppHomepageUrl, permissions);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("connectAppSid", connectAppSid)
-                          .add("dateUpdated", dateUpdated)
                           .add("connectAppFriendlyName", connectAppFriendlyName)
                           .add("connectAppCompanyName", connectAppCompanyName)
                           .add("uri", uri)
                           .add("accountSid", accountSid)
-                          .add("dateCreated", dateCreated)
                           .add("connectAppDescription", connectAppDescription)
                           .add("connectAppHomepageUrl", connectAppHomepageUrl)
                           .add("permissions", permissions)
@@ -173,5 +156,25 @@ public class AuthorizedConnectApp extends SidResource {
     @Override
     public String getSid() {
         return connectAppSid;
+    }
+
+    public enum Permission {
+        GET_ALL("get-all"), POST_ALL("post-all");
+        private final String permission;
+
+        private Permission(final String permission) {
+            this.permission = permission;
+        }
+
+        public String toString() {
+            return permission;
+        }
+
+        @JsonCreator
+        public static Permission forValue(final String value) {
+            String munged = value.replace("-", "_")
+                                 .toUpperCase();
+            return Permission.valueOf(munged);
+        }
     }
 }

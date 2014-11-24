@@ -7,6 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.OutgoingCallerId;
+import com.twilio.sdk.resources.RestException;
 
 public class OutgoingCallerIdDeleter extends Deleter<OutgoingCallerId> {
 
@@ -22,14 +23,15 @@ public class OutgoingCallerIdDeleter extends Deleter<OutgoingCallerId> {
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/OutgoingCallerIds/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("OutgoingCallerId delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
-            throw new ApiException(
-                    "OutgoingCallerId delete failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
     }
 }

@@ -8,6 +8,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Application;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 
 public class ApplicationReader extends Reader<Application> {
 
@@ -15,7 +16,7 @@ public class ApplicationReader extends Reader<Application> {
 
     @Override
     public ResourceSet<Application> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Applications.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Applications.json");
         addQueryParams(request);
 
         Page<Application> page = pageForRequest(client, request);
@@ -33,7 +34,9 @@ public class ApplicationReader extends Reader<Application> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for Application");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<Application> result = new Page<>();

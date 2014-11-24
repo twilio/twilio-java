@@ -8,10 +8,12 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
+import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 
 public class CallCreator extends Creator<Call> {
+
     private final String to;
     private final String from;
     private URI url;
@@ -109,8 +111,9 @@ public class CallCreator extends Creator<Call> {
         if (response == null) {
             throw new ApiConnectionException("Call creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
-            throw new ApiException("Call creation failed: [" + response.getStatusCode() + "] " + response.getContent(),
-                                   null);
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());

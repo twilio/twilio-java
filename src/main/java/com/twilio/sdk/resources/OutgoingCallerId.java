@@ -1,6 +1,7 @@
 package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OutgoingCallerId extends SidResource {
 
     private static final long serialVersionUID = -5732541214023360255L;
@@ -27,6 +29,7 @@ public class OutgoingCallerId extends SidResource {
     private final String phoneNumber;
     private final DateTime dateUpdated;
     private final String friendlyName;
+    private final String uri;
     private final String accountSid;
     private final String sid;
     private final DateTime dateCreated;
@@ -35,12 +38,14 @@ public class OutgoingCallerId extends SidResource {
     private OutgoingCallerId(@JsonProperty("phone_number") final String phoneNumber,
                              @JsonProperty("date_updated") final String dateUpdated,
                              @JsonProperty("friendly_name") final String friendlyName,
+                             @JsonProperty("uri") final String uri,
                              @JsonProperty("account_sid") final String accountSid,
                              @JsonProperty("sid") final String sid,
                              @JsonProperty("date_created") final String dateCreated) {
         this.phoneNumber = phoneNumber;
         this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
         this.friendlyName = friendlyName;
+        this.uri = uri;
         this.accountSid = accountSid;
         this.sid = sid;
         this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
@@ -107,6 +112,10 @@ public class OutgoingCallerId extends SidResource {
         return friendlyName;
     }
 
+    public final String getUri() {
+        return uri;
+    }
+
     public final String getAccountSid() {
         return accountSid;
     }
@@ -133,6 +142,7 @@ public class OutgoingCallerId extends SidResource {
         return (Objects.equals(phoneNumber, self.phoneNumber) &&
                 Objects.equals(dateUpdated, self.dateUpdated) &&
                 Objects.equals(friendlyName, self.friendlyName) &&
+                Objects.equals(uri, self.uri) &&
                 Objects.equals(accountSid, self.accountSid) &&
                 Objects.equals(sid, self.sid) &&
                 Objects.equals(dateCreated, self.dateCreated));
@@ -140,7 +150,7 @@ public class OutgoingCallerId extends SidResource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(phoneNumber, dateUpdated, friendlyName, accountSid, sid, dateCreated);
+        return Objects.hash(phoneNumber, dateUpdated, friendlyName, uri, accountSid, sid, dateCreated);
     }
 
     @Override
@@ -149,6 +159,7 @@ public class OutgoingCallerId extends SidResource {
                           .add("phoneNumber", phoneNumber)
                           .add("dateUpdated", dateUpdated)
                           .add("friendlyName", friendlyName)
+                          .add("uri", uri)
                           .add("accountSid", accountSid)
                           .add("sid", sid)
                           .add("dateCreated", dateCreated)

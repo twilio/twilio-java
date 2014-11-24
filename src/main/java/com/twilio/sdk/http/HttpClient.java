@@ -6,6 +6,7 @@ import org.apache.commons.codec.binary.Base64;
 import java.io.UnsupportedEncodingException;
 
 public abstract class HttpClient {
+
     public static final int ANY_500 = -500;
     public static final int ANY_400 = -400;
     public static final int ANY_300 = -300;
@@ -20,7 +21,8 @@ public abstract class HttpClient {
         return reliableRequest(request, RETRY_CODES, RETRIES, DELAY_MILLIS);
     }
 
-    public Response reliableRequest(final Request request, final int[] retryCodes, int retries, final long delayMillis) {
+    public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
+                                    final long delayMillis) {
         Response response = null;
         while (retries > 0) {
             response = makeRequest(request);
@@ -86,7 +88,7 @@ public abstract class HttpClient {
         return false;
     }
 
-    public abstract Response makeRequest(Request request);
+    public abstract Response makeRequest(final Request request);
 
     protected String authentication(final String username, final String password) {
         String credentials = username + ":" + password;

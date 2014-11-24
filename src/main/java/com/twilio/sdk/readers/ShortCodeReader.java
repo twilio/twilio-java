@@ -7,6 +7,7 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.ShortCode;
 
 public class ShortCodeReader extends Reader<ShortCode> {
@@ -16,7 +17,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     @Override
     public ResourceSet<ShortCode> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/ShortCodes.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/SMS/ShortCodes.json");
         addQueryParams(request);
 
         Page<ShortCode> page = pageForRequest(client, request);
@@ -34,7 +35,9 @@ public class ShortCodeReader extends Reader<ShortCode> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for ShortCode");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<ShortCode> result = new Page<>();

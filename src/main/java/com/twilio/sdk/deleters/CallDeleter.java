@@ -7,6 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Call;
+import com.twilio.sdk.resources.RestException;
 
 public class CallDeleter extends Deleter<Call> {
 
@@ -28,7 +29,9 @@ public class CallDeleter extends Deleter<Call> {
         if (response == null) {
             throw new ApiConnectionException("Call delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
-            throw new ApiException("Call delete failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
     }
 }

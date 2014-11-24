@@ -72,4 +72,5 @@ public class ConferenceTest {
         Conference.list()
                   .execute();
     }
+
 }

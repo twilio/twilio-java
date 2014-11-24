@@ -30,6 +30,22 @@ public class OutgoingCallerIdTest {
     }
 
     @Test
+    public void testDelete() throws Exception {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/sid.json".replace(
+                    "{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        OutgoingCallerId.delete("sid")
+                        .execute();
+    }
+
+    @Test
     public void testFetch() throws Exception {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
@@ -70,6 +86,22 @@ public class OutgoingCallerIdTest {
         }};
 
         OutgoingCallerId.list()
+                        .execute();
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response(INSTANCE_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/sid.json".replace(
+                    "{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        OutgoingCallerId.update("sid")
                         .execute();
     }
 }

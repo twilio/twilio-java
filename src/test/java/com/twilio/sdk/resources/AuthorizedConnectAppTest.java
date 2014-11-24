@@ -72,4 +72,5 @@ public class AuthorizedConnectAppTest {
         AuthorizedConnectApp.list()
                             .execute();
     }
+
 }

@@ -30,6 +30,22 @@ public class TranscriptionTest {
     }
 
     @Test
+    public void testDelete() throws Exception {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/Transcriptions/sid.json".replace(
+                    "{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        Transcription.delete("sid")
+                     .execute();
+    }
+
+    @Test
     public void testFetch() throws Exception {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
@@ -72,4 +88,5 @@ public class TranscriptionTest {
         Transcription.list()
                      .execute();
     }
+
 }

@@ -72,4 +72,20 @@ public class ConnectAppTest {
         ConnectApp.list()
                   .execute();
     }
+
+    @Test
+    public void testUpdate() throws Exception {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response(INSTANCE_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/ConnectApps/sid.json".replace(
+                    "{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        ConnectApp.update("sid")
+                  .execute();
+    }
 }

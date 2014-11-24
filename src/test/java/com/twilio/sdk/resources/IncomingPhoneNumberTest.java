@@ -29,20 +29,30 @@ public class IncomingPhoneNumberTest {
         Twilio.init("AC123", "AUTH TOKEN");
     }
 
+    
+    @Test
+    public void testDelete() throws Exception {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            request.constructURL(); result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/sid.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
+        }};
+
+        IncomingPhoneNumber.delete("sid").execute();
+    }
+
+    
     @Test
     public void testFetch() throws Exception {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(INSTANCE_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
-            request.constructURL();
-            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/sid.json".replace(
-                    "{AccountSid}", "AC123");
-            twilioRestClient.getObjectMapper();
-            result = new ObjectMapper();
+            request.constructURL(); result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/sid.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.fetch("sid")
-                           .execute();
+        IncomingPhoneNumber.fetch("sid").execute();
     }
 
     @Test
@@ -52,40 +62,35 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber instance = IncomingPhoneNumber.fromJson(INSTANCE_JSON_RESPONSE, Twilio.getRestClient()
-                                                                                                  .getObjectMapper());
+        IncomingPhoneNumber instance = IncomingPhoneNumber.fromJson(INSTANCE_JSON_RESPONSE, Twilio.getRestClient().getObjectMapper());
         assertNotNull(instance);
     }
 
+    
     @Test
     public void testList() throws Exception {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(LIST_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
             request.constructURL();
-            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json".replace(
-                    "{AccountSid}", "AC123");
-            twilioRestClient.getObjectMapper();
-            result = new ObjectMapper();
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.list()
-                           .execute();
+        IncomingPhoneNumber.list().execute();
     }
 
+    
     @Test
     public void testUpdate() throws Exception {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(INSTANCE_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
-            request.constructURL();
-            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/sid.json".replace(
-                    "{AccountSid}", "AC123");
-            twilioRestClient.getObjectMapper();
-            result = new ObjectMapper();
+            request.constructURL(); result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/sid.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
         }};
 
         IncomingPhoneNumber.update("sid")
-                           .execute();
+            .execute();
     }
 }

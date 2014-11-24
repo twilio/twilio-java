@@ -1,5 +1,6 @@
 package com.twilio.sdk.readers;
 
+
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -10,8 +11,9 @@ import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
 
-public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
+public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
+    private String phoneNumber;
     private String friendlyName;
 
     @Override
@@ -40,10 +42,14 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         }
 
         Page<IncomingPhoneNumber> result = new Page<>();
-        result.deserialize("incoming_phone_numbers", response.getContent(), IncomingPhoneNumber.class,
-                           client.getObjectMapper());
+        result.deserialize("incoming_phone_numbers", response.getContent(), IncomingPhoneNumber.class, client.getObjectMapper());
 
         return result;
+    }
+
+    public IncomingPhoneNumberReader byPhoneNumber(final String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
 
     public IncomingPhoneNumberReader byFriendlyName(final String friendlyName) {
@@ -52,8 +58,11 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     private void addQueryParams(final Request request) {
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-    }
+        if (phoneNumber != null) {
+                request.addQueryParam("PhoneNumber", phoneNumber);
+                }
+            if (friendlyName != null) {
+                request.addQueryParam("FriendlyName", friendlyName);
+                }
+            }
 }

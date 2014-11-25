@@ -6,19 +6,18 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.IncomingPhoneNumber;
-import com.twilio.sdk.resources.Page;
-import com.twilio.sdk.resources.ResourceSet;
-import com.twilio.sdk.resources.RestException;
+import com.twilio.sdk.resources.*;
 
 
 public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     private String phoneNumber;
     private String friendlyName;
+    private PhoneNumberType type;
 
     @Override
     public ResourceSet<IncomingPhoneNumber> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/IncomingPhoneNumbers.json");
+        String url = "/Accounts/{AccountSid}/IncomingPhoneNumbers" + (type != null ? "/" + type.toString() : "") + ".json";
+        Request request = new Request(HttpMethod.GET, url);
         addQueryParams(request);
 
         Page<IncomingPhoneNumber> page = pageForRequest(client, request);
@@ -57,12 +56,17 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberReader byType(final PhoneNumberType type) {
+        this.type = type;
+        return this;
+    }
+
     private void addQueryParams(final Request request) {
         if (phoneNumber != null) {
-                request.addQueryParam("PhoneNumber", phoneNumber);
-                }
-            if (friendlyName != null) {
-                request.addQueryParam("FriendlyName", friendlyName);
-                }
-            }
+            request.addQueryParam("PhoneNumber", phoneNumber);
+        }
+        if (friendlyName != null) {
+            request.addQueryParam("FriendlyName", friendlyName);
+        }
+    }
 }

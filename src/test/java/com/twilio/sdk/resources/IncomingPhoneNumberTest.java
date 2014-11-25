@@ -80,7 +80,45 @@ public class IncomingPhoneNumberTest {
         IncomingPhoneNumber.list().execute();
     }
 
-    
+    @Test
+    public void testListLocal() throws Exception {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response(LIST_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
+        }};
+
+        IncomingPhoneNumber.list().byType(PhoneNumberType.LOCAL).execute();
+    }
+
+    @Test
+    public void testListMobile() throws Exception {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response(LIST_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
+        }};
+
+        IncomingPhoneNumber.list().byType(PhoneNumberType.MOBILE).execute();
+    }
+
+    @Test
+    public void testListTollFree() throws Exception {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response(LIST_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
+        }};
+
+        IncomingPhoneNumber.list().byType(PhoneNumberType.TOLL_FREE).execute();
+    }
+
     @Test
     public void testUpdate() throws Exception {
         new NonStrictExpectations() {{

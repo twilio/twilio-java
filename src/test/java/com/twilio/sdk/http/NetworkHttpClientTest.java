@@ -1,5 +1,6 @@
 package com.twilio.sdk.http;
 
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import mockit.Expectations;
 import mockit.Mocked;
@@ -136,6 +137,46 @@ public class NetworkHttpClientTest {
 
         assertEquals(resp.getStatusCode(), 201);
         assertEquals(resp.getContent(), "frobozz");
+    }
+
+    @Test
+    public void testReliableRequest() {
+        final HttpClient httpClient = new NetworkHttpClient();
+        Request request = new Request(HttpMethod.GET, "/uri");
+
+        new NonStrictExpectations(httpClient) {{
+            httpClient.makeRequest((Request) any);
+            result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+        }};
+
+        httpClient.reliableRequest(request);
+    }
+
+    @Test
+    public void testReliableRequestWithRetries() {
+        final HttpClient httpClient = new NetworkHttpClient();
+        Request request = new Request(HttpMethod.GET, "/uri");
+
+        new NonStrictExpectations(httpClient) {{
+            httpClient.makeRequest((Request) any);
+            result = null;
+            times = 3;
+        }};
+
+        httpClient.reliableRequest(request);
+    }
+
+    @Test
+    public void testReliableRequestWithRetries100() throws InterruptedException {
+        final HttpClient httpClient = new NetworkHttpClient();
+        Request request = new Request(HttpMethod.GET, "/uri");
+
+        new NonStrictExpectations(httpClient) {{
+            httpClient.makeRequest((Request) any);
+            result = new Response("", 500);
+        }};
+
+        httpClient.reliableRequest(request);
     }
 
     @Test

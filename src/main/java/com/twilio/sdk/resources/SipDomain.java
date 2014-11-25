@@ -39,7 +39,7 @@ public class SipDomain extends SidResource {
     private final HttpMethod voiceMethod;
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceFallbackMethod;
-    private final URI voiceStatusCallback;
+    private final URI voiceStatusCallbackUrl;
     private final HttpMethod voiceStatusCallbackMethod;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
@@ -57,7 +57,7 @@ public class SipDomain extends SidResource {
                       @JsonProperty("voice_method") final HttpMethod voiceMethod,
                       @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
                       @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod,
-                      @JsonProperty("voice_status_callback") final URI voiceStatusCallback,
+                      @JsonProperty("voice_status_callback_url") final URI voiceStatusCallbackUrl,
                       @JsonProperty("voice_status_callback_method") final HttpMethod voiceStatusCallbackMethod,
                       @JsonProperty("date_created") final String dateCreated,
                       @JsonProperty("date_updated") final String dateUpdated,
@@ -73,7 +73,7 @@ public class SipDomain extends SidResource {
         this.voiceMethod = voiceMethod;
         this.voiceFallbackUrl = voiceFallbackUrl;
         this.voiceFallbackMethod = voiceFallbackMethod;
-        this.voiceStatusCallback = voiceStatusCallback;
+        this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;
         this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
         this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
@@ -82,10 +82,12 @@ public class SipDomain extends SidResource {
     }
 
     private static List<AuthType> parseAuthTypes(String serialized) {
-        String[] types = serialized.split(",");
         ArrayList<AuthType> parsed = new ArrayList<>();
+        String[] types = serialized.split(",");
         for (String t : types) {
-            parsed.add(AuthType.valueOf(t));
+            if (!t.isEmpty()) {
+                parsed.add(AuthType.valueOf(t));
+            }
         }
 
         return parsed;
@@ -164,7 +166,7 @@ public class SipDomain extends SidResource {
     }
 
     public final URI getVoiceStatusCallback() {
-        return voiceStatusCallback;
+        return voiceStatusCallbackUrl;
     }
 
     public final HttpMethod getVoiceStatusCallbackMethod() {
@@ -227,7 +229,7 @@ public class SipDomain extends SidResource {
                 Objects.equals(voiceMethod, other.voiceMethod) &&
                 Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
                 Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
-                Objects.equals(voiceStatusCallback, other.voiceStatusCallback) &&
+                Objects.equals(voiceStatusCallbackUrl, other.voiceStatusCallbackUrl) &&
                 Objects.equals(voiceStatusCallbackMethod, other.voiceStatusCallbackMethod) &&
                 Objects.equals(dateCreated, other.dateCreated) &&
                 Objects.equals(dateUpdated, other.dateUpdated) &&
@@ -237,7 +239,7 @@ public class SipDomain extends SidResource {
     @Override
     public int hashCode() {
         return Objects.hash(sid, friendlyName, accountSid, apiVersion, domainName, voiceUrl, voiceMethod,
-                            voiceFallbackUrl, voiceFallbackMethod, voiceStatusCallback, voiceStatusCallbackMethod,
+                            voiceFallbackUrl, voiceFallbackMethod, voiceStatusCallbackUrl, voiceStatusCallbackMethod,
                             dateCreated, dateUpdated, uri);
     }
 

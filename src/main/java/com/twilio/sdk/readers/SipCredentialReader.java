@@ -45,7 +45,7 @@ public class SipCredentialReader extends Reader<SipCredential> {
         }
 
         Page<SipCredential> result = new Page<>();
-        result.deserialize("SipCredentials", response.getContent(), SipCredential.class, client.getObjectMapper());
+        result.deserialize("credentials", response.getContent(), SipCredential.class, client.getObjectMapper());
 
         return result;
     }

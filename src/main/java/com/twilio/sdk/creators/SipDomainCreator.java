@@ -17,7 +17,7 @@ public class SipDomainCreator extends Creator<SipDomain> {
     private HttpMethod voiceMethod;
     private URI voiceFallbackUrl;
     private HttpMethod voiceFallbackMethod;
-    private URI voiceStatusCallback;
+    private URI voiceStatusCallbackUrl;
     private HttpMethod voiceStatusCallbackMethod;
 
     public SipDomainCreator(final String domainName) {
@@ -49,8 +49,8 @@ public class SipDomainCreator extends Creator<SipDomain> {
         return this;
     }
 
-    public SipDomainCreator setVoiceStatusCallback(URI voiceStatusCallback) {
-        this.voiceStatusCallback = voiceStatusCallback;
+    public SipDomainCreator setVoiceStatusCallbackUrl(URI voiceStatusCallbackUrl) {
+        this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         return this;
     }
 
@@ -98,8 +98,8 @@ public class SipDomainCreator extends Creator<SipDomain> {
             request.addPostParam("VoiceFallbackMethod", voiceFallbackMethod.toString());
         }
 
-        if (voiceStatusCallback != null) {
-            request.addPostParam("VoiceStatusCallback", voiceStatusCallback.toString());
+        if (voiceStatusCallbackUrl != null) {
+            request.addPostParam("VoiceStatusCallback", voiceStatusCallbackUrl.toString());
         }
 
         if (voiceStatusCallbackMethod != null) {

@@ -34,7 +34,7 @@ public class SipDomainReader extends Reader<SipDomain> {
         }
 
         Page<SipDomain> result = new Page<>();
-        result.deserialize("SipDomains", response.getContent(), SipDomain.class, client.getObjectMapper());
+        result.deserialize("domains", response.getContent(), SipDomain.class, client.getObjectMapper());
 
         return result;
     }

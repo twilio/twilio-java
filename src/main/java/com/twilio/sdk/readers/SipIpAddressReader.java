@@ -45,7 +45,7 @@ public class SipIpAddressReader extends Reader<SipIpAddress> {
         }
 
         Page<SipIpAddress> result = new Page<>();
-        result.deserialize("SipIpAddresss", response.getContent(), SipIpAddress.class, client.getObjectMapper());
+        result.deserialize("ip_addresses", response.getContent(), SipIpAddress.class, client.getObjectMapper());
 
         return result;
     }

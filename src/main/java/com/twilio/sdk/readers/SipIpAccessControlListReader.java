@@ -34,7 +34,7 @@ public class SipIpAccessControlListReader extends Reader<SipIpAccessControlList>
         }
 
         Page<SipIpAccessControlList> result = new Page<>();
-        result.deserialize("SipIpAccessControlLists", response.getContent(), SipIpAccessControlList.class, client.getObjectMapper());
+        result.deserialize("ip_access_control_lists", response.getContent(), SipIpAccessControlList.class, client.getObjectMapper());
 
         return result;
     }

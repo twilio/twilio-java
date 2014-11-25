@@ -37,7 +37,7 @@ public class SipCredentialListReader extends Reader<SipCredentialList> {
         }
 
         Page<SipCredentialList> result = new Page<>();
-        result.deserialize("sip_credential_lists", response.getContent(), SipCredentialList.class, client.getObjectMapper());
+        result.deserialize("credential_lists", response.getContent(), SipCredentialList.class, client.getObjectMapper());
 
         return result;
     }

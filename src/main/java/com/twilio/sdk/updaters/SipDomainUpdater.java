@@ -19,7 +19,7 @@ public class SipDomainUpdater extends Updater<SipDomain> {
     private HttpMethod voiceMethod;
     private URI voiceFallbackUrl;
     private HttpMethod voiceFallbackMethod;
-    private URI voiceStatusCallback;
+    private URI voiceStatusCallbackUrl;
     private HttpMethod voiceStatusCallbackMethod;
 
     public SipDomainUpdater(final String sid) {
@@ -60,8 +60,8 @@ public class SipDomainUpdater extends Updater<SipDomain> {
         return this;
     }
 
-    public SipDomainUpdater setVoiceStatusCallback(URI voiceStatusCallback) {
-        this.voiceStatusCallback = voiceStatusCallback;
+    public SipDomainUpdater setVoiceStatusCallbackUrl(URI voiceStatusCallbackUrl) {
+        this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         return this;
     }
 
@@ -111,8 +111,8 @@ public class SipDomainUpdater extends Updater<SipDomain> {
             request.addPostParam("VoiceFallbackMethod", voiceFallbackMethod.toString());
         }
 
-        if (voiceStatusCallback != null) {
-            request.addPostParam("VoiceStatusCallback", voiceStatusCallback.toString());
+        if (voiceStatusCallbackUrl != null) {
+            request.addPostParam("VoiceStatusCallback", voiceStatusCallbackUrl.toString());
         }
 
         if (voiceStatusCallbackMethod != null) {

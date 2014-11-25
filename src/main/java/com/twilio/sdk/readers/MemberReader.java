@@ -46,7 +46,7 @@ public class MemberReader extends Reader<Member> {
         }
 
         Page<Member> result = new Page<>();
-        result.deserialize("members", response.getContent(), Member.class, client.getObjectMapper());
+        result.deserialize("queue_members", response.getContent(), Member.class, client.getObjectMapper());
 
         return result;
     }

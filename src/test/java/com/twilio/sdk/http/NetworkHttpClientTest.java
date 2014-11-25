@@ -1,32 +1,42 @@
 package com.twilio.sdk.http;
 
+import com.twilio.sdk.exceptions.ApiConnectionException;
 import mockit.Expectations;
 import mockit.Mocked;
+import mockit.NonStrictExpectations;
 import mockit.Tested;
-import mockit.integration.junit4.JMockit;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-@RunWith(JMockit.class)
 public class NetworkHttpClientTest {
+
     @Tested
-    NetworkHttpClient tested;
+    private NetworkHttpClient tested;
+
     @Mocked
-    Request mockRequest;
+    private Request mockRequest;
+
     @Mocked
-    URL mockUrl;
+    private URL mockUrl;
+
     @Mocked
-    HttpURLConnection mockConn;
+    private HttpURLConnection mockConn;
+
     @Mocked
-    OutputStream mockOutputStream;
+    private OutputStream mockOutputStream;
+
     @Mocked
-    OutputStreamWriter mockWriter;
+    private OutputStreamWriter mockWriter;
 
     @Test
     public void testGet() throws IOException {
@@ -64,6 +74,19 @@ public class NetworkHttpClientTest {
 
         assertEquals(resp.getStatusCode(), 200);
         assertEquals(resp.getContent(), "frobozz");
+    }
+
+    @Test(expected = ApiConnectionException.class)
+    public void testMakeRequestIOException() throws IOException {
+        NetworkHttpClient client = new NetworkHttpClient();
+
+        new NonStrictExpectations() {{
+            mockUrl.openConnection();
+            result = new IOException();
+        }};
+
+        client.makeRequest(new Request(HttpMethod.GET, "http://www.example.com"));
+        fail("ApiConnectionException was expected");
     }
 
     @Test

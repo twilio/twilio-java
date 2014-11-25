@@ -21,6 +21,10 @@ public class Twilio {
     private static TwilioRestClient restClient;
     private static ListeningExecutorService executorService;
 
+    private Twilio() {
+
+    }
+
     public static void init(final String accountSid, final String authToken) {
         Twilio.setAccountSid(accountSid);
         Twilio.setAuthToken(authToken);

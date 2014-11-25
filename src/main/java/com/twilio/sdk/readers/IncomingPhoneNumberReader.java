@@ -1,5 +1,6 @@
 package com.twilio.sdk.readers;
 
+
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -7,16 +8,20 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.IncomingPhoneNumber;
 import com.twilio.sdk.resources.Page;
+import com.twilio.sdk.resources.PhoneNumberType;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
 
-public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
+public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
+    private String phoneNumber;
     private String friendlyName;
+    private PhoneNumberType type;
 
     @Override
     public ResourceSet<IncomingPhoneNumber> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/IncomingPhoneNumbers.json");
+        String url = "/Accounts/{AccountSid}/IncomingPhoneNumbers" + (type != null ? "/" + type.toString() : "") + ".json";
+        Request request = new Request(HttpMethod.GET, url);
         addQueryParams(request);
 
         Page<IncomingPhoneNumber> page = pageForRequest(client, request);
@@ -40,10 +45,14 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         }
 
         Page<IncomingPhoneNumber> result = new Page<>();
-        result.deserialize("incoming_phone_numbers", response.getContent(), IncomingPhoneNumber.class,
-                           client.getObjectMapper());
+        result.deserialize("incoming_phone_numbers", response.getContent(), IncomingPhoneNumber.class, client.getObjectMapper());
 
         return result;
+    }
+
+    public IncomingPhoneNumberReader byPhoneNumber(final String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
 
     public IncomingPhoneNumberReader byFriendlyName(final String friendlyName) {
@@ -51,7 +60,15 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberReader byType(final PhoneNumberType type) {
+        this.type = type;
+        return this;
+    }
+
     private void addQueryParams(final Request request) {
+        if (phoneNumber != null) {
+            request.addQueryParam("PhoneNumber", phoneNumber);
+        }
         if (friendlyName != null) {
             request.addQueryParam("FriendlyName", friendlyName);
         }

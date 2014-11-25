@@ -11,6 +11,8 @@ import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
 
@@ -19,12 +21,12 @@ public class MessageCreator extends Creator<Message> {
     private String body;
     private String applicationSid;
     private URI statusCallback;
-    private String mediaUrl;
+    private List<URI> mediaUrls;
 
     public MessageCreator(final String to, final String from) {
-
         this.to = to;
         this.from = from;
+        this.mediaUrls = new ArrayList<URI>();
     }
 
     public MessageCreator setBody(final String body) {
@@ -52,7 +54,11 @@ public class MessageCreator extends Creator<Message> {
     }
 
     public MessageCreator setMediaUrl(final String mediaUrl) {
-        this.mediaUrl = mediaUrl;
+        try {
+            this.mediaUrls.add(new URI(mediaUrl));
+        } catch (final URISyntaxException e) {
+            throw new ApiException("Invalid URI", e);
+        }
         return this;
     }
 
@@ -77,20 +83,26 @@ public class MessageCreator extends Creator<Message> {
         if (to != null) {
             request.addPostParam("To", to);
         }
+
         if (from != null) {
             request.addPostParam("From", from);
         }
         if (body != null) {
             request.addPostParam("Body", body);
         }
+
         if (applicationSid != null) {
             request.addPostParam("ApplicationSid", applicationSid);
         }
+
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
         }
-        if (mediaUrl != null) {
-            request.addPostParam("MediaUrl", mediaUrl);
+
+        if (!mediaUrls.isEmpty()) {
+            for (URI mediaUrl : mediaUrls) {
+                request.addPostParam("MediaUrl", mediaUrl.toString());
+            }
         }
     }
 

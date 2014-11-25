@@ -6,7 +6,11 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.*;
+import com.twilio.sdk.resources.IncomingPhoneNumber;
+import com.twilio.sdk.resources.Page;
+import com.twilio.sdk.resources.PhoneNumberType;
+import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 
 
 public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {

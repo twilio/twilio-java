@@ -15,17 +15,14 @@ import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.SipCredentialFetcher;
 import com.twilio.sdk.fetchers.SipCredentialListFetcher;
-
 import com.twilio.sdk.readers.SipCredentialListReader;
 import com.twilio.sdk.readers.SipCredentialReader;
 import com.twilio.sdk.updaters.SipCredentialListUpdater;
-
 import com.twilio.sdk.updaters.SipCredentialUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.Map;
 import java.util.Objects;
 
@@ -129,18 +126,23 @@ public class SipCredentialList extends SidResource {
     public final DateTime getDateUpdated() {
         return dateUpdated;
     }
+
     public final String getFriendlyName() {
         return friendlyName;
     }
+
     public final String getUri() {
         return uri;
     }
+
     public final String getAccountSid() {
         return accountSid;
     }
+
     public final String getSid() {
         return sid;
     }
+
     public final DateTime getDateCreated() {
         return dateCreated;
     }
@@ -160,38 +162,28 @@ public class SipCredentialList extends SidResource {
 
         SipCredentialList self = (SipCredentialList) o;
 
-        return (
-            Objects.equals(dateUpdated, self.dateUpdated) &&
-            Objects.equals(friendlyName, self.friendlyName) &&
-            Objects.equals(uri, self.uri) &&
-            Objects.equals(accountSid, self.accountSid) &&
-            Objects.equals(sid, self.sid) &&
-            Objects.equals(dateCreated, self.dateCreated) 
-        );
+        return (Objects.equals(dateUpdated, self.dateUpdated) &&
+                Objects.equals(friendlyName, self.friendlyName) &&
+                Objects.equals(uri, self.uri) &&
+                Objects.equals(accountSid, self.accountSid) &&
+                Objects.equals(sid, self.sid) &&
+                Objects.equals(dateCreated, self.dateCreated));
     }
 
     @Override
     public int hashCode() {
-        return Objects
-                .hash(
-                dateUpdated,
-                friendlyName,
-                uri,
-                accountSid,
-                sid,
-                dateCreated
-                );
+        return Objects.hash(dateUpdated, friendlyName, uri, accountSid, sid, dateCreated);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                        .add("dateUpdated", dateUpdated)
-                        .add("friendlyName", friendlyName)
-                        .add("uri", uri)
-                        .add("accountSid", accountSid)
-                        .add("sid", sid)
-                        .add("dateCreated", dateCreated)
-                        .toString();
+                          .add("dateUpdated", dateUpdated)
+                          .add("friendlyName", friendlyName)
+                          .add("uri", uri)
+                          .add("accountSid", accountSid)
+                          .add("sid", sid)
+                          .add("dateCreated", dateCreated)
+                          .toString();
     }
 }

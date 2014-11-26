@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.SipDomainCreator;
 import com.twilio.sdk.deleters.SipDomainDeleter;
@@ -47,13 +46,11 @@ public class SipDomain extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private SipDomain(@JsonProperty("sid") final String sid,
-                      @JsonProperty("friendly_name") final String friendlyName,
+    private SipDomain(@JsonProperty("sid") final String sid, @JsonProperty("friendly_name") final String friendlyName,
                       @JsonProperty("account_sid") final String accountSid,
                       @JsonProperty("api_version") final String apiVersion,
                       @JsonProperty("domain_name") final String domainName,
-                      @JsonProperty("auth_type") final String authType,
-                      @JsonProperty("voice_url") final URI voiceUrl,
+                      @JsonProperty("auth_type") final String authType, @JsonProperty("voice_url") final URI voiceUrl,
                       @JsonProperty("voice_method") final HttpMethod voiceMethod,
                       @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
                       @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod,

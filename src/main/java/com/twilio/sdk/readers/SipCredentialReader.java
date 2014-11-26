@@ -5,9 +5,9 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.SipCredential;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.SipCredential;
 import com.twilio.sdk.resources.SipCredentialList;
 
 public class SipCredentialReader extends Reader<SipCredential> {
@@ -24,7 +24,9 @@ public class SipCredentialReader extends Reader<SipCredential> {
 
     @Override
     public ResourceSet<SipCredential> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/SIP/CredentialLists/" + credentialListSid + "Credentials.json");
+        Request request = new Request(HttpMethod.GET,
+                                      "/Accounts/{AccountSid}/SIP/CredentialLists/" + credentialListSid +
+                                      "Credentials.json");
 
         Page<SipCredential> page = pageForRequest(client, request);
 

@@ -6,8 +6,8 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.SipIpAddress;
 import com.twilio.sdk.resources.SipIpAccessControlList;
+import com.twilio.sdk.resources.SipIpAddress;
 
 public class SipIpAddressCreator extends Creator<SipIpAddress> {
 
@@ -27,14 +27,17 @@ public class SipIpAddressCreator extends Creator<SipIpAddress> {
 
     @Override
     public SipIpAddress execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/SIP/IpAccessControlLists/ " + ipAccessControlListSid + "/IpAddresses.json");
+        Request request = new Request(HttpMethod.POST,
+                                      "/Accounts/{AccountSid}/SIP/IpAccessControlLists/ " + ipAccessControlListSid +
+                                      "/IpAddresses.json");
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("SIP IpAddress creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
-            throw new ApiException("SIP IpAddress creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException(
+                    "SIP IpAddress creation failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
 
         return SipIpAddress.fromJson(response.getStream(), client.getObjectMapper());

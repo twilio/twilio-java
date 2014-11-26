@@ -48,7 +48,7 @@ public class SipIpAccessControlList extends SidResource {
         this.subresourceUris = subresourceUris;
         this.uri = uri;
     }
-    
+
     public static SipIpAccessControlListCreator create(final String domainName) {
         return new SipIpAccessControlListCreator(domainName);
     }
@@ -104,7 +104,7 @@ public class SipIpAccessControlList extends SidResource {
     public String getUri() {
         return uri;
     }
-    
+
     public static SipIpAccessControlList fromJson(final String json, final ObjectMapper objectMapper) {
         try {
             return objectMapper.readValue(json, SipIpAccessControlList.class);

@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.Objects;
 
 public class SipIpAddress extends SidResource {
+
     private static final long serialVersionUID = -5732541214023360255L;
 
     private final String sid;
@@ -33,14 +34,12 @@ public class SipIpAddress extends SidResource {
     private final String uri;
 
     @JsonCreator
-    public SipIpAddress(@JsonProperty("sid") final String sid,
-                        @JsonProperty("account_sid") final String accountSid,
+    public SipIpAddress(@JsonProperty("sid") final String sid, @JsonProperty("account_sid") final String accountSid,
                         @JsonProperty("ip_access_control_list_sid") final String ipAccessControlListSid,
                         @JsonProperty("friendly_name") final String friendlyName,
                         @JsonProperty("ip_address") final String ipAddress,
                         @JsonProperty("date_created") final String dateCreated,
-                        @JsonProperty("date_updated") final String dateUpdated,
-                        @JsonProperty("uri") final String uri) {
+                        @JsonProperty("date_updated") final String dateUpdated, @JsonProperty("uri") final String uri) {
 
         this.sid = sid;
         this.accountSid = accountSid;
@@ -52,11 +51,13 @@ public class SipIpAddress extends SidResource {
         this.uri = uri;
     }
 
-    public static SipIpAddressCreator create(final String IpAddressListSid, final String friendlyName, final String ipAddress) {
+    public static SipIpAddressCreator create(final String IpAddressListSid, final String friendlyName,
+                                             final String ipAddress) {
         return new SipIpAddressCreator(IpAddressListSid, friendlyName, ipAddress);
     }
 
-    public static SipIpAddressCreator create(final SipIpAccessControlList target, final String friendlyName, final String ipAddress) {
+    public static SipIpAddressCreator create(final SipIpAccessControlList target, final String friendlyName,
+                                             final String ipAddress) {
         return new SipIpAddressCreator(target, friendlyName, ipAddress);
     }
 
@@ -163,44 +164,34 @@ public class SipIpAddress extends SidResource {
 
         SipIpAddress self = (SipIpAddress) o;
 
-        return (
-                Objects.equals(dateUpdated, self.dateUpdated) &&
+        return (Objects.equals(dateUpdated, self.dateUpdated) &&
                 Objects.equals(ipAddress, self.ipAddress) &&
                 Objects.equals(friendlyName, self.friendlyName) &&
                 Objects.equals(uri, self.uri) &&
                 Objects.equals(accountSid, self.accountSid) &&
                 Objects.equals(ipAccessControlListSid, self.ipAccessControlListSid) &&
                 Objects.equals(sid, self.sid) &&
-                Objects.equals(dateCreated, self.dateCreated)
-        );
+                Objects.equals(dateCreated, self.dateCreated));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                dateUpdated,
-                ipAddress,
-                friendlyName,
-                uri,
-                accountSid,
-                ipAccessControlListSid,
-                sid,
-                dateCreated
-        );
+        return Objects.hash(dateUpdated, ipAddress, friendlyName, uri, accountSid, ipAccessControlListSid, sid,
+                            dateCreated);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("sid", sid)
-                .add("accountSid", accountSid)
-                .add("ipAccessControlListSid", ipAccessControlListSid)
-                .add("ipAddress", ipAddress)
-                .add("friendlyName", friendlyName)
-                .add("dateCreated", dateCreated)
-                .add("dateUpdated", dateUpdated)
-                .add("uri", uri)
-                .toString();
+                          .add("sid", sid)
+                          .add("accountSid", accountSid)
+                          .add("ipAccessControlListSid", ipAccessControlListSid)
+                          .add("ipAddress", ipAddress)
+                          .add("friendlyName", friendlyName)
+                          .add("dateCreated", dateCreated)
+                          .add("dateUpdated", dateUpdated)
+                          .add("uri", uri)
+                          .toString();
     }
 
 }

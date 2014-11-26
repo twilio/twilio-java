@@ -8,8 +8,8 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.SipIpAccessControlList;
 
-
 public class SipIpAccessControlListDeleter extends Deleter<SipIpAccessControlList> {
+
     private final String sid;
 
     public SipIpAccessControlListDeleter(String sid) {
@@ -22,7 +22,8 @@ public class SipIpAccessControlListDeleter extends Deleter<SipIpAccessControlLis
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE,
+                                      "/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {

@@ -5,9 +5,9 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.SipIpAccessControlList;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.SipIpAccessControlList;
 
 public class SipIpAccessControlListReader extends Reader<SipIpAccessControlList> {
 
@@ -34,7 +34,8 @@ public class SipIpAccessControlListReader extends Reader<SipIpAccessControlList>
         }
 
         Page<SipIpAccessControlList> result = new Page<>();
-        result.deserialize("ip_access_control_lists", response.getContent(), SipIpAccessControlList.class, client.getObjectMapper());
+        result.deserialize("ip_access_control_lists", response.getContent(), SipIpAccessControlList.class,
+                           client.getObjectMapper());
 
         return result;
     }

@@ -9,6 +9,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.SipDomain;
 
 public class SipDomainDeleter extends Deleter<SipDomain> {
+
     private final String sid;
 
     public SipDomainDeleter(final String sid) {

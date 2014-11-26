@@ -27,14 +27,17 @@ public class SipCredentialCreator extends Creator<SipCredential> {
 
     @Override
     public SipCredential execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/SIP/CredentialLists/ " + credentialListSid + "/Credentials.json");
+        Request request = new Request(HttpMethod.POST,
+                                      "/Accounts/{AccountSid}/SIP/CredentialLists/ " + credentialListSid +
+                                      "/Credentials.json");
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("SIP Credential creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
-            throw new ApiException("SIP Credential creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException(
+                    "SIP Credential creation failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
 
         return SipCredential.fromJson(response.getStream(), client.getObjectMapper());

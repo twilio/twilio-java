@@ -9,6 +9,7 @@ import com.twilio.sdk.resources.SipCredential;
 import com.twilio.sdk.resources.SipCredentialList;
 
 public class SipCredentialFetcher extends Fetcher<SipCredential> {
+
     private final String credentialListSid;
     private final String sid;
 
@@ -27,11 +28,14 @@ public class SipCredentialFetcher extends Fetcher<SipCredential> {
 
     @Override
     public SipCredential execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/SIP/CredentialLists/" + credentialListSid + "/Credentials/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET,
+                                      "/SIP/CredentialLists/" + credentialListSid + "/Credentials/" + sid + ".json");
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to retrieve SIP Credential for Sid " + sid + ": [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException(
+                    "Unable to retrieve SIP Credential for Sid " + sid + ": [" + response.getStatusCode() + "] " +
+                    response.getContent());
         }
 
         return SipCredential.fromJson(response.getStream(), client.getObjectMapper());

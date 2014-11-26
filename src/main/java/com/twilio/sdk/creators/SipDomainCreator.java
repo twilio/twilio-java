@@ -11,6 +11,7 @@ import com.twilio.sdk.resources.SipDomain;
 import java.net.URI;
 
 public class SipDomainCreator extends Creator<SipDomain> {
+
     private final String domainName;
     private String friendlyName;
     private URI voiceUrl;
@@ -68,12 +69,12 @@ public class SipDomainCreator extends Creator<SipDomain> {
         if (response == null) {
             throw new ApiConnectionException("SIP Domain creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
-            throw new ApiException("SIP Domain creation failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException(
+                    "SIP Domain creation failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
 
         return SipDomain.fromJson(response.getStream(), client.getObjectMapper());
     }
-
 
     private void addPostParams(final Request request) {
         request.addPostParam("DomainName", domainName);

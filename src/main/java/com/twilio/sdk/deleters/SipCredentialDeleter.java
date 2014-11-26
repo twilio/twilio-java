@@ -10,6 +10,7 @@ import com.twilio.sdk.resources.SipCredential;
 import com.twilio.sdk.resources.SipCredentialList;
 
 public class SipCredentialDeleter extends Deleter<SipCredential> {
+
     private final String credentialListSid;
     private final String sid;
 
@@ -28,15 +29,16 @@ public class SipCredentialDeleter extends Deleter<SipCredential> {
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/SIP/CredentialLists/" + credentialListSid + "/Credentials/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE,
+                                      "/Accounts/{AccountSid}/SIP/CredentialLists/" + credentialListSid +
+                                      "/Credentials/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("SIP Credential delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
             throw new ApiException(
-                    "SIP Credential delete failed: [" + response.getStatusCode() + "] " + response.getContent()
-            );
+                    "SIP Credential delete failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
     }
 }

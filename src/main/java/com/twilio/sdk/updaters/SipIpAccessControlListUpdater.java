@@ -8,8 +8,6 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.SipIpAccessControlList;
 
-import java.net.URI;
-
 public class SipIpAccessControlListUpdater extends Updater<SipIpAccessControlList> {
 
     private final String sid;
@@ -37,8 +35,8 @@ public class SipIpAccessControlListUpdater extends Updater<SipIpAccessControlLis
         if (response == null) {
             throw new ApiConnectionException("Account update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException(
-                    "SIP IpAccessControlList update failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException("SIP IpAccessControlList update failed: [" + response.getStatusCode() + "] " +
+                                   response.getContent());
         }
 
         return SipIpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());

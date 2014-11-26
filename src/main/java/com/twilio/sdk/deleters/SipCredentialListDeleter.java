@@ -21,14 +21,15 @@ public class SipCredentialListDeleter extends Deleter<SipCredentialList> {
     }
 
     @Override
-    public void execute(final TwilioRestClient client)  {
+    public void execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/SIP/CredentialLists/" + sid + ".json");
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("SipCredentialList delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
-            throw new ApiException("SipCredentialList delete failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException(
+                    "SipCredentialList delete failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
     }
 }

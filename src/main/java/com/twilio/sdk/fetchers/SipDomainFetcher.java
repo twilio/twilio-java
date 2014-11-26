@@ -21,7 +21,9 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to retrieve SIP Domain for Sid " + sid + ": [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException(
+                    "Unable to retrieve SIP Domain for Sid " + sid + ": [" + response.getStatusCode() + "] " +
+                    response.getContent());
         }
 
         return SipDomain.fromJson(response.getStream(), client.getObjectMapper());

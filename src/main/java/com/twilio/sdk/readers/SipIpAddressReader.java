@@ -5,10 +5,10 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.SipIpAddress;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.SipIpAccessControlList;
+import com.twilio.sdk.resources.SipIpAddress;
 
 public class SipIpAddressReader extends Reader<SipIpAddress> {
 
@@ -24,7 +24,9 @@ public class SipIpAddressReader extends Reader<SipIpAddress> {
 
     @Override
     public ResourceSet<SipIpAddress> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + IpAccessControlListSid + "IpAddresses.json");
+        Request request = new Request(HttpMethod.GET,
+                                      "/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + IpAccessControlListSid +
+                                      "IpAddresses.json");
 
         Page<SipIpAddress> page = pageForRequest(client, request);
 

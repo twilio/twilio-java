@@ -1,15 +1,13 @@
 package com.twilio.sdk.readers;
 
-
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.SipCredentialList;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
-
+import com.twilio.sdk.resources.SipCredentialList;
 
 public class SipCredentialListReader extends Reader<SipCredentialList> {
 
@@ -37,11 +35,12 @@ public class SipCredentialListReader extends Reader<SipCredentialList> {
         }
 
         Page<SipCredentialList> result = new Page<>();
-        result.deserialize("credential_lists", response.getContent(), SipCredentialList.class, client.getObjectMapper());
+        result.deserialize("credential_lists", response.getContent(), SipCredentialList.class,
+                           client.getObjectMapper());
 
         return result;
     }
 
     private void addQueryParams(final Request request) {
-        }
+    }
 }

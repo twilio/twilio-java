@@ -6,11 +6,11 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.SipIpAddress;
 import com.twilio.sdk.resources.SipIpAccessControlList;
+import com.twilio.sdk.resources.SipIpAddress;
 
 public class SipIpAddressUpdater extends Updater<SipIpAddress> {
-    
+
     private final String sid;
     private final String ipAccessControlListSid;
     private String friendlyName;
@@ -20,11 +20,11 @@ public class SipIpAddressUpdater extends Updater<SipIpAddress> {
         this.ipAccessControlListSid = IpAccessControlListSid;
         this.sid = sid;
     }
-    
+
     public SipIpAddressUpdater(final SipIpAddress target) {
         this(target.getIpAccessControlListSid(), target.getSid());
     }
-    
+
     public SipIpAddressUpdater(final SipIpAccessControlList targetList, final String sid) {
         this(targetList.getSid(), sid);
     }

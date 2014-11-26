@@ -10,21 +10,21 @@ import com.twilio.sdk.resources.SipCredential;
 import com.twilio.sdk.resources.SipCredentialList;
 
 public class SipCredentialUpdater extends Updater<SipCredential> {
-    
+
     private final String sid;
     private final String credentialListSid;
     private final String password;
-    
+
     public SipCredentialUpdater(final String credentialListSid, final String sid, final String password) {
         this.credentialListSid = credentialListSid;
         this.sid = sid;
         this.password = password;
     }
-    
+
     public SipCredentialUpdater(final SipCredential target, final String password) {
         this(target.getCredentialListSid(), target.getSid(), password);
     }
-    
+
     public SipCredentialUpdater(final SipCredentialList targetList, final String sid, final String password) {
         this(targetList.getSid(), sid, password);
     }

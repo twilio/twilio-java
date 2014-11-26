@@ -9,9 +9,6 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Address;
 import com.twilio.sdk.resources.RestException;
 
-
-
-
 public class AddressUpdater extends Updater<Address> {
 
     private final String sid;
@@ -21,50 +18,48 @@ public class AddressUpdater extends Updater<Address> {
     private String street;
     private String postalCode;
     private String customerName;
-    
 
     public AddressUpdater(final String sid) {
         this.sid = sid;
+
     }
 
     public AddressUpdater(final Address target) {
         this(target.getSid());
     }
 
-    
     public AddressUpdater setCity(final String city) {
         this.city = city;
         return this;
     }
-    
+
     public AddressUpdater setRegion(final String region) {
         this.region = region;
         return this;
     }
-    
+
     public AddressUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    
+
     public AddressUpdater setStreet(final String street) {
         this.street = street;
         return this;
     }
-    
+
     public AddressUpdater setPostalCode(final String postalCode) {
         this.postalCode = postalCode;
         return this;
     }
-    
+
     public AddressUpdater setCustomerName(final String customerName) {
         this.customerName = customerName;
         return this;
     }
-    
 
     @Override
-    public Address execute(final TwilioRestClient client)  {
+    public Address execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.POST, "/Addresses/" + sid + ".json");
         addPostParams(request);
         Response response = client.request(request);
@@ -81,30 +76,30 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     private void addPostParams(final Request request) {
-        
+
         if (city != null) {
             request.addPostParam("City", city);
         }
-        
+
         if (region != null) {
             request.addPostParam("Region", region);
         }
-        
+
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
-        
+
         if (street != null) {
             request.addPostParam("Street", street);
         }
-        
+
         if (postalCode != null) {
             request.addPostParam("PostalCode", postalCode);
         }
-        
+
         if (customerName != null) {
             request.addPostParam("CustomerName", customerName);
         }
-        
+
     }
 }

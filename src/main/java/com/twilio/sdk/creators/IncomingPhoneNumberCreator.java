@@ -9,12 +9,11 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.IncomingPhoneNumber;
 import com.twilio.sdk.resources.RestException;
 
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
 public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
+
     private String phoneNumber;
     private URI voiceUrl;
     private String friendlyName;
@@ -34,7 +33,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private URI statusCallback;
 
     public IncomingPhoneNumberCreator() {
-        
+
     }
 
     public IncomingPhoneNumberCreator setPhoneNumber(final String phoneNumber) {
@@ -65,6 +64,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         return this;
     }
+
     public IncomingPhoneNumberCreator setAreaCode(final String areaCode) {
         this.areaCode = areaCode;
         return this;

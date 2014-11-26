@@ -12,7 +12,9 @@ import com.twilio.sdk.creators.MessageCreator;
 import com.twilio.sdk.deleters.MessageDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.fetchers.MediaFetcher;
 import com.twilio.sdk.fetchers.MessageFetcher;
+import com.twilio.sdk.readers.MediaReader;
 import com.twilio.sdk.readers.MessageReader;
 import com.twilio.sdk.updaters.MessageUpdater;
 import org.joda.time.DateTime;
@@ -112,6 +114,14 @@ public class Message extends SidResource {
 
     public static MessageUpdater update(final String sid) {
         return new MessageUpdater(sid);
+    }
+
+    public MediaReader listMedia() {
+        return new MediaReader(this);
+    }
+
+    public MediaFetcher fetchMedia(final String sid) {
+        return new MediaFetcher(this, sid);
     }
 
     public static Message fromJson(final String json, final ObjectMapper objectMapper) {

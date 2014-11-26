@@ -12,7 +12,10 @@ import java.util.concurrent.Executors;
 
 public class Twilio {
 
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
     public static final String DATE_TIME_PATTERN = "EEE, dd MMM yyyy HH:mm:ss Z";
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern(Twilio.DATE_PATTERN)
+                                                                         .withZone(DateTimeZone.UTC);
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern(Twilio.DATE_TIME_PATTERN)
                                                                               .withZone(DateTimeZone.UTC);
 

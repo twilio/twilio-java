@@ -34,11 +34,14 @@ public class AddressTest {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
-            request.constructURL(); result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
-            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
         }};
 
-        Address.delete("sid").execute();
+        Address.delete("sid")
+               .execute();
     }
 
     @Test
@@ -46,11 +49,14 @@ public class AddressTest {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(INSTANCE_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
-            request.constructURL(); result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
-            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
         }};
 
-        Address.fetch("sid").execute();
+        Address.fetch("sid")
+               .execute();
     }
 
     @Test
@@ -60,7 +66,8 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        Address instance = Address.fromJson(INSTANCE_JSON_RESPONSE, Twilio.getRestClient().getObjectMapper());
+        Address instance = Address.fromJson(INSTANCE_JSON_RESPONSE, Twilio.getRestClient()
+                                                                          .getObjectMapper());
         assertNotNull(instance);
     }
 
@@ -71,10 +78,12 @@ public class AddressTest {
             result = new Response(LIST_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
             request.constructURL();
             result = "https://api.twilio.com/2010-04-01/Addresses.json".replace("{AccountSid}", "AC123");
-            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
         }};
 
-        Address.list().execute();
+        Address.list()
+               .execute();
     }
 
     @Test
@@ -82,11 +91,13 @@ public class AddressTest {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(INSTANCE_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
-            request.constructURL(); result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
-            twilioRestClient.getObjectMapper(); result = new ObjectMapper();
+            request.constructURL();
+            result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
         }};
 
         Address.update("sid")
-            .execute();
+               .execute();
     }
 }

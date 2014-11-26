@@ -9,9 +9,8 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Address;
 import com.twilio.sdk.resources.RestException;
 
-
-
 public class AddressCreator extends Creator<Address> {
+
     private final String city;
     private final String region;
     private final String friendlyName;
@@ -20,8 +19,9 @@ public class AddressCreator extends Creator<Address> {
     private final String postalCode;
     private final String customerName;
 
-    public AddressCreator(final String city, final String region, final String friendlyName, final String isoCountry, final String street, final String postalCode, final String customerName) {
-        
+    public AddressCreator(final String city, final String region, final String friendlyName, final String isoCountry,
+                          final String street, final String postalCode, final String customerName) {
+
         this.city = city;
         this.region = region;
         this.friendlyName = friendlyName;
@@ -30,8 +30,6 @@ public class AddressCreator extends Creator<Address> {
         this.postalCode = postalCode;
         this.customerName = customerName;
     }
-
-    
 
     @Override
     public Address execute(final TwilioRestClient client) {

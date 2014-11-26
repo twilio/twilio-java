@@ -6,7 +6,11 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.*;
+import com.twilio.sdk.resources.Media;
+import com.twilio.sdk.resources.Message;
+import com.twilio.sdk.resources.Page;
+import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 import org.joda.time.DateTime;
 
 public class MediaReader extends Reader<Media> {

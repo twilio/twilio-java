@@ -58,6 +58,8 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     private void addQueryParams(Request request) {
-        request.addQueryParam("Muted", muted.toString());
+        if (muted != null) {
+            request.addQueryParam("Muted", muted.toString());
+        }
     }
 }

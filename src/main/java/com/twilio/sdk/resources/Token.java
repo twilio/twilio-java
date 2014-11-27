@@ -13,15 +13,10 @@ import com.twilio.sdk.creators.TokenCreator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 
-
-
-
-
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 
 import java.util.ArrayList;
 import java.util.List;

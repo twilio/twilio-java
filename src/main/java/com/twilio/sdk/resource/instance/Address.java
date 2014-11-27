@@ -1,6 +1,8 @@
 package com.twilio.sdk.resource.instance;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
 import com.twilio.sdk.resource.list.DependentPhoneNumberList;
 
@@ -192,6 +194,13 @@ public class Address extends InstanceResource {
 		list.setRequestAccountSid(this.getRequestAccountSid());
 		return list;
 	}
+
+    public boolean delete() throws TwilioRestException {
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), "DELETE", (Map) null);
+
+        return !response.isError();
+    }
 
 
 }

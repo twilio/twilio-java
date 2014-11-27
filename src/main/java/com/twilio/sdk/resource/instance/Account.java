@@ -4,6 +4,7 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.factory.AddressFactory;
 import com.twilio.sdk.resource.factory.ApplicationFactory;
 import com.twilio.sdk.resource.factory.CallFactory;
 import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
@@ -18,6 +19,7 @@ import com.twilio.sdk.resource.factory.sip.IpAccessControlListFactory;
 import com.twilio.sdk.resource.instance.sip.CredentialListInstance;
 import com.twilio.sdk.resource.instance.sip.Domain;
 import com.twilio.sdk.resource.instance.sip.IpAccessControlList;
+import com.twilio.sdk.resource.list.AddressList;
 import com.twilio.sdk.resource.list.ApplicationList;
 import com.twilio.sdk.resource.list.AuthorizedConnectAppList;
 import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
@@ -598,6 +600,26 @@ public class Account extends InstanceResource {
 	 */
 	public IncomingPhoneNumberFactory getIncomingPhoneNumberFactory() {
 		return this.getIncomingPhoneNumbers();
+	}
+
+	public AddressList getAddresses(Map<String, String> filters) {
+		AddressList list = new AddressList(this.getClient(), filters);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	public AddressList getAddresses() {
+		return this.getAddresses(new HashMap<String, String>());
+	}
+
+	public AddressFactory getAddressFactory() {
+		return this.getAddresses();
+	}
+
+	public Address getAddress(String sid) {
+		Address address = new Address(this.getClient(), sid);
+		address.setRequestAccountSid(this.getRequestAccountSid());
+		return address;
 	}
 
 	/**

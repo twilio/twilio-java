@@ -58,7 +58,7 @@ public class UsageRecordTest {
         }};
 
         UsageRecord.list()
-                   .byCategory(UsageRecord.Category.CALLER_ID_LOOKUPS)
+                   .byCategory(UsageCategory.CALLERIDLOOKUPS)
                    .execute();
     }
 

@@ -18,7 +18,7 @@ public class UsageRecord extends Resource {
 
     private static final long serialVersionUID = -5732541214023360255L;
 
-    private final UsageRecord.Category category;
+    private final UsageCategory category;
     private final String count;
     private final Currency priceUnit;
     private final Map<String, String> subresourceUris;
@@ -33,7 +33,7 @@ public class UsageRecord extends Resource {
     private final String countUnit;
 
     @JsonCreator
-    private UsageRecord(@JsonProperty("category") final UsageRecord.Category category,
+    private UsageRecord(@JsonProperty("category") final UsageCategory category,
                         @JsonProperty("count") final String count, @JsonProperty("price_unit") final String priceUnit,
                         @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
                         @JsonProperty("description") final String description,
@@ -67,7 +67,7 @@ public class UsageRecord extends Resource {
         return new UsageRecordReader();
     }
 
-    public final UsageRecord.Category getCategory() {
+    public final UsageCategory getCategory() {
         return category;
     }
 
@@ -170,49 +170,4 @@ public class UsageRecord extends Resource {
                           .toString();
     }
 
-    public enum Category {
-        CALLS("calls"),
-        CALLS_INBOUND("calls-inbound"),
-        CALLS_INBOUND_LOCAL("calls-inbound-local"),
-        CALLS_INBOUND_TOLL_FREE("calls-inbound-tollfree"),
-        CALLS_OUTBOUND("calls-outbound"),
-        CALLS_CLIENT("calls-client"),
-        CALLS_SIP("calls-sip"),
-        SMS("sms"),
-        SMS_INBOUND("sms-inbound"),
-        SMS_INBOUND_SHORT_CODE("sms-inbound-shortcode"),
-        SMS_INBOUND_LONG_CODE("sms-inbound-longcode"),
-        SMS_OUTBOUND("sms-outbound"),
-        SMS_OUTBOUND_SHORT_CODE("sms-outbound-shortcode"),
-        SMS_OUTBOUND_LONG_CODE("sms-outbound-longcode"),
-        PHONE_NUMBERS("phonenumbers"),
-        PHONE_NUMBERS_TOLL_FREE("phonenumbers-tollfree"),
-        PHONE_NUMBERS_LOCAL("phonenumbers-local"),
-        SHORT_CODES("shortcodes"),
-        SHORT_CODES_VANITY("shortcodes-vanity"),
-        SHORT_CODES_RANDOM("shortcodes-random"),
-        SHORT_CODES_CUSTOMER_OWNED("shortcodes-customerowned"),
-        CALLER_ID_LOOKUPS("calleridlookups"),
-        RECORDINGS("recordings"),
-        TRANSCRIPTIONS("transcriptions"),
-        RECORDING_STORAGE("recordingstorage"),
-        TOTAL_PRICE("totalprice");
-
-        private final String category;
-
-        private Category(final String category) {
-            this.category = category;
-        }
-
-        public String toString() {
-            return category;
-        }
-
-        @JsonCreator
-        public static Category forValue(final String value) {
-            String munged = value.replace("-", "_")
-                                 .toUpperCase();
-            return Category.valueOf(munged);
-        }
-    }
 }

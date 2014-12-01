@@ -9,13 +9,14 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
+import com.twilio.sdk.resources.UsageCategory;
 import com.twilio.sdk.resources.UsageRecord;
 import com.twilio.sdk.resources.UsageRecordSubResource;
 import org.joda.time.LocalDate;
 
 public class UsageRecordReader extends Reader<UsageRecord> {
 
-    private UsageRecord.Category category;
+    private UsageCategory category;
     private LocalDate startDate;
     private LocalDate endDate;
     private UsageRecordSubResource usageRecordSubResource;
@@ -55,7 +56,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         return result;
     }
 
-    public UsageRecordReader byCategory(final UsageRecord.Category category) {
+    public UsageRecordReader byCategory(final UsageCategory category) {
         this.category = category;
         return this;
     }

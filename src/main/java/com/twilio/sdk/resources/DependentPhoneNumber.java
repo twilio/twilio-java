@@ -50,28 +50,29 @@ public class DependentPhoneNumber extends SidResource {
     private final URI statusCallback;
 
     @JsonCreator
-    private DependentPhoneNumber(
-            @JsonProperty("address_requirements") final AddressRequirement addressRequirements,
-            @JsonProperty("date_updated") final String dateUpdated,
-            @JsonProperty("voice_url") final URI voiceUrl,
-            @JsonProperty("sms_application_sid") final String smsApplicationSid,
-            @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod,
-            @JsonProperty("voice_application_sid") final String voiceApplicationSid,
-            @JsonProperty("capabilities") final Map<String, Boolean> capabilities,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
-            @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
-            @JsonProperty("phone_number") final String phoneNumber, @JsonProperty("sms_url") final URI smsUrl,
-            @JsonProperty("voice_method") final HttpMethod voiceMethod,
-            @JsonProperty("voice_caller_id_lookup") final Boolean voiceCallerIdLookup,
-            @JsonProperty("friendly_name") final String friendlyName, @JsonProperty("uri") final String uri,
-            @JsonProperty("sms_fallback_url") final URI smsFallbackUrl,
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("sms_method") final HttpMethod smsMethod,
-            @JsonProperty("api_version") final String apiVersion,
-            @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod,
-            @JsonProperty("date_created") final String dateCreated,
-            @JsonProperty("status_callback") final URI statusCallback) {
+    private DependentPhoneNumber(@JsonProperty("address_requirements") final AddressRequirement addressRequirements,
+                                 @JsonProperty("date_updated") final String dateUpdated,
+                                 @JsonProperty("voice_url") final URI voiceUrl,
+                                 @JsonProperty("sms_application_sid") final String smsApplicationSid,
+                                 @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod,
+                                 @JsonProperty("voice_application_sid") final String voiceApplicationSid,
+                                 @JsonProperty("capabilities") final Map<String, Boolean> capabilities,
+                                 @JsonProperty("sid") final String sid,
+                                 @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
+                                 @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
+                                 @JsonProperty("phone_number") final String phoneNumber,
+                                 @JsonProperty("sms_url") final URI smsUrl,
+                                 @JsonProperty("voice_method") final HttpMethod voiceMethod,
+                                 @JsonProperty("voice_caller_id_lookup") final Boolean voiceCallerIdLookup,
+                                 @JsonProperty("friendly_name") final String friendlyName,
+                                 @JsonProperty("uri") final String uri,
+                                 @JsonProperty("sms_fallback_url") final URI smsFallbackUrl,
+                                 @JsonProperty("account_sid") final String accountSid,
+                                 @JsonProperty("sms_method") final HttpMethod smsMethod,
+                                 @JsonProperty("api_version") final String apiVersion,
+                                 @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod,
+                                 @JsonProperty("date_created") final String dateCreated,
+                                 @JsonProperty("status_callback") final URI statusCallback) {
         this.addressRequirements = addressRequirements;
         this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
         this.voiceUrl = voiceUrl;
@@ -204,8 +205,7 @@ public class DependentPhoneNumber extends SidResource {
         }
     }
 
-    public static DependentPhoneNumber
-    fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static DependentPhoneNumber fromJson(final InputStream json, final ObjectMapper objectMapper) {
         try {
             return objectMapper.readValue(json, DependentPhoneNumber.class);
         } catch (final JsonMappingException | JsonParseException e) {
@@ -254,39 +254,38 @@ public class DependentPhoneNumber extends SidResource {
     @Override
     public int hashCode() {
         return Objects.hash(addressRequirements, dateUpdated, voiceUrl, smsApplicationSid, voiceFallbackMethod,
-                voiceApplicationSid, capabilities, sid, statusCallbackMethod, voiceFallbackUrl, phoneNumber,
-                smsUrl, voiceMethod, voiceCallerIdLookup, friendlyName, uri, smsFallbackUrl, accountSid,
-                smsMethod, apiVersion, smsFallbackMethod, dateCreated, statusCallback);
+                            voiceApplicationSid, capabilities, sid, statusCallbackMethod, voiceFallbackUrl, phoneNumber,
+                            smsUrl, voiceMethod, voiceCallerIdLookup, friendlyName, uri, smsFallbackUrl, accountSid,
+                            smsMethod, apiVersion, smsFallbackMethod, dateCreated, statusCallback);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("addressRequirements", addressRequirements)
-                .add("dateUpdated", dateUpdated)
-                .add("voiceUrl", voiceUrl)
-                .add("smsApplicationSid", smsApplicationSid)
-                .add("voiceFallbackMethod", voiceFallbackMethod)
-                .add("voiceApplicationSid", voiceApplicationSid)
-                .add("capabilities", capabilities)
-                .add("sid", sid)
-                .add("statusCallbackMethod", statusCallbackMethod)
-                .add("voiceFallbackUrl", voiceFallbackUrl)
-                .add("phoneNumber", phoneNumber)
-                .add("smsUrl", smsUrl)
-                .add("voiceMethod", voiceMethod)
-                .add("voiceCallerIdLookup", voiceCallerIdLookup)
-                .add("friendlyName", friendlyName)
-                .add("uri", uri)
-                .add("smsFallbackUrl", smsFallbackUrl)
-                .add("accountSid", accountSid)
-                .add("smsMethod", smsMethod)
-                .add("apiVersion", apiVersion)
-                .add("smsFallbackMethod", smsFallbackMethod)
-                .add("dateCreated", dateCreated)
-                .add("statusCallback", statusCallback)
-                .toString();
+                          .add("addressRequirements", addressRequirements)
+                          .add("dateUpdated", dateUpdated)
+                          .add("voiceUrl", voiceUrl)
+                          .add("smsApplicationSid", smsApplicationSid)
+                          .add("voiceFallbackMethod", voiceFallbackMethod)
+                          .add("voiceApplicationSid", voiceApplicationSid)
+                          .add("capabilities", capabilities)
+                          .add("sid", sid)
+                          .add("statusCallbackMethod", statusCallbackMethod)
+                          .add("voiceFallbackUrl", voiceFallbackUrl)
+                          .add("phoneNumber", phoneNumber)
+                          .add("smsUrl", smsUrl)
+                          .add("voiceMethod", voiceMethod)
+                          .add("voiceCallerIdLookup", voiceCallerIdLookup)
+                          .add("friendlyName", friendlyName)
+                          .add("uri", uri)
+                          .add("smsFallbackUrl", smsFallbackUrl)
+                          .add("accountSid", accountSid)
+                          .add("smsMethod", smsMethod)
+                          .add("apiVersion", apiVersion)
+                          .add("smsFallbackMethod", smsFallbackMethod)
+                          .add("dateCreated", dateCreated)
+                          .add("statusCallback", statusCallback)
+                          .toString();
     }
-
 
 }

@@ -18,7 +18,7 @@ public class AddressFetcher extends Fetcher<Address> {
 
     @Override
     public Address execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Addresses/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Addresses/" + sid + ".json");
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

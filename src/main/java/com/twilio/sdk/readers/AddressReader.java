@@ -1,6 +1,5 @@
 package com.twilio.sdk.readers;
 
-
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -11,15 +10,15 @@ import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
 
-
 public class AddressReader extends Reader<Address> {
+
     private String isoCountry;
     private String friendlyName;
     private String customerName;
 
     @Override
     public ResourceSet<Address> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Addresses.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Addresses.json");
         addQueryParams(request);
 
         Page<Address> page = pageForRequest(client, request);
@@ -65,13 +64,13 @@ public class AddressReader extends Reader<Address> {
 
     private void addQueryParams(final Request request) {
         if (isoCountry != null) {
-                request.addQueryParam("IsoCountry", isoCountry);
-                }
-            if (friendlyName != null) {
-                request.addQueryParam("FriendlyName", friendlyName);
-                }
-            if (customerName != null) {
-                request.addQueryParam("CustomerName", customerName);
-                }
-            }
+            request.addQueryParam("IsoCountry", isoCountry);
+        }
+        if (friendlyName != null) {
+            request.addQueryParam("FriendlyName", friendlyName);
+        }
+        if (customerName != null) {
+            request.addQueryParam("CustomerName", customerName);
+        }
+    }
 }

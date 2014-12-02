@@ -35,7 +35,8 @@ public class AddressTest {
             twilioRestClient.request((Request) any);
             result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
             request.constructURL();
-            result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/Addresses/sid.json".replace(
+                    "{AccountSid}", "AC123");
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -50,7 +51,8 @@ public class AddressTest {
             twilioRestClient.request((Request) any);
             result = new Response(INSTANCE_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
             request.constructURL();
-            result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/Addresses/sid.json".replace(
+                    "{AccountSid}", "AC123");
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -77,7 +79,8 @@ public class AddressTest {
             twilioRestClient.request((Request) any);
             result = new Response(LIST_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
             request.constructURL();
-            result = "https://api.twilio.com/2010-04-01/Addresses.json".replace("{AccountSid}", "AC123");
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/Addresses.json".replace("{AccountSid}",
+                                                                                                      "AC123");
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -92,7 +95,8 @@ public class AddressTest {
             twilioRestClient.request((Request) any);
             result = new Response(INSTANCE_JSON_RESPONSE, TwilioRestClient.HTTP_STATUS_CODE_OK);
             request.constructURL();
-            result = "https://api.twilio.com/2010-04-01/Addresses/sid.json".replace("{AccountSid}", "AC123");
+            result = "https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/Addresses/sid.json".replace(
+                    "{AccountSid}", "AC123");
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

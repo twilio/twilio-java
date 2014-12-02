@@ -60,7 +60,7 @@ public class AddressUpdater extends Updater<Address> {
 
     @Override
     public Address execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Addresses/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Addresses/" + sid + ".json");
         addPostParams(request);
         Response response = client.request(request);
 

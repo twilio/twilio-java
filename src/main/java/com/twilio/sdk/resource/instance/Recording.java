@@ -160,6 +160,15 @@ public class Recording extends InstanceResource {
 	}
 
 	/**
+	 * Gets the price.
+	 *
+	 * @return the price
+	 */
+	public String getPrice() {
+		return this.getProperty("price");
+	}
+
+	/**
 	 * Delete this Recording
 	 *
 	 * @return true, if successful

@@ -127,5 +127,15 @@ public AvailablePhoneNumber(TwilioRestClient client) {
 	public String getIsoCountry() {
 		return this.getProperty("iso_country");
 	}
+
+	/**
+	 * Indicates whether this number requires an Address to be on file with Twilio.
+	 * Potential values are "any", "local", "foreign", or "none".
+	 *
+	 * @return the address requirements
+	 */
+	public String getAddressRequirements() {
+		return this.getProperty("address_requirements");
+	}
 }
 

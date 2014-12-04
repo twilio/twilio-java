@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.6.1
+-------------
+
+Released December 4, 2014
+
+- Add support for new Addresses endpoint
+
 Version 3.6.0
 -------------
 

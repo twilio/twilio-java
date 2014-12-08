@@ -1,6 +1,5 @@
 package com.twilio.sdk.http;
 
-
 import com.google.common.collect.Range;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiException;
@@ -22,13 +21,13 @@ public class Request {
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
     protected HttpMethod method;
-    protected TwilioRestClient.Domains domain;
-    protected TwilioRestClient.Versions version;
+    protected final TwilioRestClient.Domains domain;
+    protected final TwilioRestClient.Versions version;
     protected String uri;
     protected String username;
     protected String password;
-    protected Map<String, ArrayList<String>> queryParams;
-    protected Map<String, ArrayList<String>> postParams;
+    protected final Map<String, ArrayList<String>> queryParams;
+    protected final Map<String, ArrayList<String>> postParams;
 
     public Request(final HttpMethod method, final String uri) {
         this(method, TwilioRestClient.Domains.API, TwilioRestClient.Versions.v2010, uri);
@@ -114,17 +113,20 @@ public class Request {
             queryParams.put(name, new ArrayList<String>());
         }
 
-        queryParams.get(name).add(value);
+        queryParams.get(name)
+                   .add(value);
     }
 
     public void addQueryDateRange(final String name, final Range<DateTime> range) {
         if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+            String value = range.lowerEndpoint()
+                                .toString(QUERY_STRING_DATE_FORMAT);
             addQueryParam(name + ">", value);
         }
 
         if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+            String value = range.upperEndpoint()
+                                .toString(QUERY_STRING_DATE_FORMAT);
             addQueryParam(name + "<", value);
         }
     }
@@ -134,7 +136,8 @@ public class Request {
             postParams.put(name, new ArrayList<String>());
         }
 
-        postParams.get(name).add(value);
+        postParams.get(name)
+                  .add(value);
     }
 
     private static String encodeParameters(final Map<String, ArrayList<String>> params) {

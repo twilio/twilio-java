@@ -43,7 +43,7 @@ public class SipCredentialCreator extends Creator<SipCredential> {
         return SipCredential.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(Request request) {
+    private void addPostParams(final Request request) {
         request.addPostParam("Username", username);
         request.addPostParam("Password", password);
     }

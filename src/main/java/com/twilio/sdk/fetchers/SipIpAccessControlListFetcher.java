@@ -11,7 +11,7 @@ public class SipIpAccessControlListFetcher extends Fetcher<SipIpAccessControlLis
 
     private final String sid;
 
-    public SipIpAccessControlListFetcher(String sid) {
+    public SipIpAccessControlListFetcher(final String sid) {
         this.sid = sid;
     }
 

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Menu extends Action {
+
     public static final String[] order = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#"};
     public static final String DIGITS = "Digits";
     public static final String DEFAULT_RETRY_MESSAGE = "Sorry, that is not a valid option";
@@ -39,7 +40,6 @@ public class Menu extends Action {
         } else if (action instanceof Back) {
             ((Back) action).setMenu(this);
         }
-
 
         menu.put(key, Pair.of(prompt, action));
 
@@ -89,7 +89,8 @@ public class Menu extends Action {
 
         if (getPreRoll() != null && !getPreRoll().isEmpty()) {
             result.append("\t\t<Say>");
-            result.append(XmlEscapers.xmlContentEscaper().escape(getPreRoll()));
+            result.append(XmlEscapers.xmlContentEscaper()
+                                     .escape(getPreRoll()));
             result.append("</Say>\n");
         }
 
@@ -114,7 +115,8 @@ public class Menu extends Action {
             }
         }
 
-        result.append(XmlEscapers.xmlContentEscaper().escape(menuText.toString()));
+        result.append(XmlEscapers.xmlContentEscaper()
+                                 .escape(menuText.toString()));
 
         result.append("\t\t<Say>\n");
 
@@ -135,7 +137,8 @@ public class Menu extends Action {
 
         if (getRetryMessage() != null && !getRetryMessage().isEmpty()) {
             result.append("\t<Say>");
-            result.append(XmlEscapers.xmlContentEscaper().escape(getRetryMessage()));
+            result.append(XmlEscapers.xmlContentEscaper()
+                                     .escape(getRetryMessage()));
             result.append("</Say>\n");
         }
 
@@ -167,7 +170,8 @@ public class Menu extends Action {
         StringBuilder builder = new StringBuilder();
         builder.append(getAction());
 
-        if (builder.toString().contains("?")) {
+        if (builder.toString()
+                   .contains("?")) {
             builder.append("&");
         } else {
             builder.append("?");
@@ -194,7 +198,8 @@ public class Menu extends Action {
             result = result.substring(0, result.length() - 1);
         }
 
-        return XmlEscapers.xmlAttributeEscaper().escape(result);
+        return XmlEscapers.xmlAttributeEscaper()
+                          .escape(result);
     }
 
     public String getAction() {

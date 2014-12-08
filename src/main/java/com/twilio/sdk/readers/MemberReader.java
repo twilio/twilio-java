@@ -14,18 +14,17 @@ public class MemberReader extends Reader<Member> {
 
     private final String queueSid;
 
-    public MemberReader(String queueSid) {
+    public MemberReader(final String queueSid) {
         this.queueSid = queueSid;
     }
 
-    public MemberReader(Queue target) {
+    public MemberReader(final Queue target) {
         this(target.getSid());
     }
 
     @Override
     public ResourceSet<Member> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET,
-                                      "/Accounts/{AccountSid}/Queues/" + queueSid + "/Members.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Queues/" + queueSid + "/Members.json");
 
         Page<Member> page = pageForRequest(client, request);
 

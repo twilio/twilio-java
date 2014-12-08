@@ -32,20 +32,22 @@ public class ParticipantUpdater extends Updater<Participant> {
     @Override
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.POST,
-                                      "/Accounts/{AccountSid}/Conferences/" + conferenceSid + "/Participants/" + sid + ".json");
+                                      "/Accounts/{AccountSid}/Conferences/" + conferenceSid + "/Participants/" + sid +
+                                      ".json");
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Participant update failed: unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Participant update failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException(
+                    "Participant update failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(Request request) {
+    private void addPostParams(final Request request) {
         request.addPostParam("Muted", muted.toString());
     }
 }

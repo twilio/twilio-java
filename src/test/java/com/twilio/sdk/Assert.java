@@ -10,26 +10,26 @@ import static org.junit.Assert.assertEquals;
 
 public class Assert {
 
-    public static void assertQueryStringsEqual(String expected, String actual) {
+    public static void assertQueryStringsEqual(final String expected, final String actual) {
         Map<String, String> expectedMap = queryStringToMap(expected, true);
         Map<String, String> actualMap = queryStringToMap(actual);
 
         assertEquals(expectedMap, actualMap);
     }
 
-    public static void assertUrlsEqual(URL expected, URL actual) {
+    public static void assertUrlsEqual(final URL expected, final URL actual) {
         assertUrlsEqual(expected.toString(), actual.toString());
     }
 
-    public static void assertUrlsEqual(URL expected, String actual) {
+    public static void assertUrlsEqual(final URL expected, final String actual) {
         assertUrlsEqual(expected.toString(), actual);
     }
 
-    public static void assertUrlsEqual(String expected, URL actual) {
+    public static void assertUrlsEqual(final String expected, final URL actual) {
         assertUrlsEqual(expected, actual.toString());
     }
 
-    public static void assertUrlsEqual(String expected, String actual) {
+    public static void assertUrlsEqual(final String expected, final String actual) {
         String[] expectedParts = expected.split("\\?");
         String[] actualParts = actual.split("\\?");
 
@@ -41,14 +41,14 @@ public class Assert {
         }
     }
 
-    private static Map<String, String> queryStringToMap(String queryString) {
+    private static Map<String, String> queryStringToMap(final String queryString) {
         return queryStringToMap(queryString, false);
     }
 
-    private static Map<String, String> queryStringToMap(String queryString, boolean encode) {
-        Map<String, String> result = new HashMap<String, String>();
+    private static Map<String, String> queryStringToMap(final String queryString, final boolean encode) {
+        Map<String, String> result = new HashMap<>();
         String[] parts = queryString.split("&");
-        for (String part : parts) {
+        for (final String part : parts) {
             String[] keyValue = part.split("=");
             if (keyValue.length == 2) {
                 String key = keyValue[0];
@@ -57,13 +57,13 @@ public class Assert {
                 if (encode) {
                     try {
                         key = URLEncoder.encode(key, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
+                    } catch (final UnsupportedEncodingException e) {
                         // Ignore, just use the non-encoded
                     }
 
                     try {
                         value = URLEncoder.encode(value, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
+                    } catch (final UnsupportedEncodingException e) {
                         // Ignore, just use the non-encoded
                     }
                 }

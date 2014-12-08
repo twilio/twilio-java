@@ -23,14 +23,15 @@ public class ParticipantReader extends Reader<Participant> {
         this(target.getSid());
     }
 
-    public ParticipantReader byMuted(Boolean muted) {
+    public ParticipantReader byMuted(final Boolean muted) {
         this.muted = muted;
         return this;
     }
 
     @Override
     public ResourceSet<Participant> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Conferences/ " + conferenceSid + "/Participants.json");
+        Request request = new Request(HttpMethod.GET,
+                                      "/Accounts/{AccountSid}/Conferences/ " + conferenceSid + "/Participants.json");
         addQueryParams(request);
 
         Page<Participant> page = pageForRequest(client, request);
@@ -57,7 +58,7 @@ public class ParticipantReader extends Reader<Participant> {
         return result;
     }
 
-    private void addQueryParams(Request request) {
+    private void addQueryParams(final Request request) {
         if (muted != null) {
             request.addQueryParam("Muted", muted.toString());
         }

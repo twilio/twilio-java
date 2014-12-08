@@ -21,12 +21,12 @@ public class MessageCreator extends Creator<Message> {
     private String body;
     private String applicationSid;
     private URI statusCallback;
-    private List<URI> mediaUrls;
+    private final List<URI> mediaUrls;
 
     public MessageCreator(final String to, final String from) {
         this.to = to;
         this.from = from;
-        this.mediaUrls = new ArrayList<URI>();
+        mediaUrls = new ArrayList<>();
     }
 
     public MessageCreator setBody(final String body) {
@@ -55,7 +55,7 @@ public class MessageCreator extends Creator<Message> {
 
     public MessageCreator setMediaUrl(final String mediaUrl) {
         try {
-            this.mediaUrls.add(new URI(mediaUrl));
+            mediaUrls.add(new URI(mediaUrl));
         } catch (final URISyntaxException e) {
             throw new ApiException("Invalid URI", e);
         }
@@ -100,7 +100,7 @@ public class MessageCreator extends Creator<Message> {
         }
 
         if (!mediaUrls.isEmpty()) {
-            for (URI mediaUrl : mediaUrls) {
+            for (final URI mediaUrl : mediaUrls) {
                 request.addPostParam("MediaUrl", mediaUrl.toString());
             }
         }

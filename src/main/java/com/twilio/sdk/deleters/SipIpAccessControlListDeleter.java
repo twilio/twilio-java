@@ -12,11 +12,11 @@ public class SipIpAccessControlListDeleter extends Deleter<SipIpAccessControlLis
 
     private final String sid;
 
-    public SipIpAccessControlListDeleter(String sid) {
+    public SipIpAccessControlListDeleter(final String sid) {
         this.sid = sid;
     }
 
-    public SipIpAccessControlListDeleter(SipIpAccessControlList target) {
+    public SipIpAccessControlListDeleter(final SipIpAccessControlList target) {
         this(target.getSid());
     }
 

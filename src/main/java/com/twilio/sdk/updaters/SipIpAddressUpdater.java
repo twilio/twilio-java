@@ -16,8 +16,8 @@ public class SipIpAddressUpdater extends Updater<SipIpAddress> {
     private String friendlyName;
     private String ipAddress;
 
-    public SipIpAddressUpdater(final String IpAccessControlListSid, final String sid) {
-        this.ipAccessControlListSid = IpAccessControlListSid;
+    public SipIpAddressUpdater(final String ipAccessControlListSid, final String sid) {
+        this.ipAccessControlListSid = ipAccessControlListSid;
         this.sid = sid;
     }
 
@@ -55,7 +55,7 @@ public class SipIpAddressUpdater extends Updater<SipIpAddress> {
         return SipIpAddress.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(Request request) {
+    private void addPostParams(final Request request) {
         if (ipAddress != null) {
             request.addPostParam("IpAddress", ipAddress);
         }

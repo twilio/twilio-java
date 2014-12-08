@@ -14,7 +14,7 @@ import java.util.List;
 public class CallFeedbackUpdater extends Updater<CallFeedback> {
 
     private final String sid;
-    private int qualityScore;
+    private final int qualityScore;
     private List<CallFeedback.Issue> issues;
 
     public CallFeedbackUpdater(final String sid, final int qualityScore) {
@@ -52,7 +52,7 @@ public class CallFeedbackUpdater extends Updater<CallFeedback> {
         request.addPostParam("QualityScore", Integer.toString(qualityScore));
 
         if (issues != null) {
-            for (CallFeedback.Issue issue : issues) {
+            for (final CallFeedback.Issue issue : issues) {
                 request.addPostParam("Issue", issue.toString());
             }
         }

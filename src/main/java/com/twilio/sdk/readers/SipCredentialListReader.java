@@ -14,7 +14,6 @@ public class SipCredentialListReader extends Reader<SipCredentialList> {
     @Override
     public ResourceSet<SipCredentialList> execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, "/SIP/CredentialLists.json");
-        addQueryParams(request);
 
         Page<SipCredentialList> page = pageForRequest(client, request);
 
@@ -39,8 +38,5 @@ public class SipCredentialListReader extends Reader<SipCredentialList> {
                            client.getObjectMapper());
 
         return result;
-    }
-
-    private void addQueryParams(final Request request) {
     }
 }

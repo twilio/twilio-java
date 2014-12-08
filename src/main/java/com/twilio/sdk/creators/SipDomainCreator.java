@@ -30,32 +30,32 @@ public class SipDomainCreator extends Creator<SipDomain> {
         return this;
     }
 
-    public SipDomainCreator setVoiceUrl(URI voiceUrl) {
+    public SipDomainCreator setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
     }
 
-    public SipDomainCreator setVoiceMethod(HttpMethod voiceMethod) {
+    public SipDomainCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
         return this;
     }
 
-    public SipDomainCreator setVoiceFallbackUrl(URI voiceFallbackUrl) {
+    public SipDomainCreator setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public SipDomainCreator setVoiceFallbackMethod(HttpMethod voiceFallbackMethod) {
+    public SipDomainCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
 
-    public SipDomainCreator setVoiceStatusCallbackUrl(URI voiceStatusCallbackUrl) {
+    public SipDomainCreator setVoiceStatusCallbackUrl(final URI voiceStatusCallbackUrl) {
         this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         return this;
     }
 
-    public SipDomainCreator setVoiceStatusCallbackMethod(HttpMethod voiceStatusCallbackMethod) {
+    public SipDomainCreator setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;
         return this;
     }

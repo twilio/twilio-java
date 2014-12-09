@@ -51,7 +51,8 @@ public class UsageTriggerCreator extends Creator<UsageTrigger> {
 
     @Override
     public UsageTrigger execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Usage/Triggers.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Usage/Triggers.json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

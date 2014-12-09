@@ -19,7 +19,8 @@ public class UsageTriggerReader extends Reader<UsageTrigger> {
 
     @Override
     public ResourceSet<UsageTrigger> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Usage/Triggers.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Usage/Triggers.json",
+                                      client.getAccountSid());
         addQueryParams(request);
 
         Page<UsageTrigger> page = pageForRequest(client, request);
@@ -29,7 +30,7 @@ public class UsageTriggerReader extends Reader<UsageTrigger> {
 
     @Override
     public Page<UsageTrigger> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

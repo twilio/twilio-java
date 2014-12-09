@@ -35,7 +35,7 @@ public class RequestTest {
         assertUrlsEqual(expected, url);
     }
 
-    REquest@Test(expected = ApiException.class)
+    @Test(expected = ApiException.class)
     public void testConstructURLURISyntaxException() {
         Request request = new Request(HttpMethod.DELETE, "http://{", "AC123");
         request.constructURL();

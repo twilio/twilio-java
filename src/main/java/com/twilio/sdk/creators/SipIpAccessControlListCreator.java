@@ -12,7 +12,7 @@ public class SipIpAccessControlListCreator extends Creator<SipIpAccessControlLis
 
     private final String friendlyName;
 
-    public SipIpAccessControlListCreator(String friendlyName) {
+    public SipIpAccessControlListCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
@@ -32,7 +32,7 @@ public class SipIpAccessControlListCreator extends Creator<SipIpAccessControlLis
         return SipIpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(Request request) {
+    private void addPostParams(final Request request) {
         request.addPostParam("FriendlyName", friendlyName);
     }
 

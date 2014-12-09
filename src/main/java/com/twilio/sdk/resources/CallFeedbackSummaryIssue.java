@@ -6,13 +6,13 @@ import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
-public class CallFeedbackSummaryIssue {
+public class CallFeedbackSummaryIssue extends Resource {
 
-    private int count;
+    private static final long serialVersionUID = 7797032343290480971L;
 
-    private String description;
-
-    private double percentageOfTotalCalls;
+    private final int count;
+    private final String description;
+    private final double percentageOfTotalCalls;
 
     @JsonCreator
     private CallFeedbackSummaryIssue(@JsonProperty("count") final int count,

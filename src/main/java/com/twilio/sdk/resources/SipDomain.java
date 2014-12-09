@@ -78,10 +78,10 @@ public class SipDomain extends SidResource {
         this.uri = uri;
     }
 
-    private static List<AuthType> parseAuthTypes(String serialized) {
-        ArrayList<AuthType> parsed = new ArrayList<>();
+    private static List<AuthType> parseAuthTypes(final String serialized) {
+        List<AuthType> parsed = new ArrayList<>();
         String[] types = serialized.split(",");
-        for (String t : types) {
+        for (final String t : types) {
             if (!t.isEmpty()) {
                 parsed.add(AuthType.valueOf(t));
             }
@@ -142,7 +142,7 @@ public class SipDomain extends SidResource {
         return authType;
     }
 
-    public final boolean hasAuthType(AuthType auth) {
+    public final boolean hasAuthType(final AuthType auth) {
         return authType.contains(auth);
     }
 
@@ -241,6 +241,7 @@ public class SipDomain extends SidResource {
     }
 
     public enum AuthType {
-        IP_ACL, CREDENTIAL_LIST;
+        IP_ACL,
+        CREDENTIAL_LIST
     }
 }

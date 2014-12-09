@@ -7,6 +7,7 @@ import com.twilio.sdk.resources.Call;
 import java.net.URI;
 
 public class PhoneNumberGroup {
+
     protected ConsistentHashRing<String> ring;
 
     public PhoneNumberGroup() {

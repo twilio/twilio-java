@@ -8,9 +8,10 @@ import java.net.URI;
 import java.util.Objects;
 
 public class IceServer {
-    private String credential;
-    private String username;
-    private URI url;
+
+    private final String credential;
+    private final String username;
+    private final URI url;
 
     public URI getUrl() {
         return url;
@@ -26,15 +27,14 @@ public class IceServer {
 
     @JsonCreator
     public IceServer(@JsonProperty("credential") final String credential,
-                     @JsonProperty("username") final String username,
-                     @JsonProperty("url") final URI url) {
+                     @JsonProperty("username") final String username, @JsonProperty("url") final URI url) {
         this.credential = credential;
         this.username = username;
         this.url = url;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -47,8 +47,7 @@ public class IceServer {
 
         return (Objects.equals(credential, other.credential) &&
                 Objects.equals(username, other.username) &&
-                Objects.equals(url, other.url)
-        );
+                Objects.equals(url, other.url));
     }
 
     @Override
@@ -59,9 +58,9 @@ public class IceServer {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("credential", credential)
-                .add("username", username)
-                .add("url", url)
-                .toString();
+                          .add("credential", credential)
+                          .add("username", username)
+                          .add("url", url)
+                          .toString();
     }
 }

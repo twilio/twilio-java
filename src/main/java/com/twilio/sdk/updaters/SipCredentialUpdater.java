@@ -45,7 +45,7 @@ public class SipCredentialUpdater extends Updater<SipCredential> {
         return SipCredential.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(Request request) {
+    private void addPostParams(final Request request) {
         request.addPostParam("Password", password);
     }
 }

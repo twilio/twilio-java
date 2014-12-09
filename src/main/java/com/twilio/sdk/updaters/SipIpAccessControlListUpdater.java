@@ -21,7 +21,7 @@ public class SipIpAccessControlListUpdater extends Updater<SipIpAccessControlLis
         this(target.getSid());
     }
 
-    public SipIpAccessControlListUpdater setFriendlyName(String friendlyName) {
+    public SipIpAccessControlListUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }

@@ -30,42 +30,42 @@ public class SipDomainUpdater extends Updater<SipDomain> {
         this(target.getSid());
     }
 
-    public SipDomainUpdater setDomainName(String domainName) {
+    public SipDomainUpdater setDomainName(final String domainName) {
         this.domainName = domainName;
         return this;
     }
 
-    public SipDomainUpdater setFriendlyName(String friendlyName) {
+    public SipDomainUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-    public SipDomainUpdater setVoiceUrl(URI voiceUrl) {
+    public SipDomainUpdater setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
     }
 
-    public SipDomainUpdater setVoiceMethod(HttpMethod voiceMethod) {
+    public SipDomainUpdater setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
         return this;
     }
 
-    public SipDomainUpdater setVoiceFallbackUrl(URI voiceFallbackUrl) {
+    public SipDomainUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public SipDomainUpdater setVoiceFallbackMethod(HttpMethod voiceFallbackMethod) {
+    public SipDomainUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
 
-    public SipDomainUpdater setVoiceStatusCallbackUrl(URI voiceStatusCallbackUrl) {
+    public SipDomainUpdater setVoiceStatusCallbackUrl(final URI voiceStatusCallbackUrl) {
         this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         return this;
     }
 
-    public SipDomainUpdater setVoiceStatusCallbackMethod(HttpMethod voiceStatusCallbackMethod) {
+    public SipDomainUpdater setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;
         return this;
     }

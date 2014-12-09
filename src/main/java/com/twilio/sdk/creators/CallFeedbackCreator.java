@@ -48,7 +48,7 @@ public class CallFeedbackCreator extends Creator<CallFeedback> {
         request.addPostParam("QualityScore", Integer.toString(qualityScore));
 
         if (issues != null) {
-            for (CallFeedback.Issue issue : issues) {
+            for (final CallFeedback.Issue issue : issues) {
                 request.addPostParam("Issue", issue.toString());
             }
         }

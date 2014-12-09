@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Dial extends Action {
 
-    protected String number;
+    protected final String number;
 
     public Dial(final String number) {
         this.number = number;
@@ -16,7 +16,8 @@ public class Dial extends Action {
     public String execute(final Map<String, String> context) {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                "<Response>\n" +
-               "\t<Dial>" + XmlEscapers.xmlAttributeEscaper().escape(number) + "</Dial>\n" +
+               "\t<Dial>" + XmlEscapers.xmlAttributeEscaper()
+                                       .escape(number) + "</Dial>\n" +
                "</Response>";
     }
 }

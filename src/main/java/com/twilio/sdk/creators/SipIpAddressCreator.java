@@ -43,7 +43,7 @@ public class SipIpAddressCreator extends Creator<SipIpAddress> {
         return SipIpAddress.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(Request request) {
+    private void addPostParams(final Request request) {
         request.addPostParam("FriendlyName", friendlyName);
         request.addPostParam("IpAddress", ipAddress);
     }

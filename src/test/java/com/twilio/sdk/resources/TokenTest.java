@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
@@ -41,12 +40,15 @@ public class TokenTest {
             result = new ObjectMapper();
         }};
 
-        Token instance = Token.fromJson(INSTANCE_JSON_RESPONSE, Twilio.getRestClient().getObjectMapper());
+        Token instance = Token.fromJson(INSTANCE_JSON_RESPONSE, Twilio.getRestClient()
+                                                                      .getObjectMapper());
         assertNotNull(instance);
 
         List<IceServer> iceServers = new ArrayList<>();
         iceServers.add(new IceServer(null, null, new URI("stun:global.stun.twilio.com:3478?transport=udp")));
-        iceServers.add(new IceServer("LWCEdkvAeNG8uaNb2bCmQPVnuN4oTpgLhoRWWnUwESE=", "b499cbf0ddaf456e50b3c0f569efd1152d6b338a916494ba26ad01c70fd82612", new URI("turn:global.turn.twilio.com:3478?transport=udp")));
+        iceServers.add(new IceServer("LWCEdkvAeNG8uaNb2bCmQPVnuN4oTpgLhoRWWnUwESE=",
+                                     "b499cbf0ddaf456e50b3c0f569efd1152d6b338a916494ba26ad01c70fd82612",
+                                     new URI("turn:global.turn.twilio.com:3478?transport=udp")));
         assertEquals(iceServers, instance.getIceServers());
     }
 }

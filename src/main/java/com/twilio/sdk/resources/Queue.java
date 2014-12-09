@@ -97,11 +97,11 @@ public class Queue extends SidResource {
         return new MemberReader(this);
     }
 
-    public MemberUpdater dequeue(String sid, URI url) {
+    public MemberUpdater dequeue(final String sid, final URI url) {
         return new MemberUpdater(this, sid, url);
     }
 
-    public MemberUpdater dequeue(URI url) {
+    public MemberUpdater dequeue(final URI url) {
         return new MemberUpdater(this, "Front", url);
     }
 

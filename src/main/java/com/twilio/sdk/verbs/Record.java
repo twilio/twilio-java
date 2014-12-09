@@ -1,0 +1,114 @@
+package com.twilio.sdk.verbs;
+
+/*
+Copyright (c) 2008-2015 Twilio, Inc.
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/**
+ * The Class Record.
+ */
+public class Record extends Verb {
+
+    /**
+     * Instantiates a new record.
+     */
+    public Record() {
+        super(V_RECORD, null);
+        allowedVerbs = null;
+    }
+
+    /**
+     * Sets the action.
+     *
+     * @param url the new action
+     */
+    public void setAction(final String url) {
+        set("action", url);
+    }
+
+    /**
+     * Sets the method.
+     *
+     * @param method the new method
+     */
+    public void setMethod(final String method) {
+        set("method", method);
+    }
+
+    /**
+     * Sets the timeout.
+     *
+     * @param i the new timeout
+     */
+    public void setTimeout(final int i) {
+        set("timeout", Integer.toString(i));
+    }
+
+    /**
+     * Sets the finish on key.
+     *
+     * @param key the new finish on key
+     */
+    public void setFinishOnKey(final String key) {
+        set("finishOnKey", key);
+    }
+
+    /**
+     * Sets the max length.
+     *
+     * @param i the new max length
+     */
+    public void setMaxLength(final int i) {
+        set("maxLength", Integer.toString(i));
+    }
+
+    /**
+     * Sets the transcribe.
+     *
+     * @param transcribe the new transcribe
+     */
+    public void setTranscribe(final boolean transcribe) {
+        set("transcribe", String.valueOf(transcribe));
+    }
+
+    /**
+     * Sets the transcribe callback.
+     *
+     * @param url the new transcribe callback
+     */
+    public void setTranscribeCallback(final String url) {
+        set("transcribeCallback", url);
+    }
+
+    /**
+     * Sets the playBeep parameter
+     *
+     * @param playBeep
+     */
+    public void setPlayBeep(final boolean playBeep) {
+        set("playBeep", String.valueOf(playBeep));
+    }
+
+}
+

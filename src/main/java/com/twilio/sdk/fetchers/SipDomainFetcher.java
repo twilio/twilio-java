@@ -11,7 +11,7 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
 
     private final String sid;
 
-    public SipDomainFetcher(String sid) {
+    public SipDomainFetcher(final String sid) {
         this.sid = sid;
     }
 

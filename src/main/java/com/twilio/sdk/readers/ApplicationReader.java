@@ -16,7 +16,8 @@ public class ApplicationReader extends Reader<Application> {
 
     @Override
     public ResourceSet<Application> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Applications.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Applications.json",
+                                      client.getAccountSid());
         addQueryParams(request);
 
         Page<Application> page = pageForRequest(client, request);
@@ -26,7 +27,7 @@ public class ApplicationReader extends Reader<Application> {
 
     @Override
     public Page<Application> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

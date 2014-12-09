@@ -20,31 +20,29 @@ public class Request {
 
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
-    protected HttpMethod method;
-    protected final TwilioRestClient.Domains domain;
-    protected final TwilioRestClient.Versions version;
-    protected String uri;
-    protected String username;
-    protected String password;
-    protected final Map<String, ArrayList<String>> queryParams;
-    protected final Map<String, ArrayList<String>> postParams;
+    private final HttpMethod method;
+    private final String uri;
+    private String username;
+    private String password;
+    private final Map<String, ArrayList<String>> queryParams;
+    private final Map<String, ArrayList<String>> postParams;
 
-    public Request(final HttpMethod method, final String uri) {
-        this(method, TwilioRestClient.Domains.API, TwilioRestClient.Versions.v2010, uri);
+    public Request(final HttpMethod method, final String uri, final String accountSid) {
+        this(method, TwilioRestClient.Domains.API, TwilioRestClient.Versions.v2010, uri, accountSid);
     }
 
-    public Request(final HttpMethod method, final TwilioRestClient.Domains domain, final String uri) {
+    public Request(final HttpMethod method, final TwilioRestClient.Domains domain, final String uri,
+                   final String accountSid) {
         this(method, domain,
              domain == TwilioRestClient.Domains.API ? TwilioRestClient.Versions.v2010 : TwilioRestClient.Versions.v1,
-             uri);
+             uri, accountSid);
     }
 
     public Request(final HttpMethod method, final TwilioRestClient.Domains domain,
-                   final TwilioRestClient.Versions version, final String uri) {
+                   final TwilioRestClient.Versions version, final String uri, final String accountSid) {
         this.method = method;
-        this.domain = domain;
-        this.version = version;
-        this.uri = uri;
+        this.uri = "https://" + domain.toString() + ".twilio.com/" + version.toString() +
+                   uri.replace("{AccountSid}", accountSid);
         queryParams = new HashMap<>();
         postParams = new HashMap<>();
     }
@@ -53,24 +51,8 @@ public class Request {
         return method;
     }
 
-    public void setMethod(final HttpMethod method) {
-        this.method = method;
-    }
-
     public String getUri() {
         return uri;
-    }
-
-    public void setUri(final String uri) {
-        this.uri = uri;
-    }
-
-    public TwilioRestClient.Domains getDomain() {
-        return domain;
-    }
-
-    public TwilioRestClient.Versions getVersion() {
-        return version;
     }
 
     public void setAuth(final String username, final String password) {

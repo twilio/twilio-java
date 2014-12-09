@@ -18,7 +18,8 @@ public class ConferenceFetcher extends Fetcher<Conference> {
 
     @Override
     public Conference execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Conferences/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Conferences/" + sid + ".json",
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

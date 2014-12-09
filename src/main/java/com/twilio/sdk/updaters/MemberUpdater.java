@@ -12,6 +12,7 @@ import com.twilio.sdk.resources.Queue;
 import java.net.URI;
 
 public class MemberUpdater extends Updater<Member> {
+
     private final String sid;
     private final String queueSid;
     private final URI url;
@@ -42,14 +43,16 @@ public class MemberUpdater extends Updater<Member> {
 
     @Override
     public Member execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Queues/" + queueSid + "/Members/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, String.format("/Queues/%s/Members/%s.json", queueSid, sid),
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("QueueMember update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("QueueMember update failed: [" + response.getStatusCode() + "] " + response.getContent());
+            throw new ApiException(
+                    "QueueMember update failed: [" + response.getStatusCode() + "] " + response.getContent());
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());

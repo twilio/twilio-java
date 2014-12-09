@@ -23,7 +23,8 @@ public class ConferenceReader extends Reader<Conference> {
 
     @Override
     public ResourceSet<Conference> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Conferences.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Conferences.json",
+                                      client.getAccountSid());
         addQueryParams(request);
 
         Page<Conference> page = pageForRequest(client, request);
@@ -33,7 +34,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     @Override
     public Page<Conference> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

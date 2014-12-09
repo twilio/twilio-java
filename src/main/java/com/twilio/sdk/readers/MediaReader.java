@@ -14,6 +14,7 @@ import com.twilio.sdk.resources.RestException;
 import org.joda.time.DateTime;
 
 public class MediaReader extends Reader<Media> {
+
     private final String messageSid;
     private DateTime absoluteDateCreated;
     private Range<DateTime> rangeDateCreated;
@@ -28,7 +29,8 @@ public class MediaReader extends Reader<Media> {
 
     @Override
     public ResourceSet<Media> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Messages/" + messageSid + "/Media.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Messages/" + messageSid + "/Media.json",
+                                      client.getAccountSid());
         addQueryParams(request);
 
         Page<Media> page = pageForRequest(client, request);
@@ -38,7 +40,7 @@ public class MediaReader extends Reader<Media> {
 
     @Override
     public Page<Media> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

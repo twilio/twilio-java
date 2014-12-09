@@ -170,7 +170,8 @@ public class ApplicationCreator extends Creator<Application> {
 
     @Override
     public Application execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Applications.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Applications.json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

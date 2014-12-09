@@ -23,7 +23,8 @@ public class OutgoingCallerIdDeleter extends Deleter<OutgoingCallerId> {
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json",
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {

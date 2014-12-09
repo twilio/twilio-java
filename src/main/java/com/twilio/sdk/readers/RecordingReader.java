@@ -20,7 +20,7 @@ public class RecordingReader extends Reader<Recording> {
 
     @Override
     public ResourceSet<Recording> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Recordings.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Recordings.json", client.getAccountSid());
         addQueryParams(request);
 
         Page<Recording> page = pageForRequest(client, request);
@@ -30,7 +30,7 @@ public class RecordingReader extends Reader<Recording> {
 
     @Override
     public Page<Recording> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

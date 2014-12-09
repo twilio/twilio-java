@@ -102,7 +102,8 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     @Override
     public ConnectApp execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/ConnectApps/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/ConnectApps/" + sid + ".json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

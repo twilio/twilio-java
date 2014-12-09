@@ -13,7 +13,7 @@ public class SipIpAccessControlListReader extends Reader<SipIpAccessControlList>
 
     @Override
     public ResourceSet<SipIpAccessControlList> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/SIP/IpAccessControlLists.json");
+        Request request = new Request(HttpMethod.GET, "/SIP/IpAccessControlLists.json", client.getAccountSid());
 
         Page<SipIpAccessControlList> page = pageForRequest(client, request);
 
@@ -22,7 +22,7 @@ public class SipIpAccessControlListReader extends Reader<SipIpAccessControlList>
 
     @Override
     public Page<SipIpAccessControlList> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

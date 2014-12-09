@@ -18,7 +18,8 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
 
     @Override
     public OutgoingCallerId execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json",
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

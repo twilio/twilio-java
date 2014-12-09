@@ -21,7 +21,7 @@ public class MessageReader extends Reader<Message> {
 
     @Override
     public ResourceSet<Message> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Messages.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Messages.json", client.getAccountSid());
         addQueryParams(request);
 
         Page<Message> page = pageForRequest(client, request);
@@ -31,7 +31,7 @@ public class MessageReader extends Reader<Message> {
 
     @Override
     public Page<Message> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

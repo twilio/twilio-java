@@ -18,7 +18,8 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
     @Override
     public ShortCode execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/SMS/ShortCodes/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/SMS/ShortCodes/" + sid + ".json",
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

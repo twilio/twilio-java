@@ -28,9 +28,9 @@ public class SipIpAddressFetcher extends Fetcher<SipIpAddress> {
 
     @Override
     public SipIpAddress execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET,
-                                      "/SIP/IpAccessControlLists/" + IpAccessControlListSid + "/IpAddresses/" + sid +
-                                      ".json");
+        Request request = new Request(HttpMethod.GET, String.format("/SIP/IpAccessControlLists/%s/IpAddresses/%s.json",
+                                                                    IpAccessControlListSid, sid),
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

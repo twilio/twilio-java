@@ -29,7 +29,8 @@ public class MessageUpdater extends Updater<Message> {
 
     @Override
     public Message execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Messages/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Messages/" + sid + ".json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

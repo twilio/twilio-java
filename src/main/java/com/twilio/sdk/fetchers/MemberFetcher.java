@@ -9,6 +9,7 @@ import com.twilio.sdk.resources.Member;
 import com.twilio.sdk.resources.Queue;
 
 public class MemberFetcher extends Fetcher<Member> {
+
     private final String queueSid;
     private final String sid;
 
@@ -24,7 +25,8 @@ public class MemberFetcher extends Fetcher<Member> {
     @Override
     public Member execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
-                                      "/Accounts/{AccountSid}/Queues/" + queueSid + "/Members/" + sid + ".json");
+                                      String.format("/Accounts/{AccountSid}/Queues/%s/Members/%s.json", queueSid, sid),
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

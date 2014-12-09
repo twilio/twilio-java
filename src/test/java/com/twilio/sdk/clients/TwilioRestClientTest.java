@@ -23,7 +23,7 @@ public class TwilioRestClientTest {
     @Test
     public void testRequest(@Mocked final HttpClient httpClient) {
         TwilioRestClient twilioRestClient = new TwilioRestClient("AC123", "AUTH TOKEN");
-        final Request request = new Request(HttpMethod.GET, "http://www.example.com");
+        final Request request = new Request(HttpMethod.GET, "http://www.example.com", "AC123");
 
         new NonStrictExpectations() {{
             httpClient.reliableRequest(request);

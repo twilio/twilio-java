@@ -25,7 +25,9 @@ public class MediaFetcher extends Fetcher<Media> {
 
     @Override
     public Media execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Messages/" + messageSid + "/Media/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET,
+                                      String.format("/Accounts/{AccountSid}/Messages/%s/Media%s.json", messageSid, sid),
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

@@ -24,7 +24,9 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     @Override
     public Participant execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Conferences/" + conferenceSid + "/Participants/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET,
+                                      String.format("/Accounts/{AccountSid}/Conferences/%s/Participants/%s.json",
+                                                    conferenceSid, sid), client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

@@ -5,7 +5,11 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.*;
+import com.twilio.sdk.resources.Address;
+import com.twilio.sdk.resources.DependentPhoneNumber;
+import com.twilio.sdk.resources.Page;
+import com.twilio.sdk.resources.ResourceSet;
+import com.twilio.sdk.resources.RestException;
 
 public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
 
@@ -21,7 +25,9 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
 
     @Override
     public ResourceSet<DependentPhoneNumber> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Addresses/" + addressSid + "/DependentPhoneNumbers.json");
+        Request request = new Request(HttpMethod.GET,
+                                      "/Accounts/{AccountSid}/Addresses/" + addressSid + "/DependentPhoneNumbers.json",
+                                      client.getAccountSid());
 
         Page<DependentPhoneNumber> page = pageForRequest(client, request);
 
@@ -30,7 +36,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
 
     @Override
     public Page<DependentPhoneNumber> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 
@@ -40,7 +46,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
-                    restException.getStatus(), null);
+                                   restException.getStatus(), null);
         }
 
         Page<DependentPhoneNumber> result = new Page<>();

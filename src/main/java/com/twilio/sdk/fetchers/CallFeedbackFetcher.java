@@ -18,7 +18,8 @@ public class CallFeedbackFetcher extends Fetcher<CallFeedback> {
 
     @Override
     public CallFeedback execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid + "/Feedback.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/" + sid + "/Feedback.json",
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

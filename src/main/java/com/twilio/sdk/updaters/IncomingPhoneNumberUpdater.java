@@ -167,7 +167,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
     @Override
     public IncomingPhoneNumber execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/IncomingPhoneNumbers/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/IncomingPhoneNumbers/" + sid + ".json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

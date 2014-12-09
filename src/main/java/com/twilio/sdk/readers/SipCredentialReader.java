@@ -26,7 +26,7 @@ public class SipCredentialReader extends Reader<SipCredential> {
     public ResourceSet<SipCredential> execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
                                       "/Accounts/{AccountSid}/SIP/CredentialLists/" + credentialListSid +
-                                      "Credentials.json");
+                                      "Credentials.json", client.getAccountSid());
 
         Page<SipCredential> page = pageForRequest(client, request);
 
@@ -35,7 +35,7 @@ public class SipCredentialReader extends Reader<SipCredential> {
 
     @Override
     public Page<SipCredential> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

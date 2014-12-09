@@ -29,7 +29,8 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     @Override
     public OutgoingCallerId execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

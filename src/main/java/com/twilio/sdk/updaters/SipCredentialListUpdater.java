@@ -28,7 +28,7 @@ public class SipCredentialListUpdater extends Updater<SipCredentialList> {
 
     @Override
     public SipCredentialList execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/SIP/CredentialLists/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/SIP/CredentialLists/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

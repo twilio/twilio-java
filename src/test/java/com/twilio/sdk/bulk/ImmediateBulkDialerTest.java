@@ -68,6 +68,8 @@ public class ImmediateBulkDialerTest {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(JSON, TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -83,6 +85,8 @@ public class ImmediateBulkDialerTest {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(JSON, TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

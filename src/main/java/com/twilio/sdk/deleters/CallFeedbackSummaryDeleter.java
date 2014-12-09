@@ -24,7 +24,8 @@ public class CallFeedbackSummaryDeleter extends Deleter<CallFeedbackSummary> {
     @Override
     public void execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.DELETE,
-                                      "/Accounts/{AccountSid}/Calls/FeedbackSummary/" + sid + ".json");
+                                      "/Accounts/{AccountSid}/Calls/FeedbackSummary/" + sid + ".json",
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {

@@ -26,7 +26,7 @@ public class QueueCreator extends Creator<Queue> {
 
     @Override
     public Queue execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Queues.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Queues.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

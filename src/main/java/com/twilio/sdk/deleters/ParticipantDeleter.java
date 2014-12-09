@@ -29,7 +29,9 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Conferences/" + conferenceSid + "/Participants/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE,
+                                      String.format("/Accounts/{AccountSid}/Conferences/%s/Participants/%s.json",
+                                                    conferenceSid, sid), client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {

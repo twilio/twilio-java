@@ -23,7 +23,8 @@ public class UsageTriggerDeleter extends Deleter<UsageTrigger> {
 
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Usage/Triggers/" + sid + ".json");
+        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Usage/Triggers/" + sid + ".json",
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {

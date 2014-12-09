@@ -14,7 +14,8 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     @Override
     public ResourceSet<Transcription> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Transcriptions.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Transcriptions.json",
+                                      client.getAccountSid());
 
         Page<Transcription> page = pageForRequest(client, request);
 
@@ -23,7 +24,7 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     @Override
     public Page<Transcription> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

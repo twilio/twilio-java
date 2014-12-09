@@ -59,12 +59,11 @@ public class TwilioRestClient {
         objectMapper = new ObjectMapper();
     }
 
-    public Response request(final Request request) {
-        String resolvedUri =
-                "https://" + request.getDomain().toString() + ".twilio.com/" + request.getVersion().toString() +
-                request.getUri().replace("{AccountSid}", accountSid);
+    public String getAccountSid() {
+        return accountSid;
+    }
 
-        request.setUri(resolvedUri);
+    public Response request(final Request request) {
         request.setAuth(accountSid, authToken);
 
         return httpClient.reliableRequest(request);

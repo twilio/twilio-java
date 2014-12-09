@@ -35,7 +35,8 @@ public class QueueUpdater extends Updater<Queue> {
 
     @Override
     public Queue execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Queues/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Queues/" + sid + ".json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

@@ -14,7 +14,8 @@ public class ConnectAppReader extends Reader<ConnectApp> {
 
     @Override
     public ResourceSet<ConnectApp> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/ConnectApps.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/ConnectApps.json",
+                                      client.getAccountSid());
 
         Page<ConnectApp> page = pageForRequest(client, request);
 
@@ -23,7 +24,7 @@ public class ConnectAppReader extends Reader<ConnectApp> {
 
     @Override
     public Page<ConnectApp> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

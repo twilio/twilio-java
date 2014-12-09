@@ -33,7 +33,7 @@ public class AddressCreator extends Creator<Address> {
 
     @Override
     public Address execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Addresses.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Addresses.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

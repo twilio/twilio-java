@@ -21,7 +21,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     public ResourceSet<IncomingPhoneNumber> execute(final TwilioRestClient client) {
         String url =
                 "/Accounts/{AccountSid}/IncomingPhoneNumbers" + (type != null ? "/" + type.toString() : "") + ".json";
-        Request request = new Request(HttpMethod.GET, url);
+        Request request = new Request(HttpMethod.GET, url, client.getAccountSid());
         addQueryParams(request);
 
         Page<IncomingPhoneNumber> page = pageForRequest(client, request);
@@ -31,7 +31,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
     @Override
     public Page<IncomingPhoneNumber> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

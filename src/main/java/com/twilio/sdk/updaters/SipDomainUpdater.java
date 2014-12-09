@@ -72,7 +72,7 @@ public class SipDomainUpdater extends Updater<SipDomain> {
 
     @Override
     public SipDomain execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/SIP/Domains/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/SIP/Domains/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

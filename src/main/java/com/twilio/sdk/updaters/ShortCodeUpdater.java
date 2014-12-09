@@ -80,7 +80,8 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     @Override
     public ShortCode execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/SMS/ShortCodes/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/SMS/ShortCodes/" + sid + ".json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

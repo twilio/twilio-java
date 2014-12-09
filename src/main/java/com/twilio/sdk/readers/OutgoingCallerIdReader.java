@@ -17,7 +17,8 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     @Override
     public ResourceSet<OutgoingCallerId> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/OutgoingCallerIds.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/OutgoingCallerIds.json",
+                                      client.getAccountSid());
         addQueryParams(request);
 
         Page<OutgoingCallerId> page = pageForRequest(client, request);
@@ -27,7 +28,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     @Override
     public Page<OutgoingCallerId> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

@@ -35,7 +35,7 @@ public class AccountUpdater extends Updater<Account> {
 
     @Override
     public Account execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/" + sid + ".json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

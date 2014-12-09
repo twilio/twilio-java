@@ -17,7 +17,8 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     @Override
     public ResourceSet<ShortCode> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/SMS/ShortCodes.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/SMS/ShortCodes.json",
+                                      client.getAccountSid());
         addQueryParams(request);
 
         Page<ShortCode> page = pageForRequest(client, request);
@@ -27,7 +28,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     @Override
     public Page<ShortCode> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

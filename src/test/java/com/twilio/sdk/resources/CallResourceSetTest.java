@@ -135,6 +135,8 @@ public class CallResourceSetTest {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(FIRST_PAGE_JSON, TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -176,6 +178,8 @@ public class CallResourceSetTest {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response(FIRST_PAGE_JSON, TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

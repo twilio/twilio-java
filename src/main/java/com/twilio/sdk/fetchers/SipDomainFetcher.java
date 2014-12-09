@@ -17,7 +17,7 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
 
     @Override
     public SipDomain execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/SIP/Domains/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET, "/SIP/Domains/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

@@ -30,8 +30,8 @@ public class SipCredentialDeleter extends Deleter<SipCredential> {
     @Override
     public void execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.DELETE,
-                                      "/Accounts/{AccountSid}/SIP/CredentialLists/" + credentialListSid +
-                                      "/Credentials/" + sid + ".json");
+                                      String.format("/Accounts/{AccountSid}/SIP/CredentialLists/%s/Credentials/%s.json",
+                                                    credentialListSid, sid), client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {

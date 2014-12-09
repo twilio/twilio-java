@@ -24,7 +24,8 @@ public class MemberReader extends Reader<Member> {
 
     @Override
     public ResourceSet<Member> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Queues/" + queueSid + "/Members.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Queues/" + queueSid + "/Members.json",
+                                      client.getAccountSid());
 
         Page<Member> page = pageForRequest(client, request);
 
@@ -33,7 +34,7 @@ public class MemberReader extends Reader<Member> {
 
     @Override
     public Page<Member> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

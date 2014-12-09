@@ -14,7 +14,7 @@ public class QueueReader extends Reader<Queue> {
 
     @Override
     public ResourceSet<Queue> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Queues.json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Queues.json", client.getAccountSid());
 
         Page<Queue> page = pageForRequest(client, request);
 
@@ -23,7 +23,7 @@ public class QueueReader extends Reader<Queue> {
 
     @Override
     public Page<Queue> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

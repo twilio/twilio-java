@@ -32,8 +32,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     @Override
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.POST,
-                                      "/Accounts/{AccountSid}/Conferences/" + conferenceSid + "/Participants/" + sid +
-                                      ".json");
+                                      String.format("/Accounts/{AccountSid}/Conferences/%s/Participants/%s.json",
+                                                    conferenceSid, sid), client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

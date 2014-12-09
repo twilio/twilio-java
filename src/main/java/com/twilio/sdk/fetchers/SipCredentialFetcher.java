@@ -29,7 +29,8 @@ public class SipCredentialFetcher extends Fetcher<SipCredential> {
     @Override
     public SipCredential execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
-                                      "/SIP/CredentialLists/" + credentialListSid + "/Credentials/" + sid + ".json");
+                                      String.format("/SIP/CredentialLists/%s/Credentials/%s.json", credentialListSid,
+                                                    sid), client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

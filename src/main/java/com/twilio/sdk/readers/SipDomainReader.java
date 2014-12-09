@@ -13,7 +13,7 @@ public class SipDomainReader extends Reader<SipDomain> {
 
     @Override
     public ResourceSet<SipDomain> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/SIP/Domains.json");
+        Request request = new Request(HttpMethod.GET, "/SIP/Domains.json", client.getAccountSid());
 
         Page<SipDomain> page = pageForRequest(client, request);
 
@@ -22,7 +22,7 @@ public class SipDomainReader extends Reader<SipDomain> {
 
     @Override
     public Page<SipDomain> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

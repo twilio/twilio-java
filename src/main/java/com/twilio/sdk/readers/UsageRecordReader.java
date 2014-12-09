@@ -27,7 +27,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         if (usageRecordSubResource != null) {
             uri = "/Accounts/{AccountSid}/Usage/Records/" + usageRecordSubResource + ".json";
         }
-        Request request = new Request(HttpMethod.GET, uri);
+        Request request = new Request(HttpMethod.GET, uri, client.getAccountSid());
         addQueryParams(request);
 
         Page<UsageRecord> page = pageForRequest(client, request);
@@ -37,7 +37,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     @Override
     public Page<UsageRecord> nextPage(final String nextPageUri, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, nextPageUri);
+        Request request = new Request(HttpMethod.GET, nextPageUri, client.getAccountSid());
         return pageForRequest(client, request);
     }
 

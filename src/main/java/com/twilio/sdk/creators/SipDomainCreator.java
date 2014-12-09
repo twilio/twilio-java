@@ -62,7 +62,8 @@ public class SipDomainCreator extends Creator<SipDomain> {
 
     @Override
     public SipDomain execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/SIP/Domains.json");
+        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/SIP/Domains.json",
+                                      client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

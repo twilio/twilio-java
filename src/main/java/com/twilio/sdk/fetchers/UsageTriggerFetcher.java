@@ -18,7 +18,8 @@ public class UsageTriggerFetcher extends Fetcher<UsageTrigger> {
 
     @Override
     public UsageTrigger execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Usage/Triggers/" + sid + ".json");
+        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Usage/Triggers/" + sid + ".json",
+                                      client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

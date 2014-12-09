@@ -7,10 +7,7 @@ import org.mockito.Mock;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -27,6 +24,7 @@ public class FeedbackSummaryTest extends BasicRequestTester {
 
 	@Before
 	public void setup() throws Exception {
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		setExpectedServerContentType("application/json");
 		setExpectedServerAnswer("callfeedbacksummaryqueued.json");
 		Map<String, String> filters = new HashMap<String, String>();

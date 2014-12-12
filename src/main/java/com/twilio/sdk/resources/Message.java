@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.MessageCreator;
 import com.twilio.sdk.deleters.MessageDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -70,7 +69,7 @@ public class Message extends SidResource {
         this.numSegments = numSegments;
         this.direction = direction;
         this.from = from;
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.price = price;
         this.errorMessage = errorMessage;
         this.uri = uri;
@@ -79,8 +78,8 @@ public class Message extends SidResource {
         this.to = to;
         this.status = status;
         this.sid = sid;
-        this.dateSent = DateTime.parse(dateSent, Twilio.DATE_TIME_FORMATTER);
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+        this.dateSent = safeDateTimeConvert(dateSent);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
         this.subresourceUris = subresourceUris;
         this.errorCode = errorCode;
         this.priceUnit = priceUnit;

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -74,7 +73,7 @@ public class DependentPhoneNumber extends SidResource {
                                  @JsonProperty("date_created") final String dateCreated,
                                  @JsonProperty("status_callback") final URI statusCallback) {
         this.addressRequirements = addressRequirements;
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.voiceUrl = voiceUrl;
         this.smsApplicationSid = smsApplicationSid;
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -94,7 +93,7 @@ public class DependentPhoneNumber extends SidResource {
         this.smsMethod = smsMethod;
         this.apiVersion = apiVersion;
         this.smsFallbackMethod = smsFallbackMethod;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
         this.statusCallback = statusCallback;
 
     }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.AddressCreator;
 import com.twilio.sdk.deleters.AddressDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -50,7 +49,7 @@ public class Address extends SidResource {
                     @JsonProperty("iso_country") final String isoCountry,
                     @JsonProperty("customer_name") final String customerName) {
         this.city = city;
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.region = region;
         this.friendlyName = friendlyName;
         this.uri = uri;
@@ -58,7 +57,7 @@ public class Address extends SidResource {
         this.street = street;
         this.postalCode = postalCode;
         this.sid = sid;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
         this.isoCountry = isoCountry;
         this.customerName = customerName;
 

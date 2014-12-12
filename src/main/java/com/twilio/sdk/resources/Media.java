@@ -7,20 +7,15 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
-
 import com.twilio.sdk.deleters.MediaDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.MediaFetcher;
-
 import com.twilio.sdk.readers.MediaReader;
-
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -47,12 +42,12 @@ public class Media extends SidResource {
         @JsonProperty("date_created") final String dateCreated
         ) {
         this.parentSid = parentSid;
-            this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+            this.dateUpdated = safeDateTimeConvert(dateUpdated);
             this.uri = uri;
             this.accountSid = accountSid;
             this.contentType = contentType;
             this.sid = sid;
-            this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+            this.dateCreated = safeDateTimeConvert(dateCreated);
             
     }
 

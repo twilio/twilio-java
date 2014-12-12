@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.UsageTriggerCreator;
 import com.twilio.sdk.deleters.UsageTriggerDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -59,12 +58,8 @@ public class UsageTrigger extends SidResource {
                          @JsonProperty("recurring") final UsageTrigger.Recurring recurring,
                          @JsonProperty("usage_category") final UsageCategory usageCategory,
                          @JsonProperty("trigger_value") final String triggerValue) {
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
-        if (dateFired != null) {
-            this.dateFired = DateTime.parse(dateFired, Twilio.DATE_TIME_FORMATTER);
-        } else {
-            this.dateFired = null;
-        }
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateFired = safeDateTimeConvert(dateFired);
         this.friendlyName = friendlyName;
         this.uri = uri;
         this.accountSid = accountSid;
@@ -73,7 +68,7 @@ public class UsageTrigger extends SidResource {
         this.callbackMethod = callbackMethod;
         this.sid = sid;
         this.currentValue = currentValue;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
         this.callbackUrl = callbackUrl;
         this.recurring = recurring;
         this.usageCategory = usageCategory;

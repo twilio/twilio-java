@@ -15,12 +15,19 @@ public class CallLocatorExample {
         Twilio.init("ACca498dbda0fef21f361a9a3326354175", "8b20fad4aaf29e4d9f30ee0994a2e3bd");
 
         ResourceSet<Call> calls = Call.list()
-                                      .byTo("+16507843280")
                                       .execute();
 
+        calls.setAutoPaging(false);
+
+
+
+        int idx = 1;
+
         for (Call call : calls) {
-            System.out.println(call.getSid());
+            System.out.println(idx + ": " + call.getSid());
+            idx++;
         }
 
+        System.out.println("All Done");
     }
 }

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.SipDomainCreator;
 import com.twilio.sdk.deleters.SipDomainDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -72,8 +71,8 @@ public class SipDomain extends SidResource {
         this.voiceFallbackMethod = voiceFallbackMethod;
         this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.subresourceUris = subresourceUris;
         this.uri = uri;
     }

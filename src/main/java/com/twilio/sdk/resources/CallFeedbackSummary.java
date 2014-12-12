@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.CallFeedbackSummaryCreator;
 import com.twilio.sdk.deleters.CallFeedbackSummaryDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -59,16 +58,16 @@ public class CallFeedbackSummary extends SidResource {
         this.includeSubaccounts = includeSubaccounts;
         this.status = status;
         this.qualityScoreStandardDeviation = qualityScoreStandardDeviation;
-        this.endDate = LocalDate.parse(endDate, Twilio.DATE_FORMATTER);
+        this.endDate = safeDateConvert(endDate);
         this.callFeedbackCount = callFeedbackCount;
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.issues = issues;
         this.accountSid = accountSid;
         this.qualityScoreMedian = qualityScoreMedian;
         this.qualityScoreAverage = qualityScoreAverage;
         this.sid = sid;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
-        this.startDate = LocalDate.parse(startDate, Twilio.DATE_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.startDate = safeDateConvert(startDate);
         this.callCount = callCount;
 
     }

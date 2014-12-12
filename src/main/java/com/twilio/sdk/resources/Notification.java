@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.deleters.NotificationDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
@@ -62,17 +61,17 @@ public class Notification extends SidResource {
                          @JsonProperty("more_info") final URI moreInfo) {
         this.log = log;
         this.responseHeaders = responseHeaders;
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.messageText = messageText;
         this.requestVariables = requestVariables;
         this.uri = uri;
         this.accountSid = accountSid;
-        this.messageDate = DateTime.parse(messageDate, Twilio.DATE_TIME_FORMATTER);
+        this.messageDate = safeDateTimeConvert(messageDate);
         this.requestMethod = requestMethod;
         this.responseBody = responseBody;
         this.callSid = callSid;
         this.sid = sid;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
         this.requestUrl = requestUrl;
         this.errorCode = errorCode;
         this.apiVersion = apiVersion;

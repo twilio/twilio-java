@@ -50,13 +50,18 @@ public class Page<T> {
             for (final JsonNode record : records) {
                 this.records.add(objectMapper.readValue(record.toString(), recordType));
             }
-            firstPageUri = root.get("first_page_uri").asText();
-            nextPageUri = root.get("next_page_uri").asText();
-            previousPageUri = root.get("previous_page_uri").asText();
+
+            JsonNode nextPageNode = root.get("next_page_uri");
+            JsonNode previousPageNode = root.get("previous_page_uri");
+
             uri = root.get("uri").asText();
+            firstPageUri = root.get("first_page_uri").asText();
             pageSize = root.get("page_size").asInt();
+
+            nextPageUri = nextPageNode.isNull() ? null : nextPageNode.asText();
+            previousPageUri = previousPageNode.isNull() ? null : previousPageNode.asText();
         } catch (final IOException e) {
-            throw new ApiConnectionException("Unable to deserialize response: " + e.getMessage(), e);
+            throw new ApiConnectionException("Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e);
         }
     }
 

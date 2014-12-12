@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.ShortCodeFetcher;
@@ -49,7 +48,7 @@ public class ShortCode extends SidResource {
                       @JsonProperty("sms_method") final HttpMethod smsMethod, @JsonProperty("sid") final String sid,
                       @JsonProperty("date_created") final String dateCreated, @JsonProperty("sms_url") final URI smsUrl,
                       @JsonProperty("api_version") final String apiVersion) {
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.smsFallbackMethod = smsFallbackMethod;
         this.friendlyName = friendlyName;
         this.uri = uri;
@@ -58,7 +57,7 @@ public class ShortCode extends SidResource {
         this.shortCode = shortCode;
         this.smsMethod = smsMethod;
         this.sid = sid;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
         this.smsUrl = smsUrl;
         this.apiVersion = apiVersion;
 

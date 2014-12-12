@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.OutgoingCallerIdCreator;
 import com.twilio.sdk.deleters.OutgoingCallerIdDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -43,12 +42,12 @@ public class OutgoingCallerId extends SidResource {
                              @JsonProperty("sid") final String sid,
                              @JsonProperty("date_created") final String dateCreated) {
         this.phoneNumber = phoneNumber;
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.friendlyName = friendlyName;
         this.uri = uri;
         this.accountSid = accountSid;
         this.sid = sid;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
 
     }
 

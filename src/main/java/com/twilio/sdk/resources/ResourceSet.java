@@ -45,6 +45,10 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
     }
 
     protected void fetchNextPage() {
+        if (page.getNextPageUri() == null) {
+            return;
+        }
+
         page = reader.nextPage(page.getNextPageUri(), client);
         if (page != null) {
             iterator = page.getRecords().iterator();

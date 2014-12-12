@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.Twilio;
 import com.twilio.sdk.deleters.ParticipantDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
@@ -45,8 +44,8 @@ public class Participant extends Resource {
                        @JsonProperty("uri") final String uri) {
         this.callSid = callSid;
         this.conferenceSid = conferenceSid;
-        this.dateCreated = DateTime.parse(dateCreated, Twilio.DATE_TIME_FORMATTER);
-        this.dateUpdated = DateTime.parse(dateUpdated, Twilio.DATE_TIME_FORMATTER);
+        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateUpdated = safeDateTimeConvert(dateUpdated);
         this.accountSid = accountSid;
         this.muted = muted;
         this.startConferenceOnEnter = startConferenceOnEnter;

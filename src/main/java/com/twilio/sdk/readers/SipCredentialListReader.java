@@ -5,15 +5,16 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.resources.SipCredentialList;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
-import com.twilio.sdk.resources.SipCredentialList;
+import com.twilio.sdk.resources.RestException;
 
 public class SipCredentialListReader extends Reader<SipCredentialList> {
 
     @Override
     public ResourceSet<SipCredentialList> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/SIP/CredentialLists.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json", client.getAccountSid());
 
         Page<SipCredentialList> page = pageForRequest(client, request);
 
@@ -30,12 +31,13 @@ public class SipCredentialListReader extends Reader<SipCredentialList> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for SipCredentialList");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<SipCredentialList> result = new Page<>();
-        result.deserialize("credential_lists", response.getContent(), SipCredentialList.class,
-                           client.getObjectMapper());
+        result.deserialize("credential_lists", response.getContent(), SipCredentialList.class, client.getObjectMapper());
 
         return result;
     }

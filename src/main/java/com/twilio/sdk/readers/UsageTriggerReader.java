@@ -19,8 +19,7 @@ public class UsageTriggerReader extends Reader<UsageTrigger> {
 
     @Override
     public ResourceSet<UsageTrigger> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Usage/Triggers.json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json", client.getAccountSid());
         addQueryParams(request);
 
         Page<UsageTrigger> page = pageForRequest(client, request);

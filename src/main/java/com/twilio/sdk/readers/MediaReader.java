@@ -29,7 +29,7 @@ public class MediaReader extends Reader<Media> {
 
     @Override
     public ResourceSet<Media> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Messages/" + messageSid + "/Media.json",
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/Messages/" + messageSid + "/Media.json",
                                       client.getAccountSid());
         addQueryParams(request);
 

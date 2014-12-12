@@ -20,8 +20,7 @@ public class NotificationReader extends Reader<Notification> {
 
     @Override
     public ResourceSet<Notification> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Notifications.json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/Notifications.json", client.getAccountSid());
         addQueryParams(request);
 
         Page<Notification> page = pageForRequest(client, request);

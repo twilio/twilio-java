@@ -5,15 +5,16 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.resources.SipDomain;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
-import com.twilio.sdk.resources.SipDomain;
+import com.twilio.sdk.resources.RestException;
 
 public class SipDomainReader extends Reader<SipDomain> {
 
     @Override
     public ResourceSet<SipDomain> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/SIP/Domains.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json", client.getAccountSid());
 
         Page<SipDomain> page = pageForRequest(client, request);
 
@@ -30,7 +31,9 @@ public class SipDomainReader extends Reader<SipDomain> {
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("Unable to build page for SipDomain");
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         Page<SipDomain> result = new Page<>();

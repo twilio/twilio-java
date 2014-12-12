@@ -21,7 +21,7 @@ public class MessageReader extends Reader<Message> {
 
     @Override
     public ResourceSet<Message> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Messages.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/Messages.json", client.getAccountSid());
         addQueryParams(request);
 
         Page<Message> page = pageForRequest(client, request);

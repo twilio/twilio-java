@@ -23,10 +23,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     @Override
     public ResourceSet<UsageRecord> execute(final TwilioRestClient client) {
-        String uri = "/Accounts/{AccountSid}/Usage/Records.json";
+        String uri = "/2010-04-01/Accounts/{AccountSid}/Usage/Records";
         if (usageRecordSubResource != null) {
-            uri = "/Accounts/{AccountSid}/Usage/Records/" + usageRecordSubResource + ".json";
+            uri += "/" + usageRecordSubResource;
         }
+        uri += ".json";
         Request request = new Request(HttpMethod.GET, uri, client.getAccountSid());
         addQueryParams(request);
 

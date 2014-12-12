@@ -18,7 +18,7 @@ public class AddressReader extends Reader<Address> {
 
     @Override
     public ResourceSet<Address> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Addresses.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/Addresses.json", client.getAccountSid());
         addQueryParams(request);
 
         Page<Address> page = pageForRequest(client, request);

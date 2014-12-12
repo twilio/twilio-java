@@ -20,7 +20,7 @@ public class RecordingReader extends Reader<Recording> {
 
     @Override
     public ResourceSet<Recording> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Recordings.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/Recordings.json", client.getAccountSid());
         addQueryParams(request);
 
         Page<Recording> page = pageForRequest(client, request);

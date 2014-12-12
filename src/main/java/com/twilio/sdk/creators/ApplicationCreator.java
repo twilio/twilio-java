@@ -170,8 +170,7 @@ public class ApplicationCreator extends Creator<Application> {
 
     @Override
     public Application execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Applications.json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Applications.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
@@ -180,7 +179,7 @@ public class ApplicationCreator extends Creator<Application> {
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
-                                   restException.getStatus(), null);
+                    restException.getStatus(), null);
         }
 
         return Application.fromJson(response.getStream(), client.getObjectMapper());

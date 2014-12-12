@@ -22,7 +22,7 @@ public class OutgoingCallerIdCreator extends Creator<OutgoingCallerId> {
     private URI statusCallback;
 
     public OutgoingCallerIdCreator(final String phoneNumber) {
-
+        
         this.phoneNumber = phoneNumber;
     }
 
@@ -62,7 +62,7 @@ public class OutgoingCallerIdCreator extends Creator<OutgoingCallerId> {
 
     @Override
     public OutgoingCallerId execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/OutgoingCallerIds.json",
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
                                       client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);

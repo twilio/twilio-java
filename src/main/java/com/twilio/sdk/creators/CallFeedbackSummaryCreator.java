@@ -53,8 +53,7 @@ public class CallFeedbackSummaryCreator extends Creator<CallFeedbackSummary> {
 
     @Override
     public CallFeedbackSummary execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls/FeedbackSummary.json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

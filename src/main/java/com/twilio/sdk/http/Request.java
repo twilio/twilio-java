@@ -28,20 +28,13 @@ public class Request {
     private final Map<String, ArrayList<String>> postParams;
 
     public Request(final HttpMethod method, final String uri, final String accountSid) {
-        this(method, TwilioRestClient.Domains.API, TwilioRestClient.Versions.v2010, uri, accountSid);
-    }
-
-    public Request(final HttpMethod method, final TwilioRestClient.Domains domain, final String uri,
-                   final String accountSid) {
-        this(method, domain,
-             domain == TwilioRestClient.Domains.API ? TwilioRestClient.Versions.v2010 : TwilioRestClient.Versions.v1,
-             uri, accountSid);
+        this(method, TwilioRestClient.Domains.API, uri, accountSid);
     }
 
     public Request(final HttpMethod method, final TwilioRestClient.Domains domain,
-                   final TwilioRestClient.Versions version, final String uri, final String accountSid) {
+                   final String uri, final String accountSid) {
         this.method = method;
-        this.uri = "https://" + domain.toString() + ".twilio.com/" + version.toString() +
+        this.uri = "https://" + domain.toString() + ".twilio.com" +
                    uri.replace("{AccountSid}", accountSid);
         queryParams = new HashMap<>();
         postParams = new HashMap<>();

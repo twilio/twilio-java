@@ -7,24 +7,20 @@ import com.twilio.sdk.exceptions.AuthenticationException;
 import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.fetchers.CallFetcher;
 import com.twilio.sdk.resources.Call;
+import com.twilio.sdk.resources.ResourceSet;
 
 public class CallLocatorExample {
 
     public static void main(final String[] args) {
-        Twilio.init("AC123", "AUTH TOKEN");
+        Twilio.init("ACca498dbda0fef21f361a9a3326354175", "8b20fad4aaf29e4d9f30ee0994a2e3bd");
 
-        String callSid = "CAa4df5c8404a784212bc026f48c497219";
+        ResourceSet<Call> calls = Call.list()
+                                      .byTo("+16507843280")
+                                      .execute();
 
-        Call call = null;
-        try {
-            call = new CallFetcher(callSid).execute();
-        } catch (InvalidRequestException | ApiConnectionException | ApiException | AuthenticationException e) {
-            System.err.println("womp womp");
-            System.exit(1);
+        for (Call call : calls) {
+            System.out.println(call.getSid());
         }
-
-        System.out.println(call.getSid());
-        System.out.println(call.getStatus().toString());
 
     }
 }

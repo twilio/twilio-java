@@ -23,7 +23,7 @@ public class UsageTriggerCreator extends Creator<UsageTrigger> {
     private String friendlyName;
 
     public UsageTriggerCreator(final URI callbackUrl, final UsageCategory usageCategory, final String triggerValue) {
-
+        
         this.callbackUrl = callbackUrl;
         this.usageCategory = usageCategory;
         this.triggerValue = triggerValue;
@@ -51,8 +51,7 @@ public class UsageTriggerCreator extends Creator<UsageTrigger> {
 
     @Override
     public UsageTrigger execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Usage/Triggers.json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
@@ -69,39 +68,39 @@ public class UsageTriggerCreator extends Creator<UsageTrigger> {
 
     private void addPostParams(final Request request) {
         if (callbackUrl != null) {
-
+            
             request.addPostParam("CallbackUrl", callbackUrl.toString());
-
+            
         }
         if (usageCategory != null) {
-
+            
             request.addPostParam("UsageCategory", usageCategory.toString());
-
+            
         }
         if (triggerValue != null) {
-
+            
             request.addPostParam("TriggerValue", triggerValue);
-
+            
         }
         if (callbackMethod != null) {
-
+            
             request.addPostParam("CallbackMethod", callbackMethod.toString());
-
+            
         }
         if (recurring != null) {
-
+            
             request.addPostParam("Recurring", recurring.toString());
-
+            
         }
         if (triggerBy != null) {
-
+            
             request.addPostParam("TriggerBy", triggerBy.toString());
-
+            
         }
         if (friendlyName != null) {
-
+            
             request.addPostParam("FriendlyName", friendlyName);
-
+            
         }
     }
 

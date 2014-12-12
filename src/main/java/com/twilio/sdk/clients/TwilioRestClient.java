@@ -27,22 +27,6 @@ public class TwilioRestClient {
         }
     }
 
-    public enum Versions {
-        v1("v1"),
-        v2008("2008-08-01"),
-        v2010("2010-04-01");
-
-        private final String version;
-
-        Versions(final String version) {
-            this.version = version;
-        }
-
-        public String toString() {
-            return version;
-        }
-    }
-
     protected HttpClient httpClient;
     protected final ObjectMapper objectMapper;
     protected final String accountSid;
@@ -56,7 +40,7 @@ public class TwilioRestClient {
         this.accountSid = accountSid;
         this.authToken = authToken;
         this.httpClient = httpClient;
-        objectMapper = new ObjectMapper();
+        this.objectMapper = new ObjectMapper();
     }
 
     public String getAccountSid() {

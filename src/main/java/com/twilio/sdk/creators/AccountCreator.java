@@ -24,7 +24,7 @@ public class AccountCreator extends Creator<Account> {
 
     @Override
     public Account execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

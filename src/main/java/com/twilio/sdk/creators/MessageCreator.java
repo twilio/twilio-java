@@ -64,7 +64,7 @@ public class MessageCreator extends Creator<Message> {
 
     @Override
     public Message execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Messages.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Messages.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

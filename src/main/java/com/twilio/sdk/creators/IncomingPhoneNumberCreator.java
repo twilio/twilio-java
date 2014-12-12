@@ -168,8 +168,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
     @Override
     public IncomingPhoneNumber execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

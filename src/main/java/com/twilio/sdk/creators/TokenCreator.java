@@ -6,15 +6,18 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.Token;
+import com.twilio.sdk.resources.RestException;
+
+
+
+
 
 public class TokenCreator extends Creator<Token> {
-
     private Integer ttl;
 
     public TokenCreator() {
-
+        
     }
 
     public TokenCreator setTtl(final Integer ttl) {
@@ -24,7 +27,7 @@ public class TokenCreator extends Creator<Token> {
 
     @Override
     public Token execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Tokens.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Tokens.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

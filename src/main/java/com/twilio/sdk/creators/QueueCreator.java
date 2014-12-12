@@ -15,7 +15,7 @@ public class QueueCreator extends Creator<Queue> {
     private Integer maxSize;
 
     public QueueCreator(final String friendlyName) {
-
+        
         this.friendlyName = friendlyName;
     }
 
@@ -26,7 +26,7 @@ public class QueueCreator extends Creator<Queue> {
 
     @Override
     public Queue execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Queues.json", client.getAccountSid());
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Queues.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 

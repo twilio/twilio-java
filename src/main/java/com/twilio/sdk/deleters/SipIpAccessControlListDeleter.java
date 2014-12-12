@@ -7,6 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.SipIpAccessControlList;
+import com.twilio.sdk.resources.RestException;
 
 public class SipIpAccessControlListDeleter extends Deleter<SipIpAccessControlList> {
 
@@ -21,17 +22,16 @@ public class SipIpAccessControlListDeleter extends Deleter<SipIpAccessControlLis
     }
 
     @Override
-    public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE,
-                                      "/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + sid + ".json",
-                                      client.getAccountSid());
+    public void execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.DELETE, "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SIP Domain delete failed: Unable to connect to server");
+            throw new ApiConnectionException("SipIpAccessControlList delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
-            throw new ApiException(
-                    "SIP IP ACL delete failed: [" + response.getStatusCode() + "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
     }
 }

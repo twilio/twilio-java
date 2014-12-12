@@ -29,9 +29,9 @@ public class MediaDeleter extends Deleter<Media> {
     }
 
     @Override
-    public void execute(final TwilioRestClient client) {
+    public void execute(final TwilioRestClient client)  {
         Request request = new Request(HttpMethod.DELETE,
-                                      String.format("/Accounts/{AccountSid}/Messages/%s/Media/%s.json", messageSid,
+                                      String.format("/2010-04-01/Accounts/{AccountSid}/Messages/%s/Media/%s.json", messageSid,
                                                     sid), client.getAccountSid());
         Response response = client.request(request);
 

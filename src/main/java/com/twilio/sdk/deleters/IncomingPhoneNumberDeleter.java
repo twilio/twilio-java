@@ -22,9 +22,8 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
     }
 
     @Override
-    public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/IncomingPhoneNumbers/" + sid + ".json",
-                                      client.getAccountSid());
+    public void execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.DELETE, "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {

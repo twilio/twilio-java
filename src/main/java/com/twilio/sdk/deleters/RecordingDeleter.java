@@ -22,9 +22,8 @@ public class RecordingDeleter extends Deleter<Recording> {
     }
 
     @Override
-    public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Recordings/" + sid + ".json",
-                                      client.getAccountSid());
+    public void execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.DELETE, "/2010-04-01/Accounts/{AccountSid}/Recordings/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {

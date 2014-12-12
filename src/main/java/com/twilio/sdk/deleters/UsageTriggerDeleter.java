@@ -6,8 +6,8 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.UsageTrigger;
+import com.twilio.sdk.resources.RestException;
 
 public class UsageTriggerDeleter extends Deleter<UsageTrigger> {
 
@@ -22,9 +22,8 @@ public class UsageTriggerDeleter extends Deleter<UsageTrigger> {
     }
 
     @Override
-    public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/Accounts/{AccountSid}/Usage/Triggers/" + sid + ".json",
-                                      client.getAccountSid());
+    public void execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.DELETE, "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response == null) {

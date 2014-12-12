@@ -6,8 +6,8 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.ShortCode;
+import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -21,7 +21,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     private HttpMethod smsFallbackMethod;
     private URI smsUrl;
     private String apiVersion;
-
+    
     public ShortCodeUpdater(final String sid) {
         this.sid = sid;
     }
@@ -34,7 +34,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         this.friendlyName = friendlyName;
         return this;
     }
-
+    
     public ShortCodeUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
@@ -48,17 +48,17 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         }
         return this;
     }
-
+    
     public ShortCodeUpdater setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
         return this;
     }
-
+    
     public ShortCodeUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
-
+    
     public ShortCodeUpdater setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
         return this;
@@ -72,16 +72,15 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         }
         return this;
     }
-
+    
     public ShortCodeUpdater setApiVersion(final String apiVersion) {
         this.apiVersion = apiVersion;
         return this;
     }
-
+    
     @Override
-    public ShortCode execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/SMS/ShortCodes/" + sid + ".json",
-                                      client.getAccountSid());
+    public ShortCode execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
@@ -97,30 +96,30 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     }
 
     private void addPostParams(final Request request) {
-
+        
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
-
+        
         if (smsFallbackUrl != null) {
             request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
         }
-
+        
         if (smsMethod != null) {
             request.addPostParam("SmsMethod", smsMethod.toString());
         }
-
+        
         if (smsFallbackMethod != null) {
             request.addPostParam("SmsFallbackMethod", smsFallbackMethod.toString());
         }
-
+        
         if (smsUrl != null) {
             request.addPostParam("SmsUrl", smsUrl.toString());
         }
-
+        
         if (apiVersion != null) {
             request.addPostParam("ApiVersion", apiVersion);
         }
-
+        
     }
 }

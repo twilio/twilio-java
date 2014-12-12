@@ -24,7 +24,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     private String companyName;
     private HttpMethod deauthorizeCallbackMethod;
     private List<ConnectApp.Permission> permissions;
-
+    
     public ConnectAppUpdater(final String sid) {
         this.sid = sid;
     }
@@ -46,17 +46,17 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         }
         return this;
     }
-
+    
     public ConnectAppUpdater setDescription(final String description) {
         this.description = description;
         return this;
     }
-
+    
     public ConnectAppUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
+    
     public ConnectAppUpdater setDeauthorizeCallbackUrl(final URI deauthorizeCallbackUrl) {
         this.deauthorizeCallbackUrl = deauthorizeCallbackUrl;
         return this;
@@ -70,7 +70,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         }
         return this;
     }
-
+    
     public ConnectAppUpdater setHomepageUrl(final URI homepageUrl) {
         this.homepageUrl = homepageUrl;
         return this;
@@ -84,26 +84,25 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         }
         return this;
     }
-
+    
     public ConnectAppUpdater setCompanyName(final String companyName) {
         this.companyName = companyName;
         return this;
     }
-
+    
     public ConnectAppUpdater setDeauthorizeCallbackMethod(final HttpMethod deauthorizeCallbackMethod) {
         this.deauthorizeCallbackMethod = deauthorizeCallbackMethod;
         return this;
     }
-
+    
     public ConnectAppUpdater setPermissions(final List<ConnectApp.Permission> permissions) {
         this.permissions = permissions;
         return this;
     }
-
+    
     @Override
-    public ConnectApp execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/ConnectApps/" + sid + ".json",
-                                      client.getAccountSid());
+    public ConnectApp execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/ConnectApps/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
@@ -119,38 +118,38 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     private void addPostParams(final Request request) {
-
+        
         if (authorizeRedirectUrl != null) {
             request.addPostParam("AuthorizeRedirectUrl", authorizeRedirectUrl.toString());
         }
-
+        
         if (description != null) {
             request.addPostParam("Description", description);
         }
-
+        
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
-
+        
         if (deauthorizeCallbackUrl != null) {
             request.addPostParam("DeauthorizeCallbackUrl", deauthorizeCallbackUrl.toString());
         }
-
+        
         if (homepageUrl != null) {
             request.addPostParam("HomepageUrl", homepageUrl.toString());
         }
-
+        
         if (companyName != null) {
             request.addPostParam("CompanyName", companyName);
         }
-
+        
         if (deauthorizeCallbackMethod != null) {
             request.addPostParam("DeauthorizeCallbackMethod", deauthorizeCallbackMethod.toString());
         }
-
+        
         if (permissions != null) {
             request.addPostParam("Permissions", permissions.toString());
         }
-
+        
     }
 }

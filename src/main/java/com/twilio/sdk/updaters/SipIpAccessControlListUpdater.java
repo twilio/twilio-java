@@ -7,12 +7,13 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.SipIpAccessControlList;
+import com.twilio.sdk.resources.RestException;
 
 public class SipIpAccessControlListUpdater extends Updater<SipIpAccessControlList> {
 
     private final String sid;
     private String friendlyName;
-
+    
     public SipIpAccessControlListUpdater(final String sid) {
         this.sid = sid;
     }
@@ -25,19 +26,19 @@ public class SipIpAccessControlListUpdater extends Updater<SipIpAccessControlLis
         this.friendlyName = friendlyName;
         return this;
     }
-
+    
     @Override
-    public SipIpAccessControlList execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/SIP/IpAccessControlLists/" + sid + ".json",
-                                      client.getAccountSid());
+    public SipIpAccessControlList execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Account update failed: Unable to connect to server");
+            throw new ApiConnectionException("SipIpAccessControlList update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException("SIP IpAccessControlList update failed: [" + response.getStatusCode() + "] " +
-                                   response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return SipIpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());
@@ -48,5 +49,4 @@ public class SipIpAccessControlListUpdater extends Updater<SipIpAccessControlLis
             request.addPostParam("FriendlyName", friendlyName);
         }
     }
-
 }

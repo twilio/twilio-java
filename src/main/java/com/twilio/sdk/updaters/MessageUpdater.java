@@ -13,7 +13,7 @@ public class MessageUpdater extends Updater<Message> {
 
     private final String sid;
     private String body;
-
+    
     public MessageUpdater(final String sid) {
         this.sid = sid;
     }
@@ -26,11 +26,10 @@ public class MessageUpdater extends Updater<Message> {
         this.body = body;
         return this;
     }
-
+    
     @Override
-    public Message execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Messages/" + sid + ".json",
-                                      client.getAccountSid());
+    public Message execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Messages/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
@@ -46,10 +45,10 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     private void addPostParams(final Request request) {
-
+        
         if (body != null) {
             request.addPostParam("Body", body);
         }
-
+        
     }
 }

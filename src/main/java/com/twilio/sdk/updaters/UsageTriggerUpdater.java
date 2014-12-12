@@ -6,8 +6,8 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.UsageTrigger;
+import com.twilio.sdk.resources.RestException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,10 +18,10 @@ public class UsageTriggerUpdater extends Updater<UsageTrigger> {
     private HttpMethod callbackMethod;
     private URI callbackUrl;
     private String friendlyName;
-
+    
     public UsageTriggerUpdater(final String sid) {
         this.sid = sid;
-
+        
     }
 
     public UsageTriggerUpdater(final UsageTrigger target) {
@@ -32,7 +32,7 @@ public class UsageTriggerUpdater extends Updater<UsageTrigger> {
         this.callbackMethod = callbackMethod;
         return this;
     }
-
+    
     public UsageTriggerUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
         return this;
@@ -46,16 +46,15 @@ public class UsageTriggerUpdater extends Updater<UsageTrigger> {
         }
         return this;
     }
-
+    
     public UsageTriggerUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
+    
     @Override
-    public UsageTrigger execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Usage/Triggers/" + sid + ".json",
-                                      client.getAccountSid());
+    public UsageTrigger execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
@@ -71,18 +70,18 @@ public class UsageTriggerUpdater extends Updater<UsageTrigger> {
     }
 
     private void addPostParams(final Request request) {
-
+        
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
         }
-
+        
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
         }
-
+        
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
-
+        
     }
 }

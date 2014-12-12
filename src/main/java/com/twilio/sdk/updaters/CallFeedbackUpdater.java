@@ -16,7 +16,7 @@ public class CallFeedbackUpdater extends Updater<CallFeedback> {
     private final String sid;
     private final int qualityScore;
     private List<CallFeedback.Issue> issues;
-
+    
     public CallFeedbackUpdater(final String sid, final int qualityScore) {
         this.sid = sid;
         this.qualityScore = qualityScore;
@@ -30,10 +30,10 @@ public class CallFeedbackUpdater extends Updater<CallFeedback> {
         this.issues = issues;
         return this;
     }
-
+    
     @Override
-    public CallFeedback execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Calls/" + sid + "/Feedback.json",
+    public CallFeedback execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Calls/" + sid + "/Feedback.json",
                                       client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);

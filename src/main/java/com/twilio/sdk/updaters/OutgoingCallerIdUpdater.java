@@ -13,7 +13,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     private final String sid;
     private String friendlyName;
-
+    
     public OutgoingCallerIdUpdater(final String sid) {
         this.sid = sid;
     }
@@ -26,11 +26,10 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
         this.friendlyName = friendlyName;
         return this;
     }
-
+    
     @Override
-    public OutgoingCallerId execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json",
-                                      client.getAccountSid());
+    public OutgoingCallerId execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
@@ -46,10 +45,10 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     }
 
     private void addPostParams(final Request request) {
-
+        
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
-
+        
     }
 }

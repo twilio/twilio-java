@@ -14,7 +14,7 @@ public class QueueUpdater extends Updater<Queue> {
     private final String sid;
     private String friendlyName;
     private Integer maxSize;
-
+    
     public QueueUpdater(final String sid) {
         this.sid = sid;
     }
@@ -27,16 +27,15 @@ public class QueueUpdater extends Updater<Queue> {
         this.friendlyName = friendlyName;
         return this;
     }
-
+    
     public QueueUpdater setMaxSize(final Integer maxSize) {
         this.maxSize = maxSize;
         return this;
     }
-
+    
     @Override
-    public Queue execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/Accounts/{AccountSid}/Queues/" + sid + ".json",
-                                      client.getAccountSid());
+    public Queue execute(final TwilioRestClient client)  {
+        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Queues/" + sid + ".json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);
 
@@ -52,14 +51,14 @@ public class QueueUpdater extends Updater<Queue> {
     }
 
     private void addPostParams(final Request request) {
-
+        
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
-
+        
         if (maxSize != null) {
             request.addPostParam("MaxSize", maxSize.toString());
         }
-
+        
     }
 }

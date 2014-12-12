@@ -6,6 +6,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.SipIpAccessControlList;
+import com.twilio.sdk.resources.RestException;
 
 public class SipIpAccessControlListFetcher extends Fetcher<SipIpAccessControlList> {
 
@@ -17,14 +18,13 @@ public class SipIpAccessControlListFetcher extends Fetcher<SipIpAccessControlLis
 
     @Override
     public SipIpAccessControlList execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/SIP/IpAccessControlLists/" + sid + ".json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException(
-                    "Unable to retrieve SIP IpAccessControlList for Sid " + sid + ": [" + response.getStatusCode() +
-                    "] " + response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return SipIpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());

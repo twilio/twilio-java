@@ -6,6 +6,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.SipDomain;
+import com.twilio.sdk.resources.RestException;
 
 public class SipDomainFetcher extends Fetcher<SipDomain> {
 
@@ -17,13 +18,13 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
 
     @Override
     public SipDomain execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/SIP/Domains/" + sid + ".json", client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            throw new ApiException(
-                    "Unable to retrieve SIP Domain for Sid " + sid + ": [" + response.getStatusCode() + "] " +
-                    response.getContent());
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
+                                   restException.getStatus(), null);
         }
 
         return SipDomain.fromJson(response.getStream(), client.getObjectMapper());

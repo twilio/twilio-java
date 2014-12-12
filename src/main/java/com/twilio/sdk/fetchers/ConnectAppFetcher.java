@@ -18,8 +18,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
 
     @Override
     public ConnectApp execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/ConnectApps/" + sid + ".json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/ConnectApps/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

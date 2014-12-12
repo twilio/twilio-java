@@ -18,8 +18,7 @@ public class CallFeedbackSummaryFetcher extends Fetcher<CallFeedbackSummary> {
 
     @Override
     public CallFeedbackSummary execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Calls/FeedbackSummary/" + sid + ".json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

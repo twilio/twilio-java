@@ -18,7 +18,7 @@ public class AccountFetcher extends Fetcher<Account> {
 
     @Override
     public Account execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/" + sid + ".json", client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

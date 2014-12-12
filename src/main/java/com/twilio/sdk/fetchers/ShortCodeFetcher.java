@@ -5,8 +5,8 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.ShortCode;
+import com.twilio.sdk.resources.RestException;
 
 public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
@@ -18,8 +18,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
     @Override
     public ShortCode execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/SMS/ShortCodes/" + sid + ".json",
-                                      client.getAccountSid());
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/" + sid + ".json", client.getAccountSid());
         Response response = client.request(request);
 
         if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {

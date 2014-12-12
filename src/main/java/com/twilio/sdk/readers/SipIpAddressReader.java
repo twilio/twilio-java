@@ -25,7 +25,7 @@ public class SipIpAddressReader extends Reader<SipIpAddress> {
     @Override
     public ResourceSet<SipIpAddress> execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
-                                      "/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + IpAccessControlListSid +
+                                      "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/" + IpAccessControlListSid +
                                       "IpAddresses.json", client.getAccountSid());
 
         Page<SipIpAddress> page = pageForRequest(client, request);

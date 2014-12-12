@@ -28,7 +28,7 @@ public class SipIpAddressCreator extends Creator<SipIpAddress> {
     @Override
     public SipIpAddress execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.POST,
-                                      "/Accounts/{AccountSid}/SIP/IpAccessControlLists/ " + ipAccessControlListSid +
+                                      "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/ " + ipAccessControlListSid +
                                       "/IpAddresses.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);

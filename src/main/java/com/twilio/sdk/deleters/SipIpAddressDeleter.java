@@ -30,7 +30,7 @@ public class SipIpAddressDeleter extends Deleter<SipIpAddress> {
     @Override
     public void execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.DELETE, String.format(
-                "/Accounts/{AccountSid}/SIP/IpAccessControlLists/%s/IpAddresses/%s.json", IpAccessControlListSid, sid),
+                "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/%s/IpAddresses/%s.json", IpAccessControlListSid, sid),
                                       client.getAccountSid());
         Response response = client.request(request);
 

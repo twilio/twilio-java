@@ -31,7 +31,7 @@ public class ParticipantReader extends Reader<Participant> {
     @Override
     public ResourceSet<Participant> execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
-                                      "/Accounts/{AccountSid}/Conferences/ " + conferenceSid + "/Participants.json",
+                                      "/2010-04-01/Accounts/{AccountSid}/Conferences/ " + conferenceSid + "/Participants.json",
                                       client.getAccountSid());
         addQueryParams(request);
 

@@ -26,7 +26,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
     @Override
     public ResourceSet<DependentPhoneNumber> execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
-                                      "/Accounts/{AccountSid}/Addresses/" + addressSid + "/DependentPhoneNumbers.json",
+                                      "/2010-04-01/Accounts/{AccountSid}/Addresses/" + addressSid + "/DependentPhoneNumbers.json",
                                       client.getAccountSid());
 
         Page<DependentPhoneNumber> page = pageForRequest(client, request);

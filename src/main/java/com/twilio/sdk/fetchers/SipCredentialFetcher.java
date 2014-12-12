@@ -29,7 +29,7 @@ public class SipCredentialFetcher extends Fetcher<SipCredential> {
     @Override
     public SipCredential execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
-                                      String.format("/SIP/CredentialLists/%s/Credentials/%s.json", credentialListSid,
+                                      String.format("/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/%s/Credentials/%s.json", credentialListSid,
                                                     sid), client.getAccountSid());
         Response response = client.request(request);
 

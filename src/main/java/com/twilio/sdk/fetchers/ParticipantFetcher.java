@@ -25,7 +25,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     @Override
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
-                                      String.format("/Accounts/{AccountSid}/Conferences/%s/Participants/%s.json",
+                                      String.format("/2010-04-01/Accounts/{AccountSid}/Conferences/%s/Participants/%s.json",
                                                     conferenceSid, sid), client.getAccountSid());
         Response response = client.request(request);
 

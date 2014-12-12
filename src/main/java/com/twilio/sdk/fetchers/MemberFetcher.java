@@ -25,7 +25,7 @@ public class MemberFetcher extends Fetcher<Member> {
     @Override
     public Member execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET,
-                                      String.format("/Accounts/{AccountSid}/Queues/%s/Members/%s.json", queueSid, sid),
+                                      String.format("/2010-04-01/Accounts/{AccountSid}/Queues/%s/Members/%s.json", queueSid, sid),
                                       client.getAccountSid());
         Response response = client.request(request);
 

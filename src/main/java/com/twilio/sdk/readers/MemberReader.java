@@ -24,7 +24,7 @@ public class MemberReader extends Reader<Member> {
 
     @Override
     public ResourceSet<Member> execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, "/Accounts/{AccountSid}/Queues/" + queueSid + "/Members.json",
+        Request request = new Request(HttpMethod.GET, "/2010-04-01/Accounts/{AccountSid}/Queues/" + queueSid + "/Members.json",
                                       client.getAccountSid());
 
         Page<Member> page = pageForRequest(client, request);

@@ -28,7 +28,7 @@ public class SipCredentialCreator extends Creator<SipCredential> {
     @Override
     public SipCredential execute(final TwilioRestClient client) {
         Request request = new Request(HttpMethod.POST,
-                                      "/Accounts/{AccountSid}/SIP/CredentialLists/ " + credentialListSid +
+                                      "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/ " + credentialListSid +
                                       "/Credentials.json", client.getAccountSid());
         addPostParams(request);
         Response response = client.request(request);

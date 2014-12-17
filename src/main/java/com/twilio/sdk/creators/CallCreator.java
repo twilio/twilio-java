@@ -50,31 +50,81 @@ public class CallCreator extends Creator<Call> {
         this.applicationSid = applicationSid;
     }
 
+    /**
+     * The HTTP method Twilio should use when making its request to the TwiML
+     * URL. Defaults to `POST`. If an `ApplicationSid` was provided, this
+     * parameter is ignored.
+     *
+     * @param method The HTTP method to use to fetch TwiML
+     * @return this
+     */
     public CallCreator setMethod(final HttpMethod method) {
         this.method = method;
         return this;
     }
 
+    /**
+     * A URL that Twilio will request if an error occurs requesting or executing
+     * the TwiML at `Url`. If an `ApplicationSid` was provided, this parameter
+     * is ignored.
+     *
+     * @param fallbackUrl The fully-qualified fallback URL
+     * @return this
+     */
     public CallCreator setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
         return this;
     }
 
+    /**
+     * The HTTP method that Twilio should use to request the `FallbackUrl`. Must
+     * be either `GET` or `POST`. Defaults to `POST`. If an `ApplicationSid`
+     * parameter was provided, this parameter is ignored.
+     *
+     * @param fallbackMethod The fallback method to request the fallback URL
+     *                       with
+     * @return this
+     */
     public CallCreator setFallbackMethod(final HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
         return this;
     }
 
+    /**
+     * A URL that Twilio will request when the call ends to notify your app. If
+     * an `ApplicationSid` parameter is present, this parameter is ignored.
+     *
+     * @param statusCallback URL to notify when the call ends
+     * @return this
+     */
     public CallCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
+    /**
+     * The HTTP method Twilio should use when requesting the `StatusCallback`
+     * URL. Defaults to `POST`. If an `ApplicationSid` parameter was provided,
+     * this parameter is ignored.
+     *
+     * @param statusCallbackMethod HTTP method to request StatusCallback with
+     * @return this
+     */
     public CallCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
+    /**
+     * A string of keys to dial after connecting to the number. Valid digits in
+     * the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`'
+     * (to insert a half second pause). For example, if you connected to a
+     * company phone number, and wanted to pause for one second, dial extension
+     * 1234 and then the pound key, use `ww1234#`.
+     *
+     * @param sendDigits The digits to send
+     * @return this
+     */
     public CallCreator setSendDigits(final String sendDigits) {
         this.sendDigits = sendDigits;
         return this;
@@ -85,18 +135,32 @@ public class CallCreator extends Creator<Call> {
      * are Continue and Hangup. See the answering machines section below for more info.
      *
      * @param ifMachine Action to take if a machine has answered the call, valid values are "Continue" and "Hangup"
-     * @return Instance for fluent API
+     * @return this
      */
     public CallCreator setIfMachine(final String ifMachine) {
         this.ifMachine = ifMachine;
         return this;
     }
 
+    /**
+     * The integer number of seconds that Twilio should allow the phone to ring
+     * before assuming there is no answer. Default is `60` seconds, the maximum
+     * is `999` seconds. Note, you could set this to a low value, such as `15`,
+     * to hangup before reaching an answering machine or voicemail.
+     * @param timeout Number of seconds to wait for an answer
+     * @return this
+     */
     public CallCreator setTimeout(final int timeout) {
         this.timeout = timeout;
         return this;
     }
 
+    /**
+     * Set this parameter to true to record the entirety of a phone call. The
+     * RecordingUrl will be sent to the StatusCallback URL. Defaults to false.
+     * @param record Whether or not to record the Call
+     * @return this
+     */
     public CallCreator setRecord(final boolean record) {
         this.record = record;
         return this;

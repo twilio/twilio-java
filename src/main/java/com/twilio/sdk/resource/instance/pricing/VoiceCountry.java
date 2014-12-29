@@ -18,6 +18,14 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
         super(client, properties);
     }
 
+    public VoiceCountry(final TwilioPricingClient client, final String isoCountry) {
+        super(client);
+        if (isoCountry == null || "".equals(isoCountry)) {
+            throw new IllegalArgumentException("The isoCountry for a VoiceCountry cannot be null");
+        }
+        setProperty("iso_country", isoCountry);
+    }
+
     public String getCountry() {
         return getProperty("country");
     }

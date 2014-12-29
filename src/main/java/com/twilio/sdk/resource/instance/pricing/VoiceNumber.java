@@ -17,6 +17,14 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
         super(client, properties);
     }
 
+    public VoiceNumber(final TwilioPricingClient client, final String number) {
+        super(client);
+        if (number == null || "".equals(number)) {
+            throw new IllegalArgumentException("'number' cannot be null");
+        }
+        setProperty("number", number);
+    }
+
     public String getNumber() {
         return getProperty("number");
     }

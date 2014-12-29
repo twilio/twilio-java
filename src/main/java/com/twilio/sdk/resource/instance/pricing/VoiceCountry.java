@@ -39,14 +39,14 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
     }
 
     public List<InboundCallPrice> getInboundCallPrices() {
-        List<Map<String, String>> priceData = (List<Map<String, String>>) getObject("inbound_call_prices");
+        List<Map<String, Object>> priceData = (List<Map<String, Object>>) getObject("inbound_call_prices");
         List<InboundCallPrice> prices = new ArrayList<InboundCallPrice>();
 
-        for (Map<String, String> p : priceData) {
+        for (Map<String, Object> p : priceData) {
             prices.add(new InboundCallPrice(
-                    NumberType.valueOf(p.get("number_type").toUpperCase()),
-                    new BigDecimal(p.get("call_base_price")),
-                    new BigDecimal(p.get("call_current_price")
+                    NumberType.valueOf(((String)p.get("number_type")).toUpperCase()),
+                    new BigDecimal((String) p.get("call_base_price")),
+                    new BigDecimal((String) p.get("call_current_price")
             )));
         }
         return prices;
@@ -61,7 +61,7 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
                     (String) p.get("friendly_name"),
                     new BigDecimal((String) p.get("call_base_price")),
                     new BigDecimal((String) p.get("call_current_price")),
-                    (List<String>) p.get("prefixes")
+                    (List<String>) p.get("prefix_list")
             ));
         }
         return prices;

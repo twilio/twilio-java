@@ -44,7 +44,7 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Conferences.json";
+				+ this.getRequestAccountSid() + "/Addresses.json";
 	}
 
 	/* (non-Javadoc)

@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.6.2
+-------------
+
+Released December 30, 2014
+
+- Fix AddressList to retrieve the correct URL
+
 Version 3.6.1
 -------------
 

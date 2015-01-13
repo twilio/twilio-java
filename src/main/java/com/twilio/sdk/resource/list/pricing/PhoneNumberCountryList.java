@@ -6,6 +6,22 @@ import com.twilio.sdk.resource.instance.pricing.PhoneNumberCountry;
 
 import java.util.Map;
 
+/**
+ * A list of PhoneNumberCountry objects where Twilio Phone Numbers are available.
+ *
+ * The returned PhoneNumberCountry objects will not have pricing information populated.
+ * To retrieve pricing information for a specific country, request it as follows:
+ *
+ * <code>
+ *     TwilioPricingClient client = new TwilioPricingClient("ACCOUNT SID", "AUTH TOKEN");
+ *     // Retrieve country-specific pricing info
+ *     PhoneNumberCountry country = client.getPhoneNumberCountry("US");
+ *     // Print number prices by type
+ *     for (PhoneNumberCountry.NumberPrice p : country.getPhoneNumberPrices()) {
+ *         System.out.println(p.getNumberType().toString() + ": " + p.getBasePrice().toString());
+ *     }
+ * </code>
+ */
 public class PhoneNumberCountryList extends ListResource<PhoneNumberCountry, TwilioPricingClient> {
 
     public PhoneNumberCountryList(final TwilioPricingClient client) {

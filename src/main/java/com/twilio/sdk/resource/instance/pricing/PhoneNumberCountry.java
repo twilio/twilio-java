@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *  Pricing information for Phone Numbers in a specific country.
+ *
+ *  For more information see <a href="FIXME">the Twilio REST API documentation.</a>
+ */
 public class PhoneNumberCountry extends InstanceResource<TwilioPricingClient> {
 
     public PhoneNumberCountry(final TwilioPricingClient client) {
@@ -26,18 +31,40 @@ public class PhoneNumberCountry extends InstanceResource<TwilioPricingClient> {
         setProperty("iso_country", isoCountry);
     }
 
+    /**
+     * Get an abbreviated identifier for the country this pricing information
+     * applies to.
+     * @return the ISO 3166-1 alpha-2 country code
+     */
     public String getIsoCountry() {
         return getProperty("iso_country");
     }
 
+    /**
+     * Get the name of the country this pricing information applies to.
+     * @return the country name
+     */
     public String getCountry() {
         return getProperty("country");
     }
 
+    /**
+     * Get the currency unit for this pricing information.
+     * @return A string representing the currency information, e.g. "USD" for US Dollars.
+     */
     public String getPriceUnit() {
         return getProperty("price_unit");
     }
 
+    /**
+     * Get a list of prices for available phone number types in this country.
+     *
+     * Twilio Phone Numbers are priced per month, and each price object will
+     * contain the price for a specific type of phone number (e.g. mobile, local, toll-free)
+     * both before and after any discounts available for the requesting account are applied.
+     *
+     * @return A list of objects with phone number pricing information.
+     */
     public List<NumberPrice> getPhoneNumberPrices() {
         List<Map<String, String>> priceData = (List<Map<String, String>>) getObject("phone_number_prices");
         List<NumberPrice> prices = new ArrayList<NumberPrice>();
@@ -56,6 +83,9 @@ public class PhoneNumberCountry extends InstanceResource<TwilioPricingClient> {
         return "/" + TwilioPricingClient.DEFAULT_VERSION + "/PhoneNumbers/Countries/" + getIsoCountry();
     }
 
+    /**
+     * Holds pricing information for a specific type of Twilio Phone Number.
+     */
     public class NumberPrice {
         private final NumberType numberType;
         private final BigDecimal basePrice;
@@ -67,14 +97,27 @@ public class PhoneNumberCountry extends InstanceResource<TwilioPricingClient> {
             this.currentPrice = currentPrice;
         }
 
+        /**
+         * The type of phone number these prices apply to.
+         * @return A value of the NumberType enum
+         */
         public NumberType getNumberType() {
             return numberType;
         }
 
+        /**
+         * The list price for this type of phone number.
+         * @return Price in fixed-point decimal units
+         */
         public BigDecimal getBasePrice() {
             return basePrice;
         }
 
+        /**
+         * The price for this type of phone number after applying any discounts
+         * available for your account.
+         * @return Price in fixed-point decimal units
+         */
         public BigDecimal getCurrentPrice() {
             return currentPrice;
         }

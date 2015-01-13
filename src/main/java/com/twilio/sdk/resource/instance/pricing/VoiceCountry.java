@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Pricing information for Twilio Voice services in a specific country.
+ *
+ * For more information, see <a href="FIXME">the Twilio Pricing API documentation</a>.
+ */
 public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
 
     public VoiceCountry(final TwilioPricingClient client) {
@@ -26,18 +31,45 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
         setProperty("iso_country", isoCountry);
     }
 
+    /**
+     * Get the name of the country this pricing information applies to.
+     * @return the country name
+     */
     public String getCountry() {
         return getProperty("country");
     }
 
+    /**
+     * Get an abbreviated identifier for the country this pricing information
+     * applies to.
+     * @return the ISO 3166-1 alpha-2 country code, e.g. "US" for the United States
+     */
     public String getIsoCountry() {
         return getProperty("iso_country");
     }
 
+    /**
+     * Get the currency unit for this pricing information.
+     * @return A string representing the currency information, e.g. "USD" for US Dollars.
+     */
     public String getPriceUnit() {
         return getProperty("price_unit");
     }
 
+    /**
+     * Get a list of prices for inbound voice calls in this country,
+     * broken out by number type.
+     *
+     * Twilio Voice inbound call pricing is based on the type of the number
+     * dialed.
+     * For example, in Estonia, inbound calls to Mobile numbers might cost 0.0075 USD/min,
+     * while National numbers could cost 0.0070 USD/min.
+     *
+     * Each type of number available in the country will have an entry in this list
+     * with its inbound pricing information (list price and discounted price).
+     *
+     * @return List of objects with inbound call pricing information.
+     */
     public List<InboundCallPrice> getInboundCallPrices() {
         List<Map<String, Object>> priceData = (List<Map<String, Object>>) getObject("inbound_call_prices");
         List<InboundCallPrice> prices = new ArrayList<InboundCallPrice>();
@@ -52,6 +84,25 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
         return prices;
     }
 
+    /**
+     * Get a list of prices for outbound voice calls in this country.
+     *
+     * Twilio Voice pricing is based on the number dialed and is determined
+     * by the longest matching prefix of existing price rates.
+     *
+     * For example, if Twilio's pricing for Estonia contains the following
+     * groups:
+     *
+     * <ul>
+     *     <li>+372: 0.033 USD/min</li>
+     *     <li>+37240, +37270: 0.465 USD/min</li>
+     * </ul>
+     *
+     * Then calls to numbers starting with +37240 and +37270 both cost
+     * 0.465 USD/min, and all other calls in Estonia (matching +372) cost
+     * 0.033 USD/min.
+     * @return List of objects with outbound call price information.
+     */
     public List<OutboundPrefixPrice> getOutboundPrefixPrices() {
         List<Map<String, Object>> priceData = (List<Map<String, Object>>) getObject("outbound_prefix_prices");
         List<OutboundPrefixPrice> prices = new ArrayList<OutboundPrefixPrice>();
@@ -72,6 +123,11 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
         return "/" + TwilioPricingClient.DEFAULT_VERSION + "/Voice/Countries/" + getIsoCountry();
     }
 
+    /**
+     * Represents current prices for outbound Twilio Voice calls to the given
+     * list of number prefixes.
+     *
+     */
     public class OutboundPrefixPrice {
         private final String friendlyName;
         private final BigDecimal callBasePrice;
@@ -85,18 +141,38 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
             this.prefixes = prefixes;
         }
 
+        /**
+         * A friendly name for this prefix group.
+         * @return String name.
+         */
         public String getFriendlyName() {
             return friendlyName;
         }
 
+        /**
+         * The price per minute for calls placed to numbers matching this
+         * prefix group, before any discounts have been applied.
+         * @return Base call price/minute.
+         */
         public BigDecimal getCallBasePrice() {
             return callBasePrice;
         }
 
+        /**
+         * The price per minute for calls placed to numbers matching this
+         * prefix group, after any available discounts have been applied.
+         * @return Current (discounted) call price/minute.
+         */
         public BigDecimal getCallCurrentPrice() {
             return callCurrentPrice;
         }
 
+        /** Prefixes of phone numbers to which this price applies.
+         * For example, if the prefixes are "37240" and "37270",
+         * all numbers beginning with +372 40 and +372 70 fall under this
+         * pricing.
+         * @return List of phone number prefixes for this pricing.
+         */
         public List<String> getPrefixes() {
             return prefixes;
         }
@@ -137,14 +213,29 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
             this.callCurrentPrice = callCurrentPrice;
         }
 
+        /**
+         * The type of number for which this price applies,
+         * e.g. NumberType.MOBILE
+         * @return The number type
+         */
         public NumberType getNumberType() {
             return numberType;
         }
 
+        /**
+         * The price per minute for inbound calls to numbers of this type,
+         * before discounts have been applied.
+         * @return Base inbound call price/minute.
+         */
         public BigDecimal getCallBasePrice() {
             return callBasePrice;
         }
 
+        /**
+         * The price per minute for inbound calls to numbers of this type,
+         * after available discounts have been applied.
+         * @return Discounted inbound call price/minute.
+         */
         public BigDecimal getCallCurrentPrice() {
             return callCurrentPrice;
         }

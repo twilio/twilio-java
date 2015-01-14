@@ -54,6 +54,6 @@ public class TaskQueueListStatistics extends ListResource<TaskQueueStatistics, T
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
-		       workspaceSid + "/Statistics/TaskQueues";
+		       workspaceSid + "/TaskQueues/Statistics";
 	}
 }

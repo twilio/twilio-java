@@ -167,7 +167,7 @@ public class WorkersStatistics extends InstanceResource<TwilioTaskRouterClient> 
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
-		       getWorkspaceSid() + "/Statistics/Workers";
+		       getWorkspaceSid() + "/Workers/Statistics";
 	}
 
 	private Map<String, Object> getCumulative() {

@@ -280,7 +280,7 @@ public class TaskQueueStatistics extends InstanceResource<TwilioTaskRouterClient
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
-		       getWorkspaceSid() + "/Statistics/TaskQueues/" + getQueueSid();
+		       getWorkspaceSid() + "/TaskQueues/" + getQueueSid() + "/Statistics";
 	}
 
 	private Map<String, Object> getCumulative() {

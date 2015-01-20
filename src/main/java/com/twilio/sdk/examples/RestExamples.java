@@ -81,32 +81,33 @@ public class RestExamples {
 		messageParams.add(new BasicNameValuePair("Body", "This is a test message!"));
 		messageFactory.create(messageParams);
 
-        // Search for all available phone numbers
-        AvailablePhoneNumberList phoneNumbers = mainAccount.getAvailablePhoneNumbers();
-        List<AvailablePhoneNumber> phoneNumberList = phoneNumbers.getPageData();
-
-        // Search for available phone numbers & filter by area code
-        // For available filters see:
-        //     http://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-filters
-        //     http://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-advanced-filters
-        Map<String, String> areaCodeFilter = new HashMap<String, String>();
-        areaCodeFilter.put("AreaCode", "94103");
-        AvailablePhoneNumberList phoneNumbersByAreaCode = mainAccount.getAvailablePhoneNumbers(areaCodeFilter);
-        List<AvailablePhoneNumber> phoneNumbersByAreaCodeList = phoneNumbersByAreaCode.getPageData();
-
-        // Search for phone numbers local to a country (Great Britain), and filter by SMS enabled
-        // For country codes, see:
-        //      http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-        Map<String, String> smsFilter = new HashMap<String, String>();
-        smsFilter.put("SmsEnabled", "true");
-        AvailablePhoneNumberList phoneNumbersByCountryAndSms = mainAccount.getAvailablePhoneNumbers(smsFilter, "GB", AvailablePhoneNumberList.TYPE_LOCAL);
-        List<AvailablePhoneNumber> phoneNumbersByCountryAndSmsList = phoneNumbersByCountryAndSms.getPageData();
+	        // Search for all available phone numbers
+	        AvailablePhoneNumberList phoneNumbers = mainAccount.getAvailablePhoneNumbers();
+	        List<AvailablePhoneNumber> phoneNumberList = phoneNumbers.getPageData();
+	
+	        // Search for available phone numbers & filter by area code
+	        // For available filters see:
+	        //     http://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-filters
+	        //     http://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-advanced-filters
+	        Map<String, String> areaCodeFilter = new HashMap<String, String>();
+	        areaCodeFilter.put("AreaCode", "94103");
+	        AvailablePhoneNumberList phoneNumbersByAreaCode = mainAccount.getAvailablePhoneNumbers(areaCodeFilter);
+	        List<AvailablePhoneNumber> phoneNumbersByAreaCodeList = phoneNumbersByAreaCode.getPageData();
+	
+	        // Search for phone numbers local to a country (Great Britain), and filter by SMS enabled
+	        // For country codes, see:
+	        //      http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+	        Map<String, String> smsFilter = new HashMap<String, String>();
+	        smsFilter.put("SmsEnabled", "true");
+	        AvailablePhoneNumberList phoneNumbersByCountryAndSms = mainAccount.getAvailablePhoneNumbers(smsFilter, "GB", AvailablePhoneNumberList.TYPE_LOCAL);
+	        List<AvailablePhoneNumber> phoneNumbersByCountryAndSmsList = phoneNumbersByCountryAndSms.getPageData();
 
 		// Buy the first number in a list
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("PhoneNumber", phoneNumberList.get(0).getPhoneNumber());
 		params.put("VoiceUrl", "http://demo.twilio.com/welcome/voice/");
-		mainAccount.getIncomingPhoneNumberFactory().create(params);
+		// Uncomment to complete the purchase!
+		// mainAccount.getIncomingPhoneNumberFactory().create(params);
 
 		// View a conference using it's sid
 		Conference c = mainAccount.getConference("CA12345...");

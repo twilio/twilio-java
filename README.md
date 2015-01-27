@@ -105,7 +105,7 @@ public class Example {
 
     // Send an SMS (Requires version 3.4+)
     final SmsFactory messageFactory = mainAccount.getSmsFactory();
-    final List<NameValuePair> messageParams = new ArrayList<BasicNameValuePair>();
+    final List<NameValuePair> messageParams = new ArrayList<NameValuePair>();
     messageParams.add(new BasicNameValuePair("To", "5105551212")); // Replace with a valid phone number
     messageParams.add(new BasicNameValuePair("From", "(510) 555-1212")); // Replace with a valid phone number in your account
     messageParams.add(new BasicNameValuePair("Body", "This is a test message!"));

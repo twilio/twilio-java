@@ -1,33 +1,16 @@
 package com.twilio.sdk.client;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
-import org.json.simple.JSONValue;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
  * This class represents a token that will grant someone access to resources
  * within Twilio.
  */
-public class TwilioCapability {
-
-	@SuppressWarnings("serial")
-	public static class DomainException extends Exception {
-		public DomainException(String message) {
-			super(message);
-		}
-
-		public DomainException(Exception e) {
-			super(e);
-		}
-	}
+public class TwilioCapability extends com.twilio.sdk.CapabilityToken {
 
 	private String accountSid;
 	private String authToken;
@@ -50,7 +33,7 @@ public class TwilioCapability {
 	 * Create a new TwilioCapability with zero permissions. Next steps are to
 	 * grant access to resources by configuring this token through the functions
 	 * allowXXXX.
-	 * 
+	 *
 	 * @param accountSid
 	 *            the account sid to which this token is granted access
 	 * @param authToken
@@ -65,7 +48,7 @@ public class TwilioCapability {
 	}
 
 	private String buildScopeString(String serivce, String priviledge,
-			Map<String, String> params) {
+	                                Map<String, String> params) {
 
 		StringBuilder scope = new StringBuilder();
 
@@ -86,7 +69,7 @@ public class TwilioCapability {
 
 	/**
 	 * Allow the user of this token to make outgoing connections.
-	 * 
+	 *
 	 * @param appSid
 	 *            the application to which this token grants access
 	 */
@@ -96,7 +79,7 @@ public class TwilioCapability {
 
 	/**
 	 * Allow the user of this token to make outgoing connections.
-	 * 
+	 *
 	 * @param appSid
 	 *            the application to which this token grants access
 	 * @param params
@@ -156,7 +139,7 @@ public class TwilioCapability {
 	 * If the user of this token should be allowed to accept incoming
 	 * connections then configure the TwilioCapability through this method and
 	 * specify the client name.
-	 * 
+	 *
 	 * @param clientName
 	 */
 	public void allowClientIncoming(String clientName) {
@@ -167,7 +150,7 @@ public class TwilioCapability {
 
 	/**
 	 * Allow the user of this token to access their event stream.
-	 * 
+	 *
 	 * @param filters
 	 *            key/value filters to apply to the event stream
 	 */
@@ -185,7 +168,7 @@ public class TwilioCapability {
 	/**
 	 * Generates a new token based on the credentials and permissions that
 	 * previously has been granted to this token.
-	 * 
+	 *
 	 * @return the newly generated token that is valid for 3600 seconds
 	 * @throws DomainException
 	 */
@@ -196,7 +179,7 @@ public class TwilioCapability {
 	/**
 	 * Generates a new token based on the credentials and permissions that
 	 * previously has been granted to this token.
-	 * 
+	 *
 	 * @param ttl the number of seconds before this token expires
 	 * @return the newly generated token that is valid for ttl seconds
 	 * @throws DomainException
@@ -263,60 +246,9 @@ public class TwilioCapability {
 		}
 	}
 
-	private static String jwtEncode(Map<String, Object> payload, String key)
-			throws InvalidKeyException, NoSuchAlgorithmException,
-			UnsupportedEncodingException {
-
-		Map<String, Object> header = new LinkedHashMap<String, Object>();
-		header.put("typ", "JWT");
-		header.put("alg", "HS256");
-
-		List<String> segments = new ArrayList<String>();
-		segments.add(encodeBase64(jsonEncode(header)));
-		segments.add(encodeBase64(jsonEncode(payload)));
-
-		String signingInput = StringUtils.join(segments, ".");
-		String signature = sign(signingInput, key);
-		segments.add(signature);
-
-		return StringUtils.join(segments, ".");
-	}
-
-	private static String jsonEncode(Object object) {
-		String json = JSONValue.toJSONString(object);
-		return json.replace("\\/", "/");
-	}
-
-	private static String encodeBase64(String data)
-			throws UnsupportedEncodingException {
-		return encodeBase64(data.getBytes("UTF-8"));
-	}
-
-	private static String encodeBase64(byte[] data)
-			throws UnsupportedEncodingException {
-		String encodedString = new String(Base64.encodeBase64(data));
-		String safeString = encodedString.replace('+', '-').replace('/', '_')
-				.replace("=", "");
-		return safeString;
-	}
-
-	// see
-	// http://discussion.forum.nokia.com/forum/showthread.php?130974-Help-required-How-to-generate-a-MAC-(HMAC-SHA1)-with-Java
-	private static String sign(String data, String key)
-			throws NoSuchAlgorithmException, InvalidKeyException,
-			UnsupportedEncodingException {
-		SecretKeySpec signingKey = new SecretKeySpec(key.getBytes("UTF-8"),
-				"HmacSHA256");
-		Mac mac = Mac.getInstance("HmacSHA256");
-		mac.init(signingKey);
-		byte[] rawHmac = mac.doFinal(data.getBytes("UTF-8"));
-		String result = encodeBase64(rawHmac);
-		return result;
-	}
-
 	/**
 	 * Example usage
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {

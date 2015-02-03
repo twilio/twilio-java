@@ -188,10 +188,10 @@ public class TaskRouterCapability extends CapabilityToken {
 			JSONObject post = new JSONObject();
 
 			for (Map.Entry<String, FilterRequirement> e : queryFilter.entrySet()) {
-				query.put(e.getKey(), e.getValue().toString());
+				query.put(e.getKey(), e.getValue());
 			}
 			for (Map.Entry<String, FilterRequirement> e : postFilter.entrySet()) {
-				post.put(e.getKey(), e.getValue().toString());
+				post.put(e.getKey(), e.getValue());
 			}
 
 			obj.put("query_filter", query);

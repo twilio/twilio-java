@@ -46,6 +46,7 @@ public class TaskRouterCapabilityTest {
 		assertEquals("POST", p.get("method"));
 		JSONObject filters = (JSONObject) p.get("post_filter");
 		assertEquals(1, filters.size());
-		assertEquals("required", filters.get("ActivitySid"));
+		JSONObject required = (JSONObject) filters.get("ActivitySid");
+		assertEquals(Boolean.TRUE, required.get("required"));
 	}
 }

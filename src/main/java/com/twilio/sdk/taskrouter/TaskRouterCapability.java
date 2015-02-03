@@ -46,10 +46,7 @@ public class TaskRouterCapability extends CapabilityToken {
 	 * @return The updated Capability representation
 	 */
 	public TaskRouterCapability allowWorkerActivityUpdates() {
-		Policy update = new Policy(getWorkerUrl(), "POST", true);
-		Map<String, FilterRequirement> required = new HashMap<String, FilterRequirement>();
-		required.put("ActivitySid", FilterRequirement.REQUIRED);
-		update.setPostFilter(required);
+		Policy update = new Policy(getWorkerUrl(), "POST", true).addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
 		return addPolicy(update);
 	}
 
@@ -69,9 +66,8 @@ public class TaskRouterCapability extends CapabilityToken {
 	 */
 	public TaskRouterCapability allowTaskReservationUpdates() {
 		String tasksUrl = getWorkspaceUrl() + "/Tasks/**";
-		Map<String, FilterRequirement> required = new HashMap<String, FilterRequirement>();
-		required.put("ReservationStatus", FilterRequirement.REQUIRED);
-		return addPolicy(new Policy(tasksUrl, "POST", true).setPostFilter(required));
+		Policy update = new Policy(tasksUrl, "POST", true).addPostFilterParam("ReservationStatus", FilterRequirement.REQUIRED);
+		return addPolicy(update);
 	}
 
 	/**
@@ -158,6 +154,18 @@ public class TaskRouterCapability extends CapabilityToken {
 			this.url = url;
 			this.method = method;
 			this.allowed = allowed;
+			setQueryFilter(new HashMap<String, FilterRequirement>());
+			setPostFilter(new HashMap<String, FilterRequirement>());
+		}
+
+		public Policy addQueryFilterParam(final String name, final FilterRequirement required) {
+			queryFilter.put(name, required);
+			return this;
+		}
+
+		public Policy addPostFilterParam(final String name, final FilterRequirement required) {
+			postFilter.put(name, required);
+			return this;
 		}
 
 		public Policy setQueryFilter(final Map<String, FilterRequirement> queryFilter) {

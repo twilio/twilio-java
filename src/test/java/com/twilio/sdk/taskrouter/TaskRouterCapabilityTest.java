@@ -42,7 +42,7 @@ public class TaskRouterCapabilityTest {
 		assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
 		assertEquals("POST", p.get("method"));
 		p = (JSONObject) policies.get(2);
-		assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
+		assertEquals("https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WS456/Workers/WK789", p.get("url"));
 		assertEquals("POST", p.get("method"));
 		JSONObject filters = (JSONObject) p.get("post_filter");
 		assertEquals(1, filters.size());

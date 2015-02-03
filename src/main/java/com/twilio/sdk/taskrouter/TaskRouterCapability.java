@@ -112,7 +112,7 @@ public class TaskRouterCapability extends CapabilityToken {
 	}
 
 	private String getWorkspaceUrl() {
-		return TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
+		return TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Accounts/" + accountSid + "/Workspaces/" + workspaceSid;
 	}
 
 	private String getWorkerUrl() {

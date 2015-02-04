@@ -77,8 +77,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
         for (Map<String, Object> p : priceData) {
             prices.add(new InboundCallPrice(
                     NumberType.valueOf(((String)p.get("number_type")).toUpperCase()),
-                    new BigDecimal((String) p.get("call_base_price")),
-                    new BigDecimal((String) p.get("call_current_price")
+                    new BigDecimal((String) p.get("base_price")),
+                    new BigDecimal((String) p.get("current_price")
             )));
         }
         return prices;
@@ -110,8 +110,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
         for (Map<String, Object> p : priceData) {
             prices.add(new OutboundPrefixPrice(
                     (String) p.get("friendly_name"),
-                    new BigDecimal((String) p.get("call_base_price")),
-                    new BigDecimal((String) p.get("call_current_price")),
+                    new BigDecimal((String) p.get("base_price")),
+                    new BigDecimal((String) p.get("current_price")),
                     (List<String>) p.get("prefix_list")
             ));
         }
@@ -130,14 +130,14 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
      */
     public class OutboundPrefixPrice {
         private final String friendlyName;
-        private final BigDecimal callBasePrice;
-        private final BigDecimal callCurrentPrice;
+        private final BigDecimal basePrice;
+        private final BigDecimal currentPrice;
         private final List<String> prefixes;
 
-        public OutboundPrefixPrice(final String friendlyName, final BigDecimal callBasePrice, final BigDecimal callCurrentPrice, final List<String> prefixes) {
+        public OutboundPrefixPrice(final String friendlyName, final BigDecimal basePrice, final BigDecimal currentPrice, final List<String> prefixes) {
             this.friendlyName = friendlyName;
-            this.callBasePrice = callBasePrice;
-            this.callCurrentPrice = callCurrentPrice;
+            this.basePrice = basePrice;
+            this.currentPrice = currentPrice;
             this.prefixes = prefixes;
         }
 
@@ -154,8 +154,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
          * prefix group, before any discounts have been applied.
          * @return Base call price/minute.
          */
-        public BigDecimal getCallBasePrice() {
-            return callBasePrice;
+        public BigDecimal getBasePrice() {
+            return basePrice;
         }
 
         /**
@@ -163,8 +163,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
          * prefix group, after any available discounts have been applied.
          * @return Current (discounted) call price/minute.
          */
-        public BigDecimal getCallCurrentPrice() {
-            return callCurrentPrice;
+        public BigDecimal getCurrentPrice() {
+            return currentPrice;
         }
 
         /** Prefixes of phone numbers to which this price applies.
@@ -184,8 +184,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
 
             OutboundPrefixPrice that = (OutboundPrefixPrice) o;
 
-            if (!callBasePrice.equals(that.callBasePrice)) return false;
-            if (!callCurrentPrice.equals(that.callCurrentPrice)) return false;
+            if (!basePrice.equals(that.basePrice)) return false;
+            if (!currentPrice.equals(that.currentPrice)) return false;
             if (!friendlyName.equals(that.friendlyName)) return false;
             if (!prefixes.equals(that.prefixes)) return false;
 
@@ -195,8 +195,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
         @Override
         public int hashCode() {
             int result = friendlyName.hashCode();
-            result = 31 * result + callBasePrice.hashCode();
-            result = 31 * result + callCurrentPrice.hashCode();
+            result = 31 * result + basePrice.hashCode();
+            result = 31 * result + currentPrice.hashCode();
             result = 31 * result + prefixes.hashCode();
             return result;
         }
@@ -204,13 +204,13 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
 
     public class InboundCallPrice {
         private NumberType numberType;
-        private BigDecimal callBasePrice;
-        private BigDecimal callCurrentPrice;
+        private BigDecimal basePrice;
+        private BigDecimal currentPrice;
 
-        public InboundCallPrice(final NumberType numberType, final BigDecimal callBasePrice, final BigDecimal callCurrentPrice) {
+        public InboundCallPrice(final NumberType numberType, final BigDecimal basePrice, final BigDecimal currentPrice) {
             this.numberType = numberType;
-            this.callBasePrice = callBasePrice;
-            this.callCurrentPrice = callCurrentPrice;
+            this.basePrice = basePrice;
+            this.currentPrice = currentPrice;
         }
 
         /**
@@ -227,8 +227,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
          * before discounts have been applied.
          * @return Base inbound call price/minute.
          */
-        public BigDecimal getCallBasePrice() {
-            return callBasePrice;
+        public BigDecimal getBasePrice() {
+            return basePrice;
         }
 
         /**
@@ -236,8 +236,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
          * after available discounts have been applied.
          * @return Discounted inbound call price/minute.
          */
-        public BigDecimal getCallCurrentPrice() {
-            return callCurrentPrice;
+        public BigDecimal getCurrentPrice() {
+            return currentPrice;
         }
 
         @Override
@@ -247,8 +247,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
 
             InboundCallPrice that = (InboundCallPrice) o;
 
-            if (!callBasePrice.equals(that.callBasePrice)) return false;
-            if (!callCurrentPrice.equals(that.callCurrentPrice)) return false;
+            if (!basePrice.equals(that.basePrice)) return false;
+            if (!currentPrice.equals(that.currentPrice)) return false;
             if (numberType != that.numberType) return false;
 
             return true;
@@ -257,8 +257,8 @@ public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
         @Override
         public int hashCode() {
             int result = numberType.hashCode();
-            result = 31 * result + callBasePrice.hashCode();
-            result = 31 * result + callCurrentPrice.hashCode();
+            result = 31 * result + basePrice.hashCode();
+            result = 31 * result + currentPrice.hashCode();
             return result;
         }
     }

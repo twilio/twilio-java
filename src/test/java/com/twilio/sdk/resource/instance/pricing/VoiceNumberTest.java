@@ -30,11 +30,11 @@ public class VoiceNumberTest extends BasicRequestTester {
 
         VoiceNumber.InboundCallPrice inboundCallPrice = number.getInboundCallPrice();
         assertEquals(NumberType.LOCAL, inboundCallPrice.getNumberType());
-        assertEquals(new BigDecimal("0.0075"), inboundCallPrice.getCallBasePrice());
-        assertEquals(new BigDecimal("0.0070"), inboundCallPrice.getCallCurrentPrice());
+        assertEquals(new BigDecimal("0.0075"), inboundCallPrice.getBasePrice());
+        assertEquals(new BigDecimal("0.0070"), inboundCallPrice.getCurrentPrice());
 
         VoiceNumber.OutboundCallPrice outboundCallPrice = number.getOutboundCallPrice();
-        assertEquals(new BigDecimal("0.015"), outboundCallPrice.getCallBasePrice());
-        assertEquals(new BigDecimal("0.015"), outboundCallPrice.getCallCurrentPrice());
+        assertEquals(new BigDecimal("0.015"), outboundCallPrice.getBasePrice());
+        assertEquals(new BigDecimal("0.015"), outboundCallPrice.getCurrentPrice());
     }
 }

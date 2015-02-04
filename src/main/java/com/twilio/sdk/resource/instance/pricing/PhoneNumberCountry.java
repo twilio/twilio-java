@@ -71,7 +71,7 @@ public class PhoneNumberCountry extends InstanceResource<TwilioPricingClient> {
 
         for (Map<String, String> p : priceData) {
             prices.add(new NumberPrice(
-                    NumberType.valueOf(p.get("type").toUpperCase()),
+                    NumberType.valueOf(p.get("number_type").toUpperCase()),
                     new BigDecimal(p.get("base_price")),
                     new BigDecimal(p.get("current_price"))
             ));

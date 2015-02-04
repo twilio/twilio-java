@@ -71,8 +71,8 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
      */
     public OutboundCallPrice getOutboundCallPrice() {
         Map<String, String> prices = (Map<String, String>) getObject("outbound_call_price");
-        return new OutboundCallPrice(new BigDecimal(prices.get("call_base_price")),
-                new BigDecimal(prices.get("call_current_price")));
+        return new OutboundCallPrice(new BigDecimal(prices.get("base_price")),
+                new BigDecimal(prices.get("current_price")));
     }
 
     /**
@@ -95,8 +95,8 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
 
         return new InboundCallPrice(
                 NumberType.valueOf(priceInfo.get("number_type").toUpperCase()),
-                new BigDecimal(priceInfo.get("call_base_price")),
-                new BigDecimal(priceInfo.get("call_current_price"))
+                new BigDecimal(priceInfo.get("base_price")),
+                new BigDecimal(priceInfo.get("current_price"))
         );
     }
 
@@ -111,12 +111,12 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
      * available for the requesting account at the time this object was requested.
      */
     public class OutboundCallPrice {
-        private final BigDecimal callBasePrice;
-        private final BigDecimal callCurrentPrice;
+        private final BigDecimal basePrice;
+        private final BigDecimal currentPrice;
 
-        public OutboundCallPrice(final BigDecimal callBasePrice, final BigDecimal callCurrentPrice) {
-            this.callBasePrice = callBasePrice;
-            this.callCurrentPrice = callCurrentPrice;
+        public OutboundCallPrice(final BigDecimal basePrice, final BigDecimal currentPrice) {
+            this.basePrice = basePrice;
+            this.currentPrice = currentPrice;
         }
 
         /**
@@ -124,8 +124,8 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
          * before any discounts have been applied.
          * @return Decimal price rate for outbound calls.
          */
-        public BigDecimal getCallBasePrice() {
-            return callBasePrice;
+        public BigDecimal getBasePrice() {
+            return basePrice;
         }
 
         /**
@@ -133,8 +133,8 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
          * after the requesting account's discounts, if any, have been applied.
          * @return Decimal discounted price rate for outbound calls.
          */
-        public BigDecimal getCallCurrentPrice() {
-            return callCurrentPrice;
+        public BigDecimal getCurrentPrice() {
+            return currentPrice;
         }
 
         @Override
@@ -144,16 +144,16 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
 
             OutboundCallPrice that = (OutboundCallPrice) o;
 
-            if (!callBasePrice.equals(that.callBasePrice)) return false;
-            if (!callCurrentPrice.equals(that.callCurrentPrice)) return false;
+            if (!basePrice.equals(that.basePrice)) return false;
+            if (!currentPrice.equals(that.currentPrice)) return false;
 
             return true;
         }
 
         @Override
         public int hashCode() {
-            int result = callBasePrice.hashCode();
-            result = 31 * result + callCurrentPrice.hashCode();
+            int result = basePrice.hashCode();
+            result = 31 * result + currentPrice.hashCode();
             return result;
         }
     }
@@ -168,13 +168,13 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
      */
     public class InboundCallPrice {
         private final NumberType numberType;
-        private final BigDecimal callBasePrice;
-        private final BigDecimal callCurrentPrice;
+        private final BigDecimal basePrice;
+        private final BigDecimal currentPrice;
 
-        public InboundCallPrice(final NumberType numberType, final BigDecimal callBasePrice, final BigDecimal callCurrentPrice) {
+        public InboundCallPrice(final NumberType numberType, final BigDecimal basePrice, final BigDecimal currentPrice) {
             this.numberType = numberType;
-            this.callBasePrice = callBasePrice;
-            this.callCurrentPrice = callCurrentPrice;
+            this.basePrice = basePrice;
+            this.currentPrice = currentPrice;
         }
 
         /**
@@ -190,8 +190,8 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
          * phone number, before any discounts have been applied.
          * @return Decimal base price rate for inbound calls.
          */
-        public BigDecimal getCallBasePrice() {
-            return callBasePrice;
+        public BigDecimal getBasePrice() {
+            return basePrice;
         }
 
         /**
@@ -199,8 +199,8 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
          * phone number, after any available discounts have been applied.
          * @return Decimal disconutd price rate for inbound calls.
          */
-        public BigDecimal getCallCurrentPrice() {
-            return callCurrentPrice;
+        public BigDecimal getCurrentPrice() {
+            return currentPrice;
         }
 
         @Override
@@ -210,8 +210,8 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
 
             InboundCallPrice that = (InboundCallPrice) o;
 
-            if (!callBasePrice.equals(that.callBasePrice)) return false;
-            if (!callCurrentPrice.equals(that.callCurrentPrice)) return false;
+            if (!basePrice.equals(that.basePrice)) return false;
+            if (!currentPrice.equals(that.currentPrice)) return false;
             if (!numberType.equals(that.numberType)) return false;
 
             return true;
@@ -220,8 +220,8 @@ public class VoiceNumber extends InstanceResource<TwilioPricingClient> {
         @Override
         public int hashCode() {
             int result = numberType.hashCode();
-            result = 31 * result + callBasePrice.hashCode();
-            result = 31 * result + callCurrentPrice.hashCode();
+            result = 31 * result + basePrice.hashCode();
+            result = 31 * result + currentPrice.hashCode();
             return result;
         }
     }

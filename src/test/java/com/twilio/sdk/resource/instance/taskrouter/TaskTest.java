@@ -25,10 +25,12 @@ public class TaskTest extends BasicRequestTester {
 		Map<String, String> properties = new HashMap<String, String>();
 		properties.put("Attributes", "{\"body\": \"hello\"}");
 		properties.put("WorkflowSid", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		properties.put("Timeout", "60");
 		Task task = taskRouterClient.createTask("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
 		assertNotNull(task);
 		assertEquals("{\"body\": \"hello\"}", task.getAttributes());
 		assertEquals("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", task.getWorkflowSid());
+		assertEquals(60, task.getTimeout());
 	}
 
 	@Test

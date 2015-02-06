@@ -124,6 +124,15 @@ public class Task extends InstanceResource<TwilioTaskRouterClient> {
 		}
 	}
 
+    /**
+     * Gets the timeout.
+     *
+     * @return the timeout
+     */
+    public int getTimeout() {
+        return (Integer)getObject("timeout");
+    }
+
 	/**
 	 * Gets the {@link TaskQueue} sid.
 	 *

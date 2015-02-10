@@ -28,7 +28,7 @@ public class TaskQueueTest extends BasicRequestTester {
 		properties.put("ReservationActivitySid", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		TaskQueue taskQueue = taskRouterClient.createTaskQueue("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
 		assertNotNull(taskQueue);
-		assertEquals("Test Queue", taskQueue.getFriendlyName());
+		assertEquals("Test TaskQueue", taskQueue.getFriendlyName());
 	}
 
 	@Test
@@ -45,7 +45,7 @@ public class TaskQueueTest extends BasicRequestTester {
 		                                             "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		assertNotNull(taskQueue);
 		assertEquals("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", taskQueue.getSid());
-		assertEquals("Test Queue", taskQueue.getFriendlyName());
+		assertEquals("Test TaskQueue", taskQueue.getFriendlyName());
 	}
 
 }

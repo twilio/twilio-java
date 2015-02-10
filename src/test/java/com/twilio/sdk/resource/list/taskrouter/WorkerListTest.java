@@ -24,6 +24,5 @@ public class WorkerListTest extends BasicRequestTester {
 		for (Worker worker : workers) {
 			assertNotNull(worker.getSid());
 		}
-		assertTrue(workers.getTotal() == 1);
 	}
 }

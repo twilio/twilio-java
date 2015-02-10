@@ -43,11 +43,6 @@ public class ReservationList extends NextGenListResource<Reservation, TwilioTask
 	}
 
 	@Override
-	protected String getListKey() {
-		return "reservations";
-	}
-
-	@Override
 	protected Reservation makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {
 		return new Reservation(client, params);
 	}

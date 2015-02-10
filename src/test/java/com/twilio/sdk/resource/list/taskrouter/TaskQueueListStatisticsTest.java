@@ -24,7 +24,6 @@ public class TaskQueueListStatisticsTest extends BasicRequestTester {
 		for (TaskQueueStatistics queueStatistic : queuesStatistics) {
 			assertNotNull(queueStatistic.getStartTime());
 		}
-		assertTrue(queuesStatistics.getTotal() == 2);
 	}
 
 }

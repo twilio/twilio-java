@@ -5,6 +5,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +27,42 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 	public NextGenListResource(final C client, final Map<String, String> filters) {
 		super(client);
 		this.filters = filters;
+	}
+
+	public Iterator<T> iterator() {
+		return new ListIterator(getPageData().iterator());
+	}
+
+	public List<T> getPageData() {
+		if (!this.isLoaded()) {
+			try {
+				this.load(this.filters);
+			} catch (TwilioRestException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		return Collections.unmodifiableList(this.pageData);
+	}
+
+	public String getNextPageUrl() {
+		return nextPageUrl;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public String getPreviousPageUrl() {
+		return previousPageUrl;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 
 	protected boolean hasNextPage() {

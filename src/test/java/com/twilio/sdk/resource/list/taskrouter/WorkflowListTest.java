@@ -24,6 +24,5 @@ public class WorkflowListTest extends BasicRequestTester {
 		for (Workflow workflow : workflows) {
 			assertNotNull(workflow.getSid());
 		}
-		assertTrue(workflows.getTotal() == 1);
 	}
 }

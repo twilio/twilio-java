@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-public abstract class NextGenInstanceResource<C extends TwilioClient> extends InstanceResource {
+public abstract class NextGenInstanceResource<C extends TwilioClient> extends InstanceResource<C> {
 
 	protected static final SimpleDateFormat ISO_8601_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
@@ -19,7 +19,7 @@ public abstract class NextGenInstanceResource<C extends TwilioClient> extends In
 		super(client, properties);
 	}
 
-	public NextGenInstanceResource(final C client, final Map<String, Object> properties, final Map<String, Object> filters) {
+	public NextGenInstanceResource(final C client, final Map<String, Object> properties, final Map<String, String> filters) {
 		super(client, properties, filters);
 	}
 

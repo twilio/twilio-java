@@ -29,7 +29,7 @@ public class WorkflowTest extends BasicRequestTester {
 		properties.put("AssignmentCallbackUrl", "http://example.com");
 		Workflow workflow = taskRouterClient.createWorkflow("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
 		assertNotNull(workflow);
-		assertEquals("Test Workflow", workflow.getFriendlyName());
+		assertEquals("Default Fifo Workflow", workflow.getFriendlyName());
 		assertEquals(
 				"task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQ6cea7d9a599fadac8511e9fd2d1b7d10\\n        set-priority: 0\\n",
 				workflow.getConfiguration());
@@ -49,6 +49,6 @@ public class WorkflowTest extends BasicRequestTester {
 		Workflow workflow                 = taskRouterClient.getWorkflow("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		assertNotNull(workflow);
 		assertEquals("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", workflow.getSid());
-		assertEquals("Test Workflow", workflow.getFriendlyName());
+		assertEquals("Default Fifo Workflow", workflow.getFriendlyName());
 	}
 }

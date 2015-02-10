@@ -54,11 +54,6 @@ public class ActivityList extends NextGenListResource<Activity, TwilioTaskRouter
 	}
 
 	@Override
-	protected String getListKey() {
-		return "activities";
-	}
-
-	@Override
 	protected Activity makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {
 		return new Activity(client, params);
 	}

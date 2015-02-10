@@ -54,11 +54,6 @@ public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRout
 	}
 
 	@Override
-	protected String getListKey() {
-		return "task_queues";
-	}
-
-	@Override
 	protected TaskQueue makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {
 		return new TaskQueue(client, params);
 	}

@@ -54,11 +54,6 @@ public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClie
 	}
 
 	@Override
-	protected String getListKey() {
-		return "workers";
-	}
-
-	@Override
 	protected Worker makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {
 		return new Worker(client, params);
 	}

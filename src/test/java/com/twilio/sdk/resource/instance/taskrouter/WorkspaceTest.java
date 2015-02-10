@@ -26,7 +26,7 @@ public class WorkspaceTest extends BasicRequestTester {
 		properties.put("FriendlyName", "workspace");
 		Workspace workspace = taskRouterClient.createWorkspace(properties);
 		assertNotNull(workspace);
-		assertEquals("workspace", workspace.getFriendlyName());
+		assertEquals("Test Workspace", workspace.getFriendlyName());
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class WorkspaceTest extends BasicRequestTester {
 		Workspace workspace = taskRouterClient.getWorkspace("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		assertNotNull(workspace);
 		assertEquals("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", workspace.getSid());
-		assertEquals("workspace", workspace.getFriendlyName());
+		assertEquals("Test Workspace", workspace.getFriendlyName());
 	}
 
 }

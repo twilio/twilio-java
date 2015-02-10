@@ -25,6 +25,5 @@ public class ReservationListTest extends BasicRequestTester {
 		for (Reservation reservation : reservations) {
 			assertNotNull(reservation.getSid());
 		}
-		assertTrue(reservations.getTotal() == 1);
 	}
 }

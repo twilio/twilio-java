@@ -24,6 +24,5 @@ public class TaskQueueListTest extends BasicRequestTester {
 		for (TaskQueue taskQueue : queues) {
 			assertNotNull(taskQueue.getSid());
 		}
-		assertTrue(queues.getTotal() == 1);
 	}
 }

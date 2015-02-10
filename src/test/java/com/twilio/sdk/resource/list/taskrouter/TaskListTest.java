@@ -24,6 +24,5 @@ public class TaskListTest extends BasicRequestTester {
 		for (Task task : tasks) {
 			assertNotNull(task.getSid());
 		}
-		assertTrue(tasks.getTotal() == 1);
 	}
 }

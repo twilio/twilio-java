@@ -24,7 +24,6 @@ public class WorkspaceListTest extends BasicRequestTester {
 		for (Workspace workspace : workspaces) {
 			assertNotNull(workspace.getSid());
 		}
-		assertTrue(workspaces.getTotal() == 1);
 	}
 
 }

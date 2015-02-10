@@ -54,11 +54,6 @@ public class WorkflowList extends NextGenListResource<Workflow, TwilioTaskRouter
 	}
 
 	@Override
-	protected String getListKey() {
-		return "workflows";
-	}
-
-	@Override
 	protected Workflow makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {
 		return new Workflow(client, params);
 	}

@@ -24,7 +24,6 @@ public class ActivityListTest extends BasicRequestTester {
 		for (Activity activity : activities) {
 			assertNotNull(activity.getSid());
 		}
-		assertTrue(activities.getTotal() == 1);
 	}
 
 }

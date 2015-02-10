@@ -48,11 +48,6 @@ public class WorkspaceList extends NextGenListResource<Workspace, TwilioTaskRout
 	}
 
 	@Override
-	protected String getListKey() {
-		return "workspaces";
-	}
-
-	@Override
 	protected Workspace makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {
 		return new Workspace(client, params);
 	}

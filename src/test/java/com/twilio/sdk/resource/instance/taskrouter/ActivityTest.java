@@ -4,8 +4,12 @@ import com.twilio.sdk.resource.instance.BasicRequestTester;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -29,6 +33,13 @@ public class ActivityTest extends BasicRequestTester {
 		assertNotNull(activity);
 		assertEquals("New Activity", activity.getFriendlyName());
 		assertTrue(activity.isAvailable());
+		Calendar c = activity.getDateCreated();
+		assertEquals(c.get(Calendar.YEAR), 2014);
+		assertEquals(c.get(Calendar.MONTH), 5 - 1); // Zero-indexed. Seriously?
+		assertEquals(c.get(Calendar.DAY_OF_MONTH), 14);
+		assertEquals(c.get(Calendar.HOUR_OF_DAY), 10);
+		assertEquals(c.get(Calendar.MINUTE), 50);
+		assertEquals(c.get(Calendar.SECOND), 2);
 	}
 
 	@Test

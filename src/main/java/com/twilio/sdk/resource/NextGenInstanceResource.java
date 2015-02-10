@@ -4,8 +4,11 @@ import com.twilio.sdk.TwilioClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
+import java.util.TimeZone;
 
 public abstract class NextGenInstanceResource<C extends TwilioClient> extends InstanceResource<C> {
 
@@ -23,14 +26,17 @@ public abstract class NextGenInstanceResource<C extends TwilioClient> extends In
 		super(client, properties, filters);
 	}
 
-	@Override
-	protected Date parseDate(final String inDate) {
+	protected Calendar parseCalendar(final String inDate) {
 		if (inDate == null) {
 			return null;
 		}
 
 		try {
-			return ISO_8601_DATE_FORMAT.parse(inDate);
+			ISO_8601_DATE_FORMAT.getCalendar().setTimeZone(TimeZone.getTimeZone("UTC"));
+			GregorianCalendar c = new GregorianCalendar();
+			c.setTimeZone(TimeZone.getTimeZone("UTC"));
+			c.setTime(ISO_8601_DATE_FORMAT.parse(inDate));
+			return c;
 		} catch (ParseException e) {
 			return null;
 		}

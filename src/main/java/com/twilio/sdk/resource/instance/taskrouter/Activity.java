@@ -3,6 +3,7 @@ package com.twilio.sdk.resource.instance.taskrouter;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -65,8 +66,8 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the date created
 	 */
-	public Date getDateCreated() {
-		return parseDate(getProperty(DATE_CREATED_PROPERTY));
+	public Calendar getDateCreated() {
+		return parseCalendar(getProperty(DATE_CREATED_PROPERTY));
 	}
 
 	/**
@@ -74,8 +75,8 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the date updated
 	 */
-	public Date getDateUpdated() {
-		return parseDate(getProperty(DATE_UPDATED_PROPERTY));
+	public Calendar getDateUpdated() {
+		return parseCalendar(getProperty(DATE_UPDATED_PROPERTY));
 	}
 
 	/**

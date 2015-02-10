@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.list.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.ListResource;
+import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.instance.taskrouter.Reservation;
 
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * ReservationList to work with {@link com.twilio.sdk.resource.instance.taskrouter.Reservation}.
  */
-public class ReservationList extends ListResource<Reservation, TwilioTaskRouterClient> {
+public class ReservationList extends NextGenListResource<Reservation, TwilioTaskRouterClient> {
 
 	private String taskSid;
 

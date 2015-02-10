@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.list.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.ListResource;
+import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.instance.taskrouter.TaskQueueStatistics;
 
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * TaskQueueListStatistics to work with {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueueStatistics}.
  */
-public class TaskQueueListStatistics extends ListResource<TaskQueueStatistics, TwilioTaskRouterClient> {
+public class TaskQueueListStatistics extends NextGenListResource<TaskQueueStatistics, TwilioTaskRouterClient> {
 
 	private String workspaceSid;
 

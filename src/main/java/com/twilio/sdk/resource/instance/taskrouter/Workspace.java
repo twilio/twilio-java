@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.NextGenInstanceResource;
 import com.twilio.sdk.resource.list.taskrouter.ActivityList;
 import com.twilio.sdk.resource.list.taskrouter.TaskList;
 import com.twilio.sdk.resource.list.taskrouter.WorkerList;
@@ -14,7 +14,7 @@ import java.util.Map;
  * Workspaces are containers that bring all of these pieces together. All of your Tasks, Workers, Workflows and Queues
  * are contained within a workspace. You can have as many workspaces as you like.
  */
-public class Workspace extends InstanceResource<TwilioTaskRouterClient> {
+public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	/**
 	 * Instantiates a workspace.

@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.NextGenInstanceResource;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Queues distribute tasks to workers, and collect statistics about task distribution.
  */
-public class TaskQueue extends InstanceResource<TwilioTaskRouterClient> {
+public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 

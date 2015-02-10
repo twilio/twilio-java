@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.NextGenNextGenInstanceResource;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Activity class use to get an activity resource.
  */
-public class Activity extends InstanceResource<TwilioTaskRouterClient> {
+public class Activity extends NextGenNextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 

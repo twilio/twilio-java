@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.NextGenInstanceResource;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Statistics about {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}
  */
-public class WorkflowStatistics extends InstanceResource<TwilioTaskRouterClient> {
+public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String CUMULATIVE_PROPERTY = "cumulative";
 

@@ -3,7 +3,7 @@ package com.twilio.sdk.resource.list.taskrouter;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.ListResource;
+import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.factory.taskrouter.TaskQueueFactory;
 import com.twilio.sdk.resource.instance.taskrouter.TaskQueue;
 import org.apache.http.NameValuePair;
@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * TaskQueueList to work with {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
  */
-public class TaskQueueList extends ListResource<TaskQueue, TwilioTaskRouterClient> implements TaskQueueFactory {
+public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRouterClient> implements TaskQueueFactory {
 
 	private String workspaceSid;
 

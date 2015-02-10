@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.NextGenInstanceResource;
 
 import java.util.Date;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.Map;
  * attributes describe which kinds of tasks they can handle, and Worker activities describe what the workers are doing
  * and whether they are ready to accept a new task assignment.
  */
-public class Worker extends InstanceResource<TwilioTaskRouterClient> {
+public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 

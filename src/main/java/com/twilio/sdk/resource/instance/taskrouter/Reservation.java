@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.NextGenNextGenInstanceResource;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Reservation class use to get a reservation resource.
  */
-public class Reservation extends InstanceResource<TwilioTaskRouterClient> {
+public class Reservation extends NextGenNextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String TASK_SID_PROPERTY = "task_sid";
 

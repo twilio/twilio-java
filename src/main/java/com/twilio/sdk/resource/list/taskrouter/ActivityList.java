@@ -3,7 +3,7 @@ package com.twilio.sdk.resource.list.taskrouter;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.ListResource;
+import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.factory.taskrouter.ActivityFactory;
 import com.twilio.sdk.resource.instance.taskrouter.Activity;
 import org.apache.http.NameValuePair;
@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * ActivityList to work with {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
  */
-public class ActivityList extends ListResource<Activity, TwilioTaskRouterClient> implements ActivityFactory {
+public class ActivityList extends NextGenListResource<Activity, TwilioTaskRouterClient> implements ActivityFactory {
 
 	private String workspaceSid;
 

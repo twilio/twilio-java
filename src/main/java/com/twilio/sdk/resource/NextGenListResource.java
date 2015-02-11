@@ -34,15 +34,15 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 	}
 
 	public List<T> getPageData() {
-		if (!this.isLoaded()) {
+		if (!isLoaded()) {
 			try {
-				this.load(this.filters);
+				load(filters);
 			} catch (TwilioRestException e) {
 				throw new RuntimeException(e);
 			}
 		}
 
-		return Collections.unmodifiableList(this.pageData);
+		return Collections.unmodifiableList(pageData);
 	}
 
 	public String getNextPageUrl() {
@@ -70,8 +70,8 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 	}
 
 	protected void fetchNextPage() throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().get(nextPageUrl);
-		this.parseResponse(response);
+		TwilioRestResponse response = getClient().get(nextPageUrl);
+		parseResponse(response);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 		pageSize = getIntValue(meta.get("page_size"));
 		url = (String) meta.get("url");
 
-		this.pageData = this.toList(response);
+		pageData = toList(response);
 	}
 
 	protected List<T> toList(TwilioRestResponse response) {
@@ -116,10 +116,10 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 
 	private void extract_object(List<T> returnList, Object o) {
 		if (o instanceof Map) {
-			T instance = this.makeNew(this.getClient(), (Map<String, Object>) o);
+			T instance = makeNew(getClient(), (Map<String, Object>) o);
 			if(instance.getRequestAccountSid() == null){
 				//Only set RequestAccountSid if the makeNew instance didn't already set it.
-				instance.setRequestAccountSid(this.getRequestAccountSid());
+				instance.setRequestAccountSid(getRequestAccountSid());
 			}
 			returnList.add(instance);
 		}

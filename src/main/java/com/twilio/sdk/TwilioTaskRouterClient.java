@@ -7,6 +7,7 @@ import com.twilio.sdk.resource.factory.taskrouter.WorkerFactory;
 import com.twilio.sdk.resource.factory.taskrouter.WorkflowFactory;
 import com.twilio.sdk.resource.factory.taskrouter.WorkspaceFactory;
 import com.twilio.sdk.resource.instance.taskrouter.Activity;
+import com.twilio.sdk.resource.instance.taskrouter.Event;
 import com.twilio.sdk.resource.instance.taskrouter.Reservation;
 import com.twilio.sdk.resource.instance.taskrouter.Task;
 import com.twilio.sdk.resource.instance.taskrouter.TaskQueue;
@@ -19,6 +20,7 @@ import com.twilio.sdk.resource.instance.taskrouter.WorkflowStatistics;
 import com.twilio.sdk.resource.instance.taskrouter.Workspace;
 import com.twilio.sdk.resource.instance.taskrouter.WorkspaceStatistics;
 import com.twilio.sdk.resource.list.taskrouter.ActivityList;
+import com.twilio.sdk.resource.list.taskrouter.EventList;
 import com.twilio.sdk.resource.list.taskrouter.ReservationList;
 import com.twilio.sdk.resource.list.taskrouter.TaskList;
 import com.twilio.sdk.resource.list.taskrouter.TaskQueueList;
@@ -244,6 +246,40 @@ public class TwilioTaskRouterClient extends TwilioClient {
 		activity.setRequestAccountSid(getAccountSid());
 		return activity;
 	}
+
+    /**
+     * Get an event instance by sid.
+     *
+     * @param workspaceSid The 34 character sid starting with WS
+     * @param eventSid The 34 character sid starting with EV
+     */
+    public Event getEvent(final String workspaceSid, final String eventSid) {
+        Event event = new Event(this, workspaceSid, eventSid);
+        event.setRequestAccountSid(getAccountSid());
+        return event;
+    }
+
+    /**
+     * Get the events.
+     *
+     * @return the events
+     */
+    public EventList getEvents(final String workspaceSid) {
+        return getEvents(workspaceSid, new HashMap<String, String>(0));
+    }
+
+    /**
+     * Get the events.
+     *
+     * @param workspaceSid the workspace sid
+     * @param filters the filters
+     * @return events matching the filters
+     */
+    public EventList getEvents(final String workspaceSid, final Map<String, String> filters) {
+        EventList list = new EventList(this, workspaceSid, filters);
+        list.setRequestAccountSid(getAccountSid());
+        return list;
+    }
 
 	/**
 	 * Get a reservation instance by sid.

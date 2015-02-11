@@ -23,6 +23,8 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 
 	protected static final String DATE_UPDATED_PROPERTY = "date_updated";
 
+	protected static final SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
 	protected static final SimpleDateFormat RFC_2822_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
 
 	/** The Constant SID_PROPERTY. */
@@ -185,14 +187,27 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @return the date value of the input string
 	 */
 	protected Date parseDate(final String inDate) {
-		if (inDate == null) {
-			return null;
-		}
-		try {
-			return RFC_2822_FORMAT.parse(inDate);
-		} catch (ParseException e) {
-			return null;
-		}
+		return parseDate(inDate, RFC_2822_FORMAT);
 	}
+
+    /**
+     * return a date from the property string
+     *
+     * @return the date value of the input string
+     */
+    protected Date parseIso8601Date(final String inDate) {
+        return parseDate(inDate, ISO_8601_FORMAT);
+    }
+
+    private Date parseDate(final String date, final SimpleDateFormat format) {
+        if (date == null) {
+            return null;
+        }
+        try {
+            return format.parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
 }

@@ -89,7 +89,7 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 * @return the end time
 	 */
 	public Date getEndTime() {
-		return parseDate((String) getCumulative().get("start_time"));
+		return parseIso8601Date((String) getCumulative().get("start_time"));
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 * @return the start time
 	 */
 	public Date getStartTime() {
-		return parseDate((String) getCumulative().get("start_time"));
+		return parseIso8601Date((String) getCumulative().get("start_time"));
 	}
 
 	/**

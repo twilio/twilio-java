@@ -35,7 +35,7 @@ public class ActivityTest extends BasicRequestTester {
 		assertTrue(activity.isAvailable());
 		Calendar c = activity.getDateCreated();
 		assertEquals(c.get(Calendar.YEAR), 2014);
-		assertEquals(c.get(Calendar.MONTH), 5 - 1); // Zero-indexed. Seriously?
+		assertEquals(c.get(Calendar.MONTH), Calendar.MAY);
 		assertEquals(c.get(Calendar.DAY_OF_MONTH), 14);
 		assertEquals(c.get(Calendar.HOUR_OF_DAY), 10);
 		assertEquals(c.get(Calendar.MINUTE), 50);

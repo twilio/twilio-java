@@ -38,6 +38,7 @@ public class TaskRouterCapability extends CapabilityToken {
 		this.workerSid = workerSid;
 		this.policies = new ArrayList<Policy>();
 		addEventBridgePolicies();
+		allowActivityListFetch();
 	}
 
 	/**
@@ -112,7 +113,7 @@ public class TaskRouterCapability extends CapabilityToken {
 	}
 
 	private String getWorkspaceUrl() {
-		return TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Accounts/" + accountSid + "/Workspaces/" + workspaceSid;
+		return TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
 	}
 
 	private String getWorkerUrl() {
@@ -124,6 +125,11 @@ public class TaskRouterCapability extends CapabilityToken {
 		String eventBridgeUrl = TASKROUTER_EVENT_URL + "/" + accountSid + "/" + workerSid;
 		addPolicy(new Policy(eventBridgeUrl, "GET", true));
 		addPolicy(new Policy(eventBridgeUrl, "POST", true));
+	}
+
+	private void allowActivityListFetch() {
+		String url = getWorkspaceUrl() + "/Activities";
+		addPolicy(new Policy(url, "GET", true));
 	}
 
 	public class Policy implements JSONAware {

@@ -38,7 +38,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	public static final String DEFAULT_VERSION = "v1";
 
 	public TwilioTaskRouterClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken, "http://taskrouter.twilio.com");
+		super(accountSid, authToken, "https://taskrouter.twilio.com");
 	}
 
 	/**

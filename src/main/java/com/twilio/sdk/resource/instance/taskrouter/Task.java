@@ -66,7 +66,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the age
 	 */
 	public int getAge() {
-		Integer prop = (Integer)getObject("age");
+		Integer prop = (Integer) getObject("age");
 		if (prop != null) {
 			return prop;
 		} else {
@@ -116,7 +116,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the priority
 	 */
 	public int getPriority() {
-		Integer prop = (Integer)getObject("priority");
+		Integer prop = (Integer) getObject("priority");
 		if (prop != null) {
 			return prop;
 		} else {
@@ -171,7 +171,6 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/Tasks/" + getSid();
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Tasks/" + getSid();
 	}
 }

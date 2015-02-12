@@ -152,7 +152,7 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/TaskQueues/" + getSid();
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/TaskQueues/" +
+		       getSid();
 	}
 }

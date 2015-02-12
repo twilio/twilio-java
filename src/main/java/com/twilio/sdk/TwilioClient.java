@@ -91,7 +91,7 @@ public abstract class TwilioClient {
 		this.numRetries = numRetries;
 	}
 
-	public void setHttpclient(final HttpClient httpclient) {
+	public void setHttpClient(final HttpClient httpclient) {
 		this.httpclient = httpclient;
 	}
 
@@ -141,7 +141,7 @@ public abstract class TwilioClient {
 			((PoolingClientConnectionManager) mgr).setDefaultMaxPerRoute(10);
 		}
 
-		setHttpclient(new DefaultHttpClient(mgr));
+		setHttpClient(new DefaultHttpClient(mgr));
 		httpclient.getParams().setParameter("http.protocol.version", HttpVersion.HTTP_1_1);
 		httpclient.getParams().setParameter("http.socket.timeout", new Integer(READ_TIMEOUT));
 		httpclient.getParams().setParameter("http.connection.timeout", new Integer(CONNECTION_TIMEOUT));

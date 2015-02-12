@@ -151,7 +151,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/Tasks/" + getTaskSid() + "/Reservations/" + getSid();
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Tasks/" +
+		       getTaskSid() + "/Reservations/" + getSid();
 	}
 }

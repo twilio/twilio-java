@@ -36,7 +36,8 @@ public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRout
 	 * @param filters the filters
 	 * @param workspaceSid the workspace sid
 	 */
-	public TaskQueueList(final TwilioTaskRouterClient client, final String workspaceSid, final Map<String, String> filters) {
+	public TaskQueueList(final TwilioTaskRouterClient client, final String workspaceSid,
+	                     final Map<String, String> filters) {
 		super(client, filters);
 		this.workspaceSid = workspaceSid;
 	}
@@ -60,7 +61,6 @@ public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRout
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       workspaceSid + "/TaskQueues";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/TaskQueues";
 	}
 }

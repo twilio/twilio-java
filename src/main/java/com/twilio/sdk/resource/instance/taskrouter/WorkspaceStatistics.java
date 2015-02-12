@@ -248,8 +248,7 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/Statistics";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Statistics";
 	}
 
 	private Map<String, Object> getCumulative() {

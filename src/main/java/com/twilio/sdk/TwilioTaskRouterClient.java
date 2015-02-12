@@ -62,7 +62,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @throws TwilioRestException
 	 */
 	public TaskQueue createTaskQueue(final String workspaceSid, final Map<String, String> properties) throws
-	                                                                                          TwilioRestException {
+	                                                                                                  TwilioRestException {
 		TaskQueueFactory taskQueueFactory = new TaskQueueList(this, workspaceSid);
 		return taskQueueFactory.create(properties);
 	}
@@ -127,8 +127,8 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public boolean deleteActivity(final String workspaceSid, final String activitySid) throws TwilioRestException {
 		TwilioRestResponse response = safeRequest(
-				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getAccountSid() + "/Workspaces/" + workspaceSid +
-				"/Activities/" + activitySid, "DELETE", (Map) null);
+				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Activities/" +
+				activitySid, "DELETE", (Map) null);
 
 		return !response.isError();
 	}
@@ -143,8 +143,8 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public boolean deleteTaskQueue(final String workspaceSid, final String queueSid) throws TwilioRestException {
 		TwilioRestResponse response = safeRequest(
-				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getAccountSid() + "/Workspaces/" + workspaceSid +
-				"/TaskQueues/" + queueSid, "DELETE", (Map) null);
+				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/TaskQueues/" +
+				queueSid, "DELETE", (Map) null);
 
 		return !response.isError();
 	}
@@ -159,8 +159,8 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public boolean deleteTask(final String workspaceSid, final String taskSid) throws TwilioRestException {
 		TwilioRestResponse response = safeRequest(
-				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getAccountSid() + "/Workspaces/" + workspaceSid +
-				"/Tasks/" + taskSid, "DELETE", (Map) null);
+				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Tasks/" + taskSid,
+				"DELETE", (Map) null);
 
 		return !response.isError();
 	}
@@ -175,8 +175,8 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public boolean deleteWorker(final String workspaceSid, final String workerSid) throws TwilioRestException {
 		TwilioRestResponse response = safeRequest(
-				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getAccountSid() + "/Workspaces/" + workspaceSid +
-				"/Workers/" + workerSid, "DELETE", (Map) null);
+				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Workers/" + workerSid,
+				"DELETE", (Map) null);
 
 		return !response.isError();
 	}
@@ -191,8 +191,8 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public boolean deleteWorkflow(final String workspaceSid, final String workflowSid) throws TwilioRestException {
 		TwilioRestResponse response = safeRequest(
-				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getAccountSid() + "/Workspaces/" + workspaceSid +
-				"/Workflows/" + workflowSid, "DELETE", (Map) null);
+				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Workflows/" +
+				workflowSid, "DELETE", (Map) null);
 
 		return !response.isError();
 	}
@@ -205,9 +205,8 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @throws TwilioRestException the twilio rest exception
 	 */
 	public boolean deleteWorkspace(final String sid) throws TwilioRestException {
-		TwilioRestResponse response = safeRequest(
-				"/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getAccountSid() + "/Workspaces/" + sid, "DELETE",
-				(Map) null);
+		TwilioRestResponse response = safeRequest("/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + sid,
+		                                          "DELETE", (Map) null);
 
 		return !response.isError();
 	}
@@ -359,7 +358,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @return queue statistics
 	 */
 	public TaskQueueStatistics getQueueStatistics(final String workspaceSid, final String queueSid,
-	                                          final Map<String, String> filters) {
+	                                              final Map<String, String> filters) {
 		TaskQueueStatistics taskQueueStatistics = new TaskQueueStatistics(this, workspaceSid, queueSid, filters);
 		taskQueueStatistics.setRequestAccountSid(getAccountSid());
 		return taskQueueStatistics;

@@ -67,15 +67,15 @@ public class TwilioRestResponse {
 	 * @param text the text
 	 * @param status the status
 	 */
-	public TwilioRestResponse(String url, String text, int status) {
+	public TwilioRestResponse(final String url, final String text, final int status) {
 		Pattern p = Pattern.compile("([^?]+)\\??(.*)");
 		Matcher m = p.matcher(url);
 		m.matches();
 		this.url = m.group(1);
-		this.queryString = m.group(2);
-		this.responseText = text;
-		this.httpStatus = status;
-		this.error = (status >= 400);
+		queryString = m.group(2);
+		responseText = text;
+		httpStatus = status;
+		error = (status >= 400);
 	}
 
 
@@ -93,7 +93,7 @@ public class TwilioRestResponse {
 	 *
 	 * @param responseText the new response text
 	 */
-	public void setResponseText(String responseText) {
+	public void setResponseText(final String responseText) {
 		this.responseText = responseText;
 	}
 
@@ -112,7 +112,7 @@ public class TwilioRestResponse {
 	 *
 	 * @param httpStatus the new http status
 	 */
-	public void setHttpStatus(int httpStatus) {
+	public void setHttpStatus(final int httpStatus) {
 		this.httpStatus = httpStatus;
 	}
 
@@ -130,7 +130,7 @@ public class TwilioRestResponse {
 	 *
 	 * @param url the new url
 	 */
-	public void setUrl(String url) {
+	public void setUrl(final String url) {
 		this.url = url;
 	}
 
@@ -147,7 +147,7 @@ public class TwilioRestResponse {
 	 *
 	 * @param queryString the new query string
 	 */
-	public void setQueryString(String queryString) {
+	public void setQueryString(final String queryString) {
 		this.queryString = queryString;
 	}
 
@@ -165,7 +165,7 @@ public class TwilioRestResponse {
 	 *
 	 * @param error the new error
 	 */
-	public void setError(boolean error) {
+	public void setError(final boolean error) {
 		this.error = error;
 	}
 
@@ -175,7 +175,7 @@ public class TwilioRestResponse {
 	 * @return true if this was a client error
 	 */
 	public boolean isClientError() {
-		return (this.getHttpStatus() >= 400 && this.getHttpStatus() < 500);
+		return (getHttpStatus() >= 400 && getHttpStatus() < 500);
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class TwilioRestResponse {
 	 * @return true if this was a server error
 	 */
 	public boolean isServerError() {
-		return this.getHttpStatus() >= 500;
+		return getHttpStatus() >= 500;
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class TwilioRestResponse {
 	 *
 	 * @param contentType the new content type
 	 */
-	public void setContentType(String contentType) {
+	public void setContentType(final String contentType) {
 		this.contentType = contentType;
 	}
 
@@ -202,7 +202,7 @@ public class TwilioRestResponse {
 	 * @return true if this looks like a JSON response
 	 */
 	public boolean isJson() {
-		return (this.contentType.toLowerCase().contains("application/json"));
+		return (contentType.toLowerCase().contains("application/json"));
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class TwilioRestResponse {
 	 * @return true if this looks like an XML response
 	 */
 	public boolean isXml() {
-		String lowercaseContentType = this.contentType.toLowerCase();
+		String lowercaseContentType = contentType.toLowerCase();
 		return (lowercaseContentType.contains("text/xml") ||
 			lowercaseContentType.contains("application/xml"));
 	}
@@ -222,13 +222,13 @@ public class TwilioRestResponse {
 	 * @return a response parser capable of parsing this response body.
 	 */
 	public ResponseParser getParser() {
-		if (this.isJson()) {
+		if (isJson()) {
 			return new JsonResponseParser();
-		} else if (this.isXml()) {
+		} else if (isXml()) {
 			return new XmlResponseParser();
 		}
 
-		throw new UnsupportedOperationException(this.contentType
+		throw new UnsupportedOperationException(contentType
 				+ " not a supported content type");
 	}
 
@@ -241,7 +241,7 @@ public class TwilioRestResponse {
 	 *         sub-objects are Map values. All other types are String values.
 	 */
 	public Map<String, Object> toMap() {
-		ResponseParser parser = this.getParser();
+		ResponseParser parser = getParser();
 		return parser.parse(this);
 	}
 

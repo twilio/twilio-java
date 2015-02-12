@@ -41,7 +41,7 @@ public class WorkerStatistics extends NextGenInstanceResource<TwilioTaskRouterCl
 	 * @param filters the filters
 	 */
 	public WorkerStatistics(final TwilioTaskRouterClient client, final String workspaceSid, final String workerSid,
-	                       final Map<String, String> filters) {
+	                        final Map<String, String> filters) {
 		super(client);
 		if (workspaceSid == null || "".equals(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a WorkerStatistics cannot be null");
@@ -150,8 +150,8 @@ public class WorkerStatistics extends NextGenInstanceResource<TwilioTaskRouterCl
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/Workers/" + getWorkerSid() + "/Statistics";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Workers/" +
+		       getWorkerSid() + "/Statistics";
 	}
 
 	private Map<String, Object> getCumulative() {
@@ -173,7 +173,7 @@ public class WorkerStatistics extends NextGenInstanceResource<TwilioTaskRouterCl
 			try {
 				Object prop = getObject(ActivityDuration.AVERAGE_PROPERTY);
 				if (prop instanceof Integer) {
-					average =  Double.parseDouble(prop.toString());
+					average = Double.parseDouble(prop.toString());
 				} else {
 					average = (Double) prop;
 				}

@@ -28,7 +28,8 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 * @param workspaceSid the workspace sid
 	 * @param workflowSid the workflow sid
 	 */
-	public WorkflowStatistics(final TwilioTaskRouterClient client, final String workspaceSid, final String workflowSid) {
+	public WorkflowStatistics(final TwilioTaskRouterClient client, final String workspaceSid,
+	                          final String workflowSid) {
 		this(client, workspaceSid, workflowSid, null);
 	}
 
@@ -230,8 +231,8 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/Workflows/" + getWorkflowSid() + "/Statistics";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Workflows/" +
+		       getWorkflowSid() + "/Statistics";
 	}
 
 	private Map<String, Object> getCumulative() {

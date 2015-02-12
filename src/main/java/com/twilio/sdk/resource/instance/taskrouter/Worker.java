@@ -154,7 +154,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/Workers/" + getSid();
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Workers/" +
+		       getSid();
 	}
 }

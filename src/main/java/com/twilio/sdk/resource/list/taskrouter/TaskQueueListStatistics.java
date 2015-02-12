@@ -48,7 +48,6 @@ public class TaskQueueListStatistics extends NextGenListResource<TaskQueueStatis
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       workspaceSid + "/TaskQueues/Statistics";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/TaskQueues/Statistics";
 	}
 }

@@ -36,7 +36,8 @@ public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClie
 	 * @param workspaceSid the workspace sid
 	 * @param filters the filters
 	 */
-	public WorkerList(final TwilioTaskRouterClient client, final String workspaceSid, final Map<String, String> filters) {
+	public WorkerList(final TwilioTaskRouterClient client, final String workspaceSid,
+	                  final Map<String, String> filters) {
 		super(client, filters);
 		this.workspaceSid = workspaceSid;
 	}
@@ -60,7 +61,6 @@ public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClie
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       workspaceSid + "/Workers";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Workers";
 	}
 }

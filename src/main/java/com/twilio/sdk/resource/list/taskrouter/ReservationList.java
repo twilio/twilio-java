@@ -49,7 +49,7 @@ public class ReservationList extends NextGenListResource<Reservation, TwilioTask
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       workspaceSid + "/Tasks/" + taskSid + "/Reservations";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Tasks/" + taskSid +
+		       "/Reservations";
 	}
 }

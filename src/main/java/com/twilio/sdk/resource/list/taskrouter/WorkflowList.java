@@ -36,7 +36,8 @@ public class WorkflowList extends NextGenListResource<Workflow, TwilioTaskRouter
 	 * @param workspaceSid the workspace sid
 	 * @param filters the filters
 	 */
-	public WorkflowList(final TwilioTaskRouterClient client, final String workspaceSid, final Map<String, String> filters) {
+	public WorkflowList(final TwilioTaskRouterClient client, final String workspaceSid,
+	                    final Map<String, String> filters) {
 		super(client, filters);
 		this.workspaceSid = workspaceSid;
 	}
@@ -60,7 +61,6 @@ public class WorkflowList extends NextGenListResource<Workflow, TwilioTaskRouter
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       workspaceSid + "/Workflows/";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Workflows/";
 	}
 }

@@ -36,8 +36,8 @@ public class BasicRequestTester {
     @Before
     public void init() throws Exception {
         MockitoAnnotations.initMocks(this);
-        restClient.setHttpclient(httpClient);
-	    taskRouterClient.setHttpclient(httpClient);
+        restClient.setHttpClient(httpClient);
+	    taskRouterClient.setHttpClient(httpClient);
 
         when(headers[0].getValue()).thenReturn("application/xml");
         when(response.getHeaders("Content-Type")).thenReturn(headers);

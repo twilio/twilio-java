@@ -60,7 +60,6 @@ public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> 
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       workspaceSid + "/Tasks";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Tasks";
 	}
 }

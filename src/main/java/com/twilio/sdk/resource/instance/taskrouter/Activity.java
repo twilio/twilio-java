@@ -4,7 +4,6 @@ import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -117,7 +116,7 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/Activities/" + getSid();
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Activities/" +
+		       getSid();
 	}
 }

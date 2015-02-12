@@ -17,14 +17,14 @@ import java.util.Map;
  *
  *  For more information see <a href="https://www.twilio.com/docs/api/rest/address">https://www.twilio.com/docs/api/rest/address</a>
  */
-public class AddressList extends ListResource<Address> implements AddressFactory {
+public class AddressList extends ListResource<Address, TwilioRestClient> implements AddressFactory {
 
 	/**
 	 * Instantiates a new address list.
 	 *
 	 * @param client the client
 	 */
-	public AddressList(TwilioRestClient client) {
+	public AddressList(final TwilioRestClient client) {
 		super(client);
 	}
 
@@ -34,7 +34,7 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public AddressList(TwilioRestClient client, Map<String, String> filters) {
+	public AddressList(final TwilioRestClient client, final Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -44,15 +44,15 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Addresses.json";
+				+ getRequestAccountSid() + "/Addresses.json";
 	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected Address makeNew(TwilioRestClient client,
-	                             Map<String, Object> params) {
+	protected Address makeNew(final TwilioRestClient client,
+	                             final Map<String, Object> params) {
 		return new Address(client, params);
 	}
 
@@ -64,17 +64,15 @@ public class AddressList extends ListResource<Address> implements AddressFactory
 		return "addresses";
 	}
 
-	public Address create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", params);
-		return makeNew(this.getClient(), response.toMap());
+	public Address create(final Map<String, String> params) throws TwilioRestException {
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+		return makeNew(getClient(), response.toMap());
 	}
 
-	public Address create(List<NameValuePair> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", params
+	public Address create(final List<NameValuePair> params) throws TwilioRestException {
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params
 		);
-		return makeNew(this.getClient(), response.toMap());
+		return makeNew(getClient(), response.toMap());
 	}
 
 

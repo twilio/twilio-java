@@ -1,27 +1,16 @@
 package com.twilio.sdk.resource.instance;
 
-import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-import com.twilio.sdk.resource.list.TokenList;
-import com.twilio.sdk.resource.instance.Token;
-
 import org.apache.http.NameValuePair;
-
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.stub;
 
 public class TokenTest extends BasicRequestTester {
 
@@ -34,7 +23,7 @@ public class TokenTest extends BasicRequestTester {
 	public void setup() throws Exception {
 		setExpectedServerContentType("application/json");
 		setExpectedServerAnswer("token.json");
-		token = client.getAccount().getTokenFactory().create(new ArrayList<NameValuePair>());
+		token = restClient.getAccount().getTokenFactory().create(new ArrayList<NameValuePair>());
 	}
 
 	@Test

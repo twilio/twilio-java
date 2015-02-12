@@ -16,7 +16,7 @@ import java.util.Map;
  *
  *  For more information see <a href="https://www.twilio.com/docs/api/rest/address">https://www.twilio.com/docs/api/rest/address</a>
  */
-public class DependentPhoneNumberList extends ListResource<DependentPhoneNumber> {
+public class DependentPhoneNumberList extends ListResource<DependentPhoneNumber, TwilioRestClient> {
 
 	private String addressSid;
 
@@ -25,11 +25,11 @@ public class DependentPhoneNumberList extends ListResource<DependentPhoneNumber>
 	 *
 	 * @param client the client
 	 */
-	public DependentPhoneNumberList(TwilioRestClient client) {
+	public DependentPhoneNumberList(final TwilioRestClient client) {
 		super(client);
 	}
 
-	public DependentPhoneNumberList(TwilioRestClient client, String addressSid) {
+	public DependentPhoneNumberList(final TwilioRestClient client, final String addressSid) {
 		super(client);
 		this.addressSid = addressSid;
 	}
@@ -40,7 +40,7 @@ public class DependentPhoneNumberList extends ListResource<DependentPhoneNumber>
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public DependentPhoneNumberList(TwilioRestClient client, Map<String, String> filters) {
+	public DependentPhoneNumberList(final TwilioRestClient client, final Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -50,7 +50,7 @@ public class DependentPhoneNumberList extends ListResource<DependentPhoneNumber>
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Conferences.json";
+				+ getRequestAccountSid() + "/Conferences.json";
 	}
 
 	/* (non-Javadoc)
@@ -65,7 +65,7 @@ public class DependentPhoneNumberList extends ListResource<DependentPhoneNumber>
      * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
      */
 	@Override
-	protected DependentPhoneNumber makeNew(TwilioRestClient client, Map<String, Object> properties) {
+	protected DependentPhoneNumber makeNew(final TwilioRestClient client, final Map<String, Object> properties) {
 		return new DependentPhoneNumber(client, properties);
 	}
 

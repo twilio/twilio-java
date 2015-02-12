@@ -17,14 +17,14 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/token">https://www.twilio.com/docs/api/rest/token</a>
  */
-public class TokenList extends ListResource<Token> implements TokenFactory {
+public class TokenList extends ListResource<Token, TwilioRestClient> implements TokenFactory {
 
 	/**
 	 * Instantiates a new Token list.
 	 *
 	 * @param client the client
 	 */
-	public TokenList(TwilioRestClient client) {
+	public TokenList(final TwilioRestClient client) {
 		super(client);
 	}
 
@@ -34,7 +34,7 @@ public class TokenList extends ListResource<Token> implements TokenFactory {
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public TokenList(TwilioRestClient client, Map<String, String> filters) {
+	public TokenList(final TwilioRestClient client, final Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -44,14 +44,14 @@ public class TokenList extends ListResource<Token> implements TokenFactory {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Tokens.json";
+				+ getRequestAccountSid() + "/Tokens.json";
 	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
 	 */
 	@Override
-	protected Token makeNew(TwilioRestClient client, Map<String, Object> params) {
+	protected Token makeNew(final TwilioRestClient client, final Map<String, Object> params) {
 		return new Token(client, params);
 	}
 
@@ -63,9 +63,8 @@ public class TokenList extends ListResource<Token> implements TokenFactory {
     /* (non-Javadoc)
      * @see com.twilio.sdk.resource.factory.TokenFactory#create(java.util.Map)
      */
-	public Token create(List<NameValuePair> params) throws TwilioRestException {
-		TwilioRestResponse response = this.getClient().safeRequest(
-				this.getResourceLocation(), "POST", params);
-		return makeNew(this.getClient(), response.toMap());
+	public Token create(final List<NameValuePair> params) throws TwilioRestException {
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+		return makeNew(getClient(), response.toMap());
 	}
 }

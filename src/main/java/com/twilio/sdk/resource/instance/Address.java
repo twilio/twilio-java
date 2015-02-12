@@ -30,7 +30,7 @@ import java.util.Map;
  *
  * For more information see <a href="https://www.twilio.com/docs/api/rest/address">https://www.twilio.com/docs/api/rest/address</a>
  */
-public class Address extends InstanceResource {
+public class Address extends InstanceResource<TwilioRestClient> {
 
 	/** The Constant SID_PROPERTY. */
 	private static final String SID_PROPERTY = "sid";
@@ -41,12 +41,12 @@ public class Address extends InstanceResource {
 	 * @param client the client
 	 * @param sid the sid
 	 */
-	public Address(TwilioRestClient client, String sid) {
+	public Address(final TwilioRestClient client, final String sid) {
 		super(client);
 		if (sid == null) {
 			throw new IllegalStateException("The Sid for an Address cannot be null");
 		}
-		this.setProperty(SID_PROPERTY, sid);
+		setProperty(SID_PROPERTY, sid);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Address extends InstanceResource {
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public Address(TwilioRestClient client, Map<String, Object> properties) {
+	public Address(final TwilioRestClient client, final Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -65,7 +65,7 @@ public class Address extends InstanceResource {
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Addresses/" + this.getSid() + ".json";
+				+ getRequestAccountSid() + "/Addresses/" + getSid() + ".json";
 	}
 
 	/*
@@ -77,7 +77,7 @@ public class Address extends InstanceResource {
 	 * @return the sid
 	 */
 	public String getSid() {
-		return this.getProperty(SID_PROPERTY);
+		return getProperty(SID_PROPERTY);
 	}
 
 	/**
@@ -89,8 +89,8 @@ public class Address extends InstanceResource {
 		SimpleDateFormat format = new SimpleDateFormat(
 				"EEE, dd MMM yyyy HH:mm:ss Z");
 		try {
-			return format.parse(this.getProperty("date_created"));
-		} catch (ParseException e) {
+			return format.parse(getProperty("date_created"));
+		} catch (final ParseException e) {
 			return null;
 		}
 	}
@@ -104,8 +104,8 @@ public class Address extends InstanceResource {
 		SimpleDateFormat format = new SimpleDateFormat(
 				"EEE, dd MMM yyyy HH:mm:ss Z");
 		try {
-			return format.parse(this.getProperty("date_updated"));
-		} catch (ParseException e) {
+			return format.parse(getProperty("date_updated"));
+		} catch (final ParseException e) {
 			return null;
 		}
 	}
@@ -116,7 +116,7 @@ public class Address extends InstanceResource {
 	 * @return the account sid
 	 */
 	public String getAccountSid() {
-		return this.getProperty("account_sid");
+		return getProperty("account_sid");
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class Address extends InstanceResource {
 	 * @return the friendly name
 	 */
 	public String getFriendlyName() {
-		return this.getProperty("friendly_name");
+		return getProperty("friendly_name");
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class Address extends InstanceResource {
 	 * @return the customer name
 	 */
 	public String getCustomerName() {
-		return this.getProperty("customer_name");
+		return getProperty("customer_name");
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class Address extends InstanceResource {
 	 * @return the street number
 	 */
 	public String getStreet() {
-		return this.getProperty("street");
+		return getProperty("street");
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class Address extends InstanceResource {
 	 * @return the city
 	 */
 	public String getCity() {
-		return this.getProperty("city");
+		return getProperty("city");
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class Address extends InstanceResource {
 	 * @return the region
 	 */
 	public String getRegion() {
-		return this.getProperty("region");
+		return getProperty("region");
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class Address extends InstanceResource {
 	 * @return the postal code
 	 */
 	public String getPostalCode() {
-		return this.getProperty("postal_code");
+		return getProperty("postal_code");
 	}
 
 	/**
@@ -179,7 +179,7 @@ public class Address extends InstanceResource {
 	 * @return the country code
 	 */
 	public String getIsoCountry() {
-		return this.getProperty("iso_country");
+		return getProperty("iso_country");
 	}
 
 	/**
@@ -190,14 +190,13 @@ public class Address extends InstanceResource {
 	 *
 	 */
 	public DependentPhoneNumberList getDependentPhoneNumbers() {
-		DependentPhoneNumberList list = new DependentPhoneNumberList(this.getClient(), this.getSid());
-		list.setRequestAccountSid(this.getRequestAccountSid());
+		DependentPhoneNumberList list = new DependentPhoneNumberList(getClient(), getSid());
+		list.setRequestAccountSid(getRequestAccountSid());
 		return list;
 	}
 
     public boolean delete() throws TwilioRestException {
-        TwilioRestResponse response = this.getClient().safeRequest(
-                this.getResourceLocation(), "DELETE", (Map) null);
+        TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "DELETE", (Map) null);
 
         return !response.isError();
     }

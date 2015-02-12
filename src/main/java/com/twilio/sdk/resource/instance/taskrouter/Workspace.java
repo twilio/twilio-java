@@ -3,6 +3,7 @@ package com.twilio.sdk.resource.instance.taskrouter;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 import com.twilio.sdk.resource.list.taskrouter.ActivityList;
+import com.twilio.sdk.resource.list.taskrouter.EventList;
 import com.twilio.sdk.resource.list.taskrouter.TaskList;
 import com.twilio.sdk.resource.list.taskrouter.WorkerList;
 import com.twilio.sdk.resource.list.taskrouter.WorkflowList;
@@ -66,7 +67,6 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public ActivityList getActivities() {
 		ActivityList activities = new ActivityList(getClient(), getSid());
-		activities.setRequestAccountSid(getRequestAccountSid());
 		return activities;
 	}
 
@@ -75,7 +75,6 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Activity getActivity(final String activitySid) {
 		Activity activity = new Activity(getClient(), getSid(), activitySid);
-		activity.setRequestAccountSid(getRequestAccountSid());
 		return activity;
 	}
 
@@ -116,6 +115,25 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
+	 * Retrieves a {@link com.twilio.sdk.resource.instance.taskrouter.Event} from a Workspace
+	 */
+	public Event getEvent(final String eventSid) {
+		Event event = new Event(getClient(), getSid(), eventSid);
+		return event;
+	}
+
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.EventList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.EventList}
+	 */
+	public EventList getEvents() {
+		EventList events = new EventList(getClient(), getSid());
+		return events;
+	}
+
+	/**
 	 * Gets the event callback URL.
 	 *
 	 * @return the event callback URL
@@ -147,7 +165,6 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Task getTask(final String taskSid) {
 		Task task = new Task(getClient(), getSid(), taskSid);
-		task.setRequestAccountSid(getRequestAccountSid());
 		return task;
 	}
 
@@ -159,7 +176,6 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public TaskList getTasks() {
 		TaskList tasks = new TaskList(getClient(), getSid());
-		tasks.setRequestAccountSid(getRequestAccountSid());
 		return tasks;
 	}
 
@@ -186,7 +202,6 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Worker getWorker(final String workerSid) {
 		Worker worker = new Worker(getClient(), getSid(), workerSid);
-		worker.setRequestAccountSid(getRequestAccountSid());
 		return worker;
 	}
 
@@ -198,7 +213,6 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public WorkerList getWorkers() {
 		WorkerList workers = new WorkerList(getClient(), getSid());
-		workers.setRequestAccountSid(getRequestAccountSid());
 		return workers;
 	}
 
@@ -207,7 +221,6 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Workflow getWorkflow(final String workflowSid) {
 		Workflow workflow = new Workflow(getClient(), getSid(), workflowSid);
-		workflow.setRequestAccountSid(getRequestAccountSid());
 		return workflow;
 	}
 
@@ -219,7 +232,6 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public WorkflowList getWorkflows() {
 		WorkflowList workflows = new WorkflowList(getClient(), getSid());
-		workflows.setRequestAccountSid(getRequestAccountSid());
 		return workflows;
 	}
 

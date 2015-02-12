@@ -3,8 +3,8 @@ package com.twilio.sdk.resource.instance.taskrouter;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -97,8 +97,8 @@ public class WorkersStatistics extends NextGenInstanceResource<TwilioTaskRouterC
 	 *
 	 * @return the end time
 	 */
-	public Date getEndTime() {
-		return parseIso8601Date((String) getCumulative().get("start_time"));
+	public Calendar getEndTime() {
+		return parseCalendar((String) getCumulative().get("start_time"));
 	}
 
 	/**
@@ -133,8 +133,8 @@ public class WorkersStatistics extends NextGenInstanceResource<TwilioTaskRouterC
 	 *
 	 * @return the start time
 	 */
-	public Date getStartTime() {
-		return parseIso8601Date((String) getCumulative().get("start_time"));
+	public Calendar getStartTime() {
+		return parseCalendar((String) getCumulative().get("start_time"));
 	}
 
 	/**
@@ -166,8 +166,7 @@ public class WorkersStatistics extends NextGenInstanceResource<TwilioTaskRouterC
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
-		       getWorkspaceSid() + "/Workers/Statistics";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Workers/Statistics";
 	}
 
 	private Map<String, Object> getCumulative() {

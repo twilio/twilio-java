@@ -22,6 +22,7 @@ public class EventListTest extends BasicRequestTester {
         assertNotNull(events);
         for (final Event event : events) {
             assertNotNull(event.getSid());
+	        assertNotNull(event.getEventDate());
         }
     }
 }

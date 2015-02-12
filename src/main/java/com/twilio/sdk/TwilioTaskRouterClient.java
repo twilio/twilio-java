@@ -231,7 +231,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public ActivityList getActivities(final String workspaceSid, final Map<String, String> filters) {
 		ActivityList list = new ActivityList(this, workspaceSid, filters);
-		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
 
@@ -243,7 +242,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Activity getActivity(final String workspaceSid, final String activitySid) {
 		Activity activity = new Activity(this, workspaceSid, activitySid);
-		activity.setRequestAccountSid(getAccountSid());
 		return activity;
 	}
 
@@ -255,7 +253,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
      */
     public Event getEvent(final String workspaceSid, final String eventSid) {
         Event event = new Event(this, workspaceSid, eventSid);
-        event.setRequestAccountSid(getAccountSid());
         return event;
     }
 
@@ -277,7 +274,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
      */
     public EventList getEvents(final String workspaceSid, final Map<String, String> filters) {
         EventList list = new EventList(this, workspaceSid, filters);
-        list.setRequestAccountSid(getAccountSid());
         return list;
     }
 
@@ -290,7 +286,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Reservation getReservation(final String workspaceSid, final String taskSid, final String reservationSid) {
 		Reservation reservation = new Reservation(this, workspaceSid, taskSid, reservationSid);
-		reservation.setRequestAccountSid(getAccountSid());
 		return reservation;
 	}
 
@@ -313,7 +308,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	public ReservationList getReservations(final String workspaceSid, final String taskSid,
 	                                       final Map<String, String> filters) {
 		ReservationList list = new ReservationList(this, workspaceSid, taskSid, filters);
-		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
 
@@ -325,7 +319,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public TaskQueue getTaskQueue(final String workspaceSid, final String queueSid) {
 		TaskQueue taskQueue = new TaskQueue(this, workspaceSid, queueSid);
-		taskQueue.setRequestAccountSid(getAccountSid());
 		return taskQueue;
 	}
 
@@ -347,7 +340,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public TaskQueueList getTaskQueues(final String workspaceSid, final Map<String, String> filters) {
 		TaskQueueList list = new TaskQueueList(this, workspaceSid, filters);
-		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
 
@@ -370,7 +362,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public TaskQueueListStatistics getQueuesStatistics(final String workspaceSid, final Map<String, String> filters) {
 		TaskQueueListStatistics list = new TaskQueueListStatistics(this, workspaceSid, filters);
-		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
 
@@ -396,7 +387,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	public TaskQueueStatistics getQueueStatistics(final String workspaceSid, final String queueSid,
 	                                              final Map<String, String> filters) {
 		TaskQueueStatistics taskQueueStatistics = new TaskQueueStatistics(this, workspaceSid, queueSid, filters);
-		taskQueueStatistics.setRequestAccountSid(getAccountSid());
 		return taskQueueStatistics;
 	}
 
@@ -408,7 +398,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Task getTask(final String workspaceSid, final String taskSid) {
 		Task task = new Task(this, workspaceSid, taskSid);
-		task.setRequestAccountSid(getAccountSid());
 		return task;
 	}
 
@@ -430,7 +419,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public TaskList getTasks(final String workspaceSid, final Map<String, String> filters) {
 		TaskList list = new TaskList(this, workspaceSid, filters);
-		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
 
@@ -442,7 +430,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Worker getWorker(final String workspaceSid, final String workerSid) {
 		Worker worker = new Worker(this, workspaceSid, workerSid);
-		worker.setRequestAccountSid(getAccountSid());
 		return worker;
 	}
 
@@ -464,7 +451,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public WorkerList getWorkers(final String workspaceSid, final Map<String, String> filters) {
 		WorkerList list = new WorkerList(this, workspaceSid, filters);
-		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
 
@@ -487,7 +473,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public WorkersStatistics getWorkersStatistics(final String workspaceSid, final Map<String, String> filters) {
 		WorkersStatistics workersStatistics = new WorkersStatistics(this, workspaceSid, filters);
-		workersStatistics.setRequestAccountSid(getAccountSid());
 		return workersStatistics;
 	}
 
@@ -513,7 +498,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	public WorkerStatistics getWorkerStatistics(final String workspaceSid, final String workerSid,
 	                                            final Map<String, String> filters) {
 		WorkerStatistics workerStatistics = new WorkerStatistics(this, workspaceSid, workerSid, filters);
-		workerStatistics.setRequestAccountSid(getAccountSid());
 		return workerStatistics;
 	}
 
@@ -525,7 +509,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Workflow getWorkflow(final String workspaceSid, final String workflowSid) {
 		Workflow workflow = new Workflow(this, workspaceSid, workflowSid);
-		workflow.setRequestAccountSid(getAccountSid());
 		return workflow;
 	}
 
@@ -547,7 +530,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public WorkflowList getWorkflows(final String workspaceSid, final Map<String, String> filters) {
 		WorkflowList list = new WorkflowList(this, workspaceSid, filters);
-		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
 
@@ -573,7 +555,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	public WorkflowStatistics getWorkflowStatistics(final String workspaceSid, final String workflowSid,
 	                                                final Map<String, String> filters) {
 		WorkflowStatistics workflowStatistics = new WorkflowStatistics(this, workspaceSid, workflowSid, filters);
-		workflowStatistics.setRequestAccountSid(getAccountSid());
 		return workflowStatistics;
 	}
 
@@ -584,7 +565,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Workspace getWorkspace(final String sid) {
 		Workspace workspace = new Workspace(this, sid);
-		workspace.setRequestAccountSid(getAccountSid());
 		return workspace;
 	}
 
@@ -605,7 +585,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public WorkspaceList getWorkspaces(final Map<String, String> filters) {
 		WorkspaceList list = new WorkspaceList(this, filters);
-		list.setRequestAccountSid(getAccountSid());
 		return list;
 	}
 
@@ -628,7 +607,6 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public WorkspaceStatistics getWorkspaceStatistics(final String workspaceSid, final Map<String, String> filters) {
 		WorkspaceStatistics workspaceStatistics = new WorkspaceStatistics(this, workspaceSid, filters);
-		workspaceStatistics.setRequestAccountSid(getAccountSid());
 		return workspaceStatistics;
 	}
 

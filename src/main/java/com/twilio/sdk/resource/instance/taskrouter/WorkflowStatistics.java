@@ -3,7 +3,7 @@ package com.twilio.sdk.resource.instance.taskrouter;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Map;
 
 /**
@@ -88,8 +88,8 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 *
 	 * @return the end time
 	 */
-	public Date getEndTime() {
-		return parseIso8601Date((String) getCumulative().get("start_time"));
+	public Calendar getEndTime() {
+		return parseCalendar((String) getCumulative().get("start_time"));
 	}
 
 	/**
@@ -162,8 +162,8 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 *
 	 * @return the start time
 	 */
-	public Date getStartTime() {
-		return parseIso8601Date((String) getCumulative().get("start_time"));
+	public Calendar getStartTime() {
+		return parseCalendar((String) getCumulative().get("start_time"));
 	}
 
 	/**

@@ -117,10 +117,6 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 	private void extract_object(List<T> returnList, Object o) {
 		if (o instanceof Map) {
 			T instance = makeNew(getClient(), (Map<String, Object>) o);
-			if(instance.getRequestAccountSid() == null){
-				//Only set RequestAccountSid if the makeNew instance didn't already set it.
-				instance.setRequestAccountSid(getRequestAccountSid());
-			}
 			returnList.add(instance);
 		}
 	}

@@ -9,8 +9,8 @@
             "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             "worker_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            "date_created": "Wed, 14 May 2014 10:50:02 +0000",
-            "date_updated": "Thu, 15 May 2014 16:03:42 +0000",
+            "date_created": "2014-05-14T10:50:02Z",
+            "date_updated": "2014-05-15T16:03:42Z",
             "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }
     ],

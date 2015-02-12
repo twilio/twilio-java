@@ -3,7 +3,7 @@ package com.twilio.sdk.resource.instance.taskrouter;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Map;
 
 public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
@@ -107,8 +107,8 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
      *
      * @return the event date
      */
-    public Date getEventDate() {
-        return parseIso8601Date(getProperty("event_date"));
+    public Calendar getEventDate() {
+        return parseCalendar(getProperty("event_date"));
     }
 
     /**

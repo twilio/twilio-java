@@ -59,6 +59,6 @@ public class WorkspaceList extends ListResource<Workspace, TwilioTaskRouterClien
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces";
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces";
 	}
 }

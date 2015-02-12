@@ -225,7 +225,7 @@ public class Workspace extends InstanceResource<TwilioTaskRouterClient> {
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
 		       getSid();
 	}
 }

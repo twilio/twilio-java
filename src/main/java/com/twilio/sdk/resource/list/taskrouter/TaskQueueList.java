@@ -65,7 +65,7 @@ public class TaskQueueList extends ListResource<TaskQueue, TwilioTaskRouterClien
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
 		       workspaceSid + "/TaskQueues";
 	}
 }

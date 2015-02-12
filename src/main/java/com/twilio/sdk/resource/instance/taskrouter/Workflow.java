@@ -143,7 +143,7 @@ public class Workflow extends InstanceResource<TwilioTaskRouterClient> {
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
 		       getWorkspaceSid() + "/Workflows/" + getSid();
 	}
 }

@@ -65,7 +65,7 @@ public class WorkflowList extends ListResource<Workflow, TwilioTaskRouterClient>
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Accounts/" + getRequestAccountSid() + "/Workspaces/" +
+		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" +
 		       workspaceSid + "/Workflows/";
 	}
 }

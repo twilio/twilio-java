@@ -19,7 +19,8 @@ public class UsageTriggerTest extends BasicRequestTester {
 
     @Test
     public void testListingUsageTrigger() throws Exception {
-        setExpectedServerAnswer("usagetriggertestanswer.xml");
+        setExpectedServerAnswer("usage_trigger_list.json");
+	    setExpectedServerContentType("application/json");
         UsageTriggerList usageTriggers = client.getAccount().getUsageTriggers();
         Iterator<UsageTrigger> usageRecordIterator = usageTriggers.iterator();
 
@@ -37,7 +38,8 @@ public class UsageTriggerTest extends BasicRequestTester {
 
     @Test
     public void testCreateUsageTrigger() throws Exception {
-        setExpectedServerAnswer("createusagetriggerresponse.xml");
+        setExpectedServerAnswer("usage_trigger.json");
+	    setExpectedServerContentType("application/json");
         Account mainAccount = client.getAccount();
         UsageTriggerFactory usageTriggerFactory = mainAccount.getUsageTriggerFactory();
         HashMap<String, String> trigger = new HashMap<String, String>();

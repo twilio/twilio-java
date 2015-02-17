@@ -1,0 +1,18 @@
+{
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "api_version": "2010-04-01",
+    "callback_method": "POST",
+    "callback_url": "http://www.domain.net",
+    "current_value": "96.325",
+    "date_created": "Tue, 17 Feb 2015 16:18:00 +0000",
+    "date_fired": null,
+    "date_updated": "Tue, 17 Feb 2015 16:18:00 +0000",
+    "friendly_name": "blah",
+    "recurring": "",
+    "sid": "UT9be41de0278f178e8b7cd2d1f7124be2",
+    "trigger_by": "usage",
+    "trigger_value": "10",
+    "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers/UT9be41de0278f178e8b7cd2d1f7124be2",
+    "usage_category": "sms",
+    "usage_record_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Category=totalprice"
+}

@@ -21,7 +21,7 @@ public class UsageTrigger extends InstanceResource {
     /**
      * The Constant SID_PROPERTY.
      */
-    private static final String SID_PROPERTY = "Sid";
+    private static final String SID_PROPERTY = "sid";
 
     /**
      * Instantiates a new usageRecord.
@@ -83,7 +83,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date created
      */
     public Date getDateCreated() {
-        return getDateProperty("DateCreated");
+        return getDateProperty("date_created");
     }
 
     /**
@@ -92,7 +92,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date updated
      */
     public Date getDateUpdated() {
-        return getDateProperty("DateUpdated");
+        return getDateProperty("date_updated");
     }
 
     /**
@@ -101,7 +101,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the friendly name
      */
     public String getFriendlyName() {
-        return getProperty("FriendlyName");
+        return getProperty("friendly_name");
     }
 
     /**
@@ -111,7 +111,7 @@ public class UsageTrigger extends InstanceResource {
      * @see Recurrence
      */
     public Recurrence getRecurring() {
-        return Recurrence.valueOf(getProperty("Recurring"));
+        return Recurrence.valueOf(getProperty("recurring"));
     }
 
     /**
@@ -121,7 +121,7 @@ public class UsageTrigger extends InstanceResource {
      * @see UsageCategory
      */
     public UsageCategory getUsageCategory() {
-        return UsageCategory.valueOf(getProperty("UsageCategory"));
+        return UsageCategory.valueOf(getProperty("usage_category"));
     }
 
     /**
@@ -131,7 +131,7 @@ public class UsageTrigger extends InstanceResource {
      * @see Trigger
      */
     public Trigger getTriggerBy() {
-        return Trigger.valueOf(getProperty("TriggerBy"));
+        return Trigger.valueOf(getProperty("trigger_by"));
     }
 
     /**
@@ -140,7 +140,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the trigger value
      */
     public BigDecimal getTriggerValue() {
-        return new BigDecimal(getProperty("TriggerValue"));
+        return new BigDecimal(getProperty("trigger_value"));
     }
 
     /**
@@ -149,7 +149,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the current value
      */
     public BigDecimal getCurrentValue() {
-        return new BigDecimal(getProperty("CurrentValue"));
+        return new BigDecimal(getProperty("current_value"));
     }
 
     /**
@@ -158,7 +158,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the usage record URI
      */
     public String getUsageRecordUri() {
-        return getProperty("UsageRecordUri");
+        return getProperty("usage_record_uri");
     }
 
     /**
@@ -167,7 +167,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the callback URL
      */
     public String getCallbackUrl() {
-        return getProperty("CallbackUrl");
+        return getProperty("callback_url");
     }
 
     /**
@@ -176,7 +176,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the callback Method
      */
     public String getCallbackMethod() {
-        return getProperty("CallbackMethod");
+        return getProperty("callback_method");
     }
 
     /**
@@ -185,7 +185,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the date fired
      */
     public Date getDateFired() {
-        return getDateProperty("DateFired");
+        return getDateProperty("date_fired");
     }
 
     /**
@@ -194,7 +194,7 @@ public class UsageTrigger extends InstanceResource {
      * @return the URI
      */
     public String getUri() {
-        return getProperty("Uri");
+        return getProperty("uri");
     }
 
     /**
@@ -203,7 +203,7 @@ public class UsageTrigger extends InstanceResource {
      * @return account sid
      */
     public String getAccountSid() {
-        return getProperty("AccountSid");
+        return getProperty("account_sid");
     }
 
     /**

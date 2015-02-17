@@ -40,7 +40,7 @@ public class UsageTriggerList extends ListResource<UsageTrigger> implements Usag
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-			+ this.getRequestAccountSid() + "/Usage/Triggers";
+			+ this.getRequestAccountSid() + "/Usage/Triggers.json";
 	}
 
 	/* (non-Javadoc)
@@ -57,20 +57,20 @@ public class UsageTriggerList extends ListResource<UsageTrigger> implements Usag
 	 */
 	@Override
 	protected String getListKey() {
-		return "UsageTriggers";
+		return "usage_triggers";
 	}
 
 	@Override
 	public UsageTrigger create(Map<String, String> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
-		return makeNew(this.getClient(), (Map<String, Object>) response.toMap().get("UsageTrigger"));
+		return makeNew(this.getClient(), response.toMap());
 	}
 
 	@Override
 	public UsageTrigger create(List<NameValuePair> params) throws TwilioRestException {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), "POST", params);
-		return makeNew(this.getClient(), (Map<String, Object>) response.toMap().get("UsageTrigger"));
+		return makeNew(this.getClient(), response.toMap());
 	}
 }

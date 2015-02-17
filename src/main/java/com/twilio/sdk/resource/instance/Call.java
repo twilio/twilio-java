@@ -185,8 +185,8 @@ public class Call extends InstanceResource {
 	 *
 	 * @return the start time
 	 */
-	public String getStartTime() {
-		return this.getProperty("start_time");
+	public Date getStartTime() {
+		return getDateProperty("start_time");
 	}
 
 	/**
@@ -194,8 +194,8 @@ public class Call extends InstanceResource {
 	 *
 	 * @return the end time
 	 */
-	public String getEndTime() {
-		return this.getProperty("end_time");
+	public Date getEndTime() {
+		return getDateProperty("end_time");
 	}
 
 	/**

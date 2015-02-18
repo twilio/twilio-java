@@ -3,6 +3,17 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.7.0
+-------------
+
+Released February 18, 2015
+
+- Add support for new TaskRouter API
+- Coerce Call.startTime and endTime to Date objects
+- Doc fixes
+- Escaping fix for TwiML generation
+
+
 Version 3.6.2
 -------------
 

@@ -9,6 +9,7 @@ A huge thanks to all of our contributors:
 - Adam Richeimer
 - Akshar Prabhu Desai
 - Alexandre Payment
+- Alexey Palazhchenko
 - Ameya Lokare
 - Andrew Benton
 - Beans0063
@@ -22,6 +23,7 @@ A huge thanks to all of our contributors:
 - D Keith Casey Jr
 - Doug Black
 - Eric Anderle
+- Frank
 - Frank Stratton
 - Girish Bharadwaj
 - Guillaume BINET
@@ -34,9 +36,11 @@ A huge thanks to all of our contributors:
 - Kyle Conroy
 - Mario Niebla
 - Matt Nowack
+- Matthew Nowack
 - RonaldWentworth
 - Sam Kimbrel
 - Sunil Veluvali
 - Takuji Shimokawa
 - Thomas Wilsher
+- Vincent Pizzo
 - rschiffert@twilio.com

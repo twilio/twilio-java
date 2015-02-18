@@ -33,8 +33,6 @@ public class FeedbackSummary extends InstanceResource {
 	public static final String START_DATE_PROPERTY = "start_date";
 	public static final String STATUS_PROPERTY = "status";
 
-	private static final String DATE_FORMAT = "yyyy-MM-dd";
-
 	/**
 	 * Instantiates a new FeedbackSummary
 	 *
@@ -89,12 +87,7 @@ public class FeedbackSummary extends InstanceResource {
 	}
 
 	public Date getEndDate() {
-		SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
-		try {
-			return format.parse(getProperty(END_DATE_PROPERTY));
-		} catch (ParseException e) {
-			return null;
-		}
+		return getSimpleDateProperty(END_DATE_PROPERTY);
 	}
 
 	public boolean isIncludeSubAccounts() {
@@ -158,12 +151,7 @@ public class FeedbackSummary extends InstanceResource {
 	}
 
 	public Date getStartDate() {
-		SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
-		try {
-			return format.parse(getProperty(START_DATE_PROPERTY));
-		} catch (ParseException e) {
-			return null;
-		}
+		return getSimpleDateProperty(START_DATE_PROPERTY);
 	}
 
 	public String getStatus() {

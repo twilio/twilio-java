@@ -821,6 +821,31 @@ public class Account extends InstanceResource {
 	}
 
 	/**
+	 * Gets the Usage Record sub resource list with the given filters
+	 * <p/>
+	 * <a href="https://www.twilio.com/docs/api/rest/usage-records">https://www.twilio.com/docs/api/rest/usage-records</a>
+	 *
+	 * @param filters the filters
+	 * @return the usage records
+	 */
+	public UsageRecordList getUsageRecords(Map<String, String> filters, UsageRecordList.Type type) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters, type);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Gets the Usage Record subresource list
+	 * <p/>
+	 * <a href="https://www.twilio.com/docs/api/rest/usage-records">https://www.twilio.com/docs/api/rest/usage-records</a>
+	 *
+	 * @return the usage records
+	 */
+	public UsageRecordList getUsageRecords(UsageRecordList.Type type) {
+		return this.getUsageRecords(new HashMap<String, String>(), type);
+	}
+
+	/**
 	 * Get a specific Usage Trigger
 	 */
 	public UsageTrigger getUsageTrigger(String sid) {

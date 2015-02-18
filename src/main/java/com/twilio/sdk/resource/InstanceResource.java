@@ -7,11 +7,7 @@ import org.apache.http.NameValuePair;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -107,6 +103,16 @@ public abstract class InstanceResource extends Resource {
 		return parseDate(getProperty(name));
 	}
 
+	/**
+	 * Parses the date property as a {@link java.util.Date} object from a GMT string formatted as
+	 * yyyy-MM-dd
+	 *
+	 * @param name the property to parse
+	 * @return a {@link java.util.Date}
+	 */
+	protected Date getSimpleDateProperty(String name) {
+		return parseSimpleDate(getProperty(name));
+	}
 
 	/**
 	 * Sets the property as an Object
@@ -158,6 +164,25 @@ public abstract class InstanceResource extends Resource {
 		}
 		SimpleDateFormat format = new SimpleDateFormat(
 				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+		try {
+			return format.parse(inDate);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Given a GMT date string in the format yyyy-MM-dd, return a parsed {@link java.util.Date}
+	 *
+	 * @param inDate the date String to parse
+	 * @return the parsed {@link java.util.Date} object
+	 */
+	protected Date parseSimpleDate(String inDate) {
+		if (inDate == null) {
+			return null;
+		}
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		try {
 			return format.parse(inDate);
 		} catch (ParseException e) {

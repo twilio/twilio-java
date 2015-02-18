@@ -160,7 +160,7 @@ public class Verb {
             xml += body;
         }
         for (Verb child : children){
-            xml += child.toXML();
+            xml += child.toXML(escape);
         }
         return xml += "</" + this.tag + ">";
     }

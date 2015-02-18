@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.instance.pricing;
 
 import com.twilio.sdk.TwilioPricingClient;
-import com.twilio.sdk.resource.InstanceResource;
+import com.twilio.sdk.resource.NextGenInstanceResource;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * For more information, see <a href="FIXME">the Twilio Pricing API documentation</a>.
  */
-public class VoiceCountry extends InstanceResource<TwilioPricingClient> {
+public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
 
     public VoiceCountry(final TwilioPricingClient client) {
         super(client);

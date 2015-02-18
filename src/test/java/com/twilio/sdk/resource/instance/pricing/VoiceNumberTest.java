@@ -26,7 +26,7 @@ public class VoiceNumberTest extends BasicRequestTester {
         assertEquals("+14089673429", number.getNumber());
         assertEquals("United States", number.getCountry());
         assertEquals("US", number.getIsoCountry());
-        assertEquals("usd", number.getPriceUnit());
+        assertEquals("USD", number.getPriceUnit());
 
         VoiceNumber.InboundCallPrice inboundCallPrice = number.getInboundCallPrice();
         assertEquals(NumberType.LOCAL, inboundCallPrice.getNumberType());

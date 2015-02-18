@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.list.pricing;
 
 import com.twilio.sdk.TwilioPricingClient;
-import com.twilio.sdk.resource.ListResource;
+import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.instance.pricing.PhoneNumberCountry;
 
 import java.util.Map;
@@ -22,7 +22,7 @@ import java.util.Map;
  *     }
  * </code>
  */
-public class PhoneNumberCountryList extends ListResource<PhoneNumberCountry, TwilioPricingClient> {
+public class PhoneNumberCountryList extends NextGenListResource<PhoneNumberCountry, TwilioPricingClient> {
 
     public PhoneNumberCountryList(final TwilioPricingClient client) {
         super(client);
@@ -30,11 +30,6 @@ public class PhoneNumberCountryList extends ListResource<PhoneNumberCountry, Twi
 
     public PhoneNumberCountryList(final TwilioPricingClient client, final Map<String, String> filters) {
         super(client, filters);
-    }
-
-    @Override
-    protected String getListKey() {
-        return "countries";
     }
 
     @Override

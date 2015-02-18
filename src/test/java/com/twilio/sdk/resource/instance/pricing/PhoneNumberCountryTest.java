@@ -1,6 +1,5 @@
 package com.twilio.sdk.resource.instance.pricing;
 
-import com.sun.org.apache.xpath.internal.operations.*;
 import com.twilio.sdk.resource.instance.BasicRequestTester;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +27,7 @@ public class PhoneNumberCountryTest extends BasicRequestTester {
 
         assertEquals("Estonia", country.getCountry());
         assertEquals("EE", country.getIsoCountry());
-        assertEquals("usd", country.getPriceUnit());
+        assertEquals("USD", country.getPriceUnit());
 
         List<PhoneNumberCountry.NumberPrice> numberPrices = country.getPhoneNumberPrices();
         assertEquals(2, numberPrices.size());

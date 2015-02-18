@@ -25,7 +25,7 @@ public class VoiceCountryTest extends BasicRequestTester {
         assertNotNull(country);
         assertEquals("Estonia", country.getCountry());
         assertEquals("EE", country.getIsoCountry());
-        assertEquals("usd", country.getPriceUnit());
+        assertEquals("USD", country.getPriceUnit());
 
         List<VoiceCountry.OutboundPrefixPrice> outboundPrefixPrices = country.getOutboundPrefixPrices();
         assertEquals(3, outboundPrefixPrices.size());

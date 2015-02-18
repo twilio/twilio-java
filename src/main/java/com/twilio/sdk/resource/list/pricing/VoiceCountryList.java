@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource.list.pricing;
 
 import com.twilio.sdk.TwilioPricingClient;
-import com.twilio.sdk.resource.ListResource;
+import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.instance.pricing.VoiceCountry;
 
 import java.util.Map;
@@ -22,7 +22,7 @@ import java.util.Map;
  *     }
  * </code>
  */
-public class VoiceCountryList extends ListResource<VoiceCountry, TwilioPricingClient> {
+public class VoiceCountryList extends NextGenListResource<VoiceCountry, TwilioPricingClient> {
 
     public VoiceCountryList(final TwilioPricingClient client) {
         super(client);
@@ -35,11 +35,6 @@ public class VoiceCountryList extends ListResource<VoiceCountry, TwilioPricingCl
     @Override
     protected String getResourceLocation() {
         return "/" + TwilioPricingClient.DEFAULT_VERSION + "/Voice/Countries";
-    }
-
-    @Override
-    protected String getListKey() {
-        return "countries";
     }
 
     @Override

@@ -16,7 +16,7 @@ public class TwilioRestClient extends TwilioClient {
 	private final Account authAccount;
 
 	public TwilioRestClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken, "http://api.twilio.com");
+		super(accountSid, authToken, "https://api.twilio.com");
 
 		authAccount = new Account(this);
 		authAccount.setSid(accountSid);

@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 3.7.1
+-------------
+
+Released February 20, 2015
+
+- Fix URL base for TwilioRestClient
+
 Version 3.7.0
 -------------
 

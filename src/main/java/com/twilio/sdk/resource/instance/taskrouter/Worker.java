@@ -7,9 +7,10 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Workers are entities that process tasks, like agents in a call center, or the support staff on a support team. Worker
- * attributes describe which kinds of tasks they can handle, and Worker activities describe what the workers are doing
- * and whether they are ready to accept a new task assignment.
+ * Workers represent an entity that is able to perform tasks, such as an agent working in a call center,
+ * or a salesperson handling leads.
+ *
+ * See <a href="https://www.twilio.com/docs/taskrouter/workers">the TaskRouter documentation</a>.
  */
 public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
@@ -54,7 +55,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the account sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.Account} that owns this worker.
 	 *
 	 * @return the account sid
 	 */
@@ -63,7 +64,8 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the activity name.
+	 * String describing the worker's current activity, for example 'on-call', 'after-call-work', 'break', etc.
+	 * Workers may only perform Activities that exist in this Workspace.
 	 *
 	 * @return the activity name
 	 */
@@ -72,7 +74,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the activity sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Activity} this Worker is currently performing.
 	 *
 	 * @return the activity sid
 	 */
@@ -81,7 +83,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the attributes.
+	 * A user-defined JSON object describing this Worker.
 	 *
 	 * @return the attributes
 	 */
@@ -90,7 +92,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date created.
+	 * The date and time this Worker was created.
 	 *
 	 * @return the date created
 	 */
@@ -99,7 +101,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date updated.
+	 * The date and time this Worker's Activity status last changed.
 	 *
 	 * @return the date updated
 	 */
@@ -108,7 +110,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date updated.
+	 * The date and time this Worker was last updated.
 	 *
 	 * @return the date updated
 	 */
@@ -117,7 +119,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the friendly name
+	 * A human-readable name for this Worker.
 	 *
 	 * @return the friendly name
 	 */
@@ -126,7 +128,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the sid.
+	 * This Worker's unique ID.
 	 *
 	 * @return the sid
 	 */
@@ -135,7 +137,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the workspace sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Workspace} containing this Worker.
 	 *
 	 * @return the workspace sid
 	 */
@@ -144,7 +146,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Checks if available.
+	 * Whether this Worker can be assigned another {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
 	 *
 	 * @return true, if available
 	 */

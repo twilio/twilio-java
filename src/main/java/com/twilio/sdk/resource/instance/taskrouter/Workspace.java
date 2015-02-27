@@ -12,8 +12,8 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Workspaces are containers that bring all of these pieces together. All of your Tasks, Workers, Workflows and Queues
- * are contained within a workspace. You can have as many workspaces as you like.
+ * A Workspace is a container for your Tasks, Workers, TaskQueues, Workflows and Activities. Each of these items exists
+ * within a single Workspace and will not be shared across Workspaces.
  */
 public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
@@ -51,7 +51,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the account sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.Account} that owns this Workspace.
 	 *
 	 * @return the account sid
 	 */
@@ -71,7 +71,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Retrieves an Activity from a Workspace
+	 * Retrieves an {@link com.twilio.sdk.resource.instance.taskrouter.Activity} from this Workspace by ID.
 	 */
 	public Activity getActivity(final String activitySid) {
 		Activity activity = new Activity(getClient(), getSid(), activitySid);
@@ -79,7 +79,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date created.
+	 * The date and time this Workspace was created.
 	 *
 	 * @return the date created
 	 */
@@ -88,7 +88,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date updated.
+	 * The date and time this Workspace was last updated.
 	 *
 	 * @return the date updated
 	 */
@@ -97,7 +97,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the default activity name.
+	 * The human-readable name of the default activity. Read only.
 	 *
 	 * @return the default activity name
 	 */
@@ -106,7 +106,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the default activity sid.
+	 * The ID of the Activity that will be used when new Workers are created in this Workspace.
 	 *
 	 * @return the default activity sid
 	 */
@@ -115,7 +115,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Retrieves a {@link com.twilio.sdk.resource.instance.taskrouter.Event} from a Workspace
+	 * Retrieves a {@link com.twilio.sdk.resource.instance.taskrouter.Event} from this Workspace
 	 */
 	public Event getEvent(final String eventSid) {
 		Event event = new Event(getClient(), getSid(), eventSid);
@@ -134,7 +134,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the event callback URL.
+	 * An optional URL where the Workspace will publish events. You can use this to gather data for reporting.
 	 *
 	 * @return the event callback URL
 	 */
@@ -143,7 +143,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the friendly name
+	 * A human-readable description of this Workspace.
 	 *
 	 * @return the friendly name
 	 */
@@ -152,7 +152,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the sid.
+	 * The unique ID for this Workspace.
 	 *
 	 * @return the sid
 	 */
@@ -161,7 +161,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Retrieves a Task from a Workspace
+	 * Retrieves a {@link com.twilio.sdk.resource.instance.taskrouter.Task} from this Workspace.
 	 */
 	public Task getTask(final String taskSid) {
 		Task task = new Task(getClient(), getSid(), taskSid);
@@ -170,7 +170,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	/**
 	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.TaskList} for this {@link
-	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}.
 	 *
 	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.TaskList}
 	 */
@@ -180,7 +180,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the timeout activity name.
+	 * The human-readable name of the timeout activity. Read only.
 	 *
 	 * @return the timeout activity name
 	 */
@@ -189,7 +189,9 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the timeout activity sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Activity} that will be assigned to a
+	 * {@link com.twilio.sdk.resource.instance.taskrouter.Worker} when a
+	 * {@link com.twilio.sdk.resource.instance.taskrouter.Task} reservation times out without a response.
 	 *
 	 * @return the timeout activity sid
 	 */

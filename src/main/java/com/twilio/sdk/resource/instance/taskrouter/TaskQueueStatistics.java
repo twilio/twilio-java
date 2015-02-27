@@ -12,6 +12,7 @@ import java.util.Set;
 
 /**
  * Statistics about task distribution.
+ * See <a href="https://www.twilio.com/docs/taskrouter/taskqueue-statistics">the TaskRouter documentation</a>.
  */
 public class TaskQueueStatistics extends NextGenInstanceResource<TwilioTaskRouterClient> {
 

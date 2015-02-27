@@ -7,7 +7,11 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * Activity class use to get an activity resource.
+ * Activities describe the current status of your {@link com.twilio.sdk.resource.instance.taskrouter.Worker}
+ * resources, which determines whether they are eligible to receive {@link com.twilio.sdk.resource.instance.taskrouter.Task}
+ * assignments. Workers are always set to a single Activity.
+ *
+ * See <a href="https://www.twilio.com/docs/taskrouter/activities">the TaskRouter documentation</a>.
  */
 public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
@@ -52,7 +56,7 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the account sid.
+	 * The unique ID of the account that owns this Activity.
 	 *
 	 * @return the account sid
 	 */
@@ -61,7 +65,7 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date created.
+	 * The date and time this Activity was created.
 	 *
 	 * @return the date created
 	 */
@@ -70,7 +74,7 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date updated.
+	 * The date and time this Activity was last updated.
 	 *
 	 * @return the date updated
 	 */
@@ -79,7 +83,7 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the friendly name
+	 * A human-readable description of this Activity.
 	 *
 	 * @return the friendly name
 	 */
@@ -88,7 +92,7 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the sid.
+	 * This Activity's unique ID.
 	 *
 	 * @return the sid
 	 */
@@ -97,7 +101,7 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the workspace sid.
+	 * The unique ID of the Workspace that contains this Activity.
 	 *
 	 * @return the workspace sid
 	 */
@@ -106,7 +110,7 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Checks if available.
+	 * Whether Workers in this Activity state are available to accept new tasks.
 	 *
 	 * @return true, if available
 	 */

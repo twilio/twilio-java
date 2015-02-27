@@ -7,7 +7,12 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Reservation class use to get a reservation resource.
+ * The Reservation subresource of {@link com.twilio.sdk.resource.instance.taskrouter.Task}
+ * is created whenever a Task is assigned to a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+ * TaskRouter will provide the details of this Reservation instance subresource in the Assignment Callback
+ * HTTP request it makes to your application server.
+ *
+ * See <a href="https://www.twilio.com/docs/taskrouter/tasks#reservation">the TaskRouter documentation</a>.
  */
 public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
@@ -60,7 +65,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the account sid.
+	 * The unique ID of the {@link com.twilio.sdk.resource.instance.Account} that owns this Reservation.
 	 *
 	 * @return the account sid
 	 */
@@ -69,7 +74,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the date created.
+	 * The date and time this Reservation was created.
 	 *
 	 * @return the date created
 	 */
@@ -78,7 +83,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the date updated.
+	 * The date and time this Reservation was last updated.
 	 *
 	 * @return the date updated
 	 */
@@ -87,7 +92,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the reservation status.
+	 * The current status of this Reservation. One of "pending", "accepted", "rejected", or "timeout".
 	 *
 	 * @return the reservation status
 	 */
@@ -96,7 +101,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the sid.
+	 * The unique ID of this Reservation.
 	 *
 	 * @return the sid
 	 */
@@ -105,7 +110,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the task sid.
+	 * The unique ID of the Task this Reservation was created for.
 	 *
 	 * @return the task sid
 	 */
@@ -114,16 +119,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the worker activity sid.
-	 *
-	 * @return the worker activity sid
-	 */
-	public String getWorkerActivitySid() {
-		return getProperty("worker_activity_sid");
-	}
-
-	/**
-	 * Gets the worker name.
+	 * The FriendlyName of the reserved {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
 	 *
 	 * @return the worker name
 	 */
@@ -132,7 +128,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the worker sid.
+	 * The unique ID of the reserved {@link com.twilio.sdk.resource.instance.taskrouter.Worker}
 	 *
 	 * @return the worker sid
 	 */
@@ -141,7 +137,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	}
 
 	/**
-	 * Gets the workspace sid.
+	 * The unique ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Workspace} containing this Reservation.
 	 *
 	 * @return the workspace sid
 	 */

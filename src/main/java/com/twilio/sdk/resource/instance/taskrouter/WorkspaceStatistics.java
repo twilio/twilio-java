@@ -12,6 +12,8 @@ import java.util.Set;
 
 /**
  * Statistics about {@link com.twilio.sdk.resource.instance.taskrouter.Workspace}
+ *
+ * See <a href="https://www.twilio.com/docs/taskrouter/workspace-statistics">the TaskRouter documentation</a>.
  */
 public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRouterClient> {
 

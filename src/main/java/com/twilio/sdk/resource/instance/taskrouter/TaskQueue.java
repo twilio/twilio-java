@@ -7,7 +7,10 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Queues distribute tasks to workers, and collect statistics about task distribution.
+ * TaskQueues are the resource you use to categorize Tasks and describe which Workers are eligible to handle those Tasks.
+ * As your Workflows process Tasks, those Tasks will pass through one or more TaskQueues until the Task is assigned and accepted by an eligible Worker.
+ *
+ * See <a href="https://www.twilio.com/docs/taskrouter/taskqueues">the TaskRouter documentation</a>.
  */
 public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
@@ -52,7 +55,7 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the account sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.Account} that owns this TaskQueue
 	 *
 	 * @return the account sid
 	 */
@@ -61,16 +64,9 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the assignment activity name.
-	 *
-	 * @return the assignment activity name
-	 */
-	public String getAssignmentActivityName() {
-		return getProperty("assignment_activity_name");
-	}
-
-	/**
-	 * Gets the assignment activity sid.
+	 * The {@link com.twilio.sdk.resource.instance.taskrouter.Activity} to assign a
+	 * {@link com.twilio.sdk.resource.instance.taskrouter.Worker} when they accept a
+	 * {@link com.twilio.sdk.resource.instance.taskrouter.Task} from this TaskQueue.
 	 *
 	 * @return the assignment activity sid
 	 */
@@ -79,7 +75,7 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date created.
+	 * The date and time this TaskQueue was created.
 	 *
 	 * @return the date created
 	 */
@@ -88,7 +84,7 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date updated.
+	 * The date and time this TaskQueue was last updated.
 	 *
 	 * @return the date updated
 	 */
@@ -97,7 +93,7 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the friendly name.
+	 * Human-readable description of the TaskQueue (for example “Customer Support” or “Sales”)
 	 *
 	 * @return the friendly name
 	 */
@@ -106,7 +102,8 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the reservation activity name.
+	 * The FriendlyName of the {@link com.twilio.sdk.resource.instance.taskrouter.Activity} Workers will be assigned
+	 * when they are reserved for a {@link com.twilio.sdk.resource.instance.taskrouter.Task} from this queue.
 	 *
 	 * @return the reservation activity name
 	 */
@@ -115,7 +112,8 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the reservation activity sid.
+	 * The unique ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Activity} Workers will be assigned
+	 * when they are reserved for a {@link com.twilio.sdk.resource.instance.taskrouter.Task} from this queue.
 	 *
 	 * @return the reservation activity sid
 	 */
@@ -124,7 +122,7 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the sid.
+	 * The unique ID of this TaskQueue.
 	 *
 	 * @return the sid
 	 */
@@ -133,7 +131,7 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the target workers.
+	 * The worker selection expressions for this TaskQueue.
 	 *
 	 * @return the target workers
 	 */
@@ -142,7 +140,7 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the workspace sid.
+	 * The unique ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Workspace} containing this TaskQueue.
 	 *
 	 * @return the workspace sid
 	 */

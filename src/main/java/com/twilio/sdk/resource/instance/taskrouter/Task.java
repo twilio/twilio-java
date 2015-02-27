@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Tasks are the individual pieces of work managed by the system.
+ * A Task resource represents a single item of work waiting to be processed.
+ *
+ * See <a href="https://www.twilio.com/docs/taskrouter/tasks">the TaskRouter documentation</a>.
  */
 public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
@@ -52,7 +54,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the account sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.Account} that owns this Task.
 	 *
 	 * @return the account sid
 	 */
@@ -61,7 +63,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the age.
+	 * The number of seconds since this Task was created.
 	 *
 	 * @return the age
 	 */
@@ -75,7 +77,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the assignment status.
+	 * A string representing the Assignment State of the task. May be "pending", "reserved", "assigned" or "canceled".
 	 *
 	 * @return the assignment status
 	 */
@@ -84,7 +86,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the attributes.
+	 * The user-defined JSON string describing the custom attributes of this work.
 	 *
 	 * @return the attributes
 	 */
@@ -93,7 +95,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date created.
+	 * Date and time this Task was created.
 	 *
 	 * @return the date created
 	 */
@@ -102,7 +104,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date updated.
+	 * Date and time this Task was last updated.
 	 *
 	 * @return the date updated
 	 */
@@ -111,7 +113,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the priority.
+	 * The current priority score of the task, as assigned by the workflow. Tasks with higher values will be assigned before tasks with lower values.
 	 *
 	 * @return the priority
 	 */
@@ -124,17 +126,8 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		}
 	}
 
-    /**
-     * Gets the timeout.
-     *
-     * @return the timeout
-     */
-    public int getTimeout() {
-        return (Integer)getObject("timeout");
-    }
-
 	/**
-	 * Gets the {@link TaskQueue} sid.
+	 * The unique ID of the {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue} this Task occupies.
 	 *
 	 * @return the {@link TaskQueue} sid
 	 */
@@ -143,7 +136,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the sid.
+	 * The unique ID of this Task.
 	 *
 	 * @return the sid
 	 */
@@ -152,7 +145,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the workflow sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Workflow} responsible for routing this Task.
 	 *
 	 * @return the workflow sid
 	 */
@@ -161,7 +154,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the workspace sid.
+	 * The ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Workspace} containing this Task.
 	 *
 	 * @return the workspace sid
 	 */

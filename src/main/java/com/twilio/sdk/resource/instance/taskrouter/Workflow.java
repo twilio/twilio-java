@@ -7,7 +7,10 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Workflows route tasks to the appropriate queues, and set rules for each task's prioritization and escalation.
+ * Workflows control how tasks will be prioritized and routed into Queues, and how Tasks should escalate in priority or
+ * move across queues over time. Workflows are described in a simple JSON format.
+ *
+ * See <a href="https://www.twilio.com/docs/taskrouter/workflows">the TaskRouter documentation</a>.
  */
 public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
@@ -52,7 +55,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the assignment callback url.
+	 * The URL that will be called whenever a task managed by this Workflow is assigned to a Worker.
 	 *
 	 * @return the assignment callback url
 	 */
@@ -61,7 +64,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the configuration.
+	 * JSON document configuring the rules for this Workflow.
 	 *
 	 * @return the configuration
 	 */
@@ -70,7 +73,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date created.
+	 * The date and time this Workflow was created.
 	 *
 	 * @return the date created
 	 */
@@ -79,7 +82,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the date updated.
+	 * The date and time this Workflow was last updated.
 	 *
 	 * @return the date updated
 	 */
@@ -88,16 +91,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the document content type.
-	 *
-	 * @return the document content type
-	 */
-	public String getDocumentContentType() {
-		return getProperty("document_content_type");
-	}
-
-	/**
-	 * Gets the fallback assignment callback url.
+	 * If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
 	 *
 	 * @return the fallback assignment callback url
 	 */
@@ -106,7 +100,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the friendly name
+	 * A human-readable description of this Workflow.
 	 *
 	 * @return the friendly name
 	 */
@@ -115,7 +109,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the sid.
+	 * This Workflow's unique ID.
 	 *
 	 * @return the sid
 	 */
@@ -124,7 +118,8 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the task reservation timeout.
+	 * Determines how long TaskRouter will wait for a confirmation response from your application after assigning a Task
+	 * to a worker. Defaults to 120 seconds.
 	 *
 	 * @return the task reservation timeout
 	 */
@@ -133,7 +128,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Gets the workspace sid.
+	 * The unique ID of the {@link com.twilio.sdk.resource.instance.taskrouter.Workspace} containing this Workflow.
 	 *
 	 * @return the workspace sid
 	 */

@@ -115,7 +115,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Retrieves a {@link com.twilio.sdk.resource.instance.taskrouter.Event} from this Workspace
+	 * Retrieves an {@link com.twilio.sdk.resource.instance.taskrouter.Event} from this Workspace
 	 */
 	public Event getEvent(final String eventSid) {
 		Event event = new Event(getClient(), getSid(), eventSid);

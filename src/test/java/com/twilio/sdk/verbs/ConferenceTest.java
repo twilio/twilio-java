@@ -35,6 +35,16 @@ public class ConferenceTest {
         c.setBeep(Conference.BEEP_FALSE);
         assertEquals("<Conference beep=\"false\">foo_room</Conference>", c.toXML());
     }
+
+    /**
+     * Test the Conference noun with beep false (legacy behavior)
+     */
+    @Test
+    public void testConferenceBeepFalseLegacy() {
+        Conference c = new Conference("foo_room");
+        c.setBeep(false);
+        assertEquals("<Conference beep=\"false\">foo_room</Conference>", c.toXML());
+    }
     
     /**
      * Test the Conference noun with beep true
@@ -43,6 +53,16 @@ public class ConferenceTest {
     public void testConferenceBeepTrue() {
         Conference c = new Conference("foo_room");
         c.setBeep(Conference.BEEP_TRUE);
+        assertEquals("<Conference beep=\"true\">foo_room</Conference>", c.toXML());
+    }
+
+    /**
+     * Test the Conference noun with beep true (legacy behavior)
+     */
+    @Test
+    public void testConferenceBeepTrueLegacy() {
+        Conference c = new Conference("foo_room");
+        c.setBeep(true);
         assertEquals("<Conference beep=\"true\">foo_room</Conference>", c.toXML());
     }
 

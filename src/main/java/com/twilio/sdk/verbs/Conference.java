@@ -126,6 +126,19 @@ public class Conference extends Verb {
     }
 
     /**
+     * Sets the beep behavior (the legacy way)
+     * <ul>
+     * <li>true - beep on enter and exit</li>
+     * <li>false - no beep</li>
+     * </ul>
+     *
+     * @param bool the new beep behavior
+     */
+    public void setBeep(Boolean bool) {
+        this.set("beep", bool.toString());
+    }
+
+    /**
      * Sets the start conference on enter.
      *
      * @param bool the new start conference on enter

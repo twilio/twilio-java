@@ -128,6 +128,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	/**
 	 * The Task assignment request timeout, in seconds.
+	 *
 	 * @return the timeout
 	 */
 	public int getTimeout() {

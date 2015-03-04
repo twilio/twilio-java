@@ -171,6 +171,15 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		return getProperty(WORKSPACE_SID_PROPERTY);
 	}
 
+	/**
+	 * The reason the Task was canceled (if applicable).
+	 *
+	 * @return cancellation reason
+	 */
+	public String getReason() {
+		return getProperty("reason");
+	}
+
 	@Override
 	protected String getResourceLocation() {
 		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + getWorkspaceSid() + "/Tasks/" + getSid();

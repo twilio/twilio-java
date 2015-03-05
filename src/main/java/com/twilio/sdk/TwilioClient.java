@@ -167,7 +167,7 @@ public abstract class TwilioClient {
 	 * @param accountSid the account sid
 	 */
 	private void validateAccountSid(final String accountSid) {
-		if (accountSid == null || !accountSid.startsWith("AC") || accountSid.length() != ACCOUNT_SID_LENGTH) {
+		if (accountSid == null || accountSid.length() != ACCOUNT_SID_LENGTH) {
 			throw new IllegalArgumentException(
 					"AccountSid '" + accountSid + "' is not valid.  It should be the 34 character unique identifier starting with 'AC'");
 		}

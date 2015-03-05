@@ -8,6 +8,7 @@ import java.util.Map;
 
 /**
  * Statistics about {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}
+ * See <a href="https://www.twilio.com/docs/taskrouter/workflow-statistics">the TaskRouter documentation</a>.
  */
 public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouterClient> {
 

@@ -6,6 +6,11 @@ import com.twilio.sdk.resource.NextGenInstanceResource;
 import java.util.Calendar;
 import java.util.Map;
 
+/**
+ * TaskRouter logs Events for each state change in the Workspace for the purpose of historical reporting and auditing.
+ *
+ * See <a href="https://www.twilio.com/docs/taskrouter/events">the TaskRouter documentation</a>.
+ */
 public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
     private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
@@ -49,7 +54,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the account sid
+     * The {@link com.twilio.sdk.resource.instance.Account} owning this Event.
      *
      * @return the account sid
      */
@@ -58,7 +63,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the actor sid.
+     * The unique ID of the actor that generated this Event.
      *
      * @return the actor sid
      */
@@ -67,7 +72,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the actor type.
+     * The type of the actor that generated this Event.
      *
      * @return the actor type
      */
@@ -76,7 +81,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the actor url.
+     * The URL for the resource representing the actor that generated this Event.
      *
      * @return the actor url
      */
@@ -85,7 +90,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the description.
+     * A description of this event.
      *
      * @return the description
      */
@@ -94,7 +99,8 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the event data.
+     * Data about this specific event.
+     * See <a href="https://www.twilio.com/docs/taskrouter/events#event-types">the Event documentation</a>.
      *
      * @return the event data
      */
@@ -103,7 +109,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the event date.
+     * The date and time this Event occurred.
      *
      * @return the event date
      */
@@ -112,7 +118,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the event type.
+     * An identifier for this type of Event.
      *
      * @return the event type
      */
@@ -121,7 +127,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the resource sid.
+     * The sid of the object this event is most relevant to (TaskSid, ReservationSid, WorkerSid)
      *
      * @return the resource sid
      */
@@ -130,7 +136,7 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
     }
 
     /**
-     * Gets the resource type.
+     * The type of object this event is most relevant to (Task, Reservation, Worker)
      *
      * @return the resource type
      */

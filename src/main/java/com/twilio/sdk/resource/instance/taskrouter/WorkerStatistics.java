@@ -12,6 +12,7 @@ import java.util.Set;
 
 /**
  * Statistics about {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+ * See <a href="https://www.twilio.com/docs/taskrouter/worker-statistics">the TaskRouter documentation</a>.
  */
 public class WorkerStatistics extends NextGenInstanceResource<TwilioTaskRouterClient> {
 

@@ -1,5 +1,6 @@
 package com.twilio.sdk.resource.instance;
 
+import com.twilio.sdk.LookupsClient;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import org.apache.http.Header;
@@ -27,6 +28,7 @@ public class BasicRequestTester {
 
     protected TwilioRestClient restClient = new TwilioRestClient(accountSid, authtoken);
 	protected TwilioTaskRouterClient taskRouterClient = new TwilioTaskRouterClient(accountSid, authtoken);
+	protected LookupsClient lookupsClient = new LookupsClient(accountSid, authtoken);
 
     protected BasicHttpResponse response = mock(BasicHttpResponse.class);
     protected Header[] headers = {mock(Header.class)};
@@ -38,6 +40,7 @@ public class BasicRequestTester {
         MockitoAnnotations.initMocks(this);
         restClient.setHttpClient(httpClient);
 	    taskRouterClient.setHttpClient(httpClient);
+	    lookupsClient.setHttpClient(httpClient);
 
         when(headers[0].getValue()).thenReturn("application/xml");
         when(response.getHeaders("Content-Type")).thenReturn(headers);

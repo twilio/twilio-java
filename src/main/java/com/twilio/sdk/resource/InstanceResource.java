@@ -3,14 +3,13 @@ package com.twilio.sdk.resource;
 import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.NameValuePair;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
@@ -23,9 +22,7 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 
 	protected static final String DATE_UPDATED_PROPERTY = "date_updated";
 
-	protected static final SimpleDateFormat RFC_2822_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
-
-	/** The Constant SID_PROPERTY. */
+    /** The Constant SID_PROPERTY. */
 	protected static final String SID_PROPERTY = "sid";
 
 	/** The properties. */
@@ -189,8 +186,8 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 			return null;
 		}
 		try {
-			return RFC_2822_FORMAT.parse(inDate);
-		} catch (ParseException e) {
+            return DateFormatUtils.SMTP_DATETIME_FORMAT.parse(inDate);
+        } catch (ParseException e) {
 			return null;
 		}
 	}

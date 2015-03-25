@@ -1,7 +1,7 @@
 package com.twilio.sdk;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONValue;
 
 import javax.crypto.Mac;

@@ -20,51 +20,51 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class BasicRequestTester {
-    final String accountSid = "AC0123456789abcdef0123456789abcdef";
-    final String authtoken = "0123456789abcdef0123456789abcdef";
+	final String accountSid = "AC0123456789abcdef0123456789abcdef";
+	final String authtoken = "0123456789abcdef0123456789abcdef";
 
-    @Mock
-    HttpClient httpClient;
+	@Mock
+	HttpClient httpClient;
 
-    protected TwilioRestClient restClient = new TwilioRestClient(accountSid, authtoken);
+	protected TwilioRestClient restClient = new TwilioRestClient(accountSid, authtoken);
 	protected TwilioTaskRouterClient taskRouterClient = new TwilioTaskRouterClient(accountSid, authtoken);
 	protected LookupsClient lookupsClient = new LookupsClient(accountSid, authtoken);
 
-    protected BasicHttpResponse response = mock(BasicHttpResponse.class);
-    protected Header[] headers = {mock(Header.class)};
-    protected StatusLine status_line = mock(StatusLine.class);
-    protected HttpEntity entity = mock(HttpEntity.class);
+	protected BasicHttpResponse response = mock(BasicHttpResponse.class);
+	protected Header[] headers = {mock(Header.class)};
+	protected StatusLine status_line = mock(StatusLine.class);
+	protected HttpEntity entity = mock(HttpEntity.class);
 
-    @Before
-    public void init() throws Exception {
-        MockitoAnnotations.initMocks(this);
-        restClient.setHttpClient(httpClient);
-	    taskRouterClient.setHttpClient(httpClient);
-	    lookupsClient.setHttpClient(httpClient);
+	@Before
+	public void init() throws Exception {
+		MockitoAnnotations.initMocks(this);
+		restClient.setHttpClient(httpClient);
+		taskRouterClient.setHttpClient(httpClient);
+		lookupsClient.setHttpClient(httpClient);
 
-        when(headers[0].getValue()).thenReturn("application/xml");
-        when(response.getHeaders("Content-Type")).thenReturn(headers);
-        when(response.getStatusLine()).thenReturn(status_line);
-        when(status_line.getStatusCode()).thenReturn(200);
-        when(httpClient.execute(Matchers.<HttpUriRequest>anyObject())).thenReturn(response);
-        when(response.getEntity()).thenReturn(entity);
-    }
-    protected void setExpectedServerReturnCode(int code) throws Exception {
-        when(status_line.getStatusCode()).thenReturn(code);
-    }
+		when(headers[0].getValue()).thenReturn("application/xml");
+		when(response.getHeaders("Content-Type")).thenReturn(headers);
+		when(response.getStatusLine()).thenReturn(status_line);
+		when(status_line.getStatusCode()).thenReturn(200);
+		when(httpClient.execute(Matchers.<HttpUriRequest>anyObject())).thenReturn(response);
+		when(response.getEntity()).thenReturn(entity);
+	}
+	protected void setExpectedServerReturnCode(int code) throws Exception {
+		when(status_line.getStatusCode()).thenReturn(code);
+	}
 
-    protected void setExpectedServerAnswer(String resource_name) throws Exception {
-        if (resource_name == null) {    // empty body
-            when(entity.getContent()).thenReturn(new ByteArrayInputStream(new byte[0]));
-        }
-        else
-        {
-            when(entity.getContent()).thenReturn(BasicRequestTester.class.getResourceAsStream(resource_name));
-        }
-    }
+	protected void setExpectedServerAnswer(String resource_name) throws Exception {
+		if (resource_name == null) {    // empty body
+			when(entity.getContent()).thenReturn(new ByteArrayInputStream(new byte[0]));
+		}
+		else
+		{
+	    when(entity.getContent()).thenReturn(BasicRequestTester.class.getResourceAsStream(resource_name));
+		}
+	}
 
-    protected void setExpectedServerContentType(String content_type) {
-        when(headers[0].getValue()).thenReturn("application/json");
-    }
+	protected void setExpectedServerContentType(String content_type) {
+		when(headers[0].getValue()).thenReturn("application/json");
+	}
 
 }

@@ -118,7 +118,7 @@ public class Call extends SidResource {
      *         deleting the specified Call
      */
     public static CallDeleter delete(final Call call) {
-        return new CallDeleter(call);
+        return new CallDeleter(call.getSid());
     }
 
     /**
@@ -142,7 +142,7 @@ public class Call extends SidResource {
      *         redirecting or terminating the specified Call Sid
      */
     public static CallUpdater update(final Call call) {
-        return new CallUpdater(call);
+        return new CallUpdater(call.getSid());
     }
 
     /**

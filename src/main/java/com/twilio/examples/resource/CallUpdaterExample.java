@@ -35,7 +35,7 @@ public class CallUpdaterExample {
                 System.out.println("whoops");
             }
 
-            CallUpdater updater = new CallUpdater(call);
+            CallUpdater updater = new CallUpdater(call.getSid());
             updater.setUrl(new URI("http://twimlbin.com/4397e62f"));
             Call updated = updater.execute();
 

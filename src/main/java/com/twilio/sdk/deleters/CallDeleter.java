@@ -10,29 +10,43 @@ import com.twilio.sdk.resources.Call;
 import com.twilio.sdk.resources.RestException;
 
 public class CallDeleter extends Deleter<Call> {
-
     private final String sid;
 
+    /**
+     * Construct a new CallDeleter
+     *
+     * @param sid Call Sid that uniquely identifies the Call to delete
+     */
     public CallDeleter(final String sid) {
         this.sid = sid;
     }
 
-    public CallDeleter(final Call call) {
-        this(call.getSid());
-    }
-
+    /**
+     * Make the request to the Twilio API to perform the delete
+     *
+     * @param client TwilioRestClient with which to make the request
+     */
     @Override
     public void execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.DELETE, "/2010-04-01/Accounts/{AccountSid}/Calls/" + sid + ".json",
-                                      client.getAccountSid());
+        Request request = new Request(
+            HttpMethod.DELETE,
+            "/2010-04-01/Accounts/{AccountSid}/Calls/" + sid + ".json",
+            client.getAccountSid()
+        );
+
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Call delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
-                                   restException.getStatus(), null);
+            throw new ApiException(
+                restException.getMessage(),
+                restException.getCode(),
+                restException.getMoreInfo(),
+                restException.getStatus(),
+                null
+            );
         }
     }
 }

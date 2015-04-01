@@ -1,6 +1,5 @@
 package com.twilio.sdk.creators;
 
-import com.google.common.base.CaseFormat;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
@@ -13,7 +12,6 @@ import com.twilio.sdk.resources.RestException;
 import java.net.URI;
 
 public class CallCreator extends Creator<Call> {
-
     private final String to;
     private final String from;
     private URI url;
@@ -29,9 +27,11 @@ public class CallCreator extends Creator<Call> {
     private Boolean record;
 
     /**
-     * @param to The phone number to dial
-     * @param from The twilio number to originate the call from
-     * @param url The url to fetch twiml from
+     * Construct a new CallCreator
+     *
+     * @param to Phone number, SIP address or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param url Url from which to fetch TwiML
      */
     public CallCreator(final String to, final String from, final URI url) {
         this.to = to;
@@ -40,9 +40,11 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * @param to The phone number to dial
-     * @param from The twilio number to originate the call from
-     * @param applicationSid The ApplicationSid that configures where to fetch twiml from
+     * Construct a new CallCreator
+     *
+     * @param to Phone number, SIP address or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param applicationSid ApplicationSid that configures from where to fetch TwiML
      */
     public CallCreator(final String to, final String from, final String applicationSid) {
         this.to = to;
@@ -51,11 +53,10 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The HTTP method Twilio should use when making its request to the TwiML
-     * URL. Defaults to `POST`. If an `ApplicationSid` was provided, this
-     * parameter is ignored.
+     * The HTTP method Twilio should use when requesting the URL. Defaults to
+     * `POST`. If an `ApplicationSid` was provided, this parameter is ignored.
      *
-     * @param method The HTTP method to use to fetch TwiML
+     * @param method HTTP method to use to fetch TwiML
      * @return this
      */
     public CallCreator setMethod(final HttpMethod method) {
@@ -68,7 +69,7 @@ public class CallCreator extends Creator<Call> {
      * the TwiML at `Url`. If an `ApplicationSid` was provided, this parameter
      * is ignored.
      *
-     * @param fallbackUrl The fully-qualified fallback URL
+     * @param fallbackUrl Fallback URL in case of error
      * @return this
      */
     public CallCreator setFallbackUrl(final URI fallbackUrl) {
@@ -78,11 +79,10 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * The HTTP method that Twilio should use to request the `FallbackUrl`. Must
-     * be either `GET` or `POST`. Defaults to `POST`. If an `ApplicationSid`
-     * parameter was provided, this parameter is ignored.
+     * be either `GET` or `POST`. Defaults to `POST`. If an `ApplicationSid` was
+     * provided, this parameter is ignored.
      *
-     * @param fallbackMethod The fallback method to request the fallback URL
-     *                       with
+     * @param fallbackMethod HTTP Method to use with FallbackUrl
      * @return this
      */
     public CallCreator setFallbackMethod(final HttpMethod fallbackMethod) {
@@ -92,9 +92,9 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * A URL that Twilio will request when the call ends to notify your app. If
-     * an `ApplicationSid` parameter is present, this parameter is ignored.
+     * an `ApplicationSid` was provided, this parameter is ignored.
      *
-     * @param statusCallback URL to notify when the call ends
+     * @param statusCallback Status Callback URL
      * @return this
      */
     public CallCreator setStatusCallback(final URI statusCallback) {
@@ -103,11 +103,11 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting the `StatusCallback`
-     * URL. Defaults to `POST`. If an `ApplicationSid` parameter was provided,
-     * this parameter is ignored.
+     * The HTTP method that Twilio should use to request the `StatusCallback`.
+     * Defaults to `POST`. If an `ApplicationSid` was provided, this parameter
+     * is ignored.
      *
-     * @param statusCallbackMethod HTTP method to request StatusCallback with
+     * @param statusCallbackMethod HTTP Method to use with StatusCallback
      * @return this
      */
     public CallCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -117,12 +117,12 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * A string of keys to dial after connecting to the number. Valid digits in
-     * the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`'
-     * (to insert a half second pause). For example, if you connected to a
-     * company phone number, and wanted to pause for one second, dial extension
-     * 1234 and then the pound key, use `ww1234#`.
+     * the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`' (to
+     * insert a half second pause). For example, if you connected to a company
+     * phone number, and wanted to pause for one second, dial extension 1234 and
+     * then the pound key, use `ww1234#`.
      *
-     * @param sendDigits The digits to send
+     * @param sendDigits Digits to send
      * @return this
      */
     public CallCreator setSendDigits(final String sendDigits) {
@@ -131,10 +131,10 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Tell Twilio to try and determine if a machine (like voicemail) or a human has answered the call. Possible values
-     * are Continue and Hangup. See the answering machines section below for more info.
+     * Tell Twilio to try and determine if a machine (like voicemail) or a human
+     * has answered the call. Possible value are `Continue` and `Hangup`.
      *
-     * @param ifMachine Action to take if a machine has answered the call, valid values are "Continue" and "Hangup"
+     * @param ifMachine Action to take if a machine has answered the call
      * @return this
      */
     public CallCreator setIfMachine(final String ifMachine) {
@@ -147,10 +147,11 @@ public class CallCreator extends Creator<Call> {
      * before assuming there is no answer. Default is `60` seconds, the maximum
      * is `999` seconds. Note, you could set this to a low value, such as `15`,
      * to hangup before reaching an answering machine or voicemail.
+     *
      * @param timeout Number of seconds to wait for an answer
      * @return this
      */
-    public CallCreator setTimeout(final int timeout) {
+    public CallCreator setTimeout(final Integer timeout) {
         this.timeout = timeout;
         return this;
     }
@@ -158,17 +159,29 @@ public class CallCreator extends Creator<Call> {
     /**
      * Set this parameter to true to record the entirety of a phone call. The
      * RecordingUrl will be sent to the StatusCallback URL. Defaults to false.
+     *
      * @param record Whether or not to record the Call
      * @return this
      */
-    public CallCreator setRecord(final boolean record) {
+    public CallCreator setRecord(final Boolean record) {
         this.record = record;
         return this;
     }
 
+    /**
+     * Make the request to the Twilio API to perform the create
+     *
+     * @param client TwilioRestClient with which to make the request
+     * @return Created Call
+     */
     @Override
     public Call execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Calls.json", client.getAccountSid());
+        Request request = new Request(
+            HttpMethod.POST,
+            "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+            client.getAccountSid()
+        );
+
         addPostParams(request);
         Response response = client.request(request);
 
@@ -176,13 +189,23 @@ public class CallCreator extends Creator<Call> {
             throw new ApiConnectionException("Call creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
-                                   restException.getStatus(), null);
+            throw new ApiException(
+                restException.getMessage(),
+                restException.getCode(),
+                restException.getMoreInfo(),
+                restException.getStatus(),
+                null
+            );
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());
     }
 
+    /**
+     * Add the requested post parameters to the Request
+     *
+     * @param request Request to add post params to
+     */
     private void addPostParams(final Request request) {
         if (to != null) {
             request.addPostParam("To", to);
@@ -233,9 +256,7 @@ public class CallCreator extends Creator<Call> {
         }
 
         if (record != null) {
-            String value = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, record.toString());
-            request.addPostParam("Record", value);
+            request.addPostParam("Record", record.toString());
         }
     }
-
 }

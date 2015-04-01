@@ -12,7 +12,6 @@ import com.twilio.sdk.resources.RestException;
 import java.net.URI;
 
 public class CallUpdater extends Updater<Call> {
-
     private final String sid;
     private URI url;
     private HttpMethod method;
@@ -22,12 +21,13 @@ public class CallUpdater extends Updater<Call> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
 
+    /**
+     * Construct a new CallUpdater
+     *
+     * @param sid Call Sid that uniquely identifies the Call to update
+     */
     public CallUpdater(final String sid) {
         this.sid = sid;
-    }
-
-    public CallUpdater(final Call call) {
-        this(call.getSid());
     }
 
     /**
@@ -46,7 +46,7 @@ public class CallUpdater extends Updater<Call> {
      * The HTTP method Twilio should use when requesting the URL. Defaults to
      * `POST`.
      *
-     * @param method HTTP method to fetch TwiML with
+     * @param method HTTP method to use to fetch TwiML
      * @return this
      */
     public CallUpdater setMethod(final HttpMethod method) {
@@ -60,8 +60,7 @@ public class CallUpdater extends Updater<Call> {
      * progress. Specifying `completed` will attempt to hang up a call even if
      * it's already in progress.
      *
-     * @see com.twilio.sdk.resources.Call.Status
-     * @param status Call.Status to update the Call with
+     * @param status Status to update the Call with
      * @return this
      */
     public CallUpdater setStatus(final Call.Status status) {
@@ -72,6 +71,7 @@ public class CallUpdater extends Updater<Call> {
     /**
      * A URL that Twilio will request if an error occurs requesting or executing
      * the TwiML at `Url`.
+     *
      * @param fallbackUrl Fallback URL in case of error
      * @return this
      */
@@ -84,8 +84,7 @@ public class CallUpdater extends Updater<Call> {
      * The HTTP method that Twilio should use to request the `FallbackUrl`. Must
      * be either `GET` or `POST`. Defaults to `POST`.
      *
-     * @see com.twilio.sdk.http.HttpMethod
-     * @param fallbackMethod HTTP method to use with FallbackUrl
+     * @param fallbackMethod HTTP Method to use with FallbackUrl
      * @return this
      */
     public CallUpdater setFallbackMethod(final HttpMethod fallbackMethod) {
@@ -105,12 +104,10 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting the above URL. Defaults
-     * to `POST`.
+     * The HTTP method that Twilio should use to request the `StatusCallback`.
+     * Defaults to `POST`.
      *
-     * @see com.twilio.sdk.http.HttpMethod
-     * @param statusCallbackMethod HTTP method to make the request to
-     *                             StatusCallback with
+     * @param statusCallbackMethod HTTP Method to use with StatusCallback
      * @return this
      */
     public CallUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -118,10 +115,20 @@ public class CallUpdater extends Updater<Call> {
         return this;
     }
 
+    /**
+     * Make the request to the Twilio API to perform the update
+     *
+     * @param client TwilioRestClient with which to make the request
+     * @return Updated Call
+     */
     @Override
     public Call execute(final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.POST, "/2010-04-01/Accounts/{AccountSid}/Calls/" + sid + ".json",
-                                      client.getAccountSid());
+        Request request = new Request(
+            HttpMethod.POST,
+            "/2010-04-01/Accounts/{AccountSid}/Calls/" + sid + ".json",
+            client.getAccountSid()
+        );
+
         addPostParams(request);
         Response response = client.request(request);
 
@@ -129,13 +136,23 @@ public class CallUpdater extends Updater<Call> {
             throw new ApiConnectionException("Call update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            throw new ApiException(restException.getMessage(), restException.getCode(), restException.getMoreInfo(),
-                                   restException.getStatus(), null);
+            throw new ApiException(
+                restException.getMessage(),
+                restException.getCode(),
+                restException.getMoreInfo(),
+                restException.getStatus(),
+                null
+            );
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());
     }
 
+    /**
+     * Add the requested post parameters to the Request
+     *
+     * @param request Request to add post params to
+     */
     private void addPostParams(final Request request) {
         if (url != null) {
             request.addPostParam("Url", url.toString());

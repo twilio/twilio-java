@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.SipCredentialCreator;
 import com.twilio.sdk.creators.SipCredentialListCreator;
 import com.twilio.sdk.deleters.SipCredentialDeleter;
@@ -45,13 +46,13 @@ public class SipCredentialList extends SidResource {
                               @JsonProperty("sid") final String sid,
                               @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
                               @JsonProperty("date_created") final String dateCreated) {
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.uri = uri;
         this.accountSid = accountSid;
         this.sid = sid;
         this.subresourceUris = subresourceUris;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
     }
 
     public static SipCredentialListCreator create(final String friendlyName) {

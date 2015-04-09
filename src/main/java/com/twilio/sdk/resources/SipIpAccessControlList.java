@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.SipIpAccessControlListCreator;
 import com.twilio.sdk.deleters.SipIpAccessControlListDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -42,8 +43,8 @@ public class SipIpAccessControlList extends SidResource {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.subresourceUris = subresourceUris;
         this.uri = uri;
     }

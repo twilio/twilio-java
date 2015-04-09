@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.deleters.TranscriptionDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
@@ -51,14 +52,14 @@ public class Transcription extends SidResource {
                           @JsonProperty("price_unit") final Currency priceUnit) {
         this.status = status;
         this.recordingSid = recordingSid;
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.price = price;
         this.uri = uri;
         this.ownerAccountSid = ownerAccountSid;
         this.accountSid = accountSid;
         this.sid = sid;
         this.duration = duration;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.transcriptionText = transcriptionText;
         this.priceUnit = priceUnit;
 

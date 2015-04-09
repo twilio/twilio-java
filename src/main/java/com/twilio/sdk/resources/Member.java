@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.MemberFetcher;
@@ -34,7 +35,7 @@ public class Member extends Resource {
                    @JsonProperty("position") final Integer position,
                    @JsonProperty("uri") final String uri) {
         this.callSid = callSid;
-        this.dateEnqueued = safeDateTimeConvert(dateEnqueued);
+        this.dateEnqueued = MarshalConverter.dateTimeFromString(dateEnqueued);
         this.waitTime = waitTime;
         this.position = position;
         this.uri = uri;

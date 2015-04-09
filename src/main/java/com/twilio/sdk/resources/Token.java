@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.TokenCreator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
@@ -38,10 +39,10 @@ public class Token extends Resource {
                   @JsonProperty("ice_servers") final List<IceServer> iceServers) {
         this.username = username;
         this.password = password;
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.accountSid = accountSid;
         this.ttl = ttl;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.iceServers = iceServers;
     }
 

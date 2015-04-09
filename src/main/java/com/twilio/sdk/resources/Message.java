@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.MessageCreator;
 import com.twilio.sdk.deleters.MessageDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -27,8 +28,85 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends SidResource {
+    private static final long serialVersionUID = -6962653247228416000L;
 
-    private static final long serialVersionUID = -5732541214023360255L;
+    public enum Status {
+        QUEUED("queued"),
+        SENDING("sending"),
+        SENT("sent"),
+        FAILED("failed"),
+        DELIVERED("delivered"),
+        UNDELIVERED("undelivered"),
+        RECEIVING("receiving"),
+        RECEIVED("received");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            String munged = value.replace("-", "_").toUpperCase();
+            return Status.valueOf(munged);
+        }
+    }
+
+    public enum Direction {
+        INBOUND("inbound"),
+        OUTBOUND_API("outbound-api"),
+        OUTBOUND_CALL("outbound-call"),
+        OUTBOUND_REPLY("outbound-reply");
+
+        private final String value;
+
+        private Direction(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Direction forValue(final String value) {
+            String munged = value.replace("-", "_").toUpperCase();
+            return Direction.valueOf(munged);
+        }
+    }
+
+    public static MessageCreator create(final String to, final String from) {
+        return new MessageCreator(to, from);
+    }
+
+    public static MessageDeleter delete(final String sid) {
+        return new MessageDeleter(sid);
+    }
+
+    public static MessageDeleter delete(final Message target) {
+        return new MessageDeleter(target);
+    }
+
+    public static MessageFetcher fetch(final String sid) {
+        return new MessageFetcher(sid);
+    }
+
+    public static MessageReader list() {
+        return new MessageReader();
+    }
+
+    public static MessageUpdater update(final Message target) {
+        return new MessageUpdater(target);
+    }
+
+    public static MessageUpdater update(final String sid) {
+        return new MessageUpdater(sid);
+    }
 
     private final String body;
     private final Integer numSegments;
@@ -69,7 +147,7 @@ public class Message extends SidResource {
         this.numSegments = numSegments;
         this.direction = direction;
         this.from = from;
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.price = price;
         this.errorMessage = errorMessage;
         this.uri = uri;
@@ -78,41 +156,13 @@ public class Message extends SidResource {
         this.to = to;
         this.status = status;
         this.sid = sid;
-        this.dateSent = safeDateTimeConvert(dateSent);
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateSent = MarshalConverter.dateTimeFromString(dateSent);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.subresourceUris = subresourceUris;
         this.errorCode = errorCode;
         this.priceUnit = priceUnit;
         this.apiVersion = apiVersion;
 
-    }
-
-    public static MessageCreator create(final String to, final String from) {
-        return new MessageCreator(to, from);
-    }
-
-    public static MessageDeleter delete(final String sid) {
-        return new MessageDeleter(sid);
-    }
-
-    public static MessageDeleter delete(final Message target) {
-        return new MessageDeleter(target);
-    }
-
-    public static MessageFetcher fetch(final String sid) {
-        return new MessageFetcher(sid);
-    }
-
-    public static MessageReader list() {
-        return new MessageReader();
-    }
-
-    public static MessageUpdater update(final Message target) {
-        return new MessageUpdater(target);
-    }
-
-    public static MessageUpdater update(final String sid) {
-        return new MessageUpdater(sid);
     }
 
     public MediaReader listMedia() {
@@ -283,45 +333,5 @@ public class Message extends SidResource {
                           .toString();
     }
 
-    public enum Status {
-        QUEUED("queued"), SENDING("sending"), SENT("sent"), FAILED("failed"), DELIVERED("delivered"), UNDELIVERED(
-                "undelivered"), RECEIVING("receiving"), RECEIVED("received");
-        private final String status;
 
-        private Status(final String status) {
-            this.status = status;
-        }
-
-        public String toString() {
-            return status;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            String munged = value.replace("-", "_")
-                                 .toUpperCase();
-            return Status.valueOf(munged);
-        }
-    }
-
-    public enum Direction {
-        INBOUND("inbound"), OUTBOUND_API("outbound-api"), OUTBOUND_CALL("outbound-call"), OUTBOUND_REPLY(
-                "outbound-reply");
-        private final String direction;
-
-        private Direction(final String direction) {
-            this.direction = direction;
-        }
-
-        public String toString() {
-            return direction;
-        }
-
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            String munged = value.replace("-", "_")
-                                 .toUpperCase();
-            return Direction.valueOf(munged);
-        }
-    }
 }

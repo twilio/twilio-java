@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.QueueCreator;
 import com.twilio.sdk.deleters.QueueDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -45,13 +46,13 @@ public class Queue extends SidResource {
                   @JsonProperty("average_wait_time") final Integer averageWaitTime,
                   @JsonProperty("sid") final String sid, @JsonProperty("date_created") final String dateCreated,
                   @JsonProperty("max_size") final Integer maxSize) {
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.currentSize = currentSize;
         this.friendlyName = friendlyName;
         this.uri = uri;
         this.averageWaitTime = averageWaitTime;
         this.sid = sid;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.maxSize = maxSize;
 
     }

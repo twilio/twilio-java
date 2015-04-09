@@ -1,11 +1,13 @@
 package com.twilio.sdk.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.CallCreator;
 import com.twilio.sdk.deleters.CallDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -23,9 +25,9 @@ import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Call extends SidResource {
-
-    private static final long serialVersionUID = -5732541214023360255L;
+    private static final long serialVersionUID = -6797133745651458528L;
 
     public enum Status {
         QUEUED("queued"),
@@ -37,14 +39,14 @@ public class Call extends SidResource {
         NO_ANSWER("no-answer"),
         CANCELED("canceled");
 
-        private final String status;
+        private final String value;
 
-        private Status(final String status) {
-            this.status = status;
+        private Status(final String value) {
+            this.value = value;
         }
 
         public String toString() {
-            return status;
+            return value;
         }
 
         @JsonCreator
@@ -52,119 +54,110 @@ public class Call extends SidResource {
             String munged = value.replace("-", "_").toUpperCase();
             return Status.valueOf(munged);
         }
-
     }
 
     /**
      * Create a new outgoing call to phones, SIP-enabled endpoints or Twilio
-     * Client connections.
+     * Client connections
      *
-     * @see com.twilio.sdk.creators.CallCreator
-     * @param to The phone number, SIP address or client identifier to call.
-     * @param from The phone number or client identifier to use as the caller
-     *             id. If using a phone number, it must be a Twilio number or a
-     *             Verified outgoing caller id for your account.
-     * @param uri The fully qualified URL that should be consulted when the call
-     *            connects. Just like when you set a URL on a phone number for
-     *            handling inbound calls.
-     * @return The {@link com.twilio.sdk.creators.CallCreator} capable of
-     *         originating the specified Call
+     * @param to Phone number, SIP address or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param url Url from which to fetch TwiML
+     * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final String to, final String from, final URI uri) {
-        return new CallCreator(to, from, uri);
+    public static CallCreator create(final String to, final String from, final URI url) {
+        return new CallCreator(to, from, url);
     }
 
     /**
      * Create a new outgoing call to phones, SIP-enabled endpoints or Twilio
-     * Client connections.
+     * Client connections
      *
-     * @see com.twilio.sdk.creators.CallCreator
-     * @param to The phone number, SIP address or client identifier to call.
-     * @param from The phone number or client identifier to use as the caller
-     *             id. If using a phone number, it must be a Twilio number or a
-     *             Verified outgoing caller id for your account.
-     * @param applicationSid The 34 character sid of the application Twilio
-     *                       should use to handle this phone call. If this
-     *                       parameter is present, Twilio will ignore all of the
-     *                       voice URLs passed and use the URLs set on the
-     *                       application.
-     * @return The {@link com.twilio.sdk.creators.CallCreator} capable of
-     *         originating the specified Call
+     * @param to Phone number, SIP address or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param applicationSid ApplicationSid that configures from where to fetch
+     *                       TwiML
+     * @return CallCreator capable of executing the create
      */
     public static CallCreator create(final String to, final String from, final String applicationSid) {
         return new CallCreator(to, from, applicationSid);
     }
 
     /**
-     * Deletes a call record from your account. Once the record is deleted,
-     * it will no longer appear in the API and Account Portal logs.
+     * Deletes a call record from your account. Once the record is deleted, it
+     * will no longer apper in the API and Account Portal logs.
      *
-     * @see com.twilio.sdk.deleters.CallDeleter
-     * @param sid The 34 character sid of the Call to delete
-     * @return The {@link com.twilio.sdk.deleters.CallDeleter} capable of
-     *         deleting the specified Call Sid
+     * @param sid Call Sid that uniquely identifies the Call to delete
+     * @return CallDeleter capable of executing the delete
      */
     public static CallDeleter delete(final String sid) {
         return new CallDeleter(sid);
     }
 
     /**
-     * Deletes a call record from your account. Once the record is deleted,
-     * it will no longer appear in the API and Account Portal logs.
+     * Fetch the Call specified by the provided Call Sid
      *
-     * @see com.twilio.sdk.deleters.CallDeleter
-     * @param call The Call object to delete
-     * @return The {@link com.twilio.sdk.deleters.CallDeleter} capable of
-     *         deleting the specified Call
+     * @param sid Call Sid that uniquely identifies the Call to fetch
+     * @return CallFetcher capable of executing the fetch
      */
-    public static CallDeleter delete(final Call call) {
-        return new CallDeleter(call.getSid());
+    public static CallFetcher fetch(final String sid) {
+        return new CallFetcher(sid);
     }
 
     /**
-     * Initiates a call redirect or terminates a call.
+     * Retrieves a collection of Calls made to and from your account
      *
-     * @see com.twilio.sdk.updaters.CallUpdater
-     * @param sid The 34 character call sid to redirect or terminate
-     * @return The {@link com.twilio.sdk.updaters.CallUpdater} capable of
-     *         redirecting or terminating the specified Call Sid
+     * @return CallReader capable of executing the read
+     */
+    public static CallReader read() {
+        return new CallReader();
+    }
+
+    /**
+     * Initiates a call redirect or terminates a call
+     *
+     * @param sid Call Sid that uniquely identifies the Call to update
+     * @return CallUpdater capable of executing the update
      */
     public static CallUpdater update(final String sid) {
         return new CallUpdater(sid);
     }
 
     /**
-     * Initiates a call redirect or terminates a call.
+     * Converts a JSON String into a Call object using the provided ObjectMapper
      *
-     * @see com.twilio.sdk.updaters.CallUpdater
-     * @param call The Call to redirect or terminate
-     * @return The {@link com.twilio.sdk.updaters.CallUpdater} capable of
-     *         redirecting or terminating the specified Call Sid
+     * @param json The raw JSON string
+     * @param objectMapper The Jackson ObjectMapper
+     * @return The Call object represented by the provided JSON
      */
-    public static CallUpdater update(final Call call) {
-        return new CallUpdater(call.getSid());
+    public static Call fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Call.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
     }
 
     /**
-     * Retrieves a {@link com.twilio.sdk.resources.ResourceSet} of Calls made to
-     * and from your account.
+     * Converts a JSON InputStream into a Call object using the provided
+     * ObjectMapper
      *
-     * @see com.twilio.sdk.readers.CallReader
-     * @return The {@link com.twilio.sdk.readers.CallReader} capable of
-     *         retrieving the list of Calls
+     * @param json The raw JSON InputStream
+     * @param objectMapper The Jackson ObjectMapper
+     * @return The Call object represented by the provided JSON
      */
-    public static CallReader list() {
-        return new CallReader();
-    }
-
-    /**
-     * Fetch the Call specified by the provided Call Sid
-     * @param sid The 34 character Call Sid that identifies the Call
-     * @return The {@link com.twilio.sdk.fetchers.CallFetcher} capable of
-     *         fetching the specified Call
-     */
-    public static CallFetcher fetch(final String sid) {
-        return new CallFetcher(sid);
+    public static Call fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Call.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
     }
 
     private final String accountSid;
@@ -187,7 +180,7 @@ public class Call extends SidResource {
     private final Currency priceUnit;
     private final String sid;
     private final DateTime startTime;
-    private final Status status;
+    private final Call.Status status;
     private final Map<String, String> subresourceUris;
     private final String to;
     private final String toFormatted;
@@ -214,7 +207,7 @@ public class Call extends SidResource {
                  @JsonProperty("price_unit") final Currency priceUnit,
                  @JsonProperty("sid") final String sid,
                  @JsonProperty("start_time") final String startTime,
-                 @JsonProperty("status") final Status status,
+                 @JsonProperty("status") final Call.Status status,
                  @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
                  @JsonProperty("to") final String to,
                  @JsonProperty("to_formatted") final String toFormatted,
@@ -224,11 +217,11 @@ public class Call extends SidResource {
         this.answeredBy = answeredBy;
         this.apiVersion = apiVersion;
         this.callerName = callerName;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.direction = direction;
         this.duration = duration;
-        this.endTime = safeDateTimeConvert(endTime);
+        this.endTime = MarshalConverter.dateTimeFromString(endTime);
         this.forwardedFrom = forwardedFrom;
         this.from = from;
         this.fromFormatted = fromFormatted;
@@ -238,48 +231,12 @@ public class Call extends SidResource {
         this.price = price;
         this.priceUnit = priceUnit;
         this.sid = sid;
-        this.startTime = safeDateTimeConvert(startTime);
+        this.startTime = MarshalConverter.dateTimeFromString(startTime);
         this.status = status;
         this.subresourceUris = subresourceUris;
         this.to = to;
         this.toFormatted = toFormatted;
         this.uri = uri;
-
-    }
-
-    /**
-     * Converts a JSON string into a Call object using the provided ObjectMapper
-     * @param json The raw JSON string
-     * @param objectMapper The Jackson ObjectMapper
-     * @return The Call object represented by the provided JSON
-     */
-    public static Call fromJson(final String json, final ObjectMapper objectMapper) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Call.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Call object using the provided
-     * ObjectMapper
-     * @param json The raw JSON InputStream
-     * @param objectMapper The Jackson ObjectMapper
-     * @return The Call object represented by the provided JSON
-     */
-    public static Call fromJson(final InputStream json, final ObjectMapper objectMapper) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Call.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
     }
 
     /**
@@ -343,11 +300,10 @@ public class Call extends SidResource {
     }
 
     /**
-     * TODO: Null check is probably unnecessary
      * @return The length of the call in seconds.
      */
     public final Integer getDuration() {
-        return duration != null ? duration : 0;
+        return duration;
     }
 
     /**
@@ -441,7 +397,6 @@ public class Call extends SidResource {
     }
 
     /**
-     * @see com.twilio.sdk.resources.Call.Status
      * @return Status of the Call.
      */
     public final Status getStatus() {
@@ -449,7 +404,6 @@ public class Call extends SidResource {
     }
 
     /**
-     * A Map of various subresources available for the given Call Instance
      * @return Call Instance Subresources
      */
     public final Map<String, String> getSubresourceUris() {
@@ -486,57 +440,97 @@ public class Call extends SidResource {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
-        Call call = (Call) o;
+        Call other = (Call) o;
 
-        return Objects.equals(accountSid, call.accountSid) &&
-               Objects.equals(annotation, call.annotation) &&
-               Objects.equals(answeredBy, call.answeredBy) &&
-               Objects.equals(apiVersion, call.apiVersion) &&
-               Objects.equals(callerName, call.callerName) &&
-               Objects.equals(dateCreated, call.dateCreated) &&
-               Objects.equals(dateUpdated, call.dateUpdated) &&
-               Objects.equals(direction, call.direction) &&
-               Objects.equals(duration, call.duration) &&
-               Objects.equals(endTime, call.endTime) &&
-               Objects.equals(forwardedFrom, call.forwardedFrom) &&
-               Objects.equals(from, call.from) &&
-               Objects.equals(fromFormatted, call.fromFormatted) &&
-               Objects.equals(groupSid, call.groupSid) &&
-               Objects.equals(parentCallSid, call.parentCallSid) &&
-               Objects.equals(phoneNumberSid, call.phoneNumberSid) &&
-               Objects.equals(price, call.price) &&
-               Objects.equals(priceUnit, call.priceUnit) &&
-               Objects.equals(sid, call.sid) &&
-               Objects.equals(startTime, call.startTime) &&
-               Objects.equals(status, call.status) &&
-               Objects.equals(subresourceUris, call.subresourceUris) &&
-               Objects.equals(to, call.to) &&
-               Objects.equals(toFormatted, call.toFormatted) &&
-               Objects.equals(uri, call.uri);
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(annotation, other.annotation) &&
+               Objects.equals(answeredBy, other.answeredBy) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(callerName, other.callerName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(direction, other.direction) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(forwardedFrom, other.forwardedFrom) &&
+               Objects.equals(from, other.from) &&
+               Objects.equals(fromFormatted, other.fromFormatted) &&
+               Objects.equals(groupSid, other.groupSid) &&
+               Objects.equals(parentCallSid, other.parentCallSid) &&
+               Objects.equals(phoneNumberSid, other.phoneNumberSid) &&
+               Objects.equals(price, other.price) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(startTime, other.startTime) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(subresourceUris, other.subresourceUris) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(toFormatted, other.toFormatted) &&
+               Objects.equals(uri, other.uri);
     }
 
     @Override
     public int hashCode() {
-        return Objects
-                .hash(accountSid, annotation, answeredBy, apiVersion, callerName, dateCreated, dateUpdated, direction,
-                      duration, endTime, forwardedFrom, from, fromFormatted, groupSid, parentCallSid, phoneNumberSid,
-                      price, priceUnit, sid, startTime, status, subresourceUris, to, toFormatted, uri);
+        return Objects.hash(accountSid,
+                            annotation,
+                            answeredBy,
+                            apiVersion,
+                            callerName,
+                            dateCreated,
+                            dateUpdated,
+                            direction,
+                            duration,
+                            endTime,
+                            forwardedFrom,
+                            from,
+                            fromFormatted,
+                            groupSid,
+                            parentCallSid,
+                            phoneNumberSid,
+                            price,
+                            priceUnit,
+                            sid,
+                            startTime,
+                            status,
+                            subresourceUris,
+                            to,
+                            toFormatted,
+                            uri);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("accountSid", accountSid).add("annotation", annotation)
-                          .add("answeredBy", answeredBy).add("apiVersion", apiVersion).add("callerName", callerName)
-                          .add("dateCreated", dateCreated).add("dateUpdated", dateUpdated).add("direction", direction)
-                          .add("duration", duration).add("endTime", endTime).add("forwardedFrom", forwardedFrom)
-                          .add("from", from).add("fromFormatted", fromFormatted).add("groupSid", groupSid)
-                          .add("parentCallSid", parentCallSid).add("phoneNumberSid", phoneNumberSid).add("price", price)
-                          .add("priceUnit", priceUnit).add("sid", sid).add("startTime", startTime).add("status", status)
-                          .add("subresourceUris", subresourceUris).add("to", to).add("toFormatted", toFormatted)
-                          .add("uri", uri).toString();
+        return MoreObjects.toStringHelper(this)
+                          .add("accountSid", accountSid)
+                          .add("annotation", annotation)
+                          .add("answeredBy", answeredBy)
+                          .add("apiVersion", apiVersion)
+                          .add("callerName", callerName)
+                          .add("dateCreated", dateCreated)
+                          .add("dateUpdated", dateUpdated)
+                          .add("direction", direction)
+                          .add("duration", duration)
+                          .add("endTime", endTime)
+                          .add("forwardedFrom", forwardedFrom)
+                          .add("from", from)
+                          .add("fromFormatted", fromFormatted)
+                          .add("groupSid", groupSid)
+                          .add("parentCallSid", parentCallSid)
+                          .add("phoneNumberSid", phoneNumberSid)
+                          .add("price", price)
+                          .add("priceUnit", priceUnit)
+                          .add("sid", sid)
+                          .add("startTime", startTime)
+                          .add("status", status)
+                          .add("subresourceUris", subresourceUris)
+                          .add("to", to)
+                          .add("toFormatted", toFormatted)
+                          .add("uri", uri)
+                          .toString();
     }
 }

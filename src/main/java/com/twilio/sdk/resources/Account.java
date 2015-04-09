@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.AccountCreator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
@@ -48,13 +49,13 @@ public class Account extends SidResource {
                     @JsonProperty("type") final Account.Type type) {
         this.status = status;
         this.subresourceUris = subresourceUris;
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.authToken = authToken;
         this.friendlyName = friendlyName;
         this.ownerAccountSid = ownerAccountSid;
         this.uri = uri;
         this.sid = sid;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.type = type;
 
     }

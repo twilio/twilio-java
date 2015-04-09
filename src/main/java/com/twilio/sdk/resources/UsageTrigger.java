@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.UsageTriggerCreator;
 import com.twilio.sdk.deleters.UsageTriggerDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -58,8 +59,8 @@ public class UsageTrigger extends SidResource {
                          @JsonProperty("recurring") final UsageTrigger.Recurring recurring,
                          @JsonProperty("usage_category") final UsageCategory usageCategory,
                          @JsonProperty("trigger_value") final String triggerValue) {
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
-        this.dateFired = safeDateTimeConvert(dateFired);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateFired = MarshalConverter.dateTimeFromString(dateFired);
         this.friendlyName = friendlyName;
         this.uri = uri;
         this.accountSid = accountSid;
@@ -68,7 +69,7 @@ public class UsageTrigger extends SidResource {
         this.callbackMethod = callbackMethod;
         this.sid = sid;
         this.currentValue = currentValue;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.callbackUrl = callbackUrl;
         this.recurring = recurring;
         this.usageCategory = usageCategory;

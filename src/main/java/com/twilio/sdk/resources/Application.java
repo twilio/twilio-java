@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.ApplicationCreator;
 import com.twilio.sdk.deleters.ApplicationDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -70,7 +71,7 @@ public class Application extends SidResource {
         this.smsStatusCallback = smsStatusCallback;
         this.smsFallbackMethod = smsFallbackMethod;
         this.messageStatusCallback = messageStatusCallback;
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.statusCallbackMethod = statusCallbackMethod;
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         this.friendlyName = friendlyName;
@@ -81,7 +82,7 @@ public class Application extends SidResource {
         this.smsMethod = smsMethod;
         this.voiceMethod = voiceMethod;
         this.sid = sid;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.smsUrl = smsUrl;
         this.statusCallback = statusCallback;
         this.voiceFallbackMethod = voiceFallbackMethod;

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.CallFeedbackCreator;
 import com.twilio.sdk.deleters.CallFeedbackDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -38,11 +39,11 @@ public class CallFeedback extends SidResource {
                          @JsonProperty("account_sid") final String accountSid, @JsonProperty("sid") final String sid,
                          @JsonProperty("date_created") final String dateCreated,
                          @JsonProperty("issues") final List<CallFeedback.Issue> issues) {
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.qualityScore = qualityScore;
         this.accountSid = accountSid;
         this.sid = sid;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.issues = issues;
 
     }

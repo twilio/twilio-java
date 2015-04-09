@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.readers.UsageRecordReader;
 import org.joda.time.LocalDate;
 
@@ -51,13 +52,13 @@ public class UsageRecord extends Resource {
         }
         this.subresourceUris = subresourceUris;
         this.description = description;
-        this.endDate = safeDateConvert(endDate);
+        this.endDate = MarshalConverter.localDateFromString(endDate);
         this.usageUnit = usageUnit;
         this.price = price;
         this.uri = uri;
         this.accountSid = accountSid;
         this.usage = usage;
-        this.startDate = safeDateConvert(startDate);
+        this.startDate = MarshalConverter.localDateFromString(startDate);
         this.countUnit = countUnit;
 
     }

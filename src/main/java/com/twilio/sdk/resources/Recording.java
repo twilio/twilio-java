@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.deleters.RecordingDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
@@ -39,13 +40,13 @@ public class Recording extends SidResource {
                       @JsonProperty("duration") final Integer duration,
                       @JsonProperty("date_created") final String dateCreated,
                       @JsonProperty("api_version") final String apiVersion) {
-        this.dateUpdated = safeDateTimeConvert(dateUpdated);
+        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.uri = uri;
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.sid = sid;
         this.duration = duration;
-        this.dateCreated = safeDateTimeConvert(dateCreated);
+        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.apiVersion = apiVersion;
 
     }

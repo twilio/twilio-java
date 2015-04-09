@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.deleters.MediaDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
@@ -42,12 +43,12 @@ public class Media extends SidResource {
         @JsonProperty("date_created") final String dateCreated
         ) {
         this.parentSid = parentSid;
-            this.dateUpdated = safeDateTimeConvert(dateUpdated);
+            this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
             this.uri = uri;
             this.accountSid = accountSid;
             this.contentType = contentType;
             this.sid = sid;
-            this.dateCreated = safeDateTimeConvert(dateCreated);
+            this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
             
     }
 

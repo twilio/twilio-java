@@ -27,5 +27,7 @@ public class EventTest extends BasicRequestTester {
 		assertNull(event.getDescription());
 		assertNotNull(event.getEventDate());
 		assertNotNull(event.getEventData());
+		assertNotNull(event.getActorUrl());
+		assertNotNull(event.getResourceUrl());
 	}
 }

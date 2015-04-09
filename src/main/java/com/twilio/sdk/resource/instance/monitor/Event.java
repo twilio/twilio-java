@@ -79,7 +79,8 @@ public class Event extends NextGenInstanceResource<TwilioMonitorClient> {
 	 * @return the actor url
 	 */
 	public String getActorUrl() {
-		return getProperty("actor_url");
+		Map<String, String> links = (Map<String, String>) getObject("links");
+		return links.get("actor");
 	}
 
 	/**
@@ -142,7 +143,8 @@ public class Event extends NextGenInstanceResource<TwilioMonitorClient> {
 	 * @return the resource url
 	 */
 	public String getResourceUrl() {
-		return getProperty("resource_url");
+		Map<String, String> links = (Map<String, String>) getObject("links");
+		return links.get("resource");
 	}
 
 	/**

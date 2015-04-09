@@ -97,8 +97,8 @@ public class Event extends NextGenInstanceResource<TwilioMonitorClient> {
 	 *
 	 * @return the event data
 	 */
-	public Map<String, Object> getEventData() {
-		return (Map<String, Object>) getObject("event_data");
+	public Map<String, Map<String, Object>> getEventData() {
+		return (Map<String, Map<String, Object>>) getObject("event_data");
 	}
 
 	/**

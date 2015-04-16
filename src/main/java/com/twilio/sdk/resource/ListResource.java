@@ -113,9 +113,6 @@ public abstract class ListResource<T extends Resource, C extends TwilioClient> e
 	/** The num pages. */
 	private int numPages = 0;
 
-	/** The total. */
-	private int total = 0;
-
 	/**
 	 * Gets the next uri.
 	 *
@@ -150,15 +147,6 @@ public abstract class ListResource<T extends Resource, C extends TwilioClient> e
 	 */
 	public int getNumPages() {
 		return numPages;
-	}
-
-	/**
-	 * Gets the total.
-	 *
-	 * @return the total
-	 */
-	public int getTotal() {
-		return total;
 	}
 
 	/**
@@ -226,8 +214,6 @@ public abstract class ListResource<T extends Resource, C extends TwilioClient> e
 				.getPagingPropertyKey(PagingProperty.PAGE_KEY)));
 		this.numPages = this.getIntValue(data.get(response.getParser()
 				.getPagingPropertyKey(PagingProperty.NUM_PAGES_KEY)));
-		this.total = this.getIntValue(data.get(response.getParser()
-				.getPagingPropertyKey(PagingProperty.TOTAL_KEY)));
 
 		// Setup data
 		this.pageData = this.toList(response);

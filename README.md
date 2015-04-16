@@ -9,7 +9,7 @@ Use the following dependency in your project:
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio-java-sdk</artifactId>
-          <version>3.7.1</version>
+          <version>4.0.0</version>
           <scope>compile</scope>
        </dependency>
 
@@ -25,8 +25,8 @@ index.html located there to view it locally.
 Pre-built jars are available [here](http://search.maven.org/#browse%7C-1416163511). Select the directory for
 the latest version and download one of these jar files:
 
-* twilio-java-sdk-3.x.x-with-dependencies.jar
-* twilio-java-sdk-3.x.x.jar -- use this if you have issues with conflicting jars in your project. You'll need to include versions of the dependencies yourself. See the [pom.xml](https://github.com/twilio/twilio-java/blob/master/pom.xml) file in [twilio-java](https://github.com/twilio/twilio-java) for the list of libraries.
+* twilio-java-sdk-4.x.x-with-dependencies.jar
+* twilio-java-sdk-4.x.x.jar -- use this if you have issues with conflicting jars in your project. You'll need to include versions of the dependencies yourself. See the [pom.xml](https://github.com/twilio/twilio-java/blob/master/pom.xml) file in [twilio-java](https://github.com/twilio/twilio-java) for the list of libraries.
 
 You can view the javadocs for this project at:
 [http://twilio.github.io/twilio-java](http://twilio.github.io/twilio-java)

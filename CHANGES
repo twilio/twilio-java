@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.0.0
+-------------
+
+Released April 16, 2015
+
+- Remove total from the ListResource
+
 Version 3.7.1
 -------------
 

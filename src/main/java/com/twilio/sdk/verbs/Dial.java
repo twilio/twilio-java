@@ -95,7 +95,34 @@ public class Dial extends Verb {
         else
             this.set("hangupOnStar", "false");          
     }
-    
+
+    /**
+     * Sets the record behavior.
+     *
+     * <ul>
+     *     <li>do-not-record        - don't record</li>
+     *     <li>record-from-answer   - the recording will begin when a call is answered</li>
+     *     <li>record-from-ringing  - the recording will begin when the ringing starts</li>
+     * </ul>
+     *
+     * @param value the new record value
+     */
+    public void setRecord(String value) {
+        this.set("record", value);
+    }
+
+    /**
+     * Set the record behavior (Legacy way).
+     *
+     * @param f whether or not ro record
+     */
+    public void setRecord(boolean f) {
+        if (f)
+            this.set("record", "true");
+        else
+            this.set("record", "false");
+    }
+
     /**
      * Sets the time limit.
      *

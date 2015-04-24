@@ -229,7 +229,7 @@ public class Message extends InstanceResource<TwilioRestClient> {
 	 */
 	public Integer getErrorCode() {
 		try {
-			return Integer.parseInt(this.getProperty("error_code"));
+			return (Integer)this.getObject("error_code");
 		} catch (NumberFormatException e) {
 			return null;
 		}

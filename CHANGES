@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.0.1
+-------------
+
+Released April 24, 2015
+
+- Update Record parameter values in TwiML generator
+- Add a few missing resource attributes and fix broken ones
+
 Version 4.0.0
 -------------
 

@@ -23,24 +23,25 @@ A huge thanks to all of our contributors:
 - D Keith Casey Jr
 - Doug Black
 - Eric Anderle
-- Frank
 - Frank Stratton
 - Girish Bharadwaj
 - Guillaume BINET
 - Jancsi Farkas
 - Jason Li
+- Jeroen Wesbeek
 - John A. Tamplin
 - Jon Plax
+- Justin Witz
 - Kevin Burke
 - Kevin Whinnery
 - Kyle Conroy
 - Mario Niebla
 - Matt Nowack
-- Matthew Nowack
 - RonaldWentworth
 - Sam Kimbrel
 - Sunil Veluvali
 - Takuji Shimokawa
 - Thomas Wilsher
 - Vincent Pizzo
+- olivier bourgain
 - rschiffert@twilio.com

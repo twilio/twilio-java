@@ -248,6 +248,14 @@ public class Call extends InstanceResource<TwilioRestClient> {
 	}
 
 	/**
+	 * The API version that Twilio used for TwiML requests during this call.
+	 * @return TwiML API version
+	 */
+	public String getApiVersion() {
+		return getProperty("api_version");
+	}
+
+	/**
 	 * Gets the feedback factory, which lets add feedback to this call.
 	 *
 	 * @return the feedback factory

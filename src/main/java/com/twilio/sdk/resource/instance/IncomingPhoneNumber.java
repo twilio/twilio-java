@@ -224,12 +224,12 @@ public class IncomingPhoneNumber extends InstanceResource<TwilioRestClient> {
 	}
 
 	/**
-	 * Gets the voice caller id lookup.
+	 * Whether this number has caller-ID lookup enabled for incoming voice calls.
 	 *
-	 * @return the voice caller id lookup
+	 * @return Voice caller ID lookup setting
 	 */
-	public String getVoiceCallerIdLookup() {
-		return this.getProperty("voice_caller_id_lookup");
+	public Boolean getVoiceCallerIdLookup() {
+		return (Boolean) this.getObject("voice_caller_id_lookup");
 	}
 
 	/**

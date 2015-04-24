@@ -11,6 +11,7 @@ import org.mockito.Matchers;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
@@ -30,6 +31,7 @@ public class CallTest {
 		map.put("duration", "3");
 		map.put("sid", callSid);
 		map.put("account_sid", accountSid);
+		map.put("api_version", "2010-04-01");
 	}
 
 	@Test
@@ -50,6 +52,8 @@ public class CallTest {
 
 		TranscriptionList transcriptions = call.getTranscriptions();
 		assertTrue(transcriptions.getRequestCallSid().equals(callSid));
+
+		assertEquals("2010-04-01", call.getApiVersion());
 
 	}
 }

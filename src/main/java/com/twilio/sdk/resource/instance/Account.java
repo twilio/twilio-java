@@ -11,6 +11,7 @@ import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
 import com.twilio.sdk.resource.factory.QueueFactory;
+import com.twilio.sdk.resource.factory.SigningKeyFactory;
 import com.twilio.sdk.resource.factory.SmsFactory;
 import com.twilio.sdk.resource.factory.UsageTriggerFactory;
 import com.twilio.sdk.resource.factory.sip.CredentialListFactory;
@@ -34,9 +35,10 @@ import com.twilio.sdk.resource.list.OutgoingCallerIdList;
 import com.twilio.sdk.resource.list.QueueList;
 import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.ShortCodeList;
+import com.twilio.sdk.resource.list.SigningKeyList;
 import com.twilio.sdk.resource.list.SmsList;
-import com.twilio.sdk.resource.list.TranscriptionList;
 import com.twilio.sdk.resource.list.TokenList;
+import com.twilio.sdk.resource.list.TranscriptionList;
 import com.twilio.sdk.resource.list.UsageRecordList;
 import com.twilio.sdk.resource.list.UsageTriggerList;
 import com.twilio.sdk.resource.list.sip.CredentialListList;
@@ -632,6 +634,43 @@ public class Account extends InstanceResource<TwilioRestClient> {
 		ShortCode sc = new ShortCode(this.getClient(), sid);
 		sc.setRequestAccountSid(this.getRequestAccountSid());
 		return sc;
+	}
+
+	/**
+	 * Get a signing key instance by sid.
+	 *
+	 * @param sid
+	 * @return the signing key
+	 */
+	public SigningKey getSigningKey(final String sid) {
+		SigningKey signingKey = new SigningKey(getClient(), sid);
+		signingKey.setRequestAccountSid(getRequestAccountSid());
+		return signingKey;
+	}
+
+	public SigningKeyFactory getSigningKeyFactory() {
+		return getSigningKeys();
+	}
+
+	/**
+	 * Get the signing key list.
+	 *
+	 * @return the signing key list
+	 */
+	public SigningKeyList getSigningKeys() {
+		return getSigningKeys(new HashMap<String, String>(0));
+	}
+
+	/**
+	 * Get the signing key list with filters.
+	 *
+	 * @param filters
+	 * @return the signing key list
+	 */
+	public SigningKeyList getSigningKeys(Map<String, String> filters) {
+		SigningKeyList list = new SigningKeyList(getClient(), filters);
+		list.setRequestAccountSid(getRequestAccountSid());
+		return list;
 	}
 
 	/**

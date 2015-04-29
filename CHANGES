@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.0.2
+-------------
+
+Released April 29, 2015
+
+- Expose the notifications subresource from call instances
+
 Version 4.0.1
 -------------
 

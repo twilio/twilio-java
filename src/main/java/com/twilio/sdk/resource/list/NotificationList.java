@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class NotificationList extends ListResource<Notification, TwilioRestClient> {
 
+	private String requestCallSid;
+
 	/**
 	 * Instantiates a new notification list.
 	 *
@@ -21,6 +23,29 @@ public class NotificationList extends ListResource<Notification, TwilioRestClien
 	 */
 	public NotificationList(TwilioRestClient client) {
 		super(client);
+	}
+
+	/**
+	 * Instantiates a new notification list.
+	 *
+	 * @param client the client
+	 * @param callSid the sid of the parent call
+	 */
+	public NotificationList(TwilioRestClient client, String callSid) {
+		super(client);
+		this.requestCallSid = callSid;
+	}
+
+	/**
+	 * Instantiates a new notification list.
+	 *
+	 * @param client the client
+	 * @param callSid the sid of the parent call
+	 * @param filters the filters
+	 */
+	public NotificationList(TwilioRestClient client, String callSid, Map<String, String> filters) {
+		super(client, filters);
+		this.requestCallSid = callSid;
 	}
 
 	/**
@@ -38,8 +63,15 @@ public class NotificationList extends ListResource<Notification, TwilioRestClien
 	 */
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
-				+ this.getRequestAccountSid() + "/Notifications.json";
+		if (this.requestCallSid != null) {
+			return "/" + TwilioRestClient.DEFAULT_VERSION +
+				"/Accounts/" + this.getRequestAccountSid() +
+				"/Calls/" + this.getRequestCallSid() +
+				"/Notifications.json";
+		} else {
+			return "/" + TwilioRestClient.DEFAULT_VERSION + "/Accounts/"
+					+ this.getRequestAccountSid() + "/Notifications.json";
+		}
 	}
 
 	/* (non-Javadoc)
@@ -57,5 +89,15 @@ public class NotificationList extends ListResource<Notification, TwilioRestClien
 	@Override
 	protected String getListKey() {
 		return "notifications";
+	}
+
+	/**
+	 * Gets the call sid of the notification *if* it was initially referenced
+	 * as the child of a message
+	 *
+	 * @return the call sid of the parent call
+	 */
+	public String getRequestCallSid() {
+		return this.requestCallSid;
 	}
 }

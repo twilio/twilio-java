@@ -26,8 +26,8 @@ public class ScopedAuthenticationToken {
 	/**
 	 * Instantiate a scoped authentication token.
 	 *
-	 * @param signingKeySid
-	 * @param accountSid
+	 * @param signingKeySid the signing key's unique ID
+	 * @param accountSid the account's unique ID to which access is scoped
 	 */
 	public ScopedAuthenticationToken(final String signingKeySid, final String accountSid) {
 		this(signingKeySid, accountSid, null);
@@ -36,9 +36,9 @@ public class ScopedAuthenticationToken {
 	/**
 	 * Instantiate a scoped authentication token.
 	 *
-	 * @param signingKeySid
-	 * @param accountSid
-	 * @param tokenId
+	 * @param signingKeySid the signing key's unique ID
+	 * @param accountSid the account's unique ID to which access is scoped
+	 * @param tokenId a unique ID for this token
 	 */
 	public ScopedAuthenticationToken(final String signingKeySid, final String accountSid, final String tokenId) {
 		this(signingKeySid, accountSid, tokenId, DEFAULT_TTL, new ArrayList<Grant>(0));
@@ -47,11 +47,11 @@ public class ScopedAuthenticationToken {
 	/**
 	 * Instantiate a scoped authentication token.
 	 *
-	 * @param signingKeySid
-	 * @param accountSid
-	 * @param tokenId
-	 * @param ttl
-	 * @param grants
+	 * @param signingKeySid the signing key's unique ID
+	 * @param accountSid the account's unique ID to which access is scoped
+	 * @param tokenId a unique ID for this token
+	 * @param ttl time to live in seconds
+	 * @param grants the grants given to this token
 	 */
 	public ScopedAuthenticationToken(final String signingKeySid, final String accountSid, final String tokenId,
 	                                 final int ttl, final List<Grant> grants) {

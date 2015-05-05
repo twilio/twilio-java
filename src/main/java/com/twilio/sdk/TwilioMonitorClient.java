@@ -1,6 +1,8 @@
 package com.twilio.sdk;
 
+import com.twilio.sdk.resource.instance.monitor.Alert;
 import com.twilio.sdk.resource.instance.monitor.Event;
+import com.twilio.sdk.resource.list.monitor.AlertList;
 import com.twilio.sdk.resource.list.monitor.EventList;
 
 import java.util.HashMap;
@@ -45,4 +47,26 @@ public class TwilioMonitorClient extends TwilioClient {
 	public EventList getEvents(final Map<String, String> filters) {
 		return new EventList(this, filters);
 	}
+
+	/**
+	 * Get an Alert instance by sid.
+	 * @param alertSid Alert identifier
+	 * @return Alert instance
+	 */
+	public Alert getAlert(final String alertSid) {
+		return new Alert(this, alertSid);
+	}
+
+	public AlertList getAlerts(final Map<String, String> filters) {
+		return new AlertList(this, filters);
+	}
+
+	/**
+	 * Get a list of Alerts for the current account.
+	 * @return Alert list.
+	 */
+	public AlertList getAlerts() {
+		return getAlerts(new HashMap<String, String>(0));
+	}
+
 }

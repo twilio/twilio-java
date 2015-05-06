@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * The Class Notification.
  *
- * For more information see <a href="https://www.twilio.com/docs/api/rest/notification">https://www.twilio.com/docs/api/rest/notification</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/notification">https://www.twilio.com/docs/api/rest/monitor-alerts</a>
  */
 public class Alert extends NextGenInstanceResource<TwilioMonitorClient> {
 
@@ -36,8 +36,8 @@ public class Alert extends NextGenInstanceResource<TwilioMonitorClient> {
 	public Alert(TwilioMonitorClient client, String sid) {
 		super(client);
 		if (sid == null) {
-            throw new IllegalStateException("The Sid for a Notification can not be null");
-        }
+			throw new IllegalStateException("The Sid for a Notification can not be null");
+		}
 		this.setProperty(SID_PROPERTY, sid);
 	}
 

@@ -14,12 +14,12 @@ import java.util.Map;
 /**
  * The Class NotificationList.
  *
- * For more information see <a href="https://www.twilio.com/docs/api/rest/notification">https://www.twilio.com/docs/api/rest/notification</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/alert">https://www.twilio.com/docs/api/rest/monitor-alerts</a>
  */
 public class AlertList extends NextGenListResource<Alert, TwilioMonitorClient> {
 
 	/**
-	 * Instantiates a new notification list.
+	 * Instantiates a new alert list.
 	 *
 	 * @param client the client
 	 */
@@ -28,7 +28,7 @@ public class AlertList extends NextGenListResource<Alert, TwilioMonitorClient> {
 	}
 
 	/**
-	 * Instantiates a new notification list.
+	 * Instantiates a new alert list.
 	 *
 	 * @param client the client
 	 * @param filters the filters

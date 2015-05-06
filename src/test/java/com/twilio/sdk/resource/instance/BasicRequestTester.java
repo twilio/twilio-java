@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.instance;
 
 import com.twilio.sdk.LookupsClient;
+import com.twilio.sdk.TwilioPricingClient;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import org.apache.http.Header;
@@ -27,6 +28,7 @@ public class BasicRequestTester {
 	HttpClient httpClient;
 
 	protected TwilioRestClient restClient = new TwilioRestClient(accountSid, authtoken);
+	protected TwilioPricingClient pricingClient = new TwilioPricingClient(accountSid, authtoken);
 	protected TwilioTaskRouterClient taskRouterClient = new TwilioTaskRouterClient(accountSid, authtoken);
 	protected LookupsClient lookupsClient = new LookupsClient(accountSid, authtoken);
 
@@ -39,6 +41,7 @@ public class BasicRequestTester {
 	public void init() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		restClient.setHttpClient(httpClient);
+		pricingClient.setHttpClient(httpClient);
 		taskRouterClient.setHttpClient(httpClient);
 		lookupsClient.setHttpClient(httpClient);
 
@@ -49,6 +52,7 @@ public class BasicRequestTester {
 		when(httpClient.execute(Matchers.<HttpUriRequest>anyObject())).thenReturn(response);
 		when(response.getEntity()).thenReturn(entity);
 	}
+
 	protected void setExpectedServerReturnCode(int code) throws Exception {
 		when(status_line.getStatusCode()).thenReturn(code);
 	}
@@ -59,7 +63,7 @@ public class BasicRequestTester {
 		}
 		else
 		{
-	    when(entity.getContent()).thenReturn(BasicRequestTester.class.getResourceAsStream(resource_name));
+			when(entity.getContent()).thenReturn(BasicRequestTester.class.getResourceAsStream(resource_name));
 		}
 	}
 

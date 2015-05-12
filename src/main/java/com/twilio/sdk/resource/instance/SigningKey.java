@@ -11,7 +11,7 @@ import java.util.Map;
 public class SigningKey extends NextGenInstanceResource<TwilioRestClient> {
 
 	/**
-	 * Instantiates a new SingingKey.
+	 * Instantiates a new SigningKey.
 	 *
 	 * @param client the client
 	 * @param sid the sid

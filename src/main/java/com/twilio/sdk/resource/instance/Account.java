@@ -1,9 +1,5 @@
 package com.twilio.sdk.resource.instance;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -15,6 +11,7 @@ import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
 import com.twilio.sdk.resource.factory.QueueFactory;
+import com.twilio.sdk.resource.factory.SigningKeyFactory;
 import com.twilio.sdk.resource.factory.SmsFactory;
 import com.twilio.sdk.resource.factory.UsageTriggerFactory;
 import com.twilio.sdk.resource.factory.sip.CredentialListFactory;
@@ -38,6 +35,7 @@ import com.twilio.sdk.resource.list.OutgoingCallerIdList;
 import com.twilio.sdk.resource.list.QueueList;
 import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.ShortCodeList;
+import com.twilio.sdk.resource.list.SigningKeyList;
 import com.twilio.sdk.resource.list.SmsList;
 import com.twilio.sdk.resource.list.TokenList;
 import com.twilio.sdk.resource.list.TranscriptionList;
@@ -46,6 +44,10 @@ import com.twilio.sdk.resource.list.UsageTriggerList;
 import com.twilio.sdk.resource.list.sip.CredentialListList;
 import com.twilio.sdk.resource.list.sip.DomainList;
 import com.twilio.sdk.resource.list.sip.IpAccessControlListList;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 
@@ -644,6 +646,17 @@ public class Account extends InstanceResource<TwilioRestClient> {
 		SigningKey signingKey = new SigningKey(getClient(), sid);
 		signingKey.setRequestAccountSid(getRequestAccountSid());
 		return signingKey;
+	}
+
+	/**
+	 * Gets a Signing key factory.
+	 * 
+	 * @return a Signing key factory
+	 */
+	public SigningKeyFactory getSigningKeyFactory() {
+		SigningKeyList list = new SigningKeyList(getClient());
+		list.setRequestAccountSid(getRequestAccountSid());
+		return list;
 	}
 
 	/**

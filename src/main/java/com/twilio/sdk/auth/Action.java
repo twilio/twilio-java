@@ -1,4 +1,4 @@
-package com.twilio.sdk;
+package com.twilio.sdk.auth;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -7,7 +7,9 @@ public enum Action {
 	DELETE("DELETE"),
 	GET("GET"),
 	POST("POST"),
-	PUT("PUT");
+	PUT("PUT"),
+	LISTEN("listen"),
+	INVITE("invite");
 
 	private final String value;
 

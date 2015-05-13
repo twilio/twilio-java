@@ -1,9 +1,5 @@
 package com.twilio.sdk;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -158,17 +154,8 @@ public abstract class TwilioClient {
 	 * @param authToken the auth token
 	 */
 	private void validateAuthToken(final String authToken) {
-		if (authToken == null) {
+		if (authToken == null || authToken.length() != AUTH_TOKEN_LENGTH) {
 			throw new IllegalArgumentException("AuthToken '" + authToken + "' is not valid.");
-		}
-		if (authToken.length() != AUTH_TOKEN_LENGTH) {
-			try {
-				Jwts.parser().setSigningKey("BogusKey".getBytes()).parse(authToken);
-			} catch (SignatureException e) {
-				// authToken is a JWT, but we can't verify the signature
-			} catch (JwtException e) {
-				throw new IllegalArgumentException("AuthToken '" + authToken + "' is not valid.", e);
-			}
 		}
 	}
 
@@ -481,25 +468,9 @@ public abstract class TwilioClient {
 		request.addHeader(new BasicHeader("Accept-Charset", "utf-8"));
 
 		if (httpclient instanceof DefaultHttpClient) { // as DefaultHttpClient class has final method, I need httpClient to be a plain interface to be able to mock it
-			UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(accountSid, authToken);
-			try {
-				Jwts.parser()
-				    .setSigningKey("BogusKey".getBytes())
-				    .parse(authToken);
-				// We should never get here unless the key is actually BogusKey. But if we do, we still have a valid JWT.
-				credentials = new UsernamePasswordCredentials("Token", authToken);
-			} catch (SignatureException e) {
-				// authToken is a JWT, but we can't verify the signature
-				credentials = new UsernamePasswordCredentials("Token", authToken);
-			} catch (ExpiredJwtException e) {
-				// authToken is a JWT, but we'll let the API deal with the fact that it's expired
-				credentials = new UsernamePasswordCredentials("Token", authToken);
-			} catch (JwtException e) {
-				// if it's not a valid JWT we don't change the credentials
-			}
 			((DefaultHttpClient) httpclient).getCredentialsProvider()
-			                                .setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-			                                                credentials);
+					.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
+							new UsernamePasswordCredentials(accountSid, authToken));
 		}
 		return request;
 	}
@@ -514,7 +485,7 @@ public abstract class TwilioClient {
 	 * @throws TwilioRestException if there's an client exception returned by the TwilioApi
 	 */
 	public TwilioRestResponse safeRequest(final String path, final String method, final Map<String, String> vars) throws
-	                                                                                                              TwilioRestException {
+			TwilioRestException {
 
 		List<NameValuePair> paramList = generateParameters(vars);
 		return safeRequest(path, method, paramList);

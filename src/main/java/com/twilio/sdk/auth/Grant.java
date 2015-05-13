@@ -1,7 +1,8 @@
-package com.twilio.sdk;
+package com.twilio.sdk.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,6 +12,10 @@ public class Grant {
 
 	private String resource;
 	private Set<Action> actions;
+
+	public Grant(final String resource) {
+		this(resource, new HashSet<Action>(1) {{ add(Action.ALL); }});
+	}
 
 	/**
 	 * Instantiate a Grant.

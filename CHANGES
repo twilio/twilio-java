@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.3.0
+-------------
+
+Released May 14, 2015
+
+- Add support for the new StatusCallbackEvent feature in TwiML generation.
+
 Version 4.2.0
 -------------
 

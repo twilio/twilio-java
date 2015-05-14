@@ -141,15 +141,6 @@ public abstract class ListResource<T extends Resource, C extends TwilioClient> e
 	}
 
 	/**
-	 * Gets the num pages.
-	 *
-	 * @return the num pages
-	 */
-	public int getNumPages() {
-		return numPages;
-	}
-
-	/**
 	 * Gets the page.
 	 *
 	 * @return the page

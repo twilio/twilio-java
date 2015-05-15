@@ -1,0 +1,13 @@
+{  
+   "sid":"CVb659acc64870d9d54248e14bd8bc01a2",
+   "status":"in-progress",
+   "account_sid":"AC7b659acc64804bd8bc01a2d9d54248e1",
+   "date_created":"2010-08-18T20:20:10Z",
+   "start_time":"2010-08-18T20:20:10Z",
+   "end_time":"2010-08-18T20:20:10Z",
+   "duration":60,
+   "url":"https://conversations.twilio.com/v1/Conversations/CVbbe46ff1274e283f7e3ac1df0072ab39",
+   "links":{  
+      "participants": "https://conversations.twilio.com/v1/Conversations/CVbbe46ff1274e283f7e3ac1df0072ab39/Participants"
+   }
+}

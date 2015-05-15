@@ -7,52 +7,63 @@ import com.twilio.sdk.TwilioConversationsClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
 /**
- * Represents a Conversation.
- * <p/>
- * See <a href="https://www.twilio.com/docs/conversations">the Conversations documentation</a>.
+ * Represents a Conversation Participant.
  */
-public class Conversation extends NextGenInstanceResource<TwilioConversationsClient> {
+public class Participant extends NextGenInstanceResource<TwilioConversationsClient> {
+
+	private static final String CONVERSATION_SID = "conversation_sid";
 
 	/**
-	 * Instantiates a Conversation
+	 * Instantiates a Participant
 	 *
 	 * @param client the client
 	 */
-	public Conversation(final TwilioConversationsClient client) {
+	public Participant(final TwilioConversationsClient client) {
 		super(client);
 	}
 
 	/**
-	 * Instantiates a Conversation
+	 * Instantiates a Participant
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public Conversation(final TwilioConversationsClient client, final Map<String, Object> properties) {
+	public Participant(final TwilioConversationsClient client, final Map<String, Object> properties) {
 		super(client, properties);
 	}
 
 	/**
-	 * Instantiates a Conversation
+	 * Instantiates a Participant
 	 *
 	 * @param client the client
 	 * @param conversationSid the conversation sid
+	 * @param participantSid the participant sid
 	 */
-	public Conversation(final TwilioConversationsClient client, final String conversationSid) {
+	public Participant(final TwilioConversationsClient client, final String conversationSid, final String participantSid) {
 		super(client);
 		if (conversationSid == null || "".equals(conversationSid)) {
 			throw new IllegalArgumentException("The conversationSid cannot be null");
 		}
-		setProperty(SID_PROPERTY, conversationSid);
+		setProperty(CONVERSATION_SID, conversationSid);
+		setProperty(SID_PROPERTY, participantSid);
 	}
 
 	/**
-	 * Gets the sid.
+	 * Gets the sid
 	 *
 	 * @return the sid
 	 */
 	public String getSid() {
 		return getProperty(SID_PROPERTY);
+	}
+
+	/**
+	 * Gets the Address
+	 * 
+	 * @return the Address
+	 */
+	public String getAddress() {
+		return getProperty("address");
 	}
 
 	/**
@@ -65,12 +76,12 @@ public class Conversation extends NextGenInstanceResource<TwilioConversationsCli
 	}
 
 	/**
-	 * The {@link com.twilio.sdk.resource.instance.Account Account} creating this Conversation
+	 * The {@link com.twilio.sdk.resource.instance.conversations.Conversation} Conversation this Participant belong to
 	 *
-	 * @return the account sid
+	 * @return the conversation sid
 	 */
-	public String getAccountSid() {
-		return getProperty("account_sid");
+	public String getConversationSid() {
+		return getProperty("conversation_sid");
 	}
 
 	/**
@@ -110,7 +121,16 @@ public class Conversation extends NextGenInstanceResource<TwilioConversationsCli
 	}
 
 	/**
-	 * URL of this Conversation in Twilio REST API.
+	 * The {@link com.twilio.sdk.resource.instance.Account} Account sid of this Participant
+	 *
+	 * @return the account sid
+	 */
+	public String getAccountSid() {
+		return getProperty("account_sid");
+	}
+
+	/**
+	 * URL of this Participant
 	 *
 	 * @return resource URL
 	 */
@@ -118,19 +138,9 @@ public class Conversation extends NextGenInstanceResource<TwilioConversationsCli
 		return getProperty("url");
 	}
 
-	/**
-	 * Gets the participants url
-	 *
-	 * @return the participants url
-	 */
-	@SuppressWarnings("unchecked")
-	public String getParticipantsUrl() {
-		Map<String, String> links = (Map<String, String>) getObject("links");
-		return links.get("participants");
-	}
-
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioConversationsClient.DEFAULT_VERSION + "/Conversations/" + getSid();
+		return "/" + TwilioConversationsClient.DEFAULT_VERSION
+				+ "/Conversations/" + getConversationSid() + "/Participants/" + getSid();
 	}
 }

@@ -27,7 +27,7 @@ public class ConversationTest extends BasicRequestTester {
 	}
 
 	@Test
-	public void testGetAlert() throws Exception {
+	public void testGetConversation() throws Exception {
 		setExpectedServerReturnCode(200);
 		Conversation conversation = conversationsClient.getConversation("CVb659acc64870d9d54248e14bd8bc01a2");
 		assertNotNull(conversation);

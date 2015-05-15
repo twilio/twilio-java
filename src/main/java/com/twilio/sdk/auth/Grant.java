@@ -14,7 +14,11 @@ public class Grant {
 	private Set<Action> actions;
 
 	public Grant(final String resource) {
-		this(resource, new HashSet<Action>(1) {{ add(Action.ALL); }});
+		this(resource, Action.ALL);
+	}
+
+	public Grant(final String resource, final Action action) {
+		this(resource, new HashSet<Action>(1) {{ add(action); }});
 	}
 
 	/**

@@ -3,6 +3,7 @@ package com.twilio.sdk;
 import com.twilio.sdk.auth.AccessToken;
 import com.twilio.sdk.auth.EndpointGrant;
 import com.twilio.sdk.auth.Grant;
+import com.twilio.sdk.auth.RestGrant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.Test;
@@ -77,5 +78,41 @@ public class AccessTokenTest {
 		List<String> actions = (List<String>) decodedGrants.get(0).get("act");
 		assertTrue(actions.contains("listen"));
 		assertTrue(actions.contains("invite"));
+	}
+
+	@Test
+	public void testRestGrant() {
+		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, SECRET);
+		accessToken.addGrant(new RestGrant("/Apps"));
+
+		Claims claims = Jwts.parser()
+				.setSigningKey(SECRET.getBytes())
+				.parseClaimsJws(accessToken.toJWT())
+				.getBody();
+
+		this.validateClaims(claims);
+
+		List<Map<String, Object>> decodedGrants = (List<Map<String, Object>>) claims.get("grants");
+		assertEquals(1, decodedGrants.size());
+		assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Apps", decodedGrants.get(0).get("res"));
+		assertEquals("*", ((List<String>) decodedGrants.get(0).get("act")).get(0));
+	}
+
+	@Test
+	public void testEnableNTS() {
+		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, SECRET);
+		accessToken.enableNTS();
+
+		Claims claims = Jwts.parser()
+				.setSigningKey(SECRET.getBytes())
+				.parseClaimsJws(accessToken.toJWT())
+				.getBody();
+
+		this.validateClaims(claims);
+
+		List<Map<String, Object>> decodedGrants = (List<Map<String, Object>>) claims.get("grants");
+		assertEquals(1, decodedGrants.size());
+		assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens", decodedGrants.get(0).get("res"));
+		assertEquals("POST", ((List<String>) decodedGrants.get(0).get("act")).get(0));
 	}
 }

@@ -2,6 +2,7 @@ package com.twilio.sdk.auth;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class AccessToken {
 	}
 
 	/**
-	 * Add a grant to this scoped authentication token
+	 * Add a grant to the AccessToken
 	 *
 	 * @param grant grant to add
 	 * @return this
@@ -65,9 +66,32 @@ public class AccessToken {
 		return this;
 	}
 
+	/**
+	 * Add an EndpointGrant to the AccessToken
+	 *
+	 * @param endpointGrant grant to add
+	 * @return this
+	 */
 	public AccessToken addGrant(final EndpointGrant endpointGrant) {
 		Grant grant = new Grant("sip:" + endpointGrant.getResource() + "@" + this.accountSid + ".endpoint.twilio.com",
 								endpointGrant.getActions());
+		return this.addGrant(grant);
+	}
+
+	/**
+	 * Add a RestGrant to the AccessToken
+	 *
+	 * @param restGrant grant to add
+	 * @return this
+	 */
+	public AccessToken addGrant(final RestGrant restGrant) {
+		Grant grant = new Grant("https://api.twilio.com/2010-04-01/Accounts/" + this.accountSid + "/" + StringUtils.removeStart(restGrant.getResource(), "/"),
+								restGrant.getActions());
+		return this.addGrant(grant);
+	}
+
+	public AccessToken enableNTS() {
+		RestGrant grant = new RestGrant("/Tokens", Action.POST);
 		return this.addGrant(grant);
 	}
 

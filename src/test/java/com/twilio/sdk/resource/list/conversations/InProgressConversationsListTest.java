@@ -19,7 +19,7 @@ public class InProgressConversationsListTest extends BasicRequestTester {
 	}
 
 	@Test
-	public void testGetCompletedConversations() throws Exception {
+	public void testGetInProgressConversations() throws Exception {
 		setExpectedServerReturnCode(200);
 		InProgressConversationsList inProgressConversations = conversationsClient.getInProgressConversations();
 		assertNotNull(inProgressConversations);

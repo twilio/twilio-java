@@ -4,13 +4,13 @@ import java.util.Map;
 
 import com.twilio.sdk.TwilioConversationsClient;
 import com.twilio.sdk.resource.NextGenListResource;
-import com.twilio.sdk.resource.instance.conversations.Conversations;
+import com.twilio.sdk.resource.instance.conversations.Conversation;
 
 /**
  * Represents In-Progress Conversations List
  * 
  */
-public class InProgressConversationsList extends NextGenListResource<Conversations, TwilioConversationsClient> {
+public class InProgressConversationsList extends NextGenListResource<Conversation, TwilioConversationsClient> {
 
 	/**
 	 * Initializes InProgressConversationsList
@@ -32,9 +32,9 @@ public class InProgressConversationsList extends NextGenListResource<Conversatio
 	}
 
 	@Override
-	protected Conversations makeNew(TwilioConversationsClient client,
+	protected Conversation makeNew(TwilioConversationsClient client,
 			Map<String, Object> params) {
-		return new Conversations(client, params);
+		return new Conversation(client, params);
 	}
 
 	@Override

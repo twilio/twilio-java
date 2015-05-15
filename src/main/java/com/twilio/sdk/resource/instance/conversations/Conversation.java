@@ -7,43 +7,43 @@ import com.twilio.sdk.TwilioConversationsClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
 /**
- * Represents Conversations.
+ * Represents a Conversation.
  * <p/>
- * See <a href="https://www.twilio.com/docs/api/rest/conversations">the Conversations documentation</a>.
+ * See <a href="https://www.twilio.com/docs/conversations">the Conversations documentation</a>.
  */
-public class Conversations extends NextGenInstanceResource<TwilioConversationsClient> {
+public class Conversation extends NextGenInstanceResource<TwilioConversationsClient> {
 
 	/**
-	 * Instantiates Conversations.
+	 * Instantiates a Conversation
 	 *
 	 * @param client the client
 	 */
-	public Conversations(final TwilioConversationsClient client) {
+	public Conversation(final TwilioConversationsClient client) {
 		super(client);
 	}
 
 	/**
-	 * Instantiates Conversations.
+	 * Instantiates a Conversation
 	 *
 	 * @param client the client
 	 * @param properties the properties
 	 */
-	public Conversations(final TwilioConversationsClient client, final Map<String, Object> properties) {
+	public Conversation(final TwilioConversationsClient client, final Map<String, Object> properties) {
 		super(client, properties);
 	}
 
 	/**
-	 * Instantiates Conversations.
+	 * Instantiates a Conversation
 	 *
 	 * @param client the client
-	 * @param conversationsSid the conversations sid
+	 * @param conversationSid the conversation sid
 	 */
-	public Conversations(final TwilioConversationsClient client, final String conversationsSid) {
+	public Conversation(final TwilioConversationsClient client, final String conversationSid) {
 		super(client);
-		if (conversationsSid == null || "".equals(conversationsSid)) {
-			throw new IllegalArgumentException("The conversationsSid cannot be null");
+		if (conversationSid == null || "".equals(conversationSid)) {
+			throw new IllegalArgumentException("The conversationSid cannot be null");
 		}
-		setProperty(SID_PROPERTY, conversationsSid);
+		setProperty(SID_PROPERTY, conversationSid);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class Conversations extends NextGenInstanceResource<TwilioConversationsCl
 	}
 
 	/**
-	 * The {@link com.twilio.sdk.resource.instance.Account} owning this Conversations.
+	 * The {@link com.twilio.sdk.resource.instance.Account} owning this Conversation.
 	 *
 	 * @return the account sid
 	 */
@@ -110,7 +110,7 @@ public class Conversations extends NextGenInstanceResource<TwilioConversationsCl
 	}
 
 	/**
-	 * URL of this Conversations in Twilio REST API.
+	 * URL of this Conversation in Twilio REST API.
 	 *
 	 * @return resource URL
 	 */

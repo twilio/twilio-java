@@ -3,7 +3,7 @@ package com.twilio.sdk;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.twilio.sdk.resource.instance.conversations.Conversations;
+import com.twilio.sdk.resource.instance.conversations.Conversation;
 import com.twilio.sdk.resource.list.conversations.CompletedConversationsList;
 import com.twilio.sdk.resource.list.conversations.InProgressConversationsList;
 
@@ -23,13 +23,13 @@ public class TwilioConversationsClient extends TwilioClient {
 	}
 
 	/**
-	 * Get a Conversations instance by sid
+	 * Get a Conversation instance by sid
 	 *
-	 * @param conversationsSid The 34 character sid starting with CV
+	 * @param conversationSid The 34 character sid starting with CV
 	 */
-	public Conversations getConversations(final String conversationsSid) {
-		Conversations conversations = new Conversations(this, conversationsSid);
-		return conversations;
+	public Conversation getConversation(final String conversationSid) {
+		Conversation conversation = new Conversation(this, conversationSid);
+		return conversation;
 	}
 
 	/**

@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.twilio.sdk.resource.instance.BasicRequestTester;
-import com.twilio.sdk.resource.instance.conversations.Conversations;
+import com.twilio.sdk.resource.instance.conversations.Conversation;
 
 public class CompletedConversationsListTest extends BasicRequestTester {
 
@@ -23,16 +23,16 @@ public class CompletedConversationsListTest extends BasicRequestTester {
 		setExpectedServerReturnCode(200);
 		CompletedConversationsList completedConversations = conversationsClient.getCompletedConversations();
 		assertNotNull(completedConversations);
-		for (final Conversations conversations : completedConversations) {
-			assertNotNull(conversations.getSid());
-			assertNotNull(conversations.getStatus());
-			assertNotNull(conversations.getAccountSid());
-			assertNotNull(conversations.getDateCreated());
-			assertNotNull(conversations.getStartTime());
-			assertNotNull(conversations.getEndTime());
-			assertNotNull(conversations.getDuration());
-			assertNotNull(conversations.getUrl());
-			assertNotNull(conversations.getParticipantsUrl());
+		for (final Conversation conversation : completedConversations) {
+			assertNotNull(conversation.getSid());
+			assertNotNull(conversation.getStatus());
+			assertNotNull(conversation.getAccountSid());
+			assertNotNull(conversation.getDateCreated());
+			assertNotNull(conversation.getStartTime());
+			assertNotNull(conversation.getEndTime());
+			assertNotNull(conversation.getDuration());
+			assertNotNull(conversation.getUrl());
+			assertNotNull(conversation.getParticipantsUrl());
 		}
 	}
 }

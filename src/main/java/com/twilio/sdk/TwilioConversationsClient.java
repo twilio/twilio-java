@@ -3,6 +3,7 @@ package com.twilio.sdk;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.conversations.Conversation;
 import com.twilio.sdk.resource.instance.conversations.Participant;
 import com.twilio.sdk.resource.list.conversations.CompletedConversationsList;
@@ -16,6 +17,8 @@ import com.twilio.sdk.resource.list.conversations.ParticipantList;
 public class TwilioConversationsClient extends TwilioClient {
 
 	public static final String DEFAULT_VERSION = "v1";
+	private static final String PARTICIPANT_STATUS = "Status";
+	private static final String PARTICIPANT_STATUS_DISCONNECTED = "disconnected";
 
 	public TwilioConversationsClient(final String accountSid, final String authToken) {
 		super(accountSid, authToken, "https://conversations.twilio.com");
@@ -84,6 +87,27 @@ public class TwilioConversationsClient extends TwilioClient {
 	}
 
 	/**
+	 * Creates a
+	 * {@link com.twilio.sdk.resource.instance.conversations.Participant
+	 * Participant} instance by conversation sid
+	 * 
+	 * @param conversationSid
+	 *            the conversation sid
+	 * @param properties
+	 *            Participant properties
+	 * @return a Participant
+	 * @throws TwilioRestException
+	 */
+	public Participant createParticipant(final String conversationSid,
+			final Map<String, String> properties) throws TwilioRestException {
+
+		Factory<Participant> participantFactory = new ParticipantList(this,
+				conversationSid);
+		return participantFactory.create(properties);
+
+	}
+
+	/**
 	 * Get a {@link com.twilio.sdk.resource.instance.conversations.Participant
 	 * Participant} instance by conversation sid and participant sid
 	 *
@@ -99,6 +123,33 @@ public class TwilioConversationsClient extends TwilioClient {
 	}
 
 	/**
+	 * Disconnects a
+	 * {@link com.twilio.sdk.resource.instance.conversations.Participant
+	 * Participant} from a
+	 * {@link com.twilio.sdk.resource.instance.conversations.Conversation
+	 * Conversation}
+	 * 
+	 * @param conversationSid
+	 *            the conversation sid the Participant was part of
+	 * @param participantSid
+	 *            the participant sid
+	 * @return Participant the disconnected participant
+	 * @throws TwilioRestException
+	 */
+	public Participant disconnectParticipant(final String conversationSid,
+			final String participantSid)
+			throws TwilioRestException {
+
+		Participant participant = new Participant(this, conversationSid,
+				participantSid);
+		Map<String, String> params = new HashMap<String, String>();
+		params.put(PARTICIPANT_STATUS, PARTICIPANT_STATUS_DISCONNECTED);
+		// Disconnects the Participant
+		participant.update(params);
+		return participant;
+	}
+
+	/**
 	 * Gets {@link com.twilio.sdk.resource.list.conversations.ParticipantList
 	 * Participant List} by Conversation Sid
 	 * 
@@ -107,7 +158,7 @@ public class TwilioConversationsClient extends TwilioClient {
 	 * @return list of Participants
 	 */
 	public ParticipantList getParticipants(String conversationSid) {
-		return new ParticipantList(this, new HashMap<String, String>(), conversationSid);
+		return new ParticipantList(this, new HashMap<String, String>(0), conversationSid);
 	}
 
 	/**

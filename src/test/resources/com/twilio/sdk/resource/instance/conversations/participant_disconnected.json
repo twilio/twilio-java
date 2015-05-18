@@ -1,0 +1,12 @@
+{  
+   "sid":"PA976ba259ddbf4436ac5e0f3d14eff1e8",
+   "address":"client:lewis",
+   "status":"disconnected",
+   "conversation_sid":"CVbbe46ff1274e283f7e3ac1df0072ab39",
+   "start_time":"2010-08-18T20:20:10Z",
+   "end_time":"2010-08-18T20:24:36Z",
+   "date_created":"2015-05-01T17:32:09Z",
+   "duration":60,
+   "account_sid":"AC7b659acc64804bd8bc01a2d9d54248e1",
+   "url":"https://conversations.twilio.com/v1/Conversations/CVbbe46ff1274e283f7e3ac1df0072ab39/Participants/PAb659acc64870d9d54248e14bd8bc01a2"
+}

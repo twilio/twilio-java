@@ -469,8 +469,8 @@ public abstract class TwilioClient {
 
 		if (httpclient instanceof DefaultHttpClient) { // as DefaultHttpClient class has final method, I need httpClient to be a plain interface to be able to mock it
 			((DefaultHttpClient) httpclient).getCredentialsProvider()
-			                                .setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-			                                                new UsernamePasswordCredentials(accountSid, authToken));
+					.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
+							new UsernamePasswordCredentials(accountSid, authToken));
 		}
 		return request;
 	}
@@ -485,7 +485,7 @@ public abstract class TwilioClient {
 	 * @throws TwilioRestException if there's an client exception returned by the TwilioApi
 	 */
 	public TwilioRestResponse safeRequest(final String path, final String method, final Map<String, String> vars) throws
-	                                                                                                              TwilioRestException {
+			TwilioRestException {
 
 		List<NameValuePair> paramList = generateParameters(vars);
 		return safeRequest(path, method, paramList);

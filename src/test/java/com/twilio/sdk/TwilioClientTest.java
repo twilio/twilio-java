@@ -1,18 +1,33 @@
 package com.twilio.sdk;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class TwilioClientTest.
  */
 public class TwilioClientTest {
+
+	private static Field authTokenField;
+	private static Method setupRequestMethod;
+
+	@BeforeClass
+	public static void classSetup() throws NoSuchMethodException, NoSuchFieldException {
+		setupRequestMethod = TwilioClient.class.getDeclaredMethod("setupRequest", String.class, String.class,
+		                                                          List.class);
+		setupRequestMethod.setAccessible(true);
+
+		authTokenField = TwilioClient.class.getDeclaredField("authToken");
+		authTokenField.setAccessible(true);
+	}
 
 	/**
 	 * Test twilio rest client string string.
@@ -22,16 +37,13 @@ public class TwilioClientTest {
 
 		// Should fail with invallid auth and token
 		try {
-			TwilioClient bad_client = new TwilioRestClient("fake sid",
-					"fake auth token");
-		} catch (IllegalArgumentException e) {
+			new TwilioRestClient("fake sid", "fake auth token");
+		} catch (final IllegalArgumentException e) {
 			assertTrue(true);
 		}
 
 		// Should construct with valid looking account sid and auth token
-		TwilioClient client = new TwilioRestClient(
-				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	}
 
 	/**
@@ -41,9 +53,8 @@ public class TwilioClientTest {
 	 */
 	@Test
 	public void testRequest() throws TwilioRestException {
-		TwilioClient client = new TwilioRestClient(
-				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		TwilioClient client = new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		                                           "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
 		// Auth required
 		TwilioRestResponse response = client.request("/2010-04-01/Accounts.json", "GET", (Map) null);
@@ -65,9 +76,8 @@ public class TwilioClientTest {
 	 */
 	@Test
 	public void testGet() throws TwilioRestException {
-		TwilioClient client = new TwilioRestClient(
-				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-				"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		TwilioClient client = new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		                                           "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
 		// Auth required
 		TwilioRestResponse response = client.get("https://api.twilio.com");

@@ -136,6 +136,15 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 		return parseDate(getProperty(name));
 	}
 
+	/**
+	 * Gets the property as an Integer value.
+	 * 
+	 * @param name property name
+	 * @return Integer value
+	 */
+	public Integer getPropertyAsInteger(String name) {
+		return (Integer) getObject(name);
+	}
 
 	/**
 	 * Sets the property as an Object

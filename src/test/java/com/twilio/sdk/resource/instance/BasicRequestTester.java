@@ -1,10 +1,10 @@
 package com.twilio.sdk.resource.instance;
 
-import com.twilio.sdk.LookupsClient;
-import com.twilio.sdk.TwilioMonitorClient;
-import com.twilio.sdk.TwilioPricingClient;
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioTaskRouterClient;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.io.ByteArrayInputStream;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -16,10 +16,12 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.ByteArrayInputStream;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import com.twilio.sdk.LookupsClient;
+import com.twilio.sdk.TwilioConversationsClient;
+import com.twilio.sdk.TwilioMonitorClient;
+import com.twilio.sdk.TwilioPricingClient;
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioTaskRouterClient;
 
 public class BasicRequestTester {
 
@@ -34,6 +36,7 @@ public class BasicRequestTester {
 	protected TwilioTaskRouterClient taskRouterClient = new TwilioTaskRouterClient(accountSid, authtoken);
 	protected LookupsClient lookupsClient = new LookupsClient(accountSid, authtoken);
 	protected TwilioMonitorClient monitorClient = new TwilioMonitorClient(accountSid, authtoken);
+	protected TwilioConversationsClient conversationsClient = new TwilioConversationsClient(accountSid, authtoken);
 
 	protected BasicHttpResponse response = mock(BasicHttpResponse.class);
 	protected Header[] headers = {mock(Header.class)};
@@ -48,6 +51,7 @@ public class BasicRequestTester {
 		taskRouterClient.setHttpClient(httpClient);
 		lookupsClient.setHttpClient(httpClient);
 		monitorClient.setHttpClient(httpClient);
+		conversationsClient.setHttpClient(httpClient);
 
 		when(headers[0].getValue()).thenReturn("application/xml");
 		when(response.getHeaders("Content-Type")).thenReturn(headers);

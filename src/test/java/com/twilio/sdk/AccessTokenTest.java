@@ -112,7 +112,7 @@ public class AccessTokenTest {
 
 		List<Map<String, Object>> decodedGrants = (List<Map<String, Object>>) claims.get("grants");
 		assertEquals(1, decodedGrants.size());
-		assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens", decodedGrants.get(0).get("res"));
+		assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens.json", decodedGrants.get(0).get("res"));
 		assertEquals("POST", ((List<String>) decodedGrants.get(0).get("act")).get(0));
 	}
 }

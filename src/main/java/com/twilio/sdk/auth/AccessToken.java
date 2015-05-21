@@ -91,7 +91,7 @@ public class AccessToken {
 	}
 
 	public AccessToken enableNTS() {
-		RestGrant grant = new RestGrant("/Tokens", Action.POST);
+		RestGrant grant = new RestGrant("/Tokens.json", Action.POST);
 		return this.addGrant(grant);
 	}
 

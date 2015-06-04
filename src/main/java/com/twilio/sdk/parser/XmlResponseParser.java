@@ -65,7 +65,11 @@ public class XmlResponseParser implements ResponseParser {
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
+
 		try {
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+
 			builder = factory.newDocumentBuilder();
 			Document d = builder.parse(new InputSource(new StringReader(
 					xmlString)));

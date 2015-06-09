@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.4.1
+-------------
+
+Released June 9, 2015
+
+- Update XML parser settings to protect against XXE attacks
+
 Version 4.4.0
 -------------
 

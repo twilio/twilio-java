@@ -2,6 +2,7 @@ package com.twilio.sdk.resource.instance.taskrouter;
 
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
+import com.twilio.sdk.resource.list.taskrouter.ReservationList;
 
 import java.util.Date;
 import java.util.Map;
@@ -178,6 +179,15 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public String getReason() {
 		return getProperty("reason");
+	}
+	
+	/**
+	 * Retrieve the {@link com.twilio.sdk.resource.list.taskrouter.ReservationList} for this Task.
+	 * @return
+	 */
+	public ReservationList getReservations() {
+	    ReservationList list = new ReservationList(this.getClient(), this.getWorkspaceSid(), this.getSid());
+	    return list;
 	}
 
 	@Override

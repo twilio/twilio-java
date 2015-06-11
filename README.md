@@ -143,6 +143,70 @@ public class Example {
 }
 ```
 
+Here is a TaskRouter example:
+
+```
+package com.twilio.sdk;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.twilio.sdk.resource.instance.taskrouter.Activity;
+import com.twilio.sdk.resource.instance.taskrouter.Task;
+import com.twilio.sdk.resource.instance.taskrouter.TaskQueue;
+import com.twilio.sdk.resource.instance.taskrouter.Worker;
+import com.twilio.sdk.resource.instance.taskrouter.Workflow;
+import com.twilio.sdk.resource.instance.taskrouter.Workspace;
+
+public class Example {
+
+  	private static final String ACCOUNT_SID = "AC.....";
+  	private static final String AUTH_TOKEN = ".......";
+  	private static final String WORKSPACE_SID = ".......";
+    
+    public static void main(String[] args) {
+        
+        TwilioTaskRouterClient trClient = new TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN);
+        Workspace workspace = trClient.getWorkspace(WORKSPACE_SID);
+        
+        List<Activity> activities = workspace.getActivities().getPageData();
+        List<Workflow> workflows = workspace.getWorkflows().getPageData();
+        List<TaskQueue> taskQueues = workspace.getTaskQueues().getPageData();
+        List<Worker> workers = workspace.getWorkers().getPageData();
+        List<Task> tasks = workspace.getTasks().getPageData();
+
+        for(Activity activity : activities) {
+            System.out.println("Activity: "+activity.getFriendlyName());
+        }
+        Workflow firstWorkflow = workflows.get(0);
+        for(Workflow workflow : workflows) {
+            System.out.println("Workflow: "+workflow.getFriendlyName());
+        }
+        for(TaskQueue taskQueue : taskQueues) {
+            System.out.println("TaskQueue: "+taskQueue.getFriendlyName());
+        }
+        for(Worker worker : workers) {
+            System.out.println("Worker: "+worker.getFriendlyName());
+        }
+        for(Task task : tasks) {
+            System.out.println("Task: "+task.getAttributes());
+        }
+        
+        Map<String, String> taskAttributes = new HashMap<String, String>();
+        taskAttributes.put("foo", "bar");
+        
+        try {
+            Task createdTask = workspace.createTask(firstWorkflow.getSid(), taskAttributes, null, null);
+            System.out.println("created a task: "+createdTask.getAttributes());
+        } catch (TwilioRestException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+}
+```
+
 # Getting help
 
 If you need help installing or using the library, please contact Twilio Support at help@twilio.com first. Twilio's Support staff are well-versed in all of the Twilio Helper Libraries, and usually reply within 24 hours.

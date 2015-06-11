@@ -2,6 +2,7 @@ package com.twilio.sdk.resource.factory.taskrouter;
 
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.instance.taskrouter.Task;
+
 import org.apache.http.NameValuePair;
 
 import java.util.List;
@@ -29,4 +30,15 @@ public interface TaskFactory {
 	 * @throws TwilioRestException
 	 */
 	public Task create(List<NameValuePair> params) throws TwilioRestException;
+	
+	/**
+	 * Creates a task
+	 * @param workflowSid the workflow sid
+	 * @param attributes the Map of Attributes that will convert to JSON
+	 * @param priority the priority of the task (optional)
+	 * @param timeout the max timeout of the task (optional)
+	 * @return
+	 * @throws TwilioRestException
+	 */
+    public Task create(String workflowSid, Map attributes, Integer priority, Integer timeout) throws TwilioRestException;
 }

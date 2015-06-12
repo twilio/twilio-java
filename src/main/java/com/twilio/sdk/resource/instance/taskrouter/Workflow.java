@@ -1,10 +1,12 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
-
-import java.util.Date;
-import java.util.Map;
 
 /**
  * Workflows control how tasks will be prioritized and routed into Queues, and how Tasks should escalate in priority or
@@ -134,6 +136,47 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public String getWorkspaceSid() {
 		return getProperty(WORKSPACE_SID_PROPERTY);
+	}
+	
+	/**
+	 * Get workflow statistics.
+	 * @return workflow statistics
+	 */
+	public WorkflowStatistics getStatistics() {
+		return getStatistics(null);
+	}
+	
+	/**
+	 * Get workflow statistics.
+	 *
+	 * @param startDate start date to query by
+	 * @param endDate end date to query by
+	 * @param minutes minutes to query by
+	 * @return workflow statistics
+	 */
+	public WorkflowStatistics getStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes) {
+		Map<String, String> filters = new HashMap<String, String>();
+		if(startDate != null) {
+			filters.put("StartDate", parseString(startDate));
+		}
+		if(endDate != null) {
+			filters.put("EndDate", parseString(endDate));
+		}
+		if(minutes != null) {
+			filters.put("Minutes", minutes.toString());
+		}
+		return getStatistics(filters);
+	}
+
+	/**
+	 * Get workflow statistics.
+	 *
+	 * @param filters the filters
+	 * @return workflow statistics
+	 */
+	public WorkflowStatistics getStatistics(final Map<String, String> filters) {
+		WorkflowStatistics statistics = new WorkflowStatistics(this.getClient(), this.getWorkspaceSid(), this.getSid(), filters);
+		return statistics;
 	}
 
 	@Override

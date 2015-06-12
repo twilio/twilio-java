@@ -3,7 +3,9 @@ package com.twilio.sdk.resource.instance.taskrouter;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -146,6 +148,47 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public String getWorkspaceSid() {
 		return getProperty(WORKSPACE_SID_PROPERTY);
+	}
+	
+	/**
+	 * Get taskqueue statistics.
+	 * @return worker statistics
+	 */
+	public TaskQueueStatistics getStatistics() {
+		return getStatistics(null);
+	}
+	
+	/**
+	 * Get taskqueue statistics.
+	 *
+	 * @param startDate start date to query by
+	 * @param endDate end date to query by
+	 * @param minutes minutes to query by
+	 * @return task queue statistics
+	 */
+	public TaskQueueStatistics getStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes) {
+		Map<String, String> filters = new HashMap<String, String>();
+		if(startDate != null) {
+			filters.put("StartDate", parseString(startDate));
+		}
+		if(endDate != null) {
+			filters.put("EndDate", parseString(endDate));
+		}
+		if(minutes != null) {
+			filters.put("Minutes", minutes.toString());
+		}
+		return getStatistics(filters);
+	}
+
+	/**
+	 * Get taskqueue statistics.
+	 *
+	 * @param filters the filters
+	 * @return taskqueue statistics
+	 */
+	public TaskQueueStatistics getStatistics(final Map<String, String> filters) {
+		TaskQueueStatistics statistics = new TaskQueueStatistics(this.getClient(), this.getWorkspaceSid(), this.getSid(), filters);
+		return statistics;
 	}
 
 	@Override

@@ -159,7 +159,7 @@ import com.twilio.sdk.resource.instance.taskrouter.Worker;
 import com.twilio.sdk.resource.instance.taskrouter.Workflow;
 import com.twilio.sdk.resource.instance.taskrouter.Workspace;
 
-public class Example {
+public class TaskRouterExample {
 
   	private static final String ACCOUNT_SID = "AC.....";
   	private static final String AUTH_TOKEN = ".......";
@@ -203,6 +203,13 @@ public class Example {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
+        WorkspaceStatistics statistics = workspace.getStatistics();
+        System.out.println("---- statistics ----");
+        System.out.println("StartTime: "+statistics.getStartTime().toString());
+        System.out.println("EndTime: "+statistics.getEndTime().toString());
+        System.out.println("Avg Task Acceptance Time: "+statistics.getAverageTaskAcceptanceTime()+" seconds");
+        System.out.println("Tasks Created: "+statistics.getTasksCreated());
     }
 }
 ```

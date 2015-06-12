@@ -6,8 +6,12 @@ import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.factory.taskrouter.TaskQueueFactory;
 import com.twilio.sdk.resource.instance.taskrouter.TaskQueue;
+import com.twilio.sdk.resource.instance.taskrouter.TaskQueueStatistics;
+
 import org.apache.http.NameValuePair;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +61,47 @@ public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRout
 	@Override
 	protected TaskQueue makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {
 		return new TaskQueue(client, params);
+	}
+	
+	/**
+	 * Get list of task queue statistics.
+	 * @return list of task queue statistics
+	 */
+	public TaskQueueListStatistics getStatistics() {
+		return getStatistics(null);
+	}
+	
+	/**
+	 * Get list of task queue statistics.
+	 *
+	 * @param startDate start date to query by
+	 * @param endDate end date to query by
+	 * @param minutes minutes to query by
+	 * @return list of task queue statistics
+	 */
+	public TaskQueueListStatistics getStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes) {
+		Map<String, String> filters = new HashMap<String, String>();
+		if(startDate != null) {
+			filters.put("StartDate", parseString(startDate));
+		}
+		if(endDate != null) {
+			filters.put("EndDate", parseString(endDate));
+		}
+		if(minutes != null) {
+			filters.put("Minutes", minutes.toString());
+		}
+		return getStatistics(filters);
+	}
+
+	/**
+	 * Get list of task queue statistics.
+	 *
+	 * @param filters the filters
+	 * @return taskqueue statistics
+	 */
+	public TaskQueueListStatistics getStatistics(final Map<String, String> filters) {
+		TaskQueueListStatistics statistics = new TaskQueueListStatistics(this.getClient(), workspaceSid, filters);
+		return statistics;
 	}
 
 	@Override

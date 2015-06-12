@@ -1,5 +1,6 @@
 package com.twilio.sdk.resource.list.taskrouter;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.factory.taskrouter.WorkerFactory;
 import com.twilio.sdk.resource.instance.taskrouter.Worker;
+import com.twilio.sdk.resource.instance.taskrouter.WorkersStatistics;
 
 /**
  * WorkerList to work with {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
@@ -78,6 +80,60 @@ public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClie
 	@Override
 	protected Worker makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {
 		return new Worker(client, params);
+	}
+	
+	/**
+	 * Get workers statistics
+	 * @return workers statistics
+	 */
+	public WorkersStatistics getStatistics() {
+		return getStatistics(null);
+	}
+
+	/**
+	 * Get workers statistics.
+	 *
+	 * @param startDate start date to query by
+	 * @param endDate end date to query by
+	 * @param minutes minutes to query by
+	 * @param taskQueueSid workers in a given taskqueue to filter by
+	 * @param taskQueueName workers in a given taskqueue to filter by
+	 * @param workerFriendlyName workers filtered by friendly name to filter by
+	 * @return list of task queue statistics
+	 */
+	public WorkersStatistics getStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes, 
+			final String taskQueueSid, final String taskQueueName, final String workerFriendlyName) {
+		Map<String, String> filters = new HashMap<String, String>();
+		if(startDate != null) {
+			filters.put("StartDate", parseString(startDate));
+		}
+		if(endDate != null) {
+			filters.put("EndDate", parseString(endDate));
+		}
+		if(minutes != null) {
+			filters.put("Minutes", minutes.toString());
+		}
+		if(taskQueueSid != null) {
+			filters.put("TaskQueueSid", taskQueueSid);
+		}
+		if(taskQueueName != null) {
+			filters.put("TaskQueueName", taskQueueName);
+		}
+		if(taskQueueName != null) {
+			filters.put("FriendlyName", workerFriendlyName);
+		}
+		return getStatistics(filters);
+	}
+
+	/**
+	 * Get the worker statistics
+	 *
+	 * @param filters the filters
+	 * @return workers statistics
+	 */
+	public WorkersStatistics getStatistics(final Map<String, String> filters) {
+		WorkersStatistics statistics = new WorkersStatistics(this.getClient(), workspaceSid, filters);
+		return statistics;
 	}
 
 	@Override

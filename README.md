@@ -206,8 +206,8 @@ public class TaskRouterExample {
         
         WorkspaceStatistics statistics = workspace.getStatistics();
         System.out.println("---- statistics ----");
-        System.out.println("StartTime: "+statistics.getStartTime().toString());
-        System.out.println("EndTime: "+statistics.getEndTime().toString());
+        System.out.println("StartTime: "+statistics.getStartTime().getTime());
+        System.out.println("EndTime: "+statistics.getEndTime().getTime());
         System.out.println("Avg Task Acceptance Time: "+statistics.getAverageTaskAcceptanceTime()+" seconds");
         System.out.println("Tasks Created: "+statistics.getTasksCreated());
     }

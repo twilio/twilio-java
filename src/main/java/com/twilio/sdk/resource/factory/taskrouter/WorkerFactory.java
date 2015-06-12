@@ -30,7 +30,7 @@ public interface WorkerFactory {
 	 * @throws TwilioRestException
 	 */
 	public Worker create(List<NameValuePair> params) throws TwilioRestException;
-	
+
 	/**
 	 * Createa a worker
 	 * @param friendlyName friendly name of the worker

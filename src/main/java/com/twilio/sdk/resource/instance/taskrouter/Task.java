@@ -180,14 +180,14 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	public String getReason() {
 		return getProperty("reason");
 	}
-	
+
 	/**
 	 * Retrieve the {@link com.twilio.sdk.resource.list.taskrouter.ReservationList} for this Task.
 	 * @return
 	 */
 	public ReservationList getReservations() {
-	    ReservationList list = new ReservationList(this.getClient(), this.getWorkspaceSid(), this.getSid());
-	    return list;
+		ReservationList list = new ReservationList(this.getClient(), this.getWorkspaceSid(), this.getSid());
+		return list;
 	}
 
 	@Override

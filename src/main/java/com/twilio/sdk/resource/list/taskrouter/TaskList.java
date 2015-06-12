@@ -55,27 +55,27 @@ public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> 
 		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
-	
+
 	@Override
-    public Task create(final String workflowSid, final Map attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("WorkflowSid", workflowSid);
-        
-        if(attributes != null) {
-            params.put("Attributes", JSONObject.toJSONString(attributes));
-        }else {
-            params.put("Attributes", "{}");
-        }
-        if(priority != null) {
-            params.put("Priority", priority.toString());
-        }
-        if(timeout != null) {
-            params.put("Timeout", timeout.toString());
-        }
-	    
-	    TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
-        return makeNew(getClient(), response.toMap());
-    }
+	public Task create(final String workflowSid, final Map attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("WorkflowSid", workflowSid);
+
+		if(attributes != null) {
+			params.put("Attributes", JSONObject.toJSONString(attributes));
+		}else {
+			params.put("Attributes", "{}");
+		}
+		if(priority != null) {
+			params.put("Priority", priority.toString());
+		}
+		if(timeout != null) {
+			params.put("Timeout", timeout.toString());
+		}
+
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+		return makeNew(getClient(), response.toMap());
+	}
 
 	@Override
 	protected Task makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {

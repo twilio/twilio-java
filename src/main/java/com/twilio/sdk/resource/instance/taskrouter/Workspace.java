@@ -82,30 +82,30 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		Activity activity = new Activity(getClient(), getSid(), activitySid);
 		return activity;
 	}
-	
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
-     *
-     * @param params the params list
-     * @return a Activity
-     * @throws com.twilio.sdk.TwilioRestException
-     */
-    public Activity createActivity(Map<String, String> params) throws TwilioRestException {
-        ActivityList activities = new ActivityList(getClient(), getSid());
-        return activities.create(params);
-    }
 
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
-     *
-     * @param params the params list
-     * @return a Activity
-     * @throws TwilioRestException
-     */
-    public Activity createActivity(List<NameValuePair> params) throws TwilioRestException {
-        ActivityList activities = new ActivityList(getClient(), getSid());
-        return activities.create(params);
-    }
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
+	 *
+	 * @param params the params list
+	 * @return a Activity
+	 * @throws com.twilio.sdk.TwilioRestException
+	 */
+	public Activity createActivity(Map<String, String> params) throws TwilioRestException {
+		ActivityList activities = new ActivityList(getClient(), getSid());
+		return activities.create(params);
+	}
+
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
+	 *
+	 * @param params the params list
+	 * @return a Activity
+	 * @throws TwilioRestException
+	 */
+	public Activity createActivity(List<NameValuePair> params) throws TwilioRestException {
+		ActivityList activities = new ActivityList(getClient(), getSid());
+		return activities.create(params);
+	}
 
 	/**
 	 * The date and time this Workspace was created.
@@ -207,44 +207,44 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		TaskList tasks = new TaskList(getClient(), getSid());
 		return tasks;
 	}
-	
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
-     *
-     * @param params the params list
-     * @return a Worker
-     * @throws com.twilio.sdk.TwilioRestException
-     */
-    public Task createTask(Map<String, String> params) throws TwilioRestException {
-        TaskList tasks = new TaskList(getClient(), getSid());
-        return tasks.create(params);
-    }
 
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
-     *
-     * @param params the params list
-     * @return a Workflow
-     * @throws TwilioRestException
-     */
-    public Task createTask(List<NameValuePair> params) throws TwilioRestException {
-        TaskList tasks = new TaskList(getClient(), getSid());
-        return tasks.create(params);
-    }
-    
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
-     * @param workflowSid workflow sid
-     * @param attributes attributes
-     * @param priority priority for the task
-     * @param timeout timeout for the task
-     * @return a Task
-     * @throws TwilioRestException
-     */
-    public Task createTask(String workflowSid, Map attributes, Integer priority, Integer timeout) throws TwilioRestException {
-        TaskList tasks = new TaskList(getClient(), getSid());
-        return tasks.create(workflowSid, attributes, priority, timeout);
-    }
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
+	 *
+	 * @param params the params list
+	 * @return a Worker
+	 * @throws com.twilio.sdk.TwilioRestException
+	 */
+	public Task createTask(Map<String, String> params) throws TwilioRestException {
+		TaskList tasks = new TaskList(getClient(), getSid());
+		return tasks.create(params);
+	}
+
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
+	 *
+	 * @param params the params list
+	 * @return a Workflow
+	 * @throws TwilioRestException
+	 */
+	public Task createTask(List<NameValuePair> params) throws TwilioRestException {
+		TaskList tasks = new TaskList(getClient(), getSid());
+		return tasks.create(params);
+	}
+
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
+	 * @param workflowSid workflow sid
+	 * @param attributes attributes
+	 * @param priority priority for the task
+	 * @param timeout timeout for the task
+	 * @return a Task
+	 * @throws TwilioRestException
+	 */
+	public Task createTask(String workflowSid, Map attributes, Integer priority, Integer timeout) throws TwilioRestException {
+		TaskList tasks = new TaskList(getClient(), getSid());
+		return tasks.create(workflowSid, attributes, priority, timeout);
+	}
 
 	/**
 	 * The human-readable name of the timeout activity. Read only.
@@ -284,44 +284,44 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		WorkerList workers = new WorkerList(getClient(), getSid());
 		return workers;
 	}
-	
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
-     *
-     * @param params the params list
-     * @return a Worker
-     * @throws com.twilio.sdk.TwilioRestException
-     */
-    public Worker createWorker(Map<String, String> params) throws TwilioRestException {
-        WorkerList workers = new WorkerList(getClient(), getSid());
-        return workers.create(params);
-    }
 
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
-     *
-     * @param params the params list
-     * @return a Worker
-     * @throws TwilioRestException
-     */
-    public Worker createWorker(List<NameValuePair> params) throws TwilioRestException {
-        WorkerList workers = new WorkerList(getClient(), getSid());
-        return workers.create(params);
-    }
-    
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
-     *
-     * @param friendlyName the friendly name of the worker
-     * @param attributes the attributes of the worker
-     * @param activitySid the default activity for the worker
-     * @return a Worker
-     * @throws TwilioRestException
-     */
-    public Worker create(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
-        WorkerList workers = new WorkerList(getClient(), getSid());
-        return workers.create(friendlyName, attributes, activitySid);
-    }
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+	 *
+	 * @param params the params list
+	 * @return a Worker
+	 * @throws com.twilio.sdk.TwilioRestException
+	 */
+	public Worker createWorker(Map<String, String> params) throws TwilioRestException {
+		WorkerList workers = new WorkerList(getClient(), getSid());
+		return workers.create(params);
+	}
+
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+	 *
+	 * @param params the params list
+	 * @return a Worker
+	 * @throws TwilioRestException
+	 */
+	public Worker createWorker(List<NameValuePair> params) throws TwilioRestException {
+		WorkerList workers = new WorkerList(getClient(), getSid());
+		return workers.create(params);
+	}
+
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+	 *
+	 * @param friendlyName the friendly name of the worker
+	 * @param attributes the attributes of the worker
+	 * @param activitySid the default activity for the worker
+	 * @return a Worker
+	 * @throws TwilioRestException
+	 */
+	public Worker create(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
+		WorkerList workers = new WorkerList(getClient(), getSid());
+		return workers.create(friendlyName, attributes, activitySid);
+	}
 
 	/**
 	 * Retrieves a {@link com.twilio.sdk.resource.instance.taskrouter.Workflow} from a Workspace
@@ -341,73 +341,73 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		WorkflowList workflows = new WorkflowList(getClient(), getSid());
 		return workflows;
 	}
-	
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
-     *
-     * @param params the params list
-     * @return a Workflow
-     * @throws com.twilio.sdk.TwilioRestException
-     */
-    public Workflow createWorkflow(Map<String, String> params) throws TwilioRestException {
-        WorkflowList workflows = new WorkflowList(getClient(), getSid());
-        return workflows.create(params);
-    }
 
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
-     *
-     * @param params the params list
-     * @return a Workflow
-     * @throws TwilioRestException
-     */
-    public Workflow createWorkflow(List<NameValuePair> params) throws TwilioRestException {
-        WorkflowList workflows = new WorkflowList(getClient(), getSid());
-        return workflows.create(params);
-    }
-	
 	/**
-     * Retrieves a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue} from a Workspace
-     */
-    public TaskQueue getTaskQueue(final String taskQueueSid) {
-        TaskQueue taskQueue = new TaskQueue(getClient(), getSid(), taskQueueSid);
-        return taskQueue;
-    }
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
+	 *
+	 * @param params the params list
+	 * @return a Workflow
+	 * @throws com.twilio.sdk.TwilioRestException
+	 */
+	public Workflow createWorkflow(Map<String, String> params) throws TwilioRestException {
+		WorkflowList workflows = new WorkflowList(getClient(), getSid());
+		return workflows.create(params);
+	}
 
-    /**
-     * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.TaskQueueList} for this {@link
-     * com.twilio.sdk.resource.instance.taskrouter.Workspace}
-     *
-     * @return the {@link com.twilio.sdk.resource.list.taskrouter.TaskQueueList}
-     */
-    public TaskQueueList getTaskQueues() {
-        TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
-        return taskQueues;
-    }
-    
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
-     *
-     * @param params the params list
-     * @return a TaskQueue
-     * @throws com.twilio.sdk.TwilioRestException
-     */
-    public TaskQueue createTaskQueue(Map<String, String> params) throws TwilioRestException {
-        TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
-        return taskQueues.create(params);
-    }
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
+	 *
+	 * @param params the params list
+	 * @return a Workflow
+	 * @throws TwilioRestException
+	 */
+	public Workflow createWorkflow(List<NameValuePair> params) throws TwilioRestException {
+		WorkflowList workflows = new WorkflowList(getClient(), getSid());
+		return workflows.create(params);
+	}
 
-    /**
-     * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
-     *
-     * @param params the params list
-     * @return a TaskQueue
-     * @throws TwilioRestException
-     */
-    public TaskQueue createTaskQueue(List<NameValuePair> params) throws TwilioRestException {
-        TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
-        return taskQueues.create(params);
-    }
+	/**
+	 * Retrieves a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue} from a Workspace
+	 */
+	public TaskQueue getTaskQueue(final String taskQueueSid) {
+		TaskQueue taskQueue = new TaskQueue(getClient(), getSid(), taskQueueSid);
+		return taskQueue;
+	}
+
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.TaskQueueList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.TaskQueueList}
+	 */
+	public TaskQueueList getTaskQueues() {
+		TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
+		return taskQueues;
+	}
+
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
+	 *
+	 * @param params the params list
+	 * @return a TaskQueue
+	 * @throws com.twilio.sdk.TwilioRestException
+	 */
+	public TaskQueue createTaskQueue(Map<String, String> params) throws TwilioRestException {
+		TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
+		return taskQueues.create(params);
+	}
+
+	/**
+	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
+	 *
+	 * @param params the params list
+	 * @return a TaskQueue
+	 * @throws TwilioRestException
+	 */
+	public TaskQueue createTaskQueue(List<NameValuePair> params) throws TwilioRestException {
+		TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
+		return taskQueues.create(params);
+	}
 
 	@Override
 	protected String getResourceLocation() {

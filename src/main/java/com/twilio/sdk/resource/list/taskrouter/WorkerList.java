@@ -40,7 +40,7 @@ public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClie
 	 * @param filters the filters
 	 */
 	public WorkerList(final TwilioTaskRouterClient client, final String workspaceSid,
-	                  final Map<String, String> filters) {
+			final Map<String, String> filters) {
 		super(client, filters);
 		this.workspaceSid = workspaceSid;
 	}
@@ -56,24 +56,24 @@ public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClie
 		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
-	
+
 	@Override
-    public Worker create(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("FriendlyName", friendlyName);
-        
-        if(attributes != null) {
-            params.put("Attributes", JSONObject.toJSONString(attributes));
-        }else {
-            params.put("Attributes", "{}");
-        }
-        if(activitySid != null) {
-            params.put("ActivitySid", activitySid);
-        }
-        
-        TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
-        return makeNew(getClient(), response.toMap());
-    }
+	public Worker create(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("FriendlyName", friendlyName);
+
+		if(attributes != null) {
+			params.put("Attributes", JSONObject.toJSONString(attributes));
+		}else {
+			params.put("Attributes", "{}");
+		}
+		if(activitySid != null) {
+			params.put("ActivitySid", activitySid);
+		}
+
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+		return makeNew(getClient(), response.toMap());
+	}
 
 	@Override
 	protected Worker makeNew(final TwilioTaskRouterClient client, final Map<String, Object> params) {

@@ -166,9 +166,9 @@ import com.twilio.sdk.resource.list.taskrouter.WorkflowList;
 
 public class TaskRouterExample {
 
-  	private static final String ACCOUNT_SID = "AC.....";
-  	private static final String AUTH_TOKEN = ".......";
-  	private static final String WORKSPACE_SID = ".......";
+    private static final String ACCOUNT_SID = "AC.....";
+    private static final String AUTH_TOKEN = ".......";
+    private static final String WORKSPACE_SID = ".......";
     
     public static void main(String[] args) {
         
@@ -221,61 +221,61 @@ public class TaskRouterExample {
     }
     
     private static Workflow buildWorkflow(Workspace workspace) throws Exception {
-    	String salesQueue = "WQxxxx";
-    	String marketingQueue = "WQxxxx";
-    	String supportQueue = "WQxxxx";
-    	String everyoneQueue = "WQxxxx";
-    
-		// construct workflow
-		List<WorkflowRule> rules = new ArrayList<WorkflowRule>();
-		
-		// sales
-		List<WorkflowRuleTarget> salesTargets = new ArrayList<WorkflowRuleTarget>();
-		WorkflowRuleTarget salesTarget = new WorkflowRuleTarget(salesQueue, null, null, null);
-		salesTargets.add(salesTarget);
-		WorkflowRule salesRule = new WorkflowRule("type == \"sales\"", salesTargets);
-		
-		// marketing
-		List<WorkflowRuleTarget> marketingTargets = new ArrayList<WorkflowRuleTarget>();
-		WorkflowRuleTarget marketingTarget = new WorkflowRuleTarget(marketingQueue, null, null, null);
-		marketingTargets.add(marketingTarget);
-		WorkflowRule marketingRule = new WorkflowRule("type == \"marketing\"", marketingTargets);
-		
-		// support
-		List<WorkflowRuleTarget> supportTargets = new ArrayList<WorkflowRuleTarget>();
-		WorkflowRuleTarget supportTarget = new WorkflowRuleTarget(supportQueue, null, null, null);
-		supportTargets.add(supportTarget);
-		WorkflowRule supportRule = new WorkflowRule("type == \"support\"", marketingTargets);
-		
-		// default filter
-		WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget(everyoneQueue);
+      String salesQueue = "WQxxxx";
+      String marketingQueue = "WQxxxx";
+      String supportQueue = "WQxxxx";
+      String everyoneQueue = "WQxxxx";
+      
+      // construct workflow
+      List<WorkflowRule> rules = new ArrayList<WorkflowRule>();
+      
+      // sales
+      List<WorkflowRuleTarget> salesTargets = new ArrayList<WorkflowRuleTarget>();
+      WorkflowRuleTarget salesTarget = new WorkflowRuleTarget(salesQueue, null, null, null);
+      salesTargets.add(salesTarget);
+      WorkflowRule salesRule = new WorkflowRule("type == \"sales\"", salesTargets);
+      
+      // marketing
+      List<WorkflowRuleTarget> marketingTargets = new ArrayList<WorkflowRuleTarget>();
+      WorkflowRuleTarget marketingTarget = new WorkflowRuleTarget(marketingQueue, null, null, null);
+      marketingTargets.add(marketingTarget);
+      WorkflowRule marketingRule = new WorkflowRule("type == \"marketing\"", marketingTargets);
+      
+      // support
+      List<WorkflowRuleTarget> supportTargets = new ArrayList<WorkflowRuleTarget>();
+      WorkflowRuleTarget supportTarget = new WorkflowRuleTarget(supportQueue, null, null, null);
+      supportTargets.add(supportTarget);
+      WorkflowRule supportRule = new WorkflowRule("type == \"support\"", marketingTargets);
+      
+      // default filter
+      WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget(everyoneQueue);
 
-		// put rules together in order in which the workflow should process them
-		rules.add(salesRule);
-		rules.add(marketingRule);
-		rules.add(supportRule);
-		
-		// build workflow & convert to json
-		WorkflowConfiguration config = new WorkflowConfiguration(rules, defaultTarget);
-		String workflowJSON = WorkflowBuilder.parse(config);
-		
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("Configuration", workflowJSON);
-		params.put("FriendlyName", "Sales, Marketing, Support Workflow");
-		params.put("AssignmentCallbackUrl", "http://example.com");
-		Workflow workflow = workspace.createWorkflow(params);
-		return workflow;
+      // put rules together in order in which the workflow should process them
+      rules.add(salesRule);
+      rules.add(marketingRule);
+      rules.add(supportRule);
+      
+      // build workflow & convert to json
+      WorkflowConfiguration config = new WorkflowConfiguration(rules, defaultTarget);
+      String workflowJSON = WorkflowBuilder.parse(config);
+      
+      Map<String, String> params = new HashMap<String, String>();
+      params.put("Configuration", workflowJSON);
+      params.put("FriendlyName", "Sales, Marketing, Support Workflow");
+      params.put("AssignmentCallbackUrl", "http://example.com");
+      Workflow workflow = workspace.createWorkflow(params);
+      return workflow;
     }
     
     private static void readWorkflow(TwilioTaskRouterClient client, String workspaceSid, String workflowSid) throws ParseException {
-    	Workflow workflow = client.getWorkflow(workspaceSid, workflowSid);
-		
-		// show that we can inspect the workflow configuration
-		WorkflowConfiguration config = workflow.getConfiguration();
-		System.out.println(config);
-		
-		List<WorkflowRule> workflowRules = config.getWorkflowRules();
-		WorkflowRuleTarget defaultTarget = config.getDefaultTarget();
+      Workflow workflow = client.getWorkflow(workspaceSid, workflowSid);
+    
+      // show that we can inspect the workflow configuration
+      WorkflowConfiguration config = workflow.getConfiguration();
+      System.out.println(config);
+    
+      List<WorkflowRule> workflowRules = config.getWorkflowRules();
+      WorkflowRuleTarget defaultTarget = config.getDefaultTarget();
     }
 }
 ```

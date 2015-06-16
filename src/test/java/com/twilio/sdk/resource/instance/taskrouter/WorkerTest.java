@@ -1,6 +1,7 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
 import com.twilio.sdk.resource.instance.BasicRequestTester;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,6 +28,22 @@ public class WorkerTest extends BasicRequestTester {
 		Worker worker = taskRouterClient.createWorker("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
 		assertNotNull(worker);
 		assertEquals("Test Worker", worker.getFriendlyName());
+	}
+	
+	@Test
+	public void testCreateWorkerWithMap() throws Exception {
+		setExpectedServerReturnCode(201);
+		Map<String, String> attributes = new HashMap<String, String>();
+		attributes.put("email", "test@twilio.com");
+		attributes.put("phone", "8675309");
+		Worker worker = taskRouterClient.createWorker("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Test Worker", attributes, "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		assertNotNull(worker);
+		assertEquals("Test Worker", worker.getFriendlyName());
+		assertEquals("{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}", worker.getRawAttributes());
+		assertEquals(attributes, worker.getAttributes());
+		assertEquals("test@twilio.com", worker.getAttributes().get("email"));
+		assertEquals("8675309", worker.getAttributes().get("phone"));
+		assertEquals("WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", worker.getActivitySid());
 	}
 
 	@Test

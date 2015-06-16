@@ -158,6 +158,11 @@ import com.twilio.sdk.resource.instance.taskrouter.TaskQueue;
 import com.twilio.sdk.resource.instance.taskrouter.Worker;
 import com.twilio.sdk.resource.instance.taskrouter.Workflow;
 import com.twilio.sdk.resource.instance.taskrouter.Workspace;
+import com.twilio.sdk.resource.list.taskrouter.ActivityList;
+import com.twilio.sdk.resource.list.taskrouter.TaskList;
+import com.twilio.sdk.resource.list.taskrouter.TaskQueueList;
+import com.twilio.sdk.resource.list.taskrouter.WorkerList;
+import com.twilio.sdk.resource.list.taskrouter.WorkflowList;
 
 public class TaskRouterExample {
 
@@ -170,11 +175,11 @@ public class TaskRouterExample {
         TwilioTaskRouterClient trClient = new TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN);
         Workspace workspace = trClient.getWorkspace(WORKSPACE_SID);
         
-        List<Activity> activities = workspace.getActivities().getPageData();
-        List<Workflow> workflows = workspace.getWorkflows().getPageData();
-        List<TaskQueue> taskQueues = workspace.getTaskQueues().getPageData();
-        List<Worker> workers = workspace.getWorkers().getPageData();
-        List<Task> tasks = workspace.getTasks().getPageData();
+        ActivityList activities = workspace.getActivities();
+        WorkflowList workflows = workspace.getWorkflows();
+        TaskQueueList taskQueues = workspace.getTaskQueues();
+        WorkerList workers = workspace.getWorkers();
+        TaskList tasks = workspace.getTasks();
 
         for(Activity activity : activities) {
             System.out.println("Activity: "+activity.getFriendlyName());
@@ -210,6 +215,67 @@ public class TaskRouterExample {
         System.out.println("EndTime: "+statistics.getEndTime().getTime());
         System.out.println("Avg Task Acceptance Time: "+statistics.getAverageTaskAcceptanceTime()+" seconds");
         System.out.println("Tasks Created: "+statistics.getTasksCreated());
+        Workflow workflow = buildWorkflow(workspace);
+        
+        readWorkflow(trClient, workspace.getSid(), workflow.getSid());
+    }
+    
+    private static Workflow buildWorkflow(Workspace workspace) throws Exception {
+    	String salesQueue = "WQxxxx";
+    	String marketingQueue = "WQxxxx";
+    	String supportQueue = "WQxxxx";
+    	String everyoneQueue = "WQxxxx";
+    
+		// construct workflow
+		List<WorkflowRule> rules = new ArrayList<WorkflowRule>();
+		
+		// sales
+		List<WorkflowRuleTarget> salesTargets = new ArrayList<WorkflowRuleTarget>();
+		WorkflowRuleTarget salesTarget = new WorkflowRuleTarget(salesQueue, null, null, null);
+		salesTargets.add(salesTarget);
+		WorkflowRule salesRule = new WorkflowRule("type == \"sales\"", salesTargets);
+		
+		// marketing
+		List<WorkflowRuleTarget> marketingTargets = new ArrayList<WorkflowRuleTarget>();
+		WorkflowRuleTarget marketingTarget = new WorkflowRuleTarget(marketingQueue, null, null, null);
+		marketingTargets.add(marketingTarget);
+		WorkflowRule marketingRule = new WorkflowRule("type == \"marketing\"", marketingTargets);
+		
+		// support
+		List<WorkflowRuleTarget> supportTargets = new ArrayList<WorkflowRuleTarget>();
+		WorkflowRuleTarget supportTarget = new WorkflowRuleTarget(supportQueue, null, null, null);
+		supportTargets.add(supportTarget);
+		WorkflowRule supportRule = new WorkflowRule("type == \"support\"", marketingTargets);
+		
+		// default filter
+		WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget(everyoneQueue);
+
+		// put rules together in order in which the workflow should process them
+		rules.add(salesRule);
+		rules.add(marketingRule);
+		rules.add(supportRule);
+		
+		// build workflow & convert to json
+		WorkflowConfiguration config = new WorkflowConfiguration(rules, defaultTarget);
+		String workflowJSON = WorkflowBuilder.parse(config);
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("Configuration", workflowJSON);
+		params.put("FriendlyName", "Sales, Marketing, Support Workflow");
+		params.put("AssignmentCallbackUrl", "http://example.com");
+		Workflow workflow = workspace.createWorkflow(params);
+		return workflow;
+    }
+    
+    private static void readWorkflow(TwilioTaskRouterClient client, String workspaceSid, String workflowSid) throws ParseException {
+    	Workflow workflow = client.getWorkflow(workspaceSid, workflowSid);
+		
+		// show that we can inspect the workflow configuration
+		WorkflowConfiguration config = workflow.getConfiguration();
+		System.out.println(config);
+		
+		List<WorkflowRule> workflowRules = config.getWorkflowRules();
+		WorkflowRuleTarget defaultTarget = config.getDefaultTarget();
     }
 }
 ```

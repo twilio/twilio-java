@@ -1,11 +1,14 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.util.Date;
+import java.util.Map;
+
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 import com.twilio.sdk.resource.list.taskrouter.ReservationList;
-
-import java.util.Date;
-import java.util.Map;
 
 /**
  * A Task resource represents a single item of work waiting to be processed.
@@ -87,12 +90,24 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * The user-defined JSON string describing the custom attributes of this work.
+	 * A user-defined JSON object describing this Task.
 	 *
 	 * @return the attributes
 	 */
-	public String getAttributes() {
+	public String getRawAttributes() {
 		return getProperty("attributes");
+	}
+	
+	/**
+	 * A map that represents the JSON describing this Task.
+	 *
+	 * @return the attributes
+	 * @throws ParseException 
+	 */
+	public Map getAttributes() throws ParseException {
+		String attributes = getProperty("attributes");
+		JSONParser parser = new JSONParser();
+		return (Map) parser.parse(attributes);
 	}
 
 	/**

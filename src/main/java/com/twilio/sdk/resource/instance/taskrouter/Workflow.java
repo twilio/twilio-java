@@ -5,8 +5,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
+import com.twilio.sdk.taskrouter.WorkflowBuilder;
+import com.twilio.sdk.taskrouter.WorkflowConfiguration;
 
 /**
  * Workflows control how tasks will be prioritized and routed into Queues, and how Tasks should escalate in priority or
@@ -70,8 +77,19 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the configuration
 	 */
-	public String getConfiguration() {
+	public String getRawConfiguration() {
 		return getProperty("configuration");
+	}
+	
+	/**
+	 * WorkflowConfiguration object representing this Workflow
+	 *
+	 * @return the configuration
+	 * @throws ParseException 
+	 */
+	public WorkflowConfiguration getConfiguration() throws ParseException {
+		String configurationJSON = getProperty("configuration");
+		return WorkflowBuilder.parse(configurationJSON);
 	}
 
 	/**
@@ -125,8 +143,8 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the task reservation timeout
 	 */
-	public String getTaskReservationTimeout() {
-		return getProperty("task_reservation_timeout");
+	public Integer getTaskReservationTimeout() {
+		return (Integer) getObject("task_reservation_timeout");
 	}
 
 	/**

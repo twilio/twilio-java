@@ -1,12 +1,15 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
-import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.NextGenInstanceResource;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.twilio.sdk.TwilioTaskRouterClient;
+import com.twilio.sdk.resource.NextGenInstanceResource;
 
 /**
  * Workers represent an entity that is able to perform tasks, such as an agent working in a call center,
@@ -89,8 +92,20 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the attributes
 	 */
-	public String getAttributes() {
+	public String getRawAttributes() {
 		return getProperty("attributes");
+	}
+	
+	/**
+	 * A map that represents the JSON describing this Worker.
+	 *
+	 * @return the attributes
+	 * @throws ParseException 
+	 */
+	public Map getAttributes() throws ParseException {
+		String attributes = getProperty("attributes");
+		JSONParser parser = new JSONParser();
+		return (Map) parser.parse(attributes);
 	}
 
 	/**

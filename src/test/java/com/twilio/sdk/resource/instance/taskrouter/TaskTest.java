@@ -28,7 +28,21 @@ public class TaskTest extends BasicRequestTester {
 		properties.put("Timeout", "60");
 		Task task = taskRouterClient.createTask("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
 		assertNotNull(task);
-		assertEquals("{\"body\": \"hello\"}", task.getAttributes());
+		assertEquals("{\"body\": \"hello\"}", task.getRawAttributes());
+		assertEquals("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", task.getWorkflowSid());
+		assertEquals(60, task.getTimeout());
+	}
+	
+	@Test
+	public void testCreateTaskWithMap() throws Exception {
+		setExpectedServerReturnCode(201);
+		Map<String, String> attributes = new HashMap<String, String>();
+		attributes.put("body", "hello");
+		Task task = taskRouterClient.createTask("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", attributes, null, 60);
+		assertNotNull(task);
+		assertEquals("{\"body\": \"hello\"}", task.getRawAttributes());
+		assertEquals(attributes, task.getAttributes());
+		assertEquals("hello", task.getAttributes().get("body"));
 		assertEquals("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", task.getWorkflowSid());
 		assertEquals(60, task.getTimeout());
 	}
@@ -46,7 +60,7 @@ public class TaskTest extends BasicRequestTester {
 		Task task = taskRouterClient.getTask("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		assertNotNull(task);
 		assertEquals("WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", task.getSid());
-		assertEquals("{\"body\": \"hello\"}", task.getAttributes());
+		assertEquals("{\"body\": \"hello\"}", task.getRawAttributes());
 		assertEquals("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", task.getWorkflowSid());
 	}
 }

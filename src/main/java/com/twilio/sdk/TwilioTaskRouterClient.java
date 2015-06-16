@@ -1,5 +1,8 @@
 package com.twilio.sdk;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.twilio.sdk.resource.factory.taskrouter.ActivityFactory;
 import com.twilio.sdk.resource.factory.taskrouter.TaskFactory;
 import com.twilio.sdk.resource.factory.taskrouter.TaskQueueFactory;
@@ -28,9 +31,6 @@ import com.twilio.sdk.resource.list.taskrouter.TaskQueueListStatistics;
 import com.twilio.sdk.resource.list.taskrouter.WorkerList;
 import com.twilio.sdk.resource.list.taskrouter.WorkflowList;
 import com.twilio.sdk.resource.list.taskrouter.WorkspaceList;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The client class that access http://taskrouter.twilio.com.
@@ -84,6 +84,22 @@ public class TwilioTaskRouterClient extends TwilioClient {
 		TaskFactory taskFactory = new TaskList(this, workspaceSid);
 		return taskFactory.create(properties);
 	}
+	
+	/**
+	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
+	 *
+	 * @param workspaceSid the workspace sid
+	 * @param workflowSid the workflow sid
+	 * @param attributes the Map of Attributes that will convert to JSON
+	 * @param priority the priority of the task (optional)
+	 * @param timeout the max timeout of the task (optional)
+	 * @return created task
+	 * @throws TwilioRestException
+	 */
+	public Task createTask(final String workspaceSid, String workflowSid, final Map attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
+		TaskFactory taskFactory = new TaskList(this, workspaceSid);
+		return taskFactory.create(workflowSid, attributes, priority, timeout);
+	}
 
 	/**
 	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
@@ -96,6 +112,20 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	                                                                                            TwilioRestException {
 		WorkerFactory factory = new WorkerList(this, workspaceSid);
 		return factory.create(properties);
+	}
+	
+	/**
+	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+	 * @param workspaceSid the workspace sid
+	 * @param friendlyName friendly name of the worker
+	 * @param attributes attributes of the worker
+	 * @param activitySid default activity of the worker
+	 * @return created worker
+	 * @throws TwilioRestException
+	 */
+	public Worker createWorker(final String workspaceSid, final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
+		WorkerFactory factory = new WorkerList(this, workspaceSid);
+		return factory.create(friendlyName, attributes, activitySid);
 	}
 
 	/**

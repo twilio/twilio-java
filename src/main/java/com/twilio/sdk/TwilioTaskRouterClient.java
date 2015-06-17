@@ -61,7 +61,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
 	 *
 	 * @param properties queue properties
 	 * @return created queue
@@ -74,7 +74,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
 	 *
 	 * @param properties task properties
 	 * @return created task
@@ -86,7 +86,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	}
 	
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
 	 *
 	 * @param workspaceSid the workspace sid
 	 * @param workflowSid the workflow sid
@@ -102,7 +102,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
 	 *
 	 * @param properties task properties
 	 * @return created worker
@@ -115,7 +115,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	}
 	
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
 	 * @param workspaceSid the workspace sid
 	 * @param friendlyName friendly name of the worker
 	 * @param attributes attributes of the worker
@@ -129,7 +129,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
 	 *
 	 * @param properties task properties
 	 * @return created workflow

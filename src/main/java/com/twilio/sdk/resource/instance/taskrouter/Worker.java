@@ -92,7 +92,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the attributes
 	 */
-	public String getRawAttributes() {
+	public String getAttributes() {
 		return getProperty("attributes");
 	}
 	
@@ -102,7 +102,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the attributes
 	 * @throws ParseException 
 	 */
-	public Map getAttributes() throws ParseException {
+	public Map parseAttributes() throws ParseException {
 		String attributes = getProperty("attributes");
 		JSONParser parser = new JSONParser();
 		return (Map) parser.parse(attributes);

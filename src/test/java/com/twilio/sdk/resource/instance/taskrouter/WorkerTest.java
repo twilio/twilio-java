@@ -39,10 +39,10 @@ public class WorkerTest extends BasicRequestTester {
 		Worker worker = taskRouterClient.createWorker("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Test Worker", attributes, "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		assertNotNull(worker);
 		assertEquals("Test Worker", worker.getFriendlyName());
-		assertEquals("{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}", worker.getRawAttributes());
-		assertEquals(attributes, worker.getAttributes());
-		assertEquals("test@twilio.com", worker.getAttributes().get("email"));
-		assertEquals("8675309", worker.getAttributes().get("phone"));
+		assertEquals("{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}", worker.getAttributes());
+		assertEquals(attributes, worker.parseAttributes());
+		assertEquals("test@twilio.com", worker.parseAttributes().get("email"));
+		assertEquals("8675309", worker.parseAttributes().get("phone"));
 		assertEquals("WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", worker.getActivitySid());
 	}
 

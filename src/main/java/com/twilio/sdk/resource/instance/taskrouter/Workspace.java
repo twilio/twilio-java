@@ -86,7 +86,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
+	 * Creates an {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
 	 *
 	 * @param params the params list
 	 * @return a Activity
@@ -98,7 +98,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
+	 * Creates an {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.
 	 *
 	 * @param params the params list
 	 * @return a Activity

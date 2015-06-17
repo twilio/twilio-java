@@ -111,7 +111,11 @@ public abstract class Resource<C extends TwilioClient> {
 		this.requestAccountSid = sid;
 	}
 	
-
+	/**
+	 * Parsing a date string formated in ISO8601 format to a Calendar
+	 * @param inDate string in ISO8601 format
+	 * @return the represented Calendar
+	 */
 	protected Calendar parseCalendar(final String inDate) {
 		if (inDate == null) {
 			return null;
@@ -128,7 +132,12 @@ public abstract class Resource<C extends TwilioClient> {
 		}
 	}
 	
-	protected String parseString(final Calendar calendar) {
+	/**
+	 * Formats a Calendar into an an ISO8601 date string
+	 * @param calendar the calendar to convert
+	 * @return the represented string
+	 */
+	protected String formatCalendar(final Calendar calendar) {
 		if(calendar == null) {
 			return null;
 		}

@@ -320,7 +320,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Worker
 	 * @throws TwilioRestException
 	 */
-	public Worker create(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
+	public Worker createWorker(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
 		WorkerList workers = new WorkerList(getClient(), getSid());
 		return workers.create(friendlyName, attributes, activitySid);
 	}
@@ -430,10 +430,10 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	public WorkspaceStatistics getStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes) {
 		Map<String, String> filters = new HashMap<String, String>();
 		if(startDate != null) {
-			filters.put("StartDate", parseString(startDate));
+			filters.put("StartDate", formatCalendar(startDate));
 		}
 		if(endDate != null) {
-			filters.put("EndDate", parseString(endDate));
+			filters.put("EndDate", formatCalendar(endDate));
 		}
 		if(minutes != null) {
 			filters.put("Minutes", minutes.toString());

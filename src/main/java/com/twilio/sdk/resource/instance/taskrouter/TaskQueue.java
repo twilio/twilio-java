@@ -169,10 +169,10 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	public TaskQueueStatistics getStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes) {
 		Map<String, String> filters = new HashMap<String, String>();
 		if(startDate != null) {
-			filters.put("StartDate", parseString(startDate));
+			filters.put("StartDate", formatCalendar(startDate));
 		}
 		if(endDate != null) {
-			filters.put("EndDate", parseString(endDate));
+			filters.put("EndDate", formatCalendar(endDate));
 		}
 		if(minutes != null) {
 			filters.put("Minutes", minutes.toString());

@@ -26,12 +26,12 @@ public class WorkflowConfiguration {
 		taskRouting = new TaskRoutingConfiguration(workflowRules, defaultTarget);
 	}
 
-    /**
-     * Constructor for creating based on json. 
-     * 
-     * @param taskRoutingConfig
-     * @throws Exception 
-     */
+	/**
+	 * Constructor for creating based on json. 
+	 * 
+	 * @param taskRoutingConfig
+	 * @throws Exception 
+	 */
 	@JsonCreator
     public WorkflowConfiguration(@JsonProperty("task_routing") TaskRoutingConfiguration taskRouting) {
 		this.taskRouting = taskRouting;
@@ -63,21 +63,21 @@ class TaskRoutingConfiguration {
 	@JsonProperty("default_filter")
 	private WorkflowRuleTarget defaultTarget;
 	
-    /**
-     * Constructor for creating based on json. 
-     * 
-     * @param taskRoutingConfig
-     * @throws Exception 
-     */
-    @JsonCreator
-    public TaskRoutingConfiguration(@JsonProperty("filters") List<WorkflowRule> workflowRules, 
-    		@JsonProperty("default_filter") WorkflowRuleTarget defaultTarget) throws Exception {
+	/**
+	 * Constructor for creating based on json. 
+	 * 
+	 * @param taskRoutingConfig
+	 * @throws Exception 
+	 */
+	@JsonCreator
+	public TaskRoutingConfiguration(@JsonProperty("filters") List<WorkflowRule> workflowRules, 
+			@JsonProperty("default_filter") WorkflowRuleTarget defaultTarget) throws Exception {
 		if(workflowRules == null || workflowRules.isEmpty()) {
 			throw new Exception("Workflow Rules are required when defining a workflow");
 		}
 		this.workflowRules = workflowRules;
 		this.defaultTarget = defaultTarget;
-    }
+	}
 	
 	/**
 	 * Get the workflow rules for the workflow

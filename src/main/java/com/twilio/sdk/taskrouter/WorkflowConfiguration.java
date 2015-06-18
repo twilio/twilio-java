@@ -68,9 +68,9 @@ public class WorkflowConfiguration {
 	public String toJSON() throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        mapper.writeValue(out, this);
-        final String workflowJSON = out.toString();
-        return workflowJSON;
+		mapper.writeValue(out, this);
+		final String workflowJSON = out.toString();
+		return workflowJSON;
 	}
 	
 	/**

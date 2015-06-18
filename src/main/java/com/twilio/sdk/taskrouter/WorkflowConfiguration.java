@@ -1,5 +1,7 @@
 package com.twilio.sdk.taskrouter;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -8,6 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -50,6 +56,34 @@ public class WorkflowConfiguration {
 	@Override
 	public String toString() {
 		return taskRouting.toString();
+	}
+	
+	/**
+	 * Converts a workflow configuration to JSON
+	 * @return JSON for workflow configuration
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonGenerationException 
+	 */
+	public String toJSON() throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        mapper.writeValue(out, this);
+        final String workflowJSON = out.toString();
+        return workflowJSON;
+	}
+	
+	/**
+	 * Converts a JSON workflow configuration to a workflow configuration object
+	 * @param configurationJSON JSON for workflow configuration
+	 * @return a workflow configuration object
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
+	 */
+	public static WorkflowConfiguration parse(final String configurationJSON) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.readValue(configurationJSON, WorkflowConfiguration.class);
 	}
 }
 

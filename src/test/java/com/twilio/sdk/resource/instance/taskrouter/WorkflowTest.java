@@ -1,23 +1,22 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
-import com.twilio.sdk.resource.instance.BasicRequestTester;
-import com.twilio.sdk.taskrouter.WorkflowBuilder;
-import com.twilio.sdk.taskrouter.WorkflowConfiguration;
-import com.twilio.sdk.taskrouter.WorkflowRule;
-import com.twilio.sdk.taskrouter.WorkflowRuleTarget;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.twilio.sdk.resource.instance.BasicRequestTester;
+import com.twilio.sdk.taskrouter.WorkflowConfiguration;
+import com.twilio.sdk.taskrouter.WorkflowRule;
+import com.twilio.sdk.taskrouter.WorkflowRuleTarget;
 
 public class WorkflowTest extends BasicRequestTester {
 
@@ -77,7 +76,7 @@ public class WorkflowTest extends BasicRequestTester {
 		
 		// build workflow & convert to json
 		WorkflowConfiguration config = new WorkflowConfiguration(rules, defaultTarget);
-		String workflowJSON = WorkflowBuilder.toJSON(config);
+		String workflowJSON = config.toJSON();
 		
 		// build up properties for workflow
 		Map<String, String> properties = new HashMap<String, String>();

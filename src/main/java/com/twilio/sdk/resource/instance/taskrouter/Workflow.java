@@ -6,16 +6,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
-import com.twilio.sdk.taskrouter.WorkflowBuilder;
 import com.twilio.sdk.taskrouter.WorkflowConfiguration;
 
 /**
@@ -95,7 +91,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public WorkflowConfiguration parseConfiguration() throws ParseException, JsonParseException, JsonMappingException, IOException {
 		String configurationJSON = getProperty("configuration");
-		return WorkflowBuilder.parse(configurationJSON);
+		return WorkflowConfiguration.parse(configurationJSON);
 	}
 
 	/**

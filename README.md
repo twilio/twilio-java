@@ -267,7 +267,7 @@ public class TaskRouterExample {
       return workflow;
     }
     
-    private static void readWorkflow(TwilioTaskRouterClient client, String workspaceSid, String workflowSid) throws ParseException {
+    private static void readWorkflow(TwilioTaskRouterClient client, String workspaceSid, String workflowSid) throws IOException {
       Workflow workflow = client.getWorkflow(workspaceSid, workflowSid);
     
       // show that we can inspect the workflow configuration

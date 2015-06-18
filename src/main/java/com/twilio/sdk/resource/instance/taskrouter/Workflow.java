@@ -84,12 +84,9 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * WorkflowConfiguration object representing this Workflow
 	 *
 	 * @return the configuration
-	 * @throws ParseException 
 	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
 	 */
-	public WorkflowConfiguration parseConfiguration() throws ParseException, JsonParseException, JsonMappingException, IOException {
+	public WorkflowConfiguration parseConfiguration() throws IOException {
 		String configurationJSON = getProperty("configuration");
 		return WorkflowConfiguration.parse(configurationJSON);
 	}

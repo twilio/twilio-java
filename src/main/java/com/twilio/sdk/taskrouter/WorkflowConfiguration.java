@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -78,10 +79,8 @@ public class WorkflowConfiguration {
 	 * @param configurationJSON JSON for workflow configuration
 	 * @return a workflow configuration object
 	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
 	 */
-	public static WorkflowConfiguration parse(final String configurationJSON) throws JsonParseException, JsonMappingException, IOException {
+	public static WorkflowConfiguration parse(final String configurationJSON) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.readValue(configurationJSON, WorkflowConfiguration.class);
 	}

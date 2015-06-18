@@ -38,7 +38,7 @@ public class WorkflowTest extends BasicRequestTester {
 		Workflow workflow = taskRouterClient.createWorkflow("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
 		assertNotNull(workflow);
 		assertEquals("Default Fifo Workflow", workflow.getFriendlyName());
-		assertEquals("{\"task_routing\":{\"filters\":[{\"targets\":[{\"queue\":\"WQec62de0e1148b8477f2e24579779c8b1\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Sales\",\"expression\":\"type == \\\"sales\\\"\"},{\"targets\":[{\"queue\":\"WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Marketing\",\"expression\":\"type == \\\"marketing\\\"\"},{\"targets\":[{\"queue\":\"WQe5eb317eb23500ade45087ea6522896c\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Support\",\"expression\":\"type == \\\"support\\\"\"}],\"default_filter\":{\"queue\":\"WQ05f810d2d130344fd56e3c91ece2e594\"}}}", workflow.getRawConfiguration());
+		assertEquals("{\"task_routing\":{\"filters\":[{\"targets\":[{\"queue\":\"WQec62de0e1148b8477f2e24579779c8b1\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Sales\",\"expression\":\"type == \\\"sales\\\"\"},{\"targets\":[{\"queue\":\"WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Marketing\",\"expression\":\"type == \\\"marketing\\\"\"},{\"targets\":[{\"queue\":\"WQe5eb317eb23500ade45087ea6522896c\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Support\",\"expression\":\"type == \\\"support\\\"\"}],\"default_filter\":{\"queue\":\"WQ05f810d2d130344fd56e3c91ece2e594\"}}}", workflow.getConfiguration());
 		assertEquals("http://example.com", workflow.getAssignmentCallbackUrl());
 	}
 	
@@ -77,7 +77,7 @@ public class WorkflowTest extends BasicRequestTester {
 		
 		// build workflow & convert to json
 		WorkflowConfiguration config = new WorkflowConfiguration(rules, defaultTarget);
-		String workflowJSON = WorkflowBuilder.parse(config);
+		String workflowJSON = WorkflowBuilder.toJSON(config);
 		
 		// build up properties for workflow
 		Map<String, String> properties = new HashMap<String, String>();
@@ -91,7 +91,7 @@ public class WorkflowTest extends BasicRequestTester {
 		assertNotNull(workflow);
 		
 		assertEquals("Default Fifo Workflow", workflow.getFriendlyName());
-		assertEquals(configurationStr, workflow.getRawConfiguration());
+		assertEquals(configurationStr, workflow.getConfiguration());
 		assertEquals("http://example.com", workflow.getAssignmentCallbackUrl());
 		assertNull(workflow.getFallbackAssignmentCallbackUrl());
 		assertEquals(120, workflow.getTaskReservationTimeout().intValue());

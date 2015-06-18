@@ -271,7 +271,7 @@ public class TaskRouterExample {
       Workflow workflow = client.getWorkflow(workspaceSid, workflowSid);
     
       // show that we can inspect the workflow configuration
-      WorkflowConfiguration config = workflow.getConfiguration();
+      WorkflowConfiguration config = workflow.parseConfiguration();
       System.out.println(config);
     
       List<WorkflowRule> workflowRules = config.getWorkflowRules();

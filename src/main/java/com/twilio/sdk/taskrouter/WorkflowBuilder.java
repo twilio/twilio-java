@@ -15,26 +15,15 @@ public class WorkflowBuilder {
 	 * Converts a workflow configuration to JSON
 	 * @param configuration workflow config object
 	 * @return JSON for workflow configuration
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonGenerationException 
 	 */
-	public static String parse(WorkflowConfiguration configuration) {
+	public static String toJSON(final WorkflowConfiguration configuration) throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        try {
-            mapper.writeValue(out, configuration);
-        } catch (final JsonGenerationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final JsonMappingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        mapper.writeValue(out, configuration);
         final String workflowJSON = out.toString();
-		
         return workflowJSON;
 	}
 	
@@ -42,24 +31,12 @@ public class WorkflowBuilder {
 	 * Converts a JSON workflow configuration to a workflow configuration object
 	 * @param configurationJSON JSON for workflow configuration
 	 * @return a workflow configuration object
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public static WorkflowConfiguration parse(String configurationJSON) {
+	public static WorkflowConfiguration parse(final String configurationJSON) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-
-		WorkflowConfiguration configuration = null;
-		try {
-			configuration = mapper.readValue(configurationJSON, WorkflowConfiguration.class);
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-        return configuration;
+		return mapper.readValue(configurationJSON, WorkflowConfiguration.class);
 	}
 }

@@ -1,5 +1,6 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,6 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
@@ -77,7 +80,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the configuration
 	 */
-	public String getRawConfiguration() {
+	public String getConfiguration() {
 		return getProperty("configuration");
 	}
 	
@@ -86,8 +89,11 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the configuration
 	 * @throws ParseException 
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public WorkflowConfiguration getConfiguration() throws ParseException {
+	public WorkflowConfiguration parseConfiguration() throws ParseException, JsonParseException, JsonMappingException, IOException {
 		String configurationJSON = getProperty("configuration");
 		return WorkflowBuilder.parse(configurationJSON);
 	}

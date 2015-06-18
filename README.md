@@ -257,7 +257,7 @@ public class TaskRouterExample {
       
       // build workflow & convert to json
       WorkflowConfiguration config = new WorkflowConfiguration(rules, defaultTarget);
-      String workflowJSON = WorkflowBuilder.parse(config);
+      String workflowJSON = config.toJSON();
       
       Map<String, String> params = new HashMap<String, String>();
       params.put("Configuration", workflowJSON);

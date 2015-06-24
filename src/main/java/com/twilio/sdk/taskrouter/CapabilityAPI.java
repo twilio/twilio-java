@@ -32,7 +32,7 @@ public class CapabilityAPI extends CapabilityToken {
         this.policies.add(policy);
     }
 
-    public void disAllow(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
+    public void deny(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
         final Policy policy = new Policy(url, method, queryFilter, postFilter, false);
         this.policies.add(policy);
     }

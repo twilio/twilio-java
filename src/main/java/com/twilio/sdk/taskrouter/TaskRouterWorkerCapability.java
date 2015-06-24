@@ -6,7 +6,7 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
     private final String activityUrl;
 
     public TaskRouterWorkerCapability(final String accountSid, final String authToken, final String workspaceSid, final String workerSid) throws Exception {
-        super(accountSid, authToken, workspaceSid, workerSid, null);
+        super(accountSid, authToken, workspaceSid, workerSid);
         this.reservationsUrl = this.baseUrl + "/Tasks/**";
         this.activityUrl = this.baseUrl + "/Activities";
 

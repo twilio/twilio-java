@@ -2,7 +2,6 @@ package com.twilio.sdk.taskrouter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TaskRouterCapability extends CapabilityAPI {
@@ -11,15 +10,12 @@ public class TaskRouterCapability extends CapabilityAPI {
     private final static String TASKROUTER_VERSION = "v1";
     private final static String TASKROUTER_EVENT_URL = "https://event-bridge.twilio.com/v1/wschannels";
 
-    protected String accountSid;
-    protected String authToken;
     protected String workspaceSid;
     protected String channelId;
     protected String resourceUrl;
-    protected List<Policy> policies;
     protected String baseUrl;
 
-    public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String channelId, String resourceUrl) throws Exception {
+    public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String channelId) throws Exception {
         super(accountSid, authToken, TASKROUTER_VERSION, channelId);
         this.accountSid = accountSid;
         this.authToken = authToken;
@@ -27,17 +23,15 @@ public class TaskRouterCapability extends CapabilityAPI {
         this.channelId = channelId;
         this.policies = new ArrayList<Policy>();
         this.baseUrl = TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
-        if (resourceUrl == null) {
-            if (channelId.substring(0, 2).equals("WS")) {
-                resourceUrl = this.baseUrl;
-            } else if (channelId.substring(0, 2).equals("WK")) {
-                resourceUrl = this.baseUrl + "/Workers/" + channelId;
-            } else if (channelId.substring(0, 2).equals("WQ")) {
-                resourceUrl = this.baseUrl + "/TaskQueues/" + channelId;
-            }
+
+        if (channelId.substring(0, 2).equals("WS")) {
+            resourceUrl = this.baseUrl;
+        } else if (channelId.substring(0, 2).equals("WK")) {
+            resourceUrl = this.baseUrl + "/Workers/" + channelId;
+        } else if (channelId.substring(0, 2).equals("WQ")) {
+            resourceUrl = this.baseUrl + "/TaskQueues/" + channelId;
         }
 
-        this.resourceUrl = resourceUrl;
         // add permissions to GET and POST to the event-bridge channel
         addTaskRouterPolicies(channelId);
         this.addPolicy(new Policy(resourceUrl, "GET", true));
@@ -118,7 +112,7 @@ public class TaskRouterCapability extends CapabilityAPI {
     }
 
     @Override
-    public void disAllow(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
+    public void deny(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
         final Policy policy = new Policy(url, method, queryFilter, postFilter, false);
         if (!checkPolicy(policy)) {
             this.policies.add(policy);

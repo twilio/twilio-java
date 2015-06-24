@@ -210,7 +210,7 @@ public class TaskRouterCapabilityTest {
     public void testGenerateTaskQueueTokenDisallow() throws Exception {
         try {
             final TaskRouterTaskQueueCapability capability = new TaskRouterTaskQueueCapability("AC123", "foobar", "WS456", "WQ111");
-            capability.disAllow("https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ111", "GET", null, null);
+            capability.deny("https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ111", "GET", null, null);
             final String token = capability.generateToken();
             final String[] parts = token.split("\\.");
             assertEquals(3, parts.length);

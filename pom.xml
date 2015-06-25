@@ -5,7 +5,7 @@
 
   <!-- Project identification section -->
   <groupId>com.twilio.sdk.ng</groupId>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <artifactId>twilio-java-ng</artifactId>
   <name>Next Gen Twilio Java Prototype</name>

@@ -27,7 +27,7 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
     }
     
     @Override
-    public void setupResource() {
+    protected void setupResource() {
     	this.resourceUrl = this.baseUrl + "/Workers/" + this.channelId;
     }
 

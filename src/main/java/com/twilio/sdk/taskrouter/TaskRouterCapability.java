@@ -39,7 +39,7 @@ public class TaskRouterCapability extends CapabilityAPI {
         this.addPolicy(new Policy(resourceUrl, "GET", true));
     }
     
-    public void setupResource() {
+    protected void setupResource() {
     	if (channelId.substring(0, 2).equals("WS")) {
             resourceUrl = this.baseUrl;
         } else if (channelId.substring(0, 2).equals("WK")) {

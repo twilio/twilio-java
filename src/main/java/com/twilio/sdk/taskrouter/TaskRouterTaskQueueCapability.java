@@ -17,7 +17,7 @@ public class TaskRouterTaskQueueCapability extends TaskRouterCapability {
     }
     
     @Override
-    public void setupResource() {
+    protected void setupResource() {
     	this.resourceUrl = this.baseUrl + "/TaskQueues/" + this.channelId;
     }
 }

@@ -85,7 +85,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.list()
+        Message.read()
                .execute();
     }
 

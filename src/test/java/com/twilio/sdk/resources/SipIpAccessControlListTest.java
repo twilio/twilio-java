@@ -76,7 +76,7 @@ public class SipIpAccessControlListTest {
             twilioRestClient.getObjectMapper(); result = new ObjectMapper();
         }};
 
-        SipIpAccessControlList.list().execute();
+        SipIpAccessControlList.read().execute();
     }
 
     

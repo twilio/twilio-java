@@ -96,7 +96,7 @@ public class Message extends SidResource {
         return new MessageFetcher(sid);
     }
 
-    public static MessageReader list() {
+    public static MessageReader read() {
         return new MessageReader();
     }
 

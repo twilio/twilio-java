@@ -72,11 +72,11 @@ public class Media extends SidResource {
         return new MediaFetcher(targetMessage, sid);
     }
 
-    public static MediaReader list(final String messageSid) {
+    public static MediaReader read(final String messageSid) {
         return new MediaReader(messageSid);
     }
 
-    public static MediaReader list(final Message target) {
+    public static MediaReader read(final Message target) {
         return new MediaReader(target);
     }
 

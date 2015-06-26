@@ -69,7 +69,7 @@ public class ConnectAppTest {
             result = new ObjectMapper();
         }};
 
-        ConnectApp.list()
+        ConnectApp.read()
                   .execute();
     }
 

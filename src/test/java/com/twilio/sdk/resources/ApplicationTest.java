@@ -85,7 +85,7 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
 
-        Application.list()
+        Application.read()
                    .execute();
     }
 

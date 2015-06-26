@@ -54,11 +54,11 @@ public class Participant extends Resource {
         this.uri = uri;
     }
 
-    public static ParticipantReader list(final String conferenceSid) {
+    public static ParticipantReader read(final String conferenceSid) {
         return new ParticipantReader(conferenceSid);
     }
 
-    public static ParticipantReader list(final Conference target) {
+    public static ParticipantReader read(final Conference target) {
         return new ParticipantReader(target);
     }
 

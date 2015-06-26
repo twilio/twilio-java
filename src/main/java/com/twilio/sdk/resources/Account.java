@@ -68,7 +68,7 @@ public class Account extends SidResource {
         return new AccountFetcher(sid);
     }
 
-    public static AccountReader list() {
+    public static AccountReader read() {
         return new AccountReader();
     }
 

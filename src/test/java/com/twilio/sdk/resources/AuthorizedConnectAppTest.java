@@ -69,7 +69,7 @@ public class AuthorizedConnectAppTest {
             result = new ObjectMapper();
         }};
 
-        AuthorizedConnectApp.list()
+        AuthorizedConnectApp.read()
                             .execute();
     }
 

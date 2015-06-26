@@ -56,7 +56,7 @@ public class AuthorizedConnectApp extends SidResource {
         return new AuthorizedConnectAppFetcher(sid);
     }
 
-    public static AuthorizedConnectAppReader list() {
+    public static AuthorizedConnectAppReader read() {
         return new AuthorizedConnectAppReader();
     }
 

@@ -77,7 +77,7 @@ public class SipCredentialListTest {
             twilioRestClient.getObjectMapper(); result = new ObjectMapper();
         }};
 
-        SipCredentialList.list().execute();
+        SipCredentialList.read().execute();
     }
 
     

@@ -85,7 +85,7 @@ public class TranscriptionTest {
             result = new ObjectMapper();
         }};
 
-        Transcription.list()
+        Transcription.read()
                      .execute();
     }
 

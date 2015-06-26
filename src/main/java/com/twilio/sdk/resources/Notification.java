@@ -92,7 +92,7 @@ public class Notification extends SidResource {
         return new NotificationFetcher(sid);
     }
 
-    public static NotificationReader list() {
+    public static NotificationReader read() {
         return new NotificationReader();
     }
 

@@ -94,7 +94,7 @@ public class UsageTrigger extends SidResource {
         return new UsageTriggerFetcher(sid);
     }
 
-    public static UsageTriggerReader list() {
+    public static UsageTriggerReader read() {
         return new UsageTriggerReader();
     }
 

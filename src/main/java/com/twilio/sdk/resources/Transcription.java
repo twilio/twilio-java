@@ -77,7 +77,7 @@ public class Transcription extends SidResource {
         return new TranscriptionFetcher(sid);
     }
 
-    public static TranscriptionReader list() {
+    public static TranscriptionReader read() {
         return new TranscriptionReader();
     }
 

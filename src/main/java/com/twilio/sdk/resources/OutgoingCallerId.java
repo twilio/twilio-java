@@ -68,7 +68,7 @@ public class OutgoingCallerId extends SidResource {
         return new OutgoingCallerIdFetcher(sid);
     }
 
-    public static OutgoingCallerIdReader list() {
+    public static OutgoingCallerIdReader read() {
         return new OutgoingCallerIdReader();
     }
 

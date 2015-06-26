@@ -40,7 +40,7 @@ public class UsageRecordTest {
             result = new ObjectMapper();
         }};
 
-        UsageRecord.list()
+        UsageRecord.read()
                    .execute();
     }
 
@@ -57,7 +57,7 @@ public class UsageRecordTest {
             result = new ObjectMapper();
         }};
 
-        UsageRecord.list()
+        UsageRecord.read()
                    .byCategory(UsageCategory.CALLERIDLOOKUPS)
                    .execute();
     }
@@ -74,7 +74,7 @@ public class UsageRecordTest {
             result = new ObjectMapper();
         }};
 
-        UsageRecord.list()
+        UsageRecord.read()
                    .bySubResource(UsageRecordSubResource.DAILY)
                    .execute();
     }

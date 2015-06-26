@@ -99,7 +99,7 @@ public class DependentPhoneNumber extends SidResource {
 
     }
 
-    public static DependentPhoneNumberReader list(final String addressSid) {
+    public static DependentPhoneNumberReader read(final String addressSid) {
         return new DependentPhoneNumberReader(addressSid);
     }
 

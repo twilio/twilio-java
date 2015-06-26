@@ -98,7 +98,7 @@ public class SipDomain extends SidResource {
         return new SipDomainFetcher(sid);
     }
 
-    public static SipDomainReader list() {
+    public static SipDomainReader read() {
         return new SipDomainReader();
     }
 

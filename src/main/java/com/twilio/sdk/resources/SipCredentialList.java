@@ -71,7 +71,7 @@ public class SipCredentialList extends SidResource {
         return new SipCredentialListFetcher(sid);
     }
 
-    public static SipCredentialListReader list() {
+    public static SipCredentialListReader read() {
         return new SipCredentialListReader();
     }
 

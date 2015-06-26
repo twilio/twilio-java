@@ -35,6 +35,6 @@ public class DependentPhoneNumberTest {
             twilioRestClient.getObjectMapper(); result = new ObjectMapper();
         }};
 
-        DependentPhoneNumber.list("AD123").execute();
+        DependentPhoneNumber.read("AD123").execute();
     }
 }

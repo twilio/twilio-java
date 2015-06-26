@@ -85,7 +85,7 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        Address.list()
+        Address.read()
                .execute();
     }
 

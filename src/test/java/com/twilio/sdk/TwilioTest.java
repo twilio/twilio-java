@@ -21,6 +21,10 @@ public class TwilioTest {
 
     @Test(expected = AuthenticationException.class)
     public void testGetRestClientNullAccountSid() {
+        Twilio.setRestClient(null);
+        Twilio.authToken = null;
+        Twilio.accountSid = null;
+
         Twilio.getRestClient();
         fail("AuthenticationException was expected");
     }

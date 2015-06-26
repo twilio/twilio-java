@@ -68,7 +68,7 @@ public class MemberTest {
             result = new ObjectMapper();
         }};
 
-        Member.list("queueSid").execute();
+        Member.read("queueSid").execute();
     }
 
     @Test

@@ -85,7 +85,7 @@ public class UsageTriggerTest {
             result = new ObjectMapper();
         }};
 
-        UsageTrigger.list()
+        UsageTrigger.read()
                     .execute();
     }
 

@@ -41,11 +41,11 @@ public class Member extends Resource {
         this.uri = uri;
     }
 
-    public static MemberReader list(final String queueSid) {
+    public static MemberReader read(final String queueSid) {
         return new MemberReader(queueSid);
     }
 
-    public static MemberReader list(final Queue target) {
+    public static MemberReader read(final Queue target) {
         return new MemberReader(target);
     }
 

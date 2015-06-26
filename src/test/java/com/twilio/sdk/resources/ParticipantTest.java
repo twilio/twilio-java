@@ -94,7 +94,7 @@ public class ParticipantTest {
             result = new ObjectMapper();
         }};
 
-        Participant.list("conferenceSid")
+        Participant.read("conferenceSid")
                    .execute();
     }
 

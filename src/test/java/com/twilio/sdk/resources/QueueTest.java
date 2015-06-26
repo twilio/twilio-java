@@ -85,7 +85,7 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
 
-        Queue.list()
+        Queue.read()
              .execute();
     }
 

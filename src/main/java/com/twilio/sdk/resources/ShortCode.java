@@ -68,7 +68,7 @@ public class ShortCode extends SidResource {
         return new ShortCodeFetcher(sid);
     }
 
-    public static ShortCodeReader list() {
+    public static ShortCodeReader read() {
         return new ShortCodeReader();
     }
 

@@ -55,7 +55,7 @@ public class Conference extends SidResource {
         return new ConferenceFetcher(sid);
     }
 
-    public static ConferenceReader list() {
+    public static ConferenceReader read() {
         return new ConferenceReader();
     }
 

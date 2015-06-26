@@ -57,7 +57,7 @@ public class SipIpAccessControlList extends SidResource {
         return new SipIpAccessControlListFetcher(sid);
     }
 
-    public static SipIpAccessControlListReader list() {
+    public static SipIpAccessControlListReader read() {
         return new SipIpAccessControlListReader();
     }
 

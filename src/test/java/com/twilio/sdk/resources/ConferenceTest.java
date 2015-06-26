@@ -69,7 +69,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        Conference.list()
+        Conference.read()
                   .execute();
     }
 

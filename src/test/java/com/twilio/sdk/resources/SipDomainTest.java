@@ -77,7 +77,7 @@ public class SipDomainTest {
             twilioRestClient.getObjectMapper(); result = new ObjectMapper();
         }};
 
-        SipDomain.list().execute();
+        SipDomain.read().execute();
     }
 
     

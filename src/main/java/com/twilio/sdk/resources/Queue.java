@@ -73,7 +73,7 @@ public class Queue extends SidResource {
         return new QueueFetcher(sid);
     }
 
-    public static QueueReader list() {
+    public static QueueReader read() {
         return new QueueReader();
     }
 

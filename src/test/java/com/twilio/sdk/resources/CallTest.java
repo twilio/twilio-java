@@ -143,7 +143,7 @@ public class CallTest {
         Call call = Call.fetch("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                         .execute();
 
-        call = Call.update(call)
+        call = Call.update(call.getSid())
                    .setUrl(new URI("https://www.twilio.com"))
                    .setMethod(HttpMethod.POST)
                    .execute();
@@ -162,7 +162,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        Call.list()
+        Call.read()
             .byEndTime(Range.lessThan(DateTime.parse("2014-01-01")))
             .pageSize(51)
             .execute();

@@ -119,7 +119,7 @@ public class IncomingPhoneNumber extends SidResource {
         return new IncomingPhoneNumberFetcher(sid);
     }
 
-    public static IncomingPhoneNumberReader list() {
+    public static IncomingPhoneNumberReader read() {
         return new IncomingPhoneNumberReader();
     }
 

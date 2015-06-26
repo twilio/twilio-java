@@ -85,7 +85,7 @@ public class RecordingTest {
             result = new ObjectMapper();
         }};
 
-        Recording.list()
+        Recording.read()
                  .execute();
     }
 

@@ -85,7 +85,7 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
 
-        OutgoingCallerId.list()
+        OutgoingCallerId.read()
                         .execute();
     }
 

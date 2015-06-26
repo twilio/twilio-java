@@ -141,7 +141,7 @@ public class CallResourceSetTest {
             result = new ObjectMapper();
         }};
 
-        ResourceSet<Call> resourceSet = Call.list()
+        ResourceSet<Call> resourceSet = Call.read()
                                             .execute();
 
         assertNotNull(resourceSet);
@@ -184,7 +184,7 @@ public class CallResourceSetTest {
             result = new ObjectMapper();
         }};
 
-        ResourceSet<Call> resourceSet = Call.list()
+        ResourceSet<Call> resourceSet = Call.read()
                                             .pageSize(100)
                                             .execute();
 

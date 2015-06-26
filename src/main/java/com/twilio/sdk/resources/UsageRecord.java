@@ -63,7 +63,7 @@ public class UsageRecord extends Resource {
 
     }
 
-    public static UsageRecordReader list() {
+    public static UsageRecordReader read() {
         return new UsageRecordReader();
     }
 

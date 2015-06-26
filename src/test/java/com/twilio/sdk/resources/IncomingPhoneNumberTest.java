@@ -85,7 +85,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.list()
+        IncomingPhoneNumber.read()
                            .execute();
     }
 
@@ -101,7 +101,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.list()
+        IncomingPhoneNumber.read()
                            .byType(PhoneNumberType.LOCAL)
                            .execute();
     }
@@ -118,7 +118,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.list()
+        IncomingPhoneNumber.read()
                            .byType(PhoneNumberType.MOBILE)
                            .execute();
     }
@@ -135,7 +135,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.list()
+        IncomingPhoneNumber.read()
                            .byType(PhoneNumberType.TOLL_FREE)
                            .execute();
     }

@@ -69,7 +69,7 @@ public class ShortCodeTest {
             result = new ObjectMapper();
         }};
 
-        ShortCode.list()
+        ShortCode.read()
                  .execute();
     }
 

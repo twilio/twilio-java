@@ -73,6 +73,6 @@ public class MediaTest {
             twilioRestClient.getObjectMapper(); result = new ObjectMapper();
         }};
 
-        Media.list("messageSid").execute();
+        Media.read("messageSid").execute();
     }
 }

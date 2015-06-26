@@ -67,7 +67,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
 
-        Account.list()
+        Account.read()
                .execute();
     }
 

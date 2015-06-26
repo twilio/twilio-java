@@ -63,7 +63,7 @@ public class Recording extends SidResource {
         return new RecordingFetcher(sid);
     }
 
-    public static RecordingReader list() {
+    public static RecordingReader read() {
         return new RecordingReader();
     }
 

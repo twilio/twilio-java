@@ -85,7 +85,7 @@ public class NotificationTest {
             result = new ObjectMapper();
         }};
 
-        Notification.list()
+        Notification.read()
                     .execute();
     }
 

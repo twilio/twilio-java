@@ -65,7 +65,7 @@ public class ConnectApp extends SidResource {
         return new ConnectAppFetcher(sid);
     }
 
-    public static ConnectAppReader list() {
+    public static ConnectAppReader read() {
         return new ConnectAppReader();
     }
 

@@ -14,7 +14,7 @@ public class CallLocatorExample {
     public static void main(final String[] args) {
         Twilio.init("ACca498dbda0fef21f361a9a3326354175", "8b20fad4aaf29e4d9f30ee0994a2e3bd");
 
-        ResourceSet<Call> calls = Call.list()
+        ResourceSet<Call> calls = Call.read()
                                       .execute();
 
         calls.setAutoPaging(false);

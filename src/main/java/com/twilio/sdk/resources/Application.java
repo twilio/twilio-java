@@ -107,7 +107,7 @@ public class Application extends SidResource {
         return new ApplicationFetcher(sid);
     }
 
-    public static ApplicationReader list() {
+    public static ApplicationReader read() {
         return new ApplicationReader();
     }
 

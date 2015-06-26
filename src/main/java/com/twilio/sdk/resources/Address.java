@@ -82,7 +82,7 @@ public class Address extends SidResource {
         return new AddressFetcher(sid);
     }
 
-    public static AddressReader list() {
+    public static AddressReader read() {
         return new AddressReader();
     }
 

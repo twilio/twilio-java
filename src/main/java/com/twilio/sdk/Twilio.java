@@ -19,9 +19,9 @@ public class Twilio {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern(Twilio.DATE_TIME_PATTERN)
                                                                               .withZone(DateTimeZone.UTC);
 
-    private static String accountSid;
-    private static String authToken;
-    private static TwilioRestClient restClient;
+    static String accountSid;
+    static String authToken;
+    static TwilioRestClient restClient;
     private static ListeningExecutorService executorService;
 
     private Twilio() {

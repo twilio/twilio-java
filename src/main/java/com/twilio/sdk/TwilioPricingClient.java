@@ -32,6 +32,20 @@ public class TwilioPricingClient extends TwilioClient {
     }
 
     /**
+     * Construct a new TwilioPricingClient.
+     *
+     * Your accountSid and authToken are the same as those you use to
+     * authenticate to the main Twilio REST API, and are available in
+     * <a href="https://www.twilio.com/user/account">the account portal</a>.
+     * @param accountSid Your Twilio Account ID
+     * @param authToken Your Twilio Account's authorization token
+     * @param endpoint Custom Twilio pricing endpoint
+     */
+    public TwilioPricingClient(final String accountSid, final String authToken, String endpoint) {
+        super(accountSid, authToken, endpoint);
+    }
+
+    /**
      * Get a list of objects representing countries where Twilio Voice
      * services are available.
      *

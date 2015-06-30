@@ -14,41 +14,47 @@ public class TaskRouterCapability extends CapabilityAPI {
     protected String resourceUrl;
     protected String baseUrl;
 
-	/**
-	 * Create a new Capability object to authorize clients to interact with the
-	 * TaskRouter service.
-	 *
-	 * @param accountSid   Account to authorize actions for
-	 * @param authToken    Auth token for the account. Used to sign tokens and will not be
-	 *                     included in the generated tokens.
-	 * @param workspaceSid Workspace to authorize tokens for.
-	 * @param channelId    Authorized Channel
-	 */
+    /**
+     * Create a new Capability object to authorize clients to interact with the
+     * TaskRouter service.
+     *
+     * @param accountSid
+     *            Account to authorize actions for
+     * @param authToken
+     *            Auth token for the account. Used to sign tokens and will not
+     *            be included in the generated tokens.
+     * @param workspaceSid
+     *            Workspace to authorize tokens for.
+     * @param channelId
+     *            Authorized Channel
+     */
     public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String channelId) throws Exception {
         super(accountSid, authToken, TASKROUTER_VERSION, channelId);
         this.workspaceSid = workspaceSid;
         this.channelId = channelId;
         this.baseUrl = TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
-        
+
         validateJWT();
-        
+
         this.setupResource();
-        
+
         // add permissions to GET and POST to the event-bridge channel
         addTaskRouterPolicies(channelId);
         this.addPolicy(new Policy(resourceUrl, "GET", true));
     }
-    
+
     protected void setupResource() {
-    	if (channelId.substring(0, 2).equals("WS")) {
+        if (channelId.substring(0, 2).equals("WS")) {
             resourceUrl = this.baseUrl;
         } else if (channelId.substring(0, 2).equals("WK")) {
             resourceUrl = this.baseUrl + "/Workers/" + channelId;
-            
-            String activityUrl = this.baseUrl + "/Activities";
+
+            final String activityUrl = this.baseUrl + "/Activities";
+            final String reservationsUrl = this.baseUrl + "/Tasks/**";
 
             // add permissions to fetch the list of activities
             this.allow(activityUrl, "GET", null, null);
+            this.allow(reservationsUrl, "GET", null, null);
         } else if (channelId.substring(0, 2).equals("WQ")) {
             resourceUrl = this.baseUrl + "/TaskQueues/" + channelId;
         }
@@ -111,53 +117,59 @@ public class TaskRouterCapability extends CapabilityAPI {
     public void allowDeleteSubresources() {
         this.allow(this.resourceUrl + "/**", "DELETE", null, null);
     }
-    
+
     /**
-	 * Allow a worker to update its own activity status
-	 * @deprecated Please use {TaskRouterWorkerCapability.allowActivityUpdates} instead
-     * @throws Exception 
-	 */
+     * Allow a worker to update its own activity status
+     * 
+     * @deprecated Please use {TaskRouterWorkerCapability.allowActivityUpdates}
+     *             instead
+     * @throws Exception
+     */
     @Deprecated
-	public void allowWorkerActivityUpdates() throws Exception {
-    	if (channelId.substring(0, 2).equals("WK")) {
-    		Policy update = new Policy(this.resourceUrl, "POST", true).addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
-    		this.addPolicy(update);
-    	}else {
-    		throw new Exception("Deprecated function not applicable to non Worker");
-    	}
-	}
+    public void allowWorkerActivityUpdates() throws Exception {
+        if (channelId.substring(0, 2).equals("WK")) {
+            final Policy update = new Policy(this.resourceUrl, "POST", true).addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
+            this.addPolicy(update);
+        } else {
+            throw new Exception("Deprecated function not applicable to non Worker");
+        }
+    }
 
-	/**
-	 * Allow a worker to read its own attributes.
-	 * @deprecated Please use {TaskRouterWorkerCapability} instead; added automatically in constructor
-	 * @throws Exception 
-	 */
+    /**
+     * Allow a worker to read its own attributes.
+     * 
+     * @deprecated Please use {TaskRouterWorkerCapability} instead; added
+     *             automatically in constructor
+     * @throws Exception
+     */
     @Deprecated
-	public void allowWorkerFetchAttributes() throws Exception {
-		if (channelId.substring(0, 2).equals("WK")) {
-			this.addPolicy(new Policy(this.resourceUrl, "GET", true));
-		} else {
-			throw new Exception("Deprecated function not applicable to non Worker");
-		}
-	}
+    public void allowWorkerFetchAttributes() throws Exception {
+        if (channelId.substring(0, 2).equals("WK")) {
+            this.addPolicy(new Policy(this.resourceUrl, "GET", true));
+        } else {
+            throw new Exception("Deprecated function not applicable to non Worker");
+        }
+    }
 
-	/**
-	 * Allow a worker to update task reservation status
-	 * @deprecated Please use {TaskRouterWorkerCapability.allowReservationUpdates} instead
-	 * @throws Exception 
-	 */
+    /**
+     * Allow a worker to update task reservation status
+     * 
+     * @deprecated Please use
+     *             {TaskRouterWorkerCapability.allowReservationUpdates} instead
+     * @throws Exception
+     */
     @Deprecated
-	public void allowTaskReservationUpdates() throws Exception {
-    	if (channelId.substring(0, 2).equals("WK")) {
-    		String tasksUrl = this.baseUrl + "/Tasks/**";
-    		Policy update = new Policy(tasksUrl, "POST", true);
-    		this.addPolicy(update);
-    	}else {
-    		throw new Exception("Deprecated function not applicable to non Worker");
-    	}
+    public void allowTaskReservationUpdates() throws Exception {
+        if (channelId.substring(0, 2).equals("WK")) {
+            final String tasksUrl = this.baseUrl + "/Tasks/**";
+            final Policy update = new Policy(tasksUrl, "POST", true);
+            this.addPolicy(update);
+        } else {
+            throw new Exception("Deprecated function not applicable to non Worker");
+        }
 
-	}
-    
+    }
+
     public TaskRouterCapability addPolicy(final Policy policy) {
         if (!checkPolicy(policy)) {
             this.policies.add(policy);
@@ -169,11 +181,17 @@ public class TaskRouterCapability extends CapabilityAPI {
 
     /**
      * Add policy to list of access policies
-     * @param url url of the resource
-     * @param method method to the resource
-     * @param queryFilter query filter parameters
-     * @param postFilter post filter parameters
-     * @param allow whether or not to allow access on this policy
+     * 
+     * @param url
+     *            url of the resource
+     * @param method
+     *            method to the resource
+     * @param queryFilter
+     *            query filter parameters
+     * @param postFilter
+     *            post filter parameters
+     * @param allow
+     *            whether or not to allow access on this policy
      */
     @Override
     public void addPolicy(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter, final boolean allow) {
@@ -187,10 +205,15 @@ public class TaskRouterCapability extends CapabilityAPI {
 
     /**
      * Add Allow access policy
-     * @param url url of the resource
-     * @param method method to the resource
-     * @param queryFilter query filter parameters
-     * @param postFilter post filter parameters
+     * 
+     * @param url
+     *            url of the resource
+     * @param method
+     *            method to the resource
+     * @param queryFilter
+     *            query filter parameters
+     * @param postFilter
+     *            post filter parameters
      */
     @Override
     public void allow(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
@@ -204,10 +227,15 @@ public class TaskRouterCapability extends CapabilityAPI {
 
     /**
      * Add Deny access policy
-     * @param url url of the resource
-     * @param method method to the resource
-     * @param queryFilter query filter parameters
-     * @param postFilter post filter parameters
+     * 
+     * @param url
+     *            url of the resource
+     * @param method
+     *            method to the resource
+     * @param queryFilter
+     *            query filter parameters
+     * @param postFilter
+     *            post filter parameters
      */
     @Override
     public void deny(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
@@ -220,22 +248,25 @@ public class TaskRouterCapability extends CapabilityAPI {
     }
 
     /**
-	 * Generate a capability token with the currently-configured policies on this object.
-	 *
-	 * @return JSON Web Token representing authorized capabilities
-	 * @throws DomainException
-	 */
+     * Generate a capability token with the currently-configured policies on
+     * this object.
+     *
+     * @return JSON Web Token representing authorized capabilities
+     * @throws DomainException
+     */
     public String generateToken() throws DomainException {
         return generateToken(3600);
     }
 
     /**
-	 * Generate a capability token with the currently-configured policies on this object.
-	 *
-	 * @param ttl Expiration time in seconds
-	 * @return JSON Web Token representing authorized capabilities
-	 * @throws DomainException
-	 */
+     * Generate a capability token with the currently-configured policies on
+     * this object.
+     *
+     * @param ttl
+     *            Expiration time in seconds
+     * @return JSON Web Token representing authorized capabilities
+     * @throws DomainException
+     */
     public String generateToken(final long ttl) throws DomainException {
 
         final Map<String, Object> payload = new HashMap<String, Object>();

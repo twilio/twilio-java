@@ -32,32 +32,35 @@ public class TaskRouterCapabilityTest {
         assertEquals("v1", o.get("version"));
         assertEquals("WS456", o.get("workspace_sid"));
         final JSONArray policies = (JSONArray) o.get("policies");
-        assertEquals(6, policies.size());
+        assertEquals(7, policies.size());
         JSONObject p = (JSONObject) policies.get(0);
         assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url"));
         assertEquals("GET", p.get("method"));
-         p = (JSONObject) policies.get(1);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
+        p = (JSONObject) policies.get(1);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
         assertEquals("GET", p.get("method"));
         p = (JSONObject) policies.get(2);
         assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
+        assertEquals("GET", p.get("method"));
         p = (JSONObject) policies.get(3);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
+        assertEquals("POST", p.get("method"));
+        p = (JSONObject) policies.get(4);
         assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
         assertEquals("GET", p.get("method"));
         assertTrue((Boolean) p.get("allow"));
-        p = (JSONObject) policies.get(4);
+        p = (JSONObject) policies.get(5);
         assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
         assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(5);
+        p = (JSONObject) policies.get(6);
         assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
         assertEquals("POST", p.get("method"));
-        JSONObject filters = (JSONObject) p.get("post_filter");
-		assertEquals(1, filters.size());
-		JSONObject required = (JSONObject) filters.get("ActivitySid");
-		assertEquals(Boolean.TRUE, required.get("required"));
+        final JSONObject filters = (JSONObject) p.get("post_filter");
+        assertEquals(1, filters.size());
+        final JSONObject required = (JSONObject) filters.get("ActivitySid");
+        assertEquals(Boolean.TRUE, required.get("required"));
     }
-	
+
     @Test
     public void testGenerateDefaultWorkerToken() throws Exception {
         final TaskRouterWorkerCapability capability = new TaskRouterWorkerCapability("AC123", "foobar", "WS456", "WK789");
@@ -321,17 +324,20 @@ public class TaskRouterCapabilityTest {
         assertEquals("v1", o.get("version"));
         assertEquals("WS456", o.get("workspace_sid"));
         final JSONArray policies = (JSONArray) o.get("policies");
-        assertEquals(4, policies.size());
+        assertEquals(5, policies.size());
         JSONObject p = (JSONObject) policies.get(0);
         assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url"));
         assertEquals("GET", p.get("method"));
         p = (JSONObject) policies.get(1);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
         assertEquals("GET", p.get("method"));
         p = (JSONObject) policies.get(2);
         assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
+        assertEquals("GET", p.get("method"));
         p = (JSONObject) policies.get(3);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
+        assertEquals("POST", p.get("method"));
+        p = (JSONObject) policies.get(4);
         assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
         assertEquals("GET", p.get("method"));
         assertTrue((Boolean) p.get("allow"));

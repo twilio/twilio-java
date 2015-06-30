@@ -32,6 +32,7 @@ A huge thanks to all of our contributors:
 - John A. Tamplin
 - Jon Plax
 - Justin Witz
+- Karthik H
 - Kevin Burke
 - Kevin Whinnery
 - Kyle Conroy

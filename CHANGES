@@ -3,6 +3,20 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.4.3
+-------------
+
+Released June 30, 2015
+
+- Support passing a custom endpoint into PricingClient
+
+Version 4.4.2
+-------------
+
+Released June 11, 2015
+
+- Fix StatusCallbackEvent TwiML generation
+
 Version 4.4.1
 -------------
 

@@ -15,7 +15,7 @@ public class NumberTest {
 		number.setStatusCallback("http://example.com");
 		number.setStatusCallbackMethod("POST");
 		number.setStatusCallbackEvents("ringing completed");
-		assertEquals("<Number statusCallback=\"http://example.com\" statusCallbackMethod=\"POST\" statusCallbackEvents=\"ringing completed\">+15108675309</Number>",
+		assertEquals("<Number statusCallback=\"http://example.com\" statusCallbackMethod=\"POST\" statusCallbackEvent=\"ringing completed\">+15108675309</Number>",
 				number.toXML());
 	}
 }

@@ -43,7 +43,7 @@ public abstract class TwilioClient {
 	private static final int AUTH_TOKEN_LENGTH = 32;
 
 	/** The Constant VERSION. */
-	private static final String VERSION = "4.4.3";
+	private static final String VERSION = "4.4.4";
 
 	/** The endpoint. */
 	private String endpoint = "https://api.twilio.com";

@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.4.4
+-------------
+
+Released July 01, 2015
+
+- Correct StatusCallbackEvent TwiML attributes for Client and Number verbs as well
+
 Version 4.4.3
 -------------
 

@@ -23,6 +23,7 @@ A huge thanks to all of our contributors:
 - D Keith Casey Jr
 - Doug Black
 - Eric Anderle
+- Frank
 - Frank Stratton
 - Girish Bharadwaj
 - Guillaume BINET
@@ -36,6 +37,7 @@ A huge thanks to all of our contributors:
 - Kevin Burke
 - Kevin Whinnery
 - Kyle Conroy
+- Marek Radonsky
 - Mario Niebla
 - Matt Nowack
 - Phani

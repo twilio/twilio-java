@@ -15,7 +15,7 @@ public class ClientTest {
 		client.setStatusCallback("http://example.com");
 		client.setStatusCallbackMethod("POST");
 		client.setStatusCallbackEvents("ringing completed");
-		assertEquals("<Client statusCallback=\"http://example.com\" statusCallbackMethod=\"POST\" statusCallbackEvents=\"ringing completed\">client:foobar</Client>",
+		assertEquals("<Client statusCallback=\"http://example.com\" statusCallbackMethod=\"POST\" statusCallbackEvent=\"ringing completed\">client:foobar</Client>",
 				client.toXML());
 	}
 }

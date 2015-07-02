@@ -143,7 +143,7 @@ public class Example {
 }
 ```
 
-Here is a TaskRouter example:
+Here is a TaskRouter example (also found in [TaskRouterExamples.java](https://github.com/twilio/twilio-java/blob/master/src/main/java/com/twilio/sdk/examples/TaskRouterExamples.java) )
 
 ```
 package com.twilio.sdk;
@@ -166,9 +166,9 @@ import com.twilio.sdk.resource.list.taskrouter.WorkflowList;
 
 public class TaskRouterExample {
 
-    private static final String ACCOUNT_SID = "AC.....";
-    private static final String AUTH_TOKEN = ".......";
-    private static final String WORKSPACE_SID = ".......";
+    private static final String ACCOUNT_SID = "YourAccountSid";
+    private static final String AUTH_TOKEN = "YourAuthToken";
+    private static final String WORKSPACE_SID = "YourWorkspaceSid";
     
     public static void main(String[] args) {
         
@@ -221,10 +221,10 @@ public class TaskRouterExample {
     }
     
     private static Workflow buildWorkflow(Workspace workspace) throws Exception {
-      String salesQueue = "WQxxxx";
-      String marketingQueue = "WQxxxx";
-      String supportQueue = "WQxxxx";
-      String everyoneQueue = "WQxxxx";
+	  String salesQueueSid = "YourSalesQueueSid";
+	  String marketingQueueSid = "YourMarketingQueueSid";
+	  String supportQueueSid = "YourSupportQueueSid";
+	  String defaultQueue = "YourDefaultQueueSid";
       
       // construct workflow
       List<WorkflowRule> rules = new ArrayList<WorkflowRule>();
@@ -248,7 +248,7 @@ public class TaskRouterExample {
       WorkflowRule supportRule = new WorkflowRule("type == \"support\"", marketingTargets);
       
       // default filter
-      WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget(everyoneQueue);
+      WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget(defaultQueue);
 
       // put rules together in order in which the workflow should process them
       rules.add(salesRule);

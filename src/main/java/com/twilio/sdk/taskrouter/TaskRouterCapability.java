@@ -1,14 +1,23 @@
 package com.twilio.sdk.taskrouter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class TaskRouterCapability extends CapabilityAPI {
+import com.twilio.sdk.CapabilityToken;
+
+public class TaskRouterCapability extends CapabilityToken {
 
     private final static String TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
     private final static String TASKROUTER_VERSION = "v1";
     private final static String TASKROUTER_EVENT_URL = "https://event-bridge.twilio.com/v1/wschannels";
 
+    protected String accountSid;
+    protected String authToken;
+    protected List<Policy> policies;
+    protected String version;
+    protected String friendlyName;
     protected String workspaceSid;
     protected String channelId;
     protected String resourceUrl;
@@ -29,9 +38,14 @@ public class TaskRouterCapability extends CapabilityAPI {
      *            Authorized Channel
      */
     public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String channelId) throws Exception {
-        super(accountSid, authToken, TASKROUTER_VERSION, channelId);
+
+        this.accountSid = accountSid;
+        this.authToken = authToken;
+        this.version = TASKROUTER_VERSION;
+        this.friendlyName = channelId;
         this.workspaceSid = workspaceSid;
         this.channelId = channelId;
+        this.policies = new ArrayList<Policy>();
         this.baseUrl = TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
 
         validateJWT();
@@ -193,7 +207,7 @@ public class TaskRouterCapability extends CapabilityAPI {
      * @param allow
      *            whether or not to allow access on this policy
      */
-    @Override
+
     public void addPolicy(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter, final boolean allow) {
         final Policy policy = new Policy(url, method, queryFilter, postFilter, allow);
         if (!checkPolicy(policy)) {
@@ -215,7 +229,7 @@ public class TaskRouterCapability extends CapabilityAPI {
      * @param postFilter
      *            post filter parameters
      */
-    @Override
+
     public void allow(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
         final Policy policy = new Policy(url, method, queryFilter, postFilter, true);
         if (!checkPolicy(policy)) {
@@ -237,7 +251,7 @@ public class TaskRouterCapability extends CapabilityAPI {
      * @param postFilter
      *            post filter parameters
      */
-    @Override
+
     public void deny(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
         final Policy policy = new Policy(url, method, queryFilter, postFilter, false);
         if (!checkPolicy(policy)) {
@@ -299,4 +313,5 @@ public class TaskRouterCapability extends CapabilityAPI {
         }
         return false;
     }
+
 }

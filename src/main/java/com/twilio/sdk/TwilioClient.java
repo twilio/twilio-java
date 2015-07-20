@@ -40,8 +40,6 @@ public abstract class TwilioClient {
 
 	private static final int ACCOUNT_SID_LENGTH = 34;
 
-	private static final int AUTH_TOKEN_LENGTH = 32;
-
 	/** The Constant VERSION. */
 	private static final String VERSION = "4.4.4";
 

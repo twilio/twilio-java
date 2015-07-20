@@ -154,8 +154,8 @@ public abstract class TwilioClient {
 	 * @param authToken the auth token
 	 */
 	private void validateAuthToken(final String authToken) {
-		if (authToken == null || authToken.length() != AUTH_TOKEN_LENGTH) {
-			throw new IllegalArgumentException("AuthToken '" + authToken + "' is not valid.");
+		if (authToken == null) {
+			throw new IllegalArgumentException("AuthToken must not be null.");
 		}
 	}
 

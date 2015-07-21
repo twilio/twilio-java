@@ -245,7 +245,7 @@ public class TaskRouterExample {
       List<WorkflowRuleTarget> supportTargets = new ArrayList<WorkflowRuleTarget>();
       WorkflowRuleTarget supportTarget = new WorkflowRuleTarget(supportQueue, null, null, null);
       supportTargets.add(supportTarget);
-      WorkflowRule supportRule = new WorkflowRule("type == \"support\"", marketingTargets);
+      WorkflowRule supportRule = new WorkflowRule("type == \"support\"", supportTargets);
       
       // default filter
       WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget(defaultQueue);

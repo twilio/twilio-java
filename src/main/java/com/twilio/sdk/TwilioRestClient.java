@@ -1,22 +1,26 @@
 package com.twilio.sdk;
 
-import com.twilio.sdk.resource.factory.AccountFactory;
+import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Account;
+import com.twilio.sdk.resource.instance.Message;
 import com.twilio.sdk.resource.list.AccountList;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The client class that access http://api.twilio.com.
  */
 public class TwilioRestClient extends TwilioClient {
 
+	private static final String API_URL = "https://api.twilio.com";
+
 	/** The auth account. */
 	private final Account authAccount;
 
 	public TwilioRestClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken, "https://api.twilio.com");
+		super(accountSid, authToken,API_URL);
 
 		authAccount = new Account(this);
 		authAccount.setSid(accountSid);
@@ -57,14 +61,6 @@ public class TwilioRestClient extends TwilioClient {
 		return getAccounts(new HashMap<String, String>());
 	}
 
-	/**
-	 * Return an account factory to create new subaccounts
-	 *
-	 * @return the list of accounts
-	 */
-	public AccountFactory getAccountFactory() {
-		return getAccounts();
-	}
 
 	/**
 	 * A shortcut for the most common case, returning the Account object for this authenticated client.
@@ -75,17 +71,17 @@ public class TwilioRestClient extends TwilioClient {
 		return authAccount;
 	}
 
-	/**
-	 * Get an account by account sid.
-	 *
-	 * @param sid The sid of the account you want to fetch.
-	 * @return the account
-	 */
-	public Account getAccount(final String sid) {
-		Account account = new Account(this);
-		account.setSid(sid);
-		account.setRequestAccountSid(sid);
+	public String execute(Map<String, String> map) throws TwilioRestException
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>(map.keySet().size());
 
-		return account;
+		Set<String> keys = map.keySet();
+		for(String key : keys){
+			params.add(new BasicNameValuePair(key,map.get(key)));
+		}
+
+		MessageFactory messageFactory = getAccount().getMessageFactory();
+		Message message = messageFactory.create(params);
+		return message.getSid();
 	}
 }

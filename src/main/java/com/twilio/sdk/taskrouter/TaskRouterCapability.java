@@ -61,7 +61,7 @@ public class TaskRouterCapability extends CapabilityToken {
     protected void setupResource() {
         if (channelId.substring(0, 2).equals("WS")) {
             resourceUrl = this.baseUrl;
-        } else if (channelId.substring(0, 2).equals("WK")) {
+        } else if (channelId.startsWith("WK")) {
             resourceUrl = this.baseUrl + "/Workers/" + channelId;
 
             final String activityUrl = this.baseUrl + "/Activities";
@@ -70,7 +70,7 @@ public class TaskRouterCapability extends CapabilityToken {
             // add permissions to fetch the list of activities
             this.allow(activityUrl, "GET", null, null);
             this.allow(reservationsUrl, "GET", null, null);
-        } else if (channelId.substring(0, 2).equals("WQ")) {
+        } else if (channelId.startsWith("WQ")) {
             resourceUrl = this.baseUrl + "/TaskQueues/" + channelId;
         }
     }
@@ -92,8 +92,7 @@ public class TaskRouterCapability extends CapabilityToken {
         if (channelId == null) {
             throw new IllegalArgumentException("ChannelId not provided");
         }
-        final String prefix = channelId.substring(0, 2);
-        if (!prefix.equals("WS") && !prefix.equals("WK") && !prefix.equals("WQ")) {
+        if (!channelId.startsWith("WS") && !channelId.startsWith("WK") && !channelId.startsWith("WQ")) {
             throw new IllegalArgumentException("Invalid ChannelId provided: " + channelId);
         }
     }
@@ -142,7 +141,7 @@ public class TaskRouterCapability extends CapabilityToken {
      */
     @Deprecated
     public void allowWorkerActivityUpdates() {
-        if (channelId.substring(0, 2).equals("WK")) {
+        if (channelId.startsWith("WK")) {
             final Policy update = new Policy(this.resourceUrl, "POST", true).addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
             this.addPolicy(update);
         } else {
@@ -159,7 +158,7 @@ public class TaskRouterCapability extends CapabilityToken {
      */
     @Deprecated
     public void allowWorkerFetchAttributes() {
-        if (channelId.substring(0, 2).equals("WK")) {
+        if (channelId.startsWith("WK")) {
             this.addPolicy(new Policy(this.resourceUrl, "GET", true));
         } else {
             throw new UnsupportedOperationException("Deprecated function not applicable to non Worker");
@@ -175,7 +174,7 @@ public class TaskRouterCapability extends CapabilityToken {
      */
     @Deprecated
     public void allowTaskReservationUpdates() {
-        if (channelId.substring(0, 2).equals("WK")) {
+        if (channelId.startsWith("WK")) {
             final String tasksUrl = this.baseUrl + "/Tasks/**";
             final Policy update = new Policy(tasksUrl, "POST", true);
             this.addPolicy(update);

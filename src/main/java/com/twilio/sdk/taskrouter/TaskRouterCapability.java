@@ -2,8 +2,9 @@ package com.twilio.sdk.taskrouter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.twilio.sdk.CapabilityToken;
 
@@ -15,7 +16,7 @@ public class TaskRouterCapability extends CapabilityToken {
 
     protected String accountSid;
     protected String authToken;
-    protected List<Policy> policies;
+    protected Set<Policy> policies;
     protected String version;
     protected String friendlyName;
     protected String workspaceSid;
@@ -45,7 +46,7 @@ public class TaskRouterCapability extends CapabilityToken {
         this.friendlyName = channelId;
         this.workspaceSid = workspaceSid;
         this.channelId = channelId;
-        this.policies = new ArrayList<Policy>();
+        this.policies = new LinkedHashSet<Policy>();
         this.baseUrl = TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
 
         validateJWT();
@@ -205,10 +206,7 @@ public class TaskRouterCapability extends CapabilityToken {
      */
 
     public void addPolicy(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter, final boolean allow) {
-        final Policy policy = new Policy(url, method, queryFilter, postFilter, allow);
-        if (!checkPolicy(policy)) {
-            this.policies.add(policy);
-        }
+        this.policies.add(new Policy(url, method, queryFilter, postFilter, allow));
     }
 
     /**
@@ -225,10 +223,7 @@ public class TaskRouterCapability extends CapabilityToken {
      */
 
     public void allow(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
-        final Policy policy = new Policy(url, method, queryFilter, postFilter, true);
-        if (!checkPolicy(policy)) {
-            this.policies.add(policy);
-        }
+        this.policies.add(new Policy(url, method, queryFilter, postFilter, true));
     }
 
     /**
@@ -245,10 +240,7 @@ public class TaskRouterCapability extends CapabilityToken {
      */
 
     public void deny(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
-        final Policy policy = new Policy(url, method, queryFilter, postFilter, false);
-        if (!checkPolicy(policy)) {
-            this.policies.add(policy);
-        }
+        this.policies.add(new Policy(url, method, queryFilter, postFilter, false));
     }
 
     /**
@@ -279,7 +271,7 @@ public class TaskRouterCapability extends CapabilityToken {
         payload.put("account_sid", accountSid);
         payload.put("friendly_name", friendlyName);
         payload.put("version", version);
-        payload.put("policies", policies);
+        payload.put("policies", new ArrayList<Policy>(policies));
         payload.put("workspace_sid", this.workspaceSid);
         payload.put("channel", this.channelId);
 

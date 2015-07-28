@@ -3,8 +3,6 @@ package com.twilio.sdk.taskrouter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
@@ -98,17 +96,4 @@ public class Policy implements JSONAware {
         return "Policy [url=" + url + ", method=" + method + ", queryFilter=" + queryFilter + ", postFilter=" + postFilter + ", allowed=" + allowed + "]";
     }
 
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-    // This is a special equals method which is tailored so that
-    // same policies with different allowed methods will not be added.
-
-    @Override
-    public boolean equals(final Object obj) {
-        final Policy other = (Policy) obj;
-        return new EqualsBuilder().append(method, other.method).append(postFilter, other.postFilter).append(queryFilter, other.queryFilter).append(url, other.url).isEquals();
-    }
 }

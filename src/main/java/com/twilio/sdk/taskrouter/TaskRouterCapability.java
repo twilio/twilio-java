@@ -59,7 +59,7 @@ public class TaskRouterCapability extends CapabilityToken {
     }
 
     protected void setupResource() {
-        if (channelId.substring(0, 2).equals("WS")) {
+        if (channelId.startsWith("WS")) {
             resourceUrl = this.baseUrl;
         } else if (channelId.startsWith("WK")) {
             resourceUrl = this.baseUrl + "/Workers/" + channelId;
@@ -83,10 +83,10 @@ public class TaskRouterCapability extends CapabilityToken {
     }
 
     private void validateJWT() {
-        if (accountSid == null || !accountSid.substring(0, 2).equals("AC")) {
+        if (accountSid == null || !accountSid.startsWith("AC")) {
             throw new IllegalArgumentException("Invalid AccountSid provided: " + accountSid);
         }
-        if (workspaceSid == null || !workspaceSid.substring(0, 2).equals("WS")) {
+        if (workspaceSid == null || !workspaceSid.startsWith("WS")) {
             throw new IllegalArgumentException("Invalid WorkspaceSid provided: " + workspaceSid);
         }
         if (channelId == null) {
@@ -285,11 +285,6 @@ public class TaskRouterCapability extends CapabilityToken {
         } catch (final Exception e) {
             throw new DomainException(e);
         }
-
-    }
-
-    private boolean checkPolicy(final Policy policy) {
-        return this.policies.contains(policy);
 
     }
 

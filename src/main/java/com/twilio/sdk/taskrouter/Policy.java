@@ -38,11 +38,7 @@ public class Policy implements JSONAware {
     }
 
     public Policy(final String url, final String method, final boolean allowed) {
-        this.url = url;
-        this.method = method;
-        this.allowed = allowed;
-        setQueryFilter(new HashMap<String, FilterRequirement>());
-        setPostFilter(new HashMap<String, FilterRequirement>());
+        this(url, method, new HashMap<String, FilterRequirement>(), new HashMap<String, FilterRequirement>(), allowed);
     }
 
     public Policy addQueryFilterParam(final String name, final FilterRequirement required) {

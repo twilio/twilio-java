@@ -19,7 +19,7 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
      * @param workerSid
      *            Worker to create tokens for.
      */
-    public TaskRouterWorkerCapability(final String accountSid, final String authToken, final String workspaceSid, final String workerSid) throws Exception {
+    public TaskRouterWorkerCapability(final String accountSid, final String authToken, final String workspaceSid, final String workerSid) {
         super(accountSid, authToken, workspaceSid, workerSid);
         this.reservationsUrl = this.baseUrl + "/Tasks/**";
         this.activityUrl = this.baseUrl + "/Activities";

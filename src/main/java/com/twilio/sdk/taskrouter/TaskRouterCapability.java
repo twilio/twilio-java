@@ -38,7 +38,7 @@ public class TaskRouterCapability extends CapabilityToken {
      * @param channelId
      *            Authorized Channel
      */
-    public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String channelId) throws Exception {
+    public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String channelId) {
 
         this.accountSid = accountSid;
         this.authToken = authToken;

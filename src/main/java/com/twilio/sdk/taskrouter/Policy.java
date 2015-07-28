@@ -3,6 +3,8 @@ package com.twilio.sdk.taskrouter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
@@ -98,14 +100,7 @@ public class Policy implements JSONAware {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (allowed ? 1231 : 1237);
-        result = prime * result + ((method == null) ? 0 : method.hashCode());
-        result = prime * result + ((postFilter == null) ? 0 : postFilter.hashCode());
-        result = prime * result + ((queryFilter == null) ? 0 : queryFilter.hashCode());
-        result = prime * result + ((url == null) ? 0 : url.hashCode());
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     // This is a special equals method which is tailored so that
@@ -113,33 +108,7 @@ public class Policy implements JSONAware {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
         final Policy other = (Policy) obj;
-        if (method == null) {
-            if (other.method != null)
-                return false;
-        } else if (!method.equals(other.method))
-            return false;
-        if (postFilter == null) {
-            if (other.postFilter != null && !other.postFilter.isEmpty())
-                return false;
-        } else if (!postFilter.equals(other.postFilter))
-            return false;
-        if (queryFilter == null) {
-            if (other.queryFilter != null && !other.queryFilter.isEmpty())
-                return false;
-        } else if (!queryFilter.equals(other.queryFilter))
-            return false;
-        if (url == null) {
-            if (other.url != null)
-                return false;
-        } else if (!url.equals(other.url))
-            return false;
-        return true;
+        return new EqualsBuilder().append(method, other.method).append(postFilter, other.postFilter).append(queryFilter, other.queryFilter).append(url, other.url).isEquals();
     }
 }

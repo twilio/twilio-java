@@ -81,19 +81,19 @@ public class TaskRouterCapability extends CapabilityToken {
         addPolicy(new Policy(eventBridgeUrl, "POST", true));
     }
 
-    private void validateJWT() throws Exception {
+    private void validateJWT() {
         if (accountSid == null || !accountSid.substring(0, 2).equals("AC")) {
-            throw new Exception("Invalid AccountSid provided: " + accountSid);
+            throw new IllegalArgumentException("Invalid AccountSid provided: " + accountSid);
         }
         if (workspaceSid == null || !workspaceSid.substring(0, 2).equals("WS")) {
-            throw new Exception("Invalid WorkspaceSid provided: " + workspaceSid);
+            throw new IllegalArgumentException("Invalid WorkspaceSid provided: " + workspaceSid);
         }
         if (channelId == null) {
-            throw new Exception("ChannelId not provided");
+            throw new IllegalArgumentException("ChannelId not provided");
         }
         final String prefix = channelId.substring(0, 2);
         if (!prefix.equals("WS") && !prefix.equals("WK") && !prefix.equals("WQ")) {
-            throw new Exception("Invalid ChannelId provided: " + channelId);
+            throw new IllegalArgumentException("Invalid ChannelId provided: " + channelId);
         }
     }
 
@@ -140,12 +140,12 @@ public class TaskRouterCapability extends CapabilityToken {
      * @throws Exception
      */
     @Deprecated
-    public void allowWorkerActivityUpdates() throws Exception {
+    public void allowWorkerActivityUpdates() {
         if (channelId.substring(0, 2).equals("WK")) {
             final Policy update = new Policy(this.resourceUrl, "POST", true).addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
             this.addPolicy(update);
         } else {
-            throw new Exception("Deprecated function not applicable to non Worker");
+            throw new UnsupportedOperationException("Deprecated function not applicable to non Worker");
         }
     }
 
@@ -157,11 +157,11 @@ public class TaskRouterCapability extends CapabilityToken {
      * @throws Exception
      */
     @Deprecated
-    public void allowWorkerFetchAttributes() throws Exception {
+    public void allowWorkerFetchAttributes() {
         if (channelId.substring(0, 2).equals("WK")) {
             this.addPolicy(new Policy(this.resourceUrl, "GET", true));
         } else {
-            throw new Exception("Deprecated function not applicable to non Worker");
+            throw new UnsupportedOperationException("Deprecated function not applicable to non Worker");
         }
     }
 
@@ -173,24 +173,20 @@ public class TaskRouterCapability extends CapabilityToken {
      * @throws Exception
      */
     @Deprecated
-    public void allowTaskReservationUpdates() throws Exception {
+    public void allowTaskReservationUpdates() {
         if (channelId.substring(0, 2).equals("WK")) {
             final String tasksUrl = this.baseUrl + "/Tasks/**";
             final Policy update = new Policy(tasksUrl, "POST", true);
             this.addPolicy(update);
         } else {
-            throw new Exception("Deprecated function not applicable to non Worker");
+            throw new UnsupportedOperationException("Deprecated function not applicable to non Worker");
         }
 
     }
 
     public TaskRouterCapability addPolicy(final Policy policy) {
-        if (!checkPolicy(policy)) {
-            this.policies.add(policy);
-            return this;
-        } else {
-            throw new RuntimeException("Policy already exists");
-        }
+        this.policies.add(policy);
+        return this;
     }
 
     /**
@@ -212,8 +208,6 @@ public class TaskRouterCapability extends CapabilityToken {
         final Policy policy = new Policy(url, method, queryFilter, postFilter, allow);
         if (!checkPolicy(policy)) {
             this.policies.add(policy);
-        } else {
-            throw new RuntimeException("Policy already exists");
         }
     }
 
@@ -234,8 +228,6 @@ public class TaskRouterCapability extends CapabilityToken {
         final Policy policy = new Policy(url, method, queryFilter, postFilter, true);
         if (!checkPolicy(policy)) {
             this.policies.add(policy);
-        } else {
-            throw new RuntimeException("Policy already exists");
         }
     }
 
@@ -256,8 +248,6 @@ public class TaskRouterCapability extends CapabilityToken {
         final Policy policy = new Policy(url, method, queryFilter, postFilter, false);
         if (!checkPolicy(policy)) {
             this.policies.add(policy);
-        } else {
-            throw new RuntimeException("Policy already exists");
         }
     }
 
@@ -293,9 +283,9 @@ public class TaskRouterCapability extends CapabilityToken {
         payload.put("workspace_sid", this.workspaceSid);
         payload.put("channel", this.channelId);
 
-        if (channelId.substring(0, 2).equals("WK")) {
+        if (channelId.startsWith("WK")) {
             payload.put("worker_sid", this.channelId);
-        } else if (channelId.substring(0, 2).equals("WQ")) {
+        } else if (channelId.startsWith("WQ")) {
             payload.put("taskqueue_sid", this.channelId);
         }
 
@@ -308,10 +298,8 @@ public class TaskRouterCapability extends CapabilityToken {
     }
 
     private boolean checkPolicy(final Policy policy) {
-        if (this.policies.contains(policy)) {
-            return true;
-        }
-        return false;
+        return this.policies.contains(policy);
+
     }
 
 }

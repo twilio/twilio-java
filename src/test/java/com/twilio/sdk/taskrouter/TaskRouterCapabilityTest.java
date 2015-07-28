@@ -344,4 +344,22 @@ public class TaskRouterCapabilityTest {
 
     }
 
+    @Test
+    public void testPolicyEquals() throws Exception {
+        final TaskRouterTaskQueueCapability capability = new TaskRouterTaskQueueCapability("AC123", "foobar", "WS456", "WQ111");
+        capability.deny("https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ111", "POST", null, null);
+        capability.allow("https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ111", "POST", null, null);
+        final String token = capability.generateToken();
+        final String[] parts = token.split("\\.");
+        assertEquals(3, parts.length);
+        final String payload = parts[1];
+        final byte[] bytes = Base64.decodeBase64(payload);
+        final String json = new String(bytes, "UTF-8");
+        final JSONParser parser = new JSONParser();
+        final Object decoded = parser.parse(json);
+        final JSONObject o = (JSONObject) decoded;
+        final JSONArray policies = (JSONArray) o.get("policies");
+        assertEquals(4, policies.size());
+
+    }
 }

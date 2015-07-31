@@ -1,10 +1,12 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
-
-import java.util.Date;
-import java.util.Map;
 
 /**
  * The Reservation subresource of {@link com.twilio.sdk.resource.instance.taskrouter.Task}
@@ -62,6 +64,26 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(TASK_SID_PROPERTY, taskSid);
 		setProperty(SID_PROPERTY, reservationSid);
+	}
+	
+	/**
+	 * Accept a reservation
+	 * @throws TwilioRestException
+	 */
+	public void accept() throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("ReservationStatus", "accepted");
+		this.update(params);
+	}
+	
+	/** 
+	 * Reject a reservation
+	 * @throws TwilioRestException
+	 */
+	public void reject() throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("ReservationStatus", "rejected");
+		this.update(params);
 	}
 
 	/**

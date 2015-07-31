@@ -60,6 +60,12 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		setProperty(SID_PROPERTY, taskSid);
 	}
 	
+	/**
+	 * Update a task with new attributes and/or priority
+	 * @param attributes new attributes for the task
+	 * @param priority new priority of the task
+	 * @throws TwilioRestException
+	 */
 	public void update(final Map attributes, final Integer priority) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		if(attributes != null) {
@@ -73,6 +79,11 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		this.update(params);
 	}
 	
+	/**
+	 * Cancel a task with an optional reason
+	 * @param reason optional reason for cancellation
+	 * @throws TwilioRestException
+	 */
 	public void cancel(final String reason) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("AssignmentStatus", "canceled");

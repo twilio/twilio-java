@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
@@ -57,6 +59,40 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(SID_PROPERTY, workerSid);
+	}
+	
+	/**
+	 * Update a worker's attributes and/or friendly name and/or activity
+	 * @param attributes attributes of a worker
+	 * @param friendlyName friendly name of a worker
+	 * @param activitySid activity of a worker
+	 * @throws TwilioRestException 
+	 */
+	public void update(final Map attributes, final String friendlyName, final String activitySid) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		if(attributes != null) {
+			params.put("Attributes", JSONObject.toJSONString(attributes));
+		}else {
+			params.put("Attributes", "{}");
+		}
+		if(friendlyName != null) {
+			params.put("FriendlyName", friendlyName);
+		}
+		if(activitySid != null) {
+			params.put("ActivitySid", activitySid);
+		}
+		this.update(params);
+	}
+	
+	/**
+	 * Update a worker's activity
+	 * @param activitySid the activitysid to update the worker to
+	 * @throws TwilioRestException
+	 */
+	public void updateActivity(final String activitySid) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("ActivitySid", activitySid);
+		this.update(params);
 	}
 
 	/**

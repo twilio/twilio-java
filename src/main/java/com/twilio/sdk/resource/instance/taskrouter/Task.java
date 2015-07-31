@@ -1,11 +1,14 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 import com.twilio.sdk.resource.list.taskrouter.ReservationList;
@@ -55,6 +58,28 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(SID_PROPERTY, taskSid);
+	}
+	
+	public void update(final Map attributes, final Integer priority) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		if(attributes != null) {
+			params.put("Attributes", JSONObject.toJSONString(attributes));
+		}else {
+			params.put("Attributes", "{}");
+		}
+		if(priority != null) {
+			params.put("Priority", priority.toString());
+		}
+		this.update(params);
+	}
+	
+	public void cancel(final String reason) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("AssignmentStatus", "canceled");
+		if(reason != null) {
+			params.put("Reason", reason);
+		}
+		this.update(params);
 	}
 
 	/**

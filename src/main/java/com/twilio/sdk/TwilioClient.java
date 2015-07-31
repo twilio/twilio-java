@@ -40,8 +40,6 @@ public abstract class TwilioClient {
 
 	private static final int ACCOUNT_SID_LENGTH = 34;
 
-	private static final int AUTH_TOKEN_LENGTH = 32;
-
 	/** The Constant VERSION. */
 	private static final String VERSION = "4.4.4";
 
@@ -154,8 +152,8 @@ public abstract class TwilioClient {
 	 * @param authToken the auth token
 	 */
 	private void validateAuthToken(final String authToken) {
-		if (authToken == null || authToken.length() != AUTH_TOKEN_LENGTH) {
-			throw new IllegalArgumentException("AuthToken '" + authToken + "' is not valid.");
+		if (authToken == null) {
+			throw new IllegalArgumentException("AuthToken must not be null.");
 		}
 	}
 

@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.4.5
+-------------
+
+Released July 31, 2015
+
+- Allow AccessTokens to be used as AuthTokens
+
 Version 4.4.4
 -------------
 

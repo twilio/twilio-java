@@ -76,6 +76,17 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		ActivityList activities = new ActivityList(getClient(), getSid());
 		return activities;
 	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.ActivityList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.ActivityList}
+	 */
+	public ActivityList getActivities(Map<String, String> filters) {
+		ActivityList activities = new ActivityList(getClient(), getSid(), filters);
+		return activities;
+	}
 
 	/**
 	 * Retrieves an {@link com.twilio.sdk.resource.instance.taskrouter.Activity} from this Workspace by ID.
@@ -163,6 +174,39 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		EventList events = new EventList(getClient(), getSid());
 		return events;
 	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.EventList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.EventList}
+	 */
+	public EventList getEvents(final Calendar startDate, final Calendar endDate, final Integer minutes, Map<String, String> filters) {
+		if(filters == null) {
+			filters = new HashMap<String, String>();
+		}
+		if(startDate != null) {
+			filters.put("StartDate", formatCalendar(startDate));
+		}
+		if(endDate != null) {
+			filters.put("EndDate", formatCalendar(endDate));
+		}
+		if(minutes != null) {
+			filters.put("Minutes", minutes.toString());
+		}
+		return getEvents(filters);
+	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.EventList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.EventList}
+	 */
+	public EventList getEvents(Map<String, String> filters) {
+		EventList events = new EventList(getClient(), getSid(), filters);
+		return events;
+	}
 
 	/**
 	 * An optional URL where the Workspace will publish events. You can use this to gather data for reporting.
@@ -207,6 +251,17 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public TaskList getTasks() {
 		TaskList tasks = new TaskList(getClient(), getSid());
+		return tasks;
+	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.TaskList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}.
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.TaskList}
+	 */
+	public TaskList getTasks(Map<String, String> filters) {
+		TaskList tasks = new TaskList(getClient(), getSid(), filters);
 		return tasks;
 	}
 
@@ -286,6 +341,17 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		WorkerList workers = new WorkerList(getClient(), getSid());
 		return workers;
 	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.WorkerList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.WorkerList}
+	 */
+	public WorkerList getWorkers(final Map<String, String> filters) {
+		WorkerList workers = new WorkerList(getClient(), getSid(), filters);
+		return workers;
+	}
 
 	/**
 	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
@@ -343,6 +409,17 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 		WorkflowList workflows = new WorkflowList(getClient(), getSid());
 		return workflows;
 	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.WorkflowList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.WorkflowList}
+	 */
+	public WorkflowList getWorkflows(Map<String, String> filters) {
+		WorkflowList workflows = new WorkflowList(getClient(), getSid(), filters);
+		return workflows;
+	}
 
 	/**
 	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
@@ -384,6 +461,17 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public TaskQueueList getTaskQueues() {
 		TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
+		return taskQueues;
+	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.TaskQueueList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.TaskQueueList}
+	 */
+	public TaskQueueList getTaskQueues(Map<String, String> filters) {
+		TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid(), filters);
 		return taskQueues;
 	}
 

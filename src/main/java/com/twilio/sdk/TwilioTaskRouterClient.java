@@ -481,7 +481,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 *
 	 * @param workspaceSid the workspace sid
 	 * @param filters the filters
-	 * @return tasks matching the filters
+	 * @return workers matching the filters
 	 */
 	public WorkerList getWorkers(final String workspaceSid, final Map<String, String> filters) {
 		WorkerList list = new WorkerList(this, workspaceSid, filters);

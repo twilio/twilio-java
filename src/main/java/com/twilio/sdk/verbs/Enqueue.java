@@ -11,9 +11,7 @@ public class Enqueue extends Verb {
     }
     
     public Enqueue() {
-        super(Verb.V_ENQUEUE, null);
-        this.allowedVerbs = new ArrayList<String>();
-        this.allowedVerbs.add(Verb.V_TASK);
+        this(null);
     }
 
     public void setAction(final String action) {

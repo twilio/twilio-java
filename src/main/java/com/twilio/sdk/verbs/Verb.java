@@ -67,6 +67,8 @@ public class Verb {
     public static final String V_DIAL = "Dial";
 
     public static final String V_ENQUEUE = "Enqueue";
+    
+    public static final String V_TASK = "Task";
 
     public static final String V_GATHER = "Gather";
 

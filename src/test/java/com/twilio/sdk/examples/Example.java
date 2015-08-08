@@ -18,7 +18,7 @@ public class Example
 {
     // Find your Account Sid and Token at twilio.com/user/account
     public static final String ACCOUNT_SID = "AC5ef8732a3c49700934481addd5ce1659";
-    public static final String AUTH_TOKEN = "{{ auth_token }}";
+    public static final String AUTH_TOKEN = "c9b4ebe3b5ab4089291dbf1f7fdd9607";
 
     public static void main(String[] args) throws TwilioRestException
     {

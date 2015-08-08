@@ -51,14 +51,12 @@ public class TwilioRestResponse {
 	/** The url. */
 	private String url;
 
-	/** The query string. */
-	private String queryString;
-
 	/** The error. */
 	private boolean error;
 
 	/** The content type. */
 	private String contentType;
+
 
 	/**
 	 * Instantiates a new twilio rest response.
@@ -72,7 +70,7 @@ public class TwilioRestResponse {
 		Matcher m = p.matcher(url);
 		m.matches();
 		this.url = m.group(1);
-		queryString = m.group(2);
+//		queryString = m.group(2);
 		responseText = text;
 		httpStatus = status;
 		error = (status >= 400);
@@ -88,14 +86,6 @@ public class TwilioRestResponse {
 		return responseText;
 	}
 
-	/**
-	 * Sets the response text.
-	 *
-	 * @param responseText the new response text
-	 */
-	public void setResponseText(final String responseText) {
-		this.responseText = responseText;
-	}
 
 	/**
 
@@ -105,15 +95,6 @@ public class TwilioRestResponse {
 	 */
 	public int getHttpStatus() {
 		return httpStatus;
-	}
-
-	/**
-	 * Sets the http status.
-	 *
-	 * @param httpStatus the new http status
-	 */
-	public void setHttpStatus(final int httpStatus) {
-		this.httpStatus = httpStatus;
 	}
 
 	/**
@@ -134,22 +115,6 @@ public class TwilioRestResponse {
 		this.url = url;
 	}
 
-	/**
-	 * Get the query string that resulted in this response
-	 *
-	 */
-	public String getQueryString() {
-		return queryString;
-	}
-
-	/**
-	 * Sets the query string.
-	 *
-	 * @param queryString the new query string
-	 */
-	public void setQueryString(final String queryString) {
-		this.queryString = queryString;
-	}
 
 	/**
 	 * Determine if this request resulted in any kind of error
@@ -243,6 +208,34 @@ public class TwilioRestResponse {
 	public Map<String, Object> toMap() {
 		ResponseParser parser = getParser();
 		return parser.parse(this);
+	}
+
+	public void buildAndThrowTwilioRestException () throws TwilioRestException {
+		Map<String, Object> data = toMap();
+		String message = "";
+		String moreInfo = "";
+		int errorCode = 0;
+		if (isJson()) {
+			message = (String) data.get("message");
+
+			if (data.get("code") != null) {
+				errorCode = (Integer) data.get("code");
+			}
+			if (data.get("more_info") != null) {
+				moreInfo = (String) data.get("more_info");
+			}
+		}
+		else
+		{
+			//its xml
+			Map<String,Object> errorMap = (Map)data.get("RestException");
+			errorCode = Integer.valueOf((String)errorMap.get("Code"));
+			moreInfo = (String)errorMap.get("MoreInfo");
+			message = (String)errorMap.get("Message");
+		}
+
+
+		throw new TwilioRestException(message, errorCode, moreInfo);
 	}
 
 }

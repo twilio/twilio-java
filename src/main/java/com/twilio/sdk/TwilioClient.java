@@ -30,6 +30,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -356,7 +357,7 @@ public abstract class TwilioClient {
 	}
 
 	public TwilioRestResponse request(final String path, final String method,
-	                                  final List<NameValuePair> paramList) throws TwilioRestException {
+	                                  final List<NameValuePair> paramList) {
 
 		HttpUriRequest request = setupRequest(path, method, paramList);
 
@@ -508,7 +509,7 @@ public abstract class TwilioClient {
 		for (int retry = 0; retry < numRetries; retry++) {
 			response = request(path, method, paramList);
 			if (response.isClientError()) {
-				throw TwilioRestException.parseResponse(response);
+				response.buildAndThrowTwilioRestException();
 			} else if (response.isServerError()) {
 				try {
 					Thread.sleep(100 * retry); // Backoff on our sleep
@@ -521,6 +522,50 @@ public abstract class TwilioClient {
 		}
 		int errorCode = response == null ? -1 : response.getHttpStatus();
 		throw new TwilioRestException("Cannot fetch: " + method + " " + path, errorCode);
+	}
+
+
+	public  TwilioRestResponse sendSms(String fullUrl, String toPhoneNumber, String fromNumber, String body) throws TwilioRestException
+ 	{
+		 // Build the parameters
+		 Map<String, String> map = new HashMap<String,String>();
+		 map.put("To",toPhoneNumber);
+		 map.put("From", fromNumber);
+		 map.put("Body", body);
+
+		 return safePOSTWithException(fullUrl, map);
+
+	}
+
+	/**
+	 * Any errors will be embedded in the response.
+	 * @param path
+	 * @return
+	 */
+	TwilioRestResponse safePOSTWithException(final String path, final Map<String, String> vars) throws TwilioRestException
+	{
+		List<NameValuePair> paramList = generateParameters(vars);
+		TwilioRestResponse response = null;
+		for (int retry = 0; retry < numRetries; retry++) {
+            response = request(path, "POST", paramList);
+            if (response.isClientError()) {
+                response.buildAndThrowTwilioRestException();
+            }
+
+            if (response.isServerError()) {
+				try {
+					Thread.sleep(100 * retry); // Backoff on our sleep
+				}
+                catch (final InterruptedException e) {
+				}
+				continue;
+			}
+
+			return response;
+		}
+
+		int errorCode = response == null ? -1 : response.getHttpStatus();
+		throw new TwilioRestException("Cannot fetch: POST " + path, errorCode);
 	}
 
 	/**
@@ -537,7 +582,7 @@ public abstract class TwilioClient {
 		for (int retry = 0; retry < numRetries; retry++) {
 			response = request(fullUri, "GET", (Map) null);
 			if (response.isClientError()) {
-				throw TwilioRestException.parseResponse(response);
+				response.buildAndThrowTwilioRestException();
 			} else if (response.isServerError()) {
 				try {
 					Thread.sleep(100 * retry); // Backoff on our sleep

@@ -1,9 +1,5 @@
 package com.twilio.sdk;
 
-import java.util.Map;
-
-
-
 /**
  * See: <a href="https://www.twilio.com/docs/errors/">https://www.twilio.com/docs/errors/</a> for more info
  * @author FrankStratton
@@ -46,32 +42,6 @@ public class TwilioRestException extends Exception {
 		this.message = message;
 		this.errorCode = errorCode;
 		this.moreInfo = moreInfo;
-	}
-
-	/**
-	 * Parses the response.
-	 *
-	 * @param response the response
-	 * @return the twilio rest exception
-	 */
-	public static TwilioRestException parseResponse(TwilioRestResponse response) {
-		Map<String, Object> data = response.toMap();
-		String message = "";
-		String moreInfo = "";
-		int errorCode = 0;
-		if (response.isJson()) {
-			message = (String) data.get("message");
-			
-			if (data.get("code") != null) {
-				errorCode = (Integer) data.get("code");
-			}
-			if (data.get("more_info") != null) {
-				moreInfo = (String) data.get("more_info");
-			}
-		}
-		// TODO xml
-
-		return new TwilioRestException(message, errorCode, moreInfo);
 	}
 
 	/**

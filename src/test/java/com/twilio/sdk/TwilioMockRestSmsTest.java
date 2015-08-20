@@ -1,7 +1,6 @@
 package com.twilio.sdk;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -9,12 +8,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doThrow;
 
 /**
  * Author: wge
@@ -43,34 +39,12 @@ public class TwilioMockRestSmsTest
     }
 
     @Test
-    @Ignore //mockito not behaving itself
-    public void sendPinToInvalidPhone() throws TwilioUnreachableUrlException
+    public void sendPinToInvalidPhoneNumber()
     {
-
-        Map<String,Object> restException = new HashMap<String, Object>();
-        restException.put("Code",21211);
-        restException.put("Message", "The 'To' number +15005550001 is not a valid phone number.");
-
-        Map<String,Object> errorMap = new HashMap();
-        errorMap.put("RestException", restException);
-
-        when(response.toMap()).thenReturn(errorMap);
-
+        TwilioRestException expectedException = new TwilioRestException("The 'To' number +15005550001 is not a valid phone number.", 21211);
         try
         {
-            Map<String, String> map = new HashMap<String,String>();
-         		 map.put("To", "+15005550001");
-         		 map.put("From", VALID_FROM_NUMBER);
-         		 map.put("Body", "test");
-
-            TwilioRestException expectedException = new TwilioRestException("The 'To' number +15005550001 is not a valid phone number.", 21211);
-
-            mockclient.setNumRetries(1);
-
-            when(mockclient.safePOSTWithException(Mockito.anyString(), Mockito.anyMap())).thenThrow(expectedException);
-//            when(mockclient.safePOSTWithException(Mockito.eq(TEST_SMS_URL), Mockito.anyMap())).thenThrow(expectedException);
-//            when(mockclient.request(Mockito.eq(TEST_SMS_URL), Mockito.eq("POST"), Mockito.anyListOf(NameValuePair.class))).thenReturn(response);
-            when(mockclient.request(Mockito.anyString(), Mockito.anyString(), Mockito.anyList())).thenReturn(response);
+            doThrow(expectedException).when(mockclient).safePOSTWithException(Mockito.eq(TEST_SMS_URL), Mockito.anyMap());
             mockclient.sendSms(TEST_SMS_URL, "+15005550001", VALID_FROM_NUMBER, "test");
             assertFalse(true);
         }
@@ -78,6 +52,40 @@ public class TwilioMockRestSmsTest
         {
             assertEquals(21211, e.getErrorCode());
             assertEquals("The 'To' number +15005550001 is not a valid phone number.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void cannotRouteToNumber()
+    {
+        TwilioRestException expectedException = new TwilioRestException("twilio cannot route to number", 21612);
+        try
+        {
+            doThrow(expectedException).when(mockclient).safePOSTWithException(Mockito.eq(TEST_SMS_URL), Mockito.anyMap());
+            mockclient.sendSms(TEST_SMS_URL, "+15005550001", VALID_FROM_NUMBER, "test");
+            assertFalse(true);
+        }
+        catch (TwilioRestException e)
+        {
+            assertEquals(21612, e.getErrorCode());
+            assertEquals("twilio cannot route to number", e.getMessage());
+        }
+    }
+
+    @Test
+    public void internationalPermissionsNeeded() throws TwilioUnreachableUrlException
+    {
+        TwilioRestException expectedException = new TwilioRestException("international permissioning needed", 21408);
+        try
+        {
+            doThrow(expectedException).when(mockclient).safePOSTWithException(Mockito.eq(TEST_SMS_URL), Mockito.anyMap());
+            mockclient.sendSms(TEST_SMS_URL, "+15005550001", VALID_FROM_NUMBER, "test");
+            assertFalse(true);
+        }
+        catch (TwilioRestException e)
+        {
+            assertEquals(21408, e.getErrorCode());
+            assertEquals("international permissioning needed", e.getMessage());
         }
     }
 

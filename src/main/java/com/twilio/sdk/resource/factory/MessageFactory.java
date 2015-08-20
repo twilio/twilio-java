@@ -19,5 +19,5 @@ public interface MessageFactory {
 	 * @return the message
 	 * @throws TwilioRestException
    */
-	public Message create(List<NameValuePair> params) throws TwilioRestException;
+	Message create(List<NameValuePair> params) throws TwilioRestException;
 }

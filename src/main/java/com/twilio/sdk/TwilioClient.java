@@ -1,5 +1,6 @@
 package com.twilio.sdk;
 
+import com.twilio.sdk.pojo.SMSCriteria;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -461,22 +462,17 @@ public abstract class TwilioClient {
 		throw new TwilioRestException("Cannot fetch: " + method + " " + path, errorCode);
 	}
 
-	public  TwilioRestResponse sendSms(String fullUrl, String toPhoneNumber, String fromNumber, String body) throws TwilioRestException
-	{
-		return sendSms( fullUrl,  toPhoneNumber,  fromNumber,  body, null);
-	}
-
-	public  TwilioRestResponse sendSms(String fullUrl, String toPhoneNumber, String fromNumber, String body, String callbackUrl) throws TwilioRestException
+	public  TwilioRestResponse sendSms(SMSCriteria smsCriteria) throws TwilioRestException
  	{
 		 // Build the parameters
 		 Map<String, String> map = new HashMap<String,String>();
-		 map.put("To",toPhoneNumber);
-		 map.put("From", fromNumber);
-		 map.put("Body", body);
-		 if(callbackUrl !=null)
-		 	map.put("StatusCallback",callbackUrl);
+		 map.put("To", smsCriteria.toPhoneNumber);
+		 map.put("From", smsCriteria.fromNumber);
+		 map.put("Body", smsCriteria.body);
+		 if(smsCriteria.callbackUrl !=null)
+		 	map.put("StatusCallback", smsCriteria.callbackUrl);
 
-		 return safePOSTWithException(fullUrl, map);
+		 return safePOSTWithException(smsCriteria.fullUrl, map);
 	}
 
 	/**

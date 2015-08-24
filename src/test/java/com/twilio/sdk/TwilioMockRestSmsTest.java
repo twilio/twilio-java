@@ -1,5 +1,6 @@
 package com.twilio.sdk;
 
+import com.twilio.sdk.pojo.SMSCriteria;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +46,10 @@ public class TwilioMockRestSmsTest
         try
         {
             doThrow(expectedException).when(mockclient).safePOSTWithException(Mockito.eq(TEST_SMS_URL), Mockito.anyMap());
-            mockclient.sendSms(TEST_SMS_URL, "+15005550001", VALID_FROM_NUMBER, "test");
+
+            SMSCriteria criteria = new SMSCriteria(TEST_SMS_URL,"+15005550001",VALID_FROM_NUMBER,"test");
+
+            mockclient.sendSms(criteria);
             assertFalse(true);
         }
         catch (TwilioRestException e)
@@ -62,7 +66,10 @@ public class TwilioMockRestSmsTest
         try
         {
             doThrow(expectedException).when(mockclient).safePOSTWithException(Mockito.eq(TEST_SMS_URL), Mockito.anyMap());
-            mockclient.sendSms(TEST_SMS_URL, "+15005550001", VALID_FROM_NUMBER, "test");
+
+            SMSCriteria criteria = new SMSCriteria(TEST_SMS_URL,"+15005550001",VALID_FROM_NUMBER,"test");
+
+            mockclient.sendSms(criteria);
             assertFalse(true);
         }
         catch (TwilioRestException e)
@@ -79,7 +86,10 @@ public class TwilioMockRestSmsTest
         try
         {
             doThrow(expectedException).when(mockclient).safePOSTWithException(Mockito.eq(TEST_SMS_URL), Mockito.anyMap());
-            mockclient.sendSms(TEST_SMS_URL, "+15005550001", VALID_FROM_NUMBER, "test");
+
+            SMSCriteria criteria = new SMSCriteria(TEST_SMS_URL,"+15005550001",VALID_FROM_NUMBER,"test");
+
+            mockclient.sendSms(criteria);
             assertFalse(true);
         }
         catch (TwilioRestException e)

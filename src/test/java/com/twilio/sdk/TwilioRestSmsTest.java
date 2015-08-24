@@ -1,6 +1,7 @@
 package com.twilio.sdk;
 
 import com.twilio.sdk.examples.Example;
+import com.twilio.sdk.pojo.SMSCriteria;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -27,7 +28,8 @@ public class TwilioRestSmsTest
     {
         try
         {
-            client.sendSms(TEST_SMS_URL, "+15005550001", VALID_FROM_NUMBER, "test");
+            SMSCriteria criteria = new SMSCriteria(TEST_SMS_URL, "+15005550001", VALID_FROM_NUMBER, "test");
+            client.sendSms(criteria);
             assertFalse(true);
         }
         catch (TwilioRestException e)
@@ -40,7 +42,9 @@ public class TwilioRestSmsTest
     @Test
     public void sendPinToMyPhone() throws TwilioRestException
     {
-         client.sendSms(TEST_SMS_URL, "+447770497729", VALID_FROM_NUMBER, "test");
+        SMSCriteria criteria = new SMSCriteria(TEST_SMS_URL, "+447770497729", VALID_FROM_NUMBER, "test");
+
+        client.sendSms(criteria);
     }
 
 

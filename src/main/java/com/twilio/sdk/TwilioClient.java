@@ -29,35 +29,12 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The abstract class TwilioClient.
  */
 public abstract class TwilioClient {
-
-	private static final int ACCOUNT_SID_LENGTH = 34;
-
-	/** The Constant VERSION. */
-	private static final String VERSION = "4.4.5";
-
-	/** The endpoint. */
-	private String endpoint = "https://api.twilio.com";
-
-	/** The Constant DEFAULT_VERSION. */
-	public static final String DEFAULT_VERSION = "2010-04-01";
-
-	/** The account sid. */
-	private final String accountSid;
-
-	/** The auth token. */
-	private final String authToken;
-
-	/** The num retries. */
-	private int numRetries = 3;
 
 	/**
 	 * The default HTTP Connection timeout
@@ -68,35 +45,13 @@ public abstract class TwilioClient {
 	 * The default timeout to use for requests to Twilio
 	 */
 	private static final int READ_TIMEOUT = 30500;
-
-	/** The httpclient. */
+	private static final int ACCOUNT_SID_LENGTH = 34;
+	private static final String VERSION = "4.4.5";
+	public  static final String DEFAULT_VERSION = "2010-04-01";
+	private final String accountSid;
+	private final String authToken;
+	private static final int numRetries = 3;
 	private HttpClient httpclient;
-
-	/**
-	 * Gets the num retries.
-	 *
-	 * @return the num retries
-	 */
-	public int getNumRetries() {
-		return numRetries;
-	}
-
-	/**
-	 * Sets the num retries.
-	 *
-	 * @param numRetries the new num retries
-	 */
-	public void setNumRetries(final int numRetries) {
-		this.numRetries = numRetries;
-	}
-
-	public void setHttpClient(final HttpClient httpclient) {
-		this.httpclient = httpclient;
-	}
-
-	public HttpClient getHttpClient() {
-		return httpclient;
-	}
 
 	/**
 	 * Explicitly construct a TwilioClient with the given API credentials.
@@ -106,28 +61,12 @@ public abstract class TwilioClient {
 	 * @param authToken the 32 character AuthToken. This can be found on your Twilio dashboard page.
 	 */
 	public TwilioClient(final String accountSid, final String authToken) {
-		this(accountSid, authToken, null);
-	}
-
-	/**
-	 * Explicitly construct a TwilioClient with the given API credentials and endpoint.
-	 *
-	 * @param accountSid the 34 character Account identifier (starting with 'AC'). This can be found on your Twilio
-	 * dashboard page.
-	 * @param authToken the 32 character AuthToken. This can be found on your Twilio dashboard page.
-	 * @param endpoint the url of API endpoint you wish to use. (e.g. - 'https://api.twilio.com')
-	 */
-	public TwilioClient(final String accountSid, final String authToken, final String endpoint) {
 
 		validateAccountSid(accountSid);
 		validateAuthToken(authToken);
 
 		this.accountSid = accountSid;
 		this.authToken = authToken;
-
-		if ((endpoint != null) && (!endpoint.equals(""))) {
-			this.endpoint = endpoint;
-		}
 
 		//Grab the proper connection manager, based on runtime environment
 		ClientConnectionManager mgr;
@@ -140,7 +79,7 @@ public abstract class TwilioClient {
 			((PoolingClientConnectionManager) mgr).setDefaultMaxPerRoute(10);
 		}
 
-		setHttpClient(new DefaultHttpClient(mgr));
+		httpclient = new DefaultHttpClient(mgr);
 		httpclient.getParams().setParameter("http.protocol.version", HttpVersion.HTTP_1_1);
 		httpclient.getParams().setParameter("http.socket.timeout", new Integer(READ_TIMEOUT));
 		httpclient.getParams().setParameter("http.connection.timeout", new Integer(CONNECTION_TIMEOUT));
@@ -522,17 +461,22 @@ public abstract class TwilioClient {
 		throw new TwilioRestException("Cannot fetch: " + method + " " + path, errorCode);
 	}
 
-
 	public  TwilioRestResponse sendSms(String fullUrl, String toPhoneNumber, String fromNumber, String body) throws TwilioRestException
+	{
+		return sendSms( fullUrl,  toPhoneNumber,  fromNumber,  body, null);
+	}
+
+	public  TwilioRestResponse sendSms(String fullUrl, String toPhoneNumber, String fromNumber, String body, String callbackUrl) throws TwilioRestException
  	{
 		 // Build the parameters
 		 Map<String, String> map = new HashMap<String,String>();
 		 map.put("To",toPhoneNumber);
 		 map.put("From", fromNumber);
 		 map.put("Body", body);
+		 if(callbackUrl !=null)
+		 	map.put("StatusCallback",callbackUrl);
 
 		 return safePOSTWithException(fullUrl, map);
-
 	}
 
 	/**
@@ -600,11 +544,14 @@ public abstract class TwilioClient {
 	 *
 	 * @return String the api endpoint
 	 */
-	public String getEndpoint() {
-		return endpoint;
-	}
+	abstract public String getEndpoint();
 
 	public String getAccountSid() {
 		return accountSid;
+	}
+
+	public void setHttpClient(HttpClient httpClient)
+	{
+		this.httpclient = httpClient;
 	}
 }

@@ -39,13 +39,15 @@ public class TwilioTaskRouterClient extends TwilioClient {
 
 	public static final String DEFAULT_VERSION = "v1";
 
+	@Override
+	public String getEndpoint(){
+		return "https://taskrouter.twilio.com";
+	}
+
 	public TwilioTaskRouterClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken, "https://taskrouter.twilio.com");
+		super(accountSid, authToken);
 	}
-	
-	public TwilioTaskRouterClient(final String accountSid, final String authToken, final String endpoint) {
-		super(accountSid, authToken, endpoint);
-	}
+
 
 	/**
 	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Activity}.

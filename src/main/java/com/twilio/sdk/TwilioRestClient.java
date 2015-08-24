@@ -16,19 +16,15 @@ public class TwilioRestClient extends TwilioClient {
 
 	private static final String API_URL = "https://api.twilio.com";
 
+	@Override
+	public String getEndpoint(){
+		return API_URL;
+	}
 	/** The auth account. */
 	private final Account authAccount;
 
 	public TwilioRestClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken,API_URL);
-
-		authAccount = new Account(this);
-		authAccount.setSid(accountSid);
-		authAccount.setAuthToken(authToken);
-	}
-
-	public TwilioRestClient(final String accountSid, final String authToken, String endpoint) {
-		super(accountSid, authToken, endpoint);
+		super(accountSid, authToken);
 
 		authAccount = new Account(this);
 		authAccount.setSid(accountSid);

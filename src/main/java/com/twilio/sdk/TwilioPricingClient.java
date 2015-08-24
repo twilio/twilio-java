@@ -18,6 +18,10 @@ public class TwilioPricingClient extends TwilioClient {
 
     public static final String DEFAULT_VERSION = "v1";
 
+    @Override
+   	public String getEndpoint(){
+   		return "https://pricing.twilio.com";
+   	}
     /**
      * Construct a new TwilioPricingClient.
      *
@@ -28,7 +32,7 @@ public class TwilioPricingClient extends TwilioClient {
      * @param authToken Your Twilio Account's authorization token
      */
     public TwilioPricingClient(final String accountSid, final String authToken) {
-        super(accountSid, authToken, "https://pricing.twilio.com");
+        super(accountSid, authToken);
     }
 
     /**
@@ -41,9 +45,9 @@ public class TwilioPricingClient extends TwilioClient {
      * @param authToken Your Twilio Account's authorization token
      * @param endpoint Custom Twilio pricing endpoint
      */
-    public TwilioPricingClient(final String accountSid, final String authToken, String endpoint) {
-        super(accountSid, authToken, endpoint);
-    }
+//    public TwilioPricingClient(final String accountSid, final String authToken, String endpoint) {
+//        super(accountSid, authToken, endpoint);
+//    }
 
     /**
      * Get a list of objects representing countries where Twilio Voice

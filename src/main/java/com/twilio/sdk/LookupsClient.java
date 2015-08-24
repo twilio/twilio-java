@@ -9,12 +9,13 @@ public class LookupsClient extends TwilioClient {
 
 	public static final String DEFAULT_VERSION = "v1";
 
-	public LookupsClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken, "https://lookups.twilio.com");
+	@Override
+	public String getEndpoint(){
+		return "https://lookups.twilio.com";
 	}
 
-	public LookupsClient(final String accountSid, final String authToken, final String endpoint) {
-		super(accountSid, authToken, endpoint);
+	public LookupsClient(final String accountSid, final String authToken) {
+		super(accountSid, authToken);
 	}
 
 	public PhoneNumber getPhoneNumber(final String number) {

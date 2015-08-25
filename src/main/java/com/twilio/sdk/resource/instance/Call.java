@@ -8,6 +8,7 @@ import com.twilio.sdk.resource.factory.FeedbackFactory;
 import com.twilio.sdk.resource.factory.impl.FeedbackFactoryImpl;
 import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.TranscriptionList;
+import com.twilio.sdk.resource.list.NotificationList;
 import org.apache.http.NameValuePair;
 
 import java.util.Date;
@@ -101,6 +102,17 @@ public class Call extends InstanceResource<TwilioRestClient> {
 		RecordingList recordings = new RecordingList(this.getClient(), this.getSid());
 		recordings.setRequestAccountSid(this.getRequestAccountSid());
 		return recordings;
+	}
+
+	/**
+	 * Returns the list of associated notifications
+	 *
+	 * @return the NotificationList associated this this call
+	 */
+	public NotificationList getNotifications() {
+		NotificationList notifications = new NotificationList(this.getClient(), this.getSid());
+		notifications.setRequestAccountSid(this.getRequestAccountSid());
+		return notifications;
 	}
 
 	/**

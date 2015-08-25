@@ -286,4 +286,12 @@ public class IncomingPhoneNumber extends InstanceResource<TwilioRestClient> {
 	public String getAddressRequirements() {
 		return this.getProperty("address_requirements");
 	}
+
+	/**
+	 * Whether this number is new to the Twilio platform.
+	 * @return Beta status
+	 */
+	public boolean getBeta() {
+		return (Boolean) getObject("beta");
+	}
 }

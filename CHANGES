@@ -3,6 +3,86 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.5.0
+-------------
+
+Released August 11, 2015
+
+- Add support for new Taskrouter JWT Functionality, JWTs now grant access to
+  - Workspace
+  - Worker
+  - TaskQueue
+
+Version 4.4.5
+-------------
+
+Released July 31, 2015
+
+- Allow AccessTokens to be used as AuthTokens
+
+Version 4.4.4
+-------------
+
+Released July 01, 2015
+
+- Correct StatusCallbackEvent TwiML attributes for Client and Number verbs as well
+
+Version 4.4.3
+-------------
+
+Released June 30, 2015
+
+- Support passing a custom endpoint into PricingClient
+
+Version 4.4.2
+-------------
+
+Released June 11, 2015
+
+- Fix StatusCallbackEvent TwiML generation
+
+Version 4.4.1
+-------------
+
+Released June 9, 2015
+
+- Update XML parser settings to protect against XXE attacks
+
+Version 4.4.0
+-------------
+
+Released May 19, 2015
+
+- Add support for the beta field for IncomingPhoneNumbers and AvailablePhoneNumbers
+
+Version 4.3.0
+-------------
+
+Released May 14, 2015
+
+- Add support for the new StatusCallbackEvent feature in TwiML generation.
+
+Version 4.2.0
+-------------
+
+Released May 7, 2015
+
+- Add support for the Twilio Monitor APIs: Events and Alerts
+
+Version 4.1.0
+-------------
+
+Released May 6, 2015
+
+- Add support for the Twilio Pricing API
+
+Version 4.0.2
+-------------
+
+Released April 29, 2015
+
+- Expose the notifications subresource from call instances
+
 Version 4.0.1
 -------------
 

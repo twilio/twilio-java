@@ -127,6 +127,14 @@ public class AvailablePhoneNumber extends InstanceResource<TwilioRestClient> {
 	}
 
 	/**
+	 * Whether this number is new to the Twilio platform.
+	 * @return Beta status
+	 */
+	public boolean getBeta() {
+		return (Boolean) getObject("beta");
+	}
+
+	/**
 	 * Indicates whether this number requires an Address to be on file with Twilio.
 	 * Potential values are "any", "local", "foreign", or "none".
 	 *

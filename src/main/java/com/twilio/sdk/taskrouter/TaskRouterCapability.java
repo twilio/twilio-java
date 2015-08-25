@@ -1,209 +1,291 @@
 package com.twilio.sdk.taskrouter;
 
-import com.twilio.sdk.CapabilityToken;
-import org.json.simple.JSONAware;
-import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
+
+import com.twilio.sdk.CapabilityToken;
 
 public class TaskRouterCapability extends CapabilityToken {
 
-	private final static String TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
-	private final static String TASKROUTER_VERSION = "v1";
-	private final static String TASKROUTER_EVENT_URL = "https://event-bridge.twilio.com/v1/wschannels";
+    private final static String TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
+    private final static String TASKROUTER_VERSION = "v1";
+    private final static String TASKROUTER_EVENT_URL = "https://event-bridge.twilio.com/v1/wschannels";
 
-	private String accountSid;
-	private String authToken;
-	private String workspaceSid;
-	private String workerSid;
-	private List<Policy> policies;
+    protected String accountSid;
+    protected String authToken;
+    protected Set<Policy> policies;
+    protected String version;
+    protected String friendlyName;
+    protected String workspaceSid;
+    protected String channelId;
+    protected String resourceUrl;
+    protected String baseUrl;
 
-	/**
-	 * Create a new Capability object to authorize worker clients to interact with the
-	 * TaskRouter service.
-	 *
-	 * @param accountSid   Account to authorize actions for
-	 * @param authToken    Auth token for the account. Used to sign tokens and will not be
-	 *                     included in the generated tokens.
-	 * @param workspaceSid Workspace to authorize tokens for.
-	 * @param workerSid    Worker to create tokens for.
-	 */
-	public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String workerSid) {
-		this.accountSid = accountSid;
-		this.authToken = authToken;
-		this.workspaceSid = workspaceSid;
-		this.workerSid = workerSid;
-		this.policies = new ArrayList<Policy>();
-		addEventBridgePolicies();
-		allowActivityListFetch();
-	}
+    /**
+     * Create a new Capability object to authorize clients to interact with the
+     * TaskRouter service.
+     *
+     * @param accountSid
+     *            Account to authorize actions for
+     * @param authToken
+     *            Auth token for the account. Used to sign tokens and will not
+     *            be included in the generated tokens.
+     * @param workspaceSid
+     *            Workspace to authorize tokens for.
+     * @param channelId
+     *            Authorized Channel
+     */
+    public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String channelId) {
 
-	/**
-	 * Allow a worker to update its own activity status
-	 *
-	 * @return The updated Capability representation
-	 */
-	public TaskRouterCapability allowWorkerActivityUpdates() {
-		Policy update = new Policy(getWorkerUrl(), "POST", true).addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
-		return addPolicy(update);
-	}
+        this.accountSid = accountSid;
+        this.authToken = authToken;
+        this.version = TASKROUTER_VERSION;
+        this.friendlyName = channelId;
+        this.workspaceSid = workspaceSid;
+        this.channelId = channelId;
+        this.policies = new LinkedHashSet<Policy>();
+        this.baseUrl = TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
 
-	/**
-	 * Allow a worker to read its own attributes.
-	 *
-	 * @return The updated Capability representation
-	 */
-	public TaskRouterCapability allowWorkerFetchAttributes() {
-		return addPolicy(new Policy(getWorkerUrl(), "GET", true));
-	}
+        validateJWT();
 
-	/**
-	 * Allow a worker to update task reservation status
-	 *
-	 * @return The updated Capability representation
-	 */
-	public TaskRouterCapability allowTaskReservationUpdates() {
-		String tasksUrl = getWorkspaceUrl() + "/Tasks/**";
-		Policy update = new Policy(tasksUrl, "POST", true).addPostFilterParam("ReservationStatus", FilterRequirement.REQUIRED);
-		return addPolicy(update);
-	}
+        this.setupResource();
 
-	/**
-	 * Add a new Policy allowing or denying specific resource actions to this Capability set.
-	 *
-	 * @param policy Configured Policy object
-	 * @return The updated Capability representation
-	 */
-	public TaskRouterCapability addPolicy(final Policy policy) {
-		this.policies.add(policy);
-		return this;
-	}
+        // add permissions to GET and POST to the event-bridge channel
+        addTaskRouterPolicies(channelId);
+        this.addPolicy(new Policy(resourceUrl, "GET", true));
+    }
 
-	public String generateToken() throws DomainException {
-		return generateToken(3600);
-	}
+    protected void setupResource() {
+        if (channelId.startsWith("WS")) {
+            resourceUrl = this.baseUrl;
+        } else if (channelId.startsWith("WK")) {
+            resourceUrl = this.baseUrl + "/Workers/" + channelId;
 
-	/**
-	 * Generate a capability token with the currently-configured policies on this object.
-	 *
-	 * @param ttl Expiration time in seconds
-	 * @return JSON Web Token representing authorized capabilities
-	 * @throws DomainException
-	 */
-	public String generateToken(long ttl) throws DomainException {
-		Map<String, Object> payload = new HashMap<String, Object>();
-		payload.put("iss", accountSid);
-		payload.put("exp", (System.currentTimeMillis() / 1000L) + ttl);
-		payload.put("version", TASKROUTER_VERSION);
-		payload.put("account_sid", accountSid);
-		payload.put("worker_sid", workerSid);
-		payload.put("workspace_sid", workspaceSid);
-		payload.put("channel", workerSid);
-		payload.put("friendly_name", workerSid);
-		payload.put("policies", policies);
+            final String activityUrl = this.baseUrl + "/Activities";
+            final String reservationsUrl = this.baseUrl + "/Tasks/**";
 
-		try {
-			return jwtEncode(payload, authToken);
-		} catch (Exception e) {
-			throw new DomainException(e);
-		}
-	}
+            // add permissions to fetch the list of activities
+            this.allow(activityUrl, "GET", null, null);
+            this.allow(reservationsUrl, "GET", null, null);
+        } else if (channelId.startsWith("WQ")) {
+            resourceUrl = this.baseUrl + "/TaskQueues/" + channelId;
+        }
+    }
 
-	private String getWorkspaceUrl() {
-		return TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
-	}
+    private void addTaskRouterPolicies(final String channelId) {
+        // Workers can GET and POST their own events
+        final String eventBridgeUrl = TASKROUTER_EVENT_URL + "/" + accountSid + "/" + channelId;
+        addPolicy(new Policy(eventBridgeUrl, "GET", true));
+        addPolicy(new Policy(eventBridgeUrl, "POST", true));
+    }
 
-	private String getWorkerUrl() {
-		return getWorkspaceUrl() + "/Workers/" + workerSid;
-	}
+    private void validateJWT() {
+        if (accountSid == null || !accountSid.startsWith("AC")) {
+            throw new IllegalArgumentException("Invalid AccountSid provided: " + accountSid);
+        }
+        if (workspaceSid == null || !workspaceSid.startsWith("WS")) {
+            throw new IllegalArgumentException("Invalid WorkspaceSid provided: " + workspaceSid);
+        }
+        if (channelId == null) {
+            throw new IllegalArgumentException("ChannelId not provided");
+        }
+        if (!channelId.startsWith("WS") && !channelId.startsWith("WK") && !channelId.startsWith("WQ")) {
+            throw new IllegalArgumentException("Invalid ChannelId provided: " + channelId);
+        }
+    }
 
-	private void addEventBridgePolicies() {
-		// Workers can GET and POST their own events
-		String eventBridgeUrl = TASKROUTER_EVENT_URL + "/" + accountSid + "/" + workerSid;
-		addPolicy(new Policy(eventBridgeUrl, "GET", true));
-		addPolicy(new Policy(eventBridgeUrl, "POST", true));
-	}
+    /**
+     * Allow fetching all subresources of the defined resource
+     */
+    public void allowFetchSubresources() {
+        this.allow(this.resourceUrl + "/**", "GET", null, null);
+    }
 
-	private void allowActivityListFetch() {
-		String url = getWorkspaceUrl() + "/Activities";
-		addPolicy(new Policy(url, "GET", true));
-	}
+    /**
+     * Allow updating attributes of the defined resource
+     */
+    public void allowUpdates() {
+        this.allow(this.resourceUrl, "POST", null, null);
+    }
 
-	public class Policy implements JSONAware {
-		private String url;
-		private String method;
-		private Map<String, FilterRequirement> queryFilter;
-		private Map<String, FilterRequirement> postFilter;
-		private boolean allowed;
+    /**
+     * Allow updating attributes of all subresources of the defined resource
+     */
+    public void allowUpdatesSubresources() {
+        this.allow(this.resourceUrl + "/**", "POST", null, null);
+    }
 
-		/**
-		 * Represents permissions for a specific operation against a TaskRouter resource.
-		 *
-		 * @param url         The URL of the resource to grant or deny permissions to
-		 * @param method      The HTTP method
-		 * @param queryFilter Allowed or required parameters for GET requests
-		 * @param postFilter  Allowed or required parameters for POST requests
-		 * @param allowed     Whether this action is allowed or not
-		 */
-		public Policy(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter, final boolean allowed) {
-			this.url = url;
-			this.method = method;
-			this.queryFilter = queryFilter;
-			this.postFilter = postFilter;
-			this.allowed = allowed;
-		}
+    /**
+     * Allow deletion of the defined resource
+     */
+    public void allowDelete() {
+        this.allow(this.resourceUrl, "DELETE", null, null);
+    }
 
-		public Policy(final String url, final String method, final boolean allowed) {
-			this.url = url;
-			this.method = method;
-			this.allowed = allowed;
-			setQueryFilter(new HashMap<String, FilterRequirement>());
-			setPostFilter(new HashMap<String, FilterRequirement>());
-		}
+    /**
+     * Allow deletion of any subresources of the defined resource
+     */
+    public void allowDeleteSubresources() {
+        this.allow(this.resourceUrl + "/**", "DELETE", null, null);
+    }
 
-		public Policy addQueryFilterParam(final String name, final FilterRequirement required) {
-			queryFilter.put(name, required);
-			return this;
-		}
+    /**
+     * Allow a worker to update its own activity status
+     * 
+     * @deprecated Please use {TaskRouterWorkerCapability.allowActivityUpdates}
+     *             instead
+     * @throws Exception
+     */
+    @Deprecated
+    public void allowWorkerActivityUpdates() {
+        if (channelId.startsWith("WK")) {
+            final Policy update = new Policy(this.resourceUrl, "POST", true).addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
+            this.addPolicy(update);
+        } else {
+            throw new UnsupportedOperationException("Deprecated function not applicable to non Worker");
+        }
+    }
 
-		public Policy addPostFilterParam(final String name, final FilterRequirement required) {
-			postFilter.put(name, required);
-			return this;
-		}
+    /**
+     * Allow a worker to read its own attributes.
+     * 
+     * @deprecated Please use {TaskRouterWorkerCapability} instead; added
+     *             automatically in constructor
+     * @throws Exception
+     */
+    @Deprecated
+    public void allowWorkerFetchAttributes() {
+        if (channelId.startsWith("WK")) {
+            this.addPolicy(new Policy(this.resourceUrl, "GET", true));
+        } else {
+            throw new UnsupportedOperationException("Deprecated function not applicable to non Worker");
+        }
+    }
 
-		public Policy setQueryFilter(final Map<String, FilterRequirement> queryFilter) {
-			this.queryFilter = queryFilter;
-			return this;
-		}
+    /**
+     * Allow a worker to update task reservation status
+     * 
+     * @deprecated Please use
+     *             {TaskRouterWorkerCapability.allowReservationUpdates} instead
+     * @throws Exception
+     */
+    @Deprecated
+    public void allowTaskReservationUpdates() {
+        if (channelId.startsWith("WK")) {
+            final String tasksUrl = this.baseUrl + "/Tasks/**";
+            final Policy update = new Policy(tasksUrl, "POST", true);
+            this.addPolicy(update);
+        } else {
+            throw new UnsupportedOperationException("Deprecated function not applicable to non Worker");
+        }
 
-		public Policy setPostFilter(final Map<String, FilterRequirement> postFilter) {
-			this.postFilter = postFilter;
-			return this;
-		}
+    }
 
-		@Override
-		public String toJSONString() {
-			JSONObject obj = new JSONObject();
-			obj.put("url", url);
-			obj.put("method", method);
-			obj.put("allow", allowed);
-			JSONObject query = new JSONObject();
-			JSONObject post = new JSONObject();
+    public TaskRouterCapability addPolicy(final Policy policy) {
+        this.policies.add(policy);
+        return this;
+    }
 
-			for (Map.Entry<String, FilterRequirement> e : queryFilter.entrySet()) {
-				query.put(e.getKey(), e.getValue());
-			}
-			for (Map.Entry<String, FilterRequirement> e : postFilter.entrySet()) {
-				post.put(e.getKey(), e.getValue());
-			}
+    /**
+     * Add policy to list of access policies
+     * 
+     * @param url
+     *            url of the resource
+     * @param method
+     *            method to the resource
+     * @param queryFilter
+     *            query filter parameters
+     * @param postFilter
+     *            post filter parameters
+     * @param allow
+     *            whether or not to allow access on this policy
+     */
 
-			obj.put("query_filter", query);
-			obj.put("post_filter", post);
-			return obj.toJSONString();
-		}
-	}
+    public void addPolicy(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter, final boolean allow) {
+        this.policies.add(new Policy(url, method, queryFilter, postFilter, allow));
+    }
+
+    /**
+     * Add Allow access policy
+     * 
+     * @param url
+     *            url of the resource
+     * @param method
+     *            method to the resource
+     * @param queryFilter
+     *            query filter parameters
+     * @param postFilter
+     *            post filter parameters
+     */
+
+    public void allow(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
+        this.policies.add(new Policy(url, method, queryFilter, postFilter, true));
+    }
+
+    /**
+     * Add Deny access policy
+     * 
+     * @param url
+     *            url of the resource
+     * @param method
+     *            method to the resource
+     * @param queryFilter
+     *            query filter parameters
+     * @param postFilter
+     *            post filter parameters
+     */
+
+    public void deny(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
+        this.policies.add(new Policy(url, method, queryFilter, postFilter, false));
+    }
+
+    /**
+     * Generate a capability token with the currently-configured policies on
+     * this object.
+     *
+     * @return JSON Web Token representing authorized capabilities
+     * @throws DomainException
+     */
+    public String generateToken() throws DomainException {
+        return generateToken(3600);
+    }
+
+    /**
+     * Generate a capability token with the currently-configured policies on
+     * this object.
+     *
+     * @param ttl
+     *            Expiration time in seconds
+     * @return JSON Web Token representing authorized capabilities
+     * @throws DomainException
+     */
+    public String generateToken(final long ttl) throws DomainException {
+
+        final Map<String, Object> payload = new HashMap<String, Object>();
+        payload.put("iss", accountSid);
+        payload.put("exp", (System.currentTimeMillis() / 1000L) + ttl);
+        payload.put("account_sid", accountSid);
+        payload.put("friendly_name", friendlyName);
+        payload.put("version", version);
+        payload.put("policies", new ArrayList<Policy>(policies));
+        payload.put("workspace_sid", this.workspaceSid);
+        payload.put("channel", this.channelId);
+
+        if (channelId.startsWith("WK")) {
+            payload.put("worker_sid", this.channelId);
+        } else if (channelId.startsWith("WQ")) {
+            payload.put("taskqueue_sid", this.channelId);
+        }
+
+        try {
+            return jwtEncode(payload, authToken);
+        } catch (final Exception e) {
+            throw new DomainException(e);
+        }
+
+    }
 
 }

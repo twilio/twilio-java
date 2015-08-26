@@ -1,10 +1,11 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
-import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.NextGenInstanceResource;
-
 import java.util.Date;
 import java.util.Map;
+
+import com.twilio.sdk.TwilioTaskRouterClient;
+import com.twilio.sdk.resource.NextGenInstanceResource;
+import com.twilio.sdk.resource.list.taskrouter.WorkerReservationList;
 
 /**
  * Workers represent an entity that is able to perform tasks, such as an agent working in a call center,
@@ -152,6 +153,29 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public boolean isAvailable() {
 		return (Boolean) getObject("available");
+	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.WorkerReservationList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}.
+	 *
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.WorkerReservationList}
+	 */
+	public WorkerReservationList getReservations() {
+		WorkerReservationList reservations = new WorkerReservationList(getClient(), getWorkspaceSid(), getSid());
+		return reservations;
+	}
+	
+	/**
+	 * Retrieves the {@link com.twilio.sdk.resource.list.taskrouter.WorkerReservationList} for this {@link
+	 * com.twilio.sdk.resource.instance.taskrouter.Workspace}.
+	 *
+	 * @param filters for reservations
+	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.WorkerReservationList}
+	 */
+	public WorkerReservationList getReservations(final Map<String, String> filters) {
+		WorkerReservationList reservations = new WorkerReservationList(getClient(), getWorkspaceSid(), getSid(), filters);
+		return reservations;
 	}
 
 	@Override

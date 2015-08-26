@@ -73,7 +73,6 @@ public class TwilioRestClientIntegrationTest {
 
         // validate call
         assertEquals("+123", call.getFrom());
-        assertNotNull(call);
 
         ArgumentCaptor<HttpPost> captor = ArgumentCaptor.forClass(HttpPost.class);
         Mockito.verify(fakeHttpClient).execute(captor.capture());
@@ -104,7 +103,6 @@ public class TwilioRestClientIntegrationTest {
 
         // validate call
         assertEquals("+123", call.getFrom());
-        assertNotNull(call);
 
         ArgumentCaptor<HttpPost> captor = ArgumentCaptor.forClass(HttpPost.class);
         Mockito.verify(fakeHttpClient).execute(captor.capture());

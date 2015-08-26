@@ -15,7 +15,6 @@ import static org.junit.Assert.assertTrue;
 public class TwilioClientTest {
 
 	private static final String SIGNING_KEY_SID = "SK123";
-	private static final String ACCOUNT_SID = "AC123";
 	private static final String SECRET = "secret";
 
 	@Test(expected = IllegalArgumentException.class)
@@ -25,7 +24,8 @@ public class TwilioClientTest {
 
 	@Test
 	public void testAcceptAccessToken() {
-		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, SECRET);
+		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID,
+				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", SECRET);
 		accessToken.addGrant(new Grant("https://api.twilio.com/**"));
 
 		// should not throw

@@ -483,7 +483,7 @@ public abstract class TwilioClient {
 	 *
 	 * @return The username to use for basic auth
 	 */
-	protected String getAuthUsername() {
+	private String getAuthUsername() {
 		if (authToken.length() == AUTH_TOKEN_LENGTH) {
 			return accountSid;
 		}

@@ -4,7 +4,7 @@
   <artifactId>twilio-java-sdk-video-beta</artifactId>
   <packaging>jar</packaging>
   <name>twilio-java-sdk-video-beta</name>
-  <version>4.5.1-SNAPSHOT</version>
+  <version>4.5.1</version>
   <description>Java helper library for Twilio services</description>
   <url>http://www.twilio.com</url>
   <licenses>

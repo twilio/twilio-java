@@ -38,8 +38,6 @@ import java.util.Map;
  */
 public abstract class TwilioClient {
 
-	private static final int ACCOUNT_SID_LENGTH = 34;
-
 	/** The Constant VERSION. */
 	private static final String VERSION = "4.5.0";
 
@@ -48,6 +46,9 @@ public abstract class TwilioClient {
 
 	/** The Constant DEFAULT_VERSION. */
 	public static final String DEFAULT_VERSION = "2010-04-01";
+
+	private static final int ACCOUNT_SID_LENGTH = 34;
+	private static final int AUTH_TOKEN_LENGTH = 32;
 
 	/** The account sid. */
 	private final String accountSid;
@@ -170,6 +171,7 @@ public abstract class TwilioClient {
 					"AccountSid '" + accountSid + "' is not valid.  It should be the 34 character unique identifier starting with 'AC'");
 		}
 	}
+
 
 	/**
 	 * Generate parameters.
@@ -468,9 +470,24 @@ public abstract class TwilioClient {
 		if (httpclient instanceof DefaultHttpClient) { // as DefaultHttpClient class has final method, I need httpClient to be a plain interface to be able to mock it
 			((DefaultHttpClient) httpclient).getCredentialsProvider()
 					.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-							new UsernamePasswordCredentials(accountSid, authToken));
+							new UsernamePasswordCredentials(getAuthUsername(), authToken));
 		}
 		return request;
+	}
+
+	/**
+	 * Return the username to use for basic auth.
+	 *
+	 * This can be the account sid if an auth token is provided. Or it can be "Token" if an
+	 * access token is provided.
+	 *
+	 * @return The username to use for basic auth
+	 */
+	private String getAuthUsername() {
+		if (authToken.length() == AUTH_TOKEN_LENGTH) {
+			return accountSid;
+		}
+		return "Token";
 	}
 
 	/**

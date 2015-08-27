@@ -79,6 +79,7 @@ public class TwilioRestClientIntegrationTest {
         HttpPost request = captor.getValue();
 
         // validate http request
+        assertEquals("https://api.twilio.com/2010-04-01/Accounts/" + ACCOUNT_SID + "/Calls.json", request.getURI().toString());
         assertEquals("From=%2B123", IOUtils.toString(request.getEntity().getContent()));
         assertEquals(ACCOUNT_SID, credentialsProvider.getCredentials(AuthScope.ANY).getUserPrincipal().getName());
         assertEquals(AUTH_TOKEN, credentialsProvider.getCredentials(AuthScope.ANY).getPassword());
@@ -109,6 +110,7 @@ public class TwilioRestClientIntegrationTest {
         HttpPost request = captor.getValue();
 
         // validate http request
+        assertEquals("https://api.twilio.com/2010-04-01/Accounts/" + ACCOUNT_SID + "/Calls.json", request.getURI().toString());
         assertEquals("From=%2B123", IOUtils.toString(request.getEntity().getContent()));
         assertEquals("Token", credentialsProvider.getCredentials(AuthScope.ANY).getUserPrincipal().getName());
         assertEquals(jwt, credentialsProvider.getCredentials(AuthScope.ANY).getPassword());

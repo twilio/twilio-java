@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 4.5.1
+-------------
+
+Released August 27, 2015
+
+- Fix access token authentication
+
 Version 4.5.0
 -------------
 
@@ -278,7 +285,7 @@ Released on April 3, 2012
 - Fixes recording delete requests
 - Add the ability to close a subaccount
 - Fixed application misspellings
-- Sandbox class fixes 
+- Sandbox class fixes
 - Fix for ConnectAppList
 
 Version 3.3.7

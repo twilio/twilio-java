@@ -39,7 +39,7 @@ import java.util.Map;
 public abstract class TwilioClient {
 
 	/** The Constant VERSION. */
-	private static final String VERSION = "4.5.0";
+	private static final String VERSION = "4.5.1";
 
 	/** The endpoint. */
 	private String endpoint = "https://api.twilio.com";

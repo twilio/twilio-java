@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.twilio.sdk</groupId>
-  <artifactId>twilio-java-sdk</artifactId>
+  <artifactId>twilio-java-sdk-video-beta</artifactId>
   <packaging>jar</packaging>
-  <name>twilio-java-sdk</name>
+  <name>twilio-java-sdk-video-beta</name>
   <version>4.5.1-SNAPSHOT</version>
   <description>Java helper library for Twilio services</description>
   <url>http://www.twilio.com</url>

@@ -7,11 +7,11 @@ import org.json.simple.JSONObject;
 public class Task extends Verb {
 
     public Task(String attributes) {
-        super("Task", attributes);
+        super(V_TASK, attributes);
     }
 
     public Task(Map<String, String> attributes) {
-        super("Task", JSONObject.toJSONString(attributes));
+        super(V_TASK, JSONObject.toJSONString(attributes));
     }
 
     public void setPriority(final int priority) {

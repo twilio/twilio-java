@@ -84,7 +84,7 @@ public class IpAddress extends InstanceResource<TwilioRestClient> {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		return getDateProperty("date_created");
+		return getDateProperty(DATE_CREATED_PROPERTY);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class IpAddress extends InstanceResource<TwilioRestClient> {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		return getDateProperty("date_updated");
+		return getDateProperty(DATE_UPDATED_PROPERTY);
 	}
 
 	/**

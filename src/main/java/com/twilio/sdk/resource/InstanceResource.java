@@ -4,6 +4,7 @@ import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.http.NameValuePair;
 
 import java.text.ParseException;
@@ -23,6 +24,8 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	protected static final String DATE_CREATED_PROPERTY = "date_created";
 
 	protected static final String DATE_UPDATED_PROPERTY = "date_updated";
+
+	protected static final FastDateFormat ISO_DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd", TimeZone.getTimeZone("GMT"));
 
     /** The Constant SID_PROPERTY. */
 	protected static final String SID_PROPERTY = "sid";
@@ -131,22 +134,21 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 
 	/**
 	 * Gets the property as a Date.
-	 * @param name
-	 * @return
+	 * @param name the property name
+	 * @return the formatted date object from the string
 	 */
 	protected Date getDateProperty(String name) {
-		return parseDate(getProperty(name));
+		return parseDateWithFormat(getProperty(name), DateFormatUtils.SMTP_DATETIME_FORMAT);
 	}
 
 	/**
-	 * Parses the date property as a {@link java.util.Date} object from a GMT string formatted as
-	 * yyyy-MM-dd
-	 *
-	 * @param name the property to parse
-	 * @return a {@link java.util.Date}
+	 * Gets the property as a Date.
+	 * @param name the property name
+	 * @param format the date format
+	 * @return the formatted date object from the string
 	 */
-	protected Date getSimpleDateProperty(String name) {
-		return parseSimpleDate(getProperty(name));
+	protected Date getDateProperty(String name, FastDateFormat format) {
+		return parseDateWithFormat(getProperty(name), format);
 	}
 
 	/**
@@ -189,33 +191,18 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 		}
 
 	/**
-	 * return a date from the property string
-	 *
-	 * @return the date value of the input string
+	 * Given a date string, attempt to parse it using the provided {@link FastDateFormat}
+	 * @param inDate the date to parse
+	 * @param format the {@link FastDateFormat} to parse the string with
+	 * @return the parsed {@link Date}
 	 */
-	protected Date parseDate(final String inDate) {
+	protected Date parseDateWithFormat(String inDate, FastDateFormat format) {
 		if (inDate == null) {
 			return null;
 		}
-		try {
-            return DateFormatUtils.SMTP_DATETIME_FORMAT.parse(inDate);
-        } catch (ParseException e) {
-			return null;
+		if (format == null) {
+			throw new IllegalArgumentException("Date format must be supplied");
 		}
-	}
-
-	/**
-	 * Given a GMT date string in the format yyyy-MM-dd, return a parsed {@link java.util.Date}
-	 *
-	 * @param inDate the date String to parse
-	 * @return the parsed {@link java.util.Date} object
-	 */
-	protected Date parseSimpleDate(String inDate) {
-		if (inDate == null) {
-			return null;
-		}
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		try {
 			return format.parse(inDate);
 		} catch (ParseException e) {

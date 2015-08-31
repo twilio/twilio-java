@@ -83,7 +83,7 @@ public class FeedbackSummary extends InstanceResource<TwilioRestClient> {
 	}
 
 	public Date getEndDate() {
-		return getSimpleDateProperty(END_DATE_PROPERTY);
+		return getDateProperty(END_DATE_PROPERTY, ISO_DATE_FORMAT);
 	}
 
 	public boolean isIncludeSubAccounts() {
@@ -147,7 +147,7 @@ public class FeedbackSummary extends InstanceResource<TwilioRestClient> {
 	}
 
 	public Date getStartDate() {
-		return getSimpleDateProperty(START_DATE_PROPERTY);
+		return getDateProperty(START_DATE_PROPERTY, ISO_DATE_FORMAT);
 	}
 
 	public String getStatus() {

@@ -107,7 +107,7 @@ public class Feedback extends InstanceResource<TwilioRestClient> {
      * @return the date created
      */
     public Date getDateCreated() {
-        return parseDate(this.getProperty(DATE_CREATED_PROP));
+        return getDateProperty(DATE_CREATED_PROP);
     }
 
     /**
@@ -116,6 +116,6 @@ public class Feedback extends InstanceResource<TwilioRestClient> {
      * @return the date updated
      */
     public Date getDateUpdated() {
-        return parseDate(this.getProperty(DATE_UPDATED_PROP));
+        return getDateProperty(DATE_UPDATED_PROP);
     }
 }

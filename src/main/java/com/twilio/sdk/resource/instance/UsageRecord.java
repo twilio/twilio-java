@@ -72,11 +72,11 @@ public class UsageRecord extends InstanceResource<TwilioRestClient> {
 	}
 
 	public Date getStartDate() {
-        return getSimpleDateProperty("StartDate");
+        return getDateProperty("StartDate", ISO_DATE_FORMAT);
 	}
 
 	public Date getEndDate() {
-		return getSimpleDateProperty("EndDate");
+		return getDateProperty("EndDate", ISO_DATE_FORMAT);
 	}
 
 	public BigDecimal getUsage() {

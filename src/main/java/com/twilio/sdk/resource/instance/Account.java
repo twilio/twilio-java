@@ -43,6 +43,7 @@ import com.twilio.sdk.resource.list.sip.CredentialListList;
 import com.twilio.sdk.resource.list.sip.DomainList;
 import com.twilio.sdk.resource.list.sip.IpAccessControlListList;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -833,7 +834,7 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 * @return the usage records
 	 */
 	public UsageRecordList getUsageRecords(UsageRecordList.Type type) {
-		return this.getUsageRecords(new HashMap<String, String>(), type);
+		return this.getUsageRecords(Collections.<String, String>emptyMap(), type);
 	}
 
 	/**

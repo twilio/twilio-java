@@ -2,6 +2,8 @@ package com.twilio.sdk.taskrouter;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -21,14 +23,14 @@ public class WorkflowRule {
 	 * Define a workflow rule
 	 * @param expression expression to match a task to this rule
 	 * @param targets list of workflow rule targets (list should be provided in order they will be executed)
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 */
-	public WorkflowRule(final String expression, final List<WorkflowRuleTarget> targets) throws Exception {
-		if(expression == null || expression.isEmpty()) {
-			throw new Exception("Expression for Workflow Rule is required");
+	public WorkflowRule(final String expression, final List<WorkflowRuleTarget> targets) throws IllegalArgumentException {
+		if(StringUtils.isBlank(expression)) {
+			throw new IllegalArgumentException("Expression for Workflow Rule is required");
 		}
 		if(targets == null || targets.isEmpty()) {
-			throw new Exception("Targets for Workflow Rule are required");
+			throw new IllegalArgumentException("Targets for Workflow Rule are required");
 		}
 		this.expression = expression;
 		this.targets = targets;
@@ -39,12 +41,12 @@ public class WorkflowRule {
 	 * @param expression expresison to match a task to this rule
 	 * @param targets list of workflow rule targets (list should be provided in order they will be executed)
 	 * @param friendlyName the label for this workflow rule
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 */
 	@JsonCreator
 	public WorkflowRule(@JsonProperty("expression") final String expression, 
 			@JsonProperty("targets") final List<WorkflowRuleTarget> targets, 
-			@JsonProperty("friendly_name") final String friendlyName) throws Exception {
+			@JsonProperty("friendly_name") final String friendlyName) throws IllegalArgumentException {
 		this(expression, targets);
 		this.friendlyName = friendlyName;
 	}

@@ -1,5 +1,7 @@
 package com.twilio.sdk.taskrouter;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -18,11 +20,11 @@ public class WorkflowRuleTarget {
 	/**
 	 * Create a workflow rule target with just a task queue sid
 	 * @param queue sid of the queue
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 */
-	public WorkflowRuleTarget(final String queue) throws Exception {
-		if(queue == null || queue.isEmpty()) {
-			throw new Exception("QueueSid is required when defining a Workflow Rule Target");
+	public WorkflowRuleTarget(final String queue) throws IllegalArgumentException {
+		if(StringUtils.isBlank(queue)) {
+			throw new IllegalArgumentException("QueueSid is required when defining a Workflow Rule Target");
 		}
 		this.queue = queue;
 	}
@@ -33,13 +35,13 @@ public class WorkflowRuleTarget {
 	 * @param expression expression to limit the workers that can look at a given task
 	 * @param priority priority to assign the task
 	 * @param timeout timeout before moving on to the next workflow rule target
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 */
 	@JsonCreator
 	public WorkflowRuleTarget(@JsonProperty("queue") final String queue, 
 			@JsonProperty("expression") final String expression, 
 			@JsonProperty("priority") final Integer priority, 
-			@JsonProperty("timeout") final Integer timeout) throws Exception {
+			@JsonProperty("timeout") final Integer timeout) throws IllegalArgumentException {
 		this(queue);
 		this.expression = expression;
 		this.priority = priority;
@@ -120,7 +122,7 @@ public class WorkflowRuleTarget {
 			sb.append("\n\t\tPriority: "+priority);
 		}
 		if(timeout != null) {
-			sb.append("\n\t\tTimeout: "+priority);
+			sb.append("\n\t\tTimeout: "+timeout);
 		}
 		return sb.toString();
 	}

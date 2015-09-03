@@ -162,8 +162,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.WorkerReservationList}
 	 */
 	public WorkerReservationList getReservations() {
-		WorkerReservationList reservations = new WorkerReservationList(getClient(), getWorkspaceSid(), getSid());
-		return reservations;
+		return getReservations(null);
 	}
 	
 	/**
@@ -174,8 +173,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.WorkerReservationList}
 	 */
 	public WorkerReservationList getReservations(final Map<String, String> filters) {
-		WorkerReservationList reservations = new WorkerReservationList(getClient(), getWorkspaceSid(), getSid(), filters);
-		return reservations;
+		return new WorkerReservationList(getClient(), getWorkspaceSid(), getSid(), filters);
 	}
 
 	@Override

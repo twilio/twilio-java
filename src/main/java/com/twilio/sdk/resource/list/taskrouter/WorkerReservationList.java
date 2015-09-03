@@ -23,9 +23,7 @@ public class WorkerReservationList extends NextGenListResource<Reservation, Twil
 	 * @param workerSid the worker sid
 	 */
 	public WorkerReservationList(final TwilioTaskRouterClient client, final String workspaceSid, final String workerSid) {
-		super(client);
-		this.workspaceSid = workspaceSid;
-		this.workerSid = workerSid;
+		this(client, workspaceSid, workerSid, null);
 	}
 
 	/**

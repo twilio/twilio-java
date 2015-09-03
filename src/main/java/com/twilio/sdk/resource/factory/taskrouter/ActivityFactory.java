@@ -19,7 +19,7 @@ public interface ActivityFactory {
 	 * @return a activity
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public Activity create(Map<String, String> params) throws TwilioRestException;
+	public Activity create(final Map<String, String> params) throws TwilioRestException;
 
 	/**
 	 * Creates an activity.
@@ -28,6 +28,6 @@ public interface ActivityFactory {
 	 * @return a activity
 	 * @throws TwilioRestException
 	 */
-	public Activity create(List<NameValuePair> params) throws TwilioRestException;
+	public Activity create(final List<NameValuePair> params) throws TwilioRestException;
 
 }

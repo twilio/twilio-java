@@ -19,7 +19,7 @@ public interface WorkspaceFactory {
 	 * @return a workspace
 	 * @throws TwilioRestException
 	 */
-	public Workspace create(Map<String, String> params) throws TwilioRestException;
+	public Workspace create(final Map<String, String> params) throws TwilioRestException;
 
 	/**
 	 * Creates a workspace.
@@ -28,6 +28,6 @@ public interface WorkspaceFactory {
 	 * @return a workspace
 	 * @throws TwilioRestException
 	 */
-	public Workspace create(List<NameValuePair> params) throws TwilioRestException;
+	public Workspace create(final List<NameValuePair> params) throws TwilioRestException;
 
 }

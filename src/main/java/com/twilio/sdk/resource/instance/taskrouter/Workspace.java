@@ -83,7 +83,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.ActivityList}
 	 */
-	public ActivityList getActivities(Map<String, String> filters) {
+	public ActivityList getActivities(final Map<String, String> filters) {
 		ActivityList activities = new ActivityList(getClient(), getSid(), filters);
 		return activities;
 	}

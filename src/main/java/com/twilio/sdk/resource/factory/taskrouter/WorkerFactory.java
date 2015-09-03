@@ -20,7 +20,7 @@ public interface WorkerFactory {
 	 * @return a worker
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public Worker create(Map<String, String> params) throws TwilioRestException;
+	public Worker create(final Map<String, String> params) throws TwilioRestException;
 
 	/**
 	 * Creates a worker.
@@ -29,7 +29,7 @@ public interface WorkerFactory {
 	 * @return a worker
 	 * @throws TwilioRestException
 	 */
-	public Worker create(List<NameValuePair> params) throws TwilioRestException;
+	public Worker create(final List<NameValuePair> params) throws TwilioRestException;
 
 	/**
 	 * Createa a worker
@@ -39,5 +39,5 @@ public interface WorkerFactory {
 	 * @return a worker
 	 * @throws TwilioRestException
 	 */
-	public Worker create(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException;
+	public Worker create(final String friendlyName, final Map<String, String> attributes, final String activitySid) throws TwilioRestException;
 }

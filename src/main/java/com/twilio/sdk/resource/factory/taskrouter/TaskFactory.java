@@ -20,7 +20,7 @@ public interface TaskFactory {
 	 * @return a task
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public Task create(Map<String, String> params) throws TwilioRestException;
+	public Task create(final Map<String, String> params) throws TwilioRestException;
 
 	/**
 	 * Creates a task.
@@ -29,7 +29,7 @@ public interface TaskFactory {
 	 * @return a task
 	 * @throws TwilioRestException
 	 */
-	public Task create(List<NameValuePair> params) throws TwilioRestException;
+	public Task create(final List<NameValuePair> params) throws TwilioRestException;
 
 	/**
 	 * Creates a task
@@ -37,8 +37,8 @@ public interface TaskFactory {
 	 * @param attributes the Map of Attributes that will convert to JSON
 	 * @param priority the priority of the task (optional)
 	 * @param timeout the max timeout of the task (optional)
-	 * @return
+	 * @return a task
 	 * @throws TwilioRestException
 	 */
-	public Task create(String workflowSid, Map attributes, Integer priority, Integer timeout) throws TwilioRestException;
+	public Task create(final String workflowSid, final Map<String, String> attributes, final Integer priority, final Integer timeout) throws TwilioRestException;
 }

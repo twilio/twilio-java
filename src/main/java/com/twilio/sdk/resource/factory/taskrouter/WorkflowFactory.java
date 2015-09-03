@@ -19,7 +19,7 @@ public interface WorkflowFactory {
 	 * @return a Workflow
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public Workflow create(Map<String, String> params) throws TwilioRestException;
+	public Workflow create(final Map<String, String> params) throws TwilioRestException;
 
 	/**
 	 * Creates a Workflow.
@@ -28,5 +28,5 @@ public interface WorkflowFactory {
 	 * @return a Workflow
 	 * @throws TwilioRestException
 	 */
-	public Workflow create(List<NameValuePair> params) throws TwilioRestException;
+	public Workflow create(final List<NameValuePair> params) throws TwilioRestException;
 }

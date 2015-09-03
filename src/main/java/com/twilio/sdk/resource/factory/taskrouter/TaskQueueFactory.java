@@ -19,7 +19,7 @@ public interface TaskQueueFactory {
 	 * @return a TaskQueue
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public TaskQueue create(Map<String, String> params) throws TwilioRestException;
+	public TaskQueue create(final Map<String, String> params) throws TwilioRestException;
 
 	/**
 	 * Creates a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
@@ -28,5 +28,5 @@ public interface TaskQueueFactory {
 	 * @return a TaskQueue
 	 * @throws TwilioRestException
 	 */
-	public TaskQueue create(List<NameValuePair> params) throws TwilioRestException;
+	public TaskQueue create(final List<NameValuePair> params) throws TwilioRestException;
 }

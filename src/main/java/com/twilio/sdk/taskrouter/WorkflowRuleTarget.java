@@ -1,6 +1,8 @@
 package com.twilio.sdk.taskrouter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
@@ -113,17 +115,6 @@ public class WorkflowRuleTarget {
 	 */
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("\n\t\tQueue: "+queue);
-		if(expression != null) {
-			sb.append("\n\t\tExpression: "+expression);
-		}
-		if(priority != null) {
-			sb.append("\n\t\tPriority: "+priority);
-		}
-		if(timeout != null) {
-			sb.append("\n\t\tTimeout: "+timeout);
-		}
-		return sb.toString();
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

@@ -3,6 +3,8 @@ package com.twilio.sdk.taskrouter;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
@@ -113,14 +115,6 @@ public class WorkflowRule {
 	 */
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("Expression: "+expression);
-		if(friendlyName != null) {
-			sb.append(", FriendlyName: "+friendlyName);
-		}
-		for(WorkflowRuleTarget target : targets) {
-			sb.append("\n\tWorkflowRuleTarget: "+target);
-		}
-		return sb.toString();
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

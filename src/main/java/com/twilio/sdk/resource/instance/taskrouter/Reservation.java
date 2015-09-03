@@ -1,5 +1,6 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,11 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	private static final String TASK_SID_PROPERTY = "task_sid";
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
-
+	
+	private static final Map<String, String> ACCEPT_RESERVATION_PARAMS = Collections.unmodifiableMap(new HashMap<String, String>(){{ put("ReservationStatus", "accepted"); }});
+	
+	private static final Map<String, String> REJECT_RESERVATION_PARAMS = Collections.unmodifiableMap(new HashMap<String, String>(){{ put("ReservationStatus", "rejected"); }});
+	
 	/**
 	 * Instantiates a reservation.
 	 *
@@ -71,9 +76,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	 * @throws TwilioRestException
 	 */
 	public void accept() throws TwilioRestException {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("ReservationStatus", "accepted");
-		this.update(params);
+		this.update(ACCEPT_RESERVATION_PARAMS);
 	}
 	
 	/** 
@@ -81,9 +84,7 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	 * @throws TwilioRestException
 	 */
 	public void reject() throws TwilioRestException {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("ReservationStatus", "rejected");
-		this.update(params);
+		this.update(REJECT_RESERVATION_PARAMS);
 	}
 
 	/**

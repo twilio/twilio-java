@@ -103,7 +103,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Activity
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public Activity createActivity(Map<String, String> params) throws TwilioRestException {
+	public Activity createActivity(final Map<String, String> params) throws TwilioRestException {
 		ActivityList activities = new ActivityList(getClient(), getSid());
 		return activities.create(params);
 	}
@@ -115,7 +115,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Activity
 	 * @throws TwilioRestException
 	 */
-	public Activity createActivity(List<NameValuePair> params) throws TwilioRestException {
+	public Activity createActivity(final List<NameValuePair> params) throws TwilioRestException {
 		ActivityList activities = new ActivityList(getClient(), getSid());
 		return activities.create(params);
 	}
@@ -203,7 +203,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.EventList}
 	 */
-	public EventList getEvents(Map<String, String> filters) {
+	public EventList getEvents(final Map<String, String> filters) {
 		EventList events = new EventList(getClient(), getSid(), filters);
 		return events;
 	}
@@ -260,7 +260,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.TaskList}
 	 */
-	public TaskList getTasks(Map<String, String> filters) {
+	public TaskList getTasks(final Map<String, String> filters) {
 		TaskList tasks = new TaskList(getClient(), getSid(), filters);
 		return tasks;
 	}
@@ -272,7 +272,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Worker
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public Task createTask(Map<String, String> params) throws TwilioRestException {
+	public Task createTask(final Map<String, String> params) throws TwilioRestException {
 		TaskList tasks = new TaskList(getClient(), getSid());
 		return tasks.create(params);
 	}
@@ -284,7 +284,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Workflow
 	 * @throws TwilioRestException
 	 */
-	public Task createTask(List<NameValuePair> params) throws TwilioRestException {
+	public Task createTask(final List<NameValuePair> params) throws TwilioRestException {
 		TaskList tasks = new TaskList(getClient(), getSid());
 		return tasks.create(params);
 	}
@@ -298,7 +298,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Task
 	 * @throws TwilioRestException
 	 */
-	public Task createTask(String workflowSid, Map<String, String> attributes, Integer priority, Integer timeout) throws TwilioRestException {
+	public Task createTask(final String workflowSid, final Map<String, String> attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
 		TaskList tasks = new TaskList(getClient(), getSid());
 		return tasks.create(workflowSid, attributes, priority, timeout);
 	}
@@ -360,7 +360,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Worker
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public Worker createWorker(Map<String, String> params) throws TwilioRestException {
+	public Worker createWorker(final Map<String, String> params) throws TwilioRestException {
 		WorkerList workers = new WorkerList(getClient(), getSid());
 		return workers.create(params);
 	}
@@ -372,7 +372,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Worker
 	 * @throws TwilioRestException
 	 */
-	public Worker createWorker(List<NameValuePair> params) throws TwilioRestException {
+	public Worker createWorker(final List<NameValuePair> params) throws TwilioRestException {
 		WorkerList workers = new WorkerList(getClient(), getSid());
 		return workers.create(params);
 	}
@@ -416,7 +416,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.WorkflowList}
 	 */
-	public WorkflowList getWorkflows(Map<String, String> filters) {
+	public WorkflowList getWorkflows(final Map<String, String> filters) {
 		WorkflowList workflows = new WorkflowList(getClient(), getSid(), filters);
 		return workflows;
 	}
@@ -428,7 +428,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Workflow
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public Workflow createWorkflow(Map<String, String> params) throws TwilioRestException {
+	public Workflow createWorkflow(final Map<String, String> params) throws TwilioRestException {
 		WorkflowList workflows = new WorkflowList(getClient(), getSid());
 		return workflows.create(params);
 	}
@@ -440,7 +440,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Workflow
 	 * @throws TwilioRestException
 	 */
-	public Workflow createWorkflow(List<NameValuePair> params) throws TwilioRestException {
+	public Workflow createWorkflow(final List<NameValuePair> params) throws TwilioRestException {
 		WorkflowList workflows = new WorkflowList(getClient(), getSid());
 		return workflows.create(params);
 	}
@@ -470,7 +470,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the {@link com.twilio.sdk.resource.list.taskrouter.TaskQueueList}
 	 */
-	public TaskQueueList getTaskQueues(Map<String, String> filters) {
+	public TaskQueueList getTaskQueues(final Map<String, String> filters) {
 		TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid(), filters);
 		return taskQueues;
 	}
@@ -482,7 +482,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a TaskQueue
 	 * @throws com.twilio.sdk.TwilioRestException
 	 */
-	public TaskQueue createTaskQueue(Map<String, String> params) throws TwilioRestException {
+	public TaskQueue createTaskQueue(final Map<String, String> params) throws TwilioRestException {
 		TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
 		return taskQueues.create(params);
 	}
@@ -494,7 +494,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a TaskQueue
 	 * @throws TwilioRestException
 	 */
-	public TaskQueue createTaskQueue(List<NameValuePair> params) throws TwilioRestException {
+	public TaskQueue createTaskQueue(final List<NameValuePair> params) throws TwilioRestException {
 		TaskQueueList taskQueues = new TaskQueueList(getClient(), getSid());
 		return taskQueues.create(params);
 	}

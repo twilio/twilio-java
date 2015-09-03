@@ -21,6 +21,8 @@ import com.twilio.sdk.resource.list.taskrouter.ReservationList;
 public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
+	
+	private static JSONParser parser = new JSONParser();
 
 	/**
 	 * Instantiates a task.
@@ -142,7 +144,6 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Map<String, Object> parseAttributes() throws ParseException {
 		String attributes = getProperty("attributes");
-		JSONParser parser = new JSONParser();
 		return (Map<String, Object>) parser.parse(attributes);
 	}
 

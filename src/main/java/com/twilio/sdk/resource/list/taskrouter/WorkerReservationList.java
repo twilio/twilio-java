@@ -1,19 +1,17 @@
 package com.twilio.sdk.resource.list.taskrouter;
 
+import java.util.Map;
+
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.instance.taskrouter.Reservation;
-
-import java.util.Map;
 
 /**
  * ReservationList to work with {@link com.twilio.sdk.resource.instance.taskrouter.Reservation}.
  */
 public class WorkerReservationList extends NextGenListResource<Reservation, TwilioTaskRouterClient> {
-
-	private String workerSid;
-
-	private String workspaceSid;
+	
+	private final String resourceLocation;
 
 	/**
 	 * Instantiates a reservation list.
@@ -36,8 +34,8 @@ public class WorkerReservationList extends NextGenListResource<Reservation, Twil
 	public WorkerReservationList(final TwilioTaskRouterClient client, final String workspaceSid, final String workerSid,
 	                       final Map<String, String> filters) {
 		super(client, filters);
-		this.workspaceSid = workspaceSid;
-		this.workerSid = workerSid;
+		this.resourceLocation = "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Workers/" + workerSid +
+			       "/Reservations";
 	}
 
 	@Override
@@ -47,7 +45,6 @@ public class WorkerReservationList extends NextGenListResource<Reservation, Twil
 
 	@Override
 	protected String getResourceLocation() {
-		return "/" + TwilioTaskRouterClient.DEFAULT_VERSION + "/Workspaces/" + workspaceSid + "/Workers/" + workerSid +
-		       "/Reservations";
+		return resourceLocation;
 	}
 }

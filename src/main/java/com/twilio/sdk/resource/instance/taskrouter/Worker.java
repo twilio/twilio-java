@@ -68,7 +68,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @param activitySid activity of a worker
 	 * @throws TwilioRestException 
 	 */
-	public void update(final Map attributes, final String friendlyName, final String activitySid) throws TwilioRestException {
+	public void update(final Map<String, String> attributes, final String friendlyName, final String activitySid) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		if(attributes != null) {
 			params.put("Attributes", JSONObject.toJSONString(attributes));

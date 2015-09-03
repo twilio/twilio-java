@@ -96,7 +96,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @return created task
 	 * @throws TwilioRestException
 	 */
-	public Task createTask(final String workspaceSid, String workflowSid, final Map attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
+	public Task createTask(final String workspaceSid, final String workflowSid, final Map<String, String> attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
 		TaskFactory taskFactory = new TaskList(this, workspaceSid);
 		return taskFactory.create(workflowSid, attributes, priority, timeout);
 	}
@@ -123,7 +123,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @return created worker
 	 * @throws TwilioRestException
 	 */
-	public Worker createWorker(final String workspaceSid, final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
+	public Worker createWorker(final String workspaceSid, final String friendlyName, final Map<String, String> attributes, final String activitySid) throws TwilioRestException {
 		WorkerFactory factory = new WorkerList(this, workspaceSid);
 		return factory.create(friendlyName, attributes, activitySid);
 	}

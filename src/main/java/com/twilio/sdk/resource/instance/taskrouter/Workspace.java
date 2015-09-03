@@ -298,7 +298,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Task
 	 * @throws TwilioRestException
 	 */
-	public Task createTask(String workflowSid, Map attributes, Integer priority, Integer timeout) throws TwilioRestException {
+	public Task createTask(String workflowSid, Map<String, String> attributes, Integer priority, Integer timeout) throws TwilioRestException {
 		TaskList tasks = new TaskList(getClient(), getSid());
 		return tasks.create(workflowSid, attributes, priority, timeout);
 	}
@@ -386,7 +386,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return a Worker
 	 * @throws TwilioRestException
 	 */
-	public Worker createWorker(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
+	public Worker createWorker(final String friendlyName, final Map<String, String> attributes, final String activitySid) throws TwilioRestException {
 		WorkerList workers = new WorkerList(getClient(), getSid());
 		return workers.create(friendlyName, attributes, activitySid);
 	}

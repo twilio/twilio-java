@@ -60,7 +60,7 @@ public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClie
 	}
 
 	@Override
-	public Worker create(final String friendlyName, final Map attributes, final String activitySid) throws TwilioRestException {
+	public Worker create(final String friendlyName, final Map<String, String> attributes, final String activitySid) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("FriendlyName", friendlyName);
 

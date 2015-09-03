@@ -66,7 +66,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @param priority new priority of the task
 	 * @throws TwilioRestException
 	 */
-	public void update(final Map attributes, final Integer priority) throws TwilioRestException {
+	public void update(final Map<String, String> attributes, final Integer priority) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		if(attributes != null) {
 			params.put("Attributes", JSONObject.toJSONString(attributes));

@@ -57,7 +57,7 @@ public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> 
 	}
 
 	@Override
-	public Task create(final String workflowSid, final Map attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
+	public Task create(final String workflowSid, final Map<String, String> attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("WorkflowSid", workflowSid);
 

@@ -108,7 +108,7 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	 * @return the end time
 	 */
 	public Calendar getEndTime() {
-		return parseCalendar((String) getCumulative().get("start_time"));
+		return parseCalendar((String) getCumulative().get("end_time"));
 	}
 
 	/**

@@ -101,6 +101,12 @@ public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRout
 	 * @return taskqueue statistics
 	 */
 	public TaskQueueListStatistics getStatistics(final Map<String, String> filters) {
+		final String startDate = filters.get("StartDate");
+		final String endDate = filters.get("EndDate");
+		final String minutes = filters.get("Minutes");
+		if((startDate != null || endDate != null) && minutes != null) {
+			throw new IllegalArgumentException("Cannot provide Minutes in combination with StartDate or EndDate");
+		}
 		TaskQueueListStatistics statistics = new TaskQueueListStatistics(this.getClient(), workspaceSid, filters);
 		return statistics;
 	}

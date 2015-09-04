@@ -250,6 +250,12 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return worker statistics
 	 */
 	public WorkerStatistics getWorkerStatistics(final Map<String, String> filters) {
+		final String startDate = filters.get("StartDate");
+		final String endDate = filters.get("EndDate");
+		final String minutes = filters.get("Minutes");
+		if((startDate != null || endDate != null) && minutes != null) {
+			throw new IllegalArgumentException("Cannot provide Minutes in combination with StartDate or EndDate");
+		}
 		WorkerStatistics statistics = new WorkerStatistics(this.getClient(), this.getWorkspaceSid(), this.getSid(), filters);
 		return statistics;
 	}

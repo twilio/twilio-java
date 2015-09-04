@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class StatisticsQueryBuilder {
 
-	private Calendar startDate;
-	private Calendar endDate;
-	private Integer minutes;
-	private Map<String, String> filters;
+	private final Calendar startDate;
+	private final Calendar endDate;
+	private final Integer minutes;
+	private final Map<String, String> filters;
 	
 	public StatisticsQueryBuilder(final Calendar startDate, final Calendar endDate) {
 		this(startDate, endDate, null);
@@ -17,6 +17,7 @@ public class StatisticsQueryBuilder {
 	public StatisticsQueryBuilder(final Calendar startDate, final Calendar endDate, Map<String, String> filters) {
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.minutes = null;
 		this.filters = filters;
 	}
 	
@@ -25,6 +26,8 @@ public class StatisticsQueryBuilder {
 	}
 	
 	public StatisticsQueryBuilder(final Integer minutes, Map<String, String> filters) {
+		this.startDate = null;
+		this.endDate = null;
 		this.minutes = minutes;
 		this.filters = filters;
 	}

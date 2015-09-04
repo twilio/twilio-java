@@ -34,10 +34,11 @@ public class ActivityTest extends BasicRequestTester {
 		assertEquals("New Activity", activity.getFriendlyName());
 		assertTrue(activity.isAvailable());
 		Calendar c = activity.getDateCreated();
+		c.setTimeZone(TimeZone.getTimeZone("UTC"));
 		assertEquals(2014, c.get(Calendar.YEAR));
 		assertEquals(Calendar.MAY, c.get(Calendar.MONTH));
 		assertEquals(14, c.get(Calendar.DAY_OF_MONTH));
-		assertEquals(3, c.get(Calendar.HOUR_OF_DAY));
+		assertEquals(10, c.get(Calendar.HOUR_OF_DAY));
 		assertEquals(50, c.get(Calendar.MINUTE));
 		assertEquals(2, c.get(Calendar.SECOND));
 	}

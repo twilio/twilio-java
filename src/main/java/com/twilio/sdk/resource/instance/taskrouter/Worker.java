@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -53,10 +54,10 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Worker(final TwilioTaskRouterClient client, final String workspaceSid, final String workerSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for an Worker cannot be null");
 		}
-		if (workerSid == null || "".equals(workerSid)) {
+		if (StringUtils.isBlank(workerSid)) {
 			throw new IllegalArgumentException("The workerSid for an Worker cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
@@ -92,6 +93,9 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @throws TwilioRestException
 	 */
 	public void updateActivity(final String activitySid) throws TwilioRestException {
+		if (StringUtils.isBlank(activitySid)) {
+			throw new IllegalArgumentException("The activitySid for updating a Worker's Activity cannot be null");
+		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("ActivitySid", activitySid);
 		this.update(params);

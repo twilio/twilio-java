@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
@@ -57,13 +59,13 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	public Reservation(final TwilioTaskRouterClient client, final String workspaceSid, final String taskSid,
 	                   final String reservationSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a Reservation cannot be null");
 		}
-		if (taskSid == null || "".equals(taskSid)) {
+		if (StringUtils.isBlank(taskSid)) {
 			throw new IllegalArgumentException("The taskSid for a Reservation cannot be null");
 		}
-		if (reservationSid == null || "".equals(reservationSid)) {
+		if (StringUtils.isBlank(reservationSid)) {
 			throw new IllegalArgumentException("The reservationSid for a Reservation cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);

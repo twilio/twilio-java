@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 
 import com.twilio.sdk.TwilioRestException;
@@ -51,7 +52,7 @@ public class Workspace extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Workspace(final TwilioTaskRouterClient client, final String sid) {
 		super(client);
-		if (sid == null || "".equals(sid)) {
+		if (StringUtils.isBlank(sid)) {
 			throw new IllegalArgumentException("The Sid for a Workspace cannot be null");
 		}
 		setProperty(SID_PROPERTY, sid);

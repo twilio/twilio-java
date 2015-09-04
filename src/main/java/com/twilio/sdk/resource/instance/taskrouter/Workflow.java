@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -52,10 +53,10 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Workflow(final TwilioTaskRouterClient client, final String workspaceSid, final String workflowSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for an Workflow cannot be null");
 		}
-		if (workflowSid == null || "".equals(workflowSid)) {
+		if (StringUtils.isBlank(workflowSid)) {
 			throw new IllegalArgumentException("The workflowSid for an Workflow cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);

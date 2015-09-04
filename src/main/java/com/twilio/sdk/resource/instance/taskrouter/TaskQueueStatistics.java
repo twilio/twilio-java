@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Statistics about task distribution.
  * See <a href="https://www.twilio.com/docs/taskrouter/taskqueue-statistics">the TaskRouter documentation</a>.
@@ -62,10 +64,10 @@ public class TaskQueueStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	public TaskQueueStatistics(final TwilioTaskRouterClient client, final String workspaceSid, final String queueSid,
 	                           final Map<String, String> filters, final Map<String, Object> properties) {
 		super(client, properties);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a TaskQueueStatistics cannot be null");
 		}
-		if (queueSid == null || "".equals(queueSid)) {
+		if (StringUtils.isBlank(queueSid)) {
 			throw new IllegalArgumentException("The queueSid for a TaskQueueStatistics cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);

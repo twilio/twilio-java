@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Statistics about workers.
  * See <a href="https://www.twilio.com/docs/taskrouter/worker-statistics">the TaskRouter documentation</a>.
@@ -42,7 +44,7 @@ public class WorkersStatistics extends NextGenInstanceResource<TwilioTaskRouterC
 	public WorkersStatistics(final TwilioTaskRouterClient client, final String workspaceSid,
 	                         final Map<String, String> filters) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a WorkerStatistics cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);

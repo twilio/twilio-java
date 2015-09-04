@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -52,10 +53,10 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Task(final TwilioTaskRouterClient client, final String workspaceSid, final String taskSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for an Task cannot be null");
 		}
-		if (taskSid == null || "".equals(taskSid)) {
+		if (StringUtils.isBlank(taskSid)) {
 			throw new IllegalArgumentException("The taskSid for an Task cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);

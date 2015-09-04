@@ -217,19 +217,20 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return worker statistics
 	 */
 	public WorkerStatistics getStatistics() {
-		return getWorkerStatistics(null);
+		return getWorkerStatistics(new HashMap<String, String>());
 	}
 	
 	/**
 	 * Get worker statistics.
 	 *
-	 * @param startDate start date to query by
-	 * @param endDate end date to query by
-	 * @param minutes minutes to query by
+	 * @param queryBuilder query builder which contains all parameters for the stats query request
 	 * @return worker statistics
 	 */
-	public WorkerStatistics getWorkerStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes) {
+	public WorkerStatistics getWorkerStatistics(final StatisticsQueryBuilder queryBuilder) {
 		Map<String, String> filters = new HashMap<String, String>();
+		Calendar startDate = queryBuilder.getStartDate();
+		Calendar endDate = queryBuilder.getEndDate();
+		Integer minutes = queryBuilder.getMinutes();
 		if(startDate != null) {
 			filters.put("StartDate", formatCalendar(startDate));
 		}

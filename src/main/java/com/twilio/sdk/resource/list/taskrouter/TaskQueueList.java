@@ -12,6 +12,7 @@ import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.factory.Factory;
+import com.twilio.sdk.resource.instance.taskrouter.StatisticsQueryBuilder;
 import com.twilio.sdk.resource.instance.taskrouter.TaskQueue;
 
 /**
@@ -67,19 +68,20 @@ public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRout
 	 * @return list of task queue statistics
 	 */
 	public TaskQueueListStatistics getStatistics() {
-		return getStatistics(null);
+		return getStatistics(new HashMap<String, String>());
 	}
 	
 	/**
 	 * Get list of task queue statistics.
 	 *
-	 * @param startDate start date to query by
-	 * @param endDate end date to query by
-	 * @param minutes minutes to query by
+	 * @param queryBuilder query builder which contains all parameters for the stats query request
 	 * @return list of task queue statistics
 	 */
-	public TaskQueueListStatistics getStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes) {
+	public TaskQueueListStatistics getStatistics(final StatisticsQueryBuilder queryBuilder) {
 		Map<String, String> filters = new HashMap<String, String>();
+		Calendar startDate = queryBuilder.getStartDate();
+		Calendar endDate = queryBuilder.getEndDate();
+		Integer minutes = queryBuilder.getMinutes();
 		if(startDate != null) {
 			filters.put("StartDate", formatCalendar(startDate));
 		}

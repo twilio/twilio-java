@@ -161,19 +161,20 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return workflow statistics
 	 */
 	public WorkflowStatistics getStatistics() {
-		return getStatistics(null);
+		return getStatistics(new HashMap<String, String>());
 	}
 	
 	/**
 	 * Get workflow statistics.
 	 *
-	 * @param startDate start date to query by
-	 * @param endDate end date to query by
-	 * @param minutes minutes to query by
+	 * @param queryBuilder query builder which contains all parameters for the stats query request
 	 * @return workflow statistics
 	 */
-	public WorkflowStatistics getStatistics(final Calendar startDate, final Calendar endDate, final Integer minutes) {
+	public WorkflowStatistics getStatistics(final StatisticsQueryBuilder queryBuilder) {
 		Map<String, String> filters = new HashMap<String, String>();
+		Calendar startDate = queryBuilder.getStartDate();
+		Calendar endDate = queryBuilder.getEndDate();
+		Integer minutes = queryBuilder.getMinutes();
 		if(startDate != null) {
 			filters.put("StartDate", formatCalendar(startDate));
 		}

@@ -1,4 +1,4 @@
-package com.twilio.sdk.resource.factory.taskrouter;
+package com.twilio.sdk.resource.factory;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import org.apache.http.NameValuePair;
 
 import com.twilio.sdk.TwilioRestException;
 
-public interface TaskRouterFactory<T> {
+public interface Factory<T> {
 	
 	/**
 	 * Creates a task router resource

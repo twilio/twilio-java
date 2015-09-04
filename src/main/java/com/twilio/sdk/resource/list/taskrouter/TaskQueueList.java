@@ -1,24 +1,23 @@
 package com.twilio.sdk.resource.list.taskrouter;
 
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.NextGenListResource;
-import com.twilio.sdk.resource.factory.taskrouter.TaskQueueFactory;
-import com.twilio.sdk.resource.instance.taskrouter.TaskQueue;
-import com.twilio.sdk.resource.instance.taskrouter.TaskQueueStatistics;
-
-import org.apache.http.NameValuePair;
-
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
+
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.TwilioTaskRouterClient;
+import com.twilio.sdk.resource.NextGenListResource;
+import com.twilio.sdk.resource.factory.Factory;
+import com.twilio.sdk.resource.instance.taskrouter.TaskQueue;
+
 /**
  * TaskQueueList to work with {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
  */
-public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRouterClient> implements TaskQueueFactory {
+public class TaskQueueList extends NextGenListResource<TaskQueue, TwilioTaskRouterClient> implements Factory<TaskQueue> {
 
 	private String workspaceSid;
 

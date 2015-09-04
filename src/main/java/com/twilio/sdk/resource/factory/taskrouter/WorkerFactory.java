@@ -3,12 +3,13 @@ package com.twilio.sdk.resource.factory.taskrouter;
 import java.util.Map;
 
 import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.taskrouter.Worker;
 
 /**
  * A factory for creating Workers.
  */
-public interface WorkerFactory extends TaskRouterFactory<Worker> {
+public interface WorkerFactory extends Factory<Worker> {
 
 	/**
 	 * Creates a worker

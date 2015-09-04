@@ -1,11 +1,13 @@
 package com.twilio.sdk.resource;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
-import java.util.TimeZone;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
@@ -27,7 +29,7 @@ public abstract class Resource<C extends TwilioClient> {
 	protected Map<String, String> filters;
 	
 	/** Date formatting */
-	protected static final SimpleDateFormat ISO_8601_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+	protected static final DateTimeFormatter ISO_8601_DATE_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").withZoneUTC();
 
 	/**
 	 * Instantiates a new resource.
@@ -120,14 +122,13 @@ public abstract class Resource<C extends TwilioClient> {
 		if (inDate == null) {
 			return null;
 		}
-
+		
 		try {
-			ISO_8601_DATE_FORMAT.getCalendar().setTimeZone(TimeZone.getTimeZone("UTC"));
 			GregorianCalendar c = new GregorianCalendar();
-			c.setTimeZone(TimeZone.getTimeZone("UTC"));
-			c.setTime(ISO_8601_DATE_FORMAT.parse(inDate));
+			Date d = DateTime.parse(inDate, ISO_8601_DATE_FORMAT).toDate();
+			c.setTime(d);
 			return c;
-		} catch (ParseException e) {
+		} catch (IllegalArgumentException e) {
 			return null;
 		}
 	}
@@ -141,10 +142,10 @@ public abstract class Resource<C extends TwilioClient> {
 		if(calendar == null) {
 			return null;
 		}
-		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
-		return ISO_8601_DATE_FORMAT.format(calendar.getTime());
+		long millis = calendar.getTimeInMillis();
+		return ISO_8601_DATE_FORMAT.print(millis);
 	}
-
+	
 	/**
 	 * Gets the resource location.
 	 *

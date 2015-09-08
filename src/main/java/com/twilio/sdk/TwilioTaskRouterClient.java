@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.twilio.sdk.resource.factory.Factory;
-import com.twilio.sdk.resource.factory.taskrouter.TaskFactory;
-import com.twilio.sdk.resource.factory.taskrouter.WorkerFactory;
 import com.twilio.sdk.resource.instance.taskrouter.Activity;
 import com.twilio.sdk.resource.instance.taskrouter.Event;
 import com.twilio.sdk.resource.instance.taskrouter.Reservation;
@@ -78,7 +76,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @throws TwilioRestException
 	 */
 	public Task createTask(final String workspaceSid, final Map<String, String> properties) throws TwilioRestException {
-		TaskFactory taskFactory = new TaskList(this, workspaceSid);
+		Factory<Task> taskFactory = new TaskList(this, workspaceSid);
 		return taskFactory.create(properties);
 	}
 	
@@ -94,8 +92,8 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @throws TwilioRestException
 	 */
 	public Task createTask(final String workspaceSid, final String workflowSid, final Map<String, String> attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
-		TaskFactory taskFactory = new TaskList(this, workspaceSid);
-		return taskFactory.create(workflowSid, attributes, priority, timeout);
+		TaskList taskList = new TaskList(this, workspaceSid);
+		return taskList.create(workflowSid, attributes, priority, timeout);
 	}
 
 	/**
@@ -107,7 +105,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Worker createWorker(final String workspaceSid, final Map<String, String> properties) throws
 	                                                                                            TwilioRestException {
-		WorkerFactory factory = new WorkerList(this, workspaceSid);
+		Factory<Worker> factory = new WorkerList(this, workspaceSid);
 		return factory.create(properties);
 	}
 	
@@ -121,8 +119,8 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @throws TwilioRestException
 	 */
 	public Worker createWorker(final String workspaceSid, final String friendlyName, final Map<String, String> attributes, final String activitySid) throws TwilioRestException {
-		WorkerFactory factory = new WorkerList(this, workspaceSid);
-		return factory.create(friendlyName, attributes, activitySid);
+		WorkerList workerList = new WorkerList(this, workspaceSid);
+		return workerList.create(friendlyName, attributes, activitySid);
 	}
 
 	/**

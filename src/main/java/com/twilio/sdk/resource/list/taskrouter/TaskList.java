@@ -11,13 +11,13 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenListResource;
-import com.twilio.sdk.resource.factory.taskrouter.TaskFactory;
+import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.taskrouter.Task;
 
 /**
  * TaskList to work with {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
  */
-public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> implements TaskFactory {
+public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> implements Factory<Task> {
 
 	private String workspaceSid;
 
@@ -56,7 +56,6 @@ public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> 
 		return makeNew(getClient(), response.toMap());
 	}
 
-	@Override
 	public Task create(final String workflowSid, final Map<String, String> attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("WorkflowSid", workflowSid);

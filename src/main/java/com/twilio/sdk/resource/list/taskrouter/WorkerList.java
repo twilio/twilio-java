@@ -12,7 +12,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenListResource;
-import com.twilio.sdk.resource.factory.taskrouter.WorkerFactory;
+import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.taskrouter.StatisticsQueryBuilder;
 import com.twilio.sdk.resource.instance.taskrouter.Worker;
 import com.twilio.sdk.resource.instance.taskrouter.WorkersStatistics;
@@ -20,7 +20,7 @@ import com.twilio.sdk.resource.instance.taskrouter.WorkersStatistics;
 /**
  * WorkerList to work with {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
  */
-public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClient> implements WorkerFactory {
+public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClient> implements Factory<Worker> {
 
 	private String workspaceSid;
 
@@ -60,7 +60,6 @@ public class WorkerList extends NextGenListResource<Worker, TwilioTaskRouterClie
 		return makeNew(getClient(), response.toMap());
 	}
 
-	@Override
 	public Worker create(final String friendlyName, final Map<String, String> attributes, final String activitySid) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("FriendlyName", friendlyName);

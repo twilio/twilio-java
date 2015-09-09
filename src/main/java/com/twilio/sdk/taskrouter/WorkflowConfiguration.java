@@ -23,7 +23,7 @@ public class WorkflowConfiguration {
 
 	@JsonProperty("task_routing")
 	private final TaskRoutingConfiguration taskRouting;
-	
+
 	/**
 	 * Define a workflow
 	 * @param workflowRules list of workflow rules (in order they will be processed)
@@ -41,25 +41,25 @@ public class WorkflowConfiguration {
 	 * @throws Exception 
 	 */
 	@JsonCreator
-    public WorkflowConfiguration(@JsonProperty("task_routing") TaskRoutingConfiguration taskRouting) {
+	public WorkflowConfiguration(@JsonProperty("task_routing") TaskRoutingConfiguration taskRouting) {
 		this.taskRouting = taskRouting;
-    }
-	
+	}
+
 	@JsonIgnore
 	public List<WorkflowRule> getWorkflowRules() {
 		return taskRouting.getWorkflowRules();
 	}
-	
+
 	@JsonIgnore
 	public WorkflowRuleTarget getDefaultTarget() {
 		return taskRouting.getDefaultTarget();
 	}
-	
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
-	
+
 	/**
 	 * Converts a workflow configuration to JSON
 	 * @return JSON for workflow configuration
@@ -74,7 +74,7 @@ public class WorkflowConfiguration {
 		final String workflowJSON = out.toString();
 		return workflowJSON;
 	}
-	
+
 	/**
 	 * Converts a JSON workflow configuration to a workflow configuration object
 	 * @param configurationJSON JSON for workflow configuration
@@ -90,13 +90,13 @@ public class WorkflowConfiguration {
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 class TaskRoutingConfiguration {
-	
+
 	@JsonProperty("filters")
 	private List<WorkflowRule> workflowRules;
-	
+
 	@JsonProperty("default_filter")
 	private WorkflowRuleTarget defaultTarget;
-	
+
 	/**
 	 * Constructor for creating based on json. 
 	 * 
@@ -112,7 +112,7 @@ class TaskRoutingConfiguration {
 		this.workflowRules = workflowRules;
 		this.defaultTarget = defaultTarget;
 	}
-	
+
 	/**
 	 * Get the workflow rules for the workflow
 	 * @return the list of workflow rules
@@ -120,7 +120,7 @@ class TaskRoutingConfiguration {
 	public List<WorkflowRule> getWorkflowRules() {
 		return workflowRules;
 	}
-	
+
 	/**
 	 * Set the workflow rules for the workflow
 	 * @param workflowRules
@@ -128,7 +128,7 @@ class TaskRoutingConfiguration {
 	public void setWorkflowRules(List<WorkflowRule> workflowRules) {
 		this.workflowRules = workflowRules;
 	}
-	
+
 	/**
 	 * Get the default filter for the workflow
 	 * @return the default filter
@@ -136,7 +136,7 @@ class TaskRoutingConfiguration {
 	public WorkflowRuleTarget getDefaultTarget() {
 		return defaultTarget;
 	}
-	
+
 	/**
 	 * Set the default filter for the workflow
 	 * @param defaultTarget
@@ -144,7 +144,7 @@ class TaskRoutingConfiguration {
 	public void setDefaultTarget(WorkflowRuleTarget defaultTarget) {
 		this.defaultTarget = defaultTarget;
 	}
-	
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

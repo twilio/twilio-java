@@ -19,7 +19,7 @@ public class WorkflowRule {
 	private String expression;
 	private String friendlyName;
 	private List<WorkflowRuleTarget> targets;
-	
+
 	/**
 	 * Define a workflow rule
 	 * @param expression expression to match a task to this rule
@@ -36,7 +36,7 @@ public class WorkflowRule {
 		this.expression = expression;
 		this.targets = targets;
 	}
-	
+
 	/**
 	 * Define a workflow rule with an optional label
 	 * @param expression expresison to match a task to this rule
@@ -51,7 +51,7 @@ public class WorkflowRule {
 		this(expression, targets);
 		this.friendlyName = friendlyName;
 	}
-	
+
 	/**
 	 * Get the expression for the workflow rule
 	 * @return the expression
@@ -59,7 +59,7 @@ public class WorkflowRule {
 	public String getExpression() {
 		return expression;
 	}
-	
+
 	/**
 	 * Set the expression for the workflow rule
 	 * @param expression
@@ -67,7 +67,7 @@ public class WorkflowRule {
 	public void setExpression(String expression) {
 		this.expression = expression;
 	}
-	
+
 	/**
 	 * Get the friendly name / label for the workflow rule
 	 * @return the friendly name
@@ -75,7 +75,7 @@ public class WorkflowRule {
 	public String getFriendlyName() {
 		return friendlyName;
 	}
-	
+
 	/**
 	 * Set the friendly name for the workflow rule
 	 * @param friendlyName
@@ -83,7 +83,7 @@ public class WorkflowRule {
 	public void setFriendlyName(String friendlyName) {
 		this.friendlyName = friendlyName;
 	}
-	
+
 	/**
 	 * Get the list of workflow rule targets for this workflow rule
 	 * @return list of workflow rule targets
@@ -92,7 +92,7 @@ public class WorkflowRule {
 	public List<WorkflowRuleTarget> getWorkflowRuleTargets() {
 		return targets;
 	}
-	
+
 	/**
 	 * Sets the workflow rule targets
 	 * @param targets
@@ -100,7 +100,7 @@ public class WorkflowRule {
 	public void setWorkflowRuleTargets(List<WorkflowRuleTarget> targets) {
 		this.targets = targets;
 	}
-	
+
 	/**
 	 * Adds the workflow rule targets
 	 * @param targets
@@ -108,7 +108,7 @@ public class WorkflowRule {
 	public void addWorkflowRuleTarget(WorkflowRuleTarget target) {
 		this.targets.add(target);
 	}
-	
+
 	/**
 	 * Return a string representation of this workflow rule target
 	 */

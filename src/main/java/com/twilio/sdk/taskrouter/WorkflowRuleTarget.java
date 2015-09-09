@@ -17,7 +17,7 @@ public class WorkflowRuleTarget {
 	private String expression;
 	private Integer priority;
 	private Integer timeout;
-	
+
 	/**
 	 * Create a workflow rule target with just a task queue sid
 	 * @param queue sid of the queue
@@ -29,7 +29,7 @@ public class WorkflowRuleTarget {
 		}
 		this.queue = queue;
 	}
-	
+
 	/**
 	 * Create a workflow rule target with a task queue and other optional fields
 	 * @param queue sid of the queue
@@ -48,7 +48,7 @@ public class WorkflowRuleTarget {
 		this.priority = priority;
 		this.timeout = timeout;
 	}
-	
+
 	/**
 	 * Get the queue for the workflow rule target
 	 * @return queue sid
@@ -56,14 +56,14 @@ public class WorkflowRuleTarget {
 	public String getQueue() {
 		return queue;
 	}
-	
+
 	/**
 	 * Set the queue for the workflow rule target
 	 */
 	public void setQueue(String queue) {
 		this.queue = queue;
 	}
-	
+
 	/**
 	 * Get the expression for the workflow rule target to limit the workers selected
 	 * @return the expression
@@ -71,14 +71,14 @@ public class WorkflowRuleTarget {
 	public String getExpression() {
 		return expression;
 	}
-	
+
 	/**
 	 * Set the expression for the workflow rule target
 	 */
 	public void setExpression(String expression) {
 		this.expression = expression;
 	}
-	
+
 	/**
 	 * Get the priority for the workflow rule target
 	 * @return the priority
@@ -86,14 +86,14 @@ public class WorkflowRuleTarget {
 	public Integer getPriority() {
 		return priority;
 	}
-	
+
 	/**
 	 * Set the priority for the workflow rule target
 	 */
 	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
-	
+
 	/**
 	 * Get the timeout for the workflow rule target
 	 * @return the timeout
@@ -101,14 +101,14 @@ public class WorkflowRuleTarget {
 	public Integer getTimeout() {
 		return timeout;
 	}
-	
+
 	/**
 	 * Set the timeout for the workflow rule target
 	 */
 	public void setTimeout(Integer timeout) {
 		this.timeout = timeout;
 	}
-	
+
 	/**
 	 * Return a string representation of this workflow rule target
 	 */

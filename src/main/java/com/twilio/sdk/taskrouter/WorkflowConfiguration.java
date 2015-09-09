@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
@@ -55,7 +57,7 @@ public class WorkflowConfiguration {
 	
 	@Override
 	public String toString() {
-		return taskRouting.toString();
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 	
 	/**
@@ -145,11 +147,6 @@ class TaskRoutingConfiguration {
 	
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		for(WorkflowRule workflowRule : workflowRules) {
-			sb.append("WorkflowRule: "+workflowRule+"\n");
-		}
-		sb.append("Default Filter: "+defaultTarget);
-		return sb.toString();
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

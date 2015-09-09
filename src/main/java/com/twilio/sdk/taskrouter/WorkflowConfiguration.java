@@ -85,68 +85,68 @@ public class WorkflowConfiguration {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.readValue(configurationJSON, WorkflowConfiguration.class);
 	}
-}
+	
+	@JsonAutoDetect(fieldVisibility = Visibility.ANY)
+	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+	static class TaskRoutingConfiguration {
 
-@JsonAutoDetect(fieldVisibility = Visibility.ANY)
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-class TaskRoutingConfiguration {
+		@JsonProperty("filters")
+		private List<WorkflowRule> workflowRules;
 
-	@JsonProperty("filters")
-	private List<WorkflowRule> workflowRules;
+		@JsonProperty("default_filter")
+		private WorkflowRuleTarget defaultTarget;
 
-	@JsonProperty("default_filter")
-	private WorkflowRuleTarget defaultTarget;
-
-	/**
-	 * Constructor for creating based on json. 
-	 * 
-	 * @param taskRoutingConfig
-	 * @throws Exception 
-	 */
-	@JsonCreator
-	public TaskRoutingConfiguration(@JsonProperty("filters") List<WorkflowRule> workflowRules, 
-			@JsonProperty("default_filter") WorkflowRuleTarget defaultTarget) throws Exception {
-		if(workflowRules == null || workflowRules.isEmpty()) {
-			throw new Exception("Workflow Rules are required when defining a workflow");
+		/**
+		 * Constructor for creating based on json. 
+		 * 
+		 * @param taskRoutingConfig
+		 * @throws Exception 
+		 */
+		@JsonCreator
+		public TaskRoutingConfiguration(@JsonProperty("filters") List<WorkflowRule> workflowRules, 
+				@JsonProperty("default_filter") WorkflowRuleTarget defaultTarget) throws Exception {
+			if(workflowRules == null || workflowRules.isEmpty()) {
+				throw new Exception("Workflow Rules are required when defining a workflow");
+			}
+			this.workflowRules = workflowRules;
+			this.defaultTarget = defaultTarget;
 		}
-		this.workflowRules = workflowRules;
-		this.defaultTarget = defaultTarget;
-	}
 
-	/**
-	 * Get the workflow rules for the workflow
-	 * @return the list of workflow rules
-	 */
-	public List<WorkflowRule> getWorkflowRules() {
-		return workflowRules;
-	}
+		/**
+		 * Get the workflow rules for the workflow
+		 * @return the list of workflow rules
+		 */
+		public List<WorkflowRule> getWorkflowRules() {
+			return workflowRules;
+		}
 
-	/**
-	 * Set the workflow rules for the workflow
-	 * @param workflowRules
-	 */
-	public void setWorkflowRules(List<WorkflowRule> workflowRules) {
-		this.workflowRules = workflowRules;
-	}
+		/**
+		 * Set the workflow rules for the workflow
+		 * @param workflowRules
+		 */
+		public void setWorkflowRules(List<WorkflowRule> workflowRules) {
+			this.workflowRules = workflowRules;
+		}
 
-	/**
-	 * Get the default filter for the workflow
-	 * @return the default filter
-	 */
-	public WorkflowRuleTarget getDefaultTarget() {
-		return defaultTarget;
-	}
+		/**
+		 * Get the default filter for the workflow
+		 * @return the default filter
+		 */
+		public WorkflowRuleTarget getDefaultTarget() {
+			return defaultTarget;
+		}
 
-	/**
-	 * Set the default filter for the workflow
-	 * @param defaultTarget
-	 */
-	public void setDefaultTarget(WorkflowRuleTarget defaultTarget) {
-		this.defaultTarget = defaultTarget;
-	}
+		/**
+		 * Set the default filter for the workflow
+		 * @param defaultTarget
+		 */
+		public void setDefaultTarget(WorkflowRuleTarget defaultTarget) {
+			this.defaultTarget = defaultTarget;
+		}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+		@Override
+		public String toString() {
+			return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+		}
 	}
 }

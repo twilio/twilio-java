@@ -4,6 +4,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTrunkingClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -24,10 +25,10 @@ public class IpAccessControlList extends NextGenInstanceResource<TwilioTrunkingC
 							   final String trunkSid,
 							   final String sid) {
 		super(client);
-		if (trunkSid == null) {
+		if (StringUtils.isEmpty(trunkSid)) {
 			throw new IllegalArgumentException("trunkSid cannot be null");
 		}
-		if (sid == null) {
+		if (StringUtils.isEmpty(sid)) {
 			throw new IllegalArgumentException("sid cannot be null");
 		}
 

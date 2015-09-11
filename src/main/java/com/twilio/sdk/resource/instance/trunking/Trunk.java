@@ -6,6 +6,7 @@ import com.twilio.sdk.resource.list.trunking.CredentialListList;
 import com.twilio.sdk.resource.list.trunking.IpAccessControlListList;
 import com.twilio.sdk.resource.list.trunking.OriginationUrlList;
 import com.twilio.sdk.resource.list.trunking.PhoneNumberList;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Trunk extends NextGenInstanceResource<TwilioTrunkingClient> {
 	 */
 	public Trunk(final TwilioTrunkingClient client, final String sid) {
 		super(client, null);
-		if (sid == null) {
+		if (StringUtils.isEmpty(sid)) {
 			throw new IllegalArgumentException("sid cannot be null");
 		}
 		this.setProperty("sid", sid);

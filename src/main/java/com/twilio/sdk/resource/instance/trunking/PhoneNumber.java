@@ -4,6 +4,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTrunkingClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -26,11 +27,10 @@ public class PhoneNumber extends NextGenInstanceResource<TwilioTrunkingClient> {
 					   final String trunkSid,
 					   final String phoneNumberSid) {
 		super(client);
-
-		if (trunkSid == null) {
+		if (StringUtils.isEmpty(trunkSid)) {
 			throw new IllegalArgumentException("trunkSid cannot be null");
 		}
-		if (phoneNumberSid == null) {
+		if (StringUtils.isEmpty(phoneNumberSid)) {
 			throw new IllegalArgumentException("phoneNumberSid cannot be null");
 		}
 

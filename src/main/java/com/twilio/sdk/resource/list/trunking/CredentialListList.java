@@ -6,6 +6,7 @@ import com.twilio.sdk.TwilioTrunkingClient;
 import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.factory.ResourceFactory;
 import com.twilio.sdk.resource.instance.trunking.CredentialList;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class CredentialListList extends NextGenListResource<CredentialList, Twil
 							  final Map<String, String> filters) {
 		super(client, filters);
 
-		if (trunkSid == null) {
+		if (StringUtils.isEmpty(trunkSid)) {
 			throw new IllegalArgumentException("trunkSid cannot be null");
 		}
 		this.trunkSid = trunkSid;

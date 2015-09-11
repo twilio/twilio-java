@@ -21,12 +21,16 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 	private String url = null;
 
 	public NextGenListResource(final C client) {
-		this(client, new HashMap<String, String>());
+		this(client, null);
 	}
 
 	public NextGenListResource(final C client, final Map<String, String> filters) {
 		super(client);
 		this.filters = filters;
+
+		if (this.filters == null) {
+			this.filters = new HashMap<String, String>();
+		}
 	}
 
 	public Iterator<T> iterator() {

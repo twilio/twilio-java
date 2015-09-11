@@ -1,10 +1,6 @@
 package com.twilio.sdk.resource.instance;
 
-import com.twilio.sdk.LookupsClient;
-import com.twilio.sdk.TwilioMonitorClient;
-import com.twilio.sdk.TwilioPricingClient;
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioTaskRouterClient;
+import com.twilio.sdk.*;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -23,17 +19,18 @@ import static org.mockito.Mockito.when;
 
 public class BasicRequestTester {
 
-	final String accountSid = "AC0123456789abcdef0123456789abcdef";
-	final String authtoken = "0123456789abcdef0123456789abcdef";
+	protected final String accountSid = "AC0123456789abcdef0123456789abcdef";
+	protected final String authtoken = "0123456789abcdef0123456789abcdef";
 
 	@Mock
-	HttpClient httpClient;
+	protected HttpClient httpClient;
 
 	protected TwilioRestClient restClient = new TwilioRestClient(accountSid, authtoken);
 	protected TwilioPricingClient pricingClient = new TwilioPricingClient(accountSid, authtoken);
 	protected TwilioTaskRouterClient taskRouterClient = new TwilioTaskRouterClient(accountSid, authtoken);
 	protected LookupsClient lookupsClient = new LookupsClient(accountSid, authtoken);
 	protected TwilioMonitorClient monitorClient = new TwilioMonitorClient(accountSid, authtoken);
+	protected TwilioTrunkingClient trunkingClient = new TwilioTrunkingClient(accountSid, authtoken);
 
 	protected BasicHttpResponse response = mock(BasicHttpResponse.class);
 	protected Header[] headers = {mock(Header.class)};
@@ -48,6 +45,7 @@ public class BasicRequestTester {
 		taskRouterClient.setHttpClient(httpClient);
 		lookupsClient.setHttpClient(httpClient);
 		monitorClient.setHttpClient(httpClient);
+		trunkingClient.setHttpClient(httpClient);
 
 		when(headers[0].getValue()).thenReturn("application/xml");
 		when(response.getHeaders("Content-Type")).thenReturn(headers);
@@ -72,5 +70,4 @@ public class BasicRequestTester {
 	protected void setExpectedServerContentType(final String content_type) {
 		when(headers[0].getValue()).thenReturn("application/json");
 	}
-
 }

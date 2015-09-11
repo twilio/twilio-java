@@ -327,7 +327,7 @@ public class PhoneNumber extends NextGenInstanceResource<TwilioTrunkingClient> {
 	 * Whether this number is new to the Twilio platform.
 	 * @return Beta status
 	 */
-	public Boolean getBeta() {
+	public Boolean isBeta() {
 		return (Boolean) getObject("beta");
 	}
 

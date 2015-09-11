@@ -26,11 +26,7 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 
 	public NextGenListResource(final C client, final Map<String, String> filters) {
 		super(client);
-		this.filters = filters;
-
-		if (this.filters == null) {
-			this.filters = new HashMap<String, String>();
-		}
+		this.filters = filters == null ? filters : new HashMap<String, String>();
 	}
 
 	public Iterator<T> iterator() {

@@ -57,10 +57,6 @@ public class JsonResponseParser implements ResponseParser {
 			return "end";
 		case PAGE_KEY:
 			return "page";
-		case NUM_PAGES_KEY:
-			return "num_pages";
-		case TOTAL_KEY:
-			return "total";
 		}
 		
 		return null;

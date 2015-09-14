@@ -119,7 +119,7 @@ public class PhoneNumber extends NextGenInstanceResource<TwilioTrunkingClient> {
 	 * @return The account sid
 	 */
 	public String getAccountSid() {
-		return getProperty("account_sid");
+		return getProperty(ACCOUNT_SID_PROPERTY);
 	}
 
 	/**

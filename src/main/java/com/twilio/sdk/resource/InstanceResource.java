@@ -25,6 +25,9 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
     /** The Constant SID_PROPERTY. */
 	protected static final String SID_PROPERTY = "sid";
 
+	/** The Constant ACCOUNT_SID. */
+	protected static final String ACCOUNT_SID_PROPERTY = "account_sid";
+
 	/** The properties. */
 	private Map<String, Object> properties;
 

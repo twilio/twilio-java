@@ -180,10 +180,6 @@ public class XmlResponseParser implements ResponseParser {
 			return "end";
 		case PAGE_KEY:
 			return "page";
-		case NUM_PAGES_KEY:
-			return "numpages";
-		case TOTAL_KEY:
-			return "total";
 		}
 
 		return null;

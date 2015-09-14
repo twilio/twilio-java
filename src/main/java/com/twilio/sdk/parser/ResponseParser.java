@@ -25,13 +25,7 @@ public interface ResponseParser {
 		END_KEY,
 		
 		/** The PAG e_ key. */
-		PAGE_KEY,
-		
-		/** The NU m_ page s_ key. */
-		NUM_PAGES_KEY,
-		
-		/** The TOTA l_ key. */
-		TOTAL_KEY,
+		PAGE_KEY
 	}
 	
 	/**

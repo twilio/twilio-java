@@ -349,7 +349,7 @@ public class PhoneNumber extends NextGenInstanceResource<TwilioTrunkingClient> {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean delete() throws TwilioRestException {
-		TwilioRestResponse response = this.getClient()
+		final TwilioRestResponse response = this.getClient()
 				.safeRequest(this.getResourceLocation(), "DELETE", (Map) null);
 		return !response.isError();
 	}

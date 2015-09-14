@@ -50,7 +50,7 @@ public class PhoneNumberList extends NextGenListResource<PhoneNumber, TwilioTrun
 	}
 
 	@Override
-	protected PhoneNumber makeNew(TwilioTrunkingClient client, Map<String, Object> params) {
+	protected PhoneNumber makeNew(final TwilioTrunkingClient client, final Map<String, Object> params) {
 		return new PhoneNumber(client, params);
 	}
 
@@ -62,8 +62,8 @@ public class PhoneNumberList extends NextGenListResource<PhoneNumber, TwilioTrun
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public PhoneNumber create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public PhoneNumber create(final Map<String, String> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 
@@ -75,8 +75,8 @@ public class PhoneNumberList extends NextGenListResource<PhoneNumber, TwilioTrun
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public PhoneNumber create(List<NameValuePair> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public PhoneNumber create(final List<NameValuePair> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 

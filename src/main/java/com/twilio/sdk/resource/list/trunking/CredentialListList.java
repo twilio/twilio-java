@@ -54,7 +54,7 @@ public class CredentialListList extends NextGenListResource<CredentialList, Twil
 	 * @return The credential list with params provided
 	 */
 	@Override
-	protected CredentialList makeNew(TwilioTrunkingClient client, Map<String, Object> params) {
+	protected CredentialList makeNew(final TwilioTrunkingClient client, final Map<String, Object> params) {
 		return new CredentialList(client, params);
 	}
 
@@ -66,8 +66,8 @@ public class CredentialListList extends NextGenListResource<CredentialList, Twil
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public CredentialList create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public CredentialList create(final Map<String, String> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 
@@ -79,8 +79,8 @@ public class CredentialListList extends NextGenListResource<CredentialList, Twil
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public CredentialList create(List<NameValuePair> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public CredentialList create(final List<NameValuePair> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 

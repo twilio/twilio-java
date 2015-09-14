@@ -56,7 +56,7 @@ public class IpAccessControlListList extends NextGenListResource<IpAccessControl
 	 * @return An IpAccessControlList with params provided
 	 */
 	@Override
-	protected IpAccessControlList makeNew(TwilioTrunkingClient client, Map<String, Object> params) {
+	protected IpAccessControlList makeNew(final TwilioTrunkingClient client, final Map<String, Object> params) {
 		return new IpAccessControlList(client, params);
 	}
 
@@ -68,8 +68,8 @@ public class IpAccessControlListList extends NextGenListResource<IpAccessControl
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public IpAccessControlList create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public IpAccessControlList create(final Map<String, String> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 
@@ -81,8 +81,8 @@ public class IpAccessControlListList extends NextGenListResource<IpAccessControl
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public IpAccessControlList create(List<NameValuePair> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public IpAccessControlList create(final List<NameValuePair> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 

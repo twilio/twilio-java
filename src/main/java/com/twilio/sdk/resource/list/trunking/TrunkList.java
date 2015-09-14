@@ -22,7 +22,7 @@ public class TrunkList extends NextGenListResource<Trunk, TwilioTrunkingClient> 
 	 * Initialize a trunk list
 	 * @param client A TwilioTrunkingclient
 	 */
-	public TrunkList(TwilioTrunkingClient client) {
+	public TrunkList(final TwilioTrunkingClient client) {
 		super(client);
 	}
 
@@ -32,7 +32,7 @@ public class TrunkList extends NextGenListResource<Trunk, TwilioTrunkingClient> 
 	 * @param client A TwilioTrunkingClient
 	 * @param filters The filters for this query
 	 */
-	public TrunkList(TwilioTrunkingClient client, Map<String, String> filters) {
+	public TrunkList(final TwilioTrunkingClient client, final Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -45,7 +45,7 @@ public class TrunkList extends NextGenListResource<Trunk, TwilioTrunkingClient> 
 	 * @return A Trunk with the params provided
 	 */
 	@Override
-	protected Trunk makeNew(TwilioTrunkingClient client, Map<String, Object> params) {
+	protected Trunk makeNew(final TwilioTrunkingClient client, final Map<String, Object> params) {
 		return new Trunk(client, params);
 	}
 
@@ -58,8 +58,8 @@ public class TrunkList extends NextGenListResource<Trunk, TwilioTrunkingClient> 
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public Trunk create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public Trunk create(final Map<String, String> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 
@@ -72,8 +72,8 @@ public class TrunkList extends NextGenListResource<Trunk, TwilioTrunkingClient> 
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public Trunk create(List<NameValuePair> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public Trunk create(final List<NameValuePair> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 
@@ -85,7 +85,7 @@ public class TrunkList extends NextGenListResource<Trunk, TwilioTrunkingClient> 
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean delete() throws TwilioRestException {
-		TwilioRestResponse response = this.getClient()
+		final TwilioRestResponse response = this.getClient()
 				.safeRequest(this.getResourceLocation(), "DELETE", (Map) null);
 		return !response.isError();
 	}

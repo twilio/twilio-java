@@ -42,7 +42,7 @@ public class IpAccessControlList extends NextGenInstanceResource<TwilioTrunkingC
 	 * @param client A TwilioTrunkingClient
 	 * @param properties The data for this ip access control list
 	 */
-	public IpAccessControlList(TwilioTrunkingClient client, Map<String, Object> properties) {
+	public IpAccessControlList(final TwilioTrunkingClient client, final Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -117,7 +117,7 @@ public class IpAccessControlList extends NextGenInstanceResource<TwilioTrunkingC
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean delete() throws TwilioRestException {
-		TwilioRestResponse response = this.getClient()
+		final TwilioRestResponse response = this.getClient()
 				.safeRequest(this.getResourceLocation(), "DELETE", (Map) null);
 		return !response.isError();
 	}

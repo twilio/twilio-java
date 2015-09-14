@@ -43,7 +43,7 @@ public class CredentialList extends NextGenInstanceResource<TwilioTrunkingClient
 	 * @param client A TwilioTrunkingClient
 	 * @param properties The data for this credential list
 	 */
-	public CredentialList(TwilioTrunkingClient client, Map<String, Object> properties) {
+	public CredentialList(final TwilioTrunkingClient client, final Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -118,7 +118,7 @@ public class CredentialList extends NextGenInstanceResource<TwilioTrunkingClient
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean delete() throws TwilioRestException {
-		TwilioRestResponse response = this.getClient()
+		final TwilioRestResponse response = this.getClient()
 				.safeRequest(this.getResourceLocation(), "DELETE", (Map) null);
 		return !response.isError();
 	}

@@ -109,7 +109,7 @@ public class Trunk extends NextGenInstanceResource<TwilioTrunkingClient> {
 	 * @param filters The filters to apply
 	 * @return The origination url query
 	 */
-	public OriginationUrlList getOriginationUrls(Map<String, String> filters) {
+	public OriginationUrlList getOriginationUrls(final Map<String, String> filters) {
 		return new OriginationUrlList(getClient(), getSid(), filters);
 	}
 
@@ -119,7 +119,7 @@ public class Trunk extends NextGenInstanceResource<TwilioTrunkingClient> {
 	 * @param originationUrlSid The origination url sid
 	 * @return The origination url
 	 */
-	public OriginationUrl getOriginationUrl(String originationUrlSid) {
+	public OriginationUrl getOriginationUrl(final String originationUrlSid) {
 		return new OriginationUrl(getClient(), getSid(), originationUrlSid);
 	}
 
@@ -129,7 +129,7 @@ public class Trunk extends NextGenInstanceResource<TwilioTrunkingClient> {
 	 * @param filters The filters to apply
 	 * @return The credential lists query
 	 */
-	public CredentialListList getCredentialLists(Map<String, String> filters) {
+	public CredentialListList getCredentialLists(final Map<String, String> filters) {
 		return new CredentialListList(getClient(), getSid(), filters);
 	}
 
@@ -148,7 +148,7 @@ public class Trunk extends NextGenInstanceResource<TwilioTrunkingClient> {
 	 * @param credentialListSid The credential list sid
 	 * @return The credential list
 	 */
-	public CredentialList getCredentialList(String credentialListSid) {
+	public CredentialList getCredentialList(final String credentialListSid) {
 		return new CredentialList(getClient(), getSid(), credentialListSid);
 	}
 

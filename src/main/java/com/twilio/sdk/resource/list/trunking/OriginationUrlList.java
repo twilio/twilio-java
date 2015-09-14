@@ -55,7 +55,7 @@ public class OriginationUrlList extends NextGenListResource<OriginationUrl, Twil
 	 * @return An OriginationUrl with params provided
 	 */
 	@Override
-	protected OriginationUrl makeNew(TwilioTrunkingClient client, Map<String, Object> params) {
+	protected OriginationUrl makeNew(final TwilioTrunkingClient client, final Map<String, Object> params) {
 		return new OriginationUrl(client, params);
 	}
 
@@ -67,8 +67,8 @@ public class OriginationUrlList extends NextGenListResource<OriginationUrl, Twil
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public OriginationUrl create(Map<String, String> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public OriginationUrl create(final Map<String, String> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 
@@ -80,8 +80,8 @@ public class OriginationUrlList extends NextGenListResource<OriginationUrl, Twil
 	 * @throws TwilioRestException
 	 */
 	@Override
-	public OriginationUrl create(List<NameValuePair> params) throws TwilioRestException {
-		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+	public OriginationUrl create(final List<NameValuePair> params) throws TwilioRestException {
+		final TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}
 

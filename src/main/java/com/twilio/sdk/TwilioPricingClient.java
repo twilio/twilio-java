@@ -105,7 +105,7 @@ public class TwilioPricingClient extends TwilioClient {
         return country;
     }
 
-    public MessagingCountryList getMessagingCountryList() {
+    public MessagingCountryList getMessagingCountries() {
         return new MessagingCountryList(this);
     }
 

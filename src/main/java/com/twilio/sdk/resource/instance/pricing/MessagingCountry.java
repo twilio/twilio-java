@@ -2,6 +2,7 @@ package com.twilio.sdk.resource.instance.pricing;
 
 import com.twilio.sdk.TwilioPricingClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -22,19 +23,22 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
     }
 
     public MessagingCountry(final TwilioPricingClient client, final String isoCountry) {
-        this(client, new HashMap<String, Object>() {{
-            put("iso_country", isoCountry);
-        }});
+        super(client);
+        if (StringUtils.isBlank(isoCountry)) {
+            throw new IllegalArgumentException("The isoCountry for a MessagingCountry cannot be blank");
+        }
+        setProperty("iso_country", isoCountry);
+        setRequestAccountSid(client.getAccountSid());
     }
 
     public MessagingCountry(final TwilioPricingClient client, final Map<String, Object> properties) {
         super(client, properties);
-        this.setRequestAccountSid(client.getAccountSid());
+        setRequestAccountSid(client.getAccountSid());
     }
 
     @Override
     protected String getResourceLocation() {
-        return "/" + TwilioPricingClient.DEFAULT_VERSION + "/PhoneNumbers/Countries/" + getIsoCountry();
+        return "/" + TwilioPricingClient.DEFAULT_VERSION + "/Messaging/Countries/" + getIsoCountry();
     }
 
     /**

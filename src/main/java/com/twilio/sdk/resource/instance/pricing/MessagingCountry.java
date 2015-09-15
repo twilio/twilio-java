@@ -73,7 +73,7 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
      * @return List of SMS prices with outbound pricing info
      */
     public List<OutboundSmsPrice> getOutboundSmsPrices() {
-        List<Map<String, Object>> priceData = getCastedObject("outbound_sms_pricing");
+        List<Map<String, Object>> priceData = getCastedObject("outbound_sms_prices");
 
         List<OutboundSmsPrice> prices = new ArrayList<OutboundSmsPrice>();
         for (Map<String, Object> data : priceData) {
@@ -97,7 +97,7 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
      * @return List of SMS prices with inbound pricing info
      */
     public List<PriceDefinition> getInboundSmsPrices() {
-        List<Map<String, String>> priceData = getCastedObject("inbound_sms_pricing");
+        List<Map<String, String>> priceData = getCastedObject("inbound_sms_prices");
         return PriceDefinition.fromMapList(priceData);
     }
 

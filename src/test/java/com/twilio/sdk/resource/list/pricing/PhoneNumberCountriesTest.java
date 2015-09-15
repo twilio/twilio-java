@@ -2,7 +2,6 @@ package com.twilio.sdk.resource.list.pricing;
 
 import com.twilio.sdk.resource.instance.BasicRequestTester;
 import com.twilio.sdk.resource.instance.pricing.PhoneNumberCountry;
-import com.twilio.sdk.resource.list.pricing.PhoneNumberCountryList;
 import org.junit.Before;
 import org.junit.Test;
 

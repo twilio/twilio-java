@@ -2,7 +2,6 @@ package com.twilio.sdk.resource.list.pricing;
 
 import com.twilio.sdk.resource.instance.BasicRequestTester;
 import com.twilio.sdk.resource.instance.pricing.VoiceCountry;
-import com.twilio.sdk.resource.list.pricing.VoiceCountryList;
 import org.junit.Before;
 import org.junit.Test;
 

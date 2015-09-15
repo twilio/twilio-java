@@ -1,0 +1,36 @@
+{
+  "url": "https://pricing.twilio.com/v1/Messaging/Countries/EE",
+  "country" : "Estonia",
+  "iso_country": "EE",
+  "outbound_sms_prices": [
+    {
+      "mcc": "275",
+      "mnc": "1",
+      "carrier": "Estonia mobile",
+      "prices": [{
+          "number_type": "mobile",
+          "base_price": "0.075",
+          "current_price": "0.0100"
+        },
+        {
+          "number_type": "national",
+          "base_price": "0.0075",
+          "current_price": "0.0070"
+        }
+      ]
+    }
+  ],
+  "inbound_sms_prices": [
+    {
+      "number_type": "mobile",
+      "base_price": "0.0075",
+      "current_price": "0.0070"
+    },
+    {
+      "number_type": "national",
+      "base_price": "0.0075",
+      "current_price": "0.0070"
+    }
+  ],
+  "price_unit": "USD"
+}

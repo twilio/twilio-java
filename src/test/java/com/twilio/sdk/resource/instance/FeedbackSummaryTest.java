@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -29,6 +30,7 @@ public class FeedbackSummaryTest extends BasicRequestTester {
 
 	@Before
 	public void setup() throws Exception {
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		setExpectedServerContentType("application/json");
 		setExpectedServerAnswer("callfeedbacksummaryqueued.json");
 		Map<String, String> filters = new HashMap<String, String>();

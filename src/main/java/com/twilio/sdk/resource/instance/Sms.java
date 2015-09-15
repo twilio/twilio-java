@@ -74,7 +74,7 @@ public class Sms extends InstanceResource<TwilioRestClient> {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		return parseDate(this.getProperty("date_created"));
+		return getDateProperty(DATE_CREATED_PROPERTY);
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class Sms extends InstanceResource<TwilioRestClient> {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		return parseDate(this.getProperty("date_updated"));
+		return getDateProperty(DATE_UPDATED_PROPERTY);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class Sms extends InstanceResource<TwilioRestClient> {
 	 * @return the date sent
 	 */
 	public Date getDateSent() {
-		return parseDate(this.getProperty("date_sent"));
+		return getDateProperty("date_sent");
 	}
 
 	/**

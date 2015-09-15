@@ -43,6 +43,7 @@ import com.twilio.sdk.resource.list.sip.CredentialListList;
 import com.twilio.sdk.resource.list.sip.DomainList;
 import com.twilio.sdk.resource.list.sip.IpAccessControlListList;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -809,6 +810,31 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 */
 	public UsageRecordList getUsageRecords() {
 		return this.getUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Gets the Usage Record sub resource list with the given filters
+	 * <p/>
+	 * <a href="https://www.twilio.com/docs/api/rest/usage-records">https://www.twilio.com/docs/api/rest/usage-records</a>
+	 *
+	 * @param filters the filters
+	 * @return the usage records
+	 */
+	public UsageRecordList getUsageRecords(Map<String, String> filters, UsageRecordList.Type type) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters, type);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Gets the Usage Record subresource list
+	 * <p/>
+	 * <a href="https://www.twilio.com/docs/api/rest/usage-records">https://www.twilio.com/docs/api/rest/usage-records</a>
+	 *
+	 * @return the usage records
+	 */
+	public UsageRecordList getUsageRecords(UsageRecordList.Type type) {
+		return this.getUsageRecords(Collections.<String, String>emptyMap(), type);
 	}
 
 	/**

@@ -97,7 +97,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		return parseDate(getProperty(DATE_CREATED_PROPERTY));
+		return getDateProperty(DATE_CREATED_PROPERTY);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the date updated
 	 */
 	public Date getDateStatusChanged() {
-		return parseDate(getProperty("date_status_changed"));
+		return getDateProperty("date_status_changed");
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		return parseDate(getProperty(DATE_UPDATED_PROPERTY));
+		return getDateProperty(DATE_UPDATED_PROPERTY);
 	}
 
 	/**

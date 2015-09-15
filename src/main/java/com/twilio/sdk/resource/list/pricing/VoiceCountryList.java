@@ -4,6 +4,8 @@ import com.twilio.sdk.TwilioPricingClient;
 import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.instance.pricing.VoiceCountry;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,8 +26,10 @@ import java.util.Map;
  */
 public class VoiceCountryList extends NextGenListResource<VoiceCountry, TwilioPricingClient> {
 
+    private static final String RESOURCE_LOCATION = "/" + TwilioPricingClient.DEFAULT_VERSION + "/Voice/Countries";
+
     public VoiceCountryList(final TwilioPricingClient client) {
-        super(client);
+        this(client, new HashMap<String, String>());
     }
 
     public VoiceCountryList(final TwilioPricingClient client, final Map<String, String> filters) {
@@ -34,7 +38,7 @@ public class VoiceCountryList extends NextGenListResource<VoiceCountry, TwilioPr
 
     @Override
     protected String getResourceLocation() {
-        return "/" + TwilioPricingClient.DEFAULT_VERSION + "/Voice/Countries";
+        return RESOURCE_LOCATION;
     }
 
     @Override

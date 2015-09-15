@@ -2,21 +2,24 @@ package com.twilio.sdk.resource.instance.pricing;
 
 import com.twilio.sdk.TwilioPricingClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Pricing information for Twilio Voice services in a specific country.
  *
- * For more information, see <a href="FIXME">the Twilio Pricing API documentation</a>.
+ * For more information, see <a href="https://www.twilio.com/docs/api/rest/pricing">the Twilio Pricing API documentation</a>.
  */
 public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
 
     public VoiceCountry(final TwilioPricingClient client) {
-        super(client);
+        this(client, new HashMap<String, Object>());
     }
 
     public VoiceCountry(final TwilioPricingClient client, final Map<String, Object> properties) {
@@ -70,18 +73,9 @@ public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
      *
      * @return List of objects with inbound call pricing information.
      */
-    public List<InboundCallPrice> getInboundCallPrices() {
-        List<Map<String, Object>> priceData = (List<Map<String, Object>>) getObject("inbound_call_prices");
-        List<InboundCallPrice> prices = new ArrayList<InboundCallPrice>();
-
-        for (Map<String, Object> p : priceData) {
-            prices.add(new InboundCallPrice(
-                    NumberType.valueOf(((String)p.get("number_type")).toUpperCase()),
-                    new BigDecimal((String) p.get("base_price")),
-                    new BigDecimal((String) p.get("current_price")
-            )));
-        }
-        return prices;
+    public List<PriceDefinition> getInboundCallPrices() {
+        List<Map<String, String>> priceData = getCastedObject("inbound_call_prices");
+        return PriceDefinition.fromMapList(priceData);
     }
 
     /**
@@ -104,7 +98,7 @@ public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
      * @return List of objects with outbound call price information.
      */
     public List<OutboundPrefixPrice> getOutboundPrefixPrices() {
-        List<Map<String, Object>> priceData = (List<Map<String, Object>>) getObject("outbound_prefix_prices");
+        List<Map<String, Object>> priceData = getCastedObject("outbound_prefix_prices");
         List<OutboundPrefixPrice> prices = new ArrayList<OutboundPrefixPrice>();
 
         for (Map<String, Object> p : priceData) {
@@ -126,7 +120,6 @@ public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
     /**
      * Represents current prices for outbound Twilio Voice calls to the given
      * list of number prefixes.
-     *
      */
     public class OutboundPrefixPrice {
         private final String friendlyName;
@@ -179,87 +172,31 @@ public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
 
         @Override
         public boolean equals(final Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
 
-            OutboundPrefixPrice that = (OutboundPrefixPrice) o;
+            if (o == null || this.getClass() != o.getClass()) {
+                return false;
+            }
 
-            if (!basePrice.equals(that.basePrice)) return false;
-            if (!currentPrice.equals(that.currentPrice)) return false;
-            if (!friendlyName.equals(that.friendlyName)) return false;
-            if (!prefixes.equals(that.prefixes)) return false;
-
-            return true;
+            OutboundPrefixPrice other = (OutboundPrefixPrice) o;
+            return new EqualsBuilder()
+                .append(this.friendlyName, other.friendlyName)
+                .append(this.basePrice, other.basePrice)
+                .append(this.currentPrice, other.currentPrice)
+                .append(this.prefixes, other.prefixes)
+                .isEquals();
         }
 
         @Override
         public int hashCode() {
-            int result = friendlyName.hashCode();
-            result = 31 * result + basePrice.hashCode();
-            result = 31 * result + currentPrice.hashCode();
-            result = 31 * result + prefixes.hashCode();
-            return result;
-        }
-    }
-
-    public class InboundCallPrice {
-        private NumberType numberType;
-        private BigDecimal basePrice;
-        private BigDecimal currentPrice;
-
-        public InboundCallPrice(final NumberType numberType, final BigDecimal basePrice, final BigDecimal currentPrice) {
-            this.numberType = numberType;
-            this.basePrice = basePrice;
-            this.currentPrice = currentPrice;
-        }
-
-        /**
-         * The type of number for which this price applies,
-         * e.g. NumberType.MOBILE
-         * @return The number type
-         */
-        public NumberType getNumberType() {
-            return numberType;
-        }
-
-        /**
-         * The price per minute for inbound calls to numbers of this type,
-         * before discounts have been applied.
-         * @return Base inbound call price/minute.
-         */
-        public BigDecimal getBasePrice() {
-            return basePrice;
-        }
-
-        /**
-         * The price per minute for inbound calls to numbers of this type,
-         * after available discounts have been applied.
-         * @return Discounted inbound call price/minute.
-         */
-        public BigDecimal getCurrentPrice() {
-            return currentPrice;
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            InboundCallPrice that = (InboundCallPrice) o;
-
-            if (!basePrice.equals(that.basePrice)) return false;
-            if (!currentPrice.equals(that.currentPrice)) return false;
-            if (numberType != that.numberType) return false;
-
-            return true;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = numberType.hashCode();
-            result = 31 * result + basePrice.hashCode();
-            result = 31 * result + currentPrice.hashCode();
-            return result;
+            return new HashCodeBuilder()
+                .append(friendlyName)
+                .append(basePrice)
+                .append(currentPrice)
+                .append(prefixes)
+                .toHashCode();
         }
     }
 }

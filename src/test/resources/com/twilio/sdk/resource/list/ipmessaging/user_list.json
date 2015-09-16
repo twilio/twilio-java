@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 1,
+    "first_page_url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=1&Page=0",
+    "previous_page_url": null,
+    "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=1&Page=0",
+    "next_page_url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=1&Page=1&PageToken=PTUSeabd59a50731427b92070734e1d2ed73",
+    "key": "users"
+  },
+  "users": [
+    {
+      "sid": "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "role_sid": "role_sid",
+      "identity": "aaa",
+      "date_created": "2015-08-25T20:10:17Z",
+      "date_updated": "2015-08-25T20:10:17Z",
+      "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ]
+}

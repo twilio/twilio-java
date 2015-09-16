@@ -1,0 +1,11 @@
+{
+  "sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "identity": "USER",
+  "role_sid": "role",
+  "date_created": "2015-09-07T22:17:08Z",
+  "date_updated": "2015-09-07T22:17:08Z",
+  "url": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

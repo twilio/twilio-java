@@ -27,6 +27,25 @@ public class TrunkListTest extends BasicRequestTester {
 	}
 
 	@Test
+	public void testGetTrunksWithFilters() throws Exception {
+		setExpectedServerReturnCode(200);
+		setExpectedServerAnswer(File.separator + getClass().getPackage()
+				.getName().replace(".", File.separator) + "/trunklist.json");
+
+		Map<String, String> filters = new HashMap<String, String>();
+		filters.put("PageSize", "20");
+		TrunkList trunkQuery = trunkingClient.getTrunks(filters);
+		List<Trunk> trunks = trunkQuery.getPageData();
+
+		ArgumentCaptor<HttpGet> captor = ArgumentCaptor.forClass(HttpGet.class);
+		Mockito.verify(httpClient).execute(captor.capture());
+
+		HttpGet request = captor.getValue();
+		assertEquals("https://trunking.twilio.com/v1/Trunks?PageSize=20", request.getURI().toURL().toString());
+		assertEquals("GET", request.getMethod());
+	}
+
+	@Test
 	public void testGetTrunks() throws Exception {
 		setExpectedServerReturnCode(200);
 		setExpectedServerAnswer(File.separator + getClass().getPackage()

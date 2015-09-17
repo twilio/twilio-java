@@ -29,10 +29,10 @@ public class PhoneNumberCountryTest extends BasicRequestTester {
         assertEquals("EE", country.getIsoCountry());
         assertEquals("USD", country.getPriceUnit());
 
-        List<PriceDefinition> numberPrices = country.getPhoneNumberPrices();
+        List<PhoneNumberCountry.NumberPrice> numberPrices = country.getPhoneNumberPrices();
         assertEquals(2, numberPrices.size());
 
-        PriceDefinition price = numberPrices.get(0);
+        PhoneNumberCountry.NumberPrice price = numberPrices.get(0);
         assertEquals(NumberType.MOBILE, price.getNumberType());
         assertEquals(new BigDecimal("3.00"), price.getBasePrice());
         assertEquals(new BigDecimal("3.00"), price.getCurrentPrice());

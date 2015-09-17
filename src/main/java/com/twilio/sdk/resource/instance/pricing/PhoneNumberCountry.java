@@ -2,6 +2,8 @@ package com.twilio.sdk.resource.instance.pricing;
 
 import com.twilio.sdk.TwilioPricingClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -67,13 +69,88 @@ public class PhoneNumberCountry extends NextGenInstanceResource<TwilioPricingCli
 	 *
 	 * @return A list of objects with phone number pricing information.
 	 */
-	public List<PriceDefinition> getPhoneNumberPrices() {
+	public List<NumberPrice> getPhoneNumberPrices() {
 		List<Map<String, String>> priceData = getCastedObject("phone_number_prices");
-		return PriceDefinition.fromMapList(priceData);
+		List<NumberPrice> prices = new ArrayList<NumberPrice>();
+
+ 		for (Map<String, String> p : priceData) {
+			prices.add(new NumberPrice(
+				NumberType.valueOf(p.get("number_type").toUpperCase()),
+				new BigDecimal(p.get("base_price")),
+				new BigDecimal(p.get("current_price"))));
+			}
+		return prices;
 	}
 
 	protected String getResourceLocation() {
 		return "/" + TwilioPricingClient.DEFAULT_VERSION + "/PhoneNumbers/Countries/" + getIsoCountry();
 	}
+
+	public class NumberPrice {
+		private final NumberType numberType;
+		private final BigDecimal basePrice;
+		private final BigDecimal currentPrice;
+
+		public NumberPrice(final NumberType numberType, final BigDecimal basePrice, final BigDecimal currentPrice) {
+			this.numberType = numberType;
+			this.basePrice = basePrice;
+			this.currentPrice = currentPrice;
+		}
+
+		/**
+		 * The type of number for which this price applies,
+		 * e.g. NumberType.MOBILE
+		 * @return The number type
+		 */
+		public NumberType getNumberType() {
+			return numberType;
+		}
+
+		/**
+		 * The price per minute for inbound calls to numbers of this type,
+		 * before discounts have been applied.
+		 * @return Base inbound call price/minute.
+		 */
+		public BigDecimal getBasePrice() {
+			return basePrice;
+		}
+
+		/**
+		 * The price per minute for inbound calls to numbers of this type,
+		 * after available discounts have been applied.
+		 * @return Discounted inbound call price/minute.
+		 */
+		public BigDecimal getCurrentPrice() {
+			return currentPrice;
+		}
+
+		@Override
+		public boolean equals(final Object o) {
+			if (this == o) {
+				return true;
+			}
+
+			if (o == null || getClass() != o.getClass()) {
+				return false;
+			}
+
+			NumberPrice that = (NumberPrice) o;
+			return new EqualsBuilder()
+					.append(basePrice, that.basePrice)
+					.append(currentPrice, that.currentPrice)
+					.append(numberType, that.numberType)
+					.isEquals();
+		}
+
+		@Override
+		public int hashCode() {
+			return new HashCodeBuilder()
+					.append(numberType)
+					.append(basePrice)
+					.append(currentPrice)
+					.toHashCode();
+		}
+	}
+
 
 }

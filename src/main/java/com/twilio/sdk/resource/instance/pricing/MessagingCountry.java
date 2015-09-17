@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,12 +29,10 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
             throw new IllegalArgumentException("The isoCountry for a MessagingCountry cannot be blank");
         }
         setProperty("iso_country", isoCountry);
-        setRequestAccountSid(client.getAccountSid());
     }
 
     public MessagingCountry(final TwilioPricingClient client, final Map<String, Object> properties) {
         super(client, properties);
-        setRequestAccountSid(client.getAccountSid());
     }
 
     @Override
@@ -75,19 +74,17 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
     public List<OutboundSmsPrice> getOutboundSmsPrices() {
         List<Map<String, Object>> priceData = getCastedObject("outbound_sms_prices");
 
-        List<OutboundSmsPrice> prices = new ArrayList<OutboundSmsPrice>();
+        List<OutboundSmsPrice> details = new ArrayList<OutboundSmsPrice>();
         for (Map<String, Object> data : priceData) {
-            prices.add(new OutboundSmsPrice(
+            details.add(new OutboundSmsPrice(
                 data.get("mcc").toString(),
                 data.get("mnc").toString(),
                 data.get("carrier").toString(),
-                PriceDefinition.fromMapList(
-                    (List<Map<String, String>>) data.get("prices")
-                )
+                getMessagingPrices((List<Map<String, String>>) data.get("prices"))
             ));
         }
 
-        return prices;
+        return details;
     }
 
     /**
@@ -96,9 +93,21 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
      *
      * @return List of SMS prices with inbound pricing info
      */
-    public List<PriceDefinition> getInboundSmsPrices() {
+    public List<MessagingPrice> getInboundSmsPrices() {
         List<Map<String, String>> priceData = getCastedObject("inbound_sms_prices");
-        return PriceDefinition.fromMapList(priceData);
+        return getMessagingPrices(priceData);
+    }
+
+    private List<MessagingPrice> getMessagingPrices(List<Map<String, String>> priceData) {
+        List<MessagingPrice> prices = new ArrayList<MessagingPrice>();
+
+        for (Map<String, String> p : priceData) {
+            prices.add(new MessagingPrice(
+                    NumberType.valueOf(p.get("number_type").toUpperCase()),
+                    new BigDecimal(p.get("base_price")),
+                    new BigDecimal(p.get("current_price"))));
+        }
+        return prices;
     }
 
     /**
@@ -109,9 +118,9 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
         private final String mcc;
         private final String mnc;
         private final String carrier;
-        private final List<PriceDefinition> prices;
+        private final List<MessagingPrice> prices;
 
-        public OutboundSmsPrice(final String mcc, final String mnc, final String carrier, final List<PriceDefinition> prices) {
+        public OutboundSmsPrice(final String mcc, final String mnc, final String carrier, final List<MessagingPrice> prices) {
             this.mcc = mcc;
             this.mnc = mnc;
             this.carrier = carrier;
@@ -142,7 +151,7 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
         /**
          * @return the prices for this carrier
          */
-        public List<PriceDefinition> getPrices() {
+        public List<MessagingPrice> getPrices() {
             return prices;
         }
 
@@ -173,6 +182,75 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
                 .append(this.carrier, o.carrier)
                 .append(this.prices, o.prices)
                 .isEquals();
+        }
+    }
+
+    public class MessagingPrice {
+        private final NumberType numberType;
+        private final BigDecimal basePrice;
+        private final BigDecimal currentPrice;
+
+        public MessagingPrice(final NumberType numberType, final BigDecimal basePrice, final BigDecimal currentPrice) {
+            this.numberType = numberType;
+            this.basePrice = basePrice;
+            this.currentPrice = currentPrice;
+        }
+
+        /**
+         * The type of number for which this price applies,
+         * e.g. NumberType.MOBILE
+         *
+         * @return The number type
+         */
+        public NumberType getNumberType() {
+            return numberType;
+        }
+
+        /**
+         * The price per minute for inbound calls to numbers of this type,
+         * before discounts have been applied.
+         *
+         * @return Base inbound call price/minute.
+         */
+        public BigDecimal getBasePrice() {
+            return basePrice;
+        }
+
+        /**
+         * The price per minute for inbound calls to numbers of this type,
+         * after available discounts have been applied.
+         *
+         * @return Discounted inbound call price/minute.
+         */
+        public BigDecimal getCurrentPrice() {
+            return currentPrice;
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingPrice that = (MessagingPrice) o;
+            return new EqualsBuilder()
+                    .append(basePrice, that.basePrice)
+                    .append(currentPrice, that.currentPrice)
+                    .append(numberType, that.numberType)
+                    .isEquals();
+        }
+
+        @Override
+        public int hashCode() {
+            return new HashCodeBuilder()
+                    .append(numberType)
+                    .append(basePrice)
+                    .append(currentPrice)
+                    .toHashCode();
         }
     }
 }

@@ -73,9 +73,18 @@ public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
      *
      * @return List of objects with inbound call pricing information.
      */
-    public List<PriceDefinition> getInboundCallPrices() {
-        List<Map<String, String>> priceData = getCastedObject("inbound_call_prices");
-        return PriceDefinition.fromMapList(priceData);
+    public List<InboundCallPrice> getInboundCallPrices() {
+        List<Map<String, Object>> priceData = getCastedObject("inbound_call_prices");
+        List<InboundCallPrice> prices = new ArrayList<InboundCallPrice>();
+
+        for (Map<String, Object> p : priceData) {
+            prices.add(new InboundCallPrice(
+                    NumberType.valueOf(((String)p.get("number_type")).toUpperCase()),
+                    new BigDecimal((String) p.get("base_price")),
+                    new BigDecimal((String) p.get("current_price")
+            )));
+        }
+        return prices;
     }
 
     /**
@@ -196,6 +205,72 @@ public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
                 .append(basePrice)
                 .append(currentPrice)
                 .append(prefixes)
+                .toHashCode();
+        }
+    }
+
+    public class InboundCallPrice {
+        private final NumberType numberType;
+        private final BigDecimal basePrice;
+        private final BigDecimal currentPrice;
+
+        public InboundCallPrice(final NumberType numberType, final BigDecimal basePrice, final BigDecimal currentPrice) {
+            this.numberType = numberType;
+            this.basePrice = basePrice;
+            this.currentPrice = currentPrice;
+        }
+
+        /**
+         * The type of number for which this price applies,
+         * e.g. NumberType.MOBILE
+         * @return The number type
+         */
+        public NumberType getNumberType() {
+            return numberType;
+        }
+
+        /**
+         * The price per minute for inbound calls to numbers of this type,
+         * before discounts have been applied.
+         * @return Base inbound call price/minute.
+         */
+        public BigDecimal getBasePrice() {
+            return basePrice;
+        }
+
+        /**
+         * The price per minute for inbound calls to numbers of this type,
+         * after available discounts have been applied.
+         * @return Discounted inbound call price/minute.
+         */
+        public BigDecimal getCurrentPrice() {
+            return currentPrice;
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            InboundCallPrice that = (InboundCallPrice) o;
+            return new EqualsBuilder()
+                .append(basePrice, that.basePrice)
+                .append(currentPrice, that.currentPrice)
+                .append(numberType, that.numberType)
+                .isEquals();
+        }
+
+        @Override
+        public int hashCode() {
+            return new HashCodeBuilder()
+                .append(numberType)
+                .append(basePrice)
+                .append(currentPrice)
                 .toHashCode();
         }
     }

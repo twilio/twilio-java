@@ -31,7 +31,7 @@ public class MessagingCountryTest extends BasicRequestTester {
         List<MessagingCountry.OutboundSmsPrice> outboundPrices = country.getOutboundSmsPrices();
         assertEquals(1, outboundPrices.size());
 
-        List<PriceDefinition> inboundPrices = country.getInboundSmsPrices();
+        List<MessagingCountry.MessagingPrice> inboundPrices = country.getInboundSmsPrices();
         assertEquals(2, inboundPrices.size());
     }
 }

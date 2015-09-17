@@ -36,10 +36,10 @@ public class VoiceCountryTest extends BasicRequestTester {
         assertEquals(new BigDecimal("0.033"), outboundPrefixPrice.getBasePrice());
         assertEquals(new BigDecimal("0.030"), outboundPrefixPrice.getCurrentPrice());
 
-        List<PriceDefinition> inboundCallPrices = country.getInboundCallPrices();
+        List<VoiceCountry.InboundCallPrice> inboundCallPrices = country.getInboundCallPrices();
         assertEquals(2, inboundCallPrices.size());
 
-        PriceDefinition inboundCallPrice = inboundCallPrices.get(0);
+        VoiceCountry.InboundCallPrice inboundCallPrice = inboundCallPrices.get(0);
         assertEquals(NumberType.MOBILE, inboundCallPrice.getNumberType());
         assertEquals(new BigDecimal("0.0075"), inboundCallPrice.getBasePrice());
         assertEquals(new BigDecimal("0.0070"), inboundCallPrice.getCurrentPrice());

@@ -7,9 +7,11 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.NameValuePair;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InstanceResource.
  */
@@ -31,7 +33,7 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @param client the client
 	 */
 	public InstanceResource(final C client) {
-		this(client, new HashMap<String, Object>(), new HashMap<String, String>());
+		this(client, null, null);
 	}
 
 	/**
@@ -41,7 +43,7 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @param properties the properties
 	 */
 	public InstanceResource(final C client, final Map<String, Object> properties) {
-		this(client, properties, new HashMap<String, String>());
+		this(client, properties, null);
 	}
 
 	/**

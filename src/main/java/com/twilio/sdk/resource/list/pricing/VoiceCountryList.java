@@ -29,7 +29,7 @@ public class VoiceCountryList extends NextGenListResource<VoiceCountry, TwilioPr
     private static final String RESOURCE_LOCATION = "/" + TwilioPricingClient.DEFAULT_VERSION + "/Voice/Countries";
 
     public VoiceCountryList(final TwilioPricingClient client) {
-        this(client, new HashMap<String, String>());
+        this(client, null);
     }
 
     public VoiceCountryList(final TwilioPricingClient client, final Map<String, String> filters) {

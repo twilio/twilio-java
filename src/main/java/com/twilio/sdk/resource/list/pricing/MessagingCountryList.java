@@ -15,7 +15,7 @@ public class MessagingCountryList extends NextGenListResource<MessagingCountry, 
     private static final String RESOURCE_LOCATION = "/" + TwilioPricingClient.DEFAULT_VERSION + "/Messaging/Countries";
 
     public MessagingCountryList(final TwilioPricingClient client) {
-        this(client, new HashMap<String, String>());
+        this(client, null);
     }
 
     public MessagingCountryList(final TwilioPricingClient client, final Map<String, String> filters) {

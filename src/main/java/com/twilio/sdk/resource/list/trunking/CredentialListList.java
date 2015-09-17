@@ -23,6 +23,7 @@ public class CredentialListList extends NextGenListResource<CredentialList, Twil
 	 * Initialize a credential list
 	 *
 	 * @param client A TwilioTrunkingClient
+	 * @param trunkSid The trunk sid
 	 */
 	public CredentialListList(final TwilioTrunkingClient client, final String trunkSid) {
 		this(client, trunkSid, null);
@@ -32,6 +33,7 @@ public class CredentialListList extends NextGenListResource<CredentialList, Twil
 	 * Initialize a credential list with filters
 	 *
 	 * @param client A TwilioTrunkingClient
+	 * @param trunkSid The trunk sid
 	 * @param filters The filters for this query
 	 */
 	public CredentialListList(final TwilioTrunkingClient client,

@@ -35,7 +35,7 @@ public class PhoneNumber extends NextGenInstanceResource<TwilioTrunkingClient> {
 		}
 
 		setProperty("trunk_sid", trunkSid);
-		setProperty("sid", phoneNumberSid);
+		setProperty(SID_PROPERTY, phoneNumberSid);
 	}
 
 	/**

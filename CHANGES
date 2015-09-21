@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.0.0
+-------------
+
+Released September 14, 2015
+
+- Remove deprecated total and numpages from ListResource and response parsers
+
 Version 4.5.0
 -------------
 
@@ -278,7 +285,7 @@ Released on April 3, 2012
 - Fixes recording delete requests
 - Add the ability to close a subaccount
 - Fixed application misspellings
-- Sandbox class fixes 
+- Sandbox class fixes
 - Fix for ConnectAppList
 
 Version 3.3.7

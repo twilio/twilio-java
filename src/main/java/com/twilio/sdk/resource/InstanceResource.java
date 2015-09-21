@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InstanceResource.
  */
@@ -37,9 +36,7 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @param client the client
 	 */
 	public InstanceResource(final C client) {
-		super(client);
-		properties = new HashMap<String, Object>(0);
-		filters = new HashMap<String, String>(0);
+		this(client, null, null);
 	}
 
 	/**
@@ -49,14 +46,7 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @param properties the properties
 	 */
 	public InstanceResource(final C client, final Map<String, Object> properties) {
-		super(client);
-		filters = new HashMap<String, String>(0);
-		if (properties != null && !properties.isEmpty()) {
-			this.properties = new HashMap<String, Object>(properties);
-			setLoaded(true);
-		} else {
-			this.properties = new HashMap<String, Object>(0);
-		}
+		this(client, properties, null);
 	}
 
 	/**
@@ -68,13 +58,10 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 */
 	public InstanceResource(final C client, final Map<String, Object> properties, final Map<String, String> filters) {
 		super(client);
-		this.filters = new HashMap<String, String>(filters);
-		if (properties != null && !properties.isEmpty()) {
-			this.properties = new HashMap<String, Object>(properties);
-			setLoaded(true);
-		} else {
-			this.properties = new HashMap<String, Object>(0);
-		}
+
+		this.properties = properties == null ? new HashMap<String, Object>() : new HashMap<String, Object>(properties);
+		this.filters = filters == null ? new HashMap<String, String>() : new HashMap<String, String>(filters);
+		setLoaded(!this.properties.isEmpty());
 	}
 
 	private Object getAndLoadIfNecessary(final String name) {
@@ -113,12 +100,12 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 				+ " is an object.  Use getObject() instead.");
 	}
 
-  /**
-   * Gets the property as an Object.
-   *
-   * @param name the name of the property
-   * @return the property as an Object
-   */
+	/**
+	 * Gets the property as an Object.
+	 *
+	 * @param name the name of the property
+	 * @return the property as an Object
+	 */
 	public Object getObject(String name) {
 		Object prop = getAndLoadIfNecessary(name);
 
@@ -128,6 +115,17 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 		}
 
 		return prop;
+	}
+
+	/**
+	 * Gets property of Instance and attempts to cast to
+	 * desired result
+	 *
+	 * @param name name of property
+	 * @return casted property
+	 */
+	public <T> T getCastedObject(String name) {
+		return (T) getAndLoadIfNecessary(name);
 	}
 
 	/**

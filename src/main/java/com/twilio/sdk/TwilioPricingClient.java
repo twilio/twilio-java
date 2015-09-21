@@ -1,8 +1,10 @@
 package com.twilio.sdk;
 
+import com.twilio.sdk.resource.instance.pricing.MessagingCountry;
 import com.twilio.sdk.resource.instance.pricing.PhoneNumberCountry;
 import com.twilio.sdk.resource.instance.pricing.VoiceCountry;
 import com.twilio.sdk.resource.instance.pricing.VoiceNumber;
+import com.twilio.sdk.resource.list.pricing.MessagingCountryList;
 import com.twilio.sdk.resource.list.pricing.PhoneNumberCountryList;
 import com.twilio.sdk.resource.list.pricing.VoiceCountryList;
 
@@ -17,6 +19,7 @@ import com.twilio.sdk.resource.list.pricing.VoiceCountryList;
 public class TwilioPricingClient extends TwilioClient {
 
     public static final String DEFAULT_VERSION = "v1";
+    private static final String DEFAULT_PRICING_ENDPOINT = "https://pricing.twilio.com";
 
     /**
      * Construct a new TwilioPricingClient.
@@ -28,7 +31,7 @@ public class TwilioPricingClient extends TwilioClient {
      * @param authToken Your Twilio Account's authorization token
      */
     public TwilioPricingClient(final String accountSid, final String authToken) {
-        super(accountSid, authToken, "https://pricing.twilio.com");
+        this(accountSid, authToken, DEFAULT_PRICING_ENDPOINT);
     }
 
     /**
@@ -101,5 +104,14 @@ public class TwilioPricingClient extends TwilioClient {
         country.setRequestAccountSid(this.getAccountSid());
         return country;
     }
+
+    public MessagingCountryList getMessagingCountries() {
+        return new MessagingCountryList(this);
+    }
+
+    public MessagingCountry getMessagingCountry(final String isoCountry) {
+        return new MessagingCountry(this, isoCountry);
+    }
+
 
 }

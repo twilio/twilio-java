@@ -19,7 +19,8 @@ import java.util.Map;
 // TODO: Auto-generated Javadoc
 
 /**
- * The Class Call. For more information see <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
+ * The Class Call.
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/call">https://www.twilio.com/docs/api/rest/call</a>
  */
 public class Call extends InstanceResource<TwilioRestClient> {
 

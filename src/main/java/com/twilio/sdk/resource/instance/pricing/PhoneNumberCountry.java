@@ -2,6 +2,8 @@ package com.twilio.sdk.resource.instance.pricing;
 
 import com.twilio.sdk.TwilioPricingClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.Map;
 /**
  * Pricing information for Phone Numbers in a specific country.
  * <p/>
- * For more information see <a href="FIXME">the Twilio REST API documentation.</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/pricing">the Twilio REST API documentation.</a>
  */
 public class PhoneNumberCountry extends NextGenInstanceResource<TwilioPricingClient> {
 
@@ -68,14 +70,15 @@ public class PhoneNumberCountry extends NextGenInstanceResource<TwilioPricingCli
 	 * @return A list of objects with phone number pricing information.
 	 */
 	public List<NumberPrice> getPhoneNumberPrices() {
-		List<Map<String, String>> priceData = (List<Map<String, String>>) getObject("phone_number_prices");
+		List<Map<String, String>> priceData = getCastedObject("phone_number_prices");
 		List<NumberPrice> prices = new ArrayList<NumberPrice>();
 
-		for (Map<String, String> p : priceData) {
-			prices.add(new NumberPrice(NumberType.valueOf(p.get("number_type")
-			                                               .toUpperCase()), new BigDecimal(p.get("base_price")),
-			                           new BigDecimal(p.get("current_price"))));
-		}
+ 		for (Map<String, String> p : priceData) {
+			prices.add(new NumberPrice(
+				NumberType.valueOf(p.get("number_type").toUpperCase()),
+				new BigDecimal(p.get("base_price")),
+				new BigDecimal(p.get("current_price"))));
+			}
 		return prices;
 	}
 
@@ -83,11 +86,7 @@ public class PhoneNumberCountry extends NextGenInstanceResource<TwilioPricingCli
 		return "/" + TwilioPricingClient.DEFAULT_VERSION + "/PhoneNumbers/Countries/" + getIsoCountry();
 	}
 
-	/**
-	 * Holds pricing information for a specific type of Twilio Phone Number.
-	 */
 	public class NumberPrice {
-
 		private final NumberType numberType;
 		private final BigDecimal basePrice;
 		private final BigDecimal currentPrice;
@@ -99,27 +98,27 @@ public class PhoneNumberCountry extends NextGenInstanceResource<TwilioPricingCli
 		}
 
 		/**
-		 * The type of phone number these prices apply to.
-		 *
-		 * @return A value of the NumberType enum
+		 * The type of number for which this price applies,
+		 * e.g. NumberType.MOBILE
+		 * @return The number type
 		 */
 		public NumberType getNumberType() {
 			return numberType;
 		}
 
 		/**
-		 * The list price for this type of phone number.
-		 *
-		 * @return Price in fixed-point decimal units
+		 * The price per minute for inbound calls to numbers of this type,
+		 * before discounts have been applied.
+		 * @return Base inbound call price/minute.
 		 */
 		public BigDecimal getBasePrice() {
 			return basePrice;
 		}
 
 		/**
-		 * The price for this type of phone number after applying any discounts available for your account.
-		 *
-		 * @return Price in fixed-point decimal units
+		 * The price per minute for inbound calls to numbers of this type,
+		 * after available discounts have been applied.
+		 * @return Discounted inbound call price/minute.
 		 */
 		public BigDecimal getCurrentPrice() {
 			return currentPrice;
@@ -130,32 +129,28 @@ public class PhoneNumberCountry extends NextGenInstanceResource<TwilioPricingCli
 			if (this == o) {
 				return true;
 			}
+
 			if (o == null || getClass() != o.getClass()) {
 				return false;
 			}
 
 			NumberPrice that = (NumberPrice) o;
-
-			if (!basePrice.equals(that.basePrice)) {
-				return false;
-			}
-			if (!currentPrice.equals(that.currentPrice)) {
-				return false;
-			}
-			if (numberType != that.numberType) {
-				return false;
-			}
-
-			return true;
+			return new EqualsBuilder()
+					.append(basePrice, that.basePrice)
+					.append(currentPrice, that.currentPrice)
+					.append(numberType, that.numberType)
+					.isEquals();
 		}
 
 		@Override
 		public int hashCode() {
-			int result = numberType.hashCode();
-			result = 31 * result + basePrice.hashCode();
-			result = 31 * result + currentPrice.hashCode();
-			return result;
+			return new HashCodeBuilder()
+					.append(numberType)
+					.append(basePrice)
+					.append(currentPrice)
+					.toHashCode();
 		}
 	}
+
 
 }

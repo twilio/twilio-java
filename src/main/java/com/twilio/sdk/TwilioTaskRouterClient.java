@@ -1,11 +1,9 @@
 package com.twilio.sdk;
 
-import com.twilio.sdk.resource.factory.taskrouter.ActivityFactory;
-import com.twilio.sdk.resource.factory.taskrouter.TaskFactory;
-import com.twilio.sdk.resource.factory.taskrouter.TaskQueueFactory;
-import com.twilio.sdk.resource.factory.taskrouter.WorkerFactory;
-import com.twilio.sdk.resource.factory.taskrouter.WorkflowFactory;
-import com.twilio.sdk.resource.factory.taskrouter.WorkspaceFactory;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.taskrouter.Activity;
 import com.twilio.sdk.resource.instance.taskrouter.Event;
 import com.twilio.sdk.resource.instance.taskrouter.Reservation;
@@ -28,9 +26,6 @@ import com.twilio.sdk.resource.list.taskrouter.TaskQueueListStatistics;
 import com.twilio.sdk.resource.list.taskrouter.WorkerList;
 import com.twilio.sdk.resource.list.taskrouter.WorkflowList;
 import com.twilio.sdk.resource.list.taskrouter.WorkspaceList;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The client class that access http://taskrouter.twilio.com.
@@ -56,12 +51,12 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Activity createActivity(final String workspaceSid, final Map<String, String> properties) throws
 	                                                                                                TwilioRestException {
-		ActivityFactory activityFactory = new ActivityList(this, workspaceSid);
+		Factory<Activity> activityFactory = new ActivityList(this, workspaceSid);
 		return activityFactory.create(properties);
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.TaskQueue}.
 	 *
 	 * @param properties queue properties
 	 * @return created queue
@@ -69,24 +64,40 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public TaskQueue createTaskQueue(final String workspaceSid, final Map<String, String> properties) throws
 	                                                                                                  TwilioRestException {
-		TaskQueueFactory taskQueueFactory = new TaskQueueList(this, workspaceSid);
+		Factory<TaskQueue> taskQueueFactory = new TaskQueueList(this, workspaceSid);
 		return taskQueueFactory.create(properties);
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
 	 *
 	 * @param properties task properties
 	 * @return created task
 	 * @throws TwilioRestException
 	 */
 	public Task createTask(final String workspaceSid, final Map<String, String> properties) throws TwilioRestException {
-		TaskFactory taskFactory = new TaskList(this, workspaceSid);
+		Factory<Task> taskFactory = new TaskList(this, workspaceSid);
 		return taskFactory.create(properties);
+	}
+	
+	/**
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
+	 *
+	 * @param workspaceSid the workspace sid
+	 * @param workflowSid the workflow sid
+	 * @param attributes the Map of Attributes that will convert to JSON
+	 * @param priority the priority of the task (optional)
+	 * @param timeout the max timeout of the task (optional)
+	 * @return created task
+	 * @throws TwilioRestException
+	 */
+	public Task createTask(final String workspaceSid, final String workflowSid, final Map<String, String> attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
+		TaskList taskList = new TaskList(this, workspaceSid);
+		return taskList.create(workflowSid, attributes, priority, timeout);
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
 	 *
 	 * @param properties task properties
 	 * @return created worker
@@ -94,12 +105,26 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Worker createWorker(final String workspaceSid, final Map<String, String> properties) throws
 	                                                                                            TwilioRestException {
-		WorkerFactory factory = new WorkerList(this, workspaceSid);
+		Factory<Worker> factory = new WorkerList(this, workspaceSid);
 		return factory.create(properties);
+	}
+	
+	/**
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Worker}.
+	 * @param workspaceSid the workspace sid
+	 * @param friendlyName friendly name of the worker
+	 * @param attributes attributes of the worker
+	 * @param activitySid default activity of the worker
+	 * @return created worker
+	 * @throws TwilioRestException
+	 */
+	public Worker createWorker(final String workspaceSid, final String friendlyName, final Map<String, String> attributes, final String activitySid) throws TwilioRestException {
+		WorkerList workerList = new WorkerList(this, workspaceSid);
+		return workerList.create(friendlyName, attributes, activitySid);
 	}
 
 	/**
-	 * Create an {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
+	 * Create a {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}.
 	 *
 	 * @param properties task properties
 	 * @return created workflow
@@ -107,7 +132,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 */
 	public Workflow createWorkflow(final String workspaceSid, final Map<String, String> properties) throws
 	                                                                                                TwilioRestException {
-		WorkflowFactory factory = new WorkflowList(this, workspaceSid);
+		Factory<Workflow> factory = new WorkflowList(this, workspaceSid);
 		return factory.create(properties);
 	}
 
@@ -119,7 +144,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 * @throws TwilioRestException
 	 */
 	public Workspace createWorkspace(final Map<String, String> properties) throws TwilioRestException {
-		WorkspaceFactory workspaceFactory = new WorkspaceList(this);
+		Factory<Workspace> workspaceFactory = new WorkspaceList(this);
 		return workspaceFactory.create(properties);
 	}
 
@@ -451,7 +476,7 @@ public class TwilioTaskRouterClient extends TwilioClient {
 	 *
 	 * @param workspaceSid the workspace sid
 	 * @param filters the filters
-	 * @return tasks matching the filters
+	 * @return workers matching the filters
 	 */
 	public WorkerList getWorkers(final String workspaceSid, final Map<String, String> filters) {
 		WorkerList list = new WorkerList(this, workspaceSid, filters);

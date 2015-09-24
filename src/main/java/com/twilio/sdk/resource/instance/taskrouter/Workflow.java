@@ -1,10 +1,16 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
-
-import java.util.Date;
-import java.util.Map;
+import com.twilio.sdk.taskrouter.WorkflowConfiguration;
 
 /**
  * Workflows control how tasks will be prioritized and routed into Queues, and how Tasks should escalate in priority or
@@ -44,10 +50,10 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Workflow(final TwilioTaskRouterClient client, final String workspaceSid, final String workflowSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for an Workflow cannot be null");
 		}
-		if (workflowSid == null || "".equals(workflowSid)) {
+		if (StringUtils.isBlank(workflowSid)) {
 			throw new IllegalArgumentException("The workflowSid for an Workflow cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
@@ -70,6 +76,17 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public String getConfiguration() {
 		return getProperty("configuration");
+	}
+	
+	/**
+	 * WorkflowConfiguration object representing this Workflow
+	 *
+	 * @return the configuration
+	 * @throws IOException 
+	 */
+	public WorkflowConfiguration parseConfiguration() throws IOException {
+		String configurationJSON = getProperty("configuration");
+		return WorkflowConfiguration.parse(configurationJSON);
 	}
 
 	/**
@@ -123,8 +140,8 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 *
 	 * @return the task reservation timeout
 	 */
-	public String getTaskReservationTimeout() {
-		return getProperty("task_reservation_timeout");
+	public Integer getTaskReservationTimeout() {
+		return (Integer) getObject("task_reservation_timeout");
 	}
 
 	/**
@@ -134,6 +151,54 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public String getWorkspaceSid() {
 		return getProperty(WORKSPACE_SID_PROPERTY);
+	}
+	
+	/**
+	 * Get workflow statistics.
+	 * @return workflow statistics
+	 */
+	public WorkflowStatistics getStatistics() {
+		return getStatistics(new HashMap<String, String>());
+	}
+	
+	/**
+	 * Get workflow statistics.
+	 *
+	 * @param queryBuilder query builder which contains all parameters for the stats query request
+	 * @return workflow statistics
+	 */
+	public WorkflowStatistics getStatistics(final StatisticsQueryBuilder queryBuilder) {
+		Map<String, String> filters = new HashMap<String, String>();
+		Calendar startDate = queryBuilder.getStartDate();
+		Calendar endDate = queryBuilder.getEndDate();
+		Integer minutes = queryBuilder.getMinutes();
+		if(startDate != null) {
+			filters.put("StartDate", formatCalendar(startDate));
+		}
+		if(endDate != null) {
+			filters.put("EndDate", formatCalendar(endDate));
+		}
+		if(minutes != null) {
+			filters.put("Minutes", minutes.toString());
+		}
+		return getStatistics(filters);
+	}
+
+	/**
+	 * Get workflow statistics.
+	 *
+	 * @param filters the filters
+	 * @return workflow statistics
+	 */
+	public WorkflowStatistics getStatistics(final Map<String, String> filters) {
+		final String startDate = filters.get("StartDate");
+		final String endDate = filters.get("EndDate");
+		final String minutes = filters.get("Minutes");
+		if((startDate != null || endDate != null) && minutes != null) {
+			throw new IllegalArgumentException("Cannot provide Minutes in combination with StartDate or EndDate");
+		}
+		WorkflowStatistics statistics = new WorkflowStatistics(this.getClient(), this.getWorkspaceSid(), this.getSid(), filters);
+		return statistics;
 	}
 
 	@Override

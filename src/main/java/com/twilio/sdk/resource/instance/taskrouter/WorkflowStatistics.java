@@ -6,6 +6,8 @@ import com.twilio.sdk.resource.NextGenInstanceResource;
 import java.util.Calendar;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Statistics about {@link com.twilio.sdk.resource.instance.taskrouter.Workflow}
  * See <a href="https://www.twilio.com/docs/taskrouter/workflow-statistics">the TaskRouter documentation</a>.
@@ -45,10 +47,10 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	public WorkflowStatistics(final TwilioTaskRouterClient client, final String workspaceSid, final String workflowSid,
 	                          final Map<String, String> filters) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a WorkflowStatistics cannot be null");
 		}
-		if (workflowSid == null || "".equals(workflowSid)) {
+		if (StringUtils.isBlank(workflowSid)) {
 			throw new IllegalArgumentException("The workflowSid for a WorkflowStatistics cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
@@ -90,7 +92,7 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 * @return the end time
 	 */
 	public Calendar getEndTime() {
-		return parseCalendar((String) getCumulative().get("start_time"));
+		return parseCalendar((String) getCumulative().get("end_time"));
 	}
 
 	/**

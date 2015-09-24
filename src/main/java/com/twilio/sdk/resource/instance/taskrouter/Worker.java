@@ -1,10 +1,18 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
-
-import java.util.Date;
-import java.util.Map;
 
 /**
  * Workers represent an entity that is able to perform tasks, such as an agent working in a call center,
@@ -15,6 +23,8 @@ import java.util.Map;
 public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
+	
+	private static JSONParser parser = new JSONParser();
 
 	/**
 	 * Instantiates a worker.
@@ -44,14 +54,51 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Worker(final TwilioTaskRouterClient client, final String workspaceSid, final String workerSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for an Worker cannot be null");
 		}
-		if (workerSid == null || "".equals(workerSid)) {
+		if (StringUtils.isBlank(workerSid)) {
 			throw new IllegalArgumentException("The workerSid for an Worker cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(SID_PROPERTY, workerSid);
+	}
+	
+	/**
+	 * Update a worker's attributes and/or friendly name and/or activity
+	 * @param attributes attributes of a worker
+	 * @param friendlyName friendly name of a worker
+	 * @param activitySid activity of a worker
+	 * @throws TwilioRestException 
+	 */
+	public void update(final Map<String, String> attributes, final String friendlyName, final String activitySid) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		if(attributes != null) {
+			params.put("Attributes", JSONObject.toJSONString(attributes));
+		}else {
+			params.put("Attributes", "{}");
+		}
+		if(friendlyName != null) {
+			params.put("FriendlyName", friendlyName);
+		}
+		if(activitySid != null) {
+			params.put("ActivitySid", activitySid);
+		}
+		this.update(params);
+	}
+	
+	/**
+	 * Update a worker's activity
+	 * @param activitySid the activitysid to update the worker to
+	 * @throws TwilioRestException
+	 */
+	public void updateActivity(final String activitySid) throws TwilioRestException {
+		if (StringUtils.isBlank(activitySid)) {
+			throw new IllegalArgumentException("The activitySid for updating a Worker's Activity cannot be null");
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("ActivitySid", activitySid);
+		this.update(params);
 	}
 
 	/**
@@ -89,6 +136,17 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public String getAttributes() {
 		return getProperty("attributes");
+	}
+	
+	/**
+	 * A map that represents the JSON describing this Worker.
+	 *
+	 * @return the attributes
+	 * @throws ParseException 
+	 */
+	public Map<String, Object> parseAttributes() throws ParseException {
+		String attributes = getProperty("attributes");
+		return (Map<String, Object>) parser.parse(attributes);
 	}
 
 	/**
@@ -152,6 +210,54 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public boolean isAvailable() {
 		return (Boolean) getObject("available");
+	}
+	
+	/**
+	 * Get worker statistics.
+	 * @return worker statistics
+	 */
+	public WorkerStatistics getStatistics() {
+		return getWorkerStatistics(new HashMap<String, String>());
+	}
+	
+	/**
+	 * Get worker statistics.
+	 *
+	 * @param queryBuilder query builder which contains all parameters for the stats query request
+	 * @return worker statistics
+	 */
+	public WorkerStatistics getWorkerStatistics(final StatisticsQueryBuilder queryBuilder) {
+		Map<String, String> filters = new HashMap<String, String>();
+		Calendar startDate = queryBuilder.getStartDate();
+		Calendar endDate = queryBuilder.getEndDate();
+		Integer minutes = queryBuilder.getMinutes();
+		if(startDate != null) {
+			filters.put("StartDate", formatCalendar(startDate));
+		}
+		if(endDate != null) {
+			filters.put("EndDate", formatCalendar(endDate));
+		}
+		if(minutes != null) {
+			filters.put("Minutes", minutes.toString());
+		}
+		return getWorkerStatistics(filters);
+	}
+
+	/**
+	 * Get worker statistics.
+	 *
+	 * @param filters the filters
+	 * @return worker statistics
+	 */
+	public WorkerStatistics getWorkerStatistics(final Map<String, String> filters) {
+		final String startDate = filters.get("StartDate");
+		final String endDate = filters.get("EndDate");
+		final String minutes = filters.get("Minutes");
+		if((startDate != null || endDate != null) && minutes != null) {
+			throw new IllegalArgumentException("Cannot provide Minutes in combination with StartDate or EndDate");
+		}
+		WorkerStatistics statistics = new WorkerStatistics(this.getClient(), this.getWorkspaceSid(), this.getSid(), filters);
+		return statistics;
 	}
 
 	@Override

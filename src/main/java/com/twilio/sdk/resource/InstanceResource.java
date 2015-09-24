@@ -3,8 +3,10 @@ package com.twilio.sdk.resource;
 import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
+
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.NameValuePair;
+import org.json.simple.JSONObject;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -172,10 +174,19 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @see com.twilio.sdk.resource.Resource#parseResponse(com.twilio.sdk.TwilioRestResponse)
 	 */
 	@Override
-		protected void parseResponse(TwilioRestResponse response) {
-			Map<String, Object> properties = response.toMap();
-			this.properties = new HashMap<String, Object>(properties);
-		}
+	protected void parseResponse(TwilioRestResponse response) {
+		Map<String, Object> properties = response.toMap();
+		this.properties = new HashMap<String, Object>(properties);
+	}
+	
+	/**
+	 * Return a JSON representation of the properties of the object that are currently loaded
+	 * 
+	 * @return json of the properties of the object
+	 */
+	public String toJSON() {
+		return JSONObject.toJSONString(properties);
+	}
 
 	/**
 	 * return a date from the property string

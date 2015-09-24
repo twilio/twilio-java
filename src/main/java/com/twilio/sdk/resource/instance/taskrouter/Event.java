@@ -6,6 +6,8 @@ import com.twilio.sdk.resource.NextGenInstanceResource;
 import java.util.Calendar;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * TaskRouter logs Events for each state change in the Workspace for the purpose of historical reporting and auditing.
  *
@@ -43,10 +45,10 @@ public class Event extends NextGenInstanceResource<TwilioTaskRouterClient> {
      */
     public Event(final TwilioTaskRouterClient client, final String workspaceSid, final String eventSid) {
         super(client);
-        if (workspaceSid == null || "".equals(workspaceSid)) {
+        if (StringUtils.isBlank(workspaceSid)) {
             throw new IllegalArgumentException("The workspaceSid for an Worker cannot be null");
         }
-        if (eventSid == null || "".equals(eventSid)) {
+        if (StringUtils.isBlank(eventSid)) {
             throw new IllegalArgumentException("The eventSid for an Event cannot be null");
         }
         setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);

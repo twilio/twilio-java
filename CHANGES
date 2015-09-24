@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.2.0
+-------------
+
+Released September 24, 2015
+
+- Add support for TaskRouter reservations
+- Add support for TaskRouter TwiML verbs
+
 Version 5.1.0
 -------------
 

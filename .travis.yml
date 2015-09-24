@@ -1,4 +1,5 @@
 language: java
+sudo: false
 notifications:
   slack:
     on_success: change

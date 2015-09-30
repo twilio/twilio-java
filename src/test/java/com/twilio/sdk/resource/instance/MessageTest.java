@@ -26,6 +26,7 @@ public class MessageTest {
 
 		map.put("to", "+19197404420");
 		map.put("from", "+19192386150");
+    map.put("messaging_service_sid", "MSxxxxx");
 		map.put("body", "This message is a test!");
 		map.put("direction", "outbound-api");
 		map.put("price", "-0.010000");
@@ -49,6 +50,7 @@ public class MessageTest {
 
 		assertTrue(m.getTo().equals("+19197404420"));
 		assertTrue(m.getFrom().equals("+19192386150"));
+		assertTrue(m.getMessagingServiceSid().equals("MSxxxxx"));
 		assertTrue(m.getBody().equals("This message is a test!"));
 		assertTrue(m.getDirection().equals("outbound-api"));
 		assertTrue(m.getPrice().equals("-0.010000"));

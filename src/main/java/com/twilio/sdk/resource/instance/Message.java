@@ -149,6 +149,15 @@ public class Message extends InstanceResource<TwilioRestClient> {
 	}
 
 	/**
+	 * Gets the messaging service sid.
+	 *
+	 * @return the messaging service sid
+	 */
+	public String getMessagingServiceSid() {
+		return this.getProperty("messaging_service_sid");
+	}
+
+	/**
 	 * Gets the body.
 	 *
 	 * @return the body

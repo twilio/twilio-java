@@ -9,9 +9,9 @@
             "current_price": "3.00"
         },
         {
-            "number_type": "national",
+            "number_type": "toll free",
             "base_price": "1.00",
-            "current_price": "1.00"
+            "current_price": "2.00"
         }
     ],
     "price_unit": "USD"

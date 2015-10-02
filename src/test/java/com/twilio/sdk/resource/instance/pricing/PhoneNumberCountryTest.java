@@ -36,5 +36,10 @@ public class PhoneNumberCountryTest extends BasicRequestTester {
         assertEquals(NumberType.MOBILE, price.getNumberType());
         assertEquals(new BigDecimal("3.00"), price.getBasePrice());
         assertEquals(new BigDecimal("3.00"), price.getCurrentPrice());
+
+        price = numberPrices.get(1);
+        assertEquals(NumberType.TOLL_FREE, price.getNumberType());
+        assertEquals(new BigDecimal("1.00"), price.getBasePrice());
+        assertEquals(new BigDecimal("2.00"), price.getCurrentPrice());
     }
 }

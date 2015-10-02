@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.2.1
+-------------
+
+Released October 2, 2015
+
+- Normalized the Number type from spaces to underscore in Pricing Phone Number Country
+
 Version 5.2.0
 -------------
 

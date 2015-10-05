@@ -1,0 +1,33 @@
+{
+    "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "account_sid": "AC0123456789abcdef0123456789abcdef",
+    "trunk_sid": "TK68430bd1ea750bb544d7229e23344889",
+    "friendly_name": "(808) 925-2454",
+    "phone_number": "+18089252454",
+    "voice_url": "https://demo.twilio.com/welcome/voice/",
+    "voice_method": "POST",
+    "voice_fallback_url": "",
+    "voice_fallback_method": "POST",
+    "voice_caller_id_lookup": false,
+    "date_created": "2013-08-29T15:21:57Z",
+    "date_updated": "2015-08-26T12:29:57Z",
+    "sms_url": "",
+    "sms_method": "POST",
+    "sms_fallback_url": "",
+    "sms_fallback_method": "POST",
+    "capabilities": {
+        "voice": true,
+        "sms": false,
+        "mms": true
+    },
+    "status_callback": "",
+    "status_callback_method": "POST",
+    "api_version": "2010-04-01",
+    "voice_application_sid": null,
+    "sms_application_sid": "",
+    "address_requirements": "none",
+    "url": "http://localhost/v1/Trunks/TK68430bd1ea750bb544d7229e23344889/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "links": {
+        "phone_number": "http://localhost/v1/2010-04-01/Accounts/AC0123456789abcdef0123456789abcdef/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+}

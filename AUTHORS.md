@@ -23,6 +23,7 @@ A huge thanks to all of our contributors:
 - D Keith Casey Jr
 - Doug Black
 - Eric Anderle
+- Frank
 - Frank Stratton
 - Girish Bharadwaj
 - Guillaume BINET
@@ -32,11 +33,14 @@ A huge thanks to all of our contributors:
 - John A. Tamplin
 - Jon Plax
 - Justin Witz
+- Karthik H
 - Kevin Burke
 - Kevin Whinnery
 - Kyle Conroy
+- Marek Radonsky
 - Mario Niebla
 - Matt Nowack
+- Phani
 - RonaldWentworth
 - Sam Kimbrel
 - Sunil Veluvali

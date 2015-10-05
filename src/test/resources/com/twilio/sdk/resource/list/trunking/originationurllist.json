@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://trunking.stage.twilio.com/v1/Trunks/TK68430bd1ea750bb544d7229e23344889/OriginationUrls?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://trunking.stage.twilio.com/v1/Trunks/TK68430bd1ea750bb544d7229e23344889/OriginationUrls?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "origination_urls"
+  },
+  "origination_urls": [
+    {
+      "sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "account_sid": "AC0123456789abcdef0123456789abcdef",
+      "trunk_sid": "TK68430bd1ea750bb544d7229e23344889",
+      "weight": 1,
+      "enabled": true,
+      "sip_url": "sip://url",
+      "friendly_name": "name",
+      "priority": 1,
+      "date_created": "2013-08-29T15:21:57Z",
+      "date_updated": "2015-08-26T12:29:57Z",
+      "url": "http://localhost/v1/Trunks/TK68430bd1ea750bb544d7229e23344889/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ]
+}

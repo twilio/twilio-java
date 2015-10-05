@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 
+import com.twilio.sdk.*;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -25,11 +26,11 @@ import com.twilio.sdk.TwilioTaskRouterClient;
 
 public class BasicRequestTester {
 
-	final String accountSid = "AC0123456789abcdef0123456789abcdef";
-	final String authtoken = "0123456789abcdef0123456789abcdef";
+	protected final String accountSid = "AC0123456789abcdef0123456789abcdef";
+	protected final String authtoken = "0123456789abcdef0123456789abcdef";
 
 	@Mock
-	HttpClient httpClient;
+	protected HttpClient httpClient;
 
 	protected TwilioRestClient restClient = new TwilioRestClient(accountSid, authtoken);
 	protected TwilioPricingClient pricingClient = new TwilioPricingClient(accountSid, authtoken);
@@ -37,6 +38,7 @@ public class BasicRequestTester {
 	protected LookupsClient lookupsClient = new LookupsClient(accountSid, authtoken);
 	protected TwilioMonitorClient monitorClient = new TwilioMonitorClient(accountSid, authtoken);
 	protected TwilioConversationsClient conversationsClient = new TwilioConversationsClient(accountSid, authtoken);
+	protected TwilioTrunkingClient trunkingClient = new TwilioTrunkingClient(accountSid, authtoken);
 
 	protected BasicHttpResponse response = mock(BasicHttpResponse.class);
 	protected Header[] headers = {mock(Header.class)};
@@ -52,6 +54,7 @@ public class BasicRequestTester {
 		lookupsClient.setHttpClient(httpClient);
 		monitorClient.setHttpClient(httpClient);
 		conversationsClient.setHttpClient(httpClient);
+		trunkingClient.setHttpClient(httpClient);
 
 		when(headers[0].getValue()).thenReturn("application/xml");
 		when(response.getHeaders("Content-Type")).thenReturn(headers);
@@ -76,5 +79,4 @@ public class BasicRequestTester {
 	protected void setExpectedServerContentType(final String content_type) {
 		when(headers[0].getValue()).thenReturn("application/json");
 	}
-
 }

@@ -32,6 +32,20 @@ public class TaskTest extends BasicRequestTester {
 		assertEquals("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", task.getWorkflowSid());
 		assertEquals(60, task.getTimeout());
 	}
+	
+	@Test
+	public void testCreateTaskWithMap() throws Exception {
+		setExpectedServerReturnCode(201);
+		Map<String, String> attributes = new HashMap<String, String>();
+		attributes.put("body", "hello");
+		Task task = taskRouterClient.createTask("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", attributes, null, 60);
+		assertNotNull(task);
+		assertEquals("{\"body\": \"hello\"}", task.getAttributes());
+		assertEquals(attributes, task.parseAttributes());
+		assertEquals("hello", task.parseAttributes().get("body"));
+		assertEquals("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", task.getWorkflowSid());
+		assertEquals(60, task.getTimeout());
+	}
 
 	@Test
 	public void testDeleteTask() throws Exception {

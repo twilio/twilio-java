@@ -41,7 +41,7 @@ public class SipTest {
 		sip.setStatusCallback("http://example.com");
 		sip.setStatusCallbackMethod("POST");
 		sip.setStatusCallbackEvents("ringing completed");
-		assertEquals("<Sip statusCallback=\"http://example.com\" statusCallbackMethod=\"POST\" statusCallbackEvents=\"ringing completed\"><Uri>sip:alice@twilio.com;transport=udp</Uri></Sip>",
+		assertEquals("<Sip statusCallback=\"http://example.com\" statusCallbackMethod=\"POST\" statusCallbackEvent=\"ringing completed\"><Uri>sip:alice@twilio.com;transport=udp</Uri></Sip>",
 				sip.toXML());
 	}
 }

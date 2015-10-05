@@ -6,6 +6,8 @@ import com.twilio.sdk.resource.NextGenInstanceResource;
 import java.util.Calendar;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Activities describe the current status of your {@link com.twilio.sdk.resource.instance.taskrouter.Worker}
  * resources, which determines whether they are eligible to receive {@link com.twilio.sdk.resource.instance.taskrouter.Task}
@@ -45,10 +47,10 @@ public class Activity extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Activity(final TwilioTaskRouterClient client, final String workspaceSid, final String activitySid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for an Activity cannot be null");
 		}
-		if (activitySid == null || "".equals(activitySid)) {
+		if (StringUtils.isBlank(activitySid)) {
 			throw new IllegalArgumentException("The activitySid for an Activity cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);

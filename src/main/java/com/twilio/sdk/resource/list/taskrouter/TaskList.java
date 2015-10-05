@@ -1,20 +1,23 @@
 package com.twilio.sdk.resource.list.taskrouter;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.json.simple.JSONObject;
+
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenListResource;
-import com.twilio.sdk.resource.factory.taskrouter.TaskFactory;
+import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.taskrouter.Task;
-import org.apache.http.NameValuePair;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * TaskList to work with {@link com.twilio.sdk.resource.instance.taskrouter.Task}.
  */
-public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> implements TaskFactory {
+public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> implements Factory<Task> {
 
 	private String workspaceSid;
 
@@ -49,6 +52,26 @@ public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> 
 
 	@Override
 	public Task create(final List<NameValuePair> params) throws TwilioRestException {
+		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
+		return makeNew(getClient(), response.toMap());
+	}
+
+	public Task create(final String workflowSid, final Map<String, String> attributes, final Integer priority, final Integer timeout) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("WorkflowSid", workflowSid);
+
+		if(attributes != null) {
+			params.put("Attributes", JSONObject.toJSONString(attributes));
+		}else {
+			params.put("Attributes", "{}");
+		}
+		if(priority != null) {
+			params.put("Priority", priority.toString());
+		}
+		if(timeout != null) {
+			params.put("Timeout", timeout.toString());
+		}
+
 		TwilioRestResponse response = getClient().safeRequest(getResourceLocation(), "POST", params);
 		return makeNew(getClient(), response.toMap());
 	}

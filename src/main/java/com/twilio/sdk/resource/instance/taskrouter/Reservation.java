@@ -1,10 +1,15 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
-
-import java.util.Date;
-import java.util.Map;
 
 /**
  * The Reservation subresource of {@link com.twilio.sdk.resource.instance.taskrouter.Task}
@@ -19,7 +24,11 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	private static final String TASK_SID_PROPERTY = "task_sid";
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
-
+	
+	private static final Map<String, String> ACCEPT_RESERVATION_PARAMS = Collections.unmodifiableMap(new HashMap<String, String>(){{ put("ReservationStatus", "accepted"); }});
+	
+	private static final Map<String, String> REJECT_RESERVATION_PARAMS = Collections.unmodifiableMap(new HashMap<String, String>(){{ put("ReservationStatus", "rejected"); }});
+	
 	/**
 	 * Instantiates a reservation.
 	 *
@@ -50,18 +59,34 @@ public class Reservation extends NextGenInstanceResource<TwilioTaskRouterClient>
 	public Reservation(final TwilioTaskRouterClient client, final String workspaceSid, final String taskSid,
 	                   final String reservationSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a Reservation cannot be null");
 		}
-		if (taskSid == null || "".equals(taskSid)) {
+		if (StringUtils.isBlank(taskSid)) {
 			throw new IllegalArgumentException("The taskSid for a Reservation cannot be null");
 		}
-		if (reservationSid == null || "".equals(reservationSid)) {
+		if (StringUtils.isBlank(reservationSid)) {
 			throw new IllegalArgumentException("The reservationSid for a Reservation cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(TASK_SID_PROPERTY, taskSid);
 		setProperty(SID_PROPERTY, reservationSid);
+	}
+	
+	/**
+	 * Accept a reservation
+	 * @throws TwilioRestException
+	 */
+	public void accept() throws TwilioRestException {
+		this.update(ACCEPT_RESERVATION_PARAMS);
+	}
+	
+	/** 
+	 * Reject a reservation
+	 * @throws TwilioRestException
+	 */
+	public void reject() throws TwilioRestException {
+		this.update(REJECT_RESERVATION_PARAMS);
 	}
 
 	/**

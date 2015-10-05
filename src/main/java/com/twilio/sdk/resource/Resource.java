@@ -1,10 +1,17 @@
 package com.twilio.sdk.resource;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Map;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
-
-import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -20,6 +27,9 @@ public abstract class Resource<C extends TwilioClient> {
 
 	/** The filters. */
 	protected Map<String, String> filters;
+	
+	/** Date formatting */
+	protected static final DateTimeFormatter ISO_8601_DATE_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").withZoneUTC();
 
 	/**
 	 * Instantiates a new resource.
@@ -102,7 +112,40 @@ public abstract class Resource<C extends TwilioClient> {
 	public void setRequestAccountSid(String sid) {
 		this.requestAccountSid = sid;
 	}
-
+	
+	/**
+	 * Parsing a date string formated in ISO8601 format to a Calendar
+	 * @param inDate string in ISO8601 format
+	 * @return the represented Calendar
+	 */
+	protected Calendar parseCalendar(final String inDate) {
+		if (inDate == null) {
+			return null;
+		}
+		
+		try {
+			GregorianCalendar c = new GregorianCalendar();
+			Date d = DateTime.parse(inDate, ISO_8601_DATE_FORMAT).toDate();
+			c.setTime(d);
+			return c;
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Formats a Calendar into an an ISO8601 date string
+	 * @param calendar the calendar to convert
+	 * @return the represented string
+	 */
+	protected String formatCalendar(final Calendar calendar) {
+		if(calendar == null) {
+			return null;
+		}
+		long millis = calendar.getTimeInMillis();
+		return ISO_8601_DATE_FORMAT.print(millis);
+	}
+	
 	/**
 	 * Gets the resource location.
 	 *

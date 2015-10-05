@@ -65,7 +65,16 @@ public class XmlResponseParser implements ResponseParser {
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
+
 		try {
+			// Configure the DocumentBuilderFactory to prevent XXE Processing
+			// {@link <a href="https://www.owasp.org/index.php/XML_External_Entity_%28XXE%29_Processing">OWASP Documentation</a>}
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+			factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+			factory.setXIncludeAware(false);
+			factory.setExpandEntityReferences(false);
+
 			builder = factory.newDocumentBuilder();
 			Document d = builder.parse(new InputSource(new StringReader(
 					xmlString)));
@@ -171,10 +180,6 @@ public class XmlResponseParser implements ResponseParser {
 			return "end";
 		case PAGE_KEY:
 			return "page";
-		case NUM_PAGES_KEY:
-			return "numpages";
-		case TOTAL_KEY:
-			return "total";
 		}
 
 		return null;

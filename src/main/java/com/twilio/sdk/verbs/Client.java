@@ -97,7 +97,7 @@ public class Client extends Verb {
 	 * @param events Events to provide callbacks for.
 	 */
 	public void setStatusCallbackEvents(String events) {
-		this.set("statusCallbackEvents", events);
+		this.set("statusCallbackEvent", events);
 	}
 }
 

@@ -3,8 +3,12 @@ package com.twilio.sdk.resource.instance.taskrouter;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * TaskQueues are the resource you use to categorize Tasks and describe which Workers are eligible to handle those Tasks.
@@ -44,10 +48,10 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public TaskQueue(final TwilioTaskRouterClient client, final String workspaceSid, final String queueSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a TaskQueue cannot be null");
 		}
-		if (queueSid == null || "".equals(queueSid)) {
+		if (StringUtils.isBlank(queueSid)) {
 			throw new IllegalArgumentException("The queueSid for a TaskQueue cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
@@ -146,6 +150,54 @@ public class TaskQueue extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public String getWorkspaceSid() {
 		return getProperty(WORKSPACE_SID_PROPERTY);
+	}
+	
+	/**
+	 * Get taskqueue statistics.
+	 * @return worker statistics
+	 */
+	public TaskQueueStatistics getStatistics() {
+		return getStatistics(new HashMap<String, String>());
+	}
+	
+	/**
+	 * Get taskqueue statistics.
+	 *
+	 * @param queryBuilder query builder which contains all parameters for the stats query request
+	 * @return task queue statistics
+	 */
+	public TaskQueueStatistics getStatistics(final StatisticsQueryBuilder queryBuilder) {
+		Map<String, String> filters = new HashMap<String, String>();
+		Calendar startDate = queryBuilder.getStartDate();
+		Calendar endDate = queryBuilder.getEndDate();
+		Integer minutes = queryBuilder.getMinutes();
+		if(startDate != null) {
+			filters.put("StartDate", formatCalendar(startDate));
+		}
+		if(endDate != null) {
+			filters.put("EndDate", formatCalendar(endDate));
+		}
+		if(minutes != null) {
+			filters.put("Minutes", minutes.toString());
+		}
+		return getStatistics(filters);
+	}
+
+	/**
+	 * Get taskqueue statistics.
+	 *
+	 * @param filters the filters
+	 * @return taskqueue statistics
+	 */
+	public TaskQueueStatistics getStatistics(final Map<String, String> filters) {
+		final String startDate = filters.get("StartDate");
+		final String endDate = filters.get("EndDate");
+		final String minutes = filters.get("Minutes");
+		if((startDate != null || endDate != null) && minutes != null) {
+			throw new IllegalArgumentException("Cannot provide Minutes in combination with StartDate or EndDate");
+		}
+		TaskQueueStatistics statistics = new TaskQueueStatistics(this.getClient(), this.getWorkspaceSid(), this.getSid(), filters);
+		return statistics;
 	}
 
 	@Override

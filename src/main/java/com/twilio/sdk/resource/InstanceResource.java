@@ -3,8 +3,10 @@ package com.twilio.sdk.resource;
 import com.twilio.sdk.TwilioClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
+
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.NameValuePair;
+import org.json.simple.JSONObject;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -12,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InstanceResource.
  */
@@ -25,6 +26,9 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
     /** The Constant SID_PROPERTY. */
 	protected static final String SID_PROPERTY = "sid";
 
+	/** The Constant ACCOUNT_SID. */
+	protected static final String ACCOUNT_SID_PROPERTY = "account_sid";
+
 	/** The properties. */
 	private Map<String, Object> properties;
 
@@ -34,9 +38,7 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @param client the client
 	 */
 	public InstanceResource(final C client) {
-		super(client);
-		properties = new HashMap<String, Object>(0);
-		filters = new HashMap<String, String>(0);
+		this(client, null, null);
 	}
 
 	/**
@@ -46,14 +48,7 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @param properties the properties
 	 */
 	public InstanceResource(final C client, final Map<String, Object> properties) {
-		super(client);
-		filters = new HashMap<String, String>(0);
-		if (properties != null && !properties.isEmpty()) {
-			this.properties = new HashMap<String, Object>(properties);
-			setLoaded(true);
-		} else {
-			this.properties = new HashMap<String, Object>(0);
-		}
+		this(client, properties, null);
 	}
 
 	/**
@@ -65,13 +60,10 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 */
 	public InstanceResource(final C client, final Map<String, Object> properties, final Map<String, String> filters) {
 		super(client);
-		this.filters = new HashMap<String, String>(filters);
-		if (properties != null && !properties.isEmpty()) {
-			this.properties = new HashMap<String, Object>(properties);
-			setLoaded(true);
-		} else {
-			this.properties = new HashMap<String, Object>(0);
-		}
+
+		this.properties = properties == null ? new HashMap<String, Object>() : new HashMap<String, Object>(properties);
+		this.filters = filters == null ? new HashMap<String, String>() : new HashMap<String, String>(filters);
+		setLoaded(!this.properties.isEmpty());
 	}
 
 	private Object getAndLoadIfNecessary(final String name) {
@@ -110,12 +102,12 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 				+ " is an object.  Use getObject() instead.");
 	}
 
-  /**
-   * Gets the property as an Object.
-   *
-   * @param name the name of the property
-   * @return the property as an Object
-   */
+	/**
+	 * Gets the property as an Object.
+	 *
+	 * @param name the name of the property
+	 * @return the property as an Object
+	 */
 	public Object getObject(String name) {
 		Object prop = getAndLoadIfNecessary(name);
 
@@ -125,6 +117,17 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 		}
 
 		return prop;
+	}
+
+	/**
+	 * Gets property of Instance and attempts to cast to
+	 * desired result
+	 *
+	 * @param name name of property
+	 * @return casted property
+	 */
+	public <T> T getCastedObject(String name) {
+		return (T) getAndLoadIfNecessary(name);
 	}
 
 	/**
@@ -180,10 +183,19 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @see com.twilio.sdk.resource.Resource#parseResponse(com.twilio.sdk.TwilioRestResponse)
 	 */
 	@Override
-		protected void parseResponse(TwilioRestResponse response) {
-			Map<String, Object> properties = response.toMap();
-			this.properties = new HashMap<String, Object>(properties);
-		}
+	protected void parseResponse(TwilioRestResponse response) {
+		Map<String, Object> properties = response.toMap();
+		this.properties = new HashMap<String, Object>(properties);
+	}
+	
+	/**
+	 * Return a JSON representation of the properties of the object that are currently loaded
+	 * 
+	 * @return json of the properties of the object
+	 */
+	public String toJSON() {
+		return JSONObject.toJSONString(properties);
+	}
 
 	/**
 	 * return a date from the property string

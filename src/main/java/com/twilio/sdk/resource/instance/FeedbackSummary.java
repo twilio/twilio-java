@@ -17,7 +17,6 @@ import java.util.Set;
  */
 public class FeedbackSummary extends InstanceResource<TwilioRestClient> {
 
-	public static final String ACCOUNT_SID_PROPERTY = "account_sid";
 	public static final String CALL_COUNT_PROPERTY = "call_count";
 	public static final String CALL_FEEDBACK_COUNT_PROPERTY = "call_feedback_count";
 	public static final String END_DATE_PROPERTY = "end_date";

@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Statistics about {@link com.twilio.sdk.resource.instance.taskrouter.Workspace}
  *
@@ -45,7 +47,7 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	public WorkspaceStatistics(final TwilioTaskRouterClient client, final String workspaceSid,
 	                           final Map<String, String> filters) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for a WorkspaceStatistics cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
@@ -108,7 +110,7 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	 * @return the end time
 	 */
 	public Calendar getEndTime() {
-		return parseCalendar((String) getCumulative().get("start_time"));
+		return parseCalendar((String) getCumulative().get("end_time"));
 	}
 
 	/**

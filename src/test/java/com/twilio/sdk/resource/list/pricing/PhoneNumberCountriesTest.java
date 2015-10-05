@@ -1,7 +1,7 @@
-package com.twilio.sdk.resource.instance.pricing;
+package com.twilio.sdk.resource.list.pricing;
 
 import com.twilio.sdk.resource.instance.BasicRequestTester;
-import com.twilio.sdk.resource.list.pricing.PhoneNumberCountryList;
+import com.twilio.sdk.resource.instance.pricing.PhoneNumberCountry;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,10 +25,10 @@ public class PhoneNumberCountriesTest extends BasicRequestTester {
         PhoneNumberCountryList phoneNumberCountries = pricingClient.getPhoneNumberCountries();
         assertNotNull(phoneNumberCountries);
 
-        List<PhoneNumberCountry> list = phoneNumberCountries.getPageData();
-        assertEquals(3, list.size());
+        List<PhoneNumberCountry> dataList = phoneNumberCountries.getPageData();
+        assertEquals(3, dataList.size());
 
-        PhoneNumberCountry country = list.get(0);
+        PhoneNumberCountry country = dataList.get(0);
         assertEquals("AC", country.getIsoCountry());
         assertEquals("Ascension", country.getCountry());
     }

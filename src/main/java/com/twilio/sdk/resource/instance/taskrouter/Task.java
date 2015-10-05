@@ -1,10 +1,18 @@
 package com.twilio.sdk.resource.instance.taskrouter;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
-
-import java.util.Date;
-import java.util.Map;
+import com.twilio.sdk.resource.list.taskrouter.ReservationList;
 
 /**
  * A Task resource represents a single item of work waiting to be processed.
@@ -14,6 +22,8 @@ import java.util.Map;
 public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
+	
+	private static JSONParser parser = new JSONParser();
 
 	/**
 	 * Instantiates a task.
@@ -43,14 +53,47 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public Task(final TwilioTaskRouterClient client, final String workspaceSid, final String taskSid) {
 		super(client);
-		if (workspaceSid == null || "".equals(workspaceSid)) {
+		if (StringUtils.isBlank(workspaceSid)) {
 			throw new IllegalArgumentException("The workspaceSid for an Task cannot be null");
 		}
-		if (taskSid == null || "".equals(taskSid)) {
+		if (StringUtils.isBlank(taskSid)) {
 			throw new IllegalArgumentException("The taskSid for an Task cannot be null");
 		}
 		setProperty(WORKSPACE_SID_PROPERTY, workspaceSid);
 		setProperty(SID_PROPERTY, taskSid);
+	}
+	
+	/**
+	 * Update a task with new attributes and/or priority
+	 * @param attributes new attributes for the task
+	 * @param priority new priority of the task
+	 * @throws TwilioRestException
+	 */
+	public void update(final Map<String, String> attributes, final Integer priority) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		if(attributes != null) {
+			params.put("Attributes", JSONObject.toJSONString(attributes));
+		}else {
+			params.put("Attributes", "{}");
+		}
+		if(priority != null) {
+			params.put("Priority", priority.toString());
+		}
+		this.update(params);
+	}
+	
+	/**
+	 * Cancel a task with an optional reason
+	 * @param reason optional reason for cancellation
+	 * @throws TwilioRestException
+	 */
+	public void cancel(final String reason) throws TwilioRestException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("AssignmentStatus", "canceled");
+		if(reason != null) {
+			params.put("Reason", reason);
+		}
+		this.update(params);
 	}
 
 	/**
@@ -86,12 +129,23 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	}
 
 	/**
-	 * The user-defined JSON string describing the custom attributes of this work.
+	 * A user-defined JSON object describing this Task.
 	 *
 	 * @return the attributes
 	 */
 	public String getAttributes() {
 		return getProperty("attributes");
+	}
+	
+	/**
+	 * A map that represents the JSON describing this Task.
+	 *
+	 * @return the attributes
+	 * @throws ParseException 
+	 */
+	public Map<String, Object> parseAttributes() throws ParseException {
+		String attributes = getProperty("attributes");
+		return (Map<String, Object>) parser.parse(attributes);
 	}
 
 	/**
@@ -178,6 +232,15 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 */
 	public String getReason() {
 		return getProperty("reason");
+	}
+
+	/**
+	 * Retrieve the {@link com.twilio.sdk.resource.list.taskrouter.ReservationList} for this Task.
+	 * @return
+	 */
+	public ReservationList getReservations() {
+		ReservationList list = new ReservationList(this.getClient(), this.getWorkspaceSid(), this.getSid());
+		return list;
 	}
 
 	@Override

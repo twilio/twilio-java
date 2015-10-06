@@ -1,0 +1,17 @@
+{
+  "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "account_sid": "ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "friendly_name": "7891fa2c-e8cb-4d64-8e31-a8783ac6998e",
+  "date_created": "2015-09-01T23:08:39Z",
+  "date_updated": "2015-09-01T23:08:39Z",
+  "default_service_role_sid": "admin",
+  "default_channel_role_sid": "creator",
+  "typing_indicator_timeout": 5,
+  "webhooks": {},
+  "url": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "links": {
+    "channels": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
+    "roles": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles",
+    "users": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users"
+  }
+}

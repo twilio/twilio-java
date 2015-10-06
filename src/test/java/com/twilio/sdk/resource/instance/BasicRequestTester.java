@@ -39,6 +39,7 @@ public class BasicRequestTester {
 	protected TwilioMonitorClient monitorClient = new TwilioMonitorClient(accountSid, authtoken);
 	protected TwilioConversationsClient conversationsClient = new TwilioConversationsClient(accountSid, authtoken);
 	protected TwilioTrunkingClient trunkingClient = new TwilioTrunkingClient(accountSid, authtoken);
+	protected TwilioIPMessagingClient ipMessagingClient = new TwilioIPMessagingClient(accountSid, authtoken);
 
 	protected BasicHttpResponse response = mock(BasicHttpResponse.class);
 	protected Header[] headers = {mock(Header.class)};
@@ -55,6 +56,7 @@ public class BasicRequestTester {
 		monitorClient.setHttpClient(httpClient);
 		conversationsClient.setHttpClient(httpClient);
 		trunkingClient.setHttpClient(httpClient);
+		ipMessagingClient.setHttpClient(httpClient);
 
 		when(headers[0].getValue()).thenReturn("application/xml");
 		when(response.getHeaders("Content-Type")).thenReturn(headers);

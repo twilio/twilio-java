@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 1,
+    "first_page_url": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=1&Page=0",
+    "previous_page_url": null,
+    "url": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=1&Page=0",
+    "next_page_url": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=1&Page=1&PageToken=PTRL3aaf130ec01e4deea5be4a8527eb6c13",
+    "key": "roles"
+  },
+  "roles": [
+    {
+      "sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "friendly_name": "admin",
+      "type": "deployment",
+      "permissions": [
+        "createChannel",
+        "sendMessage",
+        "joinChannel"
+      ],
+      "date_created": "2015-09-01T23:08:39Z",
+      "date_updated": "2015-09-01T23:08:39Z",
+      "url": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ]
+}

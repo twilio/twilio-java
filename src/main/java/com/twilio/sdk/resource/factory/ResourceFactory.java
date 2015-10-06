@@ -15,5 +15,4 @@ public interface ResourceFactory<T extends Resource<?>> {
     public T create(Map<String, String> params) throws TwilioRestException;
 
     public T create(List<NameValuePair> params) throws TwilioRestException;
-
 }

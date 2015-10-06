@@ -7,7 +7,6 @@ import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.factory.ResourceFactory;
 import com.twilio.sdk.resource.instance.ipmessaging.Credential;
 import org.apache.http.NameValuePair;
-import sun.java2d.CRenderer;
 
 import java.util.List;
 import java.util.Map;

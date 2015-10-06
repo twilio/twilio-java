@@ -106,7 +106,6 @@ public class ParticipantTest extends BasicRequestTester {
 		try {
 			ISO_8601_DATE_FORMAT.getCalendar().setTimeZone(TimeZone.getTimeZone("UTC"));
 			GregorianCalendar c = new GregorianCalendar();
-			c.setTimeZone(TimeZone.getTimeZone("UTC"));
 			c.setTime(ISO_8601_DATE_FORMAT.parse(date));
 			return c;
 		} catch (ParseException e) {

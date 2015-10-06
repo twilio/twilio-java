@@ -3,8 +3,8 @@
   <groupId>com.twilio.sdk</groupId>
   <artifactId>twilio-java-sdk</artifactId>
   <packaging>jar</packaging>
-  <name>twilio-java-sdk</name>
-  <version>5.2.2-SNAPSHOT</version>
+  <name>twilio-java-sdk-beta</name>
+  <version>5.2.1-SNAPSHOT</version>
   <description>Java helper library for Twilio services</description>
   <url>http://www.twilio.com</url>
   <licenses>

@@ -25,7 +25,6 @@ public class Key extends InstanceResource<TwilioRestClient> {
             throw new IllegalArgumentException("sid for a Key cannot be null");
         }
         setProperty(SID_PROPERTY, sid);
-        setRequestAccountSid(getRequestAccountSid());
     }
 
     /**

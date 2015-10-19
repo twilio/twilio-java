@@ -4,43 +4,14 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.InstanceResource;
-import com.twilio.sdk.resource.factory.AddressFactory;
-import com.twilio.sdk.resource.factory.ApplicationFactory;
-import com.twilio.sdk.resource.factory.CallFactory;
-import com.twilio.sdk.resource.factory.IncomingPhoneNumberFactory;
-import com.twilio.sdk.resource.factory.MessageFactory;
-import com.twilio.sdk.resource.factory.OutgoingCallerIdFactory;
-import com.twilio.sdk.resource.factory.QueueFactory;
-import com.twilio.sdk.resource.factory.SigningKeyFactory;
-import com.twilio.sdk.resource.factory.SmsFactory;
-import com.twilio.sdk.resource.factory.UsageTriggerFactory;
+import com.twilio.sdk.resource.factory.*;
 import com.twilio.sdk.resource.factory.sip.CredentialListFactory;
 import com.twilio.sdk.resource.factory.sip.DomainFactory;
 import com.twilio.sdk.resource.factory.sip.IpAccessControlListFactory;
 import com.twilio.sdk.resource.instance.sip.CredentialListInstance;
 import com.twilio.sdk.resource.instance.sip.Domain;
 import com.twilio.sdk.resource.instance.sip.IpAccessControlList;
-import com.twilio.sdk.resource.list.AddressList;
-import com.twilio.sdk.resource.list.ApplicationList;
-import com.twilio.sdk.resource.list.AuthorizedConnectAppList;
-import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
-import com.twilio.sdk.resource.list.CallList;
-import com.twilio.sdk.resource.list.ConferenceList;
-import com.twilio.sdk.resource.list.ConnectAppList;
-import com.twilio.sdk.resource.list.IncomingPhoneNumberList;
-import com.twilio.sdk.resource.list.MediaList;
-import com.twilio.sdk.resource.list.MessageList;
-import com.twilio.sdk.resource.list.NotificationList;
-import com.twilio.sdk.resource.list.OutgoingCallerIdList;
-import com.twilio.sdk.resource.list.QueueList;
-import com.twilio.sdk.resource.list.RecordingList;
-import com.twilio.sdk.resource.list.ShortCodeList;
-import com.twilio.sdk.resource.list.SigningKeyList;
-import com.twilio.sdk.resource.list.SmsList;
-import com.twilio.sdk.resource.list.TokenList;
-import com.twilio.sdk.resource.list.TranscriptionList;
-import com.twilio.sdk.resource.list.UsageRecordList;
-import com.twilio.sdk.resource.list.UsageTriggerList;
+import com.twilio.sdk.resource.list.*;
 import com.twilio.sdk.resource.list.sip.CredentialListList;
 import com.twilio.sdk.resource.list.sip.DomainList;
 import com.twilio.sdk.resource.list.sip.IpAccessControlListList;
@@ -653,8 +624,41 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 * 
 	 * @return a Signing key factory
 	 */
-	public SigningKeyFactory getSigningKeyFactory() {
+	public SigningKeyFactory getSigningKeys() {
 		SigningKeyList list = new SigningKeyList(getClient());
+		list.setRequestAccountSid(getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Get a auth key instance by sid
+	 *
+	 * @param sid sid of auth key
+	 * @return the auth key
+	 */
+	public Key getKey(final String sid) {
+		Key key = new Key(getClient(), sid);
+		key.setRequestAccountSid(getRequestAccountSid());
+		return key;
+	}
+
+	/**
+	 * Get a auth key factory
+	 *
+	 * @return a auth key factory
+	 */
+	public KeyList getKeys() {
+		return this.getKeys(null);
+	}
+
+	/**
+	 * Get a auth key factory
+	 *
+	 * @param filters the set of filters
+	 * @return a auth key factory
+	 */
+	public KeyList getKeys(Map<String, String> filters) {
+		KeyList list = new KeyList(getClient(), filters);
 		list.setRequestAccountSid(getRequestAccountSid());
 		return list;
 	}

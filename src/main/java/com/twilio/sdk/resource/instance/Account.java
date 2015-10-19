@@ -624,7 +624,7 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 * 
 	 * @return a Signing key factory
 	 */
-	public SigningKeyFactory getSigningKeys() {
+	public SigningKeyFactory getSigningKeyFactory() {
 		SigningKeyList list = new SigningKeyList(getClient());
 		list.setRequestAccountSid(getRequestAccountSid());
 		return list;

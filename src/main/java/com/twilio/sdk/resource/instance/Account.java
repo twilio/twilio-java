@@ -1170,7 +1170,6 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 * <p/>
 	 * <a href="https://www.twilio.com/docs/api/rest/tokens">https://www.twilio.com/docs/api/rest/tokens</a>
 	 *
-	 * @param filters the filters
 	 * @return the token factory
 	 */
 	public TokenList getTokenFactory() {

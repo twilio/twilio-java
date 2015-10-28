@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.3.0-edge
+-------------
+
+Released October 28, 2015
+
+- Add Keys endpoint
+
+
 Version 5.2.1
 -------------
 

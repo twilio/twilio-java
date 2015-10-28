@@ -86,7 +86,7 @@ public class SigningKey extends NextGenInstanceResource<TwilioRestClient> {
 	}
 
 	/**
-	 * Delete the singing key.
+	 * Delete the SigningKey.
 	 *
 	 * @return true, if successful
 	 * @throws TwilioRestException if there is an error in the request

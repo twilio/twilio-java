@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * The Class SigningKeyList.
  * <p/>
- * For more information see <a href="https://www.twilio.com/docs/api/rest/signing-key">https://www.twilio.com/docs/api/rest/signing-key</a>
+ * For more information see <a href="https://www.twilio.com/docs/api/rest/signing-keys">https://www.twilio.com/docs/api/rest/signing-keys</a>
  */
 public class SigningKeyList extends ListResource<SigningKey, TwilioRestClient> implements SigningKeyFactory {
 

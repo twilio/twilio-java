@@ -39,6 +39,7 @@ import java.util.Map;
 public abstract class TwilioClient {
 
 	private static final int ACCOUNT_SID_LENGTH = 34;
+	private static final int AUTH_TOKEN_LENGTH = 32;
 
 	/** The Constant VERSION. */
 	private static final String VERSION = "5.3.0-edge";
@@ -468,9 +469,24 @@ public abstract class TwilioClient {
 		if (httpclient instanceof DefaultHttpClient) { // as DefaultHttpClient class has final method, I need httpClient to be a plain interface to be able to mock it
 			((DefaultHttpClient) httpclient).getCredentialsProvider()
 					.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-							new UsernamePasswordCredentials(accountSid, authToken));
+							new UsernamePasswordCredentials(getAuthUsername(), authToken));
 		}
 		return request;
+	}
+
+	/**
+	 * Return the username to use for basic auth.
+	 *
+	 * This can be the account sid if an auth token is provided. Or it can be "Token" if an
+	 * access token is provided.
+	 *
+	 * @return The username to use for basic auth
+	 */
+	private String getAuthUsername() {
+		if (authToken.length() == AUTH_TOKEN_LENGTH) {
+			return accountSid;
+		}
+		return "Token";
 	}
 
 	/**

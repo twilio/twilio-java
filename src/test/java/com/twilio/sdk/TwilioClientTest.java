@@ -1,11 +1,9 @@
 package com.twilio.sdk;
 
-import org.junit.BeforeClass;
+import com.twilio.sdk.auth.AccessToken;
+import com.twilio.sdk.auth.Grant;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -16,17 +14,22 @@ import static org.junit.Assert.assertTrue;
  */
 public class TwilioClientTest {
 
-	private static Field authTokenField;
-	private static Method setupRequestMethod;
+	private static final String SIGNING_KEY_SID = "SK123";
+	private static final String SECRET = "secret";
 
-	@BeforeClass
-	public static void classSetup() throws NoSuchMethodException, NoSuchFieldException {
-		setupRequestMethod = TwilioClient.class.getDeclaredMethod("setupRequest", String.class, String.class,
-		                                                          List.class);
-		setupRequestMethod.setAccessible(true);
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidAccountSidAndToken() {
+		new TwilioRestClient("fake sid", "fake auth token");
+	}
 
-		authTokenField = TwilioClient.class.getDeclaredField("authToken");
-		authTokenField.setAccessible(true);
+	@Test
+	public void testAcceptAccessToken() {
+		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID,
+				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", SECRET);
+		accessToken.addGrant(new Grant("https://api.twilio.com/**"));
+
+		// should not throw
+		new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", accessToken.toJWT());
 	}
 
 	/**
@@ -34,14 +37,6 @@ public class TwilioClientTest {
 	 */
 	@Test
 	public void testTwilioRestClientStringString() {
-
-		// Should fail with invallid auth and token
-		try {
-			new TwilioRestClient("fake sid", "fake auth token");
-		} catch (final IllegalArgumentException e) {
-			assertTrue(true);
-		}
-
 		// Should construct with valid looking account sid and auth token
 		new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	}

@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.3.1-edge
+-------------
+
+Released October 29, 2015
+
+- Fix access token authentication
+
 Version 5.3.0-edge
 -------------
 

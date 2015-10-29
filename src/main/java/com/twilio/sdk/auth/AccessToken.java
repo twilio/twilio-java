@@ -40,7 +40,8 @@ public class AccessToken {
 	}
 
 	/**
-	 * Instantiate an access token.
+	 * Instantiate an access token.  It should be the 34 character unique identifier starting with 'AC'");
+	 *
 	 *
 	 * @param signingKeySid the signing key's unique ID
 	 * @param accountSid the account's unique ID to which access is scoped

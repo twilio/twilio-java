@@ -27,6 +27,7 @@ import com.twilio.sdk.resource.list.CallList;
 import com.twilio.sdk.resource.list.ConferenceList;
 import com.twilio.sdk.resource.list.ConnectAppList;
 import com.twilio.sdk.resource.list.IncomingPhoneNumberList;
+import com.twilio.sdk.resource.list.KeyList;
 import com.twilio.sdk.resource.list.MediaList;
 import com.twilio.sdk.resource.list.MessageList;
 import com.twilio.sdk.resource.list.NotificationList;
@@ -635,6 +636,39 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	}
 
 	/**
+	 * Get a auth key instance by sid
+	 *
+	 * @param sid sid of auth key
+	 * @return the auth key
+	 */
+	public Key getKey(final String sid) {
+		Key key = new Key(getClient(), sid);
+		key.setRequestAccountSid(getRequestAccountSid());
+		return key;
+	}
+
+	/**
+	 * Get a auth key factory
+	 *
+	 * @return a auth key factory
+	 */
+	public KeyList getKeys() {
+		return this.getKeys(null);
+	}
+
+	/**
+	 * Get a auth key factory
+	 *
+	 * @param filters the set of filters
+	 * @return a auth key factory
+	 */
+	public KeyList getKeys(Map<String, String> filters) {
+		KeyList list = new KeyList(getClient(), filters);
+		list.setRequestAccountSid(getRequestAccountSid());
+		return list;
+	}
+
+	/**
 	 * Gets the notifications.
 	 *
 	 * @return the notifications
@@ -1136,7 +1170,6 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 * <p/>
 	 * <a href="https://www.twilio.com/docs/api/rest/tokens">https://www.twilio.com/docs/api/rest/tokens</a>
 	 *
-	 * @param filters the filters
 	 * @return the token factory
 	 */
 	public TokenList getTokenFactory() {

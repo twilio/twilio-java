@@ -1,7 +1,7 @@
 package com.twilio.sdk;
 
 import com.twilio.sdk.auth.AccessToken;
-import com.twilio.sdk.auth.Grant;
+import com.twilio.sdk.auth.IpMessagingGrant;
 import org.junit.Test;
 
 import java.util.Map;
@@ -26,7 +26,7 @@ public class TwilioClientTest {
 	public void testAcceptAccessToken() {
 		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID,
 				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", SECRET);
-		accessToken.addGrant(new Grant("https://api.twilio.com/**"));
+		accessToken.addGrant(new IpMessagingGrant());
 
 		// should not throw
 		new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", accessToken.toJWT());

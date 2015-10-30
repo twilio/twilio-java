@@ -1,54 +1,21 @@
 package com.twilio.sdk.auth;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.HashSet;
-import java.util.Set;
-
-/**
- * A grant is given to a resource for a specified set of actions.
- */
-public class Grant {
-
-	private String resource;
-	private Set<Action> actions;
-
-	public Grant(final String resource) {
-		this(resource, Action.ALL);
-	}
-
-	public Grant(final String resource, final Action action) {
-		this(resource, new HashSet<Action>(1) {{ add(action); }});
-	}
+public interface Grant {
 
 	/**
-	 * Instantiate a Grant.
+	 * The key for the grant.
 	 *
-	 * @param resource the resource
-	 * @param actions the actions
+	 * @return
 	 */
-	public Grant(final String resource, final Set<Action> actions) {
-		this.resource = resource;
-		this.actions = actions;
-	}
+	public String getGrantKey();
 
 	/**
-	 * Get the resource
+	 * The payload for this grant.
 	 *
-	 * @return the resource
+	 * The payload allows us to decouple the user API from how the grant is structured.
+	 *
+	 * @return
 	 */
-	@JsonProperty("res")
-	public String getResource() {
-		return resource;
-	}
+	public Object getPayload();
 
-	/**
-	 * Get the actions.
-	 *
-	 * @return the actions
-	 */
-	@JsonProperty("act")
-	public Set<Action> getActions() {
-		return actions;
-	}
 }

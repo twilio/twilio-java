@@ -88,7 +88,7 @@ public class TwilioRestClientIntegrationTest {
         response_json.put("from", "+123");
         fakeHttpResponse.setEntity(new StringEntity(mapper.writeValueAsString(response_json), ContentType.APPLICATION_JSON));
 
-        AccessToken token = new AccessToken("signingId", ACCOUNT_SID, "signingKey");
+        AccessToken token = new AccessToken.Builder("signingId", ACCOUNT_SID, "signingKey").build();
         String jwt = token.toJWT();
 
         TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, jwt);

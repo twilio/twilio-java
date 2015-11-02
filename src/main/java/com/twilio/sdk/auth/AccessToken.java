@@ -4,11 +4,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class AccessToken {
 
@@ -16,29 +18,21 @@ public class AccessToken {
 	private final String keySid;
 	private final String secret;
 	private final int ttl;
-	private String identity;
-	private final List<Grant> grants = new ArrayList<Grant>();
 
-	public AccessToken(String accountSid, String keySid, String secret) {
-		this(accountSid, keySid, secret, 3600);
+	private final String identity;
+	private final Set<Grant> grants;
+
+	private AccessToken(Builder b) {
+		this.accountSid = b.accountSid;
+		this.keySid = b.keySid;
+		this.secret = b.secret;
+		this.ttl = b.ttl;
+		this.identity = b.identity;
+		this.grants = Collections.unmodifiableSet(b.grants);
 	}
 
-	public AccessToken(String accountSid, String keySid, String secret, int ttl) {
-		this.accountSid = accountSid;
-		this.keySid = keySid;
-		this.secret = secret;
-		this.ttl = ttl;
-	}
-
-	public void setIdentity(String identity) {
-		this.identity = identity;
-	}
 	public String getIdentity() {
 		return this.identity;
-	}
-
-	public void addGrant(Grant grant) {
-		this.grants.add(grant);
 	}
 
 	public String toJWT() {
@@ -71,5 +65,42 @@ public class AccessToken {
 				.compact();
 	}
 
+	public static class Builder {
+		private String accountSid;
+		private String keySid;
+		private String secret;
+		private String identity;
+		private int ttl = 3600;
+		private Set<Grant> grants = new HashSet<Grant>();
 
+		public Builder(String accountSid, String keySid, String secret) {
+			this.accountSid = accountSid;
+			this.keySid = keySid;
+			this.secret = secret;
+		}
+
+		public Builder identity(String identity) {
+			this.identity = identity;
+			return this;
+		}
+
+		public Builder ttl(int ttl) {
+			this.ttl = ttl;
+			return this;
+		}
+
+		public Builder withGrant(Grant grant) {
+			this.grants.add(grant);
+			return this;
+		}
+
+		public Builder withGrants(Collection<Grant> grants) {
+			this.grants.addAll(grants);
+			return this;
+		}
+
+		public AccessToken build() {
+			return new AccessToken(this);
+		}
+	}
 }

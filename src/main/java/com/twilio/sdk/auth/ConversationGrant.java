@@ -1,25 +1,31 @@
 package com.twilio.sdk.auth;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class ConversationGrant implements Grant {
 
-	public String configuration_profile_sid;
+	public String configurationProfileSid;
 
-	public String getConfiguration_profile_sid() {
-		return configuration_profile_sid;
+	public String getConfigurationProfileSid() {
+		return configurationProfileSid;
 	}
 
-	public void setConfiguration_profile_sid(String configuration_profile_sid) {
-		this.configuration_profile_sid = configuration_profile_sid;
+	public ConversationGrant setConfigurationProfileSid(String configurationProfileSid) {
+		this.configurationProfileSid = configurationProfileSid;
+		return this;
 	}
 
 	public String getGrantKey() {
 		return "rtc";
 	}
 
-	@JsonIgnore
 	public Object getPayload() {
-		return this;
+		return new Payload(this);
+	}
+
+	public class Payload {
+		public final String configuration_profile_sid;
+
+		public Payload(ConversationGrant grant) {
+			this.configuration_profile_sid = grant.configurationProfileSid;
+		}
 	}
 }

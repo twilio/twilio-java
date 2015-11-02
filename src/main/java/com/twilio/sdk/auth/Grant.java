@@ -5,7 +5,7 @@ public interface Grant {
 	/**
 	 * The key for the grant.
 	 *
-	 * @return
+	 * @return The key for the grant.
 	 */
 	public String getGrantKey();
 
@@ -14,7 +14,7 @@ public interface Grant {
 	 *
 	 * The payload allows us to decouple the user API from how the grant is structured.
 	 *
-	 * @return
+	 * @return The payload for this grant.
 	 */
 	public Object getPayload();
 

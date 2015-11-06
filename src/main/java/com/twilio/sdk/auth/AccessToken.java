@@ -38,7 +38,7 @@ public class AccessToken {
 	public String toJWT() {
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("typ", "JWT");
-		headers.put("cty", "twilio-sat;v=2");
+		headers.put("cty", "twilio-fpa;v=1");
 
 		Date now = new Date();
 		int timestamp = (int)(Math.floor(now.getTime() / 1000.0f));

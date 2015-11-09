@@ -1,6 +1,6 @@
 package com.twilio.sdk.auth;
 
-public class ConversationGrant implements Grant {
+public class ConversationsGrant implements Grant {
 
 	public String configurationProfileSid;
 
@@ -8,7 +8,7 @@ public class ConversationGrant implements Grant {
 		return configurationProfileSid;
 	}
 
-	public ConversationGrant setConfigurationProfileSid(String configurationProfileSid) {
+	public ConversationsGrant setConfigurationProfileSid(String configurationProfileSid) {
 		this.configurationProfileSid = configurationProfileSid;
 		return this;
 	}
@@ -24,7 +24,7 @@ public class ConversationGrant implements Grant {
 	public class Payload {
 		public final String configuration_profile_sid;
 
-		public Payload(ConversationGrant grant) {
+		public Payload(ConversationsGrant grant) {
 			this.configuration_profile_sid = grant.configurationProfileSid;
 		}
 	}

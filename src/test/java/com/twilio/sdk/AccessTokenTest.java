@@ -1,7 +1,7 @@
 package com.twilio.sdk;
 
 import com.twilio.sdk.auth.AccessToken;
-import com.twilio.sdk.auth.ConversationGrant;
+import com.twilio.sdk.auth.ConversationsGrant;
 import com.twilio.sdk.auth.IpMessagingGrant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -80,7 +80,7 @@ public class AccessTokenTest {
 	public void testConversationGrant() {
 		AccessToken accessToken =
 			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
-				.withGrant(new ConversationGrant())
+				.withGrant(new ConversationsGrant())
 				.build();
 
 		Claims claims = Jwts.parser()

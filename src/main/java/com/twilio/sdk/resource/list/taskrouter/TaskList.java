@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.json.simple.JSONObject;
 
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.TwilioTaskRouterClient;
+import com.twilio.sdk.TwilioUtils;
 import com.twilio.sdk.resource.NextGenListResource;
 import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.taskrouter.Task;
@@ -61,7 +61,7 @@ public class TaskList extends NextGenListResource<Task, TwilioTaskRouterClient> 
 		params.put("WorkflowSid", workflowSid);
 
 		if(attributes != null) {
-			params.put("Attributes", JSONObject.toJSONString(attributes));
+			params.put("Attributes", TwilioUtils.asJsonString(attributes));
 		}else {
 			params.put("Attributes", "{}");
 		}

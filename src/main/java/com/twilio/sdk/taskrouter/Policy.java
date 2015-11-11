@@ -3,10 +3,10 @@ package com.twilio.sdk.taskrouter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.simple.JSONAware;
-import org.json.simple.JSONObject;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-public class Policy implements JSONAware {
+@JsonSerialize(using=JsonPolicySerializer.class)
+public class Policy {
 
     protected final String url;
     protected final String method;
@@ -59,32 +59,6 @@ public class Policy implements JSONAware {
     public Policy setPostFilter(final Map<String, FilterRequirement> postFilter) {
         this.postFilter = postFilter;
         return this;
-    }
-
-    @Override
-    public String toJSONString() {
-        final JSONObject obj = new JSONObject();
-        obj.put("url", url);
-        obj.put("method", method);
-        obj.put("allow", allowed);
-        final JSONObject query = new JSONObject();
-        final JSONObject post = new JSONObject();
-
-        if (queryFilter != null) {
-            for (final Map.Entry<String, FilterRequirement> e : queryFilter.entrySet()) {
-                query.put(e.getKey(), e.getValue());
-            }
-        }
-
-        if (postFilter != null) {
-            for (final Map.Entry<String, FilterRequirement> e : postFilter.entrySet()) {
-                post.put(e.getKey(), e.getValue());
-            }
-        }
-
-        obj.put("query_filter", query);
-        obj.put("post_filter", post);
-        return obj.toJSONString();
     }
 
     @Override

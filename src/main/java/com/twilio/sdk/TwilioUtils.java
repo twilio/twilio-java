@@ -28,17 +28,27 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TwilioUtils {
+	
+	public static final ObjectMapper JSON_OBJECT_MAPPER = new ObjectMapper();
 
     protected String authToken;
     
@@ -119,5 +129,30 @@ public class TwilioUtils {
         mismatch |= chA ^ chB;
       }
       return mismatch == 0;
+    }
+    
+    public static String asJsonString(Object value){
+        try {
+          return JSON_OBJECT_MAPPER.writeValueAsString(value);
+          }
+          catch (JsonProcessingException e) {
+              throw new RuntimeException(e);
+          }
+      }
+    
+    @SuppressWarnings("unchecked")
+    public static Map<String, Object> jsonAsMap(String value) {
+        try {
+            return value !=null ? JSON_OBJECT_MAPPER.readValue(value, HashMap.class) : new HashMap<String, Object>();
+        }
+        catch (JsonParseException e) {
+            throw new RuntimeException(e);
+        }
+        catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

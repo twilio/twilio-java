@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.codec.binary.Base64;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.junit.Test;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TaskRouterCapabilityTest {
 
@@ -22,43 +22,42 @@ public class TaskRouterCapabilityTest {
         final String payload = parts[1];
         final byte[] bytes = Base64.decodeBase64(payload);
         final String json = new String(bytes, "UTF-8");
-        final JSONParser parser = new JSONParser();
-        final Object decoded = parser.parse(json);
-        final JSONObject o = (JSONObject) decoded;
-        assertEquals("AC123", o.get("iss"));
-        assertEquals("AC123", o.get("account_sid"));
-        assertEquals("WK789", o.get("channel"));
-        assertEquals("WK789", o.get("friendly_name"));
-        assertEquals("v1", o.get("version"));
-        assertEquals("WS456", o.get("workspace_sid"));
-        final JSONArray policies = (JSONArray) o.get("policies");
+        ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode o = objectMapper.readTree(json);
+        assertEquals("AC123", o.get("iss").asText());
+        assertEquals("AC123", o.get("account_sid").asText());
+        assertEquals("WK789", o.get("channel").asText());
+        assertEquals("WK789", o.get("friendly_name").asText());
+        assertEquals("v1", o.get("version").asText());
+        assertEquals("WS456", o.get("workspace_sid").asText());
+        final JsonNode policies = o.get("policies");
         assertEquals(7, policies.size());
-        JSONObject p = (JSONObject) policies.get(0);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(1);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(2);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(3);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(4);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        assertTrue((Boolean) p.get("allow"));
-        p = (JSONObject) policies.get(5);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(6);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        final JSONObject filters = (JSONObject) p.get("post_filter");
+        JsonNode p = policies.get(0);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(1);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(2);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(3);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        p = policies.get(4);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        assertTrue(p.get("allow").asBoolean());
+        p = policies.get(5);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        p = policies.get(6);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        final JsonNode filters = p.get("post_filter");
         assertEquals(1, filters.size());
-        final JSONObject required = (JSONObject) filters.get("ActivitySid");
-        assertEquals(Boolean.TRUE, required.get("required"));
+        final JsonNode required = filters.get("ActivitySid");
+        assertEquals(Boolean.TRUE, required.get("required").asBoolean());
     }
 
     @Test
@@ -70,33 +69,32 @@ public class TaskRouterCapabilityTest {
         final String payload = parts[1];
         final byte[] bytes = Base64.decodeBase64(payload);
         final String json = new String(bytes, "UTF-8");
-        final JSONParser parser = new JSONParser();
-        final Object decoded = parser.parse(json);
-        final JSONObject o = (JSONObject) decoded;
-        assertEquals("AC123", o.get("iss"));
-        assertEquals("AC123", o.get("account_sid"));
-        assertEquals("WK789", o.get("channel"));
-        assertEquals("WK789", o.get("friendly_name"));
-        assertEquals("v1", o.get("version"));
-        assertEquals("WS456", o.get("workspace_sid"));
-        final JSONArray policies = (JSONArray) o.get("policies");
+        ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode o = objectMapper.readTree(json);
+        assertEquals("AC123", o.get("iss").asText());
+        assertEquals("AC123", o.get("account_sid").asText());
+        assertEquals("WK789", o.get("channel").asText());
+        assertEquals("WK789", o.get("friendly_name").asText());
+        assertEquals("v1", o.get("version").asText());
+        assertEquals("WS456", o.get("workspace_sid").asText());
+        JsonNode policies = o.get("policies");
         assertEquals(5, policies.size());
-        JSONObject p = (JSONObject) policies.get(0);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(1);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(2);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        assertTrue((Boolean) p.get("allow"));
-        p = (JSONObject) policies.get(3);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(4);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
-        assertEquals("GET", p.get("method"));
+        JsonNode p = policies.get(0);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(1);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        p = policies.get(2);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        assertTrue(p.get("allow").asBoolean());
+        p = policies.get(3);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(4);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
 
     }
 
@@ -110,41 +108,40 @@ public class TaskRouterCapabilityTest {
         final String payload = parts[1];
         final byte[] bytes = Base64.decodeBase64(payload);
         final String json = new String(bytes, "UTF-8");
-        final JSONParser parser = new JSONParser();
-        final Object decoded = parser.parse(json);
-        final JSONObject o = (JSONObject) decoded;
-        assertEquals("AC123", o.get("iss"));
-        assertEquals("AC123", o.get("account_sid"));
-        assertEquals("WK789", o.get("channel"));
-        assertEquals("WK789", o.get("friendly_name"));
-        assertEquals("v1", o.get("version"));
-        assertEquals("WS456", o.get("workspace_sid"));
-        final JSONArray policies = (JSONArray) o.get("policies");
+        ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode o = objectMapper.readTree(json);
+        assertEquals("AC123", o.get("iss").asText());
+        assertEquals("AC123", o.get("account_sid").asText());
+        assertEquals("WK789", o.get("channel").asText());
+        assertEquals("WK789", o.get("friendly_name").asText());
+        assertEquals("v1", o.get("version").asText());
+        assertEquals("WS456", o.get("workspace_sid").asText());
+        final JsonNode policies = o.get("policies");
         assertEquals(6, policies.size());
-        JSONObject p = (JSONObject) policies.get(0);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(1);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(2);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        assertTrue((Boolean) p.get("allow"));
-        p = (JSONObject) policies.get(3);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(4);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(5);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
+        JsonNode p = policies.get(0);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(1);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        p = policies.get(2);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        assertTrue(p.get("allow").asBoolean());
+        p = policies.get(3);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(4);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(5);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
 
-        final JSONObject filters = (JSONObject) p.get("post_filter");
+        final JsonNode filters = p.get("post_filter");
         assertEquals(1, filters.size());
-        final JSONObject required = (JSONObject) filters.get("ActivitySid");
-        assertEquals(Boolean.TRUE, required.get("required"));
+        final JsonNode required = filters.get("ActivitySid");
+        assertTrue(required.get("required").asBoolean());
     }
 
     @Test
@@ -157,38 +154,37 @@ public class TaskRouterCapabilityTest {
         final String payload = parts[1];
         final byte[] bytes = Base64.decodeBase64(payload);
         final String json = new String(bytes, "UTF-8");
-        final JSONParser parser = new JSONParser();
-        final Object decoded = parser.parse(json);
-        final JSONObject o = (JSONObject) decoded;
-        assertEquals("AC123", o.get("iss"));
-        assertEquals("AC123", o.get("account_sid"));
-        assertEquals("WK789", o.get("channel"));
-        assertEquals("WK789", o.get("friendly_name"));
-        assertEquals("v1", o.get("version"));
-        assertEquals("WS456", o.get("workspace_sid"));
-        final JSONArray policies = (JSONArray) o.get("policies");
+        ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode o = objectMapper.readTree(json);
+        assertEquals("AC123", o.get("iss").asText());
+        assertEquals("AC123", o.get("account_sid").asText());
+        assertEquals("WK789", o.get("channel").asText());
+        assertEquals("WK789", o.get("friendly_name").asText());
+        assertEquals("v1", o.get("version").asText());
+        assertEquals("WS456", o.get("workspace_sid").asText());
+        final JsonNode policies = o.get("policies");
         assertEquals(6, policies.size());
-        JSONObject p = (JSONObject) policies.get(0);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(1);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(2);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        assertTrue((Boolean) p.get("allow"));
-        p = (JSONObject) policies.get(3);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(4);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(5);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
-        assertEquals("POST", p.get("method"));
+        JsonNode p = policies.get(0);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(1);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        p = policies.get(2);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        assertTrue(p.get("allow").asBoolean());
+        p = policies.get(3);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(4);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(5);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
 
-        final JSONObject filters = (JSONObject) p.get("post_filter");
+        final JsonNode filters = p.get("post_filter");
         assertEquals(0, filters.size());
 
     }
@@ -203,25 +199,24 @@ public class TaskRouterCapabilityTest {
         final String payload = parts[1];
         final byte[] bytes = Base64.decodeBase64(payload);
         final String json = new String(bytes, "UTF-8");
-        final JSONParser parser = new JSONParser();
-        final Object decoded = parser.parse(json);
-        final JSONObject o = (JSONObject) decoded;
-        assertEquals("AC123", o.get("iss"));
-        assertEquals("AC123", o.get("account_sid"));
-        assertEquals("v1", o.get("version"));
-        assertEquals("WS456", o.get("workspace_sid"));
-        final JSONArray policies = (JSONArray) o.get("policies");
+        ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode o = objectMapper.readTree(json);
+        assertEquals("AC123", o.get("iss").asText());
+        assertEquals("AC123", o.get("account_sid").asText());
+        assertEquals("v1", o.get("version").asText());
+        assertEquals("WS456", o.get("workspace_sid").asText());
+        final JsonNode policies = o.get("policies");
         assertEquals(3, policies.size());
-        JSONObject p = (JSONObject) policies.get(0);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(1);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(2);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        assertTrue((Boolean) p.get("allow"));
+        JsonNode p = policies.get(0);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(1);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        p = policies.get(2);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        assertTrue(p.get("allow").asBoolean());
 
     }
 
@@ -234,25 +229,24 @@ public class TaskRouterCapabilityTest {
         final String payload = parts[1];
         final byte[] bytes = Base64.decodeBase64(payload);
         final String json = new String(bytes, "UTF-8");
-        final JSONParser parser = new JSONParser();
-        final Object decoded = parser.parse(json);
-        final JSONObject o = (JSONObject) decoded;
-        assertEquals("AC123", o.get("iss"));
-        assertEquals("AC123", o.get("account_sid"));
-        assertEquals("v1", o.get("version"));
-        assertEquals("WS456", o.get("workspace_sid"));
-        final JSONArray policies = (JSONArray) o.get("policies");
+        ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode o = objectMapper.readTree(json);
+        assertEquals("AC123", o.get("iss").asText());
+        assertEquals("AC123", o.get("account_sid").asText());
+        assertEquals("v1", o.get("version").asText());
+        assertEquals("WS456", o.get("workspace_sid").asText());
+        final JsonNode policies = o.get("policies");
         assertEquals(3, policies.size());
-        JSONObject p = (JSONObject) policies.get(0);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WQ111", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(1);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WQ111", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(2);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ111", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        assertTrue((Boolean) p.get("allow"));
+        JsonNode p = policies.get(0);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WQ111", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(1);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WQ111", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        p = policies.get(2);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ111", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        assertTrue(p.get("allow").asBoolean());
 
     }
 
@@ -267,19 +261,17 @@ public class TaskRouterCapabilityTest {
             final String payload = parts[1];
             final byte[] bytes = Base64.decodeBase64(payload);
             final String json = new String(bytes, "UTF-8");
-            final JSONParser parser = new JSONParser();
-            final Object decoded = parser.parse(json);
-            final JSONObject o = (JSONObject) decoded;
-            assertEquals("AC123", o.get("iss"));
-            assertEquals("AC123", o.get("account_sid"));
-            assertEquals("v1", o.get("version"));
-            assertEquals("WS456", o.get("workspace_sid"));
-            final JSONArray policies = (JSONArray) o.get("policies");
-
-        } catch (final Exception e) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            final JsonNode o = objectMapper.readTree(json);
+            assertEquals("AC123", o.get("iss").asText());
+            assertEquals("AC123", o.get("account_sid").asText());
+            assertEquals("v1", o.get("version").asText());
+            assertEquals("WS456", o.get("workspace_sid").asText());
+            final JsonNode policies = o.get("policies");
+        }
+        catch (final Exception e) {
             assertEquals("Policy already exists", e.getMessage());
         }
-
     }
 
     @Test
@@ -293,16 +285,14 @@ public class TaskRouterCapabilityTest {
         final String payload = parts[1];
         final byte[] bytes = Base64.decodeBase64(payload);
         final String json = new String(bytes, "UTF-8");
-        final JSONParser parser = new JSONParser();
-        final Object decoded = parser.parse(json);
-        final JSONObject o = (JSONObject) decoded;
-        assertEquals("AC123", o.get("iss"));
-        assertEquals("AC123", o.get("account_sid"));
-        assertEquals("v1", o.get("version"));
-        assertEquals("WS456", o.get("workspace_sid"));
-        final JSONArray policies = (JSONArray) o.get("policies");
+        ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode o = objectMapper.readTree(json);
+        assertEquals("AC123", o.get("iss").asText());
+        assertEquals("AC123", o.get("account_sid").asText());
+        assertEquals("v1", o.get("version").asText());
+        assertEquals("WS456", o.get("workspace_sid").asText());
+        final JsonNode policies = o.get("policies");
         assertEquals(4, policies.size());
-
     }
 
     @Test
@@ -314,34 +304,32 @@ public class TaskRouterCapabilityTest {
         final String payload = parts[1];
         final byte[] bytes = Base64.decodeBase64(payload);
         final String json = new String(bytes, "UTF-8");
-        final JSONParser parser = new JSONParser();
-        final Object decoded = parser.parse(json);
-        final JSONObject o = (JSONObject) decoded;
-        assertEquals("AC123", o.get("iss"));
-        assertEquals("AC123", o.get("account_sid"));
-        assertEquals("WK789", o.get("channel"));
-        assertEquals("WK789", o.get("friendly_name"));
-        assertEquals("v1", o.get("version"));
-        assertEquals("WS456", o.get("workspace_sid"));
-        final JSONArray policies = (JSONArray) o.get("policies");
+        ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode o = objectMapper.readTree(json);
+        assertEquals("AC123", o.get("iss").asText());
+        assertEquals("AC123", o.get("account_sid").asText());
+        assertEquals("WK789", o.get("channel").asText());
+        assertEquals("WK789", o.get("friendly_name").asText());
+        assertEquals("v1", o.get("version").asText());
+        assertEquals("WS456", o.get("workspace_sid").asText());
+        final JsonNode policies = o.get("policies");
         assertEquals(5, policies.size());
-        JSONObject p = (JSONObject) policies.get(0);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(1);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(2);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        p = (JSONObject) policies.get(3);
-        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url"));
-        assertEquals("POST", p.get("method"));
-        p = (JSONObject) policies.get(4);
-        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url"));
-        assertEquals("GET", p.get("method"));
-        assertTrue((Boolean) p.get("allow"));
-
+        JsonNode p = policies.get(0);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(1);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(2);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        p = policies.get(3);
+        assertEquals("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", p.get("url").asText());
+        assertEquals("POST", p.get("method").asText());
+        p = policies.get(4);
+        assertEquals("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", p.get("url").asText());
+        assertEquals("GET", p.get("method").asText());
+        assertTrue(p.get("allow").asBoolean());
     }
 
 }

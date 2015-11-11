@@ -2,7 +2,7 @@ package com.twilio.sdk.verbs;
 
 import java.util.Map;
 
-import org.json.simple.JSONObject;
+import com.twilio.sdk.TwilioUtils;
 
 public class Task extends Verb {
 
@@ -10,8 +10,8 @@ public class Task extends Verb {
         super(V_TASK, attributes);
     }
 
-    public Task(Map<String, String> attributes) {
-        super(V_TASK, JSONObject.toJSONString(attributes));
+    public Task(Map<String, String> attributes)  {
+        super(V_TASK, TwilioUtils.asJsonString(attributes));
     }
 
     public void setPriority(final int priority) {

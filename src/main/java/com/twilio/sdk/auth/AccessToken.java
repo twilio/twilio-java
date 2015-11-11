@@ -12,6 +12,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Access Token use to grant privileges to Twilio resources
+ *
+ * For more information see:
+ * <a href="https://www.twilio.com/docs/api/rest/access-tokens">
+ *     https://www.twilio.com/docs/api/rest/access-tokens
+ * </a>
+ */
 public class AccessToken {
 
 	private final String accountSid;
@@ -65,6 +73,7 @@ public class AccessToken {
 				.compact();
 	}
 
+	/** Builder used to construct a Access Token */
 	public static class Builder {
 		private String accountSid;
 		private String keySid;
@@ -89,12 +98,12 @@ public class AccessToken {
 			return this;
 		}
 
-		public Builder withGrant(Grant grant) {
+		public Builder grant(Grant grant) {
 			this.grants.add(grant);
 			return this;
 		}
 
-		public Builder withGrants(Collection<Grant> grants) {
+		public Builder grants(Collection<Grant> grants) {
 			this.grants.addAll(grants);
 			return this;
 		}

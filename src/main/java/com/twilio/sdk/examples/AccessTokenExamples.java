@@ -14,7 +14,7 @@ public class AccessTokenExamples {
 	public static void main(String[] args) throws Exception {
 		AccessToken token =
 			new AccessToken.Builder(ACCOUNT_SID, SIGNINGKEY_SID, SIGNINGKEY_SECRET)
-				.withGrant(new IpMessagingGrant())
+				.grant(new IpMessagingGrant())
 				.build();
 
 		String jwtToken = token.toJWT();

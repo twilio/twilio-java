@@ -1,5 +1,13 @@
 package com.twilio.sdk.auth;
 
+/**
+ * Grant used to access Twilio IP Messaging
+ *
+ * For more information see:
+ * <a href="https://www.twilio.com/docs/api/rest/access-tokens">
+ *     https://www.twilio.com/docs/api/rest/access-tokens
+ * </a>
+ */
 public class IpMessagingGrant implements Grant {
 
 	private String serviceSid;

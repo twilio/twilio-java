@@ -26,7 +26,7 @@ public class TwilioClientTest {
 	public void testAcceptAccessToken() {
 		AccessToken accessToken =
 			new AccessToken.Builder(SIGNING_KEY_SID, ACCOUNT_SID, SECRET)
-				.withGrant(new IpMessagingGrant())
+				.grant(new IpMessagingGrant())
 				.build();
 
 		// should not throw

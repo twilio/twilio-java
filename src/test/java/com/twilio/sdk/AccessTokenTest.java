@@ -56,7 +56,7 @@ public class AccessTokenTest {
 		AccessToken accessToken =
 			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
 				.identity("ID@example.com")
-				.withGrant(grant)
+				.grant(grant)
 				.build();
 
 		Claims claims = Jwts.parser()
@@ -80,7 +80,7 @@ public class AccessTokenTest {
 	public void testConversationGrant() {
 		AccessToken accessToken =
 			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
-				.withGrant(new ConversationsGrant())
+				.grant(new ConversationsGrant())
 				.build();
 
 		Claims claims = Jwts.parser()
@@ -99,7 +99,7 @@ public class AccessTokenTest {
 	public void testIpMessagingGrant() {
 		AccessToken accessToken =
 			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
-				.withGrant(new IpMessagingGrant())
+				.grant(new IpMessagingGrant())
 				.build();
 
 		Claims claims = Jwts.parser()

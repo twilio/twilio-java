@@ -1,13 +1,13 @@
 package com.twilio.sdk.parser;
 
+import com.twilio.sdk.TwilioRestResponse;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.sdk.TwilioRestResponse;
 
 // TODO: Auto-generated Javadoc
 /**

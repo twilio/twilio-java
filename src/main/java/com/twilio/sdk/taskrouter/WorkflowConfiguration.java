@@ -6,20 +6,19 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class WorkflowConfiguration {
 
 	@JsonProperty("task_routing")
@@ -88,7 +87,7 @@ public class WorkflowConfiguration {
 	}
 	
 	@JsonAutoDetect(fieldVisibility = Visibility.ANY)
-	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 	static class TaskRoutingConfiguration {
 
 		@JsonProperty("filters")

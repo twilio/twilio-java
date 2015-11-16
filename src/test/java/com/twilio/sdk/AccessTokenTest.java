@@ -48,9 +48,9 @@ public class AccessTokenTest {
 	@Test
 	public void testSingleGrant() {
 		IpMessagingGrant grant = new IpMessagingGrant();
-		grant.setCredentialSid("credentialSid")
+		grant.setPushCredentialSid("credentialSid")
 				.setEndpointId("endpointId")
-				.setRoleSid("roleSid")
+				.setDeploymentRoleSid("roleSid")
 				.setServiceSid("serviceSid");
 
 		AccessToken accessToken =

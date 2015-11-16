@@ -11,8 +11,8 @@ package com.twilio.sdk.auth;
 public class IpMessagingGrant implements Grant {
 
 	private String serviceSid;
-	private String roleSid;
-	private String credentialSid;
+	private String deploymentRoleSid;
+	private String pushCredentialSid;
 	private String endpointId;
 
 	public String getServiceSid() {
@@ -24,21 +24,22 @@ public class IpMessagingGrant implements Grant {
 		return this;
 	}
 
-	public String getRoleSid() {
-		return roleSid;
+
+	public String getPushCredentialSid() {
+		return pushCredentialSid;
 	}
 
-	public IpMessagingGrant setRoleSid(String roleSid) {
-		this.roleSid = roleSid;
+	public IpMessagingGrant setPushCredentialSid(String pushCredentialSid) {
+		this.pushCredentialSid = pushCredentialSid;
 		return this;
 	}
 
-	public String getCredentialSid() {
-		return credentialSid;
+	public String getDeploymentRoleSid() {
+		return deploymentRoleSid;
 	}
 
-	public IpMessagingGrant setCredentialSid(String credentialSid) {
-		this.credentialSid = credentialSid;
+	public IpMessagingGrant setDeploymentRoleSid(String deploymentRoleSid) {
+		this.deploymentRoleSid = deploymentRoleSid;
 		return this;
 	}
 
@@ -67,9 +68,9 @@ public class IpMessagingGrant implements Grant {
 
 		public Payload(IpMessagingGrant grant) {
 			this.instance_sid = grant.serviceSid;
-			this.deployment_role_sid = grant.roleSid;
+			this.deployment_role_sid = grant.deploymentRoleSid;
 			this.endpoint_id = grant.endpointId;
-			this.push_credential_sid = grant.credentialSid;
+			this.push_credential_sid = grant.pushCredentialSid;
 		}
 	}
 }

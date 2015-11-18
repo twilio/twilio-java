@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * The Class TwilioClientTest.
@@ -19,7 +18,7 @@ public class TwilioClientTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidAccountSidAndToken() {
-		new TwilioRestClient("fake sid", "fake auth token");
+		new TwilioRestClient(null, null);
 	}
 
 	@Test

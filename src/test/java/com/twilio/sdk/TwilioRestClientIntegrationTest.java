@@ -91,8 +91,7 @@ public class TwilioRestClientIntegrationTest {
         AccessToken token = new AccessToken("signingId", ACCOUNT_SID, "signingKey");
         String jwt = token.toJWT();
 
-        TwilioRestClient client = new TwilioRestClient("Token", jwt);
-        client.setRequestAccountSid(ACCOUNT_SID);
+        TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, jwt);
         client.setHttpClient(fakeHttpClient);
 
         Map<String, String> request_data = new HashMap<String, String>();

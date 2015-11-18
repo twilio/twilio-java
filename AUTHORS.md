@@ -30,6 +30,7 @@ A huge thanks to all of our contributors:
 - Jancsi Farkas
 - Jason Li
 - Jeroen Wesbeek
+- Jingming Niu
 - John A. Tamplin
 - Jon Plax
 - Justin Witz

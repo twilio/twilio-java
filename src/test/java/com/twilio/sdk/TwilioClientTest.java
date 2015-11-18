@@ -14,6 +14,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class TwilioClientTest {
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidAccountSidAndToken() {
+		new TwilioRestClient(null, null);
+	}
+
 	/**
 	 * Test twilio rest client string string.
 	 */

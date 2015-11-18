@@ -1,8 +1,5 @@
 package com.twilio.sdk;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.taskrouter.Activity;
 import com.twilio.sdk.resource.instance.taskrouter.Event;
@@ -27,6 +24,9 @@ import com.twilio.sdk.resource.list.taskrouter.WorkerList;
 import com.twilio.sdk.resource.list.taskrouter.WorkflowList;
 import com.twilio.sdk.resource.list.taskrouter.WorkspaceList;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * The client class that access http://taskrouter.twilio.com.
  */
@@ -34,12 +34,12 @@ public class TwilioTaskRouterClient extends TwilioClient {
 
 	public static final String DEFAULT_VERSION = "v1";
 
-	public TwilioTaskRouterClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken, "https://taskrouter.twilio.com");
+	public TwilioTaskRouterClient(final String username, final String password) {
+		super(username, password, "https://taskrouter.twilio.com");
 	}
 	
-	public TwilioTaskRouterClient(final String accountSid, final String authToken, final String endpoint) {
-		super(accountSid, authToken, endpoint);
+	public TwilioTaskRouterClient(final String username, final String password, final String endpoint) {
+		super(username, password, endpoint);
 	}
 
 	/**

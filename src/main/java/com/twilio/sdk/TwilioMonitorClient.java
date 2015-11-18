@@ -12,12 +12,12 @@ public class TwilioMonitorClient extends TwilioClient {
 
 	public static final String DEFAULT_VERSION = "v1";
 
-	public TwilioMonitorClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken, "https://monitor.twilio.com");
+	public TwilioMonitorClient(final String username, final String password) {
+		super(username, password, "https://monitor.twilio.com");
 	}
 
-	public TwilioMonitorClient(final String accountSid, final String authToken, final String endpoint) {
-		super(accountSid, authToken, endpoint);
+	public TwilioMonitorClient(final String username, final String password, final String endpoint) {
+		super(username, password, endpoint);
 	}
 
 	/**

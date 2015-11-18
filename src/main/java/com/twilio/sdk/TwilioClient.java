@@ -49,11 +49,14 @@ public abstract class TwilioClient {
 	/** The Constant DEFAULT_VERSION. */
 	public static final String DEFAULT_VERSION = "2010-04-01";
 
-	/** The account sid. */
-	private final String accountSid;
+	/** The request account sid. */
+	private String accountSid;
 
-	/** The auth token. */
-	private final String authToken;
+	/** The username for auth. */
+	private final String username;
+
+	/** The password for auth. */
+	private final String password;
 
 	/** The num retries. */
 	private int numRetries = 3;
@@ -100,29 +103,35 @@ public abstract class TwilioClient {
 	/**
 	 * Explicitly construct a TwilioClient with the given API credentials.
 	 *
-	 * @param accountSid the 34 character Account identifier (starting with 'AC'). This can be found on your Twilio
-	 * dashboard page.
-	 * @param authToken the 32 character AuthToken. This can be found on your Twilio dashboard page.
+	 * @param username Username for authentication. The 34 character Account identifier (starting with 'AC').
+	 *                 This can be found on your Twilio dashboard page.
+	 * @param password Password for authentication. The 32 character AuthToken.
+	 *                 This can be found on your Twilio dashboard page.
 	 */
-	public TwilioClient(final String accountSid, final String authToken) {
-		this(accountSid, authToken, null);
+	public TwilioClient(final String username, final String password) {
+		this(username, password, null);
 	}
 
 	/**
 	 * Explicitly construct a TwilioClient with the given API credentials and endpoint.
 	 *
-	 * @param accountSid the 34 character Account identifier (starting with 'AC'). This can be found on your Twilio
-	 * dashboard page.
-	 * @param authToken the 32 character AuthToken. This can be found on your Twilio dashboard page.
+	 * @param username Username for authentication. For most cases, it is the 34 character Account identifier (starting with 'AC').
+	 *                 This can be found on your Twilio dashboard page.
+	 * @param password Password for authentication. For most cases, it is the 32 character AuthToken.
+	 *                 This can be found on your Twilio dashboard page.
 	 * @param endpoint the url of API endpoint you wish to use. (e.g. - 'https://api.twilio.com')
 	 */
-	public TwilioClient(final String accountSid, final String authToken, final String endpoint) {
+	public TwilioClient(final String username, final String password, final String endpoint) {
+		if (username == null) {
+			throw new IllegalArgumentException("username is required. Please provide username or signing key.");
+		}
+		if (password == null) {
+			throw new IllegalArgumentException("password is required. Please provide authToken or signing key secret.");
+		}
 
-		validateAccountSid(accountSid);
-		validateAuthToken(authToken);
-
-		this.accountSid = accountSid;
-		this.authToken = authToken;
+		this.username = username;
+		this.accountSid = username;
+		this.password = password;
 
 		if ((endpoint != null) && (!endpoint.equals(""))) {
 			this.endpoint = endpoint;
@@ -144,31 +153,6 @@ public abstract class TwilioClient {
 		httpclient.getParams().setParameter("http.socket.timeout", new Integer(READ_TIMEOUT));
 		httpclient.getParams().setParameter("http.connection.timeout", new Integer(CONNECTION_TIMEOUT));
 		httpclient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-	}
-
-	/**
-	 * Validate auth token.
-	 *
-	 * @param authToken the auth token
-	 */
-	private void validateAuthToken(final String authToken) {
-		if (authToken == null) {
-			throw new IllegalArgumentException("AuthToken must not be null.");
-		}
-	}
-
-	// Check for a valid 34 character account sid starting with 'AC'
-
-	/**
-	 * Validate account sid.
-	 *
-	 * @param accountSid the account sid
-	 */
-	private void validateAccountSid(final String accountSid) {
-		if (accountSid == null || !accountSid.startsWith("AC") || accountSid.length() != ACCOUNT_SID_LENGTH) {
-			throw new IllegalArgumentException(
-					"AccountSid '" + accountSid + "' is not valid.  It should be the 34 character unique identifier starting with 'AC'");
-		}
 	}
 
 	/**
@@ -467,8 +451,8 @@ public abstract class TwilioClient {
 
 		if (httpclient instanceof DefaultHttpClient) { // as DefaultHttpClient class has final method, I need httpClient to be a plain interface to be able to mock it
 			((DefaultHttpClient) httpclient).getCredentialsProvider()
-			                                .setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-			                                                new UsernamePasswordCredentials(accountSid, authToken));
+					.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
+							new UsernamePasswordCredentials(username, password));
 		}
 		return request;
 	}
@@ -559,7 +543,20 @@ public abstract class TwilioClient {
 		return endpoint;
 	}
 
+	protected String getPassword() {
+		return password;
+	}
+
 	public String getAccountSid() {
 		return accountSid;
+	}
+
+	/**
+	 * Set the request accountSid
+	 * @param accountSid
+	 * @return
+	 */
+	public void setRequestAccountSid(String accountSid) {
+		this.accountSid = accountSid;
 	}
 }

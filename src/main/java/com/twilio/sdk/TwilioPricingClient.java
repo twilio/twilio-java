@@ -27,11 +27,13 @@ public class TwilioPricingClient extends TwilioClient {
      * Your accountSid and authToken are the same as those you use to
      * authenticate to the main Twilio REST API, and are available in
      * <a href="https://www.twilio.com/user/account">the account portal</a>.
-     * @param accountSid Your Twilio Account ID
-     * @param authToken Your Twilio Account's authorization token
+     * @param username Username for authentication. The 34 character Account identifier (starting with 'AC').
+     *                 This can be found on your Twilio dashboard page.
+     * @param password Password for authentication. The 32 character AuthToken.
+     *                 This can be found on your Twilio dashboard page.
      */
-    public TwilioPricingClient(final String accountSid, final String authToken) {
-        this(accountSid, authToken, DEFAULT_PRICING_ENDPOINT);
+    public TwilioPricingClient(final String username, final String password) {
+        this(username, password, DEFAULT_PRICING_ENDPOINT);
     }
 
     /**
@@ -40,12 +42,14 @@ public class TwilioPricingClient extends TwilioClient {
      * Your accountSid and authToken are the same as those you use to
      * authenticate to the main Twilio REST API, and are available in
      * <a href="https://www.twilio.com/user/account">the account portal</a>.
-     * @param accountSid Your Twilio Account ID
-     * @param authToken Your Twilio Account's authorization token
+     * @param username Username for authentication. The 34 character Account identifier (starting with 'AC').
+     *                 This can be found on your Twilio dashboard page.
+     * @param password Password for authentication. The 32 character AuthToken.
+     *                 This can be found on your Twilio dashboard page.
      * @param endpoint Custom Twilio pricing endpoint
      */
-    public TwilioPricingClient(final String accountSid, final String authToken, String endpoint) {
-        super(accountSid, authToken, endpoint);
+    public TwilioPricingClient(final String username, final String password, String endpoint) {
+        super(username, password, endpoint);
     }
 
     /**
@@ -56,9 +60,7 @@ public class TwilioPricingClient extends TwilioClient {
      * @return List of countries where Twilio Voice is available.
      */
     public VoiceCountryList getVoiceCountries() {
-        VoiceCountryList list = new VoiceCountryList(this);
-        list.setRequestAccountSid(this.getAccountSid());
-        return list;
+        return new VoiceCountryList(this);
     }
 
     /**
@@ -68,9 +70,7 @@ public class TwilioPricingClient extends TwilioClient {
      * @return Pricing information for the requested country.
      */
     public VoiceCountry getVoiceCountry(String isoCountry) {
-        VoiceCountry country = new VoiceCountry(this, isoCountry);
-        country.setRequestAccountSid(this.getAccountSid());
-        return country;
+        return new VoiceCountry(this, isoCountry);
     }
 
     /**
@@ -79,9 +79,7 @@ public class TwilioPricingClient extends TwilioClient {
      * @return Pricing information for the requested phone number
      */
     public VoiceNumber getVoiceNumber(String number) {
-        VoiceNumber voiceNumber = new VoiceNumber(this, number);
-        voiceNumber.setRequestAccountSid(this.getAccountSid());
-        return voiceNumber;
+        return new VoiceNumber(this, number);
     }
 
     /**
@@ -89,9 +87,7 @@ public class TwilioPricingClient extends TwilioClient {
      * @return Countries with Twilio Phone Numbers
      */
     public PhoneNumberCountryList getPhoneNumberCountries() {
-        PhoneNumberCountryList list = new PhoneNumberCountryList(this);
-        list.setRequestAccountSid(this.getAccountSid());
-        return list;
+        return new PhoneNumberCountryList(this);
     }
 
     /**
@@ -100,9 +96,7 @@ public class TwilioPricingClient extends TwilioClient {
      * @return Pricing information for the requested country.
      */
     public PhoneNumberCountry getPhoneNumberCountry(String isoCountry) {
-        PhoneNumberCountry country = new PhoneNumberCountry(this, isoCountry);
-        country.setRequestAccountSid(this.getAccountSid());
-        return country;
+        return new PhoneNumberCountry(this, isoCountry);
     }
 
     public MessagingCountryList getMessagingCountries() {

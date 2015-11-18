@@ -38,8 +38,7 @@ import java.util.Map;
  */
 public abstract class TwilioClient {
 
-	private static final int ACCOUNT_SID_LENGTH = 34;
-	private static final int AUTH_TOKEN_LENGTH = 32;
+	private static final int AUTH_TOKEN_OR_SIGNING_SECRET_LENGTH = 32;
 
 	/** The Constant VERSION. */
 	private static final String VERSION = "5.3.1-edge";
@@ -130,7 +129,11 @@ public abstract class TwilioClient {
 			throw new IllegalArgumentException("password is required. Please provide authToken or signing key secret.");
 		}
 
-		this.username = username;
+		if (password.length() != AUTH_TOKEN_OR_SIGNING_SECRET_LENGTH) {
+			this.username = "Token";
+		} else {
+			this.username = username;
+		}
 		this.accountSid = username;
 		this.password = password;
 

@@ -1,10 +1,7 @@
 package com.twilio.sdk.examples;
 
-import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.auth.AccessToken;
 import com.twilio.sdk.auth.RestGrant;
-import com.twilio.sdk.resource.instance.Message;
-import com.twilio.sdk.resource.list.MessageList;
 
 public class AccessTokenExamples {
 
@@ -22,12 +19,6 @@ public class AccessTokenExamples {
 		token.addGrant(new RestGrant("Messages.json"));
 
 		String jwtToken = token.toJWT();
-
-		TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, jwtToken);
-
-		// Get an object from its sid. If you do not have a sid,
-		// check out the list resource examples on this page
-		MessageList messages = client.getAccount().getMessages();
-		System.out.println("Got back " + messages.getPageData().size() + " messages");
+		System.out.println("Generated jwt:\n" + jwtToken);
 	}
 }

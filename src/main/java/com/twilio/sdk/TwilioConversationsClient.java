@@ -1,14 +1,14 @@
 package com.twilio.sdk;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.twilio.sdk.resource.factory.Factory;
 import com.twilio.sdk.resource.instance.conversations.Conversation;
 import com.twilio.sdk.resource.instance.conversations.Participant;
 import com.twilio.sdk.resource.list.conversations.CompletedConversationsList;
 import com.twilio.sdk.resource.list.conversations.InProgressConversationsList;
 import com.twilio.sdk.resource.list.conversations.ParticipantList;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Twilio REST client for Conversations end points
@@ -20,12 +20,12 @@ public class TwilioConversationsClient extends TwilioClient {
 	private static final String PARTICIPANT_STATUS = "Status";
 	private static final String PARTICIPANT_STATUS_DISCONNECTED = "disconnected";
 
-	public TwilioConversationsClient(final String accountSid, final String authToken) {
-		super(accountSid, authToken, "https://conversations.twilio.com");
+	public TwilioConversationsClient(final String username, final String password) {
+		super(username, password, "https://conversations.twilio.com");
 	}
 
-	public TwilioConversationsClient(final String accountSid, final String authToken, final String endpoint) {
-		super(accountSid, authToken, endpoint);
+	public TwilioConversationsClient(final String username, final String password, final String endpoint) {
+		super(username, password, endpoint);
 	}
 
 	/**

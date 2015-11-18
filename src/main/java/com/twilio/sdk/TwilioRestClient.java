@@ -13,18 +13,18 @@ import java.util.Map;
 public class TwilioRestClient extends TwilioClient {
 
 	/** The auth account. */
-	private final Account authAccount;
+	private Account authAccount;
 
-	public TwilioRestClient(final String accountSid, final String authToken) {
-		this(accountSid, authToken, "https://api.twilio.com");
+	public TwilioRestClient(final String username, final String password) {
+		this(username, password, "https://api.twilio.com");
 	}
 
-	public TwilioRestClient(final String accountSid, final String authToken, String endpoint) {
-		super(accountSid, authToken, endpoint);
+	public TwilioRestClient(final String username, final String password, String endpoint) {
+		super(username, password, endpoint);
 
 		authAccount = new Account(this);
-		authAccount.setSid(accountSid);
-		authAccount.setAuthToken(authToken);
+		authAccount.setSid(username);
+		authAccount.setAuthToken(password);
 	}
 
 	/*
@@ -38,9 +38,7 @@ public class TwilioRestClient extends TwilioClient {
 	 * @return the list of accounts.
 	 */
 	public AccountList getAccounts(final Map<String, String> params) {
-		AccountList list = new AccountList(this, params);
-		list.setRequestAccountSid(getAccountSid());
-		return list;
+		return new AccountList(this, params);
 	}
 
 	/**
@@ -83,5 +81,11 @@ public class TwilioRestClient extends TwilioClient {
 		account.setRequestAccountSid(sid);
 
 		return account;
+	}
+
+	public void setRequestAccountSid(String sid) {
+		authAccount = new Account(this);
+		authAccount.setSid(sid);
+		authAccount.setAuthToken(getPassword());
 	}
 }

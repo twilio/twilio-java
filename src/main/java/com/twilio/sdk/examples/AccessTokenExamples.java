@@ -1,7 +1,7 @@
 package com.twilio.sdk.examples;
 
 import com.twilio.sdk.auth.AccessToken;
-import com.twilio.sdk.auth.RestGrant;
+import com.twilio.sdk.auth.IpMessagingGrant;
 
 public class AccessTokenExamples {
 
@@ -12,11 +12,10 @@ public class AccessTokenExamples {
 	public static final String SIGNINGKEY_SECRET = "signing_secret";
 
 	public static void main(String[] args) throws Exception {
-		AccessToken token = new AccessToken(SIGNINGKEY_SID, ACCOUNT_SID, SIGNINGKEY_SECRET);
-
-		// Grants access to list of messages
-		// The json extension is required
-		token.addGrant(new RestGrant("Messages.json"));
+		AccessToken token =
+			new AccessToken.Builder(ACCOUNT_SID, SIGNINGKEY_SID, SIGNINGKEY_SECRET)
+				.grant(new IpMessagingGrant())
+				.build();
 
 		String jwtToken = token.toJWT();
 		System.out.println("Generated jwt:\n" + jwtToken);

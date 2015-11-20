@@ -1,7 +1,7 @@
 package com.twilio.sdk;
 
 import com.twilio.sdk.auth.AccessToken;
-import com.twilio.sdk.auth.Grant;
+import com.twilio.sdk.auth.IpMessagingGrant;
 import org.junit.Test;
 
 import java.util.Map;
@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TwilioClientTest {
 
+	private static final String ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 	private static final String SIGNING_KEY_SID = "SK123";
 	private static final String SECRET = "secret";
 
@@ -23,12 +24,13 @@ public class TwilioClientTest {
 
 	@Test
 	public void testAcceptAccessToken() {
-		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID,
-				"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", SECRET);
-		accessToken.addGrant(new Grant("https://api.twilio.com/**"));
+		AccessToken accessToken =
+			new AccessToken.Builder(SIGNING_KEY_SID, ACCOUNT_SID, SECRET)
+				.grant(new IpMessagingGrant())
+				.build();
 
 		// should not throw
-		new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", accessToken.toJWT());
+		new TwilioRestClient(ACCOUNT_SID, accessToken.toJWT());
 	}
 
 	/**
@@ -37,7 +39,7 @@ public class TwilioClientTest {
 	@Test
 	public void testTwilioRestClientStringString() {
 		// Should construct with valid looking account sid and auth token
-		new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		new TwilioRestClient(ACCOUNT_SID, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class TwilioClientTest {
 	 */
 	@Test
 	public void testRequest() throws TwilioRestException {
-		TwilioClient client = new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		TwilioClient client = new TwilioRestClient(ACCOUNT_SID,
 		                                           "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
 		// Auth required
@@ -70,7 +72,7 @@ public class TwilioClientTest {
 	 */
 	@Test
 	public void testGet() throws TwilioRestException {
-		TwilioClient client = new TwilioRestClient("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		TwilioClient client = new TwilioRestClient(ACCOUNT_SID,
 		                                           "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
 		// Auth required

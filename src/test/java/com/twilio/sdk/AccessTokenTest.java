@@ -1,14 +1,12 @@
 package com.twilio.sdk;
 
 import com.twilio.sdk.auth.AccessToken;
-import com.twilio.sdk.auth.EndpointGrant;
-import com.twilio.sdk.auth.Grant;
-import com.twilio.sdk.auth.RestGrant;
+import com.twilio.sdk.auth.ConversationsGrant;
+import com.twilio.sdk.auth.IpMessagingGrant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -28,24 +26,38 @@ public class AccessTokenTest {
 		assertNotNull(claims.getExpiration());
 		assertEquals(claims.getNotBefore().getTime() + (3600 * 1000), claims.getExpiration().getTime());
 		assertNotNull(claims.getId());
-		assertEquals(claims.getIssuer() + "-" + AccessToken.timestamp(claims.getNotBefore()), claims.getId());
+		assertTrue(claims.getId().startsWith(claims.getIssuer() + "-"));
 		assertNotNull(claims.get("grants"));
 	}
 
 	@Test
 	public void testEmptyGrants() {
-		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, SECRET);
-		Claims claims = Jwts.parser()
-							.setSigningKey(SECRET.getBytes())
-							.parseClaimsJws(accessToken.toJWT())
-							.getBody();
+		AccessToken accessToken =
+			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+				.build();
+
+		Claims claims =
+			Jwts.parser()
+				.setSigningKey(SECRET.getBytes())
+				.parseClaimsJws(accessToken.toJWT())
+				.getBody();
+
 		this.validateClaims(claims);
 	}
 
 	@Test
 	public void testSingleGrant() {
-		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, SECRET);
-		accessToken.addGrant(new Grant("https://api.twilio.com/**"));
+		IpMessagingGrant grant = new IpMessagingGrant();
+		grant.setPushCredentialSid("credentialSid")
+				.setEndpointId("endpointId")
+				.setDeploymentRoleSid("roleSid")
+				.setServiceSid("serviceSid");
+
+		AccessToken accessToken =
+			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+				.identity("ID@example.com")
+				.grant(grant)
+				.build();
 
 		Claims claims = Jwts.parser()
 							.setSigningKey(SECRET.getBytes())
@@ -54,16 +66,22 @@ public class AccessTokenTest {
 
 		this.validateClaims(claims);
 
-		List<Map<String, Object>> decodedGrants = (List<Map<String, Object>>) claims.get("grants");
-		assertEquals(1, decodedGrants.size());
-		assertEquals("https://api.twilio.com/**", decodedGrants.get(0).get("res"));
-		assertEquals("*", ((List<String>) decodedGrants.get(0).get("act")).get(0));
+		Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+		assertEquals(2, decodedGrants.size());
+
+		Map<String, Object> payload = (Map<String, Object>) decodedGrants.get("ip_messaging");
+		assertEquals("serviceSid", payload.get("instance_sid"));
+		assertEquals("roleSid", payload.get("deployment_role_sid"));
+		assertEquals("endpointId", payload.get("endpoint_id"));
+		assertEquals("credentialSid", payload.get("push_credential_sid"));
 	}
 
 	@Test
-	public void testEndpointGrant() {
-		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, SECRET);
-		accessToken.addGrant(new EndpointGrant("bob"));
+	public void testConversationGrant() {
+		AccessToken accessToken =
+			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+				.grant(new ConversationsGrant())
+				.build();
 
 		Claims claims = Jwts.parser()
 				.setSigningKey(SECRET.getBytes())
@@ -71,19 +89,18 @@ public class AccessTokenTest {
 				.getBody();
 
 		this.validateClaims(claims);
-
-		List<Map<String, Object>> decodedGrants = (List<Map<String, Object>>) claims.get("grants");
+		Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
 		assertEquals(1, decodedGrants.size());
-		assertEquals("sip:bob@AC123.endpoint.twilio.com", decodedGrants.get(0).get("res"));
-		List<String> actions = (List<String>) decodedGrants.get(0).get("act");
-		assertTrue(actions.contains("listen"));
-		assertTrue(actions.contains("invite"));
+
+		assertTrue("should be a rtc grant present", decodedGrants.containsKey("rtc"));
 	}
 
 	@Test
-	public void testRestGrant() {
-		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, SECRET);
-		accessToken.addGrant(new RestGrant("/Apps"));
+	public void testIpMessagingGrant() {
+		AccessToken accessToken =
+			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+				.grant(new IpMessagingGrant())
+				.build();
 
 		Claims claims = Jwts.parser()
 				.setSigningKey(SECRET.getBytes())
@@ -91,28 +108,9 @@ public class AccessTokenTest {
 				.getBody();
 
 		this.validateClaims(claims);
-
-		List<Map<String, Object>> decodedGrants = (List<Map<String, Object>>) claims.get("grants");
+		Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
 		assertEquals(1, decodedGrants.size());
-		assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Apps", decodedGrants.get(0).get("res"));
-		assertEquals("*", ((List<String>) decodedGrants.get(0).get("act")).get(0));
-	}
 
-	@Test
-	public void testEnableNTS() {
-		AccessToken accessToken = new AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, SECRET);
-		accessToken.enableNTS();
-
-		Claims claims = Jwts.parser()
-				.setSigningKey(SECRET.getBytes())
-				.parseClaimsJws(accessToken.toJWT())
-				.getBody();
-
-		this.validateClaims(claims);
-
-		List<Map<String, Object>> decodedGrants = (List<Map<String, Object>>) claims.get("grants");
-		assertEquals(1, decodedGrants.size());
-		assertEquals("https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens.json", decodedGrants.get(0).get("res"));
-		assertEquals("POST", ((List<String>) decodedGrants.get(0).get("act")).get(0));
+		assertTrue("should be a ip_messaging grant present", decodedGrants.containsKey("ip_messaging"));
 	}
 }

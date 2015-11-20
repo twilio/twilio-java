@@ -2,126 +2,114 @@ package com.twilio.sdk.auth;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
- * An access token allow its issuer to restrict the resources and actions a user could perform.
+ * Access Token use to grant privileges to Twilio resources
+ *
+ * For more information see:
+ * <a href="https://www.twilio.com/docs/api/rest/access-tokens">
+ *     https://www.twilio.com/docs/api/rest/access-tokens
+ * </a>
  */
 public class AccessToken {
 
-	private static final int DEFAULT_TTL = 3600;
-
-	private final String signingKeySid;
 	private final String accountSid;
+	private final String keySid;
 	private final String secret;
 	private final int ttl;
-	private List<Grant> grants;
 
-	public static int timestamp(Date date) {
-		return (int)(Math.floor(date.getTime() / 1000.0f));
+	private final String identity;
+	private final Set<Grant> grants;
+
+	private AccessToken(Builder b) {
+		this.accountSid = b.accountSid;
+		this.keySid = b.keySid;
+		this.secret = b.secret;
+		this.ttl = b.ttl;
+		this.identity = b.identity;
+		this.grants = Collections.unmodifiableSet(b.grants);
 	}
 
-	/**
-	 * Instantiate an access token.
-	 *
-	 * @param signingKeySid the signing key's unique ID
-	 * @param accountSid the account's unique ID to which access is scoped
-	 * @param secret the secret to use to sign the Access Token
-	 */
-	public AccessToken(final String signingKeySid, final String accountSid, final String secret) {
-		this(signingKeySid, accountSid, secret, DEFAULT_TTL);
+	public String getIdentity() {
+		return this.identity;
 	}
 
-	/**
-	 * Instantiate an access token.  It should be the 34 character unique identifier starting with 'AC'");
-	 *
-	 *
-	 * @param signingKeySid the signing key's unique ID
-	 * @param accountSid the account's unique ID to which access is scoped
-	 * @param secret the secret to use to sign the Access Token
-	 * @param ttl time to live in seconds
-	 */
-	public AccessToken(final String signingKeySid, final String accountSid, final String secret, final int ttl) {
-		this.signingKeySid = signingKeySid;
-		this.accountSid = accountSid;
-		this.secret = secret;
-		this.ttl = ttl;
-		this.grants = new ArrayList<Grant>();
-	}
-
-	/**
-	 * Add a grant to the AccessToken
-	 *
-	 * @param grant grant to add
-	 * @return this
-	 */
-	public AccessToken addGrant(final Grant grant) {
-		grants.add(grant);
-		return this;
-	}
-
-	/**
-	 * Add an EndpointGrant to the AccessToken
-	 *
-	 * @param endpointGrant grant to add
-	 * @return this
-	 */
-	public AccessToken addGrant(final EndpointGrant endpointGrant) {
-		Grant grant = new Grant("sip:" + endpointGrant.getResource() + "@" + this.accountSid + ".endpoint.twilio.com",
-								endpointGrant.getActions());
-		return this.addGrant(grant);
-	}
-
-	/**
-	 * Add a RestGrant to the AccessToken
-	 *
-	 * @param restGrant grant to add
-	 * @return this
-	 */
-	public AccessToken addGrant(final RestGrant restGrant) {
-		Grant grant = new Grant("https://api.twilio.com/2010-04-01/Accounts/" + this.accountSid + "/" + StringUtils.removeStart(restGrant.getResource(), "/"),
-								restGrant.getActions());
-		return this.addGrant(grant);
-	}
-
-	public AccessToken enableNTS() {
-		RestGrant grant = new RestGrant("/Tokens.json", Action.POST);
-		return this.addGrant(grant);
-	}
-
-	/**
-	 * Generate a JWT with the provided information and sign it with the given secret.
-	 *
-	 * @return a JWT
-	 */
 	public String toJWT() {
-		Map<String, Object> headers = new HashMap<String, Object>(2);
+		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("typ", "JWT");
-		headers.put("cty", "twilio-sat;v=1");
+		headers.put("cty", "twilio-fpa;v=1");
 
 		Date now = new Date();
+		int timestamp = (int)(Math.floor(now.getTime() / 1000.0f));
+
+		Map<String, Object> grantPayload = new HashMap<String, Object>();
+
+		if (this.identity != null) {
+			grantPayload.put("identity", this.identity);
+		}
+
+		for (Grant grant : this.grants) {
+			grantPayload.put(grant.getGrantKey(), grant.getPayload());
+		}
 
 		return Jwts.builder()
-		           .signWith(SignatureAlgorithm.HS256, secret.getBytes(Charset.forName("UTF-8")))
-		           .setHeaderParams(headers)
-		           .setId(signingKeySid + "-" + timestamp(now))
-		           .setIssuer(signingKeySid)
-		           .setSubject(accountSid)
-		           .setNotBefore(now)
-		           .setExpiration(new Date(now.getTime() + ttl * 1000))
-		           .claim("grants", grants)
-		           .compact();
+				.signWith(SignatureAlgorithm.HS256, secret.getBytes(Charset.forName("UTF-8")))
+				.setHeaderParams(headers)
+				.setId(this.keySid + "-" + timestamp)
+				.setIssuer(this.keySid)
+				.setSubject(this.accountSid)
+				.setNotBefore(now)
+				.setExpiration(new Date(now.getTime() + ttl * 1000))
+				.claim("grants", grantPayload)
+				.compact();
 	}
 
-	@Override
-	public String toString() {
-		return this.toJWT();
+	/** Builder used to construct a Access Token */
+	public static class Builder {
+		private String accountSid;
+		private String keySid;
+		private String secret;
+		private String identity;
+		private int ttl = 3600;
+		private Set<Grant> grants = new HashSet<Grant>();
+
+		public Builder(String accountSid, String keySid, String secret) {
+			this.accountSid = accountSid;
+			this.keySid = keySid;
+			this.secret = secret;
+		}
+
+		public Builder identity(String identity) {
+			this.identity = identity;
+			return this;
+		}
+
+		public Builder ttl(int ttl) {
+			this.ttl = ttl;
+			return this;
+		}
+
+		public Builder grant(Grant grant) {
+			this.grants.add(grant);
+			return this;
+		}
+
+		public Builder grants(Collection<Grant> grants) {
+			this.grants.addAll(grants);
+			return this;
+		}
+
+		public AccessToken build() {
+			return new AccessToken(this);
+		}
 	}
 }

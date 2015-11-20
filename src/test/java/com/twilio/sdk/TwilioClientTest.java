@@ -19,7 +19,7 @@ public class TwilioClientTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidAccountSidAndToken() {
-		new TwilioRestClient("fake sid", "fake auth token");
+		new TwilioRestClient(null, null);
 	}
 
 	@Test

@@ -32,7 +32,6 @@ public class MessagingCountryList extends NextGenListResource<MessagingCountry, 
 
     public MessagingCountryList(final TwilioPricingClient client, final Map<String, String> filters) {
         super(client, filters);
-        this.setRequestAccountSid(client.getAccountSid());
     }
 
     @Override

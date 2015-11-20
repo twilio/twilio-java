@@ -14,12 +14,12 @@ public class TwilioTrunkingClient extends TwilioClient {
 
 	public static final String DEFAULT_VERSION = "v1";
 
-	public TwilioTrunkingClient(String accountSid, String authToken) {
-		this(accountSid, authToken, "https://trunking.twilio.com");
+	public TwilioTrunkingClient(String username, String password) {
+		this(username, password, "https://trunking.twilio.com");
 	}
 
-	public TwilioTrunkingClient(String accountSid, String authToken, String endpoint) {
-		super(accountSid, authToken, endpoint);
+	public TwilioTrunkingClient(String username, String password, String endpoint) {
+		super(username, password, endpoint);
 	}
 
 	/**

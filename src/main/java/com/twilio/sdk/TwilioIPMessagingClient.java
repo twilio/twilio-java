@@ -17,12 +17,12 @@ public class TwilioIPMessagingClient extends TwilioClient {
 	/** The Constant DEFAULT_VERSION. */
 	public static final String DEFAULT_VERSION = "v1";
 
-	public TwilioIPMessagingClient(String accountSid, String authToken) {
-		this(accountSid, authToken, "https://ip-messaging.twilio.com");
+	public TwilioIPMessagingClient(String username, String password) {
+		this(username, password, "https://ip-messaging.twilio.com");
 	}
 
-	public TwilioIPMessagingClient(String accountSid, String authToken, String endpoint) {
-		super(accountSid, authToken, endpoint);
+	public TwilioIPMessagingClient(String username, String password, String endpoint) {
+		super(username, password, endpoint);
 	}
 
 	/**

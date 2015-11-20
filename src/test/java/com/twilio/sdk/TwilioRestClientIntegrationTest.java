@@ -111,4 +111,32 @@ public class TwilioRestClientIntegrationTest {
         assertEquals("Token", credentialsProvider.getCredentials(AuthScope.ANY).getUserPrincipal().getName());
         assertEquals(jwt, credentialsProvider.getCredentials(AuthScope.ANY).getPassword());
     }
+
+    @Test
+    public void testCreateCallWithSigningKey() throws Exception {
+        Map<String, String> response_json = new HashMap<String, String>();
+        response_json.put("from", "+123");
+        fakeHttpResponse.setEntity(new StringEntity(mapper.writeValueAsString(response_json), ContentType.APPLICATION_JSON));
+
+        TwilioRestClient client = new TwilioRestClient("SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        client.setRequestAccountSid(ACCOUNT_SID);
+        client.setHttpClient(fakeHttpClient);
+
+        Map<String, String> request_data = new HashMap<String, String>();
+        request_data.put("From", "+123");
+
+        Call call = client.getAccount().getCallFactory().create(request_data);
+
+        // validate call
+        assertEquals("+123", call.getFrom());
+
+        ArgumentCaptor<HttpPost> captor = ArgumentCaptor.forClass(HttpPost.class);
+        Mockito.verify(fakeHttpClient).execute(captor.capture());
+        HttpPost request = captor.getValue();
+
+        // validate http request
+        assertEquals("https://api.twilio.com/2010-04-01/Accounts/" + ACCOUNT_SID + "/Calls.json", request.getURI().toString());
+        assertEquals("SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", credentialsProvider.getCredentials(AuthScope.ANY).getUserPrincipal().getName());
+        assertEquals("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", credentialsProvider.getCredentials(AuthScope.ANY).getPassword());
+    }
 }

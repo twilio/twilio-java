@@ -18,6 +18,6 @@ public class AccessTokenExamples {
 				.build();
 
 		String jwtToken = token.toJWT();
-		System.out.println(jwtToken);
+		System.out.println("Generated jwt:\n" + jwtToken);
 	}
 }

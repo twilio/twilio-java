@@ -3,19 +3,20 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
-Version 6.0.0-edge
--------------
-
-Released November 20, 2015
-
-- Add support for First Person Grants
-
-Version 5.4.0
+Version 5.5.0
 -------------
 
 Released November 18, 2015
 
 - Fix authentication using key and secret
+
+Version 5.4.0
+-------------
+
+Released October 30, 2015
+
+- Add MessagingServiceSid
+
 
 Version 5.3.1-edge
 -------------
@@ -30,7 +31,6 @@ Version 5.3.0-edge
 Released October 28, 2015
 
 - Add Keys endpoint
-
 
 Version 5.2.1
 -------------

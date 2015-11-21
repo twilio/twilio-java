@@ -17,6 +17,14 @@ public class KeyTest extends BasicRequestTester {
     }
 
     @Test
+    public void testCreate() throws Exception {
+        setExpectedServerReturnCode(201);
+        Key signingKey = restClient.getAccount().getKey("SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        assertNotNull(signingKey);
+        assertEquals("Test Key", signingKey.getFriendlyName());
+    }
+
+    @Test
     public void testDelete() throws Exception {
         setExpectedServerAnswer(null);
         setExpectedServerReturnCode(204);

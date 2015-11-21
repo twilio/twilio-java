@@ -41,7 +41,7 @@ public abstract class TwilioClient {
 	private static final int AUTH_TOKEN_OR_SIGNING_SECRET_LENGTH = 32;
 
 	/** The Constant VERSION. */
-	private static final String VERSION = "5.4.0-edge";
+	private static final String VERSION = "6.0.0-edge";
 
 	/** The endpoint. */
 	private String endpoint = "https://api.twilio.com";

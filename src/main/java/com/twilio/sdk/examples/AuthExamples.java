@@ -2,7 +2,7 @@ package com.twilio.sdk.examples;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.auth.AccessToken;
-import com.twilio.sdk.auth.RestGrant;
+import com.twilio.sdk.auth.IpMessagingGrant;
 import com.twilio.sdk.resource.list.MessageList;
 
 public class AuthExamples {
@@ -42,11 +42,10 @@ public class AuthExamples {
 	}
 
 	public static void authUsingAccessToken() throws Exception {
-		AccessToken token = new AccessToken(SIGNINGKEY_SID, ACCOUNT_SID, SIGNINGKEY_SECRET);
-
-		// Grants access to list of messages
-		// The json extension is required
-		token.addGrant(new RestGrant("Messages.json"));
+		AccessToken token =
+				new AccessToken.Builder(ACCOUNT_SID, SIGNINGKEY_SID, SIGNINGKEY_SECRET)
+					.grant(new IpMessagingGrant())
+					.build();
 
 		String jwtToken = token.toJWT();
 

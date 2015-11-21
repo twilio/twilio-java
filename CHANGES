@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 6.0.0-edge
+-------------
+
+Released November 20, 2015
+
+- Add support for First Person Grants
+
 Version 5.5.0
 -------------
 

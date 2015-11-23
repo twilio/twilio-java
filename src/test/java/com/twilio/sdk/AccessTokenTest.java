@@ -70,7 +70,7 @@ public class AccessTokenTest {
 		assertEquals(2, decodedGrants.size());
 
 		Map<String, Object> payload = (Map<String, Object>) decodedGrants.get("ip_messaging");
-		assertEquals("serviceSid", payload.get("instance_sid"));
+		assertEquals("serviceSid", payload.get("service_sid"));
 		assertEquals("roleSid", payload.get("deployment_role_sid"));
 		assertEquals("endpointId", payload.get("endpoint_id"));
 		assertEquals("credentialSid", payload.get("push_credential_sid"));

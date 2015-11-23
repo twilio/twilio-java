@@ -67,7 +67,7 @@ public class TwilioUtilsTest {
 
     // allow +-20% of the larger value
     double deltaPercent = 100.0 * (shortFailTime - longFailTime) / Math.max(shortFailTime, longFailTime);
-    assertEquals(0, deltaPercent, 20.0);
+    assertEquals(0, deltaPercent, 40.0);
   }
 
   private static long getBestTime(String a, String b) {

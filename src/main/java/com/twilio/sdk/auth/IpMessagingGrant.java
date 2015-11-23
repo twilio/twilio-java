@@ -61,13 +61,13 @@ public class IpMessagingGrant implements Grant {
 	}
 
 	public class Payload {
-		public final String instance_sid;
+		public final String service_sid;
 		public final String deployment_role_sid;
 		public final String endpoint_id;
 		public final String push_credential_sid;
 
 		public Payload(IpMessagingGrant grant) {
-			this.instance_sid = grant.serviceSid;
+			this.service_sid = grant.serviceSid;
 			this.deployment_role_sid = grant.deploymentRoleSid;
 			this.endpoint_id = grant.endpointId;
 			this.push_credential_sid = grant.pushCredentialSid;

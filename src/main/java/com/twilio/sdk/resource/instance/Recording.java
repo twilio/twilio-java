@@ -145,6 +145,15 @@ public class Recording extends InstanceResource<TwilioRestClient> {
 	public String getApiVersion() {
 		return getProperty("api_version");
 	}
+	
+	/**
+	 * Gets the Price Unit.
+	 *
+	 * @return the price unit
+	 */
+	public String getPriceUnit() {
+		return getProperty("price_unit");
+	}
 
 	/**
 	 * Gets the media.

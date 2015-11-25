@@ -147,6 +147,15 @@ public class Recording extends InstanceResource<TwilioRestClient> {
 	}
 	
 	/**
+	 * Gets the price.
+	 *
+	 * @return the price
+	 */
+	public String getPrice() {
+		return this.getProperty("price");
+	}
+
+	/**
 	 * Gets the Price Unit.
 	 *
 	 * @return the price unit
@@ -163,15 +172,6 @@ public class Recording extends InstanceResource<TwilioRestClient> {
 	 */
 	public InputStream getMedia(final String extension) {
 		return getClient().requestStream(getResourceLocation(extension), "GET", (Map) null);
-	}
-
-	/**
-	 * Gets the price.
-	 *
-	 * @return the price
-	 */
-	public String getPrice() {
-		return this.getProperty("price");
 	}
 
 	/**

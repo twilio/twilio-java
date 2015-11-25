@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.5.1
+-------------
+
+Released November 25, 2015
+
+- Exposed Recording's PriceUnit field
+
 Version 5.5.0
 -------------
 

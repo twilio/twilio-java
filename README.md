@@ -9,7 +9,7 @@ Use the following dependency in your project:
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio-java-sdk</artifactId>
-          <version>5.3.0</version>
+          <version>5.6.0</version>
           <scope>compile</scope>
        </dependency>
 
@@ -169,12 +169,12 @@ public class TaskRouterExample {
     private static final String ACCOUNT_SID = "YourAccountSid";
     private static final String AUTH_TOKEN = "YourAuthToken";
     private static final String WORKSPACE_SID = "YourWorkspaceSid";
-    
+
     public static void main(String[] args) {
-        
+
         TwilioTaskRouterClient trClient = new TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN);
         Workspace workspace = trClient.getWorkspace(WORKSPACE_SID);
-        
+
         ActivityList activities = workspace.getActivities();
         WorkflowList workflows = workspace.getWorkflows();
         TaskQueueList taskQueues = workspace.getTaskQueues();
@@ -197,10 +197,10 @@ public class TaskRouterExample {
         for(Task task : tasks) {
             System.out.println("Task: "+task.getAttributes());
         }
-        
+
         Map<String, String> taskAttributes = new HashMap<String, String>();
         taskAttributes.put("foo", "bar");
-        
+
         try {
             Task createdTask = workspace.createTask(firstWorkflow.getSid(), taskAttributes, null, null);
             System.out.println("created a task: "+createdTask.getAttributes());
@@ -208,7 +208,7 @@ public class TaskRouterExample {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         WorkspaceStatistics statistics = workspace.getStatistics();
         System.out.println("---- statistics ----");
         System.out.println("StartTime: "+statistics.getStartTime().getTime());
@@ -216,37 +216,37 @@ public class TaskRouterExample {
         System.out.println("Avg Task Acceptance Time: "+statistics.getAverageTaskAcceptanceTime()+" seconds");
         System.out.println("Tasks Created: "+statistics.getTasksCreated());
         Workflow workflow = buildWorkflow(workspace);
-        
+
         readWorkflow(trClient, workspace.getSid(), workflow.getSid());
     }
-    
+
     private static Workflow buildWorkflow(Workspace workspace) throws Exception {
 	  String salesQueueSid = "YourSalesQueueSid";
 	  String marketingQueueSid = "YourMarketingQueueSid";
 	  String supportQueueSid = "YourSupportQueueSid";
 	  String defaultQueue = "YourDefaultQueueSid";
-      
+
       // construct workflow
       List<WorkflowRule> rules = new ArrayList<WorkflowRule>();
-      
+
       // sales
       List<WorkflowRuleTarget> salesTargets = new ArrayList<WorkflowRuleTarget>();
       WorkflowRuleTarget salesTarget = new WorkflowRuleTarget(salesQueue, null, null, null);
       salesTargets.add(salesTarget);
       WorkflowRule salesRule = new WorkflowRule("type == \"sales\"", salesTargets);
-      
+
       // marketing
       List<WorkflowRuleTarget> marketingTargets = new ArrayList<WorkflowRuleTarget>();
       WorkflowRuleTarget marketingTarget = new WorkflowRuleTarget(marketingQueue, null, null, null);
       marketingTargets.add(marketingTarget);
       WorkflowRule marketingRule = new WorkflowRule("type == \"marketing\"", marketingTargets);
-      
+
       // support
       List<WorkflowRuleTarget> supportTargets = new ArrayList<WorkflowRuleTarget>();
       WorkflowRuleTarget supportTarget = new WorkflowRuleTarget(supportQueue, null, null, null);
       supportTargets.add(supportTarget);
       WorkflowRule supportRule = new WorkflowRule("type == \"support\"", supportTargets);
-      
+
       // default filter
       WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget(defaultQueue);
 
@@ -254,11 +254,11 @@ public class TaskRouterExample {
       rules.add(salesRule);
       rules.add(marketingRule);
       rules.add(supportRule);
-      
+
       // build workflow & convert to json
       WorkflowConfiguration config = new WorkflowConfiguration(rules, defaultTarget);
       String workflowJSON = config.toJSON();
-      
+
       Map<String, String> params = new HashMap<String, String>();
       params.put("Configuration", workflowJSON);
       params.put("FriendlyName", "Sales, Marketing, Support Workflow");
@@ -266,14 +266,14 @@ public class TaskRouterExample {
       Workflow workflow = workspace.createWorkflow(params);
       return workflow;
     }
-    
+
     private static void readWorkflow(TwilioTaskRouterClient client, String workspaceSid, String workflowSid) throws IOException {
       Workflow workflow = client.getWorkflow(workspaceSid, workflowSid);
-    
+
       // show that we can inspect the workflow configuration
       WorkflowConfiguration config = workflow.parseConfiguration();
       System.out.println(config);
-    
+
       List<WorkflowRule> workflowRules = config.getWorkflowRules();
       WorkflowRuleTarget defaultTarget = config.getDefaultTarget();
     }

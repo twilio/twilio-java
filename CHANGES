@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.6.0
+-------------
+
+Released December 3, 2015
+
+- Add access tokens
+
 Version 5.5.1
 -------------
 

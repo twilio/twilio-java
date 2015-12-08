@@ -1,5 +1,6 @@
 package com.twilio.sdk.auth;
 
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -27,6 +28,7 @@ public class AccessToken {
 	private final String secret;
 	private final int ttl;
 
+	private final Integer nbf;
 	private final String identity;
 	private final Set<Grant> grants;
 
@@ -35,6 +37,7 @@ public class AccessToken {
 		this.keySid = b.keySid;
 		this.secret = b.secret;
 		this.ttl = b.ttl;
+		this.nbf = b.nbf;
 		this.identity = b.identity;
 		this.grants = Collections.unmodifiableSet(b.grants);
 	}
@@ -50,7 +53,6 @@ public class AccessToken {
 
 		Date now = new Date();
 		int timestamp = (int)(Math.floor(now.getTime() / 1000.0f));
-
 		Map<String, Object> grantPayload = new HashMap<String, Object>();
 
 		if (this.identity != null) {
@@ -61,16 +63,21 @@ public class AccessToken {
 			grantPayload.put(grant.getGrantKey(), grant.getPayload());
 		}
 
-		return Jwts.builder()
+		JwtBuilder builder =
+			Jwts.builder()
 				.signWith(SignatureAlgorithm.HS256, secret.getBytes(Charset.forName("UTF-8")))
 				.setHeaderParams(headers)
 				.setId(this.keySid + "-" + timestamp)
 				.setIssuer(this.keySid)
 				.setSubject(this.accountSid)
-				.setNotBefore(now)
 				.setExpiration(new Date(now.getTime() + ttl * 1000))
-				.claim("grants", grantPayload)
-				.compact();
+				.claim("grants", grantPayload);
+
+		if (this.nbf != null) {
+			builder.setNotBefore(new Date((long)this.nbf * 1000));
+		}
+
+		return builder.compact();
 	}
 
 	/** Builder used to construct a Access Token */
@@ -79,6 +86,7 @@ public class AccessToken {
 		private String keySid;
 		private String secret;
 		private String identity;
+		private Integer nbf = null;
 		private int ttl = 3600;
 		private Set<Grant> grants = new HashSet<Grant>();
 
@@ -95,6 +103,11 @@ public class AccessToken {
 
 		public Builder ttl(int ttl) {
 			this.ttl = ttl;
+			return this;
+		}
+
+		public Builder nbf(int nbf) {
+			this.nbf = nbf;
 			return this;
 		}
 

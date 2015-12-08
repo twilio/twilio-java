@@ -140,8 +140,36 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 			this.iterator = iterator;
 		}
 
+//		public boolean hasNext() {
+//			return (iterator.hasNext() || hasNextPage());
+//		}
+
 		public boolean hasNext() {
-			return (iterator.hasNext() || hasNextPage());
+			//If the iterator is not empty, 
+			//let's return true right away
+			if (iterator.hasNext()) {
+				return true;
+			}
+			
+			//If the nextPageUrl is empty, return false 
+			if (!hasNextPage()) {
+				return false;
+			}
+			
+			//Let's check if there are truly anything left in next page
+			//This is a temporary work around since the REST resources are 
+			//returning next_page_url even though there isn't any resources availble
+			try {
+				System.out.println("Fetching");
+				fetchNextPage();
+			} catch (TwilioRestException e) {
+				//If there is an exception, let's return false right away
+				return false;
+			} 
+
+			iterator = pageData.iterator();
+						
+			return hasNextPage();
 		}
 
 		public T next() {

@@ -7,6 +7,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -22,12 +23,13 @@ public class AccessTokenTest {
 	protected void validateClaims(Claims claims) {
 		assertEquals(SIGNING_KEY_SID, claims.getIssuer());
 		assertEquals(ACCOUNT_SID, claims.getSubject());
-		assertNotNull(claims.getNotBefore());
+
 		assertNotNull(claims.getExpiration());
-		assertEquals(claims.getNotBefore().getTime() + (3600 * 1000), claims.getExpiration().getTime());
 		assertNotNull(claims.getId());
-		assertTrue(claims.getId().startsWith(claims.getIssuer() + "-"));
 		assertNotNull(claims.get("grants"));
+
+		assertTrue(claims.getId().startsWith(claims.getIssuer() + "-"));
+		assertTrue(claims.getExpiration().getTime() > new Date().getTime());
 	}
 
 	@Test
@@ -43,6 +45,29 @@ public class AccessTokenTest {
 				.getBody();
 
 		this.validateClaims(claims);
+	}
+
+	@Test
+	public void testNbf() {
+		Date now = new Date();
+		AccessToken accessToken =
+			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+				.nbf((int) (Math.floor(now.getTime() / 1000.0f)))
+				.build();
+
+		Claims claims =
+			Jwts.parser()
+				.setSigningKey(SECRET.getBytes())
+				.parseClaimsJws(accessToken.toJWT())
+				.getBody();
+
+		this.validateClaims(claims);
+
+		// Just check up to the second
+		assertEquals(
+			(int)(Math.floor(now.getTime() / 1000.0f)),
+			(int)(Math.floor(claims.getNotBefore().getTime() / 1000.0f))
+		);
 	}
 
 	@Test

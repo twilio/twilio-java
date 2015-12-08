@@ -50,9 +50,10 @@ public class AccessTokenTest {
 	@Test
 	public void testNbf() {
 		Date now = new Date();
+		int timestamp = (int) (Math.floor(now.getTime() / 1000.0f)) - 300;
 		AccessToken accessToken =
 			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
-				.nbf((int) (Math.floor(now.getTime() / 1000.0f)))
+				.nbf(timestamp)
 				.build();
 
 		Claims claims =
@@ -64,10 +65,7 @@ public class AccessTokenTest {
 		this.validateClaims(claims);
 
 		// Just check up to the second
-		assertEquals(
-			(int)(Math.floor(now.getTime() / 1000.0f)),
-			(int)(Math.floor(claims.getNotBefore().getTime() / 1000.0f))
-		);
+		assertEquals(timestamp, (int) (claims.getNotBefore().getTime() / 1000));
 	}
 
 	@Test

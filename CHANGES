@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 6.1.0-edge
+-------------
+
+Released December 8, 2015
+
+- Change nbf to be an optional parameter in AccessToken
+
 Version 6.0.1-edge
 -------------
 
@@ -16,6 +23,13 @@ Version 6.0.0-edge
 Released November 20, 2015
 
 - Add support for First Person Grants
+
+Version 5.5.1
+-------------
+
+Released November 25, 2015
+
+- Exposed Recording's PriceUnit field
 
 Version 5.5.0
 -------------

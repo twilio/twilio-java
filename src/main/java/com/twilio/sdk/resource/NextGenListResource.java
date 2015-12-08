@@ -140,10 +140,6 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 			this.iterator = iterator;
 		}
 
-//		public boolean hasNext() {
-//			return (iterator.hasNext() || hasNextPage());
-//		}
-
 		public boolean hasNext() {
 			//If the iterator is not empty, 
 			//let's return true right away

@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.7.0
+-------------
+
+Released December 8, 2015
+
+- Change NBF to be optional parameter in AccessToken
+
 Version 5.6.0
 -------------
 

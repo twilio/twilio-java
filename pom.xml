@@ -4,7 +4,7 @@
   <artifactId>twilio-java-sdk</artifactId>
   <packaging>jar</packaging>
   <name>twilio-java-sdk</name>
-  <version>6.1.0-edge</version>
+  <version>6.0.2-edge-SNAPSHOT</version>
   <description>Java helper library for Twilio services</description>
   <url>http://www.twilio.com</url>
   <licenses>

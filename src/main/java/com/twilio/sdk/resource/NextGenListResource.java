@@ -156,7 +156,6 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 			//This is a temporary work around since the REST resources are 
 			//returning next_page_url even though there isn't any resources availble
 			try {
-				System.out.println("Fetching");
 				fetchNextPage();
 			} catch (TwilioRestException e) {
 				//If there is an exception, let's return false right away

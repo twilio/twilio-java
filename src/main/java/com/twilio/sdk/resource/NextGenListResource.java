@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public abstract class NextGenListResource<T extends NextGenInstanceResource, C extends TwilioClient> extends Resource<C> implements Iterable<T> {
 
@@ -141,45 +142,23 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 		}
 
 		public boolean hasNext() {
-			//If the iterator is not empty, 
-			//let's return true right away
-			if (iterator.hasNext()) {
-				return true;
-			}
-			
-			//If the nextPageUrl is empty, return false 
-			if (!hasNextPage()) {
-				return false;
-			}
-			
-			//Let's check if there are truly anything left in next page
-			//This is a temporary work around since the REST resources are 
-			//returning next_page_url even though there isn't any resources availble
-			try {
-				fetchNextPage();
-			} catch (TwilioRestException e) {
-				//If there is an exception, let's return false right away
-				return false;
-			} 
-
-			iterator = pageData.iterator();
-						
-			return hasNextPage();
+			return (iterator.hasNext() || hasNextPage());
 		}
 
 		public T next() {
-			if (iterator.hasNext()) {
-				return iterator.next();
-			}
+			T nextElement = iterator.next();
+						
+            if (!iterator.hasNext() && hasNextPage()) {
+                try {
+                    fetchNextPage();
+                } catch (TwilioRestException e) {
+                    throw new RuntimeException(e);
+                }
+                
+                iterator = pageData.iterator();
+            }
 
-			try {
-				fetchNextPage();
-			} catch (TwilioRestException e) {
-				throw new RuntimeException(e);
-			}
-
-			iterator = pageData.iterator();
-			return iterator.next();
+            return nextElement;
 		}
 
 		public void remove() {

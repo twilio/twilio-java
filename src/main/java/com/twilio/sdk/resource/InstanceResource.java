@@ -153,6 +153,16 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	}
 
 	/**
+	 * Gets the property as a Boolean value.
+	 *
+	 * @param name property name
+	 * @return Boolean value
+	 */
+	public Boolean getPropertyAsBoolean(String name) {
+		return Boolean.valueOf(getProperty(name));
+	}
+
+	/**
 	 * Sets the property as an Object
 	 *
 	 * @param name the name

@@ -1,16 +1,15 @@
 package com.twilio.sdk.resource;
 
-import com.twilio.sdk.TwilioClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
+
+import com.twilio.sdk.TwilioClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 
 public abstract class NextGenListResource<T extends NextGenInstanceResource, C extends TwilioClient> extends Resource<C> implements Iterable<T> {
 
@@ -147,18 +146,18 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 
 		public T next() {
 			T nextElement = iterator.next();
-						
-            if (!iterator.hasNext() && hasNextPage()) {
-                try {
-                    fetchNextPage();
-                } catch (TwilioRestException e) {
-                    throw new RuntimeException(e);
-                }
-                
-                iterator = pageData.iterator();
-            }
 
-            return nextElement;
+			if (!iterator.hasNext() && hasNextPage()) {
+				try {
+					fetchNextPage();
+				} catch (TwilioRestException e) {
+					throw new RuntimeException(e);
+				}
+
+				iterator = pageData.iterator();
+			}
+
+			return nextElement;
 		}
 
 		public void remove() {

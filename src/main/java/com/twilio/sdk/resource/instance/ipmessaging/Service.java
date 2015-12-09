@@ -104,7 +104,7 @@ public class Service extends NextGenInstanceResource<TwilioIPMessagingClient> {
 	 *
 	 * @return The consumption report interval
 	 */
-	public Integer getCconsumption_report_interval() {
+	public Integer getConsumptionReportInterval() {
 		return getPropertyAsInteger(CONSUMPTION_REPORT_INTERVAL_PROPERTY);
 	}
 

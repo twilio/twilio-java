@@ -36,10 +36,11 @@ public class ChannelListTest extends BasicRequestTester {
 		assertEquals("CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", resource.getSid());
 		assertEquals("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", resource.getAccountSid());
 		assertEquals("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", resource.getServiceSid());
-		assertEquals("adsfadsfasdf", resource.getFriendlyName());
+		assertEquals("friendly", resource.getFriendlyName());
+		assertEquals("unique", resource.getUniqueName());
 		assertEquals("", resource.getAttributes());
 		assertEquals("public", resource.getType());
-		assertEquals("dfgsdgds", resource.getCreatedBy());
+		assertEquals("API", resource.getCreatedBy());
 		assertEquals("https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 				resource.getUrl());
 
@@ -65,10 +66,11 @@ public class ChannelListTest extends BasicRequestTester {
 		assertEquals("CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", resource.getSid());
 		assertEquals("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", resource.getAccountSid());
 		assertEquals("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", resource.getServiceSid());
-		assertEquals("adsfadsfasdf", resource.getFriendlyName());
+		assertEquals("friendly", resource.getFriendlyName());
+		assertEquals("unique", resource.getUniqueName());
 		assertEquals("", resource.getAttributes());
 		assertEquals("public", resource.getType());
-		assertEquals("dfgsdgds", resource.getCreatedBy());
+		assertEquals("API", resource.getCreatedBy());
 		assertEquals("https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 				resource.getUrl());
 

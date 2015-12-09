@@ -19,6 +19,7 @@ import java.util.Map;
 public class Channel extends NextGenInstanceResource<TwilioIPMessagingClient> {
 
 	private static final String SERVICE_SID_PROPERTY = "service_sid";
+	private static final String UNIQUE_NAME_PROPERTY = "unique_name";
 
 	public Channel(TwilioIPMessagingClient client, String serviceSid, String sid) {
 		super(client);
@@ -72,6 +73,15 @@ public class Channel extends NextGenInstanceResource<TwilioIPMessagingClient> {
 	 */
 	public String getFriendlyName() {
 		return getProperty(FRIENDLY_NAME_PROPERTY);
+	}
+	
+	/**
+	 * The human readable unique name for this channel
+	 *
+	 * @return A human readable string
+	 */
+	public String getUniqueName() {
+		return getProperty(UNIQUE_NAME_PROPERTY);
 	}
 
 	/**

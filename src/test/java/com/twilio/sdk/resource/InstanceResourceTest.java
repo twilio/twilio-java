@@ -69,4 +69,18 @@ public class InstanceResourceTest {
 		Boolean actual = resource.getPropertyAsBoolean("read_status_enabled");
 		Assert.assertFalse(actual);
 	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetPropertyAsBooleanThrowsException() {
+
+		Message resource = new Message(new TwilioIPMessagingClient("ACSid",
+				"AuthToken"), new HashMap<String, Object>()) {
+
+			public String getProperty(String name) {
+				throw new IllegalArgumentException();
+			};
+
+		};
+		resource.getPropertyAsBoolean("read_status_enabled");
+	}
 }

@@ -9,7 +9,7 @@ Use the following dependency in your project:
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio-java-sdk</artifactId>
-          <version>6.1.0-edge</version>
+          <version>6.2.0-edge</version>
           <scope>compile</scope>
        </dependency>
 

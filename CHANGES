@@ -3,6 +3,16 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 6.2.0-edge
+-------------
+
+Released December 9, 2015
+
+- Added Unique Name to Channel representation
+- Added Read Status Enabled & Consumption Report Interval to Service representation
+- Added Index to Message representation
+- Added Last Consumed Message Index and Last Consumption Timestamp to Member representation
+
 Version 6.1.0-edge
 -------------
 

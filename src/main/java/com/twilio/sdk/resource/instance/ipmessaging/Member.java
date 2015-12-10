@@ -16,6 +16,8 @@ public class Member extends NextGenInstanceResource<TwilioIPMessagingClient> {
 
 	private static final String SERVICE_SID_PROPERTY = "service_sid";
 	private static final String CHANNEL_SID_PROPERTY = "channel_sid";
+	private static final String LAST_CONSUMED_MESSAGE_INDEX_PROPERTY = "last_consumed_message_index";
+	private static final String LAST_CONSUMPTION_TIMESTAMP_PROPERTY = "last_consumption_timestamp";
 
 	public Member(TwilioIPMessagingClient client, Map<String, Object> properties) {
 		super(client, properties);
@@ -93,6 +95,24 @@ public class Member extends NextGenInstanceResource<TwilioIPMessagingClient> {
 	 */
 	public String getRoleSid() {
 		return getProperty("role_sid");
+	}
+
+	/**
+	 * Returns the last message index consumed by the member
+	 *
+	 * @return the last consumed message index
+	 */
+	public Integer getLastConsumedMessageIndex() {
+		return getPropertyAsInteger(LAST_CONSUMED_MESSAGE_INDEX_PROPERTY);
+	}
+
+	/**
+	 * Returns the Member's last message consumption time stamp
+	 *
+	 * @return the last consumption timestamp
+	 */
+	public Calendar getLastConsumptionTimestamp() {
+		return parseCalendar(getProperty(LAST_CONSUMPTION_TIMESTAMP_PROPERTY));
 	}
 
 	/**

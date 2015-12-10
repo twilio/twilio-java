@@ -1,5 +1,12 @@
 package com.twilio.sdk.resource.instance.ipmessaging;
 
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.NameValuePair;
+
 import com.twilio.sdk.TwilioIPMessagingClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -7,17 +14,14 @@ import com.twilio.sdk.resource.NextGenInstanceResource;
 import com.twilio.sdk.resource.list.ipmessaging.ChannelList;
 import com.twilio.sdk.resource.list.ipmessaging.RoleList;
 import com.twilio.sdk.resource.list.ipmessaging.UserList;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.NameValuePair;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Represents service for ip messaging
  */
 public class Service extends NextGenInstanceResource<TwilioIPMessagingClient> {
+
+	private static final String READ_STATUS_ENABLED_PROPERTY = "read_status_enabled";
+	private static final String CONSUMPTION_REPORT_INTERVAL_PROPERTY = "consumption_report_interval";
 
 	public Service(TwilioIPMessagingClient client, String sid) {
 		super(client);
@@ -77,6 +81,15 @@ public class Service extends NextGenInstanceResource<TwilioIPMessagingClient> {
 	}
 
 	/**
+	 * Returns read status enabled flag
+	 *
+	 * @return The read status
+	 */
+	public Boolean getReadStatusEnabled() {
+		return (Boolean) getObject(READ_STATUS_ENABLED_PROPERTY);
+	}
+
+	/**
 	 * Timeout after “started typing” event when client should assume that user is not typing anymore even
 	 * if no “ended typing” message received
 	 *
@@ -84,6 +97,15 @@ public class Service extends NextGenInstanceResource<TwilioIPMessagingClient> {
 	 */
 	public Integer getTypingIndicatorTimeout() {
 		return (Integer) getObject("typing_indicator_timeout");
+	}
+
+	/**
+	 * Returns the Consumption Report Interval of the Service
+	 *
+	 * @return The consumption report interval
+	 */
+	public Integer getConsumptionReportInterval() {
+		return getPropertyAsInteger(CONSUMPTION_REPORT_INTERVAL_PROPERTY);
 	}
 
 	/**

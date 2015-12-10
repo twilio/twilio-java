@@ -86,7 +86,7 @@ public class Service extends NextGenInstanceResource<TwilioIPMessagingClient> {
 	 * @return The read status
 	 */
 	public Boolean getReadStatusEnabled() {
-		return getPropertyAsBoolean(READ_STATUS_ENABLED_PROPERTY);
+		return (Boolean) getObject(READ_STATUS_ENABLED_PROPERTY);
 	}
 
 	/**

@@ -1,15 +1,15 @@
 package com.twilio.sdk.resource;
 
+import com.twilio.sdk.TwilioClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import com.twilio.sdk.TwilioClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
 
 public abstract class NextGenListResource<T extends NextGenInstanceResource, C extends TwilioClient> extends Resource<C> implements Iterable<T> {
 
@@ -141,7 +141,7 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 		}
 
 		public boolean hasNext() {
-			return (iterator.hasNext() || hasNextPage());
+			return iterator.hasNext();
 		}
 
 		public T next() {
@@ -163,7 +163,5 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
-
-
 	}
 }

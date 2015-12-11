@@ -48,7 +48,7 @@ import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.resource.factory.CallFactory;
-import com.twilio.sdk.resource.factory.SmsFactory;
+import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Account;
 import com.twilio.sdk.resource.instance.AvailablePhoneNumber;
 import com.twilio.sdk.resource.instance.Call;
@@ -103,13 +103,14 @@ public class Example {
     final Call call = callFactory.create(callParams);
     System.out.println(call.getSid());
 
-    // Send an SMS (Requires version 3.4+)
-    final SmsFactory messageFactory = mainAccount.getSmsFactory();
-    final List<NameValuePair> messageParams = new ArrayList<NameValuePair>();
+    // Send an sms (using the new messages endpoint)
+    MessageFactory messageFactory = mainAccount.getMessageFactory();
+    List<NameValuePair> messageParams = new ArrayList<NameValuePair>();
     messageParams.add(new BasicNameValuePair("To", "5105551212")); // Replace with a valid phone number
     messageParams.add(new BasicNameValuePair("From", "(510) 555-1212")); // Replace with a valid phone number in your account
     messageParams.add(new BasicNameValuePair("Body", "This is a test message!"));
     messageFactory.create(messageParams);
+
 
     // Search for available phone numbers & then buy a random phone number
     final AvailablePhoneNumberList phoneNumbers = mainAccount.getAvailablePhoneNumbers();

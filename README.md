@@ -104,8 +104,8 @@ public class Example {
     System.out.println(call.getSid());
 
     // Send an sms (using the new messages endpoint)
-    MessageFactory messageFactory = mainAccount.getMessageFactory();
-    List<NameValuePair> messageParams = new ArrayList<NameValuePair>();
+    final MessageFactory messageFactory = mainAccount.getMessageFactory();
+    final List<NameValuePair> messageParams = new ArrayList<NameValuePair>();
     messageParams.add(new BasicNameValuePair("To", "5105551212")); // Replace with a valid phone number
     messageParams.add(new BasicNameValuePair("From", "(510) 555-1212")); // Replace with a valid phone number in your account
     messageParams.add(new BasicNameValuePair("Body", "This is a test message!"));

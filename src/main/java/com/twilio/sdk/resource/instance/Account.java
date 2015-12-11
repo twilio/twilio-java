@@ -39,6 +39,7 @@ import com.twilio.sdk.resource.list.SmsList;
 import com.twilio.sdk.resource.list.TranscriptionList;
 import com.twilio.sdk.resource.list.TokenList;
 import com.twilio.sdk.resource.list.UsageRecordList;
+import com.twilio.sdk.resource.list.UsageRecordList.Type;
 import com.twilio.sdk.resource.list.UsageTriggerList;
 import com.twilio.sdk.resource.list.sip.CredentialListList;
 import com.twilio.sdk.resource.list.sip.DomainList;
@@ -843,6 +844,181 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 */
 	public UsageRecordList getUsageRecords() {
 		return this.getUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns multiple Usage Records for each usage category,
+	 * each representing usage over a daily time-interval
+	 *
+	 * @return list of Usage Records over a daily time-interval
+	 */
+	public UsageRecordList getDailyUsageRecords() {
+		return getDailyUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns filtered Usage Records each representing usage over a
+	 * daily time-interval
+	 *
+	 * @param filters One or more combination of Category, StartDate or EndDate
+	 * filtering parameters
+	 * @return filtered list of Usage Records over a daily time-interval
+	 */
+	public UsageRecordList getDailyUsageRecords(Map<String, String> filters) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters,
+				Type.DAILY);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Returns multiple Usage Records for each usage category,
+	 * each representing usage over a monthly time-interval
+	 *
+	 * @return list of Usage Records over a monthly time-interval
+	 */
+	public UsageRecordList getMonthlyUsageRecords() {
+		return getMonthlyUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns filtered Usage Records each representing usage over a
+	 * monthly time-interval
+	 *
+	 * @param filters One or more combination of Category, StartDate or EndDate
+	 * filtering parameters
+	 * @return filtered list of Usage Records over a monthly time-interval
+	 */
+	public UsageRecordList getMonthlyUsageRecords(Map<String, String> filters) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters,
+				Type.MONTHLY);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Returns multiple Usage Records for each usage category,
+	 * each representing usage over a yearly time-interval
+	 *
+	 * @return list of Usage Records over a yearly time-interval
+	 */
+	public UsageRecordList getYearlyUsageRecords() {
+		return getYearlyUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns filtered Usage Records each representing usage over a
+	 * yearly time-interval
+	 *
+	 * @param filters One or more combination of Category, StartDate or EndDate
+	 * filtering parameters
+	 * @return filtered list of Usage Records over a yearly time-interval
+	 */
+	public UsageRecordList getYearlyUsageRecords(Map<String, String> filters) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters,
+				Type.YEARLY);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Returns a single Usage Record per usage category,
+	 * for today's usage only
+	 *
+	 * @return list of today's Usage Record per usage category
+	 */
+	public UsageRecordList getTodaysUsageRecords() {
+		return getTodaysUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns filtered Usage Record one per usage category,
+	 * for today's usage only
+	 *
+	 * @param filters One or more combination of Category, StartDate or EndDate
+	 * filtering parameters
+	 * @return filtered list of today's Usage Records
+	 */
+	public UsageRecordList getTodaysUsageRecords(Map<String, String> filters) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters,
+				Type.TODAY);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Returns a single Usage Record per usage category,
+	 * for yesterday's usage only
+	 *
+	 * @return list of yesterday's Usage Record per usage category
+	 */
+	public UsageRecordList getYesterdaysUsageRecords() {
+		return getYesterdaysUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns filtered Usage Record one per usage category,
+	 * for yesterday's usage only
+	 *
+	 * @param filters One or more combination of Category, StartDate or EndDate
+	 * filtering parameters
+	 * @return filtered list of yesterday's Usage Records
+	 */
+	public UsageRecordList getYesterdaysUsageRecords(Map<String, String> filters) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters,
+				Type.YESTERDAY);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Returns a single Usage Record per usage category,
+	 * for this month's usage only
+	 *
+	 * @return list of this month's Usage Record per usage category
+	 */
+	public UsageRecordList getThisMonthsUsageRecords() {
+		return getThisMonthsUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns filtered Usage Record one per usage category,
+	 * for this month's usage only
+	 *
+	 * @param filters One or more combination of Category, StartDate or EndDate
+	 * filtering parameters
+	 * @return filtered list of this month's Usage Records
+	 */
+	public UsageRecordList getThisMonthsUsageRecords(Map<String, String> filters) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters,
+				Type.THIS_MONTH);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
+	}
+
+	/**
+	 * Returns a single Usage Record per usage category,
+	 * for last month's usage only
+	 *
+	 * @return list of last month's Usage Record per usage category
+	 */
+	public UsageRecordList getLastMonthsUsageRecords() {
+		return getLastMonthsUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns filtered Usage Record one per usage category,
+	 * for last month's usage only
+	 *
+	 * @param filters One or more combination of Category, StartDate or EndDate
+	 * filtering parameters
+	 * @return filtered list of last month's Usage Records
+	 */
+	public UsageRecordList getLastMonthsUsageRecords(Map<String, String> filters) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters,
+				Type.LAST_MONTH);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
 	}
 
 	/**

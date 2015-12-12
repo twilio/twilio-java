@@ -1,21 +1,31 @@
 package com.twilio.sdk.resource.instance;
 
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-import org.junit.Test;
-import org.mockito.Matchers;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.parser.ResponseParser;
+import com.twilio.sdk.resource.list.UsageRecordList;
+
+@SuppressWarnings("unchecked")
 public class AccountTest {
     final SimpleDateFormat dateFormat = new SimpleDateFormat(
             "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
@@ -28,7 +38,8 @@ public class AccountTest {
     String formattedDate;
     HashMap<String, Object> map;
 
-    private void setupMocks() {
+    @Before
+    public void setupMocks() {
         map = new HashMap<String, Object>();
         stub(resp.toMap()).toReturn(map);
         formattedDate = dateFormat.format(new Date());
@@ -40,6 +51,9 @@ public class AccountTest {
         map.put("status", "active");
         map.put("auth_token", authToken);
         map.put("sid", otherAccountSid);
+
+        ResponseParser mockParser = Mockito.mock(ResponseParser.class);
+        Mockito.when(resp.getParser()).thenReturn(mockParser);
     }
 
     /**
@@ -50,7 +64,6 @@ public class AccountTest {
     @Test
     public void testCreation() throws TwilioRestException {
 
-        setupMocks();
         stub(
                 client.safeRequest(Matchers.eq("/2010-04-01/Accounts/" + otherAccountSid + ".json"),
                         Matchers.eq("GET"), Matchers.any(Map.class)))
@@ -59,5 +72,287 @@ public class AccountTest {
         a.setRequestAccountSid(accountSid);
 
         assertTrue(a.getSid().equals(otherAccountSid));
+    }
+
+    @Test
+    public void testDailyUsageRecords() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(2));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        UsageRecordList usageRecordList = account.getDailyUsageRecords();
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(2, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testDailyUsageRecordsWithParams() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(1));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Category", "sms");
+        UsageRecordList usageRecordList = account.getDailyUsageRecords(params);
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(1, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testMonthlyUsageRecords() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(2));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        UsageRecordList usageRecordList = account.getMonthlyUsageRecords();
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(2, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testMonthlyUsageRecordsWithParams() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(1));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Category", "sms");
+        UsageRecordList usageRecordList = account.getMonthlyUsageRecords(params);
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(1, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testYearlyUsageRecords() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(2));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        UsageRecordList usageRecordList = account.getYearlyUsageRecords();
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(2, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testYearlyUsageRecordsWithParams() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(1));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Category", "sms");
+        UsageRecordList usageRecordList = account.getYearlyUsageRecords(params);
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(1, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testTodaysUsageRecords() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(2));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        UsageRecordList usageRecordList = account.getTodaysUsageRecords();
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(2, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testTodaysUsageRecordsWithParams() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(1));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Category", "sms");
+        UsageRecordList usageRecordList = account.getTodaysUsageRecords(params);
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(1, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testYesterdaysUsageRecords() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(2));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        UsageRecordList usageRecordList = account.getYesterdaysUsageRecords();
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(2, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testYesterdaysUsageRecordsWithParams() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(1));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Category", "sms");
+        UsageRecordList usageRecordList = account.getYesterdaysUsageRecords(params);
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(1, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testThisMonthsUsageRecords() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(2));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        UsageRecordList usageRecordList = account.getThisMonthsUsageRecords();
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(2, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testThisMonthsUsageRecordsWithParams() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(1));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Category", "sms");
+        UsageRecordList usageRecordList = account.getThisMonthsUsageRecords(params);
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(1, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testLastMonthsUsageRecords() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(2));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        UsageRecordList usageRecordList = account.getLastMonthsUsageRecords();
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(2, usageRecordList.getPageData().size());
+    }
+
+    @Test
+    public void testLastMonthsUsageRecordsWithParams() throws TwilioRestException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("UsageRecords", getUsageRecords(1));
+
+        Mockito.when(resp.toMap()).thenReturn(map);
+
+        Mockito.when(
+                client.safeRequest(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyMap())).thenReturn(resp);
+
+        Account account = new Account(client, map);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Category", "sms");
+        UsageRecordList usageRecordList = account.getLastMonthsUsageRecords(params);
+        Assert.assertNotNull(usageRecordList);
+        Assert.assertEquals(1, usageRecordList.getPageData().size());
+    }
+
+    /**
+     * Returns a dummy List of Usage Record properties.
+     *
+     * @param count number of dummy objects to be set
+     * @return List of Usage Record properties.
+     */
+    private List<Map<String, Object>> getUsageRecords(int count) {
+        List<Map<String, Object>> paramsList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> params = null;
+        for (int i = 0; i < count; i++) {
+            params = new HashMap<String, Object>();
+            paramsList.add(params);
+        }
+        return paramsList;
     }
 }

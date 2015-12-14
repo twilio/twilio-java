@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.7.1
+-------------
+
+Released December 14, 2015
+
+- Add new getUsageRecords to support query by intervals
+- Fix for ListResource's & NextGenListResource's ListIterator.next()
+
 Version 5.7.0
 -------------
 

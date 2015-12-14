@@ -1,5 +1,9 @@
 package com.twilio.sdk.resource.instance;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
@@ -36,17 +40,14 @@ import com.twilio.sdk.resource.list.QueueList;
 import com.twilio.sdk.resource.list.RecordingList;
 import com.twilio.sdk.resource.list.ShortCodeList;
 import com.twilio.sdk.resource.list.SmsList;
-import com.twilio.sdk.resource.list.TranscriptionList;
 import com.twilio.sdk.resource.list.TokenList;
+import com.twilio.sdk.resource.list.TranscriptionList;
 import com.twilio.sdk.resource.list.UsageRecordList;
+import com.twilio.sdk.resource.list.UsageRecordList.Type;
 import com.twilio.sdk.resource.list.UsageTriggerList;
 import com.twilio.sdk.resource.list.sip.CredentialListList;
 import com.twilio.sdk.resource.list.sip.DomainList;
 import com.twilio.sdk.resource.list.sip.IpAccessControlListList;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 
@@ -843,6 +844,65 @@ public class Account extends InstanceResource<TwilioRestClient> {
 	 */
 	public UsageRecordList getUsageRecords() {
 		return this.getUsageRecords(new HashMap<String, String>());
+	}
+
+	/**
+	 * Returns Usage Records for each usage category for a specified interval
+	 * type. Possible types are:
+	 * <ol>
+	 * <li>Daily - Multiple usage record per category over a daily time-interval
+	 * <li>Monthly - Multiple usage record per category over a monthly
+	 * time-interval
+	 * <li>Yearly - Multiple usage record per category over a yearly
+	 * time-interval
+	 * <li>AllTime - Single usage record per category
+	 * <li>Today - Single usage record per category for today's usage only
+	 * <li>Yesterday - Single usage record per category for yesterday's usage
+	 * only
+	 * <li>ThisMonth - Single usage record per category for this month's usage
+	 * only
+	 * <li>LastMonth - Single usage record per category for last month's usage
+	 * only
+	 * </ol>
+	 *
+	 * @param type
+	 *            the interval enum type
+	 * @return list of Usage Records over an interval type
+	 */
+	public UsageRecordList getUsageRecords(Type type) {
+		return getUsageRecords(new HashMap<String, String>(), type);
+	}
+
+	/**
+	 * Returns filtered Usage Records for each usage category for a specified
+	 * interval type. Possible types are:
+	 * <ol>
+	 * <li>Daily - Multiple usage record per category over a daily time-interval
+	 * <li>Monthly - Multiple usage record per category over a monthly
+	 * time-interval
+	 * <li>Yearly - Multiple usage record per category over a yearly
+	 * time-interval
+	 * <li>AllTime - Single usage record per category
+	 * <li>Today - Single usage record per category for today's usage only
+	 * <li>Yesterday - Single usage record per category for yesterday's usage
+	 * only
+	 * <li>ThisMonth - Single usage record per category for this month's usage
+	 * only
+	 * <li>LastMonth - Single usage record per category for last month's usage
+	 * only
+	 * </ol>
+	 *
+	 * @param filters
+	 *            One or more combination of Category, StartDate or EndDate
+	 *            filtering parameters
+	 * @param type
+	 *            the interval enum type
+	 * @return list of Usage Records over a daily time-interval
+	 */
+	public UsageRecordList getUsageRecords(Map<String, String> filters, Type type) {
+		UsageRecordList list = new UsageRecordList(this.getClient(), filters, type);
+		list.setRequestAccountSid(this.getRequestAccountSid());
+		return list;
 	}
 
 	/**

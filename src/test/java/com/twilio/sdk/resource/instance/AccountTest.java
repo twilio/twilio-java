@@ -24,6 +24,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioRestResponse;
 import com.twilio.sdk.parser.ResponseParser;
 import com.twilio.sdk.resource.list.UsageRecordList;
+import com.twilio.sdk.resource.list.UsageRecordList.Type;
 
 @SuppressWarnings("unchecked")
 public class AccountTest {
@@ -87,7 +88,7 @@ public class AccountTest {
                         Mockito.anyMap())).thenReturn(resp);
 
         Account account = new Account(client, map);
-        UsageRecordList usageRecordList = account.getDailyUsageRecords();
+        UsageRecordList usageRecordList = account.getUsageRecords(Type.DAILY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(2, usageRecordList.getPageData().size());
     }
@@ -107,7 +108,8 @@ public class AccountTest {
         Account account = new Account(client, map);
         Map<String, String> params = new HashMap<String, String>();
         params.put("Category", "sms");
-        UsageRecordList usageRecordList = account.getDailyUsageRecords(params);
+		UsageRecordList usageRecordList = account.getUsageRecords(params,
+				Type.DAILY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(1, usageRecordList.getPageData().size());
     }
@@ -125,7 +127,7 @@ public class AccountTest {
                         Mockito.anyMap())).thenReturn(resp);
 
         Account account = new Account(client, map);
-        UsageRecordList usageRecordList = account.getMonthlyUsageRecords();
+        UsageRecordList usageRecordList = account.getUsageRecords(Type.MONTHLY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(2, usageRecordList.getPageData().size());
     }
@@ -145,7 +147,8 @@ public class AccountTest {
         Account account = new Account(client, map);
         Map<String, String> params = new HashMap<String, String>();
         params.put("Category", "sms");
-        UsageRecordList usageRecordList = account.getMonthlyUsageRecords(params);
+		UsageRecordList usageRecordList = account.getUsageRecords(params,
+				Type.MONTHLY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(1, usageRecordList.getPageData().size());
     }
@@ -163,7 +166,7 @@ public class AccountTest {
                         Mockito.anyMap())).thenReturn(resp);
 
         Account account = new Account(client, map);
-        UsageRecordList usageRecordList = account.getYearlyUsageRecords();
+        UsageRecordList usageRecordList = account.getUsageRecords(Type.YEARLY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(2, usageRecordList.getPageData().size());
     }
@@ -183,7 +186,8 @@ public class AccountTest {
         Account account = new Account(client, map);
         Map<String, String> params = new HashMap<String, String>();
         params.put("Category", "sms");
-        UsageRecordList usageRecordList = account.getYearlyUsageRecords(params);
+		UsageRecordList usageRecordList = account.getUsageRecords(params,
+				Type.YEARLY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(1, usageRecordList.getPageData().size());
     }
@@ -201,7 +205,7 @@ public class AccountTest {
                         Mockito.anyMap())).thenReturn(resp);
 
         Account account = new Account(client, map);
-        UsageRecordList usageRecordList = account.getTodaysUsageRecords();
+        UsageRecordList usageRecordList = account.getUsageRecords(Type.TODAY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(2, usageRecordList.getPageData().size());
     }
@@ -221,7 +225,8 @@ public class AccountTest {
         Account account = new Account(client, map);
         Map<String, String> params = new HashMap<String, String>();
         params.put("Category", "sms");
-        UsageRecordList usageRecordList = account.getTodaysUsageRecords(params);
+		UsageRecordList usageRecordList = account.getUsageRecords(params,
+				Type.TODAY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(1, usageRecordList.getPageData().size());
     }
@@ -239,7 +244,8 @@ public class AccountTest {
                         Mockito.anyMap())).thenReturn(resp);
 
         Account account = new Account(client, map);
-        UsageRecordList usageRecordList = account.getYesterdaysUsageRecords();
+		UsageRecordList usageRecordList = account
+				.getUsageRecords(Type.YESTERDAY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(2, usageRecordList.getPageData().size());
     }
@@ -259,7 +265,8 @@ public class AccountTest {
         Account account = new Account(client, map);
         Map<String, String> params = new HashMap<String, String>();
         params.put("Category", "sms");
-        UsageRecordList usageRecordList = account.getYesterdaysUsageRecords(params);
+		UsageRecordList usageRecordList = account.getUsageRecords(params,
+				Type.YESTERDAY);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(1, usageRecordList.getPageData().size());
     }
@@ -277,7 +284,8 @@ public class AccountTest {
                         Mockito.anyMap())).thenReturn(resp);
 
         Account account = new Account(client, map);
-        UsageRecordList usageRecordList = account.getThisMonthsUsageRecords();
+		UsageRecordList usageRecordList = account
+				.getUsageRecords(Type.THIS_MONTH);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(2, usageRecordList.getPageData().size());
     }
@@ -297,7 +305,8 @@ public class AccountTest {
         Account account = new Account(client, map);
         Map<String, String> params = new HashMap<String, String>();
         params.put("Category", "sms");
-        UsageRecordList usageRecordList = account.getThisMonthsUsageRecords(params);
+		UsageRecordList usageRecordList = account.getUsageRecords(params,
+				Type.THIS_MONTH);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(1, usageRecordList.getPageData().size());
     }
@@ -315,7 +324,8 @@ public class AccountTest {
                         Mockito.anyMap())).thenReturn(resp);
 
         Account account = new Account(client, map);
-        UsageRecordList usageRecordList = account.getLastMonthsUsageRecords();
+		UsageRecordList usageRecordList = account
+				.getUsageRecords(Type.LAST_MONTH);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(2, usageRecordList.getPageData().size());
     }
@@ -335,7 +345,8 @@ public class AccountTest {
         Account account = new Account(client, map);
         Map<String, String> params = new HashMap<String, String>();
         params.put("Category", "sms");
-        UsageRecordList usageRecordList = account.getLastMonthsUsageRecords(params);
+		UsageRecordList usageRecordList = account.getUsageRecords(params,
+				Type.LAST_MONTH);
         Assert.assertNotNull(usageRecordList);
         Assert.assertEquals(1, usageRecordList.getPageData().size());
     }
@@ -347,7 +358,7 @@ public class AccountTest {
      * @return List of Usage Record properties.
      */
     private List<Map<String, Object>> getUsageRecords(int count) {
-        List<Map<String, Object>> paramsList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> paramsList = new ArrayList<Map<String, Object>>();
         Map<String, Object> params = null;
         for (int i = 0; i < count; i++) {
             params = new HashMap<String, Object>();

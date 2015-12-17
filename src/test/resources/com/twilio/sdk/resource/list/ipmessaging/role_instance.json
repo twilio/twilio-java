@@ -1,0 +1,15 @@
+{
+  "sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "friendly_name": "admin",
+  "type": "deployment",
+  "permissions": [
+    "createChannel",
+    "sendMessage",
+    "joinChannel"
+  ],
+  "date_created": "2015-09-01T23:08:39Z",
+  "date_updated": "2015-09-01T23:08:39Z",
+  "url": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

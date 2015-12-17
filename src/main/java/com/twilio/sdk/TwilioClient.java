@@ -41,7 +41,7 @@ public abstract class TwilioClient {
 	private static final int ACCOUNT_SID_LENGTH = 34;
 
 	/** The Constant VERSION. */
-	private static final String VERSION = "5.7.1";
+	private static final String VERSION = "5.8.0";
 
 	/** The endpoint. */
 	private String endpoint = "https://api.twilio.com";

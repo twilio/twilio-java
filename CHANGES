@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.8.0
+-------------
+
+Released December 16, 2015
+
+- Add support for IP Messaging
+
 Version 5.7.1
 -------------
 

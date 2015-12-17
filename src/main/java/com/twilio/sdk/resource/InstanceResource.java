@@ -1,18 +1,18 @@
 package com.twilio.sdk.resource;
 
-import com.twilio.sdk.TwilioClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.http.NameValuePair;
-import org.json.simple.JSONObject;
-
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.http.NameValuePair;
+
+import com.twilio.sdk.TwilioClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.TwilioUtils;
 
 /**
  * The Class InstanceResource.
@@ -196,9 +196,10 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * Return a JSON representation of the properties of the object that are currently loaded
 	 * 
 	 * @return json of the properties of the object
+	 * @throws JsonProcessingException 
 	 */
 	public String toJSON() {
-		return JSONObject.toJSONString(properties);
+		return TwilioUtils.asJsonString(properties);
 	}
 
 	/**

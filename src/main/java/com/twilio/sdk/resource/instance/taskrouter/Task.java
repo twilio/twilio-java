@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
+import com.twilio.sdk.TwilioUtils;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 import com.twilio.sdk.resource.list.taskrouter.ReservationList;
 
@@ -23,8 +21,6 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 	
-	private static JSONParser parser = new JSONParser();
-
 	/**
 	 * Instantiates a task.
 	 *
@@ -72,7 +68,7 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	public void update(final Map<String, String> attributes, final Integer priority) throws TwilioRestException {
 		Map<String, String> params = new HashMap<String, String>();
 		if(attributes != null) {
-			params.put("Attributes", JSONObject.toJSONString(attributes));
+			params.put("Attributes", TwilioUtils.asJsonString(attributes));
 		}else {
 			params.put("Attributes", "{}");
 		}
@@ -141,11 +137,10 @@ public class Task extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * A map that represents the JSON describing this Task.
 	 *
 	 * @return the attributes
-	 * @throws ParseException 
 	 */
-	public Map<String, Object> parseAttributes() throws ParseException {
+	public Map<String, Object> parseAttributes() {
 		String attributes = getProperty("attributes");
-		return (Map<String, Object>) parser.parse(attributes);
+		return TwilioUtils.jsonAsMap(attributes);
 	}
 
 	/**

@@ -1,13 +1,9 @@
 package com.twilio.sdk.parser;
 
-import com.twilio.sdk.TwilioRestResponse;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+
+import com.twilio.sdk.TwilioRestResponse;
+import com.twilio.sdk.TwilioUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -24,24 +20,8 @@ public class JsonResponseParser implements ResponseParser {
 	 * @param jsonString the json string
 	 * @return the map
 	 */
-	@SuppressWarnings("unchecked")
 	protected Map<String, Object> parseJson(String jsonString) {
-		Map<String, Object> ret = new HashMap<String, Object>();
-
-		try {
-			ret = new ObjectMapper().readValue(jsonString, HashMap.class);
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return ret;
+		return TwilioUtils.jsonAsMap(jsonString);
 	}
 
 	/* (non-Javadoc)

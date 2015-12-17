@@ -1,11 +1,5 @@
 package com.twilio.sdk;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONValue;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 
 public class CapabilityToken {
     protected static String jwtEncode(Map<String, Object> payload, String key)
@@ -35,8 +34,8 @@ public class CapabilityToken {
         return StringUtils.join(segments, ".");
     }
 
-    private static String jsonEncode(Object object) {
-        String json = JSONValue.toJSONString(object);
+    private static String jsonEncode(Object object)  {
+        String json = TwilioUtils.asJsonString(object);
         return json.replace("\\/", "/");
     }
 

@@ -29,6 +29,9 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	/** The Constant ACCOUNT_SID. */
 	protected static final String ACCOUNT_SID_PROPERTY = "account_sid";
 
+	/** The Constant for friendly name */
+	protected static final String FRIENDLY_NAME_PROPERTY = "friendly_name";
+
 	/** The properties. */
 	private Map<String, Object> properties;
 
@@ -128,6 +131,16 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 */
 	public <T> T getCastedObject(String name) {
 		return (T) getAndLoadIfNecessary(name);
+	}
+
+	/**
+	 * Gets the property as an Integer value.
+	 *
+	 * @param name property name
+	 * @return Integer value
+	 */
+	public Integer getPropertyAsInteger(String name) {
+		return (Integer) getObject(name);
 	}
 
 	/**

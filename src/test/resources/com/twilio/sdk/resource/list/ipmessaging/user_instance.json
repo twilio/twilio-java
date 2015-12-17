@@ -1,0 +1,10 @@
+{
+  "sid": "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "role_sid": "role_sid",
+  "identity": "aaa",
+  "date_created": "2015-08-25T20:10:17Z",
+  "date_updated": "2015-08-25T20:10:17Z",
+  "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

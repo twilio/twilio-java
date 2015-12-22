@@ -98,25 +98,25 @@ public class WorkflowTest extends BasicRequestTester {
 	
         @Test
         public void testWorkflowWithFilterFriendlyName() throws Exception {
-            setExpectedServerReturnCode(201);
-            setExpectedServerAnswer("/" + getClass().getPackage().getName().replace(".", "/") + "/workflow_filter_friendly_name.json");
+                setExpectedServerReturnCode(201);
+                setExpectedServerAnswer("/" + getClass().getPackage().getName().replace(".", "/") + "/workflow_filter_friendly_name.json");
 
-            Map<String, String> properties = new HashMap<String, String>();
-            properties.put("FriendlyName", "Test Workflow Filter Friendly Name");
-            String configurationStr = "{\"task_routing\":{\"filters\":[{\"targets\":[{\"queue\":\"WQec62de0e1148b8477f2e24579779c8b1\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Sales\",\"expression\":\"type == \\\"sales\\\"\"},{\"targets\":[{\"queue\":\"WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Marketing\",\"expression\":\"type == \\\"marketing\\\"\"},{\"targets\":[{\"queue\":\"WQe5eb317eb23500ade45087ea6522896c\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Support\",\"expression\":\"type == \\\"support\\\"\"}],\"default_filter\":{\"queue\":\"WQ05f810d2d130344fd56e3c91ece2e594\"}}}";
-            properties.put("Configuration", configurationStr);
-            properties.put("AssignmentCallbackUrl", "http://example.com");
+                Map<String, String> properties = new HashMap<String, String>();
+                properties.put("FriendlyName", "Test Workflow Filter Friendly Name");
+                String configurationStr = "{\"task_routing\":{\"filters\":[{\"targets\":[{\"queue\":\"WQec62de0e1148b8477f2e24579779c8b1\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Sales\",\"expression\":\"type == \\\"sales\\\"\"},{\"targets\":[{\"queue\":\"WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Marketing\",\"expression\":\"type == \\\"marketing\\\"\"},{\"targets\":[{\"queue\":\"WQe5eb317eb23500ade45087ea6522896c\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Support\",\"expression\":\"type == \\\"support\\\"\"}],\"default_filter\":{\"queue\":\"WQ05f810d2d130344fd56e3c91ece2e594\"}}}";
+                properties.put("Configuration", configurationStr);
+                properties.put("AssignmentCallbackUrl", "http://example.com");
 
-            Workflow workflow = taskRouterClient.createWorkflow("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
-            WorkflowConfiguration workflowConfiguration = workflow.parseConfiguration();
-            List<WorkflowRule> workflowRules = workflowConfiguration.getWorkflowRules();
+                Workflow workflow = taskRouterClient.createWorkflow("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
+                WorkflowConfiguration workflowConfiguration = workflow.parseConfiguration();
+                List<WorkflowRule> workflowRules = workflowConfiguration.getWorkflowRules();
 
-            assertEquals(workflowRules.get(0).getFriendlyName(), "Sales");
-            assertEquals(workflowRules.get(0).getFilterFriendlyName(), "Sales");
-            assertEquals(workflowRules.get(1).getFriendlyName(), "Marketing");
-            assertEquals(workflowRules.get(1).getFilterFriendlyName(), "Marketing");
-            assertEquals(workflowRules.get(2).getFriendlyName(), "Support");
-            assertEquals(workflowRules.get(2).getFilterFriendlyName(), "Support");
+                assertEquals(workflowRules.get(0).getFriendlyName(), "Sales");
+                assertEquals(workflowRules.get(0).getFilterFriendlyName(), "Sales");
+                assertEquals(workflowRules.get(1).getFriendlyName(), "Marketing");
+                assertEquals(workflowRules.get(1).getFilterFriendlyName(), "Marketing");
+                assertEquals(workflowRules.get(2).getFriendlyName(), "Support");
+                assertEquals(workflowRules.get(2).getFilterFriendlyName(), "Support");
         }
 
 	@Test

@@ -83,6 +83,24 @@ public class WorkflowRule {
 	public void setFriendlyName(String friendlyName) {
 		this.friendlyName = friendlyName;
 	}
+	
+	/**
+	 * Get the filter friendly name / label for the workflow rule
+	 * @return the friendly name
+	 */
+	@JsonIgnore
+	public String getFilterFriendlyName() {
+	    return friendlyName;
+	}
+	
+	/**
+	 * Set the filter friendly name for the workflow rule
+	 * @param filterFriendlyName
+	 */
+	@JsonProperty("filter_friendly_name")
+	public void setFilterFriendlyName(String filterFriendlyName) {
+	    this.friendlyName = filterFriendlyName;
+	}
 
 	/**
 	 * Get the list of workflow rule targets for this workflow rule

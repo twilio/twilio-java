@@ -80,6 +80,7 @@ public class WorkflowRule {
 	 * Set the friendly name for the workflow rule
 	 * @param friendlyName
 	 */
+	@JsonProperty("friendly_name")
 	public void setFriendlyName(String friendlyName) {
 		this.friendlyName = friendlyName;
 	}

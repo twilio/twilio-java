@@ -195,14 +195,7 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @return the date value of the input string
 	 */
 	protected Date parseDate(final String inDate) {
-		if (inDate == null) {
-			return null;
-		}
-		try {
-            return DateFormatUtils.SMTP_DATETIME_FORMAT.parse(inDate);
-        } catch (ParseException e) {
-			return null;
-		}
+		return parseFormattedDate(DateFormatUtils.SMTP_DATETIME_FORMAT, inDate);
 	}
 
 	/**
@@ -211,22 +204,21 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @return the date value of the input string
 	 */
 	protected Date parseIsoDate(final String inDate) {
-		return parseDate(DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT, inDate);
+		return parseFormattedDate(DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT, inDate);
 	}
 
-	
 	/**
 	 * return a date from the property string using the input date format
 	 *
 	 * @return the date value of the input string
 	 */
-	protected Date parseDate(final FastDateFormat inDateFormat, final String inDate) {
+	protected Date parseFormattedDate(final FastDateFormat inDateFormat, final String inDate) {
 		if (inDateFormat == null || inDate == null) {
 			return null;
 		}
 		try {
-            return inDateFormat.parse(inDate);
-        } catch (ParseException e) {
+			return inDateFormat.parse(inDate);
+		} catch (ParseException e) {
 			return null;
 		}
 	}

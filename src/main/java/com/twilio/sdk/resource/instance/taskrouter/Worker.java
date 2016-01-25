@@ -13,8 +13,6 @@ import org.json.simple.parser.ParseException;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
-import com.twilio.sdk.TwilioTaskRouterClient;
-import com.twilio.sdk.resource.NextGenInstanceResource;
 import com.twilio.sdk.resource.list.taskrouter.WorkerReservationList;
 
 /**
@@ -158,7 +156,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
    * @return the date created
    */
   public Date getDateCreated() {
-    return parseDate(getProperty(DATE_CREATED_PROPERTY));
+    return parseIsoDate(getProperty(DATE_CREATED_PROPERTY));
   }
 
   /**
@@ -167,7 +165,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
    * @return the date updated
    */
   public Date getDateStatusChanged() {
-    return parseDate(getProperty("date_status_changed"));
+    return parseIsoDate(getProperty("date_status_changed"));
   }
 
   /**
@@ -176,7 +174,7 @@ public class Worker extends NextGenInstanceResource<TwilioTaskRouterClient> {
    * @return the date updated
    */
   public Date getDateUpdated() {
-    return parseDate(getProperty(DATE_UPDATED_PROPERTY));
+    return parseIsoDate(getProperty(DATE_UPDATED_PROPERTY));
   }
 
   /**

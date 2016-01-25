@@ -1,18 +1,19 @@
 package com.twilio.sdk.resource;
 
-import com.twilio.sdk.TwilioClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.http.NameValuePair;
-import org.json.simple.JSONObject;
-
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.apache.http.NameValuePair;
+import org.json.simple.JSONObject;
+
+import com.twilio.sdk.TwilioClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 
 /**
  * The Class InstanceResource.
@@ -204,4 +205,29 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 		}
 	}
 
+	/**
+	 * return a date from the property string (yyyy-MM-dd'T'HH:mm:ssZZ)
+	 *
+	 * @return the date value of the input string
+	 */
+	protected Date parseIsoDate(final String inDate) {
+		return parseDate(DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT, inDate);
+	}
+
+	
+	/**
+	 * return a date from the property string using the input date format
+	 *
+	 * @return the date value of the input string
+	 */
+	protected Date parseDate(final FastDateFormat inDateFormat, final String inDate) {
+		if (inDateFormat == null || inDate == null) {
+			return null;
+		}
+		try {
+            return inDateFormat.parse(inDate);
+        } catch (ParseException e) {
+			return null;
+		}
+	}
 }

@@ -1,4 +1,4 @@
-package com.twilio.sdk.readers.trunking.v1.;
+package com.twilio.sdk.readers.trunking.v1;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.trunking.v1..Trunk;
+import com.twilio.sdk.resources.trunking.v1.Trunk;
 
 public class TrunkReader extends Reader<Trunk> {
     /**

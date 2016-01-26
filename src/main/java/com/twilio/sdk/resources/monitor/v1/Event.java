@@ -1,4 +1,4 @@
-package com.twilio.sdk.resources.monitor.v1.;
+package com.twilio.sdk.resources.monitor.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,11 +11,11 @@ import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.fetchers.monitor.v1..EventFetcher;
+import com.twilio.sdk.fetchers.monitor.v1.EventFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.readers.monitor.v1..EventReader;
+import com.twilio.sdk.readers.monitor.v1.EventReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import org.joda.time.DateTime;

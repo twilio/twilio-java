@@ -1,4 +1,4 @@
-package com.twilio.sdk.fetchers.taskrouter.v1.;
+package com.twilio.sdk.fetchers.taskrouter.v1;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.v1..Workspace;
+import com.twilio.sdk.resources.taskrouter.v1.Workspace;
 
 public class WorkspaceFetcher extends Fetcher<Workspace> {
     private final String sid;

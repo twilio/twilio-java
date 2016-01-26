@@ -1,4 +1,4 @@
-package com.twilio.sdk.resources.taskrouter.v1.;
+package com.twilio.sdk.resources.taskrouter.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,18 +9,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
-import com.twilio.sdk.creators.taskrouter.v1..WorkspaceCreator;
-import com.twilio.sdk.deleters.taskrouter.v1..WorkspaceDeleter;
+import com.twilio.sdk.creators.taskrouter.v1.WorkspaceCreator;
+import com.twilio.sdk.deleters.taskrouter.v1.WorkspaceDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.fetchers.taskrouter.v1..WorkspaceFetcher;
+import com.twilio.sdk.fetchers.taskrouter.v1.WorkspaceFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.readers.taskrouter.v1..WorkspaceReader;
+import com.twilio.sdk.readers.taskrouter.v1.WorkspaceReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
-import com.twilio.sdk.updaters.taskrouter.v1..WorkspaceUpdater;
+import com.twilio.sdk.updaters.taskrouter.v1.WorkspaceUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;

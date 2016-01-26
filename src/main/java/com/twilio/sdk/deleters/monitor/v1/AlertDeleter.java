@@ -1,4 +1,4 @@
-package com.twilio.sdk.deleters.monitor.v1.;
+package com.twilio.sdk.deleters.monitor.v1;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.deleters.Deleter;
@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.monitor.v1..Alert;
+import com.twilio.sdk.resources.monitor.v1.Alert;
 
 public class AlertDeleter extends Deleter<Alert> {
     private final String sid;

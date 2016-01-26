@@ -1,4 +1,4 @@
-package com.twilio.sdk.resources.pricing.v1.;
+package com.twilio.sdk.resources.pricing.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

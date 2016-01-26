@@ -1,4 +1,4 @@
-package com.twilio.sdk.fetchers.monitor.v1.;
+package com.twilio.sdk.fetchers.monitor.v1;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.monitor.v1..Event;
+import com.twilio.sdk.resources.monitor.v1.Event;
 
 public class EventFetcher extends Fetcher<Event> {
     private final String sid;

@@ -1,4 +1,4 @@
-package com.twilio.sdk.updaters.api.v2010.;
+package com.twilio.sdk.updaters.api.v2010;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -7,7 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.v2010..Account;
+import com.twilio.sdk.resources.api.v2010.Account;
 import com.twilio.sdk.updaters.Updater;
 
 public class AccountUpdater extends Updater<Account> {

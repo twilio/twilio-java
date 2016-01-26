@@ -1,4 +1,4 @@
-package com.twilio.sdk.resources.monitor.v1.;
+package com.twilio.sdk.resources.monitor.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,14 +9,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
-import com.twilio.sdk.deleters.monitor.v1..AlertDeleter;
+import com.twilio.sdk.deleters.monitor.v1.AlertDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.fetchers.monitor.v1..AlertFetcher;
+import com.twilio.sdk.fetchers.monitor.v1.AlertFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.readers.monitor.v1..AlertReader;
+import com.twilio.sdk.readers.monitor.v1.AlertReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import org.joda.time.DateTime;

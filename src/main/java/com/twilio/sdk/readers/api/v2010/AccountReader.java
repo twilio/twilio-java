@@ -1,4 +1,4 @@
-package com.twilio.sdk.readers.api.v2010.;
+package com.twilio.sdk.readers.api.v2010;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.v2010..Account;
+import com.twilio.sdk.resources.api.v2010.Account;
 
 public class AccountReader extends Reader<Account> {
     private String friendlyName;

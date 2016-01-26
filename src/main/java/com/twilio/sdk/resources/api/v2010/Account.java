@@ -1,4 +1,4 @@
-package com.twilio.sdk.resources.api.v2010.;
+package com.twilio.sdk.resources.api.v2010;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,17 +9,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
-import com.twilio.sdk.creators.api.v2010..AccountCreator;
+import com.twilio.sdk.creators.api.v2010.AccountCreator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.fetchers.api.v2010..AccountFetcher;
+import com.twilio.sdk.fetchers.api.v2010.AccountFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.readers.api.v2010..AccountReader;
+import com.twilio.sdk.readers.api.v2010.AccountReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
-import com.twilio.sdk.updaters.api.v2010..AccountUpdater;
+import com.twilio.sdk.updaters.api.v2010.AccountUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;

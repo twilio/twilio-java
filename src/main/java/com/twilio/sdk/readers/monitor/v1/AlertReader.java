@@ -1,4 +1,4 @@
-package com.twilio.sdk.readers.monitor.v1.;
+package com.twilio.sdk.readers.monitor.v1;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.monitor.v1..Alert;
+import com.twilio.sdk.resources.monitor.v1.Alert;
 
 public class AlertReader extends Reader<Alert> {
     private String logLevel;

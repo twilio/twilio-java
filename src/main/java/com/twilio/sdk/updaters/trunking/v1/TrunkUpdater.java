@@ -1,4 +1,4 @@
-package com.twilio.sdk.updaters.trunking.v1.;
+package com.twilio.sdk.updaters.trunking.v1;
 
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.Promoter;
@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.trunking.v1..Trunk;
+import com.twilio.sdk.resources.trunking.v1.Trunk;
 import com.twilio.sdk.updaters.Updater;
 
 import java.net.URI;

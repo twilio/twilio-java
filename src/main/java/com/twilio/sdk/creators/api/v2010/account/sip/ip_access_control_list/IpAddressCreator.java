@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.IpAddress;
+import com.twilio.sdk.resources.api.v2010.account.sip.ip_access_control_list.IpAddress;
 
 public class IpAddressCreator extends Creator<IpAddress> {
     private final String accountSid;

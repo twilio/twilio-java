@@ -1,8 +1,8 @@
 package com.twilio.sdk.numbers;
 
-import com.twilio.sdk.creators.api.CallCreator;
+import com.twilio.sdk.creators.api.v2010.account.CallCreator;
 import com.twilio.sdk.hash.ConsistentHashRing;
-import com.twilio.sdk.resources.api.Call;
+import com.twilio.sdk.resources.api.v2010.account.Call;
 
 import java.net.URI;
 
@@ -23,7 +23,7 @@ public class PhoneNumberGroup {
         return ring.get(receiver);
     }
 
-    public CallCreator create(final String to, final URI uri) {
-        return Call.create(to, get(to), uri);
+    public CallCreator create(final String accountSid, final PhoneNumber to, final PhoneNumber from, final URI uri) {
+        return Call.create(accountSid, to, from, uri);
     }
 }

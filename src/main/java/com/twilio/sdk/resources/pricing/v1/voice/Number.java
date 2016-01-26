@@ -14,6 +14,7 @@ import com.twilio.sdk.fetchers.pricing.v1.voice.NumberFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 
@@ -34,7 +35,7 @@ public class Number extends SidResource {
      * @param number The number
      * @return NumberFetcher capable of executing the fetch
      */
-    public static NumberFetcher fetch(final String number) {
+    public static NumberFetcher fetch(final PhoneNumber number) {
         return new NumberFetcher(number);
     }
 
@@ -75,7 +76,7 @@ public class Number extends SidResource {
         }
     }
 
-    private final String number;
+    private final PhoneNumber number;
     private final String country;
     private final String isoCountry;
     private final String outboundCallPrice;
@@ -84,7 +85,7 @@ public class Number extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private Number(@JsonProperty("number") final String number, 
+    private Number(@JsonProperty("number") final PhoneNumber number, 
                    @JsonProperty("country") final String country, 
                    @JsonProperty("iso_country") final String isoCountry, 
                    @JsonProperty("outbound_call_price") final String outboundCallPrice, 
@@ -103,14 +104,14 @@ public class Number extends SidResource {
     /**
      * @return The number
      */
-    public final String getSid() {
+    public final PhoneNumber getSid() {
         return this.getNumber();
     }
 
     /**
      * @return The number
      */
-    public final String getNumber() {
+    public final PhoneNumber getNumber() {
         return this.number;
     }
 

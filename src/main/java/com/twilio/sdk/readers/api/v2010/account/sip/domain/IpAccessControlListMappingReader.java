@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.IpAccessControlListMapping;
+import com.twilio.sdk.resources.api.v2010.account.sip.domain.IpAccessControlListMapping;
 
 public class IpAccessControlListMappingReader extends Reader<IpAccessControlListMapping> {
     private final String accountSid;

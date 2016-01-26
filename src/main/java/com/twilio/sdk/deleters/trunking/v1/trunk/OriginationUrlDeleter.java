@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.trunking.OriginationUrl;
+import com.twilio.sdk.resources.trunking.v1.trunk.OriginationUrl;
 
 public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
     private final String trunkSid;

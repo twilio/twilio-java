@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.conversations.Completed;
+import com.twilio.sdk.resources.conversations.v1.conversation.Completed;
 
 public class CompletedReader extends Reader<Completed> {
     /**

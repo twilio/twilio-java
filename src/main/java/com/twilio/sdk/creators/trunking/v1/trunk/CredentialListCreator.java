@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.trunking.CredentialList;
+import com.twilio.sdk.resources.trunking.v1.trunk.CredentialList;
 
 public class CredentialListCreator extends Creator<CredentialList> {
     private final String trunkSid;

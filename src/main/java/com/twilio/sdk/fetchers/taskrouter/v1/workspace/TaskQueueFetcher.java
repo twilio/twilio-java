@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.TaskQueue;
+import com.twilio.sdk.resources.taskrouter.v1.workspace.TaskQueue;
 
 public class TaskQueueFetcher extends Fetcher<TaskQueue> {
     private final String workspaceSid;

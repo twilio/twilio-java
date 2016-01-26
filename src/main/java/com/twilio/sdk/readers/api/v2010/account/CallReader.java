@@ -6,16 +6,17 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Call;
+import com.twilio.sdk.resources.api.v2010.account.Call;
 
 public class CallReader extends Reader<Call> {
     private final String accountSid;
-    private String to;
-    private String from;
+    private PhoneNumber to;
+    private PhoneNumber from;
     private String parentCallSid;
     private Call.Status status;
     private String startTime;
@@ -36,7 +37,7 @@ public class CallReader extends Reader<Call> {
      * @param to Phone number or Client identifier to filter `to` on
      * @return this
      */
-    public CallReader byTo(final String to) {
+    public CallReader byTo(final PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -47,7 +48,7 @@ public class CallReader extends Reader<Call> {
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
      */
-    public CallReader byFrom(final String from) {
+    public CallReader byFrom(final PhoneNumber from) {
         this.from = from;
         return this;
     }
@@ -170,11 +171,11 @@ public class CallReader extends Reader<Call> {
      */
     private void addQueryParams(final Request request) {
         if (to != null) {
-            request.addQueryParam("To", to);
+            request.addQueryParam("To", to.toString());
         }
         
         if (from != null) {
-            request.addQueryParam("From", from);
+            request.addQueryParam("From", from.toString());
         }
         
         if (parentCallSid != null) {

@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Account;
+import com.twilio.sdk.resources.api.v2010..Account;
 
 public class AccountFetcher extends Fetcher<Account> {
     private final String sid;

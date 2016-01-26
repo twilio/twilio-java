@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Queue;
+import com.twilio.sdk.resources.api.v2010.account.Queue;
 
 public class QueueReader extends Reader<Queue> {
     private final String accountSid;

@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.TaskQueue;
+import com.twilio.sdk.resources.taskrouter.v1.workspace.TaskQueue;
 
 public class TaskQueueReader extends Reader<TaskQueue> {
     private final String workspaceSid;

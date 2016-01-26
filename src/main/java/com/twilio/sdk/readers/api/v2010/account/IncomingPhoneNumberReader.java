@@ -6,17 +6,18 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.IncomingPhoneNumber;
+import com.twilio.sdk.resources.api.v2010.account.IncomingPhoneNumber;
 
 public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     private final String ownerAccountSid;
     private Boolean beta;
     private String friendlyName;
-    private String phoneNumber;
+    private PhoneNumber phoneNumber;
 
     /**
      * Construct a new IncomingPhoneNumberReader
@@ -56,7 +57,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      * @param phoneNumber Filter by incoming phone number
      * @return this
      */
-    public IncomingPhoneNumberReader byPhoneNumber(final String phoneNumber) {
+    public IncomingPhoneNumberReader byPhoneNumber(final PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -143,7 +144,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         }
         
         if (phoneNumber != null) {
-            request.addQueryParam("PhoneNumber", phoneNumber);
+            request.addQueryParam("PhoneNumber", phoneNumber.toString());
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

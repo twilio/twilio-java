@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Message;
+import com.twilio.sdk.resources.api.v2010.account.Message;
 
 public class MessageDeleter extends Deleter<Message> {
     private final String accountSid;

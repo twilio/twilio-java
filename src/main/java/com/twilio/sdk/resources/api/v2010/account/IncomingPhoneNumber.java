@@ -17,6 +17,7 @@ import com.twilio.sdk.fetchers.api.v2010.account.IncomingPhoneNumberFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.api.v2010.account.IncomingPhoneNumberReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
@@ -108,7 +109,7 @@ public class IncomingPhoneNumber extends SidResource {
      * @param phoneNumber The phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator create(final String ownerAccountSid, final String phoneNumber) {
+    public static IncomingPhoneNumberCreator create(final String ownerAccountSid, final PhoneNumber phoneNumber) {
         return new IncomingPhoneNumberCreator(ownerAccountSid, phoneNumber);
     }
 
@@ -169,7 +170,7 @@ public class IncomingPhoneNumber extends SidResource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String friendlyName;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
     private final String sid;
     private final String smsApplicationSid;
     private final HttpMethod smsFallbackMethod;
@@ -195,7 +196,7 @@ public class IncomingPhoneNumber extends SidResource {
                                 @JsonProperty("date_created") final String dateCreated, 
                                 @JsonProperty("date_updated") final String dateUpdated, 
                                 @JsonProperty("friendly_name") final String friendlyName, 
-                                @JsonProperty("phone_number") final String phoneNumber, 
+                                @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
                                 @JsonProperty("sid") final String sid, 
                                 @JsonProperty("sms_application_sid") final String smsApplicationSid, 
                                 @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod, 
@@ -296,7 +297,7 @@ public class IncomingPhoneNumber extends SidResource {
     /**
      * @return The incoming phone number
      */
-    public final String getPhoneNumber() {
+    public final PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

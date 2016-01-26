@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.ShortCode;
+import com.twilio.sdk.resources.api.v2010.account.sms.ShortCode;
 
 public class ShortCodeReader extends Reader<ShortCode> {
     private final String accountSid;

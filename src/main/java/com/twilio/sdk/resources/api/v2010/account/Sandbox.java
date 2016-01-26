@@ -15,6 +15,7 @@ import com.twilio.sdk.fetchers.api.v2010.account.SandboxFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.updaters.api.v2010.account.SandboxUpdater;
@@ -91,7 +92,7 @@ public class Sandbox extends Resource {
     private final DateTime dateUpdated;
     private final Integer pin;
     private final String accountSid;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
     private final String applicationSid;
     private final String apiVersion;
     private final URI voiceUrl;
@@ -107,7 +108,7 @@ public class Sandbox extends Resource {
                     @JsonProperty("date_updated") final String dateUpdated, 
                     @JsonProperty("pin") final Integer pin, 
                     @JsonProperty("account_sid") final String accountSid, 
-                    @JsonProperty("phone_number") final String phoneNumber, 
+                    @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
                     @JsonProperty("application_sid") final String applicationSid, 
                     @JsonProperty("api_version") final String apiVersion, 
                     @JsonProperty("voice_url") final URI voiceUrl, 
@@ -164,7 +165,7 @@ public class Sandbox extends Resource {
     /**
      * @return The phone_number
      */
-    public final String getPhoneNumber() {
+    public final PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

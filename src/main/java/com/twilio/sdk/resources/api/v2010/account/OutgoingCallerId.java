@@ -16,6 +16,7 @@ import com.twilio.sdk.fetchers.api.v2010.account.OutgoingCallerIdFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.api.v2010.account.OutgoingCallerIdReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
@@ -118,7 +119,7 @@ public class OutgoingCallerId extends SidResource {
     private final DateTime dateUpdated;
     private final String friendlyName;
     private final String accountSid;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
     private final String uri;
 
     @JsonCreator
@@ -127,7 +128,7 @@ public class OutgoingCallerId extends SidResource {
                              @JsonProperty("date_updated") final String dateUpdated, 
                              @JsonProperty("friendly_name") final String friendlyName, 
                              @JsonProperty("account_sid") final String accountSid, 
-                             @JsonProperty("phone_number") final String phoneNumber, 
+                             @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
                              @JsonProperty("uri") final String uri) {
         this.sid = sid;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
@@ -176,7 +177,7 @@ public class OutgoingCallerId extends SidResource {
     /**
      * @return The incoming phone number
      */
-    public final String getPhoneNumber() {
+    public final PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

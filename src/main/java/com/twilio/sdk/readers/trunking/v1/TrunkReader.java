@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.trunking.Trunk;
+import com.twilio.sdk.resources.trunking.v1..Trunk;
 
 public class TrunkReader extends Reader<Trunk> {
     /**

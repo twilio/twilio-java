@@ -9,7 +9,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.WorkflowStatistics;
+import com.twilio.sdk.resources.taskrouter.v1.workspace.workflow.WorkflowStatistics;
 import org.joda.time.DateTime;
 
 public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {

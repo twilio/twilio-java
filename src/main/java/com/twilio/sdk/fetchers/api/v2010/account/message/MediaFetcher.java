@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Media;
+import com.twilio.sdk.resources.api.v2010.account.message.Media;
 
 public class MediaFetcher extends Fetcher<Media> {
     private final String accountSid;

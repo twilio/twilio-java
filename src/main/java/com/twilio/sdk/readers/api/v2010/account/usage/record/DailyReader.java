@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Daily;
+import com.twilio.sdk.resources.api.v2010.account.usage.record.Daily;
 
 public class DailyReader extends Reader<Daily> {
     private final String accountSid;

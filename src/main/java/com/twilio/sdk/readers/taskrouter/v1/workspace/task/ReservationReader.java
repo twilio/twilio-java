@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.Reservation;
+import com.twilio.sdk.resources.taskrouter.v1.workspace.task.Reservation;
 
 public class ReservationReader extends Reader<Reservation> {
     private final String workspaceSid;

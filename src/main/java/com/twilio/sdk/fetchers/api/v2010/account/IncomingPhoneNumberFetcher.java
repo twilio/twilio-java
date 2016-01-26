@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.IncomingPhoneNumber;
+import com.twilio.sdk.resources.api.v2010.account.IncomingPhoneNumber;
 
 public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
     private final String ownerAccountSid;

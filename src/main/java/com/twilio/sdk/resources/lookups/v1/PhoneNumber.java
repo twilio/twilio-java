@@ -14,6 +14,7 @@ import com.twilio.sdk.fetchers.lookups.v1..PhoneNumberFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 
@@ -54,7 +55,7 @@ public class PhoneNumber extends SidResource {
      * @param phoneNumber The phone_number
      * @return PhoneNumberFetcher capable of executing the fetch
      */
-    public static PhoneNumberFetcher fetch(final String phoneNumber) {
+    public static PhoneNumberFetcher fetch(final PhoneNumber phoneNumber) {
         return new PhoneNumberFetcher(phoneNumber);
     }
 
@@ -97,13 +98,13 @@ public class PhoneNumber extends SidResource {
     }
 
     private final String countryCode;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
     private final String nationalFormat;
     private final Map<String, String> carrier;
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("country_code") final String countryCode, 
-                        @JsonProperty("phone_number") final String phoneNumber, 
+                        @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
                         @JsonProperty("national_format") final String nationalFormat, 
                         @JsonProperty("carrier") final Map<String, String> carrier) {
         this.countryCode = countryCode;
@@ -115,7 +116,7 @@ public class PhoneNumber extends SidResource {
     /**
      * @return The phone_number
      */
-    public final String getSid() {
+    public final PhoneNumber getSid() {
         return this.getPhoneNumber();
     }
 
@@ -129,7 +130,7 @@ public class PhoneNumber extends SidResource {
     /**
      * @return The phone_number
      */
-    public final String getPhoneNumber() {
+    public final PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

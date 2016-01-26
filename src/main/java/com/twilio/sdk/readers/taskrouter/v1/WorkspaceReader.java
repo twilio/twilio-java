@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.Workspace;
+import com.twilio.sdk.resources.taskrouter.v1..Workspace;
 
 public class WorkspaceReader extends Reader<Workspace> {
     private String friendlyName;

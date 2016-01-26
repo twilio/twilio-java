@@ -13,6 +13,7 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.api.v2010.account.address.DependentPhoneNumberReader;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
@@ -76,8 +77,8 @@ public class DependentPhoneNumber extends Resource {
         }
     }
 
-    private final String friendlyName;
-    private final String phoneNumber;
+    private final PhoneNumber friendlyName;
+    private final PhoneNumber phoneNumber;
     private final String lata;
     private final String rateCenter;
     private final BigDecimal latitude;
@@ -89,8 +90,8 @@ public class DependentPhoneNumber extends Resource {
     private final Map<String, String> capabilities;
 
     @JsonCreator
-    private DependentPhoneNumber(@JsonProperty("friendly_name") final String friendlyName, 
-                                 @JsonProperty("phone_number") final String phoneNumber, 
+    private DependentPhoneNumber(@JsonProperty("friendly_name") final PhoneNumber friendlyName, 
+                                 @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
                                  @JsonProperty("lata") final String lata, 
                                  @JsonProperty("rate_center") final String rateCenter, 
                                  @JsonProperty("latitude") final BigDecimal latitude, 
@@ -116,14 +117,14 @@ public class DependentPhoneNumber extends Resource {
     /**
      * @return The friendly_name
      */
-    public final String getFriendlyName() {
+    public final PhoneNumber getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
      * @return The phone_number
      */
-    public final String getPhoneNumber() {
+    public final PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

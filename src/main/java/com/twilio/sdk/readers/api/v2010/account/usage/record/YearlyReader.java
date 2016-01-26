@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Yearly;
+import com.twilio.sdk.resources.api.v2010.account.usage.record.Yearly;
 
 public class YearlyReader extends Reader<Yearly> {
     private final String accountSid;

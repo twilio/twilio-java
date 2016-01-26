@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Mobile;
+import com.twilio.sdk.resources.api.v2010.account.available_phone_number_country.Mobile;
 
 public class MobileReader extends Reader<Mobile> {
     private final String accountSid;

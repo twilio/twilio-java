@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.Reservation;
+import com.twilio.sdk.resources.taskrouter.v1.workspace.task.Reservation;
 
 public class ReservationFetcher extends Fetcher<Reservation> {
     private final String workspaceSid;

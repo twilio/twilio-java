@@ -8,14 +8,15 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.IncomingPhoneNumber;
+import com.twilio.sdk.resources.api.v2010.account.IncomingPhoneNumber;
 
 import java.net.URI;
 
 public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private final String ownerAccountSid;
-    private String phoneNumber;
+    private PhoneNumber phoneNumber;
     private String areaCode;
     private String apiVersion;
     private String friendlyName;
@@ -39,7 +40,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone number
      */
-    public IncomingPhoneNumberCreator(final String ownerAccountSid, final String phoneNumber) {
+    public IncomingPhoneNumberCreator(final String ownerAccountSid, final PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }
@@ -340,7 +341,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      */
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber);
+            request.addPostParam("PhoneNumber", phoneNumber.toString());
         }
         
         if (areaCode != null) {

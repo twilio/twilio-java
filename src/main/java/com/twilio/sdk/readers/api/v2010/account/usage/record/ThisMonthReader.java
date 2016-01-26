@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.ThisMonth;
+import com.twilio.sdk.resources.api.v2010.account.usage.record.ThisMonth;
 
 public class ThisMonthReader extends Reader<ThisMonth> {
     private final String accountSid;

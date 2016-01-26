@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.Workspace;
+import com.twilio.sdk.resources.taskrouter.v1..Workspace;
 
 public class WorkspaceCreator extends Creator<Workspace> {
     private final String friendlyName;

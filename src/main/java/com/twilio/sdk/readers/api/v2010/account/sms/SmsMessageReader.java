@@ -6,16 +6,17 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.SmsMessage;
+import com.twilio.sdk.resources.api.v2010.account.sms.SmsMessage;
 
 public class SmsMessageReader extends Reader<SmsMessage> {
     private final String accountSid;
-    private String to;
-    private String from;
+    private PhoneNumber to;
+    private PhoneNumber from;
     private String dateSent;
 
     /**
@@ -33,7 +34,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
      * @param to The to
      * @return this
      */
-    public SmsMessageReader byTo(final String to) {
+    public SmsMessageReader byTo(final PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -44,7 +45,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
      * @param from The from
      * @return this
      */
-    public SmsMessageReader byFrom(final String from) {
+    public SmsMessageReader byFrom(final PhoneNumber from) {
         this.from = from;
         return this;
     }
@@ -134,11 +135,11 @@ public class SmsMessageReader extends Reader<SmsMessage> {
      */
     private void addQueryParams(final Request request) {
         if (to != null) {
-            request.addQueryParam("To", to);
+            request.addQueryParam("To", to.toString());
         }
         
         if (from != null) {
-            request.addQueryParam("From", from);
+            request.addQueryParam("From", from.toString());
         }
         
         if (dateSent != null) {

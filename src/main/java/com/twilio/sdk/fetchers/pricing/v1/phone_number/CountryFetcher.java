@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.pricing.Country;
+import com.twilio.sdk.resources.pricing.v1.phone_number.Country;
 
 public class CountryFetcher extends Fetcher<Country> {
     private final String isoCountry;

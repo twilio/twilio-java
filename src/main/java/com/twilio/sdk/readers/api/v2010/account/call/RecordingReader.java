@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Recording;
+import com.twilio.sdk.resources.api.v2010.account.call.Recording;
 
 public class RecordingReader extends Reader<Recording> {
     private final String accountSid;

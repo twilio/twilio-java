@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.trunking.OriginationUrl;
+import com.twilio.sdk.resources.trunking.v1.trunk.OriginationUrl;
 
 public class OriginationUrlReader extends Reader<OriginationUrl> {
     private final String trunkSid;

@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.trunking.CredentialList;
+import com.twilio.sdk.resources.trunking.v1.trunk.CredentialList;
 
 public class CredentialListReader extends Reader<CredentialList> {
     private final String trunkSid;

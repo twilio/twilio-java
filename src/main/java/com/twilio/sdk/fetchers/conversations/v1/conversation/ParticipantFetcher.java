@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.conversations.Participant;
+import com.twilio.sdk.resources.conversations.v1.conversation.Participant;
 
 public class ParticipantFetcher extends Fetcher<Participant> {
     private final String conversationSid;

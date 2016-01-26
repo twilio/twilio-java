@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.conversations.Conversation;
+import com.twilio.sdk.resources.conversations.v1..Conversation;
 
 public class ConversationFetcher extends Fetcher<Conversation> {
     private final String sid;

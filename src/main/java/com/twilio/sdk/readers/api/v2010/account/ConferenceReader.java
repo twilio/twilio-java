@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Conference;
+import com.twilio.sdk.resources.api.v2010.account.Conference;
 
 public class ConferenceReader extends Reader<Conference> {
     private final String accountSid;

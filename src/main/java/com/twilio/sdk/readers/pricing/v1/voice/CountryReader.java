@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.pricing.Country;
+import com.twilio.sdk.resources.pricing.v1.voice.Country;
 
 public class CountryReader extends Reader<Country> {
     /**

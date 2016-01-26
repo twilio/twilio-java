@@ -6,15 +6,16 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.OutgoingCallerId;
+import com.twilio.sdk.resources.api.v2010.account.OutgoingCallerId;
 
 public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     private final String accountSid;
-    private String phoneNumber;
+    private PhoneNumber phoneNumber;
     private String friendlyName;
 
     /**
@@ -32,7 +33,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
      * @param phoneNumber Filter by phone number
      * @return this
      */
-    public OutgoingCallerIdReader byPhoneNumber(final String phoneNumber) {
+    public OutgoingCallerIdReader byPhoneNumber(final PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -122,7 +123,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
      */
     private void addQueryParams(final Request request) {
         if (phoneNumber != null) {
-            request.addQueryParam("PhoneNumber", phoneNumber);
+            request.addQueryParam("PhoneNumber", phoneNumber.toString());
         }
         
         if (friendlyName != null) {

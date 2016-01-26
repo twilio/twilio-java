@@ -17,6 +17,7 @@ import com.twilio.sdk.fetchers.trunking.v1.trunk.PhoneNumberFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.trunking.v1.trunk.PhoneNumberReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
@@ -145,7 +146,7 @@ public class PhoneNumber extends SidResource {
     private final DateTime dateUpdated;
     private final String friendlyName;
     private final Map<String, String> links;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
     private final String sid;
     private final String smsApplicationSid;
     private final HttpMethod smsFallbackMethod;
@@ -173,7 +174,7 @@ public class PhoneNumber extends SidResource {
                         @JsonProperty("date_updated") final String dateUpdated, 
                         @JsonProperty("friendly_name") final String friendlyName, 
                         @JsonProperty("links") final Map<String, String> links, 
-                        @JsonProperty("phone_number") final String phoneNumber, 
+                        @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
                         @JsonProperty("sid") final String sid, 
                         @JsonProperty("sms_application_sid") final String smsApplicationSid, 
                         @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod, 
@@ -284,7 +285,7 @@ public class PhoneNumber extends SidResource {
     /**
      * @return The phone_number
      */
-    public final String getPhoneNumber() {
+    public final PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

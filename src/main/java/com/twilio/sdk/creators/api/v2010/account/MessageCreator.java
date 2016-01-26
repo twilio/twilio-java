@@ -8,16 +8,17 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Message;
+import com.twilio.sdk.resources.api.v2010.account.Message;
 
 import java.net.URI;
 import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
     private final String accountSid;
-    private final String to;
-    private final String from;
+    private final PhoneNumber to;
+    private final PhoneNumber from;
     private String body;
     private List<URI> mediaUrl;
     private URI statusCallback;
@@ -31,7 +32,7 @@ public class MessageCreator extends Creator<Message> {
      * @param from The phone number that initiated the message
      * @param body The body
      */
-    public MessageCreator(final String accountSid, final String to, final String from, final String body) {
+    public MessageCreator(final String accountSid, final PhoneNumber to, final PhoneNumber from, final String body) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -46,7 +47,7 @@ public class MessageCreator extends Creator<Message> {
      * @param from The phone number that initiated the message
      * @param mediaUrl The media_url
      */
-    public MessageCreator(final String accountSid, final String to, final String from, final List<URI> mediaUrl) {
+    public MessageCreator(final String accountSid, final PhoneNumber to, final PhoneNumber from, final List<URI> mediaUrl) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -126,11 +127,11 @@ public class MessageCreator extends Creator<Message> {
      */
     private void addPostParams(final Request request) {
         if (to != null) {
-            request.addPostParam("To", to);
+            request.addPostParam("To", to.toString());
         }
         
         if (from != null) {
-            request.addPostParam("From", from);
+            request.addPostParam("From", from.toString());
         }
         
         if (body != null) {

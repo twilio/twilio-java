@@ -7,7 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.Task;
+import com.twilio.sdk.resources.taskrouter.v1.workspace.Task;
 import com.twilio.sdk.updaters.Updater;
 
 public class TaskUpdater extends Updater<Task> {

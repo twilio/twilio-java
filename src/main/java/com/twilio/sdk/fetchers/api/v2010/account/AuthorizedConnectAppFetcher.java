@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.AuthorizedConnectApp;
+import com.twilio.sdk.resources.api.v2010.account.AuthorizedConnectApp;
 
 public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     private final String accountSid;

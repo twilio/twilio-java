@@ -11,7 +11,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.TaskQueuesStatistics;
+import com.twilio.sdk.resources.taskrouter.v1.workspace.task_queue.TaskQueuesStatistics;
 import org.joda.time.DateTime;
 
 public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {

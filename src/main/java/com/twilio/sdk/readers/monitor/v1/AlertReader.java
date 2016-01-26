@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.monitor.Alert;
+import com.twilio.sdk.resources.monitor.v1..Alert;
 
 public class AlertReader extends Reader<Alert> {
     private String logLevel;

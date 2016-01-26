@@ -17,6 +17,7 @@ import com.twilio.sdk.fetchers.api.v2010.account.sms.SmsMessageFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.api.v2010.account.sms.SmsMessageReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
@@ -92,7 +93,7 @@ public class SmsMessage extends SidResource {
      * @param body The body
      * @return SmsMessageCreator capable of executing the create
      */
-    public static SmsMessageCreator create(final String accountSid, final String to, final String from, final String body) {
+    public static SmsMessageCreator create(final String accountSid, final PhoneNumber to, final PhoneNumber from, final String body) {
         return new SmsMessageCreator(accountSid, to, from, body);
     }
 
@@ -105,7 +106,7 @@ public class SmsMessage extends SidResource {
      * @param mediaUrl The media_url
      * @return SmsMessageCreator capable of executing the create
      */
-    public static SmsMessageCreator create(final String accountSid, final String to, final String from, final List<URI> mediaUrl) {
+    public static SmsMessageCreator create(final String accountSid, final PhoneNumber to, final PhoneNumber from, final List<URI> mediaUrl) {
         return new SmsMessageCreator(accountSid, to, from, mediaUrl);
     }
 
@@ -197,7 +198,7 @@ public class SmsMessage extends SidResource {
     private final DateTime dateUpdated;
     private final DateTime dateSent;
     private final SmsMessage.Direction direction;
-    private final String from;
+    private final PhoneNumber from;
     private final BigDecimal price;
     private final Currency priceUnit;
     private final String sid;
@@ -213,7 +214,7 @@ public class SmsMessage extends SidResource {
                        @JsonProperty("date_updated") final String dateUpdated, 
                        @JsonProperty("date_sent") final String dateSent, 
                        @JsonProperty("direction") final SmsMessage.Direction direction, 
-                       @JsonProperty("from") final String from, 
+                       @JsonProperty("from") final PhoneNumber from, 
                        @JsonProperty("price") final BigDecimal price, 
                        @JsonProperty("price_unit") final Currency priceUnit, 
                        @JsonProperty("sid") final String sid, 
@@ -288,7 +289,7 @@ public class SmsMessage extends SidResource {
     /**
      * @return The from
      */
-    public final String getFrom() {
+    public final PhoneNumber getFrom() {
         return this.from;
     }
 

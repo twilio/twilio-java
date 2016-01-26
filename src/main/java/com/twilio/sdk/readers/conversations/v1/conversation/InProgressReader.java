@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.conversations.InProgress;
+import com.twilio.sdk.resources.conversations.v1.conversation.InProgress;
 
 public class InProgressReader extends Reader<InProgress> {
     /**

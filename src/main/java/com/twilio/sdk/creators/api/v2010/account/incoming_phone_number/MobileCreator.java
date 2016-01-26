@@ -8,14 +8,15 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Mobile;
+import com.twilio.sdk.resources.api.v2010.account.incoming_phone_number.Mobile;
 
 import java.net.URI;
 
 public class MobileCreator extends Creator<Mobile> {
     private final String ownerAccountSid;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -38,7 +39,7 @@ public class MobileCreator extends Creator<Mobile> {
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone_number
      */
-    public MobileCreator(final String ownerAccountSid, final String phoneNumber) {
+    public MobileCreator(final String ownerAccountSid, final PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }
@@ -298,7 +299,7 @@ public class MobileCreator extends Creator<Mobile> {
      */
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber);
+            request.addPostParam("PhoneNumber", phoneNumber.toString());
         }
         
         if (apiVersion != null) {

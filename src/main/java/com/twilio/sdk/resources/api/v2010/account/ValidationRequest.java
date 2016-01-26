@@ -14,6 +14,7 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
 
@@ -33,7 +34,7 @@ public class ValidationRequest extends Resource {
      * @param phoneNumber The phone_number
      * @return ValidationRequestCreator capable of executing the create
      */
-    public static ValidationRequestCreator create(final String accountSid, final String phoneNumber) {
+    public static ValidationRequestCreator create(final String accountSid, final PhoneNumber phoneNumber) {
         return new ValidationRequestCreator(accountSid, phoneNumber);
     }
 
@@ -76,14 +77,14 @@ public class ValidationRequest extends Resource {
     }
 
     private final String accountSid;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
     private final String friendlyName;
     private final Integer validationCode;
     private final String callSid;
 
     @JsonCreator
     private ValidationRequest(@JsonProperty("account_sid") final String accountSid, 
-                              @JsonProperty("phone_number") final String phoneNumber, 
+                              @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
                               @JsonProperty("friendly_name") final String friendlyName, 
                               @JsonProperty("validation_code") final Integer validationCode, 
                               @JsonProperty("call_sid") final String callSid) {
@@ -104,7 +105,7 @@ public class ValidationRequest extends Resource {
     /**
      * @return The phone_number
      */
-    public final String getPhoneNumber() {
+    public final PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

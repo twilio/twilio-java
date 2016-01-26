@@ -8,14 +8,15 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.ValidationRequest;
+import com.twilio.sdk.resources.api.v2010.account.ValidationRequest;
 
 import java.net.URI;
 
 public class ValidationRequestCreator extends Creator<ValidationRequest> {
     private final String accountSid;
-    private final String phoneNumber;
+    private final PhoneNumber phoneNumber;
     private String friendlyName;
     private Integer callDelay;
     private String extension;
@@ -28,7 +29,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
      * @param accountSid The account_sid
      * @param phoneNumber The phone_number
      */
-    public ValidationRequestCreator(final String accountSid, final String phoneNumber) {
+    public ValidationRequestCreator(final String accountSid, final PhoneNumber phoneNumber) {
         this.accountSid = accountSid;
         this.phoneNumber = phoneNumber;
     }
@@ -138,7 +139,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
      */
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber);
+            request.addPostParam("PhoneNumber", phoneNumber.toString());
         }
         
         if (friendlyName != null) {

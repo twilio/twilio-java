@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.IpAddress;
+import com.twilio.sdk.resources.api.v2010.account.sip.ip_access_control_list.IpAddress;
 
 public class IpAddressReader extends Reader<IpAddress> {
     private final String accountSid;

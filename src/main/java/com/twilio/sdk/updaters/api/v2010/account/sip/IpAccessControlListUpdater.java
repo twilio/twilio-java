@@ -7,7 +7,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.IpAccessControlList;
+import com.twilio.sdk.resources.api.v2010.account.sip.IpAccessControlList;
 import com.twilio.sdk.updaters.Updater;
 
 public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {

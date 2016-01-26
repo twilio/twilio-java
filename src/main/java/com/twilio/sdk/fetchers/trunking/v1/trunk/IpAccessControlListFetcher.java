@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.trunking.IpAccessControlList;
+import com.twilio.sdk.resources.trunking.v1.trunk.IpAccessControlList;
 
 public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
     private final String trunkSid;

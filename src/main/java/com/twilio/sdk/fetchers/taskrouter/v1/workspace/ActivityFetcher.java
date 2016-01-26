@@ -8,7 +8,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.taskrouter.Activity;
+import com.twilio.sdk.resources.taskrouter.v1.workspace.Activity;
 
 public class ActivityFetcher extends Fetcher<Activity> {
     private final String workspaceSid;

@@ -8,15 +8,16 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Call;
+import com.twilio.sdk.resources.api.v2010.account.Call;
 
 import java.net.URI;
 
 public class CallCreator extends Creator<Call> {
     private final String accountSid;
-    private final String to;
-    private final String from;
+    private final PhoneNumber to;
+    private final PhoneNumber from;
     private URI url;
     private String applicationSid;
     private HttpMethod method;
@@ -37,7 +38,7 @@ public class CallCreator extends Creator<Call> {
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      */
-    public CallCreator(final String accountSid, final String to, final String from, final URI url) {
+    public CallCreator(final String accountSid, final PhoneNumber to, final PhoneNumber from, final URI url) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -53,7 +54,7 @@ public class CallCreator extends Creator<Call> {
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
      */
-    public CallCreator(final String accountSid, final String to, final String from, final String applicationSid) {
+    public CallCreator(final String accountSid, final PhoneNumber to, final PhoneNumber from, final String applicationSid) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -239,11 +240,11 @@ public class CallCreator extends Creator<Call> {
      */
     private void addPostParams(final Request request) {
         if (to != null) {
-            request.addPostParam("To", to);
+            request.addPostParam("To", to.toString());
         }
         
         if (from != null) {
-            request.addPostParam("From", from);
+            request.addPostParam("From", from.toString());
         }
         
         if (url != null) {

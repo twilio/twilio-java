@@ -10,7 +10,7 @@ import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
 import com.twilio.sdk.resources.RestException;
-import com.twilio.sdk.resources.api.Credential;
+import com.twilio.sdk.resources.api.v2010.account.sip.credential_list.Credential;
 
 public class CredentialReader extends Reader<Credential> {
     private final String accountSid;

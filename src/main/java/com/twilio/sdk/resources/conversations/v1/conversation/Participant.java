@@ -16,6 +16,7 @@ import com.twilio.sdk.fetchers.conversations.v1.conversation.ParticipantFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.conversations.v1.conversation.ParticipantReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
@@ -73,7 +74,7 @@ public class Participant extends SidResource {
      * @param from The from
      * @return ParticipantCreator capable of executing the create
      */
-    public static ParticipantCreator create(final String conversationSid, final String to, final String from) {
+    public static ParticipantCreator create(final String conversationSid, final PhoneNumber to, final PhoneNumber from) {
         return new ParticipantCreator(conversationSid, to, from);
     }
 

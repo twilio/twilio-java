@@ -1,0 +1,164 @@
+package com.twilio.sdk.creators.api;
+
+import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.converters.Promoter;
+import com.twilio.sdk.creators.Creator;
+import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.http.HttpMethod;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
+import com.twilio.sdk.resources.RestException;
+import com.twilio.sdk.resources.api.ValidationRequest;
+
+import java.net.URI;
+
+public class ValidationRequestCreator extends Creator<ValidationRequest> {
+    private final String accountSid;
+    private final String phoneNumber;
+    private String friendlyName;
+    private Integer callDelay;
+    private String extension;
+    private URI statusCallback;
+    private HttpMethod statusCallbackMethod;
+
+    /**
+     * Construct a new ValidationRequestCreator
+     * 
+     * @param accountSid The account_sid
+     * @param phoneNumber The phone_number
+     */
+    public ValidationRequestCreator(final String accountSid, final String phoneNumber) {
+        this.accountSid = accountSid;
+        this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * The friendly_name
+     * 
+     * @param friendlyName The friendly_name
+     * @return this
+     */
+    public ValidationRequestCreator setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The call_delay
+     * 
+     * @param callDelay The call_delay
+     * @return this
+     */
+    public ValidationRequestCreator setCallDelay(final Integer callDelay) {
+        this.callDelay = callDelay;
+        return this;
+    }
+
+    /**
+     * The extension
+     * 
+     * @param extension The extension
+     * @return this
+     */
+    public ValidationRequestCreator setExtension(final String extension) {
+        this.extension = extension;
+        return this;
+    }
+
+    /**
+     * The status_callback
+     * 
+     * @param statusCallback The status_callback
+     * @return this
+     */
+    public ValidationRequestCreator setStatusCallback(final URI statusCallback) {
+        this.statusCallback = statusCallback;
+        return this;
+    }
+
+    /**
+     * The status_callback
+     * 
+     * @param statusCallback The status_callback
+     * @return this
+     */
+    public ValidationRequestCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
+
+    /**
+     * The status_callback_method
+     * 
+     * @param statusCallbackMethod The status_callback_method
+     * @return this
+     */
+    public ValidationRequestCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+        this.statusCallbackMethod = statusCallbackMethod;
+        return this;
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the create
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Created ValidationRequest
+     */
+    @Override
+    public ValidationRequest execute(final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.POST,
+            "/2010-04-01/Accounts/" + this.accountSid + "/OutgoingCallerIds.json",
+            client.getAccountSid()
+        );
+        
+        addPostParams(request);
+        Response response = client.request(request);
+        
+        if (response == null) {
+            throw new ApiConnectionException("ValidationRequest creation failed: Unable to connect to server");
+        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiException(
+                restException.getMessage(),
+                restException.getCode(),
+                restException.getMoreInfo(),
+                restException.getStatus(),
+                null
+            );
+        }
+        
+        return ValidationRequest.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested post parameters to the Request
+     * 
+     * @param request Request to add post params to
+     */
+    private void addPostParams(final Request request) {
+        if (phoneNumber != null) {
+            request.addPostParam("PhoneNumber", phoneNumber);
+        }
+        
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
+        }
+        
+        if (callDelay != null) {
+            request.addPostParam("CallDelay", callDelay.toString());
+        }
+        
+        if (extension != null) {
+            request.addPostParam("Extension", extension);
+        }
+        
+        if (statusCallback != null) {
+            request.addPostParam("StatusCallback", statusCallback.toString());
+        }
+        
+        if (statusCallbackMethod != null) {
+            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+        }
+    }
+}

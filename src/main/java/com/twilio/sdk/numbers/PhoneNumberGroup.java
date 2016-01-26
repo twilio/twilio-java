@@ -1,8 +1,8 @@
 package com.twilio.sdk.numbers;
 
-import com.twilio.sdk.creators.CallCreator;
+import com.twilio.sdk.creators.api.CallCreator;
 import com.twilio.sdk.hash.ConsistentHashRing;
-import com.twilio.sdk.resources.Call;
+import com.twilio.sdk.resources.api.Call;
 
 import java.net.URI;
 

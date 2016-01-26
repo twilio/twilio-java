@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ShortCode extends SidResource {
+public class ShortCode extends Resource {
     private static final long serialVersionUID = 186171326966142L;
 
     /**

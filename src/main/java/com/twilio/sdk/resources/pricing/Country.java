@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Country extends SidResource {
+public class Country extends Resource {
     private static final long serialVersionUID = 270847470775437L;
 
     /**

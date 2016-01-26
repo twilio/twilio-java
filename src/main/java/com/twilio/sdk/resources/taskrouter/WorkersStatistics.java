@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkersStatistics extends SidResource {
+public class WorkersStatistics extends Resource {
     private static final long serialVersionUID = 138288907097504L;
 
     /**

@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InProgress extends SidResource {
+public class InProgress extends Resource {
     private static final long serialVersionUID = 33453296983711L;
 
     public enum Status {

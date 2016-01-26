@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Local extends SidResource {
+public class Local extends Resource {
     private static final long serialVersionUID = 8405200578969L;
 
     public enum AddressRequirement {
@@ -113,7 +113,7 @@ public class Local extends SidResource {
     }
 
     private final String accountSid;
-    private final Local.AddressRequirement addressRequirements;
+    private final IncomingPhoneNumber.AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
     private final String capabilities;
@@ -139,7 +139,7 @@ public class Local extends SidResource {
 
     @JsonCreator
     private Local(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("address_requirements") final Local.AddressRequirement addressRequirements, 
+                  @JsonProperty("address_requirements") final IncomingPhoneNumber.AddressRequirement addressRequirements, 
                   @JsonProperty("api_version") final String apiVersion, 
                   @JsonProperty("beta") final Boolean beta, 
                   @JsonProperty("capabilities") final String capabilities, 
@@ -198,7 +198,7 @@ public class Local extends SidResource {
     /**
      * @return The address_requirements
      */
-    public final Local.AddressRequirement getAddressRequirements() {
+    public final IncomingPhoneNumber.AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 

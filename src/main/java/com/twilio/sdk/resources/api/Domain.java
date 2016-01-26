@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Domain extends SidResource {
+public class Domain extends Resource {
     private static final long serialVersionUID = 139851556323628L;
 
     /**

@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IpAccessControlList extends SidResource {
+public class IpAccessControlList extends Resource {
     private static final long serialVersionUID = 214188792953524L;
 
     /**

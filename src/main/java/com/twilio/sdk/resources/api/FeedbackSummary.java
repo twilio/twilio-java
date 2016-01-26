@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FeedbackSummary extends SidResource {
+public class FeedbackSummary extends Resource {
     private static final long serialVersionUID = 174634797560589L;
 
     public enum Status {
@@ -141,7 +141,7 @@ public class FeedbackSummary extends SidResource {
     private final BigDecimal qualityScoreStandardDeviation;
     private final String sid;
     private final DateTime startDate;
-    private final FeedbackSummary.Status status;
+    private final Call.Status status;
 
     @JsonCreator
     private FeedbackSummary(@JsonProperty("account_sid") final String accountSid, 
@@ -157,7 +157,7 @@ public class FeedbackSummary extends SidResource {
                             @JsonProperty("quality_score_standard_deviation") final BigDecimal qualityScoreStandardDeviation, 
                             @JsonProperty("sid") final String sid, 
                             @JsonProperty("start_date") final String startDate, 
-                            @JsonProperty("status") final FeedbackSummary.Status status) {
+                            @JsonProperty("status") final Call.Status status) {
         this.accountSid = accountSid;
         this.callCount = callCount;
         this.callFeedbackCount = callFeedbackCount;
@@ -268,7 +268,7 @@ public class FeedbackSummary extends SidResource {
     /**
      * @return The status
      */
-    public final FeedbackSummary.Status getStatus() {
+    public final Call.Status getStatus() {
         return this.status;
     }
 

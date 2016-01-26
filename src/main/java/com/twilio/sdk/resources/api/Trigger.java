@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Trigger extends SidResource {
+public class Trigger extends Resource {
     private static final long serialVersionUID = 265472878252662L;
 
     public enum UsageCategory {

@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SmsMessage extends SidResource {
+public class SmsMessage extends Resource {
     private static final long serialVersionUID = 35367205451086L;
 
     public enum Status {

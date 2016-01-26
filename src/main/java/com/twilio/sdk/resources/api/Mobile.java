@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Mobile extends SidResource {
+public class Mobile extends Resource {
     private static final long serialVersionUID = 8405200578969L;
 
     public enum AddressRequirement {

@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CredentialList extends SidResource {
+public class CredentialList extends Resource {
     private static final long serialVersionUID = 214188792953524L;
 
     /**

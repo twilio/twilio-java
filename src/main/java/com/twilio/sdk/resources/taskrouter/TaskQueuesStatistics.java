@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskQueuesStatistics extends SidResource {
+public class TaskQueuesStatistics extends Resource {
     private static final long serialVersionUID = 270967847861151L;
 
     /**

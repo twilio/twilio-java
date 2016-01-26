@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Completed extends SidResource {
+public class Completed extends Resource {
     private static final long serialVersionUID = 33453296983711L;
 
     public enum Status {
@@ -101,7 +101,7 @@ public class Completed extends SidResource {
     }
 
     private final String sid;
-    private final Completed.Status status;
+    private final Conversation.Status status;
     private final Integer duration;
     private final DateTime dateCreated;
     private final DateTime startTime;
@@ -111,7 +111,7 @@ public class Completed extends SidResource {
 
     @JsonCreator
     private Completed(@JsonProperty("sid") final String sid, 
-                      @JsonProperty("status") final Completed.Status status, 
+                      @JsonProperty("status") final Conversation.Status status, 
                       @JsonProperty("duration") final Integer duration, 
                       @JsonProperty("date_created") final String dateCreated, 
                       @JsonProperty("start_time") final String startTime, 
@@ -138,7 +138,7 @@ public class Completed extends SidResource {
     /**
      * @return The status
      */
-    public final Completed.Status getStatus() {
+    public final Conversation.Status getStatus() {
         return this.status;
     }
 

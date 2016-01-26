@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AllTime extends SidResource {
+public class AllTime extends Resource {
     private static final long serialVersionUID = 99256854755798L;
 
     public enum Category {
@@ -125,7 +125,7 @@ public class AllTime extends SidResource {
 
     private final String accountSid;
     private final String apiVersion;
-    private final AllTime.Category category;
+    private final Record.Category category;
     private final String count;
     private final String countUnit;
     private final String description;
@@ -141,7 +141,7 @@ public class AllTime extends SidResource {
     @JsonCreator
     private AllTime(@JsonProperty("account_sid") final String accountSid, 
                     @JsonProperty("api_version") final String apiVersion, 
-                    @JsonProperty("category") final AllTime.Category category, 
+                    @JsonProperty("category") final Record.Category category, 
                     @JsonProperty("count") final String count, 
                     @JsonProperty("count_unit") final String countUnit, 
                     @JsonProperty("description") final String description, 
@@ -186,7 +186,7 @@ public class AllTime extends SidResource {
     /**
      * @return The category
      */
-    public final AllTime.Category getCategory() {
+    public final Record.Category getCategory() {
         return this.category;
     }
 

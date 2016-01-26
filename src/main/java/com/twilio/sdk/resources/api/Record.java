@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Record extends SidResource {
+public class Record extends Resource {
     private static final long serialVersionUID = 99256854755798L;
 
     public enum Category {

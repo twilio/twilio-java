@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Yearly extends SidResource {
+public class Yearly extends Resource {
     private static final long serialVersionUID = 99256854755798L;
 
     public enum Category {

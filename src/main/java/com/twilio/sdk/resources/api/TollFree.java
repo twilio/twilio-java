@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TollFree extends SidResource {
+public class TollFree extends Resource {
     private static final long serialVersionUID = 8405200578969L;
 
     public enum AddressRequirement {

@@ -14,7 +14,12 @@ public class TwilioRestClient {
 
     public enum Domains {
         API("api"),
-        WDS("wds");
+        CONVERSATIONS("conversations"),
+        LOOKUPS("lookups"),
+        MONITOR("monitor"),
+        PRICING("pricing"),
+        TASKROUTER("taskrouter"),
+        TRUNKING("trunking");
 
         private final String domain;
 

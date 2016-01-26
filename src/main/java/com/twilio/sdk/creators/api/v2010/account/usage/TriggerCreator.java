@@ -95,6 +95,7 @@ public class TriggerCreator extends Creator<Trigger> {
     public Trigger execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers.json",
             client.getAccountSid()
         );

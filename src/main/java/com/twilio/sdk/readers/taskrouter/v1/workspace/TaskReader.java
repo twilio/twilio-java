@@ -106,6 +106,7 @@ public class TaskReader extends Reader<Task> {
     public ResourceSet<Task> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks",
             client.getAccountSid()
         );

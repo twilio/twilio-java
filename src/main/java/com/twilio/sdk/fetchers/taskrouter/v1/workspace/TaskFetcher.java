@@ -35,6 +35,7 @@ public class TaskFetcher extends Fetcher<Task> {
     public Task execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.sid + "",
             client.getAccountSid()
         );

@@ -37,6 +37,7 @@ public class ReservationReader extends Reader<Reservation> {
     public ResourceSet<Reservation> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.taskSid + "/Reservations",
             client.getAccountSid()
         );

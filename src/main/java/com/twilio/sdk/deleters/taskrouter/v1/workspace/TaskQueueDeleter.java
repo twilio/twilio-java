@@ -34,6 +34,7 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues/" + this.sid + "",
             client.getAccountSid()
         );

@@ -37,6 +37,7 @@ public class CredentialReader extends Reader<Credential> {
     public ResourceSet<Credential> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists/" + this.credentialListSid + "/Credentials.json",
             client.getAccountSid()
         );

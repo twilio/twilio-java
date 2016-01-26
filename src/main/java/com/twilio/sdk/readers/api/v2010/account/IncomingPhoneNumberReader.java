@@ -72,6 +72,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     public ResourceSet<IncomingPhoneNumber> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers.json",
             client.getAccountSid()
         );

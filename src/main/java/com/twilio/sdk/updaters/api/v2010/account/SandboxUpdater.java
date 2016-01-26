@@ -137,6 +137,7 @@ public class SandboxUpdater extends Updater<Sandbox> {
     public Sandbox execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Sandbox.json",
             client.getAccountSid()
         );

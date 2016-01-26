@@ -87,6 +87,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     public FeedbackSummary execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/FeedbackSummary.json",
             client.getAccountSid()
         );

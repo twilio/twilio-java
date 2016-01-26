@@ -85,6 +85,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     public Trigger execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers/" + this.sid + ".json",
             client.getAccountSid()
         );

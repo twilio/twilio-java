@@ -60,6 +60,7 @@ public class AlertReader extends Reader<Alert> {
     public ResourceSet<Alert> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.MONITOR,
             "/v1/Alerts",
             client.getAccountSid()
         );

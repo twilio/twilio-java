@@ -37,6 +37,7 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.domainSid + "/CredentialListMappings/" + this.sid + ".json",
             client.getAccountSid()
         );

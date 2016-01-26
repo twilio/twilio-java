@@ -23,6 +23,7 @@ public class TrunkReader extends Reader<Trunk> {
     public ResourceSet<Trunk> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks",
             client.getAccountSid()
         );

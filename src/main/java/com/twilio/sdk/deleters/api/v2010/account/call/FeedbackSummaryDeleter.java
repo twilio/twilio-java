@@ -34,6 +34,7 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/FeedbackSummary/" + this.sid + ".json",
             client.getAccountSid()
         );

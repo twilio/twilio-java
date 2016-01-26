@@ -34,6 +34,7 @@ public class WorkflowDeleter extends Deleter<Workflow> {
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Workflows/" + this.sid + "",
             client.getAccountSid()
         );

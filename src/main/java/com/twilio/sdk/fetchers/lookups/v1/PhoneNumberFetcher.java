@@ -57,6 +57,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     public PhoneNumber execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.LOOKUPS,
             "/v1/PhoneNumbers/" + this.phoneNumber + "",
             client.getAccountSid()
         );

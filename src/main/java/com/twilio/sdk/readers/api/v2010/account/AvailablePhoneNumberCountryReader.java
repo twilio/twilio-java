@@ -34,6 +34,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
     public ResourceSet<AvailablePhoneNumberCountry> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/AvailablePhoneNumbers.json",
             client.getAccountSid()
         );

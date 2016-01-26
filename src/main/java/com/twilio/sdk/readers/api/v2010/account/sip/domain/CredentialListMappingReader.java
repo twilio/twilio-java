@@ -37,6 +37,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     public ResourceSet<CredentialListMapping> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.domainSid + "/CredentialListMappings.json",
             client.getAccountSid()
         );

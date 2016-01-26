@@ -34,6 +34,7 @@ public class YearlyReader extends Reader<Yearly> {
     public ResourceSet<Yearly> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/Yearly.json",
             client.getAccountSid()
         );

@@ -38,6 +38,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
     public Notification execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Notifications/" + this.sid + ".json",
             client.getAccountSid()
         );

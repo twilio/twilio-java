@@ -68,6 +68,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
     public WorkspaceStatistics execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Statistics",
             client.getAccountSid()
         );

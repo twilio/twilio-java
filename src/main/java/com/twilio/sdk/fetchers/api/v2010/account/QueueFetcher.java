@@ -35,6 +35,7 @@ public class QueueFetcher extends Fetcher<Queue> {
     public Queue execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Queues/" + this.sid + ".json",
             client.getAccountSid()
         );

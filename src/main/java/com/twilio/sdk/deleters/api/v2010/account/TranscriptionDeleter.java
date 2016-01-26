@@ -34,6 +34,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Transcriptions/" + this.sid + ".json",
             client.getAccountSid()
         );

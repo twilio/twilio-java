@@ -32,6 +32,7 @@ public class CountryFetcher extends Fetcher<Country> {
     public Country execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.PRICING,
             "/v1/PhoneNumbers/Countries/" + this.isoCountry + "",
             client.getAccountSid()
         );

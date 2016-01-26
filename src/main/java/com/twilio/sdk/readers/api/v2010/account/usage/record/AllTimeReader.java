@@ -34,6 +34,7 @@ public class AllTimeReader extends Reader<AllTime> {
     public ResourceSet<AllTime> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/AllTime.json",
             client.getAccountSid()
         );

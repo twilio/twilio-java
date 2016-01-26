@@ -35,6 +35,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.CONVERSATIONS,
             "/v1/Conversations/" + this.conversationSid + "/Participants/" + this.sid + "",
             client.getAccountSid()
         );

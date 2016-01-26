@@ -35,6 +35,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
     public Conference execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Conferences/" + this.sid + ".json",
             client.getAccountSid()
         );

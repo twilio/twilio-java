@@ -46,6 +46,7 @@ public class MemberUpdater extends Updater<Member> {
     public Member execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Queues/" + this.queueSid + "/Members/" + this.callSid + ".json",
             client.getAccountSid()
         );

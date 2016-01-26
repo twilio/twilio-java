@@ -107,6 +107,7 @@ public class TrunkCreator extends Creator<Trunk> {
     public Trunk execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks",
             client.getAccountSid()
         );

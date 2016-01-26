@@ -162,6 +162,7 @@ public class CallUpdater extends Updater<Call> {
     public Call execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.sid + ".json",
             client.getAccountSid()
         );

@@ -145,6 +145,7 @@ public class MobileReader extends Reader<Mobile> {
     public ResourceSet<Mobile> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/AvailablePhoneNumbers/" + this.countryCode + "/Mobile.json",
             client.getAccountSid()
         );

@@ -35,6 +35,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
     public OriginationUrl execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks/" + this.trunkSid + "/OriginationUrls/" + this.sid + "",
             client.getAccountSid()
         );

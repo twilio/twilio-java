@@ -34,6 +34,7 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks/" + this.trunkSid + "/OriginationUrls/" + this.sid + "",
             client.getAccountSid()
         );

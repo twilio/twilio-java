@@ -75,6 +75,7 @@ public class RecordReader extends Reader<Record> {
     public ResourceSet<Record> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records.json",
             client.getAccountSid()
         );

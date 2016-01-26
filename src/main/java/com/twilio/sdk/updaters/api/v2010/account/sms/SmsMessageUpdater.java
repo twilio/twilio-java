@@ -47,6 +47,7 @@ public class SmsMessageUpdater extends Updater<SmsMessage> {
     public SmsMessage execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SMS/Messages/" + this.sid + ".json",
             client.getAccountSid()
         );

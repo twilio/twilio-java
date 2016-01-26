@@ -23,6 +23,7 @@ public class CountryReader extends Reader<Country> {
     public ResourceSet<Country> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.PRICING,
             "/v1/Voice/Countries",
             client.getAccountSid()
         );

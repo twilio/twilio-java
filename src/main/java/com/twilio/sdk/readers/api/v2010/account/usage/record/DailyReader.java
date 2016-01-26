@@ -34,6 +34,7 @@ public class DailyReader extends Reader<Daily> {
     public ResourceSet<Daily> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/Daily.json",
             client.getAccountSid()
         );

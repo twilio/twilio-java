@@ -38,6 +38,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     public Transcription execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Recordings/" + this.recordingSid + "/Transcriptions/" + this.sid + ".json",
             client.getAccountSid()
         );

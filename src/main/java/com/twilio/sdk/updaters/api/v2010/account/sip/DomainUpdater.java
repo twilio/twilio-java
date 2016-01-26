@@ -164,6 +164,7 @@ public class DomainUpdater extends Updater<Domain> {
     public Domain execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.sid + ".json",
             client.getAccountSid()
         );

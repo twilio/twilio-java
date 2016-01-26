@@ -35,6 +35,7 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
     public OutgoingCallerId execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/OutgoingCallerIds/" + this.sid + ".json",
             client.getAccountSid()
         );

@@ -71,6 +71,7 @@ public class MessageReader extends Reader<Message> {
     public ResourceSet<Message> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Messages.json",
             client.getAccountSid()
         );

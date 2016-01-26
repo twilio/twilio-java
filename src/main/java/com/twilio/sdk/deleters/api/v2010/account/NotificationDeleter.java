@@ -34,6 +34,7 @@ public class NotificationDeleter extends Deleter<Notification> {
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Notifications/" + this.sid + ".json",
             client.getAccountSid()
         );

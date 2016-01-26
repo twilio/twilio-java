@@ -35,6 +35,7 @@ public class DomainFetcher extends Fetcher<Domain> {
     public Domain execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.sid + ".json",
             client.getAccountSid()
         );

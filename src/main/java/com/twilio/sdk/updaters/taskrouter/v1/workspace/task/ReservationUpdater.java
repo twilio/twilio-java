@@ -53,6 +53,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     public Reservation execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.taskSid + "/Reservations/" + this.sid + "",
             client.getAccountSid()
         );

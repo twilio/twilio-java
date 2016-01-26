@@ -107,6 +107,7 @@ public class CallReader extends Reader<Call> {
     public ResourceSet<Call> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls.json",
             client.getAccountSid()
         );

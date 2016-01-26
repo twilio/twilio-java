@@ -37,6 +37,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
     public ResourceSet<DependentPhoneNumber> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Addresses/" + this.addressSid + "/DependentPhoneNumbers.json",
             client.getAccountSid()
         );

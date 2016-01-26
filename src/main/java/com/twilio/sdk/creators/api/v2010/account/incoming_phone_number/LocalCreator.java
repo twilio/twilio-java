@@ -269,6 +269,7 @@ public class LocalCreator extends Creator<Local> {
     public Local execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/Local.json",
             client.getAccountSid()
         );

@@ -35,6 +35,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
     public ShortCode execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SMS/ShortCodes/" + this.sid + ".json",
             client.getAccountSid()
         );

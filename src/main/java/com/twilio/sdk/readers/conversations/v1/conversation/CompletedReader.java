@@ -23,6 +23,7 @@ public class CompletedReader extends Reader<Completed> {
     public ResourceSet<Completed> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.CONVERSATIONS,
             "/v1/Conversations/Completed",
             client.getAccountSid()
         );

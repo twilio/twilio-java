@@ -144,6 +144,7 @@ public class EventReader extends Reader<Event> {
     public ResourceSet<Event> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Events",
             client.getAccountSid()
         );

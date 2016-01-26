@@ -38,6 +38,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
     public Recording execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Recordings/" + this.sid + ".json",
             client.getAccountSid()
         );

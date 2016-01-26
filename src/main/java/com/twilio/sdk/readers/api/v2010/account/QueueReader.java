@@ -34,6 +34,7 @@ public class QueueReader extends Reader<Queue> {
     public ResourceSet<Queue> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Queues.json",
             client.getAccountSid()
         );

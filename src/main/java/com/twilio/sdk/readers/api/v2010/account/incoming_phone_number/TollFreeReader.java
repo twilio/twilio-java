@@ -71,6 +71,7 @@ public class TollFreeReader extends Reader<TollFree> {
     public ResourceSet<TollFree> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/TollFree.json",
             client.getAccountSid()
         );

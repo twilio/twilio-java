@@ -34,6 +34,7 @@ public class TodayReader extends Reader<Today> {
     public ResourceSet<Today> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/Today.json",
             client.getAccountSid()
         );

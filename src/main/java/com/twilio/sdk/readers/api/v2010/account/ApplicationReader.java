@@ -47,6 +47,7 @@ public class ApplicationReader extends Reader<Application> {
     public ResourceSet<Application> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Applications.json",
             client.getAccountSid()
         );

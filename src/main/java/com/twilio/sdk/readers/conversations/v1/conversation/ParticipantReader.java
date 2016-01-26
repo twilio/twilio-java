@@ -34,6 +34,7 @@ public class ParticipantReader extends Reader<Participant> {
     public ResourceSet<Participant> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.CONVERSATIONS,
             "/v1/Conversations/" + this.conversationSid + "/Participants",
             client.getAccountSid()
         );

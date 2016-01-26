@@ -23,6 +23,7 @@ public class InProgressReader extends Reader<InProgress> {
     public ResourceSet<InProgress> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.CONVERSATIONS,
             "/v1/Conversations/InProgress",
             client.getAccountSid()
         );

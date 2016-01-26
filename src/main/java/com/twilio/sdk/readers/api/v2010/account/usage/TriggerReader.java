@@ -71,6 +71,7 @@ public class TriggerReader extends Reader<Trigger> {
     public ResourceSet<Trigger> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers.json",
             client.getAccountSid()
         );

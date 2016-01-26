@@ -59,6 +59,7 @@ public class WorkerCreator extends Creator<Worker> {
     public Worker execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Workers",
             client.getAccountSid()
         );

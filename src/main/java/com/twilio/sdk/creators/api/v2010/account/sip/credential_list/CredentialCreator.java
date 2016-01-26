@@ -41,6 +41,7 @@ public class CredentialCreator extends Creator<Credential> {
     public Credential execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists/" + this.credentialListSid + "/Credentials.json",
             client.getAccountSid()
         );

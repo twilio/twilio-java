@@ -65,6 +65,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     public TaskQueue execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues",
             client.getAccountSid()
         );

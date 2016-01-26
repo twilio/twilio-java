@@ -84,6 +84,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     public ResourceSet<TaskQueuesStatistics> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues/Statistics",
             client.getAccountSid()
         );

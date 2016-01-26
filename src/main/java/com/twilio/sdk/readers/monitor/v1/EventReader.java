@@ -96,6 +96,7 @@ public class EventReader extends Reader<Event> {
     public ResourceSet<Event> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.MONITOR,
             "/v1/Events",
             client.getAccountSid()
         );

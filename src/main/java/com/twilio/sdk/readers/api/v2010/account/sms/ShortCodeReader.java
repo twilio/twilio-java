@@ -60,6 +60,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
     public ResourceSet<ShortCode> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SMS/ShortCodes.json",
             client.getAccountSid()
         );

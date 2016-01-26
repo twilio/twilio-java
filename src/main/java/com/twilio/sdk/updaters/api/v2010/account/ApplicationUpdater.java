@@ -316,6 +316,7 @@ public class ApplicationUpdater extends Updater<Application> {
     public Application execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Applications/" + this.sid + ".json",
             client.getAccountSid()
         );

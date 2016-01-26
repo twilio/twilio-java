@@ -39,6 +39,7 @@ public class ParticipantCreator extends Creator<Participant> {
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.CONVERSATIONS,
             "/v1/Conversations/" + this.conversationSid + "/Participants",
             client.getAccountSid()
         );

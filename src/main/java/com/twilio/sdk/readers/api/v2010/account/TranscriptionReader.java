@@ -34,6 +34,7 @@ public class TranscriptionReader extends Reader<Transcription> {
     public ResourceSet<Transcription> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Transcriptions.json",
             client.getAccountSid()
         );

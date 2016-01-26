@@ -37,6 +37,7 @@ public class MediaDeleter extends Deleter<Media> {
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.messageSid + "/Media/" + this.sid + ".json",
             client.getAccountSid()
         );

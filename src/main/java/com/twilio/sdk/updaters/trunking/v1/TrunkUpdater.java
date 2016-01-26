@@ -117,6 +117,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     public Trunk execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks/" + this.sid + "",
             client.getAccountSid()
         );

@@ -34,6 +34,7 @@ public class QueueDeleter extends Deleter<Queue> {
     public void execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Queues/" + this.sid + ".json",
             client.getAccountSid()
         );

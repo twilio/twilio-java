@@ -71,6 +71,7 @@ public class LocalReader extends Reader<Local> {
     public ResourceSet<Local> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/Local.json",
             client.getAccountSid()
         );

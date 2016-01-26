@@ -49,6 +49,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
     public OriginationUrl execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
+            TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks/" + this.trunkSid + "/OriginationUrls",
             client.getAccountSid()
         );

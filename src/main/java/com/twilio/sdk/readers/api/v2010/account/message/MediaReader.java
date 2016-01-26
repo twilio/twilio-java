@@ -50,6 +50,7 @@ public class MediaReader extends Reader<Media> {
     public ResourceSet<Media> execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.messageSid + "/Media.json",
             client.getAccountSid()
         );

@@ -3,7 +3,7 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
-Version 6.2.0-edge
+Version 6.3.0-edge
 -------------
 
 Released January 26, 2015
@@ -26,6 +26,16 @@ Released December 14, 2015
 
 - Add new getUsageRecords to support query by intervals
 - Fix for ListResource's & NextGenListResource's ListIterator.next()
+
+Version 6.2.0-edge
+-------------
+Released December 9, 2015
+
+- Added Unique Name to Channel representation
+- Added Read Status Enabled & Consumption Report Interval to Service representation
+- Added Index to Message representation
+- Added Last Consumed Message Index and Last Consumption Timestamp to Member representation
+>>>>>>> 49f840b0111e555838935a2d1adc50c1a32381c0
 
 Version 6.1.0-edge
 -------------

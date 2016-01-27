@@ -115,8 +115,8 @@ public class PhoneNumber extends SidResource {
     /**
      * @return The phone_number
      */
-    public final com.twilio.types.PhoneNumber getSid() {
-        return this.getPhoneNumber();
+    public final String getSid() {
+        return this.getPhoneNumber().toString();
     }
 
     /**

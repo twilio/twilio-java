@@ -103,8 +103,8 @@ public class Number extends SidResource {
     /**
      * @return The number
      */
-    public final com.twilio.types.PhoneNumber getSid() {
-        return this.getNumber();
+    public final String getSid() {
+        return this.getNumber().toString();
     }
 
     /**

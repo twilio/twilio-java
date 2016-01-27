@@ -25,6 +25,8 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 
 	private static final String TASKS_BY_STATUS_PROPERTY = "tasks_by_status";
 
+	private static final String TASKS_BY_PRIORITY_PROPERTY = "tasks_by_priority";
+
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 
 	/**
@@ -239,6 +241,19 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	 */
 	public Integer getTotalWorkers() {
 		return (Integer) getRealtime().get("total_workers");
+	}
+
+	/**
+	 * Get the number of tasks for each priority
+	 *
+	 * @return the number of tasks with priority p
+	 */
+	public Integer getTasksWithPriority(int priority) {
+		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
+		String tasksByPriorityKey = "Priority-" + String.valueOf(priority);
+		Integer tasksCount = (Integer) tasksByPriority.get(tasksByPriorityKey);
+
+		return tasksCount != null ? tasksCount : 0;
 	}
 
 	/**

@@ -6,7 +6,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
@@ -15,8 +14,8 @@ import com.twilio.sdk.resources.api.v2010.account.Message;
 
 public class MessageReader extends Reader<Message> {
     private final String accountSid;
-    private PhoneNumber to;
-    private PhoneNumber from;
+    private com.twilio.types.PhoneNumber to;
+    private com.twilio.types.PhoneNumber from;
     private String dateSent;
 
     /**
@@ -34,7 +33,7 @@ public class MessageReader extends Reader<Message> {
      * @param to Filter by messages to this number
      * @return this
      */
-    public MessageReader byTo(final PhoneNumber to) {
+    public MessageReader byTo(final com.twilio.types.PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -45,7 +44,7 @@ public class MessageReader extends Reader<Message> {
      * @param from Filter by from number
      * @return this
      */
-    public MessageReader byFrom(final PhoneNumber from) {
+    public MessageReader byFrom(final com.twilio.types.PhoneNumber from) {
         this.from = from;
         return this;
     }

@@ -17,7 +17,6 @@ import com.twilio.sdk.fetchers.api.v2010.account.CallFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.api.v2010.account.CallReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
@@ -96,7 +95,7 @@ public class Call extends SidResource {
      * @param url Url from which to fetch TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final String accountSid, final PhoneNumber to, final PhoneNumber from, final URI url) {
+    public static CallCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final URI url) {
         return new CallCreator(accountSid, to, from, url);
     }
 
@@ -111,7 +110,7 @@ public class Call extends SidResource {
      *                       TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final String accountSid, final PhoneNumber to, final PhoneNumber from, final String applicationSid) {
+    public static CallCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final String applicationSid) {
         return new CallCreator(accountSid, to, from, applicationSid);
     }
 

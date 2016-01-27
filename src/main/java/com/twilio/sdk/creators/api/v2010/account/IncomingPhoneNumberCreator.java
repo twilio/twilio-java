@@ -8,7 +8,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.api.v2010.account.IncomingPhoneNumber;
 
@@ -16,7 +15,7 @@ import java.net.URI;
 
 public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private final String ownerAccountSid;
-    private PhoneNumber phoneNumber;
+    private com.twilio.types.PhoneNumber phoneNumber;
     private String areaCode;
     private String apiVersion;
     private String friendlyName;
@@ -40,7 +39,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone number
      */
-    public IncomingPhoneNumberCreator(final String ownerAccountSid, final PhoneNumber phoneNumber) {
+    public IncomingPhoneNumberCreator(final String ownerAccountSid, final com.twilio.types.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }

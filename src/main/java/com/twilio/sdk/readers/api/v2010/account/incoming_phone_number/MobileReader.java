@@ -6,7 +6,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
@@ -17,7 +16,7 @@ public class MobileReader extends Reader<Mobile> {
     private final String ownerAccountSid;
     private Boolean beta;
     private String friendlyName;
-    private PhoneNumber phoneNumber;
+    private com.twilio.types.PhoneNumber phoneNumber;
 
     /**
      * Construct a new MobileReader
@@ -56,7 +55,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param phoneNumber The phone_number
      * @return this
      */
-    public MobileReader byPhoneNumber(final PhoneNumber phoneNumber) {
+    public MobileReader byPhoneNumber(final com.twilio.types.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }

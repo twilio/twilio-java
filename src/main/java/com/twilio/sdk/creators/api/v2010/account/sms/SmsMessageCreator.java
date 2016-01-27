@@ -8,7 +8,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.api.v2010.account.sms.SmsMessage;
 
@@ -17,8 +16,8 @@ import java.util.List;
 
 public class SmsMessageCreator extends Creator<SmsMessage> {
     private final String accountSid;
-    private final PhoneNumber to;
-    private final PhoneNumber from;
+    private final com.twilio.types.PhoneNumber to;
+    private final com.twilio.types.PhoneNumber from;
     private String body;
     private List<URI> mediaUrl;
     private URI statusCallback;
@@ -32,7 +31,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
      * @param from The from
      * @param body The body
      */
-    public SmsMessageCreator(final String accountSid, final PhoneNumber to, final PhoneNumber from, final String body) {
+    public SmsMessageCreator(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final String body) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -47,7 +46,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
      * @param from The from
      * @param mediaUrl The media_url
      */
-    public SmsMessageCreator(final String accountSid, final PhoneNumber to, final PhoneNumber from, final List<URI> mediaUrl) {
+    public SmsMessageCreator(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final List<URI> mediaUrl) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;

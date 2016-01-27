@@ -1,4 +1,4 @@
-package com.twilio.sdk.numbers;
+package com.twilio.types;
 
 public class PhoneNumber {
     private String rawNumber;

@@ -6,7 +6,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
@@ -15,8 +14,8 @@ import com.twilio.sdk.resources.api.v2010.account.Call;
 
 public class CallReader extends Reader<Call> {
     private final String accountSid;
-    private PhoneNumber to;
-    private PhoneNumber from;
+    private com.twilio.types.PhoneNumber to;
+    private com.twilio.types.PhoneNumber from;
     private String parentCallSid;
     private Call.Status status;
     private String startTime;
@@ -37,7 +36,7 @@ public class CallReader extends Reader<Call> {
      * @param to Phone number or Client identifier to filter `to` on
      * @return this
      */
-    public CallReader byTo(final PhoneNumber to) {
+    public CallReader byTo(final com.twilio.types.PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -48,7 +47,7 @@ public class CallReader extends Reader<Call> {
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
      */
-    public CallReader byFrom(final PhoneNumber from) {
+    public CallReader byFrom(final com.twilio.types.PhoneNumber from) {
         this.from = from;
         return this;
     }

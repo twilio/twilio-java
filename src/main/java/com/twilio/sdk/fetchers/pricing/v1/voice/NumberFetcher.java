@@ -7,19 +7,18 @@ import com.twilio.sdk.fetchers.Fetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.pricing.v1.voice.Number;
 
 public class NumberFetcher extends Fetcher<Number> {
-    private final PhoneNumber number;
+    private final com.twilio.types.PhoneNumber number;
 
     /**
      * Construct a new NumberFetcher
      * 
      * @param number The number
      */
-    public NumberFetcher(final PhoneNumber number) {
+    public NumberFetcher(final com.twilio.types.PhoneNumber number) {
         this.number = number;
     }
 

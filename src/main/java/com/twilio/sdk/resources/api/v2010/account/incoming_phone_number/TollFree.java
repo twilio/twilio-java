@@ -15,7 +15,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.api.v2010.account.incoming_phone_number.TollFreeReader;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
@@ -71,7 +70,7 @@ public class TollFree extends Resource {
      * @param phoneNumber The phone_number
      * @return TollFreeCreator capable of executing the create
      */
-    public static TollFreeCreator create(final String ownerAccountSid, final PhoneNumber phoneNumber) {
+    public static TollFreeCreator create(final String ownerAccountSid, final com.twilio.types.PhoneNumber phoneNumber) {
         return new TollFreeCreator(ownerAccountSid, phoneNumber);
     }
 
@@ -120,7 +119,7 @@ public class TollFree extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String friendlyName;
-    private final PhoneNumber phoneNumber;
+    private final com.twilio.types.PhoneNumber phoneNumber;
     private final String sid;
     private final String smsApplicationSid;
     private final HttpMethod smsFallbackMethod;
@@ -146,7 +145,7 @@ public class TollFree extends Resource {
                      @JsonProperty("date_created") final String dateCreated, 
                      @JsonProperty("date_updated") final String dateUpdated, 
                      @JsonProperty("friendly_name") final String friendlyName, 
-                     @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
+                     @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
                      @JsonProperty("sid") final String sid, 
                      @JsonProperty("sms_application_sid") final String smsApplicationSid, 
                      @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod, 
@@ -247,7 +246,7 @@ public class TollFree extends Resource {
     /**
      * @return The phone_number
      */
-    public final PhoneNumber getPhoneNumber() {
+    public final com.twilio.types.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

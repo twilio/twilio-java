@@ -6,7 +6,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.Reader;
 import com.twilio.sdk.resources.Page;
 import com.twilio.sdk.resources.ResourceSet;
@@ -15,8 +14,8 @@ import com.twilio.sdk.resources.api.v2010.account.sms.SmsMessage;
 
 public class SmsMessageReader extends Reader<SmsMessage> {
     private final String accountSid;
-    private PhoneNumber to;
-    private PhoneNumber from;
+    private com.twilio.types.PhoneNumber to;
+    private com.twilio.types.PhoneNumber from;
     private String dateSent;
 
     /**
@@ -34,7 +33,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
      * @param to The to
      * @return this
      */
-    public SmsMessageReader byTo(final PhoneNumber to) {
+    public SmsMessageReader byTo(final com.twilio.types.PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -45,7 +44,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
      * @param from The from
      * @return this
      */
-    public SmsMessageReader byFrom(final PhoneNumber from) {
+    public SmsMessageReader byFrom(final com.twilio.types.PhoneNumber from) {
         this.from = from;
         return this;
     }

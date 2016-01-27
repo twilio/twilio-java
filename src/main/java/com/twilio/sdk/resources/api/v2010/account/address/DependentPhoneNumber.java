@@ -13,7 +13,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.api.v2010.account.address.DependentPhoneNumberReader;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
@@ -77,8 +76,8 @@ public class DependentPhoneNumber extends Resource {
         }
     }
 
-    private final PhoneNumber friendlyName;
-    private final PhoneNumber phoneNumber;
+    private final com.twilio.types.PhoneNumber friendlyName;
+    private final com.twilio.types.PhoneNumber phoneNumber;
     private final String lata;
     private final String rateCenter;
     private final BigDecimal latitude;
@@ -90,8 +89,8 @@ public class DependentPhoneNumber extends Resource {
     private final Map<String, String> capabilities;
 
     @JsonCreator
-    private DependentPhoneNumber(@JsonProperty("friendly_name") final PhoneNumber friendlyName, 
-                                 @JsonProperty("phone_number") final PhoneNumber phoneNumber, 
+    private DependentPhoneNumber(@JsonProperty("friendly_name") final com.twilio.types.PhoneNumber friendlyName, 
+                                 @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
                                  @JsonProperty("lata") final String lata, 
                                  @JsonProperty("rate_center") final String rateCenter, 
                                  @JsonProperty("latitude") final BigDecimal latitude, 
@@ -117,14 +116,14 @@ public class DependentPhoneNumber extends Resource {
     /**
      * @return The friendly_name
      */
-    public final PhoneNumber getFriendlyName() {
+    public final com.twilio.types.PhoneNumber getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
      * @return The phone_number
      */
-    public final PhoneNumber getPhoneNumber() {
+    public final com.twilio.types.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

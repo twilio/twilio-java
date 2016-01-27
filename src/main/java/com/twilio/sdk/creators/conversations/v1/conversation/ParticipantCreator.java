@@ -7,14 +7,13 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.conversations.v1.conversation.Participant;
 
 public class ParticipantCreator extends Creator<Participant> {
     private final String conversationSid;
-    private final PhoneNumber to;
-    private final PhoneNumber from;
+    private final com.twilio.types.PhoneNumber to;
+    private final com.twilio.types.PhoneNumber from;
 
     /**
      * Construct a new ParticipantCreator
@@ -23,7 +22,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * @param to The to
      * @param from The from
      */
-    public ParticipantCreator(final String conversationSid, final PhoneNumber to, final PhoneNumber from) {
+    public ParticipantCreator(final String conversationSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from) {
         this.conversationSid = conversationSid;
         this.to = to;
         this.from = from;

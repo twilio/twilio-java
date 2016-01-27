@@ -8,7 +8,6 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.api.v2010.account.incoming_phone_number.Local;
 
@@ -16,7 +15,7 @@ import java.net.URI;
 
 public class LocalCreator extends Creator<Local> {
     private final String ownerAccountSid;
-    private final PhoneNumber phoneNumber;
+    private final com.twilio.types.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -39,7 +38,7 @@ public class LocalCreator extends Creator<Local> {
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone_number
      */
-    public LocalCreator(final String ownerAccountSid, final PhoneNumber phoneNumber) {
+    public LocalCreator(final String ownerAccountSid, final com.twilio.types.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }

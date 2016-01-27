@@ -17,7 +17,6 @@ import com.twilio.sdk.fetchers.api.v2010.account.MessageFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.numbers.PhoneNumber;
 import com.twilio.sdk.readers.api.v2010.account.MessageReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
@@ -96,7 +95,7 @@ public class Message extends SidResource {
      * @param body The body
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String accountSid, final PhoneNumber to, final PhoneNumber from, final String body) {
+    public static MessageCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final String body) {
         return new MessageCreator(accountSid, to, from, body);
     }
 
@@ -109,7 +108,7 @@ public class Message extends SidResource {
      * @param mediaUrl The media_url
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String accountSid, final PhoneNumber to, final PhoneNumber from, final List<URI> mediaUrl) {
+    public static MessageCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final List<URI> mediaUrl) {
         return new MessageCreator(accountSid, to, from, mediaUrl);
     }
 
@@ -203,7 +202,7 @@ public class Message extends SidResource {
     private final Message.Direction direction;
     private final Integer errorCode;
     private final String errorMessage;
-    private final PhoneNumber from;
+    private final com.twilio.types.PhoneNumber from;
     private final String numMedia;
     private final String numSegments;
     private final BigDecimal price;
@@ -224,7 +223,7 @@ public class Message extends SidResource {
                     @JsonProperty("direction") final Message.Direction direction, 
                     @JsonProperty("error_code") final Integer errorCode, 
                     @JsonProperty("error_message") final String errorMessage, 
-                    @JsonProperty("from") final PhoneNumber from, 
+                    @JsonProperty("from") final com.twilio.types.PhoneNumber from, 
                     @JsonProperty("num_media") final String numMedia, 
                     @JsonProperty("num_segments") final String numSegments, 
                     @JsonProperty("price") final BigDecimal price, 
@@ -321,7 +320,7 @@ public class Message extends SidResource {
     /**
      * @return The phone number that initiated the message
      */
-    public final PhoneNumber getFrom() {
+    public final com.twilio.types.PhoneNumber getFrom() {
         return this.from;
     }
 

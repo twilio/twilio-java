@@ -141,28 +141,27 @@ public abstract class NextGenListResource<T extends NextGenInstanceResource, C e
 		}
 
 		public boolean hasNext() {
-			return (iterator.hasNext() || hasNextPage());
+			return iterator.hasNext();
 		}
 
 		public T next() {
-			if (iterator.hasNext()) {
-				return iterator.next();
+			T nextElement = iterator.next();
+
+			if (!iterator.hasNext() && hasNextPage()) {
+				try {
+					fetchNextPage();
+				} catch (TwilioRestException e) {
+					throw new RuntimeException(e);
+				}
+
+				iterator = pageData.iterator();
 			}
 
-			try {
-				fetchNextPage();
-			} catch (TwilioRestException e) {
-				throw new RuntimeException(e);
-			}
-
-			iterator = pageData.iterator();
-			return iterator.next();
+			return nextElement;
 		}
 
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
-
-
 	}
 }

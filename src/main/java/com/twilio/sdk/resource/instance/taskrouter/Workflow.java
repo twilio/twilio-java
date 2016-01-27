@@ -95,7 +95,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the date created
 	 */
 	public Date getDateCreated() {
-		return parseDate(getProperty(DATE_CREATED_PROPERTY));
+		return parseIsoDate(getProperty(DATE_CREATED_PROPERTY));
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class Workflow extends NextGenInstanceResource<TwilioTaskRouterClient> {
 	 * @return the date updated
 	 */
 	public Date getDateUpdated() {
-		return parseDate(getProperty(DATE_UPDATED_PROPERTY));
+		return parseIsoDate(getProperty(DATE_UPDATED_PROPERTY));
 	}
 
 	/**

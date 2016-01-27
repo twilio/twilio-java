@@ -15,59 +15,6 @@ import java.util.Map;
 // TODO: Auto-generated Javadoc
 public abstract class ListResource<T extends Resource, C extends TwilioClient> extends Resource<C> implements Iterable<T> {
 
-	/**
-	 * The Class ListIterator.
-	 */
-	private class ListIterator implements Iterator<T> {
-
-		/** The itr. */
-		private Iterator<T> itr;
-
-		/**
-		 * Instantiates a new list iterator.
-		 *
-		 * @param itr the itr
-		 */
-		public ListIterator(Iterator<T> itr) {
-			this.itr = itr;
-		}
-
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#hasNext()
-		 */
-
-		public boolean hasNext() {
-			return itr.hasNext() || hasNextPage();
-		}
-
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#next()
-		 */
-		public T next() {
-			// If we still have results on this page
-			if (itr.hasNext()) {
-				return itr.next();
-			}
-
-			// Otherwise fetch the next page
-			try {
-				fetchNextPage();
-			} catch (TwilioRestException e) {
-				throw new RuntimeException(e);
-			}
-
-			itr = pageData.iterator();
-			return itr.next();
-		}
-
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#remove()
-		 */
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Iterable#iterator()
 	 */
@@ -284,4 +231,36 @@ public abstract class ListResource<T extends Resource, C extends TwilioClient> e
             returnList.add(instance);
         }
     }
+
+	private class ListIterator implements Iterator<T> {
+		private Iterator<T> iterator;
+
+		public ListIterator(Iterator<T> iterator) {
+			this.iterator = iterator;
+		}
+
+		public boolean hasNext() {
+			return iterator.hasNext();
+		}
+
+		public T next() {
+			T nextElement = iterator.next();
+
+			if (!iterator.hasNext() && hasNextPage()) {
+				try {
+					fetchNextPage();
+				} catch (TwilioRestException e) {
+					throw new RuntimeException(e);
+				}
+
+				iterator = pageData.iterator();
+			}
+
+			return nextElement;
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	}
 }

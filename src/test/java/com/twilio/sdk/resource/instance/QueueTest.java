@@ -9,9 +9,11 @@ import org.junit.Test;
 import org.mockito.Matchers;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -174,10 +176,17 @@ public class QueueTest {
 		map.put("total", "1");
 		map.put("page", "1");
 		map.put("num_pages", "1");
+
+
+		List<Map<String, Object>> members = new ArrayList<Map<String, Object>>();
+		members.add(new HashMap<String, Object>());
+		map.put("queue_members", members);
 		stub(
 				client.safeRequest(Matchers.eq("/2010-04-01/Accounts/" + accountSid + "/Queues/" + queueSid
 						+ "/Members.json"), Matchers.eq("GET"), Matchers.any(Map.class)))
 			.toReturn(membersresp);
+
+
 		Queue q = new Queue(client, queueSid);
 		q.setRequestAccountSid(accountSid);
 		MemberList m = q.getMembers();

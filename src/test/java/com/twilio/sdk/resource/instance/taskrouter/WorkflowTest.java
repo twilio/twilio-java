@@ -95,6 +95,47 @@ public class WorkflowTest extends BasicRequestTester {
 		assertNull(workflow.getFallbackAssignmentCallbackUrl());
 		assertEquals(120, workflow.getTaskReservationTimeout().intValue());
 	}
+	
+	@Test
+	public void testWorkflowWithFriendlyName() throws Exception {
+		Map<String, String> properties = new HashMap<String, String>();
+		properties.put("FriendlyName", "Test Workflow Filter Friendly Name");
+		// serialize with "friendly_name" in the configuration
+		String configurationStrWithFriendlyName = "{\"task_routing\":{\"filters\":[{\"expression\":\"type == \\\"sales\\\"\",\"targets\":[{\"queue\":\"WQec62de0e1148b8477f2e24579779c8b1\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Sales\"},{\"expression\":\"type == \\\"marketing\\\"\",\"targets\":[{\"queue\":\"WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Marketing\"},{\"expression\":\"type == \\\"support\\\"\",\"targets\":[{\"queue\":\"WQe5eb317eb23500ade45087ea6522896c\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Support\"}],\"default_filter\":{\"queue\":\"WQ05f810d2d130344fd56e3c91ece2e594\"}}}";
+		properties.put("Configuration", configurationStrWithFriendlyName);
+		properties.put("AssignmentCallbackUrl", "http://exampleo.com");
+
+		Workflow workflow = taskRouterClient.createWorkflow("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
+		WorkflowConfiguration workflowConfiguration = workflow.parseConfiguration();
+
+		// check that serializing with "friendly_name" in the configuration marshaled as "friendly_name"
+		assertEquals(workflowConfiguration.toJSON(), configurationStrWithFriendlyName);
+	}
+	
+	@Test
+	public void testWorkflowWithFilterFriendlyName() throws Exception {
+		Map<String, String> properties = new HashMap<String, String>();
+		properties.put("FriendlyName", "Test Workflow Filter Friendly Name");
+		// serialize with "filter_friendly_name" in the configuration
+		String configurationStrWithFilterFriendlyName = "{\"task_routing\":{\"filters\":[{\"targets\":[{\"queue\":\"WQec62de0e1148b8477f2e24579779c8b1\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Sales\",\"expression\":\"type == \\\"sales\\\"\"},{\"targets\":[{\"queue\":\"WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Marketing\",\"expression\":\"type == \\\"marketing\\\"\"},{\"targets\":[{\"queue\":\"WQe5eb317eb23500ade45087ea6522896c\",\"expression\":\"task.language IN worker.languages\"}],\"filter_friendly_name\":\"Support\",\"expression\":\"type == \\\"support\\\"\"}],\"default_filter\":{\"queue\":\"WQ05f810d2d130344fd56e3c91ece2e594\"}}}";
+		properties.put("Configuration", configurationStrWithFilterFriendlyName);
+		properties.put("AssignmentCallbackUrl", "http://example.com");
+
+		Workflow workflow = taskRouterClient.createWorkflow("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", properties);
+		WorkflowConfiguration workflowConfiguration = workflow.parseConfiguration();
+		List<WorkflowRule> workflowRules = workflowConfiguration.getWorkflowRules();
+
+		assertEquals(workflowRules.get(0).getFriendlyName(), "Sales");
+		assertEquals(workflowRules.get(0).getFilterFriendlyName(), "Sales");
+		assertEquals(workflowRules.get(1).getFriendlyName(), "Marketing");
+		assertEquals(workflowRules.get(1).getFilterFriendlyName(), "Marketing");
+		assertEquals(workflowRules.get(2).getFriendlyName(), "Support");
+		assertEquals(workflowRules.get(2).getFilterFriendlyName(), "Support");
+		
+		// confirm expected JSON to contain "friendly_name" and not "filter_friendly_name"
+		String expectedConfigurationStr = "{\"task_routing\":{\"filters\":[{\"expression\":\"type == \\\"sales\\\"\",\"targets\":[{\"queue\":\"WQec62de0e1148b8477f2e24579779c8b1\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Sales\"},{\"expression\":\"type == \\\"marketing\\\"\",\"targets\":[{\"queue\":\"WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Marketing\"},{\"expression\":\"type == \\\"support\\\"\",\"targets\":[{\"queue\":\"WQe5eb317eb23500ade45087ea6522896c\",\"expression\":\"task.language IN worker.languages\"}],\"friendly_name\":\"Support\"}],\"default_filter\":{\"queue\":\"WQ05f810d2d130344fd56e3c91ece2e594\"}}}";
+		assertEquals(workflowConfiguration.toJSON(), expectedConfigurationStr);
+	}
 
 	@Test
 	public void testDeleteWorkflow() throws Exception {

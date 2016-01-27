@@ -1,18 +1,19 @@
 package com.twilio.sdk.resource;
 
-import com.twilio.sdk.TwilioClient;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.TwilioRestResponse;
-
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.http.NameValuePair;
-import org.json.simple.JSONObject;
-
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.apache.http.NameValuePair;
+import org.json.simple.JSONObject;
+
+import com.twilio.sdk.TwilioClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.TwilioRestResponse;
 
 /**
  * The Class InstanceResource.
@@ -134,17 +135,8 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	}
 
 	/**
-	 * Gets the property as a Date.
-	 * @param name
-	 * @return
-	 */
-	protected Date getDateProperty(String name) {
-		return parseDate(getProperty(name));
-	}
-
-	/**
 	 * Gets the property as an Integer value.
-	 * 
+	 *
 	 * @param name property name
 	 * @return Integer value
 	 */
@@ -152,6 +144,15 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 		return (Integer) getObject(name);
 	}
 
+	/**
+	 * Gets the property as a Date.
+	 * @param name
+	 * @return
+	 */
+	protected Date getDateProperty(String name) {
+		return parseDate(getProperty(name));
+	}
+	
 	/**
 	 * Sets the property as an Object
 	 *
@@ -206,14 +207,31 @@ public abstract class InstanceResource<C extends TwilioClient> extends Resource<
 	 * @return the date value of the input string
 	 */
 	protected Date parseDate(final String inDate) {
-		if (inDate == null) {
+		return parseFormattedDate(DateFormatUtils.SMTP_DATETIME_FORMAT, inDate);
+	}
+
+	/**
+	 * return a date from the property string (yyyy-MM-dd'T'HH:mm:ssZZ)
+	 *
+	 * @return the date value of the input string
+	 */
+	protected Date parseIsoDate(final String inDate) {
+		return parseFormattedDate(DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT, inDate);
+	}
+
+	/**
+	 * return a date from the property string using the input date format
+	 *
+	 * @return the date value of the input string
+	 */
+	protected Date parseFormattedDate(final FastDateFormat inDateFormat, final String inDate) {
+		if (inDateFormat == null || inDate == null) {
 			return null;
 		}
 		try {
-            return DateFormatUtils.SMTP_DATETIME_FORMAT.parse(inDate);
-        } catch (ParseException e) {
+			return inDateFormat.parse(inDate);
+		} catch (ParseException e) {
 			return null;
 		}
 	}
-
 }

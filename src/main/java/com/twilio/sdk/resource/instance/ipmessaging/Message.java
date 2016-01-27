@@ -15,6 +15,8 @@ import java.util.Map;
 public class Message extends NextGenInstanceResource<TwilioIPMessagingClient> {
 
 	private static final String SERVICE_SID_PROPERTY = "service_sid";
+	private static final String INDEX_PROPERTY = "index";
+
 	private String channelSid;
 
 	public Message(TwilioIPMessagingClient client,
@@ -104,6 +106,15 @@ public class Message extends NextGenInstanceResource<TwilioIPMessagingClient> {
 	 */
 	public String getBody() {
 		return getProperty("body");
+	}
+
+	/**
+	 * Returns the index of this message in the Channel
+	 *
+	 * @return the index
+	 */
+	public Integer getIndex() {
+		return getPropertyAsInteger(INDEX_PROPERTY);
 	}
 
 	/**

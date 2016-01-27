@@ -2,8 +2,9 @@ package com.twilio.sdk.taskrouter;
 
 public class TaskRouterWorkerCapability extends TaskRouterCapability {
 
-    private final String reservationsUrl;
+    private final String tasksUrl;
     private final String activityUrl;
+    private final String workerReservationsUrl;
 
     /**
      * Create a new Capability object to authorize worker clients to interact
@@ -21,13 +22,14 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
      */
     public TaskRouterWorkerCapability(final String accountSid, final String authToken, final String workspaceSid, final String workerSid) {
         super(accountSid, authToken, workspaceSid, workerSid);
-        this.reservationsUrl = this.baseUrl + "/Tasks/**";
+        this.tasksUrl = this.baseUrl + "/Tasks/**";
         this.activityUrl = this.baseUrl + "/Activities";
+        this.workerReservationsUrl = this.resourceUrl + "/Reservations/**";
 
-        // add permissions to fetch the list of activities and list of worker
-        // reservations
+        // add permissions to fetch the list of activities, tasks and worker reservations
         this.allow(activityUrl, "GET", null, null);
-        this.allow(reservationsUrl, "GET", null, null);
+        this.allow(tasksUrl, "GET", null, null);
+        this.allow(workerReservationsUrl, "GET", null, null);
     }
 
     @Override
@@ -48,8 +50,10 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
      * Allow a worker to update assigned reservations
      */
     public void allowReservationUpdates() {
-        final Policy policy = new Policy(this.reservationsUrl, "POST", true);
-        policies.add(policy);
+        final Policy tasksPolicy = new Policy(this.tasksUrl, "POST", true);
+        final Policy workerReservationsPolicy = new Policy(this.workerReservationsUrl, "POST", true);
+        policies.add(tasksPolicy);
+        policies.add(workerReservationsPolicy);
     }
 
 }

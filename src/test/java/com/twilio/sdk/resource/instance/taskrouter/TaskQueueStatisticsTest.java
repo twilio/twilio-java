@@ -42,6 +42,7 @@ public class TaskQueueStatisticsTest extends BasicRequestTester {
 		assertTrue(taskQueueStatistics.getTotalAvailableWorkers() == 0);
 		assertTrue(taskQueueStatistics.getTotalEligibleWorkers() == 3);
 		assertTrue(taskQueueStatistics.getTotalTasks() == 1);
+		assertTrue(taskQueueStatistics.getTasksWithPriority(5) == 1);
 	}
 
 }

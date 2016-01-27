@@ -24,6 +24,8 @@ public class TaskQueueStatistics extends NextGenInstanceResource<TwilioTaskRoute
 
 	private static final String TASKS_BY_STATUS_PROPERTY = "tasks_by_status";
 
+	private static final String TASKS_BY_PRIORITY_PROPERTY = "tasks_by_priority";
+
 	private static final String TASK_QUEUE_SID_PROPERTY = "task_queue_sid";
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
@@ -95,6 +97,20 @@ public class TaskQueueStatistics extends NextGenInstanceResource<TwilioTaskRoute
 		} catch (IllegalArgumentException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * Get the number of tasks with the Priority
+	 * @return number of tasks with Priority priority
+	 */
+	public Integer getTasksWithPriority(int priority) {
+		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
+
+		String tasksByPriorityKey = "Priority-" + String.valueOf(priority);
+
+		Integer tasksCount = (Integer) tasksByPriority.get(tasksByPriorityKey);
+
+		return tasksCount != null ? tasksCount : 0;
 	}
 
 	/**

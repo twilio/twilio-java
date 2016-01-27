@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -111,6 +112,22 @@ public class TaskQueueStatistics extends NextGenInstanceResource<TwilioTaskRoute
 		Integer tasksCount = (Integer) tasksByPriority.get(tasksByPriorityKey);
 
 		return tasksCount != null ? tasksCount : 0;
+	}
+
+	/**
+	 * Get a map of task counts by priority
+	 *
+	 * @return map of task counts by priority
+	 */
+	public Map<String, Integer> getTasksWithPriority() {
+		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
+
+		Map<String, Integer> tasksByPriorityMap = new HashMap<String, Integer>();
+		for (String priorityKey : tasksByPriority.keySet()) {
+			tasksByPriorityMap.put(priorityKey, (Integer) tasksByPriority.get(priorityKey));
+		}
+
+		return tasksByPriorityMap;
 	}
 
 	/**

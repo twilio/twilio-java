@@ -43,8 +43,8 @@ public class TaskQueueStatisticsTest extends BasicRequestTester {
 		assertTrue(taskQueueStatistics.getTotalEligibleWorkers() == 3);
 		assertTrue(taskQueueStatistics.getTotalTasks() == 1);
 		assertTrue(taskQueueStatistics.getTasksWithPriority(5) == 1);
-		assertTrue(taskQueueStatistics.getTasksWithPriority().size() == 1);
-		assertTrue(taskQueueStatistics.getTasksWithPriority().get("Priority-5") == 1);
+		assertTrue(taskQueueStatistics.getTasksByPriority().size() == 1);
+		assertTrue(taskQueueStatistics.getTasksByPriority().get("Priority-5") == 1);
 	}
 
 }

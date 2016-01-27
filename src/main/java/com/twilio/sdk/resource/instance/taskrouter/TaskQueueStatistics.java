@@ -119,7 +119,7 @@ public class TaskQueueStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	 *
 	 * @return map of task counts by priority
 	 */
-	public Map<String, Integer> getTasksWithPriority() {
+	public Map<String, Integer> getTasksByPriority() {
 		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
 
 		Map<String, Integer> tasksByPriorityMap = new HashMap<String, Integer>();

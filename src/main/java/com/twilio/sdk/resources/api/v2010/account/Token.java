@@ -15,9 +15,9 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.IceServer;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
+import com.twilio.types.IceServer;
 import org.joda.time.DateTime;
 
 import java.io.IOException;

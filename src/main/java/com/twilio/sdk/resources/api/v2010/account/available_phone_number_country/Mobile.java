@@ -14,9 +14,9 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.available_phone_number_country.MobileReader;
-import com.twilio.sdk.resources.PhoneNumberCapabilities;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
+import com.twilio.types.PhoneNumberCapabilities;
 
 import java.io.IOException;
 import java.io.InputStream;

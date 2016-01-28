@@ -18,10 +18,10 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.IncomingPhoneNumberReader;
-import com.twilio.sdk.resources.PhoneNumberCapabilities;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import com.twilio.sdk.updaters.api.v2010.account.IncomingPhoneNumberUpdater;
+import com.twilio.types.PhoneNumberCapabilities;
 import org.joda.time.DateTime;
 
 import java.io.IOException;

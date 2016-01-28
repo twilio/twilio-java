@@ -1,0 +1,394 @@
+twilio-java Changelog
+=======================
+
+Here you can see the full list of changes between each twilio-java release.
+
+Version 5.9.0
+-------------
+
+Released January 26, 2015
+
+- Add support for WorkerReservations in TaskRouter
+- Add support for filterFriendlyName in TaskRouter WorkflowRules
+- Fix TaskRouter paging
+
+Version 5.8.0
+-------------
+
+Released December 16, 2015
+
+- Add support for IP Messaging
+
+Version 5.7.1
+-------------
+
+Released December 14, 2015
+
+- Add new getUsageRecords to support query by intervals
+- Fix for ListResource's & NextGenListResource's ListIterator.next()
+
+Version 5.7.0
+-------------
+
+Released December 8, 2015
+
+- Change NBF to be optional parameter in AccessToken
+
+Version 5.6.0
+-------------
+
+Released December 3, 2015
+
+- Add access tokens
+
+Version 5.5.1
+-------------
+
+Released November 25, 2015
+
+- Exposed Recording's PriceUnit field
+
+Version 5.5.0
+-------------
+
+Released November 18, 2015
+
+- Fix authentication using key and secret
+
+Version 5.4.0
+-------------
+
+Released October 30, 2015
+
+- Add MessagingServiceSid
+
+Version 5.3.0
+-------------
+
+Released October 28, 2015
+
+- Add Keys endpoint
+
+Version 5.2.1
+-------------
+
+Released October 2, 2015
+
+- Normalized the Number type from spaces to underscore in Pricing Phone Number Country
+
+Version 5.2.0
+-------------
+
+Released September 24, 2015
+
+- Add support for TaskRouter reservations
+- Add support for TaskRouter TwiML verbs
+
+Version 5.1.0
+-------------
+
+Released September 21, 2015
+
+- Add support for messaging in Twilio Pricing API
+- Add support for Elastic SIP Trunking's API
+
+Version 5.0.0
+-------------
+
+Released September 14, 2015
+
+- Remove deprecated total and numpages from ListResource and response parsers
+
+Version 4.5.0
+-------------
+
+Released August 11, 2015
+
+- Add support for new Taskrouter JWT Functionality, JWTs now grant access to
+  - Workspace
+  - Worker
+  - TaskQueue
+
+Version 4.4.5
+-------------
+
+Released July 31, 2015
+
+- Allow AccessTokens to be used as AuthTokens
+
+Version 4.4.4
+-------------
+
+Released July 01, 2015
+
+- Correct StatusCallbackEvent TwiML attributes for Client and Number verbs as well
+
+Version 4.4.3
+-------------
+
+Released June 30, 2015
+
+- Support passing a custom endpoint into PricingClient
+
+Version 4.4.2
+-------------
+
+Released June 11, 2015
+
+- Fix StatusCallbackEvent TwiML generation
+
+Version 4.4.1
+-------------
+
+Released June 9, 2015
+
+- Update XML parser settings to protect against XXE attacks
+
+Version 4.4.0
+-------------
+
+Released May 19, 2015
+
+- Add support for the beta field for IncomingPhoneNumbers and AvailablePhoneNumbers
+
+Version 4.3.0
+-------------
+
+Released May 14, 2015
+
+- Add support for the new StatusCallbackEvent feature in TwiML generation.
+
+Version 4.2.0
+-------------
+
+Released May 7, 2015
+
+- Add support for the Twilio Monitor APIs: Events and Alerts
+
+Version 4.1.0
+-------------
+
+Released May 6, 2015
+
+- Add support for the Twilio Pricing API
+
+Version 4.0.2
+-------------
+
+Released April 29, 2015
+
+- Expose the notifications subresource from call instances
+
+Version 4.0.1
+-------------
+
+Released April 24, 2015
+
+- Update Record parameter values in TwiML generator
+- Add a few missing resource attributes and fix broken ones
+
+Version 4.0.0
+-------------
+
+Released April 16, 2015
+
+- Remove total from the ListResource
+
+Version 3.7.1
+-------------
+
+Released February 20, 2015
+
+- Fix URL base for TwilioRestClient
+
+Version 3.7.0
+-------------
+
+Released February 18, 2015
+
+- Add support for new TaskRouter API
+- Coerce Call.startTime and endTime to Date objects
+- Doc fixes
+- Escaping fix for TwiML generation
+
+
+Version 3.6.2
+-------------
+
+Released December 30, 2014
+
+- Fix AddressList to retrieve the correct URL
+
+Version 3.6.1
+-------------
+
+Released December 4, 2014
+
+- Add support for new Addresses endpoint
+
+Version 3.6.0
+-------------
+
+Released on November 21, 2014
+
+- Add support for new Tokens endpoint
+
+Version 3.5.0
+-------------
+
+Released on November 13, 2014
+
+- Add a constant-time comparison for TwiML request validation
+- Support for deletion and redaction of Call and Message records
+- Add support for UsageRecord subresources (#78)
+- Add support for new Conference attributes (#150)
+- Bugfixes various and sundry
+
+Version 3.4.6
+-------------
+
+Released on August 26, 2014
+
+- Add support for new CallFeedback and FeedbackSummary resources.
+
+Version 3.4.5
+-------------
+
+Released on May 29, 2014
+
+- Add support for new message delivery error fields.
+
+Version 3.4.4
+-------------
+
+Released on May 5, 2014
+
+- Fix an issue where native boolean values could not be read properly for the Participant resource.
+
+Version 3.4.3
+-------------
+
+Released on April 28, 2014
+
+- Fix double-escape in Client token generation.
+- Update documentation links.
+- Update HTTP connection timeout.
+- Improved error handling in UsageRecord category.
+- Support for Call instance Recordings and Transcriptions subresources.
+
+Version 3.4.2
+-------------
+
+Released on January 17, 2014
+
+- Support Conference "beep" behavior in TwiML generation.
+- Provide an escaped XML representation of TwiML verbs (#110).
+- Fix Account URL-generation bugs
+
+Version 3.4.1
+-------------
+
+Released on October 21, 2013
+
+- Add support for searching for mobile-enabled numbers.
+
+Version 3.4.0
+-------------
+
+Released on September 18th, 2013
+
+- Add MMS support.
+- SIP-In support.
+
+Version 3.3.16
+--------------
+
+- Adds a Makefile for consistency with other helper libraries
+- You can delete transcriptions
+
+Version 3.3.15
+--------------
+
+Released n/a
+
+- Content-type detection is now friendlier to charset declarations in header.
+- GET Requests now use secure HTTPS endpoint.
+- TwilioUtil for validation using accountSid deprecated because accountSid is not needed.
+
+Version 3.3.15
+--------------
+
+Released on April 1, 2013
+
+- The twilio-java library now works with the Google App Engine Java SDK.
+
+Version 3.3.14
+--------------
+
+Released on March 18, 2013
+
+- Add support for Sip from Twilio
+
+Version 3.3.13
+--------------
+
+Released on January 22, 2013
+
+Fixes a number of bugs in the library implementation.
+
+- You can retrieve a participant from a Conference object by referencing
+  a Call Sid. https://github.com/twilio/twilio-java/pull/77
+- You can retrieve a member from a Queue object by referencing its sid.
+  https://github.com/twilio/twilio-java/pull/76
+- The Account object can retrieve UsageTriggers. https://github.com/twilio/twilio-java/pull/75
+- You can create subaccounts via the Java library. https://github.com/twilio/twilio-java/pull/74
+- Requests for Short Code resources will not 404. https://github.com/twilio/twilio-java/pull/73
+- You can create new Queues via the Java library. https://github.com/twilio/twilio-java/pull/71
+- You can delete Caller ID's via the Java library. https://github.com/twilio/twilio-java/pull/70
+- Retrieve a list of your Connect Apps https://github.com/twilio/twilio-java/pull/67
+- AuthorizedConnectApps no longer references nonexistent properties https://github.com/twilio/twilio-java/pull/65
+- You can retrieve the Type of an Account ("Full", "Trial" etc) https://github.com/twilio/twilio-java/pull/62
+- You can filter Accounts by a FriendlyName or Type https://github.com/twilio/twilio-java/pull/63
+
+Version 3.3.10
+-------------
+
+Released on October 10, 2012
+
+- Adds support for Queue primitive
+- Add Application delete
+
+Version 3.3.9
+-------------
+
+Released on June 1, 2012
+
+- Updates pom.xml for central Maven submission
+- Fixes all Javadoc warnings
+
+Version 3.3.8
+-------------
+
+Released on April 3, 2012
+
+- Fixes recording delete requests
+- Add the ability to close a subaccount
+- Fixed application misspellings
+- Sandbox class fixes
+- Fix for ConnectAppList
+
+Version 3.3.7
+-------------
+
+Released on January 25, 2011
+
+- Mavenized the build
+- Removed unnecessary jars from dependencies
+
+Version 3.3.6
+-------------
+
+Released on January 18, 2011
+
+- Fixed a bug where the short one second HTTP Connection timeout led to connection exceptions - increased to 10 seconds
+- Fixed constructors for resource instances must not accept null Sid

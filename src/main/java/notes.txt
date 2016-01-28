@@ -1,0 +1,32 @@
+[X] .build() -> .execute()
+[X] .find() -> .list()
+
+[X] .build("Sid") -> .fetch("Sid");
+[X] .async("Sid") -> .fetchAsync("Sid");
+
+[X] Does autopaging work?
+
+[X] Locator should be named Reader
+
+[X] Add Deleters
+
+[X] Requests should have the following arguments:
+
+Request request = new Request(
+        HttpMethod.POST,                    // Method
+        TwilioRestClient.API,               // Subdomain
+        TwilioRestClient.API_2010_04_01,    // Version
+        "/Accounts/{AccountSid}/Calls"      // Relative Uri
+);
+
+[X] setPageSize() should be supported in the list() and ResourceSet
+
+[X] Should .update() take the target or .execute() on the Updater object?
+
+[X] Result should be renamed to ResultSet / ResourceSet ???
+
+[X] Should our Resources implement equals and hashcode, what should be the criteria of equality?
+
+[X] Make nice human friendly toStrings() for all our Resources.
+
+[X] Make the Resources Serializable

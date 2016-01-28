@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
@@ -76,7 +77,7 @@ public class WorkerStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final String cumulative;
+    private final JsonNode cumulative;
     private final String workerSid;
     private final String workspaceSid;
 
@@ -84,7 +85,7 @@ public class WorkerStatistics extends Resource {
     private WorkerStatistics(@JsonProperty("account_sid")
                              final String accountSid, 
                              @JsonProperty("cumulative")
-                             final String cumulative, 
+                             final JsonNode cumulative, 
                              @JsonProperty("worker_sid")
                              final String workerSid, 
                              @JsonProperty("workspace_sid")
@@ -105,7 +106,7 @@ public class WorkerStatistics extends Resource {
     /**
      * @return The cumulative
      */
-    public final String getCumulative() {
+    public final JsonNode getCumulative() {
         return this.cumulative;
     }
 

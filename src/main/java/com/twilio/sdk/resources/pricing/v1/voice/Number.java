@@ -17,6 +17,8 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
+import com.twilio.types.InboundCallPrice;
+import com.twilio.types.OutboundCallPrice;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +29,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Number extends SidResource {
-    private static final long serialVersionUID = 80598460304386L;
+    private static final long serialVersionUID = 198694876395979L;
 
     /**
      * fetch
@@ -79,8 +81,8 @@ public class Number extends SidResource {
     private final com.twilio.types.PhoneNumber number;
     private final String country;
     private final String isoCountry;
-    private final String outboundCallPrice;
-    private final String inboundCallPrice;
+    private final OutboundCallPrice outboundCallPrice;
+    private final InboundCallPrice inboundCallPrice;
     private final Currency priceUnit;
     private final URI url;
 
@@ -92,9 +94,9 @@ public class Number extends SidResource {
                    @JsonProperty("iso_country")
                    final String isoCountry, 
                    @JsonProperty("outbound_call_price")
-                   final String outboundCallPrice, 
+                   final OutboundCallPrice outboundCallPrice, 
                    @JsonProperty("inbound_call_price")
-                   final String inboundCallPrice, 
+                   final InboundCallPrice inboundCallPrice, 
                    @JsonProperty("price_unit")
                    @JsonDeserialize(using = com.twilio.sdk.converters.CurrencyDeserializer.class)
                    final Currency priceUnit, 
@@ -140,14 +142,14 @@ public class Number extends SidResource {
     /**
      * @return The outbound_call_price
      */
-    public final String getOutboundCallPrice() {
+    public final OutboundCallPrice getOutboundCallPrice() {
         return this.outboundCallPrice;
     }
 
     /**
      * @return The inbound_call_price
      */
-    public final String getInboundCallPrice() {
+    public final InboundCallPrice getInboundCallPrice() {
         return this.inboundCallPrice;
     }
 

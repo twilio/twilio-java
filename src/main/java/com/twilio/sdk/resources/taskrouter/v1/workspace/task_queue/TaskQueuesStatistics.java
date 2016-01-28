@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
@@ -24,7 +25,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueuesStatistics extends Resource {
-    private static final long serialVersionUID = 270967847861151L;
+    private static final long serialVersionUID = 246523371655676L;
 
     /**
      * read
@@ -76,7 +77,7 @@ public class TaskQueuesStatistics extends Resource {
 
     private final String accountSid;
     private final Map<String, String> cumulative;
-    private final Map<String, String> realtime;
+    private final JsonNode realtime;
     private final String taskQueueSid;
     private final String workspaceSid;
 
@@ -86,7 +87,7 @@ public class TaskQueuesStatistics extends Resource {
                                  @JsonProperty("cumulative")
                                  final Map<String, String> cumulative, 
                                  @JsonProperty("realtime")
-                                 final Map<String, String> realtime, 
+                                 final JsonNode realtime, 
                                  @JsonProperty("task_queue_sid")
                                  final String taskQueueSid, 
                                  @JsonProperty("workspace_sid")
@@ -115,7 +116,7 @@ public class TaskQueuesStatistics extends Resource {
     /**
      * @return The realtime
      */
-    public final Map<String, String> getRealtime() {
+    public final JsonNode getRealtime() {
         return this.realtime;
     }
 

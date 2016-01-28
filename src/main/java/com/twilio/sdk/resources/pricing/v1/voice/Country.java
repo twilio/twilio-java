@@ -18,6 +18,8 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.pricing.v1.voice.CountryReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
+import com.twilio.types.InboundCallPrice;
+import com.twilio.types.OutboundPrefixPrice;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -89,8 +91,8 @@ public class Country extends SidResource {
 
     private final String country;
     private final String isoCountry;
-    private final List<String> outboundPrefixPrices;
-    private final List<String> inboundCallPrices;
+    private final List<OutboundPrefixPrice> outboundPrefixPrices;
+    private final List<InboundCallPrice> inboundCallPrices;
     private final Currency priceUnit;
     private final URI url;
 
@@ -100,9 +102,9 @@ public class Country extends SidResource {
                     @JsonProperty("iso_country")
                     final String isoCountry, 
                     @JsonProperty("outbound_prefix_prices")
-                    final List<String> outboundPrefixPrices, 
+                    final List<OutboundPrefixPrice> outboundPrefixPrices, 
                     @JsonProperty("inbound_call_prices")
-                    final List<String> inboundCallPrices, 
+                    final List<InboundCallPrice> inboundCallPrices, 
                     @JsonProperty("price_unit")
                     @JsonDeserialize(using = com.twilio.sdk.converters.CurrencyDeserializer.class)
                     final Currency priceUnit, 
@@ -140,14 +142,14 @@ public class Country extends SidResource {
     /**
      * @return The outbound_prefix_prices
      */
-    public final List<String> getOutboundPrefixPrices() {
+    public final List<OutboundPrefixPrice> getOutboundPrefixPrices() {
         return this.outboundPrefixPrices;
     }
 
     /**
      * @return The inbound_call_prices
      */
-    public final List<String> getInboundCallPrices() {
+    public final List<InboundCallPrice> getInboundCallPrices() {
         return this.inboundCallPrices;
     }
 

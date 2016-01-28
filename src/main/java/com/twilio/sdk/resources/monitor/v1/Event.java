@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
@@ -27,7 +28,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event extends SidResource {
-    private static final long serialVersionUID = 235807442081136L;
+    private static final long serialVersionUID = 47454553486237L;
 
     /**
      * fetch
@@ -89,7 +90,7 @@ public class Event extends SidResource {
     private final String actorSid;
     private final String actorType;
     private final String description;
-    private final String eventData;
+    private final JsonNode eventData;
     private final DateTime eventDate;
     private final String eventType;
     private final String resourceSid;
@@ -108,7 +109,7 @@ public class Event extends SidResource {
                   @JsonProperty("description")
                   final String description, 
                   @JsonProperty("event_data")
-                  final String eventData, 
+                  final JsonNode eventData, 
                   @JsonProperty("event_date")
                   final String eventDate, 
                   @JsonProperty("event_type")
@@ -168,7 +169,7 @@ public class Event extends SidResource {
     /**
      * @return The event_data
      */
-    public final String getEventData() {
+    public final JsonNode getEventData() {
         return this.eventData;
     }
 

@@ -1,4 +1,4 @@
-package com.twilio.sdk.resources.pricing.v1.phone_number;
+package com.twilio.sdk.resources.pricing.v1.messaging;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,14 +11,15 @@ import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.fetchers.pricing.v1.phone_number.CountryFetcher;
+import com.twilio.sdk.fetchers.pricing.v1.messaging.CountryFetcher;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
-import com.twilio.sdk.readers.pricing.v1.phone_number.CountryReader;
+import com.twilio.sdk.readers.pricing.v1.messaging.CountryReader;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
-import com.twilio.types.PhoneNumberPrice;
+import com.twilio.types.InboundSmsPrice;
+import com.twilio.types.OutboundSmsPrice;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +31,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Country extends SidResource {
-    private static final long serialVersionUID = 157533851169375L;
+    private static final long serialVersionUID = 155838537182593L;
 
     /**
      * read
@@ -90,9 +91,9 @@ public class Country extends SidResource {
 
     private final String country;
     private final String isoCountry;
-    private final List<PhoneNumberPrice> phoneNumberPrices;
+    private final List<OutboundSmsPrice> outboundSmsPrices;
+    private final List<InboundSmsPrice> inboundSmsPrices;
     private final Currency priceUnit;
-    private final URI uri;
     private final URI url;
 
     @JsonCreator
@@ -100,20 +101,20 @@ public class Country extends SidResource {
                     final String country, 
                     @JsonProperty("iso_country")
                     final String isoCountry, 
-                    @JsonProperty("phone_number_prices")
-                    final List<PhoneNumberPrice> phoneNumberPrices, 
+                    @JsonProperty("outbound_sms_prices")
+                    final List<OutboundSmsPrice> outboundSmsPrices, 
+                    @JsonProperty("inbound_sms_prices")
+                    final List<InboundSmsPrice> inboundSmsPrices, 
                     @JsonProperty("price_unit")
                     @JsonDeserialize(using = com.twilio.sdk.converters.CurrencyDeserializer.class)
                     final Currency priceUnit, 
-                    @JsonProperty("uri")
-                    final URI uri, 
                     @JsonProperty("url")
                     final URI url) {
         this.country = country;
         this.isoCountry = isoCountry;
-        this.phoneNumberPrices = phoneNumberPrices;
+        this.outboundSmsPrices = outboundSmsPrices;
+        this.inboundSmsPrices = inboundSmsPrices;
         this.priceUnit = priceUnit;
-        this.uri = uri;
         this.url = url;
     }
 
@@ -139,10 +140,17 @@ public class Country extends SidResource {
     }
 
     /**
-     * @return The phone_number_prices
+     * @return The outbound_sms_prices
      */
-    public final List<PhoneNumberPrice> getPhoneNumberPrices() {
-        return this.phoneNumberPrices;
+    public final List<OutboundSmsPrice> getOutboundSmsPrices() {
+        return this.outboundSmsPrices;
+    }
+
+    /**
+     * @return The inbound_sms_prices
+     */
+    public final List<InboundSmsPrice> getInboundSmsPrices() {
+        return this.inboundSmsPrices;
     }
 
     /**
@@ -150,13 +158,6 @@ public class Country extends SidResource {
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
-    }
-
-    /**
-     * @return The uri
-     */
-    public final URI getUri() {
-        return this.uri;
     }
 
     /**
@@ -180,9 +181,9 @@ public class Country extends SidResource {
         
         return Objects.equals(country, other.country) && 
                Objects.equals(isoCountry, other.isoCountry) && 
-               Objects.equals(phoneNumberPrices, other.phoneNumberPrices) && 
+               Objects.equals(outboundSmsPrices, other.outboundSmsPrices) && 
+               Objects.equals(inboundSmsPrices, other.inboundSmsPrices) && 
                Objects.equals(priceUnit, other.priceUnit) && 
-               Objects.equals(uri, other.uri) && 
                Objects.equals(url, other.url);
     }
 
@@ -190,9 +191,9 @@ public class Country extends SidResource {
     public int hashCode() {
         return Objects.hash(country,
                             isoCountry,
-                            phoneNumberPrices,
+                            outboundSmsPrices,
+                            inboundSmsPrices,
                             priceUnit,
-                            uri,
                             url);
     }
 
@@ -201,9 +202,9 @@ public class Country extends SidResource {
         return MoreObjects.toStringHelper(this)
                           .add("country", country)
                           .add("isoCountry", isoCountry)
-                          .add("phoneNumberPrices", phoneNumberPrices)
+                          .add("outboundSmsPrices", outboundSmsPrices)
+                          .add("inboundSmsPrices", inboundSmsPrices)
                           .add("priceUnit", priceUnit)
-                          .add("uri", uri)
                           .add("url", url)
                           .toString();
     }

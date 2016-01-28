@@ -32,7 +32,7 @@ public class Conversation extends SidResource {
     public enum Status {
         CREATED("created"),
         IN_PROGRESS("in-progress"),
-        ENDED("ended"),
+        COMPLETED("completed"),
         FAILED("failed");
     
         private final String value;

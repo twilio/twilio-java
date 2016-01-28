@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
@@ -74,16 +75,16 @@ public class WorkspaceStatistics extends Resource {
         }
     }
 
-    private final String realtime;
-    private final String cumulative;
+    private final JsonNode realtime;
+    private final JsonNode cumulative;
     private final String accountSid;
     private final String workspaceSid;
 
     @JsonCreator
     private WorkspaceStatistics(@JsonProperty("realtime")
-                                final String realtime, 
+                                final JsonNode realtime, 
                                 @JsonProperty("cumulative")
-                                final String cumulative, 
+                                final JsonNode cumulative, 
                                 @JsonProperty("account_sid")
                                 final String accountSid, 
                                 @JsonProperty("workspace_sid")
@@ -97,14 +98,14 @@ public class WorkspaceStatistics extends Resource {
     /**
      * @return The realtime
      */
-    public final String getRealtime() {
+    public final JsonNode getRealtime() {
         return this.realtime;
     }
 
     /**
      * @return The cumulative
      */
-    public final String getCumulative() {
+    public final JsonNode getCumulative() {
         return this.cumulative;
     }
 

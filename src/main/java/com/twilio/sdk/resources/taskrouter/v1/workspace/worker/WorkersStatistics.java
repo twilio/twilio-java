@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
@@ -24,7 +25,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkersStatistics extends Resource {
-    private static final long serialVersionUID = 138288907097504L;
+    private static final long serialVersionUID = 176548291123699L;
 
     /**
      * fetch
@@ -75,17 +76,17 @@ public class WorkersStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final Map<String, String> cumulative;
-    private final Map<String, String> realtime;
+    private final JsonNode cumulative;
+    private final JsonNode realtime;
     private final String workspaceSid;
 
     @JsonCreator
     private WorkersStatistics(@JsonProperty("account_sid")
                               final String accountSid, 
                               @JsonProperty("cumulative")
-                              final Map<String, String> cumulative, 
+                              final JsonNode cumulative, 
                               @JsonProperty("realtime")
-                              final Map<String, String> realtime, 
+                              final JsonNode realtime, 
                               @JsonProperty("workspace_sid")
                               final String workspaceSid) {
         this.accountSid = accountSid;
@@ -104,14 +105,14 @@ public class WorkersStatistics extends Resource {
     /**
      * @return The cumulative
      */
-    public final Map<String, String> getCumulative() {
+    public final JsonNode getCumulative() {
         return this.cumulative;
     }
 
     /**
      * @return The realtime
      */
-    public final Map<String, String> getRealtime() {
+    public final JsonNode getRealtime() {
         return this.realtime;
     }
 

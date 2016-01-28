@@ -21,10 +21,10 @@ public class RequestTest {
 
     @Test
     public void testConstructorWithDomain() {
-        Request request = new Request(HttpMethod.GET, TwilioRestClient.Domains.WDS, "/v1/uri", "AC123");
+        Request request = new Request(HttpMethod.GET, TwilioRestClient.Domains.CONVERSATIONS, "/v1/uri", "AC123");
         assertNotNull(request);
         assertEquals(HttpMethod.GET, request.getMethod());
-        assertEquals("https://wds.twilio.com/v1/uri", request.getUri());
+        assertEquals("https://conversations.twilio.com/v1/uri", request.getUri());
     }
 
     @Test

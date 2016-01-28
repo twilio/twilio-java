@@ -45,6 +45,8 @@ public class WorkflowDeleter extends Deleter<Workflow> {
             throw new ApiConnectionException("Workflow delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            if (restException == null)
+                throw new ApiException("Server Error, no content");
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

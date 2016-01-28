@@ -280,6 +280,8 @@ public class TollFreeCreator extends Creator<TollFree> {
             throw new ApiConnectionException("TollFree creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            if (restException == null)
+                throw new ApiException("Server Error, no content");
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

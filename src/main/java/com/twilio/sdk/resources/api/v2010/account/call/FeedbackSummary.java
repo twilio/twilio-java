@@ -20,6 +20,7 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,7 +64,7 @@ public class FeedbackSummary extends SidResource {
      * @param endDate The end_date
      * @return FeedbackSummaryCreator capable of executing the create
      */
-    public static FeedbackSummaryCreator create(final String accountSid, final String startDate, final String endDate) {
+    public static FeedbackSummaryCreator create(final String accountSid, final LocalDate startDate, final LocalDate endDate) {
         return new FeedbackSummaryCreator(accountSid, startDate, endDate);
     }
 

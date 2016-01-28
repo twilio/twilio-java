@@ -77,6 +77,8 @@ public class YesterdayReader extends Reader<Yesterday> {
             throw new ApiConnectionException("Yesterday read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            if (restException == null)
+                throw new ApiException("Server Error, no content");
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

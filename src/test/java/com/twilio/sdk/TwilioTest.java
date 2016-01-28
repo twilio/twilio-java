@@ -14,6 +14,10 @@ import static org.junit.Assert.fail;
 
 public class TwilioTest {
 
+    public static String serialize(Object object) {
+        return object.toString();
+    }
+
     @Test
     public void testGetExecutorService() {
         assertNotNull(Twilio.getExecutorService());

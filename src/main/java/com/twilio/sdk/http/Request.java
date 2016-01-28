@@ -34,8 +34,7 @@ public class Request {
     public Request(final HttpMethod method, final TwilioRestClient.Domains domain,
                    final String uri, final String accountSid) {
         this.method = method;
-        this.uri = "https://" + domain.toString() + ".twilio.com" +
-                   uri.replace("{AccountSid}", accountSid);
+        this.uri = "https://" + domain.toString() + ".twilio.com" + uri;
         queryParams = new HashMap<>();
         postParams = new HashMap<>();
     }
@@ -146,4 +145,24 @@ public class Request {
         return encodeParameters(queryParams);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (!(o instanceof Request))
+            return false;
+
+        Request other = (Request) o;
+
+        if (this.method.equals(other.getMethod()) &&
+                this.uri.equals(other.getUri()) &&
+                this.encodeQueryParams().equals(other.encodeQueryParams()) &&
+                this.encodeFormBody().equals(other.encodeFormBody())) {
+            return true;
+        }
+
+        return false;
+    }
 }

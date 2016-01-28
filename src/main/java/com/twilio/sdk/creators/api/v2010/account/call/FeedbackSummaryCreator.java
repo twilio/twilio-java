@@ -1,6 +1,7 @@
 package com.twilio.sdk.creators.api.v2010.account.call;
 
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.converters.Promoter;
 import com.twilio.sdk.creators.Creator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -10,13 +11,14 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.api.v2010.account.call.FeedbackSummary;
+import org.joda.time.LocalDate;
 
 import java.net.URI;
 
 public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     private final String accountSid;
-    private final String startDate;
-    private final String endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
     private Boolean includeSubaccounts;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
@@ -28,7 +30,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
      * @param startDate The start_date
      * @param endDate The end_date
      */
-    public FeedbackSummaryCreator(final String accountSid, final String startDate, final String endDate) {
+    public FeedbackSummaryCreator(final String accountSid, final LocalDate startDate, final LocalDate endDate) {
         this.accountSid = accountSid;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -99,6 +101,8 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
             throw new ApiConnectionException("FeedbackSummary creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            if (restException == null)
+                throw new ApiException("Server Error, no content");
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -118,11 +122,11 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
      */
     private void addPostParams(final Request request) {
         if (startDate != null) {
-            request.addPostParam("StartDate", startDate);
+            request.addPostParam("StartDate", startDate.toString());
         }
         
         if (endDate != null) {
-            request.addPostParam("EndDate", endDate);
+            request.addPostParam("EndDate", endDate.toString());
         }
         
         if (includeSubaccounts != null) {

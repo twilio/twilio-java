@@ -122,13 +122,20 @@ public class IpAccessControlList extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private IpAccessControlList(@JsonProperty("account_sid") final String accountSid, 
-                                @JsonProperty("sid") final String sid, 
-                                @JsonProperty("trunk_sid") final String trunkSid, 
-                                @JsonProperty("friendly_name") final String friendlyName, 
-                                @JsonProperty("date_created") final String dateCreated, 
-                                @JsonProperty("date_updated") final String dateUpdated, 
-                                @JsonProperty("url") final URI url) {
+    private IpAccessControlList(@JsonProperty("account_sid")
+                                final String accountSid, 
+                                @JsonProperty("sid")
+                                final String sid, 
+                                @JsonProperty("trunk_sid")
+                                final String trunkSid, 
+                                @JsonProperty("friendly_name")
+                                final String friendlyName, 
+                                @JsonProperty("date_created")
+                                final String dateCreated, 
+                                @JsonProperty("date_updated")
+                                final String dateUpdated, 
+                                @JsonProperty("url")
+                                final URI url) {
         this.accountSid = accountSid;
         this.sid = sid;
         this.trunkSid = trunkSid;

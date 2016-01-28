@@ -116,23 +116,40 @@ public class Alert extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private Alert(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("alert_text") final String alertText, 
-                  @JsonProperty("api_version") final String apiVersion, 
-                  @JsonProperty("date_created") final String dateCreated, 
-                  @JsonProperty("date_generated") final String dateGenerated, 
-                  @JsonProperty("date_updated") final String dateUpdated, 
-                  @JsonProperty("error_code") final String errorCode, 
-                  @JsonProperty("log_level") final String logLevel, 
-                  @JsonProperty("more_info") final String moreInfo, 
-                  @JsonProperty("request_method") final HttpMethod requestMethod, 
-                  @JsonProperty("request_url") final String requestUrl, 
-                  @JsonProperty("request_variables") final String requestVariables, 
-                  @JsonProperty("resource_sid") final String resourceSid, 
-                  @JsonProperty("response_body") final String responseBody, 
-                  @JsonProperty("response_headers") final String responseHeaders, 
-                  @JsonProperty("sid") final String sid, 
-                  @JsonProperty("url") final URI url) {
+    private Alert(@JsonProperty("account_sid")
+                  final String accountSid, 
+                  @JsonProperty("alert_text")
+                  final String alertText, 
+                  @JsonProperty("api_version")
+                  final String apiVersion, 
+                  @JsonProperty("date_created")
+                  final String dateCreated, 
+                  @JsonProperty("date_generated")
+                  final String dateGenerated, 
+                  @JsonProperty("date_updated")
+                  final String dateUpdated, 
+                  @JsonProperty("error_code")
+                  final String errorCode, 
+                  @JsonProperty("log_level")
+                  final String logLevel, 
+                  @JsonProperty("more_info")
+                  final String moreInfo, 
+                  @JsonProperty("request_method")
+                  final HttpMethod requestMethod, 
+                  @JsonProperty("request_url")
+                  final String requestUrl, 
+                  @JsonProperty("request_variables")
+                  final String requestVariables, 
+                  @JsonProperty("resource_sid")
+                  final String resourceSid, 
+                  @JsonProperty("response_body")
+                  final String responseBody, 
+                  @JsonProperty("response_headers")
+                  final String responseHeaders, 
+                  @JsonProperty("sid")
+                  final String sid, 
+                  @JsonProperty("url")
+                  final URI url) {
         this.accountSid = accountSid;
         this.alertText = alertText;
         this.apiVersion = apiVersion;

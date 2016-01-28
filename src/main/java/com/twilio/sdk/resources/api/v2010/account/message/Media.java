@@ -112,13 +112,20 @@ public class Media extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Media(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("content_type") final String contentType, 
-                  @JsonProperty("date_created") final String dateCreated, 
-                  @JsonProperty("date_updated") final String dateUpdated, 
-                  @JsonProperty("parent_sid") final String parentSid, 
-                  @JsonProperty("sid") final String sid, 
-                  @JsonProperty("uri") final String uri) {
+    private Media(@JsonProperty("account_sid")
+                  final String accountSid, 
+                  @JsonProperty("content_type")
+                  final String contentType, 
+                  @JsonProperty("date_created")
+                  final String dateCreated, 
+                  @JsonProperty("date_updated")
+                  final String dateUpdated, 
+                  @JsonProperty("parent_sid")
+                  final String parentSid, 
+                  @JsonProperty("sid")
+                  final String sid, 
+                  @JsonProperty("uri")
+                  final String uri) {
         this.accountSid = accountSid;
         this.contentType = contentType;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);

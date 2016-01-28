@@ -148,26 +148,46 @@ public class Application extends SidResource {
     private final URI voiceUrl;
 
     @JsonCreator
-    private Application(@JsonProperty("account_sid") final String accountSid, 
-                        @JsonProperty("api_version") final String apiVersion, 
-                        @JsonProperty("date_created") final String dateCreated, 
-                        @JsonProperty("date_updated") final String dateUpdated, 
-                        @JsonProperty("friendly_name") final String friendlyName, 
-                        @JsonProperty("message_status_callback") final URI messageStatusCallback, 
-                        @JsonProperty("sid") final String sid, 
-                        @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod, 
-                        @JsonProperty("sms_fallback_url") final URI smsFallbackUrl, 
-                        @JsonProperty("sms_method") final HttpMethod smsMethod, 
-                        @JsonProperty("sms_status_callback") final URI smsStatusCallback, 
-                        @JsonProperty("sms_url") final URI smsUrl, 
-                        @JsonProperty("status_callback") final URI statusCallback, 
-                        @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod, 
-                        @JsonProperty("uri") final String uri, 
-                        @JsonProperty("voice_caller_id_lookup") final Boolean voiceCallerIdLookup, 
-                        @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod, 
-                        @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl, 
-                        @JsonProperty("voice_method") final HttpMethod voiceMethod, 
-                        @JsonProperty("voice_url") final URI voiceUrl) {
+    private Application(@JsonProperty("account_sid")
+                        final String accountSid, 
+                        @JsonProperty("api_version")
+                        final String apiVersion, 
+                        @JsonProperty("date_created")
+                        final String dateCreated, 
+                        @JsonProperty("date_updated")
+                        final String dateUpdated, 
+                        @JsonProperty("friendly_name")
+                        final String friendlyName, 
+                        @JsonProperty("message_status_callback")
+                        final URI messageStatusCallback, 
+                        @JsonProperty("sid")
+                        final String sid, 
+                        @JsonProperty("sms_fallback_method")
+                        final HttpMethod smsFallbackMethod, 
+                        @JsonProperty("sms_fallback_url")
+                        final URI smsFallbackUrl, 
+                        @JsonProperty("sms_method")
+                        final HttpMethod smsMethod, 
+                        @JsonProperty("sms_status_callback")
+                        final URI smsStatusCallback, 
+                        @JsonProperty("sms_url")
+                        final URI smsUrl, 
+                        @JsonProperty("status_callback")
+                        final URI statusCallback, 
+                        @JsonProperty("status_callback_method")
+                        final HttpMethod statusCallbackMethod, 
+                        @JsonProperty("uri")
+                        final String uri, 
+                        @JsonProperty("voice_caller_id_lookup")
+                        final Boolean voiceCallerIdLookup, 
+                        @JsonProperty("voice_fallback_method")
+                        final HttpMethod voiceFallbackMethod, 
+                        @JsonProperty("voice_fallback_url")
+                        final URI voiceFallbackUrl, 
+                        @JsonProperty("voice_method")
+                        final HttpMethod voiceMethod, 
+                        @JsonProperty("voice_url")
+                        final URI voiceUrl) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);

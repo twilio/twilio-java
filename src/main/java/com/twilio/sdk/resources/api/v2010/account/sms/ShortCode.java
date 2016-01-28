@@ -116,18 +116,30 @@ public class ShortCode extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private ShortCode(@JsonProperty("account_sid") final String accountSid, 
-                      @JsonProperty("api_version") final String apiVersion, 
-                      @JsonProperty("date_created") final String dateCreated, 
-                      @JsonProperty("date_updated") final String dateUpdated, 
-                      @JsonProperty("friendly_name") final String friendlyName, 
-                      @JsonProperty("short_code") final String shortCode, 
-                      @JsonProperty("sid") final String sid, 
-                      @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod, 
-                      @JsonProperty("sms_fallback_url") final URI smsFallbackUrl, 
-                      @JsonProperty("sms_method") final HttpMethod smsMethod, 
-                      @JsonProperty("sms_url") final URI smsUrl, 
-                      @JsonProperty("uri") final String uri) {
+    private ShortCode(@JsonProperty("account_sid")
+                      final String accountSid, 
+                      @JsonProperty("api_version")
+                      final String apiVersion, 
+                      @JsonProperty("date_created")
+                      final String dateCreated, 
+                      @JsonProperty("date_updated")
+                      final String dateUpdated, 
+                      @JsonProperty("friendly_name")
+                      final String friendlyName, 
+                      @JsonProperty("short_code")
+                      final String shortCode, 
+                      @JsonProperty("sid")
+                      final String sid, 
+                      @JsonProperty("sms_fallback_method")
+                      final HttpMethod smsFallbackMethod, 
+                      @JsonProperty("sms_fallback_url")
+                      final URI smsFallbackUrl, 
+                      @JsonProperty("sms_method")
+                      final HttpMethod smsMethod, 
+                      @JsonProperty("sms_url")
+                      final URI smsUrl, 
+                      @JsonProperty("uri")
+                      final String uri) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);

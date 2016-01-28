@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
@@ -140,19 +141,33 @@ public class Transcription extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Transcription(@JsonProperty("account_sid") final String accountSid, 
-                          @JsonProperty("api_version") final String apiVersion, 
-                          @JsonProperty("date_created") final String dateCreated, 
-                          @JsonProperty("date_updated") final String dateUpdated, 
-                          @JsonProperty("duration") final String duration, 
-                          @JsonProperty("price") final BigDecimal price, 
-                          @JsonProperty("price_unit") final Currency priceUnit, 
-                          @JsonProperty("recording_sid") final String recordingSid, 
-                          @JsonProperty("sid") final String sid, 
-                          @JsonProperty("status") final Transcription.Status status, 
-                          @JsonProperty("transcription_text") final String transcriptionText, 
-                          @JsonProperty("type") final String type, 
-                          @JsonProperty("uri") final String uri) {
+    private Transcription(@JsonProperty("account_sid")
+                          final String accountSid, 
+                          @JsonProperty("api_version")
+                          final String apiVersion, 
+                          @JsonProperty("date_created")
+                          final String dateCreated, 
+                          @JsonProperty("date_updated")
+                          final String dateUpdated, 
+                          @JsonProperty("duration")
+                          final String duration, 
+                          @JsonProperty("price")
+                          final BigDecimal price, 
+                          @JsonProperty("price_unit")
+                          @JsonDeserialize(using = com.twilio.sdk.converters.CurrencyDeserializer.class)
+                          final Currency priceUnit, 
+                          @JsonProperty("recording_sid")
+                          final String recordingSid, 
+                          @JsonProperty("sid")
+                          final String sid, 
+                          @JsonProperty("status")
+                          final Transcription.Status status, 
+                          @JsonProperty("transcription_text")
+                          final String transcriptionText, 
+                          @JsonProperty("type")
+                          final String type, 
+                          @JsonProperty("uri")
+                          final String uri) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
@@ -138,20 +139,35 @@ public class Daily extends Resource {
     private final String usageUnit;
 
     @JsonCreator
-    private Daily(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("api_version") final String apiVersion, 
-                  @JsonProperty("category") final Daily.Category category, 
-                  @JsonProperty("count") final String count, 
-                  @JsonProperty("count_unit") final String countUnit, 
-                  @JsonProperty("description") final String description, 
-                  @JsonProperty("end_date") final String endDate, 
-                  @JsonProperty("price") final BigDecimal price, 
-                  @JsonProperty("price_unit") final Currency priceUnit, 
-                  @JsonProperty("start_date") final String startDate, 
-                  @JsonProperty("subresource_uris") final Map<String, String> subresourceUris, 
-                  @JsonProperty("uri") final String uri, 
-                  @JsonProperty("usage") final String usage, 
-                  @JsonProperty("usage_unit") final String usageUnit) {
+    private Daily(@JsonProperty("account_sid")
+                  final String accountSid, 
+                  @JsonProperty("api_version")
+                  final String apiVersion, 
+                  @JsonProperty("category")
+                  final Daily.Category category, 
+                  @JsonProperty("count")
+                  final String count, 
+                  @JsonProperty("count_unit")
+                  final String countUnit, 
+                  @JsonProperty("description")
+                  final String description, 
+                  @JsonProperty("end_date")
+                  final String endDate, 
+                  @JsonProperty("price")
+                  final BigDecimal price, 
+                  @JsonProperty("price_unit")
+                  @JsonDeserialize(using = com.twilio.sdk.converters.CurrencyDeserializer.class)
+                  final Currency priceUnit, 
+                  @JsonProperty("start_date")
+                  final String startDate, 
+                  @JsonProperty("subresource_uris")
+                  final Map<String, String> subresourceUris, 
+                  @JsonProperty("uri")
+                  final String uri, 
+                  @JsonProperty("usage")
+                  final String usage, 
+                  @JsonProperty("usage_unit")
+                  final String usageUnit) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.category = category;

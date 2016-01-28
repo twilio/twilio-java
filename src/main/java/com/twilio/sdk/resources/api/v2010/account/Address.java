@@ -142,18 +142,30 @@ public class Address extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Address(@JsonProperty("account_sid") final String accountSid, 
-                    @JsonProperty("city") final String city, 
-                    @JsonProperty("customer_name") final String customerName, 
-                    @JsonProperty("date_created") final String dateCreated, 
-                    @JsonProperty("date_updated") final String dateUpdated, 
-                    @JsonProperty("friendly_name") final String friendlyName, 
-                    @JsonProperty("iso_country") final String isoCountry, 
-                    @JsonProperty("postal_code") final String postalCode, 
-                    @JsonProperty("region") final String region, 
-                    @JsonProperty("sid") final String sid, 
-                    @JsonProperty("street") final String street, 
-                    @JsonProperty("uri") final String uri) {
+    private Address(@JsonProperty("account_sid")
+                    final String accountSid, 
+                    @JsonProperty("city")
+                    final String city, 
+                    @JsonProperty("customer_name")
+                    final String customerName, 
+                    @JsonProperty("date_created")
+                    final String dateCreated, 
+                    @JsonProperty("date_updated")
+                    final String dateUpdated, 
+                    @JsonProperty("friendly_name")
+                    final String friendlyName, 
+                    @JsonProperty("iso_country")
+                    final String isoCountry, 
+                    @JsonProperty("postal_code")
+                    final String postalCode, 
+                    @JsonProperty("region")
+                    final String region, 
+                    @JsonProperty("sid")
+                    final String sid, 
+                    @JsonProperty("street")
+                    final String street, 
+                    @JsonProperty("uri")
+                    final String uri) {
         this.accountSid = accountSid;
         this.city = city;
         this.customerName = customerName;

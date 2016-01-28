@@ -162,16 +162,26 @@ public class Account extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Account(@JsonProperty("auth_token") final String authToken, 
-                    @JsonProperty("date_created") final String dateCreated, 
-                    @JsonProperty("date_updated") final String dateUpdated, 
-                    @JsonProperty("friendly_name") final String friendlyName, 
-                    @JsonProperty("owner_account_sid") final String ownerAccountSid, 
-                    @JsonProperty("sid") final String sid, 
-                    @JsonProperty("status") final Account.Status status, 
-                    @JsonProperty("subresource_uris") final Map<String, String> subresourceUris, 
-                    @JsonProperty("type") final Account.Type type, 
-                    @JsonProperty("uri") final String uri) {
+    private Account(@JsonProperty("auth_token")
+                    final String authToken, 
+                    @JsonProperty("date_created")
+                    final String dateCreated, 
+                    @JsonProperty("date_updated")
+                    final String dateUpdated, 
+                    @JsonProperty("friendly_name")
+                    final String friendlyName, 
+                    @JsonProperty("owner_account_sid")
+                    final String ownerAccountSid, 
+                    @JsonProperty("sid")
+                    final String sid, 
+                    @JsonProperty("status")
+                    final Account.Status status, 
+                    @JsonProperty("subresource_uris")
+                    final Map<String, String> subresourceUris, 
+                    @JsonProperty("type")
+                    final Account.Type type, 
+                    @JsonProperty("uri")
+                    final String uri) {
         this.authToken = authToken;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);

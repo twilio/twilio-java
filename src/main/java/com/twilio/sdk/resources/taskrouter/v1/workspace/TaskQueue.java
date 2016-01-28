@@ -142,19 +142,32 @@ public class TaskQueue extends SidResource {
     private final String workspaceSid;
 
     @JsonCreator
-    private TaskQueue(@JsonProperty("account_sid") final String accountSid, 
-                      @JsonProperty("assignment_activity_sid") final String assignmentActivitySid, 
-                      @JsonProperty("assignment_activity_name") final String assignmentActivityName, 
-                      @JsonProperty("date_created") final String dateCreated, 
-                      @JsonProperty("date_updated") final String dateUpdated, 
-                      @JsonProperty("friendly_name") final String friendlyName, 
-                      @JsonProperty("max_reserved_workers") final Integer maxReservedWorkers, 
-                      @JsonProperty("reservation_activity_sid") final String reservationActivitySid, 
-                      @JsonProperty("reservation_activity_name") final String reservationActivityName, 
-                      @JsonProperty("sid") final String sid, 
-                      @JsonProperty("target_workers") final String targetWorkers, 
-                      @JsonProperty("url") final URI url, 
-                      @JsonProperty("workspace_sid") final String workspaceSid) {
+    private TaskQueue(@JsonProperty("account_sid")
+                      final String accountSid, 
+                      @JsonProperty("assignment_activity_sid")
+                      final String assignmentActivitySid, 
+                      @JsonProperty("assignment_activity_name")
+                      final String assignmentActivityName, 
+                      @JsonProperty("date_created")
+                      final String dateCreated, 
+                      @JsonProperty("date_updated")
+                      final String dateUpdated, 
+                      @JsonProperty("friendly_name")
+                      final String friendlyName, 
+                      @JsonProperty("max_reserved_workers")
+                      final Integer maxReservedWorkers, 
+                      @JsonProperty("reservation_activity_sid")
+                      final String reservationActivitySid, 
+                      @JsonProperty("reservation_activity_name")
+                      final String reservationActivityName, 
+                      @JsonProperty("sid")
+                      final String sid, 
+                      @JsonProperty("target_workers")
+                      final String targetWorkers, 
+                      @JsonProperty("url")
+                      final URI url, 
+                      @JsonProperty("workspace_sid")
+                      final String workspaceSid) {
         this.accountSid = accountSid;
         this.assignmentActivitySid = assignmentActivitySid;
         this.assignmentActivityName = assignmentActivityName;

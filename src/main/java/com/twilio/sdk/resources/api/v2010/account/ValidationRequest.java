@@ -82,11 +82,16 @@ public class ValidationRequest extends Resource {
     private final String callSid;
 
     @JsonCreator
-    private ValidationRequest(@JsonProperty("account_sid") final String accountSid, 
-                              @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
-                              @JsonProperty("friendly_name") final String friendlyName, 
-                              @JsonProperty("validation_code") final Integer validationCode, 
-                              @JsonProperty("call_sid") final String callSid) {
+    private ValidationRequest(@JsonProperty("account_sid")
+                              final String accountSid, 
+                              @JsonProperty("phone_number")
+                              final com.twilio.types.PhoneNumber phoneNumber, 
+                              @JsonProperty("friendly_name")
+                              final String friendlyName, 
+                              @JsonProperty("validation_code")
+                              final Integer validationCode, 
+                              @JsonProperty("call_sid")
+                              final String callSid) {
         this.accountSid = accountSid;
         this.phoneNumber = phoneNumber;
         this.friendlyName = friendlyName;

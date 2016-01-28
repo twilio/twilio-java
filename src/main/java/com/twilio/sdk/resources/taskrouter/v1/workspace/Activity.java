@@ -134,13 +134,20 @@ public class Activity extends SidResource {
     private final String workspaceSid;
 
     @JsonCreator
-    private Activity(@JsonProperty("account_sid") final String accountSid, 
-                     @JsonProperty("available") final Boolean available, 
-                     @JsonProperty("date_created") final String dateCreated, 
-                     @JsonProperty("date_updated") final String dateUpdated, 
-                     @JsonProperty("friendly_name") final String friendlyName, 
-                     @JsonProperty("sid") final String sid, 
-                     @JsonProperty("workspace_sid") final String workspaceSid) {
+    private Activity(@JsonProperty("account_sid")
+                     final String accountSid, 
+                     @JsonProperty("available")
+                     final Boolean available, 
+                     @JsonProperty("date_created")
+                     final String dateCreated, 
+                     @JsonProperty("date_updated")
+                     final String dateUpdated, 
+                     @JsonProperty("friendly_name")
+                     final String friendlyName, 
+                     @JsonProperty("sid")
+                     final String sid, 
+                     @JsonProperty("workspace_sid")
+                     final String workspaceSid) {
         this.accountSid = accountSid;
         this.available = available;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);

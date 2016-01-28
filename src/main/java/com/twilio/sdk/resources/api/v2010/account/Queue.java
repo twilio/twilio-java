@@ -133,15 +133,24 @@ public class Queue extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Queue(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("average_wait_time") final Integer averageWaitTime, 
-                  @JsonProperty("current_size") final Integer currentSize, 
-                  @JsonProperty("date_created") final String dateCreated, 
-                  @JsonProperty("date_updated") final String dateUpdated, 
-                  @JsonProperty("friendly_name") final String friendlyName, 
-                  @JsonProperty("max_size") final Integer maxSize, 
-                  @JsonProperty("sid") final String sid, 
-                  @JsonProperty("uri") final String uri) {
+    private Queue(@JsonProperty("account_sid")
+                  final String accountSid, 
+                  @JsonProperty("average_wait_time")
+                  final Integer averageWaitTime, 
+                  @JsonProperty("current_size")
+                  final Integer currentSize, 
+                  @JsonProperty("date_created")
+                  final String dateCreated, 
+                  @JsonProperty("date_updated")
+                  final String dateUpdated, 
+                  @JsonProperty("friendly_name")
+                  final String friendlyName, 
+                  @JsonProperty("max_size")
+                  final Integer maxSize, 
+                  @JsonProperty("sid")
+                  final String sid, 
+                  @JsonProperty("uri")
+                  final String uri) {
         this.accountSid = accountSid;
         this.averageWaitTime = averageWaitTime;
         this.currentSize = currentSize;

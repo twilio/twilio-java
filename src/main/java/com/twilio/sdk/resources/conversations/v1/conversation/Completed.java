@@ -109,14 +109,22 @@ public class Completed extends Resource {
     private final URI url;
 
     @JsonCreator
-    private Completed(@JsonProperty("sid") final String sid, 
-                      @JsonProperty("status") final Completed.Status status, 
-                      @JsonProperty("duration") final Integer duration, 
-                      @JsonProperty("date_created") final String dateCreated, 
-                      @JsonProperty("start_time") final String startTime, 
-                      @JsonProperty("end_time") final String endTime, 
-                      @JsonProperty("account_sid") final String accountSid, 
-                      @JsonProperty("url") final URI url) {
+    private Completed(@JsonProperty("sid")
+                      final String sid, 
+                      @JsonProperty("status")
+                      final Completed.Status status, 
+                      @JsonProperty("duration")
+                      final Integer duration, 
+                      @JsonProperty("date_created")
+                      final String dateCreated, 
+                      @JsonProperty("start_time")
+                      final String startTime, 
+                      @JsonProperty("end_time")
+                      final String endTime, 
+                      @JsonProperty("account_sid")
+                      final String accountSid, 
+                      @JsonProperty("url")
+                      final URI url) {
         this.sid = sid;
         this.status = status;
         this.duration = duration;

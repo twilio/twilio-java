@@ -129,15 +129,24 @@ public class Participant extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Participant(@JsonProperty("account_sid") final String accountSid, 
-                        @JsonProperty("call_sid") final String callSid, 
-                        @JsonProperty("conference_sid") final String conferenceSid, 
-                        @JsonProperty("date_created") final String dateCreated, 
-                        @JsonProperty("date_updated") final String dateUpdated, 
-                        @JsonProperty("end_conference_on_exit") final Boolean endConferenceOnExit, 
-                        @JsonProperty("muted") final Boolean muted, 
-                        @JsonProperty("start_conference_on_enter") final Boolean startConferenceOnEnter, 
-                        @JsonProperty("uri") final String uri) {
+    private Participant(@JsonProperty("account_sid")
+                        final String accountSid, 
+                        @JsonProperty("call_sid")
+                        final String callSid, 
+                        @JsonProperty("conference_sid")
+                        final String conferenceSid, 
+                        @JsonProperty("date_created")
+                        final String dateCreated, 
+                        @JsonProperty("date_updated")
+                        final String dateUpdated, 
+                        @JsonProperty("end_conference_on_exit")
+                        final Boolean endConferenceOnExit, 
+                        @JsonProperty("muted")
+                        final Boolean muted, 
+                        @JsonProperty("start_conference_on_enter")
+                        final Boolean startConferenceOnEnter, 
+                        @JsonProperty("uri")
+                        final String uri) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.conferenceSid = conferenceSid;

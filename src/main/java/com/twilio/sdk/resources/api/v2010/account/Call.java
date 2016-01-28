@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
@@ -222,31 +223,57 @@ public class Call extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Call(@JsonProperty("account_sid") final String accountSid, 
-                 @JsonProperty("annotation") final String annotation, 
-                 @JsonProperty("answered_by") final String answeredBy, 
-                 @JsonProperty("api_version") final String apiVersion, 
-                 @JsonProperty("caller_name") final String callerName, 
-                 @JsonProperty("date_created") final String dateCreated, 
-                 @JsonProperty("date_updated") final String dateUpdated, 
-                 @JsonProperty("direction") final String direction, 
-                 @JsonProperty("duration") final String duration, 
-                 @JsonProperty("end_time") final String endTime, 
-                 @JsonProperty("forwarded_from") final String forwardedFrom, 
-                 @JsonProperty("from") final String from, 
-                 @JsonProperty("from_formatted") final String fromFormatted, 
-                 @JsonProperty("group_sid") final String groupSid, 
-                 @JsonProperty("parent_call_sid") final String parentCallSid, 
-                 @JsonProperty("phone_number_sid") final String phoneNumberSid, 
-                 @JsonProperty("price") final BigDecimal price, 
-                 @JsonProperty("price_unit") final Currency priceUnit, 
-                 @JsonProperty("sid") final String sid, 
-                 @JsonProperty("start_time") final String startTime, 
-                 @JsonProperty("status") final Call.Status status, 
-                 @JsonProperty("subresource_uris") final Map<String, String> subresourceUris, 
-                 @JsonProperty("to") final String to, 
-                 @JsonProperty("to_formatted") final String toFormatted, 
-                 @JsonProperty("uri") final String uri) {
+    private Call(@JsonProperty("account_sid")
+                 final String accountSid, 
+                 @JsonProperty("annotation")
+                 final String annotation, 
+                 @JsonProperty("answered_by")
+                 final String answeredBy, 
+                 @JsonProperty("api_version")
+                 final String apiVersion, 
+                 @JsonProperty("caller_name")
+                 final String callerName, 
+                 @JsonProperty("date_created")
+                 final String dateCreated, 
+                 @JsonProperty("date_updated")
+                 final String dateUpdated, 
+                 @JsonProperty("direction")
+                 final String direction, 
+                 @JsonProperty("duration")
+                 final String duration, 
+                 @JsonProperty("end_time")
+                 final String endTime, 
+                 @JsonProperty("forwarded_from")
+                 final String forwardedFrom, 
+                 @JsonProperty("from")
+                 final String from, 
+                 @JsonProperty("from_formatted")
+                 final String fromFormatted, 
+                 @JsonProperty("group_sid")
+                 final String groupSid, 
+                 @JsonProperty("parent_call_sid")
+                 final String parentCallSid, 
+                 @JsonProperty("phone_number_sid")
+                 final String phoneNumberSid, 
+                 @JsonProperty("price")
+                 final BigDecimal price, 
+                 @JsonProperty("price_unit")
+                 @JsonDeserialize(using = com.twilio.sdk.converters.CurrencyDeserializer.class)
+                 final Currency priceUnit, 
+                 @JsonProperty("sid")
+                 final String sid, 
+                 @JsonProperty("start_time")
+                 final String startTime, 
+                 @JsonProperty("status")
+                 final Call.Status status, 
+                 @JsonProperty("subresource_uris")
+                 final Map<String, String> subresourceUris, 
+                 @JsonProperty("to")
+                 final String to, 
+                 @JsonProperty("to_formatted")
+                 final String toFormatted, 
+                 @JsonProperty("uri")
+                 final String uri) {
         this.accountSid = accountSid;
         this.annotation = annotation;
         this.answeredBy = answeredBy;

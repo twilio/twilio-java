@@ -89,17 +89,28 @@ public class DependentPhoneNumber extends Resource {
     private final Map<String, String> capabilities;
 
     @JsonCreator
-    private DependentPhoneNumber(@JsonProperty("friendly_name") final com.twilio.types.PhoneNumber friendlyName, 
-                                 @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
-                                 @JsonProperty("lata") final String lata, 
-                                 @JsonProperty("rate_center") final String rateCenter, 
-                                 @JsonProperty("latitude") final BigDecimal latitude, 
-                                 @JsonProperty("longitude") final BigDecimal longitude, 
-                                 @JsonProperty("region") final String region, 
-                                 @JsonProperty("postal_code") final String postalCode, 
-                                 @JsonProperty("iso_country") final String isoCountry, 
-                                 @JsonProperty("address_requirements") final String addressRequirements, 
-                                 @JsonProperty("capabilities") final Map<String, String> capabilities) {
+    private DependentPhoneNumber(@JsonProperty("friendly_name")
+                                 final com.twilio.types.PhoneNumber friendlyName, 
+                                 @JsonProperty("phone_number")
+                                 final com.twilio.types.PhoneNumber phoneNumber, 
+                                 @JsonProperty("lata")
+                                 final String lata, 
+                                 @JsonProperty("rate_center")
+                                 final String rateCenter, 
+                                 @JsonProperty("latitude")
+                                 final BigDecimal latitude, 
+                                 @JsonProperty("longitude")
+                                 final BigDecimal longitude, 
+                                 @JsonProperty("region")
+                                 final String region, 
+                                 @JsonProperty("postal_code")
+                                 final String postalCode, 
+                                 @JsonProperty("iso_country")
+                                 final String isoCountry, 
+                                 @JsonProperty("address_requirements")
+                                 final String addressRequirements, 
+                                 @JsonProperty("capabilities")
+                                 final Map<String, String> capabilities) {
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
         this.lata = lata;

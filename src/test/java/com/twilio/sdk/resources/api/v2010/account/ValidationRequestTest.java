@@ -1,5 +1,6 @@
 package com.twilio.sdk.resources.api.v2010.account;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;

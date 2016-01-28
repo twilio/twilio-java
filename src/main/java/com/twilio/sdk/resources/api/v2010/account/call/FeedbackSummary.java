@@ -19,6 +19,7 @@ import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
+import com.twilio.types.FeedbackIssue;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
@@ -31,7 +32,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedbackSummary extends SidResource {
-    private static final long serialVersionUID = 174634797560589L;
+    private static final long serialVersionUID = 167286727474638L;
 
     public enum Status {
         QUEUED("queued"),
@@ -135,7 +136,7 @@ public class FeedbackSummary extends SidResource {
     private final DateTime dateUpdated;
     private final DateTime endDate;
     private final Boolean includeSubaccounts;
-    private final List<String> issues;
+    private final List<FeedbackIssue> issues;
     private final BigDecimal qualityScoreAverage;
     private final BigDecimal qualityScoreMedian;
     private final BigDecimal qualityScoreStandardDeviation;
@@ -144,20 +145,34 @@ public class FeedbackSummary extends SidResource {
     private final FeedbackSummary.Status status;
 
     @JsonCreator
-    private FeedbackSummary(@JsonProperty("account_sid") final String accountSid, 
-                            @JsonProperty("call_count") final Integer callCount, 
-                            @JsonProperty("call_feedback_count") final Integer callFeedbackCount, 
-                            @JsonProperty("date_created") final String dateCreated, 
-                            @JsonProperty("date_updated") final String dateUpdated, 
-                            @JsonProperty("end_date") final String endDate, 
-                            @JsonProperty("include_subaccounts") final Boolean includeSubaccounts, 
-                            @JsonProperty("issues") final List<String> issues, 
-                            @JsonProperty("quality_score_average") final BigDecimal qualityScoreAverage, 
-                            @JsonProperty("quality_score_median") final BigDecimal qualityScoreMedian, 
-                            @JsonProperty("quality_score_standard_deviation") final BigDecimal qualityScoreStandardDeviation, 
-                            @JsonProperty("sid") final String sid, 
-                            @JsonProperty("start_date") final String startDate, 
-                            @JsonProperty("status") final FeedbackSummary.Status status) {
+    private FeedbackSummary(@JsonProperty("account_sid")
+                            final String accountSid, 
+                            @JsonProperty("call_count")
+                            final Integer callCount, 
+                            @JsonProperty("call_feedback_count")
+                            final Integer callFeedbackCount, 
+                            @JsonProperty("date_created")
+                            final String dateCreated, 
+                            @JsonProperty("date_updated")
+                            final String dateUpdated, 
+                            @JsonProperty("end_date")
+                            final String endDate, 
+                            @JsonProperty("include_subaccounts")
+                            final Boolean includeSubaccounts, 
+                            @JsonProperty("issues")
+                            final List<FeedbackIssue> issues, 
+                            @JsonProperty("quality_score_average")
+                            final BigDecimal qualityScoreAverage, 
+                            @JsonProperty("quality_score_median")
+                            final BigDecimal qualityScoreMedian, 
+                            @JsonProperty("quality_score_standard_deviation")
+                            final BigDecimal qualityScoreStandardDeviation, 
+                            @JsonProperty("sid")
+                            final String sid, 
+                            @JsonProperty("start_date")
+                            final String startDate, 
+                            @JsonProperty("status")
+                            final FeedbackSummary.Status status) {
         this.accountSid = accountSid;
         this.callCount = callCount;
         this.callFeedbackCount = callFeedbackCount;
@@ -226,7 +241,7 @@ public class FeedbackSummary extends SidResource {
     /**
      * @return The issues
      */
-    public final List<String> getIssues() {
+    public final List<FeedbackIssue> getIssues() {
         return this.issues;
     }
 

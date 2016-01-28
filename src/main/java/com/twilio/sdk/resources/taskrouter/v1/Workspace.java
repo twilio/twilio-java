@@ -131,16 +131,26 @@ public class Workspace extends SidResource {
     private final String timeoutActivitySid;
 
     @JsonCreator
-    private Workspace(@JsonProperty("account_sid") final String accountSid, 
-                      @JsonProperty("date_created") final String dateCreated, 
-                      @JsonProperty("date_updated") final String dateUpdated, 
-                      @JsonProperty("default_activity_name") final String defaultActivityName, 
-                      @JsonProperty("default_activity_sid") final String defaultActivitySid, 
-                      @JsonProperty("event_callback_url") final String eventCallbackUrl, 
-                      @JsonProperty("friendly_name") final String friendlyName, 
-                      @JsonProperty("sid") final String sid, 
-                      @JsonProperty("timeout_activity_name") final String timeoutActivityName, 
-                      @JsonProperty("timeout_activity_sid") final String timeoutActivitySid) {
+    private Workspace(@JsonProperty("account_sid")
+                      final String accountSid, 
+                      @JsonProperty("date_created")
+                      final String dateCreated, 
+                      @JsonProperty("date_updated")
+                      final String dateUpdated, 
+                      @JsonProperty("default_activity_name")
+                      final String defaultActivityName, 
+                      @JsonProperty("default_activity_sid")
+                      final String defaultActivitySid, 
+                      @JsonProperty("event_callback_url")
+                      final String eventCallbackUrl, 
+                      @JsonProperty("friendly_name")
+                      final String friendlyName, 
+                      @JsonProperty("sid")
+                      final String sid, 
+                      @JsonProperty("timeout_activity_name")
+                      final String timeoutActivityName, 
+                      @JsonProperty("timeout_activity_sid")
+                      final String timeoutActivitySid) {
         this.accountSid = accountSid;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);

@@ -121,23 +121,40 @@ public class Notification extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Notification(@JsonProperty("account_sid") final String accountSid, 
-                         @JsonProperty("api_version") final String apiVersion, 
-                         @JsonProperty("call_sid") final String callSid, 
-                         @JsonProperty("date_created") final String dateCreated, 
-                         @JsonProperty("date_updated") final String dateUpdated, 
-                         @JsonProperty("error_code") final String errorCode, 
-                         @JsonProperty("log") final String log, 
-                         @JsonProperty("message_date") final String messageDate, 
-                         @JsonProperty("message_text") final String messageText, 
-                         @JsonProperty("more_info") final URI moreInfo, 
-                         @JsonProperty("request_method") final HttpMethod requestMethod, 
-                         @JsonProperty("request_url") final URI requestUrl, 
-                         @JsonProperty("request_variables") final String requestVariables, 
-                         @JsonProperty("response_body") final String responseBody, 
-                         @JsonProperty("response_headers") final String responseHeaders, 
-                         @JsonProperty("sid") final String sid, 
-                         @JsonProperty("uri") final String uri) {
+    private Notification(@JsonProperty("account_sid")
+                         final String accountSid, 
+                         @JsonProperty("api_version")
+                         final String apiVersion, 
+                         @JsonProperty("call_sid")
+                         final String callSid, 
+                         @JsonProperty("date_created")
+                         final String dateCreated, 
+                         @JsonProperty("date_updated")
+                         final String dateUpdated, 
+                         @JsonProperty("error_code")
+                         final String errorCode, 
+                         @JsonProperty("log")
+                         final String log, 
+                         @JsonProperty("message_date")
+                         final String messageDate, 
+                         @JsonProperty("message_text")
+                         final String messageText, 
+                         @JsonProperty("more_info")
+                         final URI moreInfo, 
+                         @JsonProperty("request_method")
+                         final HttpMethod requestMethod, 
+                         @JsonProperty("request_url")
+                         final URI requestUrl, 
+                         @JsonProperty("request_variables")
+                         final String requestVariables, 
+                         @JsonProperty("response_body")
+                         final String responseBody, 
+                         @JsonProperty("response_headers")
+                         final String responseHeaders, 
+                         @JsonProperty("sid")
+                         final String sid, 
+                         @JsonProperty("uri")
+                         final String uri) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;

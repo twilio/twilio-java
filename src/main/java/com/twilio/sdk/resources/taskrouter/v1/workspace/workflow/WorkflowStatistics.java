@@ -82,11 +82,16 @@ public class WorkflowStatistics extends Resource {
     private final String workspaceSid;
 
     @JsonCreator
-    private WorkflowStatistics(@JsonProperty("account_sid") final String accountSid, 
-                               @JsonProperty("cumulative") final String cumulative, 
-                               @JsonProperty("realtime") final String realtime, 
-                               @JsonProperty("workflow_sid") final String workflowSid, 
-                               @JsonProperty("workspace_sid") final String workspaceSid) {
+    private WorkflowStatistics(@JsonProperty("account_sid")
+                               final String accountSid, 
+                               @JsonProperty("cumulative")
+                               final String cumulative, 
+                               @JsonProperty("realtime")
+                               final String realtime, 
+                               @JsonProperty("workflow_sid")
+                               final String workflowSid, 
+                               @JsonProperty("workspace_sid")
+                               final String workspaceSid) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.realtime = realtime;

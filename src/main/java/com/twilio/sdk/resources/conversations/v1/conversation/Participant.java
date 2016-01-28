@@ -138,16 +138,26 @@ public class Participant extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private Participant(@JsonProperty("sid") final String sid, 
-                        @JsonProperty("address") final String address, 
-                        @JsonProperty("status") final Participant.Status status, 
-                        @JsonProperty("conversation_sid") final String conversationSid, 
-                        @JsonProperty("date_created") final String dateCreated, 
-                        @JsonProperty("start_time") final String startTime, 
-                        @JsonProperty("end_time") final String endTime, 
-                        @JsonProperty("duration") final Integer duration, 
-                        @JsonProperty("account_sid") final String accountSid, 
-                        @JsonProperty("url") final URI url) {
+    private Participant(@JsonProperty("sid")
+                        final String sid, 
+                        @JsonProperty("address")
+                        final String address, 
+                        @JsonProperty("status")
+                        final Participant.Status status, 
+                        @JsonProperty("conversation_sid")
+                        final String conversationSid, 
+                        @JsonProperty("date_created")
+                        final String dateCreated, 
+                        @JsonProperty("start_time")
+                        final String startTime, 
+                        @JsonProperty("end_time")
+                        final String endTime, 
+                        @JsonProperty("duration")
+                        final Integer duration, 
+                        @JsonProperty("account_sid")
+                        final String accountSid, 
+                        @JsonProperty("url")
+                        final URI url) {
         this.sid = sid;
         this.address = address;
         this.status = status;

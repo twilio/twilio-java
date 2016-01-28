@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -94,12 +95,19 @@ public class Country extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private Country(@JsonProperty("country") final String country, 
-                    @JsonProperty("iso_country") final String isoCountry, 
-                    @JsonProperty("phone_number_prices") final List<String> phoneNumberPrices, 
-                    @JsonProperty("price_unit") final Currency priceUnit, 
-                    @JsonProperty("uri") final URI uri, 
-                    @JsonProperty("url") final URI url) {
+    private Country(@JsonProperty("country")
+                    final String country, 
+                    @JsonProperty("iso_country")
+                    final String isoCountry, 
+                    @JsonProperty("phone_number_prices")
+                    final List<String> phoneNumberPrices, 
+                    @JsonProperty("price_unit")
+                    @JsonDeserialize(using = com.twilio.sdk.converters.CurrencyDeserializer.class)
+                    final Currency priceUnit, 
+                    @JsonProperty("uri")
+                    final URI uri, 
+                    @JsonProperty("url")
+                    final URI url) {
         this.country = country;
         this.isoCountry = isoCountry;
         this.phoneNumberPrices = phoneNumberPrices;

@@ -113,14 +113,22 @@ public class Recording extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Recording(@JsonProperty("account_sid") final String accountSid, 
-                      @JsonProperty("api_version") final String apiVersion, 
-                      @JsonProperty("call_sid") final String callSid, 
-                      @JsonProperty("date_created") final String dateCreated, 
-                      @JsonProperty("date_updated") final String dateUpdated, 
-                      @JsonProperty("duration") final String duration, 
-                      @JsonProperty("sid") final String sid, 
-                      @JsonProperty("uri") final String uri) {
+    private Recording(@JsonProperty("account_sid")
+                      final String accountSid, 
+                      @JsonProperty("api_version")
+                      final String apiVersion, 
+                      @JsonProperty("call_sid")
+                      final String callSid, 
+                      @JsonProperty("date_created")
+                      final String dateCreated, 
+                      @JsonProperty("date_updated")
+                      final String dateUpdated, 
+                      @JsonProperty("duration")
+                      final String duration, 
+                      @JsonProperty("sid")
+                      final String sid, 
+                      @JsonProperty("uri")
+                      final String uri) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;

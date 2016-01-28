@@ -81,11 +81,16 @@ public class TaskQueuesStatistics extends Resource {
     private final String workspaceSid;
 
     @JsonCreator
-    private TaskQueuesStatistics(@JsonProperty("account_sid") final String accountSid, 
-                                 @JsonProperty("cumulative") final Map<String, String> cumulative, 
-                                 @JsonProperty("realtime") final Map<String, String> realtime, 
-                                 @JsonProperty("task_queue_sid") final String taskQueueSid, 
-                                 @JsonProperty("workspace_sid") final String workspaceSid) {
+    private TaskQueuesStatistics(@JsonProperty("account_sid")
+                                 final String accountSid, 
+                                 @JsonProperty("cumulative")
+                                 final Map<String, String> cumulative, 
+                                 @JsonProperty("realtime")
+                                 final Map<String, String> realtime, 
+                                 @JsonProperty("task_queue_sid")
+                                 final String taskQueueSid, 
+                                 @JsonProperty("workspace_sid")
+                                 final String workspaceSid) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.realtime = realtime;

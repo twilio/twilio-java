@@ -124,12 +124,18 @@ public class IpAccessControlListMapping extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private IpAccessControlListMapping(@JsonProperty("account_sid") final String accountSid, 
-                                       @JsonProperty("date_created") final String dateCreated, 
-                                       @JsonProperty("date_updated") final String dateUpdated, 
-                                       @JsonProperty("friendly_name") final String friendlyName, 
-                                       @JsonProperty("sid") final String sid, 
-                                       @JsonProperty("uri") final String uri) {
+    private IpAccessControlListMapping(@JsonProperty("account_sid")
+                                       final String accountSid, 
+                                       @JsonProperty("date_created")
+                                       final String dateCreated, 
+                                       @JsonProperty("date_updated")
+                                       final String dateUpdated, 
+                                       @JsonProperty("friendly_name")
+                                       final String friendlyName, 
+                                       @JsonProperty("sid")
+                                       final String sid, 
+                                       @JsonProperty("uri")
+                                       final String uri) {
         this.accountSid = accountSid;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);

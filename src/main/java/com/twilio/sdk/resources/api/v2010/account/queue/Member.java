@@ -113,11 +113,16 @@ public class Member extends SidResource {
     private final Integer waitTime;
 
     @JsonCreator
-    private Member(@JsonProperty("call_sid") final String callSid, 
-                   @JsonProperty("date_enqueued") final String dateEnqueued, 
-                   @JsonProperty("position") final Integer position, 
-                   @JsonProperty("uri") final String uri, 
-                   @JsonProperty("wait_time") final Integer waitTime) {
+    private Member(@JsonProperty("call_sid")
+                   final String callSid, 
+                   @JsonProperty("date_enqueued")
+                   final String dateEnqueued, 
+                   @JsonProperty("position")
+                   final Integer position, 
+                   @JsonProperty("uri")
+                   final String uri, 
+                   @JsonProperty("wait_time")
+                   final Integer waitTime) {
         this.callSid = callSid;
         this.dateEnqueued = MarshalConverter.dateTimeFromString(dateEnqueued);
         this.position = position;

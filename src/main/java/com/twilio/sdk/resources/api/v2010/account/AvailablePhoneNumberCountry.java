@@ -94,11 +94,16 @@ public class AvailablePhoneNumberCountry extends SidResource {
     private final Map<String, String> subresourceUris;
 
     @JsonCreator
-    private AvailablePhoneNumberCountry(@JsonProperty("country_code") final String countryCode, 
-                                        @JsonProperty("country") final String country, 
-                                        @JsonProperty("uri") final URI uri, 
-                                        @JsonProperty("beta") final Boolean beta, 
-                                        @JsonProperty("subresource_uris") final Map<String, String> subresourceUris) {
+    private AvailablePhoneNumberCountry(@JsonProperty("country_code")
+                                        final String countryCode, 
+                                        @JsonProperty("country")
+                                        final String country, 
+                                        @JsonProperty("uri")
+                                        final URI uri, 
+                                        @JsonProperty("beta")
+                                        final Boolean beta, 
+                                        @JsonProperty("subresource_uris")
+                                        final Map<String, String> subresourceUris) {
         this.countryCode = countryCode;
         this.country = country;
         this.uri = uri;

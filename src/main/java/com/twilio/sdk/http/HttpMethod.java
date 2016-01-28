@@ -1,5 +1,7 @@
 package com.twilio.sdk.http;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum HttpMethod {
     GET("GET"),
     POST("POST"),
@@ -16,5 +18,10 @@ public enum HttpMethod {
 
     public String toString() {
         return method;
+    }
+
+    @JsonCreator
+    public static HttpMethod forValue(final String value) {
+        return HttpMethod.valueOf(value.toUpperCase());
     }
 }

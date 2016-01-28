@@ -99,18 +99,30 @@ public class Event extends SidResource {
     private final String sourceIpAddress;
 
     @JsonCreator
-    private Event(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("actor_sid") final String actorSid, 
-                  @JsonProperty("actor_type") final String actorType, 
-                  @JsonProperty("description") final String description, 
-                  @JsonProperty("event_data") final String eventData, 
-                  @JsonProperty("event_date") final String eventDate, 
-                  @JsonProperty("event_type") final String eventType, 
-                  @JsonProperty("resource_sid") final String resourceSid, 
-                  @JsonProperty("resource_type") final String resourceType, 
-                  @JsonProperty("sid") final String sid, 
-                  @JsonProperty("source") final String source, 
-                  @JsonProperty("source_ip_address") final String sourceIpAddress) {
+    private Event(@JsonProperty("account_sid")
+                  final String accountSid, 
+                  @JsonProperty("actor_sid")
+                  final String actorSid, 
+                  @JsonProperty("actor_type")
+                  final String actorType, 
+                  @JsonProperty("description")
+                  final String description, 
+                  @JsonProperty("event_data")
+                  final String eventData, 
+                  @JsonProperty("event_date")
+                  final String eventDate, 
+                  @JsonProperty("event_type")
+                  final String eventType, 
+                  @JsonProperty("resource_sid")
+                  final String resourceSid, 
+                  @JsonProperty("resource_type")
+                  final String resourceType, 
+                  @JsonProperty("sid")
+                  final String sid, 
+                  @JsonProperty("source")
+                  final String source, 
+                  @JsonProperty("source_ip_address")
+                  final String sourceIpAddress) {
         this.accountSid = accountSid;
         this.actorSid = actorSid;
         this.actorType = actorType;

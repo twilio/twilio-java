@@ -162,19 +162,32 @@ public class Task extends SidResource {
     private final String workspaceSid;
 
     @JsonCreator
-    private Task(@JsonProperty("account_sid") final String accountSid, 
-                 @JsonProperty("age") final Integer age, 
-                 @JsonProperty("assignment_status") final Task.Status assignmentStatus, 
-                 @JsonProperty("attributes") final String attributes, 
-                 @JsonProperty("date_created") final String dateCreated, 
-                 @JsonProperty("date_updated") final String dateUpdated, 
-                 @JsonProperty("priority") final Integer priority, 
-                 @JsonProperty("reason") final String reason, 
-                 @JsonProperty("sid") final String sid, 
-                 @JsonProperty("task_queue_sid") final String taskQueueSid, 
-                 @JsonProperty("timeout") final Integer timeout, 
-                 @JsonProperty("workflow_sid") final String workflowSid, 
-                 @JsonProperty("workspace_sid") final String workspaceSid) {
+    private Task(@JsonProperty("account_sid")
+                 final String accountSid, 
+                 @JsonProperty("age")
+                 final Integer age, 
+                 @JsonProperty("assignment_status")
+                 final Task.Status assignmentStatus, 
+                 @JsonProperty("attributes")
+                 final String attributes, 
+                 @JsonProperty("date_created")
+                 final String dateCreated, 
+                 @JsonProperty("date_updated")
+                 final String dateUpdated, 
+                 @JsonProperty("priority")
+                 final Integer priority, 
+                 @JsonProperty("reason")
+                 final String reason, 
+                 @JsonProperty("sid")
+                 final String sid, 
+                 @JsonProperty("task_queue_sid")
+                 final String taskQueueSid, 
+                 @JsonProperty("timeout")
+                 final Integer timeout, 
+                 @JsonProperty("workflow_sid")
+                 final String workflowSid, 
+                 @JsonProperty("workspace_sid")
+                 final String workspaceSid) {
         this.accountSid = accountSid;
         this.age = age;
         this.assignmentStatus = assignmentStatus;

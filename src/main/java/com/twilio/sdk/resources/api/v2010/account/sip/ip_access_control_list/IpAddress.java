@@ -142,14 +142,22 @@ public class IpAddress extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private IpAddress(@JsonProperty("sid") final String sid, 
-                      @JsonProperty("account_sid") final String accountSid, 
-                      @JsonProperty("friendly_name") final String friendlyName, 
-                      @JsonProperty("ip_address") final String ipAddress, 
-                      @JsonProperty("ip_access_control_list_sid") final String ipAccessControlListSid, 
-                      @JsonProperty("date_created") final String dateCreated, 
-                      @JsonProperty("date_updated") final String dateUpdated, 
-                      @JsonProperty("uri") final String uri) {
+    private IpAddress(@JsonProperty("sid")
+                      final String sid, 
+                      @JsonProperty("account_sid")
+                      final String accountSid, 
+                      @JsonProperty("friendly_name")
+                      final String friendlyName, 
+                      @JsonProperty("ip_address")
+                      final String ipAddress, 
+                      @JsonProperty("ip_access_control_list_sid")
+                      final String ipAccessControlListSid, 
+                      @JsonProperty("date_created")
+                      final String dateCreated, 
+                      @JsonProperty("date_updated")
+                      final String dateUpdated, 
+                      @JsonProperty("uri")
+                      final String uri) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;

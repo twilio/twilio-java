@@ -141,21 +141,36 @@ public class Domain extends SidResource {
     private final URI voiceUrl;
 
     @JsonCreator
-    private Domain(@JsonProperty("account_sid") final String accountSid, 
-                   @JsonProperty("api_version") final String apiVersion, 
-                   @JsonProperty("auth_type") final String authType, 
-                   @JsonProperty("date_created") final String dateCreated, 
-                   @JsonProperty("date_updated") final String dateUpdated, 
-                   @JsonProperty("domain_name") final String domainName, 
-                   @JsonProperty("friendly_name") final String friendlyName, 
-                   @JsonProperty("sid") final String sid, 
-                   @JsonProperty("uri") final String uri, 
-                   @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod, 
-                   @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl, 
-                   @JsonProperty("voice_method") final HttpMethod voiceMethod, 
-                   @JsonProperty("voice_status_callback_method") final HttpMethod voiceStatusCallbackMethod, 
-                   @JsonProperty("voice_status_callback_url") final URI voiceStatusCallbackUrl, 
-                   @JsonProperty("voice_url") final URI voiceUrl) {
+    private Domain(@JsonProperty("account_sid")
+                   final String accountSid, 
+                   @JsonProperty("api_version")
+                   final String apiVersion, 
+                   @JsonProperty("auth_type")
+                   final String authType, 
+                   @JsonProperty("date_created")
+                   final String dateCreated, 
+                   @JsonProperty("date_updated")
+                   final String dateUpdated, 
+                   @JsonProperty("domain_name")
+                   final String domainName, 
+                   @JsonProperty("friendly_name")
+                   final String friendlyName, 
+                   @JsonProperty("sid")
+                   final String sid, 
+                   @JsonProperty("uri")
+                   final String uri, 
+                   @JsonProperty("voice_fallback_method")
+                   final HttpMethod voiceFallbackMethod, 
+                   @JsonProperty("voice_fallback_url")
+                   final URI voiceFallbackUrl, 
+                   @JsonProperty("voice_method")
+                   final HttpMethod voiceMethod, 
+                   @JsonProperty("voice_status_callback_method")
+                   final HttpMethod voiceStatusCallbackMethod, 
+                   @JsonProperty("voice_status_callback_url")
+                   final URI voiceStatusCallbackUrl, 
+                   @JsonProperty("voice_url")
+                   final URI voiceUrl) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.authType = authType;

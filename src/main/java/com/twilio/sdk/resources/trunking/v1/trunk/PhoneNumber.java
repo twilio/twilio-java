@@ -164,32 +164,58 @@ public class PhoneNumber extends SidResource {
     private final URI voiceUrl;
 
     @JsonCreator
-    private PhoneNumber(@JsonProperty("account_sid") final String accountSid, 
-                        @JsonProperty("address_requirements") final PhoneNumber.AddressRequirement addressRequirements, 
-                        @JsonProperty("api_version") final String apiVersion, 
-                        @JsonProperty("beta") final Boolean beta, 
-                        @JsonProperty("capabilities") final Map<String, String> capabilities, 
-                        @JsonProperty("date_created") final String dateCreated, 
-                        @JsonProperty("date_updated") final String dateUpdated, 
-                        @JsonProperty("friendly_name") final String friendlyName, 
-                        @JsonProperty("links") final Map<String, String> links, 
-                        @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
-                        @JsonProperty("sid") final String sid, 
-                        @JsonProperty("sms_application_sid") final String smsApplicationSid, 
-                        @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod, 
-                        @JsonProperty("sms_fallback_url") final URI smsFallbackUrl, 
-                        @JsonProperty("sms_method") final HttpMethod smsMethod, 
-                        @JsonProperty("sms_url") final URI smsUrl, 
-                        @JsonProperty("status_callback") final URI statusCallback, 
-                        @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod, 
-                        @JsonProperty("trunk_sid") final String trunkSid, 
-                        @JsonProperty("url") final URI url, 
-                        @JsonProperty("voice_application_sid") final String voiceApplicationSid, 
-                        @JsonProperty("voice_caller_id_lookup") final Boolean voiceCallerIdLookup, 
-                        @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod, 
-                        @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl, 
-                        @JsonProperty("voice_method") final HttpMethod voiceMethod, 
-                        @JsonProperty("voice_url") final URI voiceUrl) {
+    private PhoneNumber(@JsonProperty("account_sid")
+                        final String accountSid, 
+                        @JsonProperty("address_requirements")
+                        final PhoneNumber.AddressRequirement addressRequirements, 
+                        @JsonProperty("api_version")
+                        final String apiVersion, 
+                        @JsonProperty("beta")
+                        final Boolean beta, 
+                        @JsonProperty("capabilities")
+                        final Map<String, String> capabilities, 
+                        @JsonProperty("date_created")
+                        final String dateCreated, 
+                        @JsonProperty("date_updated")
+                        final String dateUpdated, 
+                        @JsonProperty("friendly_name")
+                        final String friendlyName, 
+                        @JsonProperty("links")
+                        final Map<String, String> links, 
+                        @JsonProperty("phone_number")
+                        final com.twilio.types.PhoneNumber phoneNumber, 
+                        @JsonProperty("sid")
+                        final String sid, 
+                        @JsonProperty("sms_application_sid")
+                        final String smsApplicationSid, 
+                        @JsonProperty("sms_fallback_method")
+                        final HttpMethod smsFallbackMethod, 
+                        @JsonProperty("sms_fallback_url")
+                        final URI smsFallbackUrl, 
+                        @JsonProperty("sms_method")
+                        final HttpMethod smsMethod, 
+                        @JsonProperty("sms_url")
+                        final URI smsUrl, 
+                        @JsonProperty("status_callback")
+                        final URI statusCallback, 
+                        @JsonProperty("status_callback_method")
+                        final HttpMethod statusCallbackMethod, 
+                        @JsonProperty("trunk_sid")
+                        final String trunkSid, 
+                        @JsonProperty("url")
+                        final URI url, 
+                        @JsonProperty("voice_application_sid")
+                        final String voiceApplicationSid, 
+                        @JsonProperty("voice_caller_id_lookup")
+                        final Boolean voiceCallerIdLookup, 
+                        @JsonProperty("voice_fallback_method")
+                        final HttpMethod voiceFallbackMethod, 
+                        @JsonProperty("voice_fallback_url")
+                        final URI voiceFallbackUrl, 
+                        @JsonProperty("voice_method")
+                        final HttpMethod voiceMethod, 
+                        @JsonProperty("voice_url")
+                        final URI voiceUrl) {
         this.accountSid = accountSid;
         this.addressRequirements = addressRequirements;
         this.apiVersion = apiVersion;

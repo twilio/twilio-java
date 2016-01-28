@@ -122,13 +122,20 @@ public class OutgoingCallerId extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private OutgoingCallerId(@JsonProperty("sid") final String sid, 
-                             @JsonProperty("date_created") final String dateCreated, 
-                             @JsonProperty("date_updated") final String dateUpdated, 
-                             @JsonProperty("friendly_name") final String friendlyName, 
-                             @JsonProperty("account_sid") final String accountSid, 
-                             @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
-                             @JsonProperty("uri") final String uri) {
+    private OutgoingCallerId(@JsonProperty("sid")
+                             final String sid, 
+                             @JsonProperty("date_created")
+                             final String dateCreated, 
+                             @JsonProperty("date_updated")
+                             final String dateUpdated, 
+                             @JsonProperty("friendly_name")
+                             final String friendlyName, 
+                             @JsonProperty("account_sid")
+                             final String accountSid, 
+                             @JsonProperty("phone_number")
+                             final com.twilio.types.PhoneNumber phoneNumber, 
+                             @JsonProperty("uri")
+                             final String uri) {
         this.sid = sid;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);

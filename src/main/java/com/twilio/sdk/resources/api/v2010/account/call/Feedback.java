@@ -138,12 +138,18 @@ public class Feedback extends Resource {
     private final String sid;
 
     @JsonCreator
-    private Feedback(@JsonProperty("account_sid") final String accountSid, 
-                     @JsonProperty("date_created") final String dateCreated, 
-                     @JsonProperty("date_updated") final String dateUpdated, 
-                     @JsonProperty("issues") final List<Feedback.Issues> issues, 
-                     @JsonProperty("quality_score") final Integer qualityScore, 
-                     @JsonProperty("sid") final String sid) {
+    private Feedback(@JsonProperty("account_sid")
+                     final String accountSid, 
+                     @JsonProperty("date_created")
+                     final String dateCreated, 
+                     @JsonProperty("date_updated")
+                     final String dateUpdated, 
+                     @JsonProperty("issues")
+                     final List<Feedback.Issues> issues, 
+                     @JsonProperty("quality_score")
+                     final Integer qualityScore, 
+                     @JsonProperty("sid")
+                     final String sid) {
         this.accountSid = accountSid;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);

@@ -115,15 +115,24 @@ public class Reservation extends SidResource {
     private final String workspaceSid;
 
     @JsonCreator
-    private Reservation(@JsonProperty("account_sid") final String accountSid, 
-                        @JsonProperty("date_created") final String dateCreated, 
-                        @JsonProperty("date_updated") final String dateUpdated, 
-                        @JsonProperty("reservation_status") final String reservationStatus, 
-                        @JsonProperty("sid") final String sid, 
-                        @JsonProperty("task_sid") final String taskSid, 
-                        @JsonProperty("worker_name") final String workerName, 
-                        @JsonProperty("worker_sid") final String workerSid, 
-                        @JsonProperty("workspace_sid") final String workspaceSid) {
+    private Reservation(@JsonProperty("account_sid")
+                        final String accountSid, 
+                        @JsonProperty("date_created")
+                        final String dateCreated, 
+                        @JsonProperty("date_updated")
+                        final String dateUpdated, 
+                        @JsonProperty("reservation_status")
+                        final String reservationStatus, 
+                        @JsonProperty("sid")
+                        final String sid, 
+                        @JsonProperty("task_sid")
+                        final String taskSid, 
+                        @JsonProperty("worker_name")
+                        final String workerName, 
+                        @JsonProperty("worker_sid")
+                        final String workerSid, 
+                        @JsonProperty("workspace_sid")
+                        final String workspaceSid) {
         this.accountSid = accountSid;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
@@ -84,13 +85,21 @@ public class Number extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private Number(@JsonProperty("number") final com.twilio.types.PhoneNumber number, 
-                   @JsonProperty("country") final String country, 
-                   @JsonProperty("iso_country") final String isoCountry, 
-                   @JsonProperty("outbound_call_price") final String outboundCallPrice, 
-                   @JsonProperty("inbound_call_price") final String inboundCallPrice, 
-                   @JsonProperty("price_unit") final Currency priceUnit, 
-                   @JsonProperty("url") final URI url) {
+    private Number(@JsonProperty("number")
+                   final com.twilio.types.PhoneNumber number, 
+                   @JsonProperty("country")
+                   final String country, 
+                   @JsonProperty("iso_country")
+                   final String isoCountry, 
+                   @JsonProperty("outbound_call_price")
+                   final String outboundCallPrice, 
+                   @JsonProperty("inbound_call_price")
+                   final String inboundCallPrice, 
+                   @JsonProperty("price_unit")
+                   @JsonDeserialize(using = com.twilio.sdk.converters.CurrencyDeserializer.class)
+                   final Currency priceUnit, 
+                   @JsonProperty("url")
+                   final URI url) {
         this.number = number;
         this.country = country;
         this.isoCountry = isoCountry;

@@ -124,16 +124,26 @@ public class AuthorizedConnectApp extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private AuthorizedConnectApp(@JsonProperty("account_sid") final String accountSid, 
-                                 @JsonProperty("connect_app_company_name") final String connectAppCompanyName, 
-                                 @JsonProperty("connect_app_description") final String connectAppDescription, 
-                                 @JsonProperty("connect_app_friendly_name") final String connectAppFriendlyName, 
-                                 @JsonProperty("connect_app_homepage_url") final URI connectAppHomepageUrl, 
-                                 @JsonProperty("connect_app_sid") final String connectAppSid, 
-                                 @JsonProperty("date_created") final String dateCreated, 
-                                 @JsonProperty("date_updated") final String dateUpdated, 
-                                 @JsonProperty("permissions") final List<AuthorizedConnectApp.Permission> permissions, 
-                                 @JsonProperty("uri") final String uri) {
+    private AuthorizedConnectApp(@JsonProperty("account_sid")
+                                 final String accountSid, 
+                                 @JsonProperty("connect_app_company_name")
+                                 final String connectAppCompanyName, 
+                                 @JsonProperty("connect_app_description")
+                                 final String connectAppDescription, 
+                                 @JsonProperty("connect_app_friendly_name")
+                                 final String connectAppFriendlyName, 
+                                 @JsonProperty("connect_app_homepage_url")
+                                 final URI connectAppHomepageUrl, 
+                                 @JsonProperty("connect_app_sid")
+                                 final String connectAppSid, 
+                                 @JsonProperty("date_created")
+                                 final String dateCreated, 
+                                 @JsonProperty("date_updated")
+                                 final String dateUpdated, 
+                                 @JsonProperty("permissions")
+                                 final List<AuthorizedConnectApp.Permission> permissions, 
+                                 @JsonProperty("uri")
+                                 final String uri) {
         this.accountSid = accountSid;
         this.connectAppCompanyName = connectAppCompanyName;
         this.connectAppDescription = connectAppDescription;

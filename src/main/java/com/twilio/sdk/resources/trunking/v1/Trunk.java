@@ -135,20 +135,34 @@ public class Trunk extends SidResource {
     private final Map<String, String> links;
 
     @JsonCreator
-    private Trunk(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("domain_name") final String domainName, 
-                  @JsonProperty("disaster_recovery_method") final HttpMethod disasterRecoveryMethod, 
-                  @JsonProperty("disaster_recovery_url") final URI disasterRecoveryUrl, 
-                  @JsonProperty("friendly_name") final String friendlyName, 
-                  @JsonProperty("secure") final Boolean secure, 
-                  @JsonProperty("recording") final String recording, 
-                  @JsonProperty("auth_type") final String authType, 
-                  @JsonProperty("auth_type_set") final List<String> authTypeSet, 
-                  @JsonProperty("date_created") final String dateCreated, 
-                  @JsonProperty("date_updated") final String dateUpdated, 
-                  @JsonProperty("sid") final String sid, 
-                  @JsonProperty("url") final URI url, 
-                  @JsonProperty("links") final Map<String, String> links) {
+    private Trunk(@JsonProperty("account_sid")
+                  final String accountSid, 
+                  @JsonProperty("domain_name")
+                  final String domainName, 
+                  @JsonProperty("disaster_recovery_method")
+                  final HttpMethod disasterRecoveryMethod, 
+                  @JsonProperty("disaster_recovery_url")
+                  final URI disasterRecoveryUrl, 
+                  @JsonProperty("friendly_name")
+                  final String friendlyName, 
+                  @JsonProperty("secure")
+                  final Boolean secure, 
+                  @JsonProperty("recording")
+                  final String recording, 
+                  @JsonProperty("auth_type")
+                  final String authType, 
+                  @JsonProperty("auth_type_set")
+                  final List<String> authTypeSet, 
+                  @JsonProperty("date_created")
+                  final String dateCreated, 
+                  @JsonProperty("date_updated")
+                  final String dateUpdated, 
+                  @JsonProperty("sid")
+                  final String sid, 
+                  @JsonProperty("url")
+                  final URI url, 
+                  @JsonProperty("links")
+                  final Map<String, String> links) {
         this.accountSid = accountSid;
         this.domainName = domainName;
         this.disasterRecoveryMethod = disasterRecoveryMethod;

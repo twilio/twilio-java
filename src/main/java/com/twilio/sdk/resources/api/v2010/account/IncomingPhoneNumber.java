@@ -18,6 +18,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.IncomingPhoneNumberReader;
+import com.twilio.sdk.resources.PhoneNumberCapabilities;
 import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import com.twilio.sdk.updaters.api.v2010.account.IncomingPhoneNumberUpdater;
@@ -31,7 +32,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IncomingPhoneNumber extends SidResource {
-    private static final long serialVersionUID = 219285354177308L;
+    private static final long serialVersionUID = 40781203062485L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -165,7 +166,7 @@ public class IncomingPhoneNumber extends SidResource {
     private final IncomingPhoneNumber.AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
-    private final Map<String, String> capabilities;
+    private final PhoneNumberCapabilities capabilities;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String friendlyName;
@@ -187,30 +188,54 @@ public class IncomingPhoneNumber extends SidResource {
     private final URI voiceUrl;
 
     @JsonCreator
-    private IncomingPhoneNumber(@JsonProperty("account_sid") final String accountSid, 
-                                @JsonProperty("address_requirements") final IncomingPhoneNumber.AddressRequirement addressRequirements, 
-                                @JsonProperty("api_version") final String apiVersion, 
-                                @JsonProperty("beta") final Boolean beta, 
-                                @JsonProperty("capabilities") final Map<String, String> capabilities, 
-                                @JsonProperty("date_created") final String dateCreated, 
-                                @JsonProperty("date_updated") final String dateUpdated, 
-                                @JsonProperty("friendly_name") final String friendlyName, 
-                                @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
-                                @JsonProperty("sid") final String sid, 
-                                @JsonProperty("sms_application_sid") final String smsApplicationSid, 
-                                @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod, 
-                                @JsonProperty("sms_fallback_url") final URI smsFallbackUrl, 
-                                @JsonProperty("sms_method") final HttpMethod smsMethod, 
-                                @JsonProperty("sms_url") final URI smsUrl, 
-                                @JsonProperty("status_callback") final URI statusCallback, 
-                                @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod, 
-                                @JsonProperty("uri") final String uri, 
-                                @JsonProperty("voice_application_sid") final String voiceApplicationSid, 
-                                @JsonProperty("voice_caller_id_lookup") final Boolean voiceCallerIdLookup, 
-                                @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod, 
-                                @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl, 
-                                @JsonProperty("voice_method") final HttpMethod voiceMethod, 
-                                @JsonProperty("voice_url") final URI voiceUrl) {
+    private IncomingPhoneNumber(@JsonProperty("account_sid")
+                                final String accountSid, 
+                                @JsonProperty("address_requirements")
+                                final IncomingPhoneNumber.AddressRequirement addressRequirements, 
+                                @JsonProperty("api_version")
+                                final String apiVersion, 
+                                @JsonProperty("beta")
+                                final Boolean beta, 
+                                @JsonProperty("capabilities")
+                                final PhoneNumberCapabilities capabilities, 
+                                @JsonProperty("date_created")
+                                final String dateCreated, 
+                                @JsonProperty("date_updated")
+                                final String dateUpdated, 
+                                @JsonProperty("friendly_name")
+                                final String friendlyName, 
+                                @JsonProperty("phone_number")
+                                final com.twilio.types.PhoneNumber phoneNumber, 
+                                @JsonProperty("sid")
+                                final String sid, 
+                                @JsonProperty("sms_application_sid")
+                                final String smsApplicationSid, 
+                                @JsonProperty("sms_fallback_method")
+                                final HttpMethod smsFallbackMethod, 
+                                @JsonProperty("sms_fallback_url")
+                                final URI smsFallbackUrl, 
+                                @JsonProperty("sms_method")
+                                final HttpMethod smsMethod, 
+                                @JsonProperty("sms_url")
+                                final URI smsUrl, 
+                                @JsonProperty("status_callback")
+                                final URI statusCallback, 
+                                @JsonProperty("status_callback_method")
+                                final HttpMethod statusCallbackMethod, 
+                                @JsonProperty("uri")
+                                final String uri, 
+                                @JsonProperty("voice_application_sid")
+                                final String voiceApplicationSid, 
+                                @JsonProperty("voice_caller_id_lookup")
+                                final Boolean voiceCallerIdLookup, 
+                                @JsonProperty("voice_fallback_method")
+                                final HttpMethod voiceFallbackMethod, 
+                                @JsonProperty("voice_fallback_url")
+                                final URI voiceFallbackUrl, 
+                                @JsonProperty("voice_method")
+                                final HttpMethod voiceMethod, 
+                                @JsonProperty("voice_url")
+                                final URI voiceUrl) {
         this.accountSid = accountSid;
         this.addressRequirements = addressRequirements;
         this.apiVersion = apiVersion;
@@ -268,7 +293,7 @@ public class IncomingPhoneNumber extends SidResource {
     /**
      * @return Indicate if a phone can receive calls or messages
      */
-    public final Map<String, String> getCapabilities() {
+    public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 

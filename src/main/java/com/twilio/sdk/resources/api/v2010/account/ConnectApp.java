@@ -135,17 +135,28 @@ public class ConnectApp extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private ConnectApp(@JsonProperty("account_sid") final String accountSid, 
-                       @JsonProperty("authorize_redirect_url") final URI authorizeRedirectUrl, 
-                       @JsonProperty("company_name") final String companyName, 
-                       @JsonProperty("deauthorize_callback_method") final HttpMethod deauthorizeCallbackMethod, 
-                       @JsonProperty("deauthorize_callback_url") final URI deauthorizeCallbackUrl, 
-                       @JsonProperty("description") final String description, 
-                       @JsonProperty("friendly_name") final String friendlyName, 
-                       @JsonProperty("homepage_url") final URI homepageUrl, 
-                       @JsonProperty("permissions") final List<ConnectApp.Permission> permissions, 
-                       @JsonProperty("sid") final String sid, 
-                       @JsonProperty("uri") final String uri) {
+    private ConnectApp(@JsonProperty("account_sid")
+                       final String accountSid, 
+                       @JsonProperty("authorize_redirect_url")
+                       final URI authorizeRedirectUrl, 
+                       @JsonProperty("company_name")
+                       final String companyName, 
+                       @JsonProperty("deauthorize_callback_method")
+                       final HttpMethod deauthorizeCallbackMethod, 
+                       @JsonProperty("deauthorize_callback_url")
+                       final URI deauthorizeCallbackUrl, 
+                       @JsonProperty("description")
+                       final String description, 
+                       @JsonProperty("friendly_name")
+                       final String friendlyName, 
+                       @JsonProperty("homepage_url")
+                       final URI homepageUrl, 
+                       @JsonProperty("permissions")
+                       final List<ConnectApp.Permission> permissions, 
+                       @JsonProperty("sid")
+                       final String sid, 
+                       @JsonProperty("uri")
+                       final String uri) {
         this.accountSid = accountSid;
         this.authorizeRedirectUrl = authorizeRedirectUrl;
         this.companyName = companyName;

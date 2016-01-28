@@ -102,10 +102,14 @@ public class PhoneNumber extends SidResource {
     private final Map<String, String> carrier;
 
     @JsonCreator
-    private PhoneNumber(@JsonProperty("country_code") final String countryCode, 
-                        @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
-                        @JsonProperty("national_format") final String nationalFormat, 
-                        @JsonProperty("carrier") final Map<String, String> carrier) {
+    private PhoneNumber(@JsonProperty("country_code")
+                        final String countryCode, 
+                        @JsonProperty("phone_number")
+                        final com.twilio.types.PhoneNumber phoneNumber, 
+                        @JsonProperty("national_format")
+                        final String nationalFormat, 
+                        @JsonProperty("carrier")
+                        final Map<String, String> carrier) {
         this.countryCode = countryCode;
         this.phoneNumber = phoneNumber;
         this.nationalFormat = nationalFormat;

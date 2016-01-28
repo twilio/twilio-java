@@ -15,6 +15,7 @@ import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.resources.IceServer;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
 import org.joda.time.DateTime;
@@ -27,7 +28,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Token extends Resource {
-    private static final long serialVersionUID = 268208160766092L;
+    private static final long serialVersionUID = 281090396283982L;
 
     /**
      * Create a new token
@@ -79,19 +80,26 @@ public class Token extends Resource {
     private final String accountSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
-    private final List<String> iceServers;
+    private final List<IceServer> iceServers;
     private final String password;
     private final String ttl;
     private final String username;
 
     @JsonCreator
-    private Token(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("date_created") final String dateCreated, 
-                  @JsonProperty("date_updated") final String dateUpdated, 
-                  @JsonProperty("ice_servers") final List<String> iceServers, 
-                  @JsonProperty("password") final String password, 
-                  @JsonProperty("ttl") final String ttl, 
-                  @JsonProperty("username") final String username) {
+    private Token(@JsonProperty("account_sid")
+                  final String accountSid, 
+                  @JsonProperty("date_created")
+                  final String dateCreated, 
+                  @JsonProperty("date_updated")
+                  final String dateUpdated, 
+                  @JsonProperty("ice_servers")
+                  final List<IceServer> iceServers, 
+                  @JsonProperty("password")
+                  final String password, 
+                  @JsonProperty("ttl")
+                  final String ttl, 
+                  @JsonProperty("username")
+                  final String username) {
         this.accountSid = accountSid;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
@@ -125,7 +133,7 @@ public class Token extends Resource {
     /**
      * @return An array representing the ephemeral credentials
      */
-    public final List<String> getIceServers() {
+    public final List<IceServer> getIceServers() {
         return this.iceServers;
     }
 

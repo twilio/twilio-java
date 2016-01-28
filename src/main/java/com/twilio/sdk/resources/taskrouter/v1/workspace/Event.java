@@ -105,21 +105,36 @@ public class Event extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private Event(@JsonProperty("account_sid") final String accountSid, 
-                  @JsonProperty("actor_sid") final String actorSid, 
-                  @JsonProperty("actor_type") final String actorType, 
-                  @JsonProperty("actor_url") final URI actorUrl, 
-                  @JsonProperty("description") final String description, 
-                  @JsonProperty("event_data") final Map<String, String> eventData, 
-                  @JsonProperty("event_date") final String eventDate, 
-                  @JsonProperty("event_type") final String eventType, 
-                  @JsonProperty("resource_sid") final String resourceSid, 
-                  @JsonProperty("resource_type") final String resourceType, 
-                  @JsonProperty("resource_url") final URI resourceUrl, 
-                  @JsonProperty("sid") final String sid, 
-                  @JsonProperty("source") final String source, 
-                  @JsonProperty("source_ip_address") final String sourceIpAddress, 
-                  @JsonProperty("url") final URI url) {
+    private Event(@JsonProperty("account_sid")
+                  final String accountSid, 
+                  @JsonProperty("actor_sid")
+                  final String actorSid, 
+                  @JsonProperty("actor_type")
+                  final String actorType, 
+                  @JsonProperty("actor_url")
+                  final URI actorUrl, 
+                  @JsonProperty("description")
+                  final String description, 
+                  @JsonProperty("event_data")
+                  final Map<String, String> eventData, 
+                  @JsonProperty("event_date")
+                  final String eventDate, 
+                  @JsonProperty("event_type")
+                  final String eventType, 
+                  @JsonProperty("resource_sid")
+                  final String resourceSid, 
+                  @JsonProperty("resource_type")
+                  final String resourceType, 
+                  @JsonProperty("resource_url")
+                  final URI resourceUrl, 
+                  @JsonProperty("sid")
+                  final String sid, 
+                  @JsonProperty("source")
+                  final String source, 
+                  @JsonProperty("source_ip_address")
+                  final String sourceIpAddress, 
+                  @JsonProperty("url")
+                  final URI url) {
         this.accountSid = accountSid;
         this.actorSid = actorSid;
         this.actorType = actorType;

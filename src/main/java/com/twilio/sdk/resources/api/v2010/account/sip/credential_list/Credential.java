@@ -141,13 +141,20 @@ public class Credential extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private Credential(@JsonProperty("sid") final String sid, 
-                       @JsonProperty("account_sid") final String accountSid, 
-                       @JsonProperty("credential_list_sid") final String credentialListSid, 
-                       @JsonProperty("username") final String username, 
-                       @JsonProperty("date_created") final String dateCreated, 
-                       @JsonProperty("date_updated") final String dateUpdated, 
-                       @JsonProperty("uri") final String uri) {
+    private Credential(@JsonProperty("sid")
+                       final String sid, 
+                       @JsonProperty("account_sid")
+                       final String accountSid, 
+                       @JsonProperty("credential_list_sid")
+                       final String credentialListSid, 
+                       @JsonProperty("username")
+                       final String username, 
+                       @JsonProperty("date_created")
+                       final String dateCreated, 
+                       @JsonProperty("date_updated")
+                       final String dateUpdated, 
+                       @JsonProperty("uri")
+                       final String uri) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.credentialListSid = credentialListSid;

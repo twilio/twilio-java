@@ -138,17 +138,28 @@ public class Workflow extends SidResource {
     private final String workspaceSid;
 
     @JsonCreator
-    private Workflow(@JsonProperty("account_sid") final String accountSid, 
-                     @JsonProperty("assignment_callback_url") final String assignmentCallbackUrl, 
-                     @JsonProperty("configuration") final String configuration, 
-                     @JsonProperty("date_created") final String dateCreated, 
-                     @JsonProperty("date_updated") final String dateUpdated, 
-                     @JsonProperty("document_content_type") final String documentContentType, 
-                     @JsonProperty("fallback_assignment_callback_url") final String fallbackAssignmentCallbackUrl, 
-                     @JsonProperty("friendly_name") final String friendlyName, 
-                     @JsonProperty("sid") final String sid, 
-                     @JsonProperty("task_reservation_timeout") final Integer taskReservationTimeout, 
-                     @JsonProperty("workspace_sid") final String workspaceSid) {
+    private Workflow(@JsonProperty("account_sid")
+                     final String accountSid, 
+                     @JsonProperty("assignment_callback_url")
+                     final String assignmentCallbackUrl, 
+                     @JsonProperty("configuration")
+                     final String configuration, 
+                     @JsonProperty("date_created")
+                     final String dateCreated, 
+                     @JsonProperty("date_updated")
+                     final String dateUpdated, 
+                     @JsonProperty("document_content_type")
+                     final String documentContentType, 
+                     @JsonProperty("fallback_assignment_callback_url")
+                     final String fallbackAssignmentCallbackUrl, 
+                     @JsonProperty("friendly_name")
+                     final String friendlyName, 
+                     @JsonProperty("sid")
+                     final String sid, 
+                     @JsonProperty("task_reservation_timeout")
+                     final Integer taskReservationTimeout, 
+                     @JsonProperty("workspace_sid")
+                     final String workspaceSid) {
         this.accountSid = accountSid;
         this.assignmentCallbackUrl = assignmentCallbackUrl;
         this.configuration = configuration;

@@ -235,22 +235,38 @@ public class Trigger extends SidResource {
     private final String usageRecordUri;
 
     @JsonCreator
-    private Trigger(@JsonProperty("account_sid") final String accountSid, 
-                    @JsonProperty("api_version") final String apiVersion, 
-                    @JsonProperty("callback_method") final HttpMethod callbackMethod, 
-                    @JsonProperty("callback_url") final URI callbackUrl, 
-                    @JsonProperty("current_value") final String currentValue, 
-                    @JsonProperty("date_created") final String dateCreated, 
-                    @JsonProperty("date_fired") final String dateFired, 
-                    @JsonProperty("date_updated") final String dateUpdated, 
-                    @JsonProperty("friendly_name") final String friendlyName, 
-                    @JsonProperty("recurring") final Trigger.Recurring recurring, 
-                    @JsonProperty("sid") final String sid, 
-                    @JsonProperty("trigger_by") final Trigger.TriggerField triggerBy, 
-                    @JsonProperty("trigger_value") final String triggerValue, 
-                    @JsonProperty("uri") final String uri, 
-                    @JsonProperty("usage_category") final Trigger.UsageCategory usageCategory, 
-                    @JsonProperty("usage_record_uri") final String usageRecordUri) {
+    private Trigger(@JsonProperty("account_sid")
+                    final String accountSid, 
+                    @JsonProperty("api_version")
+                    final String apiVersion, 
+                    @JsonProperty("callback_method")
+                    final HttpMethod callbackMethod, 
+                    @JsonProperty("callback_url")
+                    final URI callbackUrl, 
+                    @JsonProperty("current_value")
+                    final String currentValue, 
+                    @JsonProperty("date_created")
+                    final String dateCreated, 
+                    @JsonProperty("date_fired")
+                    final String dateFired, 
+                    @JsonProperty("date_updated")
+                    final String dateUpdated, 
+                    @JsonProperty("friendly_name")
+                    final String friendlyName, 
+                    @JsonProperty("recurring")
+                    final Trigger.Recurring recurring, 
+                    @JsonProperty("sid")
+                    final String sid, 
+                    @JsonProperty("trigger_by")
+                    final Trigger.TriggerField triggerBy, 
+                    @JsonProperty("trigger_value")
+                    final String triggerValue, 
+                    @JsonProperty("uri")
+                    final String uri, 
+                    @JsonProperty("usage_category")
+                    final Trigger.UsageCategory usageCategory, 
+                    @JsonProperty("usage_record_uri")
+                    final String usageRecordUri) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callbackMethod = callbackMethod;

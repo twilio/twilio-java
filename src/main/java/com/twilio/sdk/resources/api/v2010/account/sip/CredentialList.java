@@ -135,13 +135,20 @@ public class CredentialList extends SidResource {
     private final String uri;
 
     @JsonCreator
-    private CredentialList(@JsonProperty("account_sid") final String accountSid, 
-                           @JsonProperty("date_created") final String dateCreated, 
-                           @JsonProperty("date_updated") final String dateUpdated, 
-                           @JsonProperty("friendly_name") final String friendlyName, 
-                           @JsonProperty("sid") final String sid, 
-                           @JsonProperty("subresource_uris") final Map<String, String> subresourceUris, 
-                           @JsonProperty("uri") final String uri) {
+    private CredentialList(@JsonProperty("account_sid")
+                           final String accountSid, 
+                           @JsonProperty("date_created")
+                           final String dateCreated, 
+                           @JsonProperty("date_updated")
+                           final String dateUpdated, 
+                           @JsonProperty("friendly_name")
+                           final String friendlyName, 
+                           @JsonProperty("sid")
+                           final String sid, 
+                           @JsonProperty("subresource_uris")
+                           final Map<String, String> subresourceUris, 
+                           @JsonProperty("uri")
+                           final String uri) {
         this.accountSid = accountSid;
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);

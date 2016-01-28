@@ -81,10 +81,14 @@ public class WorkerStatistics extends Resource {
     private final String workspaceSid;
 
     @JsonCreator
-    private WorkerStatistics(@JsonProperty("account_sid") final String accountSid, 
-                             @JsonProperty("cumulative") final String cumulative, 
-                             @JsonProperty("worker_sid") final String workerSid, 
-                             @JsonProperty("workspace_sid") final String workspaceSid) {
+    private WorkerStatistics(@JsonProperty("account_sid")
+                             final String accountSid, 
+                             @JsonProperty("cumulative")
+                             final String cumulative, 
+                             @JsonProperty("worker_sid")
+                             final String workerSid, 
+                             @JsonProperty("workspace_sid")
+                             final String workspaceSid) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.workerSid = workerSid;

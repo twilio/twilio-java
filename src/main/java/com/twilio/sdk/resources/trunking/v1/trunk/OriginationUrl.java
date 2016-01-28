@@ -142,17 +142,28 @@ public class OriginationUrl extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private OriginationUrl(@JsonProperty("account_sid") final String accountSid, 
-                           @JsonProperty("sid") final String sid, 
-                           @JsonProperty("trunk_sid") final String trunkSid, 
-                           @JsonProperty("weight") final Integer weight, 
-                           @JsonProperty("enabled") final Boolean enabled, 
-                           @JsonProperty("sip_url") final URI sipUrl, 
-                           @JsonProperty("friendly_name") final String friendlyName, 
-                           @JsonProperty("priority") final Integer priority, 
-                           @JsonProperty("date_created") final String dateCreated, 
-                           @JsonProperty("date_updated") final String dateUpdated, 
-                           @JsonProperty("url") final URI url) {
+    private OriginationUrl(@JsonProperty("account_sid")
+                           final String accountSid, 
+                           @JsonProperty("sid")
+                           final String sid, 
+                           @JsonProperty("trunk_sid")
+                           final String trunkSid, 
+                           @JsonProperty("weight")
+                           final Integer weight, 
+                           @JsonProperty("enabled")
+                           final Boolean enabled, 
+                           @JsonProperty("sip_url")
+                           final URI sipUrl, 
+                           @JsonProperty("friendly_name")
+                           final String friendlyName, 
+                           @JsonProperty("priority")
+                           final Integer priority, 
+                           @JsonProperty("date_created")
+                           final String dateCreated, 
+                           @JsonProperty("date_updated")
+                           final String dateUpdated, 
+                           @JsonProperty("url")
+                           final URI url) {
         this.accountSid = accountSid;
         this.sid = sid;
         this.trunkSid = trunkSid;

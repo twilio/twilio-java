@@ -110,14 +110,22 @@ public class Conversation extends SidResource {
     private final URI url;
 
     @JsonCreator
-    private Conversation(@JsonProperty("sid") final String sid, 
-                         @JsonProperty("status") final Conversation.Status status, 
-                         @JsonProperty("duration") final Integer duration, 
-                         @JsonProperty("date_created") final String dateCreated, 
-                         @JsonProperty("start_time") final String startTime, 
-                         @JsonProperty("end_time") final String endTime, 
-                         @JsonProperty("account_sid") final String accountSid, 
-                         @JsonProperty("url") final URI url) {
+    private Conversation(@JsonProperty("sid")
+                         final String sid, 
+                         @JsonProperty("status")
+                         final Conversation.Status status, 
+                         @JsonProperty("duration")
+                         final Integer duration, 
+                         @JsonProperty("date_created")
+                         final String dateCreated, 
+                         @JsonProperty("start_time")
+                         final String startTime, 
+                         @JsonProperty("end_time")
+                         final String endTime, 
+                         @JsonProperty("account_sid")
+                         final String accountSid, 
+                         @JsonProperty("url")
+                         final URI url) {
         this.sid = sid;
         this.status = status;
         this.duration = duration;

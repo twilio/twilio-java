@@ -103,20 +103,34 @@ public class Sandbox extends Resource {
     private final URI uri;
 
     @JsonCreator
-    private Sandbox(@JsonProperty("date_created") final String dateCreated, 
-                    @JsonProperty("date_updated") final String dateUpdated, 
-                    @JsonProperty("pin") final Integer pin, 
-                    @JsonProperty("account_sid") final String accountSid, 
-                    @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
-                    @JsonProperty("application_sid") final String applicationSid, 
-                    @JsonProperty("api_version") final String apiVersion, 
-                    @JsonProperty("voice_url") final URI voiceUrl, 
-                    @JsonProperty("voice_method") final HttpMethod voiceMethod, 
-                    @JsonProperty("sms_url") final URI smsUrl, 
-                    @JsonProperty("sms_method") final HttpMethod smsMethod, 
-                    @JsonProperty("status_callback") final URI statusCallback, 
-                    @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod, 
-                    @JsonProperty("uri") final URI uri) {
+    private Sandbox(@JsonProperty("date_created")
+                    final String dateCreated, 
+                    @JsonProperty("date_updated")
+                    final String dateUpdated, 
+                    @JsonProperty("pin")
+                    final Integer pin, 
+                    @JsonProperty("account_sid")
+                    final String accountSid, 
+                    @JsonProperty("phone_number")
+                    final com.twilio.types.PhoneNumber phoneNumber, 
+                    @JsonProperty("application_sid")
+                    final String applicationSid, 
+                    @JsonProperty("api_version")
+                    final String apiVersion, 
+                    @JsonProperty("voice_url")
+                    final URI voiceUrl, 
+                    @JsonProperty("voice_method")
+                    final HttpMethod voiceMethod, 
+                    @JsonProperty("sms_url")
+                    final URI smsUrl, 
+                    @JsonProperty("sms_method")
+                    final HttpMethod smsMethod, 
+                    @JsonProperty("status_callback")
+                    final URI statusCallback, 
+                    @JsonProperty("status_callback_method")
+                    final HttpMethod statusCallbackMethod, 
+                    @JsonProperty("uri")
+                    final URI uri) {
         this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
         this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
         this.pin = pin;

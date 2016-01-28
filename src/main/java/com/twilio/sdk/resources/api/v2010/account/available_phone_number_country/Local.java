@@ -14,6 +14,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.available_phone_number_country.LocalReader;
+import com.twilio.sdk.resources.PhoneNumberCapabilities;
 import com.twilio.sdk.resources.Resource;
 import com.twilio.sdk.resources.RestException;
 
@@ -25,7 +26,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Local extends Resource {
-    private static final long serialVersionUID = 50381272962747L;
+    private static final long serialVersionUID = 250162359733040L;
 
     /**
      * read
@@ -86,21 +87,33 @@ public class Local extends Resource {
     private final String isoCountry;
     private final String addressRequirements;
     private final Boolean beta;
-    private final Map<String, String> capabilities;
+    private final PhoneNumberCapabilities capabilities;
 
     @JsonCreator
-    private Local(@JsonProperty("friendly_name") final com.twilio.types.PhoneNumber friendlyName, 
-                  @JsonProperty("phone_number") final com.twilio.types.PhoneNumber phoneNumber, 
-                  @JsonProperty("lata") final String lata, 
-                  @JsonProperty("rate_center") final String rateCenter, 
-                  @JsonProperty("latitude") final BigDecimal latitude, 
-                  @JsonProperty("longitude") final BigDecimal longitude, 
-                  @JsonProperty("region") final String region, 
-                  @JsonProperty("postal_code") final String postalCode, 
-                  @JsonProperty("iso_country") final String isoCountry, 
-                  @JsonProperty("address_requirements") final String addressRequirements, 
-                  @JsonProperty("beta") final Boolean beta, 
-                  @JsonProperty("capabilities") final Map<String, String> capabilities) {
+    private Local(@JsonProperty("friendly_name")
+                  final com.twilio.types.PhoneNumber friendlyName, 
+                  @JsonProperty("phone_number")
+                  final com.twilio.types.PhoneNumber phoneNumber, 
+                  @JsonProperty("lata")
+                  final String lata, 
+                  @JsonProperty("rate_center")
+                  final String rateCenter, 
+                  @JsonProperty("latitude")
+                  final BigDecimal latitude, 
+                  @JsonProperty("longitude")
+                  final BigDecimal longitude, 
+                  @JsonProperty("region")
+                  final String region, 
+                  @JsonProperty("postal_code")
+                  final String postalCode, 
+                  @JsonProperty("iso_country")
+                  final String isoCountry, 
+                  @JsonProperty("address_requirements")
+                  final String addressRequirements, 
+                  @JsonProperty("beta")
+                  final Boolean beta, 
+                  @JsonProperty("capabilities")
+                  final PhoneNumberCapabilities capabilities) {
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
         this.lata = lata;
@@ -195,7 +208,7 @@ public class Local extends Resource {
     /**
      * @return The capabilities
      */
-    public final Map<String, String> getCapabilities() {
+    public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 

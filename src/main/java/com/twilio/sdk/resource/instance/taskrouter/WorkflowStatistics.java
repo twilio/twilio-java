@@ -6,6 +6,7 @@ import com.twilio.sdk.resource.NextGenInstanceResource;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -222,11 +223,9 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 *
 	 * @return the number of tasks with priority p
 	 */
-	public Integer getTasksWithPriority(int priority) {
+	public int getTasksWithPriority(int priority) {
 		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
-		String tasksByPriorityKey = "Priority-" + String.valueOf(priority);
-		Integer tasksCount = (Integer) tasksByPriority.get(tasksByPriorityKey);
-
+		Integer tasksCount = (Integer) tasksByPriority.get(String.valueOf(priority));
 		return tasksCount != null ? tasksCount : 0;
 	}
 
@@ -237,12 +236,10 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 */
 	public Map<String, Integer> getTasksByPriority() {
 		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
-
 		Map<String, Integer> tasksByPriorityMap = new HashMap<String, Integer>();
-		for (String priorityKey : tasksByPriority.keySet()) {
-			tasksByPriorityMap.put(priorityKey, (Integer) tasksByPriority.get(priorityKey));
+		for (Entry<String, Object> entry : tasksByPriority.entrySet()) {
+			tasksByPriorityMap.put(entry.getKey(), (Integer) entry.getValue());
 		}
-
 		return tasksByPriorityMap;
 	}
 

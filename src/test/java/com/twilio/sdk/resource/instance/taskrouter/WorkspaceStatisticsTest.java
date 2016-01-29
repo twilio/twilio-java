@@ -45,7 +45,7 @@ public class WorkspaceStatisticsTest extends BasicRequestTester {
 		assertTrue(workspaceStatistics.getTotalWorkers() == 3);
 		assertTrue(workspaceStatistics.getTasksWithPriority(5) == 1);
 		assertTrue(workspaceStatistics.getTasksByPriority().size() == 1);
-		assertTrue(workspaceStatistics.getTasksByPriority().get("Priority-5") == 1);
+		assertTrue(workspaceStatistics.getTasksByPriority().get("5") == 1);
 	}
 
 }

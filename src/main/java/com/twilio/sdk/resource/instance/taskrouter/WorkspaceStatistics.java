@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -263,7 +264,7 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	public Map<String, Integer> getTasksByPriority() {
 		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
 		Map<String, Integer> tasksByPriorityMap = new HashMap<String, Integer>();
-		for (Map.Entry<String, Object> entry : tasksByPriority.entrySet()) {
+		for (Entry<String, Object> entry : tasksByPriority.entrySet()) {
 			tasksByPriorityMap.put(entry.getKey(), (Integer) entry.getValue());
 		}
 		return tasksByPriorityMap;

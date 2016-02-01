@@ -15,7 +15,7 @@ public class InboundSmsPrice {
 
         private final String value;
 
-        private Type(final String value) {
+        Type(final String value) {
             this.value = value;
         }
 
@@ -25,13 +25,13 @@ public class InboundSmsPrice {
 
         @JsonCreator
         public static Type forValue(final String value) {
-            return Type.valueOf(value.toUpperCase());
+            return value == null ? null : Type.valueOf(value.toUpperCase());
         }
     }
 
-    private double basePrice;
-    private double currentPrice;
-    private Type type;
+    private final double basePrice;
+    private final double currentPrice;
+    private final Type type;
 
     @JsonCreator
     public InboundSmsPrice(@JsonProperty("base_price") final double basePrice,
@@ -65,10 +65,9 @@ public class InboundSmsPrice {
         }
 
         InboundSmsPrice other = (InboundSmsPrice) o;
-
-        return (this.getBasePrice() == other.getBasePrice() &&
-                this.getCurrentPrice() == other.getCurrentPrice() &&
-                this.getType() == other.getType());
+        return Objects.equals(this.basePrice, other.basePrice) &&
+               Objects.equals(this.currentPrice, other.currentPrice) &&
+               Objects.equals(this.type, other.type);
     }
 
     @Override

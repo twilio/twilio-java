@@ -43,10 +43,9 @@ public class PhoneNumberCapabilities {
         }
 
         PhoneNumberCapabilities other = (PhoneNumberCapabilities) o;
-
-        return (this.getMms() == other.getMms() &&
-                this.getSms() == other.getSms() &&
-                this.getVoice() == other.getVoice());
+        return Objects.equals(this.mms, other.mms) &&
+               Objects.equals(this.sms, other.sms) &&
+               Objects.equals(this.voice, other.voice);
     }
 
     @Override

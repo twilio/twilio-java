@@ -8,10 +8,18 @@ import java.net.URI;
 import java.util.Objects;
 
 public class IceServer {
-
     private final String credential;
     private final String username;
     private final URI url;
+
+    @JsonCreator
+    public IceServer(@JsonProperty("credential") final String credential,
+                     @JsonProperty("username") final String username,
+                     @JsonProperty("url") final URI url) {
+        this.credential = credential;
+        this.username = username;
+        this.url = url;
+    }
 
     public URI getUrl() {
         return url;
@@ -23,14 +31,6 @@ public class IceServer {
 
     public String getCredential() {
         return credential;
-    }
-
-    @JsonCreator
-    public IceServer(@JsonProperty("credential") final String credential,
-                     @JsonProperty("username") final String username, @JsonProperty("url") final URI url) {
-        this.credential = credential;
-        this.username = username;
-        this.url = url;
     }
 
     @Override

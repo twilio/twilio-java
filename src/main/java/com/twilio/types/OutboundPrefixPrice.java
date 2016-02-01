@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
 import java.util.List;
+import java.util.Objects;
 
 public class OutboundPrefixPrice {
-    private List<String> prefixes;
-    private String friendlyName;
-    private double basePrice;
-    private double currentPrice;
+
+    private final List<String> prefixes;
+    private final String friendlyName;
+    private final double basePrice;
+    private final double currentPrice;
 
     @JsonCreator
     public OutboundPrefixPrice(@JsonProperty("prefixes") final List<String> prefixes,
@@ -41,39 +43,33 @@ public class OutboundPrefixPrice {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-        OutboundPrefixPrice that = (OutboundPrefixPrice) o;
-
-        if (Double.compare(that.basePrice, basePrice) != 0) return false;
-        if (Double.compare(that.currentPrice, currentPrice) != 0) return false;
-        if (prefixes != null ? !prefixes.equals(that.prefixes) : that.prefixes != null) return false;
-        return !(friendlyName != null ? !friendlyName.equals(that.friendlyName) : that.friendlyName != null);
-
+        OutboundPrefixPrice other = (OutboundPrefixPrice) o;
+        return Objects.equals(this.basePrice, other.basePrice) &&
+               Objects.equals(this.currentPrice, other.currentPrice) &&
+               Objects.equals(this.prefixes, other.prefixes) &&
+               Objects.equals(this.friendlyName, other.friendlyName);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = prefixes != null ? prefixes.hashCode() : 0;
-        result = 31 * result + (friendlyName != null ? friendlyName.hashCode() : 0);
-        temp = Double.doubleToLongBits(basePrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(currentPrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return Objects.hash(this.prefixes, this.friendlyName, this.basePrice, this.currentPrice);
     }
 
     @Override
     public String toString() {
-        return "OutboundPrefixPrice{" +
-                "prefixes=" + prefixes +
-                ", friendlyName='" + friendlyName + '\'' +
-                ", basePrice=" + basePrice +
-                ", currentPrice=" + currentPrice +
-                '}';
+        return MoreObjects.toStringHelper(this)
+                .add("prefixes", this.prefixes)
+                .add("friendly_name", this.friendlyName)
+                .add("base_price", this.basePrice)
+                .add("current_price", this.currentPrice)
+                .toString();
     }
 
 }

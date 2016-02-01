@@ -15,7 +15,7 @@ public class InboundCallPrice {
 
         private final String value;
 
-        private Type(final String value) {
+        Type(final String value) {
             this.value = value;
         }
 
@@ -25,13 +25,13 @@ public class InboundCallPrice {
 
         @JsonCreator
         public static Type forValue(final String value) {
-            return Type.valueOf(value.toUpperCase());
+            return value == null ? null : Type.valueOf(value.toUpperCase());
         }
     }
 
-    private double basePrice;
-    private double currentPrice;
-    private Type type;
+    private final double basePrice;
+    private final double currentPrice;
+    private final Type type;
 
     @JsonCreator
     public InboundCallPrice(@JsonProperty("base_price") final double basePrice,

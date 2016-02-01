@@ -16,7 +16,7 @@ public class Promoter {
     }
 
     public static <T> List<T> listOfOne(final T one) {
-        ArrayList<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<T>();
         list.add(one);
         return list;
     }

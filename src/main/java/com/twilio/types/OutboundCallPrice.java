@@ -7,8 +7,8 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
 public class OutboundCallPrice {
-    private double basePrice;
-    private double currentPrice;
+    private final double basePrice;
+    private final double currentPrice;
 
     @JsonCreator
     public OutboundCallPrice(@JsonProperty("base_price") final double basePrice,
@@ -27,32 +27,28 @@ public class OutboundCallPrice {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         OutboundCallPrice that = (OutboundCallPrice) o;
-
-        if (Double.compare(that.basePrice, basePrice) != 0) return false;
-        return Double.compare(that.currentPrice, currentPrice) == 0;
-
+        return Objects.equals(this.basePrice, that.basePrice) &&
+               Objects.equals(this.currentPrice, that.currentPrice);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(basePrice);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(currentPrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return Objects.hash(this.basePrice, this.currentPrice);
     }
 
     @Override
     public String toString() {
-        return "OutboundCallPrice{" +
-                "basePrice=" + basePrice +
-                ", currentPrice=" + currentPrice +
-                '}';
+        return MoreObjects.toStringHelper(this)
+                .add("base_price", this.basePrice)
+                .add("current_price", this.currentPrice)
+                .toString();
     }
 }

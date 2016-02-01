@@ -43,10 +43,9 @@ public class FeedbackIssue {
         }
 
         FeedbackIssue other = (FeedbackIssue) o;
-
-        return (this.getCount() == other.getCount() &&
-                this.getDescription() == other.getDescription() &&
-                this.getPercentageOfTotalCalls() == other.getPercentageOfTotalCalls());
+        return Objects.equals(this.count, other.count) &&
+               Objects.equals(this.description, other.description) &&
+               Objects.equals(this.percentageOfTotalCalls, other.getPercentageOfTotalCalls());
     }
 
     @Override

@@ -19,8 +19,8 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         this.reader = reader;
         this.client = client;
         this.page = page;
-        iterator = page.getRecords().iterator();
-        autoPaging = true;
+        this.iterator = page.getRecords().iterator();
+        this.autoPaging = true;
     }
 
     public boolean isAutoPaging() {

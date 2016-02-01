@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class OutboundSmsPrice {
-    private String mcc;
-    private String mnc;
-    private String carrier;
-    private List<InboundSmsPrice> prices;
+    private final String mcc;
+    private final String mnc;
+    private final String carrier;
+    private final List<InboundSmsPrice> prices;
 
     @JsonCreator
     public OutboundSmsPrice(@JsonProperty("mcc") final String mcc,
@@ -32,31 +32,33 @@ public class OutboundSmsPrice {
         return mnc;
     }
 
+    public String getCarrier() {
+        return carrier;
+    }
+
     public List<InboundSmsPrice> getPrices() {
         return prices;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-        OutboundSmsPrice that = (OutboundSmsPrice) o;
-
-        if (mcc != null ? !mcc.equals(that.mcc) : that.mcc != null) return false;
-        if (mnc != null ? !mnc.equals(that.mnc) : that.mnc != null) return false;
-        if (carrier != null ? !carrier.equals(that.carrier) : that.carrier != null) return false;
-        return !(prices != null ? !prices.equals(that.prices) : that.prices != null);
-
+        OutboundSmsPrice other = (OutboundSmsPrice) o;
+        return Objects.equals(this.mcc, other.mcc) &&
+               Objects.equals(this.mnc, other.mnc) &&
+               Objects.equals(this.carrier, other.carrier) &&
+               Objects.equals(this.prices, other.prices);
     }
 
     @Override
     public int hashCode() {
-        int result = mcc != null ? mcc.hashCode() : 0;
-        result = 31 * result + (mnc != null ? mnc.hashCode() : 0);
-        result = 31 * result + (carrier != null ? carrier.hashCode() : 0);
-        result = 31 * result + (prices != null ? prices.hashCode() : 0);
-        return result;
+        return Objects.hash(this.mcc, this.mnc, this.carrier, this.prices);
     }
 
     @Override

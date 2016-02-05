@@ -35,8 +35,8 @@ public class Request {
                    final String uri, final String accountSid) {
         this.method = method;
         this.uri = "https://" + domain.toString() + ".twilio.com" + uri;
-        queryParams = new HashMap<>();
-        postParams = new HashMap<>();
+        this.queryParams = new HashMap<>();
+        this.postParams = new HashMap<>();
     }
 
     public HttpMethod getMethod() {

@@ -32,10 +32,10 @@ public class TwilioRestClient {
         }
     }
 
-    protected HttpClient httpClient;
-    protected final ObjectMapper objectMapper;
-    protected final String accountSid;
-    protected final String authToken;
+    private HttpClient httpClient;
+    private final ObjectMapper objectMapper;
+    private final String accountSid;
+    private final String authToken;
 
     public TwilioRestClient(final String accountSid, final String authToken) {
         this(accountSid, authToken, new NetworkHttpClient());

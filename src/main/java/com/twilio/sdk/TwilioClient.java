@@ -35,7 +35,7 @@ import java.util.*;
 /**
  * The abstract class TwilioClient.
  */
-public abstract class TwilioClient {
+public abstract class TwilioClient implements ITwilioClient {
 
 	/**
 	 * The default HTTP Connection timeout

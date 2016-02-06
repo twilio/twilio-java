@@ -141,29 +141,29 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.8</version>
-        <configuration>
-          <show>public</show>
-          <nohelp>true</nohelp>
-          <author>true</author>
-          <version>true</version>
-          <use>true</use>
-          <windowtitle>Twilio Java</windowtitle>
-          <doctitle><![CDATA[<h1>Twilio Java</h1>]]></doctitle>
-          <bottom><![CDATA[<i>Copyright &#169; 2011 Twilio, Inc. All Rights Reserved.</i>]]></bottom>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+      <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+        <!--<version>2.8</version>-->
+        <!--<configuration>-->
+          <!--<show>public</show>-->
+          <!--<nohelp>true</nohelp>-->
+          <!--<author>true</author>-->
+          <!--<version>true</version>-->
+          <!--<use>true</use>-->
+          <!--<windowtitle>Twilio Java</windowtitle>-->
+          <!--<doctitle><![CDATA[<h1>Twilio Java</h1>]]></doctitle>-->
+          <!--<bottom><![CDATA[<i>Copyright &#169; 2011 Twilio, Inc. All Rights Reserved.</i>]]></bottom>-->
+        <!--</configuration>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<id>attach-sources</id>-->
+            <!--<goals>-->
+              <!--<goal>jar</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+      <!--</plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>

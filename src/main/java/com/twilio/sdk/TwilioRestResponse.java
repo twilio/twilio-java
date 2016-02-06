@@ -55,7 +55,7 @@ public class TwilioRestResponse {
 	private boolean error;
 
 	/** The content type. */
-	private String contentType;
+	private String contentType = "application/json";
 
 
 	/**

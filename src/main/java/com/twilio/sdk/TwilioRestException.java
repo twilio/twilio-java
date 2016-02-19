@@ -23,6 +23,8 @@ public class TwilioRestException extends Exception {
 	/** The more info. */
 	private String moreInfo;
 
+	private int status;
+
 	/**
 	 * Instantiates a new twilio rest exception.
 	 *
@@ -49,6 +51,23 @@ public class TwilioRestException extends Exception {
 	}
 
 	/**
+	 * Instantiates a new twilio rest exception.
+	 *
+	 * @param message the message
+	 * @param errorCode the error code
+	 * @param moreInfo the more info
+	 * @param status the status
+	 */
+	public TwilioRestException(String message, int errorCode, String moreInfo, int status) {
+		super(message);
+
+		this.message = message;
+		this.errorCode = errorCode;
+		this.moreInfo = moreInfo;
+		this.status = status;
+	}
+
+	/**
 	 * Parses the response.
 	 *
 	 * @param response the response
@@ -59,6 +78,7 @@ public class TwilioRestException extends Exception {
 		String message = "";
 		String moreInfo = "";
 		int errorCode = 0;
+		int status = 0;
 		if (response.isJson()) {
 			message = (String) data.get("message");
 			
@@ -68,10 +88,13 @@ public class TwilioRestException extends Exception {
 			if (data.get("more_info") != null) {
 				moreInfo = (String) data.get("more_info");
 			}
+			if (data.get("status") != null) {
+				status = (Integer) data.get("status");
+			}
 		}
 		// TODO xml
 
-		return new TwilioRestException(message, errorCode, moreInfo);
+		return new TwilioRestException(message, errorCode, moreInfo, status);
 	}
 
 	/**
@@ -101,4 +124,12 @@ public class TwilioRestException extends Exception {
 		return moreInfo;
 	}
 
+	/**
+	 * Gets the status
+	 *
+	 * @return the status
+     */
+	public int getStatus() {
+		return status;
+	}
 }

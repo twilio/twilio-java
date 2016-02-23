@@ -42,7 +42,7 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
      */
     public void allowActivityUpdates() {
         final Policy policy = new Policy(this.resourceUrl, "POST", true);
-        policy.postFilter.put("ActivitySid", FilterRequirement.REQUIRED);
+//        policy.postFilter.put("ActivitySid", FilterRequirement.REQUIRED);
         policies.add(policy);
     }
 

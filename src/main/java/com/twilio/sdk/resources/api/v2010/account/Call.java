@@ -8,18 +8,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.api.v2010.account.CallCreator;
 import com.twilio.sdk.deleters.api.v2010.account.CallDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.api.v2010.account.CallFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.CallReader;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import com.twilio.sdk.updaters.api.v2010.account.CallUpdater;
 import org.joda.time.DateTime;
@@ -87,8 +82,7 @@ public class Call extends SidResource {
     }
 
     /**
-     * Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client
-     * connections
+     * Create a CallCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param to Phone number, SIP address or client identifier to call
@@ -96,13 +90,15 @@ public class Call extends SidResource {
      * @param url Url from which to fetch TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final URI url) {
+    public static CallCreator create(final String accountSid, 
+                                     final com.twilio.types.PhoneNumber to, 
+                                     final com.twilio.types.PhoneNumber from, 
+                                     final URI url) {
         return new CallCreator(accountSid, to, from, url);
     }
 
     /**
-     * Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client
-     * connections
+     * Create a CallCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param to Phone number, SIP address or client identifier to call
@@ -111,35 +107,39 @@ public class Call extends SidResource {
      *                       TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final String applicationSid) {
+    public static CallCreator create(final String accountSid, 
+                                     final com.twilio.types.PhoneNumber to, 
+                                     final com.twilio.types.PhoneNumber from, 
+                                     final String applicationSid) {
         return new CallCreator(accountSid, to, from, applicationSid);
     }
 
     /**
-     * Once the record is deleted, it will no longer appear in the API and Account
-     * Portal logs.
+     * Create a CallDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid Call Sid that uniquely identifies the Call to delete
      * @return CallDeleter capable of executing the delete
      */
-    public static CallDeleter delete(final String accountSid, final String sid) {
+    public static CallDeleter delete(final String accountSid, 
+                                     final String sid) {
         return new CallDeleter(accountSid, sid);
     }
 
     /**
-     * Fetch the Call specified by the provided Call Sid
+     * Create a CallFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Call Sid that uniquely identifies the Call to fetch
      * @return CallFetcher capable of executing the fetch
      */
-    public static CallFetcher fetch(final String accountSid, final String sid) {
+    public static CallFetcher fetch(final String accountSid, 
+                                    final String sid) {
         return new CallFetcher(accountSid, sid);
     }
 
     /**
-     * Retrieves a collection of Calls made to and from your account
+     * Create a CallReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return CallReader capable of executing the read
@@ -149,18 +149,19 @@ public class Call extends SidResource {
     }
 
     /**
-     * Initiates a call redirect or terminates a call
+     * Create a CallUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid Call Sid that uniquely identifies the Call to update
      * @return CallUpdater capable of executing the update
      */
-    public static CallUpdater update(final String accountSid, final String sid) {
+    public static CallUpdater update(final String accountSid, 
+                                     final String sid) {
         return new CallUpdater(accountSid, sid);
     }
 
     /**
-     * Converts a JSON String into a Call object using the provided ObjectMapper
+     * Converts a JSON String into a Call object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -179,7 +180,7 @@ public class Call extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Call object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -302,6 +303,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The unique id of the Account responsible for creating this Call.
+     * 
      * @return The unique id of the Account responsible for creating this Call
      */
     public final String getAccountSid() {
@@ -309,6 +312,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The annotation provided for the Call.
+     * 
      * @return The annotation provided for the Call
      */
     public final String getAnnotation() {
@@ -316,6 +321,9 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The If this call was initiated with answering machine detection,
+     * either `human` or `machine`. Empty otherwise..
+     * 
      * @return If this call was initiated with answering machine detection, either
      *         `human` or `machine`. Empty otherwise.
      */
@@ -324,6 +332,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The API Version the Call was created through.
+     * 
      * @return The API Version the Call was created through
      */
     public final String getApiVersion() {
@@ -331,6 +341,9 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The If this call was an incoming call to a phone number with Caller
+     * ID Lookup enabled, the caller's name. Empty otherwise..
+     * 
      * @return If this call was an incoming call to a phone number with Caller ID
      *         Lookup enabled, the caller's name. Empty otherwise.
      */
@@ -339,6 +352,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The date that this resource was created.
+     * 
      * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -346,6 +361,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The date that this resource was last updated.
+     * 
      * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -353,6 +370,10 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The A string describing the direction of the call. `inbound` for
+     * inbound calls, `outbound-api` for calls initiated via the REST API or
+     * `outbound-dial` for calls initiated by a `<Dial>` verb..
+     * 
      * @return A string describing the direction of the call. `inbound` for inbound
      *         calls, `outbound-api` for calls initiated via the REST API or
      *         `outbound-dial` for calls initiated by a `<Dial>` verb.
@@ -362,6 +383,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The duration.
+     * 
      * @return The duration
      */
     public final String getDuration() {
@@ -369,6 +392,9 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The end time of the Call. Null if the call did not complete
+     * successfully..
+     * 
      * @return The end time of the Call. Null if the call did not complete
      *         successfully.
      */
@@ -377,6 +403,10 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The If this Call was an incoming call forwarded from another number,
+     * the forwarding phone number (depends on carrier supporting forwarding). Empty
+     * otherwise..
+     * 
      * @return If this Call was an incoming call forwarded from another number, the
      *         forwarding phone number (depends on carrier supporting forwarding).
      *         Empty otherwise.
@@ -386,6 +416,11 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The phone number, SIP address or Client identifier that made this
+     * Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses
+     * are formatted as `name@company.com`. Client identifiers are formatted
+     * `client:name`..
+     * 
      * @return The phone number, SIP address or Client identifier that made this
      *         Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP
      *         addresses are formatted as `name@company.com`. Client identifiers are
@@ -396,6 +431,9 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The phone number, SIP address or Client identifier that made this
+     * Call. Formatted for display..
+     * 
      * @return The phone number, SIP address or Client identifier that made this
      *         Call. Formatted for display.
      */
@@ -404,6 +442,9 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The A 34 character Group Sid associated with this Call. Empty if no
+     * Group is associated with the Call..
+     * 
      * @return A 34 character Group Sid associated with this Call. Empty if no
      *         Group is associated with the Call.
      */
@@ -412,6 +453,9 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The A 34 character string that uniquely identifies the Call that
+     * created this leg..
+     * 
      * @return A 34 character string that uniquely identifies the Call that created
      *         this leg.
      */
@@ -420,6 +464,10 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The If the call was inbound, this is the Sid of the
+     * IncomingPhoneNumber that received the call. If the call was outbound, it is
+     * the Sid of the OutgoingCallerId from which the call was placed..
+     * 
      * @return If the call was inbound, this is the Sid of the IncomingPhoneNumber
      *         that received the call. If the call was outbound, it is the Sid of
      *         the OutgoingCallerId from which the call was placed.
@@ -429,6 +477,10 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The charge for this call, in the currency associated with the
+     * account. Populated after the call is completed. May not be immediately
+     * available..
+     * 
      * @return The charge for this call, in the currency associated with the
      *         account. Populated after the call is completed. May not be
      *         immediately available.
@@ -438,6 +490,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The currency in which `Price` is measured..
+     * 
      * @return The currency in which `Price` is measured.
      */
     public final Currency getPriceUnit() {
@@ -445,6 +499,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The A 34 character string that uniquely identifies this resource..
+     * 
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -452,6 +508,9 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The start time of the Call. Null if the call has not yet been
+     * dialed..
+     * 
      * @return The start time of the Call. Null if the call has not yet been dialed.
      */
     public final DateTime getStartTime() {
@@ -459,6 +518,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The status.
+     * 
      * @return The status
      */
     public final Call.Status getStatus() {
@@ -466,6 +527,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The Call Instance Subresources.
+     * 
      * @return Call Instance Subresources
      */
     public final Map<String, String> getSubresourceUris() {
@@ -473,6 +536,11 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The phone number, SIP address or Client identifier that received
+     * this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP
+     * addresses are formatted as `name@company.com`. Client identifiers are
+     * formatted `client:name`..
+     * 
      * @return The phone number, SIP address or Client identifier that received
      *         this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP
      *         addresses are formatted as `name@company.com`. Client identifiers are
@@ -483,6 +551,9 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The phone number, SIP address or Client identifier that received
+     * this Call. Formatted for display..
+     * 
      * @return The phone number, SIP address or Client identifier that received
      *         this Call. Formatted for display.
      */
@@ -491,6 +562,8 @@ public class Call extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource, relative to `https://api.twilio.com`.
+     * 
      * @return The URI for this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {

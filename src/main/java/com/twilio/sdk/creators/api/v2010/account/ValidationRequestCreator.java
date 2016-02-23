@@ -23,7 +23,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     private HttpMethod statusCallbackMethod;
 
     /**
-     * Construct a new ValidationRequestCreator
+     * Construct a new ValidationRequestCreator.
      * 
      * @param accountSid The account_sid
      * @param phoneNumber The phone_number
@@ -34,7 +34,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -45,7 +45,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * The call_delay
+     * The call_delay.
      * 
      * @param callDelay The call_delay
      * @return this
@@ -56,7 +56,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * The extension
+     * The extension.
      * 
      * @param extension The extension
      * @return this
@@ -67,7 +67,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * The status_callback
+     * The status_callback.
      * 
      * @param statusCallback The status_callback
      * @return this
@@ -78,7 +78,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * The status_callback
+     * The status_callback.
      * 
      * @param statusCallback The status_callback
      * @return this
@@ -88,7 +88,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * The status_callback_method
+     * The status_callback_method.
      * 
      * @param statusCallbackMethod The status_callback_method
      * @return this
@@ -99,7 +99,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created ValidationRequest
@@ -120,8 +120,10 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
             throw new ApiConnectionException("ValidationRequest creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -135,7 +137,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

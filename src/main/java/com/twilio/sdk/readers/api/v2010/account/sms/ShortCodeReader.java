@@ -18,7 +18,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
     private String shortCode;
 
     /**
-     * Construct a new ShortCodeReader
+     * Construct a new ShortCodeReader.
      * 
      * @param accountSid The account_sid
      */
@@ -28,7 +28,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     /**
      * Only show the ShortCode resources with friendly names that exactly match this
-     * name
+     * name.
      * 
      * @param friendlyName Filter by friendly name
      * @return this
@@ -40,7 +40,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     /**
      * Only show the ShortCode resources that match this pattern. You can specify
-     * partial numbers and use '*' as a wildcard for any digit
+     * partial numbers and use '*' as a wildcard for any digit.
      * 
      * @param shortCode Filter by ShortCode
      * @return this
@@ -51,7 +51,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return ShortCode ResourceSet
@@ -73,7 +73,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -90,7 +90,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
     }
 
     /**
-     * Generate a Page of ShortCode Resources for a given request
+     * Generate a Page of ShortCode Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -103,8 +103,10 @@ public class ShortCodeReader extends Reader<ShortCode> {
             throw new ApiConnectionException("ShortCode read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -115,13 +117,18 @@ public class ShortCodeReader extends Reader<ShortCode> {
         }
         
         Page<ShortCode> result = new Page<>();
-        result.deserialize("short_codes", response.getContent(), ShortCode.class, client.getObjectMapper());
+        result.deserialize(
+            "short_codes",
+            response.getContent(),
+            ShortCode.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

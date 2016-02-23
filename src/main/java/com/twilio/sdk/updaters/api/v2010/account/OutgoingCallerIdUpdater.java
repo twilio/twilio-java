@@ -16,7 +16,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     private String friendlyName;
 
     /**
-     * Construct a new OutgoingCallerIdUpdater
+     * Construct a new OutgoingCallerIdUpdater.
      * 
      * @param accountSid The account_sid
      * @param sid Update by unique outgoing-caller-id Sid
@@ -27,7 +27,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     }
 
     /**
-     * A human readable description of the caller ID
+     * A human readable description of the caller ID.
      * 
      * @param friendlyName A human readable description of the caller ID
      * @return this
@@ -38,7 +38,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated OutgoingCallerId
@@ -59,8 +59,10 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
             throw new ApiConnectionException("OutgoingCallerId update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -74,7 +76,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

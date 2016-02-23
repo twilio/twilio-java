@@ -14,7 +14,7 @@ public class AccountFetcher extends Fetcher<Account> {
     private final String sid;
 
     /**
-     * Construct a new AccountFetcher
+     * Construct a new AccountFetcher.
      * 
      * @param sid Fetch by unique Account Sid
      */
@@ -23,7 +23,7 @@ public class AccountFetcher extends Fetcher<Account> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Account
@@ -43,8 +43,10 @@ public class AccountFetcher extends Fetcher<Account> {
             throw new ApiConnectionException("Account fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

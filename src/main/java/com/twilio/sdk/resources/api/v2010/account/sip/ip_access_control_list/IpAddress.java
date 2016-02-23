@@ -33,18 +33,19 @@ public class IpAddress extends SidResource {
     private static final long serialVersionUID = 118701358673463L;
 
     /**
-     * read
+     * Create a IpAddressReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @return IpAddressReader capable of executing the read
      */
-    public static IpAddressReader read(final String accountSid, final String ipAccessControlListSid) {
+    public static IpAddressReader read(final String accountSid, 
+                                       final String ipAccessControlListSid) {
         return new IpAddressReader(accountSid, ipAccessControlListSid);
     }
 
     /**
-     * create
+     * Create a IpAddressCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
@@ -52,24 +53,29 @@ public class IpAddress extends SidResource {
      * @param ipAddress The ip_address
      * @return IpAddressCreator capable of executing the create
      */
-    public static IpAddressCreator create(final String accountSid, final String ipAccessControlListSid, final String friendlyName, final String ipAddress) {
+    public static IpAddressCreator create(final String accountSid, 
+                                          final String ipAccessControlListSid, 
+                                          final String friendlyName, 
+                                          final String ipAddress) {
         return new IpAddressCreator(accountSid, ipAccessControlListSid, friendlyName, ipAddress);
     }
 
     /**
-     * fetch
+     * Create a IpAddressFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @param sid The sid
      * @return IpAddressFetcher capable of executing the fetch
      */
-    public static IpAddressFetcher fetch(final String accountSid, final String ipAccessControlListSid, final String sid) {
+    public static IpAddressFetcher fetch(final String accountSid, 
+                                         final String ipAccessControlListSid, 
+                                         final String sid) {
         return new IpAddressFetcher(accountSid, ipAccessControlListSid, sid);
     }
 
     /**
-     * update
+     * Create a IpAddressUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
@@ -78,25 +84,31 @@ public class IpAddress extends SidResource {
      * @param friendlyName The friendly_name
      * @return IpAddressUpdater capable of executing the update
      */
-    public static IpAddressUpdater update(final String accountSid, final String ipAccessControlListSid, final String sid, final String ipAddress, final String friendlyName) {
+    public static IpAddressUpdater update(final String accountSid, 
+                                          final String ipAccessControlListSid, 
+                                          final String sid, 
+                                          final String ipAddress, 
+                                          final String friendlyName) {
         return new IpAddressUpdater(accountSid, ipAccessControlListSid, sid, ipAddress, friendlyName);
     }
 
     /**
-     * delete
+     * Create a IpAddressDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @param sid The sid
      * @return IpAddressDeleter capable of executing the delete
      */
-    public static IpAddressDeleter delete(final String accountSid, final String ipAccessControlListSid, final String sid) {
+    public static IpAddressDeleter delete(final String accountSid, 
+                                          final String ipAccessControlListSid, 
+                                          final String sid) {
         return new IpAddressDeleter(accountSid, ipAccessControlListSid, sid);
     }
 
     /**
      * Converts a JSON String into a IpAddress object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -115,7 +127,7 @@ public class IpAddress extends SidResource {
 
     /**
      * Converts a JSON InputStream into a IpAddress object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -169,6 +181,8 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -176,6 +190,8 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -183,6 +199,8 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -190,6 +208,8 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Returns The The ip_address.
+     * 
      * @return The ip_address
      */
     public final String getIpAddress() {
@@ -197,6 +217,8 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Returns The The ip_access_control_list_sid.
+     * 
      * @return The ip_access_control_list_sid
      */
     public final String getIpAccessControlListSid() {
@@ -204,6 +226,8 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -211,6 +235,8 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -218,6 +244,8 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

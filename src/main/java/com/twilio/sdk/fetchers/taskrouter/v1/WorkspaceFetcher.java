@@ -14,7 +14,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
     private final String sid;
 
     /**
-     * Construct a new WorkspaceFetcher
+     * Construct a new WorkspaceFetcher.
      * 
      * @param sid The sid
      */
@@ -23,7 +23,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Workspace
@@ -43,8 +43,10 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
             throw new ApiConnectionException("Workspace fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

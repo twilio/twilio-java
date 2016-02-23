@@ -19,7 +19,7 @@ public class TriggerReader extends Reader<Trigger> {
     private Trigger.UsageCategory usageCategory;
 
     /**
-     * Construct a new TriggerReader
+     * Construct a new TriggerReader.
      * 
      * @param accountSid The account_sid
      */
@@ -29,7 +29,7 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * Only show UsageTriggers that count over this interval. One of daily, monthly,
-     * or yearly
+     * or yearly.
      * 
      * @param recurring Filter by recurring
      * @return this
@@ -40,7 +40,7 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that trigger by this field in the UsagRecord
+     * Only show UsageTriggers that trigger by this field in the UsagRecord.
      * 
      * @param triggerBy Filter by trigger by
      * @return this
@@ -51,7 +51,7 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that watch this usage category
+     * Only show UsageTriggers that watch this usage category.
      * 
      * @param usageCategory Filter by Usage Category
      * @return this
@@ -62,7 +62,7 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Trigger ResourceSet
@@ -84,7 +84,7 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -101,7 +101,7 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Generate a Page of Trigger Resources for a given request
+     * Generate a Page of Trigger Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -114,8 +114,10 @@ public class TriggerReader extends Reader<Trigger> {
             throw new ApiConnectionException("Trigger read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -126,13 +128,18 @@ public class TriggerReader extends Reader<Trigger> {
         }
         
         Page<Trigger> result = new Page<>();
-        result.deserialize("usage_triggers", response.getContent(), Trigger.class, client.getObjectMapper());
+        result.deserialize(
+            "usage_triggers",
+            response.getContent(),
+            Trigger.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

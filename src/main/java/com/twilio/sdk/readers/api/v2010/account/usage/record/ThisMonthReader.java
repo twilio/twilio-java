@@ -16,7 +16,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     private final String accountSid;
 
     /**
-     * Construct a new ThisMonthReader
+     * Construct a new ThisMonthReader.
      * 
      * @param accountSid The account_sid
      */
@@ -25,7 +25,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return ThisMonth ResourceSet
@@ -47,7 +47,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -64,7 +64,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     }
 
     /**
-     * Generate a Page of ThisMonth Resources for a given request
+     * Generate a Page of ThisMonth Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -77,8 +77,10 @@ public class ThisMonthReader extends Reader<ThisMonth> {
             throw new ApiConnectionException("ThisMonth read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -89,13 +91,18 @@ public class ThisMonthReader extends Reader<ThisMonth> {
         }
         
         Page<ThisMonth> result = new Page<>();
-        result.deserialize("usage_records", response.getContent(), ThisMonth.class, client.getObjectMapper());
+        result.deserialize(
+            "usage_records",
+            response.getContent(),
+            ThisMonth.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

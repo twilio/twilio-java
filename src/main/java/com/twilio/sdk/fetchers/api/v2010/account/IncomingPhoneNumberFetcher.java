@@ -15,7 +15,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
     private final String sid;
 
     /**
-     * Construct a new IncomingPhoneNumberFetcher
+     * Construct a new IncomingPhoneNumberFetcher.
      * 
      * @param ownerAccountSid The owner_account_sid
      * @param sid Fetch by unique incoming-phone-number Sid
@@ -26,7 +26,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IncomingPhoneNumber
@@ -46,8 +46,10 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
             throw new ApiConnectionException("IncomingPhoneNumber fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

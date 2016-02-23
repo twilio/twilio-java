@@ -32,7 +32,7 @@ public class Number extends SidResource {
     private static final long serialVersionUID = 198694876395979L;
 
     /**
-     * fetch
+     * Create a NumberFetcher to execute fetch.
      * 
      * @param number The number
      * @return NumberFetcher capable of executing the fetch
@@ -42,7 +42,7 @@ public class Number extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Number object using the provided ObjectMapper
+     * Converts a JSON String into a Number object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -61,7 +61,7 @@ public class Number extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Number object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -112,6 +112,8 @@ public class Number extends SidResource {
     }
 
     /**
+     * Returns The The number.
+     * 
      * @return The number
      */
     public final String getSid() {
@@ -119,6 +121,8 @@ public class Number extends SidResource {
     }
 
     /**
+     * Returns The The number.
+     * 
      * @return The number
      */
     public final com.twilio.types.PhoneNumber getNumber() {
@@ -126,6 +130,8 @@ public class Number extends SidResource {
     }
 
     /**
+     * Returns The The country.
+     * 
      * @return The country
      */
     public final String getCountry() {
@@ -133,6 +139,8 @@ public class Number extends SidResource {
     }
 
     /**
+     * Returns The The iso_country.
+     * 
      * @return The iso_country
      */
     public final String getIsoCountry() {
@@ -140,6 +148,8 @@ public class Number extends SidResource {
     }
 
     /**
+     * Returns The The outbound_call_price.
+     * 
      * @return The outbound_call_price
      */
     public final OutboundCallPrice getOutboundCallPrice() {
@@ -147,6 +157,8 @@ public class Number extends SidResource {
     }
 
     /**
+     * Returns The The inbound_call_price.
+     * 
      * @return The inbound_call_price
      */
     public final InboundCallPrice getInboundCallPrice() {
@@ -154,6 +166,8 @@ public class Number extends SidResource {
     }
 
     /**
+     * Returns The The price_unit.
+     * 
      * @return The price_unit
      */
     public final Currency getPriceUnit() {
@@ -161,6 +175,8 @@ public class Number extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

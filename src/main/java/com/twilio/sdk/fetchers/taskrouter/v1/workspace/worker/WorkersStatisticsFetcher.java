@@ -22,7 +22,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     private String friendlyName;
 
     /**
-     * Construct a new WorkersStatisticsFetcher
+     * Construct a new WorkersStatisticsFetcher.
      * 
      * @param workspaceSid The workspace_sid
      */
@@ -31,7 +31,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The minutes
+     * The minutes.
      * 
      * @param minutes The minutes
      * @return this
@@ -42,7 +42,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The start_date
+     * The start_date.
      * 
      * @param startDate The start_date
      * @return this
@@ -53,7 +53,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The end_date
+     * The end_date.
      * 
      * @param endDate The end_date
      * @return this
@@ -64,7 +64,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The task_queue_sid
+     * The task_queue_sid.
      * 
      * @param taskQueueSid The task_queue_sid
      * @return this
@@ -75,7 +75,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The task_queue_name
+     * The task_queue_name.
      * 
      * @param taskQueueName The task_queue_name
      * @return this
@@ -86,7 +86,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -97,7 +97,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched WorkersStatistics
@@ -117,8 +117,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
             throw new ApiConnectionException("WorkersStatistics fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

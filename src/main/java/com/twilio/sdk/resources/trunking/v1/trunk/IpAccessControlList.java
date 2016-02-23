@@ -33,40 +33,43 @@ public class IpAccessControlList extends SidResource {
     private static final long serialVersionUID = 45032598628398L;
 
     /**
-     * fetch
+     * Create a IpAccessControlListFetcher to execute fetch.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetch(final String trunkSid, final String sid) {
+    public static IpAccessControlListFetcher fetch(final String trunkSid, 
+                                                   final String sid) {
         return new IpAccessControlListFetcher(trunkSid, sid);
     }
 
     /**
-     * delete
+     * Create a IpAccessControlListDeleter to execute delete.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter delete(final String trunkSid, final String sid) {
+    public static IpAccessControlListDeleter delete(final String trunkSid, 
+                                                    final String sid) {
         return new IpAccessControlListDeleter(trunkSid, sid);
     }
 
     /**
-     * create
+     * Create a IpAccessControlListCreator to execute create.
      * 
      * @param trunkSid The trunk_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator create(final String trunkSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListCreator create(final String trunkSid, 
+                                                    final String ipAccessControlListSid) {
         return new IpAccessControlListCreator(trunkSid, ipAccessControlListSid);
     }
 
     /**
-     * read
+     * Create a IpAccessControlListReader to execute read.
      * 
      * @param trunkSid The trunk_sid
      * @return IpAccessControlListReader capable of executing the read
@@ -77,7 +80,7 @@ public class IpAccessControlList extends SidResource {
 
     /**
      * Converts a JSON String into a IpAccessControlList object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -96,7 +99,7 @@ public class IpAccessControlList extends SidResource {
 
     /**
      * Converts a JSON InputStream into a IpAccessControlList object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -146,6 +149,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -153,6 +158,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -160,6 +167,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The trunk_sid.
+     * 
      * @return The trunk_sid
      */
     public final String getTrunkSid() {
@@ -167,6 +176,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -174,6 +185,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -181,6 +194,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -188,6 +203,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

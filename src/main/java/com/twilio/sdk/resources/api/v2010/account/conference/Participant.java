@@ -32,19 +32,21 @@ public class Participant extends SidResource {
     private static final long serialVersionUID = 238358972354024L;
 
     /**
-     * Fetch an instance of a participant
+     * Create a ParticipantFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param conferenceSid The string that uniquely identifies this conference
      * @param callSid The call_sid
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetch(final String accountSid, final String conferenceSid, final String callSid) {
+    public static ParticipantFetcher fetch(final String accountSid, 
+                                           final String conferenceSid, 
+                                           final String callSid) {
         return new ParticipantFetcher(accountSid, conferenceSid, callSid);
     }
 
     /**
-     * Update the properties of this participant
+     * Create a ParticipantUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param conferenceSid The string that uniquely identifies this conference
@@ -52,37 +54,42 @@ public class Participant extends SidResource {
      * @param muted Indicates if the participant should be muted
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater update(final String accountSid, final String conferenceSid, final String callSid, final Boolean muted) {
+    public static ParticipantUpdater update(final String accountSid, 
+                                            final String conferenceSid, 
+                                            final String callSid, 
+                                            final Boolean muted) {
         return new ParticipantUpdater(accountSid, conferenceSid, callSid, muted);
     }
 
     /**
-     * Kick a participant from a given conference
+     * Create a ParticipantDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param conferenceSid The string that uniquely identifies this conference
      * @param callSid The call_sid
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter delete(final String accountSid, final String conferenceSid, final String callSid) {
+    public static ParticipantDeleter delete(final String accountSid, 
+                                            final String conferenceSid, 
+                                            final String callSid) {
         return new ParticipantDeleter(accountSid, conferenceSid, callSid);
     }
 
     /**
-     * Retrieve a list of participants belonging to the account used to make the
-     * request
+     * Create a ParticipantReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param conferenceSid The string that uniquely identifies this conference
      * @return ParticipantReader capable of executing the read
      */
-    public static ParticipantReader read(final String accountSid, final String conferenceSid) {
+    public static ParticipantReader read(final String accountSid, 
+                                         final String conferenceSid) {
         return new ParticipantReader(accountSid, conferenceSid);
     }
 
     /**
      * Converts a JSON String into a Participant object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -101,7 +108,7 @@ public class Participant extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Participant object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -159,6 +166,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this call.
+     * 
      * @return A string that uniquely identifies this call
      */
     public final String getSid() {
@@ -166,6 +175,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -173,6 +184,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this call.
+     * 
      * @return A string that uniquely identifies this call
      */
     public final String getCallSid() {
@@ -180,6 +193,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this conference.
+     * 
      * @return A string that uniquely identifies this conference
      */
     public final String getConferenceSid() {
@@ -187,6 +202,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -194,6 +211,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -201,6 +220,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The Indicates if the endConferenceOnExit was set.
+     * 
      * @return Indicates if the endConferenceOnExit was set
      */
     public final Boolean getEndConferenceOnExit() {
@@ -208,6 +229,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The Indicates if the participant is muted.
+     * 
      * @return Indicates if the participant is muted
      */
     public final Boolean getMuted() {
@@ -215,6 +238,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The Indicates if the startConferenceOnEnter attribute was set.
+     * 
      * @return Indicates if the startConferenceOnEnter attribute was set
      */
     public final Boolean getStartConferenceOnEnter() {
@@ -222,6 +247,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

@@ -124,40 +124,43 @@ public class Trigger extends SidResource {
     }
 
     /**
-     * Fetch and instance of a usage-trigger
+     * Create a TriggerFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique usage-trigger Sid
      * @return TriggerFetcher capable of executing the fetch
      */
-    public static TriggerFetcher fetch(final String accountSid, final String sid) {
+    public static TriggerFetcher fetch(final String accountSid, 
+                                       final String sid) {
         return new TriggerFetcher(accountSid, sid);
     }
 
     /**
-     * Update an instance of a usage trigger
+     * Create a TriggerUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return TriggerUpdater capable of executing the update
      */
-    public static TriggerUpdater update(final String accountSid, final String sid) {
+    public static TriggerUpdater update(final String accountSid, 
+                                        final String sid) {
         return new TriggerUpdater(accountSid, sid);
     }
 
     /**
-     * delete
+     * Create a TriggerDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return TriggerDeleter capable of executing the delete
      */
-    public static TriggerDeleter delete(final String accountSid, final String sid) {
+    public static TriggerDeleter delete(final String accountSid, 
+                                        final String sid) {
         return new TriggerDeleter(accountSid, sid);
     }
 
     /**
-     * Create a new UsageTrigger
+     * Create a TriggerCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param callbackUrl URL Twilio will request when the trigger fires
@@ -165,13 +168,15 @@ public class Trigger extends SidResource {
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
-    public static TriggerCreator create(final String accountSid, final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory) {
+    public static TriggerCreator create(final String accountSid, 
+                                        final URI callbackUrl, 
+                                        final String triggerValue, 
+                                        final Trigger.UsageCategory usageCategory) {
         return new TriggerCreator(accountSid, callbackUrl, triggerValue, usageCategory);
     }
 
     /**
-     * Retrieve a list of usage-triggers belonging to the account used to make the
-     * request
+     * Create a TriggerReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return TriggerReader capable of executing the read
@@ -181,7 +186,7 @@ public class Trigger extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Trigger object using the provided ObjectMapper
+     * Converts a JSON String into a Trigger object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -200,7 +205,7 @@ public class Trigger extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Trigger object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -286,6 +291,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The account this trigger monitors..
+     * 
      * @return The account this trigger monitors.
      */
     public final String getAccountSid() {
@@ -293,6 +300,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -300,6 +309,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The HTTP method to use with callback_url.
+     * 
      * @return HTTP method to use with callback_url
      */
     public final HttpMethod getCallbackMethod() {
@@ -307,6 +318,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio will request when the trigger fires.
+     * 
      * @return URL Twilio will request when the trigger fires
      */
     public final URI getCallbackUrl() {
@@ -314,6 +327,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The current value of the field the trigger is watching..
+     * 
      * @return The current value of the field the trigger is watching.
      */
     public final String getCurrentValue() {
@@ -321,6 +336,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -328,6 +345,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The date the trigger was last fired.
+     * 
      * @return The date the trigger was last fired
      */
     public final DateTime getDateFired() {
@@ -335,6 +354,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -342,6 +363,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The A user-specified, human-readable name for the trigger..
+     * 
      * @return A user-specified, human-readable name for the trigger.
      */
     public final String getFriendlyName() {
@@ -349,6 +372,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The How this trigger recurs.
+     * 
      * @return How this trigger recurs
      */
     public final Trigger.Recurring getRecurring() {
@@ -356,6 +381,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The trigger's unique Sid.
+     * 
      * @return The trigger's unique Sid
      */
     public final String getSid() {
@@ -363,6 +390,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The field in the UsageRecord that fires the trigger.
+     * 
      * @return The field in the UsageRecord that fires the trigger
      */
     public final Trigger.TriggerField getTriggerBy() {
@@ -370,6 +399,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The the value at which the trigger will fire.
+     * 
      * @return the value at which the trigger will fire
      */
     public final String getTriggerValue() {
@@ -377,6 +408,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {
@@ -384,6 +417,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The usage category the trigger watches.
+     * 
      * @return The usage category the trigger watches
      */
     public final Trigger.UsageCategory getUsageCategory() {
@@ -391,6 +426,8 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Returns The The URI of the UsageRecord this trigger is watching.
+     * 
      * @return The URI of the UsageRecord this trigger is watching
      */
     public final String getUsageRecordUri() {

@@ -26,7 +26,7 @@ public class TollFreeReader extends Reader<TollFree> {
     private Boolean beta;
 
     /**
-     * Construct a new TollFreeReader
+     * Construct a new TollFreeReader.
      * 
      * @param accountSid The account_sid
      * @param countryCode The country_code
@@ -37,7 +37,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The area_code
+     * The area_code.
      * 
      * @param areaCode The area_code
      * @return this
@@ -48,7 +48,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The contains
+     * The contains.
      * 
      * @param contains The contains
      * @return this
@@ -59,7 +59,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The sms_enabled
+     * The sms_enabled.
      * 
      * @param smsEnabled The sms_enabled
      * @return this
@@ -70,7 +70,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The mms_enabled
+     * The mms_enabled.
      * 
      * @param mmsEnabled The mms_enabled
      * @return this
@@ -81,7 +81,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The voice_enabled
+     * The voice_enabled.
      * 
      * @param voiceEnabled The voice_enabled
      * @return this
@@ -92,7 +92,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The exclude_all_address_required
+     * The exclude_all_address_required.
      * 
      * @param excludeAllAddressRequired The exclude_all_address_required
      * @return this
@@ -103,7 +103,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The exclude_local_address_required
+     * The exclude_local_address_required.
      * 
      * @param excludeLocalAddressRequired The exclude_local_address_required
      * @return this
@@ -114,7 +114,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The exclude_foreign_address_required
+     * The exclude_foreign_address_required.
      * 
      * @param excludeForeignAddressRequired The exclude_foreign_address_required
      * @return this
@@ -125,7 +125,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The beta
+     * The beta.
      * 
      * @param beta The beta
      * @return this
@@ -136,7 +136,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return TollFree ResourceSet
@@ -158,7 +158,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -175,7 +175,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * Generate a Page of TollFree Resources for a given request
+     * Generate a Page of TollFree Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -188,8 +188,10 @@ public class TollFreeReader extends Reader<TollFree> {
             throw new ApiConnectionException("TollFree read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -200,13 +202,18 @@ public class TollFreeReader extends Reader<TollFree> {
         }
         
         Page<TollFree> result = new Page<>();
-        result.deserialize("available_phone_numbers", response.getContent(), TollFree.class, client.getObjectMapper());
+        result.deserialize(
+            "available_phone_numbers",
+            response.getContent(),
+            TollFree.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

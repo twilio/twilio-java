@@ -19,9 +19,9 @@ public class Twilio {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern(Twilio.DATE_TIME_PATTERN)
                                                                               .withZone(DateTimeZone.UTC);
 
-    static String accountSid;
-    static String authToken;
-    static TwilioRestClient restClient;
+    private static String accountSid;
+    private static String authToken;
+    private static TwilioRestClient restClient;
     private static ListeningExecutorService executorService;
 
     private Twilio() {
@@ -61,7 +61,8 @@ public class Twilio {
         if (Twilio.restClient == null) {
             if (Twilio.accountSid == null || Twilio.authToken == null) {
                 throw new AuthenticationException(
-                        "TwilioRestClient was used before AccountSid and AuthToken were set, make sure you call Twilio.init()");
+                    "TwilioRestClient was used before AccountSid and AuthToken were set, make sure you call Twilio.init()"
+                );
             }
 
             Twilio.restClient = new TwilioRestClient(Twilio.accountSid, Twilio.authToken);

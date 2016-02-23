@@ -28,7 +28,7 @@ public class TaskQueuesStatistics extends Resource {
     private static final long serialVersionUID = 246523371655676L;
 
     /**
-     * read
+     * Create a TaskQueuesStatisticsReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
      * @return TaskQueuesStatisticsReader capable of executing the read
@@ -39,7 +39,7 @@ public class TaskQueuesStatistics extends Resource {
 
     /**
      * Converts a JSON String into a TaskQueuesStatistics object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -58,7 +58,7 @@ public class TaskQueuesStatistics extends Resource {
 
     /**
      * Converts a JSON InputStream into a TaskQueuesStatistics object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -100,6 +100,8 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -107,6 +109,8 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
+     * Returns The The cumulative.
+     * 
      * @return The cumulative
      */
     public final Map<String, String> getCumulative() {
@@ -114,6 +118,8 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
+     * Returns The The realtime.
+     * 
      * @return The realtime
      */
     public final JsonNode getRealtime() {
@@ -121,6 +127,8 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
+     * Returns The The task_queue_sid.
+     * 
      * @return The task_queue_sid
      */
     public final String getTaskQueueSid() {
@@ -128,6 +136,8 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

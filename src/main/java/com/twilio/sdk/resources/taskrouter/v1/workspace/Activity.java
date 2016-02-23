@@ -33,41 +33,45 @@ public class Activity extends SidResource {
     private static final long serialVersionUID = 22270788626396L;
 
     /**
-     * fetch
+     * Create a ActivityFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return ActivityFetcher capable of executing the fetch
      */
-    public static ActivityFetcher fetch(final String workspaceSid, final String sid) {
+    public static ActivityFetcher fetch(final String workspaceSid, 
+                                        final String sid) {
         return new ActivityFetcher(workspaceSid, sid);
     }
 
     /**
-     * update
+     * Create a ActivityUpdater to execute update.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @param friendlyName The friendly_name
      * @return ActivityUpdater capable of executing the update
      */
-    public static ActivityUpdater update(final String workspaceSid, final String sid, final String friendlyName) {
+    public static ActivityUpdater update(final String workspaceSid, 
+                                         final String sid, 
+                                         final String friendlyName) {
         return new ActivityUpdater(workspaceSid, sid, friendlyName);
     }
 
     /**
-     * delete
+     * Create a ActivityDeleter to execute delete.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return ActivityDeleter capable of executing the delete
      */
-    public static ActivityDeleter delete(final String workspaceSid, final String sid) {
+    public static ActivityDeleter delete(final String workspaceSid, 
+                                         final String sid) {
         return new ActivityDeleter(workspaceSid, sid);
     }
 
     /**
-     * read
+     * Create a ActivityReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
      * @return ActivityReader capable of executing the read
@@ -77,19 +81,22 @@ public class Activity extends SidResource {
     }
 
     /**
-     * create
+     * Create a ActivityCreator to execute create.
      * 
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @param available The available
      * @return ActivityCreator capable of executing the create
      */
-    public static ActivityCreator create(final String workspaceSid, final String friendlyName, final Boolean available) {
+    public static ActivityCreator create(final String workspaceSid, 
+                                         final String friendlyName, 
+                                         final Boolean available) {
         return new ActivityCreator(workspaceSid, friendlyName, available);
     }
 
     /**
-     * Converts a JSON String into a Activity object using the provided ObjectMapper
+     * Converts a JSON String into a Activity object using the provided
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -108,7 +115,7 @@ public class Activity extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Activity object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -158,6 +165,8 @@ public class Activity extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -165,6 +174,8 @@ public class Activity extends SidResource {
     }
 
     /**
+     * Returns The The available.
+     * 
      * @return The available
      */
     public final Boolean getAvailable() {
@@ -172,6 +183,8 @@ public class Activity extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -179,6 +192,8 @@ public class Activity extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -186,6 +201,8 @@ public class Activity extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -193,6 +210,8 @@ public class Activity extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -200,6 +219,8 @@ public class Activity extends SidResource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

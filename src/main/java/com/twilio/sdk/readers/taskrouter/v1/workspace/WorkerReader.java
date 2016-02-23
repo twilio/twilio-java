@@ -23,7 +23,7 @@ public class WorkerReader extends Reader<Worker> {
     private String taskQueueSid;
 
     /**
-     * Construct a new WorkerReader
+     * Construct a new WorkerReader.
      * 
      * @param workspaceSid The workspace_sid
      */
@@ -32,7 +32,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The activity_name
+     * The activity_name.
      * 
      * @param activityName The activity_name
      * @return this
@@ -43,7 +43,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The activity_sid
+     * The activity_sid.
      * 
      * @param activitySid The activity_sid
      * @return this
@@ -54,7 +54,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The available
+     * The available.
      * 
      * @param available The available
      * @return this
@@ -65,7 +65,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -76,7 +76,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The target_workers_expression
+     * The target_workers_expression.
      * 
      * @param targetWorkersExpression The target_workers_expression
      * @return this
@@ -87,7 +87,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The task_queue_name
+     * The task_queue_name.
      * 
      * @param taskQueueName The task_queue_name
      * @return this
@@ -98,7 +98,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The task_queue_sid
+     * The task_queue_sid.
      * 
      * @param taskQueueSid The task_queue_sid
      * @return this
@@ -109,7 +109,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Worker ResourceSet
@@ -131,7 +131,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -148,7 +148,7 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Generate a Page of Worker Resources for a given request
+     * Generate a Page of Worker Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -161,8 +161,10 @@ public class WorkerReader extends Reader<Worker> {
             throw new ApiConnectionException("Worker read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -173,13 +175,18 @@ public class WorkerReader extends Reader<Worker> {
         }
         
         Page<Worker> result = new Page<>();
-        result.deserialize("workers", response.getContent(), Worker.class, client.getObjectMapper());
+        result.deserialize(
+            "workers",
+            response.getContent(),
+            Worker.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

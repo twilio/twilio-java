@@ -21,7 +21,7 @@ public class AddressUpdater extends Updater<Address> {
     private String postalCode;
 
     /**
-     * Construct a new AddressUpdater
+     * Construct a new AddressUpdater.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
@@ -32,7 +32,7 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -43,7 +43,7 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The customer_name
+     * The customer_name.
      * 
      * @param customerName The customer_name
      * @return this
@@ -54,7 +54,7 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The street
+     * The street.
      * 
      * @param street The street
      * @return this
@@ -65,7 +65,7 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The city
+     * The city.
      * 
      * @param city The city
      * @return this
@@ -76,7 +76,7 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The region
+     * The region.
      * 
      * @param region The region
      * @return this
@@ -87,7 +87,7 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The postal_code
+     * The postal_code.
      * 
      * @param postalCode The postal_code
      * @return this
@@ -98,7 +98,7 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Address
@@ -119,8 +119,10 @@ public class AddressUpdater extends Updater<Address> {
             throw new ApiConnectionException("Address update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -134,7 +136,7 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

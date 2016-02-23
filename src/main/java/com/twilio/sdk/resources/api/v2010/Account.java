@@ -75,7 +75,7 @@ public class Account extends SidResource {
     }
 
     /**
-     * Create a new Twilio Subaccount from the account making the request
+     * Create a AccountCreator to execute create.
      * 
      * @return AccountCreator capable of executing the create
      */
@@ -84,7 +84,7 @@ public class Account extends SidResource {
     }
 
     /**
-     * Fetch the account specified by the provided Account Sid
+     * Create a AccountFetcher to execute fetch.
      * 
      * @param sid Fetch by unique Account Sid
      * @return AccountFetcher capable of executing the fetch
@@ -94,8 +94,7 @@ public class Account extends SidResource {
     }
 
     /**
-     * Retrieves a collection of Accounts belonging to the account used to make the
-     * request
+     * Create a AccountReader to execute read.
      * 
      * @return AccountReader capable of executing the read
      */
@@ -104,7 +103,7 @@ public class Account extends SidResource {
     }
 
     /**
-     * Modify the properties of a given Account
+     * Create a AccountUpdater to execute update.
      * 
      * @param sid The sid
      * @return AccountUpdater capable of executing the update
@@ -114,7 +113,7 @@ public class Account extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Account object using the provided ObjectMapper
+     * Converts a JSON String into a Account object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -133,7 +132,7 @@ public class Account extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Account object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -195,6 +194,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The The authorization token for this account.
+     * 
      * @return The authorization token for this account
      */
     public final String getAuthToken() {
@@ -202,6 +203,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The The date this account was created.
+     * 
      * @return The date this account was created
      */
     public final DateTime getDateCreated() {
@@ -209,6 +212,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The The date this account was last updated.
+     * 
      * @return The date this account was last updated
      */
     public final DateTime getDateUpdated() {
@@ -216,6 +221,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The A human readable description of this account.
+     * 
      * @return A human readable description of this account
      */
     public final String getFriendlyName() {
@@ -223,6 +230,9 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The The unique 34 character id representing the parent of this
+     * account.
+     * 
      * @return The unique 34 character id representing the parent of this account
      */
     public final String getOwnerAccountSid() {
@@ -230,6 +240,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The A 34 character string that uniquely identifies this resource..
+     * 
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -237,6 +249,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The The status of this account.
+     * 
      * @return The status of this account
      */
     public final Account.Status getStatus() {
@@ -244,6 +258,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The Account Instance Subresources.
+     * 
      * @return Account Instance Subresources
      */
     public final Map<String, String> getSubresourceUris() {
@@ -251,6 +267,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The The type of this account.
+     * 
      * @return The type of this account
      */
     public final Account.Type getType() {
@@ -258,6 +276,8 @@ public class Account extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource, relative to `https://api.twilio.com`.
+     * 
      * @return The URI for this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {

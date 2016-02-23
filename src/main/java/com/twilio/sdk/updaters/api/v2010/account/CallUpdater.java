@@ -25,7 +25,7 @@ public class CallUpdater extends Updater<Call> {
     private HttpMethod statusCallbackMethod;
 
     /**
-     * Construct a new CallUpdater
+     * Construct a new CallUpdater.
      * 
      * @param accountSid The account_sid
      * @param sid Call Sid that uniquely identifies the Call to update
@@ -37,7 +37,7 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * A valid URL that returns TwiML. Twilio will immediately redirect the call to
-     * the new TwiML upon execution.
+     * the new TwiML upon execution..
      * 
      * @param url URL that returns TwiML
      * @return this
@@ -49,7 +49,7 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * A valid URL that returns TwiML. Twilio will immediately redirect the call to
-     * the new TwiML upon execution.
+     * the new TwiML upon execution..
      * 
      * @param url URL that returns TwiML
      * @return this
@@ -60,7 +60,7 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * The HTTP method Twilio should use when requesting the URL. Defaults to
-     * `POST`.
+     * `POST`..
      * 
      * @param method HTTP method to use to fetch TwiML
      * @return this
@@ -74,7 +74,7 @@ public class CallUpdater extends Updater<Call> {
      * Either `canceled` or `completed`. Specifying `canceled` will attempt to
      * hangup calls that are queued or ringing but not affect calls already in
      * progress. Specifying `completed` will attempt to hang up a call even if it's
-     * already in progress.
+     * already in progress..
      * 
      * @param status Status to update the Call with
      * @return this
@@ -86,7 +86,7 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML at `Url`.
+     * TwiML at `Url`..
      * 
      * @param fallbackUrl Fallback URL in case of error
      * @return this
@@ -98,7 +98,7 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML at `Url`.
+     * TwiML at `Url`..
      * 
      * @param fallbackUrl Fallback URL in case of error
      * @return this
@@ -109,7 +109,7 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * The HTTP method that Twilio should use to request the `FallbackUrl`. Must be
-     * either `GET` or `POST`. Defaults to `POST`.
+     * either `GET` or `POST`. Defaults to `POST`..
      * 
      * @param fallbackMethod HTTP Method to use with FallbackUrl
      * @return this
@@ -120,7 +120,7 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * A URL that Twilio will request when the call ends to notify your app.
+     * A URL that Twilio will request when the call ends to notify your app..
      * 
      * @param statusCallback Status Callback URL
      * @return this
@@ -131,7 +131,7 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * A URL that Twilio will request when the call ends to notify your app.
+     * A URL that Twilio will request when the call ends to notify your app..
      * 
      * @param statusCallback Status Callback URL
      * @return this
@@ -142,7 +142,7 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * The HTTP method that Twilio should use to request the `StatusCallback`.
-     * Defaults to `POST`.
+     * Defaults to `POST`..
      * 
      * @param statusCallbackMethod HTTP Method to use with StatusCallback
      * @return this
@@ -153,7 +153,7 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Call
@@ -174,8 +174,10 @@ public class CallUpdater extends Updater<Call> {
             throw new ApiConnectionException("Call update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -189,7 +191,7 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

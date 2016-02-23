@@ -19,7 +19,7 @@ public class WorkflowCreator extends Creator<Workflow> {
     private Integer taskReservationTimeout;
 
     /**
-     * Construct a new WorkflowCreator
+     * Construct a new WorkflowCreator.
      * 
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
@@ -34,7 +34,7 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * The fallback_assignment_callback_url
+     * The fallback_assignment_callback_url.
      * 
      * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
      * @return this
@@ -45,7 +45,7 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * The task_reservation_timeout
+     * The task_reservation_timeout.
      * 
      * @param taskReservationTimeout The task_reservation_timeout
      * @return this
@@ -56,7 +56,7 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Workflow
@@ -77,8 +77,10 @@ public class WorkflowCreator extends Creator<Workflow> {
             throw new ApiConnectionException("Workflow creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -92,7 +94,7 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

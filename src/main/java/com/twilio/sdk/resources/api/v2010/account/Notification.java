@@ -32,30 +32,31 @@ public class Notification extends SidResource {
     private static final long serialVersionUID = 203437902819777L;
 
     /**
-     * Fetch a notification belonging to the account used to make the request
+     * Create a NotificationFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique notification Sid
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetch(final String accountSid, final String sid) {
+    public static NotificationFetcher fetch(final String accountSid, 
+                                            final String sid) {
         return new NotificationFetcher(accountSid, sid);
     }
 
     /**
-     * Delete a notification identified by the NotificationSid from an accounts log
+     * Create a NotificationDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid Delete by unique notification Sid
      * @return NotificationDeleter capable of executing the delete
      */
-    public static NotificationDeleter delete(final String accountSid, final String sid) {
+    public static NotificationDeleter delete(final String accountSid, 
+                                             final String sid) {
         return new NotificationDeleter(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of notifications belonging to the account used to make the
-     * request
+     * Create a NotificationReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return NotificationReader capable of executing the read
@@ -66,7 +67,7 @@ public class Notification extends SidResource {
 
     /**
      * Converts a JSON String into a Notification object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -85,7 +86,7 @@ public class Notification extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Notification object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -175,6 +176,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -182,6 +185,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The version of the Twilio API in use.
+     * 
      * @return The version of the Twilio API in use
      */
     public final String getApiVersion() {
@@ -189,6 +194,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The string that uniquely identifies the call.
+     * 
      * @return The string that uniquely identifies the call
      */
     public final String getCallSid() {
@@ -196,6 +203,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -203,6 +212,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -210,6 +221,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The A unique error code corresponding to the notification.
+     * 
      * @return A unique error code corresponding to the notification
      */
     public final String getErrorCode() {
@@ -217,6 +230,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The An integer log level.
+     * 
      * @return An integer log level
      */
     public final String getLog() {
@@ -224,6 +239,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The date the notification was generated.
+     * 
      * @return The date the notification was generated
      */
     public final DateTime getMessageDate() {
@@ -231,6 +248,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The text of the notification..
+     * 
      * @return The text of the notification.
      */
     public final String getMessageText() {
@@ -238,6 +257,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The A URL for more information about the error code.
+     * 
      * @return A URL for more information about the error code
      */
     public final URI getMoreInfo() {
@@ -245,6 +266,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The HTTP method used with the request url.
+     * 
      * @return HTTP method used with the request url
      */
     public final HttpMethod getRequestMethod() {
@@ -252,6 +275,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The URL of the resource that generated the notification.
+     * 
      * @return URL of the resource that generated the notification
      */
     public final URI getRequestUrl() {
@@ -259,6 +284,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The Twilio-generated HTTP variables sent to the server.
+     * 
      * @return Twilio-generated HTTP variables sent to the server
      */
     public final String getRequestVariables() {
@@ -266,6 +293,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The HTTP body returned by your server..
+     * 
      * @return The HTTP body returned by your server.
      */
     public final String getResponseBody() {
@@ -273,6 +302,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The HTTP headers returned by your server..
+     * 
      * @return The HTTP headers returned by your server.
      */
     public final String getResponseHeaders() {
@@ -280,6 +311,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this notification.
+     * 
      * @return A string that uniquely identifies this notification
      */
     public final String getSid() {
@@ -287,6 +320,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

@@ -31,43 +31,47 @@ public class Media extends SidResource {
     private static final long serialVersionUID = 138990472819672L;
 
     /**
-     * Delete media from your account. Once delete, you will no longer be billed
+     * Create a MediaDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param messageSid The message_sid
      * @param sid Delete by unique media Sid
      * @return MediaDeleter capable of executing the delete
      */
-    public static MediaDeleter delete(final String accountSid, final String messageSid, final String sid) {
+    public static MediaDeleter delete(final String accountSid, 
+                                      final String messageSid, 
+                                      final String sid) {
         return new MediaDeleter(accountSid, messageSid, sid);
     }
 
     /**
-     * Fetch a single media instance belonging to the account used to make the
-     * request
+     * Create a MediaFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param messageSid The message_sid
      * @param sid Fetch by unique media Sid
      * @return MediaFetcher capable of executing the fetch
      */
-    public static MediaFetcher fetch(final String accountSid, final String messageSid, final String sid) {
+    public static MediaFetcher fetch(final String accountSid, 
+                                     final String messageSid, 
+                                     final String sid) {
         return new MediaFetcher(accountSid, messageSid, sid);
     }
 
     /**
-     * Retrieve a list of medias belonging to the account used to make the request
+     * Create a MediaReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param messageSid The message_sid
      * @return MediaReader capable of executing the read
      */
-    public static MediaReader read(final String accountSid, final String messageSid) {
+    public static MediaReader read(final String accountSid, 
+                                   final String messageSid) {
         return new MediaReader(accountSid, messageSid);
     }
 
     /**
-     * Converts a JSON String into a Media object using the provided ObjectMapper
+     * Converts a JSON String into a Media object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -86,7 +90,7 @@ public class Media extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Media object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -136,6 +140,8 @@ public class Media extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -143,6 +149,8 @@ public class Media extends SidResource {
     }
 
     /**
+     * Returns The The default mime-type of the media.
+     * 
      * @return The default mime-type of the media
      */
     public final String getContentType() {
@@ -150,6 +158,8 @@ public class Media extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -157,6 +167,8 @@ public class Media extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -164,6 +176,8 @@ public class Media extends SidResource {
     }
 
     /**
+     * Returns The The unique id of the resource that created the media..
+     * 
      * @return The unique id of the resource that created the media.
      */
     public final String getParentSid() {
@@ -171,6 +185,8 @@ public class Media extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this media.
+     * 
      * @return A string that uniquely identifies this media
      */
     public final String getSid() {
@@ -178,6 +194,8 @@ public class Media extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

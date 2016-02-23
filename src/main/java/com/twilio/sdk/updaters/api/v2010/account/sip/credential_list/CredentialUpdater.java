@@ -18,7 +18,7 @@ public class CredentialUpdater extends Updater<Credential> {
     private final String password;
 
     /**
-     * Construct a new CredentialUpdater
+     * Construct a new CredentialUpdater.
      * 
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
@@ -35,7 +35,7 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Credential
@@ -56,8 +56,10 @@ public class CredentialUpdater extends Updater<Credential> {
             throw new ApiConnectionException("Credential update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -71,7 +73,7 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

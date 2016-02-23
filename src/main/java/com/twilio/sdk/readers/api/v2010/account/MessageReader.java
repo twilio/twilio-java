@@ -19,7 +19,7 @@ public class MessageReader extends Reader<Message> {
     private String dateSent;
 
     /**
-     * Construct a new MessageReader
+     * Construct a new MessageReader.
      * 
      * @param accountSid The account_sid
      */
@@ -28,7 +28,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Filter by messages to this number
+     * Filter by messages to this number.
      * 
      * @param to Filter by messages to this number
      * @return this
@@ -39,7 +39,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Only show messages from this phone number
+     * Only show messages from this phone number.
      * 
      * @param from Filter by from number
      * @return this
@@ -50,7 +50,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Filter messages sent by this date
+     * Filter messages sent by this date.
      * 
      * @param dateSent Filter by date sent
      * @return this
@@ -61,7 +61,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
@@ -83,7 +83,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -100,7 +100,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Generate a Page of Message Resources for a given request
+     * Generate a Page of Message Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -113,8 +113,10 @@ public class MessageReader extends Reader<Message> {
             throw new ApiConnectionException("Message read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -125,13 +127,18 @@ public class MessageReader extends Reader<Message> {
         }
         
         Page<Message> result = new Page<>();
-        result.deserialize("messages", response.getContent(), Message.class, client.getObjectMapper());
+        result.deserialize(
+            "messages",
+            response.getContent(),
+            Message.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

@@ -22,7 +22,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     private DateTime startDate;
 
     /**
-     * Construct a new TaskQueuesStatisticsReader
+     * Construct a new TaskQueuesStatisticsReader.
      * 
      * @param workspaceSid The workspace_sid
      */
@@ -31,7 +31,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * The end_date
+     * The end_date.
      * 
      * @param endDate The end_date
      * @return this
@@ -42,7 +42,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -53,7 +53,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * The minutes
+     * The minutes.
      * 
      * @param minutes The minutes
      * @return this
@@ -64,7 +64,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * The start_date
+     * The start_date.
      * 
      * @param startDate The start_date
      * @return this
@@ -75,7 +75,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueuesStatistics ResourceSet
@@ -97,7 +97,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -114,7 +114,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * Generate a Page of TaskQueuesStatistics Resources for a given request
+     * Generate a Page of TaskQueuesStatistics Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -127,8 +127,10 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
             throw new ApiConnectionException("TaskQueuesStatistics read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -139,13 +141,18 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
         }
         
         Page<TaskQueuesStatistics> result = new Page<>();
-        result.deserialize("task_queues_statistics", response.getContent(), TaskQueuesStatistics.class, client.getObjectMapper());
+        result.deserialize(
+            "task_queues_statistics",
+            response.getContent(),
+            TaskQueuesStatistics.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

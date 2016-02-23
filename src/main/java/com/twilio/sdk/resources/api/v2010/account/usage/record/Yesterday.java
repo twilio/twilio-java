@@ -77,7 +77,7 @@ public class Yesterday extends Resource {
     }
 
     /**
-     * read
+     * Create a YesterdayReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return YesterdayReader capable of executing the read
@@ -88,7 +88,7 @@ public class Yesterday extends Resource {
 
     /**
      * Converts a JSON String into a Yesterday object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -107,7 +107,7 @@ public class Yesterday extends Resource {
 
     /**
      * Converts a JSON InputStream into a Yesterday object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -186,6 +186,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -193,6 +195,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -200,6 +204,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The category.
+     * 
      * @return The category
      */
     public final Yesterday.Category getCategory() {
@@ -207,6 +213,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The count.
+     * 
      * @return The count
      */
     public final String getCount() {
@@ -214,6 +222,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The count_unit.
+     * 
      * @return The count_unit
      */
     public final String getCountUnit() {
@@ -221,6 +231,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The description.
+     * 
      * @return The description
      */
     public final String getDescription() {
@@ -228,6 +240,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The end_date.
+     * 
      * @return The end_date
      */
     public final DateTime getEndDate() {
@@ -235,6 +249,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The price.
+     * 
      * @return The price
      */
     public final BigDecimal getPrice() {
@@ -242,6 +258,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The price_unit.
+     * 
      * @return The price_unit
      */
     public final Currency getPriceUnit() {
@@ -249,6 +267,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The start_date.
+     * 
      * @return The start_date
      */
     public final DateTime getStartDate() {
@@ -256,6 +276,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The subresource_uris.
+     * 
      * @return The subresource_uris
      */
     public final Map<String, String> getSubresourceUris() {
@@ -263,6 +285,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {
@@ -270,6 +294,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The usage.
+     * 
      * @return The usage
      */
     public final String getUsage() {
@@ -277,6 +303,8 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Returns The The usage_unit.
+     * 
      * @return The usage_unit
      */
     public final String getUsageUnit() {

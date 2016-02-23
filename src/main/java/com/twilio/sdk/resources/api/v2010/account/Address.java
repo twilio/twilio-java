@@ -33,7 +33,7 @@ public class Address extends SidResource {
     private static final long serialVersionUID = 241863313934407L;
 
     /**
-     * create
+     * Create a AddressCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param customerName The customer_name
@@ -44,45 +44,54 @@ public class Address extends SidResource {
      * @param isoCountry The iso_country
      * @return AddressCreator capable of executing the create
      */
-    public static AddressCreator create(final String accountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
+    public static AddressCreator create(final String accountSid, 
+                                        final String customerName, 
+                                        final String street, 
+                                        final String city, 
+                                        final String region, 
+                                        final String postalCode, 
+                                        final String isoCountry) {
         return new AddressCreator(accountSid, customerName, street, city, region, postalCode, isoCountry);
     }
 
     /**
-     * delete
+     * Create a AddressDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return AddressDeleter capable of executing the delete
      */
-    public static AddressDeleter delete(final String accountSid, final String sid) {
+    public static AddressDeleter delete(final String accountSid, 
+                                        final String sid) {
         return new AddressDeleter(accountSid, sid);
     }
 
     /**
-     * fetch
+     * Create a AddressFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return AddressFetcher capable of executing the fetch
      */
-    public static AddressFetcher fetch(final String accountSid, final String sid) {
+    public static AddressFetcher fetch(final String accountSid, 
+                                       final String sid) {
         return new AddressFetcher(accountSid, sid);
     }
 
     /**
-     * update
+     * Create a AddressUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return AddressUpdater capable of executing the update
      */
-    public static AddressUpdater update(final String accountSid, final String sid) {
+    public static AddressUpdater update(final String accountSid, 
+                                        final String sid) {
         return new AddressUpdater(accountSid, sid);
     }
 
     /**
-     * read
+     * Create a AddressReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return AddressReader capable of executing the read
@@ -92,7 +101,7 @@ public class Address extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Address object using the provided ObjectMapper
+     * Converts a JSON String into a Address object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -111,7 +120,7 @@ public class Address extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Address object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -181,6 +190,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -188,6 +199,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The city.
+     * 
      * @return The city
      */
     public final String getCity() {
@@ -195,6 +208,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The customer_name.
+     * 
      * @return The customer_name
      */
     public final String getCustomerName() {
@@ -202,6 +217,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -209,6 +226,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -216,6 +235,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -223,6 +244,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The iso_country.
+     * 
      * @return The iso_country
      */
     public final String getIsoCountry() {
@@ -230,6 +253,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The postal_code.
+     * 
      * @return The postal_code
      */
     public final String getPostalCode() {
@@ -237,6 +262,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The region.
+     * 
      * @return The region
      */
     public final String getRegion() {
@@ -244,6 +271,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -251,6 +280,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The street.
+     * 
      * @return The street
      */
     public final String getStreet() {
@@ -258,6 +289,8 @@ public class Address extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

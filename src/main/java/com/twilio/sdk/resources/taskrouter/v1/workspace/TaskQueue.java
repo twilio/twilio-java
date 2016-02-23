@@ -34,29 +34,31 @@ public class TaskQueue extends SidResource {
     private static final long serialVersionUID = 237451693529850L;
 
     /**
-     * fetch
+     * Create a TaskQueueFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return TaskQueueFetcher capable of executing the fetch
      */
-    public static TaskQueueFetcher fetch(final String workspaceSid, final String sid) {
+    public static TaskQueueFetcher fetch(final String workspaceSid, 
+                                         final String sid) {
         return new TaskQueueFetcher(workspaceSid, sid);
     }
 
     /**
-     * update
+     * Create a TaskQueueUpdater to execute update.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return TaskQueueUpdater capable of executing the update
      */
-    public static TaskQueueUpdater update(final String workspaceSid, final String sid) {
+    public static TaskQueueUpdater update(final String workspaceSid, 
+                                          final String sid) {
         return new TaskQueueUpdater(workspaceSid, sid);
     }
 
     /**
-     * read
+     * Create a TaskQueueReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
      * @return TaskQueueReader capable of executing the read
@@ -66,7 +68,7 @@ public class TaskQueue extends SidResource {
     }
 
     /**
-     * create
+     * Create a TaskQueueCreator to execute create.
      * 
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
@@ -74,24 +76,28 @@ public class TaskQueue extends SidResource {
      * @param assignmentActivitySid The assignment_activity_sid
      * @return TaskQueueCreator capable of executing the create
      */
-    public static TaskQueueCreator create(final String workspaceSid, final String friendlyName, final String reservationActivitySid, final String assignmentActivitySid) {
+    public static TaskQueueCreator create(final String workspaceSid, 
+                                          final String friendlyName, 
+                                          final String reservationActivitySid, 
+                                          final String assignmentActivitySid) {
         return new TaskQueueCreator(workspaceSid, friendlyName, reservationActivitySid, assignmentActivitySid);
     }
 
     /**
-     * delete
+     * Create a TaskQueueDeleter to execute delete.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return TaskQueueDeleter capable of executing the delete
      */
-    public static TaskQueueDeleter delete(final String workspaceSid, final String sid) {
+    public static TaskQueueDeleter delete(final String workspaceSid, 
+                                          final String sid) {
         return new TaskQueueDeleter(workspaceSid, sid);
     }
 
     /**
      * Converts a JSON String into a TaskQueue object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -110,7 +116,7 @@ public class TaskQueue extends SidResource {
 
     /**
      * Converts a JSON InputStream into a TaskQueue object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -184,6 +190,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -191,6 +199,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The assignment_activity_sid.
+     * 
      * @return The assignment_activity_sid
      */
     public final String getAssignmentActivitySid() {
@@ -198,6 +208,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The assignment_activity_name.
+     * 
      * @return The assignment_activity_name
      */
     public final String getAssignmentActivityName() {
@@ -205,6 +217,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -212,6 +226,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -219,6 +235,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -226,6 +244,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The max_reserved_workers.
+     * 
      * @return The max_reserved_workers
      */
     public final Integer getMaxReservedWorkers() {
@@ -233,6 +253,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The reservation_activity_sid.
+     * 
      * @return The reservation_activity_sid
      */
     public final String getReservationActivitySid() {
@@ -240,6 +262,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The reservation_activity_name.
+     * 
      * @return The reservation_activity_name
      */
     public final String getReservationActivityName() {
@@ -247,6 +271,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -254,6 +280,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The target_workers.
+     * 
      * @return The target_workers
      */
     public final String getTargetWorkers() {
@@ -261,6 +289,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {
@@ -268,6 +298,8 @@ public class TaskQueue extends SidResource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

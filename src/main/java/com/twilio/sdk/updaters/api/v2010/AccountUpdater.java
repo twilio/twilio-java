@@ -16,7 +16,7 @@ public class AccountUpdater extends Updater<Account> {
     private Account.Status status;
 
     /**
-     * Construct a new AccountUpdater
+     * Construct a new AccountUpdater.
      * 
      * @param sid The sid
      */
@@ -25,7 +25,7 @@ public class AccountUpdater extends Updater<Account> {
     }
 
     /**
-     * Update the human-readable description of this Account
+     * Update the human-readable description of this Account.
      * 
      * @param friendlyName FriendlyName to update
      * @return this
@@ -36,7 +36,7 @@ public class AccountUpdater extends Updater<Account> {
     }
 
     /**
-     * Alter the status of this account with a given Status
+     * Alter the status of this account with a given Status.
      * 
      * @param status Status to update the Account with
      * @return this
@@ -47,7 +47,7 @@ public class AccountUpdater extends Updater<Account> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Account
@@ -68,8 +68,10 @@ public class AccountUpdater extends Updater<Account> {
             throw new ApiConnectionException("Account update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -83,7 +85,7 @@ public class AccountUpdater extends Updater<Account> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

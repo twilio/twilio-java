@@ -20,7 +20,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     private DateTime endDate;
 
     /**
-     * Construct a new WorkerStatisticsFetcher
+     * Construct a new WorkerStatisticsFetcher.
      * 
      * @param workspaceSid The workspace_sid
      * @param workerSid The worker_sid
@@ -31,7 +31,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * The minutes
+     * The minutes.
      * 
      * @param minutes The minutes
      * @return this
@@ -42,7 +42,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * The start_date
+     * The start_date.
      * 
      * @param startDate The start_date
      * @return this
@@ -53,7 +53,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * The end_date
+     * The end_date.
      * 
      * @param endDate The end_date
      * @return this
@@ -64,7 +64,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched WorkerStatistics
@@ -84,8 +84,10 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
             throw new ApiConnectionException("WorkerStatistics fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

@@ -31,30 +31,33 @@ public class Reservation extends SidResource {
     private static final long serialVersionUID = 269071000200631L;
 
     /**
-     * read
+     * Create a ReservationReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
      * @param taskSid The task_sid
      * @return ReservationReader capable of executing the read
      */
-    public static ReservationReader read(final String workspaceSid, final String taskSid) {
+    public static ReservationReader read(final String workspaceSid, 
+                                         final String taskSid) {
         return new ReservationReader(workspaceSid, taskSid);
     }
 
     /**
-     * fetch
+     * Create a ReservationFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param taskSid The task_sid
      * @param sid The sid
      * @return ReservationFetcher capable of executing the fetch
      */
-    public static ReservationFetcher fetch(final String workspaceSid, final String taskSid, final String sid) {
+    public static ReservationFetcher fetch(final String workspaceSid, 
+                                           final String taskSid, 
+                                           final String sid) {
         return new ReservationFetcher(workspaceSid, taskSid, sid);
     }
 
     /**
-     * update
+     * Create a ReservationUpdater to execute update.
      * 
      * @param workspaceSid The workspace_sid
      * @param taskSid The task_sid
@@ -62,13 +65,16 @@ public class Reservation extends SidResource {
      * @param reservationStatus The reservation_status
      * @return ReservationUpdater capable of executing the update
      */
-    public static ReservationUpdater update(final String workspaceSid, final String taskSid, final String sid, final String reservationStatus) {
+    public static ReservationUpdater update(final String workspaceSid, 
+                                            final String taskSid, 
+                                            final String sid, 
+                                            final String reservationStatus) {
         return new ReservationUpdater(workspaceSid, taskSid, sid, reservationStatus);
     }
 
     /**
      * Converts a JSON String into a Reservation object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -87,7 +93,7 @@ public class Reservation extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Reservation object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -145,6 +151,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -152,6 +160,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -159,6 +169,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -166,6 +178,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The reservation_status.
+     * 
      * @return The reservation_status
      */
     public final String getReservationStatus() {
@@ -173,6 +187,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -180,6 +196,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The task_sid.
+     * 
      * @return The task_sid
      */
     public final String getTaskSid() {
@@ -187,6 +205,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The worker_name.
+     * 
      * @return The worker_name
      */
     public final String getWorkerName() {
@@ -194,6 +214,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The worker_sid.
+     * 
      * @return The worker_sid
      */
     public final String getWorkerSid() {
@@ -201,6 +223,8 @@ public class Reservation extends SidResource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

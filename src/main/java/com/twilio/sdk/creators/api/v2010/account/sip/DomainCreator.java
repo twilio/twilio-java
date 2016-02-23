@@ -25,7 +25,7 @@ public class DomainCreator extends Creator<Domain> {
     private HttpMethod voiceStatusCallbackMethod;
 
     /**
-     * Construct a new DomainCreator
+     * Construct a new DomainCreator.
      * 
      * @param accountSid The account_sid
      * @param domainName The unique address on Twilio to route SIP traffic
@@ -36,7 +36,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * A user-specified, human-readable name for the trigger.
+     * A user-specified, human-readable name for the trigger..
      * 
      * @param friendlyName A user-specified, human-readable name for the trigger.
      * @return this
@@ -47,7 +47,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL Twilio will request when this domain receives a call
+     * The URL Twilio will request when this domain receives a call.
      * 
      * @param voiceUrl URL Twilio will request when receiving a call
      * @return this
@@ -58,7 +58,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL Twilio will request when this domain receives a call
+     * The URL Twilio will request when this domain receives a call.
      * 
      * @param voiceUrl URL Twilio will request when receiving a call
      * @return this
@@ -68,7 +68,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The HTTP method to use with the voice_url
+     * The HTTP method to use with the voice_url.
      * 
      * @param voiceMethod HTTP method to use with voice_url
      * @return this
@@ -80,7 +80,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * The URL that Twilio will use if an error occurs retrieving or executing the
-     * TwiML requested by VoiceUrl
+     * TwiML requested by VoiceUrl.
      * 
      * @param voiceFallbackUrl URL Twilio will request if an error occurs in
      *                         executing TwiML
@@ -93,7 +93,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * The URL that Twilio will use if an error occurs retrieving or executing the
-     * TwiML requested by VoiceUrl
+     * TwiML requested by VoiceUrl.
      * 
      * @param voiceFallbackUrl URL Twilio will request if an error occurs in
      *                         executing TwiML
@@ -104,7 +104,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the VoiceFallbackUrl
+     * The HTTP method Twilio will use when requesting the VoiceFallbackUrl.
      * 
      * @param voiceFallbackMethod HTTP method used with voice_fallback_url
      * @return this
@@ -115,7 +115,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters
+     * The URL that Twilio will request to pass status parameters.
      * 
      * @param voiceStatusCallbackUrl URL that Twilio will request with status
      *                               updates
@@ -127,7 +127,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters
+     * The URL that Twilio will request to pass status parameters.
      * 
      * @param voiceStatusCallbackUrl URL that Twilio will request with status
      *                               updates
@@ -138,7 +138,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The voice_status_callback_method
+     * The voice_status_callback_method.
      * 
      * @param voiceStatusCallbackMethod The voice_status_callback_method
      * @return this
@@ -149,7 +149,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Domain
@@ -170,8 +170,10 @@ public class DomainCreator extends Creator<Domain> {
             throw new ApiConnectionException("Domain creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -185,7 +187,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

@@ -23,7 +23,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     private Boolean secure;
 
     /**
-     * Construct a new TrunkUpdater
+     * Construct a new TrunkUpdater.
      * 
      * @param sid The sid
      */
@@ -32,7 +32,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -43,7 +43,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * The domain_name
+     * The domain_name.
      * 
      * @param domainName The domain_name
      * @return this
@@ -54,7 +54,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * The disaster_recovery_url
+     * The disaster_recovery_url.
      * 
      * @param disasterRecoveryUrl The disaster_recovery_url
      * @return this
@@ -65,7 +65,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * The disaster_recovery_url
+     * The disaster_recovery_url.
      * 
      * @param disasterRecoveryUrl The disaster_recovery_url
      * @return this
@@ -75,7 +75,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * The disaster_recovery_method
+     * The disaster_recovery_method.
      * 
      * @param disasterRecoveryMethod The disaster_recovery_method
      * @return this
@@ -86,7 +86,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * The recording
+     * The recording.
      * 
      * @param recording The recording
      * @return this
@@ -97,7 +97,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * The secure
+     * The secure.
      * 
      * @param secure The secure
      * @return this
@@ -108,7 +108,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Trunk
@@ -129,8 +129,10 @@ public class TrunkUpdater extends Updater<Trunk> {
             throw new ApiConnectionException("Trunk update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -144,7 +146,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

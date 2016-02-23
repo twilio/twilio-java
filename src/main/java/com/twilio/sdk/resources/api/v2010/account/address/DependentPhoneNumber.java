@@ -28,19 +28,20 @@ public class DependentPhoneNumber extends Resource {
     private static final long serialVersionUID = 249031953071048L;
 
     /**
-     * read
+     * Create a DependentPhoneNumberReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param addressSid The address_sid
      * @return DependentPhoneNumberReader capable of executing the read
      */
-    public static DependentPhoneNumberReader read(final String accountSid, final String addressSid) {
+    public static DependentPhoneNumberReader read(final String accountSid, 
+                                                  final String addressSid) {
         return new DependentPhoneNumberReader(accountSid, addressSid);
     }
 
     /**
      * Converts a JSON String into a DependentPhoneNumber object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -59,7 +60,7 @@ public class DependentPhoneNumber extends Resource {
 
     /**
      * Converts a JSON InputStream into a DependentPhoneNumber object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -125,6 +126,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final com.twilio.types.PhoneNumber getFriendlyName() {
@@ -132,6 +135,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The phone_number.
+     * 
      * @return The phone_number
      */
     public final com.twilio.types.PhoneNumber getPhoneNumber() {
@@ -139,6 +144,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The lata.
+     * 
      * @return The lata
      */
     public final String getLata() {
@@ -146,6 +153,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The rate_center.
+     * 
      * @return The rate_center
      */
     public final String getRateCenter() {
@@ -153,6 +162,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The latitude.
+     * 
      * @return The latitude
      */
     public final BigDecimal getLatitude() {
@@ -160,6 +171,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The longitude.
+     * 
      * @return The longitude
      */
     public final BigDecimal getLongitude() {
@@ -167,6 +180,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The region.
+     * 
      * @return The region
      */
     public final String getRegion() {
@@ -174,6 +189,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The postal_code.
+     * 
      * @return The postal_code
      */
     public final String getPostalCode() {
@@ -181,6 +198,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The iso_country.
+     * 
      * @return The iso_country
      */
     public final String getIsoCountry() {
@@ -188,6 +207,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The address_requirements.
+     * 
      * @return The address_requirements
      */
     public final String getAddressRequirements() {
@@ -195,6 +216,8 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The capabilities.
+     * 
      * @return The capabilities
      */
     public final Map<String, String> getCapabilities() {

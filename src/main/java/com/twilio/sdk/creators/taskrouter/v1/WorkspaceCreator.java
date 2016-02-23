@@ -16,7 +16,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
     private String template;
 
     /**
-     * Construct a new WorkspaceCreator
+     * Construct a new WorkspaceCreator.
      * 
      * @param friendlyName The friendly_name
      */
@@ -25,7 +25,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * The event_callback_url
+     * The event_callback_url.
      * 
      * @param eventCallbackUrl The event_callback_url
      * @return this
@@ -36,7 +36,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * The template
+     * The template.
      * 
      * @param template The template
      * @return this
@@ -47,7 +47,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Workspace
@@ -68,8 +68,10 @@ public class WorkspaceCreator extends Creator<Workspace> {
             throw new ApiConnectionException("Workspace creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -83,7 +85,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

@@ -56,40 +56,43 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
-     * fetch
+     * Create a PhoneNumberFetcher to execute fetch.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return PhoneNumberFetcher capable of executing the fetch
      */
-    public static PhoneNumberFetcher fetch(final String trunkSid, final String sid) {
+    public static PhoneNumberFetcher fetch(final String trunkSid, 
+                                           final String sid) {
         return new PhoneNumberFetcher(trunkSid, sid);
     }
 
     /**
-     * delete
+     * Create a PhoneNumberDeleter to execute delete.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return PhoneNumberDeleter capable of executing the delete
      */
-    public static PhoneNumberDeleter delete(final String trunkSid, final String sid) {
+    public static PhoneNumberDeleter delete(final String trunkSid, 
+                                            final String sid) {
         return new PhoneNumberDeleter(trunkSid, sid);
     }
 
     /**
-     * create
+     * Create a PhoneNumberCreator to execute create.
      * 
      * @param trunkSid The trunk_sid
      * @param phoneNumberSid The phone_number_sid
      * @return PhoneNumberCreator capable of executing the create
      */
-    public static PhoneNumberCreator create(final String trunkSid, final String phoneNumberSid) {
+    public static PhoneNumberCreator create(final String trunkSid, 
+                                            final String phoneNumberSid) {
         return new PhoneNumberCreator(trunkSid, phoneNumberSid);
     }
 
     /**
-     * read
+     * Create a PhoneNumberReader to execute read.
      * 
      * @param trunkSid The trunk_sid
      * @return PhoneNumberReader capable of executing the read
@@ -100,7 +103,7 @@ public class PhoneNumber extends SidResource {
 
     /**
      * Converts a JSON String into a PhoneNumber object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -119,7 +122,7 @@ public class PhoneNumber extends SidResource {
 
     /**
      * Converts a JSON InputStream into a PhoneNumber object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -245,6 +248,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -252,6 +257,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The address_requirements.
+     * 
      * @return The address_requirements
      */
     public final PhoneNumber.AddressRequirement getAddressRequirements() {
@@ -259,6 +266,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -266,6 +275,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The beta.
+     * 
      * @return The beta
      */
     public final Boolean getBeta() {
@@ -273,6 +284,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The capabilities.
+     * 
      * @return The capabilities
      */
     public final Map<String, String> getCapabilities() {
@@ -280,6 +293,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -287,6 +302,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -294,6 +311,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -301,6 +320,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The links.
+     * 
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -308,6 +329,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The phone_number.
+     * 
      * @return The phone_number
      */
     public final com.twilio.types.PhoneNumber getPhoneNumber() {
@@ -315,6 +338,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -322,6 +347,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The sms_application_sid.
+     * 
      * @return The sms_application_sid
      */
     public final String getSmsApplicationSid() {
@@ -329,6 +356,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The sms_fallback_method.
+     * 
      * @return The sms_fallback_method
      */
     public final HttpMethod getSmsFallbackMethod() {
@@ -336,6 +365,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The sms_fallback_url.
+     * 
      * @return The sms_fallback_url
      */
     public final URI getSmsFallbackUrl() {
@@ -343,6 +374,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The sms_method.
+     * 
      * @return The sms_method
      */
     public final HttpMethod getSmsMethod() {
@@ -350,6 +383,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The sms_url.
+     * 
      * @return The sms_url
      */
     public final URI getSmsUrl() {
@@ -357,6 +392,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The status_callback.
+     * 
      * @return The status_callback
      */
     public final URI getStatusCallback() {
@@ -364,6 +401,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The status_callback_method.
+     * 
      * @return The status_callback_method
      */
     public final HttpMethod getStatusCallbackMethod() {
@@ -371,6 +410,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The trunk_sid.
+     * 
      * @return The trunk_sid
      */
     public final String getTrunkSid() {
@@ -378,6 +419,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {
@@ -385,6 +428,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The voice_application_sid.
+     * 
      * @return The voice_application_sid
      */
     public final String getVoiceApplicationSid() {
@@ -392,6 +437,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The voice_caller_id_lookup.
+     * 
      * @return The voice_caller_id_lookup
      */
     public final Boolean getVoiceCallerIdLookup() {
@@ -399,6 +446,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The voice_fallback_method.
+     * 
      * @return The voice_fallback_method
      */
     public final HttpMethod getVoiceFallbackMethod() {
@@ -406,6 +455,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The voice_fallback_url.
+     * 
      * @return The voice_fallback_url
      */
     public final URI getVoiceFallbackUrl() {
@@ -413,6 +464,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The voice_method.
+     * 
      * @return The voice_method
      */
     public final HttpMethod getVoiceMethod() {
@@ -420,6 +473,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The voice_url.
+     * 
      * @return The voice_url
      */
     public final URI getVoiceUrl() {

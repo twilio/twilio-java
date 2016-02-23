@@ -32,30 +32,31 @@ public class ShortCode extends SidResource {
     private static final long serialVersionUID = 186171326966142L;
 
     /**
-     * Fetch an instance of a short code
+     * Create a ShortCodeFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique short-code Sid
      * @return ShortCodeFetcher capable of executing the fetch
      */
-    public static ShortCodeFetcher fetch(final String accountSid, final String sid) {
+    public static ShortCodeFetcher fetch(final String accountSid, 
+                                         final String sid) {
         return new ShortCodeFetcher(accountSid, sid);
     }
 
     /**
-     * Update a short code with the following parameters
+     * Create a ShortCodeUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return ShortCodeUpdater capable of executing the update
      */
-    public static ShortCodeUpdater update(final String accountSid, final String sid) {
+    public static ShortCodeUpdater update(final String accountSid, 
+                                          final String sid) {
         return new ShortCodeUpdater(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of short-codes belonging to the account used to make the
-     * request
+     * Create a ShortCodeReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return ShortCodeReader capable of executing the read
@@ -66,7 +67,7 @@ public class ShortCode extends SidResource {
 
     /**
      * Converts a JSON String into a ShortCode object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -85,7 +86,7 @@ public class ShortCode extends SidResource {
 
     /**
      * Converts a JSON InputStream into a ShortCode object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -155,6 +156,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -162,6 +165,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The The API version to use.
+     * 
      * @return The API version to use
      */
     public final String getApiVersion() {
@@ -169,6 +174,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -176,6 +183,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -183,6 +192,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The A human readable description of this resource.
+     * 
      * @return A human readable description of this resource
      */
     public final String getFriendlyName() {
@@ -190,6 +201,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The The short code. e.g., 894546..
+     * 
      * @return The short code. e.g., 894546.
      */
     public final String getShortCode() {
@@ -197,6 +210,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this short-codes.
+     * 
      * @return A string that uniquely identifies this short-codes
      */
     public final String getSid() {
@@ -204,6 +219,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The HTTP method Twilio will use with sms fallback url.
+     * 
      * @return HTTP method Twilio will use with sms fallback url
      */
     public final HttpMethod getSmsFallbackMethod() {
@@ -211,6 +228,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio will request if an error occurs in executing TwiML.
+     * 
      * @return URL Twilio will request if an error occurs in executing TwiML
      */
     public final URI getSmsFallbackUrl() {
@@ -218,6 +237,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The HTTP method to use when requesting the sms url.
+     * 
      * @return HTTP method to use when requesting the sms url
      */
     public final HttpMethod getSmsMethod() {
@@ -225,6 +246,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio will request when receiving an SMS.
+     * 
      * @return URL Twilio will request when receiving an SMS
      */
     public final URI getSmsUrl() {
@@ -232,6 +255,8 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

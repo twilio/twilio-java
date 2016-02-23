@@ -20,7 +20,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
     private List<Feedback.Issues> issue;
 
     /**
-     * Construct a new FeedbackUpdater
+     * Construct a new FeedbackUpdater.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
@@ -33,7 +33,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
     }
 
     /**
-     * One or more of the issues experienced during the call
+     * One or more of the issues experienced during the call.
      * 
      * @param issue Issues experienced during the call
      * @return this
@@ -44,7 +44,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
     }
 
     /**
-     * One or more of the issues experienced during the call
+     * One or more of the issues experienced during the call.
      * 
      * @param issue Issues experienced during the call
      * @return this
@@ -54,7 +54,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Feedback
@@ -75,8 +75,10 @@ public class FeedbackUpdater extends Updater<Feedback> {
             throw new ApiConnectionException("Feedback update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -90,7 +92,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

@@ -31,43 +31,48 @@ public class Recording extends SidResource {
     private static final long serialVersionUID = 232068402359085L;
 
     /**
-     * fetch
+     * Create a RecordingFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
      * @param sid The sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetch(final String accountSid, final String callSid, final String sid) {
+    public static RecordingFetcher fetch(final String accountSid, 
+                                         final String callSid, 
+                                         final String sid) {
         return new RecordingFetcher(accountSid, callSid, sid);
     }
 
     /**
-     * delete
+     * Create a RecordingDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
      * @param sid The sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter delete(final String accountSid, final String callSid, final String sid) {
+    public static RecordingDeleter delete(final String accountSid, 
+                                          final String callSid, 
+                                          final String sid) {
         return new RecordingDeleter(accountSid, callSid, sid);
     }
 
     /**
-     * read
+     * Create a RecordingReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
      * @return RecordingReader capable of executing the read
      */
-    public static RecordingReader read(final String accountSid, final String callSid) {
+    public static RecordingReader read(final String accountSid, 
+                                       final String callSid) {
         return new RecordingReader(accountSid, callSid);
     }
 
     /**
      * Converts a JSON String into a Recording object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -86,7 +91,7 @@ public class Recording extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Recording object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -140,6 +145,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -147,6 +154,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -154,6 +163,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The call_sid.
+     * 
      * @return The call_sid
      */
     public final String getCallSid() {
@@ -161,6 +172,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -168,6 +181,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -175,6 +190,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The duration.
+     * 
      * @return The duration
      */
     public final String getDuration() {
@@ -182,6 +199,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -189,6 +208,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

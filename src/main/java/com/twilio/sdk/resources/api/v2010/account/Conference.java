@@ -52,19 +52,19 @@ public class Conference extends SidResource {
     }
 
     /**
-     * Fetch an instance of a conference
+     * Create a ConferenceFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique conference Sid
      * @return ConferenceFetcher capable of executing the fetch
      */
-    public static ConferenceFetcher fetch(final String accountSid, final String sid) {
+    public static ConferenceFetcher fetch(final String accountSid, 
+                                          final String sid) {
         return new ConferenceFetcher(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of conferences belonging to the account used to make the
-     * request
+     * Create a ConferenceReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return ConferenceReader capable of executing the read
@@ -75,7 +75,7 @@ public class Conference extends SidResource {
 
     /**
      * Converts a JSON String into a Conference object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -94,7 +94,7 @@ public class Conference extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Conference object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -148,6 +148,8 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -155,6 +157,8 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -162,6 +166,8 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -169,6 +175,8 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -176,6 +184,8 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Returns The A human readable description of this resource.
+     * 
      * @return A human readable description of this resource
      */
     public final String getFriendlyName() {
@@ -183,6 +193,8 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this conference.
+     * 
      * @return A string that uniquely identifies this conference
      */
     public final String getSid() {
@@ -190,6 +202,8 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Returns The The status of the conference.
+     * 
      * @return The status of the conference
      */
     public final Conference.Status getStatus() {
@@ -197,6 +211,8 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

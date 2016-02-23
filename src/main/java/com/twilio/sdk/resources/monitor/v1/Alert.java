@@ -32,7 +32,7 @@ public class Alert extends SidResource {
     private static final long serialVersionUID = 84420812948753L;
 
     /**
-     * fetch
+     * Create a AlertFetcher to execute fetch.
      * 
      * @param sid The sid
      * @return AlertFetcher capable of executing the fetch
@@ -42,7 +42,7 @@ public class Alert extends SidResource {
     }
 
     /**
-     * delete
+     * Create a AlertDeleter to execute delete.
      * 
      * @param sid The sid
      * @return AlertDeleter capable of executing the delete
@@ -52,7 +52,7 @@ public class Alert extends SidResource {
     }
 
     /**
-     * read
+     * Create a AlertReader to execute read.
      * 
      * @return AlertReader capable of executing the read
      */
@@ -61,7 +61,7 @@ public class Alert extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Alert object using the provided ObjectMapper
+     * Converts a JSON String into a Alert object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -80,7 +80,7 @@ public class Alert extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Alert object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -170,6 +170,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -177,6 +179,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The alert_text.
+     * 
      * @return The alert_text
      */
     public final String getAlertText() {
@@ -184,6 +188,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -191,6 +197,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -198,6 +206,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The date_generated.
+     * 
      * @return The date_generated
      */
     public final DateTime getDateGenerated() {
@@ -205,6 +215,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -212,6 +224,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The error_code.
+     * 
      * @return The error_code
      */
     public final String getErrorCode() {
@@ -219,6 +233,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The log_level.
+     * 
      * @return The log_level
      */
     public final String getLogLevel() {
@@ -226,6 +242,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The more_info.
+     * 
      * @return The more_info
      */
     public final String getMoreInfo() {
@@ -233,6 +251,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The request_method.
+     * 
      * @return The request_method
      */
     public final HttpMethod getRequestMethod() {
@@ -240,6 +260,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The request_url.
+     * 
      * @return The request_url
      */
     public final String getRequestUrl() {
@@ -247,6 +269,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The request_variables.
+     * 
      * @return The request_variables
      */
     public final String getRequestVariables() {
@@ -254,6 +278,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The resource_sid.
+     * 
      * @return The resource_sid
      */
     public final String getResourceSid() {
@@ -261,6 +287,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The response_body.
+     * 
      * @return The response_body
      */
     public final String getResponseBody() {
@@ -268,6 +296,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The response_headers.
+     * 
      * @return The response_headers
      */
     public final String getResponseHeaders() {
@@ -275,6 +305,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -282,6 +314,8 @@ public class Alert extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

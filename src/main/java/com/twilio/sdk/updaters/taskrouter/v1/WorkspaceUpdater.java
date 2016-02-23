@@ -18,7 +18,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     private String timeoutActivitySid;
 
     /**
-     * Construct a new WorkspaceUpdater
+     * Construct a new WorkspaceUpdater.
      * 
      * @param sid The sid
      */
@@ -27,7 +27,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The default_activity_sid
+     * The default_activity_sid.
      * 
      * @param defaultActivitySid The default_activity_sid
      * @return this
@@ -38,7 +38,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The event_callback_url
+     * The event_callback_url.
      * 
      * @param eventCallbackUrl The event_callback_url
      * @return this
@@ -49,7 +49,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -60,7 +60,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The timeout_activity_sid
+     * The timeout_activity_sid.
      * 
      * @param timeoutActivitySid The timeout_activity_sid
      * @return this
@@ -71,7 +71,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Workspace
@@ -92,8 +92,10 @@ public class WorkspaceUpdater extends Updater<Workspace> {
             throw new ApiConnectionException("Workspace update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -107,7 +109,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

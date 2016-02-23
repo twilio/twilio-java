@@ -13,23 +13,27 @@ import com.twilio.sdk.resources.api.v2010.account.Call;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * Example for making a call.
+ */
 public class CallCreatorExample {
 
     public static void main(final String[] args) {
         Twilio.init("AC123", "AUTH TOKEN");
 
         try {
-            URI u = new URI("http://twimlbin.com/4397e62f");
-            CallCreator c = new CallCreator("AC123", new PhoneNumber("+14156085895"), new PhoneNumber("+14154888928"), u);
+            URI uri = new URI("http://twimlbin.com/4397e62f");
+            CallCreator creator =
+                new CallCreator("AC123", new PhoneNumber("+14156085895"), new PhoneNumber("+14154888928"), uri);
 
-            Call call = c.execute();
+            Call call = creator.execute();
 
             System.out.println(call.getSid());
             System.out.println(call.getStatus().toString());
+
         } catch (URISyntaxException | InvalidRequestException | ApiConnectionException | ApiException | AuthenticationException e) {
             System.err.println("womp womp");
             System.exit(1);
         }
-
     }
 }

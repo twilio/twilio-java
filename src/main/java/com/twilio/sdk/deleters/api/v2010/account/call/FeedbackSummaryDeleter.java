@@ -15,7 +15,7 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
     private final String sid;
 
     /**
-     * Construct a new FeedbackSummaryDeleter
+     * Construct a new FeedbackSummaryDeleter.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
@@ -26,7 +26,7 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete
+     * Make the request to the Twilio API to perform the delete.
      * 
      * @param client TwilioRestClient with which to make the request
      */
@@ -45,8 +45,10 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
             throw new ApiConnectionException("FeedbackSummary delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

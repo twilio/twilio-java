@@ -53,7 +53,7 @@ public class Conversation extends SidResource {
     }
 
     /**
-     * fetch
+     * Create a ConversationFetcher to execute fetch.
      * 
      * @param sid The sid
      * @return ConversationFetcher capable of executing the fetch
@@ -64,7 +64,7 @@ public class Conversation extends SidResource {
 
     /**
      * Converts a JSON String into a Conversation object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -83,7 +83,7 @@ public class Conversation extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Conversation object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -137,6 +137,8 @@ public class Conversation extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -144,6 +146,8 @@ public class Conversation extends SidResource {
     }
 
     /**
+     * Returns The The status.
+     * 
      * @return The status
      */
     public final Conversation.Status getStatus() {
@@ -151,6 +155,8 @@ public class Conversation extends SidResource {
     }
 
     /**
+     * Returns The The duration.
+     * 
      * @return The duration
      */
     public final Integer getDuration() {
@@ -158,6 +164,8 @@ public class Conversation extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -165,6 +173,8 @@ public class Conversation extends SidResource {
     }
 
     /**
+     * Returns The The start_time.
+     * 
      * @return The start_time
      */
     public final DateTime getStartTime() {
@@ -172,6 +182,8 @@ public class Conversation extends SidResource {
     }
 
     /**
+     * Returns The The end_time.
+     * 
      * @return The end_time
      */
     public final DateTime getEndTime() {
@@ -179,6 +191,8 @@ public class Conversation extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -186,6 +200,8 @@ public class Conversation extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

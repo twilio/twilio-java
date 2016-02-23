@@ -77,7 +77,7 @@ public class AllTime extends Resource {
     }
 
     /**
-     * read
+     * Create a AllTimeReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return AllTimeReader capable of executing the read
@@ -87,7 +87,7 @@ public class AllTime extends Resource {
     }
 
     /**
-     * Converts a JSON String into a AllTime object using the provided ObjectMapper
+     * Converts a JSON String into a AllTime object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -106,7 +106,7 @@ public class AllTime extends Resource {
 
     /**
      * Converts a JSON InputStream into a AllTime object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -185,6 +185,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -192,6 +194,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -199,6 +203,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The category.
+     * 
      * @return The category
      */
     public final AllTime.Category getCategory() {
@@ -206,6 +212,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The count.
+     * 
      * @return The count
      */
     public final String getCount() {
@@ -213,6 +221,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The count_unit.
+     * 
      * @return The count_unit
      */
     public final String getCountUnit() {
@@ -220,6 +230,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The description.
+     * 
      * @return The description
      */
     public final String getDescription() {
@@ -227,6 +239,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The end_date.
+     * 
      * @return The end_date
      */
     public final DateTime getEndDate() {
@@ -234,6 +248,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The price.
+     * 
      * @return The price
      */
     public final BigDecimal getPrice() {
@@ -241,6 +257,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The price_unit.
+     * 
      * @return The price_unit
      */
     public final Currency getPriceUnit() {
@@ -248,6 +266,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The start_date.
+     * 
      * @return The start_date
      */
     public final DateTime getStartDate() {
@@ -255,6 +275,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The subresource_uris.
+     * 
      * @return The subresource_uris
      */
     public final Map<String, String> getSubresourceUris() {
@@ -262,6 +284,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {
@@ -269,6 +293,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The usage.
+     * 
      * @return The usage
      */
     public final String getUsage() {
@@ -276,6 +302,8 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Returns The The usage_unit.
+     * 
      * @return The usage_unit
      */
     public final String getUsageUnit() {

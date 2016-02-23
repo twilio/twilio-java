@@ -16,7 +16,7 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
     private final String sid;
 
     /**
-     * Construct a new IpAddressDeleter
+     * Construct a new IpAddressDeleter.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
@@ -29,7 +29,7 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete
+     * Make the request to the Twilio API to perform the delete.
      * 
      * @param client TwilioRestClient with which to make the request
      */
@@ -48,8 +48,10 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
             throw new ApiConnectionException("IpAddress delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

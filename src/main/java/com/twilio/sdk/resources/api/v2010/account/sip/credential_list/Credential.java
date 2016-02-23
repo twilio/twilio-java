@@ -33,18 +33,19 @@ public class Credential extends SidResource {
     private static final long serialVersionUID = 207131851434233L;
 
     /**
-     * read
+     * Create a CredentialReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
      * @return CredentialReader capable of executing the read
      */
-    public static CredentialReader read(final String accountSid, final String credentialListSid) {
+    public static CredentialReader read(final String accountSid, 
+                                        final String credentialListSid) {
         return new CredentialReader(accountSid, credentialListSid);
     }
 
     /**
-     * create
+     * Create a CredentialCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
@@ -52,24 +53,29 @@ public class Credential extends SidResource {
      * @param password The password
      * @return CredentialCreator capable of executing the create
      */
-    public static CredentialCreator create(final String accountSid, final String credentialListSid, final String username, final String password) {
+    public static CredentialCreator create(final String accountSid, 
+                                           final String credentialListSid, 
+                                           final String username, 
+                                           final String password) {
         return new CredentialCreator(accountSid, credentialListSid, username, password);
     }
 
     /**
-     * fetch
+     * Create a CredentialFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
      * @param sid The sid
      * @return CredentialFetcher capable of executing the fetch
      */
-    public static CredentialFetcher fetch(final String accountSid, final String credentialListSid, final String sid) {
+    public static CredentialFetcher fetch(final String accountSid, 
+                                          final String credentialListSid, 
+                                          final String sid) {
         return new CredentialFetcher(accountSid, credentialListSid, sid);
     }
 
     /**
-     * update
+     * Create a CredentialUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
@@ -78,25 +84,31 @@ public class Credential extends SidResource {
      * @param password The password
      * @return CredentialUpdater capable of executing the update
      */
-    public static CredentialUpdater update(final String accountSid, final String credentialListSid, final String sid, final String username, final String password) {
+    public static CredentialUpdater update(final String accountSid, 
+                                           final String credentialListSid, 
+                                           final String sid, 
+                                           final String username, 
+                                           final String password) {
         return new CredentialUpdater(accountSid, credentialListSid, sid, username, password);
     }
 
     /**
-     * delete
+     * Create a CredentialDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
      * @param sid The sid
      * @return CredentialDeleter capable of executing the delete
      */
-    public static CredentialDeleter delete(final String accountSid, final String credentialListSid, final String sid) {
+    public static CredentialDeleter delete(final String accountSid, 
+                                           final String credentialListSid, 
+                                           final String sid) {
         return new CredentialDeleter(accountSid, credentialListSid, sid);
     }
 
     /**
      * Converts a JSON String into a Credential object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -115,7 +127,7 @@ public class Credential extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Credential object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -165,6 +177,8 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -172,6 +186,8 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -179,6 +195,8 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Returns The The credential_list_sid.
+     * 
      * @return The credential_list_sid
      */
     public final String getCredentialListSid() {
@@ -186,6 +204,8 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Returns The The username.
+     * 
      * @return The username
      */
     public final String getUsername() {
@@ -193,6 +213,8 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -200,6 +222,8 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -207,6 +231,8 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

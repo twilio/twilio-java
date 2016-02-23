@@ -15,7 +15,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     private final String phoneNumberSid;
 
     /**
-     * Construct a new PhoneNumberCreator
+     * Construct a new PhoneNumberCreator.
      * 
      * @param trunkSid The trunk_sid
      * @param phoneNumberSid The phone_number_sid
@@ -26,7 +26,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created PhoneNumber
@@ -47,8 +47,10 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
             throw new ApiConnectionException("PhoneNumber creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -62,7 +64,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

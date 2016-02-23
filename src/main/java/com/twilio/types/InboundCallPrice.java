@@ -6,6 +6,14 @@ import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
+/**
+ * Pricing for inbound calls
+ *
+ * <p>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/voice/pricing>Pricing Docs</a>
+ * </p>
+ */
 public class InboundCallPrice {
     public enum Type {
         LOCAL("local"),

@@ -32,43 +32,48 @@ public class Notification extends SidResource {
     private static final long serialVersionUID = 203437902819777L;
 
     /**
-     * fetch
+     * Create a NotificationFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
      * @param sid The sid
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetch(final String accountSid, final String callSid, final String sid) {
+    public static NotificationFetcher fetch(final String accountSid, 
+                                            final String callSid, 
+                                            final String sid) {
         return new NotificationFetcher(accountSid, callSid, sid);
     }
 
     /**
-     * delete
+     * Create a NotificationDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
      * @param sid The sid
      * @return NotificationDeleter capable of executing the delete
      */
-    public static NotificationDeleter delete(final String accountSid, final String callSid, final String sid) {
+    public static NotificationDeleter delete(final String accountSid, 
+                                             final String callSid, 
+                                             final String sid) {
         return new NotificationDeleter(accountSid, callSid, sid);
     }
 
     /**
-     * read
+     * Create a NotificationReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
      * @return NotificationReader capable of executing the read
      */
-    public static NotificationReader read(final String accountSid, final String callSid) {
+    public static NotificationReader read(final String accountSid, 
+                                          final String callSid) {
         return new NotificationReader(accountSid, callSid);
     }
 
     /**
      * Converts a JSON String into a Notification object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -87,7 +92,7 @@ public class Notification extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Notification object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -177,6 +182,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -184,6 +191,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -191,6 +200,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The call_sid.
+     * 
      * @return The call_sid
      */
     public final String getCallSid() {
@@ -198,6 +209,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -205,6 +218,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -212,6 +227,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The error_code.
+     * 
      * @return The error_code
      */
     public final String getErrorCode() {
@@ -219,6 +236,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The log.
+     * 
      * @return The log
      */
     public final String getLog() {
@@ -226,6 +245,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The message_date.
+     * 
      * @return The message_date
      */
     public final DateTime getMessageDate() {
@@ -233,6 +254,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The message_text.
+     * 
      * @return The message_text
      */
     public final String getMessageText() {
@@ -240,6 +263,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The more_info.
+     * 
      * @return The more_info
      */
     public final URI getMoreInfo() {
@@ -247,6 +272,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The request_method.
+     * 
      * @return The request_method
      */
     public final HttpMethod getRequestMethod() {
@@ -254,6 +281,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The request_url.
+     * 
      * @return The request_url
      */
     public final URI getRequestUrl() {
@@ -261,6 +290,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -268,6 +299,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {
@@ -275,6 +308,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The request_variables.
+     * 
      * @return The request_variables
      */
     public final String getRequestVariables() {
@@ -282,6 +317,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The response_body.
+     * 
      * @return The response_body
      */
     public final String getResponseBody() {
@@ -289,6 +326,8 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Returns The The response_headers.
+     * 
      * @return The response_headers
      */
     public final String getResponseHeaders() {

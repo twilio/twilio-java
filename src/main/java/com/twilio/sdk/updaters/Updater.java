@@ -7,13 +7,16 @@ import com.twilio.sdk.resources.Resource;
 
 import java.util.concurrent.Callable;
 
+/**
+ * Executor for updates of a resource
+ *
+ * @param <T> Type of Resource to update
+ */
 public abstract class Updater<T extends Resource> {
 
     public T execute() {
         return execute(Twilio.getRestClient());
     }
-
-    public abstract T execute(final TwilioRestClient client);
 
     public ListenableFuture<T> async() {
         return async(Twilio.getRestClient());
@@ -26,4 +29,6 @@ public abstract class Updater<T extends Resource> {
             }
         });
     }
+
+    public abstract T execute(final TwilioRestClient client);
 }

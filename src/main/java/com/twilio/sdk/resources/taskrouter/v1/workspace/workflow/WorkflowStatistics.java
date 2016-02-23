@@ -28,19 +28,20 @@ public class WorkflowStatistics extends Resource {
     private static final long serialVersionUID = 164789370388563L;
 
     /**
-     * fetch
+     * Create a WorkflowStatisticsFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param workflowSid The workflow_sid
      * @return WorkflowStatisticsFetcher capable of executing the fetch
      */
-    public static WorkflowStatisticsFetcher fetch(final String workspaceSid, final String workflowSid) {
+    public static WorkflowStatisticsFetcher fetch(final String workspaceSid, 
+                                                  final String workflowSid) {
         return new WorkflowStatisticsFetcher(workspaceSid, workflowSid);
     }
 
     /**
      * Converts a JSON String into a WorkflowStatistics object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -59,7 +60,7 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Converts a JSON InputStream into a WorkflowStatistics object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -101,6 +102,8 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -108,6 +111,8 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
+     * Returns The The cumulative.
+     * 
      * @return The cumulative
      */
     public final JsonNode getCumulative() {
@@ -115,6 +120,8 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
+     * Returns The The realtime.
+     * 
      * @return The realtime
      */
     public final JsonNode getRealtime() {
@@ -122,6 +129,8 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
+     * Returns The The workflow_sid.
+     * 
      * @return The workflow_sid
      */
     public final String getWorkflowSid() {
@@ -129,6 +138,8 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

@@ -26,7 +26,7 @@ public class DomainUpdater extends Updater<Domain> {
     private URI voiceUrl;
 
     /**
-     * Construct a new DomainUpdater
+     * Construct a new DomainUpdater.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
@@ -37,7 +37,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The api_version
+     * The api_version.
      * 
      * @param apiVersion The api_version
      * @return this
@@ -48,7 +48,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * A user-specified, human-readable name for the trigger.
+     * A user-specified, human-readable name for the trigger..
      * 
      * @param friendlyName A user-specified, human-readable name for the trigger.
      * @return this
@@ -59,7 +59,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_method
+     * The voice_fallback_method.
      * 
      * @param voiceFallbackMethod The voice_fallback_method
      * @return this
@@ -70,7 +70,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_url
+     * The voice_fallback_url.
      * 
      * @param voiceFallbackUrl The voice_fallback_url
      * @return this
@@ -81,7 +81,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_url
+     * The voice_fallback_url.
      * 
      * @param voiceFallbackUrl The voice_fallback_url
      * @return this
@@ -91,7 +91,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The HTTP method to use with the voice_url
+     * The HTTP method to use with the voice_url.
      * 
      * @param voiceMethod HTTP method to use with voice_url
      * @return this
@@ -102,7 +102,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_method
+     * The voice_status_callback_method.
      * 
      * @param voiceStatusCallbackMethod The voice_status_callback_method
      * @return this
@@ -113,7 +113,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_url
+     * The voice_status_callback_url.
      * 
      * @param voiceStatusCallbackUrl The voice_status_callback_url
      * @return this
@@ -124,7 +124,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_url
+     * The voice_status_callback_url.
      * 
      * @param voiceStatusCallbackUrl The voice_status_callback_url
      * @return this
@@ -134,7 +134,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_url
+     * The voice_url.
      * 
      * @param voiceUrl The voice_url
      * @return this
@@ -145,7 +145,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_url
+     * The voice_url.
      * 
      * @param voiceUrl The voice_url
      * @return this
@@ -155,7 +155,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Domain
@@ -176,8 +176,10 @@ public class DomainUpdater extends Updater<Domain> {
             throw new ApiConnectionException("Domain update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -191,7 +193,7 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

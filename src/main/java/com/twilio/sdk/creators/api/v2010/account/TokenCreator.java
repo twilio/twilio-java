@@ -15,7 +15,7 @@ public class TokenCreator extends Creator<Token> {
     private Integer ttl;
 
     /**
-     * Construct a new TokenCreator
+     * Construct a new TokenCreator.
      * 
      * @param accountSid The account_sid
      */
@@ -24,7 +24,7 @@ public class TokenCreator extends Creator<Token> {
     }
 
     /**
-     * The duration in seconds for which the generated credentials are valid
+     * The duration in seconds for which the generated credentials are valid.
      * 
      * @param ttl The duration in seconds the credentials are valid
      * @return this
@@ -35,7 +35,7 @@ public class TokenCreator extends Creator<Token> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Token
@@ -56,8 +56,10 @@ public class TokenCreator extends Creator<Token> {
             throw new ApiConnectionException("Token creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -71,7 +73,7 @@ public class TokenCreator extends Creator<Token> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

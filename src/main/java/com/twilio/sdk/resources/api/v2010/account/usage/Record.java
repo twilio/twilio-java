@@ -77,8 +77,7 @@ public class Record extends Resource {
     }
 
     /**
-     * Retrieve a list of usage-records belonging to the account used to make the
-     * request
+     * Create a RecordReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return RecordReader capable of executing the read
@@ -88,7 +87,7 @@ public class Record extends Resource {
     }
 
     /**
-     * Converts a JSON String into a Record object using the provided ObjectMapper
+     * Converts a JSON String into a Record object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -107,7 +106,7 @@ public class Record extends Resource {
 
     /**
      * Converts a JSON InputStream into a Record object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -186,6 +185,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The Account that accrued the usage.
+     * 
      * @return The Account that accrued the usage
      */
     public final String getAccountSid() {
@@ -193,6 +194,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -200,6 +203,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The category of usage.
+     * 
      * @return The category of usage
      */
     public final Record.Category getCategory() {
@@ -207,6 +212,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The number of usage events (e.g. the number of calls)..
+     * 
      * @return The number of usage events (e.g. the number of calls).
      */
     public final String getCount() {
@@ -214,6 +221,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The unit in which `Count` is measured.
+     * 
      * @return The unit in which `Count` is measured
      */
     public final String getCountUnit() {
@@ -221,6 +230,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The A human-readable description of the usage category..
+     * 
      * @return A human-readable description of the usage category.
      */
     public final String getDescription() {
@@ -228,6 +239,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The last date usage is included in this record.
+     * 
      * @return The last date usage is included in this record
      */
     public final DateTime getEndDate() {
@@ -235,6 +248,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The total price of the usage.
+     * 
      * @return The total price of the usage
      */
     public final BigDecimal getPrice() {
@@ -242,6 +257,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The currency in which `Price` is measured.
+     * 
      * @return The currency in which `Price` is measured
      */
     public final Currency getPriceUnit() {
@@ -249,6 +266,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The first date usage is included in this record.
+     * 
      * @return The first date usage is included in this record
      */
     public final DateTime getStartDate() {
@@ -256,6 +275,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The Subresources Uris for this UsageRecord.
+     * 
      * @return Subresources Uris for this UsageRecord
      */
     public final Map<String, String> getSubresourceUris() {
@@ -263,6 +284,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {
@@ -270,6 +293,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The amount of usage.
+     * 
      * @return The amount of usage
      */
     public final String getUsage() {
@@ -277,6 +302,8 @@ public class Record extends Resource {
     }
 
     /**
+     * Returns The The units in which `Usage` is measured.
+     * 
      * @return The units in which `Usage` is measured
      */
     public final String getUsageUnit() {

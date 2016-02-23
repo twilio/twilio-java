@@ -19,7 +19,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     private com.twilio.types.PhoneNumber phoneNumber;
 
     /**
-     * Construct a new IncomingPhoneNumberReader
+     * Construct a new IncomingPhoneNumberReader.
      * 
      * @param ownerAccountSid The owner_account_sid
      */
@@ -28,7 +28,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Include phone numbers new to the Twilio platform
+     * Include phone numbers new to the Twilio platform.
      * 
      * @param beta Include new phone numbers
      * @return this
@@ -40,7 +40,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
     /**
      * Only show the incoming phone number resources with friendly names that
-     * exactly match this name
+     * exactly match this name.
      * 
      * @param friendlyName Filter by friendly name
      * @return this
@@ -51,7 +51,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Only show the incoming phone number resources that match this pattern
+     * Only show the incoming phone number resources that match this pattern.
      * 
      * @param phoneNumber Filter by incoming phone number
      * @return this
@@ -62,7 +62,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return IncomingPhoneNumber ResourceSet
@@ -84,7 +84,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -101,7 +101,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Generate a Page of IncomingPhoneNumber Resources for a given request
+     * Generate a Page of IncomingPhoneNumber Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -114,8 +114,10 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
             throw new ApiConnectionException("IncomingPhoneNumber read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -126,13 +128,18 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         }
         
         Page<IncomingPhoneNumber> result = new Page<>();
-        result.deserialize("incoming_phone_numbers", response.getContent(), IncomingPhoneNumber.class, client.getObjectMapper());
+        result.deserialize(
+            "incoming_phone_numbers",
+            response.getContent(),
+            IncomingPhoneNumber.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

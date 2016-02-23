@@ -17,7 +17,7 @@ public class WorkerCreator extends Creator<Worker> {
     private String attributes;
 
     /**
-     * Construct a new WorkerCreator
+     * Construct a new WorkerCreator.
      * 
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
@@ -28,7 +28,7 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     /**
-     * The activity_sid
+     * The activity_sid.
      * 
      * @param activitySid The activity_sid
      * @return this
@@ -39,7 +39,7 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     /**
-     * The attributes
+     * The attributes.
      * 
      * @param attributes The attributes
      * @return this
@@ -50,7 +50,7 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Worker
@@ -71,8 +71,10 @@ public class WorkerCreator extends Creator<Worker> {
             throw new ApiConnectionException("Worker creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -86,7 +88,7 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

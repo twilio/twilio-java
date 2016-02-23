@@ -7,6 +7,14 @@ import com.google.common.base.MoreObjects;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Pricing details per sms.
+ *
+ * <p>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
+ * </p>
+ */
 public class OutboundSmsPrice {
     private final String mcc;
     private final String mnc;

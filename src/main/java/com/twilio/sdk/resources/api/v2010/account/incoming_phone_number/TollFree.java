@@ -55,7 +55,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * read
+     * Create a TollFreeReader to execute read.
      * 
      * @param ownerAccountSid The owner_account_sid
      * @return TollFreeReader capable of executing the read
@@ -65,18 +65,20 @@ public class TollFree extends Resource {
     }
 
     /**
-     * create
+     * Create a TollFreeCreator to execute create.
      * 
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone_number
      * @return TollFreeCreator capable of executing the create
      */
-    public static TollFreeCreator create(final String ownerAccountSid, final com.twilio.types.PhoneNumber phoneNumber) {
+    public static TollFreeCreator create(final String ownerAccountSid, 
+                                         final com.twilio.types.PhoneNumber phoneNumber) {
         return new TollFreeCreator(ownerAccountSid, phoneNumber);
     }
 
     /**
-     * Converts a JSON String into a TollFree object using the provided ObjectMapper
+     * Converts a JSON String into a TollFree object using the provided
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -95,7 +97,7 @@ public class TollFree extends Resource {
 
     /**
      * Converts a JSON InputStream into a TollFree object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -213,6 +215,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -220,6 +224,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The address_requirements.
+     * 
      * @return The address_requirements
      */
     public final TollFree.AddressRequirement getAddressRequirements() {
@@ -227,6 +233,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -234,6 +242,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The beta.
+     * 
      * @return The beta
      */
     public final Boolean getBeta() {
@@ -241,6 +251,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The capabilities.
+     * 
      * @return The capabilities
      */
     public final PhoneNumberCapabilities getCapabilities() {
@@ -248,6 +260,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -255,6 +269,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -262,6 +278,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -269,6 +287,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The phone_number.
+     * 
      * @return The phone_number
      */
     public final com.twilio.types.PhoneNumber getPhoneNumber() {
@@ -276,6 +296,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -283,6 +305,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The sms_application_sid.
+     * 
      * @return The sms_application_sid
      */
     public final String getSmsApplicationSid() {
@@ -290,6 +314,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The sms_fallback_method.
+     * 
      * @return The sms_fallback_method
      */
     public final HttpMethod getSmsFallbackMethod() {
@@ -297,6 +323,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The sms_fallback_url.
+     * 
      * @return The sms_fallback_url
      */
     public final URI getSmsFallbackUrl() {
@@ -304,6 +332,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The sms_method.
+     * 
      * @return The sms_method
      */
     public final HttpMethod getSmsMethod() {
@@ -311,6 +341,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The sms_url.
+     * 
      * @return The sms_url
      */
     public final URI getSmsUrl() {
@@ -318,6 +350,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The status_callback.
+     * 
      * @return The status_callback
      */
     public final URI getStatusCallback() {
@@ -325,6 +359,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The status_callback_method.
+     * 
      * @return The status_callback_method
      */
     public final HttpMethod getStatusCallbackMethod() {
@@ -332,6 +368,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {
@@ -339,6 +377,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The voice_application_sid.
+     * 
      * @return The voice_application_sid
      */
     public final String getVoiceApplicationSid() {
@@ -346,6 +386,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The voice_caller_id_lookup.
+     * 
      * @return The voice_caller_id_lookup
      */
     public final Boolean getVoiceCallerIdLookup() {
@@ -353,6 +395,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The voice_fallback_method.
+     * 
      * @return The voice_fallback_method
      */
     public final HttpMethod getVoiceFallbackMethod() {
@@ -360,6 +404,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The voice_fallback_url.
+     * 
      * @return The voice_fallback_url
      */
     public final URI getVoiceFallbackUrl() {
@@ -367,6 +413,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The voice_method.
+     * 
      * @return The voice_method
      */
     public final HttpMethod getVoiceMethod() {
@@ -374,6 +422,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The voice_url.
+     * 
      * @return The voice_url
      */
     public final URI getVoiceUrl() {

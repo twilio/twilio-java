@@ -58,42 +58,46 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
-     * create
+     * Create a FeedbackSummaryCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param startDate The start_date
      * @param endDate The end_date
      * @return FeedbackSummaryCreator capable of executing the create
      */
-    public static FeedbackSummaryCreator create(final String accountSid, final LocalDate startDate, final LocalDate endDate) {
+    public static FeedbackSummaryCreator create(final String accountSid, 
+                                                final LocalDate startDate, 
+                                                final LocalDate endDate) {
         return new FeedbackSummaryCreator(accountSid, startDate, endDate);
     }
 
     /**
-     * fetch
+     * Create a FeedbackSummaryFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return FeedbackSummaryFetcher capable of executing the fetch
      */
-    public static FeedbackSummaryFetcher fetch(final String accountSid, final String sid) {
+    public static FeedbackSummaryFetcher fetch(final String accountSid, 
+                                               final String sid) {
         return new FeedbackSummaryFetcher(accountSid, sid);
     }
 
     /**
-     * delete
+     * Create a FeedbackSummaryDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return FeedbackSummaryDeleter capable of executing the delete
      */
-    public static FeedbackSummaryDeleter delete(final String accountSid, final String sid) {
+    public static FeedbackSummaryDeleter delete(final String accountSid, 
+                                                final String sid) {
         return new FeedbackSummaryDeleter(accountSid, sid);
     }
 
     /**
      * Converts a JSON String into a FeedbackSummary object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -112,7 +116,7 @@ public class FeedbackSummary extends SidResource {
 
     /**
      * Converts a JSON InputStream into a FeedbackSummary object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -190,6 +194,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -197,6 +203,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The call_count.
+     * 
      * @return The call_count
      */
     public final Integer getCallCount() {
@@ -204,6 +212,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The call_feedback_count.
+     * 
      * @return The call_feedback_count
      */
     public final Integer getCallFeedbackCount() {
@@ -211,6 +221,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -218,6 +230,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -225,6 +239,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The end_date.
+     * 
      * @return The end_date
      */
     public final DateTime getEndDate() {
@@ -232,6 +248,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The include_subaccounts.
+     * 
      * @return The include_subaccounts
      */
     public final Boolean getIncludeSubaccounts() {
@@ -239,6 +257,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The issues.
+     * 
      * @return The issues
      */
     public final List<FeedbackIssue> getIssues() {
@@ -246,6 +266,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The quality_score_average.
+     * 
      * @return The quality_score_average
      */
     public final BigDecimal getQualityScoreAverage() {
@@ -253,6 +275,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The quality_score_median.
+     * 
      * @return The quality_score_median
      */
     public final BigDecimal getQualityScoreMedian() {
@@ -260,6 +284,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The quality_score_standard_deviation.
+     * 
      * @return The quality_score_standard_deviation
      */
     public final BigDecimal getQualityScoreStandardDeviation() {
@@ -267,6 +293,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -274,6 +302,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The start_date.
+     * 
      * @return The start_date
      */
     public final DateTime getStartDate() {
@@ -281,6 +311,8 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Returns The The status.
+     * 
      * @return The status
      */
     public final FeedbackSummary.Status getStatus() {

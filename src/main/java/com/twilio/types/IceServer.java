@@ -7,6 +7,9 @@ import com.google.common.base.MoreObjects;
 import java.net.URI;
 import java.util.Objects;
 
+/**
+ * POJO representation of a Twilio ICE server.
+ */
 public class IceServer {
     private final String credential;
     private final String username;

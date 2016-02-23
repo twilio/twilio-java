@@ -16,7 +16,7 @@ public class TodayReader extends Reader<Today> {
     private final String accountSid;
 
     /**
-     * Construct a new TodayReader
+     * Construct a new TodayReader.
      * 
      * @param accountSid The account_sid
      */
@@ -25,7 +25,7 @@ public class TodayReader extends Reader<Today> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Today ResourceSet
@@ -47,7 +47,7 @@ public class TodayReader extends Reader<Today> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -64,7 +64,7 @@ public class TodayReader extends Reader<Today> {
     }
 
     /**
-     * Generate a Page of Today Resources for a given request
+     * Generate a Page of Today Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -77,8 +77,10 @@ public class TodayReader extends Reader<Today> {
             throw new ApiConnectionException("Today read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -89,13 +91,18 @@ public class TodayReader extends Reader<Today> {
         }
         
         Page<Today> result = new Page<>();
-        result.deserialize("usage_records", response.getContent(), Today.class, client.getObjectMapper());
+        result.deserialize(
+            "usage_records",
+            response.getContent(),
+            Today.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

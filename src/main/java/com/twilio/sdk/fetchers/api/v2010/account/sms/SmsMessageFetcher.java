@@ -15,7 +15,7 @@ public class SmsMessageFetcher extends Fetcher<SmsMessage> {
     private final String sid;
 
     /**
-     * Construct a new SmsMessageFetcher
+     * Construct a new SmsMessageFetcher.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
@@ -26,7 +26,7 @@ public class SmsMessageFetcher extends Fetcher<SmsMessage> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SmsMessage
@@ -46,8 +46,10 @@ public class SmsMessageFetcher extends Fetcher<SmsMessage> {
             throw new ApiConnectionException("SmsMessage fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

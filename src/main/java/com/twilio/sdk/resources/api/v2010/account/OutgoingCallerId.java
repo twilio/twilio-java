@@ -32,41 +32,43 @@ public class OutgoingCallerId extends SidResource {
     private static final long serialVersionUID = 160246512577628L;
 
     /**
-     * Fetch an outgoing-caller-id belonging to the account used to make the request
+     * Create a OutgoingCallerIdFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdFetcher capable of executing the fetch
      */
-    public static OutgoingCallerIdFetcher fetch(final String accountSid, final String sid) {
+    public static OutgoingCallerIdFetcher fetch(final String accountSid, 
+                                                final String sid) {
         return new OutgoingCallerIdFetcher(accountSid, sid);
     }
 
     /**
-     * Updates the caller-id
+     * Create a OutgoingCallerIdUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid Update by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdUpdater capable of executing the update
      */
-    public static OutgoingCallerIdUpdater update(final String accountSid, final String sid) {
+    public static OutgoingCallerIdUpdater update(final String accountSid, 
+                                                 final String sid) {
         return new OutgoingCallerIdUpdater(accountSid, sid);
     }
 
     /**
-     * Delete the caller-id specified from the account
+     * Create a OutgoingCallerIdDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid Delete by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdDeleter capable of executing the delete
      */
-    public static OutgoingCallerIdDeleter delete(final String accountSid, final String sid) {
+    public static OutgoingCallerIdDeleter delete(final String accountSid, 
+                                                 final String sid) {
         return new OutgoingCallerIdDeleter(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of outgoing-caller-ids belonging to the account used to make
-     * the request
+     * Create a OutgoingCallerIdReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return OutgoingCallerIdReader capable of executing the read
@@ -77,7 +79,7 @@ public class OutgoingCallerId extends SidResource {
 
     /**
      * Converts a JSON String into a OutgoingCallerId object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -96,7 +98,7 @@ public class OutgoingCallerId extends SidResource {
 
     /**
      * Converts a JSON InputStream into a OutgoingCallerId object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -146,6 +148,8 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this outgoing-caller-ids.
+     * 
      * @return A string that uniquely identifies this outgoing-caller-ids
      */
     public final String getSid() {
@@ -153,6 +157,8 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -160,6 +166,8 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -167,6 +175,8 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Returns The A human readable description for this resource.
+     * 
      * @return A human readable description for this resource
      */
     public final String getFriendlyName() {
@@ -174,6 +184,8 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -181,6 +193,8 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Returns The The incoming phone number.
+     * 
      * @return The incoming phone number
      */
     public final com.twilio.types.PhoneNumber getPhoneNumber() {
@@ -188,6 +202,8 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

@@ -18,7 +18,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     private final String friendlyName;
 
     /**
-     * Construct a new IpAddressUpdater
+     * Construct a new IpAddressUpdater.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
@@ -35,7 +35,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated IpAddress
@@ -56,8 +56,10 @@ public class IpAddressUpdater extends Updater<IpAddress> {
             throw new ApiConnectionException("IpAddress update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -71,7 +73,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

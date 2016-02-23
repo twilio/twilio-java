@@ -15,7 +15,7 @@ public class QueueFetcher extends Fetcher<Queue> {
     private final String sid;
 
     /**
-     * Construct a new QueueFetcher
+     * Construct a new QueueFetcher.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique queue Sid
@@ -26,7 +26,7 @@ public class QueueFetcher extends Fetcher<Queue> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Queue
@@ -46,8 +46,10 @@ public class QueueFetcher extends Fetcher<Queue> {
             throw new ApiConnectionException("Queue fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

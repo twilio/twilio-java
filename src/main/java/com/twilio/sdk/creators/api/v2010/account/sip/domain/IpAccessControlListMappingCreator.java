@@ -16,7 +16,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
     private final String ipAccessControlListSid;
 
     /**
-     * Construct a new IpAccessControlListMappingCreator
+     * Construct a new IpAccessControlListMappingCreator.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
@@ -29,7 +29,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created IpAccessControlListMapping
@@ -50,8 +50,10 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
             throw new ApiConnectionException("IpAccessControlListMapping creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -65,7 +67,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

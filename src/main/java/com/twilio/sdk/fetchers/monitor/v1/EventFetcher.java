@@ -14,7 +14,7 @@ public class EventFetcher extends Fetcher<Event> {
     private final String sid;
 
     /**
-     * Construct a new EventFetcher
+     * Construct a new EventFetcher.
      * 
      * @param sid The sid
      */
@@ -23,7 +23,7 @@ public class EventFetcher extends Fetcher<Event> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Event
@@ -43,8 +43,10 @@ public class EventFetcher extends Fetcher<Event> {
             throw new ApiConnectionException("Event fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

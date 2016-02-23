@@ -33,8 +33,7 @@ public class IpAccessControlList extends SidResource {
     private static final long serialVersionUID = 214188792953524L;
 
     /**
-     * Retrieve a list of ip-access-control-lists belonging to the account used to
-     * make the request
+     * Create a IpAccessControlListReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return IpAccessControlListReader capable of executing the read
@@ -44,53 +43,58 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
-     * Create a new IpAccessControlList resource
+     * Create a IpAccessControlListCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator create(final String accountSid, final String friendlyName) {
+    public static IpAccessControlListCreator create(final String accountSid, 
+                                                    final String friendlyName) {
         return new IpAccessControlListCreator(accountSid, friendlyName);
     }
 
     /**
-     * Fetch a specific instance of an IpAccessControlList
+     * Create a IpAccessControlListFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique ip-access-control-list Sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetch(final String accountSid, final String sid) {
+    public static IpAccessControlListFetcher fetch(final String accountSid, 
+                                                   final String sid) {
         return new IpAccessControlListFetcher(accountSid, sid);
     }
 
     /**
-     * Rename an IpAccessControlList
+     * Create a IpAccessControlListUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
-    public static IpAccessControlListUpdater update(final String accountSid, final String sid, final String friendlyName) {
+    public static IpAccessControlListUpdater update(final String accountSid, 
+                                                    final String sid, 
+                                                    final String friendlyName) {
         return new IpAccessControlListUpdater(accountSid, sid, friendlyName);
     }
 
     /**
-     * Delete an IpAccessControlList from the requested account
+     * Create a IpAccessControlListDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid Delete by unique ip-access-control-list Sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter delete(final String accountSid, final String sid) {
+    public static IpAccessControlListDeleter delete(final String accountSid, 
+                                                    final String sid) {
         return new IpAccessControlListDeleter(accountSid, sid);
     }
 
     /**
      * Converts a JSON String into a IpAccessControlList object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -109,7 +113,7 @@ public class IpAccessControlList extends SidResource {
 
     /**
      * Converts a JSON InputStream into a IpAccessControlList object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -159,6 +163,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this resource.
+     * 
      * @return A string that uniquely identifies this resource
      */
     public final String getSid() {
@@ -166,6 +172,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -173,6 +181,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The A human readable description of this resource.
+     * 
      * @return A human readable description of this resource
      */
     public final String getFriendlyName() {
@@ -180,6 +190,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -187,6 +199,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -194,6 +208,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The subresource_uris.
+     * 
      * @return The subresource_uris
      */
     public final Map<String, String> getSubresourceUris() {
@@ -201,6 +217,8 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

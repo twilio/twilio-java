@@ -18,7 +18,7 @@ public class NotificationReader extends Reader<Notification> {
     private String messageDate;
 
     /**
-     * Construct a new NotificationReader
+     * Construct a new NotificationReader.
      * 
      * @param accountSid The account_sid
      */
@@ -27,7 +27,7 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Only show notifications for this log level
+     * Only show notifications for this log level.
      * 
      * @param log Filter by log level
      * @return this
@@ -39,7 +39,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Only show notifications for this date. Should be formatted as YYYY-MM-DD. You
-     * can also specify inequalities.
+     * can also specify inequalities..
      * 
      * @param messageDate Filter by date
      * @return this
@@ -50,7 +50,7 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Notification ResourceSet
@@ -72,7 +72,7 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -89,7 +89,7 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Generate a Page of Notification Resources for a given request
+     * Generate a Page of Notification Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -102,8 +102,10 @@ public class NotificationReader extends Reader<Notification> {
             throw new ApiConnectionException("Notification read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -114,13 +116,18 @@ public class NotificationReader extends Reader<Notification> {
         }
         
         Page<Notification> result = new Page<>();
-        result.deserialize("notifications", response.getContent(), Notification.class, client.getObjectMapper());
+        result.deserialize(
+            "notifications",
+            response.getContent(),
+            Notification.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

@@ -16,7 +16,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     private final String callSid;
 
     /**
-     * Construct a new ParticipantFetcher
+     * Construct a new ParticipantFetcher.
      * 
      * @param accountSid The account_sid
      * @param conferenceSid The string that uniquely identifies this conference
@@ -29,7 +29,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Participant
@@ -49,8 +49,10 @@ public class ParticipantFetcher extends Fetcher<Participant> {
             throw new ApiConnectionException("Participant fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

@@ -29,18 +29,20 @@ public class TollFree extends Resource {
     private static final long serialVersionUID = 250162359733040L;
 
     /**
-     * read
+     * Create a TollFreeReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param countryCode The country_code
      * @return TollFreeReader capable of executing the read
      */
-    public static TollFreeReader read(final String accountSid, final String countryCode) {
+    public static TollFreeReader read(final String accountSid, 
+                                      final String countryCode) {
         return new TollFreeReader(accountSid, countryCode);
     }
 
     /**
-     * Converts a JSON String into a TollFree object using the provided ObjectMapper
+     * Converts a JSON String into a TollFree object using the provided
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -59,7 +61,7 @@ public class TollFree extends Resource {
 
     /**
      * Converts a JSON InputStream into a TollFree object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -129,6 +131,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final com.twilio.types.PhoneNumber getFriendlyName() {
@@ -136,6 +140,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The phone_number.
+     * 
      * @return The phone_number
      */
     public final com.twilio.types.PhoneNumber getPhoneNumber() {
@@ -143,6 +149,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The lata.
+     * 
      * @return The lata
      */
     public final String getLata() {
@@ -150,6 +158,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The rate_center.
+     * 
      * @return The rate_center
      */
     public final String getRateCenter() {
@@ -157,6 +167,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The latitude.
+     * 
      * @return The latitude
      */
     public final BigDecimal getLatitude() {
@@ -164,6 +176,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The longitude.
+     * 
      * @return The longitude
      */
     public final BigDecimal getLongitude() {
@@ -171,6 +185,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The region.
+     * 
      * @return The region
      */
     public final String getRegion() {
@@ -178,6 +194,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The postal_code.
+     * 
      * @return The postal_code
      */
     public final String getPostalCode() {
@@ -185,6 +203,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The iso_country.
+     * 
      * @return The iso_country
      */
     public final String getIsoCountry() {
@@ -192,6 +212,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The address_requirements.
+     * 
      * @return The address_requirements
      */
     public final String getAddressRequirements() {
@@ -199,6 +221,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The beta.
+     * 
      * @return The beta
      */
     public final Boolean getBeta() {
@@ -206,6 +230,8 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Returns The The capabilities.
+     * 
      * @return The capabilities
      */
     public final PhoneNumberCapabilities getCapabilities() {

@@ -15,7 +15,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private final String sid;
 
     /**
-     * Construct a new PhoneNumberFetcher
+     * Construct a new PhoneNumberFetcher.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
@@ -26,7 +26,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched PhoneNumber
@@ -46,8 +46,10 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             throw new ApiConnectionException("PhoneNumber fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

@@ -33,7 +33,7 @@ public class Worker extends SidResource {
     private static final long serialVersionUID = 267403389002552L;
 
     /**
-     * read
+     * Create a WorkerReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
      * @return WorkerReader capable of executing the read
@@ -43,51 +43,55 @@ public class Worker extends SidResource {
     }
 
     /**
-     * create
+     * Create a WorkerCreator to execute create.
      * 
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @return WorkerCreator capable of executing the create
      */
-    public static WorkerCreator create(final String workspaceSid, final String friendlyName) {
+    public static WorkerCreator create(final String workspaceSid, 
+                                       final String friendlyName) {
         return new WorkerCreator(workspaceSid, friendlyName);
     }
 
     /**
-     * fetch
+     * Create a WorkerFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return WorkerFetcher capable of executing the fetch
      */
-    public static WorkerFetcher fetch(final String workspaceSid, final String sid) {
+    public static WorkerFetcher fetch(final String workspaceSid, 
+                                      final String sid) {
         return new WorkerFetcher(workspaceSid, sid);
     }
 
     /**
-     * update
+     * Create a WorkerUpdater to execute update.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return WorkerUpdater capable of executing the update
      */
-    public static WorkerUpdater update(final String workspaceSid, final String sid) {
+    public static WorkerUpdater update(final String workspaceSid, 
+                                       final String sid) {
         return new WorkerUpdater(workspaceSid, sid);
     }
 
     /**
-     * delete
+     * Create a WorkerDeleter to execute delete.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return WorkerDeleter capable of executing the delete
      */
-    public static WorkerDeleter delete(final String workspaceSid, final String sid) {
+    public static WorkerDeleter delete(final String workspaceSid, 
+                                       final String sid) {
         return new WorkerDeleter(workspaceSid, sid);
     }
 
     /**
-     * Converts a JSON String into a Worker object using the provided ObjectMapper
+     * Converts a JSON String into a Worker object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -106,7 +110,7 @@ public class Worker extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Worker object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -172,6 +176,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -179,6 +185,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The activity_name.
+     * 
      * @return The activity_name
      */
     public final String getActivityName() {
@@ -186,6 +194,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The activity_sid.
+     * 
      * @return The activity_sid
      */
     public final String getActivitySid() {
@@ -193,6 +203,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The attributes.
+     * 
      * @return The attributes
      */
     public final String getAttributes() {
@@ -200,6 +212,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The available.
+     * 
      * @return The available
      */
     public final Boolean getAvailable() {
@@ -207,6 +221,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -214,6 +230,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The date_status_changed.
+     * 
      * @return The date_status_changed
      */
     public final DateTime getDateStatusChanged() {
@@ -221,6 +239,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -228,6 +248,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -235,6 +257,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -242,6 +266,8 @@ public class Worker extends SidResource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

@@ -16,7 +16,7 @@ public class RecordingDeleter extends Deleter<Recording> {
     private final String sid;
 
     /**
-     * Construct a new RecordingDeleter
+     * Construct a new RecordingDeleter.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
@@ -29,7 +29,7 @@ public class RecordingDeleter extends Deleter<Recording> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete
+     * Make the request to the Twilio API to perform the delete.
      * 
      * @param client TwilioRestClient with which to make the request
      */
@@ -48,8 +48,10 @@ public class RecordingDeleter extends Deleter<Recording> {
             throw new ApiConnectionException("Recording delete failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

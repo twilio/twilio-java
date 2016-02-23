@@ -22,7 +22,7 @@ public class TaskReader extends Reader<Task> {
     private String taskQueueName;
 
     /**
-     * Construct a new TaskReader
+     * Construct a new TaskReader.
      * 
      * @param workspaceSid The workspace_sid
      */
@@ -31,7 +31,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The priority
+     * The priority.
      * 
      * @param priority The priority
      * @return this
@@ -42,7 +42,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The assignment_status
+     * The assignment_status.
      * 
      * @param assignmentStatus The assignment_status
      * @return this
@@ -53,7 +53,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The workflow_sid
+     * The workflow_sid.
      * 
      * @param workflowSid The workflow_sid
      * @return this
@@ -64,7 +64,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The workflow_name
+     * The workflow_name.
      * 
      * @param workflowName The workflow_name
      * @return this
@@ -75,7 +75,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The task_queue_sid
+     * The task_queue_sid.
      * 
      * @param taskQueueSid The task_queue_sid
      * @return this
@@ -86,7 +86,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The task_queue_name
+     * The task_queue_name.
      * 
      * @param taskQueueName The task_queue_name
      * @return this
@@ -97,7 +97,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Task ResourceSet
@@ -119,7 +119,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -136,7 +136,7 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Generate a Page of Task Resources for a given request
+     * Generate a Page of Task Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -149,8 +149,10 @@ public class TaskReader extends Reader<Task> {
             throw new ApiConnectionException("Task read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -161,13 +163,18 @@ public class TaskReader extends Reader<Task> {
         }
         
         Page<Task> result = new Page<>();
-        result.deserialize("tasks", response.getContent(), Task.class, client.getObjectMapper());
+        result.deserialize(
+            "tasks",
+            response.getContent(),
+            Task.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

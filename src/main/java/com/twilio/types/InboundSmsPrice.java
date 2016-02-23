@@ -6,6 +6,14 @@ import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
+/**
+ * Pricing for inbound sms.
+ *
+ * <p>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
+ * </p>
+ */
 public class InboundSmsPrice {
     public enum Type {
         LOCAL("local"),

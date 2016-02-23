@@ -21,7 +21,7 @@ public class AddressCreator extends Creator<Address> {
     private String friendlyName;
 
     /**
-     * Construct a new AddressCreator
+     * Construct a new AddressCreator.
      * 
      * @param accountSid The account_sid
      * @param customerName The customer_name
@@ -42,7 +42,7 @@ public class AddressCreator extends Creator<Address> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -53,7 +53,7 @@ public class AddressCreator extends Creator<Address> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Address
@@ -74,8 +74,10 @@ public class AddressCreator extends Creator<Address> {
             throw new ApiConnectionException("Address creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -89,7 +91,7 @@ public class AddressCreator extends Creator<Address> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

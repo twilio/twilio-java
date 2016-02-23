@@ -15,7 +15,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
     private final String callSid;
 
     /**
-     * Construct a new FeedbackFetcher
+     * Construct a new FeedbackFetcher.
      * 
      * @param accountSid The account_sid
      * @param callSid The call sid that uniquely identifies the call
@@ -26,7 +26,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Feedback
@@ -46,8 +46,10 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
             throw new ApiConnectionException("Feedback fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

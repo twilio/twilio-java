@@ -31,30 +31,31 @@ public class Recording extends SidResource {
     private static final long serialVersionUID = 232068402359085L;
 
     /**
-     * Fetch an instance of a recording
+     * Create a RecordingFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetch(final String accountSid, final String sid) {
+    public static RecordingFetcher fetch(final String accountSid, 
+                                         final String sid) {
         return new RecordingFetcher(accountSid, sid);
     }
 
     /**
-     * Delete a recording from your account
+     * Create a RecordingDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter delete(final String accountSid, final String sid) {
+    public static RecordingDeleter delete(final String accountSid, 
+                                          final String sid) {
         return new RecordingDeleter(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of recordings belonging to the account used to make the
-     * request
+     * Create a RecordingReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return RecordingReader capable of executing the read
@@ -65,7 +66,7 @@ public class Recording extends SidResource {
 
     /**
      * Converts a JSON String into a Recording object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -84,7 +85,7 @@ public class Recording extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Recording object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -138,6 +139,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -145,6 +148,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The version of the API in use during the recording..
+     * 
      * @return The version of the API in use during the recording.
      */
     public final String getApiVersion() {
@@ -152,6 +157,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The call during which the recording was made..
+     * 
      * @return The call during which the recording was made.
      */
     public final String getCallSid() {
@@ -159,6 +166,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -166,6 +175,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -173,6 +184,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The length of the recording, in seconds..
+     * 
      * @return The length of the recording, in seconds.
      */
     public final String getDuration() {
@@ -180,6 +193,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this recording.
+     * 
      * @return A string that uniquely identifies this recording
      */
     public final String getSid() {
@@ -187,6 +202,8 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

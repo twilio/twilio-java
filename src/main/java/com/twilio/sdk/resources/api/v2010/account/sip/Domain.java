@@ -34,7 +34,7 @@ public class Domain extends SidResource {
     private static final long serialVersionUID = 139851556323628L;
 
     /**
-     * Retrieve a list of domains belonging to the account used to make the request
+     * Create a DomainReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return DomainReader capable of executing the read
@@ -44,51 +44,55 @@ public class Domain extends SidResource {
     }
 
     /**
-     * Create a new Domain
+     * Create a DomainCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return DomainCreator capable of executing the create
      */
-    public static DomainCreator create(final String accountSid, final String domainName) {
+    public static DomainCreator create(final String accountSid, 
+                                       final String domainName) {
         return new DomainCreator(accountSid, domainName);
     }
 
     /**
-     * Fetch an instance of a Domain
+     * Create a DomainFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique Domain Sid
      * @return DomainFetcher capable of executing the fetch
      */
-    public static DomainFetcher fetch(final String accountSid, final String sid) {
+    public static DomainFetcher fetch(final String accountSid, 
+                                      final String sid) {
         return new DomainFetcher(accountSid, sid);
     }
 
     /**
-     * Update the attributes of a domain
+     * Create a DomainUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return DomainUpdater capable of executing the update
      */
-    public static DomainUpdater update(final String accountSid, final String sid) {
+    public static DomainUpdater update(final String accountSid, 
+                                       final String sid) {
         return new DomainUpdater(accountSid, sid);
     }
 
     /**
-     * delete
+     * Create a DomainDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return DomainDeleter capable of executing the delete
      */
-    public static DomainDeleter delete(final String accountSid, final String sid) {
+    public static DomainDeleter delete(final String accountSid, 
+                                       final String sid) {
         return new DomainDeleter(accountSid, sid);
     }
 
     /**
-     * Converts a JSON String into a Domain object using the provided ObjectMapper
+     * Converts a JSON String into a Domain object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -107,7 +111,7 @@ public class Domain extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Domain object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -189,6 +193,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The The unique id of the account that sent the message.
+     * 
      * @return The unique id of the account that sent the message
      */
     public final String getAccountSid() {
@@ -196,6 +202,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The The Twilio API version used to process the message.
+     * 
      * @return The Twilio API version used to process the message
      */
     public final String getApiVersion() {
@@ -203,6 +211,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The The types of authentication mapped to the domain.
+     * 
      * @return The types of authentication mapped to the domain
      */
     public final String getAuthType() {
@@ -210,6 +220,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -217,6 +229,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -224,6 +238,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The The unique address on Twilio to route SIP traffic.
+     * 
      * @return The unique address on Twilio to route SIP traffic
      */
     public final String getDomainName() {
@@ -231,6 +247,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The A user-specified, human-readable name for the trigger..
+     * 
      * @return A user-specified, human-readable name for the trigger.
      */
     public final String getFriendlyName() {
@@ -238,6 +256,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies the SIP Domain.
+     * 
      * @return A string that uniquely identifies the SIP Domain
      */
     public final String getSid() {
@@ -245,6 +265,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {
@@ -252,6 +274,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The HTTP method used with voice_fallback_url.
+     * 
      * @return HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
@@ -259,6 +283,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio will request if an error occurs in executing TwiML.
+     * 
      * @return URL Twilio will request if an error occurs in executing TwiML
      */
     public final URI getVoiceFallbackUrl() {
@@ -266,6 +292,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The HTTP method to use with voice_url.
+     * 
      * @return HTTP method to use with voice_url
      */
     public final HttpMethod getVoiceMethod() {
@@ -273,6 +301,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The The voice_status_callback_method.
+     * 
      * @return The voice_status_callback_method
      */
     public final HttpMethod getVoiceStatusCallbackMethod() {
@@ -280,6 +310,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The URL that Twilio will request with status updates.
+     * 
      * @return URL that Twilio will request with status updates
      */
     public final URI getVoiceStatusCallbackUrl() {
@@ -287,6 +319,8 @@ public class Domain extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio will request when receiving a call.
+     * 
      * @return URL Twilio will request when receiving a call
      */
     public final URI getVoiceUrl() {

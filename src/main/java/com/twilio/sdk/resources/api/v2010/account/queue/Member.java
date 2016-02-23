@@ -32,20 +32,21 @@ public class Member extends SidResource {
     private static final long serialVersionUID = 27782479642114L;
 
     /**
-     * Fetch a specific members of the queue
+     * Create a MemberFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param queueSid The Queue in which to find the members
      * @param callSid The call_sid
      * @return MemberFetcher capable of executing the fetch
      */
-    public static MemberFetcher fetch(final String accountSid, final String queueSid, final String callSid) {
+    public static MemberFetcher fetch(final String accountSid, 
+                                      final String queueSid, 
+                                      final String callSid) {
         return new MemberFetcher(accountSid, queueSid, callSid);
     }
 
     /**
-     * Dequeue a member from a queue and have the member's call begin executing the
-     * TwiML document at that URL
+     * Create a MemberUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param queueSid The Queue in which to find the members
@@ -54,23 +55,28 @@ public class Member extends SidResource {
      * @param method The method
      * @return MemberUpdater capable of executing the update
      */
-    public static MemberUpdater update(final String accountSid, final String queueSid, final String callSid, final URI url, final HttpMethod method) {
+    public static MemberUpdater update(final String accountSid, 
+                                       final String queueSid, 
+                                       final String callSid, 
+                                       final URI url, 
+                                       final HttpMethod method) {
         return new MemberUpdater(accountSid, queueSid, callSid, url, method);
     }
 
     /**
-     * Retrieve a list of members in the queue
+     * Create a MemberReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param queueSid The Queue in which to find members
      * @return MemberReader capable of executing the read
      */
-    public static MemberReader read(final String accountSid, final String queueSid) {
+    public static MemberReader read(final String accountSid, 
+                                    final String queueSid) {
         return new MemberReader(accountSid, queueSid);
     }
 
     /**
-     * Converts a JSON String into a Member object using the provided ObjectMapper
+     * Converts a JSON String into a Member object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -89,7 +95,7 @@ public class Member extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Member object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -131,6 +137,8 @@ public class Member extends SidResource {
     }
 
     /**
+     * Returns The Unique string that identifies this resource.
+     * 
      * @return Unique string that identifies this resource
      */
     public final String getSid() {
@@ -138,6 +146,8 @@ public class Member extends SidResource {
     }
 
     /**
+     * Returns The Unique string that identifies this resource.
+     * 
      * @return Unique string that identifies this resource
      */
     public final String getCallSid() {
@@ -145,6 +155,8 @@ public class Member extends SidResource {
     }
 
     /**
+     * Returns The The date the member was enqueued.
+     * 
      * @return The date the member was enqueued
      */
     public final DateTime getDateEnqueued() {
@@ -152,6 +164,8 @@ public class Member extends SidResource {
     }
 
     /**
+     * Returns The This member's current position in the queue..
+     * 
      * @return This member's current position in the queue.
      */
     public final Integer getPosition() {
@@ -159,6 +173,8 @@ public class Member extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {
@@ -166,6 +182,8 @@ public class Member extends SidResource {
     }
 
     /**
+     * Returns The The number of seconds the member has been in the queue..
+     * 
      * @return The number of seconds the member has been in the queue.
      */
     public final Integer getWaitTime() {

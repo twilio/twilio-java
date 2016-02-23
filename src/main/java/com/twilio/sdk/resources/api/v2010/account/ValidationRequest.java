@@ -27,19 +27,20 @@ public class ValidationRequest extends Resource {
     private static final long serialVersionUID = 227253393242231L;
 
     /**
-     * create
+     * Create a ValidationRequestCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param phoneNumber The phone_number
      * @return ValidationRequestCreator capable of executing the create
      */
-    public static ValidationRequestCreator create(final String accountSid, final com.twilio.types.PhoneNumber phoneNumber) {
+    public static ValidationRequestCreator create(final String accountSid, 
+                                                  final com.twilio.types.PhoneNumber phoneNumber) {
         return new ValidationRequestCreator(accountSid, phoneNumber);
     }
 
     /**
      * Converts a JSON String into a ValidationRequest object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -58,7 +59,7 @@ public class ValidationRequest extends Resource {
 
     /**
      * Converts a JSON InputStream into a ValidationRequest object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -100,6 +101,8 @@ public class ValidationRequest extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -107,6 +110,8 @@ public class ValidationRequest extends Resource {
     }
 
     /**
+     * Returns The The phone_number.
+     * 
      * @return The phone_number
      */
     public final com.twilio.types.PhoneNumber getPhoneNumber() {
@@ -114,6 +119,8 @@ public class ValidationRequest extends Resource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -121,6 +128,8 @@ public class ValidationRequest extends Resource {
     }
 
     /**
+     * Returns The The validation_code.
+     * 
      * @return The validation_code
      */
     public final Integer getValidationCode() {
@@ -128,6 +137,8 @@ public class ValidationRequest extends Resource {
     }
 
     /**
+     * Returns The The call_sid.
+     * 
      * @return The call_sid
      */
     public final String getCallSid() {

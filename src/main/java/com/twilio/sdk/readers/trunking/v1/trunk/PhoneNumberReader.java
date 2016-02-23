@@ -16,7 +16,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     private final String trunkSid;
 
     /**
-     * Construct a new PhoneNumberReader
+     * Construct a new PhoneNumberReader.
      * 
      * @param trunkSid The trunk_sid
      */
@@ -25,7 +25,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return PhoneNumber ResourceSet
@@ -47,7 +47,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -64,7 +64,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     }
 
     /**
-     * Generate a Page of PhoneNumber Resources for a given request
+     * Generate a Page of PhoneNumber Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -77,8 +77,10 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
             throw new ApiConnectionException("PhoneNumber read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -89,13 +91,18 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         }
         
         Page<PhoneNumber> result = new Page<>();
-        result.deserialize("phone_numbers", response.getContent(), PhoneNumber.class, client.getObjectMapper());
+        result.deserialize(
+            "phone_numbers",
+            response.getContent(),
+            PhoneNumber.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

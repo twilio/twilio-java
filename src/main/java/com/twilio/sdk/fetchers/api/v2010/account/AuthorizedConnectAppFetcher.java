@@ -15,7 +15,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     private final String connectAppSid;
 
     /**
-     * Construct a new AuthorizedConnectAppFetcher
+     * Construct a new AuthorizedConnectAppFetcher.
      * 
      * @param accountSid The account_sid
      * @param connectAppSid The connect_app_sid
@@ -26,7 +26,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AuthorizedConnectApp
@@ -46,8 +46,10 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
             throw new ApiConnectionException("AuthorizedConnectApp fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

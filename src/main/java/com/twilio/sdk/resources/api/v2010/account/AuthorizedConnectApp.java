@@ -53,19 +53,19 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
-     * Fetch an instance of an authorized-connect-app
+     * Create a AuthorizedConnectAppFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param connectAppSid The connect_app_sid
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
-    public static AuthorizedConnectAppFetcher fetch(final String accountSid, final String connectAppSid) {
+    public static AuthorizedConnectAppFetcher fetch(final String accountSid, 
+                                                    final String connectAppSid) {
         return new AuthorizedConnectAppFetcher(accountSid, connectAppSid);
     }
 
     /**
-     * Retrieve a list of authorized-connect-apps belonging to the account used to
-     * make the request
+     * Create a AuthorizedConnectAppReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return AuthorizedConnectAppReader capable of executing the read
@@ -76,7 +76,7 @@ public class AuthorizedConnectApp extends SidResource {
 
     /**
      * Converts a JSON String into a AuthorizedConnectApp object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -95,7 +95,7 @@ public class AuthorizedConnectApp extends SidResource {
 
     /**
      * Converts a JSON InputStream into a AuthorizedConnectApp object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -157,6 +157,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this app.
+     * 
      * @return A string that uniquely identifies this app
      */
     public final String getSid() {
@@ -164,6 +166,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -171,6 +175,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The company name set for this Connect App..
+     * 
      * @return The company name set for this Connect App.
      */
     public final String getConnectAppCompanyName() {
@@ -178,6 +184,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The Human readable description of the app.
+     * 
      * @return Human readable description of the app
      */
     public final String getConnectAppDescription() {
@@ -185,6 +193,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The A human readable name for the Connect App..
+     * 
      * @return A human readable name for the Connect App.
      */
     public final String getConnectAppFriendlyName() {
@@ -192,6 +202,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The public URL for this Connect App..
+     * 
      * @return The public URL for this Connect App.
      */
     public final URI getConnectAppHomepageUrl() {
@@ -199,6 +211,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this app.
+     * 
      * @return A string that uniquely identifies this app
      */
     public final String getConnectAppSid() {
@@ -206,6 +220,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -213,6 +229,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -220,6 +238,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The Permissions authorized to this app.
+     * 
      * @return Permissions authorized to this app
      */
     public final List<AuthorizedConnectApp.Permission> getPermissions() {
@@ -227,6 +247,8 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

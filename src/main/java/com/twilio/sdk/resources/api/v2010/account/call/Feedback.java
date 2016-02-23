@@ -59,42 +59,48 @@ public class Feedback extends Resource {
     }
 
     /**
-     * create
+     * Create a FeedbackCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
      * @param qualityScore The quality_score
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator create(final String accountSid, final String callSid, final Integer qualityScore) {
+    public static FeedbackCreator create(final String accountSid, 
+                                         final String callSid, 
+                                         final Integer qualityScore) {
         return new FeedbackCreator(accountSid, callSid, qualityScore);
     }
 
     /**
-     * Fetch an instance of a feedback entry for a call
+     * Create a FeedbackFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param callSid The call sid that uniquely identifies the call
      * @return FeedbackFetcher capable of executing the fetch
      */
-    public static FeedbackFetcher fetch(final String accountSid, final String callSid) {
+    public static FeedbackFetcher fetch(final String accountSid, 
+                                        final String callSid) {
         return new FeedbackFetcher(accountSid, callSid);
     }
 
     /**
-     * Create or update a feedback entry for a call
+     * Create a FeedbackUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param callSid The call_sid
      * @param qualityScore An integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
-    public static FeedbackUpdater update(final String accountSid, final String callSid, final Integer qualityScore) {
+    public static FeedbackUpdater update(final String accountSid, 
+                                         final String callSid, 
+                                         final Integer qualityScore) {
         return new FeedbackUpdater(accountSid, callSid, qualityScore);
     }
 
     /**
-     * Converts a JSON String into a Feedback object using the provided ObjectMapper
+     * Converts a JSON String into a Feedback object using the provided
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -113,7 +119,7 @@ public class Feedback extends Resource {
 
     /**
      * Converts a JSON InputStream into a Feedback object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -159,6 +165,8 @@ public class Feedback extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -166,6 +174,8 @@ public class Feedback extends Resource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -173,6 +183,8 @@ public class Feedback extends Resource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -180,6 +192,8 @@ public class Feedback extends Resource {
     }
 
     /**
+     * Returns The The issues.
+     * 
      * @return The issues
      */
     public final List<Feedback.Issues> getIssues() {
@@ -187,6 +201,8 @@ public class Feedback extends Resource {
     }
 
     /**
+     * Returns The 1 to 5 quality score.
+     * 
      * @return 1 to 5 quality score
      */
     public final Integer getQualityScore() {
@@ -194,6 +210,8 @@ public class Feedback extends Resource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {

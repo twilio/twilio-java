@@ -19,7 +19,7 @@ public class RecordReader extends Reader<Record> {
     private String endDate;
 
     /**
-     * Construct a new RecordReader
+     * Construct a new RecordReader.
      * 
      * @param accountSid The account_sid
      */
@@ -28,7 +28,7 @@ public class RecordReader extends Reader<Record> {
     }
 
     /**
-     * Only include usage of a given category
+     * Only include usage of a given category.
      * 
      * @param category Only include usage of a given category
      * @return this
@@ -42,7 +42,7 @@ public class RecordReader extends Reader<Record> {
      * Only include usage that has occurred on or after this date. Format is
      * YYYY-MM-DD in GTM. As a convenience, you can also specify offsets to today,
      * for example, StartDate=-30days, which will make StartDate 30 days before
-     * today
+     * today.
      * 
      * @param startDate Filter by start date
      * @return this
@@ -55,7 +55,7 @@ public class RecordReader extends Reader<Record> {
     /**
      * Only include usage that has occurred on or after this date. Format is
      * YYYY-MM-DD in GTM. As a convenience, you can also specify offsets to today,
-     * for example, EndDate=+30days, which will make EndDate 30 days from today
+     * for example, EndDate=+30days, which will make EndDate 30 days from today.
      * 
      * @param endDate Filter by end date
      * @return this
@@ -66,7 +66,7 @@ public class RecordReader extends Reader<Record> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Record ResourceSet
@@ -88,7 +88,7 @@ public class RecordReader extends Reader<Record> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -105,7 +105,7 @@ public class RecordReader extends Reader<Record> {
     }
 
     /**
-     * Generate a Page of Record Resources for a given request
+     * Generate a Page of Record Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -118,8 +118,10 @@ public class RecordReader extends Reader<Record> {
             throw new ApiConnectionException("Record read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -130,13 +132,18 @@ public class RecordReader extends Reader<Record> {
         }
         
         Page<Record> result = new Page<>();
-        result.deserialize("usage_records", response.getContent(), Record.class, client.getObjectMapper());
+        result.deserialize(
+            "usage_records",
+            response.getContent(),
+            Record.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

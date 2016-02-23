@@ -23,7 +23,7 @@ public class TriggerCreator extends Creator<Trigger> {
     private Trigger.TriggerField triggerBy;
 
     /**
-     * Construct a new TriggerCreator
+     * Construct a new TriggerCreator.
      * 
      * @param accountSid The account_sid
      * @param callbackUrl URL Twilio will request when the trigger fires
@@ -39,7 +39,7 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * The HTTP method Twilio will use when making a request to the CallbackUrl. 
-     * GET or POST.
+     * GET or POST..
      * 
      * @param callbackMethod HTTP method to use with callback_url
      * @return this
@@ -50,7 +50,7 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * A user-specified, human-readable name for the trigger.
+     * A user-specified, human-readable name for the trigger..
      * 
      * @param friendlyName A user-specified, human-readable name for the trigger.
      * @return this
@@ -63,7 +63,7 @@ public class TriggerCreator extends Creator<Trigger> {
     /**
      * How this trigger recurs. Empty for non-recurring triggers. One of `daily`,
      * `monthly`, or `yearly` for recurring triggers.  A trigger will only fire once
-     * during each recurring period.  Recurring periods are in GMT.
+     * during each recurring period.  Recurring periods are in GMT..
      * 
      * @param recurring How this trigger recurs
      * @return this
@@ -75,7 +75,7 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * The field in the UsageRecord that fires the trigger. One of `count`, `usage`,
-     * or `price`
+     * or `price`.
      * 
      * @param triggerBy The field in the UsageRecord that fires the trigger
      * @return this
@@ -86,7 +86,7 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Trigger
@@ -107,8 +107,10 @@ public class TriggerCreator extends Creator<Trigger> {
             throw new ApiConnectionException("Trigger creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -122,7 +124,7 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

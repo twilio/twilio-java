@@ -17,7 +17,7 @@ public class IpAddressReader extends Reader<IpAddress> {
     private final String ipAccessControlListSid;
 
     /**
-     * Construct a new IpAddressReader
+     * Construct a new IpAddressReader.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
@@ -28,7 +28,7 @@ public class IpAddressReader extends Reader<IpAddress> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return IpAddress ResourceSet
@@ -50,7 +50,7 @@ public class IpAddressReader extends Reader<IpAddress> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -67,7 +67,7 @@ public class IpAddressReader extends Reader<IpAddress> {
     }
 
     /**
-     * Generate a Page of IpAddress Resources for a given request
+     * Generate a Page of IpAddress Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -80,8 +80,10 @@ public class IpAddressReader extends Reader<IpAddress> {
             throw new ApiConnectionException("IpAddress read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -92,13 +94,18 @@ public class IpAddressReader extends Reader<IpAddress> {
         }
         
         Page<IpAddress> result = new Page<>();
-        result.deserialize("ip_addresses", response.getContent(), IpAddress.class, client.getObjectMapper());
+        result.deserialize(
+            "ip_addresses",
+            response.getContent(),
+            IpAddress.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

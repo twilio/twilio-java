@@ -33,7 +33,7 @@ public class Workspace extends SidResource {
     private static final long serialVersionUID = 241476983828355L;
 
     /**
-     * fetch
+     * Create a WorkspaceFetcher to execute fetch.
      * 
      * @param sid The sid
      * @return WorkspaceFetcher capable of executing the fetch
@@ -43,7 +43,7 @@ public class Workspace extends SidResource {
     }
 
     /**
-     * update
+     * Create a WorkspaceUpdater to execute update.
      * 
      * @param sid The sid
      * @return WorkspaceUpdater capable of executing the update
@@ -53,7 +53,7 @@ public class Workspace extends SidResource {
     }
 
     /**
-     * read
+     * Create a WorkspaceReader to execute read.
      * 
      * @return WorkspaceReader capable of executing the read
      */
@@ -62,7 +62,7 @@ public class Workspace extends SidResource {
     }
 
     /**
-     * create
+     * Create a WorkspaceCreator to execute create.
      * 
      * @param friendlyName The friendly_name
      * @return WorkspaceCreator capable of executing the create
@@ -72,7 +72,7 @@ public class Workspace extends SidResource {
     }
 
     /**
-     * delete
+     * Create a WorkspaceDeleter to execute delete.
      * 
      * @param sid The sid
      * @return WorkspaceDeleter capable of executing the delete
@@ -83,7 +83,7 @@ public class Workspace extends SidResource {
 
     /**
      * Converts a JSON String into a Workspace object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -102,7 +102,7 @@ public class Workspace extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Workspace object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -164,6 +164,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -171,6 +173,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -178,6 +182,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -185,6 +191,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The default_activity_name.
+     * 
      * @return The default_activity_name
      */
     public final String getDefaultActivityName() {
@@ -192,6 +200,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The default_activity_sid.
+     * 
      * @return The default_activity_sid
      */
     public final String getDefaultActivitySid() {
@@ -199,6 +209,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The event_callback_url.
+     * 
      * @return The event_callback_url
      */
     public final String getEventCallbackUrl() {
@@ -206,6 +218,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -213,6 +227,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -220,6 +236,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The timeout_activity_name.
+     * 
      * @return The timeout_activity_name
      */
     public final String getTimeoutActivityName() {
@@ -227,6 +245,8 @@ public class Workspace extends SidResource {
     }
 
     /**
+     * Returns The The timeout_activity_sid.
+     * 
      * @return The timeout_activity_sid
      */
     public final String getTimeoutActivitySid() {

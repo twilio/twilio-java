@@ -20,7 +20,7 @@ public class MemberUpdater extends Updater<Member> {
     private final HttpMethod method;
 
     /**
-     * Construct a new MemberUpdater
+     * Construct a new MemberUpdater.
      * 
      * @param accountSid The account_sid
      * @param queueSid The Queue in which to find the members
@@ -37,7 +37,7 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Member
@@ -58,8 +58,10 @@ public class MemberUpdater extends Updater<Member> {
             throw new ApiConnectionException("Member update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -73,7 +75,7 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

@@ -15,7 +15,7 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
     private final String countryCode;
 
     /**
-     * Construct a new AvailablePhoneNumberCountryFetcher
+     * Construct a new AvailablePhoneNumberCountryFetcher.
      * 
      * @param accountSid The account_sid
      * @param countryCode The country_code
@@ -26,7 +26,7 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AvailablePhoneNumberCountry
@@ -46,8 +46,10 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
             throw new ApiConnectionException("AvailablePhoneNumberCountry fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

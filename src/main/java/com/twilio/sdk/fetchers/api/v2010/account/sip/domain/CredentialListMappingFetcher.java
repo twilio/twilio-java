@@ -16,7 +16,7 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
     private final String sid;
 
     /**
-     * Construct a new CredentialListMappingFetcher
+     * Construct a new CredentialListMappingFetcher.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
@@ -29,7 +29,7 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CredentialListMapping
@@ -49,8 +49,10 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
             throw new ApiConnectionException("CredentialListMapping fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

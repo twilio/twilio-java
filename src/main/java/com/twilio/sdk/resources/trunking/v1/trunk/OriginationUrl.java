@@ -34,29 +34,31 @@ public class OriginationUrl extends SidResource {
     private static final long serialVersionUID = 147762448771620L;
 
     /**
-     * fetch
+     * Create a OriginationUrlFetcher to execute fetch.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return OriginationUrlFetcher capable of executing the fetch
      */
-    public static OriginationUrlFetcher fetch(final String trunkSid, final String sid) {
+    public static OriginationUrlFetcher fetch(final String trunkSid, 
+                                              final String sid) {
         return new OriginationUrlFetcher(trunkSid, sid);
     }
 
     /**
-     * delete
+     * Create a OriginationUrlDeleter to execute delete.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return OriginationUrlDeleter capable of executing the delete
      */
-    public static OriginationUrlDeleter delete(final String trunkSid, final String sid) {
+    public static OriginationUrlDeleter delete(final String trunkSid, 
+                                               final String sid) {
         return new OriginationUrlDeleter(trunkSid, sid);
     }
 
     /**
-     * create
+     * Create a OriginationUrlCreator to execute create.
      * 
      * @param trunkSid The trunk_sid
      * @param weight The weight
@@ -66,12 +68,17 @@ public class OriginationUrl extends SidResource {
      * @param sipUrl The sip_url
      * @return OriginationUrlCreator capable of executing the create
      */
-    public static OriginationUrlCreator create(final String trunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
+    public static OriginationUrlCreator create(final String trunkSid, 
+                                               final Integer weight, 
+                                               final Integer priority, 
+                                               final Boolean enabled, 
+                                               final String friendlyName, 
+                                               final URI sipUrl) {
         return new OriginationUrlCreator(trunkSid, weight, priority, enabled, friendlyName, sipUrl);
     }
 
     /**
-     * read
+     * Create a OriginationUrlReader to execute read.
      * 
      * @param trunkSid The trunk_sid
      * @return OriginationUrlReader capable of executing the read
@@ -81,19 +88,20 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
-     * update
+     * Create a OriginationUrlUpdater to execute update.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return OriginationUrlUpdater capable of executing the update
      */
-    public static OriginationUrlUpdater update(final String trunkSid, final String sid) {
+    public static OriginationUrlUpdater update(final String trunkSid, 
+                                               final String sid) {
         return new OriginationUrlUpdater(trunkSid, sid);
     }
 
     /**
      * Converts a JSON String into a OriginationUrl object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -112,7 +120,7 @@ public class OriginationUrl extends SidResource {
 
     /**
      * Converts a JSON InputStream into a OriginationUrl object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -178,6 +186,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -185,6 +195,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -192,6 +204,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The trunk_sid.
+     * 
      * @return The trunk_sid
      */
     public final String getTrunkSid() {
@@ -199,6 +213,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The weight.
+     * 
      * @return The weight
      */
     public final Integer getWeight() {
@@ -206,6 +222,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The enabled.
+     * 
      * @return The enabled
      */
     public final Boolean getEnabled() {
@@ -213,6 +231,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The sip_url.
+     * 
      * @return The sip_url
      */
     public final URI getSipUrl() {
@@ -220,6 +240,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -227,6 +249,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The priority.
+     * 
      * @return The priority
      */
     public final Integer getPriority() {
@@ -234,6 +258,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -241,6 +267,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -248,6 +276,8 @@ public class OriginationUrl extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

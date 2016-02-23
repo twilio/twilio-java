@@ -20,7 +20,7 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     private DateTime endDate;
 
     /**
-     * Construct a new WorkflowStatisticsFetcher
+     * Construct a new WorkflowStatisticsFetcher.
      * 
      * @param workspaceSid The workspace_sid
      * @param workflowSid The workflow_sid
@@ -31,7 +31,7 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     }
 
     /**
-     * The minutes
+     * The minutes.
      * 
      * @param minutes The minutes
      * @return this
@@ -42,7 +42,7 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     }
 
     /**
-     * The start_date
+     * The start_date.
      * 
      * @param startDate The start_date
      * @return this
@@ -53,7 +53,7 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     }
 
     /**
-     * The end_date
+     * The end_date.
      * 
      * @param endDate The end_date
      * @return this
@@ -64,7 +64,7 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched WorkflowStatistics
@@ -84,8 +84,10 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
             throw new ApiConnectionException("WorkflowStatistics fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

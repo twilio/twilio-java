@@ -28,7 +28,7 @@ public class WorkersStatistics extends Resource {
     private static final long serialVersionUID = 176548291123699L;
 
     /**
-     * fetch
+     * Create a WorkersStatisticsFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @return WorkersStatisticsFetcher capable of executing the fetch
@@ -39,7 +39,7 @@ public class WorkersStatistics extends Resource {
 
     /**
      * Converts a JSON String into a WorkersStatistics object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -58,7 +58,7 @@ public class WorkersStatistics extends Resource {
 
     /**
      * Converts a JSON InputStream into a WorkersStatistics object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -96,6 +96,8 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -103,6 +105,8 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
+     * Returns The The cumulative.
+     * 
      * @return The cumulative
      */
     public final JsonNode getCumulative() {
@@ -110,6 +114,8 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
+     * Returns The The realtime.
+     * 
      * @return The realtime
      */
     public final JsonNode getRealtime() {
@@ -117,6 +123,8 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

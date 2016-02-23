@@ -23,7 +23,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     private URI sipUrl;
 
     /**
-     * Construct a new OriginationUrlUpdater
+     * Construct a new OriginationUrlUpdater.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
@@ -34,7 +34,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The weight
+     * The weight.
      * 
      * @param weight The weight
      * @return this
@@ -45,7 +45,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The priority
+     * The priority.
      * 
      * @param priority The priority
      * @return this
@@ -56,7 +56,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The enabled
+     * The enabled.
      * 
      * @param enabled The enabled
      * @return this
@@ -67,7 +67,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -78,7 +78,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The sip_url
+     * The sip_url.
      * 
      * @param sipUrl The sip_url
      * @return this
@@ -89,7 +89,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The sip_url
+     * The sip_url.
      * 
      * @param sipUrl The sip_url
      * @return this
@@ -99,7 +99,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated OriginationUrl
@@ -120,8 +120,10 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
             throw new ApiConnectionException("OriginationUrl update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -135,7 +137,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

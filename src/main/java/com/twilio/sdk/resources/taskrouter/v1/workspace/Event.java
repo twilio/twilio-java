@@ -31,18 +31,19 @@ public class Event extends SidResource {
     private static final long serialVersionUID = 208699778685630L;
 
     /**
-     * fetch
+     * Create a EventFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return EventFetcher capable of executing the fetch
      */
-    public static EventFetcher fetch(final String workspaceSid, final String sid) {
+    public static EventFetcher fetch(final String workspaceSid, 
+                                     final String sid) {
         return new EventFetcher(workspaceSid, sid);
     }
 
     /**
-     * read
+     * Create a EventReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
      * @return EventReader capable of executing the read
@@ -52,7 +53,7 @@ public class Event extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Event object using the provided ObjectMapper
+     * Converts a JSON String into a Event object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -71,7 +72,7 @@ public class Event extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Event object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -153,6 +154,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -160,6 +163,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The actor_sid.
+     * 
      * @return The actor_sid
      */
     public final String getActorSid() {
@@ -167,6 +172,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The actor_type.
+     * 
      * @return The actor_type
      */
     public final String getActorType() {
@@ -174,6 +181,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The actor_url.
+     * 
      * @return The actor_url
      */
     public final URI getActorUrl() {
@@ -181,6 +190,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The description.
+     * 
      * @return The description
      */
     public final String getDescription() {
@@ -188,6 +199,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The event_data.
+     * 
      * @return The event_data
      */
     public final Map<String, String> getEventData() {
@@ -195,6 +208,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The event_date.
+     * 
      * @return The event_date
      */
     public final DateTime getEventDate() {
@@ -202,6 +217,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The event_type.
+     * 
      * @return The event_type
      */
     public final String getEventType() {
@@ -209,6 +226,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The resource_sid.
+     * 
      * @return The resource_sid
      */
     public final String getResourceSid() {
@@ -216,6 +235,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The resource_type.
+     * 
      * @return The resource_type
      */
     public final String getResourceType() {
@@ -223,6 +244,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The resource_url.
+     * 
      * @return The resource_url
      */
     public final URI getResourceUrl() {
@@ -230,6 +253,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -237,6 +262,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The source.
+     * 
      * @return The source
      */
     public final String getSource() {
@@ -244,6 +271,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The source_ip_address.
+     * 
      * @return The source_ip_address
      */
     public final String getSourceIpAddress() {
@@ -251,6 +280,8 @@ public class Event extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

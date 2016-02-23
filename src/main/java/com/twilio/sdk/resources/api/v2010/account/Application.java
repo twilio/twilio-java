@@ -34,41 +34,43 @@ public class Application extends SidResource {
     private static final long serialVersionUID = 30273898590025L;
 
     /**
-     * Create a new application within your account
+     * Create a ApplicationCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param friendlyName Human readable description of this resource
      * @return ApplicationCreator capable of executing the create
      */
-    public static ApplicationCreator create(final String accountSid, final String friendlyName) {
+    public static ApplicationCreator create(final String accountSid, 
+                                            final String friendlyName) {
         return new ApplicationCreator(accountSid, friendlyName);
     }
 
     /**
-     * Delete the application by the specified application sid
+     * Create a ApplicationDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid The application sid to delete
      * @return ApplicationDeleter capable of executing the delete
      */
-    public static ApplicationDeleter delete(final String accountSid, final String sid) {
+    public static ApplicationDeleter delete(final String accountSid, 
+                                            final String sid) {
         return new ApplicationDeleter(accountSid, sid);
     }
 
     /**
-     * Fetch the application specified by the provided sid
+     * Create a ApplicationFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique Application Sid
      * @return ApplicationFetcher capable of executing the fetch
      */
-    public static ApplicationFetcher fetch(final String accountSid, final String sid) {
+    public static ApplicationFetcher fetch(final String accountSid, 
+                                           final String sid) {
         return new ApplicationFetcher(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of applications representing an application within the
-     * requesting account
+     * Create a ApplicationReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return ApplicationReader capable of executing the read
@@ -78,19 +80,20 @@ public class Application extends SidResource {
     }
 
     /**
-     * Updates the application's properties
+     * Create a ApplicationUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return ApplicationUpdater capable of executing the update
      */
-    public static ApplicationUpdater update(final String accountSid, final String sid) {
+    public static ApplicationUpdater update(final String accountSid, 
+                                            final String sid) {
         return new ApplicationUpdater(accountSid, sid);
     }
 
     /**
      * Converts a JSON String into a Application object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -109,7 +112,7 @@ public class Application extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Application object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -211,6 +214,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this resource.
+     * 
      * @return A string that uniquely identifies this resource
      */
     public final String getAccountSid() {
@@ -218,6 +223,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The The API version to use.
+     * 
      * @return The API version to use
      */
     public final String getApiVersion() {
@@ -225,6 +232,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The Date this resource was created.
+     * 
      * @return Date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -232,6 +241,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The Date this resource was last updated.
+     * 
      * @return Date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -239,6 +250,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The Human readable description of this resource.
+     * 
      * @return Human readable description of this resource
      */
     public final String getFriendlyName() {
@@ -246,6 +259,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The URL to make requests to with status updates.
+     * 
      * @return URL to make requests to with status updates
      */
     public final URI getMessageStatusCallback() {
@@ -253,6 +268,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this resource.
+     * 
      * @return A string that uniquely identifies this resource
      */
     public final String getSid() {
@@ -260,6 +277,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The HTTP method to use with sms_fallback_method.
+     * 
      * @return HTTP method to use with sms_fallback_method
      */
     public final HttpMethod getSmsFallbackMethod() {
@@ -267,6 +286,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The Fallback URL if there's an error parsing TwiML.
+     * 
      * @return Fallback URL if there's an error parsing TwiML
      */
     public final URI getSmsFallbackUrl() {
@@ -274,6 +295,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The HTTP method to use with sms_url.
+     * 
      * @return HTTP method to use with sms_url
      */
     public final HttpMethod getSmsMethod() {
@@ -281,6 +304,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio with request with status updates.
+     * 
      * @return URL Twilio with request with status updates
      */
     public final URI getSmsStatusCallback() {
@@ -288,6 +313,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio will request when receiving an SMS.
+     * 
      * @return URL Twilio will request when receiving an SMS
      */
     public final URI getSmsUrl() {
@@ -295,6 +322,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The URL to hit with status updates.
+     * 
      * @return URL to hit with status updates
      */
     public final URI getStatusCallback() {
@@ -302,6 +331,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The HTTP method to use with the status callback.
+     * 
      * @return HTTP method to use with the status callback
      */
     public final HttpMethod getStatusCallbackMethod() {
@@ -309,6 +340,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The URI for this resource.
+     * 
      * @return URI for this resource
      */
     public final String getUri() {
@@ -316,6 +349,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The True or False.
+     * 
      * @return True or False
      */
     public final Boolean getVoiceCallerIdLookup() {
@@ -323,6 +358,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The HTTP method to use with the fallback url.
+     * 
      * @return HTTP method to use with the fallback url
      */
     public final HttpMethod getVoiceFallbackMethod() {
@@ -330,6 +367,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The Fallback URL.
+     * 
      * @return Fallback URL
      */
     public final URI getVoiceFallbackUrl() {
@@ -337,6 +376,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The HTTP method to use with the URL.
+     * 
      * @return HTTP method to use with the URL
      */
     public final HttpMethod getVoiceMethod() {
@@ -344,6 +385,8 @@ public class Application extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio will make requests to when relieving a call.
+     * 
      * @return URL Twilio will make requests to when relieving a call
      */
     public final URI getVoiceUrl() {

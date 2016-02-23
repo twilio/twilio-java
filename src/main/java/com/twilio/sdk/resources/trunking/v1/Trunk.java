@@ -36,7 +36,7 @@ public class Trunk extends SidResource {
     private static final long serialVersionUID = 276011649758607L;
 
     /**
-     * fetch
+     * Create a TrunkFetcher to execute fetch.
      * 
      * @param sid The sid
      * @return TrunkFetcher capable of executing the fetch
@@ -46,7 +46,7 @@ public class Trunk extends SidResource {
     }
 
     /**
-     * delete
+     * Create a TrunkDeleter to execute delete.
      * 
      * @param sid The sid
      * @return TrunkDeleter capable of executing the delete
@@ -56,7 +56,7 @@ public class Trunk extends SidResource {
     }
 
     /**
-     * create
+     * Create a TrunkCreator to execute create.
      * 
      * @return TrunkCreator capable of executing the create
      */
@@ -65,7 +65,7 @@ public class Trunk extends SidResource {
     }
 
     /**
-     * read
+     * Create a TrunkReader to execute read.
      * 
      * @return TrunkReader capable of executing the read
      */
@@ -74,7 +74,7 @@ public class Trunk extends SidResource {
     }
 
     /**
-     * update
+     * Create a TrunkUpdater to execute update.
      * 
      * @param sid The sid
      * @return TrunkUpdater capable of executing the update
@@ -84,7 +84,7 @@ public class Trunk extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Trunk object using the provided ObjectMapper
+     * Converts a JSON String into a Trunk object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -103,7 +103,7 @@ public class Trunk extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Trunk object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -181,6 +181,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -188,6 +190,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The domain_name.
+     * 
      * @return The domain_name
      */
     public final String getDomainName() {
@@ -195,6 +199,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The disaster_recovery_method.
+     * 
      * @return The disaster_recovery_method
      */
     public final HttpMethod getDisasterRecoveryMethod() {
@@ -202,6 +208,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The disaster_recovery_url.
+     * 
      * @return The disaster_recovery_url
      */
     public final URI getDisasterRecoveryUrl() {
@@ -209,6 +217,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -216,6 +226,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The secure.
+     * 
      * @return The secure
      */
     public final Boolean getSecure() {
@@ -223,6 +235,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The recording.
+     * 
      * @return The recording
      */
     public final JsonNode getRecording() {
@@ -230,6 +244,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The auth_type.
+     * 
      * @return The auth_type
      */
     public final String getAuthType() {
@@ -237,6 +253,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The auth_type_set.
+     * 
      * @return The auth_type_set
      */
     public final List<String> getAuthTypeSet() {
@@ -244,6 +262,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -251,6 +271,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -258,6 +280,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -265,6 +289,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {
@@ -272,6 +298,8 @@ public class Trunk extends SidResource {
     }
 
     /**
+     * Returns The The links.
+     * 
      * @return The links
      */
     public final Map<String, String> getLinks() {

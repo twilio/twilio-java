@@ -17,7 +17,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
     private final String ipAddress;
 
     /**
-     * Construct a new IpAddressCreator
+     * Construct a new IpAddressCreator.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
@@ -32,7 +32,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created IpAddress
@@ -53,8 +53,10 @@ public class IpAddressCreator extends Creator<IpAddress> {
             throw new ApiConnectionException("IpAddress creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -68,7 +70,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

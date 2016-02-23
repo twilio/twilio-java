@@ -6,6 +6,14 @@ import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
+/**
+ * Representation of a Feedback Issue
+ *
+ * <p>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/docs/api/rest/call-feedback>Feedback docs</a>
+ * </p>
+ */
 public class FeedbackIssue {
     private final int count;
     private final String description;

@@ -15,7 +15,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
     private final String sid;
 
     /**
-     * Construct a new WorkflowFetcher
+     * Construct a new WorkflowFetcher.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
@@ -26,7 +26,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Workflow
@@ -46,8 +46,10 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
             throw new ApiConnectionException("Workflow fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

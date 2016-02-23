@@ -1,21 +1,18 @@
 package com.twilio.sdk.taskrouter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Filter;
 
 public class Policy {
 
-    protected final String url;
-    protected final String method;
-    protected Map<String, FilterRequirement> queryFilter;
-    protected Map<String, FilterRequirement> postFilter;
-    protected final boolean allowed;
+    private final String url;
+    private final String method;
+    private Map<String, FilterRequirement> queryFilter;
+    private Map<String, FilterRequirement> postFilter;
+    private final boolean allowed;
 
     /**
      * Represents permissions for a specific operation against a TaskRouter
@@ -32,7 +29,11 @@ public class Policy {
      * @param allowed
      *            Whether this action is allowed or not
      */
-    public Policy(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter, final boolean allowed) {
+    public Policy(final String url,
+                  final String method,
+                  final Map<String, FilterRequirement> queryFilter,
+                  final Map<String, FilterRequirement> postFilter,
+                  final boolean allowed) {
         this.url = url;
         this.method = method;
         this.queryFilter = queryFilter;

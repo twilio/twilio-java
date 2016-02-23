@@ -19,7 +19,7 @@ public class TaskUpdater extends Updater<Task> {
     private Integer priority;
 
     /**
-     * Construct a new TaskUpdater
+     * Construct a new TaskUpdater.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
@@ -30,7 +30,7 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The attributes
+     * The attributes.
      * 
      * @param attributes The attributes
      * @return this
@@ -41,7 +41,7 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The assignment_status
+     * The assignment_status.
      * 
      * @param assignmentStatus The assignment_status
      * @return this
@@ -52,7 +52,7 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The reason
+     * The reason.
      * 
      * @param reason The reason
      * @return this
@@ -63,7 +63,7 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The priority
+     * The priority.
      * 
      * @param priority The priority
      * @return this
@@ -74,7 +74,7 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Task
@@ -95,8 +95,10 @@ public class TaskUpdater extends Updater<Task> {
             throw new ApiConnectionException("Task update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -110,7 +112,7 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

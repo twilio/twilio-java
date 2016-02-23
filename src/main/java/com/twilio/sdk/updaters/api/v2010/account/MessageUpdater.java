@@ -16,7 +16,7 @@ public class MessageUpdater extends Updater<Message> {
     private String body;
 
     /**
-     * Construct a new MessageUpdater
+     * Construct a new MessageUpdater.
      * 
      * @param accountSid The account_sid
      * @param sid The message to redact
@@ -27,7 +27,7 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The body
+     * The body.
      * 
      * @param body The body
      * @return this
@@ -38,7 +38,7 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Message
@@ -59,8 +59,10 @@ public class MessageUpdater extends Updater<Message> {
             throw new ApiConnectionException("Message update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -74,7 +76,7 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

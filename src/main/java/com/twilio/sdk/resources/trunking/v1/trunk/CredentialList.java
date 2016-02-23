@@ -33,40 +33,43 @@ public class CredentialList extends SidResource {
     private static final long serialVersionUID = 45032598628398L;
 
     /**
-     * fetch
+     * Create a CredentialListFetcher to execute fetch.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetch(final String trunkSid, final String sid) {
+    public static CredentialListFetcher fetch(final String trunkSid, 
+                                              final String sid) {
         return new CredentialListFetcher(trunkSid, sid);
     }
 
     /**
-     * delete
+     * Create a CredentialListDeleter to execute delete.
      * 
      * @param trunkSid The trunk_sid
      * @param sid The sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter delete(final String trunkSid, final String sid) {
+    public static CredentialListDeleter delete(final String trunkSid, 
+                                               final String sid) {
         return new CredentialListDeleter(trunkSid, sid);
     }
 
     /**
-     * create
+     * Create a CredentialListCreator to execute create.
      * 
      * @param trunkSid The trunk_sid
      * @param credentialListSid The credential_list_sid
      * @return CredentialListCreator capable of executing the create
      */
-    public static CredentialListCreator create(final String trunkSid, final String credentialListSid) {
+    public static CredentialListCreator create(final String trunkSid, 
+                                               final String credentialListSid) {
         return new CredentialListCreator(trunkSid, credentialListSid);
     }
 
     /**
-     * read
+     * Create a CredentialListReader to execute read.
      * 
      * @param trunkSid The trunk_sid
      * @return CredentialListReader capable of executing the read
@@ -77,7 +80,7 @@ public class CredentialList extends SidResource {
 
     /**
      * Converts a JSON String into a CredentialList object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -96,7 +99,7 @@ public class CredentialList extends SidResource {
 
     /**
      * Converts a JSON InputStream into a CredentialList object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -146,6 +149,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -153,6 +158,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -160,6 +167,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The trunk_sid.
+     * 
      * @return The trunk_sid
      */
     public final String getTrunkSid() {
@@ -167,6 +176,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -174,6 +185,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -181,6 +194,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -188,6 +203,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

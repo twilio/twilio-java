@@ -17,7 +17,7 @@ public class ApplicationReader extends Reader<Application> {
     private String friendlyName;
 
     /**
-     * Construct a new ApplicationReader
+     * Construct a new ApplicationReader.
      * 
      * @param accountSid The account_sid
      */
@@ -27,7 +27,7 @@ public class ApplicationReader extends Reader<Application> {
 
     /**
      * Only return application resources with friendly names that match exactly with
-     * this name
+     * this name.
      * 
      * @param friendlyName Filter by friendly name
      * @return this
@@ -38,7 +38,7 @@ public class ApplicationReader extends Reader<Application> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Application ResourceSet
@@ -60,7 +60,7 @@ public class ApplicationReader extends Reader<Application> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -77,7 +77,7 @@ public class ApplicationReader extends Reader<Application> {
     }
 
     /**
-     * Generate a Page of Application Resources for a given request
+     * Generate a Page of Application Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -90,8 +90,10 @@ public class ApplicationReader extends Reader<Application> {
             throw new ApiConnectionException("Application read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -102,13 +104,18 @@ public class ApplicationReader extends Reader<Application> {
         }
         
         Page<Application> result = new Page<>();
-        result.deserialize("applications", response.getContent(), Application.class, client.getObjectMapper());
+        result.deserialize(
+            "applications",
+            response.getContent(),
+            Application.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

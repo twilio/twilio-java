@@ -56,7 +56,7 @@ public class Participant extends SidResource {
     }
 
     /**
-     * read
+     * Create a ParticipantReader to execute read.
      * 
      * @param conversationSid The conversation_sid
      * @return ParticipantReader capable of executing the read
@@ -66,31 +66,34 @@ public class Participant extends SidResource {
     }
 
     /**
-     * create
+     * Create a ParticipantCreator to execute create.
      * 
      * @param conversationSid The conversation_sid
      * @param to The to
      * @param from The from
      * @return ParticipantCreator capable of executing the create
      */
-    public static ParticipantCreator create(final String conversationSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from) {
+    public static ParticipantCreator create(final String conversationSid, 
+                                            final com.twilio.types.PhoneNumber to, 
+                                            final com.twilio.types.PhoneNumber from) {
         return new ParticipantCreator(conversationSid, to, from);
     }
 
     /**
-     * fetch
+     * Create a ParticipantFetcher to execute fetch.
      * 
      * @param conversationSid The conversation_sid
      * @param sid The sid
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetch(final String conversationSid, final String sid) {
+    public static ParticipantFetcher fetch(final String conversationSid, 
+                                           final String sid) {
         return new ParticipantFetcher(conversationSid, sid);
     }
 
     /**
      * Converts a JSON String into a Participant object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -109,7 +112,7 @@ public class Participant extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Participant object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -171,6 +174,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -178,6 +183,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The address.
+     * 
      * @return The address
      */
     public final String getAddress() {
@@ -185,6 +192,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The status.
+     * 
      * @return The status
      */
     public final Participant.Status getStatus() {
@@ -192,6 +201,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The conversation_sid.
+     * 
      * @return The conversation_sid
      */
     public final String getConversationSid() {
@@ -199,6 +210,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -206,6 +219,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The start_time.
+     * 
      * @return The start_time
      */
     public final DateTime getStartTime() {
@@ -213,6 +228,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The end_time.
+     * 
      * @return The end_time
      */
     public final DateTime getEndTime() {
@@ -220,6 +237,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The duration.
+     * 
      * @return The duration
      */
     public final Integer getDuration() {
@@ -227,6 +246,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -234,6 +255,8 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

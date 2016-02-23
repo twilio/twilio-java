@@ -17,7 +17,7 @@ public class CredentialCreator extends Creator<Credential> {
     private final String password;
 
     /**
-     * Construct a new CredentialCreator
+     * Construct a new CredentialCreator.
      * 
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
@@ -32,7 +32,7 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Credential
@@ -53,8 +53,10 @@ public class CredentialCreator extends Creator<Credential> {
             throw new ApiConnectionException("Credential creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -68,7 +70,7 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

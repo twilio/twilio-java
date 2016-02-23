@@ -7,6 +7,14 @@ import com.google.common.base.MoreObjects;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Outbound prices for prefixes.
+ *
+ * <p>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/docs/api/pricing/voice#outbound-prefix-price>Pricing docs</a>
+ * </p>
+ */
 public class OutboundPrefixPrice {
 
     private final List<String> prefixes;

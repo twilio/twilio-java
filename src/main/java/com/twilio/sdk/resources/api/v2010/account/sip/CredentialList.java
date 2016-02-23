@@ -33,8 +33,7 @@ public class CredentialList extends SidResource {
     private static final long serialVersionUID = 214188792953524L;
 
     /**
-     * Retrieve a list of Credentials belonging to the account used to make the
-     * request
+     * Create a CredentialListReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return CredentialListReader capable of executing the read
@@ -44,53 +43,58 @@ public class CredentialList extends SidResource {
     }
 
     /**
-     * Add a Credential to the list
+     * Create a CredentialListCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param friendlyName The friendly_name
      * @return CredentialListCreator capable of executing the create
      */
-    public static CredentialListCreator create(final String accountSid, final String friendlyName) {
+    public static CredentialListCreator create(final String accountSid, 
+                                               final String friendlyName) {
         return new CredentialListCreator(accountSid, friendlyName);
     }
 
     /**
-     * Retrieve a specific Credential in a list
+     * Create a CredentialListFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique credential Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetch(final String accountSid, final String sid) {
+    public static CredentialListFetcher fetch(final String accountSid, 
+                                              final String sid) {
         return new CredentialListFetcher(accountSid, sid);
     }
 
     /**
-     * Change the password of a Credential record
+     * Create a CredentialListUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @param friendlyName The friendly_name
      * @return CredentialListUpdater capable of executing the update
      */
-    public static CredentialListUpdater update(final String accountSid, final String sid, final String friendlyName) {
+    public static CredentialListUpdater update(final String accountSid, 
+                                               final String sid, 
+                                               final String friendlyName) {
         return new CredentialListUpdater(accountSid, sid, friendlyName);
     }
 
     /**
-     * Remove a credential from a CredentialList
+     * Create a CredentialListDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid Delete by unique credential Sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter delete(final String accountSid, final String sid) {
+    public static CredentialListDeleter delete(final String accountSid, 
+                                               final String sid) {
         return new CredentialListDeleter(accountSid, sid);
     }
 
     /**
      * Converts a JSON String into a CredentialList object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -109,7 +113,7 @@ public class CredentialList extends SidResource {
 
     /**
      * Converts a JSON InputStream into a CredentialList object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -159,6 +163,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -166,6 +172,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -173,6 +181,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -180,6 +190,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -187,6 +199,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this credential.
+     * 
      * @return A string that uniquely identifies this credential
      */
     public final String getSid() {
@@ -194,6 +208,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The subresource_uris.
+     * 
      * @return The subresource_uris
      */
     public final Map<String, String> getSubresourceUris() {
@@ -201,6 +217,8 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

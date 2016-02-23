@@ -28,19 +28,20 @@ public class TaskQueueStatistics extends Resource {
     private static final long serialVersionUID = 246523371655676L;
 
     /**
-     * fetch
+     * Create a TaskQueueStatisticsFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param taskQueueSid The task_queue_sid
      * @return TaskQueueStatisticsFetcher capable of executing the fetch
      */
-    public static TaskQueueStatisticsFetcher fetch(final String workspaceSid, final String taskQueueSid) {
+    public static TaskQueueStatisticsFetcher fetch(final String workspaceSid, 
+                                                   final String taskQueueSid) {
         return new TaskQueueStatisticsFetcher(workspaceSid, taskQueueSid);
     }
 
     /**
      * Converts a JSON String into a TaskQueueStatistics object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -59,7 +60,7 @@ public class TaskQueueStatistics extends Resource {
 
     /**
      * Converts a JSON InputStream into a TaskQueueStatistics object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -101,6 +102,8 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -108,6 +111,8 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
+     * Returns The The cumulative.
+     * 
      * @return The cumulative
      */
     public final Map<String, String> getCumulative() {
@@ -115,6 +120,8 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
+     * Returns The The realtime.
+     * 
      * @return The realtime
      */
     public final JsonNode getRealtime() {
@@ -122,6 +129,8 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
+     * Returns The The task_queue_sid.
+     * 
      * @return The task_queue_sid
      */
     public final String getTaskQueueSid() {
@@ -129,6 +138,8 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

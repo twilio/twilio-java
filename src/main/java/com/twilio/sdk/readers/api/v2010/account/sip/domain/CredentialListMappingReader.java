@@ -17,7 +17,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     private final String domainSid;
 
     /**
-     * Construct a new CredentialListMappingReader
+     * Construct a new CredentialListMappingReader.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
@@ -28,7 +28,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return CredentialListMapping ResourceSet
@@ -50,7 +50,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -67,7 +67,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     }
 
     /**
-     * Generate a Page of CredentialListMapping Resources for a given request
+     * Generate a Page of CredentialListMapping Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -80,8 +80,10 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
             throw new ApiConnectionException("CredentialListMapping read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -92,13 +94,18 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
         }
         
         Page<CredentialListMapping> result = new Page<>();
-        result.deserialize("credential_list_mappings", response.getContent(), CredentialListMapping.class, client.getObjectMapper());
+        result.deserialize(
+            "credential_list_mappings",
+            response.getContent(),
+            CredentialListMapping.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

@@ -15,7 +15,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
     private final String friendlyName;
 
     /**
-     * Construct a new CredentialListCreator
+     * Construct a new CredentialListCreator.
      * 
      * @param accountSid The account_sid
      * @param friendlyName The friendly_name
@@ -26,7 +26,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created CredentialList
@@ -47,8 +47,10 @@ public class CredentialListCreator extends Creator<CredentialList> {
             throw new ApiConnectionException("CredentialList creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -62,7 +64,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

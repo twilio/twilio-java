@@ -53,7 +53,7 @@ public class InProgress extends Resource {
     }
 
     /**
-     * read
+     * Create a InProgressReader to execute read.
      * 
      * @return InProgressReader capable of executing the read
      */
@@ -63,7 +63,7 @@ public class InProgress extends Resource {
 
     /**
      * Converts a JSON String into a InProgress object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -82,7 +82,7 @@ public class InProgress extends Resource {
 
     /**
      * Converts a JSON InputStream into a InProgress object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -136,6 +136,8 @@ public class InProgress extends Resource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -143,6 +145,8 @@ public class InProgress extends Resource {
     }
 
     /**
+     * Returns The The status.
+     * 
      * @return The status
      */
     public final InProgress.Status getStatus() {
@@ -150,6 +154,8 @@ public class InProgress extends Resource {
     }
 
     /**
+     * Returns The The duration.
+     * 
      * @return The duration
      */
     public final Integer getDuration() {
@@ -157,6 +163,8 @@ public class InProgress extends Resource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -164,6 +172,8 @@ public class InProgress extends Resource {
     }
 
     /**
+     * Returns The The start_time.
+     * 
      * @return The start_time
      */
     public final DateTime getStartTime() {
@@ -171,6 +181,8 @@ public class InProgress extends Resource {
     }
 
     /**
+     * Returns The The end_time.
+     * 
      * @return The end_time
      */
     public final DateTime getEndTime() {
@@ -178,6 +190,8 @@ public class InProgress extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -185,6 +199,8 @@ public class InProgress extends Resource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

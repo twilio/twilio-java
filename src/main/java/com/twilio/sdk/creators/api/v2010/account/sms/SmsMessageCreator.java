@@ -24,7 +24,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
     private String applicationSid;
 
     /**
-     * Construct a new SmsMessageCreator
+     * Construct a new SmsMessageCreator.
      * 
      * @param accountSid The account_sid
      * @param to The to
@@ -39,7 +39,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
     }
 
     /**
-     * Construct a new SmsMessageCreator
+     * Construct a new SmsMessageCreator.
      * 
      * @param accountSid The account_sid
      * @param to The to
@@ -54,7 +54,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
     }
 
     /**
-     * The status_callback
+     * The status_callback.
      * 
      * @param statusCallback The status_callback
      * @return this
@@ -65,7 +65,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
     }
 
     /**
-     * The status_callback
+     * The status_callback.
      * 
      * @param statusCallback The status_callback
      * @return this
@@ -75,7 +75,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
     }
 
     /**
-     * The application_sid
+     * The application_sid.
      * 
      * @param applicationSid The application_sid
      * @return this
@@ -86,7 +86,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created SmsMessage
@@ -107,8 +107,10 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
             throw new ApiConnectionException("SmsMessage creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -122,7 +124,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

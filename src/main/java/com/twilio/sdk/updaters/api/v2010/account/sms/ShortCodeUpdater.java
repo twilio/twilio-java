@@ -24,7 +24,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     private HttpMethod smsFallbackMethod;
 
     /**
-     * Construct a new ShortCodeUpdater
+     * Construct a new ShortCodeUpdater.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
@@ -36,7 +36,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * A human readable descriptive text for this resource, up to 64 characters
-     * long. By default, the `FriendlyName` is just the short code.
+     * long. By default, the `FriendlyName` is just the short code..
      * 
      * @param friendlyName A human readable description of this resource
      * @return this
@@ -47,7 +47,8 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     }
 
     /**
-     * SMSs to this short code will start a new TwiML session with this API version.
+     * SMSs to this short code will start a new TwiML session with this API
+     * version..
      * 
      * @param apiVersion The API version to use
      * @return this
@@ -59,7 +60,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * The URL Twilio will request when receiving an incoming SMS message to this
-     * short code.
+     * short code..
      * 
      * @param smsUrl URL Twilio will request when receiving an SMS
      * @return this
@@ -71,7 +72,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * The URL Twilio will request when receiving an incoming SMS message to this
-     * short code.
+     * short code..
      * 
      * @param smsUrl URL Twilio will request when receiving an SMS
      * @return this
@@ -82,7 +83,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * The HTTP method Twilio will use when making requests to the `SmsUrl`. Either
-     * `GET` or `POST`.
+     * `GET` or `POST`..
      * 
      * @param smsMethod HTTP method to use when requesting the sms url
      * @return this
@@ -94,7 +95,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML from `SmsUrl`.
+     * the TwiML from `SmsUrl`..
      * 
      * @param smsFallbackUrl URL Twilio will request if an error occurs in
      *                       executing TwiML
@@ -107,7 +108,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML from `SmsUrl`.
+     * the TwiML from `SmsUrl`..
      * 
      * @param smsFallbackUrl URL Twilio will request if an error occurs in
      *                       executing TwiML
@@ -119,7 +120,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * The HTTP method Twilio will use when requesting the above URL. Either `GET`
-     * or `POST`.
+     * or `POST`..
      * 
      * @param smsFallbackMethod HTTP method Twilio will use with sms fallback url
      * @return this
@@ -130,7 +131,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated ShortCode
@@ -151,8 +152,10 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
             throw new ApiConnectionException("ShortCode update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -166,7 +169,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

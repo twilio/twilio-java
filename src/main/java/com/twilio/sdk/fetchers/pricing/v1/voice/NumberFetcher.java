@@ -14,7 +14,7 @@ public class NumberFetcher extends Fetcher<Number> {
     private final com.twilio.types.PhoneNumber number;
 
     /**
-     * Construct a new NumberFetcher
+     * Construct a new NumberFetcher.
      * 
      * @param number The number
      */
@@ -23,7 +23,7 @@ public class NumberFetcher extends Fetcher<Number> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Number
@@ -43,8 +43,10 @@ public class NumberFetcher extends Fetcher<Number> {
             throw new ApiConnectionException("Number fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

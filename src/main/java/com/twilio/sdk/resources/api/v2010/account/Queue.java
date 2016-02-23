@@ -33,40 +33,43 @@ public class Queue extends SidResource {
     private static final long serialVersionUID = 51300543687284L;
 
     /**
-     * Fetch an instance of a queue identified by the QueueSid
+     * Create a QueueFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique queue Sid
      * @return QueueFetcher capable of executing the fetch
      */
-    public static QueueFetcher fetch(final String accountSid, final String sid) {
+    public static QueueFetcher fetch(final String accountSid, 
+                                     final String sid) {
         return new QueueFetcher(accountSid, sid);
     }
 
     /**
-     * Update the queue with the new parameters
+     * Create a QueueUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return QueueUpdater capable of executing the update
      */
-    public static QueueUpdater update(final String accountSid, final String sid) {
+    public static QueueUpdater update(final String accountSid, 
+                                      final String sid) {
         return new QueueUpdater(accountSid, sid);
     }
 
     /**
-     * Remove an empty queue
+     * Create a QueueDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid Delete by unique queue Sid
      * @return QueueDeleter capable of executing the delete
      */
-    public static QueueDeleter delete(final String accountSid, final String sid) {
+    public static QueueDeleter delete(final String accountSid, 
+                                      final String sid) {
         return new QueueDeleter(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of queues belonging to the account used to make the request
+     * Create a QueueReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return QueueReader capable of executing the read
@@ -76,7 +79,7 @@ public class Queue extends SidResource {
     }
 
     /**
-     * Create a queue
+     * Create a QueueCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @return QueueCreator capable of executing the create
@@ -86,7 +89,7 @@ public class Queue extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Queue object using the provided ObjectMapper
+     * Converts a JSON String into a Queue object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -105,7 +108,7 @@ public class Queue extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Queue object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -163,6 +166,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -170,6 +175,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The Average wait time of members in the queue.
+     * 
      * @return Average wait time of members in the queue
      */
     public final Integer getAverageWaitTime() {
@@ -177,6 +184,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The The count of calls currently in the queue..
+     * 
      * @return The count of calls currently in the queue.
      */
     public final Integer getCurrentSize() {
@@ -184,6 +193,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -191,6 +202,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -198,6 +211,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The A user-provided string that identifies this queue..
+     * 
      * @return A user-provided string that identifies this queue.
      */
     public final String getFriendlyName() {
@@ -205,6 +220,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The The max number of calls allowed in the queue.
+     * 
      * @return The max number of calls allowed in the queue
      */
     public final Integer getMaxSize() {
@@ -212,6 +229,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this queue.
+     * 
      * @return A string that uniquely identifies this queue
      */
     public final String getSid() {
@@ -219,6 +238,8 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

@@ -85,7 +85,7 @@ public class SmsMessage extends SidResource {
     }
 
     /**
-     * create
+     * Create a SmsMessageCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param to The to
@@ -93,12 +93,15 @@ public class SmsMessage extends SidResource {
      * @param body The body
      * @return SmsMessageCreator capable of executing the create
      */
-    public static SmsMessageCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final String body) {
+    public static SmsMessageCreator create(final String accountSid, 
+                                           final com.twilio.types.PhoneNumber to, 
+                                           final com.twilio.types.PhoneNumber from, 
+                                           final String body) {
         return new SmsMessageCreator(accountSid, to, from, body);
     }
 
     /**
-     * create
+     * Create a SmsMessageCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param to The to
@@ -106,34 +109,39 @@ public class SmsMessage extends SidResource {
      * @param mediaUrl The media_url
      * @return SmsMessageCreator capable of executing the create
      */
-    public static SmsMessageCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final List<URI> mediaUrl) {
+    public static SmsMessageCreator create(final String accountSid, 
+                                           final com.twilio.types.PhoneNumber to, 
+                                           final com.twilio.types.PhoneNumber from, 
+                                           final List<URI> mediaUrl) {
         return new SmsMessageCreator(accountSid, to, from, mediaUrl);
     }
 
     /**
-     * delete
+     * Create a SmsMessageDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return SmsMessageDeleter capable of executing the delete
      */
-    public static SmsMessageDeleter delete(final String accountSid, final String sid) {
+    public static SmsMessageDeleter delete(final String accountSid, 
+                                           final String sid) {
         return new SmsMessageDeleter(accountSid, sid);
     }
 
     /**
-     * fetch
+     * Create a SmsMessageFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return SmsMessageFetcher capable of executing the fetch
      */
-    public static SmsMessageFetcher fetch(final String accountSid, final String sid) {
+    public static SmsMessageFetcher fetch(final String accountSid, 
+                                          final String sid) {
         return new SmsMessageFetcher(accountSid, sid);
     }
 
     /**
-     * read
+     * Create a SmsMessageReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return SmsMessageReader capable of executing the read
@@ -143,19 +151,20 @@ public class SmsMessage extends SidResource {
     }
 
     /**
-     * update
+     * Create a SmsMessageUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return SmsMessageUpdater capable of executing the update
      */
-    public static SmsMessageUpdater update(final String accountSid, final String sid) {
+    public static SmsMessageUpdater update(final String accountSid, 
+                                           final String sid) {
         return new SmsMessageUpdater(accountSid, sid);
     }
 
     /**
      * Converts a JSON String into a SmsMessage object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -174,7 +183,7 @@ public class SmsMessage extends SidResource {
 
     /**
      * Converts a JSON InputStream into a SmsMessage object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -253,6 +262,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -260,6 +271,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -267,6 +280,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The body.
+     * 
      * @return The body
      */
     public final String getBody() {
@@ -274,6 +289,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -281,6 +298,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -288,6 +307,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The date_sent.
+     * 
      * @return The date_sent
      */
     public final DateTime getDateSent() {
@@ -295,6 +316,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The direction.
+     * 
      * @return The direction
      */
     public final SmsMessage.Direction getDirection() {
@@ -302,6 +325,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The from.
+     * 
      * @return The from
      */
     public final com.twilio.types.PhoneNumber getFrom() {
@@ -309,6 +334,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The price.
+     * 
      * @return The price
      */
     public final BigDecimal getPrice() {
@@ -316,6 +343,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The price_unit.
+     * 
      * @return The price_unit
      */
     public final Currency getPriceUnit() {
@@ -323,6 +352,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -330,6 +361,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The status.
+     * 
      * @return The status
      */
     public final SmsMessage.Status getStatus() {
@@ -337,6 +370,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The to.
+     * 
      * @return The to
      */
     public final String getTo() {
@@ -344,6 +379,8 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

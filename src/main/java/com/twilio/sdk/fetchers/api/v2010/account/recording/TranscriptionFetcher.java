@@ -16,7 +16,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     private final String sid;
 
     /**
-     * Construct a new TranscriptionFetcher
+     * Construct a new TranscriptionFetcher.
      * 
      * @param accountSid The account_sid
      * @param recordingSid The recording_sid
@@ -29,7 +29,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Transcription
@@ -49,8 +49,10 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
             throw new ApiConnectionException("Transcription fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

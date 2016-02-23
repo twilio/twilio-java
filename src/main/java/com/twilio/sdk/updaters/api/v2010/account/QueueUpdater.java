@@ -17,7 +17,7 @@ public class QueueUpdater extends Updater<Queue> {
     private Integer maxSize;
 
     /**
-     * Construct a new QueueUpdater
+     * Construct a new QueueUpdater.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
@@ -28,7 +28,7 @@ public class QueueUpdater extends Updater<Queue> {
     }
 
     /**
-     * A human readable description of the queue
+     * A human readable description of the queue.
      * 
      * @param friendlyName A human readable description of the queue
      * @return this
@@ -39,7 +39,7 @@ public class QueueUpdater extends Updater<Queue> {
     }
 
     /**
-     * The maximum number of members that can be in the queue at a time
+     * The maximum number of members that can be in the queue at a time.
      * 
      * @param maxSize The max number of members allowed in the queue
      * @return this
@@ -50,7 +50,7 @@ public class QueueUpdater extends Updater<Queue> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Queue
@@ -71,8 +71,10 @@ public class QueueUpdater extends Updater<Queue> {
             throw new ApiConnectionException("Queue update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -86,7 +88,7 @@ public class QueueUpdater extends Updater<Queue> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

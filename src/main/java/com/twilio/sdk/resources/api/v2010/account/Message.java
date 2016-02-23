@@ -88,7 +88,7 @@ public class Message extends SidResource {
     }
 
     /**
-     * Send a message from the account used to make the request
+     * Create a MessageCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
@@ -96,12 +96,15 @@ public class Message extends SidResource {
      * @param body The body
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final String body) {
+    public static MessageCreator create(final String accountSid, 
+                                        final com.twilio.types.PhoneNumber to, 
+                                        final com.twilio.types.PhoneNumber from, 
+                                        final String body) {
         return new MessageCreator(accountSid, to, from, body);
     }
 
     /**
-     * Send a message from the account used to make the request
+     * Create a MessageCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
@@ -109,34 +112,39 @@ public class Message extends SidResource {
      * @param mediaUrl The media_url
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final List<URI> mediaUrl) {
+    public static MessageCreator create(final String accountSid, 
+                                        final com.twilio.types.PhoneNumber to, 
+                                        final com.twilio.types.PhoneNumber from, 
+                                        final List<URI> mediaUrl) {
         return new MessageCreator(accountSid, to, from, mediaUrl);
     }
 
     /**
-     * Deletes a message record from your account
+     * Create a MessageDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param sid The message to delete
      * @return MessageDeleter capable of executing the delete
      */
-    public static MessageDeleter delete(final String accountSid, final String sid) {
+    public static MessageDeleter delete(final String accountSid, 
+                                        final String sid) {
         return new MessageDeleter(accountSid, sid);
     }
 
     /**
-     * Fetch a message belonging to the account used to make the request
+     * Create a MessageFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique message Sid
      * @return MessageFetcher capable of executing the fetch
      */
-    public static MessageFetcher fetch(final String accountSid, final String sid) {
+    public static MessageFetcher fetch(final String accountSid, 
+                                       final String sid) {
         return new MessageFetcher(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of messages belonging to the account used to make the request
+     * Create a MessageReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return MessageReader capable of executing the read
@@ -146,19 +154,19 @@ public class Message extends SidResource {
     }
 
     /**
-     * To redact a message-body from a post-flight message record, post to the
-     * message instance resource with an empty body
+     * Create a MessageUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The message to redact
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater update(final String accountSid, final String sid) {
+    public static MessageUpdater update(final String accountSid, 
+                                        final String sid) {
         return new MessageUpdater(accountSid, sid);
     }
 
     /**
-     * Converts a JSON String into a Message object using the provided ObjectMapper
+     * Converts a JSON String into a Message object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -177,7 +185,7 @@ public class Message extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Message object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -276,6 +284,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -283,6 +293,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The version of the Twilio API used to process the message..
+     * 
      * @return The version of the Twilio API used to process the message.
      */
     public final String getApiVersion() {
@@ -290,6 +302,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The text body of the message. Up to 1600 characters long..
+     * 
      * @return The text body of the message. Up to 1600 characters long.
      */
     public final String getBody() {
@@ -297,6 +311,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -304,6 +320,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -311,6 +329,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The date the message was sent.
+     * 
      * @return The date the message was sent
      */
     public final DateTime getDateSent() {
@@ -318,6 +338,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The direction of the message.
+     * 
      * @return The direction of the message
      */
     public final Message.Direction getDirection() {
@@ -325,6 +347,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The error code associated with the message.
+     * 
      * @return The error code associated with the message
      */
     public final Integer getErrorCode() {
@@ -332,6 +356,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The Human readable description of the ErrorCode.
+     * 
      * @return Human readable description of the ErrorCode
      */
     public final String getErrorMessage() {
@@ -339,6 +365,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The phone number that initiated the message.
+     * 
      * @return The phone number that initiated the message
      */
     public final com.twilio.types.PhoneNumber getFrom() {
@@ -346,6 +374,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The Number of media files associated with the message.
+     * 
      * @return Number of media files associated with the message
      */
     public final String getNumMedia() {
@@ -353,6 +383,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The Indicates number of messages used to delivery the body.
+     * 
      * @return Indicates number of messages used to delivery the body
      */
     public final String getNumSegments() {
@@ -360,6 +392,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The amount billed for the message.
+     * 
      * @return The amount billed for the message
      */
     public final BigDecimal getPrice() {
@@ -367,6 +401,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The currency in which Price is measured.
+     * 
      * @return The currency in which Price is measured
      */
     public final Currency getPriceUnit() {
@@ -374,6 +410,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this message.
+     * 
      * @return A string that uniquely identifies this message
      */
     public final String getSid() {
@@ -381,6 +419,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The status of this message.
+     * 
      * @return The status of this message
      */
     public final Message.Status getStatus() {
@@ -388,6 +428,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The subresource_uris.
+     * 
      * @return The subresource_uris
      */
     public final Map<String, String> getSubresourceUris() {
@@ -395,6 +437,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The phone number that received the message.
+     * 
      * @return The phone number that received the message
      */
     public final String getTo() {
@@ -402,6 +446,8 @@ public class Message extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

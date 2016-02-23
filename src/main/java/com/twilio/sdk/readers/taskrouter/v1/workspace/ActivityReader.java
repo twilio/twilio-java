@@ -18,7 +18,7 @@ public class ActivityReader extends Reader<Activity> {
     private String available;
 
     /**
-     * Construct a new ActivityReader
+     * Construct a new ActivityReader.
      * 
      * @param workspaceSid The workspace_sid
      */
@@ -27,7 +27,7 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -38,7 +38,7 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * The available
+     * The available.
      * 
      * @param available The available
      * @return this
@@ -49,7 +49,7 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Activity ResourceSet
@@ -71,7 +71,7 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -88,7 +88,7 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * Generate a Page of Activity Resources for a given request
+     * Generate a Page of Activity Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -101,8 +101,10 @@ public class ActivityReader extends Reader<Activity> {
             throw new ApiConnectionException("Activity read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -113,13 +115,18 @@ public class ActivityReader extends Reader<Activity> {
         }
         
         Page<Activity> result = new Page<>();
-        result.deserialize("activities", response.getContent(), Activity.class, client.getObjectMapper());
+        result.deserialize(
+            "activities",
+            response.getContent(),
+            Activity.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

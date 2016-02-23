@@ -28,19 +28,20 @@ public class WorkerStatistics extends Resource {
     private static final long serialVersionUID = 174071152398170L;
 
     /**
-     * fetch
+     * Create a WorkerStatisticsFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param workerSid The worker_sid
      * @return WorkerStatisticsFetcher capable of executing the fetch
      */
-    public static WorkerStatisticsFetcher fetch(final String workspaceSid, final String workerSid) {
+    public static WorkerStatisticsFetcher fetch(final String workspaceSid, 
+                                                final String workerSid) {
         return new WorkerStatisticsFetcher(workspaceSid, workerSid);
     }
 
     /**
      * Converts a JSON String into a WorkerStatistics object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -59,7 +60,7 @@ public class WorkerStatistics extends Resource {
 
     /**
      * Converts a JSON InputStream into a WorkerStatistics object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -97,6 +98,8 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -104,6 +107,8 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
+     * Returns The The cumulative.
+     * 
      * @return The cumulative
      */
     public final JsonNode getCumulative() {
@@ -111,6 +116,8 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
+     * Returns The The worker_sid.
+     * 
      * @return The worker_sid
      */
     public final String getWorkerSid() {
@@ -118,6 +125,8 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

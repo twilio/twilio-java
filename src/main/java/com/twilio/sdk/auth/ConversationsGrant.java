@@ -10,30 +10,30 @@ package com.twilio.sdk.auth;
  */
 public class ConversationsGrant implements Grant {
 
-	public String configurationProfileSid;
+    public String configurationProfileSid;
 
-	public String getConfigurationProfileSid() {
-		return configurationProfileSid;
-	}
+    public String getConfigurationProfileSid() {
+        return configurationProfileSid;
+    }
 
-	public ConversationsGrant setConfigurationProfileSid(String configurationProfileSid) {
-		this.configurationProfileSid = configurationProfileSid;
-		return this;
-	}
+    public ConversationsGrant setConfigurationProfileSid(String configurationProfileSid) {
+        this.configurationProfileSid = configurationProfileSid;
+        return this;
+    }
 
-	public String getGrantKey() {
-		return "rtc";
-	}
+    public String getGrantKey() {
+        return "rtc";
+    }
 
-	public Object getPayload() {
-		return new Payload(this);
-	}
+    public Object getPayload() {
+        return new Payload(this);
+    }
 
-	public class Payload {
-		public final String configuration_profile_sid;
+    public class Payload {
+        public final String configuration_profile_sid;
 
-		public Payload(ConversationsGrant grant) {
-			this.configuration_profile_sid = grant.configurationProfileSid;
-		}
-	}
+        public Payload(ConversationsGrant grant) {
+            this.configuration_profile_sid = grant.configurationProfileSid;
+        }
+    }
 }

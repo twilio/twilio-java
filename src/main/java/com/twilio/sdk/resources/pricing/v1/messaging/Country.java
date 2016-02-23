@@ -34,7 +34,7 @@ public class Country extends SidResource {
     private static final long serialVersionUID = 155838537182593L;
 
     /**
-     * read
+     * Create a CountryReader to execute read.
      * 
      * @return CountryReader capable of executing the read
      */
@@ -43,7 +43,7 @@ public class Country extends SidResource {
     }
 
     /**
-     * fetch
+     * Create a CountryFetcher to execute fetch.
      * 
      * @param isoCountry The iso_country
      * @return CountryFetcher capable of executing the fetch
@@ -53,7 +53,7 @@ public class Country extends SidResource {
     }
 
     /**
-     * Converts a JSON String into a Country object using the provided ObjectMapper
+     * Converts a JSON String into a Country object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -72,7 +72,7 @@ public class Country extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Country object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -119,6 +119,8 @@ public class Country extends SidResource {
     }
 
     /**
+     * Returns The The iso_country.
+     * 
      * @return The iso_country
      */
     public final String getSid() {
@@ -126,6 +128,8 @@ public class Country extends SidResource {
     }
 
     /**
+     * Returns The The country.
+     * 
      * @return The country
      */
     public final String getCountry() {
@@ -133,6 +137,8 @@ public class Country extends SidResource {
     }
 
     /**
+     * Returns The The iso_country.
+     * 
      * @return The iso_country
      */
     public final String getIsoCountry() {
@@ -140,6 +146,8 @@ public class Country extends SidResource {
     }
 
     /**
+     * Returns The The outbound_sms_prices.
+     * 
      * @return The outbound_sms_prices
      */
     public final List<OutboundSmsPrice> getOutboundSmsPrices() {
@@ -147,6 +155,8 @@ public class Country extends SidResource {
     }
 
     /**
+     * Returns The The inbound_sms_prices.
+     * 
      * @return The inbound_sms_prices
      */
     public final List<InboundSmsPrice> getInboundSmsPrices() {
@@ -154,6 +164,8 @@ public class Country extends SidResource {
     }
 
     /**
+     * Returns The The price_unit.
+     * 
      * @return The price_unit
      */
     public final Currency getPriceUnit() {
@@ -161,6 +173,8 @@ public class Country extends SidResource {
     }
 
     /**
+     * Returns The The url.
+     * 
      * @return The url
      */
     public final URI getUrl() {

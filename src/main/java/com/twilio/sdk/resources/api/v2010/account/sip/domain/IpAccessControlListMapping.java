@@ -32,55 +32,62 @@ public class IpAccessControlListMapping extends SidResource {
     private static final long serialVersionUID = 231948195815052L;
 
     /**
-     * fetch
+     * Create a IpAccessControlListMappingFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      * @param sid The sid
      * @return IpAccessControlListMappingFetcher capable of executing the fetch
      */
-    public static IpAccessControlListMappingFetcher fetch(final String accountSid, final String domainSid, final String sid) {
+    public static IpAccessControlListMappingFetcher fetch(final String accountSid, 
+                                                          final String domainSid, 
+                                                          final String sid) {
         return new IpAccessControlListMappingFetcher(accountSid, domainSid, sid);
     }
 
     /**
-     * create
+     * Create a IpAccessControlListMappingCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @return IpAccessControlListMappingCreator capable of executing the create
      */
-    public static IpAccessControlListMappingCreator create(final String accountSid, final String domainSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListMappingCreator create(final String accountSid, 
+                                                           final String domainSid, 
+                                                           final String ipAccessControlListSid) {
         return new IpAccessControlListMappingCreator(accountSid, domainSid, ipAccessControlListSid);
     }
 
     /**
-     * read
+     * Create a IpAccessControlListMappingReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      * @return IpAccessControlListMappingReader capable of executing the read
      */
-    public static IpAccessControlListMappingReader read(final String accountSid, final String domainSid) {
+    public static IpAccessControlListMappingReader read(final String accountSid, 
+                                                        final String domainSid) {
         return new IpAccessControlListMappingReader(accountSid, domainSid);
     }
 
     /**
-     * delete
+     * Create a IpAccessControlListMappingDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      * @param sid The sid
      * @return IpAccessControlListMappingDeleter capable of executing the delete
      */
-    public static IpAccessControlListMappingDeleter delete(final String accountSid, final String domainSid, final String sid) {
+    public static IpAccessControlListMappingDeleter delete(final String accountSid, 
+                                                           final String domainSid, 
+                                                           final String sid) {
         return new IpAccessControlListMappingDeleter(accountSid, domainSid, sid);
     }
 
     /**
      * Converts a JSON String into a IpAccessControlListMapping object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -99,7 +106,7 @@ public class IpAccessControlListMapping extends SidResource {
 
     /**
      * Converts a JSON InputStream into a IpAccessControlListMapping object using
-     * the provided ObjectMapper
+     * the provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -145,6 +152,8 @@ public class IpAccessControlListMapping extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -152,6 +161,8 @@ public class IpAccessControlListMapping extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -159,6 +170,8 @@ public class IpAccessControlListMapping extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -166,6 +179,8 @@ public class IpAccessControlListMapping extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -173,6 +188,8 @@ public class IpAccessControlListMapping extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -180,6 +197,8 @@ public class IpAccessControlListMapping extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

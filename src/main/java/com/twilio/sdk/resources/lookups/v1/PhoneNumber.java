@@ -49,7 +49,7 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
-     * fetch
+     * Create a PhoneNumberFetcher to execute fetch.
      * 
      * @param phoneNumber The phone_number
      * @return PhoneNumberFetcher capable of executing the fetch
@@ -60,7 +60,7 @@ public class PhoneNumber extends SidResource {
 
     /**
      * Converts a JSON String into a PhoneNumber object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -79,7 +79,7 @@ public class PhoneNumber extends SidResource {
 
     /**
      * Converts a JSON InputStream into a PhoneNumber object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -117,6 +117,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The phone_number.
+     * 
      * @return The phone_number
      */
     public final String getSid() {
@@ -124,6 +126,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The country_code.
+     * 
      * @return The country_code
      */
     public final String getCountryCode() {
@@ -131,6 +135,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The phone_number.
+     * 
      * @return The phone_number
      */
     public final com.twilio.types.PhoneNumber getPhoneNumber() {
@@ -138,6 +144,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The national_format.
+     * 
      * @return The national_format
      */
     public final String getNationalFormat() {
@@ -145,6 +153,8 @@ public class PhoneNumber extends SidResource {
     }
 
     /**
+     * Returns The The carrier.
+     * 
      * @return The carrier
      */
     public final Map<String, String> getCarrier() {

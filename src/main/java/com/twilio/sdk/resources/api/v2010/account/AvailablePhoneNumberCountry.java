@@ -29,7 +29,7 @@ public class AvailablePhoneNumberCountry extends SidResource {
     private static final long serialVersionUID = 118317602820324L;
 
     /**
-     * read
+     * Create a AvailablePhoneNumberCountryReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return AvailablePhoneNumberCountryReader capable of executing the read
@@ -39,19 +39,20 @@ public class AvailablePhoneNumberCountry extends SidResource {
     }
 
     /**
-     * fetch
+     * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param countryCode The country_code
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
-    public static AvailablePhoneNumberCountryFetcher fetch(final String accountSid, final String countryCode) {
+    public static AvailablePhoneNumberCountryFetcher fetch(final String accountSid, 
+                                                           final String countryCode) {
         return new AvailablePhoneNumberCountryFetcher(accountSid, countryCode);
     }
 
     /**
      * Converts a JSON String into a AvailablePhoneNumberCountry object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -70,7 +71,7 @@ public class AvailablePhoneNumberCountry extends SidResource {
 
     /**
      * Converts a JSON InputStream into a AvailablePhoneNumberCountry object using
-     * the provided ObjectMapper
+     * the provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -112,6 +113,8 @@ public class AvailablePhoneNumberCountry extends SidResource {
     }
 
     /**
+     * Returns The The country_code.
+     * 
      * @return The country_code
      */
     public final String getSid() {
@@ -119,6 +122,8 @@ public class AvailablePhoneNumberCountry extends SidResource {
     }
 
     /**
+     * Returns The The country_code.
+     * 
      * @return The country_code
      */
     public final String getCountryCode() {
@@ -126,6 +131,8 @@ public class AvailablePhoneNumberCountry extends SidResource {
     }
 
     /**
+     * Returns The The country.
+     * 
      * @return The country
      */
     public final String getCountry() {
@@ -133,6 +140,8 @@ public class AvailablePhoneNumberCountry extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final URI getUri() {
@@ -140,6 +149,8 @@ public class AvailablePhoneNumberCountry extends SidResource {
     }
 
     /**
+     * Returns The The beta.
+     * 
      * @return The beta
      */
     public final Boolean getBeta() {
@@ -147,6 +158,8 @@ public class AvailablePhoneNumberCountry extends SidResource {
     }
 
     /**
+     * Returns The The subresource_uris.
+     * 
      * @return The subresource_uris
      */
     public final Map<String, String> getSubresourceUris() {

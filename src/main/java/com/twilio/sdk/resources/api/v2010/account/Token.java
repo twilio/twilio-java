@@ -31,7 +31,7 @@ public class Token extends Resource {
     private static final long serialVersionUID = 281090396283982L;
 
     /**
-     * Create a new token
+     * Create a TokenCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @return TokenCreator capable of executing the create
@@ -41,7 +41,7 @@ public class Token extends Resource {
     }
 
     /**
-     * Converts a JSON String into a Token object using the provided ObjectMapper
+     * Converts a JSON String into a Token object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -60,7 +60,7 @@ public class Token extends Resource {
 
     /**
      * Converts a JSON InputStream into a Token object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -110,6 +110,8 @@ public class Token extends Resource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -117,6 +119,8 @@ public class Token extends Resource {
     }
 
     /**
+     * Returns The The date this resource was created.
+     * 
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -124,6 +128,8 @@ public class Token extends Resource {
     }
 
     /**
+     * Returns The The date this resource was last updated.
+     * 
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -131,6 +137,8 @@ public class Token extends Resource {
     }
 
     /**
+     * Returns The An array representing the ephemeral credentials.
+     * 
      * @return An array representing the ephemeral credentials
      */
     public final List<IceServer> getIceServers() {
@@ -138,6 +146,8 @@ public class Token extends Resource {
     }
 
     /**
+     * Returns The The temporary password used for authenticating.
+     * 
      * @return The temporary password used for authenticating
      */
     public final String getPassword() {
@@ -145,6 +155,8 @@ public class Token extends Resource {
     }
 
     /**
+     * Returns The The duration in seconds the credentials are valid.
+     * 
      * @return The duration in seconds the credentials are valid
      */
     public final String getTtl() {
@@ -152,6 +164,8 @@ public class Token extends Resource {
     }
 
     /**
+     * Returns The The temporary username that uniquely identifies a Token..
+     * 
      * @return The temporary username that uniquely identifies a Token.
      */
     public final String getUsername() {

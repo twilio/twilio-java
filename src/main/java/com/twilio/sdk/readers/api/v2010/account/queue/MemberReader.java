@@ -17,7 +17,7 @@ public class MemberReader extends Reader<Member> {
     private final String queueSid;
 
     /**
-     * Construct a new MemberReader
+     * Construct a new MemberReader.
      * 
      * @param accountSid The account_sid
      * @param queueSid The Queue in which to find members
@@ -28,7 +28,7 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Member ResourceSet
@@ -50,7 +50,7 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -67,7 +67,7 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * Generate a Page of Member Resources for a given request
+     * Generate a Page of Member Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -80,8 +80,10 @@ public class MemberReader extends Reader<Member> {
             throw new ApiConnectionException("Member read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -92,13 +94,18 @@ public class MemberReader extends Reader<Member> {
         }
         
         Page<Member> result = new Page<>();
-        result.deserialize("queue_members", response.getContent(), Member.class, client.getObjectMapper());
+        result.deserialize(
+            "queue_members",
+            response.getContent(),
+            Member.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

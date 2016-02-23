@@ -33,40 +33,43 @@ public class Workflow extends SidResource {
     private static final long serialVersionUID = 45221576687968L;
 
     /**
-     * fetch
+     * Create a WorkflowFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return WorkflowFetcher capable of executing the fetch
      */
-    public static WorkflowFetcher fetch(final String workspaceSid, final String sid) {
+    public static WorkflowFetcher fetch(final String workspaceSid, 
+                                        final String sid) {
         return new WorkflowFetcher(workspaceSid, sid);
     }
 
     /**
-     * update
+     * Create a WorkflowUpdater to execute update.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return WorkflowUpdater capable of executing the update
      */
-    public static WorkflowUpdater update(final String workspaceSid, final String sid) {
+    public static WorkflowUpdater update(final String workspaceSid, 
+                                         final String sid) {
         return new WorkflowUpdater(workspaceSid, sid);
     }
 
     /**
-     * delete
+     * Create a WorkflowDeleter to execute delete.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return WorkflowDeleter capable of executing the delete
      */
-    public static WorkflowDeleter delete(final String workspaceSid, final String sid) {
+    public static WorkflowDeleter delete(final String workspaceSid, 
+                                         final String sid) {
         return new WorkflowDeleter(workspaceSid, sid);
     }
 
     /**
-     * read
+     * Create a WorkflowReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
      * @return WorkflowReader capable of executing the read
@@ -76,7 +79,7 @@ public class Workflow extends SidResource {
     }
 
     /**
-     * create
+     * Create a WorkflowCreator to execute create.
      * 
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
@@ -84,12 +87,16 @@ public class Workflow extends SidResource {
      * @param assignmentCallbackUrl The assignment_callback_url
      * @return WorkflowCreator capable of executing the create
      */
-    public static WorkflowCreator create(final String workspaceSid, final String friendlyName, final String configuration, final String assignmentCallbackUrl) {
+    public static WorkflowCreator create(final String workspaceSid, 
+                                         final String friendlyName, 
+                                         final String configuration, 
+                                         final String assignmentCallbackUrl) {
         return new WorkflowCreator(workspaceSid, friendlyName, configuration, assignmentCallbackUrl);
     }
 
     /**
-     * Converts a JSON String into a Workflow object using the provided ObjectMapper
+     * Converts a JSON String into a Workflow object using the provided
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -108,7 +115,7 @@ public class Workflow extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Workflow object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -174,6 +181,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -181,6 +190,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The assignment_callback_url.
+     * 
      * @return The assignment_callback_url
      */
     public final String getAssignmentCallbackUrl() {
@@ -188,6 +199,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The configuration.
+     * 
      * @return The configuration
      */
     public final String getConfiguration() {
@@ -195,6 +208,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -202,6 +217,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -209,6 +226,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The document_content_type.
+     * 
      * @return The document_content_type
      */
     public final String getDocumentContentType() {
@@ -216,6 +235,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The fallback_assignment_callback_url.
+     * 
      * @return The fallback_assignment_callback_url
      */
     public final String getFallbackAssignmentCallbackUrl() {
@@ -223,6 +244,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -230,6 +253,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -237,6 +262,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The task_reservation_timeout.
+     * 
      * @return The task_reservation_timeout
      */
     public final Integer getTaskReservationTimeout() {
@@ -244,6 +271,8 @@ public class Workflow extends SidResource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

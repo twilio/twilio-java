@@ -16,7 +16,7 @@ public class MemberFetcher extends Fetcher<Member> {
     private final String callSid;
 
     /**
-     * Construct a new MemberFetcher
+     * Construct a new MemberFetcher.
      * 
      * @param accountSid The account_sid
      * @param queueSid The Queue in which to find the members
@@ -29,7 +29,7 @@ public class MemberFetcher extends Fetcher<Member> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Member
@@ -49,8 +49,10 @@ public class MemberFetcher extends Fetcher<Member> {
             throw new ApiConnectionException("Member fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

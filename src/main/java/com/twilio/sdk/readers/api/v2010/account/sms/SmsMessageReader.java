@@ -19,7 +19,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     private String dateSent;
 
     /**
-     * Construct a new SmsMessageReader
+     * Construct a new SmsMessageReader.
      * 
      * @param accountSid The account_sid
      */
@@ -28,7 +28,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     }
 
     /**
-     * The to
+     * The to.
      * 
      * @param to The to
      * @return this
@@ -39,7 +39,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     }
 
     /**
-     * The from
+     * The from.
      * 
      * @param from The from
      * @return this
@@ -50,7 +50,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     }
 
     /**
-     * The date_sent
+     * The date_sent.
      * 
      * @param dateSent The date_sent
      * @return this
@@ -61,7 +61,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return SmsMessage ResourceSet
@@ -83,7 +83,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -100,7 +100,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     }
 
     /**
-     * Generate a Page of SmsMessage Resources for a given request
+     * Generate a Page of SmsMessage Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -113,8 +113,10 @@ public class SmsMessageReader extends Reader<SmsMessage> {
             throw new ApiConnectionException("SmsMessage read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -125,13 +127,18 @@ public class SmsMessageReader extends Reader<SmsMessage> {
         }
         
         Page<SmsMessage> result = new Page<>();
-        result.deserialize("sms_messages", response.getContent(), SmsMessage.class, client.getObjectMapper());
+        result.deserialize(
+            "sms_messages",
+            response.getContent(),
+            SmsMessage.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

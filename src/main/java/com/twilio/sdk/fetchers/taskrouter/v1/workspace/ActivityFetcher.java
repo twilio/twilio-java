@@ -15,7 +15,7 @@ public class ActivityFetcher extends Fetcher<Activity> {
     private final String sid;
 
     /**
-     * Construct a new ActivityFetcher
+     * Construct a new ActivityFetcher.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
@@ -26,7 +26,7 @@ public class ActivityFetcher extends Fetcher<Activity> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Activity
@@ -46,8 +46,10 @@ public class ActivityFetcher extends Fetcher<Activity> {
             throw new ApiConnectionException("Activity fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

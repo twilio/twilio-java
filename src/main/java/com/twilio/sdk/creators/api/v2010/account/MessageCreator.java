@@ -24,7 +24,7 @@ public class MessageCreator extends Creator<Message> {
     private String applicationSid;
 
     /**
-     * Construct a new MessageCreator
+     * Construct a new MessageCreator.
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
@@ -39,7 +39,7 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * Construct a new MessageCreator
+     * Construct a new MessageCreator.
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
@@ -54,7 +54,7 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The URL that Twilio will POST to each time your message status changes
+     * The URL that Twilio will POST to each time your message status changes.
      * 
      * @param statusCallback URL Twilio will request when the status changes
      * @return this
@@ -65,7 +65,7 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The URL that Twilio will POST to each time your message status changes
+     * The URL that Twilio will POST to each time your message status changes.
      * 
      * @param statusCallback URL Twilio will request when the status changes
      * @return this
@@ -76,7 +76,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Twilio the POST MessageSid as well as MessageStatus to the URL in the
-     * MessageStatusCallback property of this Application
+     * MessageStatusCallback property of this Application.
      * 
      * @param applicationSid The application to use for callbacks
      * @return this
@@ -87,7 +87,7 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Message
@@ -108,8 +108,10 @@ public class MessageCreator extends Creator<Message> {
             throw new ApiConnectionException("Message creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -123,7 +125,7 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

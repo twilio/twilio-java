@@ -21,7 +21,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
     private final URI sipUrl;
 
     /**
-     * Construct a new OriginationUrlCreator
+     * Construct a new OriginationUrlCreator.
      * 
      * @param trunkSid The trunk_sid
      * @param weight The weight
@@ -40,7 +40,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created OriginationUrl
@@ -61,8 +61,10 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
             throw new ApiConnectionException("OriginationUrl creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -76,7 +78,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

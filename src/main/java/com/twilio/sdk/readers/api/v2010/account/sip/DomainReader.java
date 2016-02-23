@@ -16,7 +16,7 @@ public class DomainReader extends Reader<Domain> {
     private final String accountSid;
 
     /**
-     * Construct a new DomainReader
+     * Construct a new DomainReader.
      * 
      * @param accountSid The account_sid
      */
@@ -25,7 +25,7 @@ public class DomainReader extends Reader<Domain> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Domain ResourceSet
@@ -47,7 +47,7 @@ public class DomainReader extends Reader<Domain> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -64,7 +64,7 @@ public class DomainReader extends Reader<Domain> {
     }
 
     /**
-     * Generate a Page of Domain Resources for a given request
+     * Generate a Page of Domain Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -77,8 +77,10 @@ public class DomainReader extends Reader<Domain> {
             throw new ApiConnectionException("Domain read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -89,13 +91,18 @@ public class DomainReader extends Reader<Domain> {
         }
         
         Page<Domain> result = new Page<>();
-        result.deserialize("domains", response.getContent(), Domain.class, client.getObjectMapper());
+        result.deserialize(
+            "domains",
+            response.getContent(),
+            Domain.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

@@ -32,55 +32,62 @@ public class CredentialListMapping extends SidResource {
     private static final long serialVersionUID = 231948195815052L;
 
     /**
-     * create
+     * Create a CredentialListMappingCreator to execute create.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      * @param credentialListSid The credential_list_sid
      * @return CredentialListMappingCreator capable of executing the create
      */
-    public static CredentialListMappingCreator create(final String accountSid, final String domainSid, final String credentialListSid) {
+    public static CredentialListMappingCreator create(final String accountSid, 
+                                                      final String domainSid, 
+                                                      final String credentialListSid) {
         return new CredentialListMappingCreator(accountSid, domainSid, credentialListSid);
     }
 
     /**
-     * read
+     * Create a CredentialListMappingReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      * @return CredentialListMappingReader capable of executing the read
      */
-    public static CredentialListMappingReader read(final String accountSid, final String domainSid) {
+    public static CredentialListMappingReader read(final String accountSid, 
+                                                   final String domainSid) {
         return new CredentialListMappingReader(accountSid, domainSid);
     }
 
     /**
-     * fetch
+     * Create a CredentialListMappingFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      * @param sid The sid
      * @return CredentialListMappingFetcher capable of executing the fetch
      */
-    public static CredentialListMappingFetcher fetch(final String accountSid, final String domainSid, final String sid) {
+    public static CredentialListMappingFetcher fetch(final String accountSid, 
+                                                     final String domainSid, 
+                                                     final String sid) {
         return new CredentialListMappingFetcher(accountSid, domainSid, sid);
     }
 
     /**
-     * delete
+     * Create a CredentialListMappingDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      * @param sid The sid
      * @return CredentialListMappingDeleter capable of executing the delete
      */
-    public static CredentialListMappingDeleter delete(final String accountSid, final String domainSid, final String sid) {
+    public static CredentialListMappingDeleter delete(final String accountSid, 
+                                                      final String domainSid, 
+                                                      final String sid) {
         return new CredentialListMappingDeleter(accountSid, domainSid, sid);
     }
 
     /**
      * Converts a JSON String into a CredentialListMapping object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -99,7 +106,7 @@ public class CredentialListMapping extends SidResource {
 
     /**
      * Converts a JSON InputStream into a CredentialListMapping object using the
-     * provided ObjectMapper
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -145,6 +152,8 @@ public class CredentialListMapping extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -152,6 +161,8 @@ public class CredentialListMapping extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -159,6 +170,8 @@ public class CredentialListMapping extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -166,6 +179,8 @@ public class CredentialListMapping extends SidResource {
     }
 
     /**
+     * Returns The The friendly_name.
+     * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -173,6 +188,8 @@ public class CredentialListMapping extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -180,6 +197,8 @@ public class CredentialListMapping extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

@@ -6,6 +6,14 @@ import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
+/**
+ * Capabilities of a Phone Number.
+ *
+ * <p>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/docs/api/rest/available-phone-numbers>Phone Number Docs</a>
+ * </p>
+ */
 public class PhoneNumberCapabilities {
     private final boolean mms;
     private final boolean sms;

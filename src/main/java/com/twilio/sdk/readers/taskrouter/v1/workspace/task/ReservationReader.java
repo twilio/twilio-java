@@ -15,9 +15,12 @@ import com.twilio.sdk.resources.taskrouter.v1.workspace.task.Reservation;
 public class ReservationReader extends Reader<Reservation> {
     private final String workspaceSid;
     private final String taskSid;
+    private String status;
+    private String assignmentStatus;
+    private String reservationStatus;
 
     /**
-     * Construct a new ReservationReader
+     * Construct a new ReservationReader.
      * 
      * @param workspaceSid The workspace_sid
      * @param taskSid The task_sid
@@ -28,7 +31,40 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * The status.
+     * 
+     * @param status The status
+     * @return this
+     */
+    public ReservationReader byStatus(final String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The assignment_status.
+     * 
+     * @param assignmentStatus The assignment_status
+     * @return this
+     */
+    public ReservationReader byAssignmentStatus(final String assignmentStatus) {
+        this.assignmentStatus = assignmentStatus;
+        return this;
+    }
+
+    /**
+     * The reservation_status.
+     * 
+     * @param reservationStatus The reservation_status
+     * @return this
+     */
+    public ReservationReader byReservationStatus(final String reservationStatus) {
+        this.reservationStatus = reservationStatus;
+        return this;
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Reservation ResourceSet
@@ -50,7 +86,7 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -67,7 +103,7 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     /**
-     * Generate a Page of Reservation Resources for a given request
+     * Generate a Page of Reservation Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -80,8 +116,10 @@ public class ReservationReader extends Reader<Reservation> {
             throw new ApiConnectionException("Reservation read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -92,17 +130,34 @@ public class ReservationReader extends Reader<Reservation> {
         }
         
         Page<Reservation> result = new Page<>();
-        result.deserialize("reservations", response.getContent(), Reservation.class, client.getObjectMapper());
+        result.deserialize(
+            "reservations",
+            response.getContent(),
+            Reservation.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (status != null) {
+            request.addQueryParam("Status", status);
+        }
+        
+        if (assignmentStatus != null) {
+            request.addQueryParam("AssignmentStatus", assignmentStatus);
+        }
+        
+        if (reservationStatus != null) {
+            request.addQueryParam("ReservationStatus", reservationStatus);
+        }
+        
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));
     }
 }

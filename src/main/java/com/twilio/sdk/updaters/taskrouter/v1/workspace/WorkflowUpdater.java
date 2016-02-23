@@ -20,7 +20,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     private Integer taskReservationTimeout;
 
     /**
-     * Construct a new WorkflowUpdater
+     * Construct a new WorkflowUpdater.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
@@ -31,7 +31,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -42,7 +42,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The assignment_callback_url
+     * The assignment_callback_url.
      * 
      * @param assignmentCallbackUrl The assignment_callback_url
      * @return this
@@ -53,7 +53,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The fallback_assignment_callback_url
+     * The fallback_assignment_callback_url.
      * 
      * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
      * @return this
@@ -64,7 +64,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The configuration
+     * The configuration.
      * 
      * @param configuration The configuration
      * @return this
@@ -75,7 +75,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The task_reservation_timeout
+     * The task_reservation_timeout.
      * 
      * @param taskReservationTimeout The task_reservation_timeout
      * @return this
@@ -86,7 +86,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Workflow
@@ -107,8 +107,10 @@ public class WorkflowUpdater extends Updater<Workflow> {
             throw new ApiConnectionException("Workflow update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -122,7 +124,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

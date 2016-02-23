@@ -52,30 +52,31 @@ public class ConnectApp extends SidResource {
     }
 
     /**
-     * Fetch an instance of a connect-app
+     * Create a ConnectAppFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique connect-app Sid
      * @return ConnectAppFetcher capable of executing the fetch
      */
-    public static ConnectAppFetcher fetch(final String accountSid, final String sid) {
+    public static ConnectAppFetcher fetch(final String accountSid, 
+                                          final String sid) {
         return new ConnectAppFetcher(accountSid, sid);
     }
 
     /**
-     * Update a connect-app with the specified parameters
+     * Create a ConnectAppUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
      * @return ConnectAppUpdater capable of executing the update
      */
-    public static ConnectAppUpdater update(final String accountSid, final String sid) {
+    public static ConnectAppUpdater update(final String accountSid, 
+                                           final String sid) {
         return new ConnectAppUpdater(accountSid, sid);
     }
 
     /**
-     * Retrieve a list of connect-apps belonging to the account used to make the
-     * request
+     * Create a ConnectAppReader to execute read.
      * 
      * @param accountSid The account_sid
      * @return ConnectAppReader capable of executing the read
@@ -86,7 +87,7 @@ public class ConnectApp extends SidResource {
 
     /**
      * Converts a JSON String into a ConnectApp object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -105,7 +106,7 @@ public class ConnectApp extends SidResource {
 
     /**
      * Converts a JSON InputStream into a ConnectApp object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -171,6 +172,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The unique sid that identifies this account.
+     * 
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -178,6 +181,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The URIL Twilio sends requests when users authorize.
+     * 
      * @return URIL Twilio sends requests when users authorize
      */
     public final URI getAuthorizeRedirectUrl() {
@@ -185,6 +190,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The company name set for this Connect App..
+     * 
      * @return The company name set for this Connect App.
      */
     public final String getCompanyName() {
@@ -192,6 +199,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The HTTP method Twilio WIll use making requests to the url.
+     * 
      * @return HTTP method Twilio WIll use making requests to the url
      */
     public final HttpMethod getDeauthorizeCallbackMethod() {
@@ -199,6 +208,9 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The URL Twilio will send a request when a user de-authorizes this
+     * app.
+     * 
      * @return URL Twilio will send a request when a user de-authorizes this app
      */
     public final URI getDeauthorizeCallbackUrl() {
@@ -206,6 +218,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The A more detailed human readable description.
+     * 
      * @return A more detailed human readable description
      */
     public final String getDescription() {
@@ -213,6 +227,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The A human readable name for the Connect App..
+     * 
      * @return A human readable name for the Connect App.
      */
     public final String getFriendlyName() {
@@ -220,6 +236,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The URL users can obtain more information.
+     * 
      * @return The URL users can obtain more information
      */
     public final URI getHomepageUrl() {
@@ -227,6 +245,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The set of permissions that your ConnectApp requests..
+     * 
      * @return The set of permissions that your ConnectApp requests.
      */
     public final List<ConnectApp.Permission> getPermissions() {
@@ -234,6 +254,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this connect-apps.
+     * 
      * @return A string that uniquely identifies this connect-apps
      */
     public final String getSid() {
@@ -241,6 +263,8 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Returns The The URI for this resource.
+     * 
      * @return The URI for this resource
      */
     public final String getUri() {

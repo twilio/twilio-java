@@ -15,7 +15,7 @@ public class DomainFetcher extends Fetcher<Domain> {
     private final String sid;
 
     /**
-     * Construct a new DomainFetcher
+     * Construct a new DomainFetcher.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique Domain Sid
@@ -26,7 +26,7 @@ public class DomainFetcher extends Fetcher<Domain> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Domain
@@ -46,8 +46,10 @@ public class DomainFetcher extends Fetcher<Domain> {
             throw new ApiConnectionException("Domain fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

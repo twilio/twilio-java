@@ -56,40 +56,43 @@ public class Task extends SidResource {
     }
 
     /**
-     * fetch
+     * Create a TaskFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return TaskFetcher capable of executing the fetch
      */
-    public static TaskFetcher fetch(final String workspaceSid, final String sid) {
+    public static TaskFetcher fetch(final String workspaceSid, 
+                                    final String sid) {
         return new TaskFetcher(workspaceSid, sid);
     }
 
     /**
-     * update
+     * Create a TaskUpdater to execute update.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return TaskUpdater capable of executing the update
      */
-    public static TaskUpdater update(final String workspaceSid, final String sid) {
+    public static TaskUpdater update(final String workspaceSid, 
+                                     final String sid) {
         return new TaskUpdater(workspaceSid, sid);
     }
 
     /**
-     * delete
+     * Create a TaskDeleter to execute delete.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      * @return TaskDeleter capable of executing the delete
      */
-    public static TaskDeleter delete(final String workspaceSid, final String sid) {
+    public static TaskDeleter delete(final String workspaceSid, 
+                                     final String sid) {
         return new TaskDeleter(workspaceSid, sid);
     }
 
     /**
-     * read
+     * Create a TaskReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
      * @return TaskReader capable of executing the read
@@ -99,19 +102,21 @@ public class Task extends SidResource {
     }
 
     /**
-     * create
+     * Create a TaskCreator to execute create.
      * 
      * @param workspaceSid The workspace_sid
      * @param attributes The attributes
      * @param workflowSid The workflow_sid
      * @return TaskCreator capable of executing the create
      */
-    public static TaskCreator create(final String workspaceSid, final String attributes, final String workflowSid) {
+    public static TaskCreator create(final String workspaceSid, 
+                                     final String attributes, 
+                                     final String workflowSid) {
         return new TaskCreator(workspaceSid, attributes, workflowSid);
     }
 
     /**
-     * Converts a JSON String into a Task object using the provided ObjectMapper
+     * Converts a JSON String into a Task object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -130,7 +135,7 @@ public class Task extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Task object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -204,6 +209,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -211,6 +218,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The age.
+     * 
      * @return The age
      */
     public final Integer getAge() {
@@ -218,6 +227,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The assignment_status.
+     * 
      * @return The assignment_status
      */
     public final Task.Status getAssignmentStatus() {
@@ -225,6 +236,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The attributes.
+     * 
      * @return The attributes
      */
     public final String getAttributes() {
@@ -232,6 +245,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -239,6 +254,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -246,6 +263,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The priority.
+     * 
      * @return The priority
      */
     public final Integer getPriority() {
@@ -253,6 +272,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The reason.
+     * 
      * @return The reason
      */
     public final String getReason() {
@@ -260,6 +281,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -267,6 +290,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The task_queue_sid.
+     * 
      * @return The task_queue_sid
      */
     public final String getTaskQueueSid() {
@@ -274,6 +299,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The timeout.
+     * 
      * @return The timeout
      */
     public final Integer getTimeout() {
@@ -281,6 +308,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The workflow_sid.
+     * 
      * @return The workflow_sid
      */
     public final String getWorkflowSid() {
@@ -288,6 +317,8 @@ public class Task extends SidResource {
     }
 
     /**
+     * Returns The The workspace_sid.
+     * 
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {

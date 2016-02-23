@@ -15,7 +15,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
     private final String sid;
 
     /**
-     * Construct a new CredentialListFetcher
+     * Construct a new CredentialListFetcher.
      * 
      * @param accountSid The account_sid
      * @param sid Fetch by unique credential Sid
@@ -26,7 +26,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CredentialList
@@ -46,8 +46,10 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
             throw new ApiConnectionException("CredentialList fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

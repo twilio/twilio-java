@@ -31,7 +31,7 @@ public class Sandbox extends Resource {
     private static final long serialVersionUID = 227479628535986L;
 
     /**
-     * fetch
+     * Create a SandboxFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @return SandboxFetcher capable of executing the fetch
@@ -41,7 +41,7 @@ public class Sandbox extends Resource {
     }
 
     /**
-     * update
+     * Create a SandboxUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @return SandboxUpdater capable of executing the update
@@ -51,7 +51,7 @@ public class Sandbox extends Resource {
     }
 
     /**
-     * Converts a JSON String into a Sandbox object using the provided ObjectMapper
+     * Converts a JSON String into a Sandbox object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -70,7 +70,7 @@ public class Sandbox extends Resource {
 
     /**
      * Converts a JSON InputStream into a Sandbox object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -148,6 +148,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -155,6 +157,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -162,6 +166,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The pin.
+     * 
      * @return The pin
      */
     public final Integer getPin() {
@@ -169,6 +175,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -176,6 +184,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The phone_number.
+     * 
      * @return The phone_number
      */
     public final com.twilio.types.PhoneNumber getPhoneNumber() {
@@ -183,6 +193,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The application_sid.
+     * 
      * @return The application_sid
      */
     public final String getApplicationSid() {
@@ -190,6 +202,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -197,6 +211,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The voice_url.
+     * 
      * @return The voice_url
      */
     public final URI getVoiceUrl() {
@@ -204,6 +220,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The voice_method.
+     * 
      * @return The voice_method
      */
     public final HttpMethod getVoiceMethod() {
@@ -211,6 +229,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The sms_url.
+     * 
      * @return The sms_url
      */
     public final URI getSmsUrl() {
@@ -218,6 +238,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The sms_method.
+     * 
      * @return The sms_method
      */
     public final HttpMethod getSmsMethod() {
@@ -225,6 +247,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The status_callback.
+     * 
      * @return The status_callback
      */
     public final URI getStatusCallback() {
@@ -232,6 +256,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The status_callback_method.
+     * 
      * @return The status_callback_method
      */
     public final HttpMethod getStatusCallbackMethod() {
@@ -239,6 +265,8 @@ public class Sandbox extends Resource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final URI getUri() {

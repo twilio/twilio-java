@@ -24,7 +24,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     private HttpMethod statusCallbackMethod;
 
     /**
-     * Construct a new FeedbackSummaryCreator
+     * Construct a new FeedbackSummaryCreator.
      * 
      * @param accountSid The account_sid
      * @param startDate The start_date
@@ -37,7 +37,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The include_subaccounts
+     * The include_subaccounts.
      * 
      * @param includeSubaccounts The include_subaccounts
      * @return this
@@ -48,7 +48,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The status_callback
+     * The status_callback.
      * 
      * @param statusCallback The status_callback
      * @return this
@@ -59,7 +59,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The status_callback
+     * The status_callback.
      * 
      * @param statusCallback The status_callback
      * @return this
@@ -69,7 +69,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The status_callback_method
+     * The status_callback_method.
      * 
      * @param statusCallbackMethod The status_callback_method
      * @return this
@@ -80,7 +80,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created FeedbackSummary
@@ -101,8 +101,10 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
             throw new ApiConnectionException("FeedbackSummary creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -116,7 +118,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

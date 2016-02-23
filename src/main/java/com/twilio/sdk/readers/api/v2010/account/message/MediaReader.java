@@ -18,7 +18,7 @@ public class MediaReader extends Reader<Media> {
     private String dateCreated;
 
     /**
-     * Construct a new MediaReader
+     * Construct a new MediaReader.
      * 
      * @param accountSid The account_sid
      * @param messageSid The message_sid
@@ -30,7 +30,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Only show media created on the given date, or before/after using date
-     * inequalities.
+     * inequalities..
      * 
      * @param dateCreated Filter by date created
      * @return this
@@ -41,7 +41,7 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Media ResourceSet
@@ -63,7 +63,7 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -80,7 +80,7 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * Generate a Page of Media Resources for a given request
+     * Generate a Page of Media Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -93,8 +93,10 @@ public class MediaReader extends Reader<Media> {
             throw new ApiConnectionException("Media read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -105,13 +107,18 @@ public class MediaReader extends Reader<Media> {
         }
         
         Page<Media> result = new Page<>();
-        result.deserialize("media_list", response.getContent(), Media.class, client.getObjectMapper());
+        result.deserialize(
+            "media_list",
+            response.getContent(),
+            Media.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

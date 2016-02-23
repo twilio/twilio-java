@@ -16,7 +16,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
     private final String sid;
 
     /**
-     * Construct a new IpAccessControlListMappingFetcher
+     * Construct a new IpAccessControlListMappingFetcher.
      * 
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
@@ -29,7 +29,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IpAccessControlListMapping
@@ -49,8 +49,10 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
             throw new ApiConnectionException("IpAccessControlListMapping fetch failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),

@@ -21,7 +21,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     private String friendlyName;
 
     /**
-     * Construct a new TriggerUpdater
+     * Construct a new TriggerUpdater.
      * 
      * @param accountSid The account_sid
      * @param sid The sid
@@ -33,7 +33,7 @@ public class TriggerUpdater extends Updater<Trigger> {
 
     /**
      * The HTTP method Twilio will use when making a request to the CallbackUrl. 
-     * GET or POST.
+     * GET or POST..
      * 
      * @param callbackMethod HTTP method to use with callback_url
      * @return this
@@ -44,7 +44,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * Twilio will make a request to this url when the trigger fires.
+     * Twilio will make a request to this url when the trigger fires..
      * 
      * @param callbackUrl URL Twilio will request when the trigger fires
      * @return this
@@ -55,7 +55,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * Twilio will make a request to this url when the trigger fires.
+     * Twilio will make a request to this url when the trigger fires..
      * 
      * @param callbackUrl URL Twilio will request when the trigger fires
      * @return this
@@ -65,7 +65,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * A user-specified, human-readable name for the trigger.
+     * A user-specified, human-readable name for the trigger..
      * 
      * @param friendlyName A user-specified, human-readable name for the trigger.
      * @return this
@@ -76,7 +76,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated Trigger
@@ -97,8 +97,10 @@ public class TriggerUpdater extends Updater<Trigger> {
             throw new ApiConnectionException("Trigger update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -112,7 +114,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

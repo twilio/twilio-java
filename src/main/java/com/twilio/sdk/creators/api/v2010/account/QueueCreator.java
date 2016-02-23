@@ -16,7 +16,7 @@ public class QueueCreator extends Creator<Queue> {
     private Integer maxSize;
 
     /**
-     * Construct a new QueueCreator
+     * Construct a new QueueCreator.
      * 
      * @param accountSid The account_sid
      */
@@ -25,7 +25,7 @@ public class QueueCreator extends Creator<Queue> {
     }
 
     /**
-     * A user-provided string that identifies this queue.
+     * A user-provided string that identifies this queue..
      * 
      * @param friendlyName A user-provided string that identifies this queue.
      * @return this
@@ -37,7 +37,7 @@ public class QueueCreator extends Creator<Queue> {
 
     /**
      * The upper limit of calls allowed to be in the queue. The default is 100. The
-     * maximum is 1000.
+     * maximum is 1000..
      * 
      * @param maxSize The max number of calls allowed in the queue
      * @return this
@@ -48,7 +48,7 @@ public class QueueCreator extends Creator<Queue> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the create
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Created Queue
@@ -69,8 +69,10 @@ public class QueueCreator extends Creator<Queue> {
             throw new ApiConnectionException("Queue creation failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -84,7 +86,7 @@ public class QueueCreator extends Creator<Queue> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

@@ -56,43 +56,48 @@ public class Transcription extends SidResource {
     }
 
     /**
-     * fetch
+     * Create a TranscriptionFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
      * @param recordingSid The recording_sid
      * @param sid The sid
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetch(final String accountSid, final String recordingSid, final String sid) {
+    public static TranscriptionFetcher fetch(final String accountSid, 
+                                             final String recordingSid, 
+                                             final String sid) {
         return new TranscriptionFetcher(accountSid, recordingSid, sid);
     }
 
     /**
-     * delete
+     * Create a TranscriptionDeleter to execute delete.
      * 
      * @param accountSid The account_sid
      * @param recordingSid The recording_sid
      * @param sid The sid
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter delete(final String accountSid, final String recordingSid, final String sid) {
+    public static TranscriptionDeleter delete(final String accountSid, 
+                                              final String recordingSid, 
+                                              final String sid) {
         return new TranscriptionDeleter(accountSid, recordingSid, sid);
     }
 
     /**
-     * read
+     * Create a TranscriptionReader to execute read.
      * 
      * @param accountSid The account_sid
      * @param recordingSid The recording_sid
      * @return TranscriptionReader capable of executing the read
      */
-    public static TranscriptionReader read(final String accountSid, final String recordingSid) {
+    public static TranscriptionReader read(final String accountSid, 
+                                           final String recordingSid) {
         return new TranscriptionReader(accountSid, recordingSid);
     }
 
     /**
      * Converts a JSON String into a Transcription object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
@@ -111,7 +116,7 @@ public class Transcription extends SidResource {
 
     /**
      * Converts a JSON InputStream into a Transcription object using the provided
-     * ObjectMapper
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -186,6 +191,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The account_sid.
+     * 
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -193,6 +200,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The api_version.
+     * 
      * @return The api_version
      */
     public final String getApiVersion() {
@@ -200,6 +209,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The date_created.
+     * 
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -207,6 +218,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The date_updated.
+     * 
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -214,6 +227,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The duration.
+     * 
      * @return The duration
      */
     public final String getDuration() {
@@ -221,6 +236,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The price.
+     * 
      * @return The price
      */
     public final BigDecimal getPrice() {
@@ -228,6 +245,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The price_unit.
+     * 
      * @return The price_unit
      */
     public final Currency getPriceUnit() {
@@ -235,6 +254,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The recording_sid.
+     * 
      * @return The recording_sid
      */
     public final String getRecordingSid() {
@@ -242,6 +263,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The sid.
+     * 
      * @return The sid
      */
     public final String getSid() {
@@ -249,6 +272,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The status.
+     * 
      * @return The status
      */
     public final Transcription.Status getStatus() {
@@ -256,6 +281,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The transcription_text.
+     * 
      * @return The transcription_text
      */
     public final String getTranscriptionText() {
@@ -263,6 +290,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The type.
+     * 
      * @return The type
      */
     public final String getType() {
@@ -270,6 +299,8 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Returns The The uri.
+     * 
      * @return The uri
      */
     public final String getUri() {

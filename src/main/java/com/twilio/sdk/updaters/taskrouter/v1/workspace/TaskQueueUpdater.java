@@ -20,7 +20,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     private Integer maxReservedWorkers;
 
     /**
-     * Construct a new TaskQueueUpdater
+     * Construct a new TaskQueueUpdater.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
@@ -31,7 +31,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The friendly_name
+     * The friendly_name.
      * 
      * @param friendlyName The friendly_name
      * @return this
@@ -42,7 +42,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The target_workers
+     * The target_workers.
      * 
      * @param targetWorkers The target_workers
      * @return this
@@ -53,7 +53,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The reservation_activity_sid
+     * The reservation_activity_sid.
      * 
      * @param reservationActivitySid The reservation_activity_sid
      * @return this
@@ -64,7 +64,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The assignment_activity_sid
+     * The assignment_activity_sid.
      * 
      * @param assignmentActivitySid The assignment_activity_sid
      * @return this
@@ -75,7 +75,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The max_reserved_workers
+     * The max_reserved_workers.
      * 
      * @param maxReservedWorkers The max_reserved_workers
      * @return this
@@ -86,7 +86,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the update
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Updated TaskQueue
@@ -107,8 +107,10 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
             throw new ApiConnectionException("TaskQueue update failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -122,7 +124,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * Add the requested post parameters to the Request
+     * Add the requested post parameters to the Request.
      * 
      * @param request Request to add post params to
      */

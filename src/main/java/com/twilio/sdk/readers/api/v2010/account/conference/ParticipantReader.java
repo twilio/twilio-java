@@ -18,7 +18,7 @@ public class ParticipantReader extends Reader<Participant> {
     private Boolean muted;
 
     /**
-     * Construct a new ParticipantReader
+     * Construct a new ParticipantReader.
      * 
      * @param accountSid The account_sid
      * @param conferenceSid The string that uniquely identifies this conference
@@ -29,7 +29,7 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only show participants that are muted or unmuted
+     * Only show participants that are muted or unmuted.
      * 
      * @param muted Filter by muted participants
      * @return this
@@ -40,7 +40,7 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Make the request to the Twilio API to perform the read
+     * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
@@ -62,7 +62,7 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Retrieve the next page from the Twilio API
+     * Retrieve the next page from the Twilio API.
      * 
      * @param nextPageUri URI from which to retrieve the next page
      * @param client TwilioRestClient with which to make the request
@@ -79,7 +79,7 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Generate a Page of Participant Resources for a given request
+     * Generate a Page of Participant Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
@@ -92,8 +92,10 @@ public class ParticipantReader extends Reader<Participant> {
             throw new ApiConnectionException("Participant read failed: Unable to connect to server");
         } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null)
+            if (restException == null) {
                 throw new ApiException("Server Error, no content");
+            }
+        
             throw new ApiException(
                 restException.getMessage(),
                 restException.getCode(),
@@ -104,13 +106,18 @@ public class ParticipantReader extends Reader<Participant> {
         }
         
         Page<Participant> result = new Page<>();
-        result.deserialize("participants", response.getContent(), Participant.class, client.getObjectMapper());
+        result.deserialize(
+            "participants",
+            response.getContent(),
+            Participant.class,
+            client.getObjectMapper()
+        );
         
         return result;
     }
 
     /**
-     * Add the requested query string arguments to the Request
+     * Add the requested query string arguments to the Request.
      * 
      * @param request Request to add query string arguments to
      */

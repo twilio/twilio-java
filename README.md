@@ -57,7 +57,7 @@ import com.twilio.sdk.resource.instance.Participant;
 import com.twilio.sdk.resource.list.AccountList;
 import com.twilio.sdk.resource.list.AvailablePhoneNumberList;
 import com.twilio.sdk.resource.list.ParticipantList;
-import com.twilio.sdk.verbs.TwiMLException;
+import com.twilio.sdk.twiml.TwiMLException;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 

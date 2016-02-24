@@ -39,6 +39,10 @@ public class Uri extends TwiML {
         private String password;
         private String uri;
 
+        public Builder(String uri) {
+            this.uri = uri;
+        }
+
         public Builder username(String username) {
             this.username = username;
             return this;
@@ -46,11 +50,6 @@ public class Uri extends TwiML {
 
         public Builder password(String password) {
             this.password = password;
-            return this;
-        }
-
-        public Builder uri(String uri) {
-            this.uri = uri;
             return this;
         }
 

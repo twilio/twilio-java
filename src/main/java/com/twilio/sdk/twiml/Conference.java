@@ -93,43 +93,42 @@ public class Conference extends TwiML {
         private String waitUrl;
         private String name;
 
-        public Builder setMuted(boolean muted) {
+        public Builder(String name) {
+            this.name = name;
+        }
+
+        public Builder muted(boolean muted) {
             this.muted = muted;
             return this;
         }
 
-        public Builder setStartConferenceOnEnter(boolean startConferenceOnEnter) {
+        public Builder startConferenceOnEnter(boolean startConferenceOnEnter) {
             this.startConferenceOnEnter = startConferenceOnEnter;
             return this;
         }
 
-        public Builder setEndConferenceonExit(boolean endConferenceonExit) {
+        public Builder endConferenceonExit(boolean endConferenceonExit) {
             this.endConferenceonExit = endConferenceonExit;
             return this;
         }
 
-        public Builder setMaxParticipants(int maxParticipants) {
+        public Builder maxParticipants(int maxParticipants) {
             this.maxParticipants = maxParticipants;
             return this;
         }
 
-        public Builder setBeep(String beep) {
+        public Builder beep(String beep) {
             this.beep = beep;
             return this;
         }
 
-        public Builder setWaitMethod(String waitMethod) {
+        public Builder waitMethod(String waitMethod) {
             this.waitMethod = waitMethod;
             return this;
         }
 
-        public Builder setWaitUrl(String waitUrl) {
+        public Builder waitUrl(String waitUrl) {
             this.waitUrl = waitUrl;
-            return this;
-        }
-
-        public Builder setName(String name) {
-            this.name = name;
             return this;
         }
 

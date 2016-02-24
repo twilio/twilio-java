@@ -1,5 +1,6 @@
 package com.twilio.sdk.twiml;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.UnsupportedEncodingException;
@@ -13,6 +14,8 @@ public abstract class TwiML {
     // TODO: fix these exceptions
     public String toXml() throws Exception {
         XmlMapper mapper = new XmlMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         return mapper.writeValueAsString(this);
     }
 

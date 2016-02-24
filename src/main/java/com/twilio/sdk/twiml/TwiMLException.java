@@ -1,4 +1,4 @@
-package com.twilio.sdk.verbs;
+package com.twilio.sdk.twiml;
 
 /**
  * The Class TwiMLException.

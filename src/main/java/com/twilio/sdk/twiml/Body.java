@@ -9,7 +9,7 @@ public class Body extends TwiML{
     @JacksonXmlText
     private final String body;
 
-    private Body(String body) {
+    public Body(String body) {
         this.body = body;
     }
 

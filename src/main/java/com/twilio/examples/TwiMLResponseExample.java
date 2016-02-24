@@ -5,7 +5,7 @@
 //import com.twilio.sdk.verbs.Gather;
 //import com.twilio.sdk.verbs.Redirect;
 //import com.twilio.sdk.verbs.Say;
-//import com.twilio.sdk.verbs.TwiMLException;
+//import com.twilio.sdk.twiml.TwiMLException;
 //import com.twilio.sdk.verbs.TwiMLResponse;
 //
 ///*

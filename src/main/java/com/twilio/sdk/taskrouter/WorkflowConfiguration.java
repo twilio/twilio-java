@@ -17,14 +17,14 @@ import java.util.List;
 
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class WorkflowConfiguration {
 
     @JsonProperty("task_routing")
     private final TaskRoutingConfiguration taskRouting;
 
     /**
-     * Define a workflow
+     * Define a workflow.
      * @param workflowRules list of workflow rules (in order they will be processed)
      * @param defaultTarget default filter
      * @throws Exception
@@ -34,7 +34,7 @@ public class WorkflowConfiguration {
     }
 
     /**
-     * Constructor for creating based on json.
+     * Constructor for creating based on json..
      *
      * @param taskRouting
      * @throws Exception
@@ -60,7 +60,7 @@ public class WorkflowConfiguration {
     }
 
     /**
-     * Converts a workflow configuration to JSON
+     * Converts a workflow configuration to JSON.
      * @return JSON for workflow configuration
      * @throws IOException
      * @throws JsonMappingException
@@ -75,7 +75,7 @@ public class WorkflowConfiguration {
     }
 
     /**
-     * Converts a JSON workflow configuration to a workflow configuration object
+     * Converts a JSON workflow configuration to a workflow configuration object.
      * @param configurationJSON JSON for workflow configuration
      * @return a workflow configuration object
      * @throws IOException
@@ -86,7 +86,7 @@ public class WorkflowConfiguration {
     }
 
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
     static class TaskRoutingConfiguration {
 
         @JsonProperty("filters")
@@ -96,7 +96,7 @@ public class WorkflowConfiguration {
         private WorkflowRuleTarget defaultTarget;
 
         /**
-         * Constructor for creating based on json.
+         * Constructor for creating based on json..
          *
          * @param workflowRules
          * @param defaultTarget
@@ -105,7 +105,7 @@ public class WorkflowConfiguration {
         @JsonCreator
         public TaskRoutingConfiguration(@JsonProperty("filters") List<WorkflowRule> workflowRules,
                 @JsonProperty("default_filter") WorkflowRuleTarget defaultTarget) throws Exception {
-            if(workflowRules == null || workflowRules.isEmpty()) {
+            if (workflowRules == null || workflowRules.isEmpty()) {
                 throw new Exception("Workflow Rules are required when defining a workflow");
             }
             this.workflowRules = workflowRules;
@@ -113,7 +113,7 @@ public class WorkflowConfiguration {
         }
 
         /**
-         * Get the workflow rules for the workflow
+         * Get the workflow rules for the workflow.
          * @return the list of workflow rules
          */
         public List<WorkflowRule> getWorkflowRules() {
@@ -121,7 +121,7 @@ public class WorkflowConfiguration {
         }
 
         /**
-         * Set the workflow rules for the workflow
+         * Set the workflow rules for the workflow.
          * @param workflowRules
          */
         public void setWorkflowRules(List<WorkflowRule> workflowRules) {
@@ -129,7 +129,7 @@ public class WorkflowConfiguration {
         }
 
         /**
-         * Get the default filter for the workflow
+         * Get the default filter for the workflow.
          * @return the default filter
          */
         public WorkflowRuleTarget getDefaultTarget() {
@@ -137,7 +137,7 @@ public class WorkflowConfiguration {
         }
 
         /**
-         * Set the default filter for the workflow
+         * Set the default filter for the workflow.
          * @param defaultTarget
          */
         public void setDefaultTarget(WorkflowRuleTarget defaultTarget) {

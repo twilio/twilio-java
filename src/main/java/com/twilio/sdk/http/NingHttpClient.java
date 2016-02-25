@@ -36,7 +36,7 @@ public class NingHttpClient extends HttpClient {
         }
 
         if (request.requiresAuthentication()) {
-            builder.addHeader("Authentication", authentication(request.getUsername(), request.getPassword()));
+            builder.addHeader("Authentication", request.getAuthString());
         }
 
         try {

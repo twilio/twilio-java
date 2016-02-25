@@ -20,7 +20,8 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      * @param conversationSid The conversation_sid
      * @param sid The sid
      */
-    public ParticipantFetcher(final String conversationSid, final String sid) {
+    public ParticipantFetcher(final String conversationSid, 
+                              final String sid) {
         this.conversationSid = conversationSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      * @return Fetched Participant
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

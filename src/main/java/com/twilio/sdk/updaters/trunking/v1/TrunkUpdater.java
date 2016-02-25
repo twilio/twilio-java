@@ -114,6 +114,7 @@ public class TrunkUpdater extends Updater<Trunk> {
      * @return Updated Trunk
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Trunk execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

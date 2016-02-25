@@ -20,7 +20,8 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
      * @param accountSid The account_sid
      * @param friendlyName A human readable description of this resource
      */
-    public IpAccessControlListCreator(final String accountSid, final String friendlyName) {
+    public IpAccessControlListCreator(final String accountSid, 
+                                      final String friendlyName) {
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
     }
@@ -32,6 +33,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
      * @return Created IpAccessControlList
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

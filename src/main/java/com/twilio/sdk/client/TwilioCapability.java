@@ -4,7 +4,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents a token that will grant someone access to resources
@@ -43,8 +48,7 @@ public class TwilioCapability extends CapabilityToken {
     public TwilioCapability(String accountSid, String authToken) {
         this.accountSid = accountSid;
         this.authToken = authToken;
-        this.scopes = new ArrayList<String>();
-
+        this.scopes = new ArrayList<>();
     }
 
     private String buildScopeString(String serivce, String priviledge,
@@ -92,30 +96,6 @@ public class TwilioCapability extends CapabilityToken {
         this.appSid = appSid;
     }
 
-    //
-    // /**
-    // * Allow the user of this token to make outgoing connections.
-    // *
-    // * @param applicationSid
-    // * the application to which this token grants access
-    // * @param clientName
-    // * the name for this client
-    // * @param params
-    // * signed parameters that the user of this token cannot
-    // * overwrite.
-    // */
-    // public void allowClientOutgoing(String appSid, String clientName,
-    // Map<String, String> params) {
-    //
-    // Map<String, String> values = new LinkedHashMap<String, String>();
-    //
-    // this.outgoingClientName = clientName;
-    // this.buildOutgoingScope = true;
-    // this.outgoingParams = params;
-    // this.appSid = appSid;
-    //
-    // }
-
     private String generateParamString(Map<String, String> params) {
         List<String> keyValues = new ArrayList<String>();
         for (String key : params.keySet()) {
@@ -140,7 +120,7 @@ public class TwilioCapability extends CapabilityToken {
      * connections then configure the TwilioCapability through this method and
      * specify the client name.
      *
-     * @param clientName
+     * @param clientName name of the Twilio Client
      */
     public void allowClientIncoming(String clientName) {
         // Save the default client name
@@ -151,11 +131,10 @@ public class TwilioCapability extends CapabilityToken {
     /**
      * Allow the user of this token to access their event stream.
      *
-     * @param filters
-     *            key/value filters to apply to the event stream
+     * @param filters key/value filters to apply to the event stream
      */
     public void allowEventStream(Map<String, String> filters) {
-        Map<String, String> value = new LinkedHashMap<String, String>();
+        Map<String, String> value = new LinkedHashMap<>();
         value.put("path", "/2010-04-01/Events");
         if (filters != null) {
             String paramsJoined = generateParamString(filters);
@@ -206,44 +185,46 @@ public class TwilioCapability extends CapabilityToken {
 
     private void buildOutgoingScope() {
         if (this.buildOutgoingScope) {
-            Map<String, String> values = new HashMap<String, String>();
-
-            values.put("appSid", appSid);
-
-            // Outgoing takes precedence over any incoming name which
-            // takes precedence over the default client name. however,
-            // we do accept a null clientName
-            if (this.outgoingClientName != null) {
-                values.put("clientName", this.outgoingClientName);
-            } else if (this.incomingClientName != null) {
-                values.put("clientName", this.incomingClientName);
-            }
-
-            // Build outgoing scopes
-            if (this.outgoingParams != null) {
-                String paramsJoined = generateParamString(this.outgoingParams);
-                values.put("appParams", paramsJoined);
-            }
-
-            this.scopes
-                    .add(this.buildScopeString("client", "outgoing", values));
+            return;
         }
+
+        Map<String, String> values = new HashMap<>();
+        values.put("appSid", appSid);
+
+        // Outgoing takes precedence over any incoming name which
+        // takes precedence over the default client name. however,
+        // we do accept a null clientName
+        if (this.outgoingClientName != null) {
+            values.put("clientName", this.outgoingClientName);
+        } else if (this.incomingClientName != null) {
+            values.put("clientName", this.incomingClientName);
+        }
+
+        // Build outgoing scopes
+        if (this.outgoingParams != null) {
+            String paramsJoined = generateParamString(this.outgoingParams);
+            values.put("appParams", paramsJoined);
+        }
+
+        this.scopes.add(this.buildScopeString("client", "outgoing", values));
     }
 
     private void buildIncomingScope() {
         if (this.buildIncomingScope) {
-            Map<String, String> value = new LinkedHashMap<String, String>();
-
-            // incoming name which takes precedence over the default client
-            // name. however, we do NOT accept a null clientName here
-            if (this.incomingClientName != null) {
-                value.put("clientName", this.incomingClientName);
-            } else {
-                throw new IllegalStateException("No client name set");
-            }
-
-            this.scopes.add(this.buildScopeString("client", "incoming", value));
+            return;
         }
+
+        Map<String, String> value = new LinkedHashMap<String, String>();
+
+        // incoming name which takes precedence over the default client
+        // name. however, we do NOT accept a null clientName here
+        if (this.incomingClientName != null) {
+            value.put("clientName", this.incomingClientName);
+        } else {
+            throw new IllegalStateException("No client name set");
+        }
+
+        this.scopes.add(this.buildScopeString("client", "incoming", value));
     }
 
     /**
@@ -253,8 +234,7 @@ public class TwilioCapability extends CapabilityToken {
      */
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.out
-                    .println("usage: java com.twilio.client.TwilioCapability accountSid authToken");
+            System.out.println("usage: java com.twilio.client.TwilioCapability accountSid authToken");
             return;
         }
 
@@ -264,8 +244,7 @@ public class TwilioCapability extends CapabilityToken {
         capability.allowClientIncoming("Frank");
         Map<String, String> params = new HashMap<String, String>();
         params.put("foo", "fooval");
-        capability.allowClientOutgoing("APabe7650f654fc34655fc81ae71caa3ff",
-                params);
+        capability.allowClientOutgoing("APabe7650f654fc34655fc81ae71caa3ff", params);
 
         try {
             String token = capability.generateToken();

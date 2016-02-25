@@ -22,7 +22,9 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
      * @param domainSid The domain_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      */
-    public IpAccessControlListMappingCreator(final String accountSid, final String domainSid, final String ipAccessControlListSid) {
+    public IpAccessControlListMappingCreator(final String accountSid, 
+                                             final String domainSid, 
+                                             final String ipAccessControlListSid) {
         this.accountSid = accountSid;
         this.domainSid = domainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
@@ -35,6 +37,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
      * @return Created IpAccessControlListMapping
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlListMapping execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

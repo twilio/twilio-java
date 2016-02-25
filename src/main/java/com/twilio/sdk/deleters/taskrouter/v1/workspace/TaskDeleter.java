@@ -20,7 +20,8 @@ public class TaskDeleter extends Deleter<Task> {
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      */
-    public TaskDeleter(final String workspaceSid, final String sid) {
+    public TaskDeleter(final String workspaceSid, 
+                       final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
     }
@@ -31,7 +32,8 @@ public class TaskDeleter extends Deleter<Task> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.TASKROUTER,
@@ -57,5 +59,7 @@ public class TaskDeleter extends Deleter<Task> {
                 null
             );
         }
+        
+        return true;
     }
 }

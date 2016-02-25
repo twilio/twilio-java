@@ -22,7 +22,9 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
      * @param recordingSid The recording_sid
      * @param sid The sid
      */
-    public TranscriptionDeleter(final String accountSid, final String recordingSid, final String sid) {
+    public TranscriptionDeleter(final String accountSid, 
+                                final String recordingSid, 
+                                final String sid) {
         this.accountSid = accountSid;
         this.recordingSid = recordingSid;
         this.sid = sid;
@@ -34,7 +36,8 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -60,5 +63,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
                 null
             );
         }
+        
+        return true;
     }
 }

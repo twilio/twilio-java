@@ -20,7 +20,8 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
      * @param accountSid The account_sid
      * @param sid Fetch by unique transcription Sid
      */
-    public TranscriptionFetcher(final String accountSid, final String sid) {
+    public TranscriptionFetcher(final String accountSid, 
+                                final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
      * @return Fetched Transcription
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Transcription execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

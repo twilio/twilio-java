@@ -20,7 +20,8 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
      * @param trunkSid The trunk_sid
      * @param sid The sid
      */
-    public OriginationUrlFetcher(final String trunkSid, final String sid) {
+    public OriginationUrlFetcher(final String trunkSid, 
+                                 final String sid) {
         this.trunkSid = trunkSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
      * @return Fetched OriginationUrl
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public OriginationUrl execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

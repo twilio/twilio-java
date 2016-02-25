@@ -20,7 +20,8 @@ public class CredentialListCreator extends Creator<CredentialList> {
      * @param accountSid The account_sid
      * @param friendlyName The friendly_name
      */
-    public CredentialListCreator(final String accountSid, final String friendlyName) {
+    public CredentialListCreator(final String accountSid, 
+                                 final String friendlyName) {
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
     }
@@ -32,6 +33,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
      * @return Created CredentialList
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public CredentialList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

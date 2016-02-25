@@ -65,6 +65,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
      * @return Fetched WorkspaceStatistics
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public WorkspaceStatistics execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

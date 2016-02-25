@@ -32,6 +32,18 @@ public class MonthlyReader extends Reader<Monthly> {
      */
     @Override
     public ResourceSet<Monthly> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Monthly ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Monthly> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -40,24 +52,22 @@ public class MonthlyReader extends Reader<Monthly> {
         );
         
         addQueryParams(request);
-        
-        Page<Monthly> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Monthly> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Monthly> nextPage(final Page<Monthly> page, 
+                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -70,7 +80,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Monthly> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Monthly> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -90,15 +100,12 @@ public class MonthlyReader extends Reader<Monthly> {
             );
         }
         
-        Page<Monthly> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "usage_records",
             response.getContent(),
             Monthly.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

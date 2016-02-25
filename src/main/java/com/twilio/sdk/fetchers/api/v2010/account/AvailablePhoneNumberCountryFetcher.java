@@ -20,7 +20,8 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
      * @param accountSid The account_sid
      * @param countryCode The country_code
      */
-    public AvailablePhoneNumberCountryFetcher(final String accountSid, final String countryCode) {
+    public AvailablePhoneNumberCountryFetcher(final String accountSid, 
+                                              final String countryCode) {
         this.accountSid = accountSid;
         this.countryCode = countryCode;
     }
@@ -32,6 +33,7 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
      * @return Fetched AvailablePhoneNumberCountry
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public AvailablePhoneNumberCountry execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

@@ -22,7 +22,9 @@ public class NotificationFetcher extends Fetcher<Notification> {
      * @param callSid The call_sid
      * @param sid The sid
      */
-    public NotificationFetcher(final String accountSid, final String callSid, final String sid) {
+    public NotificationFetcher(final String accountSid, 
+                               final String callSid, 
+                               final String sid) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.sid = sid;
@@ -35,6 +37,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
      * @return Fetched Notification
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Notification execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

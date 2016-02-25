@@ -29,6 +29,7 @@ public class NumberFetcher extends Fetcher<Number> {
      * @return Fetched Number
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Number execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

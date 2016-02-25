@@ -44,6 +44,18 @@ public class WorkflowReader extends Reader<Workflow> {
      */
     @Override
     public ResourceSet<Workflow> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Workflow ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Workflow> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
@@ -52,24 +64,22 @@ public class WorkflowReader extends Reader<Workflow> {
         );
         
         addQueryParams(request);
-        
-        Page<Workflow> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Workflow> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Workflow> nextPage(final Page<Workflow> page, 
+                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -82,7 +92,7 @@ public class WorkflowReader extends Reader<Workflow> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Workflow> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Workflow> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -102,15 +112,12 @@ public class WorkflowReader extends Reader<Workflow> {
             );
         }
         
-        Page<Workflow> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "workflows",
             response.getContent(),
             Workflow.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

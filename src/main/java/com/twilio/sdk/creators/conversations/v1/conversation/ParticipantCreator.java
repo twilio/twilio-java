@@ -22,7 +22,9 @@ public class ParticipantCreator extends Creator<Participant> {
      * @param to The to
      * @param from The from
      */
-    public ParticipantCreator(final String conversationSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from) {
+    public ParticipantCreator(final String conversationSid, 
+                              final com.twilio.types.PhoneNumber to, 
+                              final com.twilio.types.PhoneNumber from) {
         this.conversationSid = conversationSid;
         this.to = to;
         this.from = from;
@@ -35,6 +37,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * @return Created Participant
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

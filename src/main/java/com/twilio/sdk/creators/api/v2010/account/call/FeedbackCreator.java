@@ -26,7 +26,9 @@ public class FeedbackCreator extends Creator<Feedback> {
      * @param callSid The call_sid
      * @param qualityScore The quality_score
      */
-    public FeedbackCreator(final String accountSid, final String callSid, final Integer qualityScore) {
+    public FeedbackCreator(final String accountSid, 
+                           final String callSid, 
+                           final Integer qualityScore) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.qualityScore = qualityScore;
@@ -60,6 +62,7 @@ public class FeedbackCreator extends Creator<Feedback> {
      * @return Created Feedback
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Feedback execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

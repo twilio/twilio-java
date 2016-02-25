@@ -32,6 +32,18 @@ public class DailyReader extends Reader<Daily> {
      */
     @Override
     public ResourceSet<Daily> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Daily ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Daily> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -40,24 +52,22 @@ public class DailyReader extends Reader<Daily> {
         );
         
         addQueryParams(request);
-        
-        Page<Daily> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Daily> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Daily> nextPage(final Page<Daily> page, 
+                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -70,7 +80,7 @@ public class DailyReader extends Reader<Daily> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Daily> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Daily> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -90,15 +100,12 @@ public class DailyReader extends Reader<Daily> {
             );
         }
         
-        Page<Daily> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "usage_records",
             response.getContent(),
             Daily.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

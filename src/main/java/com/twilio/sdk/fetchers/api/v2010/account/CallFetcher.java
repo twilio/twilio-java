@@ -20,7 +20,8 @@ public class CallFetcher extends Fetcher<Call> {
      * @param accountSid The account_sid
      * @param sid Call Sid that uniquely identifies the Call to fetch
      */
-    public CallFetcher(final String accountSid, final String sid) {
+    public CallFetcher(final String accountSid, 
+                       final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class CallFetcher extends Fetcher<Call> {
      * @return Fetched Call
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Call execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

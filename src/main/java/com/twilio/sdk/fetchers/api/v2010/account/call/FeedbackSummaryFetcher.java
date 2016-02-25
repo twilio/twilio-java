@@ -20,7 +20,8 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public FeedbackSummaryFetcher(final String accountSid, final String sid) {
+    public FeedbackSummaryFetcher(final String accountSid, 
+                                  final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
      * @return Fetched FeedbackSummary
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public FeedbackSummary execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

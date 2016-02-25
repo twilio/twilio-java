@@ -30,7 +30,8 @@ public class CallUpdater extends Updater<Call> {
      * @param accountSid The account_sid
      * @param sid Call Sid that uniquely identifies the Call to update
      */
-    public CallUpdater(final String accountSid, final String sid) {
+    public CallUpdater(final String accountSid, 
+                       final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -159,6 +160,7 @@ public class CallUpdater extends Updater<Call> {
      * @return Updated Call
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Call execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

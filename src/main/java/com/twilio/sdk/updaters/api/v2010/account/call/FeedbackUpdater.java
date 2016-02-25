@@ -26,7 +26,9 @@ public class FeedbackUpdater extends Updater<Feedback> {
      * @param callSid The call_sid
      * @param qualityScore An integer from 1 to 5
      */
-    public FeedbackUpdater(final String accountSid, final String callSid, final Integer qualityScore) {
+    public FeedbackUpdater(final String accountSid, 
+                           final String callSid, 
+                           final Integer qualityScore) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.qualityScore = qualityScore;
@@ -60,6 +62,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
      * @return Updated Feedback
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Feedback execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class WorkflowRuleTarget {
 
     private String queue;
@@ -18,24 +18,24 @@ public class WorkflowRuleTarget {
     private Integer timeout;
 
     /**
-     * Create a workflow rule target with just a task queue sid
+     * Create a workflow rule target with just a task queue sid.
      * @param queue sid of the queue
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if queue sid is empty
      */
     public WorkflowRuleTarget(final String queue) throws IllegalArgumentException {
-        if(StringUtils.isBlank(queue)) {
+        if (StringUtils.isBlank(queue)) {
             throw new IllegalArgumentException("QueueSid is required when defining a Workflow Rule Target");
         }
         this.queue = queue;
     }
 
     /**
-     * Create a workflow rule target with a task queue and other optional fields
+     * Create a workflow rule target with a task queue and other optional fields.
      * @param queue sid of the queue
      * @param expression expression to limit the workers that can look at a given task
      * @param priority priority to assign the task
      * @param timeout timeout before moving on to the next workflow rule target
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if queue sid is empty
      */
     @JsonCreator
     public WorkflowRuleTarget(@JsonProperty("queue") final String queue,
@@ -49,7 +49,7 @@ public class WorkflowRuleTarget {
     }
 
     /**
-     * Get the queue for the workflow rule target
+     * Get the queue for the workflow rule target.
      * @return queue sid
      */
     public String getQueue() {
@@ -57,14 +57,14 @@ public class WorkflowRuleTarget {
     }
 
     /**
-     * Set the queue for the workflow rule target
+     * Set the queue for the workflow rule target.
      */
     public void setQueue(String queue) {
         this.queue = queue;
     }
 
     /**
-     * Get the expression for the workflow rule target to limit the workers selected
+     * Get the expression for the workflow rule target to limit the workers selected.
      * @return the expression
      */
     public String getExpression() {
@@ -72,14 +72,14 @@ public class WorkflowRuleTarget {
     }
 
     /**
-     * Set the expression for the workflow rule target
+     * Set the expression for the workflow rule target.
      */
     public void setExpression(String expression) {
         this.expression = expression;
     }
 
     /**
-     * Get the priority for the workflow rule target
+     * Get the priority for the workflow rule target.
      * @return the priority
      */
     public Integer getPriority() {
@@ -87,14 +87,14 @@ public class WorkflowRuleTarget {
     }
 
     /**
-     * Set the priority for the workflow rule target
+     * Set the priority for the workflow rule target.
      */
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
     /**
-     * Get the timeout for the workflow rule target
+     * Get the timeout for the workflow rule target.
      * @return the timeout
      */
     public Integer getTimeout() {
@@ -102,14 +102,14 @@ public class WorkflowRuleTarget {
     }
 
     /**
-     * Set the timeout for the workflow rule target
+     * Set the timeout for the workflow rule target.
      */
     public void setTimeout(Integer timeout) {
         this.timeout = timeout;
     }
 
     /**
-     * Return a string representation of this workflow rule target
+     * Return a string representation of this workflow rule target.
      */
     @Override
     public String toString() {

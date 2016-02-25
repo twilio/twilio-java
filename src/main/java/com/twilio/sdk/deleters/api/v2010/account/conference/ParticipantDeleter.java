@@ -22,7 +22,9 @@ public class ParticipantDeleter extends Deleter<Participant> {
      * @param conferenceSid The string that uniquely identifies this conference
      * @param callSid The call_sid
      */
-    public ParticipantDeleter(final String accountSid, final String conferenceSid, final String callSid) {
+    public ParticipantDeleter(final String accountSid, 
+                              final String conferenceSid, 
+                              final String callSid) {
         this.accountSid = accountSid;
         this.conferenceSid = conferenceSid;
         this.callSid = callSid;
@@ -34,7 +36,8 @@ public class ParticipantDeleter extends Deleter<Participant> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -60,5 +63,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
                 null
             );
         }
+        
+        return true;
     }
 }

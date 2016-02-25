@@ -20,7 +20,8 @@ public class SmsMessageFetcher extends Fetcher<SmsMessage> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public SmsMessageFetcher(final String accountSid, final String sid) {
+    public SmsMessageFetcher(final String accountSid, 
+                             final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class SmsMessageFetcher extends Fetcher<SmsMessage> {
      * @return Fetched SmsMessage
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public SmsMessage execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

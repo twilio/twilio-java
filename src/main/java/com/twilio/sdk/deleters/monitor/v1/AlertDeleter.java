@@ -28,7 +28,8 @@ public class AlertDeleter extends Deleter<Alert> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.MONITOR,
@@ -54,5 +55,7 @@ public class AlertDeleter extends Deleter<Alert> {
                 null
             );
         }
+        
+        return true;
     }
 }

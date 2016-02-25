@@ -10,6 +10,12 @@ import java.net.URL;
 
 public class NetworkHttpClient extends HttpClient {
 
+    /**
+     * Make a request.
+     *
+     * @param request request to make
+     * @return Response of the HTTP request
+     */
     public Response makeRequest(final Request request) {
         try {
             URL url = request.constructURL();
@@ -24,7 +30,7 @@ public class NetworkHttpClient extends HttpClient {
             connection.setRequestMethod(method.toString());
 
             if (request.requiresAuthentication()) {
-                addAuth(request, connection);
+                connection.setRequestProperty("Authorization", request.getAuthString());
             }
 
             if (method == HttpMethod.POST) {
@@ -52,11 +58,6 @@ public class NetworkHttpClient extends HttpClient {
         } catch (final IOException e) {
             throw new ApiConnectionException("IOException during API request to Twilio", e);
         }
-    }
-
-    private void addAuth(final Request request, final HttpURLConnection conn) {
-        String auth = authentication(request.getUsername(), request.getPassword());
-        conn.setRequestProperty("Authorization", auth);
     }
 
     private void sendPostBody(final Request request, final HttpURLConnection conn) {

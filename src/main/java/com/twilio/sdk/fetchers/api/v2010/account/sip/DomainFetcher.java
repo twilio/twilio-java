@@ -20,7 +20,8 @@ public class DomainFetcher extends Fetcher<Domain> {
      * @param accountSid The account_sid
      * @param sid Fetch by unique Domain Sid
      */
-    public DomainFetcher(final String accountSid, final String sid) {
+    public DomainFetcher(final String accountSid, 
+                         final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class DomainFetcher extends Fetcher<Domain> {
      * @return Fetched Domain
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Domain execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

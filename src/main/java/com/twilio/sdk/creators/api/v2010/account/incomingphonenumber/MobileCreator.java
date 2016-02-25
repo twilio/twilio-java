@@ -38,7 +38,8 @@ public class MobileCreator extends Creator<Mobile> {
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone_number
      */
-    public MobileCreator(final String ownerAccountSid, final com.twilio.types.PhoneNumber phoneNumber) {
+    public MobileCreator(final String ownerAccountSid, 
+                         final com.twilio.types.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }
@@ -265,6 +266,7 @@ public class MobileCreator extends Creator<Mobile> {
      * @return Created Mobile
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Mobile execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

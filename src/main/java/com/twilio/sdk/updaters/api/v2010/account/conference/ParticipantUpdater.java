@@ -24,7 +24,10 @@ public class ParticipantUpdater extends Updater<Participant> {
      * @param callSid The call_sid
      * @param muted Indicates if the participant should be muted
      */
-    public ParticipantUpdater(final String accountSid, final String conferenceSid, final String callSid, final Boolean muted) {
+    public ParticipantUpdater(final String accountSid, 
+                              final String conferenceSid, 
+                              final String callSid, 
+                              final Boolean muted) {
         this.accountSid = accountSid;
         this.conferenceSid = conferenceSid;
         this.callSid = callSid;
@@ -38,6 +41,7 @@ public class ParticipantUpdater extends Updater<Participant> {
      * @return Updated Participant
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

@@ -26,7 +26,11 @@ public class IpAddressUpdater extends Updater<IpAddress> {
      * @param ipAddress The ip_address
      * @param friendlyName The friendly_name
      */
-    public IpAddressUpdater(final String accountSid, final String ipAccessControlListSid, final String sid, final String ipAddress, final String friendlyName) {
+    public IpAddressUpdater(final String accountSid, 
+                            final String ipAccessControlListSid, 
+                            final String sid, 
+                            final String ipAddress, 
+                            final String friendlyName) {
         this.accountSid = accountSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
         this.sid = sid;
@@ -41,6 +45,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
      * @return Updated IpAddress
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAddress execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

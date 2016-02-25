@@ -24,7 +24,10 @@ public class CredentialCreator extends Creator<Credential> {
      * @param username The username
      * @param password The password
      */
-    public CredentialCreator(final String accountSid, final String credentialListSid, final String username, final String password) {
+    public CredentialCreator(final String accountSid, 
+                             final String credentialListSid, 
+                             final String username, 
+                             final String password) {
         this.accountSid = accountSid;
         this.credentialListSid = credentialListSid;
         this.username = username;
@@ -38,6 +41,7 @@ public class CredentialCreator extends Creator<Credential> {
      * @return Created Credential
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Credential execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

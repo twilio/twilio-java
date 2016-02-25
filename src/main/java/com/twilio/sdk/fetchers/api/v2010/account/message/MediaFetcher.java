@@ -22,7 +22,9 @@ public class MediaFetcher extends Fetcher<Media> {
      * @param messageSid The message_sid
      * @param sid Fetch by unique media Sid
      */
-    public MediaFetcher(final String accountSid, final String messageSid, final String sid) {
+    public MediaFetcher(final String accountSid, 
+                        final String messageSid, 
+                        final String sid) {
         this.accountSid = accountSid;
         this.messageSid = messageSid;
         this.sid = sid;
@@ -35,6 +37,7 @@ public class MediaFetcher extends Fetcher<Media> {
      * @return Fetched Media
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Media execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

@@ -22,7 +22,9 @@ public class ReservationFetcher extends Fetcher<Reservation> {
      * @param taskSid The task_sid
      * @param sid The sid
      */
-    public ReservationFetcher(final String workspaceSid, final String taskSid, final String sid) {
+    public ReservationFetcher(final String workspaceSid, 
+                              final String taskSid, 
+                              final String sid) {
         this.workspaceSid = workspaceSid;
         this.taskSid = taskSid;
         this.sid = sid;
@@ -35,6 +37,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
      * @return Fetched Reservation
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Reservation execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

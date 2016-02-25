@@ -23,7 +23,8 @@ public class RecordingReader extends Reader<Recording> {
      * @param accountSid The account_sid
      * @param callSid The call_sid
      */
-    public RecordingReader(final String accountSid, final String callSid) {
+    public RecordingReader(final String accountSid, 
+                           final String callSid) {
         this.accountSid = accountSid;
         this.callSid = callSid;
     }
@@ -47,6 +48,18 @@ public class RecordingReader extends Reader<Recording> {
      */
     @Override
     public ResourceSet<Recording> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Recording ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Recording> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -55,24 +68,22 @@ public class RecordingReader extends Reader<Recording> {
         );
         
         addQueryParams(request);
-        
-        Page<Recording> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Recording> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Recording> nextPage(final Page<Recording> page, 
+                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -85,7 +96,7 @@ public class RecordingReader extends Reader<Recording> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Recording> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Recording> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -105,15 +116,12 @@ public class RecordingReader extends Reader<Recording> {
             );
         }
         
-        Page<Recording> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "recordings",
             response.getContent(),
             Recording.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

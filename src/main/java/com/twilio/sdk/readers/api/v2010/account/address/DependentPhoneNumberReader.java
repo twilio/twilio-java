@@ -22,7 +22,8 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
      * @param accountSid The account_sid
      * @param addressSid The address_sid
      */
-    public DependentPhoneNumberReader(final String accountSid, final String addressSid) {
+    public DependentPhoneNumberReader(final String accountSid, 
+                                      final String addressSid) {
         this.accountSid = accountSid;
         this.addressSid = addressSid;
     }
@@ -35,6 +36,18 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
      */
     @Override
     public ResourceSet<DependentPhoneNumber> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return DependentPhoneNumber ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<DependentPhoneNumber> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -43,24 +56,22 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
         );
         
         addQueryParams(request);
-        
-        Page<DependentPhoneNumber> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<DependentPhoneNumber> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<DependentPhoneNumber> nextPage(final Page<DependentPhoneNumber> page, 
+                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -73,7 +84,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<DependentPhoneNumber> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<DependentPhoneNumber> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -93,15 +104,12 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
             );
         }
         
-        Page<DependentPhoneNumber> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "dependent_phone_numbers",
             response.getContent(),
             DependentPhoneNumber.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

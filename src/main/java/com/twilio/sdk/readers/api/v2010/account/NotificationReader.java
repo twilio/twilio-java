@@ -57,6 +57,18 @@ public class NotificationReader extends Reader<Notification> {
      */
     @Override
     public ResourceSet<Notification> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Notification ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Notification> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -65,24 +77,22 @@ public class NotificationReader extends Reader<Notification> {
         );
         
         addQueryParams(request);
-        
-        Page<Notification> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Notification> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Notification> nextPage(final Page<Notification> page, 
+                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -95,7 +105,7 @@ public class NotificationReader extends Reader<Notification> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Notification> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Notification> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -115,15 +125,12 @@ public class NotificationReader extends Reader<Notification> {
             );
         }
         
-        Page<Notification> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "notifications",
             response.getContent(),
             Notification.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

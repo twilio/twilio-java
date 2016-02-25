@@ -26,7 +26,10 @@ public class WorkflowCreator extends Creator<Workflow> {
      * @param configuration The configuration
      * @param assignmentCallbackUrl The assignment_callback_url
      */
-    public WorkflowCreator(final String workspaceSid, final String friendlyName, final String configuration, final String assignmentCallbackUrl) {
+    public WorkflowCreator(final String workspaceSid, 
+                           final String friendlyName, 
+                           final String configuration, 
+                           final String assignmentCallbackUrl) {
         this.workspaceSid = workspaceSid;
         this.friendlyName = friendlyName;
         this.configuration = configuration;
@@ -62,6 +65,7 @@ public class WorkflowCreator extends Creator<Workflow> {
      * @return Created Workflow
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Workflow execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

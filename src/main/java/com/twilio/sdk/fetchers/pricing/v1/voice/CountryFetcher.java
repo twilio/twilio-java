@@ -29,6 +29,7 @@ public class CountryFetcher extends Fetcher<Country> {
      * @return Fetched Country
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Country execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

@@ -20,7 +20,8 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * @param trunkSid The trunk_sid
      * @param phoneNumberSid The phone_number_sid
      */
-    public PhoneNumberCreator(final String trunkSid, final String phoneNumberSid) {
+    public PhoneNumberCreator(final String trunkSid, 
+                              final String phoneNumberSid) {
         this.trunkSid = trunkSid;
         this.phoneNumberSid = phoneNumberSid;
     }
@@ -32,6 +33,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * @return Created PhoneNumber
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public PhoneNumber execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

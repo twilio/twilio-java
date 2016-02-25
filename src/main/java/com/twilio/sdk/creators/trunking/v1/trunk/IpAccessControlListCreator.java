@@ -20,7 +20,8 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
      * @param trunkSid The trunk_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      */
-    public IpAccessControlListCreator(final String trunkSid, final String ipAccessControlListSid) {
+    public IpAccessControlListCreator(final String trunkSid, 
+                                      final String ipAccessControlListSid) {
         this.trunkSid = trunkSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
@@ -32,6 +33,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
      * @return Created IpAccessControlList
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

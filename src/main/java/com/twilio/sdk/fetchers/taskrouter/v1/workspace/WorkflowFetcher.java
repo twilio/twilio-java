@@ -20,7 +20,8 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      */
-    public WorkflowFetcher(final String workspaceSid, final String sid) {
+    public WorkflowFetcher(final String workspaceSid, 
+                           final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
      * @return Fetched Workflow
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Workflow execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

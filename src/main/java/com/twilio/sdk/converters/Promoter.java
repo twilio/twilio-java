@@ -15,8 +15,15 @@ public class Promoter {
         }
     }
 
+    /**
+     * Create a list from a single element.
+     *
+     * @param one the single element
+     * @param <T> type of the element
+     * @return List containing the single element
+     */
     public static <T> List<T> listOfOne(final T one) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         list.add(one);
         return list;
     }

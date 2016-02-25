@@ -22,7 +22,9 @@ public class ActivityUpdater extends Updater<Activity> {
      * @param sid The sid
      * @param friendlyName The friendly_name
      */
-    public ActivityUpdater(final String workspaceSid, final String sid, final String friendlyName) {
+    public ActivityUpdater(final String workspaceSid, 
+                           final String sid, 
+                           final String friendlyName) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -35,6 +37,7 @@ public class ActivityUpdater extends Updater<Activity> {
      * @return Updated Activity
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Activity execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

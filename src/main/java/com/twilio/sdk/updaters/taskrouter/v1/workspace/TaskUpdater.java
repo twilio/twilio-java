@@ -24,7 +24,8 @@ public class TaskUpdater extends Updater<Task> {
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      */
-    public TaskUpdater(final String workspaceSid, final String sid) {
+    public TaskUpdater(final String workspaceSid, 
+                       final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
     }
@@ -80,6 +81,7 @@ public class TaskUpdater extends Updater<Task> {
      * @return Updated Task
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Task execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

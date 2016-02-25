@@ -20,7 +20,8 @@ public class CallDeleter extends Deleter<Call> {
      * @param accountSid The account_sid
      * @param sid Call Sid that uniquely identifies the Call to delete
      */
-    public CallDeleter(final String accountSid, final String sid) {
+    public CallDeleter(final String accountSid, 
+                       final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -31,7 +32,8 @@ public class CallDeleter extends Deleter<Call> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -57,5 +59,7 @@ public class CallDeleter extends Deleter<Call> {
                 null
             );
         }
+        
+        return true;
     }
 }

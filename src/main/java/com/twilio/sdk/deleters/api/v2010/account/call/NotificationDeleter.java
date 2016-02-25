@@ -22,7 +22,9 @@ public class NotificationDeleter extends Deleter<Notification> {
      * @param callSid The call_sid
      * @param sid The sid
      */
-    public NotificationDeleter(final String accountSid, final String callSid, final String sid) {
+    public NotificationDeleter(final String accountSid, 
+                               final String callSid, 
+                               final String sid) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.sid = sid;
@@ -34,7 +36,8 @@ public class NotificationDeleter extends Deleter<Notification> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -60,5 +63,7 @@ public class NotificationDeleter extends Deleter<Notification> {
                 null
             );
         }
+        
+        return true;
     }
 }

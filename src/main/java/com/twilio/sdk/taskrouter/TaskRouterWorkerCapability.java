@@ -20,7 +20,10 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
      * @param workerSid
      *            Worker to create tokens for.
      */
-    public TaskRouterWorkerCapability(final String accountSid, final String authToken, final String workspaceSid, final String workerSid) {
+    public TaskRouterWorkerCapability(final String accountSid,
+                                      final String authToken,
+                                      final String workspaceSid,
+                                      final String workerSid) {
         super(accountSid, authToken, workspaceSid, workerSid);
         this.tasksUrl = this.baseUrl + "/Tasks/**";
         this.activityUrl = this.baseUrl + "/Activities";
@@ -38,22 +41,18 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
     }
 
     /**
-     * Allow a worker to update its own activity status
+     * Allow a worker to update its own activity status.
      */
     public void allowActivityUpdates() {
-        final Policy policy = new Policy(this.resourceUrl, "POST", true);
-//        policy.postFilter.put("ActivitySid", FilterRequirement.REQUIRED);
-        policies.add(policy);
+        policies.add(new Policy(this.resourceUrl, "POST", true));
     }
 
     /**
-     * Allow a worker to update assigned reservations
+     * Allow a worker to update assigned reservations.
      */
     public void allowReservationUpdates() {
-        final Policy tasksPolicy = new Policy(this.tasksUrl, "POST", true);
-        final Policy workerReservationsPolicy = new Policy(this.workerReservationsUrl, "POST", true);
-        policies.add(tasksPolicy);
-        policies.add(workerReservationsPolicy);
+        policies.add(new Policy(this.tasksUrl, "POST", true));
+        policies.add(new Policy(this.workerReservationsUrl, "POST", true));
     }
 
 }

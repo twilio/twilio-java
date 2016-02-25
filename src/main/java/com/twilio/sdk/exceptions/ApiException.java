@@ -4,9 +4,9 @@ public class ApiException extends TwilioException {
 
     private static final long serialVersionUID = -3228320166955630014L;
 
-    private Integer code;
-    private String moreInfo;
-    private Integer status;
+    private final Integer code;
+    private final String moreInfo;
+    private final Integer status;
 
     public ApiException(final String message) {
         this(message, null, null, null, null);

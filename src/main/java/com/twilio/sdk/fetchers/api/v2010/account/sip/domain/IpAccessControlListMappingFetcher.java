@@ -22,7 +22,9 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
      * @param domainSid The domain_sid
      * @param sid The sid
      */
-    public IpAccessControlListMappingFetcher(final String accountSid, final String domainSid, final String sid) {
+    public IpAccessControlListMappingFetcher(final String accountSid, 
+                                             final String domainSid, 
+                                             final String sid) {
         this.accountSid = accountSid;
         this.domainSid = domainSid;
         this.sid = sid;
@@ -35,6 +37,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
      * @return Fetched IpAccessControlListMapping
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlListMapping execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

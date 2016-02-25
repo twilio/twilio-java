@@ -41,6 +41,7 @@ public class TokenCreator extends Creator<Token> {
      * @return Created Token
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Token execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

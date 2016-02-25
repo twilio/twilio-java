@@ -1,12 +1,14 @@
 package com.twilio.sdk.auth;
 
 /**
- * Grant used to access Twilio IP Messaging
+ * Grant used to access Twilio IP Messaging.
  *
- * For more information see:
- * <a href="https://www.twilio.com/docs/api/rest/access-tokens">
- *     https://www.twilio.com/docs/api/rest/access-tokens
- * </a>
+ * <p>
+ *     For more information see:
+ *     <a href="https://www.twilio.com/docs/api/rest/access-tokens">
+ *         https://www.twilio.com/docs/api/rest/access-tokens
+ *     </a>
+ * </p>
  */
 public class IpMessagingGrant implements Grant {
 
@@ -60,12 +62,18 @@ public class IpMessagingGrant implements Grant {
         return new Payload(this);
     }
 
+    @SuppressWarnings("checkstyle:membername")
     public class Payload {
         public final String service_sid;
         public final String deployment_role_sid;
         public final String endpoint_id;
         public final String push_credential_sid;
 
+        /**
+         * Create the grant payload.
+         *
+         * @param grant IP Messaging grant
+         */
         public Payload(IpMessagingGrant grant) {
             this.service_sid = grant.serviceSid;
             this.deployment_role_sid = grant.deploymentRoleSid;

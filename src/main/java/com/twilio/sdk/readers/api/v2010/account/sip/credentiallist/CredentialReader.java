@@ -22,7 +22,8 @@ public class CredentialReader extends Reader<Credential> {
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
      */
-    public CredentialReader(final String accountSid, final String credentialListSid) {
+    public CredentialReader(final String accountSid, 
+                            final String credentialListSid) {
         this.accountSid = accountSid;
         this.credentialListSid = credentialListSid;
     }
@@ -35,6 +36,18 @@ public class CredentialReader extends Reader<Credential> {
      */
     @Override
     public ResourceSet<Credential> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Credential ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Credential> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -43,24 +56,22 @@ public class CredentialReader extends Reader<Credential> {
         );
         
         addQueryParams(request);
-        
-        Page<Credential> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Credential> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Credential> nextPage(final Page<Credential> page, 
+                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -73,7 +84,7 @@ public class CredentialReader extends Reader<Credential> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Credential> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Credential> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -93,15 +104,12 @@ public class CredentialReader extends Reader<Credential> {
             );
         }
         
-        Page<Credential> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "credentials",
             response.getContent(),
             Credential.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

@@ -22,7 +22,9 @@ public class MediaDeleter extends Deleter<Media> {
      * @param messageSid The message_sid
      * @param sid Delete by unique media Sid
      */
-    public MediaDeleter(final String accountSid, final String messageSid, final String sid) {
+    public MediaDeleter(final String accountSid, 
+                        final String messageSid, 
+                        final String sid) {
         this.accountSid = accountSid;
         this.messageSid = messageSid;
         this.sid = sid;
@@ -34,7 +36,8 @@ public class MediaDeleter extends Deleter<Media> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -60,5 +63,7 @@ public class MediaDeleter extends Deleter<Media> {
                 null
             );
         }
+        
+        return true;
     }
 }

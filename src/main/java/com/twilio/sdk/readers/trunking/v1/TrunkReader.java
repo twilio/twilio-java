@@ -21,6 +21,18 @@ public class TrunkReader extends Reader<Trunk> {
      */
     @Override
     public ResourceSet<Trunk> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Trunk ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Trunk> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.TRUNKING,
@@ -29,24 +41,22 @@ public class TrunkReader extends Reader<Trunk> {
         );
         
         addQueryParams(request);
-        
-        Page<Trunk> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Trunk> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Trunk> nextPage(final Page<Trunk> page, 
+                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -59,7 +69,7 @@ public class TrunkReader extends Reader<Trunk> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Trunk> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Trunk> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -79,15 +89,12 @@ public class TrunkReader extends Reader<Trunk> {
             );
         }
         
-        Page<Trunk> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "trunks",
             response.getContent(),
             Trunk.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

@@ -15,6 +15,13 @@ public class IceServer {
     private final String username;
     private final URI url;
 
+    /**
+     * Initialize an IceServer.
+     *
+     * @param credential credentials for the server
+     * @param username user account name
+     * @param url url of server
+     */
     @JsonCreator
     public IceServer(@JsonProperty("credential") final String credential,
                      @JsonProperty("username") final String username,

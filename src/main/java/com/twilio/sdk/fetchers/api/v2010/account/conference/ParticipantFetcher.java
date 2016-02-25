@@ -22,7 +22,9 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      * @param conferenceSid The string that uniquely identifies this conference
      * @param callSid The call_sid
      */
-    public ParticipantFetcher(final String accountSid, final String conferenceSid, final String callSid) {
+    public ParticipantFetcher(final String accountSid, 
+                              final String conferenceSid, 
+                              final String callSid) {
         this.accountSid = accountSid;
         this.conferenceSid = conferenceSid;
         this.callSid = callSid;
@@ -35,6 +37,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      * @return Fetched Participant
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Participant execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

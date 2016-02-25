@@ -53,6 +53,7 @@ public class AccountUpdater extends Updater<Account> {
      * @return Updated Account
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Account execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

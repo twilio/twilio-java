@@ -38,7 +38,8 @@ public class TollFreeCreator extends Creator<TollFree> {
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone_number
      */
-    public TollFreeCreator(final String ownerAccountSid, final com.twilio.types.PhoneNumber phoneNumber) {
+    public TollFreeCreator(final String ownerAccountSid, 
+                           final com.twilio.types.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }
@@ -265,6 +266,7 @@ public class TollFreeCreator extends Creator<TollFree> {
      * @return Created TollFree
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public TollFree execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

@@ -22,7 +22,9 @@ public class ActivityCreator extends Creator<Activity> {
      * @param friendlyName The friendly_name
      * @param available The available
      */
-    public ActivityCreator(final String workspaceSid, final String friendlyName, final Boolean available) {
+    public ActivityCreator(final String workspaceSid, 
+                           final String friendlyName, 
+                           final Boolean available) {
         this.workspaceSid = workspaceSid;
         this.friendlyName = friendlyName;
         this.available = available;
@@ -35,6 +37,7 @@ public class ActivityCreator extends Creator<Activity> {
      * @return Created Activity
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Activity execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

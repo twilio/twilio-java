@@ -30,7 +30,8 @@ public class DomainCreator extends Creator<Domain> {
      * @param accountSid The account_sid
      * @param domainName The unique address on Twilio to route SIP traffic
      */
-    public DomainCreator(final String accountSid, final String domainName) {
+    public DomainCreator(final String accountSid, 
+                         final String domainName) {
         this.accountSid = accountSid;
         this.domainName = domainName;
     }
@@ -155,6 +156,7 @@ public class DomainCreator extends Creator<Domain> {
      * @return Created Domain
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Domain execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

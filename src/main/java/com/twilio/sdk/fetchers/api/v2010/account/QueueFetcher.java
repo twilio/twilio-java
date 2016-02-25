@@ -20,7 +20,8 @@ public class QueueFetcher extends Fetcher<Queue> {
      * @param accountSid The account_sid
      * @param sid Fetch by unique queue Sid
      */
-    public QueueFetcher(final String accountSid, final String sid) {
+    public QueueFetcher(final String accountSid, 
+                        final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class QueueFetcher extends Fetcher<Queue> {
      * @return Fetched Queue
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Queue execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

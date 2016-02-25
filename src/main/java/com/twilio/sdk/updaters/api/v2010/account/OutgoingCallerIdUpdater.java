@@ -21,7 +21,8 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
      * @param accountSid The account_sid
      * @param sid Update by unique outgoing-caller-id Sid
      */
-    public OutgoingCallerIdUpdater(final String accountSid, final String sid) {
+    public OutgoingCallerIdUpdater(final String accountSid, 
+                                   final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -44,6 +45,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
      * @return Updated OutgoingCallerId
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public OutgoingCallerId execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

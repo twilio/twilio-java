@@ -20,7 +20,8 @@ public class EventFetcher extends Fetcher<Event> {
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      */
-    public EventFetcher(final String workspaceSid, final String sid) {
+    public EventFetcher(final String workspaceSid, 
+                        final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class EventFetcher extends Fetcher<Event> {
      * @return Fetched Event
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Event execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

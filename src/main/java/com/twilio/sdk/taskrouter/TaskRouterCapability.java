@@ -10,9 +10,9 @@ import java.util.Set;
 
 public class TaskRouterCapability extends CapabilityToken {
 
-    private final static String TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
-    private final static String TASKROUTER_VERSION = "v1";
-    private final static String TASKROUTER_EVENT_URL = "https://event-bridge.twilio.com/v1/wschannels";
+    private static final String TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
+    private static final String TASKROUTER_VERSION = "v1";
+    private static final String TASKROUTER_EVENT_URL = "https://event-bridge.twilio.com/v1/wschannels";
 
     protected String accountSid;
     protected String authToken;
@@ -38,7 +38,10 @@ public class TaskRouterCapability extends CapabilityToken {
      * @param channelId
      *            Authorized Channel
      */
-    public TaskRouterCapability(final String accountSid, final String authToken, final String workspaceSid, final String channelId) {
+    public TaskRouterCapability(final String accountSid,
+                                final String authToken,
+                                final String workspaceSid,
+                                final String channelId) {
 
         this.accountSid = accountSid;
         this.authToken = authToken;
@@ -46,7 +49,7 @@ public class TaskRouterCapability extends CapabilityToken {
         this.friendlyName = channelId;
         this.workspaceSid = workspaceSid;
         this.channelId = channelId;
-        this.policies = new LinkedHashSet<Policy>();
+        this.policies = new LinkedHashSet<>();
         this.baseUrl = TASKROUTER_BASE_URL + "/" + TASKROUTER_VERSION + "/Workspaces/" + workspaceSid;
 
         validateJWT();
@@ -100,42 +103,42 @@ public class TaskRouterCapability extends CapabilityToken {
     }
 
     /**
-     * Allow fetching all subresources of the defined resource
+     * Allow fetching all subresources of the defined resource.
      */
     public void allowFetchSubresources() {
         this.allow(this.resourceUrl + "/**", "GET", null, null);
     }
 
     /**
-     * Allow updating attributes of the defined resource
+     * Allow updating attributes of the defined resource.
      */
     public void allowUpdates() {
         this.allow(this.resourceUrl, "POST", null, null);
     }
 
     /**
-     * Allow updating attributes of all subresources of the defined resource
+     * Allow updating attributes of all subresources of the defined resource.
      */
     public void allowUpdatesSubresources() {
         this.allow(this.resourceUrl + "/**", "POST", null, null);
     }
 
     /**
-     * Allow deletion of the defined resource
+     * Allow deletion of the defined resource.
      */
     public void allowDelete() {
         this.allow(this.resourceUrl, "DELETE", null, null);
     }
 
     /**
-     * Allow deletion of any subresources of the defined resource
+     * Allow deletion of any subresources of the defined resource.
      */
     public void allowDeleteSubresources() {
         this.allow(this.resourceUrl + "/**", "DELETE", null, null);
     }
 
     /**
-     * Allow a worker to update its own activity status
+     * Allow a worker to update its own activity status.
      * 
      * @deprecated Please use {TaskRouterWorkerCapability.allowActivityUpdates}
      *             instead
@@ -144,7 +147,9 @@ public class TaskRouterCapability extends CapabilityToken {
     @Deprecated
     public void allowWorkerActivityUpdates() {
         if (channelId.startsWith("WK")) {
-            final Policy update = new Policy(this.resourceUrl, "POST", true).addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
+            final Policy update = new Policy(this.resourceUrl, "POST", true);
+            update.addPostFilterParam("ActivitySid", FilterRequirement.REQUIRED);
+
             this.addPolicy(update);
         } else {
             throw new UnsupportedOperationException("Deprecated function not applicable to non Worker");
@@ -168,7 +173,7 @@ public class TaskRouterCapability extends CapabilityToken {
     }
 
     /**
-     * Allow a worker to update task reservation status
+     * Allow a worker to update task reservation status.
      * 
      * @deprecated Please use
      *             {TaskRouterWorkerCapability.allowReservationUpdates} instead
@@ -192,7 +197,7 @@ public class TaskRouterCapability extends CapabilityToken {
     }
 
     /**
-     * Add policy to list of access policies
+     * Add policy to list of access policies.
      * 
      * @param url
      *            url of the resource
@@ -206,12 +211,16 @@ public class TaskRouterCapability extends CapabilityToken {
      *            whether or not to allow access on this policy
      */
 
-    public void addPolicy(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter, final boolean allow) {
+    public void addPolicy(final String url,
+                          final String method,
+                          final Map<String, FilterRequirement> queryFilter,
+                          final Map<String, FilterRequirement> postFilter,
+                          final boolean allow) {
         this.policies.add(new Policy(url, method, queryFilter, postFilter, allow));
     }
 
     /**
-     * Add Allow access policy
+     * Add Allow access policy.
      * 
      * @param url
      *            url of the resource
@@ -223,12 +232,15 @@ public class TaskRouterCapability extends CapabilityToken {
      *            post filter parameters
      */
 
-    public void allow(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
+    public void allow(final String url,
+                      final String method,
+                      final Map<String, FilterRequirement> queryFilter,
+                      final Map<String, FilterRequirement> postFilter) {
         this.policies.add(new Policy(url, method, queryFilter, postFilter, true));
     }
 
     /**
-     * Add Deny access policy
+     * Add Deny access policy.
      * 
      * @param url
      *            url of the resource
@@ -240,7 +252,10 @@ public class TaskRouterCapability extends CapabilityToken {
      *            post filter parameters
      */
 
-    public void deny(final String url, final String method, final Map<String, FilterRequirement> queryFilter, final Map<String, FilterRequirement> postFilter) {
+    public void deny(final String url,
+                     final String method,
+                     final Map<String, FilterRequirement> queryFilter,
+                     final Map<String, FilterRequirement> postFilter) {
         this.policies.add(new Policy(url, method, queryFilter, postFilter, false));
     }
 

@@ -104,6 +104,7 @@ public class TrunkCreator extends Creator<Trunk> {
      * @return Created Trunk
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Trunk execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

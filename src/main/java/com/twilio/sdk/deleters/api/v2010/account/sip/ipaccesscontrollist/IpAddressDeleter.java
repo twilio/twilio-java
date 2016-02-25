@@ -22,7 +22,9 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @param sid The sid
      */
-    public IpAddressDeleter(final String accountSid, final String ipAccessControlListSid, final String sid) {
+    public IpAddressDeleter(final String accountSid, 
+                            final String ipAccessControlListSid, 
+                            final String sid) {
         this.accountSid = accountSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
         this.sid = sid;
@@ -34,7 +36,8 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -60,5 +63,7 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
                 null
             );
         }
+        
+        return true;
     }
 }

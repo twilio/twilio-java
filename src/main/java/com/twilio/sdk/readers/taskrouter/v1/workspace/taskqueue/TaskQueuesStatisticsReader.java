@@ -82,6 +82,18 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      */
     @Override
     public ResourceSet<TaskQueuesStatistics> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return TaskQueuesStatistics ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<TaskQueuesStatistics> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
@@ -90,24 +102,22 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
         );
         
         addQueryParams(request);
-        
-        Page<TaskQueuesStatistics> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<TaskQueuesStatistics> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<TaskQueuesStatistics> nextPage(final Page<TaskQueuesStatistics> page, 
+                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -120,7 +130,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<TaskQueuesStatistics> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<TaskQueuesStatistics> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -140,15 +150,12 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
             );
         }
         
-        Page<TaskQueuesStatistics> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "task_queues_statistics",
             response.getContent(),
             TaskQueuesStatistics.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

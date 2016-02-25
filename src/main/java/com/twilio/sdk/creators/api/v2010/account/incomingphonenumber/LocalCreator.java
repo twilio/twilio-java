@@ -38,7 +38,8 @@ public class LocalCreator extends Creator<Local> {
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone_number
      */
-    public LocalCreator(final String ownerAccountSid, final com.twilio.types.PhoneNumber phoneNumber) {
+    public LocalCreator(final String ownerAccountSid, 
+                        final com.twilio.types.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }
@@ -265,6 +266,7 @@ public class LocalCreator extends Creator<Local> {
      * @return Created Local
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Local execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

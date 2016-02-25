@@ -20,7 +20,8 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
      * @param trunkSid The trunk_sid
      * @param sid The sid
      */
-    public CredentialListDeleter(final String trunkSid, final String sid) {
+    public CredentialListDeleter(final String trunkSid, 
+                                 final String sid) {
         this.trunkSid = trunkSid;
         this.sid = sid;
     }
@@ -31,7 +32,8 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.TRUNKING,
@@ -57,5 +59,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
                 null
             );
         }
+        
+        return true;
     }
 }

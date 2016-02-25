@@ -22,7 +22,8 @@ public class IpAddressReader extends Reader<IpAddress> {
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      */
-    public IpAddressReader(final String accountSid, final String ipAccessControlListSid) {
+    public IpAddressReader(final String accountSid, 
+                           final String ipAccessControlListSid) {
         this.accountSid = accountSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
@@ -35,6 +36,18 @@ public class IpAddressReader extends Reader<IpAddress> {
      */
     @Override
     public ResourceSet<IpAddress> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return IpAddress ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<IpAddress> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -43,24 +56,22 @@ public class IpAddressReader extends Reader<IpAddress> {
         );
         
         addQueryParams(request);
-        
-        Page<IpAddress> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<IpAddress> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<IpAddress> nextPage(final Page<IpAddress> page, 
+                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -73,7 +84,7 @@ public class IpAddressReader extends Reader<IpAddress> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<IpAddress> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<IpAddress> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -93,15 +104,12 @@ public class IpAddressReader extends Reader<IpAddress> {
             );
         }
         
-        Page<IpAddress> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "ip_addresses",
             response.getContent(),
             IpAddress.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

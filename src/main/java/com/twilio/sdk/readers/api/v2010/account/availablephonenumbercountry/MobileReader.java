@@ -31,7 +31,8 @@ public class MobileReader extends Reader<Mobile> {
      * @param accountSid The account_sid
      * @param countryCode The country_code
      */
-    public MobileReader(final String accountSid, final String countryCode) {
+    public MobileReader(final String accountSid, 
+                        final String countryCode) {
         this.accountSid = accountSid;
         this.countryCode = countryCode;
     }
@@ -143,6 +144,18 @@ public class MobileReader extends Reader<Mobile> {
      */
     @Override
     public ResourceSet<Mobile> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Mobile ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Mobile> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -151,24 +164,22 @@ public class MobileReader extends Reader<Mobile> {
         );
         
         addQueryParams(request);
-        
-        Page<Mobile> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Mobile> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Mobile> nextPage(final Page<Mobile> page, 
+                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -181,7 +192,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Mobile> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Mobile> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -201,15 +212,12 @@ public class MobileReader extends Reader<Mobile> {
             );
         }
         
-        Page<Mobile> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "available_phone_numbers",
             response.getContent(),
             Mobile.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

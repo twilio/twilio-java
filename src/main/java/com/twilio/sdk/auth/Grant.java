@@ -12,7 +12,7 @@ public interface Grant {
     /**
      * The payload for this grant.
      *
-     * The payload allows us to decouple the user API from how the grant is structured.
+     * <p>The payload allows us to decouple the user API from how the grant is structured.</p>
      *
      * @return The payload for this grant.
      */

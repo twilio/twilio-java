@@ -32,6 +32,7 @@ public class AccountCreator extends Creator<Account> {
      * @return Created Account
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Account execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

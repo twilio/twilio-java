@@ -31,7 +31,10 @@ public class MessageCreator extends Creator<Message> {
      * @param from The phone number that initiated the message
      * @param body The body
      */
-    public MessageCreator(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final String body) {
+    public MessageCreator(final String accountSid, 
+                          final com.twilio.types.PhoneNumber to, 
+                          final com.twilio.types.PhoneNumber from, 
+                          final String body) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -46,7 +49,10 @@ public class MessageCreator extends Creator<Message> {
      * @param from The phone number that initiated the message
      * @param mediaUrl The media_url
      */
-    public MessageCreator(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final List<URI> mediaUrl) {
+    public MessageCreator(final String accountSid, 
+                          final com.twilio.types.PhoneNumber to, 
+                          final com.twilio.types.PhoneNumber from, 
+                          final List<URI> mediaUrl) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -93,6 +99,7 @@ public class MessageCreator extends Creator<Message> {
      * @return Created Message
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Message execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

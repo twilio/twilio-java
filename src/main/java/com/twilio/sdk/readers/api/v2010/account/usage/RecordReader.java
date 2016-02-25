@@ -73,6 +73,18 @@ public class RecordReader extends Reader<Record> {
      */
     @Override
     public ResourceSet<Record> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Record ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Record> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -81,24 +93,22 @@ public class RecordReader extends Reader<Record> {
         );
         
         addQueryParams(request);
-        
-        Page<Record> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Record> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Record> nextPage(final Page<Record> page, 
+                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -111,7 +121,7 @@ public class RecordReader extends Reader<Record> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Record> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Record> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -131,15 +141,12 @@ public class RecordReader extends Reader<Record> {
             );
         }
         
-        Page<Record> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "usage_records",
             response.getContent(),
             Record.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

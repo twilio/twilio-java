@@ -37,7 +37,10 @@ public class CallCreator extends Creator<Call> {
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      */
-    public CallCreator(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final URI url) {
+    public CallCreator(final String accountSid, 
+                       final com.twilio.types.PhoneNumber to, 
+                       final com.twilio.types.PhoneNumber from, 
+                       final URI url) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -53,7 +56,10 @@ public class CallCreator extends Creator<Call> {
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
      */
-    public CallCreator(final String accountSid, final com.twilio.types.PhoneNumber to, final com.twilio.types.PhoneNumber from, final String applicationSid) {
+    public CallCreator(final String accountSid, 
+                       final com.twilio.types.PhoneNumber to, 
+                       final com.twilio.types.PhoneNumber from, 
+                       final String applicationSid) {
         this.accountSid = accountSid;
         this.to = to;
         this.from = from;
@@ -206,6 +212,7 @@ public class CallCreator extends Creator<Call> {
      * @return Created Call
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Call execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

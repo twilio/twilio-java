@@ -142,6 +142,18 @@ public class EventReader extends Reader<Event> {
      */
     @Override
     public ResourceSet<Event> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Event ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Event> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
@@ -150,24 +162,22 @@ public class EventReader extends Reader<Event> {
         );
         
         addQueryParams(request);
-        
-        Page<Event> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Event> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Event> nextPage(final Page<Event> page, 
+                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -180,7 +190,7 @@ public class EventReader extends Reader<Event> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Event> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Event> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -200,15 +210,12 @@ public class EventReader extends Reader<Event> {
             );
         }
         
-        Page<Event> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "events",
             response.getContent(),
             Event.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

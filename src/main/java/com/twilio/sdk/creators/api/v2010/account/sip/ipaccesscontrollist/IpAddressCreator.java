@@ -24,7 +24,10 @@ public class IpAddressCreator extends Creator<IpAddress> {
      * @param friendlyName The friendly_name
      * @param ipAddress The ip_address
      */
-    public IpAddressCreator(final String accountSid, final String ipAccessControlListSid, final String friendlyName, final String ipAddress) {
+    public IpAddressCreator(final String accountSid, 
+                            final String ipAccessControlListSid, 
+                            final String friendlyName, 
+                            final String ipAddress) {
         this.accountSid = accountSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
         this.friendlyName = friendlyName;
@@ -38,6 +41,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
      * @return Created IpAddress
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAddress execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

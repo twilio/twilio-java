@@ -24,7 +24,9 @@ public class TaskCreator extends Creator<Task> {
      * @param attributes The attributes
      * @param workflowSid The workflow_sid
      */
-    public TaskCreator(final String workspaceSid, final String attributes, final String workflowSid) {
+    public TaskCreator(final String workspaceSid, 
+                       final String attributes, 
+                       final String workflowSid) {
         this.workspaceSid = workspaceSid;
         this.attributes = attributes;
         this.workflowSid = workflowSid;
@@ -59,6 +61,7 @@ public class TaskCreator extends Creator<Task> {
      * @return Created Task
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Task execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

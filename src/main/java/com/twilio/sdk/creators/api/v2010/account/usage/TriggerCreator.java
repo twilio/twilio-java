@@ -30,7 +30,10 @@ public class TriggerCreator extends Creator<Trigger> {
      * @param triggerValue the value at which the trigger will fire
      * @param usageCategory The usage category the trigger watches
      */
-    public TriggerCreator(final String accountSid, final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory) {
+    public TriggerCreator(final String accountSid, 
+                          final URI callbackUrl, 
+                          final String triggerValue, 
+                          final Trigger.UsageCategory usageCategory) {
         this.accountSid = accountSid;
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
@@ -92,6 +95,7 @@ public class TriggerCreator extends Creator<Trigger> {
      * @return Created Trigger
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Trigger execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

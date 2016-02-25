@@ -37,10 +37,23 @@ public class TwilioRestClient {
     private final String accountSid;
     private final String authToken;
 
+    /**
+     * Create a Rest Client.
+     *
+     * @param accountSid Twilio Account Sid
+     * @param authToken Twilio Auth Token
+     */
     public TwilioRestClient(final String accountSid, final String authToken) {
         this(accountSid, authToken, new NetworkHttpClient());
     }
 
+    /**
+     * Create a Rest Client using a custom HTTP Client.
+     *
+     * @param accountSid Twilio Account Sid
+     * @param authToken Twilio Auth Token
+     * @param httpClient Custom HTTP Client
+     */
     public TwilioRestClient(final String accountSid, final String authToken, final HttpClient httpClient) {
         this.accountSid = accountSid;
         this.authToken = authToken;
@@ -48,22 +61,27 @@ public class TwilioRestClient {
         this.objectMapper = new ObjectMapper();
     }
 
+    /**
+     * Make a request to Twilio.
+     *
+     * @param request request to make
+     * @return Response object
+     */
+    public Response request(final Request request) {
+        request.setAuth(accountSid, authToken);
+        return httpClient.reliableRequest(request);
+    }
+
     public String getAccountSid() {
         return accountSid;
     }
 
-    public Response request(final Request request) {
-        request.setAuth(accountSid, authToken);
-
-        return httpClient.reliableRequest(request);
+    public ObjectMapper getObjectMapper() {
+        return objectMapper;
     }
 
     public HttpClient getHttpClient() {
         return httpClient;
-    }
-
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
     }
 
     public void setHttpClient(final HttpClient httpClient) {

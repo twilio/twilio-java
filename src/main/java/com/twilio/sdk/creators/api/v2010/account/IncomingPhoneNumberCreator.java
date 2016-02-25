@@ -39,7 +39,8 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone number
      */
-    public IncomingPhoneNumberCreator(final String ownerAccountSid, final com.twilio.types.PhoneNumber phoneNumber) {
+    public IncomingPhoneNumberCreator(final String ownerAccountSid, 
+                                      final com.twilio.types.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }
@@ -50,7 +51,8 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * @param ownerAccountSid The owner_account_sid
      * @param areaCode The desired area code for the new number
      */
-    public IncomingPhoneNumberCreator(final String ownerAccountSid, final String areaCode) {
+    public IncomingPhoneNumberCreator(final String ownerAccountSid, 
+                                      final String areaCode) {
         this.ownerAccountSid = ownerAccountSid;
         this.areaCode = areaCode;
     }
@@ -307,6 +309,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * @return Created IncomingPhoneNumber
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IncomingPhoneNumber execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

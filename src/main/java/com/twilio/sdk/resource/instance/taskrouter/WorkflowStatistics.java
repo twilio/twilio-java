@@ -223,9 +223,9 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 *
 	 * @return the number of tasks with priority p
 	 */
-	public int getTasksWithPriority(int priority) {
+	public int getTasksWithPriority(String priority) {
 		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
-		Integer tasksCount = (Integer) tasksByPriority.get(String.valueOf(priority));
+		Integer tasksCount = (Integer) tasksByPriority.get(priority);
 		return tasksCount != null ? tasksCount : 0;
 	}
 

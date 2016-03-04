@@ -8,6 +8,26 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+public abstract class TaskRouterCapability extends CapabilityToken {
+
+    public static final String TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
+    public static final String TASKROUTER_VERSION = "v1";
+
+    private final String accountSid;
+    private final String authToken;
+
+    public TaskRouterCapability(String accountSid, String authToken) {
+        this.accountSid = accountSid;
+        this.authToken = authToken;
+    }
+
+    public abstract String getResourceUrl();
+
+    public abstract Set<Policy> getPolicies();
+
+    public abstract void buildPayload(Map<String, Object> payload);
+}
+
 public class TaskRouterCapability extends CapabilityToken {
 
     private static final String TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";

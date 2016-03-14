@@ -20,7 +20,8 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
      * @param ownerAccountSid The owner_account_sid
      * @param sid Delete by unique phone-number Sid
      */
-    public IncomingPhoneNumberDeleter(final String ownerAccountSid, final String sid) {
+    public IncomingPhoneNumberDeleter(final String ownerAccountSid, 
+                                      final String sid) {
         this.ownerAccountSid = ownerAccountSid;
         this.sid = sid;
     }
@@ -31,7 +32,8 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -57,5 +59,7 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
                 null
             );
         }
+        
+        return true;
     }
 }

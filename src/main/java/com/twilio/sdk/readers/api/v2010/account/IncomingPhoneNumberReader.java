@@ -69,6 +69,18 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      */
     @Override
     public ResourceSet<IncomingPhoneNumber> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return IncomingPhoneNumber ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<IncomingPhoneNumber> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -77,24 +89,22 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         );
         
         addQueryParams(request);
-        
-        Page<IncomingPhoneNumber> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<IncomingPhoneNumber> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<IncomingPhoneNumber> nextPage(final Page<IncomingPhoneNumber> page, 
+                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -107,7 +117,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<IncomingPhoneNumber> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<IncomingPhoneNumber> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -127,15 +137,12 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
             );
         }
         
-        Page<IncomingPhoneNumber> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "incoming_phone_numbers",
             response.getContent(),
             IncomingPhoneNumber.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

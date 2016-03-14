@@ -20,7 +20,8 @@ public class ActivityFetcher extends Fetcher<Activity> {
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      */
-    public ActivityFetcher(final String workspaceSid, final String sid) {
+    public ActivityFetcher(final String workspaceSid, 
+                           final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class ActivityFetcher extends Fetcher<Activity> {
      * @return Fetched Activity
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Activity execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

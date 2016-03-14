@@ -134,6 +134,7 @@ public class SandboxUpdater extends Updater<Sandbox> {
      * @return Updated Sandbox
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Sandbox execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

@@ -19,6 +19,13 @@ public class PhoneNumberCapabilities {
     private final boolean sms;
     private final boolean voice;
 
+    /**
+     * Initialize a PhoneNumberCapability.
+     *
+     * @param mms mms enabled
+     * @param sms sms enabled
+     * @param voice voice enabled
+     */
     @JsonCreator
     public PhoneNumberCapabilities(@JsonProperty("mms") final boolean mms,
                                    @JsonProperty("sms") final boolean sms,

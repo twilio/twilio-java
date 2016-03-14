@@ -29,6 +29,7 @@ public class ConversationFetcher extends Fetcher<Conversation> {
      * @return Fetched Conversation
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Conversation execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

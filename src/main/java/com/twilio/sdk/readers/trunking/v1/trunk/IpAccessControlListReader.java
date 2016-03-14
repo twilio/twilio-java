@@ -32,6 +32,18 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
      */
     @Override
     public ResourceSet<IpAccessControlList> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return IpAccessControlList ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<IpAccessControlList> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.TRUNKING,
@@ -40,24 +52,22 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
         );
         
         addQueryParams(request);
-        
-        Page<IpAccessControlList> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<IpAccessControlList> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<IpAccessControlList> nextPage(final Page<IpAccessControlList> page, 
+                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -70,7 +80,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<IpAccessControlList> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<IpAccessControlList> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -90,15 +100,12 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
             );
         }
         
-        Page<IpAccessControlList> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "ip_access_control_lists",
             response.getContent(),
             IpAccessControlList.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

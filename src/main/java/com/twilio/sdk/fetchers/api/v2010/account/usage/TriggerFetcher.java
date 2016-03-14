@@ -20,7 +20,8 @@ public class TriggerFetcher extends Fetcher<Trigger> {
      * @param accountSid The account_sid
      * @param sid Fetch by unique usage-trigger Sid
      */
-    public TriggerFetcher(final String accountSid, final String sid) {
+    public TriggerFetcher(final String accountSid, 
+                          final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class TriggerFetcher extends Fetcher<Trigger> {
      * @return Fetched Trigger
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Trigger execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

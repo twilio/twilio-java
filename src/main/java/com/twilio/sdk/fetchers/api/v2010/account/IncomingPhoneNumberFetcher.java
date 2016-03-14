@@ -20,7 +20,8 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
      * @param ownerAccountSid The owner_account_sid
      * @param sid Fetch by unique incoming-phone-number Sid
      */
-    public IncomingPhoneNumberFetcher(final String ownerAccountSid, final String sid) {
+    public IncomingPhoneNumberFetcher(final String ownerAccountSid, 
+                                      final String sid) {
         this.ownerAccountSid = ownerAccountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
      * @return Fetched IncomingPhoneNumber
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IncomingPhoneNumber execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

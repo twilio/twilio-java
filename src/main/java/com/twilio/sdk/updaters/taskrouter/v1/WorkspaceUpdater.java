@@ -77,6 +77,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      * @return Updated Workspace
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Workspace execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

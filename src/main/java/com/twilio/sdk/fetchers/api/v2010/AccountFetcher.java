@@ -29,6 +29,7 @@ public class AccountFetcher extends Fetcher<Account> {
      * @return Fetched Account
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Account execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

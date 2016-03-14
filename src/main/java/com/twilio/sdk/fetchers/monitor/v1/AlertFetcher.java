@@ -29,6 +29,7 @@ public class AlertFetcher extends Fetcher<Alert> {
      * @return Fetched Alert
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Alert execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

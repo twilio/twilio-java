@@ -23,7 +23,8 @@ public class MediaReader extends Reader<Media> {
      * @param accountSid The account_sid
      * @param messageSid The message_sid
      */
-    public MediaReader(final String accountSid, final String messageSid) {
+    public MediaReader(final String accountSid, 
+                       final String messageSid) {
         this.accountSid = accountSid;
         this.messageSid = messageSid;
     }
@@ -48,6 +49,18 @@ public class MediaReader extends Reader<Media> {
      */
     @Override
     public ResourceSet<Media> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Media ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Media> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -56,24 +69,22 @@ public class MediaReader extends Reader<Media> {
         );
         
         addQueryParams(request);
-        
-        Page<Media> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Media> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Media> nextPage(final Page<Media> page, 
+                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -86,7 +97,7 @@ public class MediaReader extends Reader<Media> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Media> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Media> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -106,15 +117,12 @@ public class MediaReader extends Reader<Media> {
             );
         }
         
-        Page<Media> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "media_list",
             response.getContent(),
             Media.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

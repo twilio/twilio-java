@@ -29,6 +29,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
      * @return Fetched Trunk
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Trunk execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

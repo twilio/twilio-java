@@ -58,6 +58,18 @@ public class ShortCodeReader extends Reader<ShortCode> {
      */
     @Override
     public ResourceSet<ShortCode> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return ShortCode ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<ShortCode> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -66,24 +78,22 @@ public class ShortCodeReader extends Reader<ShortCode> {
         );
         
         addQueryParams(request);
-        
-        Page<ShortCode> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<ShortCode> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<ShortCode> nextPage(final Page<ShortCode> page, 
+                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -96,7 +106,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<ShortCode> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<ShortCode> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -116,15 +126,12 @@ public class ShortCodeReader extends Reader<ShortCode> {
             );
         }
         
-        Page<ShortCode> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "short_codes",
             response.getContent(),
             ShortCode.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

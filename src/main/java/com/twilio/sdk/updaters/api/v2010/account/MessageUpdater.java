@@ -21,7 +21,8 @@ public class MessageUpdater extends Updater<Message> {
      * @param accountSid The account_sid
      * @param sid The message to redact
      */
-    public MessageUpdater(final String accountSid, final String sid) {
+    public MessageUpdater(final String accountSid, 
+                          final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -44,6 +45,7 @@ public class MessageUpdater extends Updater<Message> {
      * @return Updated Message
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Message execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

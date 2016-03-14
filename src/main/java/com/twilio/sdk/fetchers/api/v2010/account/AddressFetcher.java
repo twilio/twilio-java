@@ -20,7 +20,8 @@ public class AddressFetcher extends Fetcher<Address> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public AddressFetcher(final String accountSid, final String sid) {
+    public AddressFetcher(final String accountSid, 
+                          final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class AddressFetcher extends Fetcher<Address> {
      * @return Fetched Address
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Address execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

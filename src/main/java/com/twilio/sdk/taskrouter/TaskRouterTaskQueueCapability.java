@@ -16,7 +16,10 @@ public class TaskRouterTaskQueueCapability extends TaskRouterCapability {
      * @param taskQueueSid
      *            TaskQueue to create tokens for.
      */
-    public TaskRouterTaskQueueCapability(final String accountSid, final String authToken, final String workspaceSid, final String taskQueueSid) {
+    public TaskRouterTaskQueueCapability(final String accountSid,
+                                         final String authToken,
+                                         final String workspaceSid,
+                                         final String taskQueueSid) {
         super(accountSid, authToken, workspaceSid, taskQueueSid);
     }
 

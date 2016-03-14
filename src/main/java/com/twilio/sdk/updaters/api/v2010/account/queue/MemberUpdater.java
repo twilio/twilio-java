@@ -28,7 +28,11 @@ public class MemberUpdater extends Updater<Member> {
      * @param url The url
      * @param method The method
      */
-    public MemberUpdater(final String accountSid, final String queueSid, final String callSid, final URI url, final HttpMethod method) {
+    public MemberUpdater(final String accountSid, 
+                         final String queueSid, 
+                         final String callSid, 
+                         final URI url, 
+                         final HttpMethod method) {
         this.accountSid = accountSid;
         this.queueSid = queueSid;
         this.callSid = callSid;
@@ -43,6 +47,7 @@ public class MemberUpdater extends Updater<Member> {
      * @return Updated Member
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Member execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

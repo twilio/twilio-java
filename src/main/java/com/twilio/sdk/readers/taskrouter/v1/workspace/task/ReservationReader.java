@@ -25,7 +25,8 @@ public class ReservationReader extends Reader<Reservation> {
      * @param workspaceSid The workspace_sid
      * @param taskSid The task_sid
      */
-    public ReservationReader(final String workspaceSid, final String taskSid) {
+    public ReservationReader(final String workspaceSid, 
+                             final String taskSid) {
         this.workspaceSid = workspaceSid;
         this.taskSid = taskSid;
     }
@@ -71,6 +72,18 @@ public class ReservationReader extends Reader<Reservation> {
      */
     @Override
     public ResourceSet<Reservation> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Reservation ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Reservation> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
@@ -79,24 +92,22 @@ public class ReservationReader extends Reader<Reservation> {
         );
         
         addQueryParams(request);
-        
-        Page<Reservation> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Reservation> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Reservation> nextPage(final Page<Reservation> page, 
+                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -109,7 +120,7 @@ public class ReservationReader extends Reader<Reservation> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Reservation> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Reservation> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -129,15 +140,12 @@ public class ReservationReader extends Reader<Reservation> {
             );
         }
         
-        Page<Reservation> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "reservations",
             response.getContent(),
             Reservation.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

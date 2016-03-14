@@ -22,7 +22,9 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
      * @param domainSid The domain_sid
      * @param credentialListSid The credential_list_sid
      */
-    public CredentialListMappingCreator(final String accountSid, final String domainSid, final String credentialListSid) {
+    public CredentialListMappingCreator(final String accountSid, 
+                                        final String domainSid, 
+                                        final String credentialListSid) {
         this.accountSid = accountSid;
         this.domainSid = domainSid;
         this.credentialListSid = credentialListSid;
@@ -35,6 +37,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
      * @return Created CredentialListMapping
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public CredentialListMapping execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

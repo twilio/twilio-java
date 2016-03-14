@@ -22,7 +22,8 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      */
-    public CredentialListMappingReader(final String accountSid, final String domainSid) {
+    public CredentialListMappingReader(final String accountSid, 
+                                       final String domainSid) {
         this.accountSid = accountSid;
         this.domainSid = domainSid;
     }
@@ -35,6 +36,18 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
      */
     @Override
     public ResourceSet<CredentialListMapping> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return CredentialListMapping ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<CredentialListMapping> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -43,24 +56,22 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
         );
         
         addQueryParams(request);
-        
-        Page<CredentialListMapping> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<CredentialListMapping> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<CredentialListMapping> nextPage(final Page<CredentialListMapping> page, 
+                                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -73,7 +84,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<CredentialListMapping> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<CredentialListMapping> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -93,15 +104,12 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
             );
         }
         
-        Page<CredentialListMapping> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "credential_list_mappings",
             response.getContent(),
             CredentialListMapping.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

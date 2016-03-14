@@ -31,7 +31,8 @@ public class DomainUpdater extends Updater<Domain> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public DomainUpdater(final String accountSid, final String sid) {
+    public DomainUpdater(final String accountSid, 
+                         final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -161,6 +162,7 @@ public class DomainUpdater extends Updater<Domain> {
      * @return Updated Domain
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Domain execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

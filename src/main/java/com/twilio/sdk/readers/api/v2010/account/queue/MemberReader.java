@@ -22,7 +22,8 @@ public class MemberReader extends Reader<Member> {
      * @param accountSid The account_sid
      * @param queueSid The Queue in which to find members
      */
-    public MemberReader(final String accountSid, final String queueSid) {
+    public MemberReader(final String accountSid, 
+                        final String queueSid) {
         this.accountSid = accountSid;
         this.queueSid = queueSid;
     }
@@ -35,6 +36,18 @@ public class MemberReader extends Reader<Member> {
      */
     @Override
     public ResourceSet<Member> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Member ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Member> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -43,24 +56,22 @@ public class MemberReader extends Reader<Member> {
         );
         
         addQueryParams(request);
-        
-        Page<Member> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Member> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Member> nextPage(final Page<Member> page, 
+                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -73,7 +84,7 @@ public class MemberReader extends Reader<Member> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Member> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Member> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -93,15 +104,12 @@ public class MemberReader extends Reader<Member> {
             );
         }
         
-        Page<Member> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "queue_members",
             response.getContent(),
             Member.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

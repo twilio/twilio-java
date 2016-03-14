@@ -32,6 +32,18 @@ public class YearlyReader extends Reader<Yearly> {
      */
     @Override
     public ResourceSet<Yearly> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Yearly ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Yearly> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -40,24 +52,22 @@ public class YearlyReader extends Reader<Yearly> {
         );
         
         addQueryParams(request);
-        
-        Page<Yearly> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Yearly> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Yearly> nextPage(final Page<Yearly> page, 
+                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -70,7 +80,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Yearly> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Yearly> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -90,15 +100,12 @@ public class YearlyReader extends Reader<Yearly> {
             );
         }
         
-        Page<Yearly> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "usage_records",
             response.getContent(),
             Yearly.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

@@ -29,7 +29,8 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public ShortCodeUpdater(final String accountSid, final String sid) {
+    public ShortCodeUpdater(final String accountSid, 
+                            final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -137,6 +138,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
      * @return Updated ShortCode
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public ShortCode execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

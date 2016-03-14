@@ -7,7 +7,7 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
 /**
- * Representation of a Feedback Issue
+ * Representation of a Feedback Issue.
  *
  * <p>
  *     For more information see:
@@ -19,6 +19,13 @@ public class FeedbackIssue {
     private final String description;
     private final String percentageOfTotalCalls;
 
+    /**
+     * Initialize a FeedbackIssue.
+     *
+     * @param count number of times reported
+     * @param description description of issue
+     * @param percentageOfTotalCalls percentage of affected calls
+     */
     @JsonCreator
     public FeedbackIssue(@JsonProperty("count") final int count,
                          @JsonProperty("description") final String description,

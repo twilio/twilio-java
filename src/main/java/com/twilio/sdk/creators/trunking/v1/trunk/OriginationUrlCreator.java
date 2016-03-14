@@ -30,7 +30,12 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
      * @param friendlyName The friendly_name
      * @param sipUrl The sip_url
      */
-    public OriginationUrlCreator(final String trunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
+    public OriginationUrlCreator(final String trunkSid, 
+                                 final Integer weight, 
+                                 final Integer priority, 
+                                 final Boolean enabled, 
+                                 final String friendlyName, 
+                                 final URI sipUrl) {
         this.trunkSid = trunkSid;
         this.weight = weight;
         this.priority = priority;
@@ -46,6 +51,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
      * @return Created OriginationUrl
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public OriginationUrl execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

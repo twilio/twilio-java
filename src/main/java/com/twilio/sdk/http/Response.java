@@ -15,18 +15,40 @@ public class Response {
     private final String content;
     private final int statusCode;
 
+    /**
+     * Create a Response from content string and status code.
+     *
+     * @param content content string
+     * @param statusCode status code
+     */
     public Response(final String content, final int statusCode) {
+        this.stream = null;
         this.content = content;
-        stream = null;
         this.statusCode = statusCode;
     }
 
+    /**
+     * Create a Response from input stream and status code.
+     *
+     * @param stream input stream
+     * @param statusCode status code
+     */
     public Response(final InputStream stream, final int statusCode) {
         this.stream = stream;
-        content = null;
+        this.content = null;
         this.statusCode = statusCode;
     }
 
+    /**
+     * Get the the content of the response.
+     *
+     * <p>
+     *     If there is a content string, that will be returned.
+     *     Otherwise, will get content from input stream
+     * </p>
+     *
+     * @return the content string
+     */
     public String getContent() {
         if (content != null) {
             return content;
@@ -40,10 +62,19 @@ public class Response {
         } catch (final IOException e) {
             throw new ApiConnectionException("IOException during API request to Twilio", e);
         }
-        return (new Scanner(stream, "UTF-8").useDelimiter("\\A")).next();
 
+        Scanner scanner = new Scanner(stream, "UTF-8").useDelimiter("\\A");
+        String data = scanner.next();
+        scanner.close();
+
+        return data;
     }
 
+    /**
+     * Get response data as stream.
+     *
+     * @return the response data as a stream
+     */
     public InputStream getStream() {
         if (stream != null) {
             return stream;

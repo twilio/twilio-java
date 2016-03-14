@@ -25,7 +25,8 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      */
-    public TaskQueueUpdater(final String workspaceSid, final String sid) {
+    public TaskQueueUpdater(final String workspaceSid, 
+                            final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
     }
@@ -92,6 +93,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
      * @return Updated TaskQueue
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public TaskQueue execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

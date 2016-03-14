@@ -32,6 +32,18 @@ public class DomainReader extends Reader<Domain> {
      */
     @Override
     public ResourceSet<Domain> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return Domain ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Domain> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -40,24 +52,22 @@ public class DomainReader extends Reader<Domain> {
         );
         
         addQueryParams(request);
-        
-        Page<Domain> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Domain> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<Domain> nextPage(final Page<Domain> page, 
+                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -70,7 +80,7 @@ public class DomainReader extends Reader<Domain> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<Domain> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Domain> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -90,15 +100,12 @@ public class DomainReader extends Reader<Domain> {
             );
         }
         
-        Page<Domain> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "domains",
             response.getContent(),
             Domain.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

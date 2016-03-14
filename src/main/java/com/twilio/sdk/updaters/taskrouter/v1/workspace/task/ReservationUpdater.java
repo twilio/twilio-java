@@ -45,7 +45,10 @@ public class ReservationUpdater extends Updater<Reservation> {
      * @param sid The sid
      * @param reservationStatus The reservation_status
      */
-    public ReservationUpdater(final String workspaceSid, final String taskSid, final String sid, final String reservationStatus) {
+    public ReservationUpdater(final String workspaceSid, 
+                              final String taskSid, 
+                              final String sid, 
+                              final String reservationStatus) {
         this.workspaceSid = workspaceSid;
         this.taskSid = taskSid;
         this.sid = sid;
@@ -297,6 +300,7 @@ public class ReservationUpdater extends Updater<Reservation> {
      * @return Updated Reservation
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Reservation execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

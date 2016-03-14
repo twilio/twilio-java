@@ -22,7 +22,9 @@ public class RecordingFetcher extends Fetcher<Recording> {
      * @param callSid The call_sid
      * @param sid The sid
      */
-    public RecordingFetcher(final String accountSid, final String callSid, final String sid) {
+    public RecordingFetcher(final String accountSid, 
+                            final String callSid, 
+                            final String sid) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.sid = sid;
@@ -35,6 +37,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
      * @return Fetched Recording
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Recording execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

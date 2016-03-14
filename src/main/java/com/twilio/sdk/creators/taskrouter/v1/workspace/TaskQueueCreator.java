@@ -26,7 +26,10 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      * @param reservationActivitySid The reservation_activity_sid
      * @param assignmentActivitySid The assignment_activity_sid
      */
-    public TaskQueueCreator(final String workspaceSid, final String friendlyName, final String reservationActivitySid, final String assignmentActivitySid) {
+    public TaskQueueCreator(final String workspaceSid, 
+                            final String friendlyName, 
+                            final String reservationActivitySid, 
+                            final String assignmentActivitySid) {
         this.workspaceSid = workspaceSid;
         this.friendlyName = friendlyName;
         this.reservationActivitySid = reservationActivitySid;
@@ -62,6 +65,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      * @return Created TaskQueue
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public TaskQueue execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

@@ -22,7 +22,8 @@ public class WorkerCreator extends Creator<Worker> {
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      */
-    public WorkerCreator(final String workspaceSid, final String friendlyName) {
+    public WorkerCreator(final String workspaceSid, 
+                         final String friendlyName) {
         this.workspaceSid = workspaceSid;
         this.friendlyName = friendlyName;
     }
@@ -56,6 +57,7 @@ public class WorkerCreator extends Creator<Worker> {
      * @return Created Worker
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Worker execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

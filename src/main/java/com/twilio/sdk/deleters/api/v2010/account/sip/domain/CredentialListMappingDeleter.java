@@ -22,7 +22,9 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
      * @param domainSid The domain_sid
      * @param sid The sid
      */
-    public CredentialListMappingDeleter(final String accountSid, final String domainSid, final String sid) {
+    public CredentialListMappingDeleter(final String accountSid, 
+                                        final String domainSid, 
+                                        final String sid) {
         this.accountSid = accountSid;
         this.domainSid = domainSid;
         this.sid = sid;
@@ -34,7 +36,8 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -60,5 +63,7 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
                 null
             );
         }
+        
+        return true;
     }
 }

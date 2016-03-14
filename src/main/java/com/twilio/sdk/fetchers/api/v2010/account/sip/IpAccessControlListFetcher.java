@@ -20,7 +20,8 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
      * @param accountSid The account_sid
      * @param sid Fetch by unique ip-access-control-list Sid
      */
-    public IpAccessControlListFetcher(final String accountSid, final String sid) {
+    public IpAccessControlListFetcher(final String accountSid, 
+                                      final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
      * @return Fetched IpAccessControlList
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

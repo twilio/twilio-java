@@ -22,7 +22,8 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
      * @param accountSid The account_sid
      * @param domainSid The domain_sid
      */
-    public IpAccessControlListMappingReader(final String accountSid, final String domainSid) {
+    public IpAccessControlListMappingReader(final String accountSid, 
+                                            final String domainSid) {
         this.accountSid = accountSid;
         this.domainSid = domainSid;
     }
@@ -35,6 +36,18 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
      */
     @Override
     public ResourceSet<IpAccessControlListMapping> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return IpAccessControlListMapping ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<IpAccessControlListMapping> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -43,24 +56,22 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
         );
         
         addQueryParams(request);
-        
-        Page<IpAccessControlListMapping> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<IpAccessControlListMapping> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<IpAccessControlListMapping> nextPage(final Page<IpAccessControlListMapping> page, 
+                                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -73,7 +84,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<IpAccessControlListMapping> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<IpAccessControlListMapping> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -93,15 +104,12 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
             );
         }
         
-        Page<IpAccessControlListMapping> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "ip_access_control_list_mappings",
             response.getContent(),
             IpAccessControlListMapping.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

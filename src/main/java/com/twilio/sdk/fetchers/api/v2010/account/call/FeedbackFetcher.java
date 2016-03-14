@@ -20,7 +20,8 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
      * @param accountSid The account_sid
      * @param callSid The call sid that uniquely identifies the call
      */
-    public FeedbackFetcher(final String accountSid, final String callSid) {
+    public FeedbackFetcher(final String accountSid, 
+                           final String callSid) {
         this.accountSid = accountSid;
         this.callSid = callSid;
     }
@@ -32,6 +33,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
      * @return Fetched Feedback
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Feedback execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

@@ -54,6 +54,7 @@ public class QueueCreator extends Creator<Queue> {
      * @return Created Queue
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Queue execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

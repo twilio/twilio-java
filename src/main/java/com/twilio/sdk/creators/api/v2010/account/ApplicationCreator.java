@@ -37,7 +37,8 @@ public class ApplicationCreator extends Creator<Application> {
      * @param accountSid The account_sid
      * @param friendlyName Human readable description of this resource
      */
-    public ApplicationCreator(final String accountSid, final String friendlyName) {
+    public ApplicationCreator(final String accountSid, 
+                              final String friendlyName) {
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
     }
@@ -300,6 +301,7 @@ public class ApplicationCreator extends Creator<Application> {
      * @return Created Application
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Application execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

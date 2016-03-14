@@ -32,7 +32,8 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public ConnectAppUpdater(final String accountSid, final String sid) {
+    public ConnectAppUpdater(final String accountSid, 
+                             final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -182,6 +183,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
      * @return Updated ConnectApp
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public ConnectApp execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

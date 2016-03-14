@@ -22,6 +22,14 @@ public class OutboundPrefixPrice {
     private final double basePrice;
     private final double currentPrice;
 
+    /**
+     * Initialize an OutboundPrefixPrice.
+     *
+     * @param prefixes price prefixes
+     * @param friendlyName friend name for the price
+     * @param basePrice base price
+     * @param currentPrice current price
+     */
     @JsonCreator
     public OutboundPrefixPrice(@JsonProperty("prefixes") final List<String> prefixes,
                                @JsonProperty("friendly_name") final String friendlyName,

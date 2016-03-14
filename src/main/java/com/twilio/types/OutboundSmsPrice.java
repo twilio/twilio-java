@@ -21,6 +21,14 @@ public class OutboundSmsPrice {
     private final String carrier;
     private final List<InboundSmsPrice> prices;
 
+    /**
+     * Initialize a OutboundSmsPrice.
+     *
+     * @param mcc mcc identifier
+     * @param mnc mnc identifier
+     * @param carrier carrier name
+     * @param prices prices for incoming sms
+     */
     @JsonCreator
     public OutboundSmsPrice(@JsonProperty("mcc") final String mcc,
                             @JsonProperty("mnc") final String mnc,

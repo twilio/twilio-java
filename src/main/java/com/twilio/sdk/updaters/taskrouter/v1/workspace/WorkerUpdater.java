@@ -23,7 +23,8 @@ public class WorkerUpdater extends Updater<Worker> {
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      */
-    public WorkerUpdater(final String workspaceSid, final String sid) {
+    public WorkerUpdater(final String workspaceSid, 
+                         final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
     }
@@ -68,6 +69,7 @@ public class WorkerUpdater extends Updater<Worker> {
      * @return Updated Worker
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Worker execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

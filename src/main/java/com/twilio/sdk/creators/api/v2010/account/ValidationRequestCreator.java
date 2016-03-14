@@ -28,7 +28,8 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
      * @param accountSid The account_sid
      * @param phoneNumber The phone_number
      */
-    public ValidationRequestCreator(final String accountSid, final com.twilio.types.PhoneNumber phoneNumber) {
+    public ValidationRequestCreator(final String accountSid, 
+                                    final com.twilio.types.PhoneNumber phoneNumber) {
         this.accountSid = accountSid;
         this.phoneNumber = phoneNumber;
     }
@@ -105,6 +106,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
      * @return Created ValidationRequest
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public ValidationRequest execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

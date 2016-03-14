@@ -41,6 +41,13 @@ public class InboundCallPrice {
     private final double currentPrice;
     private final Type type;
 
+    /**
+     * Initialize a InboundCallPrice.
+     *
+     * @param basePrice base price of call
+     * @param currentPrice current price of call
+     * @param type type of phone number
+     */
     @JsonCreator
     public InboundCallPrice(@JsonProperty("base_price") final double basePrice,
                             @JsonProperty("current_price") final double currentPrice,

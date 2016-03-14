@@ -20,7 +20,8 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * @param trunkSid The trunk_sid
      * @param sid The sid
      */
-    public PhoneNumberFetcher(final String trunkSid, final String sid) {
+    public PhoneNumberFetcher(final String trunkSid, 
+                              final String sid) {
         this.trunkSid = trunkSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * @return Fetched PhoneNumber
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public PhoneNumber execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

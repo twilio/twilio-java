@@ -29,6 +29,7 @@ public class SandboxFetcher extends Fetcher<Sandbox> {
      * @return Fetched Sandbox
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Sandbox execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

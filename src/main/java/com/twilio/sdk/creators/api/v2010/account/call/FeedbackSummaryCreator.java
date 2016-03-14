@@ -30,7 +30,9 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
      * @param startDate The start_date
      * @param endDate The end_date
      */
-    public FeedbackSummaryCreator(final String accountSid, final LocalDate startDate, final LocalDate endDate) {
+    public FeedbackSummaryCreator(final String accountSid, 
+                                  final LocalDate startDate, 
+                                  final LocalDate endDate) {
         this.accountSid = accountSid;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -86,6 +88,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
      * @return Created FeedbackSummary
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public FeedbackSummary execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

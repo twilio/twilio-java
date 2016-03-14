@@ -28,7 +28,8 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
      * @param trunkSid The trunk_sid
      * @param sid The sid
      */
-    public OriginationUrlUpdater(final String trunkSid, final String sid) {
+    public OriginationUrlUpdater(final String trunkSid, 
+                                 final String sid) {
         this.trunkSid = trunkSid;
         this.sid = sid;
     }
@@ -105,6 +106,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
      * @return Updated OriginationUrl
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public OriginationUrl execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

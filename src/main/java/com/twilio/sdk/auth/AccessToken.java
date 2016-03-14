@@ -14,12 +14,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Access Token use to grant privileges to Twilio resources
+ * Access Token use to grant privileges to Twilio resources.
  *
- * For more information see:
- * <a href="https://www.twilio.com/docs/api/rest/access-tokens">
- *     https://www.twilio.com/docs/api/rest/access-tokens
- * </a>
+ * <p>For more information see:
+ *     <a href="https://www.twilio.com/docs/api/rest/access-tokens">
+ *         https://www.twilio.com/docs/api/rest/access-tokens
+ *     </a>
+ * </p>
  */
 public class AccessToken {
 
@@ -46,14 +47,20 @@ public class AccessToken {
         return this.identity;
     }
 
+    /**
+     * Transform this access token to JWT.
+     *
+     * @return compacted JWT
+     */
+    @SuppressWarnings("checkstyle:abbreviationaswordinname")
     public String toJWT() {
-        Map<String, Object> headers = new HashMap<String, Object>();
+        Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
         headers.put("cty", "twilio-fpa;v=1");
 
         Date now = new Date();
         int timestamp = (int)(Math.floor(now.getTime() / 1000.0f));
-        Map<String, Object> grantPayload = new HashMap<String, Object>();
+        Map<String, Object> grantPayload = new HashMap<>();
 
         if (this.identity != null) {
             grantPayload.put("identity", this.identity);
@@ -80,7 +87,7 @@ public class AccessToken {
         return builder.compact();
     }
 
-    /** Builder used to construct a Access Token */
+    /** Builder used to construct a Access Token. */
     public static class Builder {
         private String accountSid;
         private String keySid;
@@ -90,6 +97,13 @@ public class AccessToken {
         private int ttl = 3600;
         private Set<Grant> grants = new HashSet<Grant>();
 
+        /**
+         * Create a new builder for a Access Token.
+         *
+         * @param accountSid account to use
+         * @param keySid key to use
+         * @param secret secret key
+         */
         public Builder(String accountSid, String keySid, String secret) {
             this.accountSid = accountSid;
             this.keySid = keySid;

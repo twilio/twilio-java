@@ -31,7 +31,13 @@ public class AddressCreator extends Creator<Address> {
      * @param postalCode The postal_code
      * @param isoCountry The iso_country
      */
-    public AddressCreator(final String accountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
+    public AddressCreator(final String accountSid, 
+                          final String customerName, 
+                          final String street, 
+                          final String city, 
+                          final String region, 
+                          final String postalCode, 
+                          final String isoCountry) {
         this.accountSid = accountSid;
         this.customerName = customerName;
         this.street = street;
@@ -59,6 +65,7 @@ public class AddressCreator extends Creator<Address> {
      * @return Created Address
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Address execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

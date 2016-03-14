@@ -39,7 +39,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
      * @param ownerAccountSid The owner_account_sid
      * @param sid The sid
      */
-    public IncomingPhoneNumberUpdater(final String ownerAccountSid, final String sid) {
+    public IncomingPhoneNumberUpdater(final String ownerAccountSid, 
+                                      final String sid) {
         this.ownerAccountSid = ownerAccountSid;
         this.sid = sid;
     }
@@ -307,6 +308,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
      * @return Updated IncomingPhoneNumber
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IncomingPhoneNumber execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

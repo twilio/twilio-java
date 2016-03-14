@@ -20,7 +20,8 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
      * @param trunkSid The trunk_sid
      * @param sid The sid
      */
-    public IpAccessControlListFetcher(final String trunkSid, final String sid) {
+    public IpAccessControlListFetcher(final String trunkSid, 
+                                      final String sid) {
         this.trunkSid = trunkSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
      * @return Fetched IpAccessControlList
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

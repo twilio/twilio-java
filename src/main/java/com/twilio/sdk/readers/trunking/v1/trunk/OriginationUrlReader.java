@@ -32,6 +32,18 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
      */
     @Override
     public ResourceSet<OriginationUrl> execute(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage());
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the read.
+     * 
+     * @param client TwilioRestClient with which to make the request
+     * @return OriginationUrl ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<OriginationUrl> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.TRUNKING,
@@ -40,24 +52,22 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
         );
         
         addQueryParams(request);
-        
-        Page<OriginationUrl> page = pageForRequest(client, request);
-        
-        return new ResourceSet<>(this, client, page);
+        return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the next page from the Twilio API.
      * 
-     * @param nextPageUri URI from which to retrieve the next page
+     * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<OriginationUrl> nextPage(final String nextPageUri, final TwilioRestClient client) {
+    public Page<OriginationUrl> nextPage(final Page<OriginationUrl> page, 
+                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            nextPageUri,
+            page.getNextPageUri(),
             client.getAccountSid()
         );
         return pageForRequest(client, request);
@@ -70,7 +80,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    protected Page<OriginationUrl> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<OriginationUrl> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
@@ -90,15 +100,12 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
             );
         }
         
-        Page<OriginationUrl> result = new Page<>();
-        result.deserialize(
+        return Page.fromJson(
             "origination_urls",
             response.getContent(),
             OriginationUrl.class,
             client.getObjectMapper()
         );
-        
-        return result;
     }
 
     /**

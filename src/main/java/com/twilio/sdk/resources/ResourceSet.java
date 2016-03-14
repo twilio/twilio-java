@@ -5,16 +5,32 @@ import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.exceptions.InvalidRequestException;
 import com.twilio.sdk.readers.Reader;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
+/**
+ * A collection of resources.
+ *
+ * @param <E> type of the resource
+ */
 public class ResourceSet<E extends Resource> implements Iterable<E> {
-    protected Page<E> page;
-    protected boolean autoPaging;
-    protected final Reader<E> reader;
-    protected final TwilioRestClient client;
-    protected Iterator<E> iterator;
 
+    private final Reader<E> reader;
+    private final TwilioRestClient client;
+
+    private boolean autoPaging;
+    private Page<E> page;
+    private Iterator<E> iterator;
+
+    /**
+     * Initialize the resource set.
+     *
+     * @param reader reader used to fetch next page
+     * @param client client used to make requests
+     * @param page page of data
+     */
     public ResourceSet(final Reader<E> reader, final TwilioRestClient client, final Page<E> page) {
         this.reader = reader;
         this.client = client;
@@ -27,16 +43,18 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         return autoPaging;
     }
 
-    public void setAutoPaging(final boolean autoPaging) {
+    public ResourceSet setAutoPaging(final boolean autoPaging) {
         this.autoPaging = autoPaging;
+        return this;
     }
 
     public int getPageSize() {
         return page.getPageSize();
     }
 
-    public void setPageSize(final int pageSize) {
+    public ResourceSet setPageSize(final int pageSize) {
         reader.pageSize(pageSize);
+        return this;
     }
 
     @Override
@@ -44,18 +62,15 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         return new ResourceSetIterator<>(this);
     }
 
-    protected void fetchNextPage() {
-        if (page.getNextPageUri() == null) {
+    private void fetchNextPage() {
+        if (!StringUtils.isEmpty(page.getNextPageUri())) {
             return;
         }
 
-        page = reader.nextPage(page.getNextPageUri(), client);
-        if (page != null) {
-            iterator = page.getRecords().iterator();
-        }
+        page = reader.nextPage(page, client);
     }
 
-    public static class ResourceSetIterator<E extends Resource> implements Iterator<E> {
+    private class ResourceSetIterator<E extends Resource> implements Iterator<E> {
         private final ResourceSet<E> resourceSet;
 
         public ResourceSetIterator(final ResourceSet<E> resourceSet) {
@@ -64,24 +79,27 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
 
         @Override
         public boolean hasNext() {
-            if (!resourceSet.iterator.hasNext() && resourceSet.isAutoPaging()) {
-                // The page is exhausted, fetch the next page
-                try {
-                    resourceSet.fetchNextPage();
-                } catch (final InvalidRequestException | ApiConnectionException | ApiException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            return resourceSet.iterator != null && resourceSet.iterator.hasNext();
+            return resourceSet.iterator.hasNext();
         }
 
         @Override
         public E next() {
-            if (resourceSet.iterator != null) {
-                return resourceSet.iterator.next();
+            if (resourceSet == null || resourceSet.iterator == null) {
+                throw new NoSuchElementException();
             }
-            return null;
+
+            E element = resourceSet.iterator.next();
+            if (resourceSet.isAutoPaging() && !resourceSet.iterator.hasNext()) {
+                try {
+                    resourceSet.fetchNextPage();
+                } catch (final InvalidRequestException | ApiConnectionException | ApiException e) {
+
+                    // TODO: this should probably be a better exception
+                    throw new RuntimeException(e);
+                }
+            }
+
+            return element;
         }
 
         @Override

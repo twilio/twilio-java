@@ -10,12 +10,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Page<T> {
-    protected List<T> records;
-    protected String firstPageUri;
-    protected String nextPageUri;
-    protected String previousPageUri;
-    protected String uri;
-    protected int pageSize;
+    private final List<T> records;
+    private final String firstPageUri;
+    private final String nextPageUri;
+    private final String previousPageUri;
+    private final String uri;
+    private final int pageSize;
+
+    private Page(
+        List<T> records,
+        String firstPageUri,
+        String nextPageUri,
+        String previousPageUri,
+        String uri,
+        int pageSize
+    ) {
+        this.records = records;
+        this.firstPageUri = firstPageUri;
+        this.nextPageUri = nextPageUri;
+        this.previousPageUri = previousPageUri;
+        this.uri = uri;
+        this.pageSize = pageSize;
+    }
 
     public List<T> getRecords() {
         return records;
@@ -41,15 +57,29 @@ public class Page<T> {
         return uri;
     }
 
-    public void deserialize(final String recordKey, final String json, final Class<T> recordType,
-                            final ObjectMapper objectMapper) {
-        records = new ArrayList<>();
+    /**
+     * Create a new page of data from a json blob.
+     *
+     * @param recordKey key which holds the records
+     * @param json json blob
+     * @param recordType resource type
+     * @param mapper json parser
+     * @param <T> record class type
+     * @return a page of records of type T
+     */
+    public static <T> Page<T> fromJson(String recordKey, String json, Class<T> recordType, ObjectMapper mapper) {
+        List<T> results = new ArrayList<>();
+        String firstPageUri;
+        String nextPageUri;
+        String previousPageUri;
+        String uri;
+        int pageSize;
 
         try {
-            JsonNode root = objectMapper.readTree(json);
+            JsonNode root = mapper.readTree(json);
             JsonNode records = root.get(recordKey);
             for (final JsonNode record : records) {
-                this.records.add(objectMapper.readValue(record.toString(), recordType));
+                results.add(mapper.readValue(record.toString(), recordType));
             }
 
             JsonNode nextPageNode = root.get("next_page_uri");
@@ -66,10 +96,11 @@ public class Page<T> {
             } else {
                 JsonNode meta = root.get("meta");
                 uri = URI.create(meta.get("url").asText()).getPath();
+
                 nextPageNode = meta.get("next_page_url");
                 previousPageNode = meta.get("previous_page_url");
 
-                firstPageUri = meta.get("first_page_url").asText();
+                firstPageUri = URI.create(meta.get("first_page_url").asText()).getPath();
                 pageSize = meta.get("page_size").asInt();
 
                 nextPageUri = nextPageNode.isNull() ? null : URI.create(nextPageNode.asText()).getPath();
@@ -77,8 +108,11 @@ public class Page<T> {
             }
 
         } catch (final IOException e) {
-            throw new ApiConnectionException("Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e);
+            throw new ApiConnectionException(
+                "Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e
+            );
         }
-    }
 
+        return new Page<>(results, firstPageUri, nextPageUri, previousPageUri, uri, pageSize);
+    }
 }

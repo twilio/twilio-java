@@ -20,7 +20,8 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
      * @param accountSid The account_sid
      * @param sid Fetch by unique connect-app Sid
      */
-    public ConnectAppFetcher(final String accountSid, final String sid) {
+    public ConnectAppFetcher(final String accountSid, 
+                             final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
      * @return Fetched ConnectApp
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public ConnectApp execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

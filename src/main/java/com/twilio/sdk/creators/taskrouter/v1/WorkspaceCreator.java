@@ -53,6 +53,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * @return Created Workspace
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Workspace execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

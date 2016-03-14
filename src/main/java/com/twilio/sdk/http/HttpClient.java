@@ -1,10 +1,5 @@
 package com.twilio.sdk.http;
 
-import com.twilio.sdk.exceptions.InvalidRequestException;
-import org.apache.commons.codec.binary.Base64;
-
-import java.io.UnsupportedEncodingException;
-
 public abstract class HttpClient {
 
     public static final int ANY_500 = -500;
@@ -17,10 +12,25 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
+    /**
+     * Make a request.
+     *
+     * @param request request to make
+     * @return Response of the HTTP request
+     */
     public Response reliableRequest(final Request request) {
         return reliableRequest(request, RETRY_CODES, RETRIES, DELAY_MILLIS);
     }
 
+    /**
+     * Make a request.
+     *
+     * @param request request to make
+     * @param retryCodes codes used for retries
+     * @param retries max number of retries
+     * @param delayMillis delays between retries
+     * @return Response of the HTTP request
+     */
     public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
                                     final long delayMillis) {
         Response response = null;
@@ -89,14 +99,4 @@ public abstract class HttpClient {
     }
 
     public abstract Response makeRequest(final Request request);
-
-    protected String authentication(final String username, final String password) {
-        String credentials = username + ":" + password;
-        try {
-            String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));
-            return "Basic " + encoded;
-        } catch (final UnsupportedEncodingException e) {
-            throw new InvalidRequestException("It must be possible to encode credentials as ascii", credentials, e);
-        }
-    }
 }

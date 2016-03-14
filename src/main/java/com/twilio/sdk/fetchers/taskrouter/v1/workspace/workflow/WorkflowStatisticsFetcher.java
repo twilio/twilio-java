@@ -25,7 +25,8 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
      * @param workspaceSid The workspace_sid
      * @param workflowSid The workflow_sid
      */
-    public WorkflowStatisticsFetcher(final String workspaceSid, final String workflowSid) {
+    public WorkflowStatisticsFetcher(final String workspaceSid, 
+                                     final String workflowSid) {
         this.workspaceSid = workspaceSid;
         this.workflowSid = workflowSid;
     }
@@ -70,6 +71,7 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
      * @return Fetched WorkflowStatistics
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public WorkflowStatistics execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

@@ -29,6 +29,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
      * @return Fetched Workspace
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Workspace execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

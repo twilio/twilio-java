@@ -22,7 +22,9 @@ public class CredentialListUpdater extends Updater<CredentialList> {
      * @param sid The sid
      * @param friendlyName The friendly_name
      */
-    public CredentialListUpdater(final String accountSid, final String sid, final String friendlyName) {
+    public CredentialListUpdater(final String accountSid, 
+                                 final String sid, 
+                                 final String friendlyName) {
         this.accountSid = accountSid;
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -35,6 +37,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
      * @return Updated CredentialList
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public CredentialList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

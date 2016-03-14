@@ -26,7 +26,8 @@ public class TriggerUpdater extends Updater<Trigger> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public TriggerUpdater(final String accountSid, final String sid) {
+    public TriggerUpdater(final String accountSid, 
+                          final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -82,6 +83,7 @@ public class TriggerUpdater extends Updater<Trigger> {
      * @return Updated Trigger
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Trigger execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

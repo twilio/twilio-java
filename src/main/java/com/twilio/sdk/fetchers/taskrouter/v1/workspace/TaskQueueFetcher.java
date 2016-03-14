@@ -20,7 +20,8 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
      * @param workspaceSid The workspace_sid
      * @param sid The sid
      */
-    public TaskQueueFetcher(final String workspaceSid, final String sid) {
+    public TaskQueueFetcher(final String workspaceSid, 
+                            final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
      * @return Fetched TaskQueue
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public TaskQueue execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

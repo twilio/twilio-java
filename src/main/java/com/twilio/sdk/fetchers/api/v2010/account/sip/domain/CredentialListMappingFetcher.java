@@ -22,7 +22,9 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
      * @param domainSid The domain_sid
      * @param sid The sid
      */
-    public CredentialListMappingFetcher(final String accountSid, final String domainSid, final String sid) {
+    public CredentialListMappingFetcher(final String accountSid, 
+                                        final String domainSid, 
+                                        final String sid) {
         this.accountSid = accountSid;
         this.domainSid = domainSid;
         this.sid = sid;
@@ -35,6 +37,7 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
      * @return Fetched CredentialListMapping
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public CredentialListMapping execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

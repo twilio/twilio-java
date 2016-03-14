@@ -53,6 +53,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * @return Fetched PhoneNumber
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public PhoneNumber execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

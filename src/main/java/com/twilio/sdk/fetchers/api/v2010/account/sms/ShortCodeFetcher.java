@@ -20,7 +20,8 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
      * @param accountSid The account_sid
      * @param sid Fetch by unique short-code Sid
      */
-    public ShortCodeFetcher(final String accountSid, final String sid) {
+    public ShortCodeFetcher(final String accountSid, 
+                            final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
      * @return Fetched ShortCode
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public ShortCode execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

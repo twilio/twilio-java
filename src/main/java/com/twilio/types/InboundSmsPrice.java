@@ -41,6 +41,13 @@ public class InboundSmsPrice {
     private final double currentPrice;
     private final Type type;
 
+    /**
+     * Initialize an InboundSmsPrice.
+     *
+     * @param basePrice base price for sms
+     * @param currentPrice current price for sms
+     * @param type type of phone number
+     */
     @JsonCreator
     public InboundSmsPrice(@JsonProperty("base_price") final double basePrice,
                            @JsonProperty("current_price") final double currentPrice,

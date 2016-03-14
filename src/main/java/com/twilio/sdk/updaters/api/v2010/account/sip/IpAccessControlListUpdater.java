@@ -22,7 +22,9 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
      * @param sid The sid
      * @param friendlyName A human readable description of this resource
      */
-    public IpAccessControlListUpdater(final String accountSid, final String sid, final String friendlyName) {
+    public IpAccessControlListUpdater(final String accountSid, 
+                                      final String sid, 
+                                      final String friendlyName) {
         this.accountSid = accountSid;
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -35,6 +37,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
      * @return Updated IpAccessControlList
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

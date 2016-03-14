@@ -22,7 +22,9 @@ public class MemberFetcher extends Fetcher<Member> {
      * @param queueSid The Queue in which to find the members
      * @param callSid The call_sid
      */
-    public MemberFetcher(final String accountSid, final String queueSid, final String callSid) {
+    public MemberFetcher(final String accountSid, 
+                         final String queueSid, 
+                         final String callSid) {
         this.accountSid = accountSid;
         this.queueSid = queueSid;
         this.callSid = callSid;
@@ -35,6 +37,7 @@ public class MemberFetcher extends Fetcher<Member> {
      * @return Fetched Member
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Member execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

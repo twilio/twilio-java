@@ -20,7 +20,8 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
      * @param trunkSid The trunk_sid
      * @param sid The sid
      */
-    public OriginationUrlDeleter(final String trunkSid, final String sid) {
+    public OriginationUrlDeleter(final String trunkSid, 
+                                 final String sid) {
         this.trunkSid = trunkSid;
         this.sid = sid;
     }
@@ -31,7 +32,8 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
      * @param client TwilioRestClient with which to make the request
      */
     @Override
-    public void execute(final TwilioRestClient client) {
+    @SuppressWarnings("checkstyle:linelength")
+    public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.TRUNKING,
@@ -57,5 +59,7 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
                 null
             );
         }
+        
+        return true;
     }
 }

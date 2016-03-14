@@ -38,7 +38,8 @@ public class ApplicationUpdater extends Updater<Application> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public ApplicationUpdater(final String accountSid, final String sid) {
+    public ApplicationUpdater(final String accountSid, 
+                              final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -313,6 +314,7 @@ public class ApplicationUpdater extends Updater<Application> {
      * @return Updated Application
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Application execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

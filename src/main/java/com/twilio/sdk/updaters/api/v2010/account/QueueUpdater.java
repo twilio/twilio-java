@@ -22,7 +22,8 @@ public class QueueUpdater extends Updater<Queue> {
      * @param accountSid The account_sid
      * @param sid The sid
      */
-    public QueueUpdater(final String accountSid, final String sid) {
+    public QueueUpdater(final String accountSid, 
+                        final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -56,6 +57,7 @@ public class QueueUpdater extends Updater<Queue> {
      * @return Updated Queue
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public Queue execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,

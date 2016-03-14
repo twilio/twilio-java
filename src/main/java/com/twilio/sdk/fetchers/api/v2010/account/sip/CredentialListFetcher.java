@@ -20,7 +20,8 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
      * @param accountSid The account_sid
      * @param sid Fetch by unique credential Sid
      */
-    public CredentialListFetcher(final String accountSid, final String sid) {
+    public CredentialListFetcher(final String accountSid, 
+                                 final String sid) {
         this.accountSid = accountSid;
         this.sid = sid;
     }
@@ -32,6 +33,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
      * @return Fetched CredentialList
      */
     @Override
+    @SuppressWarnings("checkstyle:linelength")
     public CredentialList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,

@@ -2,6 +2,8 @@ package com.twilio.sdk.taskrouter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +68,6 @@ public class Policy {
     }
 
     public String toJSONString() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
         HashMap<String, Object> obj = new HashMap<String, Object>();
         obj.put("url", url);
         obj.put("method", method);
@@ -88,12 +89,14 @@ public class Policy {
 
         obj.put("query_filter", query);
         obj.put("post_filter", post);
+
+        ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(obj);
     }
 
     @Override
     public String toString() {
-        return "Policy [url=" + url + ", method=" + method + ", queryFilter=" + queryFilter + ", postFilter=" + postFilter + ", allowed=" + allowed + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
 }

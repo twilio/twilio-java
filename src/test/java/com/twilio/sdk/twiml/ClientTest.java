@@ -15,7 +15,7 @@ public class ClientTest {
             .url("http://twilio.ca")
             .build();
 
-        Assert.assertEquals("<Client method=\"POST\" url=\"http://twilio.ca\" statusCallbackMethod=\"POST\">name</Client>", client.toXml());
+        Assert.assertEquals("<Client method=\"POST\" url=\"http://twilio.ca\">name</Client>", client.toXml());
     }
 
     @Test
@@ -25,6 +25,6 @@ public class ClientTest {
             .url("http://twilio.ca")
             .build();
 
-        Assert.assertEquals("%3CClient+method%3D%22POST%22+url%3D%22http%3A%2F%2Ftwilio.ca%22+statusCallbackMethod%3D%22POST%22%3Ename%3C%2FClient%3E", client.toUrl());
+        Assert.assertEquals("%3CClient+method%3D%22POST%22+url%3D%22http%3A%2F%2Ftwilio.ca%22%3Ename%3C%2FClient%3E", client.toUrl());
     }
 }

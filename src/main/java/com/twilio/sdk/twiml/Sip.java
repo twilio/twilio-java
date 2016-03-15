@@ -72,10 +72,10 @@ public class Sip extends TwiML {
         private String username;
         private String password;
         private String url;
-        private Method method = Method.POST;
+        private Method method;
         private Event statusCallbackEvent;
         private String statusCallback;
-        private Method statusCallbackMethod = Method.POST;
+        private Method statusCallbackMethod;
         private String uri;
 
         public Builder(String uri) {

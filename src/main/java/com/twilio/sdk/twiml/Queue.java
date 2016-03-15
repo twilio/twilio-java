@@ -55,7 +55,7 @@ public class Queue extends TwiML {
 
     public static class Builder {
         private String url;
-        private Method method = Method.POST;
+        private Method method;
         private String queueName;
         private String reservationSid;
         private String postWorkActivitySid;

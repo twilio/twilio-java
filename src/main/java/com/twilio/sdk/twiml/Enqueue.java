@@ -66,9 +66,9 @@ public class Enqueue extends TwiML {
 
     public static class Builder {
         private String action;
-        private Method method = Method.POST;
-        private String waitUrl = DEFAULT_WAIT_URL;
-        private Method waitUrlMethod = Method.POST;
+        private Method method;
+        private String waitUrl;
+        private Method waitUrlMethod;
         private String workflowSid;
         private String queueName;
 

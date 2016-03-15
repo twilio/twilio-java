@@ -49,7 +49,7 @@ public class Say extends TwiML {
     }
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int loop;
+    private final Integer loop;
 
     @JacksonXmlProperty(isAttribute = true)
     @JsonSerialize(using = ToStringSerializer.class)
@@ -69,7 +69,7 @@ public class Say extends TwiML {
         this.body = b.body;
     }
 
-    public int getLoop() {
+    public Integer getLoop() {
         return loop;
     }
 
@@ -86,9 +86,9 @@ public class Say extends TwiML {
     }
 
     public static class Builder {
-        private int loop = 1;
-        private Language language = Language.EN;
-        private Voice voice = Voice.MAN;
+        private Integer loop;
+        private Language language;
+        private Voice voice;
         private String body;
 
         public Builder(String body) {

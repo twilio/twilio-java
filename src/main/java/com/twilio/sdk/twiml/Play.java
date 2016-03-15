@@ -11,10 +11,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 public class Play extends TwiML {
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int loop;
+    private final Integer loop;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int digits;
+    private final Integer digits;
 
     @JacksonXmlText
     private final String body;
@@ -25,11 +25,11 @@ public class Play extends TwiML {
         this.body = b.body;
     }
 
-    public int getLoop() {
+    public Integer getLoop() {
         return loop;
     }
 
-    public int getDigits() {
+    public Integer getDigits() {
         return digits;
     }
 
@@ -38,8 +38,8 @@ public class Play extends TwiML {
     }
 
     public static class Builder {
-        private int loop = 1;
-        private int digits;
+        private Integer loop;
+        private Integer digits;
         private String body;
 
         public Builder(String body) {

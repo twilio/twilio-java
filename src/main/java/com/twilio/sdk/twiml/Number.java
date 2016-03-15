@@ -75,11 +75,11 @@ public class Number extends TwiML {
     public static class Builder {
         private String sendDigits;
         private String url;
-        private Method method = Method.POST;
+        private Method method;
         private String number;
         private Event statusCallbackEvent;
         private String statusCallback;
-        private Method statusCallbackMethod = Method.POST;
+        private Method statusCallbackMethod;
 
         public Builder(String number) {
             this.number = number;

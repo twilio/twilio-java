@@ -65,11 +65,11 @@ public class Client extends TwiML {
     }
 
     public static class Builder {
-        private Method method = Method.POST;
+        private Method method;
         private String url;
         private String name;
         private Event statusCallbackEvent;
-        private Method statusCallbackMethod = Method.POST;
+        private Method statusCallbackMethod;
         private String statusCallback;
 
         public Builder(String name) {

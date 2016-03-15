@@ -17,8 +17,8 @@ public class MessagingResponseTest {
 
         Assert.assertEquals(
             "<MessagingResponse>" +
-                "<Message method=\"POST\"/>" +
-                "<Redirect method=\"POST\"/>" +
+                "<Message/>" +
+                "<Redirect/>" +
             "</MessagingResponse>", response.toXml());
     }
 
@@ -29,6 +29,6 @@ public class MessagingResponseTest {
             .message(new Message.Builder().build())
             .build();
 
-        Assert.assertEquals("%3CMessagingResponse%3E%3CMessage+method%3D%22POST%22%2F%3E%3CRedirect+method%3D%22POST%22%2F%3E%3C%2FMessagingResponse%3E", response.toUrl());
+        Assert.assertEquals("%3CMessagingResponse%3E%3CMessage%2F%3E%3CRedirect%2F%3E%3C%2FMessagingResponse%3E", response.toUrl());
     }
 }

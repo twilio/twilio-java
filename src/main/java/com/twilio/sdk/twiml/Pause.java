@@ -10,18 +10,18 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 public class Pause extends TwiML {
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int length;
+    private final Integer length;
 
     private Pause(Builder b) {
         this.length = b.length;
     }
 
-    public int getLength() {
+    public Integer getLength() {
         return length;
     }
 
     public static class Builder {
-        private int length = 1;
+        private Integer length;
 
         public Builder length(int length) {
             this.length = length;

@@ -47,16 +47,16 @@ public class Conference extends TwiML {
     }
 
     @JacksonXmlProperty(isAttribute = true)
-    private final boolean muted;
+    private final Boolean muted;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final boolean startConferenceOnEnter;
+    private final Boolean startConferenceOnEnter;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final boolean endConferenceOnExit;
+    private final Boolean endConferenceOnExit;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int maxParticipants;
+    private final Integer maxParticipants;
 
     @JacksonXmlProperty(isAttribute = true)
     @JsonSerialize(using = ToStringSerializer.class)
@@ -96,19 +96,19 @@ public class Conference extends TwiML {
         this.name = b.name;
     }
 
-    public boolean isMuted() {
+    public Boolean isMuted() {
         return muted;
     }
 
-    public boolean isStartConferenceOnEnter() {
+    public Boolean isStartConferenceOnEnter() {
         return startConferenceOnEnter;
     }
 
-    public boolean isEndConferenceOnExit() {
+    public Boolean isEndConferenceOnExit() {
         return endConferenceOnExit;
     }
 
-    public int getMaxParticipants() {
+    public Integer getMaxParticipants() {
         return maxParticipants;
     }
 
@@ -141,14 +141,14 @@ public class Conference extends TwiML {
     }
 
     public static class Builder {
-        private boolean muted = false;
-        private boolean startConferenceOnEnter = true;
-        private boolean endConferenceOnExit = false;
-        private int maxParticipants = 40;
-        private Beep beep = Beep.TRUE;
-        private Record record = Record.DO_NOT_RECORD;
-        private Trim trim = Trim.TRIM_SILENCE;
-        private Method waitMethod = Method.POST;
+        private Boolean muted;
+        private Boolean startConferenceOnEnter;
+        private Boolean endConferenceOnExit;
+        private Integer maxParticipants;
+        private Beep beep;
+        private Record record;
+        private Trim trim;
+        private Method waitMethod;
         private String waitUrl;
         private String eventCallbackUrl;
         private String name;

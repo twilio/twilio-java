@@ -30,7 +30,7 @@ public class Redirect extends TwiML {
     }
 
     public static class Builder {
-        private Method method = Method.POST;
+        private Method method;
         private String url;
 
         public Builder method(Method method) {

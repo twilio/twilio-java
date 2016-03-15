@@ -64,7 +64,7 @@ public class Sms extends TwiML {
     public static class Builder {
         private String to;
         private String from;
-        private Method method = Method.POST;
+        private Method method;
         private String action;
         private String statusCallback;
         private String message;

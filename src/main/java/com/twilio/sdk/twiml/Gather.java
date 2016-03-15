@@ -10,10 +10,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 public class Gather extends TwiML {
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int timeout;
+    private final Integer timeout;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int numDigits;
+    private final Integer numDigits;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String action;
@@ -44,11 +44,11 @@ public class Gather extends TwiML {
         this.pause = b.pause;
     }
 
-    public int getTimeout() {
+    public Integer getTimeout() {
         return timeout;
     }
 
-    public int getNumDigits() {
+    public Integer getNumDigits() {
         return numDigits;
     }
 
@@ -77,11 +77,11 @@ public class Gather extends TwiML {
     }
 
     public static class Builder {
-        private int timeout = 5;
-        private int numDigits = Integer.MAX_VALUE;
+        private Integer timeout;
+        private Integer numDigits;
         private String action;
-        private Method method = Method.POST;
-        private String finishOnKey = "#";
+        private Method method;
+        private String finishOnKey;
         private Say say;
         private Play play;
         private Pause pause;

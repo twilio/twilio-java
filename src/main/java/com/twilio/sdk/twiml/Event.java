@@ -16,4 +16,6 @@ public enum Event {
     public String toString() {
         return this.value;
     }
+
+    //public static class Serializer
 }

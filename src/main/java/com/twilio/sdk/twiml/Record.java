@@ -12,16 +12,16 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 public class Record extends TwiML {
 
     @JacksonXmlProperty(isAttribute = true)
-    private final boolean transcribe;
+    private final Boolean transcribe;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final boolean playBeep;
+    private final Boolean playBeep;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int timeout;
+    private final Integer timeout;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int maxLength;
+    private final Integer maxLength;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String action;
@@ -51,19 +51,19 @@ public class Record extends TwiML {
         this.trim = b.trim;
     }
 
-    public boolean isTranscribe() {
+    public Boolean isTranscribe() {
         return transcribe;
     }
 
-    public boolean isPlayBeep() {
+    public Boolean isPlayBeep() {
         return playBeep;
     }
 
-    public int getTimeout() {
+    public Integer getTimeout() {
         return timeout;
     }
 
-    public int getMaxLength() {
+    public Integer getMaxLength() {
         return maxLength;
     }
 
@@ -88,15 +88,15 @@ public class Record extends TwiML {
     }
 
     public static class Builder {
-        private boolean transcribe = false;
-        private boolean playBeep = true;
-        private int timeout = 5;
-        private int maxLength = 3600;
+        private Boolean transcribe;
+        private Boolean playBeep;
+        private Integer timeout;
+        private Integer maxLength;
         private String action;
-        private Method method = Method.POST;
-        private String finishOnKey = "1234567890*#";
+        private Method method;
+        private String finishOnKey;
         private String transcribeCallback;
-        private Trim trim = Trim.TRIM_SILENCE;
+        private Trim trim;
 
         public Builder transcribe(boolean transcribe) {
             this.transcribe = transcribe;

@@ -46,13 +46,13 @@ public class Dial extends TwiML {
     }
 
     @JacksonXmlProperty(isAttribute = true)
-    private final boolean hangupOnStar;
+    private final Boolean hangupOnStar;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int timeout;
+    private final Integer timeout;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final int timeLimit;
+    private final Integer timeLimit;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String action;
@@ -106,15 +106,15 @@ public class Dial extends TwiML {
         this.phoneNumber = b.phoneNumber;
     }
 
-    public boolean isHangupOnStar() {
+    public Boolean isHangupOnStar() {
         return hangupOnStar;
     }
 
-    public int getTimeout() {
+    public Integer getTimeout() {
         return timeout;
     }
 
-    public int getTimeLimit() {
+    public Integer getTimeLimit() {
         return timeLimit;
     }
 
@@ -163,14 +163,14 @@ public class Dial extends TwiML {
     }
 
     public static class Builder {
-        private boolean hangupOnStar = false;
-        private int timeout = 30;
-        private int timeLimit = 14400;
+        private Boolean hangupOnStar;
+        private Integer timeout;
+        private Integer timeLimit;
         private String action;
-        private Method method = Method.POST;
+        private Method method;
         private String callerId;
-        private Record record = Record.DO_NOT_RECORD;
-        private Trim trim = Trim.TRIM_SILENCE;
+        private Record record;
+        private Trim trim;
         private Number number;
         private Conference conference;
         private Client client;

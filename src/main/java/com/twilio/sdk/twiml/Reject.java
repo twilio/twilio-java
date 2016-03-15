@@ -40,7 +40,7 @@ public class Reject extends TwiML {
     }
 
     public static class Builder {
-        private Reason reason = Reason.REJECTED;
+        private Reason reason;
 
         public Builder reason(Reason reason) {
             this.reason = reason;

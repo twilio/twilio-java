@@ -1,5 +1,6 @@
 package com.twilio.sdk.twiml;
 
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,9 +14,10 @@ public class ClientTest {
         Client client = new Client.Builder("name")
             .method(Method.POST)
             .url("http://twilio.ca")
+            .statusCallbackEvents(Lists.newArrayList(Event.ANSWERED, Event.INITIATED))
             .build();
 
-        Assert.assertEquals("<Client method=\"POST\" url=\"http://twilio.ca\">name</Client>", client.toXml());
+        Assert.assertEquals("<Client method=\"POST\" url=\"http://twilio.ca\" statusCallbackEvent=\"answered initiated\">name</Client>", client.toXml());
     }
 
     @Test

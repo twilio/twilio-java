@@ -1,5 +1,7 @@
 package com.twilio.sdk.twiml;
 
+import com.google.common.base.Function;
+
 public enum Event {
     INITIATED("initiated"),
     RINGING("ringing"),
@@ -17,5 +19,10 @@ public enum Event {
         return this.value;
     }
 
-    //public static class Serializer
+    public static final Function<Event, String> TO_STRING = new Function<Event, String>() {
+        @Override
+        public String apply(Event event) {
+            return event.toString();
+        }
+    };
 }

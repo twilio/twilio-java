@@ -1,5 +1,6 @@
 package com.twilio.sdk.twiml;
 
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class SipTest {
             .method(Method.GET)
             .password("hunter2")
             .statusCallback("http://twilio.com")
-            .statusCallbackEvent(Event.ANSWERED)
+            .statusCallbackEvents(Lists.newArrayList(Event.ANSWERED))
             .statusCallbackMethod(Method.POST)
             .url("http://twilio.ca")
             .username("johnny")
@@ -29,7 +30,7 @@ public class SipTest {
             .method(Method.GET)
             .password("hunter2")
             .statusCallback("http://twilio.com")
-            .statusCallbackEvent(Event.ANSWERED)
+            .statusCallbackEvents(Lists.newArrayList(Event.ANSWERED))
             .statusCallbackMethod(Method.POST)
             .url("http://twilio.ca")
             .username("johnny")

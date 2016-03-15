@@ -1,10 +1,13 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+
+import java.util.List;
 
 /**
  * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/client}.
@@ -18,9 +21,11 @@ public class Client extends TwiML {
     @JacksonXmlProperty(isAttribute = true)
     private final String url;
 
+    @JsonIgnore
+    private final List<Event> statusCallbackEvents;
+
     @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
-    private final Event statusCallbackEvent;
+    private final String statusCallbackEvent;
 
     @JacksonXmlProperty(isAttribute = true)
     private final Method statusCallbackMethod;
@@ -35,9 +40,15 @@ public class Client extends TwiML {
         this.method = b.method;
         this.url = b.url;
         this.name = b.name;
-        this.statusCallbackEvent = b.statusCallbackEvent;
+        this.statusCallbackEvents = b.statusCallbackEvents;
         this.statusCallbackMethod = b.statusCallbackMethod;
         this.statusCallback = b.statusCallback;
+
+        if (this.statusCallbackEvents != null) {
+            this.statusCallbackEvent = Joiner.on(" ").join(Lists.transform(this.statusCallbackEvents, Event.TO_STRING));
+        } else {
+            this.statusCallbackEvent = null;
+        }
     }
 
     public Method getMethod() {
@@ -52,8 +63,8 @@ public class Client extends TwiML {
         return name;
     }
 
-    public Event getStatusCallbackEvent() {
-        return statusCallbackEvent;
+    public List<Event> getStatusCallbackEvents() {
+        return statusCallbackEvents;
     }
 
     public Method getStatusCallbackMethod() {
@@ -68,7 +79,7 @@ public class Client extends TwiML {
         private Method method;
         private String url;
         private String name;
-        private Event statusCallbackEvent;
+        private List<Event> statusCallbackEvents;
         private Method statusCallbackMethod;
         private String statusCallback;
 
@@ -86,8 +97,8 @@ public class Client extends TwiML {
             return this;
         }
 
-        public Builder statusCallbackEvent(Event statusCallbackEvent) {
-            this.statusCallbackEvent = statusCallbackEvent;
+        public Builder statusCallbackEvents(List<Event> statusCallbackEvents) {
+            this.statusCallbackEvents = statusCallbackEvents;
             return this;
         }
 

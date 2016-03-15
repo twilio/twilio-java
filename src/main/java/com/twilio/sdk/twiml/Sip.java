@@ -1,10 +1,13 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+
+import java.util.List;
 
 /**
  * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/sip}.
@@ -24,9 +27,11 @@ public class Sip extends TwiML {
     @JacksonXmlProperty(isAttribute = true)
     private final Method method;
 
+    @JsonIgnore
+    private final List<Event> statusCallbackEvents;
+
     @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
-    private final Event statusCallbackEvent;
+    private final String statusCallbackEvent;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String statusCallback;
@@ -42,10 +47,16 @@ public class Sip extends TwiML {
         this.password = b.password;
         this.url = b.url;
         this.method = b.method;
-        this.statusCallbackEvent = b.statusCallbackEvent;
+        this.statusCallbackEvents = b.statusCallbackEvents;
         this.statusCallback = b.statusCallback;
         this.statusCallbackMethod = b.statusCallbackMethod;
         this.uri = b.uri;
+
+        if (this.statusCallbackEvents != null) {
+            this.statusCallbackEvent = Joiner.on(" ").join(Lists.transform(this.statusCallbackEvents, Event.TO_STRING));
+        } else {
+            this.statusCallbackEvent = null;
+        }
     }
 
     public String getUsername() {
@@ -68,12 +79,24 @@ public class Sip extends TwiML {
         return uri;
     }
 
+    public List<Event> getStatusCallbackEvents() {
+        return statusCallbackEvents;
+    }
+
+    public String getStatusCallback() {
+        return statusCallback;
+    }
+
+    public Method getStatusCallbackMethod() {
+        return statusCallbackMethod;
+    }
+
     public static class Builder {
         private String username;
         private String password;
         private String url;
         private Method method;
-        private Event statusCallbackEvent;
+        private List<Event> statusCallbackEvents;
         private String statusCallback;
         private Method statusCallbackMethod;
         private String uri;
@@ -102,8 +125,8 @@ public class Sip extends TwiML {
             return this;
         }
 
-        public Builder statusCallbackEvent(Event statusCallbackEvent) {
-            this.statusCallbackEvent = statusCallbackEvent;
+        public Builder statusCallbackEvents(List<Event> statusCallbackEvents) {
+            this.statusCallbackEvents = statusCallbackEvents;
             return this;
         }
 

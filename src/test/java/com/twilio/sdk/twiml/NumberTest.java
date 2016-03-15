@@ -1,5 +1,6 @@
 package com.twilio.sdk.twiml;
 
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class NumberTest {
             .method(Method.GET)
             .sendDigits("1234")
             .statusCallback("http://twilio.com")
-            .statusCallbackEvent(Event.INITIATED)
+            .statusCallbackEvents(Lists.newArrayList(Event.INITIATED))
             .statusCallbackMethod(Method.POST)
             .build();
 
@@ -27,7 +28,7 @@ public class NumberTest {
             .method(Method.GET)
             .sendDigits("1234")
             .statusCallback("http://twilio.com")
-            .statusCallbackEvent(Event.INITIATED)
+            .statusCallbackEvents(Lists.newArrayList(Event.INITIATED))
             .statusCallbackMethod(Method.POST)
             .build();
 

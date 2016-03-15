@@ -1,15 +1,15 @@
 package com.twilio.examples;
 
-import com.twilio.sdk.verbs.Conference;
-import com.twilio.sdk.verbs.Dial;
-import com.twilio.sdk.verbs.Gather;
-import com.twilio.sdk.verbs.Redirect;
-import com.twilio.sdk.verbs.Say;
-import com.twilio.sdk.verbs.TwiMLException;
-import com.twilio.sdk.verbs.TwiMLResponse;
+import com.twilio.sdk.twiml.Conference;
+import com.twilio.sdk.twiml.Dial;
+import com.twilio.sdk.twiml.Gather;
+import com.twilio.sdk.twiml.Redirect;
+import com.twilio.sdk.twiml.Say;
+import com.twilio.sdk.twiml.TwiMLException;
+import com.twilio.sdk.twiml.VoiceResponse;
 
 /*
-Copyright (c) 2012-2015 Twilio, Inc.
+Copyright (c) 2012-2016 Twilio, Inc.
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -36,76 +36,59 @@ OTHER DEALINGS IN THE SOFTWARE.
 /**
  * The Class TwiMLResponseExample.
  */
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
 public class TwiMLResponseExample {
 
     /**
-     * The main method.
+     * TwiML example usage.
      *
-     * @param args the arguments
+     * @param args command line args
+     * @throws TwiMLException if cannot generate TwiML
      */
-    public static void main(final String[] args) {
-        // Say, Dial, and Play
-        TwiMLResponse response = new TwiMLResponse();
-        Say say = new Say("Hello World");
-        say.setVoice("man");
-        say.setLoop(5);
+    public static void main(final String[] args) throws TwiMLException {
+        // Say
+        Say say = new Say.Builder("Hello World!")
+            .voice(Say.Voice.MAN)
+            .loop(5)
+            .build();
 
-        try {
-            response.append(say);
-        } catch (final TwiMLException e) {
-            e.printStackTrace();
-        }
+        VoiceResponse response = new VoiceResponse.Builder()
+            .say(say)
+            .build();
 
-        System.out.println(response.toXML());
+        System.out.println(response.toXml());
 
         // Gather, Redirect
-        response = new TwiMLResponse();
-        Gather gather = new Gather();
-        gather.setNumDigits(10);
-        say = new Say("Press 1");
-        Redirect redirect = new Redirect();
+        Gather gather = new Gather.Builder()
+            .numDigits(10)
+            .say(new Say.Builder("Press 1").build())
+            .build();
 
-        try {
-            gather.append(say);
-            response.append(gather);
-            response.append(redirect);
-        } catch (final TwiMLException e) {
-            e.printStackTrace();
-        }
+        Redirect redirect = new Redirect.Builder().build();
 
-        System.out.println(response.toEscapedXML());
+        response = new VoiceResponse.Builder()
+            .gather(gather)
+            .redirect(redirect)
+            .build();
+
+        System.out.println(response.toXml());
 
         // Conference
-        response = new TwiMLResponse();
-        Dial dial = new Dial();
-        dial.setCallerId("5555555555");
-        dial.setAction("foo");
-        dial.setHangupOnStar(true);
-        Conference conf = new Conference("MyRoom");
-        conf.setBeep(Conference.BEEP_TRUE);
+        Conference conference = new Conference.Builder("my room")
+            .beep(Conference.Beep.TRUE)
+            .build();
 
-        try {
-            dial.append(conf);
-            response.append(dial);
-        } catch (final TwiMLException e) {
-            e.printStackTrace();
-        }
+        Dial dial = new Dial.Builder()
+            .callerId("+1 (555) 555-5555")
+            .action("foo")
+            .hangupOnStar(true)
+            .conference(conference)
+            .build();
 
-        System.out.println(response.toEscapedXML());
+        response = new VoiceResponse.Builder()
+            .dial(dial)
+            .build();
 
-        // Set an arbitrary attribute / value pair
-        response = new TwiMLResponse();
-
-        redirect = new Redirect();
-        redirect.set("crazy", "delicious");
-
-        try {
-            response.append(redirect);
-        } catch (final TwiMLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(response.toEscapedXML());
-
+        System.out.println(response.toXml());
     }
 }

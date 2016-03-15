@@ -1,0 +1,64 @@
+package com.twilio.sdk.twiml;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+/**
+ * Test class for {@link VoiceResponse}.
+ */
+public class VoiceResponseTest {
+
+    @Test
+    public void testXml() throws TwiMLException {
+        VoiceResponse response = new VoiceResponse.Builder()
+            .redirect(new Redirect.Builder().build())
+            .dial(new Dial.Builder().build())
+            .enqueue(new Enqueue.Builder("enqueue").build())
+            .gather(new Gather.Builder().build())
+            .hangup(new Hangup())
+            .leave(new Leave())
+            .pause(new Pause.Builder().build())
+            .play(new Play.Builder("hola").build())
+            .record(new Record.Builder().build())
+            .reject(new Reject.Builder().build())
+            .say(new Say.Builder("hello world").build())
+            .sms(new Sms.Builder("test sms").build())
+            .build();
+
+        Assert.assertEquals(
+            "<VoiceResponse>" +
+                "<Dial/>" +
+                "<Enqueue>enqueue</Enqueue>" +
+                "<Gather/>" +
+                "<Hangup/>" +
+                "<Leave/>" +
+                "<Pause/>" +
+                "<Play>hola</Play>" +
+                "<Record/>" +
+                "<Redirect/>" +
+                "<Reject/>" +
+                "<Say>hello world</Say>" +
+                "<Sms>test sms</Sms>" +
+            "</VoiceResponse>", response.toXml());
+    }
+
+    @Test
+    public void testUrl() throws TwiMLException {
+        VoiceResponse response = new VoiceResponse.Builder()
+            .redirect(new Redirect.Builder().build())
+            .dial(new Dial.Builder().build())
+            .enqueue(new Enqueue.Builder("enqueue").build())
+            .gather(new Gather.Builder().build())
+            .hangup(new Hangup())
+            .leave(new Leave())
+            .pause(new Pause.Builder().build())
+            .play(new Play.Builder("hola").build())
+            .record(new Record.Builder().build())
+            .reject(new Reject.Builder().build())
+            .say(new Say.Builder("hello world").build())
+            .sms(new Sms.Builder("test sms").build())
+            .build();
+
+        Assert.assertEquals("%3CVoiceResponse%3E%3CDial%2F%3E%3CEnqueue%3Eenqueue%3C%2FEnqueue%3E%3CGather%2F%3E%3CHangup%2F%3E%3CLeave%2F%3E%3CPause%2F%3E%3CPlay%3Ehola%3C%2FPlay%3E%3CRecord%2F%3E%3CRedirect%2F%3E%3CReject%2F%3E%3CSay%3Ehello+world%3C%2FSay%3E%3CSms%3Etest+sms%3C%2FSms%3E%3C%2FVoiceResponse%3E", response.toUrl());
+    }
+}

@@ -28,7 +28,7 @@ public class Say extends TwiML {
 
     public enum Language {
         EN("en"),
-        EN_GN("en-gb"),
+        EN_GB("en-gb"),
         ES("es"),
         FR("fr"),
         DE("de");

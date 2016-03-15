@@ -2,6 +2,7 @@ package com.twilio.sdk.twiml;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 @JacksonXmlRootElement
 public class Redirect extends TwiML {
@@ -9,7 +10,7 @@ public class Redirect extends TwiML {
     @JacksonXmlProperty(isAttribute = true)
     private final Method method;
 
-    @JacksonXmlProperty
+    @JacksonXmlText
     private final String url;
 
     private Redirect(Builder b) {

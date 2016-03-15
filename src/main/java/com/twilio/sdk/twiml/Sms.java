@@ -5,7 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 @JacksonXmlRootElement
-public class Sms {
+public class Sms extends TwiML {
 
     @JacksonXmlProperty(isAttribute = true)
     private final String to;

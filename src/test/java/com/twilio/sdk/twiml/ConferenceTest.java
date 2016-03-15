@@ -17,12 +17,12 @@ public class ConferenceTest {
             .maxParticipants(10)
             .beep(Conference.Beep.FALSE)
             .record(Conference.Record.DO_NOT_RECORD)
-            .trim(Conference.Trim.DO_NOT_TRIM)
-            .waitMethod("POST")
-            .waitMethod("http://twilio.ca")
+            .trim(Trim.DO_NOT_TRIM)
+            .waitMethod(Method.POST)
+            .waitUrl("http://twilio.ca")
             .build();
 
-        Assert.assertEquals("<Conference muted=\"true\" startConferenceOnEnter=\"true\" endConferenceOnExit=\"false\" maxParticipants=\"10\" beep=\"beep!\" waitMethod=\"http://twilio.ca\">my conference</Conference>", conference.toXml());
+        Assert.assertEquals("<Conference muted=\"true\" startConferenceOnEnter=\"true\" endConferenceOnExit=\"false\" maxParticipants=\"10\" beep=\"false\" record=\"do-not-record\" trim=\"do-not-trim\" waitMethod=\"POST\" waitUrl=\"http://twilio.ca\">my conference</Conference>", conference.toXml());
     }
 
     @Test
@@ -34,11 +34,11 @@ public class ConferenceTest {
             .maxParticipants(10)
             .beep(Conference.Beep.FALSE)
             .record(Conference.Record.DO_NOT_RECORD)
-            .trim(Conference.Trim.DO_NOT_TRIM)
-            .waitMethod("POST")
-            .waitMethod("http://twilio.ca")
+            .trim(Trim.DO_NOT_TRIM)
+            .waitMethod(Method.POST)
+            .waitUrl("http://twilio.ca")
             .build();
 
-        Assert.assertEquals("%3CConference+muted%3D%22true%22+startConferenceOnEnter%3D%22true%22+endConferenceOnExit%3D%22false%22+maxParticipants%3D%2210%22+beep%3D%22FALSE%22+record%3D%22DO_NOT_RECORD%22+trim%3D%22DO_NOT_TRIM%22+waitMethod%3D%22http%3A%2F%2Ftwilio.ca%22%3Emy+conference%3C%2FConference%3E\n", conference.toUrl());
+        Assert.assertEquals("%3CConference+muted%3D%22true%22+startConferenceOnEnter%3D%22true%22+endConferenceOnExit%3D%22false%22+maxParticipants%3D%2210%22+beep%3D%22false%22+record%3D%22do-not-record%22+trim%3D%22do-not-trim%22+waitMethod%3D%22POST%22+waitUrl%3D%22http%3A%2F%2Ftwilio.ca%22%3Emy+conference%3C%2FConference%3E", conference.toUrl());
     }
 }

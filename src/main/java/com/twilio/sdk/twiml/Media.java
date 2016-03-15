@@ -4,7 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 @JacksonXmlRootElement
-public class Media extends TwiML{
+public class Media extends TwiML {
 
     @JacksonXmlText
     private final String mediaUrl;

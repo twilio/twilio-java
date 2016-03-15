@@ -14,7 +14,7 @@ public class Sms {
     private final String from;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String action;
@@ -25,13 +25,13 @@ public class Sms {
     @JacksonXmlText
     private final String message;
 
-    public Sms(String to, String from, String method, String action, String statusCallback, String message) {
-        this.to = to;
-        this.from = from;
-        this.method = method;
-        this.action = action;
-        this.statusCallback = statusCallback;
-        this.message = message;
+    public Sms(Builder b) {
+        this.to = b.to;
+        this.from = b.from;
+        this.method = b.method;
+        this.action = b.action;
+        this.statusCallback = b.statusCallback;
+        this.message = b.message;
     }
 
     public String getTo() {
@@ -42,7 +42,7 @@ public class Sms {
         return from;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
@@ -61,7 +61,7 @@ public class Sms {
     public static class Builder {
         private String to;
         private String from;
-        private String method;
+        private Method method = Method.POST;
         private String action;
         private String statusCallback;
         private String message;
@@ -80,7 +80,7 @@ public class Sms {
             return this;
         }
 
-        public Builder method(String method) {
+        public Builder method(Method method) {
             this.method = method;
             return this;
         }
@@ -96,7 +96,7 @@ public class Sms {
         }
 
         public Sms build() {
-            return new Sms(to, from, method, action, statusCallback, message);
+            return new Sms(this);
         }
     }
 }

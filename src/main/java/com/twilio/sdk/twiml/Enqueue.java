@@ -8,34 +8,40 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 @JacksonXmlRootElement
 public class Enqueue extends TwiML {
 
+    private static final String DEFAULT_WAIT_URL = "http://s3.amazonaws.com/com.twilio.sounds.music/index.xml";
+
     @JacksonXmlProperty(isAttribute = true)
     private final String action;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String waitUrl;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String waitUrlMethod;
+    private final Method waitUrlMethod;
+
+    @JacksonXmlProperty(isAttribute = true)
+    private final String workflowSid;
 
     @JacksonXmlText
     private final String queueName;
 
-    private Enqueue(String action, String method, String waitUrl, String waitUrlMethod, String queueName) {
-        this.action = action;
-        this.method = method;
-        this.waitUrl = waitUrl;
-        this.waitUrlMethod = waitUrlMethod;
-        this.queueName = queueName;
+    private Enqueue(Builder b) {
+        this.action = b.action;
+        this.method = b.method;
+        this.waitUrl = b.waitUrl;
+        this.waitUrlMethod = b.waitUrlMethod;
+        this.workflowSid = b.workflowSid;
+        this.queueName = b.queueName;
     }
 
     public String getAction() {
         return action;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
@@ -43,8 +49,12 @@ public class Enqueue extends TwiML {
         return waitUrl;
     }
 
-    public String getWaitUrlMethod() {
+    public Method getWaitUrlMethod() {
         return waitUrlMethod;
+    }
+
+    public String getWorkflowSid() {
+        return workflowSid;
     }
 
     public String getQueueName() {
@@ -53,33 +63,43 @@ public class Enqueue extends TwiML {
 
     public static class Builder {
         private String action;
-        private String method;
-        private String waitUrl;
-        private String waitUrlMethod;
+        private Method method = Method.POST;
+        private String waitUrl = DEFAULT_WAIT_URL;
+        private Method waitUrlMethod = Method.POST;
+        private String workflowSid;
         private String queueName;
 
         public Builder(String queueName) {
             this.queueName = queueName;
         }
 
-        public void action(String action) {
+        public Builder action(String action) {
             this.action = action;
+            return this;
         }
 
-        public void method(String method) {
+        public Builder method(Method method) {
             this.method = method;
+            return this;
         }
 
-        public void waitUrl(String waitUrl) {
+        public Builder waitUrl(String waitUrl) {
             this.waitUrl = waitUrl;
+            return this;
         }
 
-        public void waitUrlMethod(String waitUrlMethod) {
+        public Builder waitUrlMethod(Method waitUrlMethod) {
             this.waitUrlMethod = waitUrlMethod;
+            return this;
+        }
+
+        public Builder workflowSid(String workflowSid) {
+            this.workflowSid = workflowSid;
+            return this;
         }
 
         public Enqueue build() {
-            return new Enqueue(action, method, waitUrl, waitUrlMethod, queueName);
+            return new Enqueue(this);
         }
     }
 }

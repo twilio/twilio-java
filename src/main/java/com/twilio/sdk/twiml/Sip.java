@@ -1,12 +1,13 @@
 package com.twilio.sdk.twiml;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 @JacksonXmlRootElement
 public class Sip extends TwiML {
-
 
     @JacksonXmlProperty(isAttribute = true)
     private final String username;
@@ -18,21 +19,30 @@ public class Sip extends TwiML {
     private final String url;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
 
-    @JacksonXmlProperty(localName = "Uri")
-    private final Uri obj;
+    @JacksonXmlProperty(isAttribute = true)
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Event statusCallbackEvent;
+
+    @JacksonXmlProperty(isAttribute = true)
+    private final String statusCallback;
+
+    @JacksonXmlProperty(isAttribute = true)
+    private final Method statusCallbackMethod;
 
     @JacksonXmlText
     private final String uri;
 
-    private Sip(String username, String password, String url, String method, Uri obj, String uri) {
-        this.username = username;
-        this.password = password;
-        this.url = url;
-        this.method = method;
-        this.obj = obj;
-        this.uri = uri;
+    private Sip(Builder b) {
+        this.username = b.username;
+        this.password = b.password;
+        this.url = b.url;
+        this.method = b.method;
+        this.statusCallbackEvent = b.statusCallbackEvent;
+        this.statusCallback = b.statusCallback;
+        this.statusCallbackMethod = b.statusCallbackMethod;
+        this.uri = b.uri;
     }
 
     public String getUsername() {
@@ -43,20 +53,12 @@ public class Sip extends TwiML {
         return password;
     }
 
-    /**
-     * Returns the waiting url.
-     * @return the waiting url
-     */
     public String getUrl() {
         return url;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
-    }
-
-    public Uri getUriObj() {
-        return obj;
     }
 
     public String getUri() {
@@ -67,9 +69,15 @@ public class Sip extends TwiML {
         private String username;
         private String password;
         private String url;
-        private String method;
-        private Uri obj;
+        private Method method = Method.POST;
+        private Event statusCallbackEvent;
+        private String statusCallback;
+        private Method statusCallbackMethod = Method.POST;
         private String uri;
+
+        public Builder(String uri) {
+            this.uri = uri;
+        }
 
         public Builder username(String username) {
             this.username = username;
@@ -86,23 +94,28 @@ public class Sip extends TwiML {
             return this;
         }
 
-        public Builder method(String method) {
+        public Builder method(Method method) {
             this.method = method;
             return this;
         }
 
-        public Builder uriObj(Uri obj) {
-            this.obj = obj;
+        public Builder statusCallbackEvent(Event statusCallbackEvent) {
+            this.statusCallbackEvent = statusCallbackEvent;
             return this;
         }
 
-        public Builder uri(String uri) {
-            this.uri = uri;
+        public Builder statusCallback(String statusCallback) {
+            this.statusCallback = statusCallback;
+            return this;
+        }
+
+        public Builder statusCallbackMethod(Method statusCallbackMethod) {
+            this.statusCallbackMethod = statusCallbackMethod;
             return this;
         }
 
         public Sip build() {
-            return new Sip(username, password, url, method, obj, uri);
+            return new Sip(this);
         }
     }
 }

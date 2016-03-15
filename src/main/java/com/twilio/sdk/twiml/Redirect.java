@@ -7,17 +7,17 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 public class Redirect extends TwiML {
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
 
     @JacksonXmlProperty
     private final String url;
 
-    private Redirect(String method, String url) {
-        this.method = method;
-        this.url = url;
+    private Redirect(Builder b) {
+        this.method = b.method;
+        this.url = b.url;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
@@ -26,10 +26,10 @@ public class Redirect extends TwiML {
     }
 
     public static class Builder {
-        private String method;
+        private Method method = Method.POST;
         private String url;
 
-        public Builder method(String method) {
+        public Builder method(Method method) {
             this.method = method;
             return this;
         }
@@ -40,7 +40,7 @@ public class Redirect extends TwiML {
         }
 
         public Redirect build() {
-            return new Redirect(method, url);
+            return new Redirect(this);
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.twilio.sdk.twiml;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
@@ -7,34 +9,72 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 @JacksonXmlRootElement
 public class Say extends TwiML {
 
+    public enum Voice {
+        MAN("man"),
+        WOMAN("woman"),
+        ALICE("alice");
+
+        private final String value;
+
+        Voice(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
+
+    public enum Language {
+        EN("en"),
+        EN_GN("en-gb"),
+        ES("es"),
+        FR("fr"),
+        DE("de");
+
+        private final String value;
+
+        Language(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
+
     @JacksonXmlProperty(isAttribute = true)
     private final int loop;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String language;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Language language;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String voice;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Voice voice;
 
     @JacksonXmlText
     private final String body;
 
-    private Say(int loop, String language, String voice, String body) {
-        this.loop = loop;
-        this.language = language;
-        this.voice = voice;
-        this.body = body;
+    private Say(Builder b) {
+        this.loop = b.loop;
+        this.language = b.language;
+        this.voice = b.voice;
+        this.body = b.body;
     }
 
     public int getLoop() {
         return loop;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
-    public String getVoice() {
+    public Voice getVoice() {
         return voice;
     }
 
@@ -43,9 +83,9 @@ public class Say extends TwiML {
     }
 
     public static class Builder {
-        private int loop;
-        private String language;
-        private String voice;
+        private int loop = 1;
+        private Language language = Language.EN;
+        private Voice voice = Voice.MAN;
         private String body;
 
         public Builder(String body) {
@@ -57,18 +97,18 @@ public class Say extends TwiML {
             return this;
         }
 
-        public Builder language(String language) {
+        public Builder language(Language language) {
             this.language = language;
             return this;
         }
 
-        public Builder voice(String voice) {
+        public Builder voice(Voice voice) {
             this.voice = voice;
             return this;
         }
 
         public Say build() {
-            return new Say(loop, language, voice, body);
+            return new Say(this);
         }
     }
 }

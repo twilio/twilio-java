@@ -9,11 +9,24 @@ public class Pause extends TwiML {
     @JacksonXmlProperty(isAttribute = true)
     private final int length;
 
-    public Pause(int length) {
-        this.length = length;
+    private Pause(Builder b) {
+        this.length = b.length;
     }
 
     public int getLength() {
         return length;
+    }
+
+    public static class Builder {
+        private int length = 1;
+
+        public Builder length(int length) {
+            this.length = length;
+            return this;
+        }
+
+        public Pause build() {
+            return new Pause(this);
+        }
     }
 }

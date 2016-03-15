@@ -4,13 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JacksonXmlRootElement
-public class Response extends TwiML {
-
-    @JacksonXmlProperty(localName = "Client")
-    private final Client client;
-
-    @JacksonXmlProperty(localName = "Conference")
-    private final Conference conference;
+public class VoiceResponse extends TwiML {
 
     @JacksonXmlProperty(localName = "Dial")
     private final Dial dial;
@@ -27,20 +21,11 @@ public class Response extends TwiML {
     @JacksonXmlProperty(localName = "Leave")
     private final Leave leave;
 
-    @JacksonXmlProperty(localName = "Message")
-    private final Message message;
-
-    @JacksonXmlProperty(localName = "Number")
-    private final Number number;
-
     @JacksonXmlProperty(localName = "Pause")
     private final Pause pause;
 
     @JacksonXmlProperty(localName = "Play")
     private final Play play;
-
-    @JacksonXmlProperty(localName = "Queue")
-    private final Queue queue;
 
     @JacksonXmlProperty(localName = "Record")
     private final Record record;
@@ -57,32 +42,19 @@ public class Response extends TwiML {
     @JacksonXmlProperty(localName = "Sms")
     private final Sms sms;
 
-    private Response(Builder builder) {
-        this.client = builder.client;
-        this.conference = builder.conference;
+    private VoiceResponse(Builder builder) {
         this.dial = builder.dial;
         this.enqueue = builder.enqueue;
         this.gather = builder.gather;
         this.hangup = builder.hangup;
         this.leave = builder.leave;
-        this.message = builder.message;
-        this.number = builder.number;
         this.pause = builder.pause;
         this.play = builder.play;
-        this.queue = builder.queue;
         this.record = builder.record;
         this.redirect = builder.redirect;
         this.reject = builder.reject;
         this.say = builder.say;
         this.sms = builder.sms;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public Conference getConference() {
-        return conference;
     }
 
     public Dial getDial() {
@@ -105,24 +77,12 @@ public class Response extends TwiML {
         return leave;
     }
 
-    public Message getMessage() {
-        return message;
-    }
-
-    public Number getNumber() {
-        return number;
-    }
-
     public Pause getPause() {
         return pause;
     }
 
     public Play getPlay() {
         return play;
-    }
-
-    public Queue getQueue() {
-        return queue;
     }
 
     public Record getRecord() {
@@ -146,33 +106,18 @@ public class Response extends TwiML {
     }
 
     public static class Builder {
-        private Client client;
-        private Conference conference;
         private Dial dial;
         private Enqueue enqueue;
         private Gather gather;
         private Hangup hangup;
         private Leave leave;
-        private Message message;
-        private Number number;
         private Pause pause;
         private Play play;
-        private Queue queue;
         private Record record;
         private Redirect redirect;
         private Reject reject;
         private Say say;
         private Sms sms;
-
-        public Builder client(Client client) {
-            this.client = client;
-            return this;
-        }
-
-        public Builder conference(Conference conference) {
-            this.conference = conference;
-            return this;
-        }
 
         public Builder dial(Dial dial) {
             this.dial = dial;
@@ -199,16 +144,6 @@ public class Response extends TwiML {
             return this;
         }
 
-        public Builder message(Message message) {
-            this.message = message;
-            return this;
-        }
-
-        public Builder number(Number number) {
-            this.number = number;
-            return this;
-        }
-
         public Builder pause(Pause pause) {
             this.pause = pause;
             return this;
@@ -216,11 +151,6 @@ public class Response extends TwiML {
 
         public Builder play(Play play) {
             this.play = play;
-            return this;
-        }
-
-        public Builder queue(Queue queue) {
-            this.queue = queue;
             return this;
         }
 
@@ -249,23 +179,8 @@ public class Response extends TwiML {
             return this;
         }
 
-        public Response build() {
-            return new Response(this);
+        public VoiceResponse build() {
+            return new VoiceResponse(this);
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        Response r = new Builder()
-            .sms(new Sms.Builder("Hi bob")
-                .from("alice")
-                .to("bob")
-                .build()
-            ).leave(new Leave())
-            .say(new Say.Builder("hi")
-                .loop(4)
-                .build()
-            ).build();
-
-        System.out.println(r.toXml());
     }
 }

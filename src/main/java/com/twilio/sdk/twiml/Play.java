@@ -10,16 +10,24 @@ public class Play extends TwiML {
     @JacksonXmlProperty(isAttribute = true)
     private final int loop;
 
+    @JacksonXmlProperty(isAttribute = true)
+    private final int digits;
+
     @JacksonXmlText
     private final String body;
 
-    private Play(int loop, String body) {
-        this.loop = loop;
-        this.body = body;
+    private Play(Builder b) {
+        this.loop = b.loop;
+        this.digits = b.digits;
+        this.body = b.body;
     }
 
     public int getLoop() {
         return loop;
+    }
+
+    public int getDigits() {
+        return digits;
     }
 
     public String getBody() {
@@ -27,7 +35,8 @@ public class Play extends TwiML {
     }
 
     public static class Builder {
-        private int loop;
+        private int loop = 1;
+        private int digits;
         private String body;
 
         public Builder(String body) {
@@ -39,8 +48,13 @@ public class Play extends TwiML {
             return this;
         }
 
+        public Builder digits(int digits) {
+            this.digits = digits;
+            return this;
+        }
+
         public Play build() {
-            return new Play(loop, body);
+            return new Play(this);
         }
     }
 }

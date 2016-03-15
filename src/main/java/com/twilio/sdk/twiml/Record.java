@@ -1,5 +1,7 @@
 package com.twilio.sdk.twiml;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
@@ -22,7 +24,7 @@ public class Record extends TwiML {
     private final String action;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String finishOnKey;
@@ -30,24 +32,20 @@ public class Record extends TwiML {
     @JacksonXmlProperty(isAttribute = true)
     private final String transcribeCallback;
 
-    private Record(
-        boolean transcribe,
-        boolean playBeep,
-        int timeout,
-        int maxLength,
-        String action,
-        String method,
-        String finishOnKey,
-        String transcribeCallback
-    ) {
-        this.transcribe = transcribe;
-        this.playBeep = playBeep;
-        this.timeout = timeout;
-        this.maxLength = maxLength;
-        this.action = action;
-        this.method = method;
-        this.finishOnKey = finishOnKey;
-        this.transcribeCallback = transcribeCallback;
+    @JacksonXmlProperty(isAttribute = true)
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Trim trim;
+
+    private Record(Builder b) {
+        this.transcribe = b.transcribe;
+        this.playBeep = b.playBeep;
+        this.timeout = b.timeout;
+        this.maxLength = b.maxLength;
+        this.action = b.action;
+        this.method = b.method;
+        this.finishOnKey = b.finishOnKey;
+        this.transcribeCallback = b.transcribeCallback;
+        this.trim = b.trim;
     }
 
     public boolean isTranscribe() {
@@ -70,7 +68,7 @@ public class Record extends TwiML {
         return action;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
@@ -82,15 +80,20 @@ public class Record extends TwiML {
         return transcribeCallback;
     }
 
+    public Trim getTrim() {
+        return trim;
+    }
+
     public static class Builder {
-        private boolean transcribe;
-        private boolean playBeep;
-        private int timeout;
-        private int maxLength;
+        private boolean transcribe = false;
+        private boolean playBeep = true;
+        private int timeout = 5;
+        private int maxLength = 3600;
         private String action;
-        private String method;
-        private String finishOnKey;
+        private Method method = Method.POST;
+        private String finishOnKey = "1234567890*#";
         private String transcribeCallback;
+        private Trim trim = Trim.TRIM_SILENCE;
 
         public Builder transcribe(boolean transcribe) {
             this.transcribe = transcribe;
@@ -117,7 +120,7 @@ public class Record extends TwiML {
             return this;
         }
 
-        public Builder method(String method) {
+        public Builder method(Method method) {
             this.method = method;
             return this;
         }
@@ -132,17 +135,13 @@ public class Record extends TwiML {
             return this;
         }
 
+        public Builder trim(Trim trim) {
+            this.trim = trim;
+            return this;
+        }
+
         public Record build() {
-            return new Record(
-                transcribe,
-                playBeep,
-                timeout,
-                maxLength,
-                action,
-                method,
-                finishOnKey,
-                transcribeCallback
-            );
+            return new Record(this);
         }
     }
 }

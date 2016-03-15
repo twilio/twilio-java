@@ -14,7 +14,7 @@ public class Message extends TwiML {
     private final String from;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String action;
@@ -31,24 +31,15 @@ public class Message extends TwiML {
     @JacksonXmlText
     private final String message;
 
-    private Message(
-        String to,
-        String from,
-        String method,
-        String action,
-        String statusCallback,
-        Body body,
-        Media media,
-        String message
-    ) {
-        this.to = to;
-        this.from = from;
-        this.method = method;
-        this.action = action;
-        this.statusCallback = statusCallback;
-        this.body = body;
-        this.media = media;
-        this.message = message;
+    private Message(Builder b) {
+        this.to = b.to;
+        this.from = b.from;
+        this.method = b.method;
+        this.action = b.action;
+        this.statusCallback = b.statusCallback;
+        this.body = b.body;
+        this.media = b.media;
+        this.message = b.message;
     }
 
     public String getTo() {
@@ -59,7 +50,7 @@ public class Message extends TwiML {
         return from;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
@@ -86,7 +77,7 @@ public class Message extends TwiML {
     public static class Builder {
         private String to;
         private String from;
-        private String method;
+        private Method method = Method.POST;
         private String action;
         private String statusCallback;
         private Body body;
@@ -103,7 +94,7 @@ public class Message extends TwiML {
             return this;
         }
 
-        public Builder method(String method) {
+        public Builder method(Method method) {
             this.method = method;
             return this;
         }
@@ -134,7 +125,7 @@ public class Message extends TwiML {
         }
 
         public Message build() {
-            return new Message(to, from, method, action, statusCallback, body, media, message);
+            return new Message(this);
         }
     }
 }

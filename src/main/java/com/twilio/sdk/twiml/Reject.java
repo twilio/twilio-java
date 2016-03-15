@@ -1,19 +1,51 @@
 package com.twilio.sdk.twiml;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JacksonXmlRootElement
 public class Reject extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
-    private final String reason;
+    public enum Reason {
+        REJECTED("rejected"),
+        BUSY("busy");
 
-    public Reject(String reason) {
-        this.reason = reason;
+        private final String value;
+
+        Reason(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
     }
 
-    public String getReason() {
+    @JacksonXmlProperty(isAttribute = true)
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Reason reason;
+
+    private Reject(Builder b) {
+        this.reason = b.reason;
+    }
+
+    public Reason getReason() {
         return reason;
+    }
+
+    public static class Builder {
+        private Reason reason = Reason.REJECTED;
+
+        public Builder reason(Reason reason) {
+            this.reason = reason;
+            return this;
+        }
+
+        public Reject build() {
+            return new Reject(this);
+        }
     }
 }

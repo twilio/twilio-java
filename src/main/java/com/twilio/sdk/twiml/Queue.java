@@ -11,22 +11,30 @@ public class Queue extends TwiML {
     private final String url;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
+
+    @JacksonXmlProperty(isAttribute = true)
+    private final String reservationSid;
+
+    @JacksonXmlProperty(isAttribute = true)
+    private final String postWorkActivitySid;
 
     @JacksonXmlText
     private final String queueName;
 
-    private Queue(String url, String method, String queueName) {
-        this.url = url;
-        this.method = method;
-        this.queueName = queueName;
+    private Queue(Builder b) {
+        this.url = b.url;
+        this.method = b.method;
+        this.queueName = b.queueName;
+        this.reservationSid = b.reservationSid;
+        this.postWorkActivitySid = b.postWorkActivitySid;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
@@ -34,10 +42,20 @@ public class Queue extends TwiML {
         return queueName;
     }
 
+    public String getReservationSid() {
+        return reservationSid;
+    }
+
+    public String getPostWorkActivitySid() {
+        return postWorkActivitySid;
+    }
+
     public static class Builder {
         private String url;
-        private String method;
+        private Method method = Method.POST;
         private String queueName;
+        private String reservationSid;
+        private String postWorkActivitySid;
 
         public Builder(String queueName) {
             this.queueName = queueName;
@@ -48,13 +66,23 @@ public class Queue extends TwiML {
             return this;
         }
 
-        public Builder method(String method) {
+        public Builder method(Method method) {
             this.method = method;
             return this;
         }
 
+        public Builder reservationSid(String reservationSid) {
+            this.reservationSid = reservationSid;
+            return this;
+        }
+
+        public Builder postWorkActivitySid(String postWorkActivitySid) {
+            this.postWorkActivitySid = postWorkActivitySid;
+            return this;
+        }
+
         public Queue build() {
-            return new Queue(url, method, queueName);
+            return new Queue(this);
         }
     }
 }

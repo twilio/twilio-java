@@ -1,11 +1,46 @@
 package com.twilio.sdk.twiml;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 @JacksonXmlRootElement
 public class Dial extends TwiML {
+
+    public enum Record {
+        DO_NOT_RECORD("do-not-record"),
+        RECORD_FROM_RINGING("record-from-ringing"),
+        RECORD_FROM_ANSWER("record-from-answer");
+
+        private final String value;
+
+        private Record(final String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
+
+    public enum Trim {
+        TRIM_SILENCE("trim-silence"),
+        DO_NOT_TRIM("do-not-trim");
+
+        private final String value;
+
+        private Trim(final String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
 
     @JacksonXmlProperty(isAttribute = true)
     private final boolean hangupOnStar;
@@ -20,10 +55,18 @@ public class Dial extends TwiML {
     private final String action;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String callerId;
+
+    @JacksonXmlProperty(isAttribute = true)
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Record record;
+
+    @JacksonXmlProperty(isAttribute = true)
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Trim trim;
 
     @JacksonXmlProperty(localName = "Number")
     private final Number number;
@@ -43,32 +86,21 @@ public class Dial extends TwiML {
     @JacksonXmlText
     private final String phoneNumber;
 
-    private Dial(
-        boolean hangupOnStar,
-        int timeout,
-        int timeLimit,
-        String action,
-        String method,
-        String callerId,
-        Number number,
-        Conference conference,
-        Client client,
-        Queue queue,
-        Sip sip,
-        String phoneNumber
-    ) {
-        this.hangupOnStar = hangupOnStar;
-        this.timeout = timeout;
-        this.timeLimit = timeLimit;
-        this.action = action;
-        this.method = method;
-        this.callerId = callerId;
-        this.number = number;
-        this.conference = conference;
-        this.client = client;
-        this.queue = queue;
-        this.sip = sip;
-        this.phoneNumber = phoneNumber;
+    private Dial(Builder b) {
+        this.hangupOnStar = b.hangupOnStar;
+        this.timeout = b.timeout;
+        this.timeLimit = b.timeLimit;
+        this.action = b.action;
+        this.method = b.method;
+        this.callerId = b.callerId;
+        this.record = b.record;
+        this.trim = b.trim;
+        this.number = b.number;
+        this.conference = b.conference;
+        this.client = b.client;
+        this.queue = b.queue;
+        this.sip = b.sip;
+        this.phoneNumber = b.phoneNumber;
     }
 
     public boolean isHangupOnStar() {
@@ -87,12 +119,20 @@ public class Dial extends TwiML {
         return action;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
     public String getCallerId() {
         return callerId;
+    }
+
+    public Record getRecord() {
+        return record;
+    }
+
+    public Trim getTrim() {
+        return trim;
     }
 
     public Number getNumber() {
@@ -120,12 +160,14 @@ public class Dial extends TwiML {
     }
 
     public static class Builder {
-        private boolean hangupOnStar;
-        private int timeout;
-        private int timeLimit;
+        private boolean hangupOnStar = false;
+        private int timeout = 30;
+        private int timeLimit = 14400;
         private String action;
-        private String method;
+        private Method method = Method.POST;
         private String callerId;
+        private Record record = Record.DO_NOT_RECORD;
+        private Trim trim = Trim.TRIM_SILENCE;
         private Number number;
         private Conference conference;
         private Client client;
@@ -153,13 +195,23 @@ public class Dial extends TwiML {
             return this;
         }
 
-        public Builder method(String method) {
+        public Builder method(Method method) {
             this.method = method;
             return this;
         }
 
         public Builder callerId(String callerId) {
             this.callerId = callerId;
+            return this;
+        }
+
+        public Builder trim(Trim trim) {
+            this.trim = trim;
+            return this;
+        }
+
+        public Builder record(Record record) {
+            this.record = record;
             return this;
         }
 
@@ -194,20 +246,7 @@ public class Dial extends TwiML {
         }
 
         public Dial build() {
-            return new Dial(
-                hangupOnStar,
-                timeout,
-                timeLimit,
-                action,
-                method,
-                callerId,
-                number,
-                conference,
-                client,
-                queue,
-                sip,
-                phoneNumber
-            );
+            return new Dial(this);
         }
     }
 }

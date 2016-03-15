@@ -1,11 +1,47 @@
 package com.twilio.sdk.twiml;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 @JacksonXmlRootElement
 public class Conference extends TwiML {
+
+    public enum Beep {
+        TRUE("true"),
+        FALSE("false"),
+        ON_ENTER("onEnter"),
+        ON_EXIT("onExit");
+
+        private final String value;
+
+        Beep(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
+
+    public enum Record {
+        DO_NOT_RECORD("do-not-record"),
+        RECORD_FROM_START("record-from-start");
+
+        private final String value;
+
+        private Record(final String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
 
     @JacksonXmlProperty(isAttribute = true)
     private final boolean muted;
@@ -14,41 +50,47 @@ public class Conference extends TwiML {
     private final boolean startConferenceOnEnter;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final boolean endConferenceonExit;
+    private final boolean endConferenceOnExit;
 
     @JacksonXmlProperty(isAttribute = true)
     private final int maxParticipants;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String beep;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Beep beep;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String waitMethod;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Record record;
+
+    @JacksonXmlProperty(isAttribute = true)
+    @JsonSerialize(using = ToStringSerializer.class)
+    private final Trim trim;
+
+    @JacksonXmlProperty(isAttribute = true)
+    private final Method waitMethod;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String waitUrl;
 
+    @JacksonXmlProperty(isAttribute = true)
+    private final String eventCallbackUrl;
+
     @JacksonXmlText
     private final String name;
 
-    private Conference(
-        boolean muted,
-        boolean startConferenceOnEnter,
-        boolean endConferenceonExit,
-        int maxParticipants,
-        String beep,
-        String waitMethod,
-        String waitUrl,
-        String name
-    ) {
-        this.muted = muted;
-        this.startConferenceOnEnter = startConferenceOnEnter;
-        this.endConferenceonExit = endConferenceonExit;
-        this.maxParticipants = maxParticipants;
-        this.beep = beep;
-        this.waitMethod = waitMethod;
-        this.waitUrl = waitUrl;
-        this.name = name;
+    private Conference(Builder b) {
+        this.muted = b.muted;
+        this.startConferenceOnEnter = b.startConferenceOnEnter;
+        this.endConferenceOnExit = b.endConferenceOnExit;
+        this.maxParticipants = b.maxParticipants;
+        this.beep = b.beep;
+        this.record = b.record;
+        this.trim = b.trim;
+        this.waitMethod = b.waitMethod;
+        this.waitUrl = b.waitUrl;
+        this.eventCallbackUrl = b.eventCallbackUrl;
+        this.name = b.name;
     }
 
     public boolean isMuted() {
@@ -59,19 +101,27 @@ public class Conference extends TwiML {
         return startConferenceOnEnter;
     }
 
-    public boolean isEndConferenceonExit() {
-        return endConferenceonExit;
+    public boolean isEndConferenceOnExit() {
+        return endConferenceOnExit;
     }
 
     public int getMaxParticipants() {
         return maxParticipants;
     }
 
-    public String getBeep() {
+    public Beep getBeep() {
         return beep;
     }
 
-    public String getWaitMethod() {
+    public Record getRecord() {
+        return record;
+    }
+
+    public Trim getTrim() {
+        return trim;
+    }
+
+    public Method getWaitMethod() {
         return waitMethod;
     }
 
@@ -79,18 +129,25 @@ public class Conference extends TwiML {
         return waitUrl;
     }
 
+    public String getEventCallbackUrl() {
+        return eventCallbackUrl;
+    }
+
     public String getName() {
         return name;
     }
 
     public static class Builder {
-        private boolean muted;
-        private boolean startConferenceOnEnter;
-        private boolean endConferenceonExit;
-        private int maxParticipants;
-        private String beep;
-        private String waitMethod;
+        private boolean muted = false;
+        private boolean startConferenceOnEnter = true;
+        private boolean endConferenceOnExit = false;
+        private int maxParticipants = 40;
+        private Beep beep = Beep.TRUE;
+        private Record record = Record.DO_NOT_RECORD;
+        private Trim trim = Trim.TRIM_SILENCE;
+        private Method waitMethod = Method.POST;
         private String waitUrl;
+        private String eventCallbackUrl;
         private String name;
 
         public Builder(String name) {
@@ -107,8 +164,8 @@ public class Conference extends TwiML {
             return this;
         }
 
-        public Builder endConferenceonExit(boolean endConferenceonExit) {
-            this.endConferenceonExit = endConferenceonExit;
+        public Builder endConferenceOnExit(boolean endConferenceOnExit) {
+            this.endConferenceOnExit = endConferenceOnExit;
             return this;
         }
 
@@ -117,12 +174,22 @@ public class Conference extends TwiML {
             return this;
         }
 
-        public Builder beep(String beep) {
+        public Builder beep(Beep beep) {
             this.beep = beep;
             return this;
         }
 
-        public Builder waitMethod(String waitMethod) {
+        public Builder record(Record record) {
+            this.record = record;
+            return this;
+        }
+
+        public Builder trim(Trim trim) {
+            this.trim = trim;
+            return this;
+        }
+
+        public Builder waitMethod(Method waitMethod) {
             this.waitMethod = waitMethod;
             return this;
         }
@@ -132,17 +199,13 @@ public class Conference extends TwiML {
             return this;
         }
 
+        public Builder eventCallbackUrl(String eventCallbackUrl) {
+            this.eventCallbackUrl = eventCallbackUrl;
+            return this;
+        }
+
         public Conference build() {
-            return new Conference(
-                muted,
-                startConferenceOnEnter,
-                endConferenceonExit,
-                maxParticipants,
-                beep,
-                waitMethod,
-                waitUrl,
-                name
-            );
+            return new Conference(this);
         }
     }
 }

@@ -16,7 +16,7 @@ public class Gather extends TwiML {
     private final String action;
 
     @JacksonXmlProperty(isAttribute = true)
-    private final String method;
+    private final Method method;
 
     @JacksonXmlProperty(isAttribute = true)
     private final String finishOnKey;
@@ -30,24 +30,15 @@ public class Gather extends TwiML {
     @JacksonXmlProperty(localName = "Pause")
     private final Pause pause;
 
-    private Gather(
-        int timeout,
-        int numDigits,
-        String action,
-        String method,
-        String finishOnKey,
-        Say say,
-        Play play,
-        Pause pause
-    ) {
-        this.timeout = timeout;
-        this.numDigits = numDigits;
-        this.action = action;
-        this.method = method;
-        this.finishOnKey = finishOnKey;
-        this.say = say;
-        this.play = play;
-        this.pause = pause;
+    private Gather(Builder b) {
+        this.timeout = b.timeout;
+        this.numDigits = b.numDigits;
+        this.action = b.action;
+        this.method = b.method;
+        this.finishOnKey = b.finishOnKey;
+        this.say = b.say;
+        this.play = b.play;
+        this.pause = b.pause;
     }
 
     public int getTimeout() {
@@ -62,7 +53,7 @@ public class Gather extends TwiML {
         return action;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
@@ -83,11 +74,11 @@ public class Gather extends TwiML {
     }
 
     public static class Builder {
-        private int timeout;
-        private int numDigits;
+        private int timeout = 5;
+        private int numDigits = Integer.MAX_VALUE;
         private String action;
-        private String method;
-        private String finishOnKey;
+        private Method method = Method.POST;
+        private String finishOnKey = "#";
         private Say say;
         private Play play;
         private Pause pause;
@@ -107,7 +98,7 @@ public class Gather extends TwiML {
             return this;
         }
 
-        public Builder method(String method) {
+        public Builder method(Method method) {
             this.method = method;
             return this;
         }
@@ -133,7 +124,7 @@ public class Gather extends TwiML {
         }
 
         public Gather build() {
-            return new Gather(timeout, numDigits, action, method, finishOnKey, say, play, pause);
+            return new Gather(this);
         }
     }
 }

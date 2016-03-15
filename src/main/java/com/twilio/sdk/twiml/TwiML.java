@@ -10,8 +10,15 @@ import java.net.URLEncoder;
 /**
  * TwiML object.
  */
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
 public abstract class TwiML {
 
+    /**
+     * Convert TwiML object to XML.
+     *
+     * @return XML string of TwiML object
+     * @throws TwiMLException if cannot generate XML
+     */
     public String toXml() throws TwiMLException {
         XmlMapper mapper = new XmlMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -23,6 +30,12 @@ public abstract class TwiML {
         }
     }
 
+    /**
+     * Convert TwiML object to URL.
+     *
+     * @return URL string of TwiML object
+     * @throws TwiMLException if cannot generate URL
+     */
     public String toUrl() throws TwiMLException {
         try {
             return URLEncoder.encode(toXml(), "UTF-8");

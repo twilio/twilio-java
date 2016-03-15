@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
+/**
+ * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/reject}.
+ */
 @JacksonXmlRootElement
 public class Reject extends TwiML {
 

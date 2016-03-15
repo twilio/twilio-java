@@ -36,8 +36,15 @@ OTHER DEALINGS IN THE SOFTWARE.
 /**
  * The Class TwiMLResponseExample.
  */
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
 public class TwiMLResponseExample {
 
+    /**
+     * TwiML example usage.
+     *
+     * @param args command line args
+     * @throws TwiMLException if cannot generate TwiML
+     */
     public static void main(final String[] args) throws TwiMLException {
         // Say
         Say say = new Say.Builder("Hello World!")

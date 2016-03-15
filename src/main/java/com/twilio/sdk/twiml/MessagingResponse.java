@@ -3,7 +3,7 @@ package com.twilio.sdk.twiml;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 /**
- * Created by jniu on 3/15/16.
+ * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/sms/your_response}.
  */
 public class MessagingResponse extends TwiML {
 

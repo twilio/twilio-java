@@ -3,6 +3,7 @@ package com.twilio.sdk.twiml;
 /**
  * The Class TwiMLException.
  */
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
 public class TwiMLException extends Exception {
 
     private static final long serialVersionUID = -2688644569829574015L;

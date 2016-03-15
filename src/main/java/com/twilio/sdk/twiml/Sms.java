@@ -4,6 +4,9 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
+/**
+ * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/sms}.
+ */
 @JacksonXmlRootElement
 public class Sms extends TwiML {
 
@@ -25,7 +28,7 @@ public class Sms extends TwiML {
     @JacksonXmlText
     private final String message;
 
-    public Sms(Builder b) {
+    private Sms(Builder b) {
         this.to = b.to;
         this.from = b.from;
         this.method = b.method;

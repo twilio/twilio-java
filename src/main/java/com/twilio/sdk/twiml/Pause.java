@@ -4,7 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 /**
- * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/pause}.
+ * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/pause.
  */
 @JacksonXmlRootElement
 public class Pause extends TwiML {

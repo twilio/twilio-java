@@ -30,7 +30,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Only show conferences that started on this date, given as YYYY-MM-DD. You can
-     * also specify inequality such as DateCreated<=YYYY-MM-DD.
+     * also specify inequality such as DateCreated&lt;=YYYY-MM-DD.
      * 
      * @param dateCreated Filter by date created
      * @return this
@@ -42,7 +42,8 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Only show conferences that were last updated on this date, given as
-     * YYYY-MM-DD. You can also specify inequality such as DateUpdated>=YYYY-MM-DD.
+     * YYYY-MM-DD. You can also specify inequality such as
+     * DateUpdated&gt;=YYYY-MM-DD.
      * 
      * @param dateUpdated Filter by date updated
      * @return this

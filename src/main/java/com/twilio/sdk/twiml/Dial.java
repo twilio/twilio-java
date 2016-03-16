@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 /**
- * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/dial}.
+ * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/dial.
  */
 @JacksonXmlRootElement
 public class Dial extends TwiML {

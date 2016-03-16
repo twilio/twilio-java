@@ -10,7 +10,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 /**
- * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/sip}.
+ * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/sip.
  */
 @JacksonXmlRootElement
 public class Sip extends TwiML {

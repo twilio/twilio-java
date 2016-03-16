@@ -377,11 +377,11 @@ public class Call extends SidResource {
     /**
      * Returns The A string describing the direction of the call. `inbound` for
      * inbound calls, `outbound-api` for calls initiated via the REST API or
-     * `outbound-dial` for calls initiated by a `<Dial>` verb..
+     * `outbound-dial` for calls initiated by a `Dial` verb..
      * 
      * @return A string describing the direction of the call. `inbound` for inbound
      *         calls, `outbound-api` for calls initiated via the REST API or
-     *         `outbound-dial` for calls initiated by a `<Dial>` verb.
+     *         `outbound-dial` for calls initiated by a `Dial` verb.
      */
     public final String getDirection() {
         return this.direction;

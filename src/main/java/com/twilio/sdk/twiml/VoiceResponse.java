@@ -3,6 +3,9 @@ package com.twilio.sdk.twiml;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
+/**
+ * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/your_response.
+ */
 @JacksonXmlRootElement
 public class VoiceResponse extends TwiML {
 

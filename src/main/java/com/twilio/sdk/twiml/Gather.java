@@ -4,7 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 /**
- * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/gather}.
+ * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/gather.
  */
 @JacksonXmlRootElement
 public class Gather extends TwiML {

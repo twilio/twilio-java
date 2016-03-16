@@ -5,7 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 /**
- * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/sms}.
+ * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/sms.
  */
 @JacksonXmlRootElement
 public class Sms extends TwiML {

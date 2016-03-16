@@ -5,7 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 /**
- * TwiML wrapper for {@see https://www.twilio.com/docs/api/twiml/redirect}.
+ * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/redirect.
  */
 @JacksonXmlRootElement
 public class Redirect extends TwiML {

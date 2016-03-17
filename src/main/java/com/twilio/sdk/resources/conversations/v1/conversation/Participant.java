@@ -165,9 +165,9 @@ public class Participant extends SidResource {
         this.address = address;
         this.status = status;
         this.conversationSid = conversationSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.startTime = MarshalConverter.dateTimeFromString(startTime);
-        this.endTime = MarshalConverter.dateTimeFromString(endTime);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.startTime = MarshalConverter.iso8601DateTimeFromString(startTime);
+        this.endTime = MarshalConverter.iso8601DateTimeFromString(endTime);
         this.duration = duration;
         this.accountSid = accountSid;
         this.url = url;

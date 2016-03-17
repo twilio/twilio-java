@@ -138,8 +138,8 @@ public class Conference extends SidResource {
                        @JsonProperty("uri")
                        final String uri) {
         this.accountSid = accountSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.apiVersion = apiVersion;
         this.friendlyName = friendlyName;
         this.sid = sid;

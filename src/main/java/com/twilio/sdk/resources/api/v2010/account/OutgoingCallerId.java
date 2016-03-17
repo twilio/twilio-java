@@ -139,8 +139,8 @@ public class OutgoingCallerId extends SidResource {
                              @JsonProperty("uri")
                              final String uri) {
         this.sid = sid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.accountSid = accountSid;
         this.phoneNumber = phoneNumber;

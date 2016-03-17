@@ -224,8 +224,8 @@ public class PhoneNumber extends SidResource {
         this.apiVersion = apiVersion;
         this.beta = beta;
         this.capabilities = capabilities;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.links = links;
         this.phoneNumber = phoneNumber;

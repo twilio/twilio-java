@@ -167,9 +167,9 @@ public class Worker extends SidResource {
         this.activitySid = activitySid;
         this.attributes = attributes;
         this.available = available;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateStatusChanged = MarshalConverter.dateTimeFromString(dateStatusChanged);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateStatusChanged = MarshalConverter.iso8601DateTimeFromString(dateStatusChanged);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.sid = sid;
         this.workspaceSid = workspaceSid;

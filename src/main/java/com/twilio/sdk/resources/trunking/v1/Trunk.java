@@ -173,8 +173,8 @@ public class Trunk extends SidResource {
         this.recording = recording;
         this.authType = authType;
         this.authTypeSet = authTypeSet;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.sid = sid;
         this.url = url;
         this.links = links;

@@ -132,8 +132,8 @@ public class Media extends SidResource {
                   final String uri) {
         this.accountSid = accountSid;
         this.contentType = contentType;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.parentSid = parentSid;
         this.sid = sid;
         this.uri = uri;

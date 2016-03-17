@@ -4,9 +4,6 @@ import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.AuthenticationException;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.util.concurrent.Executors;
 
@@ -15,15 +12,9 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
-    public static final String DATE_PATTERN = "yyyy-MM-dd";
-    public static final String DATE_TIME_PATTERN = "EEE, dd MMM yyyy HH:mm:ss Z";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern(Twilio.DATE_PATTERN)
-                                                                         .withZone(DateTimeZone.UTC);
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern(Twilio.DATE_TIME_PATTERN)
-                                                                              .withZone(DateTimeZone.UTC);
-
+    private static String username;
+    private static String password;
     private static String accountSid;
-    private static String authToken;
     private static TwilioRestClient restClient;
     private static ListeningExecutorService executorService;
 
@@ -32,19 +23,68 @@ public class Twilio {
     /**
      * Initialize the Twilio environment.
      *
-     * @param accountSid account to use
-     * @param authToken auth token for the account
+     * @param username account to use
+     * @param password auth token for the account
      */
-    public static void init(final String accountSid, final String authToken) {
+    public static void init(final String username, final String password) {
+        Twilio.setUsername(username);
+        Twilio.setPassword(password);
+    }
+
+    /**
+     * Initialize the Twilio environment.
+     *
+     * @param username account to use
+     * @param password auth token for the account
+     * @param accountSid account sid to use
+     */
+    public static void init(final String username, final String password, final String accountSid) {
+        Twilio.setUsername(username);
+        Twilio.setPassword(password);
         Twilio.setAccountSid(accountSid);
-        Twilio.setAuthToken(authToken);
+    }
+
+    /**
+     * Set the username.
+     *
+     * @param username account sid to use
+     * @throws AuthenticationException if accountSid is null
+     */
+    public static void setUsername(final String username) {
+        if (username == null) {
+            throw new AuthenticationException("Username can not be null");
+        }
+
+        if (!username.equals(Twilio.username)) {
+            Twilio.invalidate();
+        }
+
+        Twilio.username = username;
+    }
+
+    /**
+     * Set the auth token.
+     *
+     * @param password auth token to use
+     * @throws AuthenticationException if password is null
+     */
+    public static void setPassword(final String password) {
+        if (password == null) {
+            throw new AuthenticationException("Password can not be null");
+        }
+
+        if (!password.equals(Twilio.password)) {
+            Twilio.invalidate();
+        }
+
+        Twilio.password = password;
     }
 
     /**
      * Set the account sid.
      *
      * @param accountSid account sid to use
-     * @throws AuthenticationException if accountSid is null
+     * @throws AuthenticationException if account sid is null
      */
     public static void setAccountSid(final String accountSid) {
         if (accountSid == null) {
@@ -59,24 +99,6 @@ public class Twilio {
     }
 
     /**
-     * Set the auth token.
-     *
-     * @param authToken auth token to use
-     * @throws AuthenticationException if authToken is null
-     */
-    public static void setAuthToken(final String authToken) {
-        if (authToken == null) {
-            throw new AuthenticationException("AuthToken can not be null");
-        }
-
-        if (!authToken.equals(Twilio.authToken)) {
-            Twilio.invalidate();
-        }
-
-        Twilio.authToken = authToken;
-    }
-
-    /**
      * Returns (and initializes if not initialized) the Twilio Rest Client.
      *
      * @return the TWilio Rest Client
@@ -84,13 +106,17 @@ public class Twilio {
      */
     public static TwilioRestClient getRestClient() {
         if (Twilio.restClient == null) {
-            if (Twilio.accountSid == null || Twilio.authToken == null) {
+            if (Twilio.username == null || Twilio.password == null) {
                 throw new AuthenticationException(
                     "TwilioRestClient was used before AccountSid and AuthToken were set, please call Twilio.init()"
                 );
             }
 
-            Twilio.restClient = new TwilioRestClient(Twilio.accountSid, Twilio.authToken);
+            if (Twilio.accountSid != null) {
+                Twilio.restClient = new TwilioRestClient(Twilio.username, Twilio.password, Twilio.accountSid);
+            } else {
+                Twilio.restClient = new TwilioRestClient(Twilio.username, Twilio.password);
+            }
         }
 
         return Twilio.restClient;

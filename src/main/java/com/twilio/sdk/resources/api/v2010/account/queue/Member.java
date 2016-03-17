@@ -130,7 +130,7 @@ public class Member extends SidResource {
                    @JsonProperty("wait_time")
                    final Integer waitTime) {
         this.callSid = callSid;
-        this.dateEnqueued = MarshalConverter.dateTimeFromString(dateEnqueued);
+        this.dateEnqueued = MarshalConverter.rfc2822DateTimeFromString(dateEnqueued);
         this.position = position;
         this.uri = uri;
         this.waitTime = waitTime;

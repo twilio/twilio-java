@@ -142,7 +142,7 @@ public class Event extends SidResource {
         this.actorUrl = actorUrl;
         this.description = description;
         this.eventData = eventData;
-        this.eventDate = MarshalConverter.dateTimeFromString(eventDate);
+        this.eventDate = MarshalConverter.iso8601DateTimeFromString(eventDate);
         this.eventType = eventType;
         this.resourceSid = resourceSid;
         this.resourceType = resourceType;

@@ -180,8 +180,8 @@ public class OriginationUrl extends SidResource {
         this.sipUrl = sipUrl;
         this.friendlyName = friendlyName;
         this.priority = priority;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
     }
 

@@ -174,10 +174,10 @@ public class Daily extends Resource {
         this.count = count;
         this.countUnit = countUnit;
         this.description = description;
-        this.endDate = MarshalConverter.dateTimeFromString(endDate);
+        this.endDate = MarshalConverter.iso8601DateTimeFromString(endDate);
         this.price = price;
         this.priceUnit = priceUnit;
-        this.startDate = MarshalConverter.dateTimeFromString(startDate);
+        this.startDate = MarshalConverter.iso8601DateTimeFromString(startDate);
         this.subresourceUris = subresourceUris;
         this.uri = uri;
         this.usage = usage;

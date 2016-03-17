@@ -170,8 +170,8 @@ public class Workflow extends SidResource {
         this.accountSid = accountSid;
         this.assignmentCallbackUrl = assignmentCallbackUrl;
         this.configuration = configuration;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.documentContentType = documentContentType;
         this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
         this.friendlyName = friendlyName;

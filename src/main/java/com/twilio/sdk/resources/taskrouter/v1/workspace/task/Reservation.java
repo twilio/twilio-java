@@ -140,8 +140,8 @@ public class Reservation extends SidResource {
                         @JsonProperty("workspace_sid")
                         final String workspaceSid) {
         this.accountSid = accountSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.reservationStatus = reservationStatus;
         this.sid = sid;
         this.taskSid = taskSid;

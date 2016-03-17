@@ -157,8 +157,8 @@ public class Participant extends SidResource {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.conferenceSid = conferenceSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.endConferenceOnExit = endConferenceOnExit;
         this.muted = muted;
         this.startConferenceOnEnter = startConferenceOnEnter;

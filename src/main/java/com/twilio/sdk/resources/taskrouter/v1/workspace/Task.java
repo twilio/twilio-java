@@ -197,8 +197,8 @@ public class Task extends SidResource {
         this.age = age;
         this.assignmentStatus = assignmentStatus;
         this.attributes = attributes;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.priority = priority;
         this.reason = reason;
         this.sid = sid;

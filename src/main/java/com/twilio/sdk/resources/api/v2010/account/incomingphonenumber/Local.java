@@ -192,8 +192,8 @@ public class Local extends Resource {
         this.apiVersion = apiVersion;
         this.beta = beta;
         this.capabilities = capabilities;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
         this.sid = sid;

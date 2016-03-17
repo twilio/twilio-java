@@ -150,8 +150,8 @@ public class AuthorizedConnectApp extends SidResource {
         this.connectAppFriendlyName = connectAppFriendlyName;
         this.connectAppHomepageUrl = connectAppHomepageUrl;
         this.connectAppSid = connectAppSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.permissions = permissions;
         this.uri = uri;
     }

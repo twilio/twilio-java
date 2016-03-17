@@ -182,8 +182,8 @@ public class Account extends SidResource {
                     @JsonProperty("uri")
                     final String uri) {
         this.authToken = authToken;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.ownerAccountSid = ownerAccountSid;
         this.sid = sid;

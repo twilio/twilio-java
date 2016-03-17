@@ -165,11 +165,11 @@ public class Notification extends SidResource {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.errorCode = errorCode;
         this.log = log;
-        this.messageDate = MarshalConverter.dateTimeFromString(messageDate);
+        this.messageDate = MarshalConverter.rfc2822DateTimeFromString(messageDate);
         this.messageText = messageText;
         this.moreInfo = moreInfo;
         this.requestMethod = requestMethod;

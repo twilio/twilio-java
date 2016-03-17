@@ -143,8 +143,8 @@ public class ShortCode extends SidResource {
                       final String uri) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.shortCode = shortCode;
         this.sid = sid;

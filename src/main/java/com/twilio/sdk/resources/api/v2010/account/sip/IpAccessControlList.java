@@ -156,8 +156,8 @@ public class IpAccessControlList extends SidResource {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.subresourceUris = subresourceUris;
         this.uri = uri;
     }

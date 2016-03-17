@@ -131,8 +131,8 @@ public class Sandbox extends Resource {
                     final HttpMethod statusCallbackMethod, 
                     @JsonProperty("uri")
                     final URI uri) {
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.pin = pin;
         this.accountSid = accountSid;
         this.phoneNumber = phoneNumber;

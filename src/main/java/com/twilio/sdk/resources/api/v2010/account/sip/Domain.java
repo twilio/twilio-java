@@ -178,8 +178,8 @@ public class Domain extends SidResource {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.authType = authType;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.domainName = domainName;
         this.friendlyName = friendlyName;
         this.sid = sid;

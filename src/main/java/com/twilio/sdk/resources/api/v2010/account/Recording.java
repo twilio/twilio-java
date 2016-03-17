@@ -131,8 +131,8 @@ public class Recording extends SidResource {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.duration = duration;
         this.sid = sid;
         this.uri = uri;

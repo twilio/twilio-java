@@ -152,8 +152,8 @@ public class Workspace extends SidResource {
                       @JsonProperty("timeout_activity_sid")
                       final String timeoutActivitySid) {
         this.accountSid = accountSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.defaultActivityName = defaultActivityName;
         this.defaultActivitySid = defaultActivitySid;
         this.eventCallbackUrl = eventCallbackUrl;

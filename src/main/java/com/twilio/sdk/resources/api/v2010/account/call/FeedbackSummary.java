@@ -180,16 +180,16 @@ public class FeedbackSummary extends SidResource {
         this.accountSid = accountSid;
         this.callCount = callCount;
         this.callFeedbackCount = callFeedbackCount;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
-        this.endDate = MarshalConverter.dateTimeFromString(endDate);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.endDate = MarshalConverter.iso8601DateTimeFromString(endDate);
         this.includeSubaccounts = includeSubaccounts;
         this.issues = issues;
         this.qualityScoreAverage = qualityScoreAverage;
         this.qualityScoreMedian = qualityScoreMedian;
         this.qualityScoreStandardDeviation = qualityScoreStandardDeviation;
         this.sid = sid;
-        this.startDate = MarshalConverter.dateTimeFromString(startDate);
+        this.startDate = MarshalConverter.iso8601DateTimeFromString(startDate);
         this.status = status;
     }
 

@@ -248,9 +248,9 @@ public class SmsMessage extends SidResource {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.body = body;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
-        this.dateSent = MarshalConverter.dateTimeFromString(dateSent);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.dateSent = MarshalConverter.rfc2822DateTimeFromString(dateSent);
         this.direction = direction;
         this.from = from;
         this.price = price;

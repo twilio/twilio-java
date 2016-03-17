@@ -157,8 +157,8 @@ public class Activity extends SidResource {
                      final String workspaceSid) {
         this.accountSid = accountSid;
         this.available = available;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.sid = sid;
         this.workspaceSid = workspaceSid;

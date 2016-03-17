@@ -171,8 +171,8 @@ public class Credential extends SidResource {
         this.accountSid = accountSid;
         this.credentialListSid = credentialListSid;
         this.username = username;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.uri = uri;
     }
 

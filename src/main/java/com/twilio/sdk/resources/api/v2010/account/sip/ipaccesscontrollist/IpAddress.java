@@ -175,8 +175,8 @@ public class IpAddress extends SidResource {
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
         this.ipAccessControlListSid = ipAccessControlListSid;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.uri = uri;
     }
 

@@ -177,8 +177,8 @@ public class TaskQueue extends SidResource {
         this.accountSid = accountSid;
         this.assignmentActivitySid = assignmentActivitySid;
         this.assignmentActivityName = assignmentActivityName;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.maxReservedWorkers = maxReservedWorkers;
         this.reservationActivitySid = reservationActivitySid;

@@ -193,8 +193,8 @@ public class Application extends SidResource {
                         final URI voiceUrl) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.messageStatusCallback = messageStatusCallback;
         this.sid = sid;

@@ -277,9 +277,9 @@ public class Trigger extends SidResource {
         this.callbackMethod = callbackMethod;
         this.callbackUrl = callbackUrl;
         this.currentValue = currentValue;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateFired = MarshalConverter.dateTimeFromString(dateFired);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateFired = MarshalConverter.rfc2822DateTimeFromString(dateFired);
+        this.dateUpdated = MarshalConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.recurring = recurring;
         this.sid = sid;

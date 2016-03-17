@@ -153,9 +153,9 @@ public class Alert extends SidResource {
         this.accountSid = accountSid;
         this.alertText = alertText;
         this.apiVersion = apiVersion;
-        this.dateCreated = MarshalConverter.dateTimeFromString(dateCreated);
-        this.dateGenerated = MarshalConverter.dateTimeFromString(dateGenerated);
-        this.dateUpdated = MarshalConverter.dateTimeFromString(dateUpdated);
+        this.dateCreated = MarshalConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateGenerated = MarshalConverter.iso8601DateTimeFromString(dateGenerated);
+        this.dateUpdated = MarshalConverter.iso8601DateTimeFromString(dateUpdated);
         this.errorCode = errorCode;
         this.logLevel = logLevel;
         this.moreInfo = moreInfo;

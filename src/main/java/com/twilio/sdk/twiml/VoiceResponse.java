@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/your_response.
  */
-@JacksonXmlRootElement
+@JacksonXmlRootElement(localName = "Response")
 public class VoiceResponse extends TwiML {
 
     @JacksonXmlProperty(localName = "Dial")

@@ -17,6 +17,9 @@ com.twilio.sdk.creators.api.v2010.account.sip.ipaccesscontrollist
 com.twilio.sdk.creators.api.v2010.account.sms
 com.twilio.sdk.creators.api.v2010.account.usage
 com.twilio.sdk.creators.conversations.v1.conversation
+com.twilio.sdk.creators.ipmessaging.v1
+com.twilio.sdk.creators.ipmessaging.v1.service
+com.twilio.sdk.creators.ipmessaging.v1.service.channel
 com.twilio.sdk.creators.taskrouter.v1
 com.twilio.sdk.creators.taskrouter.v1.workspace
 com.twilio.sdk.creators.trunking.v1
@@ -33,6 +36,9 @@ com.twilio.sdk.deleters.api.v2010.account.sip.domain
 com.twilio.sdk.deleters.api.v2010.account.sip.ipaccesscontrollist
 com.twilio.sdk.deleters.api.v2010.account.sms
 com.twilio.sdk.deleters.api.v2010.account.usage
+com.twilio.sdk.deleters.ipmessaging.v1
+com.twilio.sdk.deleters.ipmessaging.v1.service
+com.twilio.sdk.deleters.ipmessaging.v1.service.channel
 com.twilio.sdk.deleters.monitor.v1
 com.twilio.sdk.deleters.taskrouter.v1
 com.twilio.sdk.deleters.taskrouter.v1.workspace
@@ -55,6 +61,9 @@ com.twilio.sdk.fetchers.api.v2010.account.sms
 com.twilio.sdk.fetchers.api.v2010.account.usage
 com.twilio.sdk.fetchers.conversations.v1
 com.twilio.sdk.fetchers.conversations.v1.conversation
+com.twilio.sdk.fetchers.ipmessaging.v1
+com.twilio.sdk.fetchers.ipmessaging.v1.service
+com.twilio.sdk.fetchers.ipmessaging.v1.service.channel
 com.twilio.sdk.fetchers.lookups.v1
 com.twilio.sdk.fetchers.monitor.v1
 com.twilio.sdk.fetchers.pricing.v1.messaging
@@ -88,6 +97,9 @@ com.twilio.sdk.readers.api.v2010.account.sms
 com.twilio.sdk.readers.api.v2010.account.usage
 com.twilio.sdk.readers.api.v2010.account.usage.record
 com.twilio.sdk.readers.conversations.v1.conversation
+com.twilio.sdk.readers.ipmessaging.v1
+com.twilio.sdk.readers.ipmessaging.v1.service
+com.twilio.sdk.readers.ipmessaging.v1.service.channel
 com.twilio.sdk.readers.monitor.v1
 com.twilio.sdk.readers.pricing.v1.messaging
 com.twilio.sdk.readers.pricing.v1.phonenumber
@@ -118,6 +130,9 @@ com.twilio.sdk.resources.api.v2010.account.usage
 com.twilio.sdk.resources.api.v2010.account.usage.record
 com.twilio.sdk.resources.conversations.v1
 com.twilio.sdk.resources.conversations.v1.conversation
+com.twilio.sdk.resources.ipmessaging.v1
+com.twilio.sdk.resources.ipmessaging.v1.service
+com.twilio.sdk.resources.ipmessaging.v1.service.channel
 com.twilio.sdk.resources.lookups.v1
 com.twilio.sdk.resources.monitor.v1
 com.twilio.sdk.resources.pricing.v1.messaging
@@ -144,6 +159,8 @@ com.twilio.sdk.updaters.api.v2010.account.sip.credentiallist
 com.twilio.sdk.updaters.api.v2010.account.sip.ipaccesscontrollist
 com.twilio.sdk.updaters.api.v2010.account.sms
 com.twilio.sdk.updaters.api.v2010.account.usage
+com.twilio.sdk.updaters.ipmessaging.v1
+com.twilio.sdk.updaters.ipmessaging.v1.service
 com.twilio.sdk.updaters.taskrouter.v1
 com.twilio.sdk.updaters.taskrouter.v1.workspace
 com.twilio.sdk.updaters.taskrouter.v1.workspace.task

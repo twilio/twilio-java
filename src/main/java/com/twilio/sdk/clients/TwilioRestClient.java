@@ -19,7 +19,8 @@ public class TwilioRestClient {
         MONITOR("monitor"),
         PRICING("pricing"),
         TASKROUTER("taskrouter"),
-        TRUNKING("trunking");
+        TRUNKING("trunking"),
+        IPMESSAGING("ip-messaging");
 
         private final String domain;
 
@@ -31,6 +32,7 @@ public class TwilioRestClient {
             return domain;
         }
     }
+
 
     private HttpClient httpClient;
     private final ObjectMapper objectMapper;

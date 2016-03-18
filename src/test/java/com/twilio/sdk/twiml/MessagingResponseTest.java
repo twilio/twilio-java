@@ -16,10 +16,10 @@ public class MessagingResponseTest {
             .build();
 
         Assert.assertEquals(
-            "<MessagingResponse>" +
+            "<Response>" +
                 "<Message/>" +
                 "<Redirect/>" +
-            "</MessagingResponse>", response.toXml());
+            "</Response>", response.toXml());
     }
 
     @Test
@@ -29,6 +29,6 @@ public class MessagingResponseTest {
             .message(new Message.Builder().build())
             .build();
 
-        Assert.assertEquals("%3CMessagingResponse%3E%3CMessage%2F%3E%3CRedirect%2F%3E%3C%2FMessagingResponse%3E", response.toUrl());
+        Assert.assertEquals("%3CResponse%3E%3CMessage%2F%3E%3CRedirect%2F%3E%3C%2FResponse%3E", response.toUrl());
     }
 }

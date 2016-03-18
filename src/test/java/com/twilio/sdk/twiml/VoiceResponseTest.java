@@ -26,7 +26,7 @@ public class VoiceResponseTest {
             .build();
 
         Assert.assertEquals(
-            "<VoiceResponse>" +
+            "<Response>" +
                 "<Dial/>" +
                 "<Enqueue>enqueue</Enqueue>" +
                 "<Gather/>" +
@@ -39,7 +39,7 @@ public class VoiceResponseTest {
                 "<Reject/>" +
                 "<Say>hello world</Say>" +
                 "<Sms>test sms</Sms>" +
-            "</VoiceResponse>", response.toXml());
+            "</Response>", response.toXml());
     }
 
     @Test
@@ -59,6 +59,6 @@ public class VoiceResponseTest {
             .sms(new Sms.Builder("test sms").build())
             .build();
 
-        Assert.assertEquals("%3CVoiceResponse%3E%3CDial%2F%3E%3CEnqueue%3Eenqueue%3C%2FEnqueue%3E%3CGather%2F%3E%3CHangup%2F%3E%3CLeave%2F%3E%3CPause%2F%3E%3CPlay%3Ehola%3C%2FPlay%3E%3CRecord%2F%3E%3CRedirect%2F%3E%3CReject%2F%3E%3CSay%3Ehello+world%3C%2FSay%3E%3CSms%3Etest+sms%3C%2FSms%3E%3C%2FVoiceResponse%3E", response.toUrl());
+        Assert.assertEquals("%3CResponse%3E%3CDial%2F%3E%3CEnqueue%3Eenqueue%3C%2FEnqueue%3E%3CGather%2F%3E%3CHangup%2F%3E%3CLeave%2F%3E%3CPause%2F%3E%3CPlay%3Ehola%3C%2FPlay%3E%3CRecord%2F%3E%3CRedirect%2F%3E%3CReject%2F%3E%3CSay%3Ehello+world%3C%2FSay%3E%3CSms%3Etest+sms%3C%2FSms%3E%3C%2FResponse%3E", response.toUrl());
     }
 }

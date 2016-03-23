@@ -12,6 +12,8 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
+    public static final String VERSION = "7.0.0-rc-0";
+
     private static String username;
     private static String password;
     private static String accountSid;

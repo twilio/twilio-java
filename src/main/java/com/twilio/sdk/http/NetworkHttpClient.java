@@ -1,5 +1,6 @@
 package com.twilio.sdk.http;
 
+import com.twilio.sdk.Twilio;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 
 import java.io.IOException;
@@ -20,9 +21,12 @@ public class NetworkHttpClient extends HttpClient {
         try {
             URL url = request.constructURL();
             HttpMethod method = request.getMethod();
+
             // TODO If we support proxying, plumb it through here.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setAllowUserInteraction(false);
+            connection.addRequestProperty("X-Twilio-Client", "java-" + Twilio.VERSION);
+            connection.addRequestProperty("User-Agent", "twilio-java/" + Twilio.VERSION);
             connection.addRequestProperty("Accept", "application/json");
             connection.addRequestProperty("Accept-Encoding", "utf-8");
             connection.setInstanceFollowRedirects(true);

@@ -17,20 +17,13 @@ public class Page<T> {
     private final String uri;
     private final int pageSize;
 
-    private Page(
-        List<T> records,
-        String firstPageUri,
-        String nextPageUri,
-        String previousPageUri,
-        String uri,
-        int pageSize
-    ) {
-        this.records = records;
-        this.firstPageUri = firstPageUri;
-        this.nextPageUri = nextPageUri;
-        this.previousPageUri = previousPageUri;
-        this.uri = uri;
-        this.pageSize = pageSize;
+    private Page(Builder<T> b) {
+        this.records = b.records;
+        this.firstPageUri = b.firstPageUri;
+        this.nextPageUri = b.nextPageUri;
+        this.previousPageUri = b.previousPageUri;
+        this.uri = b.uri;
+        this.pageSize = b.pageSize;
     }
 
     public List<T> getRecords() {
@@ -68,43 +61,19 @@ public class Page<T> {
      * @return a page of records of type T
      */
     public static <T> Page<T> fromJson(String recordKey, String json, Class<T> recordType, ObjectMapper mapper) {
-        List<T> results = new ArrayList<>();
-        String firstPageUri;
-        String nextPageUri;
-        String previousPageUri;
-        String uri;
-        int pageSize;
-
         try {
+            List<T> results = new ArrayList<>();
             JsonNode root = mapper.readTree(json);
             JsonNode records = root.get(recordKey);
             for (final JsonNode record : records) {
                 results.add(mapper.readValue(record.toString(), recordType));
             }
 
-            JsonNode nextPageNode = root.get("next_page_uri");
-            JsonNode previousPageNode = root.get("previous_page_uri");
             JsonNode uriNode = root.get("uri");
-
             if (uriNode != null) {
-                uri = root.get("uri").asText();
-                firstPageUri = root.get("first_page_uri").asText();
-                pageSize = root.get("page_size").asInt();
-
-                nextPageUri = nextPageNode.isNull() ? null : nextPageNode.asText();
-                previousPageUri = previousPageNode.isNull() ? null : previousPageNode.asText();
+                return buildPage(root, results);
             } else {
-                JsonNode meta = root.get("meta");
-                uri = URI.create(meta.get("url").asText()).getPath();
-
-                nextPageNode = meta.get("next_page_url");
-                previousPageNode = meta.get("previous_page_url");
-
-                firstPageUri = URI.create(meta.get("first_page_url").asText()).getPath();
-                pageSize = meta.get("page_size").asInt();
-
-                nextPageUri = nextPageNode.isNull() ? null : URI.create(nextPageNode.asText()).getPath();
-                previousPageUri = previousPageNode.isNull() ? null : URI.create(previousPageNode.asText()).getPath();
+                return buildNextGenPage(root, results);
             }
 
         } catch (final IOException e) {
@@ -112,7 +81,107 @@ public class Page<T> {
                 "Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e
             );
         }
+    }
 
-        return new Page<>(results, firstPageUri, nextPageUri, previousPageUri, uri, pageSize);
+    private static <T> Page<T> buildPage(JsonNode root, List<T> results) {
+        Builder<T> b = new Builder<T>()
+            .uri(root.get("uri").asText());
+
+        JsonNode nextPageNode = root.get("next_page_uri");
+        if (nextPageNode != null && !nextPageNode.isNull()) {
+            b.nextPageUri(nextPageNode.asText());
+        }
+
+        JsonNode previousPageNode = root.get("previous_page_uri");
+        if (previousPageNode != null && !previousPageNode.isNull()) {
+            b.previousPageUri(previousPageNode.asText());
+        }
+
+        JsonNode firstPageNode = root.get("first_page_uri");
+        if (firstPageNode != null && !firstPageNode.isNull()) {
+            b.firstPageUri(firstPageNode.asText());
+        }
+
+        JsonNode pageSizeNode = root.get("page_size");
+        if (pageSizeNode != null && !pageSizeNode.isNull()) {
+            b.pageSize(pageSizeNode.asInt());
+        } else {
+            b.pageSize(results.size());
+        }
+
+        return b.records(results).build();
+    }
+
+    private static <T> Page<T> buildNextGenPage(JsonNode root, List<T> results) {
+        JsonNode meta = root.get("meta");
+        Builder<T> b = new Builder<T>()
+            .uri(URI.create(meta.get("url").asText()).getPath());
+
+        JsonNode nextPageNode = meta.get("next_page_url");
+        if (!nextPageNode.isNull()) {
+            b.nextPageUri(URI.create(nextPageNode.asText()).getPath());
+        }
+
+        JsonNode previousPageNode = meta.get("previous_page_url");
+        if (!previousPageNode.isNull()) {
+            b.previousPageUri(URI.create(previousPageNode.asText()).getPath());
+        }
+
+        JsonNode firstPageNode = meta.get("first_page_url");
+        if (!firstPageNode.isNull()) {
+            b.firstPageUri(URI.create(firstPageNode.asText()).getPath());
+        }
+
+        JsonNode pageSizeNode = meta.get("page_size");
+        if (!pageSizeNode.isNull()) {
+            b.pageSize(pageSizeNode.asInt());
+        } else {
+            b.pageSize(results.size());
+        }
+
+        return b.records(results).build();
+    }
+
+    private static class Builder<T> {
+        private List<T> records;
+        private String firstPageUri;
+        private String nextPageUri;
+        private String previousPageUri;
+        private String uri;
+        private int pageSize;
+
+        public Builder<T> records(List<T> records) {
+            this.records = records;
+            return this;
+        }
+
+        public Builder<T> firstPageUri(String firstPageUri) {
+            this.firstPageUri = firstPageUri;
+            return this;
+        }
+
+        public Builder<T> nextPageUri(String nextPageUri) {
+            this.nextPageUri = nextPageUri;
+            return this;
+        }
+
+        public Builder<T> previousPageUri(String previousPageUri) {
+            this.previousPageUri = previousPageUri;
+            return this;
+        }
+
+        public Builder<T> uri(String uri) {
+            this.uri = uri;
+            return this;
+        }
+
+        public Builder<T> pageSize(int pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        public Page<T> build() {
+            return new Page<>(this);
+        }
     }
 }

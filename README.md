@@ -22,7 +22,7 @@ If you want to compile it yourself, here's how:
 # Quickstart
 
 ### Send a SMS
-```
+```java
 String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
 String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
 
@@ -39,7 +39,7 @@ System.out.println(message.getSid());
 ```
 
 ### Make a call
-```
+```java
 String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
 String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
 
@@ -60,7 +60,7 @@ System.out.println(call.getSid());
 ### Generating TwiML
 To control phone calls, your application needs to output [TwiML](http://www.twilio.com/docs/api/twiml/). 
 TwiML in twilio-java now use the builder pattern!
-```
+```java
 TwiML twiml = new VoiceResponse.Builder()
     .say(new Say.Builder("Hello World!").build())
     .play(new Play.Builder("https://api.twilio.com/cowbell.mp3").loop(5).build())

@@ -1,15 +1,14 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/say.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Say")
 public class Say extends TwiML {
 
     public enum Voice {
@@ -48,19 +47,24 @@ public class Say extends TwiML {
         }
     }
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer loop;
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Language language;
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Voice voice;
 
-    @JacksonXmlText
+    @XmlValue
     private final String body;
+
+    // For XML Serialization
+    private Say() {
+        this(new Builder(null));
+    }
 
     private Say(Builder b) {
         this.loop = b.loop;

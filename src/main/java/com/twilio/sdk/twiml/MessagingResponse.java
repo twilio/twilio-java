@@ -1,44 +1,47 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.google.common.collect.Lists;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/sms/your_response.
  */
-@JacksonXmlRootElement(localName = "Response")
+@XmlRootElement(name = "Response")
 public class MessagingResponse extends TwiML {
 
-    @JacksonXmlProperty(localName = "Message")
-    private final Message message;
+    @XmlElements({
+        @XmlElement(name = "Message", type = Message.class),
+        @XmlElement(name = "Redirect", type = Redirect.class)
+    })
+    private final List<TwiML> actions;
 
-    @JacksonXmlProperty(localName = "Redirect")
-    private final Redirect redirect;
+    // For XML Serialization
+    private MessagingResponse() {
+        this(new Builder());
+    }
 
     private MessagingResponse(Builder b) {
-        this.message = b.message;
-        this.redirect = b.redirect;
+        this.actions = Lists.newArrayList(b.actions);
     }
 
-    public Message getMessage() {
-        return message;
-    }
-
-    public Redirect getRedirect() {
-        return redirect;
+    public List<TwiML> getActions() {
+        return actions;
     }
 
     public static class Builder {
-        private Message message;
-        private Redirect redirect;
+        private List<TwiML> actions = Lists.newArrayList();
 
         public Builder message(Message message) {
-            this.message = message;
+            this.actions.add(message);
             return this;
         }
 
         public Builder redirect(Redirect redirect) {
-            this.redirect = redirect;
+            this.actions.add(redirect);
             return this;
         }
 

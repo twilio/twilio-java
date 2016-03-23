@@ -1,16 +1,21 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/sms/message#nouns.
  */
-@JacksonXmlRootElement(localName = "Body")
-public class Body extends TwiML{
+@XmlRootElement(name = "Body")
+public class Body extends TwiML {
 
-    @JacksonXmlText
+    @XmlValue
     private final String body;
+
+    // For XML Serialization
+    private Body() {
+        this(null);
+    }
 
     public Body(String body) {
         this.body = body;

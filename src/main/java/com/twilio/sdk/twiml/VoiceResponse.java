@@ -1,184 +1,102 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.google.common.collect.Lists;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/your_response.
  */
-@JacksonXmlRootElement(localName = "Response")
+@XmlRootElement(name = "Response")
 public class VoiceResponse extends TwiML {
 
-    @JacksonXmlProperty(localName = "Dial")
-    private final Dial dial;
+    @XmlElements({
+        @XmlElement(name = "Dial", type = Dial.class),
+        @XmlElement(name = "Enqueue", type = Enqueue.class),
+        @XmlElement(name = "Gather", type = Gather.class),
+        @XmlElement(name = "Hangup", type = Hangup.class),
+        @XmlElement(name = "Leave", type = Leave.class),
+        @XmlElement(name = "Pause", type = Pause.class),
+        @XmlElement(name = "Play", type = Play.class),
+        @XmlElement(name = "Record", type = Record.class),
+        @XmlElement(name = "Redirect", type = Redirect.class),
+        @XmlElement(name = "Reject", type = Reject.class),
+        @XmlElement(name = "Say", type = Say.class),
+        @XmlElement(name = "Sms", type = Sms.class)
+    })
+    private final List<TwiML> actions;
 
-    @JacksonXmlProperty(localName = "Enqueue")
-    private final Enqueue enqueue;
-
-    @JacksonXmlProperty(localName = "Gather")
-    private final Gather gather;
-
-    @JacksonXmlProperty(localName = "Hangup")
-    private final Hangup hangup;
-
-    @JacksonXmlProperty(localName = "Leave")
-    private final Leave leave;
-
-    @JacksonXmlProperty(localName = "Pause")
-    private final Pause pause;
-
-    @JacksonXmlProperty(localName = "Play")
-    private final Play play;
-
-    @JacksonXmlProperty(localName = "Record")
-    private final Record record;
-
-    @JacksonXmlProperty(localName = "Redirect")
-    private final Redirect redirect;
-
-    @JacksonXmlProperty(localName = "Reject")
-    private final Reject reject;
-
-    @JacksonXmlProperty(localName = "Say")
-    private final Say say;
-
-    @JacksonXmlProperty(localName = "Sms")
-    private final Sms sms;
+    private VoiceResponse() {
+        this(new Builder());
+    }
 
     private VoiceResponse(Builder builder) {
-        this.dial = builder.dial;
-        this.enqueue = builder.enqueue;
-        this.gather = builder.gather;
-        this.hangup = builder.hangup;
-        this.leave = builder.leave;
-        this.pause = builder.pause;
-        this.play = builder.play;
-        this.record = builder.record;
-        this.redirect = builder.redirect;
-        this.reject = builder.reject;
-        this.say = builder.say;
-        this.sms = builder.sms;
-    }
-
-    public Dial getDial() {
-        return dial;
-    }
-
-    public Enqueue getEnqueue() {
-        return enqueue;
-    }
-
-    public Gather getGather() {
-        return gather;
-    }
-
-    public Hangup getHangup() {
-        return hangup;
-    }
-
-    public Leave getLeave() {
-        return leave;
-    }
-
-    public Pause getPause() {
-        return pause;
-    }
-
-    public Play getPlay() {
-        return play;
-    }
-
-    public Record getRecord() {
-        return record;
-    }
-
-    public Redirect getRedirect() {
-        return redirect;
-    }
-
-    public Reject getReject() {
-        return reject;
-    }
-
-    public Say getSay() {
-        return say;
-    }
-
-    public Sms getSms() {
-        return sms;
+        this.actions = Lists.newArrayList(builder.actions);
     }
 
     public static class Builder {
-        private Dial dial;
-        private Enqueue enqueue;
-        private Gather gather;
-        private Hangup hangup;
-        private Leave leave;
-        private Pause pause;
-        private Play play;
-        private Record record;
-        private Redirect redirect;
-        private Reject reject;
-        private Say say;
-        private Sms sms;
+        private List<TwiML> actions = Lists.newArrayList();
 
         public Builder dial(Dial dial) {
-            this.dial = dial;
+            this.actions.add(dial);
             return this;
         }
 
         public Builder enqueue(Enqueue enqueue) {
-            this.enqueue = enqueue;
+            this.actions.add(enqueue);
             return this;
         }
 
         public Builder gather(Gather gather) {
-            this.gather = gather;
+            this.actions.add(gather);
             return this;
         }
 
         public Builder hangup(Hangup hangup) {
-            this.hangup = hangup;
+            this.actions.add(hangup);
             return this;
         }
 
         public Builder leave(Leave leave) {
-            this.leave = leave;
+            this.actions.add(leave);
             return this;
         }
 
         public Builder pause(Pause pause) {
-            this.pause = pause;
+            this.actions.add(pause);
             return this;
         }
 
         public Builder play(Play play) {
-            this.play = play;
+            this.actions.add(play);
             return this;
         }
 
         public Builder record(Record record) {
-            this.record = record;
+            this.actions.add(record);
             return this;
         }
 
         public Builder redirect(Redirect redirect) {
-            this.redirect = redirect;
+            this.actions.add(redirect);
             return this;
         }
 
         public Builder reject(Reject reject) {
-            this.reject = reject;
+            this.actions.add(reject);
             return this;
         }
 
         public Builder say(Say say) {
-            this.say = say;
+            this.actions.add(say);
             return this;
         }
 
         public Builder sms(Sms sms) {
-            this.sms = sms;
+            this.actions.add(sms);
             return this;
         }
 

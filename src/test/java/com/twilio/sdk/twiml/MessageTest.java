@@ -12,7 +12,6 @@ public class MessageTest {
     public void testXml() throws TwiMLException {
         Message message = new Message.Builder()
             .media(new Media("http://media.url"))
-            .message("hi everybody!")
             .action("/action")
             .from("Dr. Nick")
             .to("Everybody")
@@ -21,7 +20,7 @@ public class MessageTest {
             .build();
 
         Assert.assertEquals("" +
-            "<Message to=\"Everybody\" from=\"Dr. Nick\" method=\"GET\" action=\"/action\" statusCallback=\"http://twilio.ca\">hi everybody!" +
+            "<Message to=\"Everybody\" from=\"Dr. Nick\" method=\"GET\" action=\"/action\" statusCallback=\"http://twilio.ca\">" +
                 "<Media>http://media.url</Media>" +
             "</Message>", message.toXml());
     }
@@ -30,7 +29,6 @@ public class MessageTest {
     public void testUrl() throws TwiMLException {
         Message message = new Message.Builder()
             .media(new Media("http://media.url"))
-            .message("hi everybody!")
             .action("/action")
             .from("Dr. Nick")
             .to("Everybody")
@@ -38,6 +36,6 @@ public class MessageTest {
             .statusCallback("http://twilio.ca")
             .build();
 
-        Assert.assertEquals("%3CMessage+to%3D%22Everybody%22+from%3D%22Dr.+Nick%22+method%3D%22GET%22+action%3D%22%2Faction%22+statusCallback%3D%22http%3A%2F%2Ftwilio.ca%22%3Ehi+everybody%21%3CMedia%3Ehttp%3A%2F%2Fmedia.url%3C%2FMedia%3E%3C%2FMessage%3E", message.toUrl());
+        Assert.assertEquals("%3CMessage+to%3D%22Everybody%22+from%3D%22Dr.+Nick%22+method%3D%22GET%22+action%3D%22%2Faction%22+statusCallback%3D%22http%3A%2F%2Ftwilio.ca%22%3E%3CMedia%3Ehttp%3A%2F%2Fmedia.url%3C%2FMedia%3E%3C%2FMessage%3E", message.toUrl());
     }
 }

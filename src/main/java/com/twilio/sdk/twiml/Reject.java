@@ -1,14 +1,13 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/reject.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Reject")
 public class Reject extends TwiML {
 
     public enum Reason {
@@ -27,9 +26,14 @@ public class Reject extends TwiML {
         }
     }
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Reason reason;
+
+    // For XML Serialization
+    private Reject() {
+        this(new Builder());
+    }
 
     private Reject(Builder b) {
         this.reason = b.reason;

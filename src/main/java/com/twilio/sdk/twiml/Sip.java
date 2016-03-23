@@ -1,46 +1,49 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 import java.util.List;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/sip.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Sip")
 public class Sip extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String username;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String password;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String url;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JsonIgnore
-    private final List<Event> statusCallbackEvents;
-
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String statusCallbackEvent;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String statusCallback;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method statusCallbackMethod;
 
-    @JacksonXmlText
+    @XmlValue
     private final String uri;
+
+    private final List<Event> statusCallbackEvents;
+
+    // For XML Serialization
+    private Sip() {
+        this(new Builder(null));
+    }
 
     private Sip(Builder b) {
         this.username = b.username;

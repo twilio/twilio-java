@@ -1,23 +1,28 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/play.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Play")
 public class Play extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer loop;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer digits;
 
-    @JacksonXmlText
+    @XmlValue
     private final String body;
+
+    // For XML Serialization
+    private Play() {
+        this(new Builder(null));
+    }
 
     private Play(Builder b) {
         this.loop = b.loop;

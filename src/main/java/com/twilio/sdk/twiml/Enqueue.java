@@ -1,35 +1,40 @@
 package com.twilio.sdk.twiml;
 
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/enqueue.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Enqueue")
 public class Enqueue extends TwiML {
 
     private static final String DEFAULT_WAIT_URL = "http://s3.amazonaws.com/com.twilio.sounds.music/index.xml";
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String action;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String waitUrl;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method waitUrlMethod;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String workflowSid;
 
-    @JacksonXmlText
+    @XmlValue
     private final String queueName;
+
+    // For XML Serialization
+    private Enqueue() {
+        this(new Builder(null));
+    }
 
     private Enqueue(Builder b) {
         this.action = b.action;

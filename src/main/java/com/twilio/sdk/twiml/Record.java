@@ -1,43 +1,47 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/record.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Record")
 public class Record extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Boolean transcribe;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Boolean playBeep;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer timeout;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer maxLength;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String action;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String finishOnKey;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String transcribeCallback;
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Trim trim;
+
+    // For XML Serialization
+    private Record() {
+        this(new Builder());
+    }
 
     private Record(Builder b) {
         this.transcribe = b.transcribe;

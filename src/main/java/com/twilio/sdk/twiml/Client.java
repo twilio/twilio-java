@@ -1,40 +1,43 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 import java.util.List;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/client.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Client")
 public class Client extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String url;
 
-    @JsonIgnore
-    private final List<Event> statusCallbackEvents;
-
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String statusCallbackEvent;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method statusCallbackMethod;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String statusCallback;
 
-    @JacksonXmlText
+    @XmlValue
     private final String name;
+
+    private final List<Event> statusCallbackEvents;
+
+    // For XML Serialization
+    private Client() {
+        this(new Builder(null));
+    }
 
     private Client(Builder b) {
         this.method = b.method;

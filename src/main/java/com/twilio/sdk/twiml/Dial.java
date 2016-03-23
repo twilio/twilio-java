@@ -1,15 +1,18 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import com.google.common.collect.Lists;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.List;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/dial.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Dial")
 public class Dial extends TwiML {
 
     public enum Record {
@@ -45,49 +48,55 @@ public class Dial extends TwiML {
         }
     }
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Boolean hangupOnStar;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer timeout;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer timeLimit;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String action;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String callerId;
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Record record;
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Trim trim;
 
-    @JacksonXmlProperty(localName = "Number")
-    private final Number number;
+    @XmlElements({
+        @XmlElement(name = "Number", type = Number.class)
+    })
+    private final List<Number> numbers;
 
-    @JacksonXmlProperty(localName = "Conference")
+    @XmlElements({
+        @XmlElement(name = "Client", type = Client.class)
+    })
+    private final List<Client> clients;
+
+    @XmlElement(name = "Conference")
     private final Conference conference;
 
-    @JacksonXmlProperty(localName = "Client")
-    private final Client client;
-
-    @JacksonXmlProperty(localName = "Queue")
+    @XmlElement(name = "Queue")
     private final Queue queue;
 
-    @JacksonXmlProperty(localName = "Sip")
+    @XmlElement(name = "Sip")
     private final Sip sip;
 
-    @JacksonXmlText
-    private final String phoneNumber;
+    // For XML Serialization
+    private Dial() {
+        this(new Builder());
+    }
 
     private Dial(Builder b) {
         this.hangupOnStar = b.hangupOnStar;
@@ -98,12 +107,11 @@ public class Dial extends TwiML {
         this.callerId = b.callerId;
         this.record = b.record;
         this.trim = b.trim;
-        this.number = b.number;
+        this.numbers = Lists.newArrayList(b.numbers);
+        this.clients = Lists.newArrayList(b.clients);
         this.conference = b.conference;
-        this.client = b.client;
         this.queue = b.queue;
         this.sip = b.sip;
-        this.phoneNumber = b.phoneNumber;
     }
 
     public Boolean isHangupOnStar() {
@@ -138,16 +146,16 @@ public class Dial extends TwiML {
         return trim;
     }
 
-    public Number getNumber() {
-        return number;
+    public List<Number> getNumbers() {
+        return numbers;
+    }
+
+    public List<Client> getClients() {
+        return clients;
     }
 
     public Conference getConference() {
         return conference;
-    }
-
-    public Client getClient() {
-        return client;
     }
 
     public Queue getQueue() {
@@ -156,10 +164,6 @@ public class Dial extends TwiML {
 
     public Sip getSip() {
         return sip;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
     }
 
     public static class Builder {
@@ -171,12 +175,11 @@ public class Dial extends TwiML {
         private String callerId;
         private Record record;
         private Trim trim;
-        private Number number;
+        private List<Number> numbers = Lists.newArrayList();
+        private List<Client> clients = Lists.newArrayList();
         private Conference conference;
-        private Client client;
         private Queue queue;
         private Sip sip;
-        private String phoneNumber;
 
         public Builder hangupOnStar(boolean hangupOnStar) {
             this.hangupOnStar = hangupOnStar;
@@ -219,17 +222,17 @@ public class Dial extends TwiML {
         }
 
         public Builder number(Number number) {
-            this.number = number;
+            this.numbers.add(number);
+            return this;
+        }
+
+        public Builder client(Client client) {
+            this.clients.add(client);
             return this;
         }
 
         public Builder conference(Conference conference) {
             this.conference = conference;
-            return this;
-        }
-
-        public Builder client(Client client) {
-            this.client = client;
             return this;
         }
 
@@ -240,11 +243,6 @@ public class Dial extends TwiML {
 
         public Builder sip(Sip sip) {
             this.sip = sip;
-            return this;
-        }
-
-        public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
             return this;
         }
 

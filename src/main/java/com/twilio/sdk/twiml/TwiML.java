@@ -1,9 +1,11 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -11,6 +13,7 @@ import java.net.URLEncoder;
  * TwiML object.
  */
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
+@XmlTransient
 public abstract class TwiML {
 
     /**
@@ -20,12 +23,17 @@ public abstract class TwiML {
      * @throws TwiMLException if cannot generate XML
      */
     public String toXml() throws TwiMLException {
-        XmlMapper mapper = new XmlMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
         try {
-            return mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
+            JAXBContext context = JAXBContext.newInstance(this.getClass());
+            StringWriter writer = new StringWriter();
+
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+            m.marshal(this, writer);
+
+            return writer.toString();
+        } catch (JAXBException e) {
+            System.out.println(e);
             throw new TwiMLException(e.getMessage());
         }
     }
@@ -41,6 +49,18 @@ public abstract class TwiML {
             return URLEncoder.encode(toXml(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new TwiMLException(e.getMessage());
+        }
+    }
+
+    public static class ToStringAdapter extends XmlAdapter<String, Object> {
+        @Override
+        public String marshal( Object v ) throws Exception {
+            return v == null ? null : v.toString();
+        }
+
+        @Override
+        public Object unmarshal( String v ) throws Exception {
+            throw new UnsupportedOperationException("Not supported. Converts objects using toString().");
         }
     }
 }

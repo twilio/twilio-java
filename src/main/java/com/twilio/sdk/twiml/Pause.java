@@ -1,16 +1,21 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/pause.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Pause")
 public class Pause extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer length;
+
+    // For XML Serialization
+    private Pause() {
+        this(new Builder());
+    }
 
     private Pause(Builder b) {
         this.length = b.length;

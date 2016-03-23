@@ -13,6 +13,8 @@ public class DialTest {
         Conference conference = new Conference.Builder("conference")
             .build();
 
+        Number number = new Number.Builder("+18885551234").build();
+
         Dial dial = new Dial.Builder()
             .action("/dial")
             .callerId("+14155550000")
@@ -21,10 +23,12 @@ public class DialTest {
             .trim(Dial.Trim.TRIM_SILENCE)
             .timeout(8)
             .conference(conference)
+            .number(number)
             .build();
 
         Assert.assertEquals(
             "<Dial hangupOnStar=\"true\" timeout=\"8\" action=\"/dial\" method=\"POST\" callerId=\"+14155550000\" trim=\"trim-silence\">" +
+                "<Number>+18885551234</Number>" +
                 "<Conference>conference</Conference>" +
             "</Dial>", dial.toXml());
     }

@@ -1,29 +1,34 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/queue.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Queue")
 public class Queue extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String url;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String reservationSid;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String postWorkActivitySid;
 
-    @JacksonXmlText
+    @XmlValue
     private final String queueName;
+
+    // For XML Serialization
+    private Queue() {
+        this(new Builder(null));
+    }
 
     private Queue(Builder b) {
         this.url = b.url;

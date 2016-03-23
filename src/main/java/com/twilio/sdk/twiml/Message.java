@@ -1,38 +1,40 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/sms/message.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Message")
 public class Message extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String to;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String from;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String action;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String statusCallback;
 
-    @JacksonXmlProperty(localName = "Body")
+    @XmlElement(name = "Body")
     private final Body body;
 
-    @JacksonXmlProperty(localName = "Media")
+    @XmlElement(name = "Media")
     private final Media media;
 
-    @JacksonXmlText
-    private final String message;
+    // For XML Serialization
+    private Message() {
+        this(new Builder());
+    }
 
     private Message(Builder b) {
         this.to = b.to;
@@ -42,7 +44,6 @@ public class Message extends TwiML {
         this.statusCallback = b.statusCallback;
         this.body = b.body;
         this.media = b.media;
-        this.message = b.message;
     }
 
     public String getTo() {
@@ -73,10 +74,6 @@ public class Message extends TwiML {
         return media;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
     public static class Builder {
         private String to;
         private String from;
@@ -85,7 +82,6 @@ public class Message extends TwiML {
         private String statusCallback;
         private Body body;
         private Media media;
-        private String message;
 
         public Builder to(String to) {
             this.to = to;
@@ -119,11 +115,6 @@ public class Message extends TwiML {
 
         public Builder media(Media media) {
             this.media = media;
-            return this;
-        }
-
-        public Builder message(String message) {
-            this.message = message;
             return this;
         }
 

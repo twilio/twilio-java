@@ -1,37 +1,43 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/gather.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Gather")
 public class Gather extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer timeout;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer numDigits;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String action;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String finishOnKey;
 
-    @JacksonXmlProperty(localName = "Say")
+    @XmlElement(name = "Say")
     private final Say say;
 
-    @JacksonXmlProperty(localName = "Play")
+    @XmlElement(name = "Play")
     private final Play play;
 
-    @JacksonXmlProperty(localName = "Pause")
+    @XmlElement(name = "Pause")
     private final Pause pause;
+
+    // For XML Serialization
+    private Gather() {
+        this(new Builder());
+    }
 
     private Gather(Builder b) {
         this.timeout = b.timeout;

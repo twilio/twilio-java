@@ -1,10 +1,10 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/leave.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Leave")
 public class Leave extends TwiML {
 }

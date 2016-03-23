@@ -1,15 +1,14 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/conference.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Conference")
 public class Conference extends TwiML {
 
     public enum Beep {
@@ -46,41 +45,46 @@ public class Conference extends TwiML {
         }
     }
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Boolean muted;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Boolean startConferenceOnEnter;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Boolean endConferenceOnExit;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Integer maxParticipants;
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Beep beep;
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Record record;
 
-    @JacksonXmlProperty(isAttribute = true)
-    @JsonSerialize(using = ToStringSerializer.class)
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Trim trim;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method waitMethod;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String waitUrl;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String eventCallbackUrl;
 
-    @JacksonXmlText
+    @XmlValue
     private final String name;
+
+    // For XML Serialization
+    private Conference() {
+        this(new Builder(null));
+    }
 
     private Conference(Builder b) {
         this.muted = b.muted;

@@ -1,20 +1,24 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/redirect.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Redirect")
 public class Redirect extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlText
+    @XmlValue
     private final String url;
+
+    private Redirect() {
+        this(new Builder());
+    }
 
     private Redirect(Builder b) {
         this.method = b.method;

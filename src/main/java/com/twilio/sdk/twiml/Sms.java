@@ -1,32 +1,37 @@
 package com.twilio.sdk.twiml;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/sms.
  */
-@JacksonXmlRootElement
+@XmlRootElement(name = "Sms")
 public class Sms extends TwiML {
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String to;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String from;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final Method method;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String action;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @XmlAttribute
     private final String statusCallback;
 
-    @JacksonXmlText
+    @XmlValue
     private final String message;
+
+    // For XML Serialization
+    private Sms() {
+        this(new Builder(null));
+    }
 
     private Sms(Builder b) {
         this.to = b.to;

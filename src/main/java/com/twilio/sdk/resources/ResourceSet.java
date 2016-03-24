@@ -63,11 +63,12 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
     }
 
     private void fetchNextPage() {
-        if (!StringUtils.isEmpty(page.getNextPageUri())) {
+        if (StringUtils.isEmpty(page.getNextPageUri())) {
             return;
         }
 
         page = reader.nextPage(page, client);
+        iterator = page.getRecords().iterator();
     }
 
     private class ResourceSetIterator<E extends Resource> implements Iterator<E> {

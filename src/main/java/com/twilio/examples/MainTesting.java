@@ -5,6 +5,7 @@ import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.api.v2010.account.CallCreator;
 import com.twilio.sdk.creators.api.v2010.account.IncomingPhoneNumberCreator;
 import com.twilio.sdk.creators.api.v2010.account.MessageCreator;
+import com.twilio.sdk.readers.api.v2010.account.CallReader;
 import com.twilio.sdk.readers.api.v2010.account.MessageReader;
 import com.twilio.sdk.readers.api.v2010.account.availablephonenumbercountry.LocalReader;
 import com.twilio.sdk.resources.api.v2010.account.Call;
@@ -26,7 +27,7 @@ public class MainTesting {
     public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
     public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
 
-    public static final PhoneNumber PHONE_NUMBER = new PhoneNumber("+18584618959");
+    public static final PhoneNumber PHONE_NUMBER = new PhoneNumber("+18885551234");
 
     public static void main(String[] args) throws TwiMLException {
 
@@ -62,6 +63,12 @@ public class MainTesting {
         for (Message m : messages) {
             System.out.println(m.getSid());
             System.out.println(m.getBody());
+        }
+
+        // Get some calls
+        Iterable<Call> calls = new CallReader(ACCOUNT_SID).pageSize(2).execute();
+        for (Call c : calls) {
+            System.out.println(c.getSid());
         }
 
         // TwiML

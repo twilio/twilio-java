@@ -5,6 +5,7 @@ import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.api.v2010.account.CallCreator;
 import com.twilio.sdk.creators.api.v2010.account.IncomingPhoneNumberCreator;
 import com.twilio.sdk.creators.api.v2010.account.MessageCreator;
+import com.twilio.sdk.creators.trunking.v1.TrunkCreator;
 import com.twilio.sdk.readers.api.v2010.account.CallReader;
 import com.twilio.sdk.readers.api.v2010.account.MessageReader;
 import com.twilio.sdk.readers.api.v2010.account.availablephonenumbercountry.LocalReader;
@@ -12,6 +13,7 @@ import com.twilio.sdk.resources.api.v2010.account.Call;
 import com.twilio.sdk.resources.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.sdk.resources.api.v2010.account.Message;
 import com.twilio.sdk.resources.api.v2010.account.availablephonenumbercountry.Local;
+import com.twilio.sdk.resources.trunking.v1.Trunk;
 import com.twilio.sdk.twiml.Play;
 import com.twilio.sdk.twiml.Say;
 import com.twilio.sdk.twiml.TwiML;
@@ -44,6 +46,7 @@ public class MainTesting {
             number.getPhoneNumber(),
             "Hello world!"
         ).execute();
+
         System.out.println(message.getSid());
         System.out.println(message.getBody());
 
@@ -70,6 +73,13 @@ public class MainTesting {
         for (Call c : calls) {
             System.out.println(c.getSid());
         }
+
+        Trunk trunk = new TrunkCreator()
+            .setFriendlyName("shiny trunk")
+            .setSecure(false)
+            .execute();
+
+        System.out.println(trunk);
 
         // TwiML
         TwiML twiml = new VoiceResponse.Builder()

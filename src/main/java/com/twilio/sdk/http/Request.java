@@ -207,6 +207,14 @@ public class Request {
         return Joiner.on("&").join(parameters);
     }
 
+    public Map<String, List<String>> getQueryParams() {
+        return queryParams;
+    }
+
+    public Map<String, List<String>> getPostParams() {
+        return postParams;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

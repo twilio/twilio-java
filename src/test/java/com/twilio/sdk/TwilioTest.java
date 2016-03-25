@@ -26,8 +26,8 @@ public class TwilioTest {
     @Test(expected = AuthenticationException.class)
     public void testGetRestClientNullAccountSid() {
         Twilio.setRestClient(null);
-        Twilio.setAccountSid(null);
-        Twilio.setAuthToken(null);
+        Twilio.setUsername(null);
+        Twilio.setPassword(null);
 
         Twilio.getRestClient();
         fail("AuthenticationException was expected");
@@ -35,13 +35,13 @@ public class TwilioTest {
 
     @Test(expected = AuthenticationException.class)
     public void testSetAccountSidNull() {
-        Twilio.setAccountSid(null);
+        Twilio.setUsername(null);
         fail("AuthenticationException was expected");
     }
 
     @Test(expected = AuthenticationException.class)
     public void testSetAuthTokenNull() {
-        Twilio.setAuthToken(null);
+        Twilio.setPassword(null);
         fail("AuthenticationException was expected");
     }
 

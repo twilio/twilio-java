@@ -7,6 +7,12 @@ import java.util.List;
 
 public class Promoter {
 
+    /**
+     * Create a @see java.net.URI from a string
+     *
+     * @param url url to convert
+     * @return built @see java.net.URI
+     */
     public static URI uriFromString(final String url) {
         try {
             return new URI(url);

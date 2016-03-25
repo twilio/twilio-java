@@ -32,10 +32,24 @@ public class Request {
     private String username;
     private String password;
 
+    /**
+     * Create a new API request.
+     *
+     * @param method HTTP method
+     * @param uri uri of request
+     * @param accountSid account making the request
+     */
     public Request(final HttpMethod method, final String uri, final String accountSid) {
         this(method, TwilioRestClient.Domains.API, uri, accountSid);
     }
 
+    /**
+     * Create a new API request.
+     * @param method HTTP Method
+     * @param domain Twilio domain
+     * @param uri uri of request
+     * @param accountSid account making request
+     */
     public Request(final HttpMethod method, final TwilioRestClient.Domains domain,
                    final String uri, final String accountSid) {
         this.method = method;
@@ -191,6 +205,14 @@ public class Request {
             }
         }
         return Joiner.on("&").join(parameters);
+    }
+
+    public Map<String, List<String>> getQueryParams() {
+        return queryParams;
+    }
+
+    public Map<String, List<String>> getPostParams() {
+        return postParams;
     }
 
     @Override

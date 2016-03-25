@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 7.0.0-rc-0
+-------------
+
+Released March 23, 2016
+
+- Release candidate for next gen of Twilio helper libraries
+
 Version 5.9.0
 -------------
 

@@ -1,14 +1,52 @@
 package com.twilio.sdk.http;
 
-import com.twilio.sdk.exceptions.ApiConnectionException;
+import com.google.common.collect.Lists;
+import com.twilio.sdk.Twilio;
+import com.twilio.sdk.exceptions.ApiException;
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class NetworkHttpClient extends HttpClient {
+
+    private static final Charset UTF_8 = Charset.forName("UTF-8");
+    private static final HttpVersion HTTP_1_1 = new HttpVersion(1, 1);
+    private static final int CONNECTION_TIMEOUT = 10000;
+    private static final int SOCKET_TIMEOUT = 30500;
+
+    private final org.apache.http.client.HttpClient client;
+
+    public NetworkHttpClient() {
+        RequestConfig config = RequestConfig.custom()
+            .setConnectTimeout(CONNECTION_TIMEOUT)
+            .setSocketTimeout(SOCKET_TIMEOUT)
+            .build();
+
+        Collection<Header> headers = Lists.<Header>newArrayList(
+            new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
+            new BasicHeader("User-Agent", "twilio-java/" + Twilio.VERSION),
+            new BasicHeader("Accept", "application/json"),
+            new BasicHeader("Accept-Encoding", "utf-8")
+        );
+
+        client = HttpClientBuilder.create()
+            .setConnectionManager(new PoolingHttpClientConnectionManager())
+            .setDefaultRequestConfig(config)
+            .setDefaultHeaders(headers)
+            .setMaxConnPerRoute(10)
+            .build();
+    }
 
     /**
      * Make a request.
@@ -17,58 +55,36 @@ public class NetworkHttpClient extends HttpClient {
      * @return Response of the HTTP request
      */
     public Response makeRequest(final Request request) {
-        try {
-            URL url = request.constructURL();
-            HttpMethod method = request.getMethod();
-            // TODO If we support proxying, plumb it through here.
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setAllowUserInteraction(false);
-            connection.addRequestProperty("Accept", "application/json");
-            connection.addRequestProperty("Accept-Encoding", "utf-8");
-            connection.setInstanceFollowRedirects(true);
 
-            connection.setRequestMethod(method.toString());
+        RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
+            .setUri(request.constructURL().toString())
+            .setVersion(HTTP_1_1)
+            .setCharset(UTF_8);
 
-            if (request.requiresAuthentication()) {
-                connection.setRequestProperty("Authorization", request.getAuthString());
-            }
-
-            if (method == HttpMethod.POST) {
-                connection.setDoOutput(true);
-                connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            }
-
-            // TODO set up timeouts, caching, etc
-            connection.connect();
-
-            if (method == HttpMethod.POST) {
-                sendPostBody(request, connection);
-            }
-
-            int responseCode = connection.getResponseCode();
-            InputStream errorStream = connection.getErrorStream();
-
-            if (errorStream != null) {
-                return new Response(errorStream, responseCode);
-            }
-            InputStream stream = connection.getInputStream();
-
-            return new Response(stream, responseCode);
-
-        } catch (final IOException e) {
-            throw new ApiConnectionException("IOException during API request to Twilio", e);
+        if (request.requiresAuthentication()) {
+            builder.addHeader("Authorization", request.getAuthString());
         }
-    }
 
-    private void sendPostBody(final Request request, final HttpURLConnection conn) {
-        String postBody = request.encodeFormBody();
-        try {
-            OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-            writer.write(postBody);
-            writer.close();
-        } catch (final IOException e) {
-            throw new ApiConnectionException("IOException during API request to Twilio", e);
+        HttpMethod method = request.getMethod();
+        if (method == HttpMethod.POST) {
+            builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
+                for (String value : entry.getValue()) {
+                    builder.addParameter(entry.getKey(), value);
+                }
+            }
         }
-    }
 
+        try {
+            HttpResponse response = client.execute(builder.build());
+            return new Response(
+                response.getEntity().getContent(),
+                response.getStatusLine().getStatusCode()
+            );
+        } catch (IOException e) {
+            throw new ApiException(e.getMessage());
+        }
+
+    }
 }

@@ -27,8 +27,8 @@ public class PhoneNumberCapabilities {
      * @param voice voice enabled
      */
     @JsonCreator
-    public PhoneNumberCapabilities(@JsonProperty("mms") final boolean mms,
-                                   @JsonProperty("sms") final boolean sms,
+    public PhoneNumberCapabilities(@JsonProperty("MMS") final boolean mms,
+                                   @JsonProperty("SMS") final boolean sms,
                                    @JsonProperty("voice") final boolean voice) {
         this.mms = mms;
         this.sms = sms;
@@ -71,8 +71,8 @@ public class PhoneNumberCapabilities {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("mms", mms)
-                .add("sms", sms)
+                .add("MMS", mms)
+                .add("SMS", sms)
                 .add("voice", voice)
                 .toString();
     }

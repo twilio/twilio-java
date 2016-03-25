@@ -19,7 +19,9 @@ public class TwilioRestClient {
         MONITOR("monitor"),
         PRICING("pricing"),
         TASKROUTER("taskrouter"),
-        TRUNKING("trunking");
+        TRUNKING("trunking"),
+        IPMESSAGING("ip-messaging"),
+        NOTIFICATIONS("notifications");
 
         private final String domain;
 
@@ -32,31 +34,51 @@ public class TwilioRestClient {
         }
     }
 
+
     private HttpClient httpClient;
     private final ObjectMapper objectMapper;
+    private final String username;
+    private final String password;
     private final String accountSid;
-    private final String authToken;
 
     /**
      * Create a Rest Client.
      *
-     * @param accountSid Twilio Account Sid
-     * @param authToken Twilio Auth Token
+     * @param username Twilio username
+     * @param password Twilio password
      */
-    public TwilioRestClient(final String accountSid, final String authToken) {
-        this(accountSid, authToken, new NetworkHttpClient());
+    public TwilioRestClient(final String username, final String password) {
+        this(username, password, username, new NetworkHttpClient());
     }
 
     /**
      * Create a Rest Client using a custom HTTP Client.
      *
-     * @param accountSid Twilio Account Sid
-     * @param authToken Twilio Auth Token
+     * @param username Twilio username
+     * @param password Twilio password
+     * @param accountSid Twilio account sid
+     */
+    public TwilioRestClient(final String username, final String password, final String accountSid) {
+        this(username, password, accountSid, new NetworkHttpClient());
+    }
+
+    /**
+     * Create a Rest Client using a custom HTTP Client.
+     *
+     * @param username Twilio username
+     * @param password Twilio password
+     * @param accountSid Twilio account sid
      * @param httpClient Custom HTTP Client
      */
-    public TwilioRestClient(final String accountSid, final String authToken, final HttpClient httpClient) {
+    public TwilioRestClient(
+        final String username,
+        final String password,
+        final String accountSid,
+        final HttpClient httpClient
+    ) {
+        this.username = username;
+        this.password = password;
         this.accountSid = accountSid;
-        this.authToken = authToken;
         this.httpClient = httpClient;
         this.objectMapper = new ObjectMapper();
     }
@@ -68,7 +90,7 @@ public class TwilioRestClient {
      * @return Response object
      */
     public Response request(final Request request) {
-        request.setAuth(accountSid, authToken);
+        request.setAuth(username, password);
         return httpClient.reliableRequest(request);
     }
 

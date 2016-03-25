@@ -84,62 +84,62 @@ public class Page<T> {
     }
 
     private static <T> Page<T> buildPage(JsonNode root, List<T> results) {
-        Builder<T> b = new Builder<T>()
+        Builder<T> builder = new Builder<T>()
             .uri(root.get("uri").asText());
 
         JsonNode nextPageNode = root.get("next_page_uri");
         if (nextPageNode != null && !nextPageNode.isNull()) {
-            b.nextPageUri(nextPageNode.asText());
+            builder.nextPageUri(nextPageNode.asText());
         }
 
         JsonNode previousPageNode = root.get("previous_page_uri");
         if (previousPageNode != null && !previousPageNode.isNull()) {
-            b.previousPageUri(previousPageNode.asText());
+            builder.previousPageUri(previousPageNode.asText());
         }
 
         JsonNode firstPageNode = root.get("first_page_uri");
         if (firstPageNode != null && !firstPageNode.isNull()) {
-            b.firstPageUri(firstPageNode.asText());
+            builder.firstPageUri(firstPageNode.asText());
         }
 
         JsonNode pageSizeNode = root.get("page_size");
         if (pageSizeNode != null && !pageSizeNode.isNull()) {
-            b.pageSize(pageSizeNode.asInt());
+            builder.pageSize(pageSizeNode.asInt());
         } else {
-            b.pageSize(results.size());
+            builder.pageSize(results.size());
         }
 
-        return b.records(results).build();
+        return builder.records(results).build();
     }
 
     private static <T> Page<T> buildNextGenPage(JsonNode root, List<T> results) {
         JsonNode meta = root.get("meta");
-        Builder<T> b = new Builder<T>()
+        Builder<T> builder = new Builder<T>()
             .uri(URI.create(meta.get("url").asText()).getPath());
 
         JsonNode nextPageNode = meta.get("next_page_url");
         if (!nextPageNode.isNull()) {
-            b.nextPageUri(URI.create(nextPageNode.asText()).getPath());
+            builder.nextPageUri(URI.create(nextPageNode.asText()).getPath());
         }
 
         JsonNode previousPageNode = meta.get("previous_page_url");
         if (!previousPageNode.isNull()) {
-            b.previousPageUri(URI.create(previousPageNode.asText()).getPath());
+            builder.previousPageUri(URI.create(previousPageNode.asText()).getPath());
         }
 
         JsonNode firstPageNode = meta.get("first_page_url");
         if (!firstPageNode.isNull()) {
-            b.firstPageUri(URI.create(firstPageNode.asText()).getPath());
+            builder.firstPageUri(URI.create(firstPageNode.asText()).getPath());
         }
 
         JsonNode pageSizeNode = meta.get("page_size");
         if (!pageSizeNode.isNull()) {
-            b.pageSize(pageSizeNode.asInt());
+            builder.pageSize(pageSizeNode.asInt());
         } else {
-            b.pageSize(results.size());
+            builder.pageSize(results.size());
         }
 
-        return b.records(results).build();
+        return builder.records(results).build();
     }
 
     private static class Builder<T> {

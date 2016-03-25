@@ -74,11 +74,13 @@ public class Dial extends TwiML {
     @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Trim trim;
 
+    @SuppressWarnings("checkstyle:indentation")
     @XmlElements({
         @XmlElement(name = "Number", type = Number.class)
     })
     private final List<Number> numbers;
 
+    @SuppressWarnings("checkstyle:indentation")
     @XmlElements({
         @XmlElement(name = "Client", type = Client.class)
     })

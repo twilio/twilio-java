@@ -27,9 +27,9 @@ public abstract class TwiML {
             JAXBContext context = JAXBContext.newInstance(this.getClass());
             StringWriter writer = new StringWriter();
 
-            Marshaller m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-            m.marshal(this, writer);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+            marshaller.marshal(this, writer);
 
             return writer.toString();
         } catch (JAXBException e) {

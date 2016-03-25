@@ -4,6 +4,7 @@
  *  | (_)\/(_)(_|\/| |(/_  v1.0.0
  *       /       /       
  */
+
 package com.twilio.sdk.deleters.ipmessaging.v1.service;
 
 import com.twilio.sdk.clients.TwilioRestClient;
@@ -41,7 +42,7 @@ public class RoleDeleter extends Deleter<Role> {
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.GET,
+            HttpMethod.DELETE,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Roles/" + this.sid + "",
             client.getAccountSid()

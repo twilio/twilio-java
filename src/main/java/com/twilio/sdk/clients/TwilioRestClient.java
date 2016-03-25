@@ -20,7 +20,8 @@ public class TwilioRestClient {
         PRICING("pricing"),
         TASKROUTER("taskrouter"),
         TRUNKING("trunking"),
-        IPMESSAGING("ip-messaging");
+        IPMESSAGING("ip-messaging"),
+        NOTIFICATIONS("notifications");
 
         private final String domain;
 
@@ -69,7 +70,12 @@ public class TwilioRestClient {
      * @param accountSid Twilio account sid
      * @param httpClient Custom HTTP Client
      */
-    public TwilioRestClient(final String username, final String password, final String accountSid, final HttpClient httpClient) {
+    public TwilioRestClient(
+        final String username,
+        final String password,
+        final String accountSid,
+        final HttpClient httpClient
+    ) {
         this.username = username;
         this.password = password;
         this.accountSid = accountSid;

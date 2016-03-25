@@ -4,20 +4,20 @@
 'UTF-8'
 -public
 -sourcepath
-'/Users/jniu/Twilio/twilio-java/src/main/java'
+'/Users/jniu/Twilio/java-private/src/main/java'
 -author
 -bottom
 '<i>Copyright &#169; 2011 Twilio, Inc. All Rights Reserved.</i>'
 -charset
 'UTF-8'
 -d
-'/Users/jniu/Twilio/twilio-java/docs'
+'/Users/jniu/Twilio/java-private/docs'
 -docencoding
 'UTF-8'
 -doctitle
 '<h1>Twilio Java</h1>'
 -linkoffline
-'http://docs.oracle.com/javase/7/docs/api' '/Users/jniu/Twilio/twilio-java/target/javadoc-bundle-options'
+'http://docs.oracle.com/javase/7/docs/api' '/Users/jniu/Twilio/java-private/target/javadoc-bundle-options'
 -nohelp
 -use
 -version

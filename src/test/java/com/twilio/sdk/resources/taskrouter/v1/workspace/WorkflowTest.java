@@ -4,6 +4,7 @@
  *  | (_)\/(_)(_|\/| |(/_  v1.0.0
  *       /       /       
  */
+
 package com.twilio.sdk.resources.taskrouter.v1.workspace;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

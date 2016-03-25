@@ -21,6 +21,12 @@ public class MarshalConverter {
     private static final DateTimeFormatter ISO8601_DATE_TIME_FORMATTER =
         DateTimeFormat.forPattern(ISO8601_DATE_TIME).withZone(DateTimeZone.UTC);
 
+    /**
+     * Parse a @see org.joda.time.DateTime from a String.
+     *
+     * @param dateTimeString timestamp to parse
+     * @return parsed @see org.joda.time.DateTime if parseable, null otherwise
+     */
     public static DateTime rfc2822DateTimeFromString(String dateTimeString) {
         try {
             return DateTime.parse(dateTimeString, RFC2822_DATE_TIME_FORMATTER);
@@ -29,6 +35,12 @@ public class MarshalConverter {
         }
     }
 
+    /**
+     * Parse a @see org.joda.time.DateTime from a String.
+     *
+     * @param dateTimeString timestamp to parse
+     * @return parsed @see org.joda.time.DateTime if parseable, null otherwise
+     */
     public static DateTime iso8601DateTimeFromString(String dateTimeString) {
         try {
             return DateTime.parse(dateTimeString, ISO8601_DATE_TIME_FORMATTER);
@@ -37,6 +49,12 @@ public class MarshalConverter {
         }
     }
 
+    /**
+     * Parse a @see org.joda.time.LocalDate from a String.
+     * 
+     * @param dateString the date String
+     * @return parsed @see org.joda.time.LocalDate if parseable, null otherwise;
+     */
     public static LocalDate localDateFromString(String dateString) {
         try {
             return LocalDate.parse(dateString, DATE_FORMATTER);

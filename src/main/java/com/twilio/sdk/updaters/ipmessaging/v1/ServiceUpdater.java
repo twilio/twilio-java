@@ -4,6 +4,7 @@
  *  | (_)\/(_)(_|\/| |(/_  v1.0.0
  *       /       /       
  */
+
 package com.twilio.sdk.updaters.ipmessaging.v1;
 
 import com.fasterxml.jackson.databind.JsonNode;

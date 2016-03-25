@@ -4,6 +4,7 @@
  *  | (_)\/(_)(_|\/| |(/_  v1.0.0
  *       /       /       
  */
+
 package com.twilio.sdk.resources.pricing.v1.messaging;
 
 import com.fasterxml.jackson.annotation.JsonCreator;

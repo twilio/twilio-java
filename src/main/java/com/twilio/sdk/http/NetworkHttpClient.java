@@ -24,13 +24,14 @@ public class NetworkHttpClient extends HttpClient {
 
             // TODO If we support proxying, plumb it through here.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setAllowUserInteraction(false);
+
             connection.addRequestProperty("X-Twilio-Client", "java-" + Twilio.VERSION);
             connection.addRequestProperty("User-Agent", "twilio-java/" + Twilio.VERSION);
             connection.addRequestProperty("Accept", "application/json");
             connection.addRequestProperty("Accept-Encoding", "utf-8");
-            connection.setInstanceFollowRedirects(true);
 
+            connection.setAllowUserInteraction(false);
+            connection.setInstanceFollowRedirects(true);
             connection.setRequestMethod(method.toString());
 
             if (request.requiresAuthentication()) {
@@ -55,8 +56,8 @@ public class NetworkHttpClient extends HttpClient {
             if (errorStream != null) {
                 return new Response(errorStream, responseCode);
             }
-            InputStream stream = connection.getInputStream();
 
+            InputStream stream = connection.getInputStream();
             return new Response(stream, responseCode);
 
         } catch (final IOException e) {

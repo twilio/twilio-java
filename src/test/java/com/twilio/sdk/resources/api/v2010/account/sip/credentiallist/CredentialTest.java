@@ -4,6 +4,7 @@
  *  | (_)\/(_)(_|\/| |(/_  v1.0.0
  *       /       /       
  */
+
 package com.twilio.sdk.resources.api.v2010.account.sip.credentiallist;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

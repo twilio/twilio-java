@@ -4,6 +4,7 @@
  *  | (_)\/(_)(_|\/| |(/_  v1.0.0
  *       /       /       
  */
+
 package com.twilio.sdk.readers.ipmessaging.v1.service.channel;
 
 import com.twilio.sdk.clients.TwilioRestClient;

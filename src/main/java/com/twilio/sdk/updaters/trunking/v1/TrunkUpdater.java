@@ -4,6 +4,7 @@
  *  | (_)\/(_)(_|\/| |(/_  v1.0.0
  *       /       /       
  */
+
 package com.twilio.sdk.updaters.trunking.v1;
 
 import com.twilio.sdk.clients.TwilioRestClient;

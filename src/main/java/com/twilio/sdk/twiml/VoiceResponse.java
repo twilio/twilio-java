@@ -13,6 +13,7 @@ import java.util.List;
 @XmlRootElement(name = "Response")
 public class VoiceResponse extends TwiML {
 
+    @SuppressWarnings("checkstyle:indentation")
     @XmlElements({
         @XmlElement(name = "Dial", type = Dial.class),
         @XmlElement(name = "Enqueue", type = Enqueue.class),

@@ -22,8 +22,8 @@ import java.net.URI;
 
 public class CallCreator extends Creator<Call> {
     private final String accountSid;
-    private final com.twilio.sdk.types.PhoneNumber to;
-    private final com.twilio.sdk.types.PhoneNumber from;
+    private final com.twilio.sdk.type.PhoneNumber to;
+    private final com.twilio.sdk.type.PhoneNumber from;
     private URI url;
     private String applicationSid;
     private HttpMethod method;
@@ -45,8 +45,8 @@ public class CallCreator extends Creator<Call> {
      * @param url Url from which to fetch TwiML
      */
     public CallCreator(final String accountSid, 
-                       final com.twilio.sdk.types.PhoneNumber to,
-                       final com.twilio.sdk.types.PhoneNumber from,
+                       final com.twilio.sdk.type.PhoneNumber to, 
+                       final com.twilio.sdk.type.PhoneNumber from, 
                        final URI url) {
         this.accountSid = accountSid;
         this.to = to;
@@ -64,8 +64,8 @@ public class CallCreator extends Creator<Call> {
      *                       TwiML
      */
     public CallCreator(final String accountSid, 
-                       final com.twilio.sdk.types.PhoneNumber to,
-                       final com.twilio.sdk.types.PhoneNumber from,
+                       final com.twilio.sdk.type.PhoneNumber to, 
+                       final com.twilio.sdk.type.PhoneNumber from, 
                        final String applicationSid) {
         this.accountSid = accountSid;
         this.to = to;

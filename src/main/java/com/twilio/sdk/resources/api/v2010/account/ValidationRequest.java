@@ -14,13 +14,19 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.creators.api.v2010.account.ValidationRequestCreator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.http.HttpMethod;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Resource;
+import com.twilio.sdk.resources.RestException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -35,7 +41,7 @@ public class ValidationRequest extends Resource {
      * @return ValidationRequestCreator capable of executing the create
      */
     public static ValidationRequestCreator create(final String accountSid, 
-                                                  final com.twilio.sdk.types.PhoneNumber phoneNumber) {
+                                                  final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         return new ValidationRequestCreator(accountSid, phoneNumber);
     }
 
@@ -78,7 +84,7 @@ public class ValidationRequest extends Resource {
     }
 
     private final String accountSid;
-    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private final String friendlyName;
     private final Integer validationCode;
     private final String callSid;
@@ -87,7 +93,7 @@ public class ValidationRequest extends Resource {
     private ValidationRequest(@JsonProperty("account_sid")
                               final String accountSid, 
                               @JsonProperty("phone_number")
-                              final com.twilio.sdk.types.PhoneNumber phoneNumber,
+                              final com.twilio.sdk.type.PhoneNumber phoneNumber, 
                               @JsonProperty("friendly_name")
                               final String friendlyName, 
                               @JsonProperty("validation_code")
@@ -115,7 +121,7 @@ public class ValidationRequest extends Resource {
      * 
      * @return The phone_number
      */
-    public final com.twilio.sdk.types.PhoneNumber getPhoneNumber() {
+    public final com.twilio.sdk.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

@@ -19,7 +19,8 @@ import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class PhoneNumberTest {
     @Mocked
@@ -47,7 +48,7 @@ public class PhoneNumberTest {
         }};
         
         try {
-            PhoneNumber.fetch(new com.twilio.sdk.types.PhoneNumber("+987654321")).execute();
+            PhoneNumber.fetch(new com.twilio.sdk.type.PhoneNumber("+987654321")).execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -61,6 +62,6 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(PhoneNumber.fetch(new com.twilio.sdk.types.PhoneNumber("+987654321")).execute());
+        assertNotNull(PhoneNumber.fetch(new com.twilio.sdk.type.PhoneNumber("+987654321")).execute());
     }
 }

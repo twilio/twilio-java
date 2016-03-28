@@ -14,18 +14,24 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.deleters.api.v2010.account.OutgoingCallerIdDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.api.v2010.account.OutgoingCallerIdFetcher;
+import com.twilio.sdk.http.HttpMethod;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.OutgoingCallerIdReader;
+import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import com.twilio.sdk.updaters.api.v2010.account.OutgoingCallerIdUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -121,7 +127,7 @@ public class OutgoingCallerId extends SidResource {
     private final DateTime dateUpdated;
     private final String friendlyName;
     private final String accountSid;
-    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private final String uri;
 
     @JsonCreator
@@ -136,7 +142,7 @@ public class OutgoingCallerId extends SidResource {
                              @JsonProperty("account_sid")
                              final String accountSid, 
                              @JsonProperty("phone_number")
-                             final com.twilio.sdk.types.PhoneNumber phoneNumber,
+                             final com.twilio.sdk.type.PhoneNumber phoneNumber, 
                              @JsonProperty("uri")
                              final String uri) {
         this.sid = sid;
@@ -198,7 +204,7 @@ public class OutgoingCallerId extends SidResource {
      * 
      * @return The incoming phone number
      */
-    public final com.twilio.sdk.types.PhoneNumber getPhoneNumber() {
+    public final com.twilio.sdk.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

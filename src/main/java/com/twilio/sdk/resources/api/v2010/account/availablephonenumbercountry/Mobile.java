@@ -14,15 +14,21 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.http.HttpMethod;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.availablephonenumbercountry.MobileReader;
 import com.twilio.sdk.resources.Resource;
-import com.twilio.sdk.types.PhoneNumberCapabilities;
+import com.twilio.sdk.resources.RestException;
+import com.twilio.sdk.type.PhoneNumberCapabilities;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -78,8 +84,8 @@ public class Mobile extends Resource {
         }
     }
 
-    private final com.twilio.sdk.types.PhoneNumber friendlyName;
-    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.type.PhoneNumber friendlyName;
+    private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private final String lata;
     private final String rateCenter;
     private final BigDecimal latitude;
@@ -93,9 +99,9 @@ public class Mobile extends Resource {
 
     @JsonCreator
     private Mobile(@JsonProperty("friendly_name")
-                   final com.twilio.sdk.types.PhoneNumber friendlyName,
+                   final com.twilio.sdk.type.PhoneNumber friendlyName, 
                    @JsonProperty("phone_number")
-                   final com.twilio.sdk.types.PhoneNumber phoneNumber,
+                   final com.twilio.sdk.type.PhoneNumber phoneNumber, 
                    @JsonProperty("lata")
                    final String lata, 
                    @JsonProperty("rate_center")
@@ -135,7 +141,7 @@ public class Mobile extends Resource {
      * 
      * @return The friendly_name
      */
-    public final com.twilio.sdk.types.PhoneNumber getFriendlyName() {
+    public final com.twilio.sdk.type.PhoneNumber getFriendlyName() {
         return this.friendlyName;
     }
 
@@ -144,7 +150,7 @@ public class Mobile extends Resource {
      * 
      * @return The phone_number
      */
-    public final com.twilio.sdk.types.PhoneNumber getPhoneNumber() {
+    public final com.twilio.sdk.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

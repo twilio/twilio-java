@@ -1,4 +1,4 @@
-package com.twilio.sdk.types;
+package com.twilio.sdk.type;
 
 import java.util.Objects;
 

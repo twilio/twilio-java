@@ -23,7 +23,7 @@ public class LocalReader extends Reader<Local> {
     private final String ownerAccountSid;
     private Boolean beta;
     private String friendlyName;
-    private com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private com.twilio.sdk.type.PhoneNumber phoneNumber;
 
     /**
      * Construct a new LocalReader.
@@ -62,7 +62,7 @@ public class LocalReader extends Reader<Local> {
      * @param phoneNumber The phone_number
      * @return this
      */
-    public LocalReader byPhoneNumber(final com.twilio.sdk.types.PhoneNumber phoneNumber) {
+    public LocalReader byPhoneNumber(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }

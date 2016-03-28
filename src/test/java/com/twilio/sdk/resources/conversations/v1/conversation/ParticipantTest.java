@@ -10,6 +10,8 @@ package com.twilio.sdk.resources.conversations.v1.conversation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.converters.MarshalConverter;
+import com.twilio.sdk.converters.Promoter;
 import com.twilio.sdk.exceptions.TwilioException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
@@ -18,6 +20,8 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.net.URI;
 
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
@@ -84,8 +88,8 @@ public class ParticipantTest {
                                                       TwilioRestClient.Domains.CONVERSATIONS,
                                                       "/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants",
                                                       "AC123");
-                        request.addPostParam("To", serialize(new com.twilio.sdk.types.PhoneNumber("+123456789")));
-        request.addPostParam("From", serialize(new com.twilio.sdk.types.PhoneNumber("+987654321")));
+                        request.addPostParam("To", serialize(new com.twilio.sdk.type.PhoneNumber("+123456789")));
+        request.addPostParam("From", serialize(new com.twilio.sdk.type.PhoneNumber("+987654321")));
                         
                         twilioRestClient.request(request);
                         times = 1;
@@ -95,7 +99,7 @@ public class ParticipantTest {
                     }};
         
         try {
-            Participant.create("CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.types.PhoneNumber("+123456789"), new com.twilio.sdk.types.PhoneNumber("+987654321")).execute();
+            Participant.create("CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.type.PhoneNumber("+123456789"), new com.twilio.sdk.type.PhoneNumber("+987654321")).execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +113,7 @@ public class ParticipantTest {
             result = new ObjectMapper();
         }};
         
-        Participant.create("CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.types.PhoneNumber("+123456789"), new com.twilio.sdk.types.PhoneNumber("+987654321")).execute();
+        Participant.create("CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.type.PhoneNumber("+123456789"), new com.twilio.sdk.type.PhoneNumber("+987654321")).execute();
     }
 
     @Test

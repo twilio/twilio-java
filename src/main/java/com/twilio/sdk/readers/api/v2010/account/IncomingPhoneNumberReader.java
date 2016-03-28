@@ -23,7 +23,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     private final String ownerAccountSid;
     private Boolean beta;
     private String friendlyName;
-    private com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private com.twilio.sdk.type.PhoneNumber phoneNumber;
 
     /**
      * Construct a new IncomingPhoneNumberReader.
@@ -63,7 +63,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      * @param phoneNumber Filter by incoming phone number
      * @return this
      */
-    public IncomingPhoneNumberReader byPhoneNumber(final com.twilio.sdk.types.PhoneNumber phoneNumber) {
+    public IncomingPhoneNumberReader byPhoneNumber(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }

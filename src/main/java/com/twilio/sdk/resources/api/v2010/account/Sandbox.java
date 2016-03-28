@@ -14,18 +14,23 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.api.v2010.account.SandboxFetcher;
 import com.twilio.sdk.http.HttpMethod;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resources.Resource;
+import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.updaters.api.v2010.account.SandboxUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -93,7 +98,7 @@ public class Sandbox extends Resource {
     private final DateTime dateUpdated;
     private final Integer pin;
     private final String accountSid;
-    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private final String applicationSid;
     private final String apiVersion;
     private final URI voiceUrl;
@@ -114,7 +119,7 @@ public class Sandbox extends Resource {
                     @JsonProperty("account_sid")
                     final String accountSid, 
                     @JsonProperty("phone_number")
-                    final com.twilio.sdk.types.PhoneNumber phoneNumber,
+                    final com.twilio.sdk.type.PhoneNumber phoneNumber, 
                     @JsonProperty("application_sid")
                     final String applicationSid, 
                     @JsonProperty("api_version")
@@ -190,7 +195,7 @@ public class Sandbox extends Resource {
      * 
      * @return The phone_number
      */
-    public final com.twilio.sdk.types.PhoneNumber getPhoneNumber() {
+    public final com.twilio.sdk.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

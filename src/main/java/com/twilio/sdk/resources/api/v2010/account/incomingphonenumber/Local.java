@@ -14,19 +14,24 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.api.v2010.account.incomingphonenumber.LocalCreator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.http.HttpMethod;
+import com.twilio.sdk.http.Request;
+import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.incomingphonenumber.LocalReader;
 import com.twilio.sdk.resources.Resource;
-import com.twilio.sdk.types.PhoneNumberCapabilities;
+import com.twilio.sdk.resources.RestException;
+import com.twilio.sdk.type.PhoneNumberCapabilities;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -74,7 +79,7 @@ public class Local extends Resource {
      * @return LocalCreator capable of executing the create
      */
     public static LocalCreator create(final String ownerAccountSid, 
-                                      final com.twilio.sdk.types.PhoneNumber phoneNumber) {
+                                      final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         return new LocalCreator(ownerAccountSid, phoneNumber);
     }
 
@@ -123,7 +128,7 @@ public class Local extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String friendlyName;
-    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private final String sid;
     private final String smsApplicationSid;
     private final HttpMethod smsFallbackMethod;
@@ -158,7 +163,7 @@ public class Local extends Resource {
                   @JsonProperty("friendly_name")
                   final String friendlyName, 
                   @JsonProperty("phone_number")
-                  final com.twilio.sdk.types.PhoneNumber phoneNumber,
+                  final com.twilio.sdk.type.PhoneNumber phoneNumber, 
                   @JsonProperty("sid")
                   final String sid, 
                   @JsonProperty("sms_application_sid")
@@ -292,7 +297,7 @@ public class Local extends Resource {
      * 
      * @return The phone_number
      */
-    public final com.twilio.sdk.types.PhoneNumber getPhoneNumber() {
+    public final com.twilio.sdk.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

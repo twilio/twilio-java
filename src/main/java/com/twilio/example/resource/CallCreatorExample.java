@@ -5,7 +5,7 @@ import com.twilio.sdk.Twilio;
 import com.twilio.sdk.creators.api.v2010.account.CallCreator;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.resources.api.v2010.account.Call;
-import com.twilio.sdk.types.PhoneNumber;
+import com.twilio.sdk.type.PhoneNumber;
 
 import java.net.URI;
 import java.net.URISyntaxException;

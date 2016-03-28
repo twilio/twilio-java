@@ -18,7 +18,7 @@ import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.lookups.v1.PhoneNumber;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
-    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String countryCode;
     private String type;
 
@@ -27,7 +27,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * 
      * @param phoneNumber The phone_number
      */
-    public PhoneNumberFetcher(final com.twilio.sdk.types.PhoneNumber phoneNumber) {
+    public PhoneNumberFetcher(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

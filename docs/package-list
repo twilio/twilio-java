@@ -177,4 +177,4 @@ com.twilio.sdk.updaters.taskrouter.v1.workspace
 com.twilio.sdk.updaters.taskrouter.v1.workspace.task
 com.twilio.sdk.updaters.trunking.v1
 com.twilio.sdk.updaters.trunking.v1.trunk
-com.twilio.sdk.types
+com.twilio.sdk.type

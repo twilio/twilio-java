@@ -1,4 +1,4 @@
-package com.twilio.sdk.types;
+package com.twilio.sdk.type;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

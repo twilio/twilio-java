@@ -22,7 +22,7 @@ import java.net.URI;
 
 public class TollFreeCreator extends Creator<TollFree> {
     private final String ownerAccountSid;
-    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -46,7 +46,7 @@ public class TollFreeCreator extends Creator<TollFree> {
      * @param phoneNumber The phone_number
      */
     public TollFreeCreator(final String ownerAccountSid, 
-                           final com.twilio.sdk.types.PhoneNumber phoneNumber) {
+                           final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }

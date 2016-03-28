@@ -10,6 +10,8 @@ package com.twilio.sdk.resources.api.v2010.account;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.converters.MarshalConverter;
+import com.twilio.sdk.converters.Promoter;
 import com.twilio.sdk.exceptions.TwilioException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
@@ -18,6 +20,8 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.net.URI;
 
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
@@ -186,7 +190,7 @@ public class IncomingPhoneNumberTest {
                                           TwilioRestClient.Domains.API,
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json",
                                           "AC123");
-            request.addPostParam("PhoneNumber", serialize(new com.twilio.sdk.types.PhoneNumber("+987654321")));
+            request.addPostParam("PhoneNumber", serialize(new com.twilio.sdk.type.PhoneNumber("+987654321")));
             
             twilioRestClient.request(request);
             times = 1;
@@ -196,7 +200,7 @@ public class IncomingPhoneNumberTest {
         }};
         
         try {
-            IncomingPhoneNumber.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.types.PhoneNumber("+987654321")).execute();
+            IncomingPhoneNumber.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.type.PhoneNumber("+987654321")).execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -210,6 +214,6 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        IncomingPhoneNumber.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.types.PhoneNumber("+987654321")).execute();
+        IncomingPhoneNumber.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.type.PhoneNumber("+987654321")).execute();
     }
 }

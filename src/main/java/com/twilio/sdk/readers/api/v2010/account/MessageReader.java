@@ -21,8 +21,8 @@ import com.twilio.sdk.resources.api.v2010.account.Message;
 
 public class MessageReader extends Reader<Message> {
     private final String accountSid;
-    private com.twilio.sdk.types.PhoneNumber to;
-    private com.twilio.sdk.types.PhoneNumber from;
+    private com.twilio.sdk.type.PhoneNumber to;
+    private com.twilio.sdk.type.PhoneNumber from;
     private String dateSent;
 
     /**
@@ -40,7 +40,7 @@ public class MessageReader extends Reader<Message> {
      * @param to Filter by messages to this number
      * @return this
      */
-    public MessageReader byTo(final com.twilio.sdk.types.PhoneNumber to) {
+    public MessageReader byTo(final com.twilio.sdk.type.PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -51,7 +51,7 @@ public class MessageReader extends Reader<Message> {
      * @param from Filter by from number
      * @return this
      */
-    public MessageReader byFrom(final com.twilio.sdk.types.PhoneNumber from) {
+    public MessageReader byFrom(final com.twilio.sdk.type.PhoneNumber from) {
         this.from = from;
         return this;
     }

@@ -23,7 +23,7 @@ public class MobileReader extends Reader<Mobile> {
     private final String ownerAccountSid;
     private Boolean beta;
     private String friendlyName;
-    private com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private com.twilio.sdk.type.PhoneNumber phoneNumber;
 
     /**
      * Construct a new MobileReader.
@@ -62,7 +62,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param phoneNumber The phone_number
      * @return this
      */
-    public MobileReader byPhoneNumber(final com.twilio.sdk.types.PhoneNumber phoneNumber) {
+    public MobileReader byPhoneNumber(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }

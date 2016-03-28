@@ -1,4 +1,4 @@
-package com.twilio.sdk.types;
+package com.twilio.sdk.type;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,18 +7,14 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
 /**
- * Object representation of a price of a phone number.
+ * Pricing for inbound sms.
  *
  * <p>
- *  For more information see:
- *  <a href=https://www.twilio.com/voice/pricing>Pricing Docs</a>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
  * </p>
  */
-public class PhoneNumberPrice {
-
-    /**
-     * Possible phone number types.
-     */
+public class InboundSmsPrice {
     public enum Type {
         LOCAL("local"),
         MOBILE("mobile"),
@@ -27,11 +23,6 @@ public class PhoneNumberPrice {
 
         private final String value;
 
-        /**
-         * Initialize the phone number type.
-         *
-         * @param value name of phone number type
-         */
         Type(final String value) {
             this.value = value;
         }
@@ -40,19 +31,9 @@ public class PhoneNumberPrice {
             return value;
         }
 
-        /**
-         * Returns the type of phone number given a string value.
-         *
-         * @param value type of phone number
-         * @return the type of phone number if valid; null otherwise
-         */
         @JsonCreator
         public static Type forValue(final String value) {
-            if (value == null) {
-                return null;
-            }
-
-            return Type.valueOf(value.toUpperCase());
+            return value == null ? null : Type.valueOf(value.toUpperCase());
         }
     }
 
@@ -61,41 +42,29 @@ public class PhoneNumberPrice {
     private final Type type;
 
     /**
-     * Initialize a PhoneNumberPrice.
+     * Initialize an InboundSmsPrice.
      *
-     * @param basePrice base price of the phone number
-     * @param currentPrice current price of the phone number
+     * @param basePrice base price for sms
+     * @param currentPrice current price for sms
      * @param type type of phone number
      */
     @JsonCreator
-    public PhoneNumberPrice(@JsonProperty("base_price") final double basePrice,
-                            @JsonProperty("current_price") final double currentPrice,
-                            @JsonProperty("type") final Type type) {
+    public InboundSmsPrice(@JsonProperty("base_price") final double basePrice,
+                           @JsonProperty("current_price") final double currentPrice,
+                           @JsonProperty("type") final Type type) {
         this.basePrice = basePrice;
         this.currentPrice = currentPrice;
         this.type = type;
     }
 
-    /**
-     * Returns the base price of the phone number.
-     * @return the base price of the phone number
-     */
     public double getBasePrice() {
         return basePrice;
     }
 
-    /**
-     * Returns the current price of the phone number.
-     * @return the current price of the phone number
-     */
     public double getCurrentPrice() {
         return currentPrice;
     }
 
-    /**
-     * Returns the type of phone number.
-     * @return the type of phone number
-     */
     public Type getType() {
         return type;
     }
@@ -110,7 +79,7 @@ public class PhoneNumberPrice {
             return false;
         }
 
-        PhoneNumberPrice other = (PhoneNumberPrice) o;
+        InboundSmsPrice other = (InboundSmsPrice) o;
         return Objects.equals(this.basePrice, other.basePrice) &&
                Objects.equals(this.currentPrice, other.currentPrice) &&
                Objects.equals(this.type, other.type);

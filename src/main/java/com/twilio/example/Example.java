@@ -19,7 +19,7 @@ import com.twilio.twiml.Say;
 import com.twilio.twiml.TwiML;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.VoiceResponse;
-import com.twilio.sdk.types.PhoneNumber;
+import com.twilio.sdk.type.PhoneNumber;
 
 import java.net.URI;
 import java.util.Iterator;

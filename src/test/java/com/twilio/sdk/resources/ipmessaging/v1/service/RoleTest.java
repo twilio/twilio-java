@@ -10,6 +10,7 @@ package com.twilio.sdk.resources.ipmessaging.v1.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
+import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.converters.Promoter;
 import com.twilio.sdk.exceptions.TwilioException;
 import com.twilio.sdk.http.HttpMethod;
@@ -19,6 +20,8 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.net.URI;
 
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;

@@ -21,7 +21,7 @@ import com.twilio.sdk.resources.api.v2010.account.OutgoingCallerId;
 
 public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     private final String accountSid;
-    private com.twilio.sdk.types.PhoneNumber phoneNumber;
+    private com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String friendlyName;
 
     /**
@@ -39,7 +39,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
      * @param phoneNumber Filter by phone number
      * @return this
      */
-    public OutgoingCallerIdReader byPhoneNumber(final com.twilio.sdk.types.PhoneNumber phoneNumber) {
+    public OutgoingCallerIdReader byPhoneNumber(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }

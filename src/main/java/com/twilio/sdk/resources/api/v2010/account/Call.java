@@ -15,18 +15,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.api.v2010.account.CallCreator;
 import com.twilio.sdk.deleters.api.v2010.account.CallDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.api.v2010.account.CallFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.CallReader;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import com.twilio.sdk.updaters.api.v2010.account.CallUpdater;
 import org.joda.time.DateTime;
@@ -103,8 +98,8 @@ public class Call extends SidResource {
      * @return CallCreator capable of executing the create
      */
     public static CallCreator create(final String accountSid, 
-                                     final com.twilio.types.PhoneNumber to, 
-                                     final com.twilio.types.PhoneNumber from, 
+                                     final com.twilio.sdk.types.PhoneNumber to,
+                                     final com.twilio.sdk.types.PhoneNumber from,
                                      final URI url) {
         return new CallCreator(accountSid, to, from, url);
     }
@@ -120,8 +115,8 @@ public class Call extends SidResource {
      * @return CallCreator capable of executing the create
      */
     public static CallCreator create(final String accountSid, 
-                                     final com.twilio.types.PhoneNumber to, 
-                                     final com.twilio.types.PhoneNumber from, 
+                                     final com.twilio.sdk.types.PhoneNumber to,
+                                     final com.twilio.sdk.types.PhoneNumber from,
                                      final String applicationSid) {
         return new CallCreator(accountSid, to, from, applicationSid);
     }

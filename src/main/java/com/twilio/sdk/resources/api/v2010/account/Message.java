@@ -15,18 +15,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.api.v2010.account.MessageCreator;
 import com.twilio.sdk.deleters.api.v2010.account.MessageDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.api.v2010.account.MessageFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.MessageReader;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import com.twilio.sdk.updaters.api.v2010.account.MessageUpdater;
 import org.joda.time.DateTime;
@@ -104,8 +99,8 @@ public class Message extends SidResource {
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator create(final String accountSid, 
-                                        final com.twilio.types.PhoneNumber to, 
-                                        final com.twilio.types.PhoneNumber from, 
+                                        final com.twilio.sdk.types.PhoneNumber to,
+                                        final com.twilio.sdk.types.PhoneNumber from,
                                         final String body) {
         return new MessageCreator(accountSid, to, from, body);
     }
@@ -120,8 +115,8 @@ public class Message extends SidResource {
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator create(final String accountSid, 
-                                        final com.twilio.types.PhoneNumber to, 
-                                        final com.twilio.types.PhoneNumber from, 
+                                        final com.twilio.sdk.types.PhoneNumber to,
+                                        final com.twilio.sdk.types.PhoneNumber from,
                                         final List<URI> mediaUrl) {
         return new MessageCreator(accountSid, to, from, mediaUrl);
     }
@@ -218,7 +213,7 @@ public class Message extends SidResource {
     private final Message.Direction direction;
     private final Integer errorCode;
     private final String errorMessage;
-    private final com.twilio.types.PhoneNumber from;
+    private final com.twilio.sdk.types.PhoneNumber from;
     private final String numMedia;
     private final String numSegments;
     private final BigDecimal price;
@@ -249,7 +244,7 @@ public class Message extends SidResource {
                     @JsonProperty("error_message")
                     final String errorMessage, 
                     @JsonProperty("from")
-                    final com.twilio.types.PhoneNumber from, 
+                    final com.twilio.sdk.types.PhoneNumber from,
                     @JsonProperty("num_media")
                     final String numMedia, 
                     @JsonProperty("num_segments")
@@ -376,7 +371,7 @@ public class Message extends SidResource {
      * 
      * @return The phone number that initiated the message
      */
-    public final com.twilio.types.PhoneNumber getFrom() {
+    public final com.twilio.sdk.types.PhoneNumber getFrom() {
         return this.from;
     }
 

@@ -9,8 +9,8 @@ import org.junit.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.twilio.sdk.Assert.assertQueryStringsEqual;
-import static com.twilio.sdk.Assert.assertUrlsEqual;
+import static com.twilio.Assert.assertQueryStringsEqual;
+import static com.twilio.Assert.assertUrlsEqual;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

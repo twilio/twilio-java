@@ -15,25 +15,19 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.pricing.v1.messaging.CountryFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.pricing.v1.messaging.CountryReader;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
-import com.twilio.types.InboundSmsPrice;
-import com.twilio.types.OutboundSmsPrice;
+import com.twilio.sdk.types.InboundSmsPrice;
+import com.twilio.sdk.types.OutboundSmsPrice;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

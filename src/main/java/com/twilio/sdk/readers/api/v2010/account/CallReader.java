@@ -21,8 +21,8 @@ import com.twilio.sdk.resources.api.v2010.account.Call;
 
 public class CallReader extends Reader<Call> {
     private final String accountSid;
-    private com.twilio.types.PhoneNumber to;
-    private com.twilio.types.PhoneNumber from;
+    private com.twilio.sdk.types.PhoneNumber to;
+    private com.twilio.sdk.types.PhoneNumber from;
     private String parentCallSid;
     private Call.Status status;
     private String startTime;
@@ -43,7 +43,7 @@ public class CallReader extends Reader<Call> {
      * @param to Phone number or Client identifier to filter `to` on
      * @return this
      */
-    public CallReader byTo(final com.twilio.types.PhoneNumber to) {
+    public CallReader byTo(final com.twilio.sdk.types.PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -54,7 +54,7 @@ public class CallReader extends Reader<Call> {
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
      */
-    public CallReader byFrom(final com.twilio.types.PhoneNumber from) {
+    public CallReader byFrom(final com.twilio.sdk.types.PhoneNumber from) {
         this.from = from;
         return this;
     }

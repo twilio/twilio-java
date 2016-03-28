@@ -22,7 +22,7 @@ import java.net.URI;
 
 public class MobileCreator extends Creator<Mobile> {
     private final String ownerAccountSid;
-    private final com.twilio.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -46,7 +46,7 @@ public class MobileCreator extends Creator<Mobile> {
      * @param phoneNumber The phone_number
      */
     public MobileCreator(final String ownerAccountSid, 
-                         final com.twilio.types.PhoneNumber phoneNumber) {
+                         final com.twilio.sdk.types.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }

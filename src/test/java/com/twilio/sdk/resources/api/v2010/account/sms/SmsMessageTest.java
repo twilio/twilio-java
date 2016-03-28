@@ -10,8 +10,6 @@ package com.twilio.sdk.resources.api.v2010.account.sms;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
 import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.converters.MarshalConverter;
-import com.twilio.sdk.converters.Promoter;
 import com.twilio.sdk.exceptions.TwilioException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;
@@ -21,9 +19,7 @@ import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.net.URI;
-
-import static com.twilio.sdk.TwilioTest.serialize;
+import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
 public class SmsMessageTest {
@@ -42,8 +38,8 @@ public class SmsMessageTest {
                                                       TwilioRestClient.Domains.API,
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json",
                                                       "AC123");
-                        request.addPostParam("To", serialize(new com.twilio.types.PhoneNumber("+123456789")));
-        request.addPostParam("From", serialize(new com.twilio.types.PhoneNumber("+987654321")));
+                        request.addPostParam("To", serialize(new com.twilio.sdk.types.PhoneNumber("+123456789")));
+        request.addPostParam("From", serialize(new com.twilio.sdk.types.PhoneNumber("+987654321")));
         request.addPostParam("Body", serialize("body"));
                         
                         twilioRestClient.request(request);
@@ -54,7 +50,7 @@ public class SmsMessageTest {
                     }};
         
         try {
-            SmsMessage.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.types.PhoneNumber("+123456789"), new com.twilio.types.PhoneNumber("+987654321"), "body").execute();
+            SmsMessage.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.types.PhoneNumber("+123456789"), new com.twilio.sdk.types.PhoneNumber("+987654321"), "body").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +64,7 @@ public class SmsMessageTest {
             result = new ObjectMapper();
         }};
         
-        SmsMessage.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.types.PhoneNumber("+123456789"), new com.twilio.types.PhoneNumber("+987654321"), "body").execute();
+        SmsMessage.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.types.PhoneNumber("+123456789"), new com.twilio.sdk.types.PhoneNumber("+987654321"), "body").execute();
     }
 
     @Test

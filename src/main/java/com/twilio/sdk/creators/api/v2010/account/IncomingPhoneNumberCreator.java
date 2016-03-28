@@ -22,7 +22,7 @@ import java.net.URI;
 
 public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private final String ownerAccountSid;
-    private com.twilio.types.PhoneNumber phoneNumber;
+    private com.twilio.sdk.types.PhoneNumber phoneNumber;
     private String areaCode;
     private String apiVersion;
     private String friendlyName;
@@ -47,7 +47,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * @param phoneNumber The phone number
      */
     public IncomingPhoneNumberCreator(final String ownerAccountSid, 
-                                      final com.twilio.types.PhoneNumber phoneNumber) {
+                                      final com.twilio.sdk.types.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
     }

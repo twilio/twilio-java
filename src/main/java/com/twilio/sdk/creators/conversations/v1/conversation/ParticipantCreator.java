@@ -19,8 +19,8 @@ import com.twilio.sdk.resources.conversations.v1.conversation.Participant;
 
 public class ParticipantCreator extends Creator<Participant> {
     private final String conversationSid;
-    private final com.twilio.types.PhoneNumber to;
-    private final com.twilio.types.PhoneNumber from;
+    private final com.twilio.sdk.types.PhoneNumber to;
+    private final com.twilio.sdk.types.PhoneNumber from;
 
     /**
      * Construct a new ParticipantCreator.
@@ -30,8 +30,8 @@ public class ParticipantCreator extends Creator<Participant> {
      * @param from The from
      */
     public ParticipantCreator(final String conversationSid, 
-                              final com.twilio.types.PhoneNumber to, 
-                              final com.twilio.types.PhoneNumber from) {
+                              final com.twilio.sdk.types.PhoneNumber to,
+                              final com.twilio.sdk.types.PhoneNumber from) {
         this.conversationSid = conversationSid;
         this.to = to;
         this.from = from;

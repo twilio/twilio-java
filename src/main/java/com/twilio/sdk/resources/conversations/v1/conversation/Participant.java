@@ -14,24 +14,18 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.conversations.v1.conversation.ParticipantCreator;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.conversations.v1.conversation.ParticipantFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.conversations.v1.conversation.ParticipantReader;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -81,8 +75,8 @@ public class Participant extends SidResource {
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator create(final String conversationSid, 
-                                            final com.twilio.types.PhoneNumber to, 
-                                            final com.twilio.types.PhoneNumber from) {
+                                            final com.twilio.sdk.types.PhoneNumber to,
+                                            final com.twilio.sdk.types.PhoneNumber from) {
         return new ParticipantCreator(conversationSid, to, from);
     }
 

@@ -14,14 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.lookups.v1.PhoneNumberFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 
 import java.io.IOException;
@@ -61,7 +56,7 @@ public class PhoneNumber extends SidResource {
      * @param phoneNumber The phone_number
      * @return PhoneNumberFetcher capable of executing the fetch
      */
-    public static PhoneNumberFetcher fetch(final com.twilio.types.PhoneNumber phoneNumber) {
+    public static PhoneNumberFetcher fetch(final com.twilio.sdk.types.PhoneNumber phoneNumber) {
         return new PhoneNumberFetcher(phoneNumber);
     }
 
@@ -104,7 +99,7 @@ public class PhoneNumber extends SidResource {
     }
 
     private final String countryCode;
-    private final com.twilio.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
     private final String nationalFormat;
     private final Map<String, String> carrier;
 
@@ -112,7 +107,7 @@ public class PhoneNumber extends SidResource {
     private PhoneNumber(@JsonProperty("country_code")
                         final String countryCode, 
                         @JsonProperty("phone_number")
-                        final com.twilio.types.PhoneNumber phoneNumber, 
+                        final com.twilio.sdk.types.PhoneNumber phoneNumber,
                         @JsonProperty("national_format")
                         final String nationalFormat, 
                         @JsonProperty("carrier")
@@ -146,7 +141,7 @@ public class PhoneNumber extends SidResource {
      * 
      * @return The phone_number
      */
-    public final com.twilio.types.PhoneNumber getPhoneNumber() {
+    public final com.twilio.sdk.types.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

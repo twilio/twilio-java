@@ -23,8 +23,8 @@ import java.util.List;
 
 public class SmsMessageCreator extends Creator<SmsMessage> {
     private final String accountSid;
-    private final com.twilio.types.PhoneNumber to;
-    private final com.twilio.types.PhoneNumber from;
+    private final com.twilio.sdk.types.PhoneNumber to;
+    private final com.twilio.sdk.types.PhoneNumber from;
     private String body;
     private List<URI> mediaUrl;
     private URI statusCallback;
@@ -39,8 +39,8 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
      * @param body The body
      */
     public SmsMessageCreator(final String accountSid, 
-                             final com.twilio.types.PhoneNumber to, 
-                             final com.twilio.types.PhoneNumber from, 
+                             final com.twilio.sdk.types.PhoneNumber to,
+                             final com.twilio.sdk.types.PhoneNumber from,
                              final String body) {
         this.accountSid = accountSid;
         this.to = to;
@@ -57,8 +57,8 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
      * @param mediaUrl The media_url
      */
     public SmsMessageCreator(final String accountSid, 
-                             final com.twilio.types.PhoneNumber to, 
-                             final com.twilio.types.PhoneNumber from, 
+                             final com.twilio.sdk.types.PhoneNumber to,
+                             final com.twilio.sdk.types.PhoneNumber from,
                              final List<URI> mediaUrl) {
         this.accountSid = accountSid;
         this.to = to;

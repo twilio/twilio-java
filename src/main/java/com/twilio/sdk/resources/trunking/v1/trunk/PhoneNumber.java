@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.trunking.v1.trunk.PhoneNumberCreator;
 import com.twilio.sdk.deleters.trunking.v1.trunk.PhoneNumberDeleter;
@@ -22,10 +21,7 @@ import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.trunking.v1.trunk.PhoneNumberFetcher;
 import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.trunking.v1.trunk.PhoneNumberReader;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import org.joda.time.DateTime;
 
@@ -155,7 +151,7 @@ public class PhoneNumber extends SidResource {
     private final DateTime dateUpdated;
     private final String friendlyName;
     private final Map<String, String> links;
-    private final com.twilio.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
     private final String sid;
     private final String smsApplicationSid;
     private final HttpMethod smsFallbackMethod;
@@ -193,7 +189,7 @@ public class PhoneNumber extends SidResource {
                         @JsonProperty("links")
                         final Map<String, String> links, 
                         @JsonProperty("phone_number")
-                        final com.twilio.types.PhoneNumber phoneNumber, 
+                        final com.twilio.sdk.types.PhoneNumber phoneNumber,
                         @JsonProperty("sid")
                         final String sid, 
                         @JsonProperty("sms_application_sid")
@@ -340,7 +336,7 @@ public class PhoneNumber extends SidResource {
      * 
      * @return The phone_number
      */
-    public final com.twilio.types.PhoneNumber getPhoneNumber() {
+    public final com.twilio.sdk.types.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 

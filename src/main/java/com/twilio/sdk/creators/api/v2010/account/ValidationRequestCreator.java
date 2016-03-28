@@ -22,7 +22,7 @@ import java.net.URI;
 
 public class ValidationRequestCreator extends Creator<ValidationRequest> {
     private final String accountSid;
-    private final com.twilio.types.PhoneNumber phoneNumber;
+    private final com.twilio.sdk.types.PhoneNumber phoneNumber;
     private String friendlyName;
     private Integer callDelay;
     private String extension;
@@ -36,7 +36,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
      * @param phoneNumber The phone_number
      */
     public ValidationRequestCreator(final String accountSid, 
-                                    final com.twilio.types.PhoneNumber phoneNumber) {
+                                    final com.twilio.sdk.types.PhoneNumber phoneNumber) {
         this.accountSid = accountSid;
         this.phoneNumber = phoneNumber;
     }

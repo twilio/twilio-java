@@ -18,14 +18,14 @@ import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.pricing.v1.voice.Number;
 
 public class NumberFetcher extends Fetcher<Number> {
-    private final com.twilio.types.PhoneNumber number;
+    private final com.twilio.sdk.types.PhoneNumber number;
 
     /**
      * Construct a new NumberFetcher.
      * 
      * @param number The number
      */
-    public NumberFetcher(final com.twilio.types.PhoneNumber number) {
+    public NumberFetcher(final com.twilio.sdk.types.PhoneNumber number) {
         this.number = number;
     }
 

@@ -15,18 +15,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.converters.MarshalConverter;
 import com.twilio.sdk.creators.api.v2010.account.sms.SmsMessageCreator;
 import com.twilio.sdk.deleters.api.v2010.account.sms.SmsMessageDeleter;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.api.v2010.account.sms.SmsMessageFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.readers.api.v2010.account.sms.SmsMessageReader;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
 import com.twilio.sdk.updaters.api.v2010.account.sms.SmsMessageUpdater;
 import org.joda.time.DateTime;
@@ -37,7 +32,6 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -101,8 +95,8 @@ public class SmsMessage extends SidResource {
      * @return SmsMessageCreator capable of executing the create
      */
     public static SmsMessageCreator create(final String accountSid, 
-                                           final com.twilio.types.PhoneNumber to, 
-                                           final com.twilio.types.PhoneNumber from, 
+                                           final com.twilio.sdk.types.PhoneNumber to,
+                                           final com.twilio.sdk.types.PhoneNumber from,
                                            final String body) {
         return new SmsMessageCreator(accountSid, to, from, body);
     }
@@ -117,8 +111,8 @@ public class SmsMessage extends SidResource {
      * @return SmsMessageCreator capable of executing the create
      */
     public static SmsMessageCreator create(final String accountSid, 
-                                           final com.twilio.types.PhoneNumber to, 
-                                           final com.twilio.types.PhoneNumber from, 
+                                           final com.twilio.sdk.types.PhoneNumber to,
+                                           final com.twilio.sdk.types.PhoneNumber from,
                                            final List<URI> mediaUrl) {
         return new SmsMessageCreator(accountSid, to, from, mediaUrl);
     }
@@ -214,7 +208,7 @@ public class SmsMessage extends SidResource {
     private final DateTime dateUpdated;
     private final DateTime dateSent;
     private final SmsMessage.Direction direction;
-    private final com.twilio.types.PhoneNumber from;
+    private final com.twilio.sdk.types.PhoneNumber from;
     private final BigDecimal price;
     private final Currency priceUnit;
     private final String sid;
@@ -238,7 +232,7 @@ public class SmsMessage extends SidResource {
                        @JsonProperty("direction")
                        final SmsMessage.Direction direction, 
                        @JsonProperty("from")
-                       final com.twilio.types.PhoneNumber from, 
+                       final com.twilio.sdk.types.PhoneNumber from,
                        @JsonProperty("price")
                        final BigDecimal price, 
                        @JsonProperty("price_unit")
@@ -336,7 +330,7 @@ public class SmsMessage extends SidResource {
      * 
      * @return The from
      */
-    public final com.twilio.types.PhoneNumber getFrom() {
+    public final com.twilio.sdk.types.PhoneNumber getFrom() {
         return this.from;
     }
 

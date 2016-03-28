@@ -15,23 +15,17 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.clients.TwilioRestClient;
 import com.twilio.sdk.exceptions.ApiConnectionException;
 import com.twilio.sdk.exceptions.ApiException;
 import com.twilio.sdk.fetchers.pricing.v1.voice.NumberFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
-import com.twilio.sdk.resources.RestException;
 import com.twilio.sdk.resources.SidResource;
-import com.twilio.types.InboundCallPrice;
-import com.twilio.types.OutboundCallPrice;
+import com.twilio.sdk.types.InboundCallPrice;
+import com.twilio.sdk.types.OutboundCallPrice;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Currency;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -44,7 +38,7 @@ public class Number extends SidResource {
      * @param number The number
      * @return NumberFetcher capable of executing the fetch
      */
-    public static NumberFetcher fetch(final com.twilio.types.PhoneNumber number) {
+    public static NumberFetcher fetch(final com.twilio.sdk.types.PhoneNumber number) {
         return new NumberFetcher(number);
     }
 
@@ -85,7 +79,7 @@ public class Number extends SidResource {
         }
     }
 
-    private final com.twilio.types.PhoneNumber number;
+    private final com.twilio.sdk.types.PhoneNumber number;
     private final String country;
     private final String isoCountry;
     private final OutboundCallPrice outboundCallPrice;
@@ -95,7 +89,7 @@ public class Number extends SidResource {
 
     @JsonCreator
     private Number(@JsonProperty("number")
-                   final com.twilio.types.PhoneNumber number, 
+                   final com.twilio.sdk.types.PhoneNumber number,
                    @JsonProperty("country")
                    final String country, 
                    @JsonProperty("iso_country")
@@ -132,7 +126,7 @@ public class Number extends SidResource {
      * 
      * @return The number
      */
-    public final com.twilio.types.PhoneNumber getNumber() {
+    public final com.twilio.sdk.types.PhoneNumber getNumber() {
         return this.number;
     }
 

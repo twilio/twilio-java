@@ -23,7 +23,7 @@ public class TollFreeReader extends Reader<TollFree> {
     private final String ownerAccountSid;
     private Boolean beta;
     private String friendlyName;
-    private com.twilio.types.PhoneNumber phoneNumber;
+    private com.twilio.sdk.types.PhoneNumber phoneNumber;
 
     /**
      * Construct a new TollFreeReader.
@@ -62,7 +62,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param phoneNumber The phone_number
      * @return this
      */
-    public TollFreeReader byPhoneNumber(final com.twilio.types.PhoneNumber phoneNumber) {
+    public TollFreeReader byPhoneNumber(final com.twilio.sdk.types.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }

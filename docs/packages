@@ -1,7 +1,7 @@
-com.twilio.examples
-com.twilio.examples.resource
-com.twilio.sdk.auth
-com.twilio.sdk.client
+com.twilio.example
+com.twilio.example.resource
+com.twilio.auth
+com.twilio.client
 com.twilio.sdk.clients
 com.twilio.sdk.converters
 com.twilio.sdk.creators.api.v2010.account
@@ -155,9 +155,9 @@ com.twilio.sdk.resources.taskrouter.v1.workspace.workflow
 com.twilio.sdk.resources.taskrouter.v1
 com.twilio.sdk.resources.trunking.v1.trunk
 com.twilio.sdk.resources.trunking.v1
-com.twilio.sdk.taskrouter
+com.twilio.taskrouter
 com.twilio.sdk
-com.twilio.sdk.twiml
+com.twilio.twiml
 com.twilio.sdk.updaters.api.v2010.account
 com.twilio.sdk.updaters.api.v2010.account.call
 com.twilio.sdk.updaters.api.v2010.account.conference
@@ -177,4 +177,4 @@ com.twilio.sdk.updaters.taskrouter.v1
 com.twilio.sdk.updaters.trunking.v1.trunk
 com.twilio.sdk.updaters.trunking.v1
 com.twilio.sdk.updaters
-com.twilio.types
+com.twilio.sdk.types

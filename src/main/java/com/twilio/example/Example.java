@@ -31,6 +31,12 @@ public class Example {
 
     public static final PhoneNumber PHONE_NUMBER = new PhoneNumber("+18885551234");
 
+    /**
+     * Example Twilio usage.
+     *
+     * @param args command line args
+     * @throws TwiMLException if unable to generate TwiML
+     */
     public static void main(String[] args) throws TwiMLException {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

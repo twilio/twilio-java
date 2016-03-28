@@ -27,6 +27,9 @@ public class NetworkHttpClient extends HttpClient {
 
     private final org.apache.http.client.HttpClient client;
 
+    /**
+     * Create a new HTTP Client.
+     */
     public NetworkHttpClient() {
         RequestConfig config = RequestConfig.custom()
             .setConnectTimeout(CONNECTION_TIMEOUT)

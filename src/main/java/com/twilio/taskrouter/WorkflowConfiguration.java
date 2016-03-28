@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,19 +23,19 @@ public class WorkflowConfiguration {
 
     /**
      * Define a workflow.
+     *
      * @param workflowRules list of workflow rules (in order they will be processed)
      * @param defaultTarget default filter
-     * @throws Exception
+     * @throws Exception if unable to create WorkflowConfiguration
      */
     public WorkflowConfiguration(List<WorkflowRule> workflowRules, WorkflowRuleTarget defaultTarget) throws Exception {
         taskRouting = new TaskRoutingConfiguration(workflowRules, defaultTarget);
     }
 
     /**
-     * Constructor for creating based on json..
+     * Constructor for creating based on json.
      *
-     * @param taskRouting
-     * @throws Exception
+     * @param taskRouting Task Routing Configuration
      */
     @JsonCreator
     public WorkflowConfiguration(@JsonProperty("task_routing") TaskRoutingConfiguration taskRouting) {
@@ -62,27 +60,25 @@ public class WorkflowConfiguration {
     /**
      * Converts a workflow configuration to JSON.
      * @return JSON for workflow configuration
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonGenerationException
+     * @throws IOException if unable to transform to JSON
      */
-    public String toJSON() throws JsonGenerationException, JsonMappingException, IOException {
+    @SuppressWarnings("checkstyle:abbreviationaswordinname")
+    public String toJSON() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         mapper.writeValue(out, this);
-        final String workflowJSON = out.toString();
-        return workflowJSON;
+        return out.toString();
     }
 
     /**
      * Converts a JSON workflow configuration to a workflow configuration object.
-     * @param configurationJSON JSON for workflow configuration
+     * @param configurationJson JSON for workflow configuration
      * @return a workflow configuration object
-     * @throws IOException
+     * @throws IOException if unable to create object
      */
-    public static WorkflowConfiguration parse(final String configurationJSON) throws IOException {
+    public static WorkflowConfiguration parse(final String configurationJson) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(configurationJSON, WorkflowConfiguration.class);
+        return mapper.readValue(configurationJson, WorkflowConfiguration.class);
     }
 
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -98,9 +94,9 @@ public class WorkflowConfiguration {
         /**
          * Constructor for creating based on json..
          *
-         * @param workflowRules
-         * @param defaultTarget
-         * @throws Exception
+         * @param workflowRules Workflow Rule configuration
+         * @param defaultTarget Default Rule target
+         * @throws Exception if unable to create configuration
          */
         @JsonCreator
         public TaskRoutingConfiguration(@JsonProperty("filters") List<WorkflowRule> workflowRules,
@@ -122,7 +118,7 @@ public class WorkflowConfiguration {
 
         /**
          * Set the workflow rules for the workflow.
-         * @param workflowRules
+         * @param workflowRules Workflow Rule configuration
          */
         public void setWorkflowRules(List<WorkflowRule> workflowRules) {
             this.workflowRules = workflowRules;
@@ -138,7 +134,7 @@ public class WorkflowConfiguration {
 
         /**
          * Set the default filter for the workflow.
-         * @param defaultTarget
+         * @param defaultTarget Default Rule target
          */
         public void setDefaultTarget(WorkflowRuleTarget defaultTarget) {
             this.defaultTarget = defaultTarget;

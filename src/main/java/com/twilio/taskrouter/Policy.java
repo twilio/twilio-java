@@ -67,6 +67,13 @@ public class Policy {
         return this;
     }
 
+    /**
+     * Convert Policy to JSON.
+     *
+     * @return JSONified string
+     * @throws JsonProcessingException if unable to generate JSON
+     */
+    @SuppressWarnings("checkstyle:abbreviationaswordinname")
     public String toJSONString() throws JsonProcessingException {
         HashMap<String, Object> obj = new HashMap<String, Object>();
         obj.put("url", url);

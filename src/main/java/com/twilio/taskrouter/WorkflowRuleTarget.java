@@ -58,6 +58,8 @@ public class WorkflowRuleTarget {
 
     /**
      * Set the queue for the workflow rule target.
+     *
+     * @param queue queue name
      */
     public void setQueue(String queue) {
         this.queue = queue;
@@ -88,6 +90,8 @@ public class WorkflowRuleTarget {
 
     /**
      * Set the priority for the workflow rule target.
+     *
+     * @param priority rule priority
      */
     public void setPriority(Integer priority) {
         this.priority = priority;
@@ -103,6 +107,8 @@ public class WorkflowRuleTarget {
 
     /**
      * Set the timeout for the workflow rule target.
+     *
+     * @param timeout timeout
      */
     public void setTimeout(Integer timeout) {
         this.timeout = timeout;

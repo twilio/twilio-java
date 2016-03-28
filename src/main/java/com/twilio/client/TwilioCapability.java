@@ -149,7 +149,7 @@ public class TwilioCapability extends CapabilityToken {
      * previously has been granted to this token.
      *
      * @return the newly generated token that is valid for 3600 seconds
-     * @throws DomainException
+     * @throws DomainException if unable to generate token
      */
     public String generateToken() throws DomainException {
         return generateToken(3600);
@@ -161,7 +161,7 @@ public class TwilioCapability extends CapabilityToken {
      *
      * @param ttl the number of seconds before this token expires
      * @return the newly generated token that is valid for ttl seconds
-     * @throws DomainException
+     * @throws DomainException if unable to generate token
      */
     public String generateToken(long ttl) throws DomainException {
 
@@ -225,32 +225,5 @@ public class TwilioCapability extends CapabilityToken {
         }
 
         this.scopes.add(this.buildScopeString("client", "incoming", value));
-    }
-
-    /**
-     * Example usage
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        if (args.length < 2) {
-            System.out.println("usage: java com.twilio.client.TwilioCapability accountSid authToken");
-            return;
-        }
-
-        TwilioCapability capability = new TwilioCapability(args[0], args[1]);
-
-        capability.allowEventStream(null);
-        capability.allowClientIncoming("Frank");
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("foo", "fooval");
-        capability.allowClientOutgoing("APabe7650f654fc34655fc81ae71caa3ff", params);
-
-        try {
-            String token = capability.generateToken();
-            System.out.println(token);
-        } catch (DomainException e) {
-            e.printStackTrace();
-        }
     }
 }

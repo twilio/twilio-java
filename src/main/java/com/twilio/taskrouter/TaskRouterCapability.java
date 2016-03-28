@@ -87,6 +87,7 @@ public class TaskRouterCapability extends CapabilityToken {
         addPolicy(new Policy(eventBridgeUrl, "POST", true));
     }
 
+    @SuppressWarnings("checkstyle:abbreviationaswordinname")
     private void validateJWT() {
         if (accountSid == null || !accountSid.startsWith("AC")) {
             throw new IllegalArgumentException("Invalid AccountSid provided: " + accountSid);
@@ -142,7 +143,7 @@ public class TaskRouterCapability extends CapabilityToken {
      * 
      * @deprecated Please use {TaskRouterWorkerCapability.allowActivityUpdates}
      *             instead
-     * @throws Exception
+     * @throws UnsupportedOperationException if cannot apply policy
      */
     @Deprecated
     public void allowWorkerActivityUpdates() {
@@ -161,7 +162,7 @@ public class TaskRouterCapability extends CapabilityToken {
      * 
      * @deprecated Please use {TaskRouterWorkerCapability} instead; added
      *             automatically in constructor
-     * @throws Exception
+     * @throws UnsupportedOperationException if cannot apply policy
      */
     @Deprecated
     public void allowWorkerFetchAttributes() {
@@ -177,7 +178,7 @@ public class TaskRouterCapability extends CapabilityToken {
      * 
      * @deprecated Please use
      *             {TaskRouterWorkerCapability.allowReservationUpdates} instead
-     * @throws Exception
+     * @throws UnsupportedOperationException if cannot apply policy
      */
     @Deprecated
     public void allowTaskReservationUpdates() {
@@ -264,7 +265,7 @@ public class TaskRouterCapability extends CapabilityToken {
      * this object.
      *
      * @return JSON Web Token representing authorized capabilities
-     * @throws DomainException
+     * @throws DomainException if unable to generate token
      */
     public String generateToken() throws DomainException {
         return generateToken(3600);
@@ -277,7 +278,7 @@ public class TaskRouterCapability extends CapabilityToken {
      * @param ttl
      *            Expiration time in seconds
      * @return JSON Web Token representing authorized capabilities
-     * @throws DomainException
+     * @throws DomainException if unable to generate token
      */
     public String generateToken(final long ttl) throws DomainException {
 

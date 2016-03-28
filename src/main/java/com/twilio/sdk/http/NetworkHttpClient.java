@@ -2,7 +2,7 @@ package com.twilio.sdk.http;
 
 import com.google.common.collect.Lists;
 import com.twilio.sdk.Twilio;
-import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exception.ApiException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -27,6 +27,9 @@ public class NetworkHttpClient extends HttpClient {
 
     private final org.apache.http.client.HttpClient client;
 
+    /**
+     * Create a new HTTP Client.
+     */
     public NetworkHttpClient() {
         RequestConfig config = RequestConfig.custom()
             .setConnectTimeout(CONNECTION_TIMEOUT)

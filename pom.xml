@@ -6,8 +6,8 @@
   <groupId>com.twilio.sdk</groupId>
   <artifactId>twilio-java-sdk</artifactId>
   <packaging>jar</packaging>
-  <name>Next Gen Twilio Java Helper Library</name>
-  <version>7.0.0-rc-0</version>
+  <name>twilio-java-sdk</name>
+  <version>7.0.0-rc-1</version>
   <description>Release Candidate for Next-Gen Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>

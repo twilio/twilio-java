@@ -2,8 +2,8 @@ package com.twilio.sdk;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.exceptions.AuthenticationException;
+import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.exception.AuthenticationException;
 
 import java.util.concurrent.Executors;
 

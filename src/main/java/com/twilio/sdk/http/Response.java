@@ -1,7 +1,7 @@
 package com.twilio.sdk.http;
 
-import com.twilio.sdk.exceptions.ApiConnectionException;
-import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exception.ApiConnectionException;
+import com.twilio.sdk.exception.ApiException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

@@ -2,8 +2,8 @@ package com.twilio.sdk.http;
 
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.ListenableFuture;
-import com.twilio.sdk.exceptions.ApiConnectionException;
-import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.exception.ApiConnectionException;
+import com.twilio.sdk.exception.ApiException;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;

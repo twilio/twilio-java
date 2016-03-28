@@ -1,10 +1,10 @@
 package com.twilio.example.resource;
 
 import com.twilio.sdk.Twilio;
-import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.readers.api.v2010.account.CallReader;
-import com.twilio.sdk.resources.ResourceSet;
-import com.twilio.sdk.resources.api.v2010.account.Call;
+import com.twilio.sdk.exception.ApiException;
+import com.twilio.sdk.reader.api.v2010.account.CallReader;
+import com.twilio.sdk.resource.ResourceSet;
+import com.twilio.sdk.resource.api.v2010.account.Call;
 
 /**
  * Fetch a list of calls.

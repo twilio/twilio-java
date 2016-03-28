@@ -1,8 +1,8 @@
 package com.twilio.sdk.http;
 
 import com.google.common.collect.Range;
-import com.twilio.sdk.clients.TwilioRestClient;
-import com.twilio.sdk.exceptions.ApiException;
+import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.exception.ApiException;
 import org.joda.time.DateTime;
 import org.junit.Test;
 

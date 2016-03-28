@@ -1,10 +1,10 @@
 package com.twilio.example.resource;
 
 import com.twilio.sdk.Twilio;
-import com.twilio.sdk.creators.api.v2010.account.CallCreator;
-import com.twilio.sdk.exceptions.ApiException;
-import com.twilio.sdk.resources.api.v2010.account.Call;
-import com.twilio.sdk.updaters.api.v2010.account.CallUpdater;
+import com.twilio.sdk.creator.api.v2010.account.CallCreator;
+import com.twilio.sdk.exception.ApiException;
+import com.twilio.sdk.resource.api.v2010.account.Call;
+import com.twilio.sdk.updater.api.v2010.account.CallUpdater;
 import com.twilio.sdk.type.PhoneNumber;
 
 import java.io.IOException;

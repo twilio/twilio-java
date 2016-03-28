@@ -75,6 +75,8 @@ public class WorkflowRuleTarget {
 
     /**
      * Set the expression for the workflow rule target.
+     *
+     * @param expression rule expression
      */
     public void setExpression(String expression) {
         this.expression = expression;

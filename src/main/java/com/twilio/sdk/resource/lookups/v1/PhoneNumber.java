@@ -51,7 +51,13 @@ public class PhoneNumber extends SidResource {
         @JsonCreator
         public static Type forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Type.valueOf(normalized);
+            try {
+                return Type.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

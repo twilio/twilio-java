@@ -57,7 +57,13 @@ public class Credential extends SidResource {
         @JsonCreator
         public static PushService forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return PushService.valueOf(normalized);
+            try {
+                return PushService.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

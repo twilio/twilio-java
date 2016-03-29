@@ -44,6 +44,7 @@
       <artifactId>guava</artifactId>
       <version>18.0</version>
     </dependency>
+
     <dependency>
       <groupId>com.ning</groupId>
       <artifactId>async-http-client</artifactId>
@@ -97,6 +98,8 @@
       <artifactId>jjwt</artifactId>
       <version>0.4</version>
     </dependency>
+
+    <!-- test dependencies -->
     <dependency>
       <groupId>org.jmockit</groupId>
       <artifactId>jmockit</artifactId>

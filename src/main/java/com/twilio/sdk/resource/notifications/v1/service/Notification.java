@@ -54,7 +54,13 @@ public class Notification extends Resource {
         @JsonCreator
         public static Priority forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Priority.valueOf(normalized);
+            try {
+                return Priority.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

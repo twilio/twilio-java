@@ -57,7 +57,13 @@ public class Binding extends SidResource {
         @JsonCreator
         public static BindingType forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return BindingType.valueOf(normalized);
+            try {
+                return BindingType.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

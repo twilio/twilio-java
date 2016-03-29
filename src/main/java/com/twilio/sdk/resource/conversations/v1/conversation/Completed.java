@@ -55,7 +55,13 @@ public class Completed extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Status.valueOf(normalized);
+            try {
+                return Status.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

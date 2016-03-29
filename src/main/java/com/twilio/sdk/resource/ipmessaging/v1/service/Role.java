@@ -58,7 +58,13 @@ public class Role extends SidResource {
         @JsonCreator
         public static RoleType forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return RoleType.valueOf(normalized);
+            try {
+                return RoleType.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

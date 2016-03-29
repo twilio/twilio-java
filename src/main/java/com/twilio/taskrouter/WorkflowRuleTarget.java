@@ -3,49 +3,34 @@ package com.twilio.taskrouter;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.io.IOException;
+
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class WorkflowRuleTarget {
+public class WorkflowRuleTarget extends TaskRouterResource {
 
-    private String queue;
-    private String expression;
-    private Integer priority;
-    private Integer timeout;
+    @JsonProperty("queue")
+    private final String queue;
 
-    /**
-     * Create a workflow rule target with just a task queue sid.
-     * @param queue sid of the queue
-     * @throws IllegalArgumentException if queue sid is empty
-     */
-    public WorkflowRuleTarget(final String queue) throws IllegalArgumentException {
-        if (StringUtils.isBlank(queue)) {
-            throw new IllegalArgumentException("QueueSid is required when defining a Workflow Rule Target");
-        }
-        this.queue = queue;
-    }
+    @JsonProperty("expression")
+    private final String expression;
 
-    /**
-     * Create a workflow rule target with a task queue and other optional fields.
-     * @param queue sid of the queue
-     * @param expression expression to limit the workers that can look at a given task
-     * @param priority priority to assign the task
-     * @param timeout timeout before moving on to the next workflow rule target
-     * @throws IllegalArgumentException if queue sid is empty
-     */
-    @JsonCreator
-    public WorkflowRuleTarget(@JsonProperty("queue") final String queue,
-                              @JsonProperty("expression") final String expression,
-                              @JsonProperty("priority") final Integer priority,
-                              @JsonProperty("timeout") final Integer timeout) throws IllegalArgumentException {
-        this(queue);
-        this.expression = expression;
-        this.priority = priority;
-        this.timeout = timeout;
+    @JsonProperty("priority")
+    private final Integer priority;
+
+    @JsonProperty("timeout")
+    private final Integer timeout;
+
+    private WorkflowRuleTarget(Builder b) throws IllegalArgumentException {
+        this.queue = b.queue;
+        this.expression = b.expression;
+        this.priority = b.priority;
+        this.timeout = b.timeout;
     }
 
     /**
@@ -57,29 +42,11 @@ public class WorkflowRuleTarget {
     }
 
     /**
-     * Set the queue for the workflow rule target.
-     *
-     * @param queue queue name
-     */
-    public void setQueue(String queue) {
-        this.queue = queue;
-    }
-
-    /**
      * Get the expression for the workflow rule target to limit the workers selected.
      * @return the expression
      */
     public String getExpression() {
         return expression;
-    }
-
-    /**
-     * Set the expression for the workflow rule target.
-     *
-     * @param expression rule expression
-     */
-    public void setExpression(String expression) {
-        this.expression = expression;
     }
 
     /**
@@ -91,15 +58,6 @@ public class WorkflowRuleTarget {
     }
 
     /**
-     * Set the priority for the workflow rule target.
-     *
-     * @param priority rule priority
-     */
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
-    /**
      * Get the timeout for the workflow rule target.
      * @return the timeout
      */
@@ -108,19 +66,68 @@ public class WorkflowRuleTarget {
     }
 
     /**
-     * Set the timeout for the workflow rule target.
-     *
-     * @param timeout timeout
-     */
-    public void setTimeout(Integer timeout) {
-        this.timeout = timeout;
-    }
-
-    /**
      * Return a string representation of this workflow rule target.
+     * @return string representation of target
      */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    /**
+     * Converts a JSON workflow configuration to a workflow configuration object.
+     *
+     * @param json JSON for workflow rule target
+     * @return a workflow rule target object
+     * @throws IOException if unable to create object
+     */
+    public static WorkflowRuleTarget fromJson(String json) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, Builder.class).build();
+    }
+
+    public static class Builder {
+
+        private String queue;
+        private String expression;
+        private Integer priority;
+        private Integer timeout;
+
+        @JsonCreator
+        private Builder(
+            @JsonProperty("queue") String queue,
+            @JsonProperty("expression") String expression,
+            @JsonProperty("priority") Integer priority,
+            @JsonProperty("timeout") Integer timeout
+        ) {
+            this.queue = queue;
+            this.expression = expression;
+            this.priority = priority;
+            this.timeout = timeout;
+        }
+
+        public Builder(String queue) {
+            this.queue = queue;
+        }
+
+        public Builder expression(String expression) {
+            this.expression = expression;
+            return this;
+        }
+
+        public Builder priority(Integer priority) {
+            this.priority = priority;
+            return this;
+        }
+
+        public Builder timeout(Integer timeout) {
+            this.timeout = timeout;
+            return this;
+        }
+
+        public WorkflowRuleTarget build() {
+            return new WorkflowRuleTarget(this);
+        }
+
     }
 }

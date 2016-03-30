@@ -57,6 +57,11 @@ public class IncomingPhoneNumber extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a AddressRequirement from a string.
+         * @param value string value
+         * @return generated AddressRequirement
+         */
         @JsonCreator
         public static AddressRequirement forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();

@@ -140,6 +140,11 @@ public class Yearly extends Resource {
             return value;
         }
         
+        /**
+         * Generate a Category from a string.
+         * @param value string value
+         * @return generated Category
+         */
         @JsonCreator
         public static Category forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();

@@ -52,6 +52,11 @@ public class InProgress extends Resource {
             return value;
         }
         
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
         @JsonCreator
         public static Status forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();

@@ -51,6 +51,11 @@ public class Notification extends Resource {
             return value;
         }
         
+        /**
+         * Generate a Priority from a string.
+         * @param value string value
+         * @return generated Priority
+         */
         @JsonCreator
         public static Priority forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();

@@ -55,6 +55,11 @@ public class Channel extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a ChannelType from a string.
+         * @param value string value
+         * @return generated ChannelType
+         */
         @JsonCreator
         public static ChannelType forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();

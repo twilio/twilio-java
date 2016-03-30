@@ -142,6 +142,11 @@ public class Trigger extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a UsageCategory from a string.
+         * @param value string value
+         * @return generated UsageCategory
+         */
         @JsonCreator
         public static UsageCategory forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
@@ -171,6 +176,11 @@ public class Trigger extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a Recurring from a string.
+         * @param value string value
+         * @return generated Recurring
+         */
         @JsonCreator
         public static Recurring forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
@@ -199,6 +209,11 @@ public class Trigger extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a TriggerField from a string.
+         * @param value string value
+         * @return generated TriggerField
+         */
         @JsonCreator
         public static TriggerField forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();

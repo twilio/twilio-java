@@ -6,8 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.google.common.base.MoreObjects;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -54,7 +53,9 @@ public class WorkflowConfiguration {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return MoreObjects.toStringHelper(this)
+            .add("taskRouting", taskRouting)
+            .toString();
     }
 
     /**
@@ -142,7 +143,10 @@ public class WorkflowConfiguration {
 
         @Override
         public String toString() {
-            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+            return MoreObjects.toStringHelper(this)
+                .add("workflowRules", workflowRules)
+                .add("defaultTarget", defaultTarget)
+                .toString();
         }
     }
 }

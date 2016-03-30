@@ -59,6 +59,11 @@ public class Call extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a Event from a string.
+         * @param value string value
+         * @return generated Event
+         */
         @JsonCreator
         public static Event forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
@@ -92,6 +97,11 @@ public class Call extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
         @JsonCreator
         public static Status forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();

@@ -5,9 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Strings;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class WorkflowRule {
      */
     public WorkflowRule(final String expression,
                         final List<WorkflowRuleTarget> targets) throws IllegalArgumentException {
-        if (StringUtils.isBlank(expression)) {
+        if (Strings.isNullOrEmpty(expression)) {
             throw new IllegalArgumentException("Expression for Workflow Rule is required");
         }
         if (targets == null || targets.isEmpty()) {
@@ -133,6 +132,10 @@ public class WorkflowRule {
      */
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return MoreObjects.toStringHelper(this)
+            .add("expression", expression)
+            .add("friendlyName", friendlyName)
+            .add("targets", targets)
+            .toString();
     }
 }

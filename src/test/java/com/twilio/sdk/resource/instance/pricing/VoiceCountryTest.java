@@ -37,11 +37,21 @@ public class VoiceCountryTest extends BasicRequestTester {
         assertEquals(new BigDecimal("0.030"), outboundPrefixPrice.getCurrentPrice());
 
         List<VoiceCountry.InboundCallPrice> inboundCallPrices = country.getInboundCallPrices();
-        assertEquals(2, inboundCallPrices.size());
+        assertEquals(3, inboundCallPrices.size());
 
-        VoiceCountry.InboundCallPrice inboundCallPrice = inboundCallPrices.get(0);
-        assertEquals(NumberType.MOBILE, inboundCallPrice.getNumberType());
-        assertEquals(new BigDecimal("0.0075"), inboundCallPrice.getBasePrice());
-        assertEquals(new BigDecimal("0.0070"), inboundCallPrice.getCurrentPrice());
+        VoiceCountry.InboundCallPrice inboundCallPriceMobile = inboundCallPrices.get(0);
+        assertEquals(NumberType.MOBILE, inboundCallPriceMobile.getNumberType());
+        assertEquals(new BigDecimal("0.0075"), inboundCallPriceMobile.getBasePrice());
+        assertEquals(new BigDecimal("0.0070"), inboundCallPriceMobile.getCurrentPrice());
+
+        VoiceCountry.InboundCallPrice inboundCallPriceNational = inboundCallPrices.get(1);
+        assertEquals(NumberType.NATIONAL, inboundCallPriceNational.getNumberType());
+        assertEquals(new BigDecimal("0.0055"), inboundCallPriceNational.getBasePrice());
+        assertEquals(new BigDecimal("0.0050"), inboundCallPriceNational.getCurrentPrice());
+
+        VoiceCountry.InboundCallPrice inboundCallPriceTollFree = inboundCallPrices.get(2);
+        assertEquals(NumberType.TOLL_FREE, inboundCallPriceTollFree.getNumberType());
+        assertEquals(new BigDecimal("0.0035"), inboundCallPriceTollFree.getBasePrice());
+        assertEquals(new BigDecimal("0.0030"), inboundCallPriceTollFree.getCurrentPrice());
     }
 }

@@ -79,7 +79,7 @@ public class VoiceCountry extends NextGenInstanceResource<TwilioPricingClient> {
 
         for (Map<String, Object> p : priceData) {
             prices.add(new InboundCallPrice(
-                    NumberType.valueOf(((String)p.get("number_type")).toUpperCase()),
+                    NumberType.valueOf(((String) p.get("number_type")).replace(' ', '_').toUpperCase()),
                     new BigDecimal((String) p.get("base_price")),
                     new BigDecimal((String) p.get("current_price")
             )));

@@ -48,10 +48,21 @@ public class PhoneNumber extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a Type from a string.
+         * @param value string value
+         * @return generated Type
+         */
         @JsonCreator
         public static Type forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Type.valueOf(normalized);
+            try {
+                return Type.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

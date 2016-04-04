@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.google.common.base.MoreObjects;
 
 import java.io.IOException;
 
@@ -71,7 +70,12 @@ public class WorkflowRuleTarget extends TaskRouterResource {
      */
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return MoreObjects.toStringHelper(this)
+            .add("queue", queue)
+            .add("expression", expression)
+            .add("priority", priority)
+            .add("timeout", timeout)
+            .toString();
     }
 
     /**

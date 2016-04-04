@@ -99,6 +99,22 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
             client.getAccountSid()
         );
         
+        if (endDate != null) {
+            request.addQueryParam("EndDate", endDate.toString());
+        }
+        
+        if (friendlyName != null) {
+            request.addQueryParam("FriendlyName", friendlyName);
+        }
+        
+        if (minutes != null) {
+            request.addQueryParam("Minutes", minutes.toString());
+        }
+        
+        if (startDate != null) {
+            request.addQueryParam("StartDate", startDate.toString());
+        }
+        
         Response response = client.request(request);
         
         if (response == null) {

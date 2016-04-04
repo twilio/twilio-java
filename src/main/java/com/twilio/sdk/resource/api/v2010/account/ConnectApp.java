@@ -51,10 +51,21 @@ public class ConnectApp extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a Permission from a string.
+         * @param value string value
+         * @return generated Permission
+         */
         @JsonCreator
         public static Permission forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Permission.valueOf(normalized);
+            try {
+                return Permission.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 package com.twilio.client;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.google.common.base.MoreObjects;
 
 import java.util.Map;
 
@@ -43,7 +42,13 @@ public class Policy {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return MoreObjects.toStringHelper(this)
+            .add("url", url)
+            .add("method", method)
+            .add("queryFilter", queryFilter)
+            .add("postFilter", postFilter)
+            .add("allowed", allowed)
+            .toString();
     }
 
     public static class Builder {

@@ -69,6 +69,14 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             client.getAccountSid()
         );
         
+        if (countryCode != null) {
+            request.addQueryParam("CountryCode", countryCode);
+        }
+        
+        if (type != null) {
+            request.addQueryParam("Type", type);
+        }
+        
         Response response = client.request(request);
         
         if (response == null) {

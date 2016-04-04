@@ -1,6 +1,6 @@
 package com.twilio.client;
 
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Joiner;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -111,8 +111,8 @@ public class TwilioCapability extends CapabilityToken {
 
             keyValues.add(key + "=" + value);
         }
-        String paramsJoined = StringUtils.join(keyValues, '&');
-        return paramsJoined;
+
+        return Joiner.on("&").join(keyValues);
     }
 
     /**
@@ -174,7 +174,7 @@ public class TwilioCapability extends CapabilityToken {
             Map<String, Object> payload = new LinkedHashMap<String, Object>();
             payload.put("iss", this.accountSid);
             payload.put("exp", String.valueOf(((new Date()).getTime() / 1000) + ttl));
-            payload.put("scope", StringUtils.join(this.scopes, ' '));
+            payload.put("scope", Joiner.on(" ").join(this.scopes));
 
             return jwtEncode(payload, this.authToken);
         } catch (Exception e) {

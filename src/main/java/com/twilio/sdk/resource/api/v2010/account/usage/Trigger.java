@@ -41,22 +41,68 @@ public class Trigger extends SidResource {
     private static final long serialVersionUID = 265472878252662L;
 
     public enum UsageCategory {
+        AUTHY_AUTHENTICATIONS("authy-authentications"),
+        AUTHY_CALLS_OUTBOUND("authy-calls-outbound"),
+        AUTHY_MONTHLY_FEES("authy-monthly-fees"),
+        AUTHY_PHONE_INTELLIGENCE("authy-phone-intelligence"),
+        AUTHY_PHONE_VERIFICATIONS("authy-phone-verifications"),
+        AUTHY_SMS_OUTBOUND("authy-sms-outbound"),
+        CALL_PROGESS_EVENTS("call-progess-events"),
         CALLERIDLOOKUPS("calleridlookups"),
         CALLS("calls"),
         CALLS_CLIENT("calls-client"),
+        CALLS_GLOBALCONFERENCE("calls-globalconference"),
         CALLS_INBOUND("calls-inbound"),
         CALLS_INBOUND_LOCAL("calls-inbound-local"),
+        CALLS_INBOUND_MOBILE("calls-inbound-mobile"),
         CALLS_INBOUND_TOLLFREE("calls-inbound-tollfree"),
         CALLS_OUTBOUND("calls-outbound"),
+        CALLS_RECORDINGS("calls-recordings"),
         CALLS_SIP("calls-sip"),
+        CALLS_SIP_INBOUND("calls-sip-inbound"),
+        CALLS_SIP_OUTBOUND("calls-sip-outbound"),
+        CARRIER_LOOKUPS("carrier-lookups"),
+        CONVERSATIONS("conversations"),
+        CONVERSATIONS_API_REQUESTS("conversations-api-requests"),
+        CONVERSATIONS_CONVERSATION_EVENTS("conversations-conversation-events"),
+        CONVERSATIONS_ENDPOINT_CONNECTIVITY("conversations-endpoint-connectivity"),
+        CONVERSATIONS_EVENTS("conversations-events"),
+        CONVERSATIONS_PARTICIPANT_EVENTS("conversations-participant-events"),
+        CONVERSATIONS_PARTICIPANTS("conversations-participants"),
+        IP_MESSAGING("ip-messaging"),
+        IP_MESSAGING_COMMANDS("ip-messaging-commands"),
+        IP_MESSAGING_DATA_STORAGE("ip-messaging-data-storage"),
+        IP_MESSAGING_DATA_TRANSFER("ip-messaging-data-transfer"),
+        IP_MESSAGING_ENDPOINT_CONNECTIVITY("ip-messaging-endpoint-connectivity"),
+        LOOKUPS("lookups"),
+        MEDIASTORAGE("mediastorage"),
+        MMS("mms"),
+        MMS_INBOUND("mms-inbound"),
+        MMS_INBOUND_LONGCODE("mms-inbound-longcode"),
+        MMS_INBOUND_SHORTCODE("mms-inbound-shortcode"),
+        MMS_OUTBOUND("mms-outbound"),
+        MMS_OUTBOUND_LONGCODE("mms-outbound-longcode"),
+        MMS_OUTBOUND_SHORTCODE("mms-outbound-shortcode"),
+        MONITOR_READS("monitor-reads"),
+        MONITOR_STORAGE("monitor-storage"),
+        MONITOR_WRITES("monitor-writes"),
+        NUMBER_FORMAT_LOOKUPS("number-format-lookups"),
         PHONENUMBERS("phonenumbers"),
+        PHONENUMBERS_CPS("phonenumbers-cps"),
+        PHONENUMBERS_EMERGENCY("phonenumbers-emergency"),
         PHONENUMBERS_LOCAL("phonenumbers-local"),
+        PHONENUMBERS_MOBILE("phonenumbers-mobile"),
+        PHONENUMBERS_SETUPS("phonenumbers-setups"),
         PHONENUMBERS_TOLLFREE("phonenumbers-tollfree"),
+        PREMIUMSUPPORT("premiumsupport"),
         RECORDINGS("recordings"),
         RECORDINGSTORAGE("recordingstorage"),
         SHORTCODES("shortcodes"),
         SHORTCODES_CUSTOMEROWNED("shortcodes-customerowned"),
+        SHORTCODES_MMS_ENABLEMENT("shortcodes-mms-enablement"),
+        SHORTCODES_MPS("shortcodes-mps"),
         SHORTCODES_RANDOM("shortcodes-random"),
+        SHORTCODES_UK("shortcodes-uk"),
         SHORTCODES_VANITY("shortcodes-vanity"),
         SMS("sms"),
         SMS_INBOUND("sms-inbound"),
@@ -65,8 +111,26 @@ public class Trigger extends SidResource {
         SMS_OUTBOUND("sms-outbound"),
         SMS_OUTBOUND_LONGCODE("sms-outbound-longcode"),
         SMS_OUTBOUND_SHORTCODE("sms-outbound-shortcode"),
+        TASKROUTER_TASKS("taskrouter-tasks"),
         TOTALPRICE("totalprice"),
-        TRANSCRIPTIONS("transcriptions");
+        TRANSCRIPTIONS("transcriptions"),
+        TRUNKING_CPS("trunking-cps"),
+        TRUNKING_EMERGENCY_CALLS("trunking-emergency-calls"),
+        TRUNKING_ORIGINATION("trunking-origination"),
+        TRUNKING_ORIGINATION_LOCAL("trunking-origination-local"),
+        TRUNKING_ORIGINATION_MOBILE("trunking-origination-mobile"),
+        TRUNKING_ORIGINATION_TOLLFREE("trunking-origination-tollfree"),
+        TRUNKING_RECORDINGS("trunking-recordings"),
+        TRUNKING_SECURE("trunking-secure"),
+        TRUNKING_TERMINATION("trunking-termination"),
+        TURNMEGABYTES("turnmegabytes"),
+        TURNMEGABYTES_AUSTRALIA("turnmegabytes-australia"),
+        TURNMEGABYTES_BRASIL("turnmegabytes-brasil"),
+        TURNMEGABYTES_IRELAND("turnmegabytes-ireland"),
+        TURNMEGABYTES_JAPAN("turnmegabytes-japan"),
+        TURNMEGABYTES_SINGAPORE("turnmegabytes-singapore"),
+        TURNMEGABYTES_USEAST("turnmegabytes-useast"),
+        TURNMEGABYTES_USWEST("turnmegabytes-uswest");
     
         private final String value;
         
@@ -78,10 +142,21 @@ public class Trigger extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a UsageCategory from a string.
+         * @param value string value
+         * @return generated UsageCategory
+         */
         @JsonCreator
         public static UsageCategory forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return UsageCategory.valueOf(normalized);
+            try {
+                return UsageCategory.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 
@@ -101,10 +176,21 @@ public class Trigger extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a Recurring from a string.
+         * @param value string value
+         * @return generated Recurring
+         */
         @JsonCreator
         public static Recurring forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Recurring.valueOf(normalized);
+            try {
+                return Recurring.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 
@@ -123,10 +209,21 @@ public class Trigger extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a TriggerField from a string.
+         * @param value string value
+         * @return generated TriggerField
+         */
         @JsonCreator
         public static TriggerField forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return TriggerField.valueOf(normalized);
+            try {
+                return TriggerField.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

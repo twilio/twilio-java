@@ -3,15 +3,13 @@ package com.twilio.taskrouter;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.google.common.base.MoreObjects;
 
+import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by jniu on 3/29/16.
- */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class TaskRouting {
@@ -55,6 +53,21 @@ public class TaskRouting {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return MoreObjects.toStringHelper(this)
+            .add("workflowRules", workflowRules)
+            .add("defaultTarget", defaultTarget)
+            .toString();
+    }
+
+    /**
+     * Converts a JSON workflow configuration to a workflow rule object.
+     *
+     * @param json JSON for workflow rule
+     * @return a workflow rule target object
+     * @throws IOException if unable to create object
+     */
+    public static TaskRouting fromJson(String json) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, TaskRouting.class);
     }
 }

@@ -119,6 +119,30 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
             client.getAccountSid()
         );
         
+        if (minutes != null) {
+            request.addQueryParam("Minutes", minutes.toString());
+        }
+        
+        if (startDate != null) {
+            request.addQueryParam("StartDate", startDate.toString());
+        }
+        
+        if (endDate != null) {
+            request.addQueryParam("EndDate", endDate.toString());
+        }
+        
+        if (taskQueueSid != null) {
+            request.addQueryParam("TaskQueueSid", taskQueueSid);
+        }
+        
+        if (taskQueueName != null) {
+            request.addQueryParam("TaskQueueName", taskQueueName);
+        }
+        
+        if (friendlyName != null) {
+            request.addQueryParam("FriendlyName", friendlyName);
+        }
+        
         Response response = client.request(request);
         
         if (response == null) {

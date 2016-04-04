@@ -61,10 +61,21 @@ public class SmsMessage extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
         @JsonCreator
         public static Status forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Status.valueOf(normalized);
+            try {
+                return Status.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 
@@ -84,10 +95,21 @@ public class SmsMessage extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a Direction from a string.
+         * @param value string value
+         * @return generated Direction
+         */
         @JsonCreator
         public static Direction forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Direction.valueOf(normalized);
+            try {
+                return Direction.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

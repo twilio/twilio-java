@@ -10,7 +10,7 @@ public abstract class TaskRouterResource {
     /**
      * Converts a resource to JSON.
      *
-     * @return JSON respresentation of the resource
+     * @return JSON representation of the resource
      * @throws IOException if unable to transform to JSON
      */
     public String toJson() throws IOException {

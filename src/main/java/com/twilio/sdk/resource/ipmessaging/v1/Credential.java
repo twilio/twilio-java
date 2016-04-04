@@ -54,10 +54,21 @@ public class Credential extends SidResource {
             return value;
         }
         
+        /**
+         * Generate a PushService from a string.
+         * @param value string value
+         * @return generated PushService
+         */
         @JsonCreator
         public static PushService forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return PushService.valueOf(normalized);
+            try {
+                return PushService.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

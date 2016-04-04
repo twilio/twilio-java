@@ -81,6 +81,18 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
             client.getAccountSid()
         );
         
+        if (minutes != null) {
+            request.addQueryParam("Minutes", minutes.toString());
+        }
+        
+        if (startDate != null) {
+            request.addQueryParam("StartDate", startDate);
+        }
+        
+        if (endDate != null) {
+            request.addQueryParam("EndDate", endDate);
+        }
+        
         Response response = client.request(request);
         
         if (response == null) {

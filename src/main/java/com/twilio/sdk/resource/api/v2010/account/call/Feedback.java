@@ -58,10 +58,21 @@ public class Feedback extends Resource {
             return value;
         }
         
+        /**
+         * Generate a Issues from a string.
+         * @param value string value
+         * @return generated Issues
+         */
         @JsonCreator
         public static Issues forValue(final String value) {
             String normalized = value.replace("-", "_").toUpperCase();
-            return Issues.valueOf(normalized);
+            try {
+                return Issues.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
         }
     }
 

@@ -3,7 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
-Version 7.0.0-rc-0
+Version 7.0.0-rc-2
+-------------
+
+Released April 5, 2016
+
+- Add query params to Fetchers
+
+Version 7.0.0-rc-1
 -------------
 
 Released March 23, 2016

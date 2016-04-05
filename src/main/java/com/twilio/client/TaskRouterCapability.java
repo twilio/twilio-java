@@ -1,3 +1,66 @@
+package com.twilio.client;
+
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.nio.charset.Charset;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public abstract class TaskRouterCapability {
+
+    public static final String TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
+    public static final String TASKROUTER_VERSION = "v1";
+
+    private final String accountSid;
+    private final String authToken;
+    private final String friendlyName;
+    private final String workspaceSid;
+
+    public TaskRouterCapability(
+        String accountSid,
+        String authToken,
+        String friendlyName,
+        String workspaceSid
+    ) {
+        this.accountSid = accountSid;
+        this.authToken = authToken;
+        this.friendlyName = friendlyName;
+        this.workspaceSid = workspaceSid;
+    }
+
+    public String generateToken(final long ttl) {
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("typ", "JWT");
+        headers.put("alg", "HS256");
+
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("account_sid", accountSid);
+        payload.put("friendly_name", friendlyName);
+        payload.put("version", TASKROUTER_VERSION);
+        payload.put("workspace_sid", this.workspaceSid);
+
+        fillPayload(payload);
+
+        Date now = new Date();
+        JwtBuilder builder =
+            Jwts.builder()
+                .signWith(SignatureAlgorithm.HS256, authToken.getBytes(Charset.forName("UTF-8")))
+                .setHeaderParams(headers)
+                .setIssuer(this.accountSid)
+                .setExpiration(new Date(now.getTime() + ttl * 1000))
+                .setClaims(payload);
+
+        return builder.compact();
+    }
+
+    public abstract void fillPayload(Map<String, Object> payload);
+}
+
+
 //package com.twilio.client;
 //
 //import java.util.ArrayList;

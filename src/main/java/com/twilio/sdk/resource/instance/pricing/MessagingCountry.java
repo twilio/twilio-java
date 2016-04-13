@@ -103,7 +103,7 @@ public class MessagingCountry extends NextGenInstanceResource<TwilioPricingClien
 
         for (Map<String, String> p : priceData) {
             prices.add(new MessagingPrice(
-                    NumberType.valueOf(p.get("number_type").toUpperCase()),
+                    NumberType.valueOf(p.get("number_type").replace(' ', '_').toUpperCase()),
                     new BigDecimal(p.get("base_price")),
                     new BigDecimal(p.get("current_price"))));
         }

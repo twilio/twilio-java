@@ -39,6 +39,9 @@ public class WorkflowStatisticsTest extends BasicRequestTester {
 		assertTrue(workflowStatistics.getTasksMoved() == 0);
 		assertTrue(workflowStatistics.getTasksTimedOutInWorkflow() == 0);
 		assertTrue(workflowStatistics.getTotalTasks() == 1);
+		assertTrue(workflowStatistics.getTasksWithPriority("5") == 1);
+		assertTrue(workflowStatistics.getTasksByPriority().size() == 1);
+		assertTrue(workflowStatistics.getTasksByPriority().get("5") == 1);
 	}
 
 }

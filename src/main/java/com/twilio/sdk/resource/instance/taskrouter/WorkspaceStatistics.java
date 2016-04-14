@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.HashMap;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +26,8 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	private static final String REALTIME_PROPERTY = "realtime";
 
 	private static final String TASKS_BY_STATUS_PROPERTY = "tasks_by_status";
+
+	private static final String TASKS_BY_PRIORITY_PROPERTY = "tasks_by_priority";
 
 	private static final String WORKSPACE_SID_PROPERTY = "workspace_sid";
 
@@ -239,6 +243,31 @@ public class WorkspaceStatistics extends NextGenInstanceResource<TwilioTaskRoute
 	 */
 	public Integer getTotalWorkers() {
 		return (Integer) getRealtime().get("total_workers");
+	}
+
+	/**
+	 * Get the number of tasks for each priority
+	 *
+	 * @return the number of tasks with priority p
+	 */
+	public int getTasksWithPriority(String priority) {
+		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
+		Integer tasksCount = (Integer) tasksByPriority.get(priority);
+		return tasksCount != null ? tasksCount : 0;
+	}
+
+	/**
+	 * Get a map of task counts by priority
+	 *
+	 * @return map of task counts by priority
+	 */
+	public Map<String, Integer> getTasksByPriority() {
+		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
+		Map<String, Integer> tasksByPriorityMap = new HashMap<String, Integer>();
+		for (Entry<String, Object> entry : tasksByPriority.entrySet()) {
+			tasksByPriorityMap.put(entry.getKey(), (Integer) entry.getValue());
+		}
+		return tasksByPriorityMap;
 	}
 
 	/**

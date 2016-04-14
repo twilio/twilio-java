@@ -4,7 +4,9 @@ import com.twilio.sdk.TwilioTaskRouterClient;
 import com.twilio.sdk.resource.NextGenInstanceResource;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,6 +21,8 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	private static final String REALTIME_PROPERTY = "realtime";
 
 	private static final String TASKS_BY_STATUS_PROPERTY = "tasks_by_status";
+
+	private static final String TASKS_BY_PRIORITY_PROPERTY = "tasks_by_priority";
 
 	private static final String WORKFLOW_SID_PROPERTY = "workflow_sid";
 
@@ -212,6 +216,31 @@ public class WorkflowStatistics extends NextGenInstanceResource<TwilioTaskRouter
 	 */
 	public Integer getTotalTasks() {
 		return (Integer) getRealtime().get("total_tasks");
+	}
+
+	/**
+	 * Get the number of tasks for each priority
+	 *
+	 * @return the number of tasks with priority p
+	 */
+	public int getTasksWithPriority(String priority) {
+		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
+		Integer tasksCount = (Integer) tasksByPriority.get(priority);
+		return tasksCount != null ? tasksCount : 0;
+	}
+
+	/**
+	 * Get a map of task counts by priority
+	 *
+	 * @return map of task counts by priority
+	 */
+	public Map<String, Integer> getTasksByPriority() {
+		Map<String, Object> tasksByPriority = (Map<String, Object>) getRealtime().get(TASKS_BY_PRIORITY_PROPERTY);
+		Map<String, Integer> tasksByPriorityMap = new HashMap<String, Integer>();
+		for (Entry<String, Object> entry : tasksByPriority.entrySet()) {
+			tasksByPriorityMap.put(entry.getKey(), (Integer) entry.getValue());
+		}
+		return tasksByPriorityMap;
 	}
 
 	/**

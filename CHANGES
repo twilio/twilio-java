@@ -3,6 +3,14 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 5.10.0
+-------------
+
+Released April 14, 2015
+
+- Fix getVoiceCountry not working with toll free numbers
+- Add support for tasks_by_priority in TaskRouter queue statistics
+
 Version 5.9.0
 -------------
 

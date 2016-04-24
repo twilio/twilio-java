@@ -1,6 +1,6 @@
 package com.twilio.sdk.verbs;
 
-
+import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /*
@@ -85,7 +85,8 @@ public class Conference extends Verb {
      */
     public Conference(String name) {
         super(V_CONFERENCE, name);
-        this.allowedVerbs = null;
+        this.allowedVerbs = new ArrayList<String>();
+        this.allowedVerbs.add(Verb.V_TASK);
     }
 
     /**
@@ -228,5 +229,22 @@ public class Conference extends Verb {
         this.set("eventCallbackUrl", eventCallbackUrl);
     }
 
+    /**
+     * Sets the reservationSid
+     *
+     * @param reservationSid
+     */
+    public void setReservationSid(final String reservationSid) {
+        this.set("reservationSid", reservationSid);
+    }
+
+    /**
+     * Sets the postWorkActivitySid
+     *
+     * @param postWorkActivitySid
+     */
+    public void setPostWorkActivitySid(final String postWorkActivitySid) {
+        this.set("postWorkActivitySid", postWorkActivitySid);
+    }
 }
 

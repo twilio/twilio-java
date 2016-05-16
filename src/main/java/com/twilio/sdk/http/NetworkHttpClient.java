@@ -82,7 +82,7 @@ public class NetworkHttpClient extends HttpClient {
         try {
             HttpResponse response = client.execute(builder.build());
             return new Response(
-                response.getEntity().getContent(),
+                response.getEntity() == null ? null : response.getEntity().getContent(),
                 response.getStatusLine().getStatusCode()
             );
         } catch (IOException e) {

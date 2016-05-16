@@ -33,7 +33,6 @@ public abstract class TwiML {
 
             return writer.toString();
         } catch (JAXBException e) {
-            System.out.println(e);
             throw new TwiMLException(e.getMessage());
         }
     }

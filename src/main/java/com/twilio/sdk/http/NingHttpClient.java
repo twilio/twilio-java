@@ -29,14 +29,14 @@ public class NingHttpClient extends HttpClient {
                 builder = client.preparePost(request.getUri());
                 break;
             case "DELETE":
-                builder = client.preparePost(request.getUri());
+                builder = client.prepareDelete(request.getUri());
                 break;
             default:
                 throw new ApiConnectionException(method + " is not a supported HTTP Method");
         }
 
         if (request.requiresAuthentication()) {
-            builder.addHeader("Authentication", request.getAuthString());
+            builder.addHeader("Authorization", request.getAuthString());
         }
 
         try {

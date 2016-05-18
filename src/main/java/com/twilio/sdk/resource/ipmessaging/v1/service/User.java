@@ -38,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends SidResource {
-    private static final long serialVersionUID = 168172741902935L;
+    private static final long serialVersionUID = 209403357744814L;
 
     /**
      * Create a UserFetcher to execute fetch.
@@ -147,7 +147,6 @@ public class User extends SidResource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
-    private final Map<String, String> links;
 
     @JsonCreator
     private User(@JsonProperty("sid")
@@ -165,9 +164,7 @@ public class User extends SidResource {
                  @JsonProperty("date_updated")
                  final String dateUpdated, 
                  @JsonProperty("url")
-                 final URI url, 
-                 @JsonProperty("links")
-                 final Map<String, String> links) {
+                 final URI url) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -176,7 +173,6 @@ public class User extends SidResource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
-        this.links = links;
     }
 
     /**
@@ -251,15 +247,6 @@ public class User extends SidResource {
         return this.url;
     }
 
-    /**
-     * Returns The The links.
-     * 
-     * @return The links
-     */
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -279,8 +266,7 @@ public class User extends SidResource {
                Objects.equals(identity, other.identity) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links);
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -292,8 +278,7 @@ public class User extends SidResource {
                             identity,
                             dateCreated,
                             dateUpdated,
-                            url,
-                            links);
+                            url);
     }
 
     @Override
@@ -307,7 +292,6 @@ public class User extends SidResource {
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
-                          .add("links", links)
                           .toString();
     }
 }

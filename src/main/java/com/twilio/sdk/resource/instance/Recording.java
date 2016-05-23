@@ -165,6 +165,33 @@ public class Recording extends InstanceResource<TwilioRestClient> {
 	}
 
 	/**
+	 * Gets the Status.
+	 *
+	 * @return the status
+	 */
+	public String getStatus() {
+		return getProperty("status");
+	}
+
+	/**
+	 * Gets the Source.
+	 *
+	 * @return the source
+	 */
+	public String getSource() {
+		return getProperty("source");
+	}
+
+	/**
+	 * Gets the amount of Channels.
+	 *
+	 * @return the amount of channels
+	 */
+	public String getChannels() {
+		return getProperty("channels");
+	}
+
+	/**
 	 * Gets the media.
 	 *
 	 * @param extension the extension

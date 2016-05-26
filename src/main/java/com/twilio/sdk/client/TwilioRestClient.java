@@ -21,7 +21,8 @@ public class TwilioRestClient {
         TASKROUTER("taskrouter"),
         TRUNKING("trunking"),
         IPMESSAGING("ip-messaging"),
-        NOTIFICATIONS("notifications");
+        NOTIFICATIONS("notifications"),
+        PREVIEW("preview");
 
         private final String domain;
 

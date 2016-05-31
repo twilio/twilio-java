@@ -107,7 +107,7 @@ public class AccountReader extends Reader<Account> {
         
         if (response == null) {
             throw new ApiConnectionException("Account read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

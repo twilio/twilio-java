@@ -1,6 +1,7 @@
 package com.twilio.sdk.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Predicate;
 import com.twilio.sdk.http.HttpClient;
 import com.twilio.sdk.http.NetworkHttpClient;
 import com.twilio.sdk.http.Request;
@@ -11,6 +12,13 @@ public class TwilioRestClient {
     public static final int HTTP_STATUS_CODE_CREATED = 201;
     public static final int HTTP_STATUS_CODE_NO_CONTENT = 204;
     public static final int HTTP_STATUS_CODE_OK = 200;
+    public static final Predicate<Integer> SUCCESS = new Predicate<Integer>() {
+        @Override
+        public boolean apply(Integer i) {
+            return i != null && i >= 200 && i < 300;
+        }
+    };
+
 
     public enum Domains {
         API("api"),

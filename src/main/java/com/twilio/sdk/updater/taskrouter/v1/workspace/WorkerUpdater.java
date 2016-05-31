@@ -90,7 +90,7 @@ public class WorkerUpdater extends Updater<Worker> {
         
         if (response == null) {
             throw new ApiConnectionException("Worker update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

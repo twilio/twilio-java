@@ -99,22 +99,7 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
             client.getAccountSid()
         );
         
-        if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
-        }
-        
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        
-        if (minutes != null) {
-            request.addQueryParam("Minutes", minutes.toString());
-        }
-        
-        if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
-        }
-        
+        addQueryParams(request);
         Response response = client.request(request);
         
         if (response == null) {
@@ -135,5 +120,28 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
         }
         
         return TaskQueueStatistics.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     * 
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (endDate != null) {
+            request.addQueryParam("EndDate", endDate.toString());
+        }
+        
+        if (friendlyName != null) {
+            request.addQueryParam("FriendlyName", friendlyName);
+        }
+        
+        if (minutes != null) {
+            request.addQueryParam("Minutes", minutes.toString());
+        }
+        
+        if (startDate != null) {
+            request.addQueryParam("StartDate", startDate.toString());
+        }
     }
 }

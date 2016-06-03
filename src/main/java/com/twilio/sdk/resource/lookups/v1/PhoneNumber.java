@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -31,7 +32,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber extends SidResource {
-    private static final long serialVersionUID = 65373945668693L;
+    private static final long serialVersionUID = 188594721774120L;
 
     public enum Type {
         LANDLINE("landline"),
@@ -118,6 +119,7 @@ public class PhoneNumber extends SidResource {
     private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private final String nationalFormat;
     private final Map<String, String> carrier;
+    private final JsonNode addOns;
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("country_code")
@@ -127,11 +129,14 @@ public class PhoneNumber extends SidResource {
                         @JsonProperty("national_format")
                         final String nationalFormat, 
                         @JsonProperty("carrier")
-                        final Map<String, String> carrier) {
+                        final Map<String, String> carrier, 
+                        @JsonProperty("add_ons")
+                        final JsonNode addOns) {
         this.countryCode = countryCode;
         this.phoneNumber = phoneNumber;
         this.nationalFormat = nationalFormat;
         this.carrier = carrier;
+        this.addOns = addOns;
     }
 
     /**
@@ -179,6 +184,15 @@ public class PhoneNumber extends SidResource {
         return this.carrier;
     }
 
+    /**
+     * Returns The The add_ons.
+     * 
+     * @return The add_ons
+     */
+    public final JsonNode getAddOns() {
+        return this.addOns;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -194,7 +208,8 @@ public class PhoneNumber extends SidResource {
         return Objects.equals(countryCode, other.countryCode) && 
                Objects.equals(phoneNumber, other.phoneNumber) && 
                Objects.equals(nationalFormat, other.nationalFormat) && 
-               Objects.equals(carrier, other.carrier);
+               Objects.equals(carrier, other.carrier) && 
+               Objects.equals(addOns, other.addOns);
     }
 
     @Override
@@ -202,7 +217,8 @@ public class PhoneNumber extends SidResource {
         return Objects.hash(countryCode,
                             phoneNumber,
                             nationalFormat,
-                            carrier);
+                            carrier,
+                            addOns);
     }
 
     @Override
@@ -212,6 +228,7 @@ public class PhoneNumber extends SidResource {
                           .add("phoneNumber", phoneNumber)
                           .add("nationalFormat", nationalFormat)
                           .add("carrier", carrier)
+                          .add("addOns", addOns)
                           .toString();
     }
 }

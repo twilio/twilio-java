@@ -69,14 +69,7 @@ public class UsageFetcher extends Fetcher<Usage> {
             client.getAccountSid()
         );
         
-        if (end != null) {
-            request.addQueryParam("End", end);
-        }
-        
-        if (start != null) {
-            request.addQueryParam("Start", start);
-        }
-        
+        addQueryParams(request);
         Response response = client.request(request);
         
         if (response == null) {
@@ -97,5 +90,20 @@ public class UsageFetcher extends Fetcher<Usage> {
         }
         
         return Usage.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     * 
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (end != null) {
+            request.addQueryParam("End", end);
+        }
+        
+        if (start != null) {
+            request.addQueryParam("Start", start);
+        }
     }
 }

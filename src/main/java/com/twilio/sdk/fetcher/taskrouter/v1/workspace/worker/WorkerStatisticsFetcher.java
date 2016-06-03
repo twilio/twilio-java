@@ -87,18 +87,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
             client.getAccountSid()
         );
         
-        if (minutes != null) {
-            request.addQueryParam("Minutes", minutes.toString());
-        }
-        
-        if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
-        }
-        
-        if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
-        }
-        
+        addQueryParams(request);
         Response response = client.request(request);
         
         if (response == null) {
@@ -119,5 +108,24 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
         }
         
         return WorkerStatistics.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     * 
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (minutes != null) {
+            request.addQueryParam("Minutes", minutes.toString());
+        }
+        
+        if (startDate != null) {
+            request.addQueryParam("StartDate", startDate.toString());
+        }
+        
+        if (endDate != null) {
+            request.addQueryParam("EndDate", endDate.toString());
+        }
     }
 }

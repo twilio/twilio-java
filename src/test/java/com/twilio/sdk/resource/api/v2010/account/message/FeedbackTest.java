@@ -5,7 +5,7 @@
  *       /       /       
  */
 
-package com.twilio.sdk.resource.preview.wireless.device;
+package com.twilio.sdk.resource.api.v2010.account.message;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
@@ -26,7 +26,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class UsageTest {
+public class FeedbackTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -36,11 +36,11 @@ public class UsageTest {
     }
 
     @Test
-    public void testFetchRequest() {
+    public void testCreateRequest() {
         new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PREVIEW,
-                                          "/wireless/Devices/deviceSid/Usage",
+            Request request = new Request(HttpMethod.POST,
+                                          TwilioRestClient.Domains.API,
+                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Feedback.json",
                                           "AC123");
             
             
@@ -52,7 +52,7 @@ public class UsageTest {
         }};
         
         try {
-            Usage.fetch("deviceSid").execute();
+            Feedback.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

@@ -10,6 +10,7 @@ com.twilio.sdk.creator.api.v2010
 com.twilio.sdk.creator.api.v2010.account
 com.twilio.sdk.creator.api.v2010.account.call
 com.twilio.sdk.creator.api.v2010.account.incomingphonenumber
+com.twilio.sdk.creator.api.v2010.account.message
 com.twilio.sdk.creator.api.v2010.account.sip
 com.twilio.sdk.creator.api.v2010.account.sip.credentiallist
 com.twilio.sdk.creator.api.v2010.account.sip.domain

@@ -3,6 +3,13 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
+Version 7.0.0-rc-6
+-------------
+
+Released June 9, 2016
+
+- Add Messaging Feedback
+
 Version 7.0.0-rc-5
 -------------
 

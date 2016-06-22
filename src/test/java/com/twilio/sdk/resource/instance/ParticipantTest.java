@@ -45,6 +45,7 @@ public class ParticipantTest {
         map.put("start_conference_on_enter", false);
         map.put("date_created", formattedDate);
         map.put("date_updated", formattedDate);
+        map.put("hold", false);
     }
 
     /**
@@ -65,5 +66,6 @@ public class ParticipantTest {
         assertFalse(participant.isMuted());
         assertFalse(participant.isEndConferenceOnExit());
         assertFalse(participant.isStartConferenceOnEnter());
+        assertFalse(participant.isHold());
     }
 }

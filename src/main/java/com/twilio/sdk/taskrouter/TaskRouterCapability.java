@@ -67,11 +67,13 @@ public class TaskRouterCapability extends CapabilityToken {
             final String activityUrl = this.baseUrl + "/Activities";
             final String tasksUrl = this.baseUrl + "/Tasks/**";
             final String workerReservationsUrl = this.resourceUrl + "/Reservations/**";
+            final String channelUrl = this.resourceUrl + "/Channels/**";
 
             // add permissions to fetch the list of activities
             this.allow(activityUrl, "GET", null, null);
             this.allow(tasksUrl, "GET", null, null);
             this.allow(workerReservationsUrl, "GET", null, null);
+            this.allow(channelUrl, "GET", null, null);
         } else if (channelId.startsWith("WQ")) {
             resourceUrl = this.baseUrl + "/TaskQueues/" + channelId;
         }

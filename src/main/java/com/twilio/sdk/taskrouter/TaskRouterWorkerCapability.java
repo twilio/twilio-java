@@ -5,6 +5,7 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
     private final String tasksUrl;
     private final String activityUrl;
     private final String workerReservationsUrl;
+    private final String channelUrl;
 
     /**
      * Create a new Capability object to authorize worker clients to interact
@@ -25,11 +26,13 @@ public class TaskRouterWorkerCapability extends TaskRouterCapability {
         this.tasksUrl = this.baseUrl + "/Tasks/**";
         this.activityUrl = this.baseUrl + "/Activities";
         this.workerReservationsUrl = this.resourceUrl + "/Reservations/**";
+        this.channelUrl = this.resourceUrl + "/Channels/**";
 
         // add permissions to fetch the list of activities, tasks and worker reservations
         this.allow(activityUrl, "GET", null, null);
         this.allow(tasksUrl, "GET", null, null);
         this.allow(workerReservationsUrl, "GET", null, null);
+        this.allow(channelUrl, "GET", null, null);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.twilio.sdk;
 import com.twilio.sdk.auth.AccessToken;
 import com.twilio.sdk.auth.ConversationsGrant;
 import com.twilio.sdk.auth.IpMessagingGrant;
+import com.twilio.sdk.auth.SyncGrant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.Test;
@@ -135,5 +136,24 @@ public class AccessTokenTest {
 		assertEquals(1, decodedGrants.size());
 
 		assertTrue("should be a ip_messaging grant present", decodedGrants.containsKey("ip_messaging"));
+	}
+
+	@Test
+	public void testSyncGrant() {
+		AccessToken accessToken =
+				new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+						.grant(new SyncGrant())
+						.build();
+
+		Claims claims = Jwts.parser()
+				.setSigningKey(SECRET.getBytes())
+				.parseClaimsJws(accessToken.toJWT())
+				.getBody();
+
+		this.validateClaims(claims);
+		Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+		assertEquals(1, decodedGrants.size());
+
+		assertTrue("should be a sync grant present", decodedGrants.containsKey("data_sync"));
 	}
 }

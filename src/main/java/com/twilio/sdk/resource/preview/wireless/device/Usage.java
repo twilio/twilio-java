@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -85,11 +84,11 @@ public class Usage extends Resource {
     private final String deviceSid;
     private final String deviceAlias;
     private final String accountSid;
-    private final JsonNode period;
-    private final JsonNode commandsUsage;
-    private final JsonNode commandsCosts;
-    private final JsonNode dataUsage;
-    private final JsonNode dataCosts;
+    private final Map<String, Object> period;
+    private final Map<String, Object> commandsUsage;
+    private final Map<String, Object> commandsCosts;
+    private final Map<String, Object> dataUsage;
+    private final Map<String, Object> dataCosts;
     private final URI url;
 
     @JsonCreator
@@ -100,15 +99,15 @@ public class Usage extends Resource {
                   @JsonProperty("account_sid")
                   final String accountSid, 
                   @JsonProperty("period")
-                  final JsonNode period, 
+                  final Map<String, Object> period, 
                   @JsonProperty("commands_usage")
-                  final JsonNode commandsUsage, 
+                  final Map<String, Object> commandsUsage, 
                   @JsonProperty("commands_costs")
-                  final JsonNode commandsCosts, 
+                  final Map<String, Object> commandsCosts, 
                   @JsonProperty("data_usage")
-                  final JsonNode dataUsage, 
+                  final Map<String, Object> dataUsage, 
                   @JsonProperty("data_costs")
-                  final JsonNode dataCosts, 
+                  final Map<String, Object> dataCosts, 
                   @JsonProperty("url")
                   final URI url) {
         this.deviceSid = deviceSid;
@@ -154,7 +153,7 @@ public class Usage extends Resource {
      * 
      * @return The period
      */
-    public final JsonNode getPeriod() {
+    public final Map<String, Object> getPeriod() {
         return this.period;
     }
 
@@ -163,7 +162,7 @@ public class Usage extends Resource {
      * 
      * @return The commands_usage
      */
-    public final JsonNode getCommandsUsage() {
+    public final Map<String, Object> getCommandsUsage() {
         return this.commandsUsage;
     }
 
@@ -172,7 +171,7 @@ public class Usage extends Resource {
      * 
      * @return The commands_costs
      */
-    public final JsonNode getCommandsCosts() {
+    public final Map<String, Object> getCommandsCosts() {
         return this.commandsCosts;
     }
 
@@ -181,7 +180,7 @@ public class Usage extends Resource {
      * 
      * @return The data_usage
      */
-    public final JsonNode getDataUsage() {
+    public final Map<String, Object> getDataUsage() {
         return this.dataUsage;
     }
 
@@ -190,7 +189,7 @@ public class Usage extends Resource {
      * 
      * @return The data_costs
      */
-    public final JsonNode getDataCosts() {
+    public final Map<String, Object> getDataCosts() {
         return this.dataCosts;
     }
 

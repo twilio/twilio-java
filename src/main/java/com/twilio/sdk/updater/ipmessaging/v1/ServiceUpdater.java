@@ -7,7 +7,6 @@
 
 package com.twilio.sdk.updater.ipmessaging.v1;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
@@ -18,6 +17,8 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.ipmessaging.v1.Service;
 import com.twilio.sdk.updater.Updater;
 
+import java.util.Map;
+
 public class ServiceUpdater extends Updater<Service> {
     private final String sid;
     private String friendlyName;
@@ -27,7 +28,7 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean readStatusEnabled;
     private Integer typingIndicatorTimeout;
     private Integer consumptionReportInterval;
-    private JsonNode webhooks;
+    private Map<String, Object> webhooks;
 
     /**
      * Construct a new ServiceUpdater.
@@ -121,7 +122,7 @@ public class ServiceUpdater extends Updater<Service> {
      * @param webhooks The webhooks
      * @return this
      */
-    public ServiceUpdater setWebhooks(final JsonNode webhooks) {
+    public ServiceUpdater setWebhooks(final Map<String, Object> webhooks) {
         this.webhooks = webhooks;
         return this;
     }

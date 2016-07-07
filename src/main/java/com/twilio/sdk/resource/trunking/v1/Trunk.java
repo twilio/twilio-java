@@ -12,10 +12,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.creator.trunking.v1.TrunkCreator;
 import com.twilio.sdk.deleter.trunking.v1.TrunkDeleter;
@@ -23,10 +21,7 @@ import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.fetcher.trunking.v1.TrunkFetcher;
 import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.reader.trunking.v1.TrunkReader;
-import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.SidResource;
 import com.twilio.sdk.updater.trunking.v1.TrunkUpdater;
 import org.joda.time.DateTime;
@@ -133,7 +128,7 @@ public class Trunk extends SidResource {
     private final URI disasterRecoveryUrl;
     private final String friendlyName;
     private final Boolean secure;
-    private final JsonNode recording;
+    private final Map<String, Object> recording;
     private final String authType;
     private final List<String> authTypeSet;
     private final DateTime dateCreated;
@@ -156,7 +151,7 @@ public class Trunk extends SidResource {
                   @JsonProperty("secure")
                   final Boolean secure, 
                   @JsonProperty("recording")
-                  final JsonNode recording, 
+                  final Map<String, Object> recording, 
                   @JsonProperty("auth_type")
                   final String authType, 
                   @JsonProperty("auth_type_set")
@@ -246,7 +241,7 @@ public class Trunk extends SidResource {
      * 
      * @return The recording
      */
-    public final JsonNode getRecording() {
+    public final Map<String, Object> getRecording() {
         return this.recording;
     }
 

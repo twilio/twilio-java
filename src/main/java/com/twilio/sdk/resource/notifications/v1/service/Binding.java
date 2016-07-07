@@ -42,7 +42,9 @@ public class Binding extends SidResource {
 
     public enum BindingType {
         APN("apn"),
-        GCM("gcm");
+        GCM("gcm"),
+        SMS("sms"),
+        FACEBOOK_MESSENGER("facebook-messenger");
     
         private final String value;
         

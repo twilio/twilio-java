@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -100,7 +99,7 @@ public class RatePlan extends SidResource {
     private final String accountSid;
     private final String friendlyName;
     private final String dataMetering;
-    private final JsonNode capabilities;
+    private final Map<String, Object> capabilities;
     private final Integer voiceCap;
     private final Integer messagingCap;
     private final Integer commandsCap;
@@ -123,7 +122,7 @@ public class RatePlan extends SidResource {
                      @JsonProperty("data_metering")
                      final String dataMetering, 
                      @JsonProperty("capabilities")
-                     final JsonNode capabilities, 
+                     final Map<String, Object> capabilities, 
                      @JsonProperty("voice_cap")
                      final Integer voiceCap, 
                      @JsonProperty("messaging_cap")
@@ -209,7 +208,7 @@ public class RatePlan extends SidResource {
      * 
      * @return The capabilities
      */
-    public final JsonNode getCapabilities() {
+    public final Map<String, Object> getCapabilities() {
         return this.capabilities;
     }
 

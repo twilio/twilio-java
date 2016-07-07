@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -119,7 +118,7 @@ public class PhoneNumber extends SidResource {
     private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private final String nationalFormat;
     private final Map<String, String> carrier;
-    private final JsonNode addOns;
+    private final Map<String, Object> addOns;
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("country_code")
@@ -131,7 +130,7 @@ public class PhoneNumber extends SidResource {
                         @JsonProperty("carrier")
                         final Map<String, String> carrier, 
                         @JsonProperty("add_ons")
-                        final JsonNode addOns) {
+                        final Map<String, Object> addOns) {
         this.countryCode = countryCode;
         this.phoneNumber = phoneNumber;
         this.nationalFormat = nationalFormat;
@@ -189,7 +188,7 @@ public class PhoneNumber extends SidResource {
      * 
      * @return The add_ons
      */
-    public final JsonNode getAddOns() {
+    public final Map<String, Object> getAddOns() {
         return this.addOns;
     }
 

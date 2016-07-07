@@ -22,6 +22,8 @@ public class ServiceUpdater extends Updater<Service> {
     private String friendlyName;
     private String apnCredentialSid;
     private String gcmCredentialSid;
+    private String messagingServiceSid;
+    private String facebookMessengerPageId;
     private String defaultApnNotificationProtocolVersion;
     private String defaultGcmNotificationProtocolVersion;
 
@@ -64,6 +66,28 @@ public class ServiceUpdater extends Updater<Service> {
      */
     public ServiceUpdater setGcmCredentialSid(final String gcmCredentialSid) {
         this.gcmCredentialSid = gcmCredentialSid;
+        return this;
+    }
+
+    /**
+     * The messaging_service_sid.
+     * 
+     * @param messagingServiceSid The messaging_service_sid
+     * @return this
+     */
+    public ServiceUpdater setMessagingServiceSid(final String messagingServiceSid) {
+        this.messagingServiceSid = messagingServiceSid;
+        return this;
+    }
+
+    /**
+     * The facebook_messenger_page_id.
+     * 
+     * @param facebookMessengerPageId The facebook_messenger_page_id
+     * @return this
+     */
+    public ServiceUpdater setFacebookMessengerPageId(final String facebookMessengerPageId) {
+        this.facebookMessengerPageId = facebookMessengerPageId;
         return this;
     }
 
@@ -146,6 +170,14 @@ public class ServiceUpdater extends Updater<Service> {
         
         if (gcmCredentialSid != null) {
             request.addPostParam("GcmCredentialSid", gcmCredentialSid);
+        }
+        
+        if (messagingServiceSid != null) {
+            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+        }
+        
+        if (facebookMessengerPageId != null) {
+            request.addPostParam("FacebookMessengerPageId", facebookMessengerPageId);
         }
         
         if (defaultApnNotificationProtocolVersion != null) {

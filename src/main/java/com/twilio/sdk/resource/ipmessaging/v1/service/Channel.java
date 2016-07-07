@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -175,7 +174,7 @@ public class Channel extends SidResource {
     private final String serviceSid;
     private final String friendlyName;
     private final String uniqueName;
-    private final JsonNode attributes;
+    private final Map<String, Object> attributes;
     private final Channel.ChannelType type;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
@@ -195,7 +194,7 @@ public class Channel extends SidResource {
                     @JsonProperty("unique_name")
                     final String uniqueName, 
                     @JsonProperty("attributes")
-                    final JsonNode attributes, 
+                    final Map<String, Object> attributes, 
                     @JsonProperty("type")
                     final Channel.ChannelType type, 
                     @JsonProperty("date_created")
@@ -272,7 +271,7 @@ public class Channel extends SidResource {
      * 
      * @return The attributes
      */
-    public final JsonNode getAttributes() {
+    public final Map<String, Object> getAttributes() {
         return this.attributes;
     }
 

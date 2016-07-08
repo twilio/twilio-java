@@ -29,7 +29,7 @@ public class MessageCreator extends Creator<Message> {
     private List<URI> mediaUrl;
     private URI statusCallback;
     private String applicationSid;
-    private Boolean provideFeeback;
+    private Boolean provideFeedback;
 
     /**
      * Construct a new MessageCreator.
@@ -101,13 +101,13 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The provide_feeback.
+     * The provide_feedback.
      * 
-     * @param provideFeeback The provide_feeback
+     * @param provideFeedback The provide_feedback
      * @return this
      */
-    public MessageCreator setProvideFeeback(final Boolean provideFeeback) {
-        this.provideFeeback = provideFeeback;
+    public MessageCreator setProvideFeedback(final Boolean provideFeedback) {
+        this.provideFeedback = provideFeedback;
         return this;
     }
 
@@ -182,8 +182,8 @@ public class MessageCreator extends Creator<Message> {
             request.addPostParam("ApplicationSid", applicationSid);
         }
         
-        if (provideFeeback != null) {
-            request.addPostParam("ProvideFeeback", provideFeeback.toString());
+        if (provideFeedback != null) {
+            request.addPostParam("ProvideFeedback", provideFeedback.toString());
         }
     }
 }

@@ -34,6 +34,7 @@ public class NotificationCreator extends Creator<Notification> {
     private String data;
     private String apn;
     private String gcm;
+    private String sms;
     private Map<String, Object> facebookMessenger;
 
     /**
@@ -187,6 +188,17 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
+     * The sms.
+     * 
+     * @param sms The sms
+     * @return this
+     */
+    public NotificationCreator setSms(final String sms) {
+        this.sms = sms;
+        return this;
+    }
+
+    /**
      * The facebook_messenger.
      * 
      * @param facebookMessenger The facebook_messenger
@@ -288,6 +300,10 @@ public class NotificationCreator extends Creator<Notification> {
         
         if (gcm != null) {
             request.addPostParam("Gcm", gcm);
+        }
+        
+        if (sms != null) {
+            request.addPostParam("Sms", sms);
         }
         
         if (facebookMessenger != null) {

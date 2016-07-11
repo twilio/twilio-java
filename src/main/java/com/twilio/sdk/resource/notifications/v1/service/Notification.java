@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Notification extends Resource {
-    private static final long serialVersionUID = 225368034627906L;
+    private static final long serialVersionUID = 163669711439064L;
 
     public enum Priority {
         HIGH("high"),
@@ -131,6 +131,7 @@ public class Notification extends Resource {
     private final Map<String, Object> data;
     private final Map<String, Object> apn;
     private final Map<String, Object> gcm;
+    private final Map<String, Object> sms;
     private final Map<String, Object> facebookMessenger;
 
     @JsonCreator
@@ -164,6 +165,8 @@ public class Notification extends Resource {
                          final Map<String, Object> apn, 
                          @JsonProperty("gcm")
                          final Map<String, Object> gcm, 
+                         @JsonProperty("sms")
+                         final Map<String, Object> sms, 
                          @JsonProperty("facebook_messenger")
                          final Map<String, Object> facebookMessenger) {
         this.sid = sid;
@@ -181,6 +184,7 @@ public class Notification extends Resource {
         this.data = data;
         this.apn = apn;
         this.gcm = gcm;
+        this.sms = sms;
         this.facebookMessenger = facebookMessenger;
     }
 
@@ -320,6 +324,15 @@ public class Notification extends Resource {
     }
 
     /**
+     * Returns The The sms.
+     * 
+     * @return The sms
+     */
+    public final Map<String, Object> getSms() {
+        return this.sms;
+    }
+
+    /**
      * Returns The The facebook_messenger.
      * 
      * @return The facebook_messenger
@@ -355,6 +368,7 @@ public class Notification extends Resource {
                Objects.equals(data, other.data) && 
                Objects.equals(apn, other.apn) && 
                Objects.equals(gcm, other.gcm) && 
+               Objects.equals(sms, other.sms) && 
                Objects.equals(facebookMessenger, other.facebookMessenger);
     }
 
@@ -375,6 +389,7 @@ public class Notification extends Resource {
                             data,
                             apn,
                             gcm,
+                            sms,
                             facebookMessenger);
     }
 
@@ -396,6 +411,7 @@ public class Notification extends Resource {
                           .add("data", data)
                           .add("apn", apn)
                           .add("gcm", gcm)
+                          .add("sms", sms)
                           .add("facebookMessenger", facebookMessenger)
                           .toString();
     }

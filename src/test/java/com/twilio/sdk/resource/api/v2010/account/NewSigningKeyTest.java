@@ -5,7 +5,7 @@
  *       /       /       
  */
 
-package com.twilio.sdk.resource.notifications.v1.service;
+package com.twilio.sdk.resource.api.v2010.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
@@ -26,7 +26,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class NotificationTest {
+public class NewSigningKeyTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -39,8 +39,8 @@ public class NotificationTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications",
+                                          TwilioRestClient.Domains.API,
+                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SigningKeys.json",
                                           "AC123");
             
             
@@ -52,7 +52,7 @@ public class NotificationTest {
         }};
         
         try {
-            Notification.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            NewSigningKey.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -61,11 +61,11 @@ public class NotificationTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"NOb8021351170b4e1286adaac3fdd6d082\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"IS699b53e02da45a1ba9d13b7d7d2766af\",\"date_created\": \"2016-03-24T23:42:28Z\",\"identities\": [\"jing\"],\"tags\": [],\"priority\": \"high\",\"ttl\": 2419200,\"title\": \"test\",\"body\": \"body\",\"sound\": null,\"action\": null,\"data\": null,\"apn\": null,\"gcm\": null,\"sms\": null,\"facebook_messenger\": null}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"sid\": \"SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"foo\",\"date_created\": \"Mon, 13 Jun 2016 22:50:08 +0000\",\"date_updated\": \"Mon, 13 Jun 2016 22:50:08 +0000\",\"secret\": \"foobar\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
         
-        Notification.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        NewSigningKey.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
     }
 }

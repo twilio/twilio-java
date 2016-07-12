@@ -35,6 +35,8 @@ public class CallCreator extends Creator<Call> {
     private String ifMachine;
     private Integer timeout;
     private Boolean record;
+    private String sipAuthUsername;
+    private String sipAuthPassword;
 
     /**
      * Construct a new CallCreator.
@@ -213,6 +215,28 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * The sip_auth_username.
+     * 
+     * @param sipAuthUsername The sip_auth_username
+     * @return this
+     */
+    public CallCreator setSipAuthUsername(final String sipAuthUsername) {
+        this.sipAuthUsername = sipAuthUsername;
+        return this;
+    }
+
+    /**
+     * The sip_auth_password.
+     * 
+     * @param sipAuthPassword The sip_auth_password
+     * @return this
+     */
+    public CallCreator setSipAuthPassword(final String sipAuthPassword) {
+        this.sipAuthPassword = sipAuthPassword;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -307,6 +331,14 @@ public class CallCreator extends Creator<Call> {
         
         if (record != null) {
             request.addPostParam("Record", record.toString());
+        }
+        
+        if (sipAuthUsername != null) {
+            request.addPostParam("SipAuthUsername", sipAuthUsername);
+        }
+        
+        if (sipAuthPassword != null) {
+            request.addPostParam("SipAuthPassword", sipAuthPassword);
         }
     }
 }

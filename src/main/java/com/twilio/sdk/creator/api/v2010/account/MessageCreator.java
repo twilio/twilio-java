@@ -18,17 +18,20 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Message;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
     private final String accountSid;
     private final com.twilio.sdk.type.PhoneNumber to;
-    private final com.twilio.sdk.type.PhoneNumber from;
     private String body;
     private List<URI> mediaUrl;
+    private com.twilio.sdk.type.PhoneNumber from;
+    private String messagingServiceSid;
     private URI statusCallback;
     private String applicationSid;
+    private BigDecimal maxPrice;
     private Boolean provideFeedback;
 
     /**
@@ -36,17 +39,17 @@ public class MessageCreator extends Creator<Message> {
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
-     * @param from The phone number that initiated the message
      * @param body The body
+     * @param from The phone number that initiated the message
      */
     public MessageCreator(final String accountSid, 
                           final com.twilio.sdk.type.PhoneNumber to, 
-                          final com.twilio.sdk.type.PhoneNumber from, 
-                          final String body) {
+                          final String body, 
+                          final com.twilio.sdk.type.PhoneNumber from) {
         this.accountSid = accountSid;
         this.to = to;
-        this.from = from;
         this.body = body;
+        this.from = from;
     }
 
     /**
@@ -54,17 +57,53 @@ public class MessageCreator extends Creator<Message> {
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
-     * @param from The phone number that initiated the message
-     * @param mediaUrl The media_url
+     * @param body The body
+     * @param messagingServiceSid The messaging_service_sid
      */
     public MessageCreator(final String accountSid, 
                           final com.twilio.sdk.type.PhoneNumber to, 
-                          final com.twilio.sdk.type.PhoneNumber from, 
-                          final List<URI> mediaUrl) {
+                          final String body, 
+                          final String messagingServiceSid) {
         this.accountSid = accountSid;
         this.to = to;
-        this.from = from;
+        this.body = body;
+        this.messagingServiceSid = messagingServiceSid;
+    }
+
+    /**
+     * Construct a new MessageCreator.
+     * 
+     * @param accountSid The account_sid
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param from The phone number that initiated the message
+     */
+    public MessageCreator(final String accountSid, 
+                          final com.twilio.sdk.type.PhoneNumber to, 
+                          final List<URI> mediaUrl, 
+                          final com.twilio.sdk.type.PhoneNumber from) {
+        this.accountSid = accountSid;
+        this.to = to;
         this.mediaUrl = mediaUrl;
+        this.from = from;
+    }
+
+    /**
+     * Construct a new MessageCreator.
+     * 
+     * @param accountSid The account_sid
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param messagingServiceSid The messaging_service_sid
+     */
+    public MessageCreator(final String accountSid, 
+                          final com.twilio.sdk.type.PhoneNumber to, 
+                          final List<URI> mediaUrl, 
+                          final String messagingServiceSid) {
+        this.accountSid = accountSid;
+        this.to = to;
+        this.mediaUrl = mediaUrl;
+        this.messagingServiceSid = messagingServiceSid;
     }
 
     /**
@@ -97,6 +136,17 @@ public class MessageCreator extends Creator<Message> {
      */
     public MessageCreator setApplicationSid(final String applicationSid) {
         this.applicationSid = applicationSid;
+        return this;
+    }
+
+    /**
+     * The max_price.
+     * 
+     * @param maxPrice The max_price
+     * @return this
+     */
+    public MessageCreator setMaxPrice(final BigDecimal maxPrice) {
+        this.maxPrice = maxPrice;
         return this;
     }
 
@@ -160,10 +210,6 @@ public class MessageCreator extends Creator<Message> {
             request.addPostParam("To", to.toString());
         }
         
-        if (from != null) {
-            request.addPostParam("From", from.toString());
-        }
-        
         if (body != null) {
             request.addPostParam("Body", body);
         }
@@ -174,12 +220,24 @@ public class MessageCreator extends Creator<Message> {
             }
         }
         
+        if (from != null) {
+            request.addPostParam("From", from.toString());
+        }
+        
+        if (messagingServiceSid != null) {
+            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+        }
+        
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
         }
         
         if (applicationSid != null) {
             request.addPostParam("ApplicationSid", applicationSid);
+        }
+        
+        if (maxPrice != null) {
+            request.addPostParam("MaxPrice", maxPrice.toString());
         }
         
         if (provideFeedback != null) {

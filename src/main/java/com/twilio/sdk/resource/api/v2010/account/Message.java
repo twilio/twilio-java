@@ -121,15 +121,15 @@ public class Message extends SidResource {
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
-     * @param from The phone number that initiated the message
      * @param body The body
+     * @param from The phone number that initiated the message
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator create(final String accountSid, 
                                         final com.twilio.sdk.type.PhoneNumber to, 
-                                        final com.twilio.sdk.type.PhoneNumber from, 
-                                        final String body) {
-        return new MessageCreator(accountSid, to, from, body);
+                                        final String body, 
+                                        final com.twilio.sdk.type.PhoneNumber from) {
+        return new MessageCreator(accountSid, to, body, from);
     }
 
     /**
@@ -137,15 +137,47 @@ public class Message extends SidResource {
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
-     * @param from The phone number that initiated the message
-     * @param mediaUrl The media_url
+     * @param body The body
+     * @param messagingServiceSid The messaging_service_sid
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator create(final String accountSid, 
                                         final com.twilio.sdk.type.PhoneNumber to, 
-                                        final com.twilio.sdk.type.PhoneNumber from, 
-                                        final List<URI> mediaUrl) {
-        return new MessageCreator(accountSid, to, from, mediaUrl);
+                                        final String body, 
+                                        final String messagingServiceSid) {
+        return new MessageCreator(accountSid, to, body, messagingServiceSid);
+    }
+
+    /**
+     * Create a MessageCreator to execute create.
+     * 
+     * @param accountSid The account_sid
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param from The phone number that initiated the message
+     * @return MessageCreator capable of executing the create
+     */
+    public static MessageCreator create(final String accountSid, 
+                                        final com.twilio.sdk.type.PhoneNumber to, 
+                                        final List<URI> mediaUrl, 
+                                        final com.twilio.sdk.type.PhoneNumber from) {
+        return new MessageCreator(accountSid, to, mediaUrl, from);
+    }
+
+    /**
+     * Create a MessageCreator to execute create.
+     * 
+     * @param accountSid The account_sid
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param messagingServiceSid The messaging_service_sid
+     * @return MessageCreator capable of executing the create
+     */
+    public static MessageCreator create(final String accountSid, 
+                                        final com.twilio.sdk.type.PhoneNumber to, 
+                                        final List<URI> mediaUrl, 
+                                        final String messagingServiceSid) {
+        return new MessageCreator(accountSid, to, mediaUrl, messagingServiceSid);
     }
 
     /**

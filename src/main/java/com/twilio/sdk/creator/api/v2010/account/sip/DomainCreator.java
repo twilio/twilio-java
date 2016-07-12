@@ -24,6 +24,7 @@ public class DomainCreator extends Creator<Domain> {
     private final String accountSid;
     private final String domainName;
     private String friendlyName;
+    private String authType;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
     private URI voiceFallbackUrl;
@@ -51,6 +52,17 @@ public class DomainCreator extends Creator<Domain> {
      */
     public DomainCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The types of authentication you have mapped to your domain.
+     * 
+     * @param authType The types of authentication mapped to the domain
+     * @return this
+     */
+    public DomainCreator setAuthType(final String authType) {
+        this.authType = authType;
         return this;
     }
 
@@ -207,6 +219,10 @@ public class DomainCreator extends Creator<Domain> {
         
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+        
+        if (authType != null) {
+            request.addPostParam("AuthType", authType);
         }
         
         if (voiceUrl != null) {

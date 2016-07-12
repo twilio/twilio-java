@@ -23,7 +23,7 @@ import java.net.URI;
 public class DomainUpdater extends Updater<Domain> {
     private final String accountSid;
     private final String sid;
-    private String apiVersion;
+    private String authType;
     private String friendlyName;
     private HttpMethod voiceFallbackMethod;
     private URI voiceFallbackUrl;
@@ -45,13 +45,13 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The api_version.
+     * The auth_type.
      * 
-     * @param apiVersion The api_version
+     * @param authType The auth_type
      * @return this
      */
-    public DomainUpdater setApiVersion(final String apiVersion) {
-        this.apiVersion = apiVersion;
+    public DomainUpdater setAuthType(final String authType) {
+        this.authType = authType;
         return this;
     }
 
@@ -207,8 +207,8 @@ public class DomainUpdater extends Updater<Domain> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (apiVersion != null) {
-            request.addPostParam("ApiVersion", apiVersion);
+        if (authType != null) {
+            request.addPostParam("AuthType", authType);
         }
         
         if (friendlyName != null) {

@@ -50,8 +50,8 @@ public class Example {
         Message message = new MessageCreator(
             ACCOUNT_SID,
             PHONE_NUMBER,
-            number.getPhoneNumber(),
-            "Hello world!"
+            "Hello world!",
+            number.getPhoneNumber()
         ).execute();
 
         System.out.println(message.getSid());

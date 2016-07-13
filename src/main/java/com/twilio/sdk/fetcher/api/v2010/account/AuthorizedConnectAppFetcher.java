@@ -18,7 +18,7 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.AuthorizedConnectApp;
 
 public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
-    private final String accountSid;
+    private String accountSid;
     private final String connectAppSid;
 
     /**

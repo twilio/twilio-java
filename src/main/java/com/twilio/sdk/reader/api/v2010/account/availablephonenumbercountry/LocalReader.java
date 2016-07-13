@@ -20,7 +20,7 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.availablephonenumbercountry.Local;
 
 public class LocalReader extends Reader<Local> {
-    private final String accountSid;
+    private String accountSid;
     private final String countryCode;
     private Integer areaCode;
     private String contains;
@@ -31,6 +31,15 @@ public class LocalReader extends Reader<Local> {
     private Boolean excludeLocalAddressRequired;
     private Boolean excludeForeignAddressRequired;
     private Boolean beta;
+
+    /**
+     * Construct a new LocalReader.
+     * 
+     * @param countryCode The country_code
+     */
+    public LocalReader(final String countryCode) {
+        this.countryCode = countryCode;
+    }
 
     /**
      * Construct a new LocalReader.
@@ -163,6 +172,7 @@ public class LocalReader extends Reader<Local> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Local> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

@@ -20,7 +20,7 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.AuthorizedConnectApp;
 
 public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
-    private final String accountSid;
+    private String accountSid;
 
     /**
      * Construct a new AuthorizedConnectAppReader.

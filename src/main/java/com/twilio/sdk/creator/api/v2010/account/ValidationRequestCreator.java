@@ -21,13 +21,22 @@ import com.twilio.sdk.resource.api.v2010.account.ValidationRequest;
 import java.net.URI;
 
 public class ValidationRequestCreator extends Creator<ValidationRequest> {
-    private final String accountSid;
+    private String accountSid;
     private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String friendlyName;
     private Integer callDelay;
     private String extension;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+
+    /**
+     * Construct a new ValidationRequestCreator.
+     * 
+     * @param phoneNumber The phone_number
+     */
+    public ValidationRequestCreator(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     /**
      * Construct a new ValidationRequestCreator.
@@ -115,6 +124,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ValidationRequest execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

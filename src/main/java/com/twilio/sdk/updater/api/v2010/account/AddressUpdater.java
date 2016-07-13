@@ -18,7 +18,7 @@ import com.twilio.sdk.resource.api.v2010.account.Address;
 import com.twilio.sdk.updater.Updater;
 
 public class AddressUpdater extends Updater<Address> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String friendlyName;
     private String customerName;
@@ -26,6 +26,15 @@ public class AddressUpdater extends Updater<Address> {
     private String city;
     private String region;
     private String postalCode;
+
+    /**
+     * Construct a new AddressUpdater.
+     * 
+     * @param sid The sid
+     */
+    public AddressUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new AddressUpdater.
@@ -114,6 +123,7 @@ public class AddressUpdater extends Updater<Address> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Address execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

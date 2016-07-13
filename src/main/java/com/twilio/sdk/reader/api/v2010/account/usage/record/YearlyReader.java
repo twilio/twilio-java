@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.usage.record.Yearly;
 
 public class YearlyReader extends Reader<Yearly> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new YearlyReader.
+     */
+    public YearlyReader() {
+    }
 
     /**
      * Construct a new YearlyReader.
@@ -51,6 +57,7 @@ public class YearlyReader extends Reader<Yearly> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Yearly> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

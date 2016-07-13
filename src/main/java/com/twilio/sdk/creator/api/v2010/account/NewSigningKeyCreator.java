@@ -18,8 +18,14 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.NewSigningKey;
 
 public class NewSigningKeyCreator extends Creator<NewSigningKey> {
-    private final String accountSid;
+    private String accountSid;
     private String friendlyName;
+
+    /**
+     * Construct a new NewSigningKeyCreator.
+     */
+    public NewSigningKeyCreator() {
+    }
 
     /**
      * Construct a new NewSigningKeyCreator.
@@ -50,6 +56,7 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public NewSigningKey execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

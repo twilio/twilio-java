@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.usage.record.ThisMonth;
 
 public class ThisMonthReader extends Reader<ThisMonth> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new ThisMonthReader.
+     */
+    public ThisMonthReader() {
+    }
 
     /**
      * Construct a new ThisMonthReader.
@@ -51,6 +57,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<ThisMonth> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

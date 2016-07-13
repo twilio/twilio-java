@@ -18,9 +18,18 @@ import com.twilio.sdk.resource.api.v2010.account.SigningKey;
 import com.twilio.sdk.updater.Updater;
 
 public class SigningKeyUpdater extends Updater<SigningKey> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String friendlyName;
+
+    /**
+     * Construct a new SigningKeyUpdater.
+     * 
+     * @param sid The sid
+     */
+    public SigningKeyUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new SigningKeyUpdater.
@@ -54,6 +63,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public SigningKey execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

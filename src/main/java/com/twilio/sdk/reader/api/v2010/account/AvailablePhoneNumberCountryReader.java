@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.AvailablePhoneNumberCountry;
 
 public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumberCountry> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new AvailablePhoneNumberCountryReader.
+     */
+    public AvailablePhoneNumberCountryReader() {
+    }
 
     /**
      * Construct a new AvailablePhoneNumberCountryReader.
@@ -51,6 +57,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<AvailablePhoneNumberCountry> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

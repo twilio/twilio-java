@@ -18,7 +18,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Sandbox;
 
 public class SandboxFetcher extends Fetcher<Sandbox> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new SandboxFetcher.
+     */
+    public SandboxFetcher() {
+    }
 
     /**
      * Construct a new SandboxFetcher.
@@ -38,6 +44,7 @@ public class SandboxFetcher extends Fetcher<Sandbox> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Sandbox execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

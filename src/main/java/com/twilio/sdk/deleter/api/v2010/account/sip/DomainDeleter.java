@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.Domain;
 
 public class DomainDeleter extends Deleter<Domain> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new DomainDeleter.
+     * 
+     * @param sid The sid
+     */
+    public DomainDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new DomainDeleter.
@@ -41,6 +50,7 @@ public class DomainDeleter extends Deleter<Domain> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

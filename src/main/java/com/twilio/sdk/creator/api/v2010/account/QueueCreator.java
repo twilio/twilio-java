@@ -18,9 +18,15 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Queue;
 
 public class QueueCreator extends Creator<Queue> {
-    private final String accountSid;
+    private String accountSid;
     private String friendlyName;
     private Integer maxSize;
+
+    /**
+     * Construct a new QueueCreator.
+     */
+    public QueueCreator() {
+    }
 
     /**
      * Construct a new QueueCreator.
@@ -63,6 +69,7 @@ public class QueueCreator extends Creator<Queue> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Queue execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.message.Media;
 
 public class MediaDeleter extends Deleter<Media> {
-    private final String accountSid;
+    private String accountSid;
     private final String messageSid;
     private final String sid;
+
+    /**
+     * Construct a new MediaDeleter.
+     * 
+     * @param messageSid The message_sid
+     * @param sid Delete by unique media Sid
+     */
+    public MediaDeleter(final String messageSid, 
+                        final String sid) {
+        this.messageSid = messageSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new MediaDeleter.
@@ -45,6 +57,7 @@ public class MediaDeleter extends Deleter<Media> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

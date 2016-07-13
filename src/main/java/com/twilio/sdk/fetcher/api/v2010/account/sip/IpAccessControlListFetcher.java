@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.IpAccessControlList;
 
 public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new IpAccessControlListFetcher.
+     * 
+     * @param sid Fetch by unique ip-access-control-list Sid
+     */
+    public IpAccessControlListFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IpAccessControlListFetcher.
@@ -42,6 +51,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.call.FeedbackSummary;
 
 public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new FeedbackSummaryFetcher.
+     * 
+     * @param sid The sid
+     */
+    public FeedbackSummaryFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new FeedbackSummaryFetcher.
@@ -42,6 +51,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public FeedbackSummary execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Transcription;
 
 public class TranscriptionDeleter extends Deleter<Transcription> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new TranscriptionDeleter.
+     * 
+     * @param sid Delete by unique transcription Sid
+     */
+    public TranscriptionDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new TranscriptionDeleter.
@@ -41,6 +50,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

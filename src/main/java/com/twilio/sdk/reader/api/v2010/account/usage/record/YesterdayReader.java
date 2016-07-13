@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.usage.record.Yesterday;
 
 public class YesterdayReader extends Reader<Yesterday> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new YesterdayReader.
+     */
+    public YesterdayReader() {
+    }
 
     /**
      * Construct a new YesterdayReader.
@@ -51,6 +57,7 @@ public class YesterdayReader extends Reader<Yesterday> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Yesterday> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.api.v2010.account.message;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,11 +20,22 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.message.Media;
+import org.joda.time.DateTime;
 
 public class MediaReader extends Reader<Media> {
-    private final String accountSid;
+    private String accountSid;
     private final String messageSid;
-    private String dateCreated;
+    private DateTime absoluteDateCreated;
+    private Range<DateTime> rangeDateCreated;
+
+    /**
+     * Construct a new MediaReader.
+     * 
+     * @param messageSid The message_sid
+     */
+    public MediaReader(final String messageSid) {
+        this.messageSid = messageSid;
+    }
 
     /**
      * Construct a new MediaReader.
@@ -40,11 +53,25 @@ public class MediaReader extends Reader<Media> {
      * Only show media created on the given date, or before/after using date
      * inequalities..
      * 
-     * @param dateCreated Filter by date created
+     * @param absoluteDateCreated Filter by date created
      * @return this
      */
-    public MediaReader byDateCreated(final String dateCreated) {
-        this.dateCreated = dateCreated;
+    public MediaReader byDateCreated(final DateTime absoluteDateCreated) {
+        this.rangeDateCreated = null;
+        this.absoluteDateCreated = absoluteDateCreated;
+        return this;
+    }
+
+    /**
+     * Only show media created on the given date, or before/after using date
+     * inequalities..
+     * 
+     * @param rangeDateCreated Filter by date created
+     * @return this
+     */
+    public MediaReader byDateCreated(final Range<DateTime> rangeDateCreated) {
+        this.absoluteDateCreated = null;
+        this.rangeDateCreated = rangeDateCreated;
         return this;
     }
 
@@ -68,6 +95,7 @@ public class MediaReader extends Reader<Media> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Media> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -138,8 +166,10 @@ public class MediaReader extends Reader<Media> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (dateCreated != null) {
-            request.addQueryParam("DateCreated", dateCreated);
+        if (absoluteDateCreated != null) {
+            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeDateCreated != null) {
+            request.addQueryDateRange("DateCreated", rangeDateCreated);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

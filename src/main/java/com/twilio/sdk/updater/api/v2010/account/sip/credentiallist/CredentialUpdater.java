@@ -18,11 +18,29 @@ import com.twilio.sdk.resource.api.v2010.account.sip.credentiallist.Credential;
 import com.twilio.sdk.updater.Updater;
 
 public class CredentialUpdater extends Updater<Credential> {
-    private final String accountSid;
+    private String accountSid;
     private final String credentialListSid;
     private final String sid;
     private final String username;
     private final String password;
+
+    /**
+     * Construct a new CredentialUpdater.
+     * 
+     * @param credentialListSid The credential_list_sid
+     * @param sid The sid
+     * @param username The username
+     * @param password The password
+     */
+    public CredentialUpdater(final String credentialListSid, 
+                             final String sid, 
+                             final String username, 
+                             final String password) {
+        this.credentialListSid = credentialListSid;
+        this.sid = sid;
+        this.username = username;
+        this.password = password;
+    }
 
     /**
      * Construct a new CredentialUpdater.
@@ -54,6 +72,7 @@ public class CredentialUpdater extends Updater<Credential> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Credential execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

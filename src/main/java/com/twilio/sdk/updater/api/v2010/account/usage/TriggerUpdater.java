@@ -21,11 +21,20 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class TriggerUpdater extends Updater<Trigger> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private HttpMethod callbackMethod;
     private URI callbackUrl;
     private String friendlyName;
+
+    /**
+     * Construct a new TriggerUpdater.
+     * 
+     * @param sid The sid
+     */
+    public TriggerUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new TriggerUpdater.
@@ -92,6 +101,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Trigger execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

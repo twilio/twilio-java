@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.SigningKey;
 
 public class SigningKeyDeleter extends Deleter<SigningKey> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new SigningKeyDeleter.
+     * 
+     * @param sid The sid
+     */
+    public SigningKeyDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new SigningKeyDeleter.
@@ -41,6 +50,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

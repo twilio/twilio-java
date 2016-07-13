@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Application;
 
 public class ApplicationDeleter extends Deleter<Application> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new ApplicationDeleter.
+     * 
+     * @param sid The application sid to delete
+     */
+    public ApplicationDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new ApplicationDeleter.
@@ -41,6 +50,7 @@ public class ApplicationDeleter extends Deleter<Application> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

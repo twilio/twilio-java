@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sms.ShortCode;
 
 public class ShortCodeFetcher extends Fetcher<ShortCode> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new ShortCodeFetcher.
+     * 
+     * @param sid Fetch by unique short-code Sid
+     */
+    public ShortCodeFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new ShortCodeFetcher.
@@ -42,6 +51,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ShortCode execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

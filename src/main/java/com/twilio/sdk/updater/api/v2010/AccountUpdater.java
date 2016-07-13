@@ -18,9 +18,15 @@ import com.twilio.sdk.resource.api.v2010.Account;
 import com.twilio.sdk.updater.Updater;
 
 public class AccountUpdater extends Updater<Account> {
-    private final String sid;
+    private String sid;
     private String friendlyName;
     private Account.Status status;
+
+    /**
+     * Construct a new AccountUpdater.
+     */
+    public AccountUpdater() {
+    }
 
     /**
      * Construct a new AccountUpdater.
@@ -62,6 +68,7 @@ public class AccountUpdater extends Updater<Account> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Account execute(final TwilioRestClient client) {
+        this.sid = this.sid == null ? client.getAccountSid() : this.sid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

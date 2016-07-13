@@ -21,13 +21,19 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class SandboxUpdater extends Updater<Sandbox> {
-    private final String accountSid;
+    private String accountSid;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
     private URI smsUrl;
     private HttpMethod smsMethod;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+
+    /**
+     * Construct a new SandboxUpdater.
+     */
+    public SandboxUpdater() {
+    }
 
     /**
      * Construct a new SandboxUpdater.
@@ -143,6 +149,7 @@ public class SandboxUpdater extends Updater<Sandbox> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Sandbox execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.api.v2010.account;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,13 +20,22 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Conference;
+import org.joda.time.DateTime;
 
 public class ConferenceReader extends Reader<Conference> {
-    private final String accountSid;
-    private String dateCreated;
-    private String dateUpdated;
+    private String accountSid;
+    private DateTime absoluteDateCreated;
+    private Range<DateTime> rangeDateCreated;
+    private DateTime absoluteDateUpdated;
+    private Range<DateTime> rangeDateUpdated;
     private String friendlyName;
     private Conference.Status status;
+
+    /**
+     * Construct a new ConferenceReader.
+     */
+    public ConferenceReader() {
+    }
 
     /**
      * Construct a new ConferenceReader.
@@ -39,11 +50,25 @@ public class ConferenceReader extends Reader<Conference> {
      * Only show conferences that started on this date, given as YYYY-MM-DD. You can
      * also specify inequality such as DateCreated&lt;=YYYY-MM-DD.
      * 
-     * @param dateCreated Filter by date created
+     * @param absoluteDateCreated Filter by date created
      * @return this
      */
-    public ConferenceReader byDateCreated(final String dateCreated) {
-        this.dateCreated = dateCreated;
+    public ConferenceReader byDateCreated(final DateTime absoluteDateCreated) {
+        this.rangeDateCreated = null;
+        this.absoluteDateCreated = absoluteDateCreated;
+        return this;
+    }
+
+    /**
+     * Only show conferences that started on this date, given as YYYY-MM-DD. You can
+     * also specify inequality such as DateCreated&lt;=YYYY-MM-DD.
+     * 
+     * @param rangeDateCreated Filter by date created
+     * @return this
+     */
+    public ConferenceReader byDateCreated(final Range<DateTime> rangeDateCreated) {
+        this.absoluteDateCreated = null;
+        this.rangeDateCreated = rangeDateCreated;
         return this;
     }
 
@@ -52,11 +77,26 @@ public class ConferenceReader extends Reader<Conference> {
      * YYYY-MM-DD. You can also specify inequality such as
      * DateUpdated&gt;=YYYY-MM-DD.
      * 
-     * @param dateUpdated Filter by date updated
+     * @param absoluteDateUpdated Filter by date updated
      * @return this
      */
-    public ConferenceReader byDateUpdated(final String dateUpdated) {
-        this.dateUpdated = dateUpdated;
+    public ConferenceReader byDateUpdated(final DateTime absoluteDateUpdated) {
+        this.rangeDateUpdated = null;
+        this.absoluteDateUpdated = absoluteDateUpdated;
+        return this;
+    }
+
+    /**
+     * Only show conferences that were last updated on this date, given as
+     * YYYY-MM-DD. You can also specify inequality such as
+     * DateUpdated&gt;=YYYY-MM-DD.
+     * 
+     * @param rangeDateUpdated Filter by date updated
+     * @return this
+     */
+    public ConferenceReader byDateUpdated(final Range<DateTime> rangeDateUpdated) {
+        this.absoluteDateUpdated = null;
+        this.rangeDateUpdated = rangeDateUpdated;
         return this;
     }
 
@@ -103,6 +143,7 @@ public class ConferenceReader extends Reader<Conference> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Conference> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -173,12 +214,16 @@ public class ConferenceReader extends Reader<Conference> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (dateCreated != null) {
-            request.addQueryParam("DateCreated", dateCreated);
+        if (absoluteDateCreated != null) {
+            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeDateCreated != null) {
+            request.addQueryDateRange("DateCreated", rangeDateCreated);
         }
         
-        if (dateUpdated != null) {
-            request.addQueryParam("DateUpdated", dateUpdated);
+        if (absoluteDateUpdated != null) {
+            request.addQueryParam("DateUpdated", absoluteDateUpdated.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeDateUpdated != null) {
+            request.addQueryDateRange("DateUpdated", rangeDateUpdated);
         }
         
         if (friendlyName != null) {

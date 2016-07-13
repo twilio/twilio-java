@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.SigningKey;
 
 public class SigningKeyReader extends Reader<SigningKey> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new SigningKeyReader.
+     */
+    public SigningKeyReader() {
+    }
 
     /**
      * Construct a new SigningKeyReader.
@@ -51,6 +57,7 @@ public class SigningKeyReader extends Reader<SigningKey> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<SigningKey> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

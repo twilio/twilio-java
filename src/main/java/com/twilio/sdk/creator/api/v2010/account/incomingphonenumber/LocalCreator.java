@@ -21,7 +21,7 @@ import com.twilio.sdk.resource.api.v2010.account.incomingphonenumber.Local;
 import java.net.URI;
 
 public class LocalCreator extends Creator<Local> {
-    private final String ownerAccountSid;
+    private String ownerAccountSid;
     private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
@@ -38,6 +38,15 @@ public class LocalCreator extends Creator<Local> {
     private URI voiceFallbackUrl;
     private HttpMethod voiceMethod;
     private URI voiceUrl;
+
+    /**
+     * Construct a new LocalCreator.
+     * 
+     * @param phoneNumber The phone_number
+     */
+    public LocalCreator(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     /**
      * Construct a new LocalCreator.
@@ -275,6 +284,7 @@ public class LocalCreator extends Creator<Local> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Local execute(final TwilioRestClient client) {
+        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

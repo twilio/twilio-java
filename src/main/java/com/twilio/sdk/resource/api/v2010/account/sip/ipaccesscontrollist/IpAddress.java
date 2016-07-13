@@ -87,16 +87,12 @@ public class IpAddress extends SidResource {
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @param sid The sid
-     * @param ipAddress The ip_address
-     * @param friendlyName The friendly_name
      * @return IpAddressUpdater capable of executing the update
      */
     public static IpAddressUpdater update(final String accountSid, 
                                           final String ipAccessControlListSid, 
-                                          final String sid, 
-                                          final String ipAddress, 
-                                          final String friendlyName) {
-        return new IpAddressUpdater(accountSid, ipAccessControlListSid, sid, ipAddress, friendlyName);
+                                          final String sid) {
+        return new IpAddressUpdater(accountSid, ipAccessControlListSid, sid);
     }
 
     /**

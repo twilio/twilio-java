@@ -21,7 +21,7 @@ import com.twilio.sdk.resource.api.v2010.account.Application;
 import java.net.URI;
 
 public class ApplicationCreator extends Creator<Application> {
-    private final String accountSid;
+    private String accountSid;
     private final String friendlyName;
     private String apiVersion;
     private URI voiceUrl;
@@ -37,6 +37,15 @@ public class ApplicationCreator extends Creator<Application> {
     private HttpMethod smsFallbackMethod;
     private URI smsStatusCallback;
     private URI messageStatusCallback;
+
+    /**
+     * Construct a new ApplicationCreator.
+     * 
+     * @param friendlyName Human readable description of this resource
+     */
+    public ApplicationCreator(final String friendlyName) {
+        this.friendlyName = friendlyName;
+    }
 
     /**
      * Construct a new ApplicationCreator.
@@ -310,6 +319,7 @@ public class ApplicationCreator extends Creator<Application> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Application execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

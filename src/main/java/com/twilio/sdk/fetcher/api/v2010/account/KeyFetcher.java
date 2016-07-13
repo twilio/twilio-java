@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Key;
 
 public class KeyFetcher extends Fetcher<Key> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new KeyFetcher.
+     * 
+     * @param sid The sid
+     */
+    public KeyFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new KeyFetcher.
@@ -42,6 +51,7 @@ public class KeyFetcher extends Fetcher<Key> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Key execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

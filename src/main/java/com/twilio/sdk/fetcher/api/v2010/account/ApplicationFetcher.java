@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Application;
 
 public class ApplicationFetcher extends Fetcher<Application> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new ApplicationFetcher.
+     * 
+     * @param sid Fetch by unique Application Sid
+     */
+    public ApplicationFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new ApplicationFetcher.
@@ -42,6 +51,7 @@ public class ApplicationFetcher extends Fetcher<Application> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Application execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

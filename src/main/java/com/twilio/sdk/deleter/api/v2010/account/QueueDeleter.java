@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Queue;
 
 public class QueueDeleter extends Deleter<Queue> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new QueueDeleter.
+     * 
+     * @param sid Delete by unique queue Sid
+     */
+    public QueueDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new QueueDeleter.
@@ -41,6 +50,7 @@ public class QueueDeleter extends Deleter<Queue> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

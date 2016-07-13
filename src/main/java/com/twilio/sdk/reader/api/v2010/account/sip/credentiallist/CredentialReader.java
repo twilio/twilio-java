@@ -20,8 +20,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.credentiallist.Credential;
 
 public class CredentialReader extends Reader<Credential> {
-    private final String accountSid;
+    private String accountSid;
     private final String credentialListSid;
+
+    /**
+     * Construct a new CredentialReader.
+     * 
+     * @param credentialListSid The credential_list_sid
+     */
+    public CredentialReader(final String credentialListSid) {
+        this.credentialListSid = credentialListSid;
+    }
 
     /**
      * Construct a new CredentialReader.
@@ -55,6 +64,7 @@ public class CredentialReader extends Reader<Credential> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Credential> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.monitor.v1;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,14 +20,17 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.monitor.v1.Event;
+import org.joda.time.DateTime;
 
 public class EventReader extends Reader<Event> {
     private String actorSid;
-    private String endDate;
+    private DateTime absoluteEndDate;
+    private Range<DateTime> rangeEndDate;
     private String eventType;
     private String resourceSid;
     private String sourceIpAddress;
-    private String startDate;
+    private DateTime absoluteStartDate;
+    private Range<DateTime> rangeStartDate;
 
     /**
      * The actor_sid.
@@ -39,13 +44,26 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The end_date.
+     * The absolute_end_date.
      * 
-     * @param endDate The end_date
+     * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public EventReader byEndDate(final String endDate) {
-        this.endDate = endDate;
+    public EventReader byEndDate(final DateTime absoluteEndDate) {
+        this.rangeEndDate = null;
+        this.absoluteEndDate = absoluteEndDate;
+        return this;
+    }
+
+    /**
+     * The range_end_date.
+     * 
+     * @param rangeEndDate The range_end_date
+     * @return this
+     */
+    public EventReader byEndDate(final Range<DateTime> rangeEndDate) {
+        this.absoluteEndDate = null;
+        this.rangeEndDate = rangeEndDate;
         return this;
     }
 
@@ -83,13 +101,26 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The start_date.
+     * The absolute_start_date.
      * 
-     * @param startDate The start_date
+     * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public EventReader byStartDate(final String startDate) {
-        this.startDate = startDate;
+    public EventReader byStartDate(final DateTime absoluteStartDate) {
+        this.rangeStartDate = null;
+        this.absoluteStartDate = absoluteStartDate;
+        return this;
+    }
+
+    /**
+     * The range_start_date.
+     * 
+     * @param rangeStartDate The range_start_date
+     * @return this
+     */
+    public EventReader byStartDate(final Range<DateTime> rangeStartDate) {
+        this.absoluteStartDate = null;
+        this.rangeStartDate = rangeStartDate;
         return this;
     }
 
@@ -187,8 +218,10 @@ public class EventReader extends Reader<Event> {
             request.addQueryParam("ActorSid", actorSid);
         }
         
-        if (endDate != null) {
-            request.addQueryParam("EndDate", endDate);
+        if (absoluteEndDate != null) {
+            request.addQueryParam("EndDate", absoluteEndDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeEndDate != null) {
+            request.addQueryDateRange("EndDate", rangeEndDate);
         }
         
         if (eventType != null) {
@@ -203,8 +236,10 @@ public class EventReader extends Reader<Event> {
             request.addQueryParam("SourceIpAddress", sourceIpAddress);
         }
         
-        if (startDate != null) {
-            request.addQueryParam("StartDate", startDate);
+        if (absoluteStartDate != null) {
+            request.addQueryParam("StartDate", absoluteStartDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeStartDate != null) {
+            request.addQueryDateRange("StartDate", rangeStartDate);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

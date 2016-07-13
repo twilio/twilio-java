@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.call.Feedback;
 
 public class FeedbackFetcher extends Fetcher<Feedback> {
-    private final String accountSid;
+    private String accountSid;
     private final String callSid;
+
+    /**
+     * Construct a new FeedbackFetcher.
+     * 
+     * @param callSid The call sid that uniquely identifies the call
+     */
+    public FeedbackFetcher(final String callSid) {
+        this.callSid = callSid;
+    }
 
     /**
      * Construct a new FeedbackFetcher.
@@ -42,6 +51,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Feedback execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

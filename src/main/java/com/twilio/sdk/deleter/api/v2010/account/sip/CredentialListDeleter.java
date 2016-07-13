@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.CredentialList;
 
 public class CredentialListDeleter extends Deleter<CredentialList> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new CredentialListDeleter.
+     * 
+     * @param sid Delete by unique credential Sid
+     */
+    public CredentialListDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new CredentialListDeleter.
@@ -41,6 +50,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

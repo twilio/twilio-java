@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.recording.Transcription;
 
 public class TranscriptionFetcher extends Fetcher<Transcription> {
-    private final String accountSid;
+    private String accountSid;
     private final String recordingSid;
     private final String sid;
+
+    /**
+     * Construct a new TranscriptionFetcher.
+     * 
+     * @param recordingSid The recording_sid
+     * @param sid The sid
+     */
+    public TranscriptionFetcher(final String recordingSid, 
+                                final String sid) {
+        this.recordingSid = recordingSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new TranscriptionFetcher.
@@ -46,6 +58,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Transcription execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.usage.record.Daily;
 
 public class DailyReader extends Reader<Daily> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new DailyReader.
+     */
+    public DailyReader() {
+    }
 
     /**
      * Construct a new DailyReader.
@@ -51,6 +57,7 @@ public class DailyReader extends Reader<Daily> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Daily> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

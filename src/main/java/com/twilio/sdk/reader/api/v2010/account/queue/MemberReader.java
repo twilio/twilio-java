@@ -20,8 +20,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.queue.Member;
 
 public class MemberReader extends Reader<Member> {
-    private final String accountSid;
+    private String accountSid;
     private final String queueSid;
+
+    /**
+     * Construct a new MemberReader.
+     * 
+     * @param queueSid The Queue in which to find members
+     */
+    public MemberReader(final String queueSid) {
+        this.queueSid = queueSid;
+    }
 
     /**
      * Construct a new MemberReader.
@@ -55,6 +64,7 @@ public class MemberReader extends Reader<Member> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Member> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

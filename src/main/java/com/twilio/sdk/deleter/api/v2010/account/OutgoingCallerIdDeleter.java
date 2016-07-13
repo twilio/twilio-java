@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.OutgoingCallerId;
 
 public class OutgoingCallerIdDeleter extends Deleter<OutgoingCallerId> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new OutgoingCallerIdDeleter.
+     * 
+     * @param sid Delete by unique outgoing-caller-id Sid
+     */
+    public OutgoingCallerIdDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new OutgoingCallerIdDeleter.
@@ -41,6 +50,7 @@ public class OutgoingCallerIdDeleter extends Deleter<OutgoingCallerId> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

@@ -21,7 +21,7 @@ import com.twilio.sdk.resource.api.v2010.account.IncomingPhoneNumber;
 import java.net.URI;
 
 public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
-    private final String ownerAccountSid;
+    private String ownerAccountSid;
     private com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String areaCode;
     private String apiVersion;
@@ -43,6 +43,15 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberCreator.
      * 
+     * @param phoneNumber The phone number
+     */
+    public IncomingPhoneNumberCreator(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * Construct a new IncomingPhoneNumberCreator.
+     * 
      * @param ownerAccountSid The owner_account_sid
      * @param phoneNumber The phone number
      */
@@ -50,6 +59,15 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
                                       final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         this.ownerAccountSid = ownerAccountSid;
         this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * Construct a new IncomingPhoneNumberCreator.
+     * 
+     * @param areaCode The desired area code for the new number
+     */
+    public IncomingPhoneNumberCreator(final String areaCode) {
+        this.areaCode = areaCode;
     }
 
     /**
@@ -318,6 +336,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IncomingPhoneNumber execute(final TwilioRestClient client) {
+        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

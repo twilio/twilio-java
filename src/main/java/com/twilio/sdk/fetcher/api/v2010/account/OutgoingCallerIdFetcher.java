@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.OutgoingCallerId;
 
 public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new OutgoingCallerIdFetcher.
+     * 
+     * @param sid Fetch by unique outgoing-caller-id Sid
+     */
+    public OutgoingCallerIdFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new OutgoingCallerIdFetcher.
@@ -42,6 +51,7 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public OutgoingCallerId execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

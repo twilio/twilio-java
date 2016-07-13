@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.CredentialList;
 
 public class CredentialListCreator extends Creator<CredentialList> {
-    private final String accountSid;
+    private String accountSid;
     private final String friendlyName;
+
+    /**
+     * Construct a new CredentialListCreator.
+     * 
+     * @param friendlyName The friendly_name
+     */
+    public CredentialListCreator(final String friendlyName) {
+        this.friendlyName = friendlyName;
+    }
 
     /**
      * Construct a new CredentialListCreator.
@@ -42,6 +51,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public CredentialList execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

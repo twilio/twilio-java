@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.ConnectApp;
 
 public class ConnectAppReader extends Reader<ConnectApp> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new ConnectAppReader.
+     */
+    public ConnectAppReader() {
+    }
 
     /**
      * Construct a new ConnectAppReader.
@@ -51,6 +57,7 @@ public class ConnectAppReader extends Reader<ConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<ConnectApp> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

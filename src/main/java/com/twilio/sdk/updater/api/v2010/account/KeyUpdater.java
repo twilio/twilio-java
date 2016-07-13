@@ -18,9 +18,18 @@ import com.twilio.sdk.resource.api.v2010.account.Key;
 import com.twilio.sdk.updater.Updater;
 
 public class KeyUpdater extends Updater<Key> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String friendlyName;
+
+    /**
+     * Construct a new KeyUpdater.
+     * 
+     * @param sid The sid
+     */
+    public KeyUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new KeyUpdater.
@@ -54,6 +63,7 @@ public class KeyUpdater extends Updater<Key> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Key execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

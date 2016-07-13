@@ -18,8 +18,14 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Token;
 
 public class TokenCreator extends Creator<Token> {
-    private final String accountSid;
+    private String accountSid;
     private Integer ttl;
+
+    /**
+     * Construct a new TokenCreator.
+     */
+    public TokenCreator() {
+    }
 
     /**
      * Construct a new TokenCreator.
@@ -50,6 +56,7 @@ public class TokenCreator extends Creator<Token> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Token execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

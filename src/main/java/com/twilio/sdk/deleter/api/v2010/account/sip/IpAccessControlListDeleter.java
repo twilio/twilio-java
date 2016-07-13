@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.IpAccessControlList;
 
 public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new IpAccessControlListDeleter.
+     * 
+     * @param sid Delete by unique ip-access-control-list Sid
+     */
+    public IpAccessControlListDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IpAccessControlListDeleter.
@@ -41,6 +50,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

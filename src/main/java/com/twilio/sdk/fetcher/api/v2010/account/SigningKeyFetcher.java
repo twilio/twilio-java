@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.SigningKey;
 
 public class SigningKeyFetcher extends Fetcher<SigningKey> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new SigningKeyFetcher.
+     * 
+     * @param sid The sid
+     */
+    public SigningKeyFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new SigningKeyFetcher.
@@ -42,6 +51,7 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public SigningKey execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

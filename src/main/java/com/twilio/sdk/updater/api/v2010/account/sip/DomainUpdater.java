@@ -21,7 +21,7 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class DomainUpdater extends Updater<Domain> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String authType;
     private String friendlyName;
@@ -31,6 +31,15 @@ public class DomainUpdater extends Updater<Domain> {
     private HttpMethod voiceStatusCallbackMethod;
     private URI voiceStatusCallbackUrl;
     private URI voiceUrl;
+
+    /**
+     * Construct a new DomainUpdater.
+     * 
+     * @param sid The sid
+     */
+    public DomainUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new DomainUpdater.
@@ -171,6 +180,7 @@ public class DomainUpdater extends Updater<Domain> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Domain execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

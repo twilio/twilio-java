@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Notification;
 
 public class NotificationFetcher extends Fetcher<Notification> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new NotificationFetcher.
+     * 
+     * @param sid Fetch by unique notification Sid
+     */
+    public NotificationFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new NotificationFetcher.
@@ -42,6 +51,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Notification execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

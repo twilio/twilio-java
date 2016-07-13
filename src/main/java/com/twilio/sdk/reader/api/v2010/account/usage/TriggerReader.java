@@ -20,10 +20,16 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.usage.Trigger;
 
 public class TriggerReader extends Reader<Trigger> {
-    private final String accountSid;
+    private String accountSid;
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
     private Trigger.UsageCategory usageCategory;
+
+    /**
+     * Construct a new TriggerReader.
+     */
+    public TriggerReader() {
+    }
 
     /**
      * Construct a new TriggerReader.
@@ -88,6 +94,7 @@ public class TriggerReader extends Reader<Trigger> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Trigger> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

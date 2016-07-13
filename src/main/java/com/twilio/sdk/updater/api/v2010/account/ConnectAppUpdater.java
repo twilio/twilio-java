@@ -22,7 +22,7 @@ import java.net.URI;
 import java.util.List;
 
 public class ConnectAppUpdater extends Updater<ConnectApp> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private URI authorizeRedirectUrl;
     private String companyName;
@@ -32,6 +32,15 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     private String friendlyName;
     private URI homepageUrl;
     private List<ConnectApp.Permission> permissions;
+
+    /**
+     * Construct a new ConnectAppUpdater.
+     * 
+     * @param sid The sid
+     */
+    public ConnectAppUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new ConnectAppUpdater.
@@ -192,6 +201,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ConnectApp execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

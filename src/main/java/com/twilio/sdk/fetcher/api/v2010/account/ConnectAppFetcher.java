@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.ConnectApp;
 
 public class ConnectAppFetcher extends Fetcher<ConnectApp> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new ConnectAppFetcher.
+     * 
+     * @param sid Fetch by unique connect-app Sid
+     */
+    public ConnectAppFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new ConnectAppFetcher.
@@ -42,6 +51,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ConnectApp execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

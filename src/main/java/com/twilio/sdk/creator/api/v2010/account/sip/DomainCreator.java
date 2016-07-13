@@ -21,7 +21,7 @@ import com.twilio.sdk.resource.api.v2010.account.sip.Domain;
 import java.net.URI;
 
 public class DomainCreator extends Creator<Domain> {
-    private final String accountSid;
+    private String accountSid;
     private final String domainName;
     private String friendlyName;
     private String authType;
@@ -31,6 +31,15 @@ public class DomainCreator extends Creator<Domain> {
     private HttpMethod voiceFallbackMethod;
     private URI voiceStatusCallbackUrl;
     private HttpMethod voiceStatusCallbackMethod;
+
+    /**
+     * Construct a new DomainCreator.
+     * 
+     * @param domainName The unique address on Twilio to route SIP traffic
+     */
+    public DomainCreator(final String domainName) {
+        this.domainName = domainName;
+    }
 
     /**
      * Construct a new DomainCreator.
@@ -177,6 +186,7 @@ public class DomainCreator extends Creator<Domain> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Domain execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

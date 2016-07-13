@@ -20,9 +20,18 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.conference.Participant;
 
 public class ParticipantReader extends Reader<Participant> {
-    private final String accountSid;
+    private String accountSid;
     private final String conferenceSid;
     private Boolean muted;
+
+    /**
+     * Construct a new ParticipantReader.
+     * 
+     * @param conferenceSid The string that uniquely identifies this conference
+     */
+    public ParticipantReader(final String conferenceSid) {
+        this.conferenceSid = conferenceSid;
+    }
 
     /**
      * Construct a new ParticipantReader.
@@ -67,6 +76,7 @@ public class ParticipantReader extends Reader<Participant> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Participant> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

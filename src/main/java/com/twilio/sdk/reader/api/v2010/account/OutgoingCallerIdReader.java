@@ -20,9 +20,15 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.OutgoingCallerId;
 
 public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
-    private final String accountSid;
+    private String accountSid;
     private com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String friendlyName;
+
+    /**
+     * Construct a new OutgoingCallerIdReader.
+     */
+    public OutgoingCallerIdReader() {
+    }
 
     /**
      * Construct a new OutgoingCallerIdReader.
@@ -75,6 +81,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<OutgoingCallerId> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

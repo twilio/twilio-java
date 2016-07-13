@@ -22,13 +22,28 @@ import java.net.URI;
 import java.util.List;
 
 public class SmsMessageCreator extends Creator<SmsMessage> {
-    private final String accountSid;
+    private String accountSid;
     private final com.twilio.sdk.type.PhoneNumber to;
     private final com.twilio.sdk.type.PhoneNumber from;
     private String body;
     private List<URI> mediaUrl;
     private URI statusCallback;
     private String applicationSid;
+
+    /**
+     * Construct a new SmsMessageCreator.
+     * 
+     * @param to The to
+     * @param from The from
+     * @param body The body
+     */
+    public SmsMessageCreator(final com.twilio.sdk.type.PhoneNumber to, 
+                             final com.twilio.sdk.type.PhoneNumber from, 
+                             final String body) {
+        this.to = to;
+        this.from = from;
+        this.body = body;
+    }
 
     /**
      * Construct a new SmsMessageCreator.
@@ -46,6 +61,21 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
         this.to = to;
         this.from = from;
         this.body = body;
+    }
+
+    /**
+     * Construct a new SmsMessageCreator.
+     * 
+     * @param to The to
+     * @param from The from
+     * @param mediaUrl The media_url
+     */
+    public SmsMessageCreator(final com.twilio.sdk.type.PhoneNumber to, 
+                             final com.twilio.sdk.type.PhoneNumber from, 
+                             final List<URI> mediaUrl) {
+        this.to = to;
+        this.from = from;
+        this.mediaUrl = mediaUrl;
     }
 
     /**
@@ -107,6 +137,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public SmsMessage execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

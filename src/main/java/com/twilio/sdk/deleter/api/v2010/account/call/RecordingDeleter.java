@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.call.Recording;
 
 public class RecordingDeleter extends Deleter<Recording> {
-    private final String accountSid;
+    private String accountSid;
     private final String callSid;
     private final String sid;
+
+    /**
+     * Construct a new RecordingDeleter.
+     * 
+     * @param callSid The call_sid
+     * @param sid The sid
+     */
+    public RecordingDeleter(final String callSid, 
+                            final String sid) {
+        this.callSid = callSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new RecordingDeleter.
@@ -45,6 +57,7 @@ public class RecordingDeleter extends Deleter<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

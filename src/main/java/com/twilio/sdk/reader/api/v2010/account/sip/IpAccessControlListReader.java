@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.IpAccessControlList;
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new IpAccessControlListReader.
+     */
+    public IpAccessControlListReader() {
+    }
 
     /**
      * Construct a new IpAccessControlListReader.
@@ -51,6 +57,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<IpAccessControlList> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

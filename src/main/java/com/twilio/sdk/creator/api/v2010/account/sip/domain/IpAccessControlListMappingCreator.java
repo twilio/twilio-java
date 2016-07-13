@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.domain.IpAccessControlListMapping;
 
 public class IpAccessControlListMappingCreator extends Creator<IpAccessControlListMapping> {
-    private final String accountSid;
+    private String accountSid;
     private final String domainSid;
     private final String ipAccessControlListSid;
+
+    /**
+     * Construct a new IpAccessControlListMappingCreator.
+     * 
+     * @param domainSid The domain_sid
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     */
+    public IpAccessControlListMappingCreator(final String domainSid, 
+                                             final String ipAccessControlListSid) {
+        this.domainSid = domainSid;
+        this.ipAccessControlListSid = ipAccessControlListSid;
+    }
 
     /**
      * Construct a new IpAccessControlListMappingCreator.
@@ -46,6 +58,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlListMapping execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

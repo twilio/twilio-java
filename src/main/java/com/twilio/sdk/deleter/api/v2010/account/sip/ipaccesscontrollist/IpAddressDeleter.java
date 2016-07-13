@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.ipaccesscontrollist.IpAddress;
 
 public class IpAddressDeleter extends Deleter<IpAddress> {
-    private final String accountSid;
+    private String accountSid;
     private final String ipAccessControlListSid;
     private final String sid;
+
+    /**
+     * Construct a new IpAddressDeleter.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param sid The sid
+     */
+    public IpAddressDeleter(final String ipAccessControlListSid, 
+                            final String sid) {
+        this.ipAccessControlListSid = ipAccessControlListSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IpAddressDeleter.
@@ -45,6 +57,7 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

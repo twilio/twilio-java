@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Message;
 
 public class MessageFetcher extends Fetcher<Message> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new MessageFetcher.
+     * 
+     * @param sid Fetch by unique message Sid
+     */
+    public MessageFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new MessageFetcher.
@@ -42,6 +51,7 @@ public class MessageFetcher extends Fetcher<Message> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Message execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Notification;
 
 public class NotificationDeleter extends Deleter<Notification> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new NotificationDeleter.
+     * 
+     * @param sid Delete by unique notification Sid
+     */
+    public NotificationDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new NotificationDeleter.
@@ -41,6 +50,7 @@ public class NotificationDeleter extends Deleter<Notification> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,

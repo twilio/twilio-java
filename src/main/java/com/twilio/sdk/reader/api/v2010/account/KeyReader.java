@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Key;
 
 public class KeyReader extends Reader<Key> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new KeyReader.
+     */
+    public KeyReader() {
+    }
 
     /**
      * Construct a new KeyReader.
@@ -51,6 +57,7 @@ public class KeyReader extends Reader<Key> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Key> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

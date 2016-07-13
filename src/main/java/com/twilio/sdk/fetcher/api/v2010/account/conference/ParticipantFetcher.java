@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.conference.Participant;
 
 public class ParticipantFetcher extends Fetcher<Participant> {
-    private final String accountSid;
+    private String accountSid;
     private final String conferenceSid;
     private final String callSid;
+
+    /**
+     * Construct a new ParticipantFetcher.
+     * 
+     * @param conferenceSid The string that uniquely identifies this conference
+     * @param callSid The call_sid
+     */
+    public ParticipantFetcher(final String conferenceSid, 
+                              final String callSid) {
+        this.conferenceSid = conferenceSid;
+        this.callSid = callSid;
+    }
 
     /**
      * Construct a new ParticipantFetcher.
@@ -46,6 +58,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Participant execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

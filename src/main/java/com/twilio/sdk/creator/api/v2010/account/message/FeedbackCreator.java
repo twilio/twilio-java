@@ -18,9 +18,18 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.message.Feedback;
 
 public class FeedbackCreator extends Creator<Feedback> {
-    private final String accountSid;
+    private String accountSid;
     private final String messageSid;
     private Feedback.Outcome outcome;
+
+    /**
+     * Construct a new FeedbackCreator.
+     * 
+     * @param messageSid The message_sid
+     */
+    public FeedbackCreator(final String messageSid) {
+        this.messageSid = messageSid;
+    }
 
     /**
      * Construct a new FeedbackCreator.
@@ -54,6 +63,7 @@ public class FeedbackCreator extends Creator<Feedback> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Feedback execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

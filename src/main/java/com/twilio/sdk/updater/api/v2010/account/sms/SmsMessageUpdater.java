@@ -18,9 +18,18 @@ import com.twilio.sdk.resource.api.v2010.account.sms.SmsMessage;
 import com.twilio.sdk.updater.Updater;
 
 public class SmsMessageUpdater extends Updater<SmsMessage> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String body;
+
+    /**
+     * Construct a new SmsMessageUpdater.
+     * 
+     * @param sid The sid
+     */
+    public SmsMessageUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new SmsMessageUpdater.
@@ -54,6 +63,7 @@ public class SmsMessageUpdater extends Updater<SmsMessage> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public SmsMessage execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

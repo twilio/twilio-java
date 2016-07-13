@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.api.v2010.account.sip.IpAccessControlList;
 import com.twilio.sdk.updater.Updater;
 
 public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private final String friendlyName;
+
+    /**
+     * Construct a new IpAccessControlListUpdater.
+     * 
+     * @param sid The sid
+     * @param friendlyName A human readable description of this resource
+     */
+    public IpAccessControlListUpdater(final String sid, 
+                                      final String friendlyName) {
+        this.sid = sid;
+        this.friendlyName = friendlyName;
+    }
 
     /**
      * Construct a new IpAccessControlListUpdater.
@@ -46,6 +58,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

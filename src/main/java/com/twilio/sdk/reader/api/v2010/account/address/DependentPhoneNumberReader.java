@@ -20,8 +20,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.address.DependentPhoneNumber;
 
 public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
-    private final String accountSid;
+    private String accountSid;
     private final String addressSid;
+
+    /**
+     * Construct a new DependentPhoneNumberReader.
+     * 
+     * @param addressSid The address_sid
+     */
+    public DependentPhoneNumberReader(final String addressSid) {
+        this.addressSid = addressSid;
+    }
 
     /**
      * Construct a new DependentPhoneNumberReader.
@@ -55,6 +64,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<DependentPhoneNumber> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

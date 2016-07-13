@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.domain.CredentialListMapping;
 
 public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping> {
-    private final String accountSid;
+    private String accountSid;
     private final String domainSid;
     private final String sid;
+
+    /**
+     * Construct a new CredentialListMappingFetcher.
+     * 
+     * @param domainSid The domain_sid
+     * @param sid The sid
+     */
+    public CredentialListMappingFetcher(final String domainSid, 
+                                        final String sid) {
+        this.domainSid = domainSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new CredentialListMappingFetcher.
@@ -46,6 +58,7 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public CredentialListMapping execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

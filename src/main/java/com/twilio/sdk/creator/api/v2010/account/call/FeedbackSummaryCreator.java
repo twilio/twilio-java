@@ -23,12 +23,24 @@ import org.joda.time.LocalDate;
 import java.net.URI;
 
 public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
-    private final String accountSid;
+    private String accountSid;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private Boolean includeSubaccounts;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+
+    /**
+     * Construct a new FeedbackSummaryCreator.
+     * 
+     * @param startDate The start_date
+     * @param endDate The end_date
+     */
+    public FeedbackSummaryCreator(final LocalDate startDate, 
+                                  final LocalDate endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     /**
      * Construct a new FeedbackSummaryCreator.
@@ -97,6 +109,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public FeedbackSummary execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

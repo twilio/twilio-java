@@ -20,8 +20,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.ipaccesscontrollist.IpAddress;
 
 public class IpAddressReader extends Reader<IpAddress> {
-    private final String accountSid;
+    private String accountSid;
     private final String ipAccessControlListSid;
+
+    /**
+     * Construct a new IpAddressReader.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     */
+    public IpAddressReader(final String ipAccessControlListSid) {
+        this.ipAccessControlListSid = ipAccessControlListSid;
+    }
 
     /**
      * Construct a new IpAddressReader.
@@ -55,6 +64,7 @@ public class IpAddressReader extends Reader<IpAddress> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<IpAddress> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

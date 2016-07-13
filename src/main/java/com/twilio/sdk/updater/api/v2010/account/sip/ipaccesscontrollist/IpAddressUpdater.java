@@ -18,11 +18,23 @@ import com.twilio.sdk.resource.api.v2010.account.sip.ipaccesscontrollist.IpAddre
 import com.twilio.sdk.updater.Updater;
 
 public class IpAddressUpdater extends Updater<IpAddress> {
-    private final String accountSid;
+    private String accountSid;
     private final String ipAccessControlListSid;
     private final String sid;
-    private final String ipAddress;
-    private final String friendlyName;
+    private String ipAddress;
+    private String friendlyName;
+
+    /**
+     * Construct a new IpAddressUpdater.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param sid The sid
+     */
+    public IpAddressUpdater(final String ipAccessControlListSid, 
+                            final String sid) {
+        this.ipAccessControlListSid = ipAccessControlListSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IpAddressUpdater.
@@ -30,19 +42,35 @@ public class IpAddressUpdater extends Updater<IpAddress> {
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @param sid The sid
-     * @param ipAddress The ip_address
-     * @param friendlyName The friendly_name
      */
     public IpAddressUpdater(final String accountSid, 
                             final String ipAccessControlListSid, 
-                            final String sid, 
-                            final String ipAddress, 
-                            final String friendlyName) {
+                            final String sid) {
         this.accountSid = accountSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
         this.sid = sid;
+    }
+
+    /**
+     * The ip_address.
+     * 
+     * @param ipAddress The ip_address
+     * @return this
+     */
+    public IpAddressUpdater setIpAddress(final String ipAddress) {
         this.ipAddress = ipAddress;
+        return this;
+    }
+
+    /**
+     * The friendly_name.
+     * 
+     * @param friendlyName The friendly_name
+     * @return this
+     */
+    public IpAddressUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
     }
 
     /**
@@ -54,6 +82,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAddress execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

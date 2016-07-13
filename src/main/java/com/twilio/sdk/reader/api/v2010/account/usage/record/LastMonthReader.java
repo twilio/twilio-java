@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.usage.record.LastMonth;
 
 public class LastMonthReader extends Reader<LastMonth> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new LastMonthReader.
+     */
+    public LastMonthReader() {
+    }
 
     /**
      * Construct a new LastMonthReader.
@@ -51,6 +57,7 @@ public class LastMonthReader extends Reader<LastMonth> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<LastMonth> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

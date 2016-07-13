@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.Domain;
 
 public class DomainReader extends Reader<Domain> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new DomainReader.
+     */
+    public DomainReader() {
+    }
 
     /**
      * Construct a new DomainReader.
@@ -51,6 +57,7 @@ public class DomainReader extends Reader<Domain> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Domain> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

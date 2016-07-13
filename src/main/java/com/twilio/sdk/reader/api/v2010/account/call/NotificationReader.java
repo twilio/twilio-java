@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.api.v2010.account.call;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,12 +20,23 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.call.Notification;
+import org.joda.time.DateTime;
 
 public class NotificationReader extends Reader<Notification> {
-    private final String accountSid;
+    private String accountSid;
     private final String callSid;
     private Integer log;
-    private String messageDate;
+    private DateTime absoluteMessageDate;
+    private Range<DateTime> rangeMessageDate;
+
+    /**
+     * Construct a new NotificationReader.
+     * 
+     * @param callSid The call_sid
+     */
+    public NotificationReader(final String callSid) {
+        this.callSid = callSid;
+    }
 
     /**
      * Construct a new NotificationReader.
@@ -49,13 +62,26 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * The message_date.
+     * The absolute_message_date.
      * 
-     * @param messageDate The message_date
+     * @param absoluteMessageDate The absolute_message_date
      * @return this
      */
-    public NotificationReader byMessageDate(final String messageDate) {
-        this.messageDate = messageDate;
+    public NotificationReader byMessageDate(final DateTime absoluteMessageDate) {
+        this.rangeMessageDate = null;
+        this.absoluteMessageDate = absoluteMessageDate;
+        return this;
+    }
+
+    /**
+     * The range_message_date.
+     * 
+     * @param rangeMessageDate The range_message_date
+     * @return this
+     */
+    public NotificationReader byMessageDate(final Range<DateTime> rangeMessageDate) {
+        this.absoluteMessageDate = null;
+        this.rangeMessageDate = rangeMessageDate;
         return this;
     }
 
@@ -79,6 +105,7 @@ public class NotificationReader extends Reader<Notification> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Notification> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -153,8 +180,10 @@ public class NotificationReader extends Reader<Notification> {
             request.addQueryParam("Log", log.toString());
         }
         
-        if (messageDate != null) {
-            request.addQueryParam("MessageDate", messageDate);
+        if (absoluteMessageDate != null) {
+            request.addQueryParam("MessageDate", absoluteMessageDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeMessageDate != null) {
+            request.addQueryDateRange("MessageDate", rangeMessageDate);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

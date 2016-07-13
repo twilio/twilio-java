@@ -18,10 +18,25 @@ import com.twilio.sdk.resource.api.v2010.account.conference.Participant;
 import com.twilio.sdk.updater.Updater;
 
 public class ParticipantUpdater extends Updater<Participant> {
-    private final String accountSid;
+    private String accountSid;
     private final String conferenceSid;
     private final String callSid;
     private final Boolean muted;
+
+    /**
+     * Construct a new ParticipantUpdater.
+     * 
+     * @param conferenceSid The string that uniquely identifies this conference
+     * @param callSid The call_sid
+     * @param muted Indicates if the participant should be muted
+     */
+    public ParticipantUpdater(final String conferenceSid, 
+                              final String callSid, 
+                              final Boolean muted) {
+        this.conferenceSid = conferenceSid;
+        this.callSid = callSid;
+        this.muted = muted;
+    }
 
     /**
      * Construct a new ParticipantUpdater.
@@ -50,6 +65,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Participant execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,

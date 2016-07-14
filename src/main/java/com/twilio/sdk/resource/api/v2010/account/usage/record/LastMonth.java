@@ -169,6 +169,15 @@ public class LastMonth extends Resource {
     }
 
     /**
+     * Create a LastMonthReader to execute read.
+     * 
+     * @return LastMonthReader capable of executing the read
+     */
+    public static LastMonthReader read() {
+        return new LastMonthReader();
+    }
+
+    /**
      * Converts a JSON String into a LastMonth object using the provided
      * ObjectMapper.
      * 

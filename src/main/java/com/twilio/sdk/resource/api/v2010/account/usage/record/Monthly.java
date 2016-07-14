@@ -169,6 +169,15 @@ public class Monthly extends Resource {
     }
 
     /**
+     * Create a MonthlyReader to execute read.
+     * 
+     * @return MonthlyReader capable of executing the read
+     */
+    public static MonthlyReader read() {
+        return new MonthlyReader();
+    }
+
+    /**
      * Converts a JSON String into a Monthly object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

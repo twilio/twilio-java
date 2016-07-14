@@ -48,6 +48,16 @@ public class Mobile extends Resource {
     }
 
     /**
+     * Create a MobileReader to execute read.
+     * 
+     * @param countryCode The country_code
+     * @return MobileReader capable of executing the read
+     */
+    public static MobileReader read(final String countryCode) {
+        return new MobileReader(countryCode);
+    }
+
+    /**
      * Converts a JSON String into a Mobile object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

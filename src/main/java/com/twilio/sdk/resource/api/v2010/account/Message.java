@@ -135,6 +135,20 @@ public class Message extends SidResource {
     /**
      * Create a MessageCreator to execute create.
      * 
+     * @param to The phone number to receive the message
+     * @param body The body
+     * @param from The phone number that initiated the message
+     * @return MessageCreator capable of executing the create
+     */
+    public static MessageCreator create(final com.twilio.sdk.type.PhoneNumber to, 
+                                        final String body, 
+                                        final com.twilio.sdk.type.PhoneNumber from) {
+        return new MessageCreator(to, body, from);
+    }
+
+    /**
+     * Create a MessageCreator to execute create.
+     * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
      * @param body The body
@@ -146,6 +160,20 @@ public class Message extends SidResource {
                                         final String body, 
                                         final String messagingServiceSid) {
         return new MessageCreator(accountSid, to, body, messagingServiceSid);
+    }
+
+    /**
+     * Create a MessageCreator to execute create.
+     * 
+     * @param to The phone number to receive the message
+     * @param body The body
+     * @param messagingServiceSid The messaging_service_sid
+     * @return MessageCreator capable of executing the create
+     */
+    public static MessageCreator create(final com.twilio.sdk.type.PhoneNumber to, 
+                                        final String body, 
+                                        final String messagingServiceSid) {
+        return new MessageCreator(to, body, messagingServiceSid);
     }
 
     /**
@@ -167,6 +195,20 @@ public class Message extends SidResource {
     /**
      * Create a MessageCreator to execute create.
      * 
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param from The phone number that initiated the message
+     * @return MessageCreator capable of executing the create
+     */
+    public static MessageCreator create(final com.twilio.sdk.type.PhoneNumber to, 
+                                        final List<URI> mediaUrl, 
+                                        final com.twilio.sdk.type.PhoneNumber from) {
+        return new MessageCreator(to, mediaUrl, from);
+    }
+
+    /**
+     * Create a MessageCreator to execute create.
+     * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
      * @param mediaUrl The media_url
@@ -178,6 +220,20 @@ public class Message extends SidResource {
                                         final List<URI> mediaUrl, 
                                         final String messagingServiceSid) {
         return new MessageCreator(accountSid, to, mediaUrl, messagingServiceSid);
+    }
+
+    /**
+     * Create a MessageCreator to execute create.
+     * 
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param messagingServiceSid The messaging_service_sid
+     * @return MessageCreator capable of executing the create
+     */
+    public static MessageCreator create(final com.twilio.sdk.type.PhoneNumber to, 
+                                        final List<URI> mediaUrl, 
+                                        final String messagingServiceSid) {
+        return new MessageCreator(to, mediaUrl, messagingServiceSid);
     }
 
     /**
@@ -193,6 +249,16 @@ public class Message extends SidResource {
     }
 
     /**
+     * Create a MessageDeleter to execute delete.
+     * 
+     * @param sid The message to delete
+     * @return MessageDeleter capable of executing the delete
+     */
+    public static MessageDeleter delete(final String sid) {
+        return new MessageDeleter(sid);
+    }
+
+    /**
      * Create a MessageFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
@@ -202,6 +268,16 @@ public class Message extends SidResource {
     public static MessageFetcher fetch(final String accountSid, 
                                        final String sid) {
         return new MessageFetcher(accountSid, sid);
+    }
+
+    /**
+     * Create a MessageFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique message Sid
+     * @return MessageFetcher capable of executing the fetch
+     */
+    public static MessageFetcher fetch(final String sid) {
+        return new MessageFetcher(sid);
     }
 
     /**
@@ -215,6 +291,15 @@ public class Message extends SidResource {
     }
 
     /**
+     * Create a MessageReader to execute read.
+     * 
+     * @return MessageReader capable of executing the read
+     */
+    public static MessageReader read() {
+        return new MessageReader();
+    }
+
+    /**
      * Create a MessageUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -224,6 +309,16 @@ public class Message extends SidResource {
     public static MessageUpdater update(final String accountSid, 
                                         final String sid) {
         return new MessageUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a MessageUpdater to execute update.
+     * 
+     * @param sid The message to redact
+     * @return MessageUpdater capable of executing the update
+     */
+    public static MessageUpdater update(final String sid) {
+        return new MessageUpdater(sid);
     }
 
     /**

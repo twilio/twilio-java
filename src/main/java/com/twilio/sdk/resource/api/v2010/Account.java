@@ -123,6 +123,15 @@ public class Account extends SidResource {
     }
 
     /**
+     * Create a AccountFetcher to execute fetch.
+     * 
+     * @return AccountFetcher capable of executing the fetch
+     */
+    public static AccountFetcher fetch() {
+        return new AccountFetcher();
+    }
+
+    /**
      * Create a AccountReader to execute read.
      * 
      * @return AccountReader capable of executing the read
@@ -139,6 +148,15 @@ public class Account extends SidResource {
      */
     public static AccountUpdater update(final String sid) {
         return new AccountUpdater(sid);
+    }
+
+    /**
+     * Create a AccountUpdater to execute update.
+     * 
+     * @return AccountUpdater capable of executing the update
+     */
+    public static AccountUpdater update() {
+        return new AccountUpdater();
     }
 
     /**

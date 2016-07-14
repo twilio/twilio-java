@@ -50,6 +50,15 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Create a IpAccessControlListReader to execute read.
+     * 
+     * @return IpAccessControlListReader capable of executing the read
+     */
+    public static IpAccessControlListReader read() {
+        return new IpAccessControlListReader();
+    }
+
+    /**
      * Create a IpAccessControlListCreator to execute create.
      * 
      * @param accountSid The account_sid
@@ -62,6 +71,16 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Create a IpAccessControlListCreator to execute create.
+     * 
+     * @param friendlyName A human readable description of this resource
+     * @return IpAccessControlListCreator capable of executing the create
+     */
+    public static IpAccessControlListCreator create(final String friendlyName) {
+        return new IpAccessControlListCreator(friendlyName);
+    }
+
+    /**
      * Create a IpAccessControlListFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
@@ -71,6 +90,16 @@ public class IpAccessControlList extends SidResource {
     public static IpAccessControlListFetcher fetch(final String accountSid, 
                                                    final String sid) {
         return new IpAccessControlListFetcher(accountSid, sid);
+    }
+
+    /**
+     * Create a IpAccessControlListFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique ip-access-control-list Sid
+     * @return IpAccessControlListFetcher capable of executing the fetch
+     */
+    public static IpAccessControlListFetcher fetch(final String sid) {
+        return new IpAccessControlListFetcher(sid);
     }
 
     /**
@@ -88,6 +117,18 @@ public class IpAccessControlList extends SidResource {
     }
 
     /**
+     * Create a IpAccessControlListUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @param friendlyName A human readable description of this resource
+     * @return IpAccessControlListUpdater capable of executing the update
+     */
+    public static IpAccessControlListUpdater update(final String sid, 
+                                                    final String friendlyName) {
+        return new IpAccessControlListUpdater(sid, friendlyName);
+    }
+
+    /**
      * Create a IpAccessControlListDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -97,6 +138,16 @@ public class IpAccessControlList extends SidResource {
     public static IpAccessControlListDeleter delete(final String accountSid, 
                                                     final String sid) {
         return new IpAccessControlListDeleter(accountSid, sid);
+    }
+
+    /**
+     * Create a IpAccessControlListDeleter to execute delete.
+     * 
+     * @param sid Delete by unique ip-access-control-list Sid
+     * @return IpAccessControlListDeleter capable of executing the delete
+     */
+    public static IpAccessControlListDeleter delete(final String sid) {
+        return new IpAccessControlListDeleter(sid);
     }
 
     /**

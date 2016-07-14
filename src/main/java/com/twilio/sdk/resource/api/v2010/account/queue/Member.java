@@ -53,6 +53,18 @@ public class Member extends SidResource {
     }
 
     /**
+     * Create a MemberFetcher to execute fetch.
+     * 
+     * @param queueSid The Queue in which to find the members
+     * @param callSid The call_sid
+     * @return MemberFetcher capable of executing the fetch
+     */
+    public static MemberFetcher fetch(final String queueSid, 
+                                      final String callSid) {
+        return new MemberFetcher(queueSid, callSid);
+    }
+
+    /**
      * Create a MemberUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -71,6 +83,22 @@ public class Member extends SidResource {
     }
 
     /**
+     * Create a MemberUpdater to execute update.
+     * 
+     * @param queueSid The Queue in which to find the members
+     * @param callSid The call_sid
+     * @param url The url
+     * @param method The method
+     * @return MemberUpdater capable of executing the update
+     */
+    public static MemberUpdater update(final String queueSid, 
+                                       final String callSid, 
+                                       final URI url, 
+                                       final HttpMethod method) {
+        return new MemberUpdater(queueSid, callSid, url, method);
+    }
+
+    /**
      * Create a MemberReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -80,6 +108,16 @@ public class Member extends SidResource {
     public static MemberReader read(final String accountSid, 
                                     final String queueSid) {
         return new MemberReader(accountSid, queueSid);
+    }
+
+    /**
+     * Create a MemberReader to execute read.
+     * 
+     * @param queueSid The Queue in which to find members
+     * @return MemberReader capable of executing the read
+     */
+    public static MemberReader read(final String queueSid) {
+        return new MemberReader(queueSid);
     }
 
     /**

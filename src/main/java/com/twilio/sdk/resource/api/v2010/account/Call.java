@@ -15,18 +15,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.creator.api.v2010.account.CallCreator;
 import com.twilio.sdk.deleter.api.v2010.account.CallDeleter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.fetcher.api.v2010.account.CallFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.reader.api.v2010.account.CallReader;
-import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.SidResource;
 import com.twilio.sdk.updater.api.v2010.account.CallUpdater;
 import org.joda.time.DateTime;
@@ -134,6 +129,20 @@ public class Call extends SidResource {
     /**
      * Create a CallCreator to execute create.
      * 
+     * @param to Phone number, SIP address or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param url Url from which to fetch TwiML
+     * @return CallCreator capable of executing the create
+     */
+    public static CallCreator create(final com.twilio.sdk.type.PhoneNumber to, 
+                                     final com.twilio.sdk.type.PhoneNumber from, 
+                                     final URI url) {
+        return new CallCreator(to, from, url);
+    }
+
+    /**
+     * Create a CallCreator to execute create.
+     * 
      * @param accountSid The account_sid
      * @param to Phone number, SIP address or client identifier to call
      * @param from Twilio number from which to originate the call
@@ -149,6 +158,21 @@ public class Call extends SidResource {
     }
 
     /**
+     * Create a CallCreator to execute create.
+     * 
+     * @param to Phone number, SIP address or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param applicationSid ApplicationSid that configures from where to fetch
+     *                       TwiML
+     * @return CallCreator capable of executing the create
+     */
+    public static CallCreator create(final com.twilio.sdk.type.PhoneNumber to, 
+                                     final com.twilio.sdk.type.PhoneNumber from, 
+                                     final String applicationSid) {
+        return new CallCreator(to, from, applicationSid);
+    }
+
+    /**
      * Create a CallDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -158,6 +182,16 @@ public class Call extends SidResource {
     public static CallDeleter delete(final String accountSid, 
                                      final String sid) {
         return new CallDeleter(accountSid, sid);
+    }
+
+    /**
+     * Create a CallDeleter to execute delete.
+     * 
+     * @param sid Call Sid that uniquely identifies the Call to delete
+     * @return CallDeleter capable of executing the delete
+     */
+    public static CallDeleter delete(final String sid) {
+        return new CallDeleter(sid);
     }
 
     /**
@@ -173,6 +207,16 @@ public class Call extends SidResource {
     }
 
     /**
+     * Create a CallFetcher to execute fetch.
+     * 
+     * @param sid Call Sid that uniquely identifies the Call to fetch
+     * @return CallFetcher capable of executing the fetch
+     */
+    public static CallFetcher fetch(final String sid) {
+        return new CallFetcher(sid);
+    }
+
+    /**
      * Create a CallReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -180,6 +224,15 @@ public class Call extends SidResource {
      */
     public static CallReader read(final String accountSid) {
         return new CallReader(accountSid);
+    }
+
+    /**
+     * Create a CallReader to execute read.
+     * 
+     * @return CallReader capable of executing the read
+     */
+    public static CallReader read() {
+        return new CallReader();
     }
 
     /**
@@ -192,6 +245,16 @@ public class Call extends SidResource {
     public static CallUpdater update(final String accountSid, 
                                      final String sid) {
         return new CallUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a CallUpdater to execute update.
+     * 
+     * @param sid Call Sid that uniquely identifies the Call to update
+     * @return CallUpdater capable of executing the update
+     */
+    public static CallUpdater update(final String sid) {
+        return new CallUpdater(sid);
     }
 
     /**

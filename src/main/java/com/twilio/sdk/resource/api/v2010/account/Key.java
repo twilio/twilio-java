@@ -51,6 +51,16 @@ public class Key extends SidResource {
     }
 
     /**
+     * Create a KeyFetcher to execute fetch.
+     * 
+     * @param sid The sid
+     * @return KeyFetcher capable of executing the fetch
+     */
+    public static KeyFetcher fetch(final String sid) {
+        return new KeyFetcher(sid);
+    }
+
+    /**
      * Create a KeyUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -60,6 +70,16 @@ public class Key extends SidResource {
     public static KeyUpdater update(final String accountSid, 
                                     final String sid) {
         return new KeyUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a KeyUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return KeyUpdater capable of executing the update
+     */
+    public static KeyUpdater update(final String sid) {
+        return new KeyUpdater(sid);
     }
 
     /**
@@ -75,6 +95,16 @@ public class Key extends SidResource {
     }
 
     /**
+     * Create a KeyDeleter to execute delete.
+     * 
+     * @param sid The sid
+     * @return KeyDeleter capable of executing the delete
+     */
+    public static KeyDeleter delete(final String sid) {
+        return new KeyDeleter(sid);
+    }
+
+    /**
      * Create a KeyReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -82,6 +112,15 @@ public class Key extends SidResource {
      */
     public static KeyReader read(final String accountSid) {
         return new KeyReader(accountSid);
+    }
+
+    /**
+     * Create a KeyReader to execute read.
+     * 
+     * @return KeyReader capable of executing the read
+     */
+    public static KeyReader read() {
+        return new KeyReader();
     }
 
     /**

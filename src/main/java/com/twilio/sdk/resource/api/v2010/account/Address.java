@@ -62,6 +62,26 @@ public class Address extends SidResource {
     }
 
     /**
+     * Create a AddressCreator to execute create.
+     * 
+     * @param customerName The customer_name
+     * @param street The street
+     * @param city The city
+     * @param region The region
+     * @param postalCode The postal_code
+     * @param isoCountry The iso_country
+     * @return AddressCreator capable of executing the create
+     */
+    public static AddressCreator create(final String customerName, 
+                                        final String street, 
+                                        final String city, 
+                                        final String region, 
+                                        final String postalCode, 
+                                        final String isoCountry) {
+        return new AddressCreator(customerName, street, city, region, postalCode, isoCountry);
+    }
+
+    /**
      * Create a AddressDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -71,6 +91,16 @@ public class Address extends SidResource {
     public static AddressDeleter delete(final String accountSid, 
                                         final String sid) {
         return new AddressDeleter(accountSid, sid);
+    }
+
+    /**
+     * Create a AddressDeleter to execute delete.
+     * 
+     * @param sid The sid
+     * @return AddressDeleter capable of executing the delete
+     */
+    public static AddressDeleter delete(final String sid) {
+        return new AddressDeleter(sid);
     }
 
     /**
@@ -86,6 +116,16 @@ public class Address extends SidResource {
     }
 
     /**
+     * Create a AddressFetcher to execute fetch.
+     * 
+     * @param sid The sid
+     * @return AddressFetcher capable of executing the fetch
+     */
+    public static AddressFetcher fetch(final String sid) {
+        return new AddressFetcher(sid);
+    }
+
+    /**
      * Create a AddressUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -98,6 +138,16 @@ public class Address extends SidResource {
     }
 
     /**
+     * Create a AddressUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return AddressUpdater capable of executing the update
+     */
+    public static AddressUpdater update(final String sid) {
+        return new AddressUpdater(sid);
+    }
+
+    /**
      * Create a AddressReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -105,6 +155,15 @@ public class Address extends SidResource {
      */
     public static AddressReader read(final String accountSid) {
         return new AddressReader(accountSid);
+    }
+
+    /**
+     * Create a AddressReader to execute read.
+     * 
+     * @return AddressReader capable of executing the read
+     */
+    public static AddressReader read() {
+        return new AddressReader();
     }
 
     /**

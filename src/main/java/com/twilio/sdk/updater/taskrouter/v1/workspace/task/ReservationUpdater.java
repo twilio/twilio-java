@@ -24,7 +24,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     private final String workspaceSid;
     private final String taskSid;
     private final String sid;
-    private final String reservationStatus;
+    private String reservationStatus;
     private String workerActivitySid;
     private String instruction;
     private String dequeuePostWorkActivitySid;
@@ -50,16 +50,24 @@ public class ReservationUpdater extends Updater<Reservation> {
      * @param workspaceSid The workspace_sid
      * @param taskSid The task_sid
      * @param sid The sid
-     * @param reservationStatus The reservation_status
      */
     public ReservationUpdater(final String workspaceSid, 
                               final String taskSid, 
-                              final String sid, 
-                              final String reservationStatus) {
+                              final String sid) {
         this.workspaceSid = workspaceSid;
         this.taskSid = taskSid;
         this.sid = sid;
+    }
+
+    /**
+     * The reservation_status.
+     * 
+     * @param reservationStatus The reservation_status
+     * @return this
+     */
+    public ReservationUpdater setReservationStatus(final String reservationStatus) {
         this.reservationStatus = reservationStatus;
+        return this;
     }
 
     /**

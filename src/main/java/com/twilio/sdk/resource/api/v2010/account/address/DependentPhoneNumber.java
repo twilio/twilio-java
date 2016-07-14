@@ -47,6 +47,16 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
+     * Create a DependentPhoneNumberReader to execute read.
+     * 
+     * @param addressSid The address_sid
+     * @return DependentPhoneNumberReader capable of executing the read
+     */
+    public static DependentPhoneNumberReader read(final String addressSid) {
+        return new DependentPhoneNumberReader(addressSid);
+    }
+
+    /**
      * Converts a JSON String into a DependentPhoneNumber object using the provided
      * ObjectMapper.
      * 

@@ -169,6 +169,15 @@ public class ThisMonth extends Resource {
     }
 
     /**
+     * Create a ThisMonthReader to execute read.
+     * 
+     * @return ThisMonthReader capable of executing the read
+     */
+    public static ThisMonthReader read() {
+        return new ThisMonthReader();
+    }
+
+    /**
      * Converts a JSON String into a ThisMonth object using the provided
      * ObjectMapper.
      * 

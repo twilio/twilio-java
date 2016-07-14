@@ -46,6 +46,15 @@ public class NewKey extends Resource {
     }
 
     /**
+     * Create a NewKeyCreator to execute create.
+     * 
+     * @return NewKeyCreator capable of executing the create
+     */
+    public static NewKeyCreator create() {
+        return new NewKeyCreator();
+    }
+
+    /**
      * Converts a JSON String into a NewKey object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

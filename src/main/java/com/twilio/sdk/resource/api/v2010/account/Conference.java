@@ -82,6 +82,16 @@ public class Conference extends SidResource {
     }
 
     /**
+     * Create a ConferenceFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique conference Sid
+     * @return ConferenceFetcher capable of executing the fetch
+     */
+    public static ConferenceFetcher fetch(final String sid) {
+        return new ConferenceFetcher(sid);
+    }
+
+    /**
      * Create a ConferenceReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -89,6 +99,15 @@ public class Conference extends SidResource {
      */
     public static ConferenceReader read(final String accountSid) {
         return new ConferenceReader(accountSid);
+    }
+
+    /**
+     * Create a ConferenceReader to execute read.
+     * 
+     * @return ConferenceReader capable of executing the read
+     */
+    public static ConferenceReader read() {
+        return new ConferenceReader();
     }
 
     /**

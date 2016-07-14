@@ -53,6 +53,16 @@ public class Application extends SidResource {
     }
 
     /**
+     * Create a ApplicationCreator to execute create.
+     * 
+     * @param friendlyName Human readable description of this resource
+     * @return ApplicationCreator capable of executing the create
+     */
+    public static ApplicationCreator create(final String friendlyName) {
+        return new ApplicationCreator(friendlyName);
+    }
+
+    /**
      * Create a ApplicationDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -62,6 +72,16 @@ public class Application extends SidResource {
     public static ApplicationDeleter delete(final String accountSid, 
                                             final String sid) {
         return new ApplicationDeleter(accountSid, sid);
+    }
+
+    /**
+     * Create a ApplicationDeleter to execute delete.
+     * 
+     * @param sid The application sid to delete
+     * @return ApplicationDeleter capable of executing the delete
+     */
+    public static ApplicationDeleter delete(final String sid) {
+        return new ApplicationDeleter(sid);
     }
 
     /**
@@ -77,6 +97,16 @@ public class Application extends SidResource {
     }
 
     /**
+     * Create a ApplicationFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique Application Sid
+     * @return ApplicationFetcher capable of executing the fetch
+     */
+    public static ApplicationFetcher fetch(final String sid) {
+        return new ApplicationFetcher(sid);
+    }
+
+    /**
      * Create a ApplicationReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -84,6 +114,15 @@ public class Application extends SidResource {
      */
     public static ApplicationReader read(final String accountSid) {
         return new ApplicationReader(accountSid);
+    }
+
+    /**
+     * Create a ApplicationReader to execute read.
+     * 
+     * @return ApplicationReader capable of executing the read
+     */
+    public static ApplicationReader read() {
+        return new ApplicationReader();
     }
 
     /**
@@ -96,6 +135,16 @@ public class Application extends SidResource {
     public static ApplicationUpdater update(final String accountSid, 
                                             final String sid) {
         return new ApplicationUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a ApplicationUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return ApplicationUpdater capable of executing the update
+     */
+    public static ApplicationUpdater update(final String sid) {
+        return new ApplicationUpdater(sid);
     }
 
     /**

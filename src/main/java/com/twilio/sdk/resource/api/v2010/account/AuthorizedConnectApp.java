@@ -83,6 +83,16 @@ public class AuthorizedConnectApp extends SidResource {
     }
 
     /**
+     * Create a AuthorizedConnectAppFetcher to execute fetch.
+     * 
+     * @param connectAppSid The connect_app_sid
+     * @return AuthorizedConnectAppFetcher capable of executing the fetch
+     */
+    public static AuthorizedConnectAppFetcher fetch(final String connectAppSid) {
+        return new AuthorizedConnectAppFetcher(connectAppSid);
+    }
+
+    /**
      * Create a AuthorizedConnectAppReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -90,6 +100,15 @@ public class AuthorizedConnectApp extends SidResource {
      */
     public static AuthorizedConnectAppReader read(final String accountSid) {
         return new AuthorizedConnectAppReader(accountSid);
+    }
+
+    /**
+     * Create a AuthorizedConnectAppReader to execute read.
+     * 
+     * @return AuthorizedConnectAppReader capable of executing the read
+     */
+    public static AuthorizedConnectAppReader read() {
+        return new AuthorizedConnectAppReader();
     }
 
     /**

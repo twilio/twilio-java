@@ -53,6 +53,18 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Create a ParticipantFetcher to execute fetch.
+     * 
+     * @param conferenceSid The string that uniquely identifies this conference
+     * @param callSid The call_sid
+     * @return ParticipantFetcher capable of executing the fetch
+     */
+    public static ParticipantFetcher fetch(final String conferenceSid, 
+                                           final String callSid) {
+        return new ParticipantFetcher(conferenceSid, callSid);
+    }
+
+    /**
      * Create a ParticipantUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -66,6 +78,20 @@ public class Participant extends SidResource {
                                             final String callSid, 
                                             final Boolean muted) {
         return new ParticipantUpdater(accountSid, conferenceSid, callSid, muted);
+    }
+
+    /**
+     * Create a ParticipantUpdater to execute update.
+     * 
+     * @param conferenceSid The string that uniquely identifies this conference
+     * @param callSid The call_sid
+     * @param muted Indicates if the participant should be muted
+     * @return ParticipantUpdater capable of executing the update
+     */
+    public static ParticipantUpdater update(final String conferenceSid, 
+                                            final String callSid, 
+                                            final Boolean muted) {
+        return new ParticipantUpdater(conferenceSid, callSid, muted);
     }
 
     /**
@@ -83,6 +109,18 @@ public class Participant extends SidResource {
     }
 
     /**
+     * Create a ParticipantDeleter to execute delete.
+     * 
+     * @param conferenceSid The string that uniquely identifies this conference
+     * @param callSid The call_sid
+     * @return ParticipantDeleter capable of executing the delete
+     */
+    public static ParticipantDeleter delete(final String conferenceSid, 
+                                            final String callSid) {
+        return new ParticipantDeleter(conferenceSid, callSid);
+    }
+
+    /**
      * Create a ParticipantReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -92,6 +130,16 @@ public class Participant extends SidResource {
     public static ParticipantReader read(final String accountSid, 
                                          final String conferenceSid) {
         return new ParticipantReader(accountSid, conferenceSid);
+    }
+
+    /**
+     * Create a ParticipantReader to execute read.
+     * 
+     * @param conferenceSid The string that uniquely identifies this conference
+     * @return ParticipantReader capable of executing the read
+     */
+    public static ParticipantReader read(final String conferenceSid) {
+        return new ParticipantReader(conferenceSid);
     }
 
     /**

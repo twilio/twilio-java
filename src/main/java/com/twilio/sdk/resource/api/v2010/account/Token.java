@@ -48,6 +48,15 @@ public class Token extends Resource {
     }
 
     /**
+     * Create a TokenCreator to execute create.
+     * 
+     * @return TokenCreator capable of executing the create
+     */
+    public static TokenCreator create() {
+        return new TokenCreator();
+    }
+
+    /**
      * Converts a JSON String into a Token object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

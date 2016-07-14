@@ -24,6 +24,12 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
 
     /**
      * Construct a new AuthorizedConnectAppReader.
+     */
+    public AuthorizedConnectAppReader() {
+    }
+
+    /**
+     * Construct a new AuthorizedConnectAppReader.
      * 
      * @param accountSid The account_sid
      */
@@ -51,6 +57,7 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<AuthorizedConnectApp> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

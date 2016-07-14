@@ -169,6 +169,15 @@ public class AllTime extends Resource {
     }
 
     /**
+     * Create a AllTimeReader to execute read.
+     * 
+     * @return AllTimeReader capable of executing the read
+     */
+    public static AllTimeReader read() {
+        return new AllTimeReader();
+    }
+
+    /**
      * Converts a JSON String into a AllTime object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

@@ -46,6 +46,15 @@ public class NewSigningKey extends Resource {
     }
 
     /**
+     * Create a NewSigningKeyCreator to execute create.
+     * 
+     * @return NewSigningKeyCreator capable of executing the create
+     */
+    public static NewSigningKeyCreator create() {
+        return new NewSigningKeyCreator();
+    }
+
+    /**
      * Converts a JSON String into a NewSigningKey object using the provided
      * ObjectMapper.
      * 

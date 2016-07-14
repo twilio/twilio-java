@@ -169,6 +169,15 @@ public class Daily extends Resource {
     }
 
     /**
+     * Create a DailyReader to execute read.
+     * 
+     * @return DailyReader capable of executing the read
+     */
+    public static DailyReader read() {
+        return new DailyReader();
+    }
+
+    /**
      * Converts a JSON String into a Daily object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

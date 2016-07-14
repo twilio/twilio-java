@@ -51,6 +51,16 @@ public class SigningKey extends SidResource {
     }
 
     /**
+     * Create a SigningKeyFetcher to execute fetch.
+     * 
+     * @param sid The sid
+     * @return SigningKeyFetcher capable of executing the fetch
+     */
+    public static SigningKeyFetcher fetch(final String sid) {
+        return new SigningKeyFetcher(sid);
+    }
+
+    /**
      * Create a SigningKeyUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -60,6 +70,16 @@ public class SigningKey extends SidResource {
     public static SigningKeyUpdater update(final String accountSid, 
                                            final String sid) {
         return new SigningKeyUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a SigningKeyUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return SigningKeyUpdater capable of executing the update
+     */
+    public static SigningKeyUpdater update(final String sid) {
+        return new SigningKeyUpdater(sid);
     }
 
     /**
@@ -75,6 +95,16 @@ public class SigningKey extends SidResource {
     }
 
     /**
+     * Create a SigningKeyDeleter to execute delete.
+     * 
+     * @param sid The sid
+     * @return SigningKeyDeleter capable of executing the delete
+     */
+    public static SigningKeyDeleter delete(final String sid) {
+        return new SigningKeyDeleter(sid);
+    }
+
+    /**
      * Create a SigningKeyReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -82,6 +112,15 @@ public class SigningKey extends SidResource {
      */
     public static SigningKeyReader read(final String accountSid) {
         return new SigningKeyReader(accountSid);
+    }
+
+    /**
+     * Create a SigningKeyReader to execute read.
+     * 
+     * @return SigningKeyReader capable of executing the read
+     */
+    public static SigningKeyReader read() {
+        return new SigningKeyReader();
     }
 
     /**

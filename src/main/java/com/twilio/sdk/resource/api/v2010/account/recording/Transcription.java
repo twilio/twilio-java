@@ -88,6 +88,18 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Create a TranscriptionFetcher to execute fetch.
+     * 
+     * @param recordingSid The recording_sid
+     * @param sid The sid
+     * @return TranscriptionFetcher capable of executing the fetch
+     */
+    public static TranscriptionFetcher fetch(final String recordingSid, 
+                                             final String sid) {
+        return new TranscriptionFetcher(recordingSid, sid);
+    }
+
+    /**
      * Create a TranscriptionDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -102,6 +114,18 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Create a TranscriptionDeleter to execute delete.
+     * 
+     * @param recordingSid The recording_sid
+     * @param sid The sid
+     * @return TranscriptionDeleter capable of executing the delete
+     */
+    public static TranscriptionDeleter delete(final String recordingSid, 
+                                              final String sid) {
+        return new TranscriptionDeleter(recordingSid, sid);
+    }
+
+    /**
      * Create a TranscriptionReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -111,6 +135,16 @@ public class Transcription extends SidResource {
     public static TranscriptionReader read(final String accountSid, 
                                            final String recordingSid) {
         return new TranscriptionReader(accountSid, recordingSid);
+    }
+
+    /**
+     * Create a TranscriptionReader to execute read.
+     * 
+     * @param recordingSid The recording_sid
+     * @return TranscriptionReader capable of executing the read
+     */
+    public static TranscriptionReader read(final String recordingSid) {
+        return new TranscriptionReader(recordingSid);
     }
 
     /**

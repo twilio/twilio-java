@@ -46,6 +46,15 @@ public class AvailablePhoneNumberCountry extends SidResource {
     }
 
     /**
+     * Create a AvailablePhoneNumberCountryReader to execute read.
+     * 
+     * @return AvailablePhoneNumberCountryReader capable of executing the read
+     */
+    public static AvailablePhoneNumberCountryReader read() {
+        return new AvailablePhoneNumberCountryReader();
+    }
+
+    /**
      * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
@@ -55,6 +64,16 @@ public class AvailablePhoneNumberCountry extends SidResource {
     public static AvailablePhoneNumberCountryFetcher fetch(final String accountSid, 
                                                            final String countryCode) {
         return new AvailablePhoneNumberCountryFetcher(accountSid, countryCode);
+    }
+
+    /**
+     * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
+     * 
+     * @param countryCode The country_code
+     * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
+     */
+    public static AvailablePhoneNumberCountryFetcher fetch(final String countryCode) {
+        return new AvailablePhoneNumberCountryFetcher(countryCode);
     }
 
     /**

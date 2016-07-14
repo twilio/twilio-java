@@ -80,6 +80,16 @@ public class Feedback extends Resource {
     }
 
     /**
+     * Create a FeedbackCreator to execute create.
+     * 
+     * @param messageSid The message_sid
+     * @return FeedbackCreator capable of executing the create
+     */
+    public static FeedbackCreator create(final String messageSid) {
+        return new FeedbackCreator(messageSid);
+    }
+
+    /**
      * Converts a JSON String into a Feedback object using the provided
      * ObjectMapper.
      * 

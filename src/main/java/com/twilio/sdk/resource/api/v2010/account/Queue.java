@@ -52,6 +52,16 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Create a QueueFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique queue Sid
+     * @return QueueFetcher capable of executing the fetch
+     */
+    public static QueueFetcher fetch(final String sid) {
+        return new QueueFetcher(sid);
+    }
+
+    /**
      * Create a QueueUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -61,6 +71,16 @@ public class Queue extends SidResource {
     public static QueueUpdater update(final String accountSid, 
                                       final String sid) {
         return new QueueUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a QueueUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return QueueUpdater capable of executing the update
+     */
+    public static QueueUpdater update(final String sid) {
+        return new QueueUpdater(sid);
     }
 
     /**
@@ -76,6 +96,16 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Create a QueueDeleter to execute delete.
+     * 
+     * @param sid Delete by unique queue Sid
+     * @return QueueDeleter capable of executing the delete
+     */
+    public static QueueDeleter delete(final String sid) {
+        return new QueueDeleter(sid);
+    }
+
+    /**
      * Create a QueueReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -86,6 +116,15 @@ public class Queue extends SidResource {
     }
 
     /**
+     * Create a QueueReader to execute read.
+     * 
+     * @return QueueReader capable of executing the read
+     */
+    public static QueueReader read() {
+        return new QueueReader();
+    }
+
+    /**
      * Create a QueueCreator to execute create.
      * 
      * @param accountSid The account_sid
@@ -93,6 +132,15 @@ public class Queue extends SidResource {
      */
     public static QueueCreator create(final String accountSid) {
         return new QueueCreator(accountSid);
+    }
+
+    /**
+     * Create a QueueCreator to execute create.
+     * 
+     * @return QueueCreator capable of executing the create
+     */
+    public static QueueCreator create() {
+        return new QueueCreator();
     }
 
     /**

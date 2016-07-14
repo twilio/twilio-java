@@ -24,6 +24,15 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     /**
      * Construct a new AuthorizedConnectAppFetcher.
      * 
+     * @param connectAppSid The connect_app_sid
+     */
+    public AuthorizedConnectAppFetcher(final String connectAppSid) {
+        this.connectAppSid = connectAppSid;
+    }
+
+    /**
+     * Construct a new AuthorizedConnectAppFetcher.
+     * 
      * @param accountSid The account_sid
      * @param connectAppSid The connect_app_sid
      */
@@ -42,6 +51,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public AuthorizedConnectApp execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,

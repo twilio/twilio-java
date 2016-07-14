@@ -83,6 +83,15 @@ public class Mobile extends Resource {
     }
 
     /**
+     * Create a MobileReader to execute read.
+     * 
+     * @return MobileReader capable of executing the read
+     */
+    public static MobileReader read() {
+        return new MobileReader();
+    }
+
+    /**
      * Create a MobileCreator to execute create.
      * 
      * @param ownerAccountSid The owner_account_sid
@@ -92,6 +101,16 @@ public class Mobile extends Resource {
     public static MobileCreator create(final String ownerAccountSid, 
                                        final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         return new MobileCreator(ownerAccountSid, phoneNumber);
+    }
+
+    /**
+     * Create a MobileCreator to execute create.
+     * 
+     * @param phoneNumber The phone_number
+     * @return MobileCreator capable of executing the create
+     */
+    public static MobileCreator create(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        return new MobileCreator(phoneNumber);
     }
 
     /**

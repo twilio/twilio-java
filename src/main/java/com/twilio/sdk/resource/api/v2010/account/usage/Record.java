@@ -169,6 +169,15 @@ public class Record extends Resource {
     }
 
     /**
+     * Create a RecordReader to execute read.
+     * 
+     * @return RecordReader capable of executing the read
+     */
+    public static RecordReader read() {
+        return new RecordReader();
+    }
+
+    /**
      * Converts a JSON String into a Record object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

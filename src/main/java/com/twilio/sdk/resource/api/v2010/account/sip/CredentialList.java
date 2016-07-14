@@ -50,6 +50,15 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Create a CredentialListReader to execute read.
+     * 
+     * @return CredentialListReader capable of executing the read
+     */
+    public static CredentialListReader read() {
+        return new CredentialListReader();
+    }
+
+    /**
      * Create a CredentialListCreator to execute create.
      * 
      * @param accountSid The account_sid
@@ -62,6 +71,16 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Create a CredentialListCreator to execute create.
+     * 
+     * @param friendlyName The friendly_name
+     * @return CredentialListCreator capable of executing the create
+     */
+    public static CredentialListCreator create(final String friendlyName) {
+        return new CredentialListCreator(friendlyName);
+    }
+
+    /**
      * Create a CredentialListFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
@@ -71,6 +90,16 @@ public class CredentialList extends SidResource {
     public static CredentialListFetcher fetch(final String accountSid, 
                                               final String sid) {
         return new CredentialListFetcher(accountSid, sid);
+    }
+
+    /**
+     * Create a CredentialListFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique credential Sid
+     * @return CredentialListFetcher capable of executing the fetch
+     */
+    public static CredentialListFetcher fetch(final String sid) {
+        return new CredentialListFetcher(sid);
     }
 
     /**
@@ -88,6 +117,18 @@ public class CredentialList extends SidResource {
     }
 
     /**
+     * Create a CredentialListUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @param friendlyName The friendly_name
+     * @return CredentialListUpdater capable of executing the update
+     */
+    public static CredentialListUpdater update(final String sid, 
+                                               final String friendlyName) {
+        return new CredentialListUpdater(sid, friendlyName);
+    }
+
+    /**
      * Create a CredentialListDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -97,6 +138,16 @@ public class CredentialList extends SidResource {
     public static CredentialListDeleter delete(final String accountSid, 
                                                final String sid) {
         return new CredentialListDeleter(accountSid, sid);
+    }
+
+    /**
+     * Create a CredentialListDeleter to execute delete.
+     * 
+     * @param sid Delete by unique credential Sid
+     * @return CredentialListDeleter capable of executing the delete
+     */
+    public static CredentialListDeleter delete(final String sid) {
+        return new CredentialListDeleter(sid);
     }
 
     /**

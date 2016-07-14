@@ -5,6 +5,7 @@ import com.twilio.rest.Twilio;
 import com.twilio.rest.exception.ApiException;
 import java.nio.charset.StandardCharsets;
 import org.apache.http.Header;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
@@ -36,9 +37,9 @@ public class NetworkHttpClient extends HttpClient {
 
         Collection<Header> headers = Lists.<Header>newArrayList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader("User-Agent", "twilio-java/" + Twilio.VERSION),
-            new BasicHeader("Accept", "application/json"),
-            new BasicHeader("Accept-Encoding", "utf-8")
+            new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION),
+            new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+            new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
         client = HttpClientBuilder.create()
@@ -63,12 +64,12 @@ public class NetworkHttpClient extends HttpClient {
             .setCharset(StandardCharsets.UTF_8);
 
         if (request.requiresAuthentication()) {
-            builder.addHeader("Authorization", request.getAuthString());
+            builder.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());
         }
 
         HttpMethod method = request.getMethod();
         if (method == HttpMethod.POST) {
-            builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+            builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
 
             for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
                 for (String value : entry.getValue()) {

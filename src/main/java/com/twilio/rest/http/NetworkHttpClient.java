@@ -3,6 +3,7 @@ package com.twilio.rest.http;
 import com.google.common.collect.Lists;
 import com.twilio.rest.Twilio;
 import com.twilio.rest.exception.ApiException;
+import java.nio.charset.StandardCharsets;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -13,14 +14,12 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public class NetworkHttpClient extends HttpClient {
 
-    private static final Charset UTF_8 = Charset.forName("UTF-8");
     private static final HttpVersion HTTP_1_1 = new HttpVersion(1, 1);
     private static final int CONNECTION_TIMEOUT = 10000;
     private static final int SOCKET_TIMEOUT = 30500;
@@ -62,7 +61,7 @@ public class NetworkHttpClient extends HttpClient {
         RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
             .setUri(request.constructURL().toString())
             .setVersion(HTTP_1_1)
-            .setCharset(UTF_8);
+            .setCharset(StandardCharsets.UTF_8);
 
         if (request.requiresAuthentication()) {
             builder.addHeader("Authorization", request.getAuthString());

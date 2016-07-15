@@ -8,6 +8,8 @@
 package com.twilio.sdk.fetcher.lookups.v1;
 
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.PrefixedCollapsibleMap;
+import com.twilio.sdk.converter.Promoter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.fetcher.Fetcher;
@@ -17,10 +19,15 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.lookups.v1.PhoneNumber;
 
+import java.util.List;
+import java.util.Map;
+
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String countryCode;
     private String type;
+    private List<String> addOns;
+    private Map<String, Object> addOnsData;
 
     /**
      * Construct a new PhoneNumberFetcher.
@@ -54,6 +61,38 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
+     * The add_ons.
+     * 
+     * @param addOns The add_ons
+     * @return this
+     */
+    public PhoneNumberFetcher setAddOns(final List<String> addOns) {
+        this.addOns = addOns;
+        return this;
+    }
+
+    /**
+     * The add_ons.
+     * 
+     * @param addOns The add_ons
+     * @return this
+     */
+    public PhoneNumberFetcher setAddOns(final String addOns) {
+        return setAddOns(Promoter.listOfOne(addOns));
+    }
+
+    /**
+     * The add_ons_data.
+     * 
+     * @param addOnsData The add_ons_data
+     * @return this
+     */
+    public PhoneNumberFetcher setAddOnsData(final Map<String, Object> addOnsData) {
+        this.addOnsData = addOnsData;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -69,19 +108,12 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             client.getAccountSid()
         );
         
-        if (countryCode != null) {
-            request.addQueryParam("CountryCode", countryCode);
-        }
-        
-        if (type != null) {
-            request.addQueryParam("Type", type);
-        }
-        
+        addQueryParams(request);
         Response response = client.request(request);
         
         if (response == null) {
             throw new ApiConnectionException("PhoneNumber fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -97,5 +129,33 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         }
         
         return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     * 
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (countryCode != null) {
+            request.addQueryParam("CountryCode", countryCode);
+        }
+        
+        if (type != null) {
+            request.addQueryParam("Type", type);
+        }
+        
+        if (addOns != null) {
+            for (Object prop : addOns) {
+                request.addQueryParam("AddOns", prop.toString());
+            }
+        }
+        
+        if (addOnsData != null) {
+            Map<String, String> params = PrefixedCollapsibleMap.serialize(addOnsData, "AddOns");
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                request.addQueryParam(entry.getKey(), entry.getValue());
+            }
+        }
     }
 }

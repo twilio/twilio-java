@@ -21,7 +21,7 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
-    private final String ownerAccountSid;
+    private String ownerAccountSid;
     private final String sid;
     private String accountSid;
     private String apiVersion;
@@ -39,6 +39,15 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     private URI voiceFallbackUrl;
     private HttpMethod voiceMethod;
     private URI voiceUrl;
+
+    /**
+     * Construct a new IncomingPhoneNumberUpdater.
+     * 
+     * @param sid The sid
+     */
+    public IncomingPhoneNumberUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IncomingPhoneNumberUpdater.
@@ -317,6 +326,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IncomingPhoneNumber execute(final TwilioRestClient client) {
+        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -329,7 +339,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         
         if (response == null) {
             throw new ApiConnectionException("IncomingPhoneNumber update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

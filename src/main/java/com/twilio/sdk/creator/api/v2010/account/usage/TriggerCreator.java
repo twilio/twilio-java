@@ -20,7 +20,7 @@ import com.twilio.sdk.resource.api.v2010.account.usage.Trigger;
 import java.net.URI;
 
 public class TriggerCreator extends Creator<Trigger> {
-    private final String accountSid;
+    private String accountSid;
     private final URI callbackUrl;
     private final String triggerValue;
     private final Trigger.UsageCategory usageCategory;
@@ -28,6 +28,21 @@ public class TriggerCreator extends Creator<Trigger> {
     private String friendlyName;
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
+
+    /**
+     * Construct a new TriggerCreator.
+     * 
+     * @param callbackUrl URL Twilio will request when the trigger fires
+     * @param triggerValue the value at which the trigger will fire
+     * @param usageCategory The usage category the trigger watches
+     */
+    public TriggerCreator(final URI callbackUrl, 
+                          final String triggerValue, 
+                          final Trigger.UsageCategory usageCategory) {
+        this.callbackUrl = callbackUrl;
+        this.triggerValue = triggerValue;
+        this.usageCategory = usageCategory;
+    }
 
     /**
      * Construct a new TriggerCreator.
@@ -104,6 +119,7 @@ public class TriggerCreator extends Creator<Trigger> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Trigger execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -116,7 +132,7 @@ public class TriggerCreator extends Creator<Trigger> {
         
         if (response == null) {
             throw new ApiConnectionException("Trigger creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

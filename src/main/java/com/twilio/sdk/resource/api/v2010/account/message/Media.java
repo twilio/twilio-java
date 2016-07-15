@@ -52,6 +52,18 @@ public class Media extends SidResource {
     }
 
     /**
+     * Create a MediaDeleter to execute delete.
+     * 
+     * @param messageSid The message_sid
+     * @param sid Delete by unique media Sid
+     * @return MediaDeleter capable of executing the delete
+     */
+    public static MediaDeleter delete(final String messageSid, 
+                                      final String sid) {
+        return new MediaDeleter(messageSid, sid);
+    }
+
+    /**
      * Create a MediaFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
@@ -66,6 +78,18 @@ public class Media extends SidResource {
     }
 
     /**
+     * Create a MediaFetcher to execute fetch.
+     * 
+     * @param messageSid The message_sid
+     * @param sid Fetch by unique media Sid
+     * @return MediaFetcher capable of executing the fetch
+     */
+    public static MediaFetcher fetch(final String messageSid, 
+                                     final String sid) {
+        return new MediaFetcher(messageSid, sid);
+    }
+
+    /**
      * Create a MediaReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -75,6 +99,16 @@ public class Media extends SidResource {
     public static MediaReader read(final String accountSid, 
                                    final String messageSid) {
         return new MediaReader(accountSid, messageSid);
+    }
+
+    /**
+     * Create a MediaReader to execute read.
+     * 
+     * @param messageSid The message_sid
+     * @return MediaReader capable of executing the read
+     */
+    public static MediaReader read(final String messageSid) {
+        return new MediaReader(messageSid);
     }
 
     /**

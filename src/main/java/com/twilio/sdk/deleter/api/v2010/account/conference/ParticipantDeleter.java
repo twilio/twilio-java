@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.conference.Participant;
 
 public class ParticipantDeleter extends Deleter<Participant> {
-    private final String accountSid;
+    private String accountSid;
     private final String conferenceSid;
     private final String callSid;
+
+    /**
+     * Construct a new ParticipantDeleter.
+     * 
+     * @param conferenceSid The string that uniquely identifies this conference
+     * @param callSid The call_sid
+     */
+    public ParticipantDeleter(final String conferenceSid, 
+                              final String callSid) {
+        this.conferenceSid = conferenceSid;
+        this.callSid = callSid;
+    }
 
     /**
      * Construct a new ParticipantDeleter.
@@ -45,6 +57,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -56,7 +69,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
         
         if (response == null) {
             throw new ApiConnectionException("Participant delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -71,6 +84,6 @@ public class ParticipantDeleter extends Deleter<Participant> {
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

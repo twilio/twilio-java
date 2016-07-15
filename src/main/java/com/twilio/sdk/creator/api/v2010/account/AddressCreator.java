@@ -18,7 +18,7 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Address;
 
 public class AddressCreator extends Creator<Address> {
-    private final String accountSid;
+    private String accountSid;
     private final String customerName;
     private final String street;
     private final String city;
@@ -26,6 +26,30 @@ public class AddressCreator extends Creator<Address> {
     private final String postalCode;
     private final String isoCountry;
     private String friendlyName;
+
+    /**
+     * Construct a new AddressCreator.
+     * 
+     * @param customerName The customer_name
+     * @param street The street
+     * @param city The city
+     * @param region The region
+     * @param postalCode The postal_code
+     * @param isoCountry The iso_country
+     */
+    public AddressCreator(final String customerName, 
+                          final String street, 
+                          final String city, 
+                          final String region, 
+                          final String postalCode, 
+                          final String isoCountry) {
+        this.customerName = customerName;
+        this.street = street;
+        this.city = city;
+        this.region = region;
+        this.postalCode = postalCode;
+        this.isoCountry = isoCountry;
+    }
 
     /**
      * Construct a new AddressCreator.
@@ -74,6 +98,7 @@ public class AddressCreator extends Creator<Address> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Address execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -86,7 +111,7 @@ public class AddressCreator extends Creator<Address> {
         
         if (response == null) {
             throw new ApiConnectionException("Address creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -21,7 +21,7 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class CallUpdater extends Updater<Call> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private URI url;
     private HttpMethod method;
@@ -30,6 +30,15 @@ public class CallUpdater extends Updater<Call> {
     private HttpMethod fallbackMethod;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+
+    /**
+     * Construct a new CallUpdater.
+     * 
+     * @param sid Call Sid that uniquely identifies the Call to update
+     */
+    public CallUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new CallUpdater.
@@ -169,6 +178,7 @@ public class CallUpdater extends Updater<Call> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Call execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -181,7 +191,7 @@ public class CallUpdater extends Updater<Call> {
         
         if (response == null) {
             throw new ApiConnectionException("Call update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

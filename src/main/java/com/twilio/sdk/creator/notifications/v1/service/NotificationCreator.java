@@ -19,13 +19,14 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.notifications.v1.service.Notification;
 
 import java.util.List;
+import java.util.Map;
 
 public class NotificationCreator extends Creator<Notification> {
     private final String serviceSid;
     private List<String> identity;
     private List<String> tag;
     private String body;
-    private String priority;
+    private Notification.Priority priority;
     private Integer ttl;
     private String title;
     private String sound;
@@ -33,6 +34,8 @@ public class NotificationCreator extends Creator<Notification> {
     private String data;
     private String apn;
     private String gcm;
+    private String sms;
+    private Map<String, Object> facebookMessenger;
 
     /**
      * Construct a new NotificationCreator.
@@ -102,7 +105,7 @@ public class NotificationCreator extends Creator<Notification> {
      * @param priority The priority
      * @return this
      */
-    public NotificationCreator setPriority(final String priority) {
+    public NotificationCreator setPriority(final Notification.Priority priority) {
         this.priority = priority;
         return this;
     }
@@ -185,6 +188,28 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
+     * The sms.
+     * 
+     * @param sms The sms
+     * @return this
+     */
+    public NotificationCreator setSms(final String sms) {
+        this.sms = sms;
+        return this;
+    }
+
+    /**
+     * The facebook_messenger.
+     * 
+     * @param facebookMessenger The facebook_messenger
+     * @return this
+     */
+    public NotificationCreator setFacebookMessenger(final Map<String, Object> facebookMessenger) {
+        this.facebookMessenger = facebookMessenger;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -205,7 +230,7 @@ public class NotificationCreator extends Creator<Notification> {
         
         if (response == null) {
             throw new ApiConnectionException("Notification creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -246,7 +271,7 @@ public class NotificationCreator extends Creator<Notification> {
         }
         
         if (priority != null) {
-            request.addPostParam("Priority", priority);
+            request.addPostParam("Priority", priority.toString());
         }
         
         if (ttl != null) {
@@ -275,6 +300,14 @@ public class NotificationCreator extends Creator<Notification> {
         
         if (gcm != null) {
             request.addPostParam("Gcm", gcm);
+        }
+        
+        if (sms != null) {
+            request.addPostParam("Sms", sms);
+        }
+        
+        if (facebookMessenger != null) {
+            request.addPostParam("FacebookMessenger", facebookMessenger.toString());
         }
     }
 }

@@ -18,9 +18,18 @@ import com.twilio.sdk.resource.api.v2010.account.OutgoingCallerId;
 import com.twilio.sdk.updater.Updater;
 
 public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String friendlyName;
+
+    /**
+     * Construct a new OutgoingCallerIdUpdater.
+     * 
+     * @param sid Update by unique outgoing-caller-id Sid
+     */
+    public OutgoingCallerIdUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new OutgoingCallerIdUpdater.
@@ -54,6 +63,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public OutgoingCallerId execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -66,7 +76,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
         
         if (response == null) {
             throw new ApiConnectionException("OutgoingCallerId update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

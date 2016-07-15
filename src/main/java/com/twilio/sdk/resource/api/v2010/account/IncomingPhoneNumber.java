@@ -88,6 +88,16 @@ public class IncomingPhoneNumber extends SidResource {
     }
 
     /**
+     * Create a IncomingPhoneNumberUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return IncomingPhoneNumberUpdater capable of executing the update
+     */
+    public static IncomingPhoneNumberUpdater update(final String sid) {
+        return new IncomingPhoneNumberUpdater(sid);
+    }
+
+    /**
      * Create a IncomingPhoneNumberFetcher to execute fetch.
      * 
      * @param ownerAccountSid The owner_account_sid
@@ -97,6 +107,16 @@ public class IncomingPhoneNumber extends SidResource {
     public static IncomingPhoneNumberFetcher fetch(final String ownerAccountSid, 
                                                    final String sid) {
         return new IncomingPhoneNumberFetcher(ownerAccountSid, sid);
+    }
+
+    /**
+     * Create a IncomingPhoneNumberFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique incoming-phone-number Sid
+     * @return IncomingPhoneNumberFetcher capable of executing the fetch
+     */
+    public static IncomingPhoneNumberFetcher fetch(final String sid) {
+        return new IncomingPhoneNumberFetcher(sid);
     }
 
     /**
@@ -112,6 +132,16 @@ public class IncomingPhoneNumber extends SidResource {
     }
 
     /**
+     * Create a IncomingPhoneNumberDeleter to execute delete.
+     * 
+     * @param sid Delete by unique phone-number Sid
+     * @return IncomingPhoneNumberDeleter capable of executing the delete
+     */
+    public static IncomingPhoneNumberDeleter delete(final String sid) {
+        return new IncomingPhoneNumberDeleter(sid);
+    }
+
+    /**
      * Create a IncomingPhoneNumberReader to execute read.
      * 
      * @param ownerAccountSid The owner_account_sid
@@ -119,6 +149,15 @@ public class IncomingPhoneNumber extends SidResource {
      */
     public static IncomingPhoneNumberReader read(final String ownerAccountSid) {
         return new IncomingPhoneNumberReader(ownerAccountSid);
+    }
+
+    /**
+     * Create a IncomingPhoneNumberReader to execute read.
+     * 
+     * @return IncomingPhoneNumberReader capable of executing the read
+     */
+    public static IncomingPhoneNumberReader read() {
+        return new IncomingPhoneNumberReader();
     }
 
     /**
@@ -136,6 +175,16 @@ public class IncomingPhoneNumber extends SidResource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
+     * @param phoneNumber The phone number
+     * @return IncomingPhoneNumberCreator capable of executing the create
+     */
+    public static IncomingPhoneNumberCreator create(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        return new IncomingPhoneNumberCreator(phoneNumber);
+    }
+
+    /**
+     * Create a IncomingPhoneNumberCreator to execute create.
+     * 
      * @param ownerAccountSid The owner_account_sid
      * @param areaCode The desired area code for the new number
      * @return IncomingPhoneNumberCreator capable of executing the create
@@ -143,6 +192,16 @@ public class IncomingPhoneNumber extends SidResource {
     public static IncomingPhoneNumberCreator create(final String ownerAccountSid, 
                                                     final String areaCode) {
         return new IncomingPhoneNumberCreator(ownerAccountSid, areaCode);
+    }
+
+    /**
+     * Create a IncomingPhoneNumberCreator to execute create.
+     * 
+     * @param areaCode The desired area code for the new number
+     * @return IncomingPhoneNumberCreator capable of executing the create
+     */
+    public static IncomingPhoneNumberCreator create(final String areaCode) {
+        return new IncomingPhoneNumberCreator(areaCode);
     }
 
     /**

@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Recording;
 
 public class RecordingFetcher extends Fetcher<Recording> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new RecordingFetcher.
+     * 
+     * @param sid Fetch by unique recording Sid
+     */
+    public RecordingFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new RecordingFetcher.
@@ -42,6 +51,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Recording execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -53,7 +63,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
         
         if (response == null) {
             throw new ApiConnectionException("Recording fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -132,6 +132,20 @@ public class SmsMessage extends SidResource {
     /**
      * Create a SmsMessageCreator to execute create.
      * 
+     * @param to The to
+     * @param from The from
+     * @param body The body
+     * @return SmsMessageCreator capable of executing the create
+     */
+    public static SmsMessageCreator create(final com.twilio.sdk.type.PhoneNumber to, 
+                                           final com.twilio.sdk.type.PhoneNumber from, 
+                                           final String body) {
+        return new SmsMessageCreator(to, from, body);
+    }
+
+    /**
+     * Create a SmsMessageCreator to execute create.
+     * 
      * @param accountSid The account_sid
      * @param to The to
      * @param from The from
@@ -143,6 +157,20 @@ public class SmsMessage extends SidResource {
                                            final com.twilio.sdk.type.PhoneNumber from, 
                                            final List<URI> mediaUrl) {
         return new SmsMessageCreator(accountSid, to, from, mediaUrl);
+    }
+
+    /**
+     * Create a SmsMessageCreator to execute create.
+     * 
+     * @param to The to
+     * @param from The from
+     * @param mediaUrl The media_url
+     * @return SmsMessageCreator capable of executing the create
+     */
+    public static SmsMessageCreator create(final com.twilio.sdk.type.PhoneNumber to, 
+                                           final com.twilio.sdk.type.PhoneNumber from, 
+                                           final List<URI> mediaUrl) {
+        return new SmsMessageCreator(to, from, mediaUrl);
     }
 
     /**
@@ -158,6 +186,16 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Create a SmsMessageDeleter to execute delete.
+     * 
+     * @param sid The sid
+     * @return SmsMessageDeleter capable of executing the delete
+     */
+    public static SmsMessageDeleter delete(final String sid) {
+        return new SmsMessageDeleter(sid);
+    }
+
+    /**
      * Create a SmsMessageFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
@@ -167,6 +205,16 @@ public class SmsMessage extends SidResource {
     public static SmsMessageFetcher fetch(final String accountSid, 
                                           final String sid) {
         return new SmsMessageFetcher(accountSid, sid);
+    }
+
+    /**
+     * Create a SmsMessageFetcher to execute fetch.
+     * 
+     * @param sid The sid
+     * @return SmsMessageFetcher capable of executing the fetch
+     */
+    public static SmsMessageFetcher fetch(final String sid) {
+        return new SmsMessageFetcher(sid);
     }
 
     /**
@@ -180,6 +228,15 @@ public class SmsMessage extends SidResource {
     }
 
     /**
+     * Create a SmsMessageReader to execute read.
+     * 
+     * @return SmsMessageReader capable of executing the read
+     */
+    public static SmsMessageReader read() {
+        return new SmsMessageReader();
+    }
+
+    /**
      * Create a SmsMessageUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -189,6 +246,16 @@ public class SmsMessage extends SidResource {
     public static SmsMessageUpdater update(final String accountSid, 
                                            final String sid) {
         return new SmsMessageUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a SmsMessageUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return SmsMessageUpdater capable of executing the update
+     */
+    public static SmsMessageUpdater update(final String sid) {
+        return new SmsMessageUpdater(sid);
     }
 
     /**

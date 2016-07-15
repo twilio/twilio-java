@@ -52,6 +52,16 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Create a CredentialReader to execute read.
+     * 
+     * @param credentialListSid The credential_list_sid
+     * @return CredentialReader capable of executing the read
+     */
+    public static CredentialReader read(final String credentialListSid) {
+        return new CredentialReader(credentialListSid);
+    }
+
+    /**
      * Create a CredentialCreator to execute create.
      * 
      * @param accountSid The account_sid
@@ -68,6 +78,20 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Create a CredentialCreator to execute create.
+     * 
+     * @param credentialListSid The credential_list_sid
+     * @param username The username
+     * @param password The password
+     * @return CredentialCreator capable of executing the create
+     */
+    public static CredentialCreator create(final String credentialListSid, 
+                                           final String username, 
+                                           final String password) {
+        return new CredentialCreator(credentialListSid, username, password);
+    }
+
+    /**
      * Create a CredentialFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
@@ -79,6 +103,18 @@ public class Credential extends SidResource {
                                           final String credentialListSid, 
                                           final String sid) {
         return new CredentialFetcher(accountSid, credentialListSid, sid);
+    }
+
+    /**
+     * Create a CredentialFetcher to execute fetch.
+     * 
+     * @param credentialListSid The credential_list_sid
+     * @param sid The sid
+     * @return CredentialFetcher capable of executing the fetch
+     */
+    public static CredentialFetcher fetch(final String credentialListSid, 
+                                          final String sid) {
+        return new CredentialFetcher(credentialListSid, sid);
     }
 
     /**
@@ -100,6 +136,22 @@ public class Credential extends SidResource {
     }
 
     /**
+     * Create a CredentialUpdater to execute update.
+     * 
+     * @param credentialListSid The credential_list_sid
+     * @param sid The sid
+     * @param username The username
+     * @param password The password
+     * @return CredentialUpdater capable of executing the update
+     */
+    public static CredentialUpdater update(final String credentialListSid, 
+                                           final String sid, 
+                                           final String username, 
+                                           final String password) {
+        return new CredentialUpdater(credentialListSid, sid, username, password);
+    }
+
+    /**
      * Create a CredentialDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -111,6 +163,18 @@ public class Credential extends SidResource {
                                            final String credentialListSid, 
                                            final String sid) {
         return new CredentialDeleter(accountSid, credentialListSid, sid);
+    }
+
+    /**
+     * Create a CredentialDeleter to execute delete.
+     * 
+     * @param credentialListSid The credential_list_sid
+     * @param sid The sid
+     * @return CredentialDeleter capable of executing the delete
+     */
+    public static CredentialDeleter delete(final String credentialListSid, 
+                                           final String sid) {
+        return new CredentialDeleter(credentialListSid, sid);
     }
 
     /**

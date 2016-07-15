@@ -51,6 +51,16 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Create a OutgoingCallerIdFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique outgoing-caller-id Sid
+     * @return OutgoingCallerIdFetcher capable of executing the fetch
+     */
+    public static OutgoingCallerIdFetcher fetch(final String sid) {
+        return new OutgoingCallerIdFetcher(sid);
+    }
+
+    /**
      * Create a OutgoingCallerIdUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -60,6 +70,16 @@ public class OutgoingCallerId extends SidResource {
     public static OutgoingCallerIdUpdater update(final String accountSid, 
                                                  final String sid) {
         return new OutgoingCallerIdUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a OutgoingCallerIdUpdater to execute update.
+     * 
+     * @param sid Update by unique outgoing-caller-id Sid
+     * @return OutgoingCallerIdUpdater capable of executing the update
+     */
+    public static OutgoingCallerIdUpdater update(final String sid) {
+        return new OutgoingCallerIdUpdater(sid);
     }
 
     /**
@@ -75,6 +95,16 @@ public class OutgoingCallerId extends SidResource {
     }
 
     /**
+     * Create a OutgoingCallerIdDeleter to execute delete.
+     * 
+     * @param sid Delete by unique outgoing-caller-id Sid
+     * @return OutgoingCallerIdDeleter capable of executing the delete
+     */
+    public static OutgoingCallerIdDeleter delete(final String sid) {
+        return new OutgoingCallerIdDeleter(sid);
+    }
+
+    /**
      * Create a OutgoingCallerIdReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -82,6 +112,15 @@ public class OutgoingCallerId extends SidResource {
      */
     public static OutgoingCallerIdReader read(final String accountSid) {
         return new OutgoingCallerIdReader(accountSid);
+    }
+
+    /**
+     * Create a OutgoingCallerIdReader to execute read.
+     * 
+     * @return OutgoingCallerIdReader capable of executing the read
+     */
+    public static OutgoingCallerIdReader read() {
+        return new OutgoingCallerIdReader();
     }
 
     /**

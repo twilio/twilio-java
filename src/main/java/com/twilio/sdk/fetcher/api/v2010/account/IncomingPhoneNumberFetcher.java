@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.IncomingPhoneNumber;
 
 public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
-    private final String ownerAccountSid;
+    private String ownerAccountSid;
     private final String sid;
+
+    /**
+     * Construct a new IncomingPhoneNumberFetcher.
+     * 
+     * @param sid Fetch by unique incoming-phone-number Sid
+     */
+    public IncomingPhoneNumberFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IncomingPhoneNumberFetcher.
@@ -42,6 +51,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IncomingPhoneNumber execute(final TwilioRestClient client) {
+        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -53,7 +63,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
         
         if (response == null) {
             throw new ApiConnectionException("IncomingPhoneNumber fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

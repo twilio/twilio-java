@@ -38,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends SidResource {
-    private static final long serialVersionUID = 194029564276988L;
+    private static final long serialVersionUID = 268486811093222L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -132,6 +132,8 @@ public class Service extends SidResource {
     private final DateTime dateUpdated;
     private final String apnCredentialSid;
     private final String gcmCredentialSid;
+    private final String messagingServiceSid;
+    private final String facebookMessengerPageId;
     private final String defaultApnNotificationProtocolVersion;
     private final String defaultGcmNotificationProtocolVersion;
     private final URI url;
@@ -152,6 +154,10 @@ public class Service extends SidResource {
                     final String apnCredentialSid, 
                     @JsonProperty("gcm_credential_sid")
                     final String gcmCredentialSid, 
+                    @JsonProperty("messaging_service_sid")
+                    final String messagingServiceSid, 
+                    @JsonProperty("facebook_messenger_page_id")
+                    final String facebookMessengerPageId, 
                     @JsonProperty("default_apn_notification_protocol_version")
                     final String defaultApnNotificationProtocolVersion, 
                     @JsonProperty("default_gcm_notification_protocol_version")
@@ -167,6 +173,8 @@ public class Service extends SidResource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.apnCredentialSid = apnCredentialSid;
         this.gcmCredentialSid = gcmCredentialSid;
+        this.messagingServiceSid = messagingServiceSid;
+        this.facebookMessengerPageId = facebookMessengerPageId;
         this.defaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion;
         this.defaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion;
         this.url = url;
@@ -237,6 +245,24 @@ public class Service extends SidResource {
     }
 
     /**
+     * Returns The The messaging_service_sid.
+     * 
+     * @return The messaging_service_sid
+     */
+    public final String getMessagingServiceSid() {
+        return this.messagingServiceSid;
+    }
+
+    /**
+     * Returns The The facebook_messenger_page_id.
+     * 
+     * @return The facebook_messenger_page_id
+     */
+    public final String getFacebookMessengerPageId() {
+        return this.facebookMessengerPageId;
+    }
+
+    /**
      * Returns The The default_apn_notification_protocol_version.
      * 
      * @return The default_apn_notification_protocol_version
@@ -291,6 +317,8 @@ public class Service extends SidResource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(apnCredentialSid, other.apnCredentialSid) && 
                Objects.equals(gcmCredentialSid, other.gcmCredentialSid) && 
+               Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
+               Objects.equals(facebookMessengerPageId, other.facebookMessengerPageId) && 
                Objects.equals(defaultApnNotificationProtocolVersion, other.defaultApnNotificationProtocolVersion) && 
                Objects.equals(defaultGcmNotificationProtocolVersion, other.defaultGcmNotificationProtocolVersion) && 
                Objects.equals(url, other.url) && 
@@ -306,6 +334,8 @@ public class Service extends SidResource {
                             dateUpdated,
                             apnCredentialSid,
                             gcmCredentialSid,
+                            messagingServiceSid,
+                            facebookMessengerPageId,
                             defaultApnNotificationProtocolVersion,
                             defaultGcmNotificationProtocolVersion,
                             url,
@@ -322,6 +352,8 @@ public class Service extends SidResource {
                           .add("dateUpdated", dateUpdated)
                           .add("apnCredentialSid", apnCredentialSid)
                           .add("gcmCredentialSid", gcmCredentialSid)
+                          .add("messagingServiceSid", messagingServiceSid)
+                          .add("facebookMessengerPageId", facebookMessengerPageId)
                           .add("defaultApnNotificationProtocolVersion", defaultApnNotificationProtocolVersion)
                           .add("defaultGcmNotificationProtocolVersion", defaultGcmNotificationProtocolVersion)
                           .add("url", url)

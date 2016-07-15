@@ -52,7 +52,7 @@ public class WorkerDeleter extends Deleter<Worker> {
         
         if (response == null) {
             throw new ApiConnectionException("Worker delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -67,6 +67,6 @@ public class WorkerDeleter extends Deleter<Worker> {
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

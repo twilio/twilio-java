@@ -169,6 +169,15 @@ public class Yearly extends Resource {
     }
 
     /**
+     * Create a YearlyReader to execute read.
+     * 
+     * @return YearlyReader capable of executing the read
+     */
+    public static YearlyReader read() {
+        return new YearlyReader();
+    }
+
+    /**
      * Converts a JSON String into a Yearly object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

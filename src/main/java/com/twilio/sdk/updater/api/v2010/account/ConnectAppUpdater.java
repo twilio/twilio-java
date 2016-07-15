@@ -22,7 +22,7 @@ import java.net.URI;
 import java.util.List;
 
 public class ConnectAppUpdater extends Updater<ConnectApp> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private URI authorizeRedirectUrl;
     private String companyName;
@@ -32,6 +32,15 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     private String friendlyName;
     private URI homepageUrl;
     private List<ConnectApp.Permission> permissions;
+
+    /**
+     * Construct a new ConnectAppUpdater.
+     * 
+     * @param sid The sid
+     */
+    public ConnectAppUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new ConnectAppUpdater.
@@ -192,6 +201,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ConnectApp execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -204,7 +214,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         
         if (response == null) {
             throw new ApiConnectionException("ConnectApp update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.call.Recording;
 
 public class RecordingDeleter extends Deleter<Recording> {
-    private final String accountSid;
+    private String accountSid;
     private final String callSid;
     private final String sid;
+
+    /**
+     * Construct a new RecordingDeleter.
+     * 
+     * @param callSid The call_sid
+     * @param sid The sid
+     */
+    public RecordingDeleter(final String callSid, 
+                            final String sid) {
+        this.callSid = callSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new RecordingDeleter.
@@ -45,6 +57,7 @@ public class RecordingDeleter extends Deleter<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -56,7 +69,7 @@ public class RecordingDeleter extends Deleter<Recording> {
         
         if (response == null) {
             throw new ApiConnectionException("Recording delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -71,6 +84,6 @@ public class RecordingDeleter extends Deleter<Recording> {
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

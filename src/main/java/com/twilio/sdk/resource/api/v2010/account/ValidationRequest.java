@@ -46,6 +46,16 @@ public class ValidationRequest extends Resource {
     }
 
     /**
+     * Create a ValidationRequestCreator to execute create.
+     * 
+     * @param phoneNumber The phone_number
+     * @return ValidationRequestCreator capable of executing the create
+     */
+    public static ValidationRequestCreator create(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        return new ValidationRequestCreator(phoneNumber);
+    }
+
+    /**
      * Converts a JSON String into a ValidationRequest object using the provided
      * ObjectMapper.
      * 

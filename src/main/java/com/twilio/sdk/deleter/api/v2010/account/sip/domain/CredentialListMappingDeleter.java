@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.domain.CredentialListMapping;
 
 public class CredentialListMappingDeleter extends Deleter<CredentialListMapping> {
-    private final String accountSid;
+    private String accountSid;
     private final String domainSid;
     private final String sid;
+
+    /**
+     * Construct a new CredentialListMappingDeleter.
+     * 
+     * @param domainSid The domain_sid
+     * @param sid The sid
+     */
+    public CredentialListMappingDeleter(final String domainSid, 
+                                        final String sid) {
+        this.domainSid = domainSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new CredentialListMappingDeleter.
@@ -45,6 +57,7 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -56,7 +69,7 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
         
         if (response == null) {
             throw new ApiConnectionException("CredentialListMapping delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -71,6 +84,6 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

@@ -7,7 +7,6 @@
 
 package com.twilio.sdk.updater.ipmessaging.v1.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
@@ -18,12 +17,14 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.ipmessaging.v1.service.Channel;
 import com.twilio.sdk.updater.Updater;
 
+import java.util.Map;
+
 public class ChannelUpdater extends Updater<Channel> {
     private final String serviceSid;
     private final String sid;
     private String friendlyName;
     private String uniqueName;
-    private JsonNode attributes;
+    private Map<String, Object> attributes;
     private Channel.ChannelType type;
 
     /**
@@ -66,7 +67,7 @@ public class ChannelUpdater extends Updater<Channel> {
      * @param attributes The attributes
      * @return this
      */
-    public ChannelUpdater setAttributes(final JsonNode attributes) {
+    public ChannelUpdater setAttributes(final Map<String, Object> attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -103,7 +104,7 @@ public class ChannelUpdater extends Updater<Channel> {
         
         if (response == null) {
             throw new ApiConnectionException("Channel update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

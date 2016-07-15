@@ -21,7 +21,7 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class ShortCodeUpdater extends Updater<ShortCode> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String friendlyName;
     private String apiVersion;
@@ -29,6 +29,15 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     private HttpMethod smsMethod;
     private URI smsFallbackUrl;
     private HttpMethod smsFallbackMethod;
+
+    /**
+     * Construct a new ShortCodeUpdater.
+     * 
+     * @param sid The sid
+     */
+    public ShortCodeUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new ShortCodeUpdater.
@@ -147,6 +156,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ShortCode execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -159,7 +169,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         
         if (response == null) {
             throw new ApiConnectionException("ShortCode update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

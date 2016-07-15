@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.queue.Member;
 
 public class MemberFetcher extends Fetcher<Member> {
-    private final String accountSid;
+    private String accountSid;
     private final String queueSid;
     private final String callSid;
+
+    /**
+     * Construct a new MemberFetcher.
+     * 
+     * @param queueSid The Queue in which to find the members
+     * @param callSid The call_sid
+     */
+    public MemberFetcher(final String queueSid, 
+                         final String callSid) {
+        this.queueSid = queueSid;
+        this.callSid = callSid;
+    }
 
     /**
      * Construct a new MemberFetcher.
@@ -46,6 +58,7 @@ public class MemberFetcher extends Fetcher<Member> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Member execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -57,7 +70,7 @@ public class MemberFetcher extends Fetcher<Member> {
         
         if (response == null) {
             throw new ApiConnectionException("Member fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

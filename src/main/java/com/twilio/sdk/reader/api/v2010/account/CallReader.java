@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.api.v2010.account;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,15 +20,24 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Call;
+import org.joda.time.DateTime;
 
 public class CallReader extends Reader<Call> {
-    private final String accountSid;
+    private String accountSid;
     private com.twilio.sdk.type.PhoneNumber to;
     private com.twilio.sdk.type.PhoneNumber from;
     private String parentCallSid;
     private Call.Status status;
-    private String startTime;
-    private String endTime;
+    private DateTime absoluteStartTime;
+    private Range<DateTime> rangeStartTime;
+    private DateTime absoluteEndTime;
+    private Range<DateTime> rangeEndTime;
+
+    /**
+     * Construct a new CallReader.
+     */
+    public CallReader() {
+    }
 
     /**
      * Construct a new CallReader.
@@ -84,22 +95,48 @@ public class CallReader extends Reader<Call> {
     /**
      * Only show calls that started on this date.
      * 
-     * @param startTime StartTime to filter on
+     * @param absoluteStartTime StartTime to filter on
      * @return this
      */
-    public CallReader byStartTime(final String startTime) {
-        this.startTime = startTime;
+    public CallReader byStartTime(final DateTime absoluteStartTime) {
+        this.rangeStartTime = null;
+        this.absoluteStartTime = absoluteStartTime;
+        return this;
+    }
+
+    /**
+     * Only show calls that started on this date.
+     * 
+     * @param rangeStartTime StartTime to filter on
+     * @return this
+     */
+    public CallReader byStartTime(final Range<DateTime> rangeStartTime) {
+        this.absoluteStartTime = null;
+        this.rangeStartTime = rangeStartTime;
         return this;
     }
 
     /**
      * Only show call that ended on this date.
      * 
-     * @param endTime EndTime to filter on
+     * @param absoluteEndTime EndTime to filter on
      * @return this
      */
-    public CallReader byEndTime(final String endTime) {
-        this.endTime = endTime;
+    public CallReader byEndTime(final DateTime absoluteEndTime) {
+        this.rangeEndTime = null;
+        this.absoluteEndTime = absoluteEndTime;
+        return this;
+    }
+
+    /**
+     * Only show call that ended on this date.
+     * 
+     * @param rangeEndTime EndTime to filter on
+     * @return this
+     */
+    public CallReader byEndTime(final Range<DateTime> rangeEndTime) {
+        this.absoluteEndTime = null;
+        this.rangeEndTime = rangeEndTime;
         return this;
     }
 
@@ -123,6 +160,7 @@ public class CallReader extends Reader<Call> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Call> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -164,7 +202,7 @@ public class CallReader extends Reader<Call> {
         
         if (response == null) {
             throw new ApiConnectionException("Call read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -209,12 +247,16 @@ public class CallReader extends Reader<Call> {
             request.addQueryParam("Status", status.toString());
         }
         
-        if (startTime != null) {
-            request.addQueryParam("StartTime", startTime);
+        if (absoluteStartTime != null) {
+            request.addQueryParam("StartTime", absoluteStartTime.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeStartTime != null) {
+            request.addQueryDateRange("StartTime", rangeStartTime);
         }
         
-        if (endTime != null) {
-            request.addQueryParam("EndTime", endTime);
+        if (absoluteEndTime != null) {
+            request.addQueryParam("EndTime", absoluteEndTime.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeEndTime != null) {
+            request.addQueryDateRange("EndTime", rangeEndTime);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

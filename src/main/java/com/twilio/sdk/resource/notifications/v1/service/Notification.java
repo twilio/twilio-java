@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -35,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Notification extends Resource {
-    private static final long serialVersionUID = 263880980114231L;
+    private static final long serialVersionUID = 163669711439064L;
 
     public enum Priority {
         HIGH("high"),
@@ -123,15 +122,17 @@ public class Notification extends Resource {
     private final DateTime dateCreated;
     private final List<String> identities;
     private final List<String> tags;
-    private final String priority;
+    private final Notification.Priority priority;
     private final Integer ttl;
     private final String title;
     private final String body;
     private final String sound;
     private final String action;
-    private final JsonNode data;
-    private final JsonNode apn;
-    private final JsonNode gcm;
+    private final Map<String, Object> data;
+    private final Map<String, Object> apn;
+    private final Map<String, Object> gcm;
+    private final Map<String, Object> sms;
+    private final Map<String, Object> facebookMessenger;
 
     @JsonCreator
     private Notification(@JsonProperty("sid")
@@ -147,7 +148,7 @@ public class Notification extends Resource {
                          @JsonProperty("tags")
                          final List<String> tags, 
                          @JsonProperty("priority")
-                         final String priority, 
+                         final Notification.Priority priority, 
                          @JsonProperty("ttl")
                          final Integer ttl, 
                          @JsonProperty("title")
@@ -159,11 +160,15 @@ public class Notification extends Resource {
                          @JsonProperty("action")
                          final String action, 
                          @JsonProperty("data")
-                         final JsonNode data, 
+                         final Map<String, Object> data, 
                          @JsonProperty("apn")
-                         final JsonNode apn, 
+                         final Map<String, Object> apn, 
                          @JsonProperty("gcm")
-                         final JsonNode gcm) {
+                         final Map<String, Object> gcm, 
+                         @JsonProperty("sms")
+                         final Map<String, Object> sms, 
+                         @JsonProperty("facebook_messenger")
+                         final Map<String, Object> facebookMessenger) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -179,6 +184,8 @@ public class Notification extends Resource {
         this.data = data;
         this.apn = apn;
         this.gcm = gcm;
+        this.sms = sms;
+        this.facebookMessenger = facebookMessenger;
     }
 
     /**
@@ -240,7 +247,7 @@ public class Notification extends Resource {
      * 
      * @return The priority
      */
-    public final String getPriority() {
+    public final Notification.Priority getPriority() {
         return this.priority;
     }
 
@@ -294,7 +301,7 @@ public class Notification extends Resource {
      * 
      * @return The data
      */
-    public final JsonNode getData() {
+    public final Map<String, Object> getData() {
         return this.data;
     }
 
@@ -303,7 +310,7 @@ public class Notification extends Resource {
      * 
      * @return The apn
      */
-    public final JsonNode getApn() {
+    public final Map<String, Object> getApn() {
         return this.apn;
     }
 
@@ -312,8 +319,26 @@ public class Notification extends Resource {
      * 
      * @return The gcm
      */
-    public final JsonNode getGcm() {
+    public final Map<String, Object> getGcm() {
         return this.gcm;
+    }
+
+    /**
+     * Returns The The sms.
+     * 
+     * @return The sms
+     */
+    public final Map<String, Object> getSms() {
+        return this.sms;
+    }
+
+    /**
+     * Returns The The facebook_messenger.
+     * 
+     * @return The facebook_messenger
+     */
+    public final Map<String, Object> getFacebookMessenger() {
+        return this.facebookMessenger;
     }
 
     @Override
@@ -342,7 +367,9 @@ public class Notification extends Resource {
                Objects.equals(action, other.action) && 
                Objects.equals(data, other.data) && 
                Objects.equals(apn, other.apn) && 
-               Objects.equals(gcm, other.gcm);
+               Objects.equals(gcm, other.gcm) && 
+               Objects.equals(sms, other.sms) && 
+               Objects.equals(facebookMessenger, other.facebookMessenger);
     }
 
     @Override
@@ -361,7 +388,9 @@ public class Notification extends Resource {
                             action,
                             data,
                             apn,
-                            gcm);
+                            gcm,
+                            sms,
+                            facebookMessenger);
     }
 
     @Override
@@ -382,6 +411,8 @@ public class Notification extends Resource {
                           .add("data", data)
                           .add("apn", apn)
                           .add("gcm", gcm)
+                          .add("sms", sms)
+                          .add("facebookMessenger", facebookMessenger)
                           .toString();
     }
 }

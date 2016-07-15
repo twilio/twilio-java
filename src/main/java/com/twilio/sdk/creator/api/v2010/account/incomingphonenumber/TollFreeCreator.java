@@ -21,7 +21,7 @@ import com.twilio.sdk.resource.api.v2010.account.incomingphonenumber.TollFree;
 import java.net.URI;
 
 public class TollFreeCreator extends Creator<TollFree> {
-    private final String ownerAccountSid;
+    private String ownerAccountSid;
     private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
@@ -38,6 +38,15 @@ public class TollFreeCreator extends Creator<TollFree> {
     private URI voiceFallbackUrl;
     private HttpMethod voiceMethod;
     private URI voiceUrl;
+
+    /**
+     * Construct a new TollFreeCreator.
+     * 
+     * @param phoneNumber The phone_number
+     */
+    public TollFreeCreator(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     /**
      * Construct a new TollFreeCreator.
@@ -275,6 +284,7 @@ public class TollFreeCreator extends Creator<TollFree> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public TollFree execute(final TwilioRestClient client) {
+        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -287,7 +297,7 @@ public class TollFreeCreator extends Creator<TollFree> {
         
         if (response == null) {
             throw new ApiConnectionException("TollFree creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

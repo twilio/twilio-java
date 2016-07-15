@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -138,7 +137,7 @@ public class Service extends SidResource {
     private final Boolean readStatusEnabled;
     private final Integer typingIndicatorTimeout;
     private final Integer consumptionReportInterval;
-    private final JsonNode webhooks;
+    private final Map<String, Object> webhooks;
     private final URI url;
     private final Map<String, String> links;
 
@@ -166,7 +165,7 @@ public class Service extends SidResource {
                     @JsonProperty("consumption_report_interval")
                     final Integer consumptionReportInterval, 
                     @JsonProperty("webhooks")
-                    final JsonNode webhooks, 
+                    final Map<String, Object> webhooks, 
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
@@ -291,7 +290,7 @@ public class Service extends SidResource {
      * 
      * @return The webhooks
      */
-    public final JsonNode getWebhooks() {
+    public final Map<String, Object> getWebhooks() {
         return this.webhooks;
     }
 

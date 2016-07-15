@@ -21,10 +21,22 @@ import com.twilio.sdk.resource.api.v2010.account.call.Feedback;
 import java.util.List;
 
 public class FeedbackCreator extends Creator<Feedback> {
-    private final String accountSid;
+    private String accountSid;
     private final String callSid;
     private final Integer qualityScore;
     private List<Feedback.Issues> issue;
+
+    /**
+     * Construct a new FeedbackCreator.
+     * 
+     * @param callSid The call_sid
+     * @param qualityScore The quality_score
+     */
+    public FeedbackCreator(final String callSid, 
+                           final Integer qualityScore) {
+        this.callSid = callSid;
+        this.qualityScore = qualityScore;
+    }
 
     /**
      * Construct a new FeedbackCreator.
@@ -71,6 +83,7 @@ public class FeedbackCreator extends Creator<Feedback> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Feedback execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -83,7 +96,7 @@ public class FeedbackCreator extends Creator<Feedback> {
         
         if (response == null) {
             throw new ApiConnectionException("Feedback creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

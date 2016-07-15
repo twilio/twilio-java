@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.AvailablePhoneNumberCountry;
 
 public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNumberCountry> {
-    private final String accountSid;
+    private String accountSid;
     private final String countryCode;
+
+    /**
+     * Construct a new AvailablePhoneNumberCountryFetcher.
+     * 
+     * @param countryCode The country_code
+     */
+    public AvailablePhoneNumberCountryFetcher(final String countryCode) {
+        this.countryCode = countryCode;
+    }
 
     /**
      * Construct a new AvailablePhoneNumberCountryFetcher.
@@ -42,6 +51,7 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public AvailablePhoneNumberCountry execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -53,7 +63,7 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
         
         if (response == null) {
             throw new ApiConnectionException("AvailablePhoneNumberCountry fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

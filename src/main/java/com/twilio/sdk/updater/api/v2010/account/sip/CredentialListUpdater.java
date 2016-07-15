@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.api.v2010.account.sip.CredentialList;
 import com.twilio.sdk.updater.Updater;
 
 public class CredentialListUpdater extends Updater<CredentialList> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private final String friendlyName;
+
+    /**
+     * Construct a new CredentialListUpdater.
+     * 
+     * @param sid The sid
+     * @param friendlyName The friendly_name
+     */
+    public CredentialListUpdater(final String sid, 
+                                 final String friendlyName) {
+        this.sid = sid;
+        this.friendlyName = friendlyName;
+    }
 
     /**
      * Construct a new CredentialListUpdater.
@@ -46,6 +58,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public CredentialList execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -58,7 +71,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
         
         if (response == null) {
             throw new ApiConnectionException("CredentialList update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

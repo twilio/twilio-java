@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.api.v2010.account.sip.IpAccessControlList;
 import com.twilio.sdk.updater.Updater;
 
 public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private final String friendlyName;
+
+    /**
+     * Construct a new IpAccessControlListUpdater.
+     * 
+     * @param sid The sid
+     * @param friendlyName A human readable description of this resource
+     */
+    public IpAccessControlListUpdater(final String sid, 
+                                      final String friendlyName) {
+        this.sid = sid;
+        this.friendlyName = friendlyName;
+    }
 
     /**
      * Construct a new IpAccessControlListUpdater.
@@ -46,6 +58,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -58,7 +71,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
         
         if (response == null) {
             throw new ApiConnectionException("IpAccessControlList update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

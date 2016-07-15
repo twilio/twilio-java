@@ -21,10 +21,22 @@ import com.twilio.sdk.updater.Updater;
 import java.util.List;
 
 public class FeedbackUpdater extends Updater<Feedback> {
-    private final String accountSid;
+    private String accountSid;
     private final String callSid;
     private final Integer qualityScore;
     private List<Feedback.Issues> issue;
+
+    /**
+     * Construct a new FeedbackUpdater.
+     * 
+     * @param callSid The call_sid
+     * @param qualityScore An integer from 1 to 5
+     */
+    public FeedbackUpdater(final String callSid, 
+                           final Integer qualityScore) {
+        this.callSid = callSid;
+        this.qualityScore = qualityScore;
+    }
 
     /**
      * Construct a new FeedbackUpdater.
@@ -71,6 +83,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Feedback execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -83,7 +96,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
         
         if (response == null) {
             throw new ApiConnectionException("Feedback update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

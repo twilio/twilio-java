@@ -18,9 +18,18 @@ import com.twilio.sdk.resource.api.v2010.account.Message;
 import com.twilio.sdk.updater.Updater;
 
 public class MessageUpdater extends Updater<Message> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String body;
+
+    /**
+     * Construct a new MessageUpdater.
+     * 
+     * @param sid The message to redact
+     */
+    public MessageUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new MessageUpdater.
@@ -54,6 +63,7 @@ public class MessageUpdater extends Updater<Message> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Message execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -66,7 +76,7 @@ public class MessageUpdater extends Updater<Message> {
         
         if (response == null) {
             throw new ApiConnectionException("Message update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

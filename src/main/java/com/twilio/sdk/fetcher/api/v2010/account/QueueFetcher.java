@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Queue;
 
 public class QueueFetcher extends Fetcher<Queue> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new QueueFetcher.
+     * 
+     * @param sid Fetch by unique queue Sid
+     */
+    public QueueFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new QueueFetcher.
@@ -42,6 +51,7 @@ public class QueueFetcher extends Fetcher<Queue> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Queue execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -53,7 +63,7 @@ public class QueueFetcher extends Fetcher<Queue> {
         
         if (response == null) {
             throw new ApiConnectionException("Queue fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

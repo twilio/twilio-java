@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Transcription;
 
 public class TranscriptionReader extends Reader<Transcription> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new TranscriptionReader.
+     */
+    public TranscriptionReader() {
+    }
 
     /**
      * Construct a new TranscriptionReader.
@@ -51,6 +57,7 @@ public class TranscriptionReader extends Reader<Transcription> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Transcription> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -92,7 +99,7 @@ public class TranscriptionReader extends Reader<Transcription> {
         
         if (response == null) {
             throw new ApiConnectionException("Transcription read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

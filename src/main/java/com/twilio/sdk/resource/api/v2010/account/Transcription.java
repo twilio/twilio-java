@@ -86,6 +86,16 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Create a TranscriptionFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique transcription Sid
+     * @return TranscriptionFetcher capable of executing the fetch
+     */
+    public static TranscriptionFetcher fetch(final String sid) {
+        return new TranscriptionFetcher(sid);
+    }
+
+    /**
      * Create a TranscriptionDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -98,6 +108,16 @@ public class Transcription extends SidResource {
     }
 
     /**
+     * Create a TranscriptionDeleter to execute delete.
+     * 
+     * @param sid Delete by unique transcription Sid
+     * @return TranscriptionDeleter capable of executing the delete
+     */
+    public static TranscriptionDeleter delete(final String sid) {
+        return new TranscriptionDeleter(sid);
+    }
+
+    /**
      * Create a TranscriptionReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -105,6 +125,15 @@ public class Transcription extends SidResource {
      */
     public static TranscriptionReader read(final String accountSid) {
         return new TranscriptionReader(accountSid);
+    }
+
+    /**
+     * Create a TranscriptionReader to execute read.
+     * 
+     * @return TranscriptionReader capable of executing the read
+     */
+    public static TranscriptionReader read() {
+        return new TranscriptionReader();
     }
 
     /**

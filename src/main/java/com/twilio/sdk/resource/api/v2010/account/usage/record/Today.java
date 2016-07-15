@@ -169,6 +169,15 @@ public class Today extends Resource {
     }
 
     /**
+     * Create a TodayReader to execute read.
+     * 
+     * @return TodayReader capable of executing the read
+     */
+    public static TodayReader read() {
+        return new TodayReader();
+    }
+
+    /**
      * Converts a JSON String into a Today object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

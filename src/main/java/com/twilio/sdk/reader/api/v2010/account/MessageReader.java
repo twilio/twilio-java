@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.api.v2010.account;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,12 +20,20 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Message;
+import org.joda.time.DateTime;
 
 public class MessageReader extends Reader<Message> {
-    private final String accountSid;
+    private String accountSid;
     private com.twilio.sdk.type.PhoneNumber to;
     private com.twilio.sdk.type.PhoneNumber from;
-    private String dateSent;
+    private DateTime absoluteDateSent;
+    private Range<DateTime> rangeDateSent;
+
+    /**
+     * Construct a new MessageReader.
+     */
+    public MessageReader() {
+    }
 
     /**
      * Construct a new MessageReader.
@@ -59,11 +69,24 @@ public class MessageReader extends Reader<Message> {
     /**
      * Filter messages sent by this date.
      * 
-     * @param dateSent Filter by date sent
+     * @param absoluteDateSent Filter by date sent
      * @return this
      */
-    public MessageReader byDateSent(final String dateSent) {
-        this.dateSent = dateSent;
+    public MessageReader byDateSent(final DateTime absoluteDateSent) {
+        this.rangeDateSent = null;
+        this.absoluteDateSent = absoluteDateSent;
+        return this;
+    }
+
+    /**
+     * Filter messages sent by this date.
+     * 
+     * @param rangeDateSent Filter by date sent
+     * @return this
+     */
+    public MessageReader byDateSent(final Range<DateTime> rangeDateSent) {
+        this.absoluteDateSent = null;
+        this.rangeDateSent = rangeDateSent;
         return this;
     }
 
@@ -87,6 +110,7 @@ public class MessageReader extends Reader<Message> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Message> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -128,7 +152,7 @@ public class MessageReader extends Reader<Message> {
         
         if (response == null) {
             throw new ApiConnectionException("Message read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -165,8 +189,10 @@ public class MessageReader extends Reader<Message> {
             request.addQueryParam("From", from.toString());
         }
         
-        if (dateSent != null) {
-            request.addQueryParam("DateSent", dateSent);
+        if (absoluteDateSent != null) {
+            request.addQueryParam("DateSent", absoluteDateSent.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeDateSent != null) {
+            request.addQueryDateRange("DateSent", rangeDateSent);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.api.v2010.account.call;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,11 +20,22 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.call.Recording;
+import org.joda.time.DateTime;
 
 public class RecordingReader extends Reader<Recording> {
-    private final String accountSid;
+    private String accountSid;
     private final String callSid;
-    private String dateCreated;
+    private DateTime absoluteDateCreated;
+    private Range<DateTime> rangeDateCreated;
+
+    /**
+     * Construct a new RecordingReader.
+     * 
+     * @param callSid The call_sid
+     */
+    public RecordingReader(final String callSid) {
+        this.callSid = callSid;
+    }
 
     /**
      * Construct a new RecordingReader.
@@ -37,13 +50,26 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The date_created.
+     * The absolute_date_created.
      * 
-     * @param dateCreated The date_created
+     * @param absoluteDateCreated The absolute_date_created
      * @return this
      */
-    public RecordingReader byDateCreated(final String dateCreated) {
-        this.dateCreated = dateCreated;
+    public RecordingReader byDateCreated(final DateTime absoluteDateCreated) {
+        this.rangeDateCreated = null;
+        this.absoluteDateCreated = absoluteDateCreated;
+        return this;
+    }
+
+    /**
+     * The range_date_created.
+     * 
+     * @param rangeDateCreated The range_date_created
+     * @return this
+     */
+    public RecordingReader byDateCreated(final Range<DateTime> rangeDateCreated) {
+        this.absoluteDateCreated = null;
+        this.rangeDateCreated = rangeDateCreated;
         return this;
     }
 
@@ -67,6 +93,7 @@ public class RecordingReader extends Reader<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Recording> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -108,7 +135,7 @@ public class RecordingReader extends Reader<Recording> {
         
         if (response == null) {
             throw new ApiConnectionException("Recording read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -137,8 +164,10 @@ public class RecordingReader extends Reader<Recording> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (dateCreated != null) {
-            request.addQueryParam("DateCreated", dateCreated);
+        if (absoluteDateCreated != null) {
+            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeDateCreated != null) {
+            request.addQueryDateRange("DateCreated", rangeDateCreated);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

@@ -53,6 +53,18 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Create a NotificationFetcher to execute fetch.
+     * 
+     * @param callSid The call_sid
+     * @param sid The sid
+     * @return NotificationFetcher capable of executing the fetch
+     */
+    public static NotificationFetcher fetch(final String callSid, 
+                                            final String sid) {
+        return new NotificationFetcher(callSid, sid);
+    }
+
+    /**
      * Create a NotificationDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -67,6 +79,18 @@ public class Notification extends SidResource {
     }
 
     /**
+     * Create a NotificationDeleter to execute delete.
+     * 
+     * @param callSid The call_sid
+     * @param sid The sid
+     * @return NotificationDeleter capable of executing the delete
+     */
+    public static NotificationDeleter delete(final String callSid, 
+                                             final String sid) {
+        return new NotificationDeleter(callSid, sid);
+    }
+
+    /**
      * Create a NotificationReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -76,6 +100,16 @@ public class Notification extends SidResource {
     public static NotificationReader read(final String accountSid, 
                                           final String callSid) {
         return new NotificationReader(accountSid, callSid);
+    }
+
+    /**
+     * Create a NotificationReader to execute read.
+     * 
+     * @param callSid The call_sid
+     * @return NotificationReader capable of executing the read
+     */
+    public static NotificationReader read(final String callSid) {
+        return new NotificationReader(callSid);
     }
 
     /**

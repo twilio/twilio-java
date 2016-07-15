@@ -7,7 +7,6 @@
 
 package com.twilio.sdk.creator.ipmessaging.v1.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.creator.Creator;
 import com.twilio.sdk.exception.ApiConnectionException;
@@ -18,11 +17,13 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.ipmessaging.v1.service.Channel;
 
+import java.util.Map;
+
 public class ChannelCreator extends Creator<Channel> {
     private final String serviceSid;
     private final String friendlyName;
     private final String uniqueName;
-    private JsonNode attributes;
+    private Map<String, Object> attributes;
     private Channel.ChannelType type;
 
     /**
@@ -46,7 +47,7 @@ public class ChannelCreator extends Creator<Channel> {
      * @param attributes The attributes
      * @return this
      */
-    public ChannelCreator setAttributes(final JsonNode attributes) {
+    public ChannelCreator setAttributes(final Map<String, Object> attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -83,7 +84,7 @@ public class ChannelCreator extends Creator<Channel> {
         
         if (response == null) {
             throw new ApiConnectionException("Channel creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

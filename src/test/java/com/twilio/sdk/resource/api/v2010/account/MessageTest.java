@@ -43,8 +43,8 @@ public class MessageTest {
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json",
                                                       "AC123");
                         request.addPostParam("To", serialize(new com.twilio.sdk.type.PhoneNumber("+123456789")));
-        request.addPostParam("From", serialize(new com.twilio.sdk.type.PhoneNumber("+987654321")));
         request.addPostParam("Body", serialize("body"));
+        request.addPostParam("From", serialize(new com.twilio.sdk.type.PhoneNumber("+987654321")));
                         
                         twilioRestClient.request(request);
                         times = 1;
@@ -54,7 +54,7 @@ public class MessageTest {
                     }};
         
         try {
-            Message.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.type.PhoneNumber("+123456789"), new com.twilio.sdk.type.PhoneNumber("+987654321"), "body").execute();
+            Message.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.type.PhoneNumber("+123456789"), "body", new com.twilio.sdk.type.PhoneNumber("+987654321")).execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
         
-        Message.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.type.PhoneNumber("+123456789"), new com.twilio.sdk.type.PhoneNumber("+987654321"), "body").execute();
+        Message.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.sdk.type.PhoneNumber("+123456789"), "body", new com.twilio.sdk.type.PhoneNumber("+987654321")).execute();
     }
 
     @Test

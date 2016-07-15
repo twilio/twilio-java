@@ -69,14 +69,12 @@ public class Reservation extends SidResource {
      * @param workspaceSid The workspace_sid
      * @param taskSid The task_sid
      * @param sid The sid
-     * @param reservationStatus The reservation_status
      * @return ReservationUpdater capable of executing the update
      */
     public static ReservationUpdater update(final String workspaceSid, 
                                             final String taskSid, 
-                                            final String sid, 
-                                            final String reservationStatus) {
-        return new ReservationUpdater(workspaceSid, taskSid, sid, reservationStatus);
+                                            final String sid) {
+        return new ReservationUpdater(workspaceSid, taskSid, sid);
     }
 
     /**

@@ -82,6 +82,16 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Create a ConnectAppFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique connect-app Sid
+     * @return ConnectAppFetcher capable of executing the fetch
+     */
+    public static ConnectAppFetcher fetch(final String sid) {
+        return new ConnectAppFetcher(sid);
+    }
+
+    /**
      * Create a ConnectAppUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -94,6 +104,16 @@ public class ConnectApp extends SidResource {
     }
 
     /**
+     * Create a ConnectAppUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return ConnectAppUpdater capable of executing the update
+     */
+    public static ConnectAppUpdater update(final String sid) {
+        return new ConnectAppUpdater(sid);
+    }
+
+    /**
      * Create a ConnectAppReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -101,6 +121,15 @@ public class ConnectApp extends SidResource {
      */
     public static ConnectAppReader read(final String accountSid) {
         return new ConnectAppReader(accountSid);
+    }
+
+    /**
+     * Create a ConnectAppReader to execute read.
+     * 
+     * @return ConnectAppReader capable of executing the read
+     */
+    public static ConnectAppReader read() {
+        return new ConnectAppReader();
     }
 
     /**

@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.api.v2010.account.sms;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,12 +20,20 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sms.SmsMessage;
+import org.joda.time.DateTime;
 
 public class SmsMessageReader extends Reader<SmsMessage> {
-    private final String accountSid;
+    private String accountSid;
     private com.twilio.sdk.type.PhoneNumber to;
     private com.twilio.sdk.type.PhoneNumber from;
-    private String dateSent;
+    private DateTime absoluteDateSent;
+    private Range<DateTime> rangeDateSent;
+
+    /**
+     * Construct a new SmsMessageReader.
+     */
+    public SmsMessageReader() {
+    }
 
     /**
      * Construct a new SmsMessageReader.
@@ -57,13 +67,26 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     }
 
     /**
-     * The date_sent.
+     * The absolute_date_sent.
      * 
-     * @param dateSent The date_sent
+     * @param absoluteDateSent The absolute_date_sent
      * @return this
      */
-    public SmsMessageReader byDateSent(final String dateSent) {
-        this.dateSent = dateSent;
+    public SmsMessageReader byDateSent(final DateTime absoluteDateSent) {
+        this.rangeDateSent = null;
+        this.absoluteDateSent = absoluteDateSent;
+        return this;
+    }
+
+    /**
+     * The range_date_sent.
+     * 
+     * @param rangeDateSent The range_date_sent
+     * @return this
+     */
+    public SmsMessageReader byDateSent(final Range<DateTime> rangeDateSent) {
+        this.absoluteDateSent = null;
+        this.rangeDateSent = rangeDateSent;
         return this;
     }
 
@@ -87,6 +110,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<SmsMessage> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -128,7 +152,7 @@ public class SmsMessageReader extends Reader<SmsMessage> {
         
         if (response == null) {
             throw new ApiConnectionException("SmsMessage read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -165,8 +189,10 @@ public class SmsMessageReader extends Reader<SmsMessage> {
             request.addQueryParam("From", from.toString());
         }
         
-        if (dateSent != null) {
-            request.addQueryParam("DateSent", dateSent);
+        if (absoluteDateSent != null) {
+            request.addQueryParam("DateSent", absoluteDateSent.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeDateSent != null) {
+            request.addQueryDateRange("DateSent", rangeDateSent);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

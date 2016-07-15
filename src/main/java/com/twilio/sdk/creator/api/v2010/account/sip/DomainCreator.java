@@ -21,15 +21,25 @@ import com.twilio.sdk.resource.api.v2010.account.sip.Domain;
 import java.net.URI;
 
 public class DomainCreator extends Creator<Domain> {
-    private final String accountSid;
+    private String accountSid;
     private final String domainName;
     private String friendlyName;
+    private String authType;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
     private URI voiceFallbackUrl;
     private HttpMethod voiceFallbackMethod;
     private URI voiceStatusCallbackUrl;
     private HttpMethod voiceStatusCallbackMethod;
+
+    /**
+     * Construct a new DomainCreator.
+     * 
+     * @param domainName The unique address on Twilio to route SIP traffic
+     */
+    public DomainCreator(final String domainName) {
+        this.domainName = domainName;
+    }
 
     /**
      * Construct a new DomainCreator.
@@ -51,6 +61,17 @@ public class DomainCreator extends Creator<Domain> {
      */
     public DomainCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The types of authentication you have mapped to your domain.
+     * 
+     * @param authType The types of authentication mapped to the domain
+     * @return this
+     */
+    public DomainCreator setAuthType(final String authType) {
+        this.authType = authType;
         return this;
     }
 
@@ -165,6 +186,7 @@ public class DomainCreator extends Creator<Domain> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Domain execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -177,7 +199,7 @@ public class DomainCreator extends Creator<Domain> {
         
         if (response == null) {
             throw new ApiConnectionException("Domain creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -207,6 +229,10 @@ public class DomainCreator extends Creator<Domain> {
         
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+        
+        if (authType != null) {
+            request.addPostParam("AuthType", authType);
         }
         
         if (voiceUrl != null) {

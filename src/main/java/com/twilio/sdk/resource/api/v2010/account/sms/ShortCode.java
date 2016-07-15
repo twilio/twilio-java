@@ -51,6 +51,16 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Create a ShortCodeFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique short-code Sid
+     * @return ShortCodeFetcher capable of executing the fetch
+     */
+    public static ShortCodeFetcher fetch(final String sid) {
+        return new ShortCodeFetcher(sid);
+    }
+
+    /**
      * Create a ShortCodeUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -63,6 +73,16 @@ public class ShortCode extends SidResource {
     }
 
     /**
+     * Create a ShortCodeUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return ShortCodeUpdater capable of executing the update
+     */
+    public static ShortCodeUpdater update(final String sid) {
+        return new ShortCodeUpdater(sid);
+    }
+
+    /**
      * Create a ShortCodeReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -70,6 +90,15 @@ public class ShortCode extends SidResource {
      */
     public static ShortCodeReader read(final String accountSid) {
         return new ShortCodeReader(accountSid);
+    }
+
+    /**
+     * Create a ShortCodeReader to execute read.
+     * 
+     * @return ShortCodeReader capable of executing the read
+     */
+    public static ShortCodeReader read() {
+        return new ShortCodeReader();
     }
 
     /**

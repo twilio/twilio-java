@@ -81,23 +81,12 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
             client.getAccountSid()
         );
         
-        if (minutes != null) {
-            request.addQueryParam("Minutes", minutes.toString());
-        }
-        
-        if (startDate != null) {
-            request.addQueryParam("StartDate", startDate);
-        }
-        
-        if (endDate != null) {
-            request.addQueryParam("EndDate", endDate);
-        }
-        
+        addQueryParams(request);
         Response response = client.request(request);
         
         if (response == null) {
             throw new ApiConnectionException("WorkspaceStatistics fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -113,5 +102,24 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
         }
         
         return WorkspaceStatistics.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     * 
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (minutes != null) {
+            request.addQueryParam("Minutes", minutes.toString());
+        }
+        
+        if (startDate != null) {
+            request.addQueryParam("StartDate", startDate);
+        }
+        
+        if (endDate != null) {
+            request.addQueryParam("EndDate", endDate);
+        }
     }
 }

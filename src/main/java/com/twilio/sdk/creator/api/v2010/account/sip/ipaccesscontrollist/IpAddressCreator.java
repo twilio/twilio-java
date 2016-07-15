@@ -18,10 +18,25 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.ipaccesscontrollist.IpAddress;
 
 public class IpAddressCreator extends Creator<IpAddress> {
-    private final String accountSid;
+    private String accountSid;
     private final String ipAccessControlListSid;
     private final String friendlyName;
     private final String ipAddress;
+
+    /**
+     * Construct a new IpAddressCreator.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param friendlyName The friendly_name
+     * @param ipAddress The ip_address
+     */
+    public IpAddressCreator(final String ipAccessControlListSid, 
+                            final String friendlyName, 
+                            final String ipAddress) {
+        this.ipAccessControlListSid = ipAccessControlListSid;
+        this.friendlyName = friendlyName;
+        this.ipAddress = ipAddress;
+    }
 
     /**
      * Construct a new IpAddressCreator.
@@ -50,6 +65,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAddress execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -62,7 +78,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
         
         if (response == null) {
             throw new ApiConnectionException("IpAddress creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

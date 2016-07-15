@@ -83,6 +83,15 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Create a TollFreeReader to execute read.
+     * 
+     * @return TollFreeReader capable of executing the read
+     */
+    public static TollFreeReader read() {
+        return new TollFreeReader();
+    }
+
+    /**
      * Create a TollFreeCreator to execute create.
      * 
      * @param ownerAccountSid The owner_account_sid
@@ -92,6 +101,16 @@ public class TollFree extends Resource {
     public static TollFreeCreator create(final String ownerAccountSid, 
                                          final com.twilio.sdk.type.PhoneNumber phoneNumber) {
         return new TollFreeCreator(ownerAccountSid, phoneNumber);
+    }
+
+    /**
+     * Create a TollFreeCreator to execute create.
+     * 
+     * @param phoneNumber The phone_number
+     * @return TollFreeCreator capable of executing the create
+     */
+    public static TollFreeCreator create(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        return new TollFreeCreator(phoneNumber);
     }
 
     /**

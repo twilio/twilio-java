@@ -13,13 +13,14 @@ import com.twilio.sdk.resource.api.v2010.account.Call;
 import com.twilio.sdk.resource.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.sdk.resource.api.v2010.account.Message;
 import com.twilio.sdk.resource.api.v2010.account.availablephonenumbercountry.Local;
+import com.twilio.sdk.resource.notifications.v1.Service;
 import com.twilio.sdk.resource.trunking.v1.Trunk;
+import com.twilio.sdk.type.PhoneNumber;
 import com.twilio.twiml.Play;
 import com.twilio.twiml.Say;
 import com.twilio.twiml.TwiML;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.VoiceResponse;
-import com.twilio.sdk.type.PhoneNumber;
 
 import java.net.URI;
 import java.util.Iterator;
@@ -49,8 +50,8 @@ public class Example {
         Message message = new MessageCreator(
             ACCOUNT_SID,
             PHONE_NUMBER,
-            number.getPhoneNumber(),
-            "Hello world!"
+            "Hello world!",
+            number.getPhoneNumber()
         ).execute();
 
         System.out.println(message.getSid());
@@ -86,6 +87,11 @@ public class Example {
             .execute();
 
         System.out.println(trunk);
+
+        // Delete a resource
+        Service service = Service.create().execute();
+        boolean result = Service.delete(service.getSid()).execute();
+        System.out.println(result);
 
         // TwiML
         TwiML twiml = new VoiceResponse.Builder()

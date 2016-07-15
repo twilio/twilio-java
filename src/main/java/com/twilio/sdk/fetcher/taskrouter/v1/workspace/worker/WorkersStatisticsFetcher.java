@@ -119,6 +119,35 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
             client.getAccountSid()
         );
         
+        addQueryParams(request);
+        Response response = client.request(request);
+        
+        if (response == null) {
+            throw new ApiConnectionException("WorkersStatistics fetch failed: Unable to connect to server");
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            if (restException == null) {
+                throw new ApiException("Server Error, no content");
+            }
+        
+            throw new ApiException(
+                restException.getMessage(),
+                restException.getCode(),
+                restException.getMoreInfo(),
+                restException.getStatus(),
+                null
+            );
+        }
+        
+        return WorkersStatistics.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     * 
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
         if (minutes != null) {
             request.addQueryParam("Minutes", minutes.toString());
         }
@@ -142,26 +171,5 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
         if (friendlyName != null) {
             request.addQueryParam("FriendlyName", friendlyName);
         }
-        
-        Response response = client.request(request);
-        
-        if (response == null) {
-            throw new ApiConnectionException("WorkersStatistics fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
-            if (restException == null) {
-                throw new ApiException("Server Error, no content");
-            }
-        
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
-        }
-        
-        return WorkersStatistics.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

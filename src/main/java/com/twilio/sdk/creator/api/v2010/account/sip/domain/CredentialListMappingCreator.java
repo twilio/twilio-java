@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.domain.CredentialListMapping;
 
 public class CredentialListMappingCreator extends Creator<CredentialListMapping> {
-    private final String accountSid;
+    private String accountSid;
     private final String domainSid;
     private final String credentialListSid;
+
+    /**
+     * Construct a new CredentialListMappingCreator.
+     * 
+     * @param domainSid The domain_sid
+     * @param credentialListSid The credential_list_sid
+     */
+    public CredentialListMappingCreator(final String domainSid, 
+                                        final String credentialListSid) {
+        this.domainSid = domainSid;
+        this.credentialListSid = credentialListSid;
+    }
 
     /**
      * Construct a new CredentialListMappingCreator.
@@ -46,6 +58,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public CredentialListMapping execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -58,7 +71,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
         
         if (response == null) {
             throw new ApiConnectionException("CredentialListMapping creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

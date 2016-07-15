@@ -169,6 +169,15 @@ public class Yesterday extends Resource {
     }
 
     /**
+     * Create a YesterdayReader to execute read.
+     * 
+     * @return YesterdayReader capable of executing the read
+     */
+    public static YesterdayReader read() {
+        return new YesterdayReader();
+    }
+
+    /**
      * Converts a JSON String into a Yesterday object using the provided
      * ObjectMapper.
      * 

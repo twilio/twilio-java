@@ -240,6 +240,16 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Create a TriggerFetcher to execute fetch.
+     * 
+     * @param sid Fetch by unique usage-trigger Sid
+     * @return TriggerFetcher capable of executing the fetch
+     */
+    public static TriggerFetcher fetch(final String sid) {
+        return new TriggerFetcher(sid);
+    }
+
+    /**
      * Create a TriggerUpdater to execute update.
      * 
      * @param accountSid The account_sid
@@ -252,6 +262,16 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Create a TriggerUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return TriggerUpdater capable of executing the update
+     */
+    public static TriggerUpdater update(final String sid) {
+        return new TriggerUpdater(sid);
+    }
+
+    /**
      * Create a TriggerDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -261,6 +281,16 @@ public class Trigger extends SidResource {
     public static TriggerDeleter delete(final String accountSid, 
                                         final String sid) {
         return new TriggerDeleter(accountSid, sid);
+    }
+
+    /**
+     * Create a TriggerDeleter to execute delete.
+     * 
+     * @param sid The sid
+     * @return TriggerDeleter capable of executing the delete
+     */
+    public static TriggerDeleter delete(final String sid) {
+        return new TriggerDeleter(sid);
     }
 
     /**
@@ -280,6 +310,20 @@ public class Trigger extends SidResource {
     }
 
     /**
+     * Create a TriggerCreator to execute create.
+     * 
+     * @param callbackUrl URL Twilio will request when the trigger fires
+     * @param triggerValue the value at which the trigger will fire
+     * @param usageCategory The usage category the trigger watches
+     * @return TriggerCreator capable of executing the create
+     */
+    public static TriggerCreator create(final URI callbackUrl, 
+                                        final String triggerValue, 
+                                        final Trigger.UsageCategory usageCategory) {
+        return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
+    }
+
+    /**
      * Create a TriggerReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -287,6 +331,15 @@ public class Trigger extends SidResource {
      */
     public static TriggerReader read(final String accountSid) {
         return new TriggerReader(accountSid);
+    }
+
+    /**
+     * Create a TriggerReader to execute read.
+     * 
+     * @return TriggerReader capable of executing the read
+     */
+    public static TriggerReader read() {
+        return new TriggerReader();
     }
 
     /**

@@ -21,13 +21,19 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class SandboxUpdater extends Updater<Sandbox> {
-    private final String accountSid;
+    private String accountSid;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
     private URI smsUrl;
     private HttpMethod smsMethod;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+
+    /**
+     * Construct a new SandboxUpdater.
+     */
+    public SandboxUpdater() {
+    }
 
     /**
      * Construct a new SandboxUpdater.
@@ -143,6 +149,7 @@ public class SandboxUpdater extends Updater<Sandbox> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Sandbox execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -155,7 +162,7 @@ public class SandboxUpdater extends Updater<Sandbox> {
         
         if (response == null) {
             throw new ApiConnectionException("Sandbox update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

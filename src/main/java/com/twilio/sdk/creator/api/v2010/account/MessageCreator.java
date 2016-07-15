@@ -18,34 +18,35 @@ import com.twilio.sdk.http.Response;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Message;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
-    private final String accountSid;
+    private String accountSid;
     private final com.twilio.sdk.type.PhoneNumber to;
-    private final com.twilio.sdk.type.PhoneNumber from;
     private String body;
     private List<URI> mediaUrl;
+    private com.twilio.sdk.type.PhoneNumber from;
+    private String messagingServiceSid;
     private URI statusCallback;
     private String applicationSid;
+    private BigDecimal maxPrice;
+    private Boolean provideFeedback;
 
     /**
      * Construct a new MessageCreator.
      * 
-     * @param accountSid The account_sid
      * @param to The phone number to receive the message
-     * @param from The phone number that initiated the message
      * @param body The body
+     * @param from The phone number that initiated the message
      */
-    public MessageCreator(final String accountSid, 
-                          final com.twilio.sdk.type.PhoneNumber to, 
-                          final com.twilio.sdk.type.PhoneNumber from, 
-                          final String body) {
-        this.accountSid = accountSid;
+    public MessageCreator(final com.twilio.sdk.type.PhoneNumber to, 
+                          final String body, 
+                          final com.twilio.sdk.type.PhoneNumber from) {
         this.to = to;
-        this.from = from;
         this.body = body;
+        this.from = from;
     }
 
     /**
@@ -53,17 +54,116 @@ public class MessageCreator extends Creator<Message> {
      * 
      * @param accountSid The account_sid
      * @param to The phone number to receive the message
+     * @param body The body
      * @param from The phone number that initiated the message
-     * @param mediaUrl The media_url
      */
     public MessageCreator(final String accountSid, 
                           final com.twilio.sdk.type.PhoneNumber to, 
-                          final com.twilio.sdk.type.PhoneNumber from, 
-                          final List<URI> mediaUrl) {
+                          final String body, 
+                          final com.twilio.sdk.type.PhoneNumber from) {
         this.accountSid = accountSid;
         this.to = to;
+        this.body = body;
         this.from = from;
+    }
+
+    /**
+     * Construct a new MessageCreator.
+     * 
+     * @param to The phone number to receive the message
+     * @param body The body
+     * @param messagingServiceSid The messaging_service_sid
+     */
+    public MessageCreator(final com.twilio.sdk.type.PhoneNumber to, 
+                          final String body, 
+                          final String messagingServiceSid) {
+        this.to = to;
+        this.body = body;
+        this.messagingServiceSid = messagingServiceSid;
+    }
+
+    /**
+     * Construct a new MessageCreator.
+     * 
+     * @param accountSid The account_sid
+     * @param to The phone number to receive the message
+     * @param body The body
+     * @param messagingServiceSid The messaging_service_sid
+     */
+    public MessageCreator(final String accountSid, 
+                          final com.twilio.sdk.type.PhoneNumber to, 
+                          final String body, 
+                          final String messagingServiceSid) {
+        this.accountSid = accountSid;
+        this.to = to;
+        this.body = body;
+        this.messagingServiceSid = messagingServiceSid;
+    }
+
+    /**
+     * Construct a new MessageCreator.
+     * 
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param from The phone number that initiated the message
+     */
+    public MessageCreator(final com.twilio.sdk.type.PhoneNumber to, 
+                          final List<URI> mediaUrl, 
+                          final com.twilio.sdk.type.PhoneNumber from) {
+        this.to = to;
         this.mediaUrl = mediaUrl;
+        this.from = from;
+    }
+
+    /**
+     * Construct a new MessageCreator.
+     * 
+     * @param accountSid The account_sid
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param from The phone number that initiated the message
+     */
+    public MessageCreator(final String accountSid, 
+                          final com.twilio.sdk.type.PhoneNumber to, 
+                          final List<URI> mediaUrl, 
+                          final com.twilio.sdk.type.PhoneNumber from) {
+        this.accountSid = accountSid;
+        this.to = to;
+        this.mediaUrl = mediaUrl;
+        this.from = from;
+    }
+
+    /**
+     * Construct a new MessageCreator.
+     * 
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param messagingServiceSid The messaging_service_sid
+     */
+    public MessageCreator(final com.twilio.sdk.type.PhoneNumber to, 
+                          final List<URI> mediaUrl, 
+                          final String messagingServiceSid) {
+        this.to = to;
+        this.mediaUrl = mediaUrl;
+        this.messagingServiceSid = messagingServiceSid;
+    }
+
+    /**
+     * Construct a new MessageCreator.
+     * 
+     * @param accountSid The account_sid
+     * @param to The phone number to receive the message
+     * @param mediaUrl The media_url
+     * @param messagingServiceSid The messaging_service_sid
+     */
+    public MessageCreator(final String accountSid, 
+                          final com.twilio.sdk.type.PhoneNumber to, 
+                          final List<URI> mediaUrl, 
+                          final String messagingServiceSid) {
+        this.accountSid = accountSid;
+        this.to = to;
+        this.mediaUrl = mediaUrl;
+        this.messagingServiceSid = messagingServiceSid;
     }
 
     /**
@@ -100,6 +200,28 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * The max_price.
+     * 
+     * @param maxPrice The max_price
+     * @return this
+     */
+    public MessageCreator setMaxPrice(final BigDecimal maxPrice) {
+        this.maxPrice = maxPrice;
+        return this;
+    }
+
+    /**
+     * The provide_feedback.
+     * 
+     * @param provideFeedback The provide_feedback
+     * @return this
+     */
+    public MessageCreator setProvideFeedback(final Boolean provideFeedback) {
+        this.provideFeedback = provideFeedback;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -108,6 +230,7 @@ public class MessageCreator extends Creator<Message> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Message execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -120,7 +243,7 @@ public class MessageCreator extends Creator<Message> {
         
         if (response == null) {
             throw new ApiConnectionException("Message creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -148,10 +271,6 @@ public class MessageCreator extends Creator<Message> {
             request.addPostParam("To", to.toString());
         }
         
-        if (from != null) {
-            request.addPostParam("From", from.toString());
-        }
-        
         if (body != null) {
             request.addPostParam("Body", body);
         }
@@ -162,12 +281,28 @@ public class MessageCreator extends Creator<Message> {
             }
         }
         
+        if (from != null) {
+            request.addPostParam("From", from.toString());
+        }
+        
+        if (messagingServiceSid != null) {
+            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+        }
+        
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
         }
         
         if (applicationSid != null) {
             request.addPostParam("ApplicationSid", applicationSid);
+        }
+        
+        if (maxPrice != null) {
+            request.addPostParam("MaxPrice", maxPrice.toString());
+        }
+        
+        if (provideFeedback != null) {
+            request.addPostParam("ProvideFeedback", provideFeedback.toString());
         }
     }
 }

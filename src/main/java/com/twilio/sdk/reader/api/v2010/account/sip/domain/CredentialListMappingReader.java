@@ -20,8 +20,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.domain.CredentialListMapping;
 
 public class CredentialListMappingReader extends Reader<CredentialListMapping> {
-    private final String accountSid;
+    private String accountSid;
     private final String domainSid;
+
+    /**
+     * Construct a new CredentialListMappingReader.
+     * 
+     * @param domainSid The domain_sid
+     */
+    public CredentialListMappingReader(final String domainSid) {
+        this.domainSid = domainSid;
+    }
 
     /**
      * Construct a new CredentialListMappingReader.
@@ -55,6 +64,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<CredentialListMapping> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -96,7 +106,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
         
         if (response == null) {
             throw new ApiConnectionException("CredentialListMapping read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

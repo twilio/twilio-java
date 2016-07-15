@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.domain.IpAccessControlListMapping;
 
 public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlListMapping> {
-    private final String accountSid;
+    private String accountSid;
     private final String domainSid;
     private final String sid;
+
+    /**
+     * Construct a new IpAccessControlListMappingDeleter.
+     * 
+     * @param domainSid The domain_sid
+     * @param sid The sid
+     */
+    public IpAccessControlListMappingDeleter(final String domainSid, 
+                                             final String sid) {
+        this.domainSid = domainSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IpAccessControlListMappingDeleter.
@@ -45,6 +57,7 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -56,7 +69,7 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
         
         if (response == null) {
             throw new ApiConnectionException("IpAccessControlListMapping delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -71,6 +84,6 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

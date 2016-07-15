@@ -21,7 +21,7 @@ import com.twilio.sdk.resource.api.v2010.account.Call;
 import java.net.URI;
 
 public class CallCreator extends Creator<Call> {
-    private final String accountSid;
+    private String accountSid;
     private final com.twilio.sdk.type.PhoneNumber to;
     private final com.twilio.sdk.type.PhoneNumber from;
     private URI url;
@@ -35,6 +35,23 @@ public class CallCreator extends Creator<Call> {
     private String ifMachine;
     private Integer timeout;
     private Boolean record;
+    private String sipAuthUsername;
+    private String sipAuthPassword;
+
+    /**
+     * Construct a new CallCreator.
+     * 
+     * @param to Phone number, SIP address or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param url Url from which to fetch TwiML
+     */
+    public CallCreator(final com.twilio.sdk.type.PhoneNumber to, 
+                       final com.twilio.sdk.type.PhoneNumber from, 
+                       final URI url) {
+        this.to = to;
+        this.from = from;
+        this.url = url;
+    }
 
     /**
      * Construct a new CallCreator.
@@ -52,6 +69,22 @@ public class CallCreator extends Creator<Call> {
         this.to = to;
         this.from = from;
         this.url = url;
+    }
+
+    /**
+     * Construct a new CallCreator.
+     * 
+     * @param to Phone number, SIP address or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param applicationSid ApplicationSid that configures from where to fetch
+     *                       TwiML
+     */
+    public CallCreator(final com.twilio.sdk.type.PhoneNumber to, 
+                       final com.twilio.sdk.type.PhoneNumber from, 
+                       final String applicationSid) {
+        this.to = to;
+        this.from = from;
+        this.applicationSid = applicationSid;
     }
 
     /**
@@ -213,6 +246,28 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * The sip_auth_username.
+     * 
+     * @param sipAuthUsername The sip_auth_username
+     * @return this
+     */
+    public CallCreator setSipAuthUsername(final String sipAuthUsername) {
+        this.sipAuthUsername = sipAuthUsername;
+        return this;
+    }
+
+    /**
+     * The sip_auth_password.
+     * 
+     * @param sipAuthPassword The sip_auth_password
+     * @return this
+     */
+    public CallCreator setSipAuthPassword(final String sipAuthPassword) {
+        this.sipAuthPassword = sipAuthPassword;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -221,6 +276,7 @@ public class CallCreator extends Creator<Call> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Call execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -233,7 +289,7 @@ public class CallCreator extends Creator<Call> {
         
         if (response == null) {
             throw new ApiConnectionException("Call creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -307,6 +363,14 @@ public class CallCreator extends Creator<Call> {
         
         if (record != null) {
             request.addPostParam("Record", record.toString());
+        }
+        
+        if (sipAuthUsername != null) {
+            request.addPostParam("SipAuthUsername", sipAuthUsername);
+        }
+        
+        if (sipAuthPassword != null) {
+            request.addPostParam("SipAuthPassword", sipAuthPassword);
         }
     }
 }

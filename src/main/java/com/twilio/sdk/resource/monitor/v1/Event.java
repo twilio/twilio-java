@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -97,7 +96,7 @@ public class Event extends SidResource {
     private final String actorSid;
     private final String actorType;
     private final String description;
-    private final JsonNode eventData;
+    private final Map<String, Object> eventData;
     private final DateTime eventDate;
     private final String eventType;
     private final String resourceSid;
@@ -116,7 +115,7 @@ public class Event extends SidResource {
                   @JsonProperty("description")
                   final String description, 
                   @JsonProperty("event_data")
-                  final JsonNode eventData, 
+                  final Map<String, Object> eventData, 
                   @JsonProperty("event_date")
                   final String eventDate, 
                   @JsonProperty("event_type")
@@ -186,7 +185,7 @@ public class Event extends SidResource {
      * 
      * @return The event_data
      */
-    public final JsonNode getEventData() {
+    public final Map<String, Object> getEventData() {
         return this.eventData;
     }
 

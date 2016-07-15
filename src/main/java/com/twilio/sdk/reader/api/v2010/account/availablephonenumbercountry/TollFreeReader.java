@@ -20,7 +20,7 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.availablephonenumbercountry.TollFree;
 
 public class TollFreeReader extends Reader<TollFree> {
-    private final String accountSid;
+    private String accountSid;
     private final String countryCode;
     private Integer areaCode;
     private String contains;
@@ -31,6 +31,15 @@ public class TollFreeReader extends Reader<TollFree> {
     private Boolean excludeLocalAddressRequired;
     private Boolean excludeForeignAddressRequired;
     private Boolean beta;
+
+    /**
+     * Construct a new TollFreeReader.
+     * 
+     * @param countryCode The country_code
+     */
+    public TollFreeReader(final String countryCode) {
+        this.countryCode = countryCode;
+    }
 
     /**
      * Construct a new TollFreeReader.
@@ -163,6 +172,7 @@ public class TollFreeReader extends Reader<TollFree> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<TollFree> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -204,7 +214,7 @@ public class TollFreeReader extends Reader<TollFree> {
         
         if (response == null) {
             throw new ApiConnectionException("TollFree read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

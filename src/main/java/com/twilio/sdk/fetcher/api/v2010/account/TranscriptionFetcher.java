@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.Transcription;
 
 public class TranscriptionFetcher extends Fetcher<Transcription> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new TranscriptionFetcher.
+     * 
+     * @param sid Fetch by unique transcription Sid
+     */
+    public TranscriptionFetcher(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new TranscriptionFetcher.
@@ -42,6 +51,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Transcription execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -53,7 +63,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
         
         if (response == null) {
             throw new ApiConnectionException("Transcription fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -48,6 +48,16 @@ public class Local extends Resource {
     }
 
     /**
+     * Create a LocalReader to execute read.
+     * 
+     * @param countryCode The country_code
+     * @return LocalReader capable of executing the read
+     */
+    public static LocalReader read(final String countryCode) {
+        return new LocalReader(countryCode);
+    }
+
+    /**
      * Converts a JSON String into a Local object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String

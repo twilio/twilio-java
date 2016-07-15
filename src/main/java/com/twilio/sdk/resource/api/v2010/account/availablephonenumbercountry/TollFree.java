@@ -48,6 +48,16 @@ public class TollFree extends Resource {
     }
 
     /**
+     * Create a TollFreeReader to execute read.
+     * 
+     * @param countryCode The country_code
+     * @return TollFreeReader capable of executing the read
+     */
+    public static TollFreeReader read(final String countryCode) {
+        return new TollFreeReader(countryCode);
+    }
+
+    /**
      * Converts a JSON String into a TollFree object using the provided
      * ObjectMapper.
      * 

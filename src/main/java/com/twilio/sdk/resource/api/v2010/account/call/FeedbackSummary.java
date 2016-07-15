@@ -90,6 +90,18 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Create a FeedbackSummaryCreator to execute create.
+     * 
+     * @param startDate The start_date
+     * @param endDate The end_date
+     * @return FeedbackSummaryCreator capable of executing the create
+     */
+    public static FeedbackSummaryCreator create(final LocalDate startDate, 
+                                                final LocalDate endDate) {
+        return new FeedbackSummaryCreator(startDate, endDate);
+    }
+
+    /**
      * Create a FeedbackSummaryFetcher to execute fetch.
      * 
      * @param accountSid The account_sid
@@ -102,6 +114,16 @@ public class FeedbackSummary extends SidResource {
     }
 
     /**
+     * Create a FeedbackSummaryFetcher to execute fetch.
+     * 
+     * @param sid The sid
+     * @return FeedbackSummaryFetcher capable of executing the fetch
+     */
+    public static FeedbackSummaryFetcher fetch(final String sid) {
+        return new FeedbackSummaryFetcher(sid);
+    }
+
+    /**
      * Create a FeedbackSummaryDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -111,6 +133,16 @@ public class FeedbackSummary extends SidResource {
     public static FeedbackSummaryDeleter delete(final String accountSid, 
                                                 final String sid) {
         return new FeedbackSummaryDeleter(accountSid, sid);
+    }
+
+    /**
+     * Create a FeedbackSummaryDeleter to execute delete.
+     * 
+     * @param sid The sid
+     * @return FeedbackSummaryDeleter capable of executing the delete
+     */
+    public static FeedbackSummaryDeleter delete(final String sid) {
+        return new FeedbackSummaryDeleter(sid);
     }
 
     /**

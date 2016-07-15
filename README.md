@@ -33,7 +33,7 @@ Message message = new MessageCreator(
     new PhoneNumber("+15558881234"),
     new PhoneNumber("+15559994321"),
     "Hello world!"
-);
+).execute();
 
 System.out.println(message.getSid());
 ```
@@ -52,7 +52,7 @@ Call call = new CallCreator(
     
     // Read TwiML at this URL when a call connects (hold music)
     new URI("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
-);
+).execute();
 
 System.out.println(call.getSid());
 ```

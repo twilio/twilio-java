@@ -53,6 +53,18 @@ public class IpAccessControlListMapping extends SidResource {
     }
 
     /**
+     * Create a IpAccessControlListMappingFetcher to execute fetch.
+     * 
+     * @param domainSid The domain_sid
+     * @param sid The sid
+     * @return IpAccessControlListMappingFetcher capable of executing the fetch
+     */
+    public static IpAccessControlListMappingFetcher fetch(final String domainSid, 
+                                                          final String sid) {
+        return new IpAccessControlListMappingFetcher(domainSid, sid);
+    }
+
+    /**
      * Create a IpAccessControlListMappingCreator to execute create.
      * 
      * @param accountSid The account_sid
@@ -64,6 +76,18 @@ public class IpAccessControlListMapping extends SidResource {
                                                            final String domainSid, 
                                                            final String ipAccessControlListSid) {
         return new IpAccessControlListMappingCreator(accountSid, domainSid, ipAccessControlListSid);
+    }
+
+    /**
+     * Create a IpAccessControlListMappingCreator to execute create.
+     * 
+     * @param domainSid The domain_sid
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @return IpAccessControlListMappingCreator capable of executing the create
+     */
+    public static IpAccessControlListMappingCreator create(final String domainSid, 
+                                                           final String ipAccessControlListSid) {
+        return new IpAccessControlListMappingCreator(domainSid, ipAccessControlListSid);
     }
 
     /**
@@ -79,6 +103,16 @@ public class IpAccessControlListMapping extends SidResource {
     }
 
     /**
+     * Create a IpAccessControlListMappingReader to execute read.
+     * 
+     * @param domainSid The domain_sid
+     * @return IpAccessControlListMappingReader capable of executing the read
+     */
+    public static IpAccessControlListMappingReader read(final String domainSid) {
+        return new IpAccessControlListMappingReader(domainSid);
+    }
+
+    /**
      * Create a IpAccessControlListMappingDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -90,6 +124,18 @@ public class IpAccessControlListMapping extends SidResource {
                                                            final String domainSid, 
                                                            final String sid) {
         return new IpAccessControlListMappingDeleter(accountSid, domainSid, sid);
+    }
+
+    /**
+     * Create a IpAccessControlListMappingDeleter to execute delete.
+     * 
+     * @param domainSid The domain_sid
+     * @param sid The sid
+     * @return IpAccessControlListMappingDeleter capable of executing the delete
+     */
+    public static IpAccessControlListMappingDeleter delete(final String domainSid, 
+                                                           final String sid) {
+        return new IpAccessControlListMappingDeleter(domainSid, sid);
     }
 
     /**

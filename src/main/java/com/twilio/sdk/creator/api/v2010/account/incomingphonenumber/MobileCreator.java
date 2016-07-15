@@ -21,7 +21,7 @@ import com.twilio.sdk.resource.api.v2010.account.incomingphonenumber.Mobile;
 import java.net.URI;
 
 public class MobileCreator extends Creator<Mobile> {
-    private final String ownerAccountSid;
+    private String ownerAccountSid;
     private final com.twilio.sdk.type.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
@@ -38,6 +38,15 @@ public class MobileCreator extends Creator<Mobile> {
     private URI voiceFallbackUrl;
     private HttpMethod voiceMethod;
     private URI voiceUrl;
+
+    /**
+     * Construct a new MobileCreator.
+     * 
+     * @param phoneNumber The phone_number
+     */
+    public MobileCreator(final com.twilio.sdk.type.PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     /**
      * Construct a new MobileCreator.
@@ -275,6 +284,7 @@ public class MobileCreator extends Creator<Mobile> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Mobile execute(final TwilioRestClient client) {
+        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -287,7 +297,7 @@ public class MobileCreator extends Creator<Mobile> {
         
         if (response == null) {
             throw new ApiConnectionException("Mobile creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

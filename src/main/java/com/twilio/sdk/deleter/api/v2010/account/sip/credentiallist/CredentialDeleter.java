@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.credentiallist.Credential;
 
 public class CredentialDeleter extends Deleter<Credential> {
-    private final String accountSid;
+    private String accountSid;
     private final String credentialListSid;
     private final String sid;
+
+    /**
+     * Construct a new CredentialDeleter.
+     * 
+     * @param credentialListSid The credential_list_sid
+     * @param sid The sid
+     */
+    public CredentialDeleter(final String credentialListSid, 
+                             final String sid) {
+        this.credentialListSid = credentialListSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new CredentialDeleter.
@@ -45,6 +57,7 @@ public class CredentialDeleter extends Deleter<Credential> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -56,7 +69,7 @@ public class CredentialDeleter extends Deleter<Credential> {
         
         if (response == null) {
             throw new ApiConnectionException("Credential delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -71,6 +84,6 @@ public class CredentialDeleter extends Deleter<Credential> {
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

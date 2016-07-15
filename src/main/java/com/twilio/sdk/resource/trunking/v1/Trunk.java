@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.sdk.client.TwilioRestClient;
@@ -133,7 +132,7 @@ public class Trunk extends SidResource {
     private final URI disasterRecoveryUrl;
     private final String friendlyName;
     private final Boolean secure;
-    private final JsonNode recording;
+    private final Map<String, Object> recording;
     private final String authType;
     private final List<String> authTypeSet;
     private final DateTime dateCreated;
@@ -156,7 +155,7 @@ public class Trunk extends SidResource {
                   @JsonProperty("secure")
                   final Boolean secure, 
                   @JsonProperty("recording")
-                  final JsonNode recording, 
+                  final Map<String, Object> recording, 
                   @JsonProperty("auth_type")
                   final String authType, 
                   @JsonProperty("auth_type_set")
@@ -246,7 +245,7 @@ public class Trunk extends SidResource {
      * 
      * @return The recording
      */
-    public final JsonNode getRecording() {
+    public final Map<String, Object> getRecording() {
         return this.recording;
     }
 

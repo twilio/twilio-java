@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.message.Media;
 
 public class MediaFetcher extends Fetcher<Media> {
-    private final String accountSid;
+    private String accountSid;
     private final String messageSid;
     private final String sid;
+
+    /**
+     * Construct a new MediaFetcher.
+     * 
+     * @param messageSid The message_sid
+     * @param sid Fetch by unique media Sid
+     */
+    public MediaFetcher(final String messageSid, 
+                        final String sid) {
+        this.messageSid = messageSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new MediaFetcher.
@@ -46,6 +58,7 @@ public class MediaFetcher extends Fetcher<Media> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Media execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -57,7 +70,7 @@ public class MediaFetcher extends Fetcher<Media> {
         
         if (response == null) {
             throw new ApiConnectionException("Media fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

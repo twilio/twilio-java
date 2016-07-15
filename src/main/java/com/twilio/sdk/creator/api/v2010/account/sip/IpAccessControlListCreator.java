@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.IpAccessControlList;
 
 public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
-    private final String accountSid;
+    private String accountSid;
     private final String friendlyName;
+
+    /**
+     * Construct a new IpAccessControlListCreator.
+     * 
+     * @param friendlyName A human readable description of this resource
+     */
+    public IpAccessControlListCreator(final String friendlyName) {
+        this.friendlyName = friendlyName;
+    }
 
     /**
      * Construct a new IpAccessControlListCreator.
@@ -42,6 +51,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -54,7 +64,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
         
         if (response == null) {
             throw new ApiConnectionException("IpAccessControlList creation failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_CREATED) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

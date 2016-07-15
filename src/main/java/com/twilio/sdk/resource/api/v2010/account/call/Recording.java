@@ -52,6 +52,18 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Create a RecordingFetcher to execute fetch.
+     * 
+     * @param callSid The call_sid
+     * @param sid The sid
+     * @return RecordingFetcher capable of executing the fetch
+     */
+    public static RecordingFetcher fetch(final String callSid, 
+                                         final String sid) {
+        return new RecordingFetcher(callSid, sid);
+    }
+
+    /**
      * Create a RecordingDeleter to execute delete.
      * 
      * @param accountSid The account_sid
@@ -66,6 +78,18 @@ public class Recording extends SidResource {
     }
 
     /**
+     * Create a RecordingDeleter to execute delete.
+     * 
+     * @param callSid The call_sid
+     * @param sid The sid
+     * @return RecordingDeleter capable of executing the delete
+     */
+    public static RecordingDeleter delete(final String callSid, 
+                                          final String sid) {
+        return new RecordingDeleter(callSid, sid);
+    }
+
+    /**
      * Create a RecordingReader to execute read.
      * 
      * @param accountSid The account_sid
@@ -75,6 +99,16 @@ public class Recording extends SidResource {
     public static RecordingReader read(final String accountSid, 
                                        final String callSid) {
         return new RecordingReader(accountSid, callSid);
+    }
+
+    /**
+     * Create a RecordingReader to execute read.
+     * 
+     * @param callSid The call_sid
+     * @return RecordingReader capable of executing the read
+     */
+    public static RecordingReader read(final String callSid) {
+        return new RecordingReader(callSid);
     }
 
     /**

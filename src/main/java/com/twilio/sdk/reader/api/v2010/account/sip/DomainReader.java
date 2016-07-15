@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.Domain;
 
 public class DomainReader extends Reader<Domain> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new DomainReader.
+     */
+    public DomainReader() {
+    }
 
     /**
      * Construct a new DomainReader.
@@ -51,6 +57,7 @@ public class DomainReader extends Reader<Domain> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Domain> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -92,7 +99,7 @@ public class DomainReader extends Reader<Domain> {
         
         if (response == null) {
             throw new ApiConnectionException("Domain read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

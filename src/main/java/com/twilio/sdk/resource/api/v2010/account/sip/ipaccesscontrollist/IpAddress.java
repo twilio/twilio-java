@@ -52,6 +52,16 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Create a IpAddressReader to execute read.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @return IpAddressReader capable of executing the read
+     */
+    public static IpAddressReader read(final String ipAccessControlListSid) {
+        return new IpAddressReader(ipAccessControlListSid);
+    }
+
+    /**
      * Create a IpAddressCreator to execute create.
      * 
      * @param accountSid The account_sid
@@ -65,6 +75,20 @@ public class IpAddress extends SidResource {
                                           final String friendlyName, 
                                           final String ipAddress) {
         return new IpAddressCreator(accountSid, ipAccessControlListSid, friendlyName, ipAddress);
+    }
+
+    /**
+     * Create a IpAddressCreator to execute create.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param friendlyName The friendly_name
+     * @param ipAddress The ip_address
+     * @return IpAddressCreator capable of executing the create
+     */
+    public static IpAddressCreator create(final String ipAccessControlListSid, 
+                                          final String friendlyName, 
+                                          final String ipAddress) {
+        return new IpAddressCreator(ipAccessControlListSid, friendlyName, ipAddress);
     }
 
     /**
@@ -82,21 +106,41 @@ public class IpAddress extends SidResource {
     }
 
     /**
+     * Create a IpAddressFetcher to execute fetch.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param sid The sid
+     * @return IpAddressFetcher capable of executing the fetch
+     */
+    public static IpAddressFetcher fetch(final String ipAccessControlListSid, 
+                                         final String sid) {
+        return new IpAddressFetcher(ipAccessControlListSid, sid);
+    }
+
+    /**
      * Create a IpAddressUpdater to execute update.
      * 
      * @param accountSid The account_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @param sid The sid
-     * @param ipAddress The ip_address
-     * @param friendlyName The friendly_name
      * @return IpAddressUpdater capable of executing the update
      */
     public static IpAddressUpdater update(final String accountSid, 
                                           final String ipAccessControlListSid, 
-                                          final String sid, 
-                                          final String ipAddress, 
-                                          final String friendlyName) {
-        return new IpAddressUpdater(accountSid, ipAccessControlListSid, sid, ipAddress, friendlyName);
+                                          final String sid) {
+        return new IpAddressUpdater(accountSid, ipAccessControlListSid, sid);
+    }
+
+    /**
+     * Create a IpAddressUpdater to execute update.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param sid The sid
+     * @return IpAddressUpdater capable of executing the update
+     */
+    public static IpAddressUpdater update(final String ipAccessControlListSid, 
+                                          final String sid) {
+        return new IpAddressUpdater(ipAccessControlListSid, sid);
     }
 
     /**
@@ -111,6 +155,18 @@ public class IpAddress extends SidResource {
                                           final String ipAccessControlListSid, 
                                           final String sid) {
         return new IpAddressDeleter(accountSid, ipAccessControlListSid, sid);
+    }
+
+    /**
+     * Create a IpAddressDeleter to execute delete.
+     * 
+     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param sid The sid
+     * @return IpAddressDeleter capable of executing the delete
+     */
+    public static IpAddressDeleter delete(final String ipAccessControlListSid, 
+                                          final String sid) {
+        return new IpAddressDeleter(ipAccessControlListSid, sid);
     }
 
     /**

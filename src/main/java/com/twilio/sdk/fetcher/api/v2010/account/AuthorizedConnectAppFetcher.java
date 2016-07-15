@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.AuthorizedConnectApp;
 
 public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
-    private final String accountSid;
+    private String accountSid;
     private final String connectAppSid;
+
+    /**
+     * Construct a new AuthorizedConnectAppFetcher.
+     * 
+     * @param connectAppSid The connect_app_sid
+     */
+    public AuthorizedConnectAppFetcher(final String connectAppSid) {
+        this.connectAppSid = connectAppSid;
+    }
 
     /**
      * Construct a new AuthorizedConnectAppFetcher.
@@ -42,6 +51,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public AuthorizedConnectApp execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -53,7 +63,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
         
         if (response == null) {
             throw new ApiConnectionException("AuthorizedConnectApp fetch failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

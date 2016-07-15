@@ -3,7 +3,42 @@ twilio-java Changelog
 
 Here you can see the full list of changes between each twilio-java release.
 
-Version 7.0.0-rc-0
+Version 7.0.0-rc-8
+-------------
+
+Released July 8, 2016
+
+- Add SMS and Facebook Messenger for Notify
+
+Version 7.0.0-rc-6
+-------------
+
+Released June 9, 2016
+
+- Add Messaging Feedback
+
+Version 7.0.0-rc-5
+-------------
+
+Released June 6, 2016
+
+- Add Marketplace
+
+Version 7.0.0-rc-3
+-------------
+
+Released May 18, 2016
+
+- Fix NPE in resource deletion
+
+Version 7.0.0-rc-2
+-------------
+
+Released April 5, 2016
+
+- Add query params to Fetchers
+
+Version 7.0.0-rc-1
 -------------
 
 Released March 23, 2016

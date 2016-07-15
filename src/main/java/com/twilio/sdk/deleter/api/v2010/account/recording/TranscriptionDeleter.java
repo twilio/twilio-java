@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.recording.Transcription;
 
 public class TranscriptionDeleter extends Deleter<Transcription> {
-    private final String accountSid;
+    private String accountSid;
     private final String recordingSid;
     private final String sid;
+
+    /**
+     * Construct a new TranscriptionDeleter.
+     * 
+     * @param recordingSid The recording_sid
+     * @param sid The sid
+     */
+    public TranscriptionDeleter(final String recordingSid, 
+                                final String sid) {
+        this.recordingSid = recordingSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new TranscriptionDeleter.
@@ -45,6 +57,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -56,7 +69,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
         
         if (response == null) {
             throw new ApiConnectionException("Transcription delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -71,6 +84,6 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

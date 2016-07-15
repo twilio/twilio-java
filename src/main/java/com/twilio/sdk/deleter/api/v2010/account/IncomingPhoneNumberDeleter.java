@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.IncomingPhoneNumber;
 
 public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
-    private final String ownerAccountSid;
+    private String ownerAccountSid;
     private final String sid;
+
+    /**
+     * Construct a new IncomingPhoneNumberDeleter.
+     * 
+     * @param sid Delete by unique phone-number Sid
+     */
+    public IncomingPhoneNumberDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IncomingPhoneNumberDeleter.
@@ -41,6 +50,7 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -52,7 +62,7 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
         
         if (response == null) {
             throw new ApiConnectionException("IncomingPhoneNumber delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -67,6 +77,6 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

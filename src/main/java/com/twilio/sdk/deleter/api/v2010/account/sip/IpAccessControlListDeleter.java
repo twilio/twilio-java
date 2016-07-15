@@ -18,8 +18,17 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.sip.IpAccessControlList;
 
 public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
+
+    /**
+     * Construct a new IpAccessControlListDeleter.
+     * 
+     * @param sid Delete by unique ip-access-control-list Sid
+     */
+    public IpAccessControlListDeleter(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new IpAccessControlListDeleter.
@@ -41,6 +50,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -52,7 +62,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
         
         if (response == null) {
             throw new ApiConnectionException("IpAccessControlList delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -67,6 +77,6 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

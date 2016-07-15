@@ -7,7 +7,9 @@
 
 package com.twilio.sdk.reader.api.v2010.account.usage;
 
+import com.google.common.collect.Range;
 import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;
@@ -18,12 +20,21 @@ import com.twilio.sdk.resource.Page;
 import com.twilio.sdk.resource.ResourceSet;
 import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.usage.Record;
+import org.joda.time.DateTime;
 
 public class RecordReader extends Reader<Record> {
-    private final String accountSid;
+    private String accountSid;
     private Record.Category category;
-    private String startDate;
-    private String endDate;
+    private DateTime absoluteStartDate;
+    private Range<DateTime> rangeStartDate;
+    private DateTime absoluteEndDate;
+    private Range<DateTime> rangeEndDate;
+
+    /**
+     * Construct a new RecordReader.
+     */
+    public RecordReader() {
+    }
 
     /**
      * Construct a new RecordReader.
@@ -51,11 +62,27 @@ public class RecordReader extends Reader<Record> {
      * for example, StartDate=-30days, which will make StartDate 30 days before
      * today.
      * 
-     * @param startDate Filter by start date
+     * @param absoluteStartDate Filter by start date
      * @return this
      */
-    public RecordReader byStartDate(final String startDate) {
-        this.startDate = startDate;
+    public RecordReader byStartDate(final DateTime absoluteStartDate) {
+        this.rangeStartDate = null;
+        this.absoluteStartDate = absoluteStartDate;
+        return this;
+    }
+
+    /**
+     * Only include usage that has occurred on or after this date. Format is
+     * YYYY-MM-DD in GTM. As a convenience, you can also specify offsets to today,
+     * for example, StartDate=-30days, which will make StartDate 30 days before
+     * today.
+     * 
+     * @param rangeStartDate Filter by start date
+     * @return this
+     */
+    public RecordReader byStartDate(final Range<DateTime> rangeStartDate) {
+        this.absoluteStartDate = null;
+        this.rangeStartDate = rangeStartDate;
         return this;
     }
 
@@ -64,11 +91,26 @@ public class RecordReader extends Reader<Record> {
      * YYYY-MM-DD in GTM. As a convenience, you can also specify offsets to today,
      * for example, EndDate=+30days, which will make EndDate 30 days from today.
      * 
-     * @param endDate Filter by end date
+     * @param absoluteEndDate Filter by end date
      * @return this
      */
-    public RecordReader byEndDate(final String endDate) {
-        this.endDate = endDate;
+    public RecordReader byEndDate(final DateTime absoluteEndDate) {
+        this.rangeEndDate = null;
+        this.absoluteEndDate = absoluteEndDate;
+        return this;
+    }
+
+    /**
+     * Only include usage that has occurred on or after this date. Format is
+     * YYYY-MM-DD in GTM. As a convenience, you can also specify offsets to today,
+     * for example, EndDate=+30days, which will make EndDate 30 days from today.
+     * 
+     * @param rangeEndDate Filter by end date
+     * @return this
+     */
+    public RecordReader byEndDate(final Range<DateTime> rangeEndDate) {
+        this.absoluteEndDate = null;
+        this.rangeEndDate = rangeEndDate;
         return this;
     }
 
@@ -92,6 +134,7 @@ public class RecordReader extends Reader<Record> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Record> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -133,7 +176,7 @@ public class RecordReader extends Reader<Record> {
         
         if (response == null) {
             throw new ApiConnectionException("Record read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -166,12 +209,16 @@ public class RecordReader extends Reader<Record> {
             request.addQueryParam("Category", category.toString());
         }
         
-        if (startDate != null) {
-            request.addQueryParam("StartDate", startDate);
+        if (absoluteStartDate != null) {
+            request.addQueryParam("StartDate", absoluteStartDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeStartDate != null) {
+            request.addQueryDateRange("StartDate", rangeStartDate);
         }
         
-        if (endDate != null) {
-            request.addQueryParam("EndDate", endDate);
+        if (absoluteEndDate != null) {
+            request.addQueryParam("EndDate", absoluteEndDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeEndDate != null) {
+            request.addQueryDateRange("EndDate", rangeEndDate);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

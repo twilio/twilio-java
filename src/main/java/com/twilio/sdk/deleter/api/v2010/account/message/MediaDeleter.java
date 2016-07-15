@@ -18,9 +18,21 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.message.Media;
 
 public class MediaDeleter extends Deleter<Media> {
-    private final String accountSid;
+    private String accountSid;
     private final String messageSid;
     private final String sid;
+
+    /**
+     * Construct a new MediaDeleter.
+     * 
+     * @param messageSid The message_sid
+     * @param sid Delete by unique media Sid
+     */
+    public MediaDeleter(final String messageSid, 
+                        final String sid) {
+        this.messageSid = messageSid;
+        this.sid = sid;
+    }
 
     /**
      * Construct a new MediaDeleter.
@@ -45,6 +57,7 @@ public class MediaDeleter extends Deleter<Media> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
@@ -56,7 +69,7 @@ public class MediaDeleter extends Deleter<Media> {
         
         if (response == null) {
             throw new ApiConnectionException("Media delete failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -71,6 +84,6 @@ public class MediaDeleter extends Deleter<Media> {
             );
         }
         
-        return true;
+        return response.getStatusCode() == 204;
     }
 }

@@ -21,9 +21,9 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class DomainUpdater extends Updater<Domain> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
-    private String apiVersion;
+    private String authType;
     private String friendlyName;
     private HttpMethod voiceFallbackMethod;
     private URI voiceFallbackUrl;
@@ -31,6 +31,15 @@ public class DomainUpdater extends Updater<Domain> {
     private HttpMethod voiceStatusCallbackMethod;
     private URI voiceStatusCallbackUrl;
     private URI voiceUrl;
+
+    /**
+     * Construct a new DomainUpdater.
+     * 
+     * @param sid The sid
+     */
+    public DomainUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new DomainUpdater.
@@ -45,13 +54,13 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The api_version.
+     * The auth_type.
      * 
-     * @param apiVersion The api_version
+     * @param authType The auth_type
      * @return this
      */
-    public DomainUpdater setApiVersion(final String apiVersion) {
-        this.apiVersion = apiVersion;
+    public DomainUpdater setAuthType(final String authType) {
+        this.authType = authType;
         return this;
     }
 
@@ -171,6 +180,7 @@ public class DomainUpdater extends Updater<Domain> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Domain execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -183,7 +193,7 @@ public class DomainUpdater extends Updater<Domain> {
         
         if (response == null) {
             throw new ApiConnectionException("Domain update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -207,8 +217,8 @@ public class DomainUpdater extends Updater<Domain> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (apiVersion != null) {
-            request.addPostParam("ApiVersion", apiVersion);
+        if (authType != null) {
+            request.addPostParam("AuthType", authType);
         }
         
         if (friendlyName != null) {

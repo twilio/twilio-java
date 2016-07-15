@@ -21,7 +21,7 @@ import com.twilio.sdk.updater.Updater;
 import java.net.URI;
 
 public class ApplicationUpdater extends Updater<Application> {
-    private final String accountSid;
+    private String accountSid;
     private final String sid;
     private String friendlyName;
     private String apiVersion;
@@ -38,6 +38,15 @@ public class ApplicationUpdater extends Updater<Application> {
     private HttpMethod smsFallbackMethod;
     private URI smsStatusCallback;
     private URI messageStatusCallback;
+
+    /**
+     * Construct a new ApplicationUpdater.
+     * 
+     * @param sid The sid
+     */
+    public ApplicationUpdater(final String sid) {
+        this.sid = sid;
+    }
 
     /**
      * Construct a new ApplicationUpdater.
@@ -323,6 +332,7 @@ public class ApplicationUpdater extends Updater<Application> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Application execute(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
@@ -335,7 +345,7 @@ public class ApplicationUpdater extends Updater<Application> {
         
         if (response == null) {
             throw new ApiConnectionException("Application update failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

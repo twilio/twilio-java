@@ -20,7 +20,13 @@ import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.api.v2010.account.usage.record.Yearly;
 
 public class YearlyReader extends Reader<Yearly> {
-    private final String accountSid;
+    private String accountSid;
+
+    /**
+     * Construct a new YearlyReader.
+     */
+    public YearlyReader() {
+    }
 
     /**
      * Construct a new YearlyReader.
@@ -51,6 +57,7 @@ public class YearlyReader extends Reader<Yearly> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Yearly> firstPage(final TwilioRestClient client) {
+        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
@@ -92,7 +99,7 @@ public class YearlyReader extends Reader<Yearly> {
         
         if (response == null) {
             throw new ApiConnectionException("Yearly read failed: Unable to connect to server");
-        } else if (response.getStatusCode() != TwilioRestClient.HTTP_STATUS_CODE_OK) {
+        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

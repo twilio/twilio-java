@@ -1,10 +1,8 @@
-package com.twilio.auth;
+package com.twilio.jwt.accesstoken;
 
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
+import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -22,69 +20,68 @@ import java.util.Set;
  *     </a>
  * </p>
  */
-public class AccessToken {
+public class AccessToken extends Jwt {
 
+    private static final String CTY = "twilio-fpa;v=1";
+
+    private final String id;
     private final String accountSid;
-    private final String keySid;
-    private final String secret;
-    private final int ttl;
-
-    private final Integer nbf;
     private final String identity;
+    private final Date nbf;
     private final Set<Grant> grants;
 
     private AccessToken(Builder b) {
+        super(
+            SignatureAlgorithm.HS256,
+            b.secret,
+            b.keySid,
+            new Date(new Date().getTime() + b.ttl * 1000)
+        );
+
+        Date now = new Date();
+
+        this.id = b.keySid + (int)(Math.floor(now.getTime() / 1000.0f));
         this.accountSid = b.accountSid;
-        this.keySid = b.keySid;
-        this.secret = b.secret;
-        this.ttl = b.ttl;
-        this.nbf = b.nbf;
         this.identity = b.identity;
+        this.nbf = new Date(b.nbf * 1000);
         this.grants = Collections.unmodifiableSet(b.grants);
     }
 
-    public String getIdentity() {
-        return this.identity;
+    @Override
+    public Date getNbf() {
+        return this.nbf;
     }
 
-    /**
-     * Transform this access token to JWT.
-     *
-     * @return compacted JWT
-     */
-    @SuppressWarnings("checkstyle:abbreviationaswordinname")
-    public String toJWT() {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("typ", "JWT");
-        headers.put("cty", "twilio-fpa;v=1");
+    @Override
+    public String getId() {
+        return this.id;
+    }
 
-        Date now = new Date();
-        int timestamp = (int)(Math.floor(now.getTime() / 1000.0f));
-        Map<String, Object> grantPayload = new HashMap<>();
+    @Override
+    public String getSubject() {
+        return this.accountSid;
+    }
+
+    @Override
+    public Map<String, Object> getHeaders() {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("cty", CTY);
+        return headers;
+    }
+
+    @Override
+    public Map<String, Object> getClaims() {
+        Map<String, Object> payload = new HashMap<>();
 
         if (this.identity != null) {
-            grantPayload.put("identity", this.identity);
+            payload.put("identity", this.identity);
         }
 
         for (Grant grant : this.grants) {
-            grantPayload.put(grant.getGrantKey(), grant.getPayload());
+            payload.put(grant.getGrantKey(), grant.getPayload());
         }
 
-        JwtBuilder builder =
-            Jwts.builder()
-                .signWith(SignatureAlgorithm.HS256, secret.getBytes(Charset.forName("UTF-8")))
-                .setHeaderParams(headers)
-                .setId(this.keySid + "-" + timestamp)
-                .setIssuer(this.keySid)
-                .setSubject(this.accountSid)
-                .setExpiration(new Date(now.getTime() + ttl * 1000))
-                .claim("grants", grantPayload);
-
-        if (this.nbf != null) {
-            builder.setNotBefore(new Date((long)this.nbf * 1000));
-        }
-
-        return builder.compact();
+        return payload;
     }
 
     /** Builder used to construct a Access Token. */
@@ -93,7 +90,7 @@ public class AccessToken {
         private String keySid;
         private String secret;
         private String identity;
-        private Integer nbf = null;
+        private Long nbf = null;
         private int ttl = 3600;
         private Set<Grant> grants = new HashSet<Grant>();
 
@@ -120,7 +117,7 @@ public class AccessToken {
             return this;
         }
 
-        public Builder nbf(int nbf) {
+        public Builder nbf(Long nbf) {
             this.nbf = nbf;
             return this;
         }

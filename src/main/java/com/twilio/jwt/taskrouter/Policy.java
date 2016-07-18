@@ -1,15 +1,33 @@
-package com.twilio.client;
+package com.twilio.jwt.taskrouter;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.MoreObjects;
+import com.twilio.sdk.http.HttpMethod;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Map;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Policy {
 
+    @JsonProperty("url")
     private final String url;
-    private final String method;
+
+    @JsonProperty("method")
+    private final HttpMethod method;
+
+    @JsonProperty("query_filter")
     private final Map<String, FilterRequirement> queryFilter;
+
+    @JsonProperty("post_filter")
     private final Map<String, FilterRequirement> postFilter;
+
+    @JsonProperty("allow")
     private final boolean allowed;
 
     private Policy(Builder b) {
@@ -24,7 +42,7 @@ public class Policy {
         return url;
     }
 
-    public String getMethod() {
+    public HttpMethod getMethod() {
         return method;
     }
 
@@ -40,6 +58,20 @@ public class Policy {
         return allowed;
     }
 
+    /**
+     * Converts a resource to JSON.
+     *
+     * @return JSON representation of the resource
+     * @throws IOException if unable to transform to JSON
+     */
+    public String toJson() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        mapper.writeValue(out, this);
+        return out.toString();
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -53,7 +85,7 @@ public class Policy {
 
     public static class Builder {
         private String url;
-        private String method;
+        private HttpMethod method;
         private Map<String, FilterRequirement> queryFilter;
         private Map<String, FilterRequirement> postFilter;
         private boolean allowed;
@@ -63,7 +95,7 @@ public class Policy {
             return this;
         }
 
-        public Builder method(String method) {
+        public Builder method(HttpMethod method) {
             this.method = method;
             return this;
         }

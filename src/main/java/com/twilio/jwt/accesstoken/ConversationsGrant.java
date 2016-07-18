@@ -1,4 +1,4 @@
-package com.twilio.auth;
+package com.twilio.jwt.accesstoken;
 
 /**
  * Grant used to access Twilio Conversations.

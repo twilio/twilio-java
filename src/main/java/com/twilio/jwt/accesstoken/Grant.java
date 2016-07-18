@@ -1,4 +1,4 @@
-package com.twilio.auth;
+package com.twilio.jwt.accesstoken;
 
 public interface Grant {
 

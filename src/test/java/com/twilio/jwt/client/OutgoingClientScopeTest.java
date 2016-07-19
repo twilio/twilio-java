@@ -16,7 +16,6 @@ public class OutgoingClientScopeTest {
     public void testGenerate() throws UnsupportedEncodingException {
         Map<String, String> params = new HashMap<>();
         params.put("foo", "bar");
-        params.put("bar", "baz");
 
         Scope scope = new OutgoingClientScope.Builder("AP123")
             .clientName("CL123")
@@ -24,7 +23,7 @@ public class OutgoingClientScopeTest {
             .build();
 
         Assert.assertEquals(
-            "scope:client:outgoing?appSid=AP123&clientName=CL123&appParams=bar%3Dbaz%26foo%3Dbar",
+            "scope:client:outgoing?appSid=AP123&clientName=CL123&appParams=foo%3Dbar",
             scope.getPayload()
         );
     }

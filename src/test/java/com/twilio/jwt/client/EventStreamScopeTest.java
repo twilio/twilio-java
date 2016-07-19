@@ -16,14 +16,13 @@ public class EventStreamScopeTest {
     public void testGenerate() throws UnsupportedEncodingException {
         Map<String, String> filters = new HashMap<>();
         filters.put("foo", "bar");
-        filters.put("bar", "baz");
 
         Scope scope = new EventStreamScope.Builder()
             .filters(filters)
             .build();
 
         Assert.assertEquals(
-            "scope:stream:subscribe?path=/2010-04-01/Events&appParams=bar%3Dbaz%26foo%3Dbar",
+            "scope:stream:subscribe?path=/2010-04-01/Events&appParams=foo%3Dbar",
             scope.getPayload()
         );
     }

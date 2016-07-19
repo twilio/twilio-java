@@ -29,14 +29,23 @@ public class OutgoingClientScope implements Scope {
     @Override
     public String getPayload() throws UnsupportedEncodingException {
         List<String> queryArgs = new ArrayList<>();
-        queryArgs.add(Joiner.on('=').join("appSid", this.applicationSid));
+        queryArgs.add(Joiner.on('=').join(
+            URLEncoder.encode("appSid", "UTF-8"),
+            URLEncoder.encode(this.applicationSid, "UTF-8")
+        ));
 
         if (this.clientName != null) {
-            queryArgs.add(Joiner.on('=').join("clientName", this.clientName));
+            queryArgs.add(Joiner.on('=').join(
+                URLEncoder.encode("clientName", "UTF-8"),
+                URLEncoder.encode(this.clientName, "UTF-8")
+            ));
         }
 
         if (!this.params.isEmpty()) {
-            queryArgs.add(Joiner.on('=').join("appParams", this.getAppParams()));
+            queryArgs.add(Joiner.on('=').join(
+                URLEncoder.encode("appParams", "UTF-8"),
+                URLEncoder.encode(this.getAppParams(), "UTF-8")
+            ));
         }
 
         String queryString = Joiner.on('&').join(queryArgs);

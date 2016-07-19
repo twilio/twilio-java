@@ -56,8 +56,13 @@ public abstract class Jwt {
                 .signWith(this.algorithm, this.secret.getBytes(UTF_8))
                 .setHeaderParams(headers)
                 .setIssuer(this.issuer)
-                .setExpiration(expiration)
-                .setClaims(this.getClaims());
+                .setExpiration(expiration);
+
+        if (this.getClaims() != null) {
+            for (Map.Entry<String, Object> entry : this.getClaims().entrySet()) {
+                builder.claim(entry.getKey(), entry.getValue());
+            }
+        }
 
         if (this.getId() != null) {
             builder.setId(this.getId());

@@ -2,11 +2,8 @@ package com.twilio.jwt.taskrouter;
 
 import com.google.common.collect.Lists;
 import com.twilio.jwt.Jwt;
-import com.twilio.jwt.JwtEncodingException;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,22 +57,9 @@ public class TaskRouterCapability extends Jwt {
             payload.put("taskqueue_sid", this.channelId);
         }
 
-        try {
-
-            List<String> jsonPolicies = new ArrayList<>();
-            for (Policy policy : policies) {
-                jsonPolicies.add(policy.toJson());
-            }
-            for (Policy policy : PolicyUtils.defaultEventBridgePolicies(accountSid, channelId)) {
-                jsonPolicies.add(policy.toJson());
-            }
-
-            payload.put("policies", jsonPolicies);
-
-        } catch (IOException e) {
-            throw new JwtEncodingException(e);
-        }
-
+        List<Policy> p = Lists.newArrayList(this.policies);
+        p.addAll(PolicyUtils.defaultEventBridgePolicies(accountSid, channelId));
+        payload.put("policies", p);
         return payload;
     }
 

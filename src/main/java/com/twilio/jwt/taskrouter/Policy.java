@@ -2,9 +2,14 @@ package com.twilio.jwt.taskrouter;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.twilio.sdk.http.HttpMethod;
 
 import java.io.ByteArrayOutputStream;
@@ -22,9 +27,11 @@ public class Policy {
     private final HttpMethod method;
 
     @JsonProperty("query_filter")
+    @JsonSerialize(using = FilterRequirementSerializer.class)
     private final Map<String, FilterRequirement> queryFilter;
 
     @JsonProperty("post_filter")
+    @JsonSerialize(using = FilterRequirementSerializer.class)
     private final Map<String, FilterRequirement> postFilter;
 
     @JsonProperty("allow")
@@ -73,6 +80,29 @@ public class Policy {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Policy policy = (Policy) o;
+        return allowed == policy.allowed &&
+            method == policy.method &&
+            Objects.equal(url, policy.url) &&
+            Objects.equal(queryFilter, policy.queryFilter) &&
+            Objects.equal(postFilter, policy.postFilter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(url, method, queryFilter, postFilter, allowed);
+    }
+
+    @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
             .add("url", url)
@@ -85,10 +115,10 @@ public class Policy {
 
     public static class Builder {
         private String url;
-        private HttpMethod method;
+        private HttpMethod method = HttpMethod.GET;
         private Map<String, FilterRequirement> queryFilter;
         private Map<String, FilterRequirement> postFilter;
-        private boolean allowed;
+        private boolean allowed = true;
 
         public Builder url(String url) {
             this.url = url;
@@ -117,6 +147,17 @@ public class Policy {
 
         public Policy build() {
             return new Policy(this);
+        }
+    }
+
+    private static class FilterRequirementSerializer extends JsonSerializer<Map<String, FilterRequirement>> {
+        @Override
+        public void serialize(Map<String, FilterRequirement> stringFilterRequirementMap, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+            for (Map.Entry<String, FilterRequirement> entry : stringFilterRequirementMap.entrySet()) {
+                jsonGenerator.writeObjectFieldStart(entry.getKey());
+                jsonGenerator.writeBooleanField("required", entry.getValue().value());
+                jsonGenerator.writeEndObject();
+            }
         }
     }
 }

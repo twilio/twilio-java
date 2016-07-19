@@ -28,7 +28,10 @@ public class EventStreamScope implements Scope {
         queryArgs.add("path=/2010-04-01/Events");
 
         if (!this.filters.isEmpty()) {
-            queryArgs.add(Joiner.on('=').join("appParams", this.getFilterParams()));
+            queryArgs.add(Joiner.on('=').join(
+                URLEncoder.encode("appParams", "UTF-8"),
+                URLEncoder.encode(this.getFilterParams(), "UTF-8")
+            ));
         }
 
         String queryString = Joiner.on('&').join(queryArgs);

@@ -39,11 +39,10 @@ public class AccessToken extends Jwt {
         );
 
         Date now = new Date();
-
-        this.id = b.keySid + (int)(Math.floor(now.getTime() / 1000.0f));
+        this.id = b.keySid + "-" + (int)(Math.floor(now.getTime() / 1000.0f));
         this.accountSid = b.accountSid;
         this.identity = b.identity;
-        this.nbf = new Date(b.nbf * 1000);
+        this.nbf = b.nbf;
         this.grants = Collections.unmodifiableSet(b.grants);
     }
 
@@ -71,16 +70,18 @@ public class AccessToken extends Jwt {
 
     @Override
     public Map<String, Object> getClaims() {
-        Map<String, Object> payload = new HashMap<>();
-
+        Map<String, Object> grants = new HashMap<>();
         if (this.identity != null) {
-            payload.put("identity", this.identity);
+            grants.put("identity", this.identity);
         }
 
         for (Grant grant : this.grants) {
-            payload.put(grant.getGrantKey(), grant.getPayload());
+            grants.put(grant.getGrantKey(), grant.getPayload());
         }
 
+
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("grants", grants);
         return payload;
     }
 
@@ -90,7 +91,7 @@ public class AccessToken extends Jwt {
         private String keySid;
         private String secret;
         private String identity;
-        private Long nbf = null;
+        private Date nbf = null;
         private int ttl = 3600;
         private Set<Grant> grants = new HashSet<Grant>();
 
@@ -117,7 +118,7 @@ public class AccessToken extends Jwt {
             return this;
         }
 
-        public Builder nbf(Long nbf) {
+        public Builder nbf(Date nbf) {
             this.nbf = nbf;
             return this;
         }

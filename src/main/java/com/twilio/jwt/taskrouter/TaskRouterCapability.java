@@ -89,6 +89,30 @@ public class TaskRouterCapability extends Jwt {
         private int ttl = 3600;
         private List<Policy> policies = Lists.newArrayList();
 
-    }
+        public Builder(String accountSid, String authToken, String workspaceSid, String channelId) {
+            this.accountSid = accountSid;
+            this.authToken = authToken;
+            this.workspaceSid = workspaceSid;
+            this.channelId = channelId;
+        }
 
+        public Builder friendlyName(String friendlyName) {
+            this.friendlyName = friendlyName;
+            return this;
+        }
+
+        public Builder ttl(int ttl) {
+            this.ttl = ttl;
+            return this;
+        }
+
+        public Builder policies(List<Policy> policies) {
+            this.policies = policies;
+            return this;
+        }
+
+        public TaskRouterCapability build() {
+            return new TaskRouterCapability(this);
+        }
+    }
 }

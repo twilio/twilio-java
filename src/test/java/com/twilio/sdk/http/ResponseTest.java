@@ -1,6 +1,5 @@
 package com.twilio.sdk.http;
 
-import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.exception.ApiConnectionException;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;

@@ -5,6 +5,7 @@ import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.NetworkHttpClient;
 import com.twilio.sdk.http.Request;
 import com.twilio.sdk.http.Response;
+import com.twilio.sdk.http.TwilioRestClient;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Test;

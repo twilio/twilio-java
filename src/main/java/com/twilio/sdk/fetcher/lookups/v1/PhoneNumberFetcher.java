@@ -7,7 +7,7 @@
 
 package com.twilio.sdk.fetcher.lookups.v1;
 
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.converter.PrefixedCollapsibleMap;
 import com.twilio.sdk.converter.Promoter;
 import com.twilio.sdk.exception.ApiConnectionException;

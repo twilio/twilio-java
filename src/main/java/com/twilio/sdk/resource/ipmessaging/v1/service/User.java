@@ -14,18 +14,13 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.creator.ipmessaging.v1.service.UserCreator;
 import com.twilio.sdk.deleter.ipmessaging.v1.service.UserDeleter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.fetcher.ipmessaging.v1.service.UserFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.reader.ipmessaging.v1.service.UserReader;
-import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.SidResource;
 import com.twilio.sdk.updater.ipmessaging.v1.service.UserUpdater;
 import org.joda.time.DateTime;
@@ -33,7 +28,6 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

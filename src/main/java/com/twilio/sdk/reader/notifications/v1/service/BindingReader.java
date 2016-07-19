@@ -8,8 +8,7 @@
 package com.twilio.sdk.reader.notifications.v1.service;
 
 import com.google.common.collect.Range;
-import com.twilio.sdk.client.TwilioRestClient;
-import com.twilio.sdk.converter.DateConverter;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.converter.Promoter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;

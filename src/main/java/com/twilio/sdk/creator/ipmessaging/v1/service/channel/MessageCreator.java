@@ -7,7 +7,7 @@
 
 package com.twilio.sdk.creator.ipmessaging.v1.service.channel;
 
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.creator.Creator;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;

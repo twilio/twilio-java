@@ -14,15 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.fetcher.api.v2010.account.AvailablePhoneNumberCountryFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.reader.api.v2010.account.AvailablePhoneNumberCountryReader;
-import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.SidResource;
 
 import java.io.IOException;

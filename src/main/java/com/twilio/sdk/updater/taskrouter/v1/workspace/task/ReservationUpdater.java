@@ -7,7 +7,7 @@
 
 package com.twilio.sdk.updater.taskrouter.v1.workspace.task;
 
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.converter.Promoter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;

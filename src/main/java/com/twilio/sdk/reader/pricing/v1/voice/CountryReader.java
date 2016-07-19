@@ -7,7 +7,7 @@
 
 package com.twilio.sdk.reader.pricing.v1.voice;
 
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.http.HttpMethod;

@@ -7,7 +7,7 @@
 
 package com.twilio.sdk.creator.api.v2010.account.sip.domain;
 
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.creator.Creator;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;

@@ -7,7 +7,7 @@
 
 package com.twilio.sdk.creator.notifications.v1.service;
 
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.converter.Promoter;
 import com.twilio.sdk.creator.Creator;
 import com.twilio.sdk.exception.ApiConnectionException;

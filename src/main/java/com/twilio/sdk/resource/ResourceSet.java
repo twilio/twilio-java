@@ -1,7 +1,7 @@
 package com.twilio.sdk.resource;
 
 import com.google.common.base.Strings;
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.exception.InvalidRequestException;

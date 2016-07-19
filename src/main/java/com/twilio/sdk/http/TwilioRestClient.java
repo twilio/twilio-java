@@ -1,11 +1,7 @@
-package com.twilio.sdk.client;
+package com.twilio.sdk.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Predicate;
-import com.twilio.sdk.http.HttpClient;
-import com.twilio.sdk.http.NetworkHttpClient;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 
 public class TwilioRestClient {
 
@@ -18,7 +14,6 @@ public class TwilioRestClient {
             return i != null && i >= 200 && i < 300;
         }
     };
-
 
     public enum Domains {
         API("api"),

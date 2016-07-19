@@ -2,7 +2,7 @@ package com.twilio.sdk.updater;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.sdk.Twilio;
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.resource.Resource;
 
 import java.util.concurrent.Callable;

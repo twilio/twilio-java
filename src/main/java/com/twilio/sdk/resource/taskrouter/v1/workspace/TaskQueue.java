@@ -14,18 +14,13 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.converter.DateConverter;
 import com.twilio.sdk.creator.taskrouter.v1.workspace.TaskQueueCreator;
 import com.twilio.sdk.deleter.taskrouter.v1.workspace.TaskQueueDeleter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.fetcher.taskrouter.v1.workspace.TaskQueueFetcher;
-import com.twilio.sdk.http.HttpMethod;
-import com.twilio.sdk.http.Request;
-import com.twilio.sdk.http.Response;
 import com.twilio.sdk.reader.taskrouter.v1.workspace.TaskQueueReader;
-import com.twilio.sdk.resource.RestException;
 import com.twilio.sdk.resource.SidResource;
 import com.twilio.sdk.updater.taskrouter.v1.workspace.TaskQueueUpdater;
 import org.joda.time.DateTime;
@@ -33,7 +28,6 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

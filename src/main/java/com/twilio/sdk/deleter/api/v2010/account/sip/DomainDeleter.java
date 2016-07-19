@@ -7,7 +7,7 @@
 
 package com.twilio.sdk.deleter.api.v2010.account.sip;
 
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.deleter.Deleter;
 import com.twilio.sdk.exception.ApiConnectionException;
 import com.twilio.sdk.exception.ApiException;

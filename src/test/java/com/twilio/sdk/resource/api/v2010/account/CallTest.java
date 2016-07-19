@@ -9,9 +9,7 @@ package com.twilio.sdk.resource.api.v2010.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.sdk.Twilio;
-import com.twilio.sdk.client.TwilioRestClient;
-import com.twilio.sdk.converter.DateConverter;
-import com.twilio.sdk.converter.Promoter;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.exception.TwilioException;
 import com.twilio.sdk.http.HttpMethod;
 import com.twilio.sdk.http.Request;

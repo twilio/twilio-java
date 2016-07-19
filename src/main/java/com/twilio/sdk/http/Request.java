@@ -2,7 +2,6 @@ package com.twilio.sdk.http;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Range;
-import com.twilio.sdk.client.TwilioRestClient;
 import com.twilio.sdk.exception.ApiException;
 import com.twilio.sdk.exception.InvalidRequestException;
 import org.apache.commons.codec.binary.Base64;

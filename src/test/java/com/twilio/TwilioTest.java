@@ -3,7 +3,7 @@ package com.twilio;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.sdk.Twilio;
-import com.twilio.sdk.client.TwilioRestClient;
+import com.twilio.sdk.http.TwilioRestClient;
 import com.twilio.sdk.exception.AuthenticationException;
 import org.junit.Test;
 

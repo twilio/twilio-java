@@ -1,21 +1,21 @@
 package com.twilio.example;
 
 
-import com.twilio.sdk.Twilio;
-import com.twilio.sdk.creator.api.v2010.account.CallCreator;
-import com.twilio.sdk.creator.api.v2010.account.IncomingPhoneNumberCreator;
-import com.twilio.sdk.creator.api.v2010.account.MessageCreator;
-import com.twilio.sdk.creator.trunking.v1.TrunkCreator;
-import com.twilio.sdk.reader.api.v2010.account.CallReader;
-import com.twilio.sdk.reader.api.v2010.account.MessageReader;
-import com.twilio.sdk.reader.api.v2010.account.availablephonenumbercountry.LocalReader;
-import com.twilio.sdk.resource.api.v2010.account.Call;
-import com.twilio.sdk.resource.api.v2010.account.IncomingPhoneNumber;
-import com.twilio.sdk.resource.api.v2010.account.Message;
-import com.twilio.sdk.resource.api.v2010.account.availablephonenumbercountry.Local;
-import com.twilio.sdk.resource.notifications.v1.Service;
-import com.twilio.sdk.resource.trunking.v1.Trunk;
-import com.twilio.sdk.type.PhoneNumber;
+import com.twilio.rest.Twilio;
+import com.twilio.rest.creator.api.v2010.account.CallCreator;
+import com.twilio.rest.creator.api.v2010.account.IncomingPhoneNumberCreator;
+import com.twilio.rest.creator.api.v2010.account.MessageCreator;
+import com.twilio.rest.creator.trunking.v1.TrunkCreator;
+import com.twilio.rest.reader.api.v2010.account.CallReader;
+import com.twilio.rest.reader.api.v2010.account.MessageReader;
+import com.twilio.rest.reader.api.v2010.account.availablephonenumbercountry.LocalReader;
+import com.twilio.rest.resource.api.v2010.account.Call;
+import com.twilio.rest.resource.api.v2010.account.IncomingPhoneNumber;
+import com.twilio.rest.resource.api.v2010.account.Message;
+import com.twilio.rest.resource.api.v2010.account.availablephonenumbercountry.Local;
+import com.twilio.rest.resource.notifications.v1.Service;
+import com.twilio.rest.resource.trunking.v1.Trunk;
+import com.twilio.rest.type.PhoneNumber;
 import com.twilio.twiml.Play;
 import com.twilio.twiml.Say;
 import com.twilio.twiml.TwiML;

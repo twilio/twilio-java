@@ -1,6 +1,6 @@
 package com.twilio.jwt.taskrouter;
 
-import com.twilio.sdk.http.HttpMethod;
+import com.twilio.rest.http.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
 

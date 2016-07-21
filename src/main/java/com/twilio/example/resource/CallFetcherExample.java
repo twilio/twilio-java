@@ -1,9 +1,9 @@
 package com.twilio.example.resource;
 
-import com.twilio.sdk.Twilio;
-import com.twilio.sdk.exception.ApiException;
-import com.twilio.sdk.fetcher.api.v2010.account.CallFetcher;
-import com.twilio.sdk.resource.api.v2010.account.Call;
+import com.twilio.rest.Twilio;
+import com.twilio.rest.exception.ApiException;
+import com.twilio.rest.fetcher.api.v2010.account.CallFetcher;
+import com.twilio.rest.resource.api.v2010.account.Call;
 
 /**
  * Fetch a call.

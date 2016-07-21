@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.twilio.sdk.http.HttpMethod;
+import com.twilio.rest.http.HttpMethod;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

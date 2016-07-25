@@ -59,7 +59,7 @@ public class TaskRouterCapability extends Jwt {
 
         List<Policy> payloadPolicies = Lists.newArrayList(this.policies);
         payloadPolicies.addAll(PolicyUtils.defaultEventBridgePolicies(accountSid, channelId));
-        payload.put("policies", p);
+        payload.put("policies", payloadPolicies);
         return payload;
     }
 

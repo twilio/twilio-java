@@ -152,7 +152,11 @@ public class Policy {
 
     private static class FilterRequirementSerializer extends JsonSerializer<Map<String, FilterRequirement>> {
         @Override
-        public void serialize(Map<String, FilterRequirement> stringFilterRequirementMap, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+        public void serialize(
+            Map<String, FilterRequirement> stringFilterRequirementMap, 
+            JsonGenerator jsonGenerator, 
+            SerializerProvider serializerProvider
+        ) throws IOException, JsonProcessingException {
             for (Map.Entry<String, FilterRequirement> entry : stringFilterRequirementMap.entrySet()) {
                 jsonGenerator.writeObjectFieldStart(entry.getKey());
                 jsonGenerator.writeBooleanField("required", entry.getValue().value());

@@ -57,8 +57,8 @@ public class TaskRouterCapability extends Jwt {
             payload.put("taskqueue_sid", this.channelId);
         }
 
-        List<Policy> p = Lists.newArrayList(this.policies);
-        p.addAll(PolicyUtils.defaultEventBridgePolicies(accountSid, channelId));
+        List<Policy> payloadPolicies = Lists.newArrayList(this.policies);
+        payloadPolicies.addAll(PolicyUtils.defaultEventBridgePolicies(accountSid, channelId));
         payload.put("policies", p);
         return payload;
     }
@@ -73,6 +73,14 @@ public class TaskRouterCapability extends Jwt {
         private int ttl = 3600;
         private List<Policy> policies = Lists.newArrayList();
 
+        /**
+         * Create a new builder for a TaskRouter Capability.
+         * 
+         * @param  accountSid account to use
+         * @param  authToken auth token for account
+         * @param  workspaceSid workspace sid to use
+         * @param  channelId channel ID to use
+         */
         public Builder(String accountSid, String authToken, String workspaceSid, String channelId) {
             this.accountSid = accountSid;
             this.authToken = authToken;

@@ -91,6 +91,7 @@ public class TwilioRestClient {
         public Builder(String username, String password) {
             this.username = username;
             this.password = password;
+            this.accountSid = username;
         }
 
         public Builder accountSid(String accountSid) {

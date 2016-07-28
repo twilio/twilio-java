@@ -84,13 +84,11 @@ public class Credential extends SidResource {
     /**
      * Create a CredentialCreator to execute create.
      * 
-     * @param friendlyName The friendly_name
      * @param type The type
      * @return CredentialCreator capable of executing the create
      */
-    public static CredentialCreator create(final String friendlyName, 
-                                           final Credential.PushService type) {
-        return new CredentialCreator(friendlyName, type);
+    public static CredentialCreator create(final Credential.PushService type) {
+        return new CredentialCreator(type);
     }
 
     /**
@@ -107,14 +105,10 @@ public class Credential extends SidResource {
      * Create a CredentialUpdater to execute update.
      * 
      * @param sid The sid
-     * @param friendlyName The friendly_name
-     * @param type The type
      * @return CredentialUpdater capable of executing the update
      */
-    public static CredentialUpdater update(final String sid, 
-                                           final String friendlyName, 
-                                           final Credential.PushService type) {
-        return new CredentialUpdater(sid, friendlyName, type);
+    public static CredentialUpdater update(final String sid) {
+        return new CredentialUpdater(sid);
     }
 
     /**

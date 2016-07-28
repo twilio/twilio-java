@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.rest.converter.DateConverter;
 import com.twilio.rest.creator.ipmessaging.v1.service.channel.MessageCreator;
+import com.twilio.rest.deleter.ipmessaging.v1.service.channel.MessageDeleter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.fetcher.ipmessaging.v1.service.channel.MessageFetcher;
@@ -26,6 +27,7 @@ import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.ipmessaging.v1.service.channel.MessageReader;
 import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.SidResource;
+import com.twilio.rest.updater.ipmessaging.v1.service.channel.MessageUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -76,6 +78,36 @@ public class Message extends SidResource {
     public static MessageReader read(final String serviceSid, 
                                      final String channelSid) {
         return new MessageReader(serviceSid, channelSid);
+    }
+
+    /**
+     * Create a MessageDeleter to execute delete.
+     * 
+     * @param serviceSid The service_sid
+     * @param channelSid The channel_sid
+     * @param sid The sid
+     * @return MessageDeleter capable of executing the delete
+     */
+    public static MessageDeleter delete(final String serviceSid, 
+                                        final String channelSid, 
+                                        final String sid) {
+        return new MessageDeleter(serviceSid, channelSid, sid);
+    }
+
+    /**
+     * Create a MessageUpdater to execute update.
+     * 
+     * @param serviceSid The service_sid
+     * @param channelSid The channel_sid
+     * @param sid The sid
+     * @param body The body
+     * @return MessageUpdater capable of executing the update
+     */
+    public static MessageUpdater update(final String serviceSid, 
+                                        final String channelSid, 
+                                        final String sid, 
+                                        final String body) {
+        return new MessageUpdater(serviceSid, channelSid, sid, body);
     }
 
     /**

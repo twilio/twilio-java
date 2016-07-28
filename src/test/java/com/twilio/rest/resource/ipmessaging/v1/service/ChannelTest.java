@@ -105,23 +105,22 @@ public class ChannelTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.IPMESSAGING,
-                                                      "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
-                                                      "AC123");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
-        request.addPostParam("UniqueName", serialize("uniqueName"));
-                        
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
+                                          "AC123");
+            
+            
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
         
         try {
-            Channel.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "uniqueName").execute();
+            Channel.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -135,7 +134,7 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
         
-        Channel.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "uniqueName").execute();
+        Channel.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
     }
 
     @Test

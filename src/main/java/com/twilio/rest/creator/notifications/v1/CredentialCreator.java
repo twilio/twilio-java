@@ -18,8 +18,8 @@ import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.notifications.v1.Credential;
 
 public class CredentialCreator extends Creator<Credential> {
-    private final String friendlyName;
     private final Credential.PushService type;
+    private String friendlyName;
     private String certificate;
     private String privateKey;
     private Boolean sandbox;
@@ -28,13 +28,21 @@ public class CredentialCreator extends Creator<Credential> {
     /**
      * Construct a new CredentialCreator.
      * 
-     * @param friendlyName The friendly_name
      * @param type The type
      */
-    public CredentialCreator(final String friendlyName, 
-                             final Credential.PushService type) {
-        this.friendlyName = friendlyName;
+    public CredentialCreator(final Credential.PushService type) {
         this.type = type;
+    }
+
+    /**
+     * The friendly_name.
+     * 
+     * @param friendlyName The friendly_name
+     * @return this
+     */
+    public CredentialCreator setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
+        return this;
     }
 
     /**
@@ -126,12 +134,12 @@ public class CredentialCreator extends Creator<Credential> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
-        
         if (type != null) {
             request.addPostParam("Type", type.toString());
+        }
+        
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
         }
         
         if (certificate != null) {

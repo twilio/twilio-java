@@ -21,8 +21,8 @@ import java.util.Map;
 
 public class ChannelCreator extends Creator<Channel> {
     private final String serviceSid;
-    private final String friendlyName;
-    private final String uniqueName;
+    private String friendlyName;
+    private String uniqueName;
     private Map<String, Object> attributes;
     private Channel.ChannelType type;
 
@@ -30,15 +30,31 @@ public class ChannelCreator extends Creator<Channel> {
      * Construct a new ChannelCreator.
      * 
      * @param serviceSid The service_sid
-     * @param friendlyName The friendly_name
-     * @param uniqueName The unique_name
      */
-    public ChannelCreator(final String serviceSid, 
-                          final String friendlyName, 
-                          final String uniqueName) {
+    public ChannelCreator(final String serviceSid) {
         this.serviceSid = serviceSid;
+    }
+
+    /**
+     * The friendly_name.
+     * 
+     * @param friendlyName The friendly_name
+     * @return this
+     */
+    public ChannelCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The unique_name.
+     * 
+     * @param uniqueName The unique_name
+     * @return this
+     */
+    public ChannelCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
+        return this;
     }
 
     /**

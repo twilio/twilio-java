@@ -17,24 +17,58 @@ import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.ipmessaging.v1.service.User;
 import com.twilio.rest.updater.Updater;
 
+import java.util.Map;
+
 public class UserUpdater extends Updater<User> {
     private final String serviceSid;
     private final String sid;
-    private final String roleSid;
+    private String roleSid;
+    private Map<String, Object> attributes;
+    private String friendlyName;
 
     /**
      * Construct a new UserUpdater.
      * 
      * @param serviceSid The service_sid
      * @param sid The sid
-     * @param roleSid The role_sid
      */
     public UserUpdater(final String serviceSid, 
-                       final String sid, 
-                       final String roleSid) {
+                       final String sid) {
         this.serviceSid = serviceSid;
         this.sid = sid;
+    }
+
+    /**
+     * The role_sid.
+     * 
+     * @param roleSid The role_sid
+     * @return this
+     */
+    public UserUpdater setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
+        return this;
+    }
+
+    /**
+     * The attributes.
+     * 
+     * @param attributes The attributes
+     * @return this
+     */
+    public UserUpdater setAttributes(final Map<String, Object> attributes) {
+        this.attributes = attributes;
+        return this;
+    }
+
+    /**
+     * The friendly_name.
+     * 
+     * @param friendlyName The friendly_name
+     * @return this
+     */
+    public UserUpdater setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
+        return this;
     }
 
     /**
@@ -84,6 +118,14 @@ public class UserUpdater extends Updater<User> {
     private void addPostParams(final Request request) {
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
+        }
+        
+        if (attributes != null) {
+            request.addPostParam("Attributes", attributes.toString());
+        }
+        
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
         }
     }
 }

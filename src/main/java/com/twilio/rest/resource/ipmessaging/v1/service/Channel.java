@@ -100,14 +100,10 @@ public class Channel extends SidResource {
      * Create a ChannelCreator to execute create.
      * 
      * @param serviceSid The service_sid
-     * @param friendlyName The friendly_name
-     * @param uniqueName The unique_name
      * @return ChannelCreator capable of executing the create
      */
-    public static ChannelCreator create(final String serviceSid, 
-                                        final String friendlyName, 
-                                        final String uniqueName) {
-        return new ChannelCreator(serviceSid, friendlyName, uniqueName);
+    public static ChannelCreator create(final String serviceSid) {
+        return new ChannelCreator(serviceSid);
     }
 
     /**

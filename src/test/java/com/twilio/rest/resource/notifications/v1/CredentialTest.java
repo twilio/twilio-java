@@ -83,23 +83,22 @@ public class CredentialTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.NOTIFICATIONS,
-                                                      "/v1/Credentials",
-                                                      "AC123");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
-        request.addPostParam("Type", serialize(Credential.PushService.GCM));
-                        
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          "/v1/Credentials",
+                                          "AC123");
+            request.addPostParam("Type", serialize(Credential.PushService.GCM));
+            
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
         
         try {
-            Credential.create("friendlyName", Credential.PushService.GCM).execute();
+            Credential.create(Credential.PushService.GCM).execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -113,7 +112,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
         
-        Credential.create("friendlyName", Credential.PushService.GCM).execute();
+        Credential.create(Credential.PushService.GCM).execute();
     }
 
     @Test
@@ -152,23 +151,22 @@ public class CredentialTest {
 
     @Test
     public void testUpdateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.NOTIFICATIONS,
-                                                      "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                                      "AC123");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
-        request.addPostParam("Type", serialize(Credential.PushService.GCM));
-                        
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                                          "AC123");
+            
+            
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
         
         try {
-            Credential.update("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", Credential.PushService.GCM).execute();
+            Credential.update("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -182,7 +180,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
         
-        Credential.update("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", Credential.PushService.GCM).execute();
+        Credential.update("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
     }
 
     @Test

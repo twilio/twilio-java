@@ -93,13 +93,11 @@ public class User extends SidResource {
      * 
      * @param serviceSid The service_sid
      * @param sid The sid
-     * @param roleSid The role_sid
      * @return UserUpdater capable of executing the update
      */
     public static UserUpdater update(final String serviceSid, 
-                                     final String sid, 
-                                     final String roleSid) {
-        return new UserUpdater(serviceSid, sid, roleSid);
+                                     final String sid) {
+        return new UserUpdater(serviceSid, sid);
     }
 
     /**

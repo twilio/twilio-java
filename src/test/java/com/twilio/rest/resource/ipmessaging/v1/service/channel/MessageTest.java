@@ -100,4 +100,48 @@ public class MessageTest {
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
+
+    @Test
+    public void testDeleteRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.DELETE,
+                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                                          "AC123");
+            
+            
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+        
+        try {
+            Message.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testUpdateRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                                          "AC123");
+            request.addPostParam("Body", serialize("body"));
+            
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+        
+        try {
+            Message.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "body").execute();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
 }

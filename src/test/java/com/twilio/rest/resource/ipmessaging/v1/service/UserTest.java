@@ -191,7 +191,7 @@ public class UserTest {
                                           TwilioRestClient.Domains.IPMESSAGING,
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                           "AC123");
-            request.addPostParam("RoleSid", serialize("RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+            
             
             twilioRestClient.request(request);
             times = 1;
@@ -201,7 +201,7 @@ public class UserTest {
         }};
         
         try {
-            User.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            User.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -215,6 +215,6 @@ public class UserTest {
             result = new ObjectMapper();
         }};
         
-        User.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        User.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
     }
 }

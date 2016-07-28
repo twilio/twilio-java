@@ -19,8 +19,7 @@ import com.twilio.rest.updater.Updater;
 
 public class CredentialUpdater extends Updater<Credential> {
     private final String sid;
-    private final String friendlyName;
-    private final Credential.PushService type;
+    private String friendlyName;
     private String certificate;
     private String privateKey;
     private Boolean sandbox;
@@ -30,15 +29,20 @@ public class CredentialUpdater extends Updater<Credential> {
      * Construct a new CredentialUpdater.
      * 
      * @param sid The sid
-     * @param friendlyName The friendly_name
-     * @param type The type
      */
-    public CredentialUpdater(final String sid, 
-                             final String friendlyName, 
-                             final Credential.PushService type) {
+    public CredentialUpdater(final String sid) {
         this.sid = sid;
+    }
+
+    /**
+     * The friendly_name.
+     * 
+     * @param friendlyName The friendly_name
+     * @return this
+     */
+    public CredentialUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
-        this.type = type;
+        return this;
     }
 
     /**
@@ -132,10 +136,6 @@ public class CredentialUpdater extends Updater<Credential> {
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-        }
-        
-        if (type != null) {
-            request.addPostParam("Type", type.toString());
         }
         
         if (certificate != null) {

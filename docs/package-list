@@ -172,6 +172,7 @@ com.twilio.rest.updater.api.v2010.account.sms
 com.twilio.rest.updater.api.v2010.account.usage
 com.twilio.rest.updater.ipmessaging.v1
 com.twilio.rest.updater.ipmessaging.v1.service
+com.twilio.rest.updater.ipmessaging.v1.service.channel
 com.twilio.rest.updater.notifications.v1
 com.twilio.rest.updater.preview.wireless
 com.twilio.rest.updater.taskrouter.v1

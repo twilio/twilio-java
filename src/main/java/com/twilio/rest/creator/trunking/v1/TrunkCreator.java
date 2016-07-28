@@ -117,7 +117,7 @@ public class TrunkCreator extends Creator<Trunk> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

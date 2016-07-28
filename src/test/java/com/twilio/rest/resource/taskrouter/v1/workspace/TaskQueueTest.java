@@ -40,8 +40,7 @@ public class TaskQueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.TASKROUTER,
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
             twilioRestClient.request(request);
@@ -74,8 +73,7 @@ public class TaskQueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           TwilioRestClient.Domains.TASKROUTER,
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
             twilioRestClient.request(request);
@@ -108,8 +106,7 @@ public class TaskQueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.TASKROUTER,
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues",
-                                          "AC123");
+                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues");
             
             request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
@@ -154,8 +151,7 @@ public class TaskQueueTest {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
                                                       TwilioRestClient.Domains.TASKROUTER,
-                                                      "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues",
-                                                      "AC123");
+                                                      "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues");
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("ReservationActivitySid", serialize("WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
         request.addPostParam("AssignmentActivitySid", serialize("WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
@@ -190,8 +186,7 @@ public class TaskQueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           TwilioRestClient.Domains.TASKROUTER,
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
             twilioRestClient.request(request);

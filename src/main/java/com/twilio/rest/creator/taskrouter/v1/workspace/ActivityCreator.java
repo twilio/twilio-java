@@ -50,7 +50,7 @@ public class ActivityCreator extends Creator<Activity> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Activities",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

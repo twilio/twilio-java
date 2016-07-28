@@ -45,7 +45,7 @@ public class RoleDeleter extends Deleter<Role> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Roles/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

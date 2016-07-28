@@ -84,7 +84,7 @@ public class UserUpdater extends Updater<User> {
             HttpMethod.POST,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

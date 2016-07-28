@@ -79,7 +79,7 @@ public class MemberUpdater extends Updater<Member> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Queues/" + this.queueSid + "/Members/" + this.callSid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

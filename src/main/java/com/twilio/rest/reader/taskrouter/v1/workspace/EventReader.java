@@ -165,7 +165,7 @@ public class EventReader extends Reader<Event> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Events",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -184,8 +184,9 @@ public class EventReader extends Reader<Event> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

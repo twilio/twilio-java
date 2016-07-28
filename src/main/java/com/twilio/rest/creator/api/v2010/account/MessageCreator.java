@@ -235,7 +235,7 @@ public class MessageCreator extends Creator<Message> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Messages.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

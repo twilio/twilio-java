@@ -56,7 +56,7 @@ public class TriggerFetcher extends Fetcher<Trigger> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

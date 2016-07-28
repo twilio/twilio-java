@@ -55,7 +55,7 @@ public class ApplicationDeleter extends Deleter<Application> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Applications/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

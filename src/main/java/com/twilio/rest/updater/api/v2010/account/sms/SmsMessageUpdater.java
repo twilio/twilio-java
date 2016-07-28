@@ -68,7 +68,7 @@ public class SmsMessageUpdater extends Updater<SmsMessage> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SMS/Messages/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

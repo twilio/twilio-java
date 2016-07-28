@@ -62,7 +62,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/ThisMonth.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -81,8 +81,9 @@ public class ThisMonthReader extends Reader<ThisMonth> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

@@ -40,8 +40,7 @@ public class QueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.API,
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
-                                          "AC123");
+                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
             twilioRestClient.request(request);
@@ -74,8 +73,7 @@ public class QueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           TwilioRestClient.Domains.API,
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
-                                          "AC123");
+                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
             twilioRestClient.request(request);
@@ -108,8 +106,7 @@ public class QueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           TwilioRestClient.Domains.API,
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
-                                          "AC123");
+                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
             twilioRestClient.request(request);
@@ -142,8 +139,7 @@ public class QueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.API,
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json",
-                                          "AC123");
+                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json");
             
             request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
@@ -188,8 +184,7 @@ public class QueueTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           TwilioRestClient.Domains.API,
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json",
-                                          "AC123");
+                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json");
             
             
             twilioRestClient.request(request);

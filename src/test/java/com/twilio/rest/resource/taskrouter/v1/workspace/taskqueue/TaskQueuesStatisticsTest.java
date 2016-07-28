@@ -40,8 +40,7 @@ public class TaskQueuesStatisticsTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.TASKROUTER,
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics",
-                                          "AC123");
+                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics");
             
             request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);

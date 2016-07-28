@@ -75,7 +75,7 @@ public class ApplicationReader extends Reader<Application> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Applications.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -94,8 +94,9 @@ public class ApplicationReader extends Reader<Application> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

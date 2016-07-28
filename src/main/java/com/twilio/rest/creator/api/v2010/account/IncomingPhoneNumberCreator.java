@@ -341,7 +341,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

@@ -46,7 +46,7 @@ public class RoleFetcher extends Fetcher<Role> {
             HttpMethod.GET,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Roles/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
-    public static final String VERSION = "7.0.0-rc-12";
+    public static final String VERSION = "7.0.0-rc-13";
 
     private static String username;
     private static String password;
@@ -114,11 +114,11 @@ public class Twilio {
                 );
             }
 
+            TwilioRestClient.Builder builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
             if (Twilio.accountSid != null) {
-                Twilio.restClient = new TwilioRestClient(Twilio.username, Twilio.password, Twilio.accountSid);
-            } else {
-                Twilio.restClient = new TwilioRestClient(Twilio.username, Twilio.password);
+                builder.accountSid(Twilio.accountSid);
             }
+            Twilio.restClient = builder.build();
         }
 
         return Twilio.restClient;

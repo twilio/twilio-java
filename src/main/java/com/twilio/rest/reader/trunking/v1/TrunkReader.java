@@ -44,7 +44,7 @@ public class TrunkReader extends Reader<Trunk> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -63,8 +63,9 @@ public class TrunkReader extends Reader<Trunk> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TRUNKING,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

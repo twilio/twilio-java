@@ -42,7 +42,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

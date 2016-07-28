@@ -105,7 +105,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues/Statistics",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -124,8 +124,9 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
                                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

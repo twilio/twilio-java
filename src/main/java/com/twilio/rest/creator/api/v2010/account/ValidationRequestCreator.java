@@ -129,7 +129,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/OutgoingCallerIds.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

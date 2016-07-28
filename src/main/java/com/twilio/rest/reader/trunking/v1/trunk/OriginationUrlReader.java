@@ -55,7 +55,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks/" + this.trunkSid + "/OriginationUrls",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -74,8 +74,9 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TRUNKING,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

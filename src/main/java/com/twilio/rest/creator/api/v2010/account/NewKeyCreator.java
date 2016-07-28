@@ -61,7 +61,7 @@ public class NewKeyCreator extends Creator<NewKey> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Keys.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

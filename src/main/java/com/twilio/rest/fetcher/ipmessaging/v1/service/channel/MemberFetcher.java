@@ -50,7 +50,7 @@ public class MemberFetcher extends Fetcher<Member> {
             HttpMethod.GET,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Members/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

@@ -185,7 +185,7 @@ public class DomainUpdater extends Updater<Domain> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

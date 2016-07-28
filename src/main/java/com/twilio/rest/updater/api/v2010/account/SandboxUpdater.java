@@ -154,7 +154,7 @@ public class SandboxUpdater extends Updater<Sandbox> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Sandbox.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

@@ -98,7 +98,7 @@ public class LocalReader extends Reader<Local> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/Local.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -117,8 +117,9 @@ public class LocalReader extends Reader<Local> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

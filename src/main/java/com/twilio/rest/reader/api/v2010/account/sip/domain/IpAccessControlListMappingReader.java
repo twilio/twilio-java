@@ -69,7 +69,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.domainSid + "/IpAccessControlListMappings.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -88,8 +88,9 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
                                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

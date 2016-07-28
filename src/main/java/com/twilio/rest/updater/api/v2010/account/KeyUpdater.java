@@ -68,7 +68,7 @@ public class KeyUpdater extends Updater<Key> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Keys/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

@@ -69,7 +69,7 @@ public class MemberReader extends Reader<Member> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Queues/" + this.queueSid + "/Members.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -88,8 +88,9 @@ public class MemberReader extends Reader<Member> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

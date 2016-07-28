@@ -62,7 +62,7 @@ public class MemberCreator extends Creator<Member> {
             HttpMethod.POST,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Members",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

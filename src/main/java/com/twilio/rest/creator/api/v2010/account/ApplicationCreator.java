@@ -324,7 +324,7 @@ public class ApplicationCreator extends Creator<Application> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Applications.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

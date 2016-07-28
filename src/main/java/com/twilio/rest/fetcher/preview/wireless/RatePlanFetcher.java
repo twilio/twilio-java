@@ -42,7 +42,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
             HttpMethod.GET,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/RatePlans/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

@@ -102,7 +102,7 @@ public class CredentialCreator extends Creator<Credential> {
             HttpMethod.POST,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Credentials",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

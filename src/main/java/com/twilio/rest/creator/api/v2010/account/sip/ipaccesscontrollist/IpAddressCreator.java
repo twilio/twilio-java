@@ -70,7 +70,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists/" + this.ipAccessControlListSid + "/IpAddresses.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

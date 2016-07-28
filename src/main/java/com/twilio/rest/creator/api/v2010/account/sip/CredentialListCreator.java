@@ -56,7 +56,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

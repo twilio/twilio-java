@@ -55,7 +55,7 @@ public class SmsMessageDeleter extends Deleter<SmsMessage> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SMS/Messages/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

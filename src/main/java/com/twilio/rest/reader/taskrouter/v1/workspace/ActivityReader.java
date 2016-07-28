@@ -79,7 +79,7 @@ public class ActivityReader extends Reader<Activity> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Activities",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -98,8 +98,9 @@ public class ActivityReader extends Reader<Activity> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

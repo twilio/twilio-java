@@ -63,7 +63,7 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists/" + this.ipAccessControlListSid + "/IpAddresses/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

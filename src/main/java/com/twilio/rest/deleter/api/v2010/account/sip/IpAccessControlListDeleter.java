@@ -55,7 +55,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

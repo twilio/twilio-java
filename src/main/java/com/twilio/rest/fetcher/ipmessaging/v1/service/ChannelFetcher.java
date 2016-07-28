@@ -46,7 +46,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
             HttpMethod.GET,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

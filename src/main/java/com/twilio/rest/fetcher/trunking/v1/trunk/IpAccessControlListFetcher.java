@@ -46,7 +46,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks/" + this.trunkSid + "/IpAccessControlLists/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

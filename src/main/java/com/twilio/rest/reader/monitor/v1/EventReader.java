@@ -148,7 +148,7 @@ public class EventReader extends Reader<Event> {
             HttpMethod.GET,
             TwilioRestClient.Domains.MONITOR,
             "/v1/Events",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -167,8 +167,9 @@ public class EventReader extends Reader<Event> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.MONITOR,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

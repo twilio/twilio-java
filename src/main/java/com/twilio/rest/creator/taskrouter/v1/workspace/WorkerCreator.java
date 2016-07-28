@@ -70,7 +70,7 @@ public class WorkerCreator extends Creator<Worker> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Workers",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

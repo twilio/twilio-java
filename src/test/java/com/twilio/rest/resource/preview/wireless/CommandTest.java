@@ -40,8 +40,7 @@ public class CommandTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.PREVIEW,
-                                          "/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
             twilioRestClient.request(request);
@@ -62,8 +61,7 @@ public class CommandTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.PREVIEW,
-                                          "/wireless/Commands",
-                                          "AC123");
+                                          "/wireless/Commands");
             
             request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
@@ -84,8 +82,7 @@ public class CommandTest {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
                                                       TwilioRestClient.Domains.PREVIEW,
-                                                      "/wireless/Commands",
-                                                      "AC123");
+                                                      "/wireless/Commands");
                         request.addPostParam("Device", serialize("device"));
         request.addPostParam("Command", serialize("command"));
                         

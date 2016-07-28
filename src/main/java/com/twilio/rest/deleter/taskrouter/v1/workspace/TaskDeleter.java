@@ -45,7 +45,7 @@ public class TaskDeleter extends Deleter<Task> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

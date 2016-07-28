@@ -50,7 +50,7 @@ public class ActivityUpdater extends Updater<Activity> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Activities/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

@@ -45,7 +45,7 @@ public class AccountCreator extends Creator<Account> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

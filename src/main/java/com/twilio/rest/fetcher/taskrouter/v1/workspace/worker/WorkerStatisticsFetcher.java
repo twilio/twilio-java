@@ -84,7 +84,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.workerSid + "/Statistics",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);

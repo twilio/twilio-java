@@ -83,7 +83,7 @@ public class CommandCreator extends Creator<Command> {
             HttpMethod.POST,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/Commands",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

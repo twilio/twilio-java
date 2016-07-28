@@ -161,7 +161,7 @@ public class DeviceCreator extends Creator<Device> {
             HttpMethod.POST,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/Devices",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

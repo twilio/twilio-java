@@ -90,7 +90,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

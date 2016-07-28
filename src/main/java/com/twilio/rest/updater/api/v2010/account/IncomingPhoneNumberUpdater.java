@@ -331,7 +331,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

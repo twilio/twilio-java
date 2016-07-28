@@ -88,7 +88,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Feedback.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

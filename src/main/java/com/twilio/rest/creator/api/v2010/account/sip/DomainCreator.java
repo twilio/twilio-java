@@ -191,7 +191,7 @@ public class DomainCreator extends Creator<Domain> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

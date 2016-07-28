@@ -106,7 +106,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Workflows/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

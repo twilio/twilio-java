@@ -106,7 +106,7 @@ public class TriggerUpdater extends Updater<Trigger> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

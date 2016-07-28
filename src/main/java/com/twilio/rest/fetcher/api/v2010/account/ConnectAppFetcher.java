@@ -56,7 +56,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/ConnectApps/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

@@ -81,7 +81,7 @@ public class DeviceReader extends Reader<Device> {
             HttpMethod.GET,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/Devices",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -100,8 +100,9 @@ public class DeviceReader extends Reader<Device> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.PREVIEW,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

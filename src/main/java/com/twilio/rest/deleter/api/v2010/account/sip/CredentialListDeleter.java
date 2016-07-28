@@ -55,7 +55,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

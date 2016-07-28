@@ -161,7 +161,7 @@ public class DeviceUpdater extends Updater<Device> {
             HttpMethod.POST,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/Devices/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

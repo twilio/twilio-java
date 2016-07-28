@@ -95,7 +95,7 @@ public class BindingCreator extends Creator<Binding> {
             HttpMethod.POST,
             TwilioRestClient.Domains.NOTIFICATIONS,
             "/v1/Services/" + this.serviceSid + "/Bindings",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

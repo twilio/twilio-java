@@ -68,7 +68,7 @@ public class FeedbackCreator extends Creator<Feedback> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.messageSid + "/Feedback.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

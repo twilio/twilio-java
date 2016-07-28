@@ -56,7 +56,7 @@ public class RoleCreator extends Creator<Role> {
             HttpMethod.POST,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Roles",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

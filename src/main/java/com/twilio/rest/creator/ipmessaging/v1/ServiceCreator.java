@@ -42,7 +42,7 @@ public class ServiceCreator extends Creator<Service> {
             HttpMethod.POST,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

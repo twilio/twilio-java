@@ -40,8 +40,7 @@ public class DeviceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.PREVIEW,
-                                          "/wireless/Devices/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/wireless/Devices/sid");
             
             
             twilioRestClient.request(request);
@@ -52,7 +51,7 @@ public class DeviceTest {
         }};
         
         try {
-            Device.fetch("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Device.fetch("sid").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -62,8 +61,7 @@ public class DeviceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.PREVIEW,
-                                          "/wireless/Devices",
-                                          "AC123");
+                                          "/wireless/Devices");
             
             request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
@@ -84,8 +82,7 @@ public class DeviceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           TwilioRestClient.Domains.PREVIEW,
-                                          "/wireless/Devices",
-                                          "AC123");
+                                          "/wireless/Devices");
             request.addPostParam("RatePlan", serialize("ratePlan"));
             
             twilioRestClient.request(request);
@@ -106,8 +103,7 @@ public class DeviceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           TwilioRestClient.Domains.PREVIEW,
-                                          "/wireless/Devices/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/wireless/Devices/sid");
             
             
             twilioRestClient.request(request);
@@ -118,7 +114,7 @@ public class DeviceTest {
         }};
         
         try {
-            Device.update("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Device.update("sid").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

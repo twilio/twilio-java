@@ -42,7 +42,7 @@ public class EventFetcher extends Fetcher<Event> {
             HttpMethod.GET,
             TwilioRestClient.Domains.MONITOR,
             "/v1/Events/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

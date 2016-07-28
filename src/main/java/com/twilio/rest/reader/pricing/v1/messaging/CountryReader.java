@@ -44,7 +44,7 @@ public class CountryReader extends Reader<Country> {
             HttpMethod.GET,
             TwilioRestClient.Domains.PRICING,
             "/v1/Messaging/Countries",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -63,8 +63,9 @@ public class CountryReader extends Reader<Country> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.PRICING,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

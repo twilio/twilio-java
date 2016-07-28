@@ -55,7 +55,7 @@ public class UserReader extends Reader<User> {
             HttpMethod.GET,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Users",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -74,8 +74,9 @@ public class UserReader extends Reader<User> {
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.IPMESSAGING,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

@@ -114,7 +114,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/FeedbackSummary.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

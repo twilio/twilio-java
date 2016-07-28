@@ -81,7 +81,7 @@ public class CommandReader extends Reader<Command> {
             HttpMethod.GET,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/Commands",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -100,8 +100,9 @@ public class CommandReader extends Reader<Command> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.PREVIEW,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

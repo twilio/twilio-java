@@ -56,7 +56,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

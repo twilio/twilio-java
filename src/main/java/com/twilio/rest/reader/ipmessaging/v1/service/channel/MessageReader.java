@@ -59,7 +59,7 @@ public class MessageReader extends Reader<Message> {
             HttpMethod.GET,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Messages",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -78,8 +78,9 @@ public class MessageReader extends Reader<Message> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.IPMESSAGING,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

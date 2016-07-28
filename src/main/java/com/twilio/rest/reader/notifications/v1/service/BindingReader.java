@@ -157,7 +157,7 @@ public class BindingReader extends Reader<Binding> {
             HttpMethod.GET,
             TwilioRestClient.Domains.NOTIFICATIONS,
             "/v1/Services/" + this.serviceSid + "/Bindings",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -176,8 +176,9 @@ public class BindingReader extends Reader<Binding> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.NOTIFICATIONS,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

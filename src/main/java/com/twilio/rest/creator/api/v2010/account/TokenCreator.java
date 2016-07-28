@@ -61,7 +61,7 @@ public class TokenCreator extends Creator<Token> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Tokens.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

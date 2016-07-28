@@ -36,10 +36,20 @@ public class Request {
      *
      * @param method HTTP method
      * @param uri uri of request
-     * @param accountSid account making the request
      */
-    public Request(final HttpMethod method, final String uri, final String accountSid) {
-        this(method, TwilioRestClient.Domains.API, uri, accountSid);
+    public Request(final HttpMethod method, final String uri) {
+        this(method, TwilioRestClient.Domains.API, uri, null);
+    }
+
+    /**
+     * Create a new API request.
+     *
+     * @param method HTTP method
+     * @param domain Twilio domain
+     * @param uri uri of request
+     */
+    public Request(final HttpMethod method, final TwilioRestClient.Domains domain, final String uri) {
+        this(method, domain, uri, null);
     }
 
     /**
@@ -47,12 +57,16 @@ public class Request {
      * @param method HTTP Method
      * @param domain Twilio domain
      * @param uri uri of request
-     * @param accountSid account making request
+     * @param region region to make request
      */
-    public Request(final HttpMethod method, final TwilioRestClient.Domains domain,
-                   final String uri, final String accountSid) {
+    public Request(
+        final HttpMethod method,
+        final TwilioRestClient.Domains domain,
+        final String uri,
+        final String region
+    ) {
         this.method = method;
-        this.uri = "https://" + domain.toString() + ".twilio.com" + uri;
+        this.uri = "https://" + Joiner.on(".").skipNulls().join(domain.toString(), region, "twilio", "com") + uri;
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
     }

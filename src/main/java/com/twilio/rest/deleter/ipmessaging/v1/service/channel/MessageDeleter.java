@@ -49,7 +49,7 @@ public class MessageDeleter extends Deleter<Message> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Messages/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

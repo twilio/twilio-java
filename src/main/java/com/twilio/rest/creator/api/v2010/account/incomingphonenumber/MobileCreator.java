@@ -289,7 +289,7 @@ public class MobileCreator extends Creator<Mobile> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/Mobile.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

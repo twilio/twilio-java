@@ -127,7 +127,7 @@ public class TaskReader extends Reader<Task> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -146,8 +146,9 @@ public class TaskReader extends Reader<Task> {
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TASKROUTER,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

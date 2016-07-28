@@ -103,7 +103,7 @@ public class AddressCreator extends Creator<Address> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Addresses.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

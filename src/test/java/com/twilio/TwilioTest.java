@@ -56,7 +56,7 @@ public class TwilioTest {
 
     @Test
     public void testSetRestClient() {
-        TwilioRestClient twilioRestClient = new TwilioRestClient("AC123", "AUTH TOKEN");
+        TwilioRestClient twilioRestClient = new TwilioRestClient.Builder("AC123", "AUTH TOKEN").build();
         Twilio.setRestClient(twilioRestClient);
         assertEquals(twilioRestClient, Twilio.getRestClient());
     }

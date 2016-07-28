@@ -50,7 +50,7 @@ public class UserCreator extends Creator<User> {
             HttpMethod.POST,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Users",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

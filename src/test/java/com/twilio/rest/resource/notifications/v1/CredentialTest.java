@@ -40,8 +40,7 @@ public class CredentialTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.NOTIFICATIONS,
-                                          "/v1/Credentials",
-                                          "AC123");
+                                          "/v1/Credentials");
             
             request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
@@ -86,8 +85,7 @@ public class CredentialTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           TwilioRestClient.Domains.NOTIFICATIONS,
-                                          "/v1/Credentials",
-                                          "AC123");
+                                          "/v1/Credentials");
             request.addPostParam("Type", serialize(Credential.PushService.GCM));
             
             twilioRestClient.request(request);
@@ -120,8 +118,7 @@ public class CredentialTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.NOTIFICATIONS,
-                                          "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
             twilioRestClient.request(request);
@@ -154,8 +151,7 @@ public class CredentialTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           TwilioRestClient.Domains.NOTIFICATIONS,
-                                          "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
             twilioRestClient.request(request);
@@ -188,8 +184,7 @@ public class CredentialTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           TwilioRestClient.Domains.NOTIFICATIONS,
-                                          "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                          "AC123");
+                                          "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
             twilioRestClient.request(request);

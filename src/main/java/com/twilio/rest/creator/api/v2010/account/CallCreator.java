@@ -281,7 +281,7 @@ public class CallCreator extends Creator<Call> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

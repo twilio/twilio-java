@@ -45,7 +45,7 @@ public class UserDeleter extends Deleter<User> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

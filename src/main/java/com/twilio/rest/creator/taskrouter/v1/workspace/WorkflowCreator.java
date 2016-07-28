@@ -78,7 +78,7 @@ public class WorkflowCreator extends Creator<Workflow> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Workflows",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

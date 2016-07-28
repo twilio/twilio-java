@@ -56,7 +56,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Feedback.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

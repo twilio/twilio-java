@@ -44,7 +44,7 @@ public class ServiceReader extends Reader<Service> {
             HttpMethod.GET,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -63,8 +63,9 @@ public class ServiceReader extends Reader<Service> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.IPMESSAGING,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

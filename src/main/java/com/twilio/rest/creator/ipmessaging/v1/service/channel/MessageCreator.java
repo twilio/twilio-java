@@ -62,7 +62,7 @@ public class MessageCreator extends Creator<Message> {
             HttpMethod.POST,
             TwilioRestClient.Domains.IPMESSAGING,
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Messages",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

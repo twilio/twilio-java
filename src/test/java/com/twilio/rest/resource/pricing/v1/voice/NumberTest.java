@@ -40,8 +40,7 @@ public class NumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.PRICING,
-                                          "/v1/Voice/Numbers/+987654321",
-                                          "AC123");
+                                          "/v1/Voice/Numbers/+987654321");
             
             
             twilioRestClient.request(request);

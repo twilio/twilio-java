@@ -222,7 +222,7 @@ public class NotificationCreator extends Creator<Notification> {
             HttpMethod.POST,
             TwilioRestClient.Domains.NOTIFICATIONS,
             "/v1/Services/" + this.serviceSid + "/Notifications",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

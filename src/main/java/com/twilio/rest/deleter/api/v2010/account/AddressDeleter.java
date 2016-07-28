@@ -55,7 +55,7 @@ public class AddressDeleter extends Deleter<Address> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Addresses/" + this.sid + ".json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

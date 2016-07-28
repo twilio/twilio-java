@@ -40,8 +40,7 @@ public class CountryTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.PRICING,
-                                          "/v1/PhoneNumbers/Countries",
-                                          "AC123");
+                                          "/v1/PhoneNumbers/Countries");
             
             request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
@@ -86,8 +85,7 @@ public class CountryTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.PRICING,
-                                          "/v1/PhoneNumbers/Countries/US",
-                                          "AC123");
+                                          "/v1/PhoneNumbers/Countries/US");
             
             
             twilioRestClient.request(request);

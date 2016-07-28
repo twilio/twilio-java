@@ -40,8 +40,7 @@ public class PhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.LOOKUPS,
-                                          "/v1/PhoneNumbers/+987654321",
-                                          "AC123");
+                                          "/v1/PhoneNumbers/+987654321");
             
             
             twilioRestClient.request(request);

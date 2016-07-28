@@ -70,7 +70,7 @@ public class CredentialCreator extends Creator<Credential> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists/" + this.credentialListSid + "/Credentials.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

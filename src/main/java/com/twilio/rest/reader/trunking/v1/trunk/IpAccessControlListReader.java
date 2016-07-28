@@ -55,7 +55,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
             HttpMethod.GET,
             TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks/" + this.trunkSid + "/IpAccessControlLists",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -74,8 +74,9 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.TRUNKING,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

@@ -46,7 +46,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TRUNKING,
             "/v1/Trunks/" + this.trunkSid + "/PhoneNumbers",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

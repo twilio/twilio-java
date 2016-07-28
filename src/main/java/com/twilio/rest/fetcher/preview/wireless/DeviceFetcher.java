@@ -42,7 +42,7 @@ public class DeviceFetcher extends Fetcher<Device> {
             HttpMethod.GET,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/Devices/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

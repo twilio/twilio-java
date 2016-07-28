@@ -45,7 +45,7 @@ public class WorkerDeleter extends Deleter<Worker> {
             HttpMethod.DELETE,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

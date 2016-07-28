@@ -62,7 +62,7 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/AuthorizedConnectApps.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -81,8 +81,9 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
                                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

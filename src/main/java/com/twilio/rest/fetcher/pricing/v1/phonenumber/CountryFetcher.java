@@ -42,7 +42,7 @@ public class CountryFetcher extends Fetcher<Country> {
             HttpMethod.GET,
             TwilioRestClient.Domains.PRICING,
             "/v1/PhoneNumbers/Countries/" + this.isoCountry + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

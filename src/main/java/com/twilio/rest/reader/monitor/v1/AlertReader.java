@@ -112,7 +112,7 @@ public class AlertReader extends Reader<Alert> {
             HttpMethod.GET,
             TwilioRestClient.Domains.MONITOR,
             "/v1/Alerts",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -131,8 +131,9 @@ public class AlertReader extends Reader<Alert> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.MONITOR,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

@@ -38,52 +38,19 @@ public class TwilioRestClient {
         }
     }
 
-
-    private HttpClient httpClient;
     private final ObjectMapper objectMapper;
     private final String username;
     private final String password;
     private final String accountSid;
+    private final String region;
+    private final HttpClient httpClient;
 
-    /**
-     * Create a Rest Client.
-     *
-     * @param username Twilio username
-     * @param password Twilio password
-     */
-    public TwilioRestClient(final String username, final String password) {
-        this(username, password, username, new NetworkHttpClient());
-    }
-
-    /**
-     * Create a Rest Client using a custom HTTP Client.
-     *
-     * @param username Twilio username
-     * @param password Twilio password
-     * @param accountSid Twilio account sid
-     */
-    public TwilioRestClient(final String username, final String password, final String accountSid) {
-        this(username, password, accountSid, new NetworkHttpClient());
-    }
-
-    /**
-     * Create a Rest Client using a custom HTTP Client.
-     *
-     * @param username Twilio username
-     * @param password Twilio password
-     * @param accountSid Twilio account sid
-     * @param httpClient Custom HTTP Client
-     */
-    public TwilioRestClient(
-        final String username,
-        final String password,
-        final String accountSid,
-        final HttpClient httpClient
-    ) {
-        this.username = username;
-        this.password = password;
-        this.accountSid = accountSid;
-        this.httpClient = httpClient;
+    private TwilioRestClient(Builder b) {
+        this.username = b.username;
+        this.password = b.password;
+        this.accountSid = b.accountSid;
+        this.region = b.region;
+        this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
     }
 
@@ -102,6 +69,10 @@ public class TwilioRestClient {
         return accountSid;
     }
 
+    public String getRegion() {
+        return region;
+    }
+
     public ObjectMapper getObjectMapper() {
         return objectMapper;
     }
@@ -110,7 +81,36 @@ public class TwilioRestClient {
         return httpClient;
     }
 
-    public void setHttpClient(final HttpClient httpClient) {
-        this.httpClient = httpClient;
+    public static class Builder {
+        private String username;
+        private String password;
+        private String accountSid;
+        private String region;
+        private HttpClient httpClient = new NetworkHttpClient();
+
+        public Builder(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        public Builder accountSid(String accountSid) {
+            this.accountSid = accountSid;
+            return this;
+        }
+
+        public Builder region(String region) {
+            this.region = region;
+            return this;
+        }
+
+        public Builder httpClient(HttpClient httpClient) {
+            this.httpClient = httpClient;
+            return this;
+        }
+
+        public TwilioRestClient build() {
+            return new TwilioRestClient(this);
+        }
     }
+
 }

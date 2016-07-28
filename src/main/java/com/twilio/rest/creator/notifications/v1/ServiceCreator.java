@@ -118,7 +118,7 @@ public class ServiceCreator extends Creator<Service> {
             HttpMethod.POST,
             TwilioRestClient.Domains.NOTIFICATIONS,
             "/v1/Services",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

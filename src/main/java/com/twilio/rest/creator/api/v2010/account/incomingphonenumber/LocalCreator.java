@@ -289,7 +289,7 @@ public class LocalCreator extends Creator<Local> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/Local.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

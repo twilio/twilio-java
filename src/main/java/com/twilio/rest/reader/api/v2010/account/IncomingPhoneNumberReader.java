@@ -99,7 +99,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
             HttpMethod.GET,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);
@@ -118,8 +118,9 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
+            TwilioRestClient.Domains.API,
             page.getNextPageUri(),
-            client.getAccountSid()
+            client.getRegion()
         );
         return pageForRequest(client, request);
     }

@@ -74,7 +74,7 @@ public class TaskCreator extends Creator<Task> {
             HttpMethod.POST,
             TwilioRestClient.Domains.TASKROUTER,
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

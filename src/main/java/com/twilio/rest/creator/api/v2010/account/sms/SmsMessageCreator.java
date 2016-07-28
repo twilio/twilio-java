@@ -142,7 +142,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/SMS/Messages.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

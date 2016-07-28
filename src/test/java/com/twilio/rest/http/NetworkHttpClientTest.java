@@ -85,7 +85,7 @@ public class NetworkHttpClientTest {
             result = new IOException();
         }};
 
-        client.makeRequest(new Request(HttpMethod.GET, "http://www.example.com", "AC123"));
+        client.makeRequest(new Request(HttpMethod.GET, "http://www.example.com"));
         fail("ApiConnectionException was expected");
     }
 
@@ -141,7 +141,7 @@ public class NetworkHttpClientTest {
     @Test
     public void testReliableRequest() {
         final HttpClient httpClient = new NetworkHttpClient();
-        Request request = new Request(HttpMethod.GET, "/uri", "AC123");
+        Request request = new Request(HttpMethod.GET, "/uri");
 
         new NonStrictExpectations(httpClient) {{
             httpClient.makeRequest((Request) any);
@@ -154,7 +154,7 @@ public class NetworkHttpClientTest {
     @Test
     public void testReliableRequestWithRetries() {
         final HttpClient httpClient = new NetworkHttpClient();
-        Request request = new Request(HttpMethod.GET, "/uri", "AC123");
+        Request request = new Request(HttpMethod.GET, "/uri");
 
         new NonStrictExpectations(httpClient) {{
             httpClient.makeRequest((Request) any);
@@ -168,7 +168,7 @@ public class NetworkHttpClientTest {
     @Test
     public void testReliableRequestWithRetries100() throws InterruptedException {
         final HttpClient httpClient = new NetworkHttpClient();
-        Request request = new Request(HttpMethod.GET, "/uri", "AC123");
+        Request request = new Request(HttpMethod.GET, "/uri");
 
         new NonStrictExpectations(httpClient) {{
             httpClient.makeRequest((Request) any);

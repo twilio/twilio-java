@@ -66,7 +66,7 @@ public class UsageFetcher extends Fetcher<Usage> {
             HttpMethod.GET,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/Devices/" + this.deviceSid + "/Usage",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addQueryParams(request);

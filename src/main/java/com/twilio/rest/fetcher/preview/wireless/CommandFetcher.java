@@ -42,7 +42,7 @@ public class CommandFetcher extends Fetcher<Command> {
             HttpMethod.GET,
             TwilioRestClient.Domains.PREVIEW,
             "/wireless/Commands/" + this.sid + "",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         Response response = client.request(request);

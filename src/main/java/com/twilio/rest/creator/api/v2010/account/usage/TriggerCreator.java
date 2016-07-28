@@ -124,7 +124,7 @@ public class TriggerCreator extends Creator<Trigger> {
             HttpMethod.POST,
             TwilioRestClient.Domains.API,
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers.json",
-            client.getAccountSid()
+            client.getRegion()
         );
         
         addPostParams(request);

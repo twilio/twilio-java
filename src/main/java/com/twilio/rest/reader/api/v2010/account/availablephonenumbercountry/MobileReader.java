@@ -175,7 +175,7 @@ public class MobileReader extends Reader<Mobile> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/AvailablePhoneNumbers/" + this.countryCode + "/Mobile.json",
             client.getRegion()
         );
@@ -196,9 +196,7 @@ public class MobileReader extends Reader<Mobile> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.API.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

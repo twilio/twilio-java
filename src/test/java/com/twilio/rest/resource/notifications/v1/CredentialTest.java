@@ -39,7 +39,7 @@ public class CredentialTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Credentials");
             
             request.addQueryParam("PageSize", "50");
@@ -84,7 +84,7 @@ public class CredentialTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Credentials");
             request.addPostParam("Type", serialize(Credential.PushService.GCM));
             
@@ -117,7 +117,7 @@ public class CredentialTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -150,7 +150,7 @@ public class CredentialTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -183,7 +183,7 @@ public class CredentialTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             

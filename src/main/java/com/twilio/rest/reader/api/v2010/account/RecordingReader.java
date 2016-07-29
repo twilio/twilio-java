@@ -91,7 +91,7 @@ public class RecordingReader extends Reader<Recording> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Recordings.json",
             client.getRegion()
         );
@@ -112,9 +112,7 @@ public class RecordingReader extends Reader<Recording> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.API.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

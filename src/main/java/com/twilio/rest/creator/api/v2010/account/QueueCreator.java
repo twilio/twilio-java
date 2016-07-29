@@ -72,7 +72,7 @@ public class QueueCreator extends Creator<Queue> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Queues.json",
             client.getRegion()
         );

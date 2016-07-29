@@ -66,7 +66,7 @@ public class MessageUpdater extends Updater<Message> {
     public Message execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Messages/" + this.sid + "",
             client.getRegion()
         );

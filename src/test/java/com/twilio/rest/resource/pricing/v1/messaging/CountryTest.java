@@ -39,7 +39,7 @@ public class CountryTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PRICING,
+                                          TwilioRestClient.Domains.PRICING.toString(),
                                           "/v1/Messaging/Countries");
             
             request.addQueryParam("PageSize", "50");
@@ -60,7 +60,7 @@ public class CountryTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PRICING,
+                                          TwilioRestClient.Domains.PRICING.toString(),
                                           "/v1/Messaging/Countries/US");
             
             

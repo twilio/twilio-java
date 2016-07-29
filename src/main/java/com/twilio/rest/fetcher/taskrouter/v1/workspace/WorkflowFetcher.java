@@ -44,7 +44,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
     public Workflow execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Workflows/" + this.sid + "",
             client.getRegion()
         );

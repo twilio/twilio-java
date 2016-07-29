@@ -20,15 +20,15 @@ public class RequestTest {
 
     @Test
     public void testConstructorWithDomain() {
-        Request request = new Request(HttpMethod.GET, TwilioRestClient.Domains.CONVERSATIONS, "/v1/uri");
+        Request request = new Request(HttpMethod.GET, TwilioRestClient.Domains.CONVERSATIONS.toString(), "/v1/uri");
         assertNotNull(request);
         assertEquals(HttpMethod.GET, request.getMethod());
-        assertEquals("https://conversations.twilio.com/v1/uri", request.getUri());
+        assertEquals("https://conversations.twilio.com/v1/uri", request.getUrl());
     }
 
     @Test
     public void testConstructURL() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, "/2010-04-01/foobar");
+        Request r = new Request(HttpMethod.GET, TwilioRestClient.Domains.API.toString(), "/2010-04-01/foobar");
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar");
         assertUrlsEqual(expected, url);
@@ -43,7 +43,7 @@ public class RequestTest {
 
     @Test
     public void testConstructURLWithParam() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, "/2010-04-01/foobar");
+        Request r = new Request(HttpMethod.GET, TwilioRestClient.Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryParam("baz", "quux");
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz=quux");
@@ -52,7 +52,7 @@ public class RequestTest {
 
     @Test
     public void testConstructURLWithParams() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, "/2010-04-01/foobar");
+        Request r = new Request(HttpMethod.GET, TwilioRestClient.Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryParam("baz", "quux");
         r.addQueryParam("garply", "xyzzy");
         URL url = r.constructURL();
@@ -62,7 +62,7 @@ public class RequestTest {
 
     @Test
     public void testConstructURLWithMultivaluedParam() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, "/2010-04-01/foobar");
+        Request r = new Request(HttpMethod.GET, TwilioRestClient.Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryParam("baz", "quux");
         r.addQueryParam("baz", "xyzzy");
         URL url = r.constructURL();
@@ -72,7 +72,7 @@ public class RequestTest {
 
     @Test
     public void testConstructURLWithInequalityParam() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, "/2010-04-01/foobar");
+        Request r = new Request(HttpMethod.GET, TwilioRestClient.Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryParam("baz>", "3");
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=3");
@@ -81,7 +81,7 @@ public class RequestTest {
 
     @Test
     public void testAddQueryDateRangeLowerBound() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, "/2010-04-01/foobar");
+        Request r = new Request(HttpMethod.GET, TwilioRestClient.Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateRange("baz", Range.greaterThan(new DateTime(2014, 1, 1, 0, 0)));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-01");
@@ -90,7 +90,7 @@ public class RequestTest {
 
     @Test
     public void testAddQueryDateRangeUpperBound() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, "/2010-04-01/foobar");
+        Request r = new Request(HttpMethod.GET, TwilioRestClient.Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateRange("baz", Range.lessThan(new DateTime(2014, 1, 1, 0, 0)));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz<=2014-01-01");
@@ -99,7 +99,7 @@ public class RequestTest {
 
     @Test
     public void testAddQueryDateRangeClosed() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, "/2010-04-01/foobar");
+        Request r = new Request(HttpMethod.GET, TwilioRestClient.Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateRange("baz", Range.closed(new DateTime(2014, 1, 1, 0, 0), new DateTime(2014, 6, 1, 0, 0)));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-01&baz<=2014-06-01");

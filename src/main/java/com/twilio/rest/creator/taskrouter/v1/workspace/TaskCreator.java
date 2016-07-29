@@ -72,7 +72,7 @@ public class TaskCreator extends Creator<Task> {
     public Task execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks",
             client.getRegion()
         );

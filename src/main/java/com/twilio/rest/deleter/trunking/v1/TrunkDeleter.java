@@ -39,7 +39,7 @@ public class TrunkDeleter extends Deleter<Trunk> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.sid + "",
             client.getRegion()
         );

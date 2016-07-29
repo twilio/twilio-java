@@ -44,7 +44,7 @@ public class BindingFetcher extends Fetcher<Binding> {
     public Binding execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.serviceSid + "/Bindings/" + this.sid + "",
             client.getRegion()
         );

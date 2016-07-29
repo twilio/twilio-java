@@ -93,7 +93,7 @@ public class BindingCreator extends Creator<Binding> {
     public Binding execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.serviceSid + "/Bindings",
             client.getRegion()
         );

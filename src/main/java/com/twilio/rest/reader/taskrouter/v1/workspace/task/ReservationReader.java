@@ -93,7 +93,7 @@ public class ReservationReader extends Reader<Reservation> {
     public Page<Reservation> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.taskSid + "/Reservations",
             client.getRegion()
         );
@@ -114,9 +114,7 @@ public class ReservationReader extends Reader<Reservation> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.TASKROUTER.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

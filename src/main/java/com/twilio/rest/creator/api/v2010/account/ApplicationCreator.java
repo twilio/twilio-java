@@ -322,7 +322,7 @@ public class ApplicationCreator extends Creator<Application> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Applications.json",
             client.getRegion()
         );

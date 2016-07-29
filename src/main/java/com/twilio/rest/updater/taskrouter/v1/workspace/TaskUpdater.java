@@ -92,7 +92,7 @@ public class TaskUpdater extends Updater<Task> {
     public Task execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.sid + "",
             client.getRegion()
         );

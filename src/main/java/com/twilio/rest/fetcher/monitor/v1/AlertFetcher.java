@@ -40,7 +40,7 @@ public class AlertFetcher extends Fetcher<Alert> {
     public Alert execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.MONITOR,
+            TwilioRestClient.Domains.MONITOR.toString(),
             "/v1/Alerts/" + this.sid + "",
             client.getRegion()
         );

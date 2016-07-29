@@ -100,7 +100,7 @@ public class CredentialUpdater extends Updater<Credential> {
     public Credential execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Credentials/" + this.sid + "",
             client.getRegion()
         );

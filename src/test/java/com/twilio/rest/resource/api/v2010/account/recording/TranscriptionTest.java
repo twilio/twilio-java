@@ -39,7 +39,7 @@ public class TranscriptionTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
@@ -72,7 +72,7 @@ public class TranscriptionTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
@@ -105,7 +105,7 @@ public class TranscriptionTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions.json");
             
             request.addQueryParam("PageSize", "50");

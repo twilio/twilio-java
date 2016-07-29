@@ -42,7 +42,7 @@ public class CredentialReader extends Reader<Credential> {
     public Page<Credential> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Credentials",
             client.getRegion()
         );
@@ -63,9 +63,7 @@ public class CredentialReader extends Reader<Credential> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.IPMESSAGING,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.IPMESSAGING.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

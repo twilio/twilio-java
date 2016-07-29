@@ -39,7 +39,7 @@ public class ServiceDeleter extends Deleter<Service> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.sid + "",
             client.getRegion()
         );

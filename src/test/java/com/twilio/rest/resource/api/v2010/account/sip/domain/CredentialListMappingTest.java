@@ -39,7 +39,7 @@ public class CredentialListMappingTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings.json");
             request.addPostParam("CredentialListSid", serialize("CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
             
@@ -72,7 +72,7 @@ public class CredentialListMappingTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings.json");
             
             request.addQueryParam("PageSize", "50");
@@ -117,7 +117,7 @@ public class CredentialListMappingTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
@@ -150,7 +150,7 @@ public class CredentialListMappingTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             

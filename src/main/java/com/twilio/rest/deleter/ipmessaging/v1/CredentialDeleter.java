@@ -39,7 +39,7 @@ public class CredentialDeleter extends Deleter<Credential> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Credentials/" + this.sid + "",
             client.getRegion()
         );

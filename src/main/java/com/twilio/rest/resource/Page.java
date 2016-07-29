@@ -2,52 +2,85 @@ package com.twilio.rest.resource;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.twilio.rest.exception.ApiConnectionException;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Page<T> {
     private final List<T> records;
+    private final String firstPageUrl;
     private final String firstPageUri;
+    private final String nextPageUrl;
     private final String nextPageUri;
+    private final String previousPageUrl;
     private final String previousPageUri;
+    private final String url;
     private final String uri;
     private final int pageSize;
 
     private Page(Builder<T> b) {
         this.records = b.records;
         this.firstPageUri = b.firstPageUri;
+        this.firstPageUrl = b.firstPageUrl;
         this.nextPageUri = b.nextPageUri;
+        this.nextPageUrl = b.nextPageUrl;
         this.previousPageUri = b.previousPageUri;
+        this.previousPageUrl = b.previousPageUrl;
         this.uri = b.uri;
+        this.url = b.url;
         this.pageSize = b.pageSize;
+    }
+
+    private String urlFromUri(String domain, String region, String uri) {
+        return "https://" + Joiner.on(".").skipNulls().join(domain, region, "twilio", "com") + uri;
     }
 
     public List<T> getRecords() {
         return records;
     }
 
-    public String getFirstPageUri() {
-        return firstPageUri;
+    public String getFirstPageUrl(String domain, String region) {
+        if (firstPageUrl != null) {
+            return firstPageUrl;
+        }
+
+        return urlFromUri(domain, region, firstPageUri);
     }
 
-    public String getNextPageUri() {
-        return nextPageUri;
+    public String getNextPageUrl(String domain, String region) {
+        if (nextPageUrl != null) {
+            return nextPageUrl;
+        }
+
+        return urlFromUri(domain, region, nextPageUri);
     }
 
-    public String getPreviousPageUri() {
-        return previousPageUri;
+    public String getPreviousPageUrl(String domain, String region) {
+        if (previousPageUrl != null) {
+            return previousPageUrl;
+        }
+
+        return urlFromUri(domain, region, previousPageUri);
     }
 
     public int getPageSize() {
         return pageSize;
     }
 
-    public String getUri() {
-        return uri;
+    public String getUrl(String domain, String region) {
+        if (url != null) {
+            return url;
+        }
+
+        return urlFromUri(domain, region, uri);
+    }
+
+    public boolean hasNextPage() {
+        return !Strings.isNullOrEmpty(nextPageUri) || !Strings.isNullOrEmpty(nextPageUrl);
     }
 
     /**
@@ -114,22 +147,21 @@ public class Page<T> {
 
     private static <T> Page<T> buildNextGenPage(JsonNode root, List<T> results) {
         JsonNode meta = root.get("meta");
-        Builder<T> builder = new Builder<T>()
-            .uri(URI.create(meta.get("url").asText()).getPath());
+        Builder<T> builder = new Builder<T>().url(meta.get("url").asText());
 
         JsonNode nextPageNode = meta.get("next_page_url");
         if (!nextPageNode.isNull()) {
-            builder.nextPageUri(URI.create(nextPageNode.asText()).getPath());
+            builder.nextPageUrl(nextPageNode.asText());
         }
 
         JsonNode previousPageNode = meta.get("previous_page_url");
         if (!previousPageNode.isNull()) {
-            builder.previousPageUri(URI.create(previousPageNode.asText()).getPath());
+            builder.previousPageUrl(previousPageNode.asText());
         }
 
         JsonNode firstPageNode = meta.get("first_page_url");
         if (!firstPageNode.isNull()) {
-            builder.firstPageUri(URI.create(firstPageNode.asText()).getPath());
+            builder.firstPageUrl(firstPageNode.asText());
         }
 
         JsonNode pageSizeNode = meta.get("page_size");
@@ -144,10 +176,14 @@ public class Page<T> {
 
     private static class Builder<T> {
         private List<T> records;
+        private String firstPageUrl;
         private String firstPageUri;
+        private String nextPageUrl;
         private String nextPageUri;
+        private String previousPageUrl;
         private String previousPageUri;
         private String uri;
+        private String url;
         private int pageSize;
 
         public Builder<T> records(List<T> records) {
@@ -160,8 +196,18 @@ public class Page<T> {
             return this;
         }
 
+        public Builder<T> firstPageUrl(String firstPageUrl) {
+            this.firstPageUrl = firstPageUrl;
+            return this;
+        }
+
         public Builder<T> nextPageUri(String nextPageUri) {
             this.nextPageUri = nextPageUri;
+            return this;
+        }
+
+        public Builder<T> nextPageUrl(String nextPageUrl) {
+            this.nextPageUrl = nextPageUrl;
             return this;
         }
 
@@ -170,8 +216,18 @@ public class Page<T> {
             return this;
         }
 
+        public Builder<T> previousPageUrl(String previousPageUrl) {
+            this.previousPageUrl = previousPageUrl;
+            return this;
+        }
+
         public Builder<T> uri(String uri) {
             this.uri = uri;
+            return this;
+        }
+
+        public Builder<T> url(String url) {
+            this.url = url;
             return this;
         }
 

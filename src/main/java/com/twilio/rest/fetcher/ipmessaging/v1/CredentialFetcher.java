@@ -40,7 +40,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
     public Credential execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Credentials/" + this.sid + "",
             client.getRegion()
         );

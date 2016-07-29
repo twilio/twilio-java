@@ -39,7 +39,7 @@ public class AccountTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts.json");
             
             
@@ -72,7 +72,7 @@ public class AccountTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
@@ -105,7 +105,7 @@ public class AccountTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts.json");
             
             request.addQueryParam("PageSize", "50");
@@ -150,7 +150,7 @@ public class AccountTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             

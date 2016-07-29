@@ -39,7 +39,7 @@ public class BindingTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class BindingTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class BindingTest {
     public void testCreateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.NOTIFICATIONS,
+                                                      TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                                       "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings");
                         request.addPostParam("Endpoint", serialize("endpoint"));
         request.addPostParam("Identity", serialize("identity"));
@@ -141,7 +141,7 @@ public class BindingTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings");
             
             request.addQueryParam("PageSize", "50");

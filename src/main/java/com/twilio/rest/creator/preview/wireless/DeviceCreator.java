@@ -159,7 +159,7 @@ public class DeviceCreator extends Creator<Device> {
     public Device execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.PREVIEW,
+            TwilioRestClient.Domains.PREVIEW.toString(),
             "/wireless/Devices",
             client.getRegion()
         );

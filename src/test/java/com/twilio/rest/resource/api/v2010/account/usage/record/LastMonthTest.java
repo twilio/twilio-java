@@ -39,7 +39,7 @@ public class LastMonthTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/LastMonth.json");
             
             request.addQueryParam("PageSize", "50");

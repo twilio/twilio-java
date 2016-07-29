@@ -39,7 +39,7 @@ public class AlertTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.MONITOR,
+                                          TwilioRestClient.Domains.MONITOR.toString(),
                                           "/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class AlertTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.MONITOR,
+                                          TwilioRestClient.Domains.MONITOR.toString(),
                                           "/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class AlertTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.MONITOR,
+                                          TwilioRestClient.Domains.MONITOR.toString(),
                                           "/v1/Alerts");
             
             request.addQueryParam("PageSize", "50");

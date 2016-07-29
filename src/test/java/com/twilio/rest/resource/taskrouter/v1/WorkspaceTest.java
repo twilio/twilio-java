@@ -39,7 +39,7 @@ public class WorkspaceTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class WorkspaceTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class WorkspaceTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces");
             
             request.addQueryParam("PageSize", "50");
@@ -150,7 +150,7 @@ public class WorkspaceTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces");
             request.addPostParam("FriendlyName", serialize("friendlyName"));
             
@@ -183,7 +183,7 @@ public class WorkspaceTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             

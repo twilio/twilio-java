@@ -44,7 +44,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
     public CredentialList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/CredentialLists/" + this.sid + "",
             client.getRegion()
         );

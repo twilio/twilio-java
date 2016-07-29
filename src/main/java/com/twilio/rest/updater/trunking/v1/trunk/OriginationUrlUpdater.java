@@ -117,7 +117,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     public OriginationUrl execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/OriginationUrls/" + this.sid + "",
             client.getRegion()
         );

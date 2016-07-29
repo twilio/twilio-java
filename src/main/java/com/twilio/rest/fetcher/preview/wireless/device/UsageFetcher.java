@@ -64,7 +64,7 @@ public class UsageFetcher extends Fetcher<Usage> {
     public Usage execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW,
+            TwilioRestClient.Domains.PREVIEW.toString(),
             "/wireless/Devices/" + this.deviceSid + "/Usage",
             client.getRegion()
         );

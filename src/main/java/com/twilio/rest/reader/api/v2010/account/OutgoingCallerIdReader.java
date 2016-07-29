@@ -84,7 +84,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/OutgoingCallerIds.json",
             client.getRegion()
         );
@@ -105,9 +105,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.API.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

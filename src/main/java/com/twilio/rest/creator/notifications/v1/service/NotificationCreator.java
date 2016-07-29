@@ -220,7 +220,7 @@ public class NotificationCreator extends Creator<Notification> {
     public Notification execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.serviceSid + "/Notifications",
             client.getRegion()
         );

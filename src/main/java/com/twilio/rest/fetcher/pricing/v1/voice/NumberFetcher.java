@@ -40,7 +40,7 @@ public class NumberFetcher extends Fetcher<Number> {
     public Number execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PRICING,
+            TwilioRestClient.Domains.PRICING.toString(),
             "/v1/Voice/Numbers/" + this.number + "",
             client.getRegion()
         );

@@ -39,7 +39,7 @@ public class MessageTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -60,7 +60,7 @@ public class MessageTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages");
             request.addPostParam("Body", serialize("body"));
             
@@ -81,7 +81,7 @@ public class MessageTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages");
             
             request.addQueryParam("PageSize", "50");
@@ -102,7 +102,7 @@ public class MessageTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -123,7 +123,7 @@ public class MessageTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             request.addPostParam("Body", serialize("body"));
             

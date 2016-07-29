@@ -39,7 +39,7 @@ public class EventTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.MONITOR,
+                                          TwilioRestClient.Domains.MONITOR.toString(),
                                           "/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class EventTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.MONITOR,
+                                          TwilioRestClient.Domains.MONITOR.toString(),
                                           "/v1/Events");
             
             request.addQueryParam("PageSize", "50");

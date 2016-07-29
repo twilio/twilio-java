@@ -39,7 +39,7 @@ public class SmsMessageTest {
     public void testCreateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.API,
+                                                      TwilioRestClient.Domains.API.toString(),
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json");
                         request.addPostParam("To", serialize(new com.twilio.rest.type.PhoneNumber("+123456789")));
         request.addPostParam("From", serialize(new com.twilio.rest.type.PhoneNumber("+987654321")));
@@ -74,7 +74,7 @@ public class SmsMessageTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
@@ -107,7 +107,7 @@ public class SmsMessageTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
@@ -140,7 +140,7 @@ public class SmsMessageTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json");
             
             request.addQueryParam("PageSize", "50");
@@ -185,7 +185,7 @@ public class SmsMessageTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             

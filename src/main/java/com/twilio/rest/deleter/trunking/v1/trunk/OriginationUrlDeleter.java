@@ -43,7 +43,7 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/OriginationUrls/" + this.sid + "",
             client.getRegion()
         );

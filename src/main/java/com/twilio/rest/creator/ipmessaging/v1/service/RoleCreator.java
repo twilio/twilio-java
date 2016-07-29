@@ -54,7 +54,7 @@ public class RoleCreator extends Creator<Role> {
     public Role execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Roles",
             client.getRegion()
         );

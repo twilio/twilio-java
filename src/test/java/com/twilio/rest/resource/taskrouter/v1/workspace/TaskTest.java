@@ -39,7 +39,7 @@ public class TaskTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class TaskTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class TaskTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -138,7 +138,7 @@ public class TaskTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TASKROUTER,
+                                          TwilioRestClient.Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks");
             
             request.addQueryParam("PageSize", "50");
@@ -183,7 +183,7 @@ public class TaskTest {
     public void testCreateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.TASKROUTER,
+                                                      TwilioRestClient.Domains.TASKROUTER.toString(),
                                                       "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks");
                         request.addPostParam("Attributes", serialize("attributes"));
         request.addPostParam("WorkflowSid", serialize("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));

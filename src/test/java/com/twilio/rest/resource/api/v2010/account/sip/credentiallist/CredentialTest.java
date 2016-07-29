@@ -39,7 +39,7 @@ public class CredentialTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json");
             
             request.addQueryParam("PageSize", "50");
@@ -84,7 +84,7 @@ public class CredentialTest {
     public void testCreateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.API,
+                                                      TwilioRestClient.Domains.API.toString(),
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json");
                         request.addPostParam("Username", serialize("username"));
         request.addPostParam("Password", serialize("password"));
@@ -118,7 +118,7 @@ public class CredentialTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             
@@ -151,7 +151,7 @@ public class CredentialTest {
     public void testUpdateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.API,
+                                                      TwilioRestClient.Domains.API.toString(),
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
                         request.addPostParam("Username", serialize("username"));
         request.addPostParam("Password", serialize("password"));
@@ -185,7 +185,7 @@ public class CredentialTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
             

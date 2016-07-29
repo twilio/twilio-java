@@ -44,7 +44,7 @@ public class EventFetcher extends Fetcher<Event> {
     public Event execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Events/" + this.sid + "",
             client.getRegion()
         );

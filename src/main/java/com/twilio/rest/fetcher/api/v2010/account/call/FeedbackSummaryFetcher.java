@@ -54,7 +54,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/FeedbackSummary/" + this.sid + ".json",
             client.getRegion()
         );

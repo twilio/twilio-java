@@ -39,7 +39,7 @@ public class IpAccessControlListTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class IpAccessControlListTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class IpAccessControlListTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists");
             request.addPostParam("IpAccessControlListSid", serialize("ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
             
@@ -138,7 +138,7 @@ public class IpAccessControlListTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists");
             
             request.addQueryParam("PageSize", "50");

@@ -39,7 +39,7 @@ public class ValidationRequestTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.API,
+                                          TwilioRestClient.Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json");
             request.addPostParam("PhoneNumber", serialize(new com.twilio.rest.type.PhoneNumber("+987654321")));
             

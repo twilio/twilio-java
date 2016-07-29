@@ -39,7 +39,7 @@ public class PhoneNumberTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class PhoneNumberTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class PhoneNumberTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers");
             request.addPostParam("PhoneNumberSid", serialize("PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
             
@@ -138,7 +138,7 @@ public class PhoneNumberTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers");
             
             request.addQueryParam("PageSize", "50");

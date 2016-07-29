@@ -94,7 +94,7 @@ public class ChannelUpdater extends Updater<Channel> {
     public Channel execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.sid + "",
             client.getRegion()
         );

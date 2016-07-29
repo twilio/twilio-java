@@ -116,7 +116,7 @@ public class ServiceCreator extends Creator<Service> {
     public Service execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Services",
             client.getRegion()
         );

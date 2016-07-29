@@ -42,7 +42,7 @@ public class TrunkReader extends Reader<Trunk> {
     public Page<Trunk> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks",
             client.getRegion()
         );
@@ -63,9 +63,7 @@ public class TrunkReader extends Reader<Trunk> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TRUNKING,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.TRUNKING.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

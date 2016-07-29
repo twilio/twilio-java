@@ -79,7 +79,7 @@ public class DeviceReader extends Reader<Device> {
     public Page<Device> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW,
+            TwilioRestClient.Domains.PREVIEW.toString(),
             "/wireless/Devices",
             client.getRegion()
         );
@@ -100,9 +100,7 @@ public class DeviceReader extends Reader<Device> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.PREVIEW.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

@@ -53,7 +53,7 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/" + this.sid + ".json",
             client.getRegion()
         );

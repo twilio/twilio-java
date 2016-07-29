@@ -100,7 +100,7 @@ public class CredentialCreator extends Creator<Credential> {
     public Credential execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Credentials",
             client.getRegion()
         );

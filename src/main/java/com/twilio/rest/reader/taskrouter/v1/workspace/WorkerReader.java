@@ -137,7 +137,7 @@ public class WorkerReader extends Reader<Worker> {
     public Page<Worker> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Workers",
             client.getRegion()
         );
@@ -158,9 +158,7 @@ public class WorkerReader extends Reader<Worker> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.TASKROUTER.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

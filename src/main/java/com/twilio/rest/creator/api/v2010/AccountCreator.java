@@ -43,7 +43,7 @@ public class AccountCreator extends Creator<Account> {
     public Account execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts.json",
             client.getRegion()
         );

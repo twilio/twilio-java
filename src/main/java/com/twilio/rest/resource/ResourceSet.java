@@ -1,10 +1,9 @@
 package com.twilio.rest.resource;
 
-import com.google.common.base.Strings;
-import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.exception.InvalidRequestException;
+import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.Reader;
 
 import java.util.Iterator;
@@ -63,7 +62,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
     }
 
     private void fetchNextPage() {
-        if (Strings.isNullOrEmpty(page.getNextPageUri())) {
+        if (!page.hasNextPage()) {
             return;
         }
 

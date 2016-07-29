@@ -40,7 +40,7 @@ public class CountryFetcher extends Fetcher<Country> {
     public Country execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PRICING,
+            TwilioRestClient.Domains.PRICING.toString(),
             "/v1/Voice/Countries/" + this.isoCountry + "",
             client.getRegion()
         );

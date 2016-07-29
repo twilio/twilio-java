@@ -126,7 +126,7 @@ public class ServiceUpdater extends Updater<Service> {
     public Service execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.sid + "",
             client.getRegion()
         );

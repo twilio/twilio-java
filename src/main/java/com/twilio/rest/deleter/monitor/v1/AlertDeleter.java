@@ -39,7 +39,7 @@ public class AlertDeleter extends Deleter<Alert> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.MONITOR,
+            TwilioRestClient.Domains.MONITOR.toString(),
             "/v1/Alerts/" + this.sid + "",
             client.getRegion()
         );

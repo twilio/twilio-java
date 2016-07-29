@@ -43,7 +43,7 @@ public class WorkerDeleter extends Deleter<Worker> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.sid + "",
             client.getRegion()
         );

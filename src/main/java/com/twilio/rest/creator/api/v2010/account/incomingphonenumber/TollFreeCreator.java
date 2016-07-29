@@ -287,7 +287,7 @@ public class TollFreeCreator extends Creator<TollFree> {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/TollFree.json",
             client.getRegion()
         );

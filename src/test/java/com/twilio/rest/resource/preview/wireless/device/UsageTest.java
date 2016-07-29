@@ -39,7 +39,7 @@ public class UsageTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PREVIEW,
+                                          TwilioRestClient.Domains.PREVIEW.toString(),
                                           "/wireless/Devices/deviceSid/Usage");
             
             

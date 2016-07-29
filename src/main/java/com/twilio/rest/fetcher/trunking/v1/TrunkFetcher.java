@@ -40,7 +40,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
     public Trunk execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.sid + "",
             client.getRegion()
         );

@@ -39,7 +39,7 @@ public class PhoneNumberTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.LOOKUPS,
+                                          TwilioRestClient.Domains.LOOKUPS.toString(),
                                           "/v1/PhoneNumbers/+987654321");
             
             

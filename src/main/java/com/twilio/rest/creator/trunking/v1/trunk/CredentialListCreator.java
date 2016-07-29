@@ -44,7 +44,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
     public CredentialList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/CredentialLists",
             client.getRegion()
         );

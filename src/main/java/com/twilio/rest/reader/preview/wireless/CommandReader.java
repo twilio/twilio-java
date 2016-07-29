@@ -79,7 +79,7 @@ public class CommandReader extends Reader<Command> {
     public Page<Command> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW,
+            TwilioRestClient.Domains.PREVIEW.toString(),
             "/wireless/Commands",
             client.getRegion()
         );
@@ -100,9 +100,7 @@ public class CommandReader extends Reader<Command> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.PREVIEW.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

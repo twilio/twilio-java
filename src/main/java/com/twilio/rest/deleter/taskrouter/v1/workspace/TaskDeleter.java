@@ -43,7 +43,7 @@ public class TaskDeleter extends Deleter<Task> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.sid + "",
             client.getRegion()
         );

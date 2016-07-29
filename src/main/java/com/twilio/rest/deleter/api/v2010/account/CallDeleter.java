@@ -53,7 +53,7 @@ public class CallDeleter extends Deleter<Call> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.sid + ".json",
             client.getRegion()
         );

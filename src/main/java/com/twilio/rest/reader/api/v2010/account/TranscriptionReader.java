@@ -60,7 +60,7 @@ public class TranscriptionReader extends Reader<Transcription> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Transcriptions.json",
             client.getRegion()
         );
@@ -81,9 +81,7 @@ public class TranscriptionReader extends Reader<Transcription> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.API.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

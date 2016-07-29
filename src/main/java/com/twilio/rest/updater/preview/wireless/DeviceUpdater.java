@@ -159,7 +159,7 @@ public class DeviceUpdater extends Updater<Device> {
     public Device execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.PREVIEW,
+            TwilioRestClient.Domains.PREVIEW.toString(),
             "/wireless/Devices/" + this.sid + "",
             client.getRegion()
         );

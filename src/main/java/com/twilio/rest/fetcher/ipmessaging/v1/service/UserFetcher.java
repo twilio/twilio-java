@@ -44,7 +44,7 @@ public class UserFetcher extends Fetcher<User> {
     public User execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
             client.getRegion()
         );

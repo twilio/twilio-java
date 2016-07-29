@@ -39,7 +39,7 @@ public class ServiceTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services");
             
             
@@ -72,7 +72,7 @@ public class ServiceTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class ServiceTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -138,7 +138,7 @@ public class ServiceTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services");
             
             request.addQueryParam("PageSize", "50");
@@ -183,7 +183,7 @@ public class ServiceTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             

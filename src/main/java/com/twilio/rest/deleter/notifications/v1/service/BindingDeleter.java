@@ -43,7 +43,7 @@ public class BindingDeleter extends Deleter<Binding> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.serviceSid + "/Bindings/" + this.sid + "",
             client.getRegion()
         );

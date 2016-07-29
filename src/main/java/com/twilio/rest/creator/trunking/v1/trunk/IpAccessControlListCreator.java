@@ -44,7 +44,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
     public IpAccessControlList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/IpAccessControlLists",
             client.getRegion()
         );

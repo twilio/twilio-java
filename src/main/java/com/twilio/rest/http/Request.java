@@ -24,7 +24,7 @@ public class Request {
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
     private final HttpMethod method;
-    private final String uri;
+    private final String url;
     private final Map<String, List<String>> queryParams;
     private final Map<String, List<String>> postParams;
 
@@ -35,10 +35,13 @@ public class Request {
      * Create a new API request.
      *
      * @param method HTTP method
-     * @param uri uri of request
+     * @param url url of request
      */
-    public Request(final HttpMethod method, final String uri) {
-        this(method, TwilioRestClient.Domains.API, uri, null);
+    public Request(final HttpMethod method, final String url) {
+        this.method = method;
+        this.url = url;
+        this.queryParams = new HashMap<>();
+        this.postParams = new HashMap<>();
     }
 
     /**
@@ -48,7 +51,7 @@ public class Request {
      * @param domain Twilio domain
      * @param uri uri of request
      */
-    public Request(final HttpMethod method, final TwilioRestClient.Domains domain, final String uri) {
+    public Request(final HttpMethod method, final String domain, final String uri) {
         this(method, domain, uri, null);
     }
 
@@ -61,12 +64,12 @@ public class Request {
      */
     public Request(
         final HttpMethod method,
-        final TwilioRestClient.Domains domain,
+        final String domain,
         final String uri,
         final String region
     ) {
         this.method = method;
-        this.uri = "https://" + Joiner.on(".").skipNulls().join(domain.toString(), region, "twilio", "com") + uri;
+        this.url = "https://" + Joiner.on(".").skipNulls().join(domain, region, "twilio", "com") + uri;
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
     }
@@ -75,8 +78,8 @@ public class Request {
         return method;
     }
 
-    public String getUri() {
-        return uri;
+    public String getUrl() {
+        return url;
     }
 
     public void setAuth(final String username, final String password) {
@@ -123,7 +126,7 @@ public class Request {
     @SuppressWarnings("checkstyle:abbreviationaswordinname")
     public URL constructURL() {
         String params = encodeQueryParams();
-        String stringUri = uri;
+        String stringUri = url;
 
         if (params.length() > 0) {
             stringUri += "?" + params;
@@ -240,7 +243,7 @@ public class Request {
 
         Request other = (Request) o;
         return Objects.equals(this.method, other.method) &&
-               Objects.equals(this.uri, other.uri) &&
+               Objects.equals(this.url, other.url) &&
                Objects.equals(this.username, other.username) &&
                Objects.equals(this.password, other.password) &&
                Objects.equals(this.queryParams, other.queryParams) &&

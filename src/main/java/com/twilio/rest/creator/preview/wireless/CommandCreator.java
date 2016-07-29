@@ -81,7 +81,7 @@ public class CommandCreator extends Creator<Command> {
     public Command execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.PREVIEW,
+            TwilioRestClient.Domains.PREVIEW.toString(),
             "/wireless/Commands",
             client.getRegion()
         );

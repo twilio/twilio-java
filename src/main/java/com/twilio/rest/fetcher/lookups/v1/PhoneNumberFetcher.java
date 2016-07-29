@@ -103,7 +103,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     public PhoneNumber execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.LOOKUPS,
+            TwilioRestClient.Domains.LOOKUPS.toString(),
             "/v1/PhoneNumbers/" + this.phoneNumber + "",
             client.getRegion()
         );

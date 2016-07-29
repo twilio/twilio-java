@@ -80,7 +80,7 @@ public class WorkerUpdater extends Updater<Worker> {
     public Worker execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.sid + "",
             client.getRegion()
         );

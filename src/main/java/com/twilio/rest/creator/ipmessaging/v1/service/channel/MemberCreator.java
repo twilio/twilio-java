@@ -60,7 +60,7 @@ public class MemberCreator extends Creator<Member> {
     public Member execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.IPMESSAGING,
+            TwilioRestClient.Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Members",
             client.getRegion()
         );

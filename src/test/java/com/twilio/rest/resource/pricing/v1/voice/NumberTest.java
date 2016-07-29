@@ -39,7 +39,7 @@ public class NumberTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PRICING,
+                                          TwilioRestClient.Domains.PRICING.toString(),
                                           "/v1/Voice/Numbers/+987654321");
             
             

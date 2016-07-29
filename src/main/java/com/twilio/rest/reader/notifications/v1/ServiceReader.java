@@ -55,7 +55,7 @@ public class ServiceReader extends Reader<Service> {
     public Page<Service> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.NOTIFICATIONS,
+            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
             "/v1/Services",
             client.getRegion()
         );
@@ -76,9 +76,7 @@ public class ServiceReader extends Reader<Service> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.NOTIFICATIONS,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.NOTIFICATIONS.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

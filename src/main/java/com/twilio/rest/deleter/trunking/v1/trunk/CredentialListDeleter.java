@@ -43,7 +43,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.TRUNKING,
+            TwilioRestClient.Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/CredentialLists/" + this.sid + "",
             client.getRegion()
         );

@@ -39,7 +39,7 @@ public class NotificationTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.NOTIFICATIONS,
+                                          TwilioRestClient.Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications");
             
             

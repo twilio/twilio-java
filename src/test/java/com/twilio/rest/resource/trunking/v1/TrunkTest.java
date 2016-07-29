@@ -39,7 +39,7 @@ public class TrunkTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class TrunkTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class TrunkTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks");
             
             
@@ -138,7 +138,7 @@ public class TrunkTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks");
             
             request.addQueryParam("PageSize", "50");
@@ -183,7 +183,7 @@ public class TrunkTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.TRUNKING,
+                                          TwilioRestClient.Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             

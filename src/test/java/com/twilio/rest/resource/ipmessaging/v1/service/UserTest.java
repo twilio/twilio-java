@@ -39,7 +39,7 @@ public class UserTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class UserTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class UserTest {
     public void testCreateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.IPMESSAGING,
+                                                      TwilioRestClient.Domains.IPMESSAGING.toString(),
                                                       "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users");
                         request.addPostParam("Identity", serialize("identity"));
         request.addPostParam("RoleSid", serialize("RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
@@ -139,7 +139,7 @@ public class UserTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users");
             
             request.addQueryParam("PageSize", "50");
@@ -184,7 +184,7 @@ public class UserTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             

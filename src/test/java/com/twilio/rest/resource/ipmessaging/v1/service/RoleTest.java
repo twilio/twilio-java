@@ -39,7 +39,7 @@ public class RoleTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -72,7 +72,7 @@ public class RoleTest {
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -105,7 +105,7 @@ public class RoleTest {
     public void testCreateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.IPMESSAGING,
+                                                      TwilioRestClient.Domains.IPMESSAGING.toString(),
                                                       "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles");
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("Type", serialize(Role.RoleType.CHANNEL));
@@ -140,7 +140,7 @@ public class RoleTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.IPMESSAGING,
+                                          TwilioRestClient.Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles");
             
             request.addQueryParam("PageSize", "50");
@@ -185,7 +185,7 @@ public class RoleTest {
     public void testUpdateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.IPMESSAGING,
+                                                      TwilioRestClient.Domains.IPMESSAGING.toString(),
                                                       "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("Permission", serialize("permission"));

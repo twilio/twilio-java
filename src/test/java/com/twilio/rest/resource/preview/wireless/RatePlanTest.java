@@ -39,7 +39,7 @@ public class RatePlanTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PREVIEW,
+                                          TwilioRestClient.Domains.PREVIEW.toString(),
                                           "/wireless/RatePlans");
             
             request.addQueryParam("PageSize", "50");
@@ -60,7 +60,7 @@ public class RatePlanTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PREVIEW,
+                                          TwilioRestClient.Domains.PREVIEW.toString(),
                                           "/wireless/RatePlans/sid");
             
             

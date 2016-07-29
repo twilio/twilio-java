@@ -39,7 +39,7 @@ public class DeviceTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PREVIEW,
+                                          TwilioRestClient.Domains.PREVIEW.toString(),
                                           "/wireless/Devices/sid");
             
             
@@ -60,7 +60,7 @@ public class DeviceTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PREVIEW,
+                                          TwilioRestClient.Domains.PREVIEW.toString(),
                                           "/wireless/Devices");
             
             request.addQueryParam("PageSize", "50");
@@ -81,7 +81,7 @@ public class DeviceTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.PREVIEW,
+                                          TwilioRestClient.Domains.PREVIEW.toString(),
                                           "/wireless/Devices");
             request.addPostParam("RatePlan", serialize("ratePlan"));
             
@@ -102,7 +102,7 @@ public class DeviceTest {
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          TwilioRestClient.Domains.PREVIEW,
+                                          TwilioRestClient.Domains.PREVIEW.toString(),
                                           "/wireless/Devices/sid");
             
             

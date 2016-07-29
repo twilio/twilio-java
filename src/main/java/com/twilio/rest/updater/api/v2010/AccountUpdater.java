@@ -71,7 +71,7 @@ public class AccountUpdater extends Updater<Account> {
         this.sid = this.sid == null ? client.getAccountSid() : this.sid;
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.API,
+            TwilioRestClient.Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.sid + ".json",
             client.getRegion()
         );

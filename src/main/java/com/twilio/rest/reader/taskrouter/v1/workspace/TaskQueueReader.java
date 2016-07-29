@@ -77,7 +77,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     public Page<TaskQueue> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER,
+            TwilioRestClient.Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues",
             client.getRegion()
         );
@@ -98,9 +98,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER,
-            page.getNextPageUri(),
-            client.getRegion()
+            page.getNextPageUrl(TwilioRestClient.Domains.TASKROUTER.toString(), client.getRegion())
         );
         return pageForRequest(client, request);
     }

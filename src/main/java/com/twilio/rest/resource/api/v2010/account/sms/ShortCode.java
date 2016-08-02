@@ -23,8 +23,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.api.v2010.account.sms.ShortCodeReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.api.v2010.account.sms.ShortCodeUpdater;
 import org.joda.time.DateTime;
 
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ShortCode extends SidResource {
+public class ShortCode extends Resource {
     private static final long serialVersionUID = 186171326966142L;
 
     /**

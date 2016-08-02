@@ -63,7 +63,10 @@ public class CredentialReader extends Reader<Credential> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(TwilioRestClient.Domains.NOTIFICATIONS.toString(), client.getRegion())
+            page.getNextPageUrl(
+                TwilioRestClient.Domains.NOTIFICATIONS.toString(),
+                client.getRegion()
+            )
         );
         return pageForRequest(client, request);
     }

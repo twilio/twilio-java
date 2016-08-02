@@ -7,6 +7,7 @@
 
 package com.twilio.rest.updater.ipmessaging.v1;
 
+import com.twilio.rest.converter.Converter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.http.HttpMethod;
@@ -201,7 +202,7 @@ public class ServiceUpdater extends Updater<Service> {
         }
         
         if (webhooks != null) {
-            request.addPostParam("Webhooks", webhooks.toString());
+            request.addPostParam("Webhooks", Converter.mapToJson(webhooks));
         }
     }
 }

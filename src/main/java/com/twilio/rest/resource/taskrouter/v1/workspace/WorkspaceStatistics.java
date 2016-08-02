@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.rest.converter.Converter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.fetcher.taskrouter.v1.workspace.WorkspaceStatisticsFetcher;

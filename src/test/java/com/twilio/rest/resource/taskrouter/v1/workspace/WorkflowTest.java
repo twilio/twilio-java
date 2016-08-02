@@ -187,7 +187,7 @@ public class WorkflowTest {
                                                       "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows");
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("Configuration", serialize("configuration"));
-        request.addPostParam("AssignmentCallbackUrl", serialize("/example"));
+        request.addPostParam("AssignmentCallbackUrl", serialize(URI.create("https://example.com")));
                         
                         twilioRestClient.request(request);
                         times = 1;
@@ -197,7 +197,7 @@ public class WorkflowTest {
                     }};
         
         try {
-            Workflow.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "configuration", "/example").execute();
+            Workflow.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "configuration", URI.create("https://example.com")).execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -211,6 +211,6 @@ public class WorkflowTest {
             result = new ObjectMapper();
         }};
         
-        Workflow.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "configuration", "/example").execute();
+        Workflow.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "configuration", URI.create("https://example.com")).execute();
     }
 }

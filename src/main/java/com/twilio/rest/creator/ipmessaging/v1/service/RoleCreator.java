@@ -97,8 +97,8 @@ public class RoleCreator extends Creator<Role> {
         }
         
         if (permission != null) {
-            for (Object prop : permission) {
-                request.addPostParam("Permission", prop.toString());
+            for (String prop : permission) {
+                request.addPostParam("Permission", prop);
             }
         }
     }

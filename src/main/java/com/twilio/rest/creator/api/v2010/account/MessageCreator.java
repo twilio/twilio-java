@@ -276,7 +276,7 @@ public class MessageCreator extends Creator<Message> {
         }
         
         if (mediaUrl != null) {
-            for (Object prop : mediaUrl) {
+            for (URI prop : mediaUrl) {
                 request.addPostParam("MediaUrl", prop.toString());
             }
         }

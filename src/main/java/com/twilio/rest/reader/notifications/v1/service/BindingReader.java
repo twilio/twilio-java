@@ -176,7 +176,10 @@ public class BindingReader extends Reader<Binding> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(TwilioRestClient.Domains.NOTIFICATIONS.toString(), client.getRegion())
+            page.getNextPageUrl(
+                TwilioRestClient.Domains.NOTIFICATIONS.toString(),
+                client.getRegion()
+            )
         );
         return pageForRequest(client, request);
     }
@@ -235,11 +238,15 @@ public class BindingReader extends Reader<Binding> {
         }
         
         if (identity != null) {
-            request.addQueryParam("Identity", identity.toString());
+            for (String prop : identity) {
+                request.addQueryParam("Identity", prop);
+            }
         }
         
         if (tag != null) {
-            request.addQueryParam("Tag", tag.toString());
+            for (String prop : tag) {
+                request.addQueryParam("Tag", prop);
+            }
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

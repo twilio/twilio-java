@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.rest.converter.Converter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.fetcher.lookups.v1.PhoneNumberFetcher;
@@ -21,8 +22,8 @@ import com.twilio.rest.http.HttpMethod;
 import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PhoneNumber extends SidResource {
+public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 188594721774120L;
 
     public enum Type {

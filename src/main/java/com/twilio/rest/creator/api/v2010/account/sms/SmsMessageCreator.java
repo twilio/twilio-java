@@ -187,7 +187,7 @@ public class SmsMessageCreator extends Creator<SmsMessage> {
         }
         
         if (mediaUrl != null) {
-            for (Object prop : mediaUrl) {
+            for (URI prop : mediaUrl) {
                 request.addPostParam("MediaUrl", prop.toString());
             }
         }

@@ -25,8 +25,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.trunking.v1.trunk.IpAccessControlListReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IpAccessControlList extends SidResource {
+public class IpAccessControlList extends Resource {
     private static final long serialVersionUID = 45032598628398L;
 
     /**

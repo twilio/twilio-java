@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.rest.converter.Converter;
 import com.twilio.rest.converter.DateConverter;
 import com.twilio.rest.creator.trunking.v1.TrunkCreator;
 import com.twilio.rest.deleter.trunking.v1.TrunkDeleter;
@@ -25,8 +26,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.trunking.v1.TrunkReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.trunking.v1.TrunkUpdater;
 import org.joda.time.DateTime;
 
@@ -38,7 +39,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Trunk extends SidResource {
+public class Trunk extends Resource {
     private static final long serialVersionUID = 276011649758607L;
 
     /**

@@ -7,6 +7,7 @@
 
 package com.twilio.rest.updater.ipmessaging.v1.service.channel;
 
+import com.twilio.rest.converter.Converter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.http.HttpMethod;
@@ -105,7 +106,7 @@ public class MessageUpdater extends Updater<Message> {
         }
         
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes.toString());
+            request.addPostParam("Attributes", Converter.mapToJson(attributes));
         }
     }
 }

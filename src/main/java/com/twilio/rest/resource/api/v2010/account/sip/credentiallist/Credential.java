@@ -25,8 +25,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.api.v2010.account.sip.credentiallist.CredentialReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.api.v2010.account.sip.credentiallist.CredentialUpdater;
 import org.joda.time.DateTime;
 
@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Credential extends SidResource {
+public class Credential extends Resource {
     private static final long serialVersionUID = 207131851434233L;
 
     /**

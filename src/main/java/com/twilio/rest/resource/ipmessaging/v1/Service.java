@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
+import com.twilio.rest.converter.Converter;
 import com.twilio.rest.converter.DateConverter;
 import com.twilio.rest.creator.ipmessaging.v1.ServiceCreator;
 import com.twilio.rest.deleter.ipmessaging.v1.ServiceDeleter;
@@ -25,8 +26,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.ipmessaging.v1.ServiceReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.ipmessaging.v1.ServiceUpdater;
 import org.joda.time.DateTime;
 
@@ -37,7 +38,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Service extends SidResource {
+public class Service extends Resource {
     private static final long serialVersionUID = 232026251916691L;
 
     /**

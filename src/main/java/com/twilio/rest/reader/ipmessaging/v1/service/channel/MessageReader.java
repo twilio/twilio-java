@@ -78,7 +78,10 @@ public class MessageReader extends Reader<Message> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(TwilioRestClient.Domains.IPMESSAGING.toString(), client.getRegion())
+            page.getNextPageUrl(
+                TwilioRestClient.Domains.IPMESSAGING.toString(),
+                client.getRegion()
+            )
         );
         return pageForRequest(client, request);
     }

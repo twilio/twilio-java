@@ -7,6 +7,7 @@
 
 package com.twilio.rest.creator.taskrouter.v1;
 
+import com.twilio.rest.converter.Promoter;
 import com.twilio.rest.creator.Creator;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
@@ -17,9 +18,11 @@ import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.taskrouter.v1.Workspace;
 
+import java.net.URI;
+
 public class WorkspaceCreator extends Creator<Workspace> {
     private final String friendlyName;
-    private String eventCallbackUrl;
+    private URI eventCallbackUrl;
     private String template;
 
     /**
@@ -37,9 +40,19 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * @param eventCallbackUrl The event_callback_url
      * @return this
      */
-    public WorkspaceCreator setEventCallbackUrl(final String eventCallbackUrl) {
+    public WorkspaceCreator setEventCallbackUrl(final URI eventCallbackUrl) {
         this.eventCallbackUrl = eventCallbackUrl;
         return this;
+    }
+
+    /**
+     * The event_callback_url.
+     * 
+     * @param eventCallbackUrl The event_callback_url
+     * @return this
+     */
+    public WorkspaceCreator setEventCallbackUrl(final String eventCallbackUrl) {
+        return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
     }
 
     /**
@@ -103,7 +116,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
         }
         
         if (eventCallbackUrl != null) {
-            request.addPostParam("EventCallbackUrl", eventCallbackUrl);
+            request.addPostParam("EventCallbackUrl", eventCallbackUrl.toString());
         }
         
         if (template != null) {

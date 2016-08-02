@@ -25,8 +25,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.ipmessaging.v1.service.RoleReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.ipmessaging.v1.service.RoleUpdater;
 import org.joda.time.DateTime;
 
@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Role extends SidResource {
+public class Role extends Resource {
     private static final long serialVersionUID = 136946012216407L;
 
     public enum RoleType {

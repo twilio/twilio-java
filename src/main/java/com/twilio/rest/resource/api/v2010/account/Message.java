@@ -26,8 +26,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.api.v2010.account.MessageReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.api.v2010.account.MessageUpdater;
 import org.joda.time.DateTime;
 
@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Message extends SidResource {
+public class Message extends Resource {
     private static final long serialVersionUID = 8764009288306L;
 
     public enum Status {

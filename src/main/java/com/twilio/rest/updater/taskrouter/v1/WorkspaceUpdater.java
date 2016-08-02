@@ -7,6 +7,7 @@
 
 package com.twilio.rest.updater.taskrouter.v1;
 
+import com.twilio.rest.converter.Promoter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.http.HttpMethod;
@@ -17,10 +18,12 @@ import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.taskrouter.v1.Workspace;
 import com.twilio.rest.updater.Updater;
 
+import java.net.URI;
+
 public class WorkspaceUpdater extends Updater<Workspace> {
     private final String sid;
     private String defaultActivitySid;
-    private String eventCallbackUrl;
+    private URI eventCallbackUrl;
     private String friendlyName;
     private String timeoutActivitySid;
 
@@ -50,9 +53,19 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      * @param eventCallbackUrl The event_callback_url
      * @return this
      */
-    public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl) {
+    public WorkspaceUpdater setEventCallbackUrl(final URI eventCallbackUrl) {
         this.eventCallbackUrl = eventCallbackUrl;
         return this;
+    }
+
+    /**
+     * The event_callback_url.
+     * 
+     * @param eventCallbackUrl The event_callback_url
+     * @return this
+     */
+    public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl) {
+        return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
     }
 
     /**
@@ -127,7 +140,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
         }
         
         if (eventCallbackUrl != null) {
-            request.addPostParam("EventCallbackUrl", eventCallbackUrl);
+            request.addPostParam("EventCallbackUrl", eventCallbackUrl.toString());
         }
         
         if (friendlyName != null) {

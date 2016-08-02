@@ -74,7 +74,10 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(TwilioRestClient.Domains.TRUNKING.toString(), client.getRegion())
+            page.getNextPageUrl(
+                TwilioRestClient.Domains.TRUNKING.toString(),
+                client.getRegion()
+            )
         );
         return pageForRequest(client, request);
     }

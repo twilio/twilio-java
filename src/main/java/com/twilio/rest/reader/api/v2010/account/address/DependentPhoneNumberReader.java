@@ -88,7 +88,10 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
                                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(TwilioRestClient.Domains.API.toString(), client.getRegion())
+            page.getNextPageUrl(
+                TwilioRestClient.Domains.API.toString(),
+                client.getRegion()
+            )
         );
         return pageForRequest(client, request);
     }

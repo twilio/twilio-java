@@ -267,7 +267,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         }
         
         if (permissions != null) {
-            for (Object prop : permissions) {
+            for (ConnectApp.Permission prop : permissions) {
                 request.addPostParam("Permissions", prop.toString());
             }
         }

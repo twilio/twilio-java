@@ -25,8 +25,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.trunking.v1.trunk.OriginationUrlReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.trunking.v1.trunk.OriginationUrlUpdater;
 import org.joda.time.DateTime;
 
@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OriginationUrl extends SidResource {
+public class OriginationUrl extends Resource {
     private static final long serialVersionUID = 147762448771620L;
 
     /**

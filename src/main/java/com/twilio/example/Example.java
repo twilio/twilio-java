@@ -2,7 +2,9 @@ package com.twilio.example;
 
 
 import com.twilio.rest.Twilio;
+import com.twilio.rest.creator.api.v2010.account.CallCreator;
 import com.twilio.rest.creator.api.v2010.account.IncomingPhoneNumberCreator;
+import com.twilio.rest.creator.api.v2010.account.MessageCreator;
 import com.twilio.rest.creator.trunking.v1.TrunkCreator;
 import com.twilio.rest.reader.api.v2010.account.CallReader;
 import com.twilio.rest.reader.api.v2010.account.MessageReader;
@@ -20,6 +22,7 @@ import com.twilio.twiml.TwiML;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.VoiceResponse;
 
+import java.net.URI;
 import java.util.Iterator;
 
 public class Example {
@@ -38,30 +41,30 @@ public class Example {
     public static void main(String[] args) throws TwiMLException {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-//
-//        // Get a number
-//        IncomingPhoneNumber number = buyNumber();
-//        System.out.println(number.getPhoneNumber());
-//
-//        // Send a text message
-//        Message message = new MessageCreator(
-//            ACCOUNT_SID,
-//            PHONE_NUMBER,
-//            "Hello world!",
-//            number.getPhoneNumber()
-//        ).execute();
-//
-//        System.out.println(message.getSid());
-//        System.out.println(message.getBody());
-//
-//        // Make a phone call
-//        Call call = new CallCreator(
-//            ACCOUNT_SID,
-//            PHONE_NUMBER,
-//            number.getPhoneNumber(),
-//            URI.create("https://twilio.com")
-//        ).execute();
-//        System.out.println(call.getSid());
+
+        // Get a number
+        IncomingPhoneNumber number = buyNumber();
+        System.out.println(number.getPhoneNumber());
+
+        // Send a text message
+        Message message = new MessageCreator(
+            ACCOUNT_SID,
+            PHONE_NUMBER,
+            "Hello world!",
+            number.getPhoneNumber()
+        ).execute();
+
+        System.out.println(message.getSid());
+        System.out.println(message.getBody());
+
+        // Make a phone call
+        Call call = new CallCreator(
+            ACCOUNT_SID,
+            PHONE_NUMBER,
+            number.getPhoneNumber(),
+            URI.create("https://twilio.com")
+        ).execute();
+        System.out.println(call.getSid());
 
         // Print all the messages
         Iterable<Message> messages = new MessageReader().execute();

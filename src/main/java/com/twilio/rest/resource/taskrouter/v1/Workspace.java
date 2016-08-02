@@ -25,19 +25,20 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.taskrouter.v1.WorkspaceReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.taskrouter.v1.WorkspaceUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Workspace extends SidResource {
-    private static final long serialVersionUID = 241476983828355L;
+public class Workspace extends Resource {
+    private static final long serialVersionUID = 234480322422279L;
 
     /**
      * Create a WorkspaceFetcher to execute fetch.
@@ -131,7 +132,7 @@ public class Workspace extends SidResource {
     private final DateTime dateUpdated;
     private final String defaultActivityName;
     private final String defaultActivitySid;
-    private final String eventCallbackUrl;
+    private final URI eventCallbackUrl;
     private final String friendlyName;
     private final String sid;
     private final String timeoutActivityName;
@@ -149,7 +150,7 @@ public class Workspace extends SidResource {
                       @JsonProperty("default_activity_sid")
                       final String defaultActivitySid, 
                       @JsonProperty("event_callback_url")
-                      final String eventCallbackUrl, 
+                      final URI eventCallbackUrl, 
                       @JsonProperty("friendly_name")
                       final String friendlyName, 
                       @JsonProperty("sid")
@@ -220,7 +221,7 @@ public class Workspace extends SidResource {
      * 
      * @return The event_callback_url
      */
-    public final String getEventCallbackUrl() {
+    public final URI getEventCallbackUrl() {
         return this.eventCallbackUrl;
     }
 

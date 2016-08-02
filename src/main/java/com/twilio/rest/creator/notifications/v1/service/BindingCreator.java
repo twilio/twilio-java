@@ -144,8 +144,8 @@ public class BindingCreator extends Creator<Binding> {
         }
         
         if (tag != null) {
-            for (Object prop : tag) {
-                request.addPostParam("Tag", prop.toString());
+            for (String prop : tag) {
+                request.addPostParam("Tag", prop);
             }
         }
         

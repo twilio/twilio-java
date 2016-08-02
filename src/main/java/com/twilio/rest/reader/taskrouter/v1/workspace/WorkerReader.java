@@ -158,7 +158,10 @@ public class WorkerReader extends Reader<Worker> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(TwilioRestClient.Domains.TASKROUTER.toString(), client.getRegion())
+            page.getNextPageUrl(
+                TwilioRestClient.Domains.TASKROUTER.toString(),
+                client.getRegion()
+            )
         );
         return pageForRequest(client, request);
     }

@@ -23,8 +23,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.api.v2010.account.ConferenceReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Conference extends SidResource {
+public class Conference extends Resource {
     private static final long serialVersionUID = 42097688383145L;
 
     public enum Status {

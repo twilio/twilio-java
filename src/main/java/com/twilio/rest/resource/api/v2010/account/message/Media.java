@@ -24,8 +24,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.api.v2010.account.message.MediaReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Media extends SidResource {
+public class Media extends Resource {
     private static final long serialVersionUID = 138990472819672L;
 
     /**

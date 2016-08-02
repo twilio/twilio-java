@@ -25,19 +25,20 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.taskrouter.v1.workspace.WorkflowReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.taskrouter.v1.workspace.WorkflowUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Workflow extends SidResource {
-    private static final long serialVersionUID = 45221576687968L;
+public class Workflow extends Resource {
+    private static final long serialVersionUID = 144398215844815L;
 
     /**
      * Create a WorkflowFetcher to execute fetch.
@@ -97,7 +98,7 @@ public class Workflow extends SidResource {
     public static WorkflowCreator create(final String workspaceSid, 
                                          final String friendlyName, 
                                          final String configuration, 
-                                         final String assignmentCallbackUrl) {
+                                         final URI assignmentCallbackUrl) {
         return new WorkflowCreator(workspaceSid, friendlyName, configuration, assignmentCallbackUrl);
     }
 
@@ -140,12 +141,12 @@ public class Workflow extends SidResource {
     }
 
     private final String accountSid;
-    private final String assignmentCallbackUrl;
+    private final URI assignmentCallbackUrl;
     private final String configuration;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String documentContentType;
-    private final String fallbackAssignmentCallbackUrl;
+    private final URI fallbackAssignmentCallbackUrl;
     private final String friendlyName;
     private final String sid;
     private final Integer taskReservationTimeout;
@@ -155,7 +156,7 @@ public class Workflow extends SidResource {
     private Workflow(@JsonProperty("account_sid")
                      final String accountSid, 
                      @JsonProperty("assignment_callback_url")
-                     final String assignmentCallbackUrl, 
+                     final URI assignmentCallbackUrl, 
                      @JsonProperty("configuration")
                      final String configuration, 
                      @JsonProperty("date_created")
@@ -165,7 +166,7 @@ public class Workflow extends SidResource {
                      @JsonProperty("document_content_type")
                      final String documentContentType, 
                      @JsonProperty("fallback_assignment_callback_url")
-                     final String fallbackAssignmentCallbackUrl, 
+                     final URI fallbackAssignmentCallbackUrl, 
                      @JsonProperty("friendly_name")
                      final String friendlyName, 
                      @JsonProperty("sid")
@@ -201,7 +202,7 @@ public class Workflow extends SidResource {
      * 
      * @return The assignment_callback_url
      */
-    public final String getAssignmentCallbackUrl() {
+    public final URI getAssignmentCallbackUrl() {
         return this.assignmentCallbackUrl;
     }
 
@@ -246,7 +247,7 @@ public class Workflow extends SidResource {
      * 
      * @return The fallback_assignment_callback_url
      */
-    public final String getFallbackAssignmentCallbackUrl() {
+    public final URI getFallbackAssignmentCallbackUrl() {
         return this.fallbackAssignmentCallbackUrl;
     }
 

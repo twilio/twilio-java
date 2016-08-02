@@ -24,8 +24,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.preview.wireless.DeviceReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.preview.wireless.DeviceUpdater;
 import org.joda.time.DateTime;
 
@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Device extends SidResource {
+public class Device extends Resource {
     private static final long serialVersionUID = 71255259684453L;
 
     /**

@@ -63,7 +63,10 @@ public class RatePlanReader extends Reader<RatePlan> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(TwilioRestClient.Domains.PREVIEW.toString(), client.getRegion())
+            page.getNextPageUrl(
+                TwilioRestClient.Domains.PREVIEW.toString(),
+                client.getRegion()
+            )
         );
         return pageForRequest(client, request);
     }

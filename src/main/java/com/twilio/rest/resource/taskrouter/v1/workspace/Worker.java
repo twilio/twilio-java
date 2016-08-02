@@ -25,8 +25,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.taskrouter.v1.workspace.WorkerReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.updater.taskrouter.v1.workspace.WorkerUpdater;
 import org.joda.time.DateTime;
 
@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Worker extends SidResource {
+public class Worker extends Resource {
     private static final long serialVersionUID = 267403389002552L;
 
     /**

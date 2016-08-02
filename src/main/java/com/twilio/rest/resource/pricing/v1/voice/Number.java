@@ -22,8 +22,8 @@ import com.twilio.rest.http.HttpMethod;
 import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.type.InboundCallPrice;
 import com.twilio.rest.type.OutboundCallPrice;
 
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Number extends SidResource {
+public class Number extends Resource {
     private static final long serialVersionUID = 198694876395979L;
 
     /**

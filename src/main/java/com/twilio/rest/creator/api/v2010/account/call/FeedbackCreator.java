@@ -125,7 +125,7 @@ public class FeedbackCreator extends Creator<Feedback> {
         }
         
         if (issue != null) {
-            for (Object prop : issue) {
+            for (Feedback.Issues prop : issue) {
                 request.addPostParam("Issue", prop.toString());
             }
         }

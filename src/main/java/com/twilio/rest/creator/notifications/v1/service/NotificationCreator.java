@@ -7,6 +7,7 @@
 
 package com.twilio.rest.creator.notifications.v1.service;
 
+import com.twilio.rest.converter.Converter;
 import com.twilio.rest.converter.Promoter;
 import com.twilio.rest.creator.Creator;
 import com.twilio.rest.exception.ApiConnectionException;
@@ -255,14 +256,14 @@ public class NotificationCreator extends Creator<Notification> {
      */
     private void addPostParams(final Request request) {
         if (identity != null) {
-            for (Object prop : identity) {
-                request.addPostParam("Identity", prop.toString());
+            for (String prop : identity) {
+                request.addPostParam("Identity", prop);
             }
         }
         
         if (tag != null) {
-            for (Object prop : tag) {
-                request.addPostParam("Tag", prop.toString());
+            for (String prop : tag) {
+                request.addPostParam("Tag", prop);
             }
         }
         
@@ -307,7 +308,7 @@ public class NotificationCreator extends Creator<Notification> {
         }
         
         if (facebookMessenger != null) {
-            request.addPostParam("FacebookMessenger", facebookMessenger.toString());
+            request.addPostParam("FacebookMessenger", Converter.mapToJson(facebookMessenger));
         }
     }
 }

@@ -63,7 +63,10 @@ public class CountryReader extends Reader<Country> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(TwilioRestClient.Domains.PRICING.toString(), client.getRegion())
+            page.getNextPageUrl(
+                TwilioRestClient.Domains.PRICING.toString(),
+                client.getRegion()
+            )
         );
         return pageForRequest(client, request);
     }

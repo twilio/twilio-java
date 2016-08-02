@@ -7,6 +7,7 @@
 
 package com.twilio.rest.updater.taskrouter.v1.workspace;
 
+import com.twilio.rest.converter.Promoter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.http.HttpMethod;
@@ -17,12 +18,14 @@ import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.taskrouter.v1.workspace.Workflow;
 import com.twilio.rest.updater.Updater;
 
+import java.net.URI;
+
 public class WorkflowUpdater extends Updater<Workflow> {
     private final String workspaceSid;
     private final String sid;
     private String friendlyName;
-    private String assignmentCallbackUrl;
-    private String fallbackAssignmentCallbackUrl;
+    private URI assignmentCallbackUrl;
+    private URI fallbackAssignmentCallbackUrl;
     private String configuration;
     private Integer taskReservationTimeout;
 
@@ -55,8 +58,29 @@ public class WorkflowUpdater extends Updater<Workflow> {
      * @param assignmentCallbackUrl The assignment_callback_url
      * @return this
      */
-    public WorkflowUpdater setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
+    public WorkflowUpdater setAssignmentCallbackUrl(final URI assignmentCallbackUrl) {
         this.assignmentCallbackUrl = assignmentCallbackUrl;
+        return this;
+    }
+
+    /**
+     * The assignment_callback_url.
+     * 
+     * @param assignmentCallbackUrl The assignment_callback_url
+     * @return this
+     */
+    public WorkflowUpdater setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
+        return setAssignmentCallbackUrl(Promoter.uriFromString(assignmentCallbackUrl));
+    }
+
+    /**
+     * The fallback_assignment_callback_url.
+     * 
+     * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
+     * @return this
+     */
+    public WorkflowUpdater setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl) {
+        this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
         return this;
     }
 
@@ -67,8 +91,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
      * @return this
      */
     public WorkflowUpdater setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
-        this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
-        return this;
+        return setFallbackAssignmentCallbackUrl(Promoter.uriFromString(fallbackAssignmentCallbackUrl));
     }
 
     /**
@@ -143,11 +166,11 @@ public class WorkflowUpdater extends Updater<Workflow> {
         }
         
         if (assignmentCallbackUrl != null) {
-            request.addPostParam("AssignmentCallbackUrl", assignmentCallbackUrl);
+            request.addPostParam("AssignmentCallbackUrl", assignmentCallbackUrl.toString());
         }
         
         if (fallbackAssignmentCallbackUrl != null) {
-            request.addPostParam("FallbackAssignmentCallbackUrl", fallbackAssignmentCallbackUrl);
+            request.addPostParam("FallbackAssignmentCallbackUrl", fallbackAssignmentCallbackUrl.toString());
         }
         
         if (configuration != null) {

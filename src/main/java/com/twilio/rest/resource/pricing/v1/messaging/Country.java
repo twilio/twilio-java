@@ -23,8 +23,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.pricing.v1.messaging.CountryReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.type.InboundSmsPrice;
 import com.twilio.rest.type.OutboundSmsPrice;
 
@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Country extends SidResource {
+public class Country extends Resource {
     private static final long serialVersionUID = 155838537182593L;
 
     /**

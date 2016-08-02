@@ -7,6 +7,7 @@
 
 package com.twilio.rest.creator.taskrouter.v1.workspace;
 
+import com.twilio.rest.converter.Promoter;
 import com.twilio.rest.creator.Creator;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
@@ -17,12 +18,14 @@ import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.taskrouter.v1.workspace.Workflow;
 
+import java.net.URI;
+
 public class WorkflowCreator extends Creator<Workflow> {
     private final String workspaceSid;
     private final String friendlyName;
     private final String configuration;
-    private final String assignmentCallbackUrl;
-    private String fallbackAssignmentCallbackUrl;
+    private final URI assignmentCallbackUrl;
+    private URI fallbackAssignmentCallbackUrl;
     private Integer taskReservationTimeout;
 
     /**
@@ -36,7 +39,7 @@ public class WorkflowCreator extends Creator<Workflow> {
     public WorkflowCreator(final String workspaceSid, 
                            final String friendlyName, 
                            final String configuration, 
-                           final String assignmentCallbackUrl) {
+                           final URI assignmentCallbackUrl) {
         this.workspaceSid = workspaceSid;
         this.friendlyName = friendlyName;
         this.configuration = configuration;
@@ -49,9 +52,19 @@ public class WorkflowCreator extends Creator<Workflow> {
      * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
      * @return this
      */
-    public WorkflowCreator setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
+    public WorkflowCreator setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl) {
         this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
         return this;
+    }
+
+    /**
+     * The fallback_assignment_callback_url.
+     * 
+     * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
+     * @return this
+     */
+    public WorkflowCreator setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
+        return setFallbackAssignmentCallbackUrl(Promoter.uriFromString(fallbackAssignmentCallbackUrl));
     }
 
     /**
@@ -119,11 +132,11 @@ public class WorkflowCreator extends Creator<Workflow> {
         }
         
         if (assignmentCallbackUrl != null) {
-            request.addPostParam("AssignmentCallbackUrl", assignmentCallbackUrl);
+            request.addPostParam("AssignmentCallbackUrl", assignmentCallbackUrl.toString());
         }
         
         if (fallbackAssignmentCallbackUrl != null) {
-            request.addPostParam("FallbackAssignmentCallbackUrl", fallbackAssignmentCallbackUrl);
+            request.addPostParam("FallbackAssignmentCallbackUrl", fallbackAssignmentCallbackUrl.toString());
         }
         
         if (taskReservationTimeout != null) {

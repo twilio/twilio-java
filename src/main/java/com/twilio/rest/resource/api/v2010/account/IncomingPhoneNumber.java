@@ -25,8 +25,8 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.api.v2010.account.IncomingPhoneNumberReader;
+import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.SidResource;
 import com.twilio.rest.type.PhoneNumberCapabilities;
 import com.twilio.rest.updater.api.v2010.account.IncomingPhoneNumberUpdater;
 import org.joda.time.DateTime;
@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IncomingPhoneNumber extends SidResource {
+public class IncomingPhoneNumber extends Resource {
     private static final long serialVersionUID = 40781203062485L;
 
     public enum AddressRequirement {

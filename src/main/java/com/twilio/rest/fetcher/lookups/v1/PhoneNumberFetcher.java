@@ -146,8 +146,8 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         }
         
         if (addOns != null) {
-            for (Object prop : addOns) {
-                request.addQueryParam("AddOns", prop.toString());
+            for (String prop : addOns) {
+                request.addQueryParam("AddOns", prop);
             }
         }
         

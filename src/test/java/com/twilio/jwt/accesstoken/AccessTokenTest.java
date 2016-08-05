@@ -117,6 +117,32 @@ public class AccessTokenTest {
     }
 
     @Test
+    public void testSyncGrant() {
+        SyncGrant sg = new SyncGrant()
+                .setEndpointId("foobar")
+                .setServiceSid("IS123");
+        Jwt token =
+                new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                        .grant(sg)
+                        .build();
+
+        Claims claims =
+                Jwts.parser()
+                        .setSigningKey(SECRET.getBytes())
+                        .parseClaimsJws(token.toJwt())
+                        .getBody();
+
+        validateToken(claims);
+
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Assert.assertEquals(1, decodedGrants.size());
+
+        Map<String, Object> grant = (Map<String, Object>) decodedGrants.get("data_sync");
+        Assert.assertEquals("foobar", grant.get("endpoint_id"));
+        Assert.assertEquals("IS123", grant.get("service_sid"));
+    }
+
+    @Test
     public void testCompleteToken() {
         IpMessagingGrant ipg = new IpMessagingGrant()
             .setDeploymentRoleSid("RL123")

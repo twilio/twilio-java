@@ -20,7 +20,6 @@ import java.util.Map;
 
 public class NetworkHttpClient extends HttpClient {
 
-    private static final HttpVersion HTTP_1_1 = new HttpVersion(1, 1);
     private static final int CONNECTION_TIMEOUT = 10000;
     private static final int SOCKET_TIMEOUT = 30500;
 
@@ -60,7 +59,7 @@ public class NetworkHttpClient extends HttpClient {
 
         RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
             .setUri(request.constructURL().toString())
-            .setVersion(HTTP_1_1)
+            .setVersion(HttpVersion.HTTP_1_1)
             .setCharset(StandardCharsets.UTF_8);
 
         if (request.requiresAuthentication()) {

@@ -4,7 +4,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,6 @@ import java.util.Map;
  * JWT builder for Twilio auth tokens.
  */
 public abstract class Jwt {
-
-    private static final Charset UTF_8 = Charset.forName("UTF-8");
 
     private final SignatureAlgorithm algorithm;
     private final String secret;
@@ -53,7 +51,7 @@ public abstract class Jwt {
 
         JwtBuilder builder =
             Jwts.builder()
-                .signWith(this.algorithm, this.secret.getBytes(UTF_8))
+                .signWith(this.algorithm, this.secret.getBytes(StandardCharsets.UTF_8))
                 .setHeaderParams(headers)
                 .setIssuer(this.issuer)
                 .setExpiration(expiration);

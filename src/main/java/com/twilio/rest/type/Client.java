@@ -2,16 +2,17 @@ package com.twilio.rest.type;
 
 import java.util.Objects;
 
-public class PhoneNumber implements Endpoint {
-    private final String rawNumber;
+public class Client implements Endpoint {
 
-    public PhoneNumber(String number) {
-        this.rawNumber = number;
+    private final String client;
+
+    public Client(String client) {
+        this.client = client;
     }
 
     @Override
     public String getEndpoint() {
-        return this.rawNumber;
+        return this.client;
     }
 
     @Override
@@ -23,17 +24,17 @@ public class PhoneNumber implements Endpoint {
             return false;
         }
 
-        PhoneNumber other = (PhoneNumber) o;
-        return Objects.equals(this.rawNumber, other.rawNumber);
+        Client other = (Client) o;
+        return Objects.equals(this.client, other.client);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.rawNumber);
+        return Objects.hash(this.client);
     }
 
     @Override
     public String toString() {
-        return this.rawNumber;
+        return this.client;
     }
 }

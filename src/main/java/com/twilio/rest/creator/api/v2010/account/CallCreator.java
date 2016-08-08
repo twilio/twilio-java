@@ -19,22 +19,27 @@ import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.api.v2010.account.Call;
 
 import java.net.URI;
+import java.util.List;
 
 public class CallCreator extends Creator<Call> {
     private String accountSid;
     private final com.twilio.rest.type.PhoneNumber to;
-    private final com.twilio.rest.type.PhoneNumber from;
+    private final com.twilio.rest.type.Endpoint from;
     private URI url;
     private String applicationSid;
     private HttpMethod method;
     private URI fallbackUrl;
     private HttpMethod fallbackMethod;
     private URI statusCallback;
+    private List<String> statusCallbackEvent;
     private HttpMethod statusCallbackMethod;
     private String sendDigits;
     private String ifMachine;
     private Integer timeout;
     private Boolean record;
+    private String recordingChannels;
+    private String recordingStatusCallback;
+    private HttpMethod recordingStatusCallbackMethod;
     private String sipAuthUsername;
     private String sipAuthPassword;
 
@@ -46,7 +51,7 @@ public class CallCreator extends Creator<Call> {
      * @param url Url from which to fetch TwiML
      */
     public CallCreator(final com.twilio.rest.type.PhoneNumber to, 
-                       final com.twilio.rest.type.PhoneNumber from, 
+                       final com.twilio.rest.type.Endpoint from, 
                        final URI url) {
         this.to = to;
         this.from = from;
@@ -63,7 +68,7 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator(final String accountSid, 
                        final com.twilio.rest.type.PhoneNumber to, 
-                       final com.twilio.rest.type.PhoneNumber from, 
+                       final com.twilio.rest.type.Endpoint from, 
                        final URI url) {
         this.accountSid = accountSid;
         this.to = to;
@@ -80,7 +85,7 @@ public class CallCreator extends Creator<Call> {
      *                       TwiML
      */
     public CallCreator(final com.twilio.rest.type.PhoneNumber to, 
-                       final com.twilio.rest.type.PhoneNumber from, 
+                       final com.twilio.rest.type.Endpoint from, 
                        final String applicationSid) {
         this.to = to;
         this.from = from;
@@ -98,7 +103,7 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator(final String accountSid, 
                        final com.twilio.rest.type.PhoneNumber to, 
-                       final com.twilio.rest.type.PhoneNumber from, 
+                       final com.twilio.rest.type.Endpoint from, 
                        final String applicationSid) {
         this.accountSid = accountSid;
         this.to = to;
@@ -180,6 +185,27 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * The status_callback_event.
+     * 
+     * @param statusCallbackEvent The status_callback_event
+     * @return this
+     */
+    public CallCreator setStatusCallbackEvent(final List<String> statusCallbackEvent) {
+        this.statusCallbackEvent = statusCallbackEvent;
+        return this;
+    }
+
+    /**
+     * The status_callback_event.
+     * 
+     * @param statusCallbackEvent The status_callback_event
+     * @return this
+     */
+    public CallCreator setStatusCallbackEvent(final String statusCallbackEvent) {
+        return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
+    }
+
+    /**
      * The HTTP method that Twilio should use to request the `StatusCallback`.
      * Defaults to `POST`. If an `ApplicationSid` was provided, this parameter is
      * ignored..
@@ -242,6 +268,39 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator setRecord(final Boolean record) {
         this.record = record;
+        return this;
+    }
+
+    /**
+     * The recording_channels.
+     * 
+     * @param recordingChannels The recording_channels
+     * @return this
+     */
+    public CallCreator setRecordingChannels(final String recordingChannels) {
+        this.recordingChannels = recordingChannels;
+        return this;
+    }
+
+    /**
+     * The recording_status_callback.
+     * 
+     * @param recordingStatusCallback The recording_status_callback
+     * @return this
+     */
+    public CallCreator setRecordingStatusCallback(final String recordingStatusCallback) {
+        this.recordingStatusCallback = recordingStatusCallback;
+        return this;
+    }
+
+    /**
+     * The recording_status_callback_method.
+     * 
+     * @param recordingStatusCallbackMethod The recording_status_callback_method
+     * @return this
+     */
+    public CallCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
+        this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
         return this;
     }
 
@@ -318,7 +377,7 @@ public class CallCreator extends Creator<Call> {
         }
         
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            request.addPostParam("From", from.getEndpoint());
         }
         
         if (url != null) {
@@ -345,6 +404,12 @@ public class CallCreator extends Creator<Call> {
             request.addPostParam("StatusCallback", statusCallback.toString());
         }
         
+        if (statusCallbackEvent != null) {
+            for (String prop : statusCallbackEvent) {
+                request.addPostParam("StatusCallbackEvent", prop);
+            }
+        }
+        
         if (statusCallbackMethod != null) {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
         }
@@ -363,6 +428,18 @@ public class CallCreator extends Creator<Call> {
         
         if (record != null) {
             request.addPostParam("Record", record.toString());
+        }
+        
+        if (recordingChannels != null) {
+            request.addPostParam("RecordingChannels", recordingChannels);
+        }
+        
+        if (recordingStatusCallback != null) {
+            request.addPostParam("RecordingStatusCallback", recordingStatusCallback);
+        }
+        
+        if (recordingStatusCallbackMethod != null) {
+            request.addPostParam("RecordingStatusCallbackMethod", recordingStatusCallbackMethod.toString());
         }
         
         if (sipAuthUsername != null) {

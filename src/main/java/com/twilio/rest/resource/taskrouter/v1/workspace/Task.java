@@ -43,7 +43,8 @@ public class Task extends Resource {
         PENDING("pending"),
         RESERVED("reserved"),
         ASSIGNED("assigned"),
-        CANCELED("canceled");
+        CANCELED("canceled"),
+        COMPLETED("completed");
     
         private final String value;
         

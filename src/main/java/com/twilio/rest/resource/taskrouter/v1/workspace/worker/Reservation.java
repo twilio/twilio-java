@@ -5,7 +5,7 @@
  *       /       /       
  */
 
-package com.twilio.rest.resource.taskrouter.v1.workspace.task;
+package com.twilio.rest.resource.taskrouter.v1.workspace.worker;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,15 +17,15 @@ import com.google.common.base.MoreObjects;
 import com.twilio.rest.converter.DateConverter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
-import com.twilio.rest.fetcher.taskrouter.v1.workspace.task.ReservationFetcher;
+import com.twilio.rest.fetcher.taskrouter.v1.workspace.worker.ReservationFetcher;
 import com.twilio.rest.http.HttpMethod;
 import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
-import com.twilio.rest.reader.taskrouter.v1.workspace.task.ReservationReader;
+import com.twilio.rest.reader.taskrouter.v1.workspace.worker.ReservationReader;
 import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.updater.taskrouter.v1.workspace.task.ReservationUpdater;
+import com.twilio.rest.updater.taskrouter.v1.workspace.worker.ReservationUpdater;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -77,40 +77,40 @@ public class Reservation extends Resource {
      * Create a ReservationReader to execute read.
      * 
      * @param workspaceSid The workspace_sid
-     * @param taskSid The task_sid
+     * @param workerSid The worker_sid
      * @return ReservationReader capable of executing the read
      */
     public static ReservationReader read(final String workspaceSid, 
-                                         final String taskSid) {
-        return new ReservationReader(workspaceSid, taskSid);
+                                         final String workerSid) {
+        return new ReservationReader(workspaceSid, workerSid);
     }
 
     /**
      * Create a ReservationFetcher to execute fetch.
      * 
      * @param workspaceSid The workspace_sid
-     * @param taskSid The task_sid
+     * @param workerSid The worker_sid
      * @param sid The sid
      * @return ReservationFetcher capable of executing the fetch
      */
     public static ReservationFetcher fetch(final String workspaceSid, 
-                                           final String taskSid, 
+                                           final String workerSid, 
                                            final String sid) {
-        return new ReservationFetcher(workspaceSid, taskSid, sid);
+        return new ReservationFetcher(workspaceSid, workerSid, sid);
     }
 
     /**
      * Create a ReservationUpdater to execute update.
      * 
      * @param workspaceSid The workspace_sid
-     * @param taskSid The task_sid
+     * @param workerSid The worker_sid
      * @param sid The sid
      * @return ReservationUpdater capable of executing the update
      */
     public static ReservationUpdater update(final String workspaceSid, 
-                                            final String taskSid, 
+                                            final String workerSid, 
                                             final String sid) {
-        return new ReservationUpdater(workspaceSid, taskSid, sid);
+        return new ReservationUpdater(workspaceSid, workerSid, sid);
     }
 
     /**

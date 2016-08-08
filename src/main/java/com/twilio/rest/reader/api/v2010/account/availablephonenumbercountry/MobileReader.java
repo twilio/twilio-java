@@ -31,6 +31,13 @@ public class MobileReader extends Reader<Mobile> {
     private Boolean excludeLocalAddressRequired;
     private Boolean excludeForeignAddressRequired;
     private Boolean beta;
+    private com.twilio.rest.type.PhoneNumber nearNumber;
+    private String nearLatLong;
+    private Integer distance;
+    private String inPostalCode;
+    private String inRegion;
+    private String inRateCenter;
+    private String inLata;
 
     /**
      * Construct a new MobileReader.
@@ -149,6 +156,83 @@ public class MobileReader extends Reader<Mobile> {
      */
     public MobileReader byBeta(final Boolean beta) {
         this.beta = beta;
+        return this;
+    }
+
+    /**
+     * The near_number.
+     * 
+     * @param nearNumber The near_number
+     * @return this
+     */
+    public MobileReader byNearNumber(final com.twilio.rest.type.PhoneNumber nearNumber) {
+        this.nearNumber = nearNumber;
+        return this;
+    }
+
+    /**
+     * The near_lat_long.
+     * 
+     * @param nearLatLong The near_lat_long
+     * @return this
+     */
+    public MobileReader byNearLatLong(final String nearLatLong) {
+        this.nearLatLong = nearLatLong;
+        return this;
+    }
+
+    /**
+     * The distance.
+     * 
+     * @param distance The distance
+     * @return this
+     */
+    public MobileReader byDistance(final Integer distance) {
+        this.distance = distance;
+        return this;
+    }
+
+    /**
+     * The in_postal_code.
+     * 
+     * @param inPostalCode The in_postal_code
+     * @return this
+     */
+    public MobileReader byInPostalCode(final String inPostalCode) {
+        this.inPostalCode = inPostalCode;
+        return this;
+    }
+
+    /**
+     * The in_region.
+     * 
+     * @param inRegion The in_region
+     * @return this
+     */
+    public MobileReader byInRegion(final String inRegion) {
+        this.inRegion = inRegion;
+        return this;
+    }
+
+    /**
+     * The in_rate_center.
+     * 
+     * @param inRateCenter The in_rate_center
+     * @return this
+     */
+    public MobileReader byInRateCenter(final String inRateCenter) {
+        this.inRateCenter = inRateCenter;
+        return this;
+    }
+
+    /**
+     * The in_lata.
+     * 
+     * @param inLata The in_lata
+     * @return this
+     */
+    public MobileReader byInLata(final String inLata) {
+        this.inLata = inLata;
         return this;
     }
 
@@ -279,6 +363,34 @@ public class MobileReader extends Reader<Mobile> {
         
         if (beta != null) {
             request.addQueryParam("Beta", beta.toString());
+        }
+        
+        if (nearNumber != null) {
+            request.addQueryParam("NearNumber", nearNumber.toString());
+        }
+        
+        if (nearLatLong != null) {
+            request.addQueryParam("NearLatLong", nearLatLong);
+        }
+        
+        if (distance != null) {
+            request.addQueryParam("Distance", distance.toString());
+        }
+        
+        if (inPostalCode != null) {
+            request.addQueryParam("InPostalCode", inPostalCode);
+        }
+        
+        if (inRegion != null) {
+            request.addQueryParam("InRegion", inRegion);
+        }
+        
+        if (inRateCenter != null) {
+            request.addQueryParam("InRateCenter", inRateCenter);
+        }
+        
+        if (inLata != null) {
+            request.addQueryParam("InLata", inLata);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

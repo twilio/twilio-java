@@ -28,6 +28,7 @@ import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.reader.api.v2010.account.CallReader;
 import com.twilio.rest.resource.Resource;
 import com.twilio.rest.resource.RestException;
+import com.twilio.rest.type.Endpoint;
 import com.twilio.rest.updater.api.v2010.account.CallUpdater;
 import org.joda.time.DateTime;
 
@@ -126,7 +127,7 @@ public class Call extends Resource {
      */
     public static CallCreator create(final String accountSid, 
                                      final com.twilio.rest.type.PhoneNumber to, 
-                                     final com.twilio.rest.type.PhoneNumber from, 
+                                     final com.twilio.rest.type.Endpoint from, 
                                      final URI url) {
         return new CallCreator(accountSid, to, from, url);
     }
@@ -140,7 +141,7 @@ public class Call extends Resource {
      * @return CallCreator capable of executing the create
      */
     public static CallCreator create(final com.twilio.rest.type.PhoneNumber to, 
-                                     final com.twilio.rest.type.PhoneNumber from, 
+                                     final com.twilio.rest.type.Endpoint from, 
                                      final URI url) {
         return new CallCreator(to, from, url);
     }
@@ -157,7 +158,7 @@ public class Call extends Resource {
      */
     public static CallCreator create(final String accountSid, 
                                      final com.twilio.rest.type.PhoneNumber to, 
-                                     final com.twilio.rest.type.PhoneNumber from, 
+                                     final com.twilio.rest.type.Endpoint from, 
                                      final String applicationSid) {
         return new CallCreator(accountSid, to, from, applicationSid);
     }
@@ -172,7 +173,7 @@ public class Call extends Resource {
      * @return CallCreator capable of executing the create
      */
     public static CallCreator create(final com.twilio.rest.type.PhoneNumber to, 
-                                     final com.twilio.rest.type.PhoneNumber from, 
+                                     final com.twilio.rest.type.Endpoint from, 
                                      final String applicationSid) {
         return new CallCreator(to, from, applicationSid);
     }

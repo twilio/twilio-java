@@ -5,7 +5,7 @@
  *       /       /       
  */
 
-package com.twilio.rest.updater.taskrouter.v1.workspace.task;
+package com.twilio.rest.updater.taskrouter.v1.workspace.worker;
 
 import com.twilio.rest.converter.Promoter;
 import com.twilio.rest.exception.ApiConnectionException;
@@ -15,14 +15,14 @@ import com.twilio.rest.http.Request;
 import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.taskrouter.v1.workspace.task.Reservation;
+import com.twilio.rest.resource.taskrouter.v1.workspace.worker.Reservation;
 import com.twilio.rest.updater.Updater;
 
 import java.net.URI;
 
 public class ReservationUpdater extends Updater<Reservation> {
     private final String workspaceSid;
-    private final String taskSid;
+    private final String workerSid;
     private final String sid;
     private Reservation.Status reservationStatus;
     private String workerActivitySid;
@@ -48,14 +48,14 @@ public class ReservationUpdater extends Updater<Reservation> {
      * Construct a new ReservationUpdater.
      * 
      * @param workspaceSid The workspace_sid
-     * @param taskSid The task_sid
+     * @param workerSid The worker_sid
      * @param sid The sid
      */
     public ReservationUpdater(final String workspaceSid, 
-                              final String taskSid, 
+                              final String workerSid, 
                               final String sid) {
         this.workspaceSid = workspaceSid;
-        this.taskSid = taskSid;
+        this.workerSid = workerSid;
         this.sid = sid;
     }
 
@@ -320,7 +320,7 @@ public class ReservationUpdater extends Updater<Reservation> {
         Request request = new Request(
             HttpMethod.POST,
             TwilioRestClient.Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.taskSid + "/Reservations/" + this.sid + "",
+            "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.workerSid + "/Reservations/" + this.sid + "",
             client.getRegion()
         );
         

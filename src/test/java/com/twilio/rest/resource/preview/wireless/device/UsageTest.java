@@ -40,7 +40,7 @@ public class UsageTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           TwilioRestClient.Domains.PREVIEW.toString(),
-                                          "/wireless/Devices/deviceSid/Usage");
+                                          "/wireless/Devices/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage");
             
             
             twilioRestClient.request(request);
@@ -51,7 +51,7 @@ public class UsageTest {
         }};
         
         try {
-            Usage.fetch("deviceSid").execute();
+            Usage.fetch("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

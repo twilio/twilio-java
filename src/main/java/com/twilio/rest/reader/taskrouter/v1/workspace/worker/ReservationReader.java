@@ -5,7 +5,7 @@
  *       /       /       
  */
 
-package com.twilio.rest.reader.taskrouter.v1.workspace.task;
+package com.twilio.rest.reader.taskrouter.v1.workspace.worker;
 
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
@@ -17,23 +17,23 @@ import com.twilio.rest.reader.Reader;
 import com.twilio.rest.resource.Page;
 import com.twilio.rest.resource.ResourceSet;
 import com.twilio.rest.resource.RestException;
-import com.twilio.rest.resource.taskrouter.v1.workspace.task.Reservation;
+import com.twilio.rest.resource.taskrouter.v1.workspace.worker.Reservation;
 
 public class ReservationReader extends Reader<Reservation> {
     private final String workspaceSid;
-    private final String taskSid;
+    private final String workerSid;
     private Reservation.Status reservationStatus;
 
     /**
      * Construct a new ReservationReader.
      * 
      * @param workspaceSid The workspace_sid
-     * @param taskSid The task_sid
+     * @param workerSid The worker_sid
      */
     public ReservationReader(final String workspaceSid, 
-                             final String taskSid) {
+                             final String workerSid) {
         this.workspaceSid = workspaceSid;
-        this.taskSid = taskSid;
+        this.workerSid = workerSid;
     }
 
     /**
@@ -70,7 +70,7 @@ public class ReservationReader extends Reader<Reservation> {
         Request request = new Request(
             HttpMethod.GET,
             TwilioRestClient.Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.taskSid + "/Reservations",
+            "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.workerSid + "/Reservations",
             client.getRegion()
         );
         

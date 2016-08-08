@@ -7,6 +7,8 @@
 
 package com.twilio.rest.reader.api.v2010.account.usage.record;
 
+import com.google.common.collect.Range;
+import com.twilio.rest.converter.DateConverter;
 import com.twilio.rest.exception.ApiConnectionException;
 import com.twilio.rest.exception.ApiException;
 import com.twilio.rest.http.HttpMethod;
@@ -18,9 +20,15 @@ import com.twilio.rest.resource.Page;
 import com.twilio.rest.resource.ResourceSet;
 import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.api.v2010.account.usage.record.Yearly;
+import org.joda.time.DateTime;
 
 public class YearlyReader extends Reader<Yearly> {
     private String accountSid;
+    private Yearly.Category category;
+    private DateTime absoluteStartDate;
+    private Range<DateTime> rangeStartDate;
+    private DateTime absoluteEndDate;
+    private Range<DateTime> rangeEndDate;
 
     /**
      * Construct a new YearlyReader.
@@ -35,6 +43,65 @@ public class YearlyReader extends Reader<Yearly> {
      */
     public YearlyReader(final String accountSid) {
         this.accountSid = accountSid;
+    }
+
+    /**
+     * The category.
+     * 
+     * @param category The category
+     * @return this
+     */
+    public YearlyReader byCategory(final Yearly.Category category) {
+        this.category = category;
+        return this;
+    }
+
+    /**
+     * The absolute_start_date.
+     * 
+     * @param absoluteStartDate The absolute_start_date
+     * @return this
+     */
+    public YearlyReader byStartDate(final DateTime absoluteStartDate) {
+        this.rangeStartDate = null;
+        this.absoluteStartDate = absoluteStartDate;
+        return this;
+    }
+
+    /**
+     * The range_start_date.
+     * 
+     * @param rangeStartDate The range_start_date
+     * @return this
+     */
+    public YearlyReader byStartDate(final Range<DateTime> rangeStartDate) {
+        this.absoluteStartDate = null;
+        this.rangeStartDate = rangeStartDate;
+        return this;
+    }
+
+    /**
+     * The absolute_end_date.
+     * 
+     * @param absoluteEndDate The absolute_end_date
+     * @return this
+     */
+    public YearlyReader byEndDate(final DateTime absoluteEndDate) {
+        this.rangeEndDate = null;
+        this.absoluteEndDate = absoluteEndDate;
+        return this;
+    }
+
+    /**
+     * The range_end_date.
+     * 
+     * @param rangeEndDate The range_end_date
+     * @return this
+     */
+    public YearlyReader byEndDate(final Range<DateTime> rangeEndDate) {
+        this.absoluteEndDate = null;
+        this.rangeEndDate = rangeEndDate;
+        return this;
     }
 
     /**
@@ -130,6 +197,22 @@ public class YearlyReader extends Reader<Yearly> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (category != null) {
+            request.addQueryParam("Category", category.toString());
+        }
+        
+        if (absoluteStartDate != null) {
+            request.addQueryParam("StartDate", absoluteStartDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeStartDate != null) {
+            request.addQueryDateRange("StartDate", rangeStartDate);
+        }
+        
+        if (absoluteEndDate != null) {
+            request.addQueryParam("EndDate", absoluteEndDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeEndDate != null) {
+            request.addQueryDateRange("EndDate", rangeEndDate);
+        }
+        
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));
     }
 }

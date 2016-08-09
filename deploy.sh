@@ -14,5 +14,5 @@ git commit -am "Bump version for release"
 
 echo "Pushing to maven"
 mvn -Pgpg release:clean
-#mvn -Pgpg release:prepare
-#mvn -Pgpg release:perform
+mvn -Pgpg release:prepare
+mvn -Pgpg release:perform

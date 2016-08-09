@@ -27,6 +27,7 @@ public class TaskReader extends Reader<Task> {
     private String workflowName;
     private String taskQueueSid;
     private String taskQueueName;
+    private String taskChannel;
 
     /**
      * Construct a new TaskReader.
@@ -100,6 +101,17 @@ public class TaskReader extends Reader<Task> {
      */
     public TaskReader byTaskQueueName(final String taskQueueName) {
         this.taskQueueName = taskQueueName;
+        return this;
+    }
+
+    /**
+     * The task_channel.
+     * 
+     * @param taskChannel The task_channel
+     * @return this
+     */
+    public TaskReader byTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
         return this;
     }
 
@@ -217,6 +229,10 @@ public class TaskReader extends Reader<Task> {
         
         if (taskQueueName != null) {
             request.addQueryParam("TaskQueueName", taskQueueName);
+        }
+        
+        if (taskChannel != null) {
+            request.addQueryParam("TaskChannel", taskChannel);
         }
         
         request.addQueryParam("PageSize", Integer.toString(getPageSize()));

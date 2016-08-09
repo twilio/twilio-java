@@ -17,6 +17,7 @@ import com.twilio.rest.http.Response;
 import com.twilio.rest.http.TwilioRestClient;
 import com.twilio.rest.resource.RestException;
 import com.twilio.rest.resource.api.v2010.account.Call;
+import com.twilio.rest.type.Endpoint;
 
 import java.net.URI;
 import java.util.List;

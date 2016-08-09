@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task extends Resource {
-    private static final long serialVersionUID = 85239715418365L;
+    private static final long serialVersionUID = 108246653344881L;
 
     public enum Status {
         PENDING("pending"),
@@ -181,6 +181,8 @@ public class Task extends Resource {
     private final String reason;
     private final String sid;
     private final String taskQueueSid;
+    private final String taskChannelSid;
+    private final String taskChannelUniqueName;
     private final Integer timeout;
     private final String workflowSid;
     private final String workspaceSid;
@@ -206,6 +208,10 @@ public class Task extends Resource {
                  final String sid, 
                  @JsonProperty("task_queue_sid")
                  final String taskQueueSid, 
+                 @JsonProperty("task_channel_sid")
+                 final String taskChannelSid, 
+                 @JsonProperty("task_channel_unique_name")
+                 final String taskChannelUniqueName, 
                  @JsonProperty("timeout")
                  final Integer timeout, 
                  @JsonProperty("workflow_sid")
@@ -222,6 +228,8 @@ public class Task extends Resource {
         this.reason = reason;
         this.sid = sid;
         this.taskQueueSid = taskQueueSid;
+        this.taskChannelSid = taskChannelSid;
+        this.taskChannelUniqueName = taskChannelUniqueName;
         this.timeout = timeout;
         this.workflowSid = workflowSid;
         this.workspaceSid = workspaceSid;
@@ -318,6 +326,24 @@ public class Task extends Resource {
     }
 
     /**
+     * Returns The The task_channel_sid.
+     * 
+     * @return The task_channel_sid
+     */
+    public final String getTaskChannelSid() {
+        return this.taskChannelSid;
+    }
+
+    /**
+     * Returns The The task_channel_unique_name.
+     * 
+     * @return The task_channel_unique_name
+     */
+    public final String getTaskChannelUniqueName() {
+        return this.taskChannelUniqueName;
+    }
+
+    /**
      * Returns The The timeout.
      * 
      * @return The timeout
@@ -366,6 +392,8 @@ public class Task extends Resource {
                Objects.equals(reason, other.reason) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(taskQueueSid, other.taskQueueSid) && 
+               Objects.equals(taskChannelSid, other.taskChannelSid) && 
+               Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) && 
                Objects.equals(timeout, other.timeout) && 
                Objects.equals(workflowSid, other.workflowSid) && 
                Objects.equals(workspaceSid, other.workspaceSid);
@@ -383,6 +411,8 @@ public class Task extends Resource {
                             reason,
                             sid,
                             taskQueueSid,
+                            taskChannelSid,
+                            taskChannelUniqueName,
                             timeout,
                             workflowSid,
                             workspaceSid);
@@ -401,6 +431,8 @@ public class Task extends Resource {
                           .add("reason", reason)
                           .add("sid", sid)
                           .add("taskQueueSid", taskQueueSid)
+                          .add("taskChannelSid", taskChannelSid)
+                          .add("taskChannelUniqueName", taskChannelUniqueName)
                           .add("timeout", timeout)
                           .add("workflowSid", workflowSid)
                           .add("workspaceSid", workspaceSid)

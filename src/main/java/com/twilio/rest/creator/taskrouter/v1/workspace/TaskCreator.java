@@ -23,6 +23,7 @@ public class TaskCreator extends Creator<Task> {
     private final String workflowSid;
     private Integer timeout;
     private Integer priority;
+    private String taskChannel;
 
     /**
      * Construct a new TaskCreator.
@@ -58,6 +59,17 @@ public class TaskCreator extends Creator<Task> {
      */
     public TaskCreator setPriority(final Integer priority) {
         this.priority = priority;
+        return this;
+    }
+
+    /**
+     * The task_channel.
+     * 
+     * @param taskChannel The task_channel
+     * @return this
+     */
+    public TaskCreator setTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
         return this;
     }
 
@@ -120,6 +132,10 @@ public class TaskCreator extends Creator<Task> {
         
         if (priority != null) {
             request.addPostParam("Priority", priority.toString());
+        }
+        
+        if (taskChannel != null) {
+            request.addPostParam("TaskChannel", taskChannel);
         }
     }
 }

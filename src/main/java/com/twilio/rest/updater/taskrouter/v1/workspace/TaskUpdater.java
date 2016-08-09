@@ -24,6 +24,7 @@ public class TaskUpdater extends Updater<Task> {
     private Task.Status assignmentStatus;
     private String reason;
     private Integer priority;
+    private String taskChannel;
 
     /**
      * Construct a new TaskUpdater.
@@ -78,6 +79,17 @@ public class TaskUpdater extends Updater<Task> {
      */
     public TaskUpdater setPriority(final Integer priority) {
         this.priority = priority;
+        return this;
+    }
+
+    /**
+     * The task_channel.
+     * 
+     * @param taskChannel The task_channel
+     * @return this
+     */
+    public TaskUpdater setTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
         return this;
     }
 
@@ -140,6 +152,10 @@ public class TaskUpdater extends Updater<Task> {
         
         if (priority != null) {
             request.addPostParam("Priority", priority.toString());
+        }
+        
+        if (taskChannel != null) {
+            request.addPostParam("TaskChannel", taskChannel);
         }
     }
 }

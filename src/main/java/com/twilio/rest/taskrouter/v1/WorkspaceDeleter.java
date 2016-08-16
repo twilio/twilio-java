@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class WorkspaceDeleter extends Deleter<Workspace> {
     private final String sid;
@@ -38,7 +39,7 @@ public class WorkspaceDeleter extends Deleter<Workspace> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.TASKROUTER.toString(),
+            Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.sid + "",
             client.getRegion()
         );

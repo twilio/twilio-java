@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class PhoneNumberReader extends Reader<PhoneNumber> {
     private final String trunkSid;
@@ -52,7 +53,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     public Page<PhoneNumber> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TRUNKING.toString(),
+            Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/PhoneNumbers",
             client.getRegion()
         );
@@ -74,7 +75,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.TRUNKING.toString(),
+                Domains.TRUNKING.toString(),
                 client.getRegion()
             )
         );

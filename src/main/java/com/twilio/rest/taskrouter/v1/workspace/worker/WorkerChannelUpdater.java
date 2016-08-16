@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class WorkerChannelUpdater extends Updater<WorkerChannel> {
     private final String workspaceSid;
@@ -71,7 +72,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
     public WorkerChannel execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TASKROUTER.toString(),
+            Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.workerSid + "/Channels/" + this.sid + "",
             client.getRegion()
         );

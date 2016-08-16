@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class AlertFetcher extends Fetcher<Alert> {
     private final String sid;
@@ -39,7 +40,7 @@ public class AlertFetcher extends Fetcher<Alert> {
     public Alert execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.MONITOR.toString(),
+            Domains.MONITOR.toString(),
             "/v1/Alerts/" + this.sid + "",
             client.getRegion()
         );

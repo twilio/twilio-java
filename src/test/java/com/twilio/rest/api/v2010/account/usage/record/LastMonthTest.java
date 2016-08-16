@@ -16,6 +16,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
@@ -39,7 +40,7 @@ public class LastMonthTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.API.toString(),
+                                          Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/LastMonth.json");
             
             request.addQueryParam("PageSize", "50");

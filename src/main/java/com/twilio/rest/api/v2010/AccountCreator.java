@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class AccountCreator extends Creator<Account> {
     private String friendlyName;
@@ -42,7 +43,7 @@ public class AccountCreator extends Creator<Account> {
     public Account execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts.json",
             client.getRegion()
         );

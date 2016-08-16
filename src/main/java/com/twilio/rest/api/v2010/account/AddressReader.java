@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class AddressReader extends Reader<Address> {
     private String accountSid;
@@ -95,7 +96,7 @@ public class AddressReader extends Reader<Address> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Addresses.json",
             client.getRegion()
         );
@@ -117,7 +118,7 @@ public class AddressReader extends Reader<Address> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.API.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );

@@ -16,6 +16,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 import java.net.URI;
 
@@ -158,7 +159,7 @@ public class DeviceUpdater extends Updater<Device> {
     public Device execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.PREVIEW.toString(),
+            Domains.PREVIEW.toString(),
             "/wireless/Devices/" + this.sid + "",
             client.getRegion()
         );

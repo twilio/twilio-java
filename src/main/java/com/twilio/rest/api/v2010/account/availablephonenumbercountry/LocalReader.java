@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class LocalReader extends Reader<Local> {
     private String accountSid;
@@ -258,7 +259,7 @@ public class LocalReader extends Reader<Local> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/AvailablePhoneNumbers/" + this.countryCode + "/Local.json",
             client.getRegion()
         );
@@ -280,7 +281,7 @@ public class LocalReader extends Reader<Local> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.API.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );

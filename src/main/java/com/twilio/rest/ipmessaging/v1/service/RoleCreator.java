@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class RoleCreator extends Creator<Role> {
     public Role execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.IPMESSAGING.toString(),
+            Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Roles",
             client.getRegion()
         );

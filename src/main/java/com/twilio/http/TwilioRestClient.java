@@ -15,29 +15,6 @@ public class TwilioRestClient {
         }
     };
 
-    public enum Domains {
-        API("api"),
-        CONVERSATIONS("conversations"),
-        LOOKUPS("lookups"),
-        MONITOR("monitor"),
-        PRICING("pricing"),
-        TASKROUTER("taskrouter"),
-        TRUNKING("trunking"),
-        IPMESSAGING("ip-messaging"),
-        NOTIFICATIONS("notifications"),
-        PREVIEW("preview");
-
-        private final String domain;
-
-        Domains(final String domain) {
-            this.domain = domain;
-        }
-
-        public String toString() {
-            return domain;
-        }
-    }
-
     private final ObjectMapper objectMapper;
     private final String username;
     private final String password;

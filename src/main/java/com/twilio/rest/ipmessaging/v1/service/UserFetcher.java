@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class UserFetcher extends Fetcher<User> {
     private final String serviceSid;
@@ -43,7 +44,7 @@ public class UserFetcher extends Fetcher<User> {
     public User execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.IPMESSAGING.toString(),
+            Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
             client.getRegion()
         );

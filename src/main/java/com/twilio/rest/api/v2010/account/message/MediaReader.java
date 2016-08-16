@@ -19,6 +19,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class MediaReader extends Reader<Media> {
@@ -97,7 +98,7 @@ public class MediaReader extends Reader<Media> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.messageSid + "/Media.json",
             client.getRegion()
         );
@@ -119,7 +120,7 @@ public class MediaReader extends Reader<Media> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.API.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );

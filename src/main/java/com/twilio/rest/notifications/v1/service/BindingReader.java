@@ -20,6 +20,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -154,7 +155,7 @@ public class BindingReader extends Reader<Binding> {
     public Page<Binding> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
+            Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.serviceSid + "/Bindings",
             client.getRegion()
         );
@@ -176,7 +177,7 @@ public class BindingReader extends Reader<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.NOTIFICATIONS.toString(),
+                Domains.NOTIFICATIONS.toString(),
                 client.getRegion()
             )
         );

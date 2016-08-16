@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class ServiceDeleter extends Deleter<Service> {
     private final String sid;
@@ -38,7 +39,7 @@ public class ServiceDeleter extends Deleter<Service> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
+            Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.sid + "",
             client.getRegion()
         );

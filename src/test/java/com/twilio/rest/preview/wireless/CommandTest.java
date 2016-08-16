@@ -16,6 +16,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
@@ -39,7 +40,7 @@ public class CommandTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PREVIEW.toString(),
+                                          Domains.PREVIEW.toString(),
                                           "/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             
@@ -60,7 +61,7 @@ public class CommandTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          TwilioRestClient.Domains.PREVIEW.toString(),
+                                          Domains.PREVIEW.toString(),
                                           "/wireless/Commands");
             
             request.addQueryParam("PageSize", "50");
@@ -81,7 +82,7 @@ public class CommandTest {
     public void testCreateRequest() {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
-                                                      TwilioRestClient.Domains.PREVIEW.toString(),
+                                                      Domains.PREVIEW.toString(),
                                                       "/wireless/Commands");
                         request.addPostParam("Device", serialize("device"));
         request.addPostParam("Command", serialize("command"));

@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class NumberFetcher extends Fetcher<Number> {
     private final com.twilio.type.PhoneNumber number;
@@ -39,7 +40,7 @@ public class NumberFetcher extends Fetcher<Number> {
     public Number execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PRICING.toString(),
+            Domains.PRICING.toString(),
             "/v1/Voice/Numbers/" + this.number + "",
             client.getRegion()
         );

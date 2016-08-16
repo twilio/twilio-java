@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class CredentialListCreator extends Creator<CredentialList> {
     private final String trunkSid;
@@ -43,7 +44,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
     public CredentialList execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TRUNKING.toString(),
+            Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/CredentialLists",
             client.getRegion()
         );

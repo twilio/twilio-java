@@ -16,6 +16,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 import java.util.Map;
 
@@ -82,7 +83,7 @@ public class UserUpdater extends Updater<User> {
     public User execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.IPMESSAGING.toString(),
+            Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
             client.getRegion()
         );

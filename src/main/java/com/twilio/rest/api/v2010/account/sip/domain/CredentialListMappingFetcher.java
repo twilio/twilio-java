@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping> {
     private String accountSid;
@@ -60,7 +61,7 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.domainSid + "/CredentialListMappings/" + this.sid + ".json",
             client.getRegion()
         );

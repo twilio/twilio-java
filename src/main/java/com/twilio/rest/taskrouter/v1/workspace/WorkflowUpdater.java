@@ -16,6 +16,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 import java.net.URI;
 
@@ -126,7 +127,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     public Workflow execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.TASKROUTER.toString(),
+            Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Workflows/" + this.sid + "",
             client.getRegion()
         );

@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class RatePlanReader extends Reader<RatePlan> {
     /**
@@ -41,7 +42,7 @@ public class RatePlanReader extends Reader<RatePlan> {
     public Page<RatePlan> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW.toString(),
+            Domains.PREVIEW.toString(),
             "/wireless/RatePlans",
             client.getRegion()
         );
@@ -63,7 +64,7 @@ public class RatePlanReader extends Reader<RatePlan> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.PREVIEW.toString(),
+                Domains.PREVIEW.toString(),
                 client.getRegion()
             )
         );

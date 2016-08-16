@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class CredentialListDeleter extends Deleter<CredentialList> {
     private final String trunkSid;
@@ -42,7 +43,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.TRUNKING.toString(),
+            Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.trunkSid + "/CredentialLists/" + this.sid + "",
             client.getRegion()
         );

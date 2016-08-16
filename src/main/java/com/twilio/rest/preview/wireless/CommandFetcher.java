@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class CommandFetcher extends Fetcher<Command> {
     private final String sid;
@@ -39,7 +40,7 @@ public class CommandFetcher extends Fetcher<Command> {
     public Command execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW.toString(),
+            Domains.PREVIEW.toString(),
             "/wireless/Commands/" + this.sid + "",
             client.getRegion()
         );

@@ -16,6 +16,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
@@ -113,7 +114,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     public WorkersStatistics execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER.toString(),
+            Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Workers/Statistics",
             client.getRegion()
         );

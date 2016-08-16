@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class CommandReader extends Reader<Command> {
     private String device;
@@ -78,7 +79,7 @@ public class CommandReader extends Reader<Command> {
     public Page<Command> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW.toString(),
+            Domains.PREVIEW.toString(),
             "/wireless/Commands",
             client.getRegion()
         );
@@ -100,7 +101,7 @@ public class CommandReader extends Reader<Command> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.PREVIEW.toString(),
+                Domains.PREVIEW.toString(),
                 client.getRegion()
             )
         );

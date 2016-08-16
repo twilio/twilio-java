@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class TriggerReader extends Reader<Trigger> {
     private String accountSid;
@@ -96,7 +97,7 @@ public class TriggerReader extends Reader<Trigger> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers.json",
             client.getRegion()
         );
@@ -118,7 +119,7 @@ public class TriggerReader extends Reader<Trigger> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.API.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );

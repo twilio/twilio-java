@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class TrunkFetcher extends Fetcher<Trunk> {
     private final String sid;
@@ -39,7 +40,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
     public Trunk execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TRUNKING.toString(),
+            Domains.TRUNKING.toString(),
             "/v1/Trunks/" + this.sid + "",
             client.getRegion()
         );

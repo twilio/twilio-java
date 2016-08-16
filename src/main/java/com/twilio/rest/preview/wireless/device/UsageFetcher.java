@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class UsageFetcher extends Fetcher<Usage> {
     private final String deviceSid;
@@ -63,7 +64,7 @@ public class UsageFetcher extends Fetcher<Usage> {
     public Usage execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW.toString(),
+            Domains.PREVIEW.toString(),
             "/wireless/Devices/" + this.deviceSid + "/Usage",
             client.getRegion()
         );

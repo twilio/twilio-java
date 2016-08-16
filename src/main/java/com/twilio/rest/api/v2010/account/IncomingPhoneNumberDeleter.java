@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
     private String ownerAccountSid;
@@ -52,7 +53,7 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/" + this.sid + ".json",
             client.getRegion()
         );

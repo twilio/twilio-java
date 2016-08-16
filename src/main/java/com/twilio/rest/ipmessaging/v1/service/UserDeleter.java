@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class UserDeleter extends Deleter<User> {
     private final String serviceSid;
@@ -42,7 +43,7 @@ public class UserDeleter extends Deleter<User> {
     public boolean execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.IPMESSAGING.toString(),
+            Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
             client.getRegion()
         );

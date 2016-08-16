@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class KeyReader extends Reader<Key> {
     private String accountSid;
@@ -59,7 +60,7 @@ public class KeyReader extends Reader<Key> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/Keys.json",
             client.getRegion()
         );
@@ -81,7 +82,7 @@ public class KeyReader extends Reader<Key> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.API.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );

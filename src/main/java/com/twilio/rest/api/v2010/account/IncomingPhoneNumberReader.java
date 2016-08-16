@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     private String ownerAccountSid;
@@ -96,7 +97,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers.json",
             client.getRegion()
         );
@@ -118,7 +119,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.API.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );

@@ -18,6 +18,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class EventReader extends Reader<Event> {
@@ -162,7 +163,7 @@ public class EventReader extends Reader<Event> {
     public Page<Event> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER.toString(),
+            Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Events",
             client.getRegion()
         );
@@ -184,7 +185,7 @@ public class EventReader extends Reader<Event> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.TASKROUTER.toString(),
+                Domains.TASKROUTER.toString(),
                 client.getRegion()
             )
         );

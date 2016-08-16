@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class ReservationReader extends Reader<Reservation> {
     private final String workspaceSid;
@@ -68,7 +69,7 @@ public class ReservationReader extends Reader<Reservation> {
     public Page<Reservation> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER.toString(),
+            Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.workerSid + "/Reservations",
             client.getRegion()
         );
@@ -90,7 +91,7 @@ public class ReservationReader extends Reader<Reservation> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.TASKROUTER.toString(),
+                Domains.TASKROUTER.toString(),
                 client.getRegion()
             )
         );

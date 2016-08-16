@@ -16,6 +16,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class BindingCreator extends Creator<Binding> {
     public Binding execute(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            TwilioRestClient.Domains.NOTIFICATIONS.toString(),
+            Domains.NOTIFICATIONS.toString(),
             "/v1/Services/" + this.serviceSid + "/Bindings",
             client.getRegion()
         );

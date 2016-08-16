@@ -15,6 +15,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class SigningKeyDeleter extends Deleter<SigningKey> {
     private String accountSid;
@@ -52,7 +53,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,
-            TwilioRestClient.Domains.API.toString(),
+            Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.accountSid + "/SigningKeys/" + this.sid + ".json",
             client.getRegion()
         );

@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class CountryReader extends Reader<Country> {
     /**
@@ -41,7 +42,7 @@ public class CountryReader extends Reader<Country> {
     public Page<Country> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PRICING.toString(),
+            Domains.PRICING.toString(),
             "/v1/Messaging/Countries",
             client.getRegion()
         );
@@ -63,7 +64,7 @@ public class CountryReader extends Reader<Country> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.PRICING.toString(),
+                Domains.PRICING.toString(),
                 client.getRegion()
             )
         );

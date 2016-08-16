@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class TaskReader extends Reader<Task> {
     private final String workspaceSid;
@@ -136,7 +137,7 @@ public class TaskReader extends Reader<Task> {
     public Page<Task> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.TASKROUTER.toString(),
+            Domains.TASKROUTER.toString(),
             "/v1/Workspaces/" + this.workspaceSid + "/Tasks",
             client.getRegion()
         );
@@ -158,7 +159,7 @@ public class TaskReader extends Reader<Task> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.TASKROUTER.toString(),
+                Domains.TASKROUTER.toString(),
                 client.getRegion()
             )
         );

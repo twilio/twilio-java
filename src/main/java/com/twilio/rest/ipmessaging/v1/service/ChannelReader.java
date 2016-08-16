@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class ChannelReader extends Reader<Channel> {
     private final String serviceSid;
@@ -52,7 +53,7 @@ public class ChannelReader extends Reader<Channel> {
     public Page<Channel> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.IPMESSAGING.toString(),
+            Domains.IPMESSAGING.toString(),
             "/v1/Services/" + this.serviceSid + "/Channels",
             client.getRegion()
         );
@@ -74,7 +75,7 @@ public class ChannelReader extends Reader<Channel> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.IPMESSAGING.toString(),
+                Domains.IPMESSAGING.toString(),
                 client.getRegion()
             )
         );

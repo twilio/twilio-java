@@ -19,6 +19,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class AlertReader extends Reader<Alert> {
@@ -109,7 +110,7 @@ public class AlertReader extends Reader<Alert> {
     public Page<Alert> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.MONITOR.toString(),
+            Domains.MONITOR.toString(),
             "/v1/Alerts",
             client.getRegion()
         );
@@ -131,7 +132,7 @@ public class AlertReader extends Reader<Alert> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.MONITOR.toString(),
+                Domains.MONITOR.toString(),
                 client.getRegion()
             )
         );

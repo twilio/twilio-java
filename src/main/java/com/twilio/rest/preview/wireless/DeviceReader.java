@@ -17,6 +17,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
 
 public class DeviceReader extends Reader<Device> {
     private String status;
@@ -78,7 +79,7 @@ public class DeviceReader extends Reader<Device> {
     public Page<Device> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            TwilioRestClient.Domains.PREVIEW.toString(),
+            Domains.PREVIEW.toString(),
             "/wireless/Devices",
             client.getRegion()
         );
@@ -100,7 +101,7 @@ public class DeviceReader extends Reader<Device> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                TwilioRestClient.Domains.PREVIEW.toString(),
+                Domains.PREVIEW.toString(),
                 client.getRegion()
             )
         );

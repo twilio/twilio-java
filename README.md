@@ -8,7 +8,7 @@ Use the following dependency in your project:
 
        <dependency>
           <groupId>com.twilio.sdk</groupId>
-          <artifactId>twilio-java-sdk</artifactId>
+          <artifactId>twiliok</artifactId>
           <version>7.X.X</version>
           <scope>compile</scope>
        </dependency>

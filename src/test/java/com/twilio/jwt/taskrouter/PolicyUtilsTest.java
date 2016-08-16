@@ -2,7 +2,7 @@ package com.twilio.jwt.taskrouter;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.twilio.rest.http.HttpMethod;
+import com.twilio.http.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
 

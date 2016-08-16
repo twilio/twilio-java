@@ -1,9 +1,9 @@
 package com.twilio.example.resource;
 
 
-import com.twilio.rest.Twilio;
-import com.twilio.rest.deleter.api.v2010.account.CallDeleter;
-import com.twilio.rest.exception.ApiException;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.CallDeleter;
+import com.twilio.exception.ApiException;
 
 /**
  * Call Deletion example.

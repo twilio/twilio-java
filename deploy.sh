@@ -6,8 +6,8 @@ if [ -z "$VERSION" ]; then
 fi
 
 echo "Bumping to version: $VERSION"
-OLD=`grep VERSION src/main/java/com/twilio/rest/Twilio.java | head -1 | awk -F "\"" '{print $2}'`
-sed -i.bak -e "s/$OLD/$VERSION/g" src/main/java/com/twilio/rest/Twilio.java
+OLD=`grep VERSION src/main/java/com/twilio/Twilio.java | head -1 | awk -F "\"" '{print $2}'`
+sed -i.bak -e "s/$OLD/$VERSION/g" src/main/java/com/twilio/Twilio.java
 
 echo "Committing changes"
 git commit -am "Bump version for release"

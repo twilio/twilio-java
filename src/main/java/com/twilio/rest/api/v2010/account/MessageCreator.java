@@ -222,6 +222,71 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * A Twilio phone number or alphanumeric sender ID enabled for the type of
+     * message you wish to send..
+     * 
+     * @param from The phone number that initiated the message
+     * @return this
+     */
+    public MessageCreator setFrom(final com.twilio.type.PhoneNumber from) {
+        this.from = from;
+        return this;
+    }
+
+    /**
+     * The messaging_service_sid.
+     * 
+     * @param messagingServiceSid The messaging_service_sid
+     * @return this
+     */
+    public MessageCreator setMessagingServiceSid(final String messagingServiceSid) {
+        this.messagingServiceSid = messagingServiceSid;
+        return this;
+    }
+
+    /**
+     * The body.
+     * 
+     * @param body The body
+     * @return this
+     */
+    public MessageCreator setBody(final String body) {
+        this.body = body;
+        return this;
+    }
+
+    /**
+     * The media_url.
+     * 
+     * @param mediaUrl The media_url
+     * @return this
+     */
+    public MessageCreator setMediaUrl(final List<URI> mediaUrl) {
+        this.mediaUrl = mediaUrl;
+        return this;
+    }
+
+    /**
+     * The media_url.
+     * 
+     * @param mediaUrl The media_url
+     * @return this
+     */
+    public MessageCreator setMediaUrl(final URI mediaUrl) {
+        return setMediaUrl(Promoter.listOfOne(mediaUrl));
+    }
+
+    /**
+     * The media_url.
+     * 
+     * @param mediaUrl The media_url
+     * @return this
+     */
+    public MessageCreator setMediaUrl(final String mediaUrl) {
+        return setMediaUrl(Promoter.uriFromString(mediaUrl));
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request

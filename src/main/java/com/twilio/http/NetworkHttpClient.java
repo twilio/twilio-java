@@ -3,7 +3,6 @@ package com.twilio.http;
 import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
-import java.nio.charset.StandardCharsets;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -15,6 +14,7 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

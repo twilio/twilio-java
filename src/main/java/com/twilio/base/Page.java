@@ -43,6 +43,13 @@ public class Page<T> {
         return records;
     }
 
+    /**
+     * Generate first page url for a list result.
+     *
+     * @param domain domain to use
+     * @param region region to use
+     * @return the first page url
+     */
     public String getFirstPageUrl(String domain, String region) {
         if (firstPageUrl != null) {
             return firstPageUrl;
@@ -51,6 +58,13 @@ public class Page<T> {
         return urlFromUri(domain, region, firstPageUri);
     }
 
+    /**
+     * Generate next page url for a list result.
+     *
+     * @param domain domain to use
+     * @param region region to use
+     * @return the next page url
+     */
     public String getNextPageUrl(String domain, String region) {
         if (nextPageUrl != null) {
             return nextPageUrl;
@@ -59,6 +73,13 @@ public class Page<T> {
         return urlFromUri(domain, region, nextPageUri);
     }
 
+    /**
+     * Generate previous page url for a list result.
+     *
+     * @param domain domain to use
+     * @param region region to use
+     * @return the previous page url
+     */
     public String getPreviousPageUrl(String domain, String region) {
         if (previousPageUrl != null) {
             return previousPageUrl;
@@ -71,6 +92,13 @@ public class Page<T> {
         return pageSize;
     }
 
+    /**
+     * Generate page url for a list result.
+     *
+     * @param domain domain to use
+     * @param region region to use
+     * @return the page url
+     */
     public String getUrl(String domain, String region) {
         if (url != null) {
             return url;

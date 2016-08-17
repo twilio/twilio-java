@@ -328,6 +328,29 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
+     * The phone number to purchase. e.g., +16175551212 (E.164 format).
+     * 
+     * @param phoneNumber The phone number
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    /**
+     * The desired area code for the new phone number. Any three digit US or Canada
+     * rea code is valid.
+     * 
+     * @param areaCode The desired area code for the new number
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setAreaCode(final String areaCode) {
+        this.areaCode = areaCode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request

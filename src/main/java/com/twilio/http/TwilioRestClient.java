@@ -65,6 +65,12 @@ public class TwilioRestClient {
         private String region;
         private HttpClient httpClient = new NetworkHttpClient();
 
+        /**
+         * Create a new Twilio Rest Client.
+         *
+         * @param username username to use
+         * @param password password for the username
+         */
         public Builder(String username, String password) {
             this.username = username;
             this.password = password;

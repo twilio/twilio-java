@@ -328,6 +328,43 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * The fully qualified URL that should be consulted when the call connects. Just
+     * like when you set a URL on a phone number for handling inbound calls..
+     * 
+     * @param url Url from which to fetch TwiML
+     * @return this
+     */
+    public CallCreator setUrl(final URI url) {
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * The fully qualified URL that should be consulted when the call connects. Just
+     * like when you set a URL on a phone number for handling inbound calls..
+     * 
+     * @param url Url from which to fetch TwiML
+     * @return this
+     */
+    public CallCreator setUrl(final String url) {
+        return setUrl(Promoter.uriFromString(url));
+    }
+
+    /**
+     * The 34 character sid of the application Twilio should use to handle this
+     * phone call. If this parameter is present, Twilio will ignore all of the voice
+     * URLs passed and use the URLs set on the application..
+     * 
+     * @param applicationSid ApplicationSid that configures from where to fetch
+     *                       TwiML
+     * @return this
+     */
+    public CallCreator setApplicationSid(final String applicationSid) {
+        this.applicationSid = applicationSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request

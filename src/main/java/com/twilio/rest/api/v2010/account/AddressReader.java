@@ -178,6 +178,8 @@ public class AddressReader extends Reader<Address> {
             request.addQueryParam("IsoCountry", isoCountry);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

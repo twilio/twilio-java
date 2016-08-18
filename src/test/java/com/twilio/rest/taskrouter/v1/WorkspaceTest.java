@@ -43,7 +43,6 @@ public class WorkspaceTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class WorkspaceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class WorkspaceTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -154,7 +151,6 @@ public class WorkspaceTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces");
             request.addPostParam("FriendlyName", serialize("friendlyName"));
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -186,7 +182,6 @@ public class WorkspaceTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;

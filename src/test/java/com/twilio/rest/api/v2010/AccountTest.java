@@ -43,7 +43,6 @@ public class AccountTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class AccountTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class AccountTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts.json");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -153,7 +150,6 @@ public class AccountTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
-            
             
             twilioRestClient.request(request);
             times = 1;

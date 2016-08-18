@@ -269,6 +269,8 @@ public class EventReader extends Reader<Event> {
             request.addQueryParam("WorkflowSid", workflowSid);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

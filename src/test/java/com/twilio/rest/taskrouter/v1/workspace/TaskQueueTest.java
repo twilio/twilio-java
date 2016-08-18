@@ -43,7 +43,6 @@ public class TaskQueueTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class TaskQueueTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class TaskQueueTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -156,7 +153,6 @@ public class TaskQueueTest {
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("ReservationActivitySid", serialize("WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
         request.addPostParam("AssignmentActivitySid", serialize("WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-                        
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -188,7 +184,6 @@ public class TaskQueueTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;

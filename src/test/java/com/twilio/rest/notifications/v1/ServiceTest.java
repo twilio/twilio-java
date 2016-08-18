@@ -43,7 +43,6 @@ public class ServiceTest {
                                           Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class ServiceTest {
                                           Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -142,7 +139,6 @@ public class ServiceTest {
                                           Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -186,7 +182,6 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;

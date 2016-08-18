@@ -43,7 +43,6 @@ public class RoleTest {
                                           Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class RoleTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -111,7 +109,6 @@ public class RoleTest {
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("Type", serialize(Role.RoleType.CHANNEL));
         request.addPostParam("Permission", serialize("permission"));
-                        
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -144,7 +141,6 @@ public class RoleTest {
                                           Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -190,7 +186,6 @@ public class RoleTest {
                                                       "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("Permission", serialize("permission"));
-                        
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);

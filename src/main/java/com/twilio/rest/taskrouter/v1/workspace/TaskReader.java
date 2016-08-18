@@ -235,6 +235,8 @@ public class TaskReader extends Reader<Task> {
             request.addQueryParam("TaskChannel", taskChannel);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -161,6 +161,8 @@ public class DeviceReader extends Reader<Device> {
             request.addQueryParam("RatePlan", ratePlan);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

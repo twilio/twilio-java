@@ -179,6 +179,8 @@ public class TriggerReader extends Reader<Trigger> {
             request.addQueryParam("UsageCategory", usageCategory.toString());
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -155,6 +155,8 @@ public class ActivityReader extends Reader<Activity> {
             request.addQueryParam("Available", available);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

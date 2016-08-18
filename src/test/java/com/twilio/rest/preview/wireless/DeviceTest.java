@@ -43,7 +43,6 @@ public class DeviceTest {
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Devices/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -64,7 +63,6 @@ public class DeviceTest {
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Devices");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -85,7 +83,6 @@ public class DeviceTest {
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Devices");
             request.addPostParam("RatePlan", serialize("ratePlan"));
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -105,7 +102,6 @@ public class DeviceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Devices/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;

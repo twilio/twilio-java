@@ -43,7 +43,6 @@ public class MobileTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -88,7 +87,6 @@ public class MobileTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json");
             request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+987654321")));
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -244,6 +244,8 @@ public class EventReader extends Reader<Event> {
             request.addQueryDateRange("StartDate", rangeStartDate);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

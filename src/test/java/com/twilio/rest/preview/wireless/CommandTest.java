@@ -43,7 +43,6 @@ public class CommandTest {
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -64,7 +63,6 @@ public class CommandTest {
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Commands");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -86,7 +84,6 @@ public class CommandTest {
                                                       "/wireless/Commands");
                         request.addPostParam("Device", serialize("device"));
         request.addPostParam("Command", serialize("command"));
-                        
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);

@@ -164,6 +164,8 @@ public class ShortCodeReader extends Reader<ShortCode> {
             request.addQueryParam("ShortCode", shortCode);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

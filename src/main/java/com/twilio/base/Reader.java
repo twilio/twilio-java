@@ -13,7 +13,10 @@ import java.util.concurrent.Callable;
  */
 public abstract class Reader<T extends Resource> {
 
-    private int pageSize = 50;
+    private static final int MAX_PAGE_SIZE = 1000;
+
+    private Integer pageSize;
+    private Long limit;
 
     /**
      * Execute a request using default client.
@@ -91,12 +94,33 @@ public abstract class Reader<T extends Resource> {
      */
     public abstract Page<T> nextPage(final Page<T> page, final TwilioRestClient client);
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
     public Reader<T> pageSize(final int pageSize) {
-        this.pageSize = pageSize;
+        this.pageSize = Math.min(pageSize, MAX_PAGE_SIZE);
         return this;
     }
+
+    public Long getLimit() {
+        return limit;
+    }
+
+    /**
+     * Sets the max number of records to read.
+     *
+     * @param limit max number of records to read
+     * @return this reader
+     */
+    public Reader<T> limit(final long limit) {
+        this.limit = limit;
+
+        if (this.pageSize == null) {
+            this.pageSize = (int)Math.min(this.limit, MAX_PAGE_SIZE);
+        }
+
+        return this;
+    }
+
 }

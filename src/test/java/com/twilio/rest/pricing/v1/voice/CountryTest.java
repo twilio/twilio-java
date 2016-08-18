@@ -43,7 +43,6 @@ public class CountryTest {
                                           Domains.PRICING.toString(),
                                           "/v1/Voice/Countries");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -87,7 +86,6 @@ public class CountryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PRICING.toString(),
                                           "/v1/Voice/Countries/US");
-            
             
             twilioRestClient.request(request);
             times = 1;

@@ -54,7 +54,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         return page.getPageSize();
     }
 
-    public ResourceSet<?> setPageSize(final int pageSize) {
+    public ResourceSet<E> setPageSize(final int pageSize) {
         reader.pageSize(pageSize);
         return this;
     }
@@ -63,7 +63,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         return reader.getLimit();
     }
 
-    public ResourceSet<?> setLimit(final long limit) {
+    public ResourceSet<E> setLimit(final long limit) {
         reader.limit(limit);
         return this;
     }

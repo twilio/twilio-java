@@ -15,19 +15,19 @@ import java.util.Map;
  *     </a>
  * </p>
  */
-public class ProgrammableVoiceGrant implements Grant {
+public class VoiceGrant implements Grant {
 
     private String outgoingApplicationSid;
     private Map<String, Object> outgoingApplicationParams;
     private String pushCredentialSid;
     private String endpointId;
 
-    public ProgrammableVoiceGrant setOutgoingApplicationSid(String outgoingApplicationSid) {
+    public VoiceGrant setOutgoingApplicationSid(String outgoingApplicationSid) {
         this.outgoingApplicationSid = outgoingApplicationSid;
         return this;
     }
 
-    public ProgrammableVoiceGrant setOutgoingApplication(
+    public VoiceGrant setOutgoingApplication(
         String outgoingApplicationSid,
         Map<String, Object> outgoingApplicationParams
     ) {
@@ -36,19 +36,19 @@ public class ProgrammableVoiceGrant implements Grant {
         return this;
     }
 
-    public ProgrammableVoiceGrant setPushCredentialSid(String pushCredentialSid) {
+    public VoiceGrant setPushCredentialSid(String pushCredentialSid) {
         this.pushCredentialSid = pushCredentialSid;
         return this;
     }
 
-    public ProgrammableVoiceGrant setEndpointId(String endpointId) {
+    public VoiceGrant setEndpointId(String endpointId) {
         this.endpointId = endpointId;
         return this;
     }
 
     @Override
     public String getGrantKey() {
-        return "programmable_voice";
+        return "voice";
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ProgrammableVoiceGrant implements Grant {
         public String push_credential_sid;
         public String endpoint_id;
 
-        public Payload(ProgrammableVoiceGrant grant) {
+        public Payload(VoiceGrant grant) {
             if (!Strings.isNullOrEmpty(grant.outgoingApplicationSid)) {
                 this.outgoing = new HashMap<>();
                 this.outgoing.put("application_sid", grant.outgoingApplicationSid);

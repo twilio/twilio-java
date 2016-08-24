@@ -3,7 +3,7 @@ package com.twilio.sdk;
 import com.twilio.sdk.auth.AccessToken;
 import com.twilio.sdk.auth.ConversationsGrant;
 import com.twilio.sdk.auth.IpMessagingGrant;
-import com.twilio.sdk.auth.ProgrammableVoiceGrant;
+import com.twilio.sdk.auth.VoiceGrant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.Assert;
@@ -162,11 +162,11 @@ public class AccessTokenTest {
 	}
 
 	@Test
-	public void testProgrammableVoiceToken() {
+	public void testVoiceToken() {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("foo", "bar");
 
-		ProgrammableVoiceGrant pvg = new ProgrammableVoiceGrant()
+		VoiceGrant pvg = new VoiceGrant()
 			.setOutgoingApplication("AP123", params);
 
 		AccessToken token =
@@ -184,7 +184,7 @@ public class AccessTokenTest {
 		Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
 		Assert.assertEquals(1, decodedGrants.size());
 
-		Map<String, Object> pvgGrant = (Map<String, Object>) decodedGrants.get("programmable_voice");
+		Map<String, Object> pvgGrant = (Map<String, Object>) decodedGrants.get("voice");
 		Map<String, Object> outgoing = (Map<String, Object>) pvgGrant.get("outgoing");
 		Map<String, Object> outgoingParams = (Map<String, Object>) outgoing.get("params");
 		Assert.assertEquals("AP123", outgoing.get("application_sid"));

@@ -43,7 +43,6 @@ public class ValidationRequestTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json");
             request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+987654321")));
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

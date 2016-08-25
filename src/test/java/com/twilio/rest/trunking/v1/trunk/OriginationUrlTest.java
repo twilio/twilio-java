@@ -43,7 +43,6 @@ public class OriginationUrlTest {
                                           Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class OriginationUrlTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -113,7 +111,6 @@ public class OriginationUrlTest {
         request.addPostParam("Enabled", serialize(true));
         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("SipUrl", serialize(URI.create("https://example.com")));
-                        
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -146,7 +143,6 @@ public class OriginationUrlTest {
                                           Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -190,7 +186,6 @@ public class OriginationUrlTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;

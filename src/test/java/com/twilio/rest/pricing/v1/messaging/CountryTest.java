@@ -43,7 +43,6 @@ public class CountryTest {
                                           Domains.PRICING.toString(),
                                           "/v1/Messaging/Countries");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -63,7 +62,6 @@ public class CountryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PRICING.toString(),
                                           "/v1/Messaging/Countries/US");
-            
             
             twilioRestClient.request(request);
             times = 1;

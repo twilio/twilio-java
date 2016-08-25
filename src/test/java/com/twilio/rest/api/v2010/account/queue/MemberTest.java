@@ -43,7 +43,6 @@ public class MemberTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -77,7 +76,6 @@ public class MemberTest {
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
                         request.addPostParam("Url", serialize(URI.create("https://example.com")));
         request.addPostParam("Method", serialize(HttpMethod.GET));
-                        
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -110,7 +108,6 @@ public class MemberTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -123,6 +123,8 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -223,6 +223,8 @@ public class RecordReader extends Reader<Record> {
             request.addQueryDateRange("EndDate", rangeEndDate);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

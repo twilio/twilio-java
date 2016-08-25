@@ -189,6 +189,8 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
             request.addQueryParam("StartDate", startDate.toString());
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

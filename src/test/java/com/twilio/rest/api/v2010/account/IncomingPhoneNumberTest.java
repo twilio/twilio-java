@@ -43,7 +43,6 @@ public class IncomingPhoneNumberTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class IncomingPhoneNumberTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class IncomingPhoneNumberTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -142,7 +139,6 @@ public class IncomingPhoneNumberTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -187,7 +183,6 @@ public class IncomingPhoneNumberTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json");
             request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+987654321")));
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -235,6 +235,8 @@ public class WorkerReader extends Reader<Worker> {
             request.addQueryParam("TaskQueueSid", taskQueueSid);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

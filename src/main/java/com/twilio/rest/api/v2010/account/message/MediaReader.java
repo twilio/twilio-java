@@ -174,6 +174,8 @@ public class MediaReader extends Reader<Media> {
             request.addQueryDateRange("DateCreated", rangeDateCreated);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

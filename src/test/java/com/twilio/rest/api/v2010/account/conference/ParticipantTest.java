@@ -43,7 +43,6 @@ public class ParticipantTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -76,7 +75,6 @@ public class ParticipantTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             request.addPostParam("Muted", serialize(true));
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -108,7 +106,6 @@ public class ParticipantTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -142,7 +139,6 @@ public class ParticipantTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -43,7 +43,6 @@ public class EventTest {
                                           Domains.MONITOR.toString(),
                                           "/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -76,7 +75,6 @@ public class EventTest {
                                           Domains.MONITOR.toString(),
                                           "/v1/Events");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

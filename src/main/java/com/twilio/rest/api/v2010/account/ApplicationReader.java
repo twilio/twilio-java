@@ -147,6 +147,8 @@ public class ApplicationReader extends Reader<Application> {
             request.addQueryParam("FriendlyName", friendlyName);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

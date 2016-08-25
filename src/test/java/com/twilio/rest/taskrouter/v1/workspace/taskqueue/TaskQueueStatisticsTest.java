@@ -43,7 +43,6 @@ public class TaskQueueStatisticsTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

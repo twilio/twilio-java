@@ -43,7 +43,6 @@ public class PhoneNumberTest {
                                           Domains.LOOKUPS.toString(),
                                           "/v1/PhoneNumbers/+987654321");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

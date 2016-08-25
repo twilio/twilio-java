@@ -43,7 +43,6 @@ public class WorkerChannelTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -88,7 +87,6 @@ public class WorkerChannelTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -120,7 +118,6 @@ public class WorkerChannelTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;

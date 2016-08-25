@@ -43,7 +43,6 @@ public class TaskChannelTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels/TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -76,7 +75,6 @@ public class TaskChannelTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

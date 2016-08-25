@@ -393,6 +393,8 @@ public class LocalReader extends Reader<Local> {
             request.addQueryParam("InLata", inLata);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

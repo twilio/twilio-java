@@ -43,7 +43,6 @@ public class NumberTest {
                                           Domains.PRICING.toString(),
                                           "/v1/Voice/Numbers/+987654321");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

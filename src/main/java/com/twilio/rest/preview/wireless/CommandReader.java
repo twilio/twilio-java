@@ -161,6 +161,8 @@ public class CommandReader extends Reader<Command> {
             request.addQueryParam("Direction", direction);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

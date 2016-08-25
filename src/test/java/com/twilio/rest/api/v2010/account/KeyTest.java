@@ -43,7 +43,6 @@ public class KeyTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys/SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class KeyTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys/SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class KeyTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys/SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -142,7 +139,6 @@ public class KeyTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys.json");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -178,6 +178,8 @@ public class TollFreeReader extends Reader<TollFree> {
             request.addQueryParam("PhoneNumber", phoneNumber.toString());
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

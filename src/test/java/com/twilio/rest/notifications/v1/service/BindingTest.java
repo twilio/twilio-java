@@ -43,7 +43,6 @@ public class BindingTest {
                                           Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class BindingTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -112,7 +110,6 @@ public class BindingTest {
         request.addPostParam("Identity", serialize("identity"));
         request.addPostParam("BindingType", serialize(Binding.BindingType.APN));
         request.addPostParam("Address", serialize("address"));
-                        
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -145,7 +142,6 @@ public class BindingTest {
                                           Domains.NOTIFICATIONS.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

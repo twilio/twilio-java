@@ -43,7 +43,6 @@ public class TaskTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class TaskTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class TaskTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -142,7 +139,6 @@ public class TaskTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -188,7 +184,6 @@ public class TaskTest {
                                                       "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks");
                         request.addPostParam("Attributes", serialize("attributes"));
         request.addPostParam("WorkflowSid", serialize("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-                        
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);

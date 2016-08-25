@@ -213,6 +213,8 @@ public class YearlyReader extends Reader<Yearly> {
             request.addQueryDateRange("EndDate", rangeEndDate);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

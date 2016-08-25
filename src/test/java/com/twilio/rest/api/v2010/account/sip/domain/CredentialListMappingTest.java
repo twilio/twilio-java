@@ -43,7 +43,6 @@ public class CredentialListMappingTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings.json");
             request.addPostParam("CredentialListSid", serialize("CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -76,7 +75,6 @@ public class CredentialListMappingTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings.json");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -121,7 +119,6 @@ public class CredentialListMappingTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -153,7 +150,6 @@ public class CredentialListMappingTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
-            
             
             twilioRestClient.request(request);
             times = 1;

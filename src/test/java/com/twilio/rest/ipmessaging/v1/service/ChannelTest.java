@@ -43,7 +43,6 @@ public class ChannelTest {
                                           Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class ChannelTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class ChannelTest {
                                           Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -142,7 +139,6 @@ public class ChannelTest {
                                           Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -186,7 +182,6 @@ public class ChannelTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.IPMESSAGING.toString(),
                                           "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;

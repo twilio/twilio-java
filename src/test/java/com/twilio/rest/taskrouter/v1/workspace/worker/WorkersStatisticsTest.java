@@ -43,7 +43,6 @@ public class WorkersStatisticsTest {
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/Statistics");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

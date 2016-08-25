@@ -43,7 +43,6 @@ public class AlertTest {
                                           Domains.MONITOR.toString(),
                                           "/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -75,7 +74,6 @@ public class AlertTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.MONITOR.toString(),
                                           "/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
             
             twilioRestClient.request(request);
             times = 1;
@@ -109,7 +107,6 @@ public class AlertTest {
                                           Domains.MONITOR.toString(),
                                           "/v1/Alerts");
             
-            request.addQueryParam("PageSize", "50");
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

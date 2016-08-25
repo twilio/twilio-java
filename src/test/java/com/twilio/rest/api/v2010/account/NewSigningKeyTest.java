@@ -43,7 +43,6 @@ public class NewSigningKeyTest {
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SigningKeys.json");
             
-            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

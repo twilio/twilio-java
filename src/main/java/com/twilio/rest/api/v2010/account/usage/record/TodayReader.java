@@ -213,6 +213,8 @@ public class TodayReader extends Reader<Today> {
             request.addQueryDateRange("EndDate", rangeEndDate);
         }
         
-        request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

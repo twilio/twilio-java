@@ -1,8 +1,5 @@
 package com.twilio.base;
 
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import com.twilio.exception.InvalidRequestException;
 import com.twilio.http.TwilioRestClient;
 
 import java.util.Iterator;
@@ -19,6 +16,9 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
     private final TwilioRestClient client;
 
     private boolean autoPaging;
+    private long pages = 1;
+    private long pageLimit = Long.MAX_VALUE;
+    private long processed = 0;
     private Page<E> page;
     private Iterator<E> iterator;
 
@@ -35,6 +35,10 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         this.page = page;
         this.iterator = page.getRecords().iterator();
         this.autoPaging = true;
+
+        if (reader.getLimit() != null) {
+            this.pageLimit = (long)(Math.ceil((double)reader.getLimit() / (double)page.getPageSize()));
+        }
     }
 
     public boolean isAutoPaging() {
@@ -46,13 +50,26 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         return this;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return page.getPageSize();
     }
 
-    public ResourceSet setPageSize(final int pageSize) {
+    public ResourceSet<E> setPageSize(final int pageSize) {
         reader.pageSize(pageSize);
         return this;
+    }
+
+    public Long getLimit() {
+        return reader.getLimit();
+    }
+
+    public ResourceSet<E> setLimit(final long limit) {
+        reader.limit(limit);
+        return this;
+    }
+
+    public long getPageLimit() {
+        return pageLimit;
     }
 
     @Override
@@ -61,10 +78,11 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
     }
 
     private void fetchNextPage() {
-        if (!page.hasNextPage()) {
+        if (!page.hasNextPage() || pages >= pageLimit) {
             return;
         }
 
+        pages++;
         page = reader.nextPage(page, client);
         iterator = page.getRecords().iterator();
     }
@@ -78,6 +96,10 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
 
         @Override
         public boolean hasNext() {
+            if (resourceSet.getLimit() != null && resourceSet.processed >= resourceSet.getLimit()) {
+                return false;
+            }
+
             return resourceSet.iterator.hasNext();
         }
 
@@ -89,21 +111,17 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
 
             E element = resourceSet.iterator.next();
             if (resourceSet.isAutoPaging() && !resourceSet.iterator.hasNext()) {
-                try {
-                    resourceSet.fetchNextPage();
-                } catch (final InvalidRequestException | ApiConnectionException | ApiException e) {
-
-                    // TODO: this should probably be a better exception
-                    throw new RuntimeException(e);
-                }
+                resourceSet.fetchNextPage();
             }
 
+            resourceSet.processed++;
             return element;
         }
 
         @Override
         public void remove() {
             if (resourceSet.iterator != null) {
+                resourceSet.processed++;
                 resourceSet.iterator.remove();
             }
         }

@@ -7,7 +7,7 @@
   <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>7.0.0-rc-21</version>
+  <version>7.0.0-rc-22-SNAPSHOT</version>
   <description>Release Candidate for Next-Gen Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>

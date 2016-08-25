@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 238358972354024L;
+    private static final long serialVersionUID = 177171582152744L;
 
     /**
      * Create a ParticipantFetcher to execute fetch.
@@ -67,14 +67,12 @@ public class Participant extends Resource {
      * @param accountSid The account_sid
      * @param conferenceSid The string that uniquely identifies this conference
      * @param callSid The call_sid
-     * @param muted Indicates if the participant should be muted
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater update(final String accountSid, 
                                             final String conferenceSid, 
-                                            final String callSid, 
-                                            final Boolean muted) {
-        return new ParticipantUpdater(accountSid, conferenceSid, callSid, muted);
+                                            final String callSid) {
+        return new ParticipantUpdater(accountSid, conferenceSid, callSid);
     }
 
     /**
@@ -82,13 +80,11 @@ public class Participant extends Resource {
      * 
      * @param conferenceSid The string that uniquely identifies this conference
      * @param callSid The call_sid
-     * @param muted Indicates if the participant should be muted
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater update(final String conferenceSid, 
-                                            final String callSid, 
-                                            final Boolean muted) {
-        return new ParticipantUpdater(conferenceSid, callSid, muted);
+                                            final String callSid) {
+        return new ParticipantUpdater(conferenceSid, callSid);
     }
 
     /**
@@ -184,6 +180,7 @@ public class Participant extends Resource {
     private final DateTime dateUpdated;
     private final Boolean endConferenceOnExit;
     private final Boolean muted;
+    private final Boolean hold;
     private final Boolean startConferenceOnEnter;
     private final String uri;
 
@@ -202,6 +199,8 @@ public class Participant extends Resource {
                         final Boolean endConferenceOnExit, 
                         @JsonProperty("muted")
                         final Boolean muted, 
+                        @JsonProperty("hold")
+                        final Boolean hold, 
                         @JsonProperty("start_conference_on_enter")
                         final Boolean startConferenceOnEnter, 
                         @JsonProperty("uri")
@@ -213,6 +212,7 @@ public class Participant extends Resource {
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.endConferenceOnExit = endConferenceOnExit;
         this.muted = muted;
+        this.hold = hold;
         this.startConferenceOnEnter = startConferenceOnEnter;
         this.uri = uri;
     }
@@ -290,6 +290,15 @@ public class Participant extends Resource {
     }
 
     /**
+     * Returns The The hold.
+     * 
+     * @return The hold
+     */
+    public final Boolean getHold() {
+        return this.hold;
+    }
+
+    /**
      * Returns The Indicates if the startConferenceOnEnter attribute was set.
      * 
      * @return Indicates if the startConferenceOnEnter attribute was set
@@ -326,6 +335,7 @@ public class Participant extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(endConferenceOnExit, other.endConferenceOnExit) && 
                Objects.equals(muted, other.muted) && 
+               Objects.equals(hold, other.hold) && 
                Objects.equals(startConferenceOnEnter, other.startConferenceOnEnter) && 
                Objects.equals(uri, other.uri);
     }
@@ -339,6 +349,7 @@ public class Participant extends Resource {
                             dateUpdated,
                             endConferenceOnExit,
                             muted,
+                            hold,
                             startConferenceOnEnter,
                             uri);
     }
@@ -353,6 +364,7 @@ public class Participant extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("endConferenceOnExit", endConferenceOnExit)
                           .add("muted", muted)
+                          .add("hold", hold)
                           .add("startConferenceOnEnter", startConferenceOnEnter)
                           .add("uri", uri)
                           .toString();

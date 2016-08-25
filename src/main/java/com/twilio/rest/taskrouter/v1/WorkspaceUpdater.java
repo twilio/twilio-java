@@ -24,7 +24,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     private final String sid;
     private String defaultActivitySid;
     private URI eventCallbackUrl;
+    private String eventsFilter;
     private String friendlyName;
+    private Boolean multiTaskEnabled;
     private String timeoutActivitySid;
 
     /**
@@ -69,6 +71,17 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
+     * The events_filter.
+     * 
+     * @param eventsFilter The events_filter
+     * @return this
+     */
+    public WorkspaceUpdater setEventsFilter(final String eventsFilter) {
+        this.eventsFilter = eventsFilter;
+        return this;
+    }
+
+    /**
      * The friendly_name.
      * 
      * @param friendlyName The friendly_name
@@ -76,6 +89,17 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      */
     public WorkspaceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The multi_task_enabled.
+     * 
+     * @param multiTaskEnabled The multi_task_enabled
+     * @return this
+     */
+    public WorkspaceUpdater setMultiTaskEnabled(final Boolean multiTaskEnabled) {
+        this.multiTaskEnabled = multiTaskEnabled;
         return this;
     }
 
@@ -143,8 +167,16 @@ public class WorkspaceUpdater extends Updater<Workspace> {
             request.addPostParam("EventCallbackUrl", eventCallbackUrl.toString());
         }
         
+        if (eventsFilter != null) {
+            request.addPostParam("EventsFilter", eventsFilter);
+        }
+        
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+        
+        if (multiTaskEnabled != null) {
+            request.addPostParam("MultiTaskEnabled", multiTaskEnabled.toString());
         }
         
         if (timeoutActivitySid != null) {

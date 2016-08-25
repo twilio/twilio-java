@@ -88,14 +88,12 @@ public class Workflow extends Resource {
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @param configuration The configuration
-     * @param assignmentCallbackUrl The assignment_callback_url
      * @return WorkflowCreator capable of executing the create
      */
     public static WorkflowCreator create(final String workspaceSid, 
                                          final String friendlyName, 
-                                         final String configuration, 
-                                         final URI assignmentCallbackUrl) {
-        return new WorkflowCreator(workspaceSid, friendlyName, configuration, assignmentCallbackUrl);
+                                         final String configuration) {
+        return new WorkflowCreator(workspaceSid, friendlyName, configuration);
     }
 
     /**

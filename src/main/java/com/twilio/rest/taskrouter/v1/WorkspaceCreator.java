@@ -23,6 +23,8 @@ import java.net.URI;
 public class WorkspaceCreator extends Creator<Workspace> {
     private final String friendlyName;
     private URI eventCallbackUrl;
+    private String eventsFilter;
+    private Boolean multiTaskEnabled;
     private String template;
 
     /**
@@ -53,6 +55,28 @@ public class WorkspaceCreator extends Creator<Workspace> {
      */
     public WorkspaceCreator setEventCallbackUrl(final String eventCallbackUrl) {
         return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
+    }
+
+    /**
+     * The events_filter.
+     * 
+     * @param eventsFilter The events_filter
+     * @return this
+     */
+    public WorkspaceCreator setEventsFilter(final String eventsFilter) {
+        this.eventsFilter = eventsFilter;
+        return this;
+    }
+
+    /**
+     * The multi_task_enabled.
+     * 
+     * @param multiTaskEnabled The multi_task_enabled
+     * @return this
+     */
+    public WorkspaceCreator setMultiTaskEnabled(final Boolean multiTaskEnabled) {
+        this.multiTaskEnabled = multiTaskEnabled;
+        return this;
     }
 
     /**
@@ -117,6 +141,14 @@ public class WorkspaceCreator extends Creator<Workspace> {
         
         if (eventCallbackUrl != null) {
             request.addPostParam("EventCallbackUrl", eventCallbackUrl.toString());
+        }
+        
+        if (eventsFilter != null) {
+            request.addPostParam("EventsFilter", eventsFilter);
+        }
+        
+        if (multiTaskEnabled != null) {
+            request.addPostParam("MultiTaskEnabled", multiTaskEnabled.toString());
         }
         
         if (template != null) {

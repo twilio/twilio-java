@@ -32,7 +32,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 188594721774120L;
+    private static final long serialVersionUID = 23007963816035L;
 
     public enum Type {
         LANDLINE("landline"),
@@ -115,6 +115,7 @@ public class PhoneNumber extends Resource {
         }
     }
 
+    private final Map<String, String> callerName;
     private final String countryCode;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String nationalFormat;
@@ -122,7 +123,9 @@ public class PhoneNumber extends Resource {
     private final Map<String, Object> addOns;
 
     @JsonCreator
-    private PhoneNumber(@JsonProperty("country_code")
+    private PhoneNumber(@JsonProperty("caller_name")
+                        final Map<String, String> callerName, 
+                        @JsonProperty("country_code")
                         final String countryCode, 
                         @JsonProperty("phone_number")
                         final com.twilio.type.PhoneNumber phoneNumber, 
@@ -132,6 +135,7 @@ public class PhoneNumber extends Resource {
                         final Map<String, String> carrier, 
                         @JsonProperty("add_ons")
                         final Map<String, Object> addOns) {
+        this.callerName = callerName;
         this.countryCode = countryCode;
         this.phoneNumber = phoneNumber;
         this.nationalFormat = nationalFormat;
@@ -146,6 +150,15 @@ public class PhoneNumber extends Resource {
      */
     public final String getSid() {
         return this.getPhoneNumber().toString();
+    }
+
+    /**
+     * Returns The The caller_name.
+     * 
+     * @return The caller_name
+     */
+    public final Map<String, String> getCallerName() {
+        return this.callerName;
     }
 
     /**
@@ -205,7 +218,8 @@ public class PhoneNumber extends Resource {
         
         PhoneNumber other = (PhoneNumber) o;
         
-        return Objects.equals(countryCode, other.countryCode) && 
+        return Objects.equals(callerName, other.callerName) && 
+               Objects.equals(countryCode, other.countryCode) && 
                Objects.equals(phoneNumber, other.phoneNumber) && 
                Objects.equals(nationalFormat, other.nationalFormat) && 
                Objects.equals(carrier, other.carrier) && 
@@ -214,7 +228,8 @@ public class PhoneNumber extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(countryCode,
+        return Objects.hash(callerName,
+                            countryCode,
                             phoneNumber,
                             nationalFormat,
                             carrier,
@@ -224,6 +239,7 @@ public class PhoneNumber extends Resource {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                          .add("callerName", callerName)
                           .add("countryCode", countryCode)
                           .add("phoneNumber", phoneNumber)
                           .add("nationalFormat", nationalFormat)

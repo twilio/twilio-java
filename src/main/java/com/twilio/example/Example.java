@@ -13,7 +13,7 @@ import com.twilio.rest.api.v2010.account.Call;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.availablephonenumbercountry.Local;
-import com.twilio.rest.notifications.v1.Service;
+import com.twilio.rest.notify.v1.Service;
 import com.twilio.rest.trunking.v1.Trunk;
 import com.twilio.type.PhoneNumber;
 import com.twilio.twiml.Play;

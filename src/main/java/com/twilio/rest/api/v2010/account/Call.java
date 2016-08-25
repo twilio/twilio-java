@@ -122,8 +122,8 @@ public class Call extends Resource {
      * @return CallCreator capable of executing the create
      */
     public static CallCreator create(final String accountSid, 
-                                     final com.twilio.type.PhoneNumber to, 
-                                     final com.twilio.type.Endpoint from, 
+                                     final com.twilio.type.Endpoint to, 
+                                     final com.twilio.type.PhoneNumber from, 
                                      final URI url) {
         return new CallCreator(accountSid, to, from, url);
     }
@@ -136,8 +136,8 @@ public class Call extends Resource {
      * @param url Url from which to fetch TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final com.twilio.type.PhoneNumber to, 
-                                     final com.twilio.type.Endpoint from, 
+    public static CallCreator create(final com.twilio.type.Endpoint to, 
+                                     final com.twilio.type.PhoneNumber from, 
                                      final URI url) {
         return new CallCreator(to, from, url);
     }
@@ -153,8 +153,8 @@ public class Call extends Resource {
      * @return CallCreator capable of executing the create
      */
     public static CallCreator create(final String accountSid, 
-                                     final com.twilio.type.PhoneNumber to, 
-                                     final com.twilio.type.Endpoint from, 
+                                     final com.twilio.type.Endpoint to, 
+                                     final com.twilio.type.PhoneNumber from, 
                                      final String applicationSid) {
         return new CallCreator(accountSid, to, from, applicationSid);
     }
@@ -168,8 +168,8 @@ public class Call extends Resource {
      *                       TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final com.twilio.type.PhoneNumber to, 
-                                     final com.twilio.type.Endpoint from, 
+    public static CallCreator create(final com.twilio.type.Endpoint to, 
+                                     final com.twilio.type.PhoneNumber from, 
                                      final String applicationSid) {
         return new CallCreator(to, from, applicationSid);
     }

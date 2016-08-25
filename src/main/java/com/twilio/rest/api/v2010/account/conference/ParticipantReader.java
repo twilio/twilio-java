@@ -23,6 +23,7 @@ public class ParticipantReader extends Reader<Participant> {
     private String accountSid;
     private final String conferenceSid;
     private Boolean muted;
+    private Boolean hold;
 
     /**
      * Construct a new ParticipantReader.
@@ -53,6 +54,17 @@ public class ParticipantReader extends Reader<Participant> {
      */
     public ParticipantReader byMuted(final Boolean muted) {
         this.muted = muted;
+        return this;
+    }
+
+    /**
+     * The hold.
+     * 
+     * @param hold The hold
+     * @return this
+     */
+    public ParticipantReader byHold(final Boolean hold) {
+        this.hold = hold;
         return this;
     }
 
@@ -151,6 +163,10 @@ public class ParticipantReader extends Reader<Participant> {
     private void addQueryParams(final Request request) {
         if (muted != null) {
             request.addQueryParam("Muted", muted.toString());
+        }
+        
+        if (hold != null) {
+            request.addQueryParam("Hold", hold.toString());
         }
         
         if (getPageSize() != null) {

@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Workspace extends Resource {
-    private static final long serialVersionUID = 234480322422279L;
+    private static final long serialVersionUID = 151366087577659L;
 
     /**
      * Create a WorkspaceFetcher to execute fetch.
@@ -129,7 +129,9 @@ public class Workspace extends Resource {
     private final String defaultActivityName;
     private final String defaultActivitySid;
     private final URI eventCallbackUrl;
+    private final String eventsFilter;
     private final String friendlyName;
+    private final Boolean multiTaskEnabled;
     private final String sid;
     private final String timeoutActivityName;
     private final String timeoutActivitySid;
@@ -147,8 +149,12 @@ public class Workspace extends Resource {
                       final String defaultActivitySid, 
                       @JsonProperty("event_callback_url")
                       final URI eventCallbackUrl, 
+                      @JsonProperty("events_filter")
+                      final String eventsFilter, 
                       @JsonProperty("friendly_name")
                       final String friendlyName, 
+                      @JsonProperty("multi_task_enabled")
+                      final Boolean multiTaskEnabled, 
                       @JsonProperty("sid")
                       final String sid, 
                       @JsonProperty("timeout_activity_name")
@@ -161,7 +167,9 @@ public class Workspace extends Resource {
         this.defaultActivityName = defaultActivityName;
         this.defaultActivitySid = defaultActivitySid;
         this.eventCallbackUrl = eventCallbackUrl;
+        this.eventsFilter = eventsFilter;
         this.friendlyName = friendlyName;
+        this.multiTaskEnabled = multiTaskEnabled;
         this.sid = sid;
         this.timeoutActivityName = timeoutActivityName;
         this.timeoutActivitySid = timeoutActivitySid;
@@ -222,12 +230,30 @@ public class Workspace extends Resource {
     }
 
     /**
+     * Returns The The events_filter.
+     * 
+     * @return The events_filter
+     */
+    public final String getEventsFilter() {
+        return this.eventsFilter;
+    }
+
+    /**
      * Returns The The friendly_name.
      * 
      * @return The friendly_name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
+    }
+
+    /**
+     * Returns The The multi_task_enabled.
+     * 
+     * @return The multi_task_enabled
+     */
+    public final Boolean getMultiTaskEnabled() {
+        return this.multiTaskEnabled;
     }
 
     /**
@@ -275,7 +301,9 @@ public class Workspace extends Resource {
                Objects.equals(defaultActivityName, other.defaultActivityName) && 
                Objects.equals(defaultActivitySid, other.defaultActivitySid) && 
                Objects.equals(eventCallbackUrl, other.eventCallbackUrl) && 
+               Objects.equals(eventsFilter, other.eventsFilter) && 
                Objects.equals(friendlyName, other.friendlyName) && 
+               Objects.equals(multiTaskEnabled, other.multiTaskEnabled) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(timeoutActivityName, other.timeoutActivityName) && 
                Objects.equals(timeoutActivitySid, other.timeoutActivitySid);
@@ -289,7 +317,9 @@ public class Workspace extends Resource {
                             defaultActivityName,
                             defaultActivitySid,
                             eventCallbackUrl,
+                            eventsFilter,
                             friendlyName,
+                            multiTaskEnabled,
                             sid,
                             timeoutActivityName,
                             timeoutActivitySid);
@@ -304,7 +334,9 @@ public class Workspace extends Resource {
                           .add("defaultActivityName", defaultActivityName)
                           .add("defaultActivitySid", defaultActivitySid)
                           .add("eventCallbackUrl", eventCallbackUrl)
+                          .add("eventsFilter", eventsFilter)
                           .add("friendlyName", friendlyName)
+                          .add("multiTaskEnabled", multiTaskEnabled)
                           .add("sid", sid)
                           .add("timeoutActivityName", timeoutActivityName)
                           .add("timeoutActivitySid", timeoutActivitySid)

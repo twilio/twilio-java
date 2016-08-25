@@ -8,6 +8,7 @@
 package com.twilio.rest.api.v2010.account.conference;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,25 +18,27 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.net.URI;
+
 public class ParticipantUpdater extends Updater<Participant> {
     private String accountSid;
     private final String conferenceSid;
     private final String callSid;
-    private final Boolean muted;
+    private Boolean muted;
+    private Boolean hold;
+    private URI holdUrl;
+    private HttpMethod holdMethod;
 
     /**
      * Construct a new ParticipantUpdater.
      * 
      * @param conferenceSid The string that uniquely identifies this conference
      * @param callSid The call_sid
-     * @param muted Indicates if the participant should be muted
      */
     public ParticipantUpdater(final String conferenceSid, 
-                              final String callSid, 
-                              final Boolean muted) {
+                              final String callSid) {
         this.conferenceSid = conferenceSid;
         this.callSid = callSid;
-        this.muted = muted;
     }
 
     /**
@@ -44,16 +47,67 @@ public class ParticipantUpdater extends Updater<Participant> {
      * @param accountSid The account_sid
      * @param conferenceSid The string that uniquely identifies this conference
      * @param callSid The call_sid
-     * @param muted Indicates if the participant should be muted
      */
     public ParticipantUpdater(final String accountSid, 
                               final String conferenceSid, 
-                              final String callSid, 
-                              final Boolean muted) {
+                              final String callSid) {
         this.accountSid = accountSid;
         this.conferenceSid = conferenceSid;
         this.callSid = callSid;
+    }
+
+    /**
+     * Indicates if the participant should be muted.
+     * 
+     * @param muted Indicates if the participant should be muted
+     * @return this
+     */
+    public ParticipantUpdater setMuted(final Boolean muted) {
         this.muted = muted;
+        return this;
+    }
+
+    /**
+     * The hold.
+     * 
+     * @param hold The hold
+     * @return this
+     */
+    public ParticipantUpdater setHold(final Boolean hold) {
+        this.hold = hold;
+        return this;
+    }
+
+    /**
+     * The hold_url.
+     * 
+     * @param holdUrl The hold_url
+     * @return this
+     */
+    public ParticipantUpdater setHoldUrl(final URI holdUrl) {
+        this.holdUrl = holdUrl;
+        return this;
+    }
+
+    /**
+     * The hold_url.
+     * 
+     * @param holdUrl The hold_url
+     * @return this
+     */
+    public ParticipantUpdater setHoldUrl(final String holdUrl) {
+        return setHoldUrl(Promoter.uriFromString(holdUrl));
+    }
+
+    /**
+     * The hold_method.
+     * 
+     * @param holdMethod The hold_method
+     * @return this
+     */
+    public ParticipantUpdater setHoldMethod(final HttpMethod holdMethod) {
+        this.holdMethod = holdMethod;
+        return this;
     }
 
     /**
@@ -104,6 +158,18 @@ public class ParticipantUpdater extends Updater<Participant> {
     private void addPostParams(final Request request) {
         if (muted != null) {
             request.addPostParam("Muted", muted.toString());
+        }
+        
+        if (hold != null) {
+            request.addPostParam("Hold", hold.toString());
+        }
+        
+        if (holdUrl != null) {
+            request.addPostParam("HoldUrl", holdUrl.toString());
+        }
+        
+        if (holdMethod != null) {
+            request.addPostParam("HoldMethod", holdMethod.toString());
         }
     }
 }

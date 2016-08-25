@@ -24,8 +24,8 @@ import java.util.List;
 
 public class CallCreator extends Creator<Call> {
     private String accountSid;
-    private final com.twilio.type.PhoneNumber to;
-    private final com.twilio.type.Endpoint from;
+    private final com.twilio.type.Endpoint to;
+    private final com.twilio.type.PhoneNumber from;
     private URI url;
     private String applicationSid;
     private HttpMethod method;
@@ -51,8 +51,8 @@ public class CallCreator extends Creator<Call> {
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      */
-    public CallCreator(final com.twilio.type.PhoneNumber to, 
-                       final com.twilio.type.Endpoint from, 
+    public CallCreator(final com.twilio.type.Endpoint to, 
+                       final com.twilio.type.PhoneNumber from, 
                        final URI url) {
         this.to = to;
         this.from = from;
@@ -68,8 +68,8 @@ public class CallCreator extends Creator<Call> {
      * @param url Url from which to fetch TwiML
      */
     public CallCreator(final String accountSid, 
-                       final com.twilio.type.PhoneNumber to, 
-                       final com.twilio.type.Endpoint from, 
+                       final com.twilio.type.Endpoint to, 
+                       final com.twilio.type.PhoneNumber from, 
                        final URI url) {
         this.accountSid = accountSid;
         this.to = to;
@@ -85,8 +85,8 @@ public class CallCreator extends Creator<Call> {
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
      */
-    public CallCreator(final com.twilio.type.PhoneNumber to, 
-                       final com.twilio.type.Endpoint from, 
+    public CallCreator(final com.twilio.type.Endpoint to, 
+                       final com.twilio.type.PhoneNumber from, 
                        final String applicationSid) {
         this.to = to;
         this.from = from;
@@ -103,8 +103,8 @@ public class CallCreator extends Creator<Call> {
      *                       TwiML
      */
     public CallCreator(final String accountSid, 
-                       final com.twilio.type.PhoneNumber to, 
-                       final com.twilio.type.Endpoint from, 
+                       final com.twilio.type.Endpoint to, 
+                       final com.twilio.type.PhoneNumber from, 
                        final String applicationSid) {
         this.accountSid = accountSid;
         this.to = to;
@@ -411,11 +411,11 @@ public class CallCreator extends Creator<Call> {
      */
     private void addPostParams(final Request request) {
         if (to != null) {
-            request.addPostParam("To", to.toString());
+            request.addPostParam("To", to.getEndpoint());
         }
         
         if (from != null) {
-            request.addPostParam("From", from.getEndpoint());
+            request.addPostParam("From", from.toString());
         }
         
         if (url != null) {

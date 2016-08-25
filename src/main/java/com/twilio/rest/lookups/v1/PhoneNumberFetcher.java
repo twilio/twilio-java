@@ -25,7 +25,7 @@ import java.util.Map;
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private final com.twilio.type.PhoneNumber phoneNumber;
     private String countryCode;
-    private String type;
+    private List<String> type;
     private List<String> addOns;
     private Map<String, Object> addOnsData;
 
@@ -55,9 +55,19 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * @param type The type
      * @return this
      */
-    public PhoneNumberFetcher setType(final String type) {
+    public PhoneNumberFetcher setType(final List<String> type) {
         this.type = type;
         return this;
+    }
+
+    /**
+     * The type.
+     * 
+     * @param type The type
+     * @return this
+     */
+    public PhoneNumberFetcher setType(final String type) {
+        return setType(Promoter.listOfOne(type));
     }
 
     /**
@@ -142,7 +152,9 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         }
         
         if (type != null) {
-            request.addQueryParam("Type", type);
+            for (String prop : type) {
+                request.addQueryParam("Type", prop);
+            }
         }
         
         if (addOns != null) {

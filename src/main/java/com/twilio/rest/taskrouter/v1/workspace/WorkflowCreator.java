@@ -24,7 +24,7 @@ public class WorkflowCreator extends Creator<Workflow> {
     private final String workspaceSid;
     private final String friendlyName;
     private final String configuration;
-    private final URI assignmentCallbackUrl;
+    private URI assignmentCallbackUrl;
     private URI fallbackAssignmentCallbackUrl;
     private Integer taskReservationTimeout;
 
@@ -34,16 +34,34 @@ public class WorkflowCreator extends Creator<Workflow> {
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @param configuration The configuration
-     * @param assignmentCallbackUrl The assignment_callback_url
      */
     public WorkflowCreator(final String workspaceSid, 
                            final String friendlyName, 
-                           final String configuration, 
-                           final URI assignmentCallbackUrl) {
+                           final String configuration) {
         this.workspaceSid = workspaceSid;
         this.friendlyName = friendlyName;
         this.configuration = configuration;
+    }
+
+    /**
+     * The assignment_callback_url.
+     * 
+     * @param assignmentCallbackUrl The assignment_callback_url
+     * @return this
+     */
+    public WorkflowCreator setAssignmentCallbackUrl(final URI assignmentCallbackUrl) {
         this.assignmentCallbackUrl = assignmentCallbackUrl;
+        return this;
+    }
+
+    /**
+     * The assignment_callback_url.
+     * 
+     * @param assignmentCallbackUrl The assignment_callback_url
+     * @return this
+     */
+    public WorkflowCreator setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
+        return setAssignmentCallbackUrl(Promoter.uriFromString(assignmentCallbackUrl));
     }
 
     /**

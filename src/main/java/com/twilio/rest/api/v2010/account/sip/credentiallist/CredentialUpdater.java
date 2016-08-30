@@ -21,25 +21,18 @@ public class CredentialUpdater extends Updater<Credential> {
     private String accountSid;
     private final String credentialListSid;
     private final String sid;
-    private final String username;
-    private final String password;
+    private String password;
 
     /**
      * Construct a new CredentialUpdater.
      * 
      * @param credentialListSid The credential_list_sid
      * @param sid The sid
-     * @param username The username
-     * @param password The password
      */
     public CredentialUpdater(final String credentialListSid, 
-                             final String sid, 
-                             final String username, 
-                             final String password) {
+                             final String sid) {
         this.credentialListSid = credentialListSid;
         this.sid = sid;
-        this.username = username;
-        this.password = password;
     }
 
     /**
@@ -48,19 +41,24 @@ public class CredentialUpdater extends Updater<Credential> {
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
      * @param sid The sid
-     * @param username The username
-     * @param password The password
      */
     public CredentialUpdater(final String accountSid, 
                              final String credentialListSid, 
-                             final String sid, 
-                             final String username, 
-                             final String password) {
+                             final String sid) {
         this.accountSid = accountSid;
         this.credentialListSid = credentialListSid;
         this.sid = sid;
-        this.username = username;
+    }
+
+    /**
+     * The password.
+     * 
+     * @param password The password
+     * @return this
+     */
+    public CredentialUpdater setPassword(final String password) {
         this.password = password;
+        return this;
     }
 
     /**
@@ -109,10 +107,6 @@ public class CredentialUpdater extends Updater<Credential> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (username != null) {
-            request.addPostParam("Username", username);
-        }
-        
         if (password != null) {
             request.addPostParam("Password", password);
         }

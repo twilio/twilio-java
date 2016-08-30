@@ -65,13 +65,11 @@ public class User extends Resource {
      * 
      * @param serviceSid The service_sid
      * @param identity The identity
-     * @param roleSid The role_sid
      * @return UserCreator capable of executing the create
      */
     public static UserCreator create(final String serviceSid, 
-                                     final String identity, 
-                                     final String roleSid) {
-        return new UserCreator(serviceSid, identity, roleSid);
+                                     final String identity) {
+        return new UserCreator(serviceSid, identity);
     }
 
     /**

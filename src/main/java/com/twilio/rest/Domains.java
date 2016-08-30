@@ -13,7 +13,7 @@ public enum Domains {
     CHAT("ip-messaging"),
     LOOKUPS("lookups"),
     MONITOR("monitor"),
-    NOTIFY("notifications"),
+    NOTIFY("notify"),
     PREVIEW("preview"),
     PRICING("pricing"),
     TASKROUTER("taskrouter"),

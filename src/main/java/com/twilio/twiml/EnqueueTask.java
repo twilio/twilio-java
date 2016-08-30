@@ -2,14 +2,16 @@ package com.twilio.twiml;
 
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/enqueue.
+ *
+ * Use this one if you are using TaskRouter tasks.
  */
 @XmlRootElement(name = "Enqueue")
-public class Enqueue extends TwiML {
+public class EnqueueTask extends TwiML {
 
     @XmlAttribute
     private final String action;
@@ -26,21 +28,21 @@ public class Enqueue extends TwiML {
     @XmlAttribute
     private final String workflowSid;
 
-    @XmlValue
-    private final String queueName;
+    @XmlElement(name = "Task")
+    private final Task task;
 
     // For XML Serialization
-    private Enqueue() {
+    private EnqueueTask() {
         this(new Builder(null));
     }
 
-    private Enqueue(Builder b) {
+    private EnqueueTask(Builder b) {
         this.action = b.action;
         this.method = b.method;
         this.waitUrl = b.waitUrl;
         this.waitUrlMethod = b.waitUrlMethod;
         this.workflowSid = b.workflowSid;
-        this.queueName = b.queueName;
+        this.task = b.task;
     }
 
     public String getAction() {
@@ -63,8 +65,8 @@ public class Enqueue extends TwiML {
         return workflowSid;
     }
 
-    public String getQueueName() {
-        return queueName;
+    public Task getTask() {
+        return task;
     }
 
     public static class Builder {
@@ -73,10 +75,10 @@ public class Enqueue extends TwiML {
         private String waitUrl;
         private Method waitUrlMethod;
         private String workflowSid;
-        private String queueName;
+        private Task task;
 
-        public Builder(String queueName) {
-            this.queueName = queueName;
+        public Builder(Task task) {
+            this.task = task;
         }
 
         public Builder action(String action) {
@@ -104,8 +106,8 @@ public class Enqueue extends TwiML {
             return this;
         }
 
-        public Enqueue build() {
-            return new Enqueue(this);
+        public EnqueueTask build() {
+            return new EnqueueTask(this);
         }
     }
 }

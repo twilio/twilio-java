@@ -20,21 +20,53 @@ import com.twilio.rest.Domains;
 public class UserCreator extends Creator<User> {
     private final String serviceSid;
     private final String identity;
-    private final String roleSid;
+    private String roleSid;
+    private String attributes;
+    private String friendlyName;
 
     /**
      * Construct a new UserCreator.
      * 
      * @param serviceSid The service_sid
      * @param identity The identity
-     * @param roleSid The role_sid
      */
     public UserCreator(final String serviceSid, 
-                       final String identity, 
-                       final String roleSid) {
+                       final String identity) {
         this.serviceSid = serviceSid;
         this.identity = identity;
+    }
+
+    /**
+     * The role_sid.
+     * 
+     * @param roleSid The role_sid
+     * @return this
+     */
+    public UserCreator setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
+        return this;
+    }
+
+    /**
+     * The attributes.
+     * 
+     * @param attributes The attributes
+     * @return this
+     */
+    public UserCreator setAttributes(final String attributes) {
+        this.attributes = attributes;
+        return this;
+    }
+
+    /**
+     * The friendly_name.
+     * 
+     * @param friendlyName The friendly_name
+     * @return this
+     */
+    public UserCreator setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
+        return this;
     }
 
     /**
@@ -88,6 +120,14 @@ public class UserCreator extends Creator<User> {
         
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
+        }
+        
+        if (attributes != null) {
+            request.addPostParam("Attributes", attributes);
+        }
+        
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
         }
     }
 }

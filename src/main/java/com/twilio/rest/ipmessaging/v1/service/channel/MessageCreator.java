@@ -22,6 +22,7 @@ public class MessageCreator extends Creator<Message> {
     private final String channelSid;
     private final String body;
     private String from;
+    private String attributes;
 
     /**
      * Construct a new MessageCreator.
@@ -46,6 +47,17 @@ public class MessageCreator extends Creator<Message> {
      */
     public MessageCreator setFrom(final String from) {
         this.from = from;
+        return this;
+    }
+
+    /**
+     * The attributes.
+     * 
+     * @param attributes The attributes
+     * @return this
+     */
+    public MessageCreator setAttributes(final String attributes) {
+        this.attributes = attributes;
         return this;
     }
 
@@ -100,6 +112,10 @@ public class MessageCreator extends Creator<Message> {
         
         if (from != null) {
             request.addPostParam("From", from);
+        }
+        
+        if (attributes != null) {
+            request.addPostParam("Attributes", attributes);
         }
     }
 }

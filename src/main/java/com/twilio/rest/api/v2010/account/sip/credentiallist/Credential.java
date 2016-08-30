@@ -119,16 +119,12 @@ public class Credential extends Resource {
      * @param accountSid The account_sid
      * @param credentialListSid The credential_list_sid
      * @param sid The sid
-     * @param username The username
-     * @param password The password
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater update(final String accountSid, 
                                            final String credentialListSid, 
-                                           final String sid, 
-                                           final String username, 
-                                           final String password) {
-        return new CredentialUpdater(accountSid, credentialListSid, sid, username, password);
+                                           final String sid) {
+        return new CredentialUpdater(accountSid, credentialListSid, sid);
     }
 
     /**
@@ -136,15 +132,11 @@ public class Credential extends Resource {
      * 
      * @param credentialListSid The credential_list_sid
      * @param sid The sid
-     * @param username The username
-     * @param password The password
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater update(final String credentialListSid, 
-                                           final String sid, 
-                                           final String username, 
-                                           final String password) {
-        return new CredentialUpdater(credentialListSid, sid, username, password);
+                                           final String sid) {
+        return new CredentialUpdater(credentialListSid, sid);
     }
 
     /**

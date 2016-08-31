@@ -10,7 +10,8 @@ public class EnqueueTest {
 
     @Test
     public void testXml() throws TwiMLException {
-        Enqueue enqueue = new Enqueue.Builder("enqueue")
+        Enqueue enqueue = new Enqueue.Builder()
+            .queueName("enqueue")
             .action("/enqueue")
             .method(Method.GET)
             .waitUrl("/wait")
@@ -23,7 +24,8 @@ public class EnqueueTest {
 
     @Test
     public void testUrl() throws TwiMLException {
-        Enqueue enqueue = new Enqueue.Builder("enqueue")
+        Enqueue enqueue = new Enqueue.Builder()
+            .queueName("enqueue")
             .action("/enqueue")
             .method(Method.GET)
             .waitUrl("/wait")

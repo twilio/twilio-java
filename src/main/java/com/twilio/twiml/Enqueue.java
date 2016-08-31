@@ -31,7 +31,7 @@ public class Enqueue extends TwiML {
 
     // For XML Serialization
     private Enqueue() {
-        this(new Builder(null));
+        this(new Builder());
     }
 
     private Enqueue(Builder b) {
@@ -75,8 +75,9 @@ public class Enqueue extends TwiML {
         private String workflowSid;
         private String queueName;
 
-        public Builder(String queueName) {
+        public Builder queueName(String queueName) {
             this.queueName = queueName;
+            return this;
         }
 
         public Builder action(String action) {

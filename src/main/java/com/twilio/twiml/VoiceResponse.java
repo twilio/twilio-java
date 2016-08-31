@@ -51,6 +51,11 @@ public class VoiceResponse extends TwiML {
             return this;
         }
 
+        public Builder enqueue(EnqueueTask enqueue) {
+            this.actions.add(enqueue);
+            return this;
+        }
+
         public Builder gather(Gather gather) {
             this.actions.add(gather);
             return this;

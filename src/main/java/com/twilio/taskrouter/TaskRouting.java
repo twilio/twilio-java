@@ -12,7 +12,7 @@ import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class TaskRouting {
+public class TaskRouting extends TaskRouterResource {
 
     @JsonProperty("filters")
     private final List<WorkflowRule> workflowRules;

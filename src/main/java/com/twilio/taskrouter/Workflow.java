@@ -14,7 +14,7 @@ import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class Workflow {
+public class Workflow extends TaskRouterResource {
 
     @JsonProperty("task_routing")
     private final TaskRouting taskRouting;

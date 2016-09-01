@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -181,4 +182,33 @@ public class AccessTokenTest {
         Assert.assertEquals("CP123", cGrant.get("configuration_profile_sid"));
     }
 
+    @Test
+    public void testVoiceToken() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("foo", "bar");
+
+        VoiceGrant pvg = new VoiceGrant()
+            .setOutgoingApplication("AP123", params);
+
+        Jwt token =
+            new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                .grant(pvg)
+                .build();
+
+        Claims claims =
+            Jwts.parser()
+                .setSigningKey(SECRET.getBytes())
+                .parseClaimsJws(token.toJwt())
+                .getBody();
+
+        validateToken(claims);
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Assert.assertEquals(1, decodedGrants.size());
+
+        Map<String, Object> pvgGrant = (Map<String, Object>) decodedGrants.get("voice");
+        Map<String, Object> outgoing = (Map<String, Object>) pvgGrant.get("outgoing");
+        Map<String, Object> outgoingParams = (Map<String, Object>) outgoing.get("params");
+        Assert.assertEquals("AP123", outgoing.get("application_sid"));
+        Assert.assertEquals("bar", outgoingParams.get("foo"));
+    }
 }

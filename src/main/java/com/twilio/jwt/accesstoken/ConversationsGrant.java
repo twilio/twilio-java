@@ -12,7 +12,7 @@ package com.twilio.jwt.accesstoken;
  */
 public class ConversationsGrant implements Grant {
 
-    public String configurationProfileSid;
+    private String configurationProfileSid;
 
     public String getConfigurationProfileSid() {
         return configurationProfileSid;

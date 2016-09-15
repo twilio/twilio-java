@@ -24,6 +24,7 @@ public class ServiceUpdater extends Updater<Service> {
     private final String sid;
     private URI webhookUrl;
     private String friendlyName;
+    private Boolean reachabilityWebhooksEnabled;
 
     /**
      * Construct a new ServiceUpdater.
@@ -63,6 +64,17 @@ public class ServiceUpdater extends Updater<Service> {
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The reachability_webhooks_enabled.
+     * 
+     * @param reachabilityWebhooksEnabled The reachability_webhooks_enabled
+     * @return this
+     */
+    public ServiceUpdater setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
+        this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         return this;
     }
 
@@ -117,6 +129,10 @@ public class ServiceUpdater extends Updater<Service> {
         
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+        
+        if (reachabilityWebhooksEnabled != null) {
+            request.addPostParam("ReachabilityWebhooksEnabled", reachabilityWebhooksEnabled.toString());
         }
     }
 }

@@ -15,7 +15,7 @@ public class InboundSmsPriceTest extends TypeTest {
         String json = "{\n" +
             "    \"base_price\": 1.00,\n" +
             "    \"current_price\": 2.00,\n" +
-            "    \"type\": \"mobile\"\n" +
+            "    \"number_type\": \"mobile\"\n" +
             "}";
 
         InboundSmsPrice icp = fromJson(json, InboundSmsPrice.class);

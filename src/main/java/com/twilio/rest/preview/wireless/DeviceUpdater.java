@@ -26,6 +26,7 @@ public class DeviceUpdater extends Updater<Device> {
     private String callbackMethod;
     private URI callbackUrl;
     private String friendlyName;
+    private String ratePlan;
     private String simIdentifier;
     private String status;
     private String commandsCallbackMethod;
@@ -91,6 +92,17 @@ public class DeviceUpdater extends Updater<Device> {
      */
     public DeviceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The rate_plan.
+     * 
+     * @param ratePlan The rate_plan
+     * @return this
+     */
+    public DeviceUpdater setRatePlan(final String ratePlan) {
+        this.ratePlan = ratePlan;
         return this;
     }
 
@@ -207,6 +219,10 @@ public class DeviceUpdater extends Updater<Device> {
         
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+        
+        if (ratePlan != null) {
+            request.addPostParam("RatePlan", ratePlan.toString());
         }
         
         if (simIdentifier != null) {

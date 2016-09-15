@@ -23,6 +23,7 @@ import java.net.URI;
 public class ServiceCreator extends Creator<Service> {
     private String friendlyName;
     private URI webhookUrl;
+    private Boolean reachabilityWebhooksEnabled;
 
     /**
      * The friendly_name.
@@ -54,6 +55,17 @@ public class ServiceCreator extends Creator<Service> {
      */
     public ServiceCreator setWebhookUrl(final String webhookUrl) {
         return setWebhookUrl(Promoter.uriFromString(webhookUrl));
+    }
+
+    /**
+     * The reachability_webhooks_enabled.
+     * 
+     * @param reachabilityWebhooksEnabled The reachability_webhooks_enabled
+     * @return this
+     */
+    public ServiceCreator setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
+        this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
+        return this;
     }
 
     /**
@@ -107,6 +119,10 @@ public class ServiceCreator extends Creator<Service> {
         
         if (webhookUrl != null) {
             request.addPostParam("WebhookUrl", webhookUrl.toString());
+        }
+        
+        if (reachabilityWebhooksEnabled != null) {
+            request.addPostParam("ReachabilityWebhooksEnabled", reachabilityWebhooksEnabled.toString());
         }
     }
 }

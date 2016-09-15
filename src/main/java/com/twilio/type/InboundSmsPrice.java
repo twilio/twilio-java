@@ -51,7 +51,7 @@ public class InboundSmsPrice {
     @JsonCreator
     public InboundSmsPrice(@JsonProperty("base_price") final double basePrice,
                            @JsonProperty("current_price") final double currentPrice,
-                           @JsonProperty("type") final Type type) {
+                           @JsonProperty("number_type") final Type type) {
         this.basePrice = basePrice;
         this.currentPrice = currentPrice;
         this.type = type;

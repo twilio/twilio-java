@@ -124,15 +124,13 @@ public class Role extends Resource {
      * 
      * @param serviceSid The service_sid
      * @param sid The sid
-     * @param friendlyName The friendly_name
      * @param permission The permission
      * @return RoleUpdater capable of executing the update
      */
     public static RoleUpdater update(final String serviceSid, 
                                      final String sid, 
-                                     final String friendlyName, 
                                      final List<String> permission) {
-        return new RoleUpdater(serviceSid, sid, friendlyName, permission);
+        return new RoleUpdater(serviceSid, sid, permission);
     }
 
     /**

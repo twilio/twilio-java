@@ -1,8 +1,12 @@
 package com.twilio.twiml;
 
+import com.google.common.collect.Lists;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/gather.
@@ -25,14 +29,13 @@ public class Gather extends TwiML {
     @XmlAttribute
     private final String finishOnKey;
 
-    @XmlElement(name = "Say")
-    private final Say say;
-
-    @XmlElement(name = "Play")
-    private final Play play;
-
-    @XmlElement(name = "Pause")
-    private final Pause pause;
+    @SuppressWarnings("checkstyle:indentation")
+    @XmlElements({
+        @XmlElement(name = "Say", type = Say.class),
+        @XmlElement(name = "Play", type = Play.class),
+        @XmlElement(name = "Pause", type = Pause.class)
+    })
+    private final List<TwiML> actions;
 
     // For XML Serialization
     private Gather() {
@@ -45,9 +48,7 @@ public class Gather extends TwiML {
         this.action = b.action;
         this.method = b.method;
         this.finishOnKey = b.finishOnKey;
-        this.say = b.say;
-        this.play = b.play;
-        this.pause = b.pause;
+        this.actions = Lists.newArrayList(b.actions);
     }
 
     public Integer getTimeout() {
@@ -70,16 +71,8 @@ public class Gather extends TwiML {
         return finishOnKey;
     }
 
-    public Say getSay() {
-        return say;
-    }
-
-    public Play getPlay() {
-        return play;
-    }
-
-    public Pause getPause() {
-        return pause;
+    public List<TwiML> getActions() {
+        return actions;
     }
 
     public static class Builder {
@@ -88,9 +81,7 @@ public class Gather extends TwiML {
         private String action;
         private Method method;
         private String finishOnKey;
-        private Say say;
-        private Play play;
-        private Pause pause;
+        private List<TwiML> actions = Lists.newArrayList();
 
         public Builder timeout(int timeout) {
             this.timeout = timeout;
@@ -118,17 +109,17 @@ public class Gather extends TwiML {
         }
 
         public Builder say(Say say) {
-            this.say = say;
+            this.actions.add(say);
             return this;
         }
 
         public Builder play(Play play) {
-            this.play = play;
+            this.actions.add(play);
             return this;
         }
 
         public Builder pause(Pause pause) {
-            this.pause = pause;
+            this.actions.add(pause);
             return this;
         }
 

@@ -17,6 +17,7 @@ public class VoiceResponse extends TwiML {
     @XmlElements({
         @XmlElement(name = "Dial", type = Dial.class),
         @XmlElement(name = "Enqueue", type = Enqueue.class),
+        @XmlElement(name = "Enqueue", type = EnqueueTask.class),
         @XmlElement(name = "Gather", type = Gather.class),
         @XmlElement(name = "Hangup", type = Hangup.class),
         @XmlElement(name = "Leave", type = Leave.class),

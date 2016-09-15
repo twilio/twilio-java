@@ -22,7 +22,6 @@ import java.util.List;
 public class RoleUpdater extends Updater<Role> {
     private final String serviceSid;
     private final String sid;
-    private final String friendlyName;
     private final List<String> permission;
 
     /**
@@ -30,16 +29,13 @@ public class RoleUpdater extends Updater<Role> {
      * 
      * @param serviceSid The service_sid
      * @param sid The sid
-     * @param friendlyName The friendly_name
      * @param permission The permission
      */
     public RoleUpdater(final String serviceSid, 
                        final String sid, 
-                       final String friendlyName, 
                        final List<String> permission) {
         this.serviceSid = serviceSid;
         this.sid = sid;
-        this.friendlyName = friendlyName;
         this.permission = permission;
     }
 
@@ -88,10 +84,6 @@ public class RoleUpdater extends Updater<Role> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
-        
         if (permission != null) {
             for (String prop : permission) {
                 request.addPostParam("Permission", prop);

@@ -1,8 +1,12 @@
 package com.twilio.twiml;
 
+import com.google.common.collect.Lists;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/sms/message.
@@ -28,8 +32,11 @@ public class Message extends TwiML {
     @XmlElement(name = "Body")
     private final Body body;
 
-    @XmlElement(name = "Media")
-    private final Media media;
+    @SuppressWarnings("checkstyle:indentation")
+    @XmlElements({
+        @XmlElement(name = "Media", type = Media.class)
+    })
+    private final List<Media> media;
 
     // For XML Serialization
     private Message() {
@@ -43,7 +50,7 @@ public class Message extends TwiML {
         this.action = b.action;
         this.statusCallback = b.statusCallback;
         this.body = b.body;
-        this.media = b.media;
+        this.media = Lists.newArrayList(b.media);
     }
 
     public String getTo() {
@@ -70,7 +77,7 @@ public class Message extends TwiML {
         return body;
     }
 
-    public Media getMedia() {
+    public List<Media> getMedia() {
         return media;
     }
 
@@ -81,7 +88,7 @@ public class Message extends TwiML {
         private String action;
         private String statusCallback;
         private Body body;
-        private Media media;
+        private List<Media> media = Lists.newArrayList();
 
         public Builder to(String to) {
             this.to = to;
@@ -114,7 +121,7 @@ public class Message extends TwiML {
         }
 
         public Builder media(Media media) {
-            this.media = media;
+            this.media.add(media);
             return this;
         }
 

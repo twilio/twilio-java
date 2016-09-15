@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 154659581230608L;
+    private static final long serialVersionUID = 19874426997483L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -128,6 +128,7 @@ public class Service extends Resource {
     private final DateTime dateUpdated;
     private final URI url;
     private final URI webhookUrl;
+    private final Boolean reachabilityWebhooksEnabled;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -145,6 +146,8 @@ public class Service extends Resource {
                     final URI url, 
                     @JsonProperty("webhook_url")
                     final URI webhookUrl, 
+                    @JsonProperty("reachability_webhooks_enabled")
+                    final Boolean reachabilityWebhooksEnabled, 
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -154,6 +157,7 @@ public class Service extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.webhookUrl = webhookUrl;
+        this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         this.links = links;
     }
 
@@ -221,6 +225,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The reachability_webhooks_enabled.
+     * 
+     * @return The reachability_webhooks_enabled
+     */
+    public final Boolean getReachabilityWebhooksEnabled() {
+        return this.reachabilityWebhooksEnabled;
+    }
+
+    /**
      * Returns The The links.
      * 
      * @return The links
@@ -248,6 +261,7 @@ public class Service extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url) && 
                Objects.equals(webhookUrl, other.webhookUrl) && 
+               Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) && 
                Objects.equals(links, other.links);
     }
 
@@ -260,6 +274,7 @@ public class Service extends Resource {
                             dateUpdated,
                             url,
                             webhookUrl,
+                            reachabilityWebhooksEnabled,
                             links);
     }
 
@@ -273,6 +288,7 @@ public class Service extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
                           .add("webhookUrl", webhookUrl)
+                          .add("reachabilityWebhooksEnabled", reachabilityWebhooksEnabled)
                           .add("links", links)
                           .toString();
     }

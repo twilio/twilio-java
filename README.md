@@ -2,13 +2,13 @@
 
 # Installing
 
-twilio-java uses Maven.  At present the jars *are* available from a public [maven](http://mvnrepository.com/artifact/com.twilio.sdk/twilio-java-sdk) repository.
+twilio-java uses Maven.  At present the jars *are* available from a public [maven](http://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
 
 Use the following dependency in your project:
 
        <dependency>
           <groupId>com.twilio.sdk</groupId>
-          <artifactId>twiliok</artifactId>
+          <artifactId>twilio</artifactId>
           <version>7.X.X</version>
           <scope>compile</scope>
        </dependency>

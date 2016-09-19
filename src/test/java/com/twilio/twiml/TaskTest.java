@@ -20,6 +20,16 @@ public class TaskTest {
     }
 
     @Test
+    public void testXmlNoDefaults() throws TwiMLException {
+        Task task = new Task.Builder()
+            .data("foobar")
+            .timeout(5)
+            .build();
+
+        Assert.assertEquals("<Task timeout=\"5\">foobar</Task>", task.toXml());
+    }
+
+    @Test
     public void testUrl() throws TwiMLException {
         Task task = new Task.Builder()
             .data("foobar")

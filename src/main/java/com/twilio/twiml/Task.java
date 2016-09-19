@@ -11,10 +11,10 @@ import javax.xml.bind.annotation.XmlValue;
 public class Task extends TwiML {
 
     @XmlAttribute
-    private final int priority;
+    private final Integer priority;
 
     @XmlAttribute
-    private final int timeout;
+    private final Integer timeout;
 
     @XmlValue
     private final String data;
@@ -43,8 +43,8 @@ public class Task extends TwiML {
     }
 
     public static class Builder {
-        private int priority;
-        private int timeout;
+        private Integer priority;
+        private Integer timeout;
         private String data;
 
         public Builder priority(int priority) {

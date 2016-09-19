@@ -18,7 +18,7 @@ public class EnqueueTaskTest {
             .workflowSid("WF123")
             .build();
 
-        Assert.assertEquals("<Enqueue action=\"/enqueue\" method=\"GET\" waitUrl=\"/wait\" waitUrlMethod=\"POST\" workflowSid=\"WF123\"><Task priority=\"0\" timeout=\"0\"/></Enqueue>", enqueue.toXml());
+        Assert.assertEquals("<Enqueue action=\"/enqueue\" method=\"GET\" waitUrl=\"/wait\" waitUrlMethod=\"POST\" workflowSid=\"WF123\"><Task/></Enqueue>", enqueue.toXml());
     }
 
     @Test
@@ -31,6 +31,6 @@ public class EnqueueTaskTest {
             .workflowSid("WF123")
             .build();
 
-        Assert.assertEquals("%3CEnqueue+action%3D%22%2Fenqueue%22+method%3D%22GET%22+waitUrl%3D%22%2Fwait%22+waitUrlMethod%3D%22POST%22+workflowSid%3D%22WF123%22%3E%3CTask+priority%3D%220%22+timeout%3D%220%22%2F%3E%3C%2FEnqueue%3E", enqueue.toUrl());
+        Assert.assertEquals("%3CEnqueue+action%3D%22%2Fenqueue%22+method%3D%22GET%22+waitUrl%3D%22%2Fwait%22+waitUrlMethod%3D%22POST%22+workflowSid%3D%22WF123%22%3E%3CTask%2F%3E%3C%2FEnqueue%3E", enqueue.toUrl());
     }
 }

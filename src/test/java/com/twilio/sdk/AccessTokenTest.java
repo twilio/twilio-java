@@ -3,6 +3,7 @@ package com.twilio.sdk;
 import com.twilio.sdk.auth.AccessToken;
 import com.twilio.sdk.auth.ConversationsGrant;
 import com.twilio.sdk.auth.IpMessagingGrant;
+import com.twilio.sdk.auth.VideoGrant;
 import com.twilio.sdk.auth.VoiceGrant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -92,6 +93,29 @@ public class AccessTokenTest {
 	}
 
 	@Test
+	public void testVideoGrant() {
+		VideoGrant vg = new VideoGrant().setConfigurationProfileSid("CP123");
+		AccessToken token =
+			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+				.grant(vg)
+				.build();
+
+		Claims claims =
+			Jwts.parser()
+				.setSigningKey(SECRET.getBytes())
+				.parseClaimsJws(token.toJWT())
+				.getBody();
+
+		validateToken(claims);
+
+		Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+		Assert.assertEquals(1, decodedGrants.size());
+
+		Map<String, Object> grant = (Map<String, Object>) decodedGrants.get("video");
+		Assert.assertEquals("CP123", grant.get("configuration_profile_sid"));
+	}
+
+	@Test
 	public void testIpMessagingGrant() {
 		IpMessagingGrant ipg = new IpMessagingGrant()
 			.setDeploymentRoleSid("RL123")
@@ -130,12 +154,14 @@ public class AccessTokenTest {
 			.setServiceSid("IS123");
 
 		ConversationsGrant cg = new ConversationsGrant().setConfigurationProfileSid("CP123");
+		VideoGrant vg = new VideoGrant().setConfigurationProfileSid("CP456");
 
 		Date now = new Date();
 		AccessToken token =
 			new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
 				.grant(ipg)
 				.grant(cg)
+				.grant(vg)
 				.nbf((int) (Math.floor(now.getTime() / 1000.0f)) - 300)
 				.build();
 
@@ -149,7 +175,7 @@ public class AccessTokenTest {
 		Assert.assertTrue(claims.getNotBefore().getTime() <= new Date().getTime());
 
 		Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
-		Assert.assertEquals(2, decodedGrants.size());
+		Assert.assertEquals(3, decodedGrants.size());
 
 		Map<String, Object> ipmGrant = (Map<String, Object>) decodedGrants.get("ip_messaging");
 		Assert.assertEquals("RL123", ipmGrant.get("deployment_role_sid"));
@@ -159,6 +185,9 @@ public class AccessTokenTest {
 
 		Map<String, Object> cGrant = (Map<String, Object>) decodedGrants.get("rtc");
 		Assert.assertEquals("CP123", cGrant.get("configuration_profile_sid"));
+
+		Map<String, Object> vGrant = (Map<String, Object>) decodedGrants.get("video");
+		Assert.assertEquals("CP456", vGrant.get("configuration_profile_sid"));
 	}
 
 	@Test

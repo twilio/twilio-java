@@ -151,6 +151,15 @@ public class Participant extends InstanceResource<TwilioRestClient> {
 		return (Boolean)this.getObject("end_conference_on_exit");
 	}
 
+	/**
+	 * Checks if is on hold.
+	 *
+	 * @return true, if is on hold
+	 */
+	public boolean isHold() {
+		return (Boolean)this.getObject("hold");
+	}
+
 	/*
 	 * Helper functions
 	 *
@@ -204,4 +213,43 @@ public class Participant extends InstanceResource<TwilioRestClient> {
 
 		return !response.isError();
 	}
+
+	/**
+	 * Hold.
+	 *
+	 * @return the participant
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public Participant hold(final String holdUrl, final String holdMethod) throws TwilioRestException {
+		final Map<String, String> vars = new HashMap<String, String>();
+		vars.put("Hold", "true");
+		if(holdUrl != null) {
+			vars.put("HoldUrl", holdUrl.trim());
+			if(holdMethod != null) {
+				vars.put("HoldMethod", holdMethod.trim());
+			}
+		}
+
+		final TwilioRestResponse response = this.getClient().safeRequest(
+			this.getResourceLocation(), "POST", vars);
+
+		return new Participant(this.getClient(), response.toMap());
+	}
+
+	/**
+	 * Unhold.
+	 *
+	 * @return the participant
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public Participant unhold() throws TwilioRestException {
+		final Map<String, String> vars = new HashMap<String, String>();
+		vars.put("Hold", "false");
+
+		final TwilioRestResponse response = this.getClient().safeRequest(
+			this.getResourceLocation(), "POST", vars);
+
+		return new Participant(this.getClient(), response.toMap());
+	}
+
 }

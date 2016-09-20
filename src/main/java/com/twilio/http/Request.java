@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class Request {
 
-    public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
+    public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
     private final HttpMethod method;
     private final String url;

@@ -85,25 +85,25 @@ public class RequestTest {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateRange("baz", Range.greaterThan(new DateTime(2014, 1, 1, 0, 0)));
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-01");
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-01T00:00:00");
         assertUrlsEqual(expected, url);
     }
 
     @Test
     public void testAddQueryDateRangeUpperBound() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
-        r.addQueryDateRange("baz", Range.lessThan(new DateTime(2014, 1, 1, 0, 0)));
+        r.addQueryDateRange("baz", Range.lessThan(new DateTime(2014, 1, 1, 22, 0)));
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz<=2014-01-01");
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz<=2014-01-01T22:00:00");
         assertUrlsEqual(expected, url);
     }
 
     @Test
     public void testAddQueryDateRangeClosed() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
-        r.addQueryDateRange("baz", Range.closed(new DateTime(2014, 1, 1, 0, 0), new DateTime(2014, 6, 1, 0, 0)));
+        r.addQueryDateRange("baz", Range.closed(new DateTime(2014, 1, 10, 14, 0), new DateTime(2014, 6, 1, 16, 0)));
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-01&baz<=2014-06-01");
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T14:00:00&baz<=2014-06-01T16:00:00");
         assertUrlsEqual(expected, url);
     }
 

@@ -20,13 +20,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 public class NotificationReader extends Reader<Notification> {
     private String accountSid;
     private Integer log;
-    private DateTime absoluteMessageDate;
-    private Range<DateTime> rangeMessageDate;
+    private LocalDate absoluteMessageDate;
+    private Range<LocalDate> rangeMessageDate;
 
     /**
      * Construct a new NotificationReader.
@@ -61,7 +61,7 @@ public class NotificationReader extends Reader<Notification> {
      * @param absoluteMessageDate Filter by date
      * @return this
      */
-    public NotificationReader byMessageDate(final DateTime absoluteMessageDate) {
+    public NotificationReader byMessageDate(final LocalDate absoluteMessageDate) {
         this.rangeMessageDate = null;
         this.absoluteMessageDate = absoluteMessageDate;
         return this;
@@ -74,7 +74,7 @@ public class NotificationReader extends Reader<Notification> {
      * @param rangeMessageDate Filter by date
      * @return this
      */
-    public NotificationReader byMessageDate(final Range<DateTime> rangeMessageDate) {
+    public NotificationReader byMessageDate(final Range<LocalDate> rangeMessageDate) {
         this.absoluteMessageDate = null;
         this.rangeMessageDate = rangeMessageDate;
         return this;

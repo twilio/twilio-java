@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account.usage;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -20,15 +19,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 public class RecordReader extends Reader<Record> {
     private String accountSid;
     private Record.Category category;
-    private DateTime absoluteStartDate;
-    private Range<DateTime> rangeStartDate;
-    private DateTime absoluteEndDate;
-    private Range<DateTime> rangeEndDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * Construct a new RecordReader.
@@ -62,27 +59,11 @@ public class RecordReader extends Reader<Record> {
      * for example, StartDate=-30days, which will make StartDate 30 days before
      * today.
      * 
-     * @param absoluteStartDate Filter by start date
+     * @param startDate Filter by start date
      * @return this
      */
-    public RecordReader byStartDate(final DateTime absoluteStartDate) {
-        this.rangeStartDate = null;
-        this.absoluteStartDate = absoluteStartDate;
-        return this;
-    }
-
-    /**
-     * Only include usage that has occurred on or after this date. Format is
-     * YYYY-MM-DD in GTM. As a convenience, you can also specify offsets to today,
-     * for example, StartDate=-30days, which will make StartDate 30 days before
-     * today.
-     * 
-     * @param rangeStartDate Filter by start date
-     * @return this
-     */
-    public RecordReader byStartDate(final Range<DateTime> rangeStartDate) {
-        this.absoluteStartDate = null;
-        this.rangeStartDate = rangeStartDate;
+    public RecordReader byStartDate(final LocalDate startDate) {
+        this.startDate = startDate;
         return this;
     }
 
@@ -91,26 +72,11 @@ public class RecordReader extends Reader<Record> {
      * YYYY-MM-DD in GTM. As a convenience, you can also specify offsets to today,
      * for example, EndDate=+30days, which will make EndDate 30 days from today.
      * 
-     * @param absoluteEndDate Filter by end date
+     * @param endDate Filter by end date
      * @return this
      */
-    public RecordReader byEndDate(final DateTime absoluteEndDate) {
-        this.rangeEndDate = null;
-        this.absoluteEndDate = absoluteEndDate;
-        return this;
-    }
-
-    /**
-     * Only include usage that has occurred on or after this date. Format is
-     * YYYY-MM-DD in GTM. As a convenience, you can also specify offsets to today,
-     * for example, EndDate=+30days, which will make EndDate 30 days from today.
-     * 
-     * @param rangeEndDate Filter by end date
-     * @return this
-     */
-    public RecordReader byEndDate(final Range<DateTime> rangeEndDate) {
-        this.absoluteEndDate = null;
-        this.rangeEndDate = rangeEndDate;
+    public RecordReader byEndDate(final LocalDate endDate) {
+        this.endDate = endDate;
         return this;
     }
 
@@ -211,16 +177,12 @@ public class RecordReader extends Reader<Record> {
             request.addQueryParam("Category", category.toString());
         }
         
-        if (absoluteStartDate != null) {
-            request.addQueryParam("StartDate", absoluteStartDate.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeStartDate != null) {
-            request.addQueryDateRange("StartDate", rangeStartDate);
+        if (startDate != null) {
+            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
         }
         
-        if (absoluteEndDate != null) {
-            request.addQueryParam("EndDate", absoluteEndDate.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeEndDate != null) {
-            request.addQueryDateRange("EndDate", rangeEndDate);
+        if (endDate != null) {
+            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
         }
         
         if (getPageSize() != null) {

@@ -20,13 +20,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 public class RecordingReader extends Reader<Recording> {
     private String accountSid;
     private final String callSid;
-    private DateTime absoluteDateCreated;
-    private Range<DateTime> rangeDateCreated;
+    private LocalDate absoluteDateCreated;
+    private Range<LocalDate> rangeDateCreated;
 
     /**
      * Construct a new RecordingReader.
@@ -55,7 +55,7 @@ public class RecordingReader extends Reader<Recording> {
      * @param absoluteDateCreated The absolute_date_created
      * @return this
      */
-    public RecordingReader byDateCreated(final DateTime absoluteDateCreated) {
+    public RecordingReader byDateCreated(final LocalDate absoluteDateCreated) {
         this.rangeDateCreated = null;
         this.absoluteDateCreated = absoluteDateCreated;
         return this;
@@ -67,7 +67,7 @@ public class RecordingReader extends Reader<Recording> {
      * @param rangeDateCreated The range_date_created
      * @return this
      */
-    public RecordingReader byDateCreated(final Range<DateTime> rangeDateCreated) {
+    public RecordingReader byDateCreated(final Range<LocalDate> rangeDateCreated) {
         this.absoluteDateCreated = null;
         this.rangeDateCreated = rangeDateCreated;
         return this;

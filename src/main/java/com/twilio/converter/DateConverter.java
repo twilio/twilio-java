@@ -62,4 +62,18 @@ public class DateConverter {
             return null;
         }
     }
+
+    /**
+     * Format a @see org.joda.time.LocalDate.
+     *
+     * @param date date to format
+     * @return formatted date in YYYY-MM-DD
+     */
+    public static String dateStringFromLocalDate(LocalDate date) {
+       try {
+           return date.toString(DATE_PATTERN);
+       } catch (Exception e) {
+           return null;
+       }
+    }
 }

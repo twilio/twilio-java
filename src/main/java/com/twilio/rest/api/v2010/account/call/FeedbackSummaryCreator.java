@@ -147,11 +147,11 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
      */
     private void addPostParams(final Request request) {
         if (startDate != null) {
-            request.addPostParam("StartDate", startDate.toString());
+            request.addPostParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
         }
         
         if (endDate != null) {
-            request.addPostParam("EndDate", endDate.toString());
+            request.addPostParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
         }
         
         if (includeSubaccounts != null) {

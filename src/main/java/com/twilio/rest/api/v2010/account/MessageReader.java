@@ -192,9 +192,9 @@ public class MessageReader extends Reader<Message> {
         }
         
         if (absoluteDateSent != null) {
-            request.addQueryParam("DateSent", absoluteDateSent.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("DateSent", absoluteDateSent.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
         } else if (rangeDateSent != null) {
-            request.addQueryDateRange("DateSent", rangeDateSent);
+            request.addQueryDateTimeRange("DateSent", rangeDateSent);
         }
         
         if (getPageSize() != null) {

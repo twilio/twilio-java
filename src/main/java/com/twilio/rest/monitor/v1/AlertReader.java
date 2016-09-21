@@ -7,7 +7,6 @@
 
 package com.twilio.rest.monitor.v1;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -20,14 +19,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 public class AlertReader extends Reader<Alert> {
     private String logLevel;
-    private DateTime absoluteStartDate;
-    private Range<DateTime> rangeStartDate;
-    private DateTime absoluteEndDate;
-    private Range<DateTime> rangeEndDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * The log_level.
@@ -41,50 +38,24 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * The absolute_start_date.
+     * The start_date.
      * 
-     * @param absoluteStartDate The absolute_start_date
+     * @param startDate The start_date
      * @return this
      */
-    public AlertReader byStartDate(final DateTime absoluteStartDate) {
-        this.rangeStartDate = null;
-        this.absoluteStartDate = absoluteStartDate;
+    public AlertReader byStartDate(final LocalDate startDate) {
+        this.startDate = startDate;
         return this;
     }
 
     /**
-     * The range_start_date.
+     * The end_date.
      * 
-     * @param rangeStartDate The range_start_date
+     * @param endDate The end_date
      * @return this
      */
-    public AlertReader byStartDate(final Range<DateTime> rangeStartDate) {
-        this.absoluteStartDate = null;
-        this.rangeStartDate = rangeStartDate;
-        return this;
-    }
-
-    /**
-     * The absolute_end_date.
-     * 
-     * @param absoluteEndDate The absolute_end_date
-     * @return this
-     */
-    public AlertReader byEndDate(final DateTime absoluteEndDate) {
-        this.rangeEndDate = null;
-        this.absoluteEndDate = absoluteEndDate;
-        return this;
-    }
-
-    /**
-     * The range_end_date.
-     * 
-     * @param rangeEndDate The range_end_date
-     * @return this
-     */
-    public AlertReader byEndDate(final Range<DateTime> rangeEndDate) {
-        this.absoluteEndDate = null;
-        this.rangeEndDate = rangeEndDate;
+    public AlertReader byEndDate(final LocalDate endDate) {
+        this.endDate = endDate;
         return this;
     }
 
@@ -184,16 +155,12 @@ public class AlertReader extends Reader<Alert> {
             request.addQueryParam("LogLevel", logLevel);
         }
         
-        if (absoluteStartDate != null) {
-            request.addQueryParam("StartDate", absoluteStartDate.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeStartDate != null) {
-            request.addQueryDateRange("StartDate", rangeStartDate);
+        if (startDate != null) {
+            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
         }
         
-        if (absoluteEndDate != null) {
-            request.addQueryParam("EndDate", absoluteEndDate.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeEndDate != null) {
-            request.addQueryDateRange("EndDate", rangeEndDate);
+        if (endDate != null) {
+            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
         }
         
         if (getPageSize() != null) {

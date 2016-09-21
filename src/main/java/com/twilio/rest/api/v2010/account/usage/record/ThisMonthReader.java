@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account.usage.record;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -20,15 +19,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 public class ThisMonthReader extends Reader<ThisMonth> {
     private String accountSid;
     private ThisMonth.Category category;
-    private DateTime absoluteStartDate;
-    private Range<DateTime> rangeStartDate;
-    private DateTime absoluteEndDate;
-    private Range<DateTime> rangeEndDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * Construct a new ThisMonthReader.
@@ -57,50 +54,24 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     }
 
     /**
-     * The absolute_start_date.
+     * The start_date.
      * 
-     * @param absoluteStartDate The absolute_start_date
+     * @param startDate The start_date
      * @return this
      */
-    public ThisMonthReader byStartDate(final DateTime absoluteStartDate) {
-        this.rangeStartDate = null;
-        this.absoluteStartDate = absoluteStartDate;
+    public ThisMonthReader byStartDate(final LocalDate startDate) {
+        this.startDate = startDate;
         return this;
     }
 
     /**
-     * The range_start_date.
+     * The end_date.
      * 
-     * @param rangeStartDate The range_start_date
+     * @param endDate The end_date
      * @return this
      */
-    public ThisMonthReader byStartDate(final Range<DateTime> rangeStartDate) {
-        this.absoluteStartDate = null;
-        this.rangeStartDate = rangeStartDate;
-        return this;
-    }
-
-    /**
-     * The absolute_end_date.
-     * 
-     * @param absoluteEndDate The absolute_end_date
-     * @return this
-     */
-    public ThisMonthReader byEndDate(final DateTime absoluteEndDate) {
-        this.rangeEndDate = null;
-        this.absoluteEndDate = absoluteEndDate;
-        return this;
-    }
-
-    /**
-     * The range_end_date.
-     * 
-     * @param rangeEndDate The range_end_date
-     * @return this
-     */
-    public ThisMonthReader byEndDate(final Range<DateTime> rangeEndDate) {
-        this.absoluteEndDate = null;
-        this.rangeEndDate = rangeEndDate;
+    public ThisMonthReader byEndDate(final LocalDate endDate) {
+        this.endDate = endDate;
         return this;
     }
 
@@ -201,16 +172,12 @@ public class ThisMonthReader extends Reader<ThisMonth> {
             request.addQueryParam("Category", category.toString());
         }
         
-        if (absoluteStartDate != null) {
-            request.addQueryParam("StartDate", absoluteStartDate.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeStartDate != null) {
-            request.addQueryDateRange("StartDate", rangeStartDate);
+        if (startDate != null) {
+            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
         }
         
-        if (absoluteEndDate != null) {
-            request.addQueryParam("EndDate", absoluteEndDate.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeEndDate != null) {
-            request.addQueryDateRange("EndDate", rangeEndDate);
+        if (endDate != null) {
+            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
         }
         
         if (getPageSize() != null) {

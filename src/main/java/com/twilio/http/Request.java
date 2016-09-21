@@ -6,6 +6,7 @@ import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
 import org.apache.commons.codec.binary.Base64;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -21,7 +22,8 @@ import java.util.Objects;
 
 public class Request {
 
-    public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
     private final HttpMethod method;
     private final String url;
@@ -148,7 +150,7 @@ public class Request {
      * @param name name of query parameter
      * @param range date range
      */
-    public void addQueryDateRange(final String name, final Range<DateTime> range) {
+    public void addQueryDateRange(final String name, final Range<LocalDate> range) {
         if (range.hasLowerBound()) {
             String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
             addQueryParam(name + ">", value);
@@ -156,6 +158,24 @@ public class Request {
 
         if (range.hasUpperBound()) {
             String value = range.upperEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+            addQueryParam(name + "<", value);
+        }
+    }
+
+    /**
+     * Add query parameters for date ranges.
+     *
+     * @param name name of query parameter
+     * @param range date range
+     */
+    public void addQueryDateTimeRange(final String name, final Range<DateTime> range) {
+        if (range.hasLowerBound()) {
+            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_TIME_FORMAT);
+            addQueryParam(name + ">", value);
+        }
+
+        if (range.hasUpperBound()) {
+            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_TIME_FORMAT);
             addQueryParam(name + "<", value);
         }
     }

@@ -61,4 +61,10 @@ public class DateConverterTest {
         LocalDate date = DateConverter.localDateFromString("bad");
         Assert.assertNull(date);
     }
+
+    @Test
+    public void testLocalDateToString() {
+        String date = DateConverter.dateStringFromLocalDate(new LocalDate(2016, 9, 21));
+        Assert.assertEquals("2016-09-21", date);
+    }
 }

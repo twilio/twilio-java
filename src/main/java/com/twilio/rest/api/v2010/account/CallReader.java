@@ -250,15 +250,15 @@ public class CallReader extends Reader<Call> {
         }
         
         if (absoluteStartTime != null) {
-            request.addQueryParam("StartTime", absoluteStartTime.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("StartTime", absoluteStartTime.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
         } else if (rangeStartTime != null) {
-            request.addQueryDateRange("StartTime", rangeStartTime);
+            request.addQueryDateTimeRange("StartTime", rangeStartTime);
         }
         
         if (absoluteEndTime != null) {
-            request.addQueryParam("EndTime", absoluteEndTime.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("EndTime", absoluteEndTime.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
         } else if (rangeEndTime != null) {
-            request.addQueryDateRange("EndTime", rangeEndTime);
+            request.addQueryDateTimeRange("EndTime", rangeEndTime);
         }
         
         if (getPageSize() != null) {

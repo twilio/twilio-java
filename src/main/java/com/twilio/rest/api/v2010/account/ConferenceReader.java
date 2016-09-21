@@ -20,14 +20,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 public class ConferenceReader extends Reader<Conference> {
     private String accountSid;
-    private DateTime absoluteDateCreated;
-    private Range<DateTime> rangeDateCreated;
-    private DateTime absoluteDateUpdated;
-    private Range<DateTime> rangeDateUpdated;
+    private LocalDate absoluteDateCreated;
+    private Range<LocalDate> rangeDateCreated;
+    private LocalDate absoluteDateUpdated;
+    private Range<LocalDate> rangeDateUpdated;
     private String friendlyName;
     private Conference.Status status;
 
@@ -53,7 +53,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param absoluteDateCreated Filter by date created
      * @return this
      */
-    public ConferenceReader byDateCreated(final DateTime absoluteDateCreated) {
+    public ConferenceReader byDateCreated(final LocalDate absoluteDateCreated) {
         this.rangeDateCreated = null;
         this.absoluteDateCreated = absoluteDateCreated;
         return this;
@@ -66,7 +66,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param rangeDateCreated Filter by date created
      * @return this
      */
-    public ConferenceReader byDateCreated(final Range<DateTime> rangeDateCreated) {
+    public ConferenceReader byDateCreated(final Range<LocalDate> rangeDateCreated) {
         this.absoluteDateCreated = null;
         this.rangeDateCreated = rangeDateCreated;
         return this;
@@ -80,7 +80,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param absoluteDateUpdated Filter by date updated
      * @return this
      */
-    public ConferenceReader byDateUpdated(final DateTime absoluteDateUpdated) {
+    public ConferenceReader byDateUpdated(final LocalDate absoluteDateUpdated) {
         this.rangeDateUpdated = null;
         this.absoluteDateUpdated = absoluteDateUpdated;
         return this;
@@ -94,7 +94,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param rangeDateUpdated Filter by date updated
      * @return this
      */
-    public ConferenceReader byDateUpdated(final Range<DateTime> rangeDateUpdated) {
+    public ConferenceReader byDateUpdated(final Range<LocalDate> rangeDateUpdated) {
         this.absoluteDateUpdated = null;
         this.rangeDateUpdated = rangeDateUpdated;
         return this;

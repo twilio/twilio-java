@@ -162,9 +162,9 @@ public class RecordingReader extends Reader<Recording> {
      */
     private void addQueryParams(final Request request) {
         if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
         } else if (rangeDateCreated != null) {
-            request.addQueryDateRange("DateCreated", rangeDateCreated);
+            request.addQueryDateTimeRange("DateCreated", rangeDateCreated);
         }
         
         if (getPageSize() != null) {

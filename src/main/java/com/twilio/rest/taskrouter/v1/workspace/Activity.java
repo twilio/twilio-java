@@ -88,13 +88,11 @@ public class Activity extends Resource {
      * 
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
-     * @param available The available
      * @return ActivityCreator capable of executing the create
      */
     public static ActivityCreator create(final String workspaceSid, 
-                                         final String friendlyName, 
-                                         final Boolean available) {
-        return new ActivityCreator(workspaceSid, friendlyName, available);
+                                         final String friendlyName) {
+        return new ActivityCreator(workspaceSid, friendlyName);
     }
 
     /**

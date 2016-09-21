@@ -76,7 +76,7 @@ public class ParticipantReader extends Reader<Participant> {
      */
     @Override
     public ResourceSet<Participant> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

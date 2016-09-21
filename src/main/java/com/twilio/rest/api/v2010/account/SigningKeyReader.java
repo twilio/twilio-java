@@ -45,7 +45,7 @@ public class SigningKeyReader extends Reader<SigningKey> {
      */
     @Override
     public ResourceSet<SigningKey> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

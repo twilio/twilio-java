@@ -65,7 +65,7 @@ public class DeviceReader extends Reader<Device> {
      */
     @Override
     public ResourceSet<Device> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

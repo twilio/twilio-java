@@ -123,7 +123,7 @@ public class WorkerReader extends Reader<Worker> {
      */
     @Override
     public ResourceSet<Worker> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

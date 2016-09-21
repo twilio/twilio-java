@@ -43,7 +43,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
      */
     @Override
     public ResourceSet<WorkerChannel> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

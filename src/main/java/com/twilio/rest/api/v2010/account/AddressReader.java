@@ -81,7 +81,7 @@ public class AddressReader extends Reader<Address> {
      */
     @Override
     public ResourceSet<Address> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

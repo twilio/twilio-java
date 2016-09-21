@@ -39,7 +39,7 @@ public class DocumentReader extends Reader<Document> {
      */
     @Override
     public ResourceSet<Document> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

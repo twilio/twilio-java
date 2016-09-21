@@ -45,7 +45,7 @@ public class ConnectAppReader extends Reader<ConnectApp> {
      */
     @Override
     public ResourceSet<ConnectApp> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

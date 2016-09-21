@@ -45,7 +45,7 @@ public class KeyReader extends Reader<Key> {
      */
     @Override
     public ResourceSet<Key> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

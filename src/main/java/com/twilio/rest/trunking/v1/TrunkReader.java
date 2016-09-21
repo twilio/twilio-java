@@ -28,7 +28,7 @@ public class TrunkReader extends Reader<Trunk> {
      */
     @Override
     public ResourceSet<Trunk> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

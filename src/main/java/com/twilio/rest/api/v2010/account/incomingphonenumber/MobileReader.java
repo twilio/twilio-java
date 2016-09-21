@@ -81,7 +81,7 @@ public class MobileReader extends Reader<Mobile> {
      */
     @Override
     public ResourceSet<Mobile> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

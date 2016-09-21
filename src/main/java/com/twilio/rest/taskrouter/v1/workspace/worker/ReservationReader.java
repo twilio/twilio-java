@@ -55,7 +55,7 @@ public class ReservationReader extends Reader<Reservation> {
      */
     @Override
     public ResourceSet<Reservation> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

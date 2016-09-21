@@ -28,7 +28,7 @@ public class CountryReader extends Reader<Country> {
      */
     @Override
     public ResourceSet<Country> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

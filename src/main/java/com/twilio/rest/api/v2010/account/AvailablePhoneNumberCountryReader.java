@@ -45,7 +45,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
      */
     @Override
     public ResourceSet<AvailablePhoneNumberCountry> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

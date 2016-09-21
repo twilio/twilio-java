@@ -81,7 +81,7 @@ public class RecordingReader extends Reader<Recording> {
      */
     @Override
     public ResourceSet<Recording> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

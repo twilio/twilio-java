@@ -122,7 +122,7 @@ public class RecordReader extends Reader<Record> {
      */
     @Override
     public ResourceSet<Record> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

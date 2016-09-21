@@ -112,7 +112,7 @@ public class AllTimeReader extends Reader<AllTime> {
      */
     @Override
     public ResourceSet<AllTime> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

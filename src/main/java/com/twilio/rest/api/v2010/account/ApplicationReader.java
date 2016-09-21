@@ -58,7 +58,7 @@ public class ApplicationReader extends Reader<Application> {
      */
     @Override
     public ResourceSet<Application> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

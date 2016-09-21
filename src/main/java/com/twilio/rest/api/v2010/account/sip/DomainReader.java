@@ -45,7 +45,7 @@ public class DomainReader extends Reader<Domain> {
      */
     @Override
     public ResourceSet<Domain> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

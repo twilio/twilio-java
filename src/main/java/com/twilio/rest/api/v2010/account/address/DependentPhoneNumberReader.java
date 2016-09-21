@@ -52,7 +52,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
      */
     @Override
     public ResourceSet<DependentPhoneNumber> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

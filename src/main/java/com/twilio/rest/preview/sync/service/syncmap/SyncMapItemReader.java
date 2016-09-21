@@ -79,7 +79,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
      */
     @Override
     public ResourceSet<SyncMapItem> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

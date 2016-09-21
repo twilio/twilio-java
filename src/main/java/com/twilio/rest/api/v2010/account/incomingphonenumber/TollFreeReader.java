@@ -81,7 +81,7 @@ public class TollFreeReader extends Reader<TollFree> {
      */
     @Override
     public ResourceSet<TollFree> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

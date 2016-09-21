@@ -54,7 +54,7 @@ public class AccountReader extends Reader<Account> {
      */
     @Override
     public ResourceSet<Account> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

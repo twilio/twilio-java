@@ -39,7 +39,7 @@ public class RoleReader extends Reader<Role> {
      */
     @Override
     public ResourceSet<Role> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

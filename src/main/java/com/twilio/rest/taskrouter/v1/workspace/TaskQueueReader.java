@@ -63,7 +63,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
      */
     @Override
     public ResourceSet<TaskQueue> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

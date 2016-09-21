@@ -112,7 +112,7 @@ public class YearlyReader extends Reader<Yearly> {
      */
     @Override
     public ResourceSet<Yearly> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

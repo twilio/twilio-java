@@ -131,7 +131,7 @@ public class ConferenceReader extends Reader<Conference> {
      */
     @Override
     public ResourceSet<Conference> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

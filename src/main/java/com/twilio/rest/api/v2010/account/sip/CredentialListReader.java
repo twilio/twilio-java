@@ -45,7 +45,7 @@ public class CredentialListReader extends Reader<CredentialList> {
      */
     @Override
     public ResourceSet<CredentialList> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

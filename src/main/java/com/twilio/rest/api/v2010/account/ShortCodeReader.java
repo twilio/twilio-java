@@ -71,7 +71,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
      */
     @Override
     public ResourceSet<ShortCode> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

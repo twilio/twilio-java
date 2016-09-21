@@ -112,7 +112,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
      */
     @Override
     public ResourceSet<ThisMonth> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

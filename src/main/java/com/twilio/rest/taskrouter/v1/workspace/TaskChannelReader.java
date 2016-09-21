@@ -39,7 +39,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
      */
     @Override
     public ResourceSet<TaskChannel> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

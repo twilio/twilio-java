@@ -65,7 +65,7 @@ public class CommandReader extends Reader<Command> {
      */
     @Override
     public ResourceSet<Command> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

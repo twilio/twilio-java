@@ -63,7 +63,7 @@ public class ActivityReader extends Reader<Activity> {
      */
     @Override
     public ResourceSet<Activity> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

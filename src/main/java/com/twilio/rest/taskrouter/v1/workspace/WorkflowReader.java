@@ -51,7 +51,7 @@ public class WorkflowReader extends Reader<Workflow> {
      */
     @Override
     public ResourceSet<Workflow> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

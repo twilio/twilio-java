@@ -39,7 +39,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
      */
     @Override
     public ResourceSet<OriginationUrl> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

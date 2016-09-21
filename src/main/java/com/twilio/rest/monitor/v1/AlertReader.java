@@ -96,7 +96,7 @@ public class AlertReader extends Reader<Alert> {
      */
     @Override
     public ResourceSet<Alert> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

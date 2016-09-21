@@ -83,7 +83,7 @@ public class MediaReader extends Reader<Media> {
      */
     @Override
     public ResourceSet<Media> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

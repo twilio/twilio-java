@@ -45,7 +45,7 @@ public class TranscriptionReader extends Reader<Transcription> {
      */
     @Override
     public ResourceSet<Transcription> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

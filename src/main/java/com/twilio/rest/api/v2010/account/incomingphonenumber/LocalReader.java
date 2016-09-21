@@ -81,7 +81,7 @@ public class LocalReader extends Reader<Local> {
      */
     @Override
     public ResourceSet<Local> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

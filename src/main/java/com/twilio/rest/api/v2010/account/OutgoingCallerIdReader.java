@@ -69,7 +69,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
      */
     @Override
     public ResourceSet<OutgoingCallerId> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

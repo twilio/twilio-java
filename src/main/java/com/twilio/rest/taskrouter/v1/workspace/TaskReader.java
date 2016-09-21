@@ -123,7 +123,7 @@ public class TaskReader extends Reader<Task> {
      */
     @Override
     public ResourceSet<Task> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

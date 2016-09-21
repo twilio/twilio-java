@@ -112,7 +112,7 @@ public class DailyReader extends Reader<Daily> {
      */
     @Override
     public ResourceSet<Daily> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

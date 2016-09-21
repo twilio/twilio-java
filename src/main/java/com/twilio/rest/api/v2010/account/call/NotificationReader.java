@@ -93,7 +93,7 @@ public class NotificationReader extends Reader<Notification> {
      */
     @Override
     public ResourceSet<Notification> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

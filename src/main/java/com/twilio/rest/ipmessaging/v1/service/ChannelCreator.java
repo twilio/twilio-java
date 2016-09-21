@@ -8,7 +8,6 @@
 package com.twilio.rest.ipmessaging.v1.service;
 
 import com.twilio.base.Creator;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,13 +17,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-import java.util.Map;
-
 public class ChannelCreator extends Creator<Channel> {
     private final String serviceSid;
     private String friendlyName;
     private String uniqueName;
-    private Map<String, Object> attributes;
+    private String attributes;
     private Channel.ChannelType type;
 
     /**
@@ -64,7 +61,7 @@ public class ChannelCreator extends Creator<Channel> {
      * @param attributes The attributes
      * @return this
      */
-    public ChannelCreator setAttributes(final Map<String, Object> attributes) {
+    public ChannelCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -134,7 +131,7 @@ public class ChannelCreator extends Creator<Channel> {
         }
         
         if (attributes != null) {
-            request.addPostParam("Attributes", Converter.mapToJson(attributes));
+            request.addPostParam("Attributes", attributes);
         }
         
         if (type != null) {

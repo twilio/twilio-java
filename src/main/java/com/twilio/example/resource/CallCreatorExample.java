@@ -22,7 +22,7 @@ public class CallCreatorExample {
         try {
 
             CallCreator creator =
-                new CallCreator(
+                Call.create(
                     "AC123",
                     new PhoneNumber("+14156085895"),
                     new PhoneNumber("+14154888928"),

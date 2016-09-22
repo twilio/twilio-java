@@ -2,6 +2,7 @@ package com.twilio.example.resource;
 
 
 import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Call;
 import com.twilio.rest.api.v2010.account.CallDeleter;
 import com.twilio.exception.ApiException;
 
@@ -16,7 +17,7 @@ public class CallDeleterExample {
 
         try {
 
-            CallDeleter deleter = new CallDeleter("AC123", "CA123");
+            CallDeleter deleter = Call.delete("AC123", "CA123");
             deleter.execute();
 
         } catch (ApiException e) {

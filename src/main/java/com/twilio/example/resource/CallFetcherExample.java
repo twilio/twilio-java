@@ -16,7 +16,7 @@ public class CallFetcherExample {
 
         try {
 
-            CallFetcher fetcher = new CallFetcher("AC123", "CA123");
+            CallFetcher fetcher = Call.fetch("AC123", "CA123");
             Call call = fetcher.execute();
 
             System.out.print(call.getSid());

@@ -22,7 +22,7 @@ public class CallUpdaterExample {
 
         try {
 
-            CallCreator creator = new CallCreator(
+            CallCreator creator = Call.create(
                 "AC123",
                 new PhoneNumber("+14156085895"),
                 new PhoneNumber("+14154888928"),
@@ -40,7 +40,7 @@ public class CallUpdaterExample {
                 System.out.println("whoops");
             }
 
-            CallUpdater updater = new CallUpdater(
+            CallUpdater updater = Call.update(
                 "AC123",
                 call.getSid()
             ).setUrl(new URI("http://twimlbin.com/4397e62f"));

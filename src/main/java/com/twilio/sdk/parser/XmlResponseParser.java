@@ -94,6 +94,7 @@ public class XmlResponseParser implements ResponseParser {
 				for (PagingProperty p : PagingProperty.values()) {
 					String property = this.getPagingPropertyKey(p);
 					Node n = attrs.getNamedItem(property);
+					if(n != null)
 					ret.put(property, n.getNodeValue());
 				}
 			}

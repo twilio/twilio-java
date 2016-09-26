@@ -167,8 +167,8 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.10.3</version>
         <configuration>
-          <reportOutputDirectory>.</reportOutputDirectory>
-          <destDir>docs</destDir>
+          <reportOutputDirectory>${env.TWILIO_DOCS_ROOT}</reportOutputDirectory>
+          <destDir>java/${project.version}</destDir>
           <show>public</show>
           <nohelp>true</nohelp>
           <author>true</author>

@@ -1,11 +1,10 @@
 package com.twilio;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.exception.AuthenticationException;
 
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * Singleton class to initialize Twilio environment.
@@ -19,7 +18,7 @@ public class Twilio {
     private static String password;
     private static String accountSid;
     private static TwilioRestClient restClient;
-    private static ListeningExecutorService executorService;
+    private static ExecutorService executorService;
 
     private Twilio() {}
 
@@ -139,9 +138,9 @@ public class Twilio {
      *
      * @return the Twilio executor service
      */
-    public static ListeningExecutorService getExecutorService() {
+    public static ExecutorService getExecutorService() {
         if (Twilio.executorService == null) {
-            Twilio.executorService = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
+            Twilio.executorService = ForkJoinPool.commonPool();
         }
         return Twilio.executorService;
     }
@@ -151,7 +150,7 @@ public class Twilio {
      *
      * @param executorService executor service to use
      */
-    public static void setExecutorService(final ListeningExecutorService executorService) {
+    public static void setExecutorService(final ExecutorService executorService) {
         Twilio.executorService = executorService;
     }
 

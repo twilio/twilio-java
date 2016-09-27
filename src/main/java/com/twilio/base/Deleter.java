@@ -1,10 +1,9 @@
 package com.twilio.base;
 
-import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.Twilio;
 import com.twilio.http.TwilioRestClient;
 
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Executor for deletes of a resource.
@@ -18,7 +17,7 @@ public abstract class Deleter<T extends Resource> {
      *
      * @return future that resolves to true if the object was deleted
      */
-    public ListenableFuture<Boolean> async() {
+    public CompletableFuture<Boolean> async() {
         return async(Twilio.getRestClient());
     }
 
@@ -28,12 +27,8 @@ public abstract class Deleter<T extends Resource> {
      * @param client client used to make request
      * @return future that resolves to true if the object was deleted
      */
-    public ListenableFuture<Boolean> async(final TwilioRestClient client) {
-        return Twilio.getExecutorService().submit(new Callable<Boolean>() {
-            public Boolean call() {
-                return execute(client);
-            }
-        });
+    public CompletableFuture<Boolean> async(final TwilioRestClient client) {
+        return CompletableFuture.supplyAsync(() -> execute(client), Twilio.getExecutorService());
     }
 
     /**

@@ -2,25 +2,20 @@ package com.twilio.example;
 
 
 import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.CallCreator;
-import com.twilio.rest.api.v2010.account.IncomingPhoneNumberCreator;
-import com.twilio.rest.api.v2010.account.MessageCreator;
-import com.twilio.rest.trunking.v1.TrunkCreator;
-import com.twilio.rest.api.v2010.account.CallReader;
-import com.twilio.rest.api.v2010.account.MessageReader;
-import com.twilio.rest.api.v2010.account.availablephonenumbercountry.LocalReader;
 import com.twilio.rest.api.v2010.account.Call;
+import com.twilio.rest.api.v2010.account.CallCreator;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.availablephonenumbercountry.Local;
 import com.twilio.rest.notify.v1.Service;
 import com.twilio.rest.trunking.v1.Trunk;
-import com.twilio.type.PhoneNumber;
+import com.twilio.rest.trunking.v1.TrunkCreator;
 import com.twilio.twiml.Play;
 import com.twilio.twiml.Say;
 import com.twilio.twiml.TwiML;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.VoiceResponse;
+import com.twilio.type.PhoneNumber;
 
 import java.net.URI;
 import java.util.Iterator;
@@ -47,7 +42,7 @@ public class Example {
         System.out.println(number.getPhoneNumber());
 
         // Send a text message
-        Message message = new MessageCreator(
+        Message message = Message.creator(
             ACCOUNT_SID,
             PHONE_NUMBER,
             number.getPhoneNumber(),
@@ -67,14 +62,14 @@ public class Example {
         System.out.println(call.getSid());
 
         // Print all the messages
-        Iterable<Message> messages = new MessageReader().read();
+        Iterable<Message> messages = Message.reader().read();
         for (Message m : messages) {
             System.out.println(m.getSid());
             System.out.println(m.getBody());
         }
 
         // Get some calls
-        Iterable<Call> calls = new CallReader().pageSize(2).read();
+        Iterable<Call> calls = Call.reader().pageSize(2).read();
         for (Call c : calls) {
             System.out.println(c.getSid());
         }
@@ -108,13 +103,13 @@ public class Example {
 
     private static IncomingPhoneNumber buyNumber() {
         // Look up some phone numbers
-        Iterable<Local> numbers = new LocalReader(ACCOUNT_SID, "US").read();
+        Iterable<Local> numbers = Local.reader(ACCOUNT_SID, "US").read();
 
         // Buy the first phone number
         Iterator<Local> iter = numbers.iterator();
         if (iter.hasNext()) {
             Local local = iter.next();
-            return new IncomingPhoneNumberCreator(
+            return IncomingPhoneNumber.creator(
                 ACCOUNT_SID,
                 local.getPhoneNumber()
             ).create();

@@ -21,4 +21,8 @@ public class Task extends Verb {
     public void setTimeout(final int timeout) {
         this.set("timeout", String.valueOf(timeout));
     }
+
+    public void setWorkflowSid(final String workflowSid) {
+        this.set("workflowSid", workflowSid);
+    }
 }

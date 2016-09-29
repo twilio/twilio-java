@@ -233,6 +233,10 @@ public class Request {
             try {
                 String encodedName = URLEncoder.encode(entry.getKey(), "UTF-8");
                 for (final String value : entry.getValue()) {
+                    if (value == null) {
+                        continue;
+                    }
+
                     String encodedValue = URLEncoder.encode(value, "UTF-8");
                     parameters.add(encodedName + "=" + encodedValue);
                 }

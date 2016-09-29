@@ -3,7 +3,6 @@ package com.twilio.base;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.Twilio;
 import com.twilio.http.TwilioRestClient;
-import com.twilio.base.Resource;
 
 import java.util.concurrent.Callable;
 
@@ -19,8 +18,8 @@ public abstract class Updater<T extends Resource> {
      *
      * @return future that resolves to requested object
      */
-    public ListenableFuture<T> async() {
-        return async(Twilio.getRestClient());
+    public ListenableFuture<T> updateAsync() {
+        return updateAsync(Twilio.getRestClient());
     }
 
     /**
@@ -29,10 +28,10 @@ public abstract class Updater<T extends Resource> {
      * @param client client used to make request
      * @return future that resolves to requested object
      */
-    public ListenableFuture<T> async(final TwilioRestClient client) {
+    public ListenableFuture<T> updateAsync(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<T>() {
             public T call() {
-                return execute(client);
+                return update(client);
             }
         });
     }
@@ -42,8 +41,8 @@ public abstract class Updater<T extends Resource> {
      *
      * @return Requested object
      */
-    public T execute() {
-        return execute(Twilio.getRestClient());
+    public T update() {
+        return update(Twilio.getRestClient());
     }
 
     /**
@@ -52,5 +51,5 @@ public abstract class Updater<T extends Resource> {
      * @param client client used to make request
      * @return Requested object
      */
-    public abstract T execute(final TwilioRestClient client);
+    public abstract T update(final TwilioRestClient client);
 }

@@ -23,8 +23,8 @@ public abstract class Reader<T extends Resource> {
      *
      * @return ResourceSet of objects
      */
-    public ResourceSet<T> execute() {
-        return execute(Twilio.getRestClient());
+    public ResourceSet<T> read() {
+        return read(Twilio.getRestClient());
     }
 
     /**
@@ -33,15 +33,15 @@ public abstract class Reader<T extends Resource> {
      * @param client client used to make request
      * @return ResourceSet of objects
      */
-    public abstract ResourceSet<T> execute(final TwilioRestClient client);
+    public abstract ResourceSet<T> read(final TwilioRestClient client);
 
     /**
      * Execute an async request using default client.
      *
      * @return future that resolves to the ResourceSet of objects
      */
-    public ListenableFuture<ResourceSet<T>> async() {
-        return async(Twilio.getRestClient());
+    public ListenableFuture<ResourceSet<T>> readAsync() {
+        return readAsync(Twilio.getRestClient());
     }
 
     /**
@@ -50,10 +50,10 @@ public abstract class Reader<T extends Resource> {
      * @param client client used to make request
      * @return future that resolves to the ResourceSet of objects
      */
-    public ListenableFuture<ResourceSet<T>> async(final TwilioRestClient client) {
+    public ListenableFuture<ResourceSet<T>> readAsync(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<ResourceSet<T>>() {
             public ResourceSet<T> call() {
-                return execute(client);
+                return read(client);
             }
         });
     }

@@ -2,13 +2,13 @@
 
 # Installing
 
-twilio-java uses Maven.  At present the jars *are* available from a public [maven](http://mvnrepository.com/artifact/com.twilio.sdk/twilio-java-sdk) repository.
+twilio-java uses Maven.  At present the jars *are* available from a public [maven](http://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
 
 Use the following dependency in your project:
 
        <dependency>
           <groupId>com.twilio.sdk</groupId>
-          <artifactId>twiliok</artifactId>
+          <artifactId>twilio</artifactId>
           <version>7.X.X</version>
           <scope>compile</scope>
        </dependency>
@@ -28,7 +28,7 @@ String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/accou
 
 Twilio.init(accountSid, authToken);
 
-Message message = new MessageCreator(
+Message message = Message.create(
     ACCOUNT_SID,
     new PhoneNumber("+15558881234"),
     new PhoneNumber("+15559994321"),
@@ -45,7 +45,7 @@ String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/accou
 
 Twilio.init(accountSid, authToken);
 
-Call call = new CallCreator(
+Call call = Call.create(
     ACCOUNT_SID,
     new PhoneNumber("+15558881234"),
     new PhoneNumber("+15559994321"),
@@ -74,10 +74,6 @@ That will output XML that looks like this:
     <Play loop="5">https://api.twilio.com/cowbell.mp3</Play>
 </Response>
 ```
-
-### Release Candidate
-
-This is a release candidate version of the Java Library. To submit feedback, open and issue on the Github repo. 
 
 
 # Documentation

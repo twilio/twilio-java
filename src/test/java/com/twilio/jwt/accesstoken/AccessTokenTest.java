@@ -88,6 +88,29 @@ public class AccessTokenTest {
     }
 
     @Test
+    public void testVideoGrant() {
+        VideoGrant cg = new VideoGrant().setConfigurationProfileSid("CP123");
+        Jwt token =
+            new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                .grant(cg)
+                .build();
+
+        Claims claims =
+            Jwts.parser()
+                .setSigningKey(SECRET.getBytes())
+                .parseClaimsJws(token.toJwt())
+                .getBody();
+
+        validateToken(claims);
+
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Assert.assertEquals(1, decodedGrants.size());
+
+        Map<String, Object> grant = (Map<String, Object>) decodedGrants.get("video");
+        Assert.assertEquals("CP123", grant.get("configuration_profile_sid"));
+    }
+
+    @Test
     public void testIpMessagingGrant() {
         IpMessagingGrant ipg = new IpMessagingGrant()
             .setDeploymentRoleSid("RL123")

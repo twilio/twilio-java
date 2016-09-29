@@ -18,8 +18,8 @@ public abstract class Deleter<T extends Resource> {
      *
      * @return future that resolves to true if the object was deleted
      */
-    public ListenableFuture<Boolean> async() {
-        return async(Twilio.getRestClient());
+    public ListenableFuture<Boolean> deleteAsync() {
+        return deleteAsync(Twilio.getRestClient());
     }
 
     /**
@@ -28,10 +28,10 @@ public abstract class Deleter<T extends Resource> {
      * @param client client used to make request
      * @return future that resolves to true if the object was deleted
      */
-    public ListenableFuture<Boolean> async(final TwilioRestClient client) {
+    public ListenableFuture<Boolean> deleteAsync(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<Boolean>() {
             public Boolean call() {
-                return execute(client);
+                return delete(client);
             }
         });
     }
@@ -41,8 +41,8 @@ public abstract class Deleter<T extends Resource> {
      *
      * @return true if the object was deleted
      */
-    public boolean execute() {
-        return execute(Twilio.getRestClient());
+    public boolean delete() {
+        return delete(Twilio.getRestClient());
     }
 
     /**
@@ -51,5 +51,5 @@ public abstract class Deleter<T extends Resource> {
      * @param client client used to make request
      * @return true if the object was deleted
      */
-    public abstract boolean execute(final TwilioRestClient client);
+    public abstract boolean delete(final TwilioRestClient client);
 }

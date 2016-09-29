@@ -19,7 +19,10 @@ public interface SmsFactory {
 	 * @param params the params map
 	 * @return the sms
 	 * @throws TwilioRestException
+	 * 
+	 * @deprecated use MessageFactory.create instead
 	 */
+	@Deprecated
 	public Sms create(Map<String, String> params) throws TwilioRestException;
 
     /**
@@ -28,6 +31,9 @@ public interface SmsFactory {
 	 * @param params the params list
 	 * @return the sms
 	 * @throws TwilioRestException
+	 * 
+	 * @deprecated use MessageFactory.create instead
 	 */
+	@Deprecated
 	public Sms create(List<NameValuePair> params) throws TwilioRestException;
 }

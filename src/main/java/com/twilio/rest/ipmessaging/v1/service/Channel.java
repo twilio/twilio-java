@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -35,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Channel extends Resource {
-    private static final long serialVersionUID = 164533115781262L;
+    private static final long serialVersionUID = 147553862953443L;
 
     public enum ChannelType {
         PUBLIC("public"),
@@ -76,8 +75,8 @@ public class Channel extends Resource {
      * @param sid The sid
      * @return ChannelFetcher capable of executing the fetch
      */
-    public static ChannelFetcher fetch(final String serviceSid, 
-                                       final String sid) {
+    public static ChannelFetcher fetcher(final String serviceSid, 
+                                         final String sid) {
         return new ChannelFetcher(serviceSid, sid);
     }
 
@@ -88,8 +87,8 @@ public class Channel extends Resource {
      * @param sid The sid
      * @return ChannelDeleter capable of executing the delete
      */
-    public static ChannelDeleter delete(final String serviceSid, 
-                                        final String sid) {
+    public static ChannelDeleter deleter(final String serviceSid, 
+                                         final String sid) {
         return new ChannelDeleter(serviceSid, sid);
     }
 
@@ -99,7 +98,7 @@ public class Channel extends Resource {
      * @param serviceSid The service_sid
      * @return ChannelCreator capable of executing the create
      */
-    public static ChannelCreator create(final String serviceSid) {
+    public static ChannelCreator creator(final String serviceSid) {
         return new ChannelCreator(serviceSid);
     }
 
@@ -109,7 +108,7 @@ public class Channel extends Resource {
      * @param serviceSid The service_sid
      * @return ChannelReader capable of executing the read
      */
-    public static ChannelReader read(final String serviceSid) {
+    public static ChannelReader reader(final String serviceSid) {
         return new ChannelReader(serviceSid);
     }
 
@@ -120,8 +119,8 @@ public class Channel extends Resource {
      * @param sid The sid
      * @return ChannelUpdater capable of executing the update
      */
-    public static ChannelUpdater update(final String serviceSid, 
-                                        final String sid) {
+    public static ChannelUpdater updater(final String serviceSid, 
+                                         final String sid) {
         return new ChannelUpdater(serviceSid, sid);
     }
 
@@ -167,7 +166,7 @@ public class Channel extends Resource {
     private final String serviceSid;
     private final String friendlyName;
     private final String uniqueName;
-    private final Map<String, Object> attributes;
+    private final String attributes;
     private final Channel.ChannelType type;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
@@ -187,7 +186,7 @@ public class Channel extends Resource {
                     @JsonProperty("unique_name")
                     final String uniqueName, 
                     @JsonProperty("attributes")
-                    final Map<String, Object> attributes, 
+                    final String attributes, 
                     @JsonProperty("type")
                     final Channel.ChannelType type, 
                     @JsonProperty("date_created")
@@ -264,7 +263,7 @@ public class Channel extends Resource {
      * 
      * @return The attributes
      */
-    public final Map<String, Object> getAttributes() {
+    public final String getAttributes() {
         return this.attributes;
     }
 

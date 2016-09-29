@@ -48,7 +48,7 @@ public class LastMonthReader extends Reader<LastMonth> {
      * @param category The category
      * @return this
      */
-    public LastMonthReader byCategory(final LastMonth.Category category) {
+    public LastMonthReader setCategory(final LastMonth.Category category) {
         this.category = category;
         return this;
     }
@@ -59,7 +59,7 @@ public class LastMonthReader extends Reader<LastMonth> {
      * @param startDate The start_date
      * @return this
      */
-    public LastMonthReader byStartDate(final LocalDate startDate) {
+    public LastMonthReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -70,7 +70,7 @@ public class LastMonthReader extends Reader<LastMonth> {
      * @param endDate The end_date
      * @return this
      */
-    public LastMonthReader byEndDate(final LocalDate endDate) {
+    public LastMonthReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -82,8 +82,8 @@ public class LastMonthReader extends Reader<LastMonth> {
      * @return LastMonth ResourceSet
      */
     @Override
-    public ResourceSet<LastMonth> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<LastMonth> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

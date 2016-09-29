@@ -41,8 +41,8 @@ public class WorkflowStatistics extends Resource {
      * @param workflowSid The workflow_sid
      * @return WorkflowStatisticsFetcher capable of executing the fetch
      */
-    public static WorkflowStatisticsFetcher fetch(final String workspaceSid, 
-                                                  final String workflowSid) {
+    public static WorkflowStatisticsFetcher fetcher(final String workspaceSid, 
+                                                    final String workflowSid) {
         return new WorkflowStatisticsFetcher(workspaceSid, workflowSid);
     }
 

@@ -78,8 +78,8 @@ public class Transcription extends Resource {
      * @param sid Fetch by unique transcription Sid
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetch(final String accountSid, 
-                                             final String sid) {
+    public static TranscriptionFetcher fetcher(final String accountSid, 
+                                               final String sid) {
         return new TranscriptionFetcher(accountSid, sid);
     }
 
@@ -89,7 +89,7 @@ public class Transcription extends Resource {
      * @param sid Fetch by unique transcription Sid
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetch(final String sid) {
+    public static TranscriptionFetcher fetcher(final String sid) {
         return new TranscriptionFetcher(sid);
     }
 
@@ -100,8 +100,8 @@ public class Transcription extends Resource {
      * @param sid Delete by unique transcription Sid
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter delete(final String accountSid, 
-                                              final String sid) {
+    public static TranscriptionDeleter deleter(final String accountSid, 
+                                               final String sid) {
         return new TranscriptionDeleter(accountSid, sid);
     }
 
@@ -111,7 +111,7 @@ public class Transcription extends Resource {
      * @param sid Delete by unique transcription Sid
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter delete(final String sid) {
+    public static TranscriptionDeleter deleter(final String sid) {
         return new TranscriptionDeleter(sid);
     }
 
@@ -121,7 +121,7 @@ public class Transcription extends Resource {
      * @param accountSid The account_sid
      * @return TranscriptionReader capable of executing the read
      */
-    public static TranscriptionReader read(final String accountSid) {
+    public static TranscriptionReader reader(final String accountSid) {
         return new TranscriptionReader(accountSid);
     }
 
@@ -130,7 +130,7 @@ public class Transcription extends Resource {
      * 
      * @return TranscriptionReader capable of executing the read
      */
-    public static TranscriptionReader read() {
+    public static TranscriptionReader reader() {
         return new TranscriptionReader();
     }
 

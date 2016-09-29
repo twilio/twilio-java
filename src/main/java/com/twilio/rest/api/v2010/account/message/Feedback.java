@@ -74,8 +74,8 @@ public class Feedback extends Resource {
      * @param messageSid The message_sid
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator create(final String accountSid, 
-                                         final String messageSid) {
+    public static FeedbackCreator creator(final String accountSid, 
+                                          final String messageSid) {
         return new FeedbackCreator(accountSid, messageSid);
     }
 
@@ -85,7 +85,7 @@ public class Feedback extends Resource {
      * @param messageSid The message_sid
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator create(final String messageSid) {
+    public static FeedbackCreator creator(final String messageSid) {
         return new FeedbackCreator(messageSid);
     }
 

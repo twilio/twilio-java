@@ -109,9 +109,9 @@ public class SyncMapItem extends Resource {
      * @param key The key
      * @return SyncMapItemFetcher capable of executing the fetch
      */
-    public static SyncMapItemFetcher fetch(final String serviceSid, 
-                                           final String mapSid, 
-                                           final String key) {
+    public static SyncMapItemFetcher fetcher(final String serviceSid, 
+                                             final String mapSid, 
+                                             final String key) {
         return new SyncMapItemFetcher(serviceSid, mapSid, key);
     }
 
@@ -123,9 +123,9 @@ public class SyncMapItem extends Resource {
      * @param key The key
      * @return SyncMapItemDeleter capable of executing the delete
      */
-    public static SyncMapItemDeleter delete(final String serviceSid, 
-                                            final String mapSid, 
-                                            final String key) {
+    public static SyncMapItemDeleter deleter(final String serviceSid, 
+                                             final String mapSid, 
+                                             final String key) {
         return new SyncMapItemDeleter(serviceSid, mapSid, key);
     }
 
@@ -138,10 +138,10 @@ public class SyncMapItem extends Resource {
      * @param data The data
      * @return SyncMapItemCreator capable of executing the create
      */
-    public static SyncMapItemCreator create(final String serviceSid, 
-                                            final String mapSid, 
-                                            final String key, 
-                                            final Map<String, Object> data) {
+    public static SyncMapItemCreator creator(final String serviceSid, 
+                                             final String mapSid, 
+                                             final String key, 
+                                             final Map<String, Object> data) {
         return new SyncMapItemCreator(serviceSid, mapSid, key, data);
     }
 
@@ -152,8 +152,8 @@ public class SyncMapItem extends Resource {
      * @param mapSid The map_sid
      * @return SyncMapItemReader capable of executing the read
      */
-    public static SyncMapItemReader read(final String serviceSid, 
-                                         final String mapSid) {
+    public static SyncMapItemReader reader(final String serviceSid, 
+                                           final String mapSid) {
         return new SyncMapItemReader(serviceSid, mapSid);
     }
 
@@ -166,10 +166,10 @@ public class SyncMapItem extends Resource {
      * @param data The data
      * @return SyncMapItemUpdater capable of executing the update
      */
-    public static SyncMapItemUpdater update(final String serviceSid, 
-                                            final String mapSid, 
-                                            final String key, 
-                                            final Map<String, Object> data) {
+    public static SyncMapItemUpdater updater(final String serviceSid, 
+                                             final String mapSid, 
+                                             final String key, 
+                                             final Map<String, Object> data) {
         return new SyncMapItemUpdater(serviceSid, mapSid, key, data);
     }
 

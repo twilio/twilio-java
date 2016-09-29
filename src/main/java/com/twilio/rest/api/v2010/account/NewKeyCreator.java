@@ -55,7 +55,7 @@ public class NewKeyCreator extends Creator<NewKey> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public NewKey execute(final TwilioRestClient client) {
+    public NewKey create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

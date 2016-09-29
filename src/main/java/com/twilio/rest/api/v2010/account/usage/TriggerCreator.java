@@ -118,7 +118,7 @@ public class TriggerCreator extends Creator<Trigger> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Trigger execute(final TwilioRestClient client) {
+    public Trigger create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

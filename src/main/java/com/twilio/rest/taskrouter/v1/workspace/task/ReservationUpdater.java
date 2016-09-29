@@ -316,7 +316,7 @@ public class ReservationUpdater extends Updater<Reservation> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Reservation execute(final TwilioRestClient client) {
+    public Reservation update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

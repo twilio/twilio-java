@@ -76,8 +76,8 @@ public class AuthorizedConnectApp extends Resource {
      * @param connectAppSid The connect_app_sid
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
-    public static AuthorizedConnectAppFetcher fetch(final String accountSid, 
-                                                    final String connectAppSid) {
+    public static AuthorizedConnectAppFetcher fetcher(final String accountSid, 
+                                                      final String connectAppSid) {
         return new AuthorizedConnectAppFetcher(accountSid, connectAppSid);
     }
 
@@ -87,7 +87,7 @@ public class AuthorizedConnectApp extends Resource {
      * @param connectAppSid The connect_app_sid
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
-    public static AuthorizedConnectAppFetcher fetch(final String connectAppSid) {
+    public static AuthorizedConnectAppFetcher fetcher(final String connectAppSid) {
         return new AuthorizedConnectAppFetcher(connectAppSid);
     }
 
@@ -97,7 +97,7 @@ public class AuthorizedConnectApp extends Resource {
      * @param accountSid The account_sid
      * @return AuthorizedConnectAppReader capable of executing the read
      */
-    public static AuthorizedConnectAppReader read(final String accountSid) {
+    public static AuthorizedConnectAppReader reader(final String accountSid) {
         return new AuthorizedConnectAppReader(accountSid);
     }
 
@@ -106,7 +106,7 @@ public class AuthorizedConnectApp extends Resource {
      * 
      * @return AuthorizedConnectAppReader capable of executing the read
      */
-    public static AuthorizedConnectAppReader read() {
+    public static AuthorizedConnectAppReader reader() {
         return new AuthorizedConnectAppReader();
     }
 

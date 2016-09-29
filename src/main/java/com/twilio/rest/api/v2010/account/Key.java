@@ -42,8 +42,8 @@ public class Key extends Resource {
      * @param sid The sid
      * @return KeyFetcher capable of executing the fetch
      */
-    public static KeyFetcher fetch(final String accountSid, 
-                                   final String sid) {
+    public static KeyFetcher fetcher(final String accountSid, 
+                                     final String sid) {
         return new KeyFetcher(accountSid, sid);
     }
 
@@ -53,7 +53,7 @@ public class Key extends Resource {
      * @param sid The sid
      * @return KeyFetcher capable of executing the fetch
      */
-    public static KeyFetcher fetch(final String sid) {
+    public static KeyFetcher fetcher(final String sid) {
         return new KeyFetcher(sid);
     }
 
@@ -64,8 +64,8 @@ public class Key extends Resource {
      * @param sid The sid
      * @return KeyUpdater capable of executing the update
      */
-    public static KeyUpdater update(final String accountSid, 
-                                    final String sid) {
+    public static KeyUpdater updater(final String accountSid, 
+                                     final String sid) {
         return new KeyUpdater(accountSid, sid);
     }
 
@@ -75,7 +75,7 @@ public class Key extends Resource {
      * @param sid The sid
      * @return KeyUpdater capable of executing the update
      */
-    public static KeyUpdater update(final String sid) {
+    public static KeyUpdater updater(final String sid) {
         return new KeyUpdater(sid);
     }
 
@@ -86,8 +86,8 @@ public class Key extends Resource {
      * @param sid The sid
      * @return KeyDeleter capable of executing the delete
      */
-    public static KeyDeleter delete(final String accountSid, 
-                                    final String sid) {
+    public static KeyDeleter deleter(final String accountSid, 
+                                     final String sid) {
         return new KeyDeleter(accountSid, sid);
     }
 
@@ -97,7 +97,7 @@ public class Key extends Resource {
      * @param sid The sid
      * @return KeyDeleter capable of executing the delete
      */
-    public static KeyDeleter delete(final String sid) {
+    public static KeyDeleter deleter(final String sid) {
         return new KeyDeleter(sid);
     }
 
@@ -107,7 +107,7 @@ public class Key extends Resource {
      * @param accountSid The account_sid
      * @return KeyReader capable of executing the read
      */
-    public static KeyReader read(final String accountSid) {
+    public static KeyReader reader(final String accountSid) {
         return new KeyReader(accountSid);
     }
 
@@ -116,7 +116,7 @@ public class Key extends Resource {
      * 
      * @return KeyReader capable of executing the read
      */
-    public static KeyReader read() {
+    public static KeyReader reader() {
         return new KeyReader();
     }
 

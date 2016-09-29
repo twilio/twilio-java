@@ -80,7 +80,7 @@ public class UserUpdater extends Updater<User> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public User execute(final TwilioRestClient client) {
+    public User update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),

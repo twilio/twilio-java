@@ -78,8 +78,8 @@ public class Reservation extends Resource {
      * @param taskSid The task_sid
      * @return ReservationReader capable of executing the read
      */
-    public static ReservationReader read(final String workspaceSid, 
-                                         final String taskSid) {
+    public static ReservationReader reader(final String workspaceSid, 
+                                           final String taskSid) {
         return new ReservationReader(workspaceSid, taskSid);
     }
 
@@ -91,9 +91,9 @@ public class Reservation extends Resource {
      * @param sid The sid
      * @return ReservationFetcher capable of executing the fetch
      */
-    public static ReservationFetcher fetch(final String workspaceSid, 
-                                           final String taskSid, 
-                                           final String sid) {
+    public static ReservationFetcher fetcher(final String workspaceSid, 
+                                             final String taskSid, 
+                                             final String sid) {
         return new ReservationFetcher(workspaceSid, taskSid, sid);
     }
 
@@ -105,9 +105,9 @@ public class Reservation extends Resource {
      * @param sid The sid
      * @return ReservationUpdater capable of executing the update
      */
-    public static ReservationUpdater update(final String workspaceSid, 
-                                            final String taskSid, 
-                                            final String sid) {
+    public static ReservationUpdater updater(final String workspaceSid, 
+                                             final String taskSid, 
+                                             final String sid) {
         return new ReservationUpdater(workspaceSid, taskSid, sid);
     }
 

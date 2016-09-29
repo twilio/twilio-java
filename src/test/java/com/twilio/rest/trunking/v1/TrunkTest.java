@@ -51,7 +51,7 @@ public class TrunkTest {
         }};
         
         try {
-            Trunk.fetch("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Trunk.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Trunk.fetch("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Trunk.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TrunkTest {
         }};
         
         try {
-            Trunk.delete("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Trunk.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
         
-        Trunk.delete("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Trunk.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class TrunkTest {
         }};
         
         try {
-            Trunk.create().execute();
+            Trunk.creator().create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
         
-        Trunk.create().execute();
+        Trunk.creator().create();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class TrunkTest {
         }};
         
         try {
-            Trunk.read().execute();
+            Trunk.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Trunk.read().execute());
+        assertNotNull(Trunk.reader().read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Trunk.read().execute());
+        assertNotNull(Trunk.reader().read());
     }
 
     @Test
@@ -191,7 +191,7 @@ public class TrunkTest {
         }};
         
         try {
-            Trunk.update("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Trunk.updater("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
         
-        Trunk.update("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Trunk.updater("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

@@ -66,7 +66,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param areaCode The area_code
      * @return this
      */
-    public MobileReader byAreaCode(final Integer areaCode) {
+    public MobileReader setAreaCode(final Integer areaCode) {
         this.areaCode = areaCode;
         return this;
     }
@@ -77,7 +77,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param contains The contains
      * @return this
      */
-    public MobileReader byContains(final String contains) {
+    public MobileReader setContains(final String contains) {
         this.contains = contains;
         return this;
     }
@@ -88,7 +88,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param smsEnabled The sms_enabled
      * @return this
      */
-    public MobileReader bySmsEnabled(final Boolean smsEnabled) {
+    public MobileReader setSmsEnabled(final Boolean smsEnabled) {
         this.smsEnabled = smsEnabled;
         return this;
     }
@@ -99,7 +99,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param mmsEnabled The mms_enabled
      * @return this
      */
-    public MobileReader byMmsEnabled(final Boolean mmsEnabled) {
+    public MobileReader setMmsEnabled(final Boolean mmsEnabled) {
         this.mmsEnabled = mmsEnabled;
         return this;
     }
@@ -110,7 +110,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param voiceEnabled The voice_enabled
      * @return this
      */
-    public MobileReader byVoiceEnabled(final Boolean voiceEnabled) {
+    public MobileReader setVoiceEnabled(final Boolean voiceEnabled) {
         this.voiceEnabled = voiceEnabled;
         return this;
     }
@@ -121,7 +121,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param excludeAllAddressRequired The exclude_all_address_required
      * @return this
      */
-    public MobileReader byExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
+    public MobileReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
         this.excludeAllAddressRequired = excludeAllAddressRequired;
         return this;
     }
@@ -132,7 +132,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param excludeLocalAddressRequired The exclude_local_address_required
      * @return this
      */
-    public MobileReader byExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
+    public MobileReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
         this.excludeLocalAddressRequired = excludeLocalAddressRequired;
         return this;
     }
@@ -143,7 +143,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param excludeForeignAddressRequired The exclude_foreign_address_required
      * @return this
      */
-    public MobileReader byExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
+    public MobileReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
         this.excludeForeignAddressRequired = excludeForeignAddressRequired;
         return this;
     }
@@ -154,7 +154,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param beta The beta
      * @return this
      */
-    public MobileReader byBeta(final Boolean beta) {
+    public MobileReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
@@ -165,7 +165,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param nearNumber The near_number
      * @return this
      */
-    public MobileReader byNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
+    public MobileReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
         this.nearNumber = nearNumber;
         return this;
     }
@@ -176,7 +176,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param nearLatLong The near_lat_long
      * @return this
      */
-    public MobileReader byNearLatLong(final String nearLatLong) {
+    public MobileReader setNearLatLong(final String nearLatLong) {
         this.nearLatLong = nearLatLong;
         return this;
     }
@@ -187,7 +187,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param distance The distance
      * @return this
      */
-    public MobileReader byDistance(final Integer distance) {
+    public MobileReader setDistance(final Integer distance) {
         this.distance = distance;
         return this;
     }
@@ -198,7 +198,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param inPostalCode The in_postal_code
      * @return this
      */
-    public MobileReader byInPostalCode(final String inPostalCode) {
+    public MobileReader setInPostalCode(final String inPostalCode) {
         this.inPostalCode = inPostalCode;
         return this;
     }
@@ -209,7 +209,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param inRegion The in_region
      * @return this
      */
-    public MobileReader byInRegion(final String inRegion) {
+    public MobileReader setInRegion(final String inRegion) {
         this.inRegion = inRegion;
         return this;
     }
@@ -220,7 +220,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param inRateCenter The in_rate_center
      * @return this
      */
-    public MobileReader byInRateCenter(final String inRateCenter) {
+    public MobileReader setInRateCenter(final String inRateCenter) {
         this.inRateCenter = inRateCenter;
         return this;
     }
@@ -231,7 +231,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param inLata The in_lata
      * @return this
      */
-    public MobileReader byInLata(final String inLata) {
+    public MobileReader setInLata(final String inLata) {
         this.inLata = inLata;
         return this;
     }
@@ -243,8 +243,8 @@ public class MobileReader extends Reader<Mobile> {
      * @return Mobile ResourceSet
      */
     @Override
-    public ResourceSet<Mobile> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Mobile> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

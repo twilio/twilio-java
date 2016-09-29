@@ -57,7 +57,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IpAccessControlListMapping execute(final TwilioRestClient client) {
+    public IpAccessControlListMapping fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

@@ -51,7 +51,7 @@ public class DeviceTest {
         }};
         
         try {
-            Device.fetch("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Device.fetcher("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -71,7 +71,7 @@ public class DeviceTest {
         }};
         
         try {
-            Device.read().execute();
+            Device.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -91,7 +91,7 @@ public class DeviceTest {
         }};
         
         try {
-            Device.create("ratePlan").execute();
+            Device.creator("ratePlan").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -111,7 +111,7 @@ public class DeviceTest {
         }};
         
         try {
-            Device.update("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Device.updater("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

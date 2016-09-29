@@ -46,7 +46,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      * @param beta Include new phone numbers
      * @return this
      */
-    public IncomingPhoneNumberReader byBeta(final Boolean beta) {
+    public IncomingPhoneNumberReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
@@ -58,7 +58,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      * @param friendlyName Filter by friendly name
      * @return this
      */
-    public IncomingPhoneNumberReader byFriendlyName(final String friendlyName) {
+    public IncomingPhoneNumberReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -69,7 +69,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      * @param phoneNumber Filter by incoming phone number
      * @return this
      */
-    public IncomingPhoneNumberReader byPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
+    public IncomingPhoneNumberReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -81,8 +81,8 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      * @return IncomingPhoneNumber ResourceSet
      */
     @Override
-    public ResourceSet<IncomingPhoneNumber> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<IncomingPhoneNumber> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

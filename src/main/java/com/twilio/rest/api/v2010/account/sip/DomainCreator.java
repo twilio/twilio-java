@@ -185,7 +185,7 @@ public class DomainCreator extends Creator<Domain> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Domain execute(final TwilioRestClient client) {
+    public Domain create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

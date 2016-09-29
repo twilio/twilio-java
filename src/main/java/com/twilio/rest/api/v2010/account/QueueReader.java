@@ -44,8 +44,8 @@ public class QueueReader extends Reader<Queue> {
      * @return Queue ResourceSet
      */
     @Override
-    public ResourceSet<Queue> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Queue> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

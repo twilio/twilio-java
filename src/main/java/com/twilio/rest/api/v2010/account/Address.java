@@ -47,13 +47,13 @@ public class Address extends Resource {
      * @param isoCountry The iso_country
      * @return AddressCreator capable of executing the create
      */
-    public static AddressCreator create(final String accountSid, 
-                                        final String customerName, 
-                                        final String street, 
-                                        final String city, 
-                                        final String region, 
-                                        final String postalCode, 
-                                        final String isoCountry) {
+    public static AddressCreator creator(final String accountSid, 
+                                         final String customerName, 
+                                         final String street, 
+                                         final String city, 
+                                         final String region, 
+                                         final String postalCode, 
+                                         final String isoCountry) {
         return new AddressCreator(accountSid, customerName, street, city, region, postalCode, isoCountry);
     }
 
@@ -68,12 +68,12 @@ public class Address extends Resource {
      * @param isoCountry The iso_country
      * @return AddressCreator capable of executing the create
      */
-    public static AddressCreator create(final String customerName, 
-                                        final String street, 
-                                        final String city, 
-                                        final String region, 
-                                        final String postalCode, 
-                                        final String isoCountry) {
+    public static AddressCreator creator(final String customerName, 
+                                         final String street, 
+                                         final String city, 
+                                         final String region, 
+                                         final String postalCode, 
+                                         final String isoCountry) {
         return new AddressCreator(customerName, street, city, region, postalCode, isoCountry);
     }
 
@@ -84,8 +84,8 @@ public class Address extends Resource {
      * @param sid The sid
      * @return AddressDeleter capable of executing the delete
      */
-    public static AddressDeleter delete(final String accountSid, 
-                                        final String sid) {
+    public static AddressDeleter deleter(final String accountSid, 
+                                         final String sid) {
         return new AddressDeleter(accountSid, sid);
     }
 
@@ -95,7 +95,7 @@ public class Address extends Resource {
      * @param sid The sid
      * @return AddressDeleter capable of executing the delete
      */
-    public static AddressDeleter delete(final String sid) {
+    public static AddressDeleter deleter(final String sid) {
         return new AddressDeleter(sid);
     }
 
@@ -106,8 +106,8 @@ public class Address extends Resource {
      * @param sid The sid
      * @return AddressFetcher capable of executing the fetch
      */
-    public static AddressFetcher fetch(final String accountSid, 
-                                       final String sid) {
+    public static AddressFetcher fetcher(final String accountSid, 
+                                         final String sid) {
         return new AddressFetcher(accountSid, sid);
     }
 
@@ -117,7 +117,7 @@ public class Address extends Resource {
      * @param sid The sid
      * @return AddressFetcher capable of executing the fetch
      */
-    public static AddressFetcher fetch(final String sid) {
+    public static AddressFetcher fetcher(final String sid) {
         return new AddressFetcher(sid);
     }
 
@@ -128,8 +128,8 @@ public class Address extends Resource {
      * @param sid The sid
      * @return AddressUpdater capable of executing the update
      */
-    public static AddressUpdater update(final String accountSid, 
-                                        final String sid) {
+    public static AddressUpdater updater(final String accountSid, 
+                                         final String sid) {
         return new AddressUpdater(accountSid, sid);
     }
 
@@ -139,7 +139,7 @@ public class Address extends Resource {
      * @param sid The sid
      * @return AddressUpdater capable of executing the update
      */
-    public static AddressUpdater update(final String sid) {
+    public static AddressUpdater updater(final String sid) {
         return new AddressUpdater(sid);
     }
 
@@ -149,7 +149,7 @@ public class Address extends Resource {
      * @param accountSid The account_sid
      * @return AddressReader capable of executing the read
      */
-    public static AddressReader read(final String accountSid) {
+    public static AddressReader reader(final String accountSid) {
         return new AddressReader(accountSid);
     }
 
@@ -158,7 +158,7 @@ public class Address extends Resource {
      * 
      * @return AddressReader capable of executing the read
      */
-    public static AddressReader read() {
+    public static AddressReader reader() {
         return new AddressReader();
     }
 

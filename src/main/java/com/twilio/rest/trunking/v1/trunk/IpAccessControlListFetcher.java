@@ -41,7 +41,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IpAccessControlList execute(final TwilioRestClient client) {
+    public IpAccessControlList fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),

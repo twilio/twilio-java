@@ -43,7 +43,7 @@ public class SandboxFetcher extends Fetcher<Sandbox> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Sandbox execute(final TwilioRestClient client) {
+    public Sandbox fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

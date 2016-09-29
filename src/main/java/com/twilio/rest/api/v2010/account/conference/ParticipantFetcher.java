@@ -57,7 +57,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Participant execute(final TwilioRestClient client) {
+    public Participant fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

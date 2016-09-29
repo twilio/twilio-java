@@ -51,7 +51,7 @@ public class AvailablePhoneNumberCountryTest {
         }};
         
         try {
-            AvailablePhoneNumberCountry.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            AvailablePhoneNumberCountry.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AvailablePhoneNumberCountryTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(AvailablePhoneNumberCountry.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(AvailablePhoneNumberCountry.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class AvailablePhoneNumberCountryTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(AvailablePhoneNumberCountry.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(AvailablePhoneNumberCountry.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class AvailablePhoneNumberCountryTest {
         }};
         
         try {
-            AvailablePhoneNumberCountry.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").execute();
+            AvailablePhoneNumberCountry.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,6 +109,6 @@ public class AvailablePhoneNumberCountryTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(AvailablePhoneNumberCountry.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").execute());
+        assertNotNull(AvailablePhoneNumberCountry.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").fetch());
     }
 }

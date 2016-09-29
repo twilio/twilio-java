@@ -112,7 +112,7 @@ public class TrunkCreator extends Creator<Trunk> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Trunk execute(final TwilioRestClient client) {
+    public Trunk create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),

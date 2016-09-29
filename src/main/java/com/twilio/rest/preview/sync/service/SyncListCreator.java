@@ -49,7 +49,7 @@ public class SyncListCreator extends Creator<SyncList> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SyncList execute(final TwilioRestClient client) {
+    public SyncList create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

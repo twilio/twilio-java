@@ -48,7 +48,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @param category The category
      * @return this
      */
-    public YesterdayReader byCategory(final Yesterday.Category category) {
+    public YesterdayReader setCategory(final Yesterday.Category category) {
         this.category = category;
         return this;
     }
@@ -59,7 +59,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @param startDate The start_date
      * @return this
      */
-    public YesterdayReader byStartDate(final LocalDate startDate) {
+    public YesterdayReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -70,7 +70,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @param endDate The end_date
      * @return this
      */
-    public YesterdayReader byEndDate(final LocalDate endDate) {
+    public YesterdayReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -82,8 +82,8 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @return Yesterday ResourceSet
      */
     @Override
-    public ResourceSet<Yesterday> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Yesterday> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

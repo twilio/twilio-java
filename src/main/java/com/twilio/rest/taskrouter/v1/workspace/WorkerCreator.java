@@ -65,7 +65,7 @@ public class WorkerCreator extends Creator<Worker> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Worker execute(final TwilioRestClient client) {
+    public Worker create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

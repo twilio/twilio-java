@@ -51,7 +51,7 @@ public class OriginationUrlTest {
         }};
         
         try {
-            OriginationUrl.fetch("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            OriginationUrl.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(OriginationUrl.fetch("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(OriginationUrl.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class OriginationUrlTest {
         }};
         
         try {
-            OriginationUrl.delete("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            OriginationUrl.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
         
-        OriginationUrl.delete("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        OriginationUrl.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -119,7 +119,7 @@ public class OriginationUrlTest {
                     }};
         
         try {
-            OriginationUrl.create("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1, 1, true, "friendlyName", URI.create("https://example.com")).execute();
+            OriginationUrl.creator("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1, 1, true, "friendlyName", URI.create("https://example.com")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -133,7 +133,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
         
-        OriginationUrl.create("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1, 1, true, "friendlyName", URI.create("https://example.com")).execute();
+        OriginationUrl.creator("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1, 1, true, "friendlyName", URI.create("https://example.com")).create();
     }
 
     @Test
@@ -151,7 +151,7 @@ public class OriginationUrlTest {
         }};
         
         try {
-            OriginationUrl.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            OriginationUrl.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -165,7 +165,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(OriginationUrl.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(OriginationUrl.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -177,7 +177,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(OriginationUrl.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(OriginationUrl.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -195,7 +195,7 @@ public class OriginationUrlTest {
         }};
         
         try {
-            OriginationUrl.update("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            OriginationUrl.updater("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -209,6 +209,6 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
         
-        OriginationUrl.update("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        OriginationUrl.updater("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

@@ -48,7 +48,7 @@ public class DailyReader extends Reader<Daily> {
      * @param category The category
      * @return this
      */
-    public DailyReader byCategory(final Daily.Category category) {
+    public DailyReader setCategory(final Daily.Category category) {
         this.category = category;
         return this;
     }
@@ -59,7 +59,7 @@ public class DailyReader extends Reader<Daily> {
      * @param startDate The start_date
      * @return this
      */
-    public DailyReader byStartDate(final LocalDate startDate) {
+    public DailyReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -70,7 +70,7 @@ public class DailyReader extends Reader<Daily> {
      * @param endDate The end_date
      * @return this
      */
-    public DailyReader byEndDate(final LocalDate endDate) {
+    public DailyReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -82,8 +82,8 @@ public class DailyReader extends Reader<Daily> {
      * @return Daily ResourceSet
      */
     @Override
-    public ResourceSet<Daily> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Daily> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

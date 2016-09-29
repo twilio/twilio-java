@@ -44,8 +44,8 @@ public class Document extends Resource {
      * @param sid The sid
      * @return DocumentFetcher capable of executing the fetch
      */
-    public static DocumentFetcher fetch(final String serviceSid, 
-                                        final String sid) {
+    public static DocumentFetcher fetcher(final String serviceSid, 
+                                          final String sid) {
         return new DocumentFetcher(serviceSid, sid);
     }
 
@@ -56,8 +56,8 @@ public class Document extends Resource {
      * @param sid The sid
      * @return DocumentDeleter capable of executing the delete
      */
-    public static DocumentDeleter delete(final String serviceSid, 
-                                         final String sid) {
+    public static DocumentDeleter deleter(final String serviceSid, 
+                                          final String sid) {
         return new DocumentDeleter(serviceSid, sid);
     }
 
@@ -67,7 +67,7 @@ public class Document extends Resource {
      * @param serviceSid The service_sid
      * @return DocumentCreator capable of executing the create
      */
-    public static DocumentCreator create(final String serviceSid) {
+    public static DocumentCreator creator(final String serviceSid) {
         return new DocumentCreator(serviceSid);
     }
 
@@ -77,7 +77,7 @@ public class Document extends Resource {
      * @param serviceSid The service_sid
      * @return DocumentReader capable of executing the read
      */
-    public static DocumentReader read(final String serviceSid) {
+    public static DocumentReader reader(final String serviceSid) {
         return new DocumentReader(serviceSid);
     }
 
@@ -89,9 +89,9 @@ public class Document extends Resource {
      * @param data The data
      * @return DocumentUpdater capable of executing the update
      */
-    public static DocumentUpdater update(final String serviceSid, 
-                                         final String sid, 
-                                         final Map<String, Object> data) {
+    public static DocumentUpdater updater(final String serviceSid, 
+                                          final String sid, 
+                                          final Map<String, Object> data) {
         return new DocumentUpdater(serviceSid, sid, data);
     }
 

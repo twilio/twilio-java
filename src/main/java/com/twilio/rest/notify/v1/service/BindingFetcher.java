@@ -41,7 +41,7 @@ public class BindingFetcher extends Fetcher<Binding> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Binding execute(final TwilioRestClient client) {
+    public Binding fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NOTIFY.toString(),

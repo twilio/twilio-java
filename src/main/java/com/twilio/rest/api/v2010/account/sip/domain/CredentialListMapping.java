@@ -43,9 +43,9 @@ public class CredentialListMapping extends Resource {
      * @param credentialListSid The credential_list_sid
      * @return CredentialListMappingCreator capable of executing the create
      */
-    public static CredentialListMappingCreator create(final String accountSid, 
-                                                      final String domainSid, 
-                                                      final String credentialListSid) {
+    public static CredentialListMappingCreator creator(final String accountSid, 
+                                                       final String domainSid, 
+                                                       final String credentialListSid) {
         return new CredentialListMappingCreator(accountSid, domainSid, credentialListSid);
     }
 
@@ -56,8 +56,8 @@ public class CredentialListMapping extends Resource {
      * @param credentialListSid The credential_list_sid
      * @return CredentialListMappingCreator capable of executing the create
      */
-    public static CredentialListMappingCreator create(final String domainSid, 
-                                                      final String credentialListSid) {
+    public static CredentialListMappingCreator creator(final String domainSid, 
+                                                       final String credentialListSid) {
         return new CredentialListMappingCreator(domainSid, credentialListSid);
     }
 
@@ -68,8 +68,8 @@ public class CredentialListMapping extends Resource {
      * @param domainSid The domain_sid
      * @return CredentialListMappingReader capable of executing the read
      */
-    public static CredentialListMappingReader read(final String accountSid, 
-                                                   final String domainSid) {
+    public static CredentialListMappingReader reader(final String accountSid, 
+                                                     final String domainSid) {
         return new CredentialListMappingReader(accountSid, domainSid);
     }
 
@@ -79,7 +79,7 @@ public class CredentialListMapping extends Resource {
      * @param domainSid The domain_sid
      * @return CredentialListMappingReader capable of executing the read
      */
-    public static CredentialListMappingReader read(final String domainSid) {
+    public static CredentialListMappingReader reader(final String domainSid) {
         return new CredentialListMappingReader(domainSid);
     }
 
@@ -91,9 +91,9 @@ public class CredentialListMapping extends Resource {
      * @param sid The sid
      * @return CredentialListMappingFetcher capable of executing the fetch
      */
-    public static CredentialListMappingFetcher fetch(final String accountSid, 
-                                                     final String domainSid, 
-                                                     final String sid) {
+    public static CredentialListMappingFetcher fetcher(final String accountSid, 
+                                                       final String domainSid, 
+                                                       final String sid) {
         return new CredentialListMappingFetcher(accountSid, domainSid, sid);
     }
 
@@ -104,8 +104,8 @@ public class CredentialListMapping extends Resource {
      * @param sid The sid
      * @return CredentialListMappingFetcher capable of executing the fetch
      */
-    public static CredentialListMappingFetcher fetch(final String domainSid, 
-                                                     final String sid) {
+    public static CredentialListMappingFetcher fetcher(final String domainSid, 
+                                                       final String sid) {
         return new CredentialListMappingFetcher(domainSid, sid);
     }
 
@@ -117,9 +117,9 @@ public class CredentialListMapping extends Resource {
      * @param sid The sid
      * @return CredentialListMappingDeleter capable of executing the delete
      */
-    public static CredentialListMappingDeleter delete(final String accountSid, 
-                                                      final String domainSid, 
-                                                      final String sid) {
+    public static CredentialListMappingDeleter deleter(final String accountSid, 
+                                                       final String domainSid, 
+                                                       final String sid) {
         return new CredentialListMappingDeleter(accountSid, domainSid, sid);
     }
 
@@ -130,8 +130,8 @@ public class CredentialListMapping extends Resource {
      * @param sid The sid
      * @return CredentialListMappingDeleter capable of executing the delete
      */
-    public static CredentialListMappingDeleter delete(final String domainSid, 
-                                                      final String sid) {
+    public static CredentialListMappingDeleter deleter(final String domainSid, 
+                                                       final String sid) {
         return new CredentialListMappingDeleter(domainSid, sid);
     }
 

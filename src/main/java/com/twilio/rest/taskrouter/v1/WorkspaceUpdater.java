@@ -122,7 +122,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Workspace execute(final TwilioRestClient client) {
+    public Workspace update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

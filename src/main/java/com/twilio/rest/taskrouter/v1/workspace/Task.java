@@ -77,8 +77,8 @@ public class Task extends Resource {
      * @param sid The sid
      * @return TaskFetcher capable of executing the fetch
      */
-    public static TaskFetcher fetch(final String workspaceSid, 
-                                    final String sid) {
+    public static TaskFetcher fetcher(final String workspaceSid, 
+                                      final String sid) {
         return new TaskFetcher(workspaceSid, sid);
     }
 
@@ -89,8 +89,8 @@ public class Task extends Resource {
      * @param sid The sid
      * @return TaskUpdater capable of executing the update
      */
-    public static TaskUpdater update(final String workspaceSid, 
-                                     final String sid) {
+    public static TaskUpdater updater(final String workspaceSid, 
+                                      final String sid) {
         return new TaskUpdater(workspaceSid, sid);
     }
 
@@ -101,8 +101,8 @@ public class Task extends Resource {
      * @param sid The sid
      * @return TaskDeleter capable of executing the delete
      */
-    public static TaskDeleter delete(final String workspaceSid, 
-                                     final String sid) {
+    public static TaskDeleter deleter(final String workspaceSid, 
+                                      final String sid) {
         return new TaskDeleter(workspaceSid, sid);
     }
 
@@ -112,7 +112,7 @@ public class Task extends Resource {
      * @param workspaceSid The workspace_sid
      * @return TaskReader capable of executing the read
      */
-    public static TaskReader read(final String workspaceSid) {
+    public static TaskReader reader(final String workspaceSid) {
         return new TaskReader(workspaceSid);
     }
 
@@ -124,9 +124,9 @@ public class Task extends Resource {
      * @param workflowSid The workflow_sid
      * @return TaskCreator capable of executing the create
      */
-    public static TaskCreator create(final String workspaceSid, 
-                                     final String attributes, 
-                                     final String workflowSid) {
+    public static TaskCreator creator(final String workspaceSid, 
+                                      final String attributes, 
+                                      final String workflowSid) {
         return new TaskCreator(workspaceSid, attributes, workflowSid);
     }
 

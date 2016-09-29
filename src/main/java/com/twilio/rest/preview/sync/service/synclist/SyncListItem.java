@@ -109,9 +109,9 @@ public class SyncListItem extends Resource {
      * @param index The index
      * @return SyncListItemFetcher capable of executing the fetch
      */
-    public static SyncListItemFetcher fetch(final String serviceSid, 
-                                            final String listSid, 
-                                            final Integer index) {
+    public static SyncListItemFetcher fetcher(final String serviceSid, 
+                                              final String listSid, 
+                                              final Integer index) {
         return new SyncListItemFetcher(serviceSid, listSid, index);
     }
 
@@ -123,9 +123,9 @@ public class SyncListItem extends Resource {
      * @param index The index
      * @return SyncListItemDeleter capable of executing the delete
      */
-    public static SyncListItemDeleter delete(final String serviceSid, 
-                                             final String listSid, 
-                                             final Integer index) {
+    public static SyncListItemDeleter deleter(final String serviceSid, 
+                                              final String listSid, 
+                                              final Integer index) {
         return new SyncListItemDeleter(serviceSid, listSid, index);
     }
 
@@ -137,9 +137,9 @@ public class SyncListItem extends Resource {
      * @param data The data
      * @return SyncListItemCreator capable of executing the create
      */
-    public static SyncListItemCreator create(final String serviceSid, 
-                                             final String listSid, 
-                                             final Map<String, Object> data) {
+    public static SyncListItemCreator creator(final String serviceSid, 
+                                              final String listSid, 
+                                              final Map<String, Object> data) {
         return new SyncListItemCreator(serviceSid, listSid, data);
     }
 
@@ -150,8 +150,8 @@ public class SyncListItem extends Resource {
      * @param listSid The list_sid
      * @return SyncListItemReader capable of executing the read
      */
-    public static SyncListItemReader read(final String serviceSid, 
-                                          final String listSid) {
+    public static SyncListItemReader reader(final String serviceSid, 
+                                            final String listSid) {
         return new SyncListItemReader(serviceSid, listSid);
     }
 
@@ -164,10 +164,10 @@ public class SyncListItem extends Resource {
      * @param data The data
      * @return SyncListItemUpdater capable of executing the update
      */
-    public static SyncListItemUpdater update(final String serviceSid, 
-                                             final String listSid, 
-                                             final Integer index, 
-                                             final Map<String, Object> data) {
+    public static SyncListItemUpdater updater(final String serviceSid, 
+                                              final String listSid, 
+                                              final Integer index, 
+                                              final Map<String, Object> data) {
         return new SyncListItemUpdater(serviceSid, listSid, index, data);
     }
 

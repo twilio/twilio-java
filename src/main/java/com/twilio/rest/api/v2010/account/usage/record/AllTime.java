@@ -164,7 +164,7 @@ public class AllTime extends Resource {
      * @param accountSid The account_sid
      * @return AllTimeReader capable of executing the read
      */
-    public static AllTimeReader read(final String accountSid) {
+    public static AllTimeReader reader(final String accountSid) {
         return new AllTimeReader(accountSid);
     }
 
@@ -173,7 +173,7 @@ public class AllTime extends Resource {
      * 
      * @return AllTimeReader capable of executing the read
      */
-    public static AllTimeReader read() {
+    public static AllTimeReader reader() {
         return new AllTimeReader();
     }
 

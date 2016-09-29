@@ -46,7 +46,7 @@ public class LocalReader extends Reader<Local> {
      * @param beta The beta
      * @return this
      */
-    public LocalReader byBeta(final Boolean beta) {
+    public LocalReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
@@ -57,7 +57,7 @@ public class LocalReader extends Reader<Local> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public LocalReader byFriendlyName(final String friendlyName) {
+    public LocalReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -68,7 +68,7 @@ public class LocalReader extends Reader<Local> {
      * @param phoneNumber The phone_number
      * @return this
      */
-    public LocalReader byPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
+    public LocalReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -80,8 +80,8 @@ public class LocalReader extends Reader<Local> {
      * @return Local ResourceSet
      */
     @Override
-    public ResourceSet<Local> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Local> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

@@ -42,7 +42,7 @@ public class RatePlan extends Resource {
      * 
      * @return RatePlanReader capable of executing the read
      */
-    public static RatePlanReader read() {
+    public static RatePlanReader reader() {
         return new RatePlanReader();
     }
 
@@ -52,7 +52,7 @@ public class RatePlan extends Resource {
      * @param sid The sid
      * @return RatePlanFetcher capable of executing the fetch
      */
-    public static RatePlanFetcher fetch(final String sid) {
+    public static RatePlanFetcher fetcher(final String sid) {
         return new RatePlanFetcher(sid);
     }
 

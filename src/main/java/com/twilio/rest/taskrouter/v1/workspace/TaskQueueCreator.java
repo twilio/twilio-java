@@ -73,7 +73,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public TaskQueue execute(final TwilioRestClient client) {
+    public TaskQueue create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

@@ -43,8 +43,8 @@ public class Notification extends Resource {
      * @param sid Fetch by unique notification Sid
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetch(final String accountSid, 
-                                            final String sid) {
+    public static NotificationFetcher fetcher(final String accountSid, 
+                                              final String sid) {
         return new NotificationFetcher(accountSid, sid);
     }
 
@@ -54,7 +54,7 @@ public class Notification extends Resource {
      * @param sid Fetch by unique notification Sid
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetch(final String sid) {
+    public static NotificationFetcher fetcher(final String sid) {
         return new NotificationFetcher(sid);
     }
 
@@ -65,8 +65,8 @@ public class Notification extends Resource {
      * @param sid Delete by unique notification Sid
      * @return NotificationDeleter capable of executing the delete
      */
-    public static NotificationDeleter delete(final String accountSid, 
-                                             final String sid) {
+    public static NotificationDeleter deleter(final String accountSid, 
+                                              final String sid) {
         return new NotificationDeleter(accountSid, sid);
     }
 
@@ -76,7 +76,7 @@ public class Notification extends Resource {
      * @param sid Delete by unique notification Sid
      * @return NotificationDeleter capable of executing the delete
      */
-    public static NotificationDeleter delete(final String sid) {
+    public static NotificationDeleter deleter(final String sid) {
         return new NotificationDeleter(sid);
     }
 
@@ -86,7 +86,7 @@ public class Notification extends Resource {
      * @param accountSid The account_sid
      * @return NotificationReader capable of executing the read
      */
-    public static NotificationReader read(final String accountSid) {
+    public static NotificationReader reader(final String accountSid) {
         return new NotificationReader(accountSid);
     }
 
@@ -95,7 +95,7 @@ public class Notification extends Resource {
      * 
      * @return NotificationReader capable of executing the read
      */
-    public static NotificationReader read() {
+    public static NotificationReader reader() {
         return new NotificationReader();
     }
 

@@ -43,9 +43,9 @@ public class Recording extends Resource {
      * @param sid The sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetch(final String accountSid, 
-                                         final String callSid, 
-                                         final String sid) {
+    public static RecordingFetcher fetcher(final String accountSid, 
+                                           final String callSid, 
+                                           final String sid) {
         return new RecordingFetcher(accountSid, callSid, sid);
     }
 
@@ -56,8 +56,8 @@ public class Recording extends Resource {
      * @param sid The sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetch(final String callSid, 
-                                         final String sid) {
+    public static RecordingFetcher fetcher(final String callSid, 
+                                           final String sid) {
         return new RecordingFetcher(callSid, sid);
     }
 
@@ -69,9 +69,9 @@ public class Recording extends Resource {
      * @param sid The sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter delete(final String accountSid, 
-                                          final String callSid, 
-                                          final String sid) {
+    public static RecordingDeleter deleter(final String accountSid, 
+                                           final String callSid, 
+                                           final String sid) {
         return new RecordingDeleter(accountSid, callSid, sid);
     }
 
@@ -82,8 +82,8 @@ public class Recording extends Resource {
      * @param sid The sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter delete(final String callSid, 
-                                          final String sid) {
+    public static RecordingDeleter deleter(final String callSid, 
+                                           final String sid) {
         return new RecordingDeleter(callSid, sid);
     }
 
@@ -94,8 +94,8 @@ public class Recording extends Resource {
      * @param callSid The call_sid
      * @return RecordingReader capable of executing the read
      */
-    public static RecordingReader read(final String accountSid, 
-                                       final String callSid) {
+    public static RecordingReader reader(final String accountSid, 
+                                         final String callSid) {
         return new RecordingReader(accountSid, callSid);
     }
 
@@ -105,7 +105,7 @@ public class Recording extends Resource {
      * @param callSid The call_sid
      * @return RecordingReader capable of executing the read
      */
-    public static RecordingReader read(final String callSid) {
+    public static RecordingReader reader(final String callSid) {
         return new RecordingReader(callSid);
     }
 

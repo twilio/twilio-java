@@ -56,7 +56,7 @@ public class MediaReader extends Reader<Media> {
      * @param absoluteDateCreated Filter by date created
      * @return this
      */
-    public MediaReader byDateCreated(final DateTime absoluteDateCreated) {
+    public MediaReader setDateCreated(final DateTime absoluteDateCreated) {
         this.rangeDateCreated = null;
         this.absoluteDateCreated = absoluteDateCreated;
         return this;
@@ -69,7 +69,7 @@ public class MediaReader extends Reader<Media> {
      * @param rangeDateCreated Filter by date created
      * @return this
      */
-    public MediaReader byDateCreated(final Range<DateTime> rangeDateCreated) {
+    public MediaReader setDateCreated(final Range<DateTime> rangeDateCreated) {
         this.absoluteDateCreated = null;
         this.rangeDateCreated = rangeDateCreated;
         return this;
@@ -82,8 +82,8 @@ public class MediaReader extends Reader<Media> {
      * @return Media ResourceSet
      */
     @Override
-    public ResourceSet<Media> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Media> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

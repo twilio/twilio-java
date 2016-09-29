@@ -37,7 +37,7 @@ public class AlertFetcher extends Fetcher<Alert> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Alert execute(final TwilioRestClient client) {
+    public Alert fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),

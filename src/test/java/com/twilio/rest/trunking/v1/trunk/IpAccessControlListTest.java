@@ -51,7 +51,7 @@ public class IpAccessControlListTest {
         }};
         
         try {
-            IpAccessControlList.fetch("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            IpAccessControlList.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(IpAccessControlList.fetch("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(IpAccessControlList.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class IpAccessControlListTest {
         }};
         
         try {
-            IpAccessControlList.delete("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            IpAccessControlList.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
         
-        IpAccessControlList.delete("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        IpAccessControlList.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class IpAccessControlListTest {
         }};
         
         try {
-            IpAccessControlList.create("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            IpAccessControlList.creator("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
         
-        IpAccessControlList.create("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        IpAccessControlList.creator("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class IpAccessControlListTest {
         }};
         
         try {
-            IpAccessControlList.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            IpAccessControlList.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(IpAccessControlList.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(IpAccessControlList.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,6 +173,6 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(IpAccessControlList.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(IpAccessControlList.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

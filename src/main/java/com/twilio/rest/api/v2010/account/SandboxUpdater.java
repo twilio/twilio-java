@@ -148,7 +148,7 @@ public class SandboxUpdater extends Updater<Sandbox> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Sandbox execute(final TwilioRestClient client) {
+    public Sandbox update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

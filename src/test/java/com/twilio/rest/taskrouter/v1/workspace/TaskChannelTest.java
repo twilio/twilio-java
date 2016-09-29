@@ -51,7 +51,7 @@ public class TaskChannelTest {
         }};
         
         try {
-            TaskChannel.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TaskChannel.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TaskChannel.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TaskChannel.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TaskChannelTest {
         }};
         
         try {
-            TaskChannel.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TaskChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TaskChannel.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TaskChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -109,6 +109,6 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TaskChannel.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TaskChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

@@ -45,7 +45,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Reservation execute(final TwilioRestClient client) {
+    public Reservation fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),

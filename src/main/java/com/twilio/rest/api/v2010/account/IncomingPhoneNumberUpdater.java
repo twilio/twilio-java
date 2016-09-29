@@ -33,6 +33,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     private URI smsUrl;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+    private String trunkSid;
     private String voiceApplicationSid;
     private Boolean voiceCallerIdLookup;
     private HttpMethod voiceFallbackMethod;
@@ -218,6 +219,21 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
+     * The 34 character sid of the Trunk Twilio should use to handle phone calls to
+     * this number. If a `TrunkSid` is present, Twilio will ignore all of the voice
+     * urls  and voice applications above and use those set on the Trunk. Setting a
+     * `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice
+     * versa..
+     * 
+     * @param trunkSid Unique string to identify the trunk
+     * @return this
+     */
+    public IncomingPhoneNumberUpdater setTrunkSid(final String trunkSid) {
+        this.trunkSid = trunkSid;
+        return this;
+    }
+
+    /**
      * The 34 character sid of the application Twilio should use to handle phone
      * calls to this number. If a `VoiceApplicationSid` is present, Twilio will
      * ignore all of the voice urls above and use those set on the application.
@@ -325,7 +341,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IncomingPhoneNumber execute(final TwilioRestClient client) {
+    public IncomingPhoneNumber update(final TwilioRestClient client) {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,
@@ -401,6 +417,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         
         if (statusCallbackMethod != null) {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+        }
+        
+        if (trunkSid != null) {
+            request.addPostParam("TrunkSid", trunkSid);
         }
         
         if (voiceApplicationSid != null) {

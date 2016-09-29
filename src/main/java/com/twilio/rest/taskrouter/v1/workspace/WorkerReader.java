@@ -44,7 +44,7 @@ public class WorkerReader extends Reader<Worker> {
      * @param activityName The activity_name
      * @return this
      */
-    public WorkerReader byActivityName(final String activityName) {
+    public WorkerReader setActivityName(final String activityName) {
         this.activityName = activityName;
         return this;
     }
@@ -55,7 +55,7 @@ public class WorkerReader extends Reader<Worker> {
      * @param activitySid The activity_sid
      * @return this
      */
-    public WorkerReader byActivitySid(final String activitySid) {
+    public WorkerReader setActivitySid(final String activitySid) {
         this.activitySid = activitySid;
         return this;
     }
@@ -66,7 +66,7 @@ public class WorkerReader extends Reader<Worker> {
      * @param available The available
      * @return this
      */
-    public WorkerReader byAvailable(final String available) {
+    public WorkerReader setAvailable(final String available) {
         this.available = available;
         return this;
     }
@@ -77,7 +77,7 @@ public class WorkerReader extends Reader<Worker> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public WorkerReader byFriendlyName(final String friendlyName) {
+    public WorkerReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -88,7 +88,7 @@ public class WorkerReader extends Reader<Worker> {
      * @param targetWorkersExpression The target_workers_expression
      * @return this
      */
-    public WorkerReader byTargetWorkersExpression(final String targetWorkersExpression) {
+    public WorkerReader setTargetWorkersExpression(final String targetWorkersExpression) {
         this.targetWorkersExpression = targetWorkersExpression;
         return this;
     }
@@ -99,7 +99,7 @@ public class WorkerReader extends Reader<Worker> {
      * @param taskQueueName The task_queue_name
      * @return this
      */
-    public WorkerReader byTaskQueueName(final String taskQueueName) {
+    public WorkerReader setTaskQueueName(final String taskQueueName) {
         this.taskQueueName = taskQueueName;
         return this;
     }
@@ -110,7 +110,7 @@ public class WorkerReader extends Reader<Worker> {
      * @param taskQueueSid The task_queue_sid
      * @return this
      */
-    public WorkerReader byTaskQueueSid(final String taskQueueSid) {
+    public WorkerReader setTaskQueueSid(final String taskQueueSid) {
         this.taskQueueSid = taskQueueSid;
         return this;
     }
@@ -122,8 +122,8 @@ public class WorkerReader extends Reader<Worker> {
      * @return Worker ResourceSet
      */
     @Override
-    public ResourceSet<Worker> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Worker> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

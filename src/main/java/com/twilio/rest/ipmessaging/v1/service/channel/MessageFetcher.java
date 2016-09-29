@@ -45,7 +45,7 @@ public class MessageFetcher extends Fetcher<Message> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Message execute(final TwilioRestClient client) {
+    public Message fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),

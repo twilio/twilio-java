@@ -48,7 +48,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @param category The category
      * @return this
      */
-    public AllTimeReader byCategory(final AllTime.Category category) {
+    public AllTimeReader setCategory(final AllTime.Category category) {
         this.category = category;
         return this;
     }
@@ -59,7 +59,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @param startDate The start_date
      * @return this
      */
-    public AllTimeReader byStartDate(final LocalDate startDate) {
+    public AllTimeReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -70,7 +70,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @param endDate The end_date
      * @return this
      */
-    public AllTimeReader byEndDate(final LocalDate endDate) {
+    public AllTimeReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -82,8 +82,8 @@ public class AllTimeReader extends Reader<AllTime> {
      * @return AllTime ResourceSet
      */
     @Override
-    public ResourceSet<AllTime> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<AllTime> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

@@ -41,8 +41,8 @@ public class TaskQueueStatistics extends Resource {
      * @param taskQueueSid The task_queue_sid
      * @return TaskQueueStatisticsFetcher capable of executing the fetch
      */
-    public static TaskQueueStatisticsFetcher fetch(final String workspaceSid, 
-                                                   final String taskQueueSid) {
+    public static TaskQueueStatisticsFetcher fetcher(final String workspaceSid, 
+                                                     final String taskQueueSid) {
         return new TaskQueueStatisticsFetcher(workspaceSid, taskQueueSid);
     }
 

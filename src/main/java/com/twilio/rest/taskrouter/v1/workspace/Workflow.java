@@ -43,8 +43,8 @@ public class Workflow extends Resource {
      * @param sid The sid
      * @return WorkflowFetcher capable of executing the fetch
      */
-    public static WorkflowFetcher fetch(final String workspaceSid, 
-                                        final String sid) {
+    public static WorkflowFetcher fetcher(final String workspaceSid, 
+                                          final String sid) {
         return new WorkflowFetcher(workspaceSid, sid);
     }
 
@@ -55,8 +55,8 @@ public class Workflow extends Resource {
      * @param sid The sid
      * @return WorkflowUpdater capable of executing the update
      */
-    public static WorkflowUpdater update(final String workspaceSid, 
-                                         final String sid) {
+    public static WorkflowUpdater updater(final String workspaceSid, 
+                                          final String sid) {
         return new WorkflowUpdater(workspaceSid, sid);
     }
 
@@ -67,8 +67,8 @@ public class Workflow extends Resource {
      * @param sid The sid
      * @return WorkflowDeleter capable of executing the delete
      */
-    public static WorkflowDeleter delete(final String workspaceSid, 
-                                         final String sid) {
+    public static WorkflowDeleter deleter(final String workspaceSid, 
+                                          final String sid) {
         return new WorkflowDeleter(workspaceSid, sid);
     }
 
@@ -78,7 +78,7 @@ public class Workflow extends Resource {
      * @param workspaceSid The workspace_sid
      * @return WorkflowReader capable of executing the read
      */
-    public static WorkflowReader read(final String workspaceSid) {
+    public static WorkflowReader reader(final String workspaceSid) {
         return new WorkflowReader(workspaceSid);
     }
 
@@ -90,9 +90,9 @@ public class Workflow extends Resource {
      * @param configuration The configuration
      * @return WorkflowCreator capable of executing the create
      */
-    public static WorkflowCreator create(final String workspaceSid, 
-                                         final String friendlyName, 
-                                         final String configuration) {
+    public static WorkflowCreator creator(final String workspaceSid, 
+                                          final String friendlyName, 
+                                          final String configuration) {
         return new WorkflowCreator(workspaceSid, friendlyName, configuration);
     }
 

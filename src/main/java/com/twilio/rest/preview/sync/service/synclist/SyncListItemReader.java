@@ -44,7 +44,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
      * @param order The order
      * @return this
      */
-    public SyncListItemReader byOrder(final SyncListItem.QueryResultOrder order) {
+    public SyncListItemReader setOrder(final SyncListItem.QueryResultOrder order) {
         this.order = order;
         return this;
     }
@@ -55,7 +55,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
      * @param from The from
      * @return this
      */
-    public SyncListItemReader byFrom(final String from) {
+    public SyncListItemReader setFrom(final String from) {
         this.from = from;
         return this;
     }
@@ -66,7 +66,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
      * @param bounds The bounds
      * @return this
      */
-    public SyncListItemReader byBounds(final SyncListItem.QueryFromBoundType bounds) {
+    public SyncListItemReader setBounds(final SyncListItem.QueryFromBoundType bounds) {
         this.bounds = bounds;
         return this;
     }
@@ -78,8 +78,8 @@ public class SyncListItemReader extends Reader<SyncListItem> {
      * @return SyncListItem ResourceSet
      */
     @Override
-    public ResourceSet<SyncListItem> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<SyncListItem> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

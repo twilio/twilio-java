@@ -82,9 +82,9 @@ public class Feedback extends Resource {
      * @param qualityScore The quality_score
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator create(final String accountSid, 
-                                         final String callSid, 
-                                         final Integer qualityScore) {
+    public static FeedbackCreator creator(final String accountSid, 
+                                          final String callSid, 
+                                          final Integer qualityScore) {
         return new FeedbackCreator(accountSid, callSid, qualityScore);
     }
 
@@ -95,8 +95,8 @@ public class Feedback extends Resource {
      * @param qualityScore The quality_score
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator create(final String callSid, 
-                                         final Integer qualityScore) {
+    public static FeedbackCreator creator(final String callSid, 
+                                          final Integer qualityScore) {
         return new FeedbackCreator(callSid, qualityScore);
     }
 
@@ -107,8 +107,8 @@ public class Feedback extends Resource {
      * @param callSid The call sid that uniquely identifies the call
      * @return FeedbackFetcher capable of executing the fetch
      */
-    public static FeedbackFetcher fetch(final String accountSid, 
-                                        final String callSid) {
+    public static FeedbackFetcher fetcher(final String accountSid, 
+                                          final String callSid) {
         return new FeedbackFetcher(accountSid, callSid);
     }
 
@@ -118,7 +118,7 @@ public class Feedback extends Resource {
      * @param callSid The call sid that uniquely identifies the call
      * @return FeedbackFetcher capable of executing the fetch
      */
-    public static FeedbackFetcher fetch(final String callSid) {
+    public static FeedbackFetcher fetcher(final String callSid) {
         return new FeedbackFetcher(callSid);
     }
 
@@ -130,9 +130,9 @@ public class Feedback extends Resource {
      * @param qualityScore An integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
-    public static FeedbackUpdater update(final String accountSid, 
-                                         final String callSid, 
-                                         final Integer qualityScore) {
+    public static FeedbackUpdater updater(final String accountSid, 
+                                          final String callSid, 
+                                          final Integer qualityScore) {
         return new FeedbackUpdater(accountSid, callSid, qualityScore);
     }
 
@@ -143,8 +143,8 @@ public class Feedback extends Resource {
      * @param qualityScore An integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
-    public static FeedbackUpdater update(final String callSid, 
-                                         final Integer qualityScore) {
+    public static FeedbackUpdater updater(final String callSid, 
+                                          final Integer qualityScore) {
         return new FeedbackUpdater(callSid, qualityScore);
     }
 

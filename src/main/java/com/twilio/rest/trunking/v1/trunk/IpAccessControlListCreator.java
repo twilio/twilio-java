@@ -41,7 +41,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IpAccessControlList execute(final TwilioRestClient client) {
+    public IpAccessControlList create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),

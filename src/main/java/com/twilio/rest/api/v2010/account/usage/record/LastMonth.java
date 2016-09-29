@@ -164,7 +164,7 @@ public class LastMonth extends Resource {
      * @param accountSid The account_sid
      * @return LastMonthReader capable of executing the read
      */
-    public static LastMonthReader read(final String accountSid) {
+    public static LastMonthReader reader(final String accountSid) {
         return new LastMonthReader(accountSid);
     }
 
@@ -173,7 +173,7 @@ public class LastMonth extends Resource {
      * 
      * @return LastMonthReader capable of executing the read
      */
-    public static LastMonthReader read() {
+    public static LastMonthReader reader() {
         return new LastMonthReader();
     }
 

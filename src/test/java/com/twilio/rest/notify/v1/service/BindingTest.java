@@ -51,7 +51,7 @@ public class BindingTest {
         }};
         
         try {
-            Binding.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Binding.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class BindingTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Binding.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Binding.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class BindingTest {
         }};
         
         try {
-            Binding.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Binding.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class BindingTest {
             result = new ObjectMapper();
         }};
         
-        Binding.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Binding.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -118,7 +118,7 @@ public class BindingTest {
                     }};
         
         try {
-            Binding.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "endpoint", "identity", Binding.BindingType.APN, "address").execute();
+            Binding.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "endpoint", "identity", Binding.BindingType.APN, "address").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class BindingTest {
             result = new ObjectMapper();
         }};
         
-        Binding.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "endpoint", "identity", Binding.BindingType.APN, "address").execute();
+        Binding.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "endpoint", "identity", Binding.BindingType.APN, "address").create();
     }
 
     @Test
@@ -150,7 +150,7 @@ public class BindingTest {
         }};
         
         try {
-            Binding.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Binding.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -164,7 +164,7 @@ public class BindingTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Binding.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Binding.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -176,6 +176,6 @@ public class BindingTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Binding.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Binding.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

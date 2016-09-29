@@ -55,7 +55,7 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public NewSigningKey execute(final TwilioRestClient client) {
+    public NewSigningKey create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

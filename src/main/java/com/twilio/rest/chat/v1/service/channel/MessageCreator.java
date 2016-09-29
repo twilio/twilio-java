@@ -69,7 +69,7 @@ public class MessageCreator extends Creator<Message> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Message execute(final TwilioRestClient client) {
+    public Message create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),

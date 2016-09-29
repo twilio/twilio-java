@@ -50,7 +50,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public FeedbackSummary execute(final TwilioRestClient client) {
+    public FeedbackSummary fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

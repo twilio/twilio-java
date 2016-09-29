@@ -42,7 +42,7 @@ public class Device extends Resource {
      * @param sid The sid
      * @return DeviceFetcher capable of executing the fetch
      */
-    public static DeviceFetcher fetch(final String sid) {
+    public static DeviceFetcher fetcher(final String sid) {
         return new DeviceFetcher(sid);
     }
 
@@ -51,7 +51,7 @@ public class Device extends Resource {
      * 
      * @return DeviceReader capable of executing the read
      */
-    public static DeviceReader read() {
+    public static DeviceReader reader() {
         return new DeviceReader();
     }
 
@@ -61,7 +61,7 @@ public class Device extends Resource {
      * @param ratePlan The rate_plan
      * @return DeviceCreator capable of executing the create
      */
-    public static DeviceCreator create(final String ratePlan) {
+    public static DeviceCreator creator(final String ratePlan) {
         return new DeviceCreator(ratePlan);
     }
 
@@ -71,7 +71,7 @@ public class Device extends Resource {
      * @param sid The sid
      * @return DeviceUpdater capable of executing the update
      */
-    public static DeviceUpdater update(final String sid) {
+    public static DeviceUpdater updater(final String sid) {
         return new DeviceUpdater(sid);
     }
 

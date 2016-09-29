@@ -38,8 +38,8 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
      * @return PhoneNumber ResourceSet
      */
     @Override
-    public ResourceSet<PhoneNumber> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<PhoneNumber> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

@@ -50,7 +50,7 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public OutgoingCallerId execute(final TwilioRestClient client) {
+    public OutgoingCallerId fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

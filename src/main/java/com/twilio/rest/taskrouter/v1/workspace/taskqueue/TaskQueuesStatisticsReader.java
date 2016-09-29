@@ -43,7 +43,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * @param endDate The end_date
      * @return this
      */
-    public TaskQueuesStatisticsReader byEndDate(final DateTime endDate) {
+    public TaskQueuesStatisticsReader setEndDate(final DateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -54,7 +54,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public TaskQueuesStatisticsReader byFriendlyName(final String friendlyName) {
+    public TaskQueuesStatisticsReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -65,7 +65,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * @param minutes The minutes
      * @return this
      */
-    public TaskQueuesStatisticsReader byMinutes(final Integer minutes) {
+    public TaskQueuesStatisticsReader setMinutes(final Integer minutes) {
         this.minutes = minutes;
         return this;
     }
@@ -76,7 +76,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * @param startDate The start_date
      * @return this
      */
-    public TaskQueuesStatisticsReader byStartDate(final DateTime startDate) {
+    public TaskQueuesStatisticsReader setStartDate(final DateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -88,8 +88,8 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * @return TaskQueuesStatistics ResourceSet
      */
     @Override
-    public ResourceSet<TaskQueuesStatistics> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<TaskQueuesStatistics> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

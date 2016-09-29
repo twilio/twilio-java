@@ -41,7 +41,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Workflow execute(final TwilioRestClient client) {
+    public Workflow fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),

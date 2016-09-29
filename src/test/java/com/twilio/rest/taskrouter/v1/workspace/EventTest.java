@@ -51,7 +51,7 @@ public class EventTest {
         }};
         
         try {
-            Event.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "EVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Event.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "EVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class EventTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Event.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "EVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Event.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "EVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class EventTest {
         }};
         
         try {
-            Event.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Event.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class EventTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Event.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Event.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -109,6 +109,6 @@ public class EventTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Event.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Event.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

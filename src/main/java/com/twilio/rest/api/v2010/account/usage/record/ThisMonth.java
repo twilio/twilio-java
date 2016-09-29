@@ -164,7 +164,7 @@ public class ThisMonth extends Resource {
      * @param accountSid The account_sid
      * @return ThisMonthReader capable of executing the read
      */
-    public static ThisMonthReader read(final String accountSid) {
+    public static ThisMonthReader reader(final String accountSid) {
         return new ThisMonthReader(accountSid);
     }
 
@@ -173,7 +173,7 @@ public class ThisMonth extends Resource {
      * 
      * @return ThisMonthReader capable of executing the read
      */
-    public static ThisMonthReader read() {
+    public static ThisMonthReader reader() {
         return new ThisMonthReader();
     }
 

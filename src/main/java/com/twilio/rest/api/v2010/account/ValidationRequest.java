@@ -40,8 +40,8 @@ public class ValidationRequest extends Resource {
      * @param phoneNumber The phone_number
      * @return ValidationRequestCreator capable of executing the create
      */
-    public static ValidationRequestCreator create(final String accountSid, 
-                                                  final com.twilio.type.PhoneNumber phoneNumber) {
+    public static ValidationRequestCreator creator(final String accountSid, 
+                                                   final com.twilio.type.PhoneNumber phoneNumber) {
         return new ValidationRequestCreator(accountSid, phoneNumber);
     }
 
@@ -51,7 +51,7 @@ public class ValidationRequest extends Resource {
      * @param phoneNumber The phone_number
      * @return ValidationRequestCreator capable of executing the create
      */
-    public static ValidationRequestCreator create(final com.twilio.type.PhoneNumber phoneNumber) {
+    public static ValidationRequestCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
         return new ValidationRequestCreator(phoneNumber);
     }
 

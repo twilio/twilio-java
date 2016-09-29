@@ -41,7 +41,7 @@ public class Worker extends Resource {
      * @param workspaceSid The workspace_sid
      * @return WorkerReader capable of executing the read
      */
-    public static WorkerReader read(final String workspaceSid) {
+    public static WorkerReader reader(final String workspaceSid) {
         return new WorkerReader(workspaceSid);
     }
 
@@ -52,8 +52,8 @@ public class Worker extends Resource {
      * @param friendlyName The friendly_name
      * @return WorkerCreator capable of executing the create
      */
-    public static WorkerCreator create(final String workspaceSid, 
-                                       final String friendlyName) {
+    public static WorkerCreator creator(final String workspaceSid, 
+                                        final String friendlyName) {
         return new WorkerCreator(workspaceSid, friendlyName);
     }
 
@@ -64,8 +64,8 @@ public class Worker extends Resource {
      * @param sid The sid
      * @return WorkerFetcher capable of executing the fetch
      */
-    public static WorkerFetcher fetch(final String workspaceSid, 
-                                      final String sid) {
+    public static WorkerFetcher fetcher(final String workspaceSid, 
+                                        final String sid) {
         return new WorkerFetcher(workspaceSid, sid);
     }
 
@@ -76,8 +76,8 @@ public class Worker extends Resource {
      * @param sid The sid
      * @return WorkerUpdater capable of executing the update
      */
-    public static WorkerUpdater update(final String workspaceSid, 
-                                       final String sid) {
+    public static WorkerUpdater updater(final String workspaceSid, 
+                                        final String sid) {
         return new WorkerUpdater(workspaceSid, sid);
     }
 
@@ -88,8 +88,8 @@ public class Worker extends Resource {
      * @param sid The sid
      * @return WorkerDeleter capable of executing the delete
      */
-    public static WorkerDeleter delete(final String workspaceSid, 
-                                       final String sid) {
+    public static WorkerDeleter deleter(final String workspaceSid, 
+                                        final String sid) {
         return new WorkerDeleter(workspaceSid, sid);
     }
 

@@ -82,7 +82,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Feedback execute(final TwilioRestClient client) {
+    public Feedback update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

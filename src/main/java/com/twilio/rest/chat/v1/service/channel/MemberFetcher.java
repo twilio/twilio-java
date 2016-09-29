@@ -45,7 +45,7 @@ public class MemberFetcher extends Fetcher<Member> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Member execute(final TwilioRestClient client) {
+    public Member fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),

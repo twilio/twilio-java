@@ -41,7 +41,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public CredentialList execute(final TwilioRestClient client) {
+    public CredentialList create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),

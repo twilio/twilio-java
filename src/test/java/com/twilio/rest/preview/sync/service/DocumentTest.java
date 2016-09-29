@@ -51,7 +51,7 @@ public class DocumentTest {
         }};
         
         try {
-            Document.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "sid").execute();
+            Document.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "sid").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -71,7 +71,7 @@ public class DocumentTest {
         }};
         
         try {
-            Document.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "sid").execute();
+            Document.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "sid").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -91,7 +91,7 @@ public class DocumentTest {
         }};
         
         try {
-            Document.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Document.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -111,7 +111,7 @@ public class DocumentTest {
         }};
         
         try {
-            Document.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Document.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -131,7 +131,7 @@ public class DocumentTest {
         }};
         
         try {
-            Document.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "sid", new java.util.HashMap<String, Object>()).execute();
+            Document.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "sid", new java.util.HashMap<String, Object>()).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

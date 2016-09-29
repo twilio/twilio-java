@@ -51,7 +51,7 @@ public class CredentialListTest {
         }};
         
         try {
-            CredentialList.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            CredentialList.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(CredentialList.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(CredentialList.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(CredentialList.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(CredentialList.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class CredentialListTest {
         }};
         
         try {
-            CredentialList.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+            CredentialList.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
         
-        CredentialList.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+        CredentialList.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").create();
     }
 
     @Test
@@ -127,7 +127,7 @@ public class CredentialListTest {
         }};
         
         try {
-            CredentialList.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            CredentialList.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(CredentialList.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(CredentialList.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class CredentialListTest {
         }};
         
         try {
-            CredentialList.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+            CredentialList.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
         
-        CredentialList.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+        CredentialList.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").update();
     }
 
     @Test
@@ -191,7 +191,7 @@ public class CredentialListTest {
         }};
         
         try {
-            CredentialList.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            CredentialList.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
         
-        CredentialList.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        CredentialList.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 }

@@ -68,7 +68,7 @@ public class QueueCreator extends Creator<Queue> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Queue execute(final TwilioRestClient client) {
+    public Queue create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

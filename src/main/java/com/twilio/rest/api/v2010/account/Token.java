@@ -43,7 +43,7 @@ public class Token extends Resource {
      * @param accountSid The account_sid
      * @return TokenCreator capable of executing the create
      */
-    public static TokenCreator create(final String accountSid) {
+    public static TokenCreator creator(final String accountSid) {
         return new TokenCreator(accountSid);
     }
 
@@ -52,7 +52,7 @@ public class Token extends Resource {
      * 
      * @return TokenCreator capable of executing the create
      */
-    public static TokenCreator create() {
+    public static TokenCreator creator() {
         return new TokenCreator();
     }
 

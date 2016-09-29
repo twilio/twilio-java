@@ -37,7 +37,7 @@ public class NumberFetcher extends Fetcher<Number> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Number execute(final TwilioRestClient client) {
+    public Number fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),

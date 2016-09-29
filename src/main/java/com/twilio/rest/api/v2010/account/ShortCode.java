@@ -43,8 +43,8 @@ public class ShortCode extends Resource {
      * @param sid Fetch by unique short-code Sid
      * @return ShortCodeFetcher capable of executing the fetch
      */
-    public static ShortCodeFetcher fetch(final String accountSid, 
-                                         final String sid) {
+    public static ShortCodeFetcher fetcher(final String accountSid, 
+                                           final String sid) {
         return new ShortCodeFetcher(accountSid, sid);
     }
 
@@ -54,7 +54,7 @@ public class ShortCode extends Resource {
      * @param sid Fetch by unique short-code Sid
      * @return ShortCodeFetcher capable of executing the fetch
      */
-    public static ShortCodeFetcher fetch(final String sid) {
+    public static ShortCodeFetcher fetcher(final String sid) {
         return new ShortCodeFetcher(sid);
     }
 
@@ -65,8 +65,8 @@ public class ShortCode extends Resource {
      * @param sid The sid
      * @return ShortCodeUpdater capable of executing the update
      */
-    public static ShortCodeUpdater update(final String accountSid, 
-                                          final String sid) {
+    public static ShortCodeUpdater updater(final String accountSid, 
+                                           final String sid) {
         return new ShortCodeUpdater(accountSid, sid);
     }
 
@@ -76,7 +76,7 @@ public class ShortCode extends Resource {
      * @param sid The sid
      * @return ShortCodeUpdater capable of executing the update
      */
-    public static ShortCodeUpdater update(final String sid) {
+    public static ShortCodeUpdater updater(final String sid) {
         return new ShortCodeUpdater(sid);
     }
 
@@ -86,7 +86,7 @@ public class ShortCode extends Resource {
      * @param accountSid The account_sid
      * @return ShortCodeReader capable of executing the read
      */
-    public static ShortCodeReader read(final String accountSid) {
+    public static ShortCodeReader reader(final String accountSid) {
         return new ShortCodeReader(accountSid);
     }
 
@@ -95,7 +95,7 @@ public class ShortCode extends Resource {
      * 
      * @return ShortCodeReader capable of executing the read
      */
-    public static ShortCodeReader read() {
+    public static ShortCodeReader reader() {
         return new ShortCodeReader();
     }
 

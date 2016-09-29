@@ -283,7 +283,7 @@ public class MobileCreator extends Creator<Mobile> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Mobile execute(final TwilioRestClient client) {
+    public Mobile create(final TwilioRestClient client) {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,

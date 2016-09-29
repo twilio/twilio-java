@@ -51,7 +51,7 @@ public class ApplicationTest {
         }};
         
         try {
-            Application.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+            Application.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
         
-        Application.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+        Application.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").create();
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ApplicationTest {
         }};
         
         try {
-            Application.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Application.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
         
-        Application.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Application.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class ApplicationTest {
         }};
         
         try {
-            Application.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Application.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Application.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Application.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -147,7 +147,7 @@ public class ApplicationTest {
         }};
         
         try {
-            Application.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Application.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Application.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Application.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Application.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Application.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -191,7 +191,7 @@ public class ApplicationTest {
         }};
         
         try {
-            Application.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Application.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
         
-        Application.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Application.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

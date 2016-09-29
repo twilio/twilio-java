@@ -48,7 +48,7 @@ public class RecordReader extends Reader<Record> {
      * @param category Only include usage of a given category
      * @return this
      */
-    public RecordReader byCategory(final Record.Category category) {
+    public RecordReader setCategory(final Record.Category category) {
         this.category = category;
         return this;
     }
@@ -62,7 +62,7 @@ public class RecordReader extends Reader<Record> {
      * @param startDate Filter by start date
      * @return this
      */
-    public RecordReader byStartDate(final LocalDate startDate) {
+    public RecordReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -75,7 +75,7 @@ public class RecordReader extends Reader<Record> {
      * @param endDate Filter by end date
      * @return this
      */
-    public RecordReader byEndDate(final LocalDate endDate) {
+    public RecordReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -87,8 +87,8 @@ public class RecordReader extends Reader<Record> {
      * @return Record ResourceSet
      */
     @Override
-    public ResourceSet<Record> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Record> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

@@ -46,7 +46,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param beta The beta
      * @return this
      */
-    public TollFreeReader byBeta(final Boolean beta) {
+    public TollFreeReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
@@ -57,7 +57,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public TollFreeReader byFriendlyName(final String friendlyName) {
+    public TollFreeReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -68,7 +68,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param phoneNumber The phone_number
      * @return this
      */
-    public TollFreeReader byPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
+    public TollFreeReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -80,8 +80,8 @@ public class TollFreeReader extends Reader<TollFree> {
      * @return TollFree ResourceSet
      */
     @Override
-    public ResourceSet<TollFree> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<TollFree> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

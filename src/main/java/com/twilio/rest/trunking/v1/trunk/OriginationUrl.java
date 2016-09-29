@@ -43,8 +43,8 @@ public class OriginationUrl extends Resource {
      * @param sid The sid
      * @return OriginationUrlFetcher capable of executing the fetch
      */
-    public static OriginationUrlFetcher fetch(final String trunkSid, 
-                                              final String sid) {
+    public static OriginationUrlFetcher fetcher(final String trunkSid, 
+                                                final String sid) {
         return new OriginationUrlFetcher(trunkSid, sid);
     }
 
@@ -55,8 +55,8 @@ public class OriginationUrl extends Resource {
      * @param sid The sid
      * @return OriginationUrlDeleter capable of executing the delete
      */
-    public static OriginationUrlDeleter delete(final String trunkSid, 
-                                               final String sid) {
+    public static OriginationUrlDeleter deleter(final String trunkSid, 
+                                                final String sid) {
         return new OriginationUrlDeleter(trunkSid, sid);
     }
 
@@ -71,12 +71,12 @@ public class OriginationUrl extends Resource {
      * @param sipUrl The sip_url
      * @return OriginationUrlCreator capable of executing the create
      */
-    public static OriginationUrlCreator create(final String trunkSid, 
-                                               final Integer weight, 
-                                               final Integer priority, 
-                                               final Boolean enabled, 
-                                               final String friendlyName, 
-                                               final URI sipUrl) {
+    public static OriginationUrlCreator creator(final String trunkSid, 
+                                                final Integer weight, 
+                                                final Integer priority, 
+                                                final Boolean enabled, 
+                                                final String friendlyName, 
+                                                final URI sipUrl) {
         return new OriginationUrlCreator(trunkSid, weight, priority, enabled, friendlyName, sipUrl);
     }
 
@@ -86,7 +86,7 @@ public class OriginationUrl extends Resource {
      * @param trunkSid The trunk_sid
      * @return OriginationUrlReader capable of executing the read
      */
-    public static OriginationUrlReader read(final String trunkSid) {
+    public static OriginationUrlReader reader(final String trunkSid) {
         return new OriginationUrlReader(trunkSid);
     }
 
@@ -97,8 +97,8 @@ public class OriginationUrl extends Resource {
      * @param sid The sid
      * @return OriginationUrlUpdater capable of executing the update
      */
-    public static OriginationUrlUpdater update(final String trunkSid, 
-                                               final String sid) {
+    public static OriginationUrlUpdater updater(final String trunkSid, 
+                                                final String sid) {
         return new OriginationUrlUpdater(trunkSid, sid);
     }
 

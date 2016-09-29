@@ -90,7 +90,7 @@ public class BindingCreator extends Creator<Binding> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Binding execute(final TwilioRestClient client) {
+    public Binding create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),

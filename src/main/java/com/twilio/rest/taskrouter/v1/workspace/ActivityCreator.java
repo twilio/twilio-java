@@ -20,21 +20,29 @@ import com.twilio.rest.Domains;
 public class ActivityCreator extends Creator<Activity> {
     private final String workspaceSid;
     private final String friendlyName;
-    private final Boolean available;
+    private Boolean available;
 
     /**
      * Construct a new ActivityCreator.
      * 
      * @param workspaceSid The workspace_sid
      * @param friendlyName The friendly_name
-     * @param available The available
      */
     public ActivityCreator(final String workspaceSid, 
-                           final String friendlyName, 
-                           final Boolean available) {
+                           final String friendlyName) {
         this.workspaceSid = workspaceSid;
         this.friendlyName = friendlyName;
+    }
+
+    /**
+     * The available.
+     * 
+     * @param available The available
+     * @return this
+     */
+    public ActivityCreator setAvailable(final Boolean available) {
         this.available = available;
+        return this;
     }
 
     /**
@@ -45,7 +53,7 @@ public class ActivityCreator extends Creator<Activity> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Activity execute(final TwilioRestClient client) {
+    public Activity create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

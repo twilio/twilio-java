@@ -46,7 +46,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param beta The beta
      * @return this
      */
-    public MobileReader byBeta(final Boolean beta) {
+    public MobileReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
@@ -57,7 +57,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public MobileReader byFriendlyName(final String friendlyName) {
+    public MobileReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -68,7 +68,7 @@ public class MobileReader extends Reader<Mobile> {
      * @param phoneNumber The phone_number
      * @return this
      */
-    public MobileReader byPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
+    public MobileReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -80,8 +80,8 @@ public class MobileReader extends Reader<Mobile> {
      * @return Mobile ResourceSet
      */
     @Override
-    public ResourceSet<Mobile> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Mobile> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

@@ -51,7 +51,7 @@ public class WorkspaceStatisticsTest {
         }};
         
         try {
-            WorkspaceStatistics.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            WorkspaceStatistics.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class WorkspaceStatisticsTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(WorkspaceStatistics.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(WorkspaceStatistics.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 }

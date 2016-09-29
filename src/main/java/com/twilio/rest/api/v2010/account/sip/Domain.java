@@ -42,7 +42,7 @@ public class Domain extends Resource {
      * @param accountSid The account_sid
      * @return DomainReader capable of executing the read
      */
-    public static DomainReader read(final String accountSid) {
+    public static DomainReader reader(final String accountSid) {
         return new DomainReader(accountSid);
     }
 
@@ -51,7 +51,7 @@ public class Domain extends Resource {
      * 
      * @return DomainReader capable of executing the read
      */
-    public static DomainReader read() {
+    public static DomainReader reader() {
         return new DomainReader();
     }
 
@@ -62,8 +62,8 @@ public class Domain extends Resource {
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return DomainCreator capable of executing the create
      */
-    public static DomainCreator create(final String accountSid, 
-                                       final String domainName) {
+    public static DomainCreator creator(final String accountSid, 
+                                        final String domainName) {
         return new DomainCreator(accountSid, domainName);
     }
 
@@ -73,7 +73,7 @@ public class Domain extends Resource {
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return DomainCreator capable of executing the create
      */
-    public static DomainCreator create(final String domainName) {
+    public static DomainCreator creator(final String domainName) {
         return new DomainCreator(domainName);
     }
 
@@ -84,8 +84,8 @@ public class Domain extends Resource {
      * @param sid Fetch by unique Domain Sid
      * @return DomainFetcher capable of executing the fetch
      */
-    public static DomainFetcher fetch(final String accountSid, 
-                                      final String sid) {
+    public static DomainFetcher fetcher(final String accountSid, 
+                                        final String sid) {
         return new DomainFetcher(accountSid, sid);
     }
 
@@ -95,7 +95,7 @@ public class Domain extends Resource {
      * @param sid Fetch by unique Domain Sid
      * @return DomainFetcher capable of executing the fetch
      */
-    public static DomainFetcher fetch(final String sid) {
+    public static DomainFetcher fetcher(final String sid) {
         return new DomainFetcher(sid);
     }
 
@@ -106,8 +106,8 @@ public class Domain extends Resource {
      * @param sid The sid
      * @return DomainUpdater capable of executing the update
      */
-    public static DomainUpdater update(final String accountSid, 
-                                       final String sid) {
+    public static DomainUpdater updater(final String accountSid, 
+                                        final String sid) {
         return new DomainUpdater(accountSid, sid);
     }
 
@@ -117,7 +117,7 @@ public class Domain extends Resource {
      * @param sid The sid
      * @return DomainUpdater capable of executing the update
      */
-    public static DomainUpdater update(final String sid) {
+    public static DomainUpdater updater(final String sid) {
         return new DomainUpdater(sid);
     }
 
@@ -128,8 +128,8 @@ public class Domain extends Resource {
      * @param sid The sid
      * @return DomainDeleter capable of executing the delete
      */
-    public static DomainDeleter delete(final String accountSid, 
-                                       final String sid) {
+    public static DomainDeleter deleter(final String accountSid, 
+                                        final String sid) {
         return new DomainDeleter(accountSid, sid);
     }
 
@@ -139,7 +139,7 @@ public class Domain extends Resource {
      * @param sid The sid
      * @return DomainDeleter capable of executing the delete
      */
-    public static DomainDeleter delete(final String sid) {
+    public static DomainDeleter deleter(final String sid) {
         return new DomainDeleter(sid);
     }
 

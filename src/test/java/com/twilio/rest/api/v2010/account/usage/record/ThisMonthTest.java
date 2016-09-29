@@ -51,7 +51,7 @@ public class ThisMonthTest {
         }};
         
         try {
-            ThisMonth.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            ThisMonth.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class ThisMonthTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(ThisMonth.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(ThisMonth.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class ThisMonthTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(ThisMonth.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(ThisMonth.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

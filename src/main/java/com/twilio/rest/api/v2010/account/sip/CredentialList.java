@@ -41,7 +41,7 @@ public class CredentialList extends Resource {
      * @param accountSid The account_sid
      * @return CredentialListReader capable of executing the read
      */
-    public static CredentialListReader read(final String accountSid) {
+    public static CredentialListReader reader(final String accountSid) {
         return new CredentialListReader(accountSid);
     }
 
@@ -50,7 +50,7 @@ public class CredentialList extends Resource {
      * 
      * @return CredentialListReader capable of executing the read
      */
-    public static CredentialListReader read() {
+    public static CredentialListReader reader() {
         return new CredentialListReader();
     }
 
@@ -61,8 +61,8 @@ public class CredentialList extends Resource {
      * @param friendlyName The friendly_name
      * @return CredentialListCreator capable of executing the create
      */
-    public static CredentialListCreator create(final String accountSid, 
-                                               final String friendlyName) {
+    public static CredentialListCreator creator(final String accountSid, 
+                                                final String friendlyName) {
         return new CredentialListCreator(accountSid, friendlyName);
     }
 
@@ -72,7 +72,7 @@ public class CredentialList extends Resource {
      * @param friendlyName The friendly_name
      * @return CredentialListCreator capable of executing the create
      */
-    public static CredentialListCreator create(final String friendlyName) {
+    public static CredentialListCreator creator(final String friendlyName) {
         return new CredentialListCreator(friendlyName);
     }
 
@@ -83,8 +83,8 @@ public class CredentialList extends Resource {
      * @param sid Fetch by unique credential Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetch(final String accountSid, 
-                                              final String sid) {
+    public static CredentialListFetcher fetcher(final String accountSid, 
+                                                final String sid) {
         return new CredentialListFetcher(accountSid, sid);
     }
 
@@ -94,7 +94,7 @@ public class CredentialList extends Resource {
      * @param sid Fetch by unique credential Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetch(final String sid) {
+    public static CredentialListFetcher fetcher(final String sid) {
         return new CredentialListFetcher(sid);
     }
 
@@ -106,9 +106,9 @@ public class CredentialList extends Resource {
      * @param friendlyName The friendly_name
      * @return CredentialListUpdater capable of executing the update
      */
-    public static CredentialListUpdater update(final String accountSid, 
-                                               final String sid, 
-                                               final String friendlyName) {
+    public static CredentialListUpdater updater(final String accountSid, 
+                                                final String sid, 
+                                                final String friendlyName) {
         return new CredentialListUpdater(accountSid, sid, friendlyName);
     }
 
@@ -119,8 +119,8 @@ public class CredentialList extends Resource {
      * @param friendlyName The friendly_name
      * @return CredentialListUpdater capable of executing the update
      */
-    public static CredentialListUpdater update(final String sid, 
-                                               final String friendlyName) {
+    public static CredentialListUpdater updater(final String sid, 
+                                                final String friendlyName) {
         return new CredentialListUpdater(sid, friendlyName);
     }
 
@@ -131,8 +131,8 @@ public class CredentialList extends Resource {
      * @param sid Delete by unique credential Sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter delete(final String accountSid, 
-                                               final String sid) {
+    public static CredentialListDeleter deleter(final String accountSid, 
+                                                final String sid) {
         return new CredentialListDeleter(accountSid, sid);
     }
 
@@ -142,7 +142,7 @@ public class CredentialList extends Resource {
      * @param sid Delete by unique credential Sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter delete(final String sid) {
+    public static CredentialListDeleter deleter(final String sid) {
         return new CredentialListDeleter(sid);
     }
 

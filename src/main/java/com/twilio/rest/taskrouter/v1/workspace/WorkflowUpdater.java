@@ -124,7 +124,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Workflow execute(final TwilioRestClient client) {
+    public Workflow update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

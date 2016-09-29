@@ -51,7 +51,7 @@ public class IncomingPhoneNumberTest {
         }};
         
         try {
-            IncomingPhoneNumber.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            IncomingPhoneNumber.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        IncomingPhoneNumber.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        IncomingPhoneNumber.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -83,7 +83,7 @@ public class IncomingPhoneNumberTest {
         }};
         
         try {
-            IncomingPhoneNumber.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            IncomingPhoneNumber.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(IncomingPhoneNumber.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(IncomingPhoneNumber.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -115,7 +115,7 @@ public class IncomingPhoneNumberTest {
         }};
         
         try {
-            IncomingPhoneNumber.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            IncomingPhoneNumber.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        IncomingPhoneNumber.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        IncomingPhoneNumber.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class IncomingPhoneNumberTest {
         }};
         
         try {
-            IncomingPhoneNumber.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            IncomingPhoneNumber.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(IncomingPhoneNumber.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(IncomingPhoneNumber.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(IncomingPhoneNumber.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(IncomingPhoneNumber.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -191,7 +191,7 @@ public class IncomingPhoneNumberTest {
         }};
         
         try {
-            IncomingPhoneNumber.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).execute();
+            IncomingPhoneNumber.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        IncomingPhoneNumber.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).execute();
+        IncomingPhoneNumber.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
     }
 }

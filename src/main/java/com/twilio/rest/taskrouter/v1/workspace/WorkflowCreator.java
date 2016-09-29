@@ -104,7 +104,7 @@ public class WorkflowCreator extends Creator<Workflow> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Workflow execute(final TwilioRestClient client) {
+    public Workflow create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

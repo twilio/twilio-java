@@ -30,7 +30,7 @@ public class DeviceReader extends Reader<Device> {
      * @param status The status
      * @return this
      */
-    public DeviceReader byStatus(final String status) {
+    public DeviceReader setStatus(final String status) {
         this.status = status;
         return this;
     }
@@ -41,7 +41,7 @@ public class DeviceReader extends Reader<Device> {
      * @param simIdentifier The sim_identifier
      * @return this
      */
-    public DeviceReader bySimIdentifier(final String simIdentifier) {
+    public DeviceReader setSimIdentifier(final String simIdentifier) {
         this.simIdentifier = simIdentifier;
         return this;
     }
@@ -52,7 +52,7 @@ public class DeviceReader extends Reader<Device> {
      * @param ratePlan The rate_plan
      * @return this
      */
-    public DeviceReader byRatePlan(final String ratePlan) {
+    public DeviceReader setRatePlan(final String ratePlan) {
         this.ratePlan = ratePlan;
         return this;
     }
@@ -64,8 +64,8 @@ public class DeviceReader extends Reader<Device> {
      * @return Device ResourceSet
      */
     @Override
-    public ResourceSet<Device> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Device> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

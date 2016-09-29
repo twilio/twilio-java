@@ -64,7 +64,7 @@ public class DocumentCreator extends Creator<Document> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Document execute(final TwilioRestClient client) {
+    public Document create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

@@ -51,8 +51,8 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
      * @return IpAccessControlListMapping ResourceSet
      */
     @Override
-    public ResourceSet<IpAccessControlListMapping> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<IpAccessControlListMapping> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

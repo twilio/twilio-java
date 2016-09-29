@@ -51,7 +51,7 @@ public class CredentialTest {
         }};
         
         try {
-            Credential.read().execute();
+            Credential.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Credential.read().execute());
+        assertNotNull(Credential.reader().read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Credential.read().execute());
+        assertNotNull(Credential.reader().read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class CredentialTest {
         }};
         
         try {
-            Credential.create(Credential.PushService.GCM).execute();
+            Credential.creator(Credential.PushService.GCM).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
         
-        Credential.create(Credential.PushService.GCM).execute();
+        Credential.creator(Credential.PushService.GCM).create();
     }
 
     @Test
@@ -127,7 +127,7 @@ public class CredentialTest {
         }};
         
         try {
-            Credential.fetch("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Credential.fetcher("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Credential.fetch("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Credential.fetcher("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class CredentialTest {
         }};
         
         try {
-            Credential.update("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Credential.updater("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
         
-        Credential.update("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Credential.updater("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -191,7 +191,7 @@ public class CredentialTest {
         }};
         
         try {
-            Credential.delete("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Credential.deleter("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
         
-        Credential.delete("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Credential.deleter("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 }

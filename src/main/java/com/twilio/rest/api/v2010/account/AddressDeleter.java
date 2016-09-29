@@ -49,7 +49,7 @@ public class AddressDeleter extends Deleter<Address> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean execute(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.DELETE,

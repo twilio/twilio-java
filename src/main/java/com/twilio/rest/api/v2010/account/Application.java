@@ -43,8 +43,8 @@ public class Application extends Resource {
      * @param friendlyName Human readable description of this resource
      * @return ApplicationCreator capable of executing the create
      */
-    public static ApplicationCreator create(final String accountSid, 
-                                            final String friendlyName) {
+    public static ApplicationCreator creator(final String accountSid, 
+                                             final String friendlyName) {
         return new ApplicationCreator(accountSid, friendlyName);
     }
 
@@ -54,7 +54,7 @@ public class Application extends Resource {
      * @param friendlyName Human readable description of this resource
      * @return ApplicationCreator capable of executing the create
      */
-    public static ApplicationCreator create(final String friendlyName) {
+    public static ApplicationCreator creator(final String friendlyName) {
         return new ApplicationCreator(friendlyName);
     }
 
@@ -65,8 +65,8 @@ public class Application extends Resource {
      * @param sid The application sid to delete
      * @return ApplicationDeleter capable of executing the delete
      */
-    public static ApplicationDeleter delete(final String accountSid, 
-                                            final String sid) {
+    public static ApplicationDeleter deleter(final String accountSid, 
+                                             final String sid) {
         return new ApplicationDeleter(accountSid, sid);
     }
 
@@ -76,7 +76,7 @@ public class Application extends Resource {
      * @param sid The application sid to delete
      * @return ApplicationDeleter capable of executing the delete
      */
-    public static ApplicationDeleter delete(final String sid) {
+    public static ApplicationDeleter deleter(final String sid) {
         return new ApplicationDeleter(sid);
     }
 
@@ -87,8 +87,8 @@ public class Application extends Resource {
      * @param sid Fetch by unique Application Sid
      * @return ApplicationFetcher capable of executing the fetch
      */
-    public static ApplicationFetcher fetch(final String accountSid, 
-                                           final String sid) {
+    public static ApplicationFetcher fetcher(final String accountSid, 
+                                             final String sid) {
         return new ApplicationFetcher(accountSid, sid);
     }
 
@@ -98,7 +98,7 @@ public class Application extends Resource {
      * @param sid Fetch by unique Application Sid
      * @return ApplicationFetcher capable of executing the fetch
      */
-    public static ApplicationFetcher fetch(final String sid) {
+    public static ApplicationFetcher fetcher(final String sid) {
         return new ApplicationFetcher(sid);
     }
 
@@ -108,7 +108,7 @@ public class Application extends Resource {
      * @param accountSid The account_sid
      * @return ApplicationReader capable of executing the read
      */
-    public static ApplicationReader read(final String accountSid) {
+    public static ApplicationReader reader(final String accountSid) {
         return new ApplicationReader(accountSid);
     }
 
@@ -117,7 +117,7 @@ public class Application extends Resource {
      * 
      * @return ApplicationReader capable of executing the read
      */
-    public static ApplicationReader read() {
+    public static ApplicationReader reader() {
         return new ApplicationReader();
     }
 
@@ -128,8 +128,8 @@ public class Application extends Resource {
      * @param sid The sid
      * @return ApplicationUpdater capable of executing the update
      */
-    public static ApplicationUpdater update(final String accountSid, 
-                                            final String sid) {
+    public static ApplicationUpdater updater(final String accountSid, 
+                                             final String sid) {
         return new ApplicationUpdater(accountSid, sid);
     }
 
@@ -139,7 +139,7 @@ public class Application extends Resource {
      * @param sid The sid
      * @return ApplicationUpdater capable of executing the update
      */
-    public static ApplicationUpdater update(final String sid) {
+    public static ApplicationUpdater updater(final String sid) {
         return new ApplicationUpdater(sid);
     }
 

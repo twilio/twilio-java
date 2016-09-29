@@ -164,7 +164,7 @@ public class Record extends Resource {
      * @param accountSid The account_sid
      * @return RecordReader capable of executing the read
      */
-    public static RecordReader read(final String accountSid) {
+    public static RecordReader reader(final String accountSid) {
         return new RecordReader(accountSid);
     }
 
@@ -173,7 +173,7 @@ public class Record extends Resource {
      * 
      * @return RecordReader capable of executing the read
      */
-    public static RecordReader read() {
+    public static RecordReader reader() {
         return new RecordReader();
     }
 

@@ -38,8 +38,8 @@ public class SyncListReader extends Reader<SyncList> {
      * @return SyncList ResourceSet
      */
     @Override
-    public ResourceSet<SyncList> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<SyncList> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

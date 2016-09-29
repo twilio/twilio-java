@@ -82,7 +82,7 @@ public class FeedbackCreator extends Creator<Feedback> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Feedback execute(final TwilioRestClient client) {
+    public Feedback create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

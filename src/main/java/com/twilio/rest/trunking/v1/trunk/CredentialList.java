@@ -43,8 +43,8 @@ public class CredentialList extends Resource {
      * @param sid The sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetch(final String trunkSid, 
-                                              final String sid) {
+    public static CredentialListFetcher fetcher(final String trunkSid, 
+                                                final String sid) {
         return new CredentialListFetcher(trunkSid, sid);
     }
 
@@ -55,8 +55,8 @@ public class CredentialList extends Resource {
      * @param sid The sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter delete(final String trunkSid, 
-                                               final String sid) {
+    public static CredentialListDeleter deleter(final String trunkSid, 
+                                                final String sid) {
         return new CredentialListDeleter(trunkSid, sid);
     }
 
@@ -67,8 +67,8 @@ public class CredentialList extends Resource {
      * @param credentialListSid The credential_list_sid
      * @return CredentialListCreator capable of executing the create
      */
-    public static CredentialListCreator create(final String trunkSid, 
-                                               final String credentialListSid) {
+    public static CredentialListCreator creator(final String trunkSid, 
+                                                final String credentialListSid) {
         return new CredentialListCreator(trunkSid, credentialListSid);
     }
 
@@ -78,7 +78,7 @@ public class CredentialList extends Resource {
      * @param trunkSid The trunk_sid
      * @return CredentialListReader capable of executing the read
      */
-    public static CredentialListReader read(final String trunkSid) {
+    public static CredentialListReader reader(final String trunkSid) {
         return new CredentialListReader(trunkSid);
     }
 

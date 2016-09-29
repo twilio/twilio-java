@@ -294,7 +294,7 @@ public class MessageCreator extends Creator<Message> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Message execute(final TwilioRestClient client) {
+    public Message create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

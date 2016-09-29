@@ -48,7 +48,7 @@ public class TodayReader extends Reader<Today> {
      * @param category The category
      * @return this
      */
-    public TodayReader byCategory(final Today.Category category) {
+    public TodayReader setCategory(final Today.Category category) {
         this.category = category;
         return this;
     }
@@ -59,7 +59,7 @@ public class TodayReader extends Reader<Today> {
      * @param startDate The start_date
      * @return this
      */
-    public TodayReader byStartDate(final LocalDate startDate) {
+    public TodayReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -70,7 +70,7 @@ public class TodayReader extends Reader<Today> {
      * @param endDate The end_date
      * @return this
      */
-    public TodayReader byEndDate(final LocalDate endDate) {
+    public TodayReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -82,8 +82,8 @@ public class TodayReader extends Reader<Today> {
      * @return Today ResourceSet
      */
     @Override
-    public ResourceSet<Today> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Today> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

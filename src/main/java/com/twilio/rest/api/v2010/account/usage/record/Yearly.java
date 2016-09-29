@@ -164,7 +164,7 @@ public class Yearly extends Resource {
      * @param accountSid The account_sid
      * @return YearlyReader capable of executing the read
      */
-    public static YearlyReader read(final String accountSid) {
+    public static YearlyReader reader(final String accountSid) {
         return new YearlyReader(accountSid);
     }
 
@@ -173,7 +173,7 @@ public class Yearly extends Resource {
      * 
      * @return YearlyReader capable of executing the read
      */
-    public static YearlyReader read() {
+    public static YearlyReader reader() {
         return new YearlyReader();
     }
 

@@ -38,8 +38,8 @@ public class ChannelReader extends Reader<Channel> {
      * @return Channel ResourceSet
      */
     @Override
-    public ResourceSet<Channel> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Channel> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

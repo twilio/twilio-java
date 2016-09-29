@@ -42,7 +42,7 @@ public class Workspace extends Resource {
      * @param sid The sid
      * @return WorkspaceFetcher capable of executing the fetch
      */
-    public static WorkspaceFetcher fetch(final String sid) {
+    public static WorkspaceFetcher fetcher(final String sid) {
         return new WorkspaceFetcher(sid);
     }
 
@@ -52,7 +52,7 @@ public class Workspace extends Resource {
      * @param sid The sid
      * @return WorkspaceUpdater capable of executing the update
      */
-    public static WorkspaceUpdater update(final String sid) {
+    public static WorkspaceUpdater updater(final String sid) {
         return new WorkspaceUpdater(sid);
     }
 
@@ -61,7 +61,7 @@ public class Workspace extends Resource {
      * 
      * @return WorkspaceReader capable of executing the read
      */
-    public static WorkspaceReader read() {
+    public static WorkspaceReader reader() {
         return new WorkspaceReader();
     }
 
@@ -71,7 +71,7 @@ public class Workspace extends Resource {
      * @param friendlyName The friendly_name
      * @return WorkspaceCreator capable of executing the create
      */
-    public static WorkspaceCreator create(final String friendlyName) {
+    public static WorkspaceCreator creator(final String friendlyName) {
         return new WorkspaceCreator(friendlyName);
     }
 
@@ -81,7 +81,7 @@ public class Workspace extends Resource {
      * @param sid The sid
      * @return WorkspaceDeleter capable of executing the delete
      */
-    public static WorkspaceDeleter delete(final String sid) {
+    public static WorkspaceDeleter deleter(final String sid) {
         return new WorkspaceDeleter(sid);
     }
 

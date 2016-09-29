@@ -121,10 +121,10 @@ public class Call extends Resource {
      * @param url Url from which to fetch TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final String accountSid, 
-                                     final com.twilio.type.Endpoint to, 
-                                     final com.twilio.type.PhoneNumber from, 
-                                     final URI url) {
+    public static CallCreator creator(final String accountSid, 
+                                      final com.twilio.type.Endpoint to, 
+                                      final com.twilio.type.PhoneNumber from, 
+                                      final URI url) {
         return new CallCreator(accountSid, to, from, url);
     }
 
@@ -136,9 +136,9 @@ public class Call extends Resource {
      * @param url Url from which to fetch TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final com.twilio.type.Endpoint to, 
-                                     final com.twilio.type.PhoneNumber from, 
-                                     final URI url) {
+    public static CallCreator creator(final com.twilio.type.Endpoint to, 
+                                      final com.twilio.type.PhoneNumber from, 
+                                      final URI url) {
         return new CallCreator(to, from, url);
     }
 
@@ -152,10 +152,10 @@ public class Call extends Resource {
      *                       TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final String accountSid, 
-                                     final com.twilio.type.Endpoint to, 
-                                     final com.twilio.type.PhoneNumber from, 
-                                     final String applicationSid) {
+    public static CallCreator creator(final String accountSid, 
+                                      final com.twilio.type.Endpoint to, 
+                                      final com.twilio.type.PhoneNumber from, 
+                                      final String applicationSid) {
         return new CallCreator(accountSid, to, from, applicationSid);
     }
 
@@ -168,9 +168,9 @@ public class Call extends Resource {
      *                       TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator create(final com.twilio.type.Endpoint to, 
-                                     final com.twilio.type.PhoneNumber from, 
-                                     final String applicationSid) {
+    public static CallCreator creator(final com.twilio.type.Endpoint to, 
+                                      final com.twilio.type.PhoneNumber from, 
+                                      final String applicationSid) {
         return new CallCreator(to, from, applicationSid);
     }
 
@@ -181,8 +181,8 @@ public class Call extends Resource {
      * @param sid Call Sid that uniquely identifies the Call to delete
      * @return CallDeleter capable of executing the delete
      */
-    public static CallDeleter delete(final String accountSid, 
-                                     final String sid) {
+    public static CallDeleter deleter(final String accountSid, 
+                                      final String sid) {
         return new CallDeleter(accountSid, sid);
     }
 
@@ -192,7 +192,7 @@ public class Call extends Resource {
      * @param sid Call Sid that uniquely identifies the Call to delete
      * @return CallDeleter capable of executing the delete
      */
-    public static CallDeleter delete(final String sid) {
+    public static CallDeleter deleter(final String sid) {
         return new CallDeleter(sid);
     }
 
@@ -203,8 +203,8 @@ public class Call extends Resource {
      * @param sid Call Sid that uniquely identifies the Call to fetch
      * @return CallFetcher capable of executing the fetch
      */
-    public static CallFetcher fetch(final String accountSid, 
-                                    final String sid) {
+    public static CallFetcher fetcher(final String accountSid, 
+                                      final String sid) {
         return new CallFetcher(accountSid, sid);
     }
 
@@ -214,7 +214,7 @@ public class Call extends Resource {
      * @param sid Call Sid that uniquely identifies the Call to fetch
      * @return CallFetcher capable of executing the fetch
      */
-    public static CallFetcher fetch(final String sid) {
+    public static CallFetcher fetcher(final String sid) {
         return new CallFetcher(sid);
     }
 
@@ -224,7 +224,7 @@ public class Call extends Resource {
      * @param accountSid The account_sid
      * @return CallReader capable of executing the read
      */
-    public static CallReader read(final String accountSid) {
+    public static CallReader reader(final String accountSid) {
         return new CallReader(accountSid);
     }
 
@@ -233,7 +233,7 @@ public class Call extends Resource {
      * 
      * @return CallReader capable of executing the read
      */
-    public static CallReader read() {
+    public static CallReader reader() {
         return new CallReader();
     }
 
@@ -244,8 +244,8 @@ public class Call extends Resource {
      * @param sid Call Sid that uniquely identifies the Call to update
      * @return CallUpdater capable of executing the update
      */
-    public static CallUpdater update(final String accountSid, 
-                                     final String sid) {
+    public static CallUpdater updater(final String accountSid, 
+                                      final String sid) {
         return new CallUpdater(accountSid, sid);
     }
 
@@ -255,7 +255,7 @@ public class Call extends Resource {
      * @param sid Call Sid that uniquely identifies the Call to update
      * @return CallUpdater capable of executing the update
      */
-    public static CallUpdater update(final String sid) {
+    public static CallUpdater updater(final String sid) {
         return new CallUpdater(sid);
     }
 

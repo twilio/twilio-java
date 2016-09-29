@@ -28,7 +28,7 @@ public class ServiceReader extends Reader<Service> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public ServiceReader byFriendlyName(final String friendlyName) {
+    public ServiceReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -40,8 +40,8 @@ public class ServiceReader extends Reader<Service> {
      * @return Service ResourceSet
      */
     @Override
-    public ResourceSet<Service> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Service> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

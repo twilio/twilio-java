@@ -57,7 +57,7 @@ public class MediaFetcher extends Fetcher<Media> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Media execute(final TwilioRestClient client) {
+    public Media fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

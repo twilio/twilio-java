@@ -27,8 +27,8 @@ public class ServiceReader extends Reader<Service> {
      * @return Service ResourceSet
      */
     @Override
-    public ResourceSet<Service> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Service> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

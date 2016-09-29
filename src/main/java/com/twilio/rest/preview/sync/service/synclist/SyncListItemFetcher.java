@@ -45,7 +45,7 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SyncListItem execute(final TwilioRestClient client) {
+    public SyncListItem fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),

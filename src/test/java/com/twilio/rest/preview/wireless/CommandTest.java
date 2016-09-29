@@ -51,7 +51,7 @@ public class CommandTest {
         }};
         
         try {
-            Command.fetch("DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Command.fetcher("DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -71,7 +71,7 @@ public class CommandTest {
         }};
         
         try {
-            Command.read().execute();
+            Command.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -92,7 +92,7 @@ public class CommandTest {
                     }};
         
         try {
-            Command.create("device", "command").execute();
+            Command.creator("device", "command").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

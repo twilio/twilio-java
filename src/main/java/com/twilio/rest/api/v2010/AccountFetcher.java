@@ -43,7 +43,7 @@ public class AccountFetcher extends Fetcher<Account> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Account execute(final TwilioRestClient client) {
+    public Account fetch(final TwilioRestClient client) {
         this.sid = this.sid == null ? client.getAccountSid() : this.sid;
         Request request = new Request(
             HttpMethod.GET,

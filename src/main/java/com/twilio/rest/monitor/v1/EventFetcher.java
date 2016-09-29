@@ -37,7 +37,7 @@ public class EventFetcher extends Fetcher<Event> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Event execute(final TwilioRestClient client) {
+    public Event fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),

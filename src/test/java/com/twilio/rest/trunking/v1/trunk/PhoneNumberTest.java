@@ -51,7 +51,7 @@ public class PhoneNumberTest {
         }};
         
         try {
-            PhoneNumber.fetch("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            PhoneNumber.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(PhoneNumber.fetch("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(PhoneNumber.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class PhoneNumberTest {
         }};
         
         try {
-            PhoneNumber.delete("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            PhoneNumber.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        PhoneNumber.delete("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        PhoneNumber.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class PhoneNumberTest {
         }};
         
         try {
-            PhoneNumber.create("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            PhoneNumber.creator("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        PhoneNumber.create("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        PhoneNumber.creator("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class PhoneNumberTest {
         }};
         
         try {
-            PhoneNumber.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            PhoneNumber.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(PhoneNumber.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(PhoneNumber.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,6 +173,6 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(PhoneNumber.read("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(PhoneNumber.reader("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

@@ -51,7 +51,7 @@ public class UserTest {
         }};
         
         try {
-            User.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            User.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(User.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(User.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class UserTest {
         }};
         
         try {
-            User.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            User.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
         
-        User.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        User.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class UserTest {
         }};
         
         try {
-            User.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "identity").execute();
+            User.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "identity").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
         
-        User.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "identity").execute();
+        User.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "identity").create();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class UserTest {
         }};
         
         try {
-            User.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            User.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(User.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(User.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(User.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(User.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -191,7 +191,7 @@ public class UserTest {
         }};
         
         try {
-            User.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            User.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class UserTest {
             result = new ObjectMapper();
         }};
         
-        User.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        User.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

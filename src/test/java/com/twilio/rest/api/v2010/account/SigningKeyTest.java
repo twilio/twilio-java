@@ -51,7 +51,7 @@ public class SigningKeyTest {
         }};
         
         try {
-            SigningKey.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SigningKey.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class SigningKeyTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(SigningKey.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(SigningKey.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class SigningKeyTest {
         }};
         
         try {
-            SigningKey.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SigningKey.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class SigningKeyTest {
             result = new ObjectMapper();
         }};
         
-        SigningKey.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        SigningKey.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class SigningKeyTest {
         }};
         
         try {
-            SigningKey.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SigningKey.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class SigningKeyTest {
             result = new ObjectMapper();
         }};
         
-        SigningKey.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        SigningKey.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class SigningKeyTest {
         }};
         
         try {
-            SigningKey.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SigningKey.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class SigningKeyTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(SigningKey.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(SigningKey.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,6 +173,6 @@ public class SigningKeyTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(SigningKey.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(SigningKey.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

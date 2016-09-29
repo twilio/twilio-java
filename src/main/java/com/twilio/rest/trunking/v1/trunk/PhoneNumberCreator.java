@@ -41,7 +41,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public PhoneNumber execute(final TwilioRestClient client) {
+    public PhoneNumber create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),

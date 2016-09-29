@@ -51,7 +51,7 @@ public class WorkerTest {
         }};
         
         try {
-            Worker.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Worker.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Worker.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Worker.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Worker.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Worker.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class WorkerTest {
         }};
         
         try {
-            Worker.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+            Worker.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
         
-        Worker.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+        Worker.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").create();
     }
 
     @Test
@@ -127,7 +127,7 @@ public class WorkerTest {
         }};
         
         try {
-            Worker.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Worker.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Worker.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Worker.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class WorkerTest {
         }};
         
         try {
-            Worker.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Worker.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
         
-        Worker.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Worker.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -191,7 +191,7 @@ public class WorkerTest {
         }};
         
         try {
-            Worker.delete("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Worker.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
         
-        Worker.delete("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Worker.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 }

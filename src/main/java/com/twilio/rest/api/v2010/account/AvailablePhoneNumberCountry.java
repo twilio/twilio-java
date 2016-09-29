@@ -40,7 +40,7 @@ public class AvailablePhoneNumberCountry extends Resource {
      * @param accountSid The account_sid
      * @return AvailablePhoneNumberCountryReader capable of executing the read
      */
-    public static AvailablePhoneNumberCountryReader read(final String accountSid) {
+    public static AvailablePhoneNumberCountryReader reader(final String accountSid) {
         return new AvailablePhoneNumberCountryReader(accountSid);
     }
 
@@ -49,7 +49,7 @@ public class AvailablePhoneNumberCountry extends Resource {
      * 
      * @return AvailablePhoneNumberCountryReader capable of executing the read
      */
-    public static AvailablePhoneNumberCountryReader read() {
+    public static AvailablePhoneNumberCountryReader reader() {
         return new AvailablePhoneNumberCountryReader();
     }
 
@@ -60,8 +60,8 @@ public class AvailablePhoneNumberCountry extends Resource {
      * @param countryCode The country_code
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
-    public static AvailablePhoneNumberCountryFetcher fetch(final String accountSid, 
-                                                           final String countryCode) {
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String accountSid, 
+                                                             final String countryCode) {
         return new AvailablePhoneNumberCountryFetcher(accountSid, countryCode);
     }
 
@@ -71,7 +71,7 @@ public class AvailablePhoneNumberCountry extends Resource {
      * @param countryCode The country_code
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
-    public static AvailablePhoneNumberCountryFetcher fetch(final String countryCode) {
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String countryCode) {
         return new AvailablePhoneNumberCountryFetcher(countryCode);
     }
 

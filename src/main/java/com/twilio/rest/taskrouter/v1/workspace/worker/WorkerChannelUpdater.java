@@ -69,7 +69,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public WorkerChannel execute(final TwilioRestClient client) {
+    public WorkerChannel update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

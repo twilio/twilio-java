@@ -64,7 +64,7 @@ public class MessageUpdater extends Updater<Message> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Message execute(final TwilioRestClient client) {
+    public Message update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),

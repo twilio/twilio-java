@@ -37,7 +37,7 @@ public class CountryFetcher extends Fetcher<Country> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Country execute(final TwilioRestClient client) {
+    public Country fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),

@@ -40,7 +40,7 @@ public class WorkspaceStatistics extends Resource {
      * @param workspaceSid The workspace_sid
      * @return WorkspaceStatisticsFetcher capable of executing the fetch
      */
-    public static WorkspaceStatisticsFetcher fetch(final String workspaceSid) {
+    public static WorkspaceStatisticsFetcher fetcher(final String workspaceSid) {
         return new WorkspaceStatisticsFetcher(workspaceSid);
     }
 

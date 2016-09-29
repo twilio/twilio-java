@@ -57,7 +57,7 @@ public class MemberCreator extends Creator<Member> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Member execute(final TwilioRestClient client) {
+    public Member create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),

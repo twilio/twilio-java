@@ -77,7 +77,7 @@ public class Local extends Resource {
      * @param ownerAccountSid The owner_account_sid
      * @return LocalReader capable of executing the read
      */
-    public static LocalReader read(final String ownerAccountSid) {
+    public static LocalReader reader(final String ownerAccountSid) {
         return new LocalReader(ownerAccountSid);
     }
 
@@ -86,7 +86,7 @@ public class Local extends Resource {
      * 
      * @return LocalReader capable of executing the read
      */
-    public static LocalReader read() {
+    public static LocalReader reader() {
         return new LocalReader();
     }
 
@@ -97,8 +97,8 @@ public class Local extends Resource {
      * @param phoneNumber The phone_number
      * @return LocalCreator capable of executing the create
      */
-    public static LocalCreator create(final String ownerAccountSid, 
-                                      final com.twilio.type.PhoneNumber phoneNumber) {
+    public static LocalCreator creator(final String ownerAccountSid, 
+                                       final com.twilio.type.PhoneNumber phoneNumber) {
         return new LocalCreator(ownerAccountSid, phoneNumber);
     }
 
@@ -108,7 +108,7 @@ public class Local extends Resource {
      * @param phoneNumber The phone_number
      * @return LocalCreator capable of executing the create
      */
-    public static LocalCreator create(final com.twilio.type.PhoneNumber phoneNumber) {
+    public static LocalCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
         return new LocalCreator(phoneNumber);
     }
 

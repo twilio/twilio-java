@@ -44,9 +44,9 @@ public class Notification extends Resource {
      * @param sid The sid
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetch(final String accountSid, 
-                                            final String callSid, 
-                                            final String sid) {
+    public static NotificationFetcher fetcher(final String accountSid, 
+                                              final String callSid, 
+                                              final String sid) {
         return new NotificationFetcher(accountSid, callSid, sid);
     }
 
@@ -57,8 +57,8 @@ public class Notification extends Resource {
      * @param sid The sid
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetch(final String callSid, 
-                                            final String sid) {
+    public static NotificationFetcher fetcher(final String callSid, 
+                                              final String sid) {
         return new NotificationFetcher(callSid, sid);
     }
 
@@ -70,9 +70,9 @@ public class Notification extends Resource {
      * @param sid The sid
      * @return NotificationDeleter capable of executing the delete
      */
-    public static NotificationDeleter delete(final String accountSid, 
-                                             final String callSid, 
-                                             final String sid) {
+    public static NotificationDeleter deleter(final String accountSid, 
+                                              final String callSid, 
+                                              final String sid) {
         return new NotificationDeleter(accountSid, callSid, sid);
     }
 
@@ -83,8 +83,8 @@ public class Notification extends Resource {
      * @param sid The sid
      * @return NotificationDeleter capable of executing the delete
      */
-    public static NotificationDeleter delete(final String callSid, 
-                                             final String sid) {
+    public static NotificationDeleter deleter(final String callSid, 
+                                              final String sid) {
         return new NotificationDeleter(callSid, sid);
     }
 
@@ -95,8 +95,8 @@ public class Notification extends Resource {
      * @param callSid The call_sid
      * @return NotificationReader capable of executing the read
      */
-    public static NotificationReader read(final String accountSid, 
-                                          final String callSid) {
+    public static NotificationReader reader(final String accountSid, 
+                                            final String callSid) {
         return new NotificationReader(accountSid, callSid);
     }
 
@@ -106,7 +106,7 @@ public class Notification extends Resource {
      * @param callSid The call_sid
      * @return NotificationReader capable of executing the read
      */
-    public static NotificationReader read(final String callSid) {
+    public static NotificationReader reader(final String callSid) {
         return new NotificationReader(callSid);
     }
 

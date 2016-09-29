@@ -74,8 +74,8 @@ public class ConnectApp extends Resource {
      * @param sid Fetch by unique connect-app Sid
      * @return ConnectAppFetcher capable of executing the fetch
      */
-    public static ConnectAppFetcher fetch(final String accountSid, 
-                                          final String sid) {
+    public static ConnectAppFetcher fetcher(final String accountSid, 
+                                            final String sid) {
         return new ConnectAppFetcher(accountSid, sid);
     }
 
@@ -85,7 +85,7 @@ public class ConnectApp extends Resource {
      * @param sid Fetch by unique connect-app Sid
      * @return ConnectAppFetcher capable of executing the fetch
      */
-    public static ConnectAppFetcher fetch(final String sid) {
+    public static ConnectAppFetcher fetcher(final String sid) {
         return new ConnectAppFetcher(sid);
     }
 
@@ -96,8 +96,8 @@ public class ConnectApp extends Resource {
      * @param sid The sid
      * @return ConnectAppUpdater capable of executing the update
      */
-    public static ConnectAppUpdater update(final String accountSid, 
-                                           final String sid) {
+    public static ConnectAppUpdater updater(final String accountSid, 
+                                            final String sid) {
         return new ConnectAppUpdater(accountSid, sid);
     }
 
@@ -107,7 +107,7 @@ public class ConnectApp extends Resource {
      * @param sid The sid
      * @return ConnectAppUpdater capable of executing the update
      */
-    public static ConnectAppUpdater update(final String sid) {
+    public static ConnectAppUpdater updater(final String sid) {
         return new ConnectAppUpdater(sid);
     }
 
@@ -117,7 +117,7 @@ public class ConnectApp extends Resource {
      * @param accountSid The account_sid
      * @return ConnectAppReader capable of executing the read
      */
-    public static ConnectAppReader read(final String accountSid) {
+    public static ConnectAppReader reader(final String accountSid) {
         return new ConnectAppReader(accountSid);
     }
 
@@ -126,7 +126,7 @@ public class ConnectApp extends Resource {
      * 
      * @return ConnectAppReader capable of executing the read
      */
-    public static ConnectAppReader read() {
+    public static ConnectAppReader reader() {
         return new ConnectAppReader();
     }
 

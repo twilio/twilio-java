@@ -41,8 +41,8 @@ public class WorkerStatistics extends Resource {
      * @param workerSid The worker_sid
      * @return WorkerStatisticsFetcher capable of executing the fetch
      */
-    public static WorkerStatisticsFetcher fetch(final String workspaceSid, 
-                                                final String workerSid) {
+    public static WorkerStatisticsFetcher fetcher(final String workspaceSid, 
+                                                  final String workerSid) {
         return new WorkerStatisticsFetcher(workspaceSid, workerSid);
     }
 

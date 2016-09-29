@@ -42,8 +42,8 @@ public class Local extends Resource {
      * @param countryCode The country_code
      * @return LocalReader capable of executing the read
      */
-    public static LocalReader read(final String accountSid, 
-                                   final String countryCode) {
+    public static LocalReader reader(final String accountSid, 
+                                     final String countryCode) {
         return new LocalReader(accountSid, countryCode);
     }
 
@@ -53,7 +53,7 @@ public class Local extends Resource {
      * @param countryCode The country_code
      * @return LocalReader capable of executing the read
      */
-    public static LocalReader read(final String countryCode) {
+    public static LocalReader reader(final String countryCode) {
         return new LocalReader(countryCode);
     }
 

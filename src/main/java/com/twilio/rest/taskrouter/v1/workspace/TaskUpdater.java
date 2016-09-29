@@ -101,7 +101,7 @@ public class TaskUpdater extends Updater<Task> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Task execute(final TwilioRestClient client) {
+    public Task update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

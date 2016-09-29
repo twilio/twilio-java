@@ -78,7 +78,7 @@ public class CommandCreator extends Creator<Command> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Command execute(final TwilioRestClient client) {
+    public Command create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

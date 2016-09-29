@@ -114,7 +114,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public OriginationUrl execute(final TwilioRestClient client) {
+    public OriginationUrl update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),

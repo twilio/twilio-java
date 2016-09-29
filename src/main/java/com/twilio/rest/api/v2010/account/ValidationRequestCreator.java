@@ -123,7 +123,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public ValidationRequest execute(final TwilioRestClient client) {
+    public ValidationRequest create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

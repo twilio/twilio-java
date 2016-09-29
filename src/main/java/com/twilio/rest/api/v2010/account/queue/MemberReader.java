@@ -51,8 +51,8 @@ public class MemberReader extends Reader<Member> {
      * @return Member ResourceSet
      */
     @Override
-    public ResourceSet<Member> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Member> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

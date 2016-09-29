@@ -164,7 +164,7 @@ public class Today extends Resource {
      * @param accountSid The account_sid
      * @return TodayReader capable of executing the read
      */
-    public static TodayReader read(final String accountSid) {
+    public static TodayReader reader(final String accountSid) {
         return new TodayReader(accountSid);
     }
 
@@ -173,7 +173,7 @@ public class Today extends Resource {
      * 
      * @return TodayReader capable of executing the read
      */
-    public static TodayReader read() {
+    public static TodayReader reader() {
         return new TodayReader();
     }
 

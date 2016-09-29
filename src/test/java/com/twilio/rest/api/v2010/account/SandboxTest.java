@@ -51,7 +51,7 @@ public class SandboxTest {
         }};
         
         try {
-            Sandbox.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Sandbox.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class SandboxTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Sandbox.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Sandbox.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class SandboxTest {
         }};
         
         try {
-            Sandbox.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Sandbox.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,6 +97,6 @@ public class SandboxTest {
             result = new ObjectMapper();
         }};
         
-        Sandbox.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Sandbox.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

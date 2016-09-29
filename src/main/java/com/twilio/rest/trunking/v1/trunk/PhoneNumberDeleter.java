@@ -40,7 +40,7 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean execute(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),

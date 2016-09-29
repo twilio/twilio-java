@@ -57,7 +57,7 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public CredentialListMapping execute(final TwilioRestClient client) {
+    public CredentialListMapping fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

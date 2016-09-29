@@ -55,7 +55,7 @@ public class RecordingReader extends Reader<Recording> {
      * @param absoluteDateCreated The absolute_date_created
      * @return this
      */
-    public RecordingReader byDateCreated(final LocalDate absoluteDateCreated) {
+    public RecordingReader setDateCreated(final LocalDate absoluteDateCreated) {
         this.rangeDateCreated = null;
         this.absoluteDateCreated = absoluteDateCreated;
         return this;
@@ -67,7 +67,7 @@ public class RecordingReader extends Reader<Recording> {
      * @param rangeDateCreated The range_date_created
      * @return this
      */
-    public RecordingReader byDateCreated(final Range<LocalDate> rangeDateCreated) {
+    public RecordingReader setDateCreated(final Range<LocalDate> rangeDateCreated) {
         this.absoluteDateCreated = null;
         this.rangeDateCreated = rangeDateCreated;
         return this;
@@ -80,8 +80,8 @@ public class RecordingReader extends Reader<Recording> {
      * @return Recording ResourceSet
      */
     @Override
-    public ResourceSet<Recording> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Recording> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

@@ -200,7 +200,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public ConnectApp execute(final TwilioRestClient client) {
+    public ConnectApp update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

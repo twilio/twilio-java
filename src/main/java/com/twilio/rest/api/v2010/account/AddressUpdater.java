@@ -122,7 +122,7 @@ public class AddressUpdater extends Updater<Address> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Address execute(final TwilioRestClient client) {
+    public Address update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

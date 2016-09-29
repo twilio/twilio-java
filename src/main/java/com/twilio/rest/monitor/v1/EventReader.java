@@ -35,7 +35,7 @@ public class EventReader extends Reader<Event> {
      * @param actorSid The actor_sid
      * @return this
      */
-    public EventReader byActorSid(final String actorSid) {
+    public EventReader setActorSid(final String actorSid) {
         this.actorSid = actorSid;
         return this;
     }
@@ -46,7 +46,7 @@ public class EventReader extends Reader<Event> {
      * @param eventType The event_type
      * @return this
      */
-    public EventReader byEventType(final String eventType) {
+    public EventReader setEventType(final String eventType) {
         this.eventType = eventType;
         return this;
     }
@@ -57,7 +57,7 @@ public class EventReader extends Reader<Event> {
      * @param resourceSid The resource_sid
      * @return this
      */
-    public EventReader byResourceSid(final String resourceSid) {
+    public EventReader setResourceSid(final String resourceSid) {
         this.resourceSid = resourceSid;
         return this;
     }
@@ -68,7 +68,7 @@ public class EventReader extends Reader<Event> {
      * @param sourceIpAddress The source_ip_address
      * @return this
      */
-    public EventReader bySourceIpAddress(final String sourceIpAddress) {
+    public EventReader setSourceIpAddress(final String sourceIpAddress) {
         this.sourceIpAddress = sourceIpAddress;
         return this;
     }
@@ -79,7 +79,7 @@ public class EventReader extends Reader<Event> {
      * @param startDate The start_date
      * @return this
      */
-    public EventReader byStartDate(final LocalDate startDate) {
+    public EventReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -90,7 +90,7 @@ public class EventReader extends Reader<Event> {
      * @param endDate The end_date
      * @return this
      */
-    public EventReader byEndDate(final LocalDate endDate) {
+    public EventReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -102,8 +102,8 @@ public class EventReader extends Reader<Event> {
      * @return Event ResourceSet
      */
     @Override
-    public ResourceSet<Event> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Event> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

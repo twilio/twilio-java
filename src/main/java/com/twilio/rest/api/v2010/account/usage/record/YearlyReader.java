@@ -48,7 +48,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param category The category
      * @return this
      */
-    public YearlyReader byCategory(final Yearly.Category category) {
+    public YearlyReader setCategory(final Yearly.Category category) {
         this.category = category;
         return this;
     }
@@ -59,7 +59,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param startDate The start_date
      * @return this
      */
-    public YearlyReader byStartDate(final LocalDate startDate) {
+    public YearlyReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -70,7 +70,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param endDate The end_date
      * @return this
      */
-    public YearlyReader byEndDate(final LocalDate endDate) {
+    public YearlyReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -82,8 +82,8 @@ public class YearlyReader extends Reader<Yearly> {
      * @return Yearly ResourceSet
      */
     @Override
-    public ResourceSet<Yearly> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Yearly> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

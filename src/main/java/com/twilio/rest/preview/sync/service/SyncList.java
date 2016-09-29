@@ -43,8 +43,8 @@ public class SyncList extends Resource {
      * @param sid The sid
      * @return SyncListFetcher capable of executing the fetch
      */
-    public static SyncListFetcher fetch(final String serviceSid, 
-                                        final String sid) {
+    public static SyncListFetcher fetcher(final String serviceSid, 
+                                          final String sid) {
         return new SyncListFetcher(serviceSid, sid);
     }
 
@@ -55,8 +55,8 @@ public class SyncList extends Resource {
      * @param sid The sid
      * @return SyncListDeleter capable of executing the delete
      */
-    public static SyncListDeleter delete(final String serviceSid, 
-                                         final String sid) {
+    public static SyncListDeleter deleter(final String serviceSid, 
+                                          final String sid) {
         return new SyncListDeleter(serviceSid, sid);
     }
 
@@ -66,7 +66,7 @@ public class SyncList extends Resource {
      * @param serviceSid The service_sid
      * @return SyncListCreator capable of executing the create
      */
-    public static SyncListCreator create(final String serviceSid) {
+    public static SyncListCreator creator(final String serviceSid) {
         return new SyncListCreator(serviceSid);
     }
 
@@ -76,7 +76,7 @@ public class SyncList extends Resource {
      * @param serviceSid The service_sid
      * @return SyncListReader capable of executing the read
      */
-    public static SyncListReader read(final String serviceSid) {
+    public static SyncListReader reader(final String serviceSid) {
         return new SyncListReader(serviceSid);
     }
 

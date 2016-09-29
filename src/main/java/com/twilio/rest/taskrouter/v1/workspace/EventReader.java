@@ -48,7 +48,7 @@ public class EventReader extends Reader<Event> {
      * @param endDate The end_date
      * @return this
      */
-    public EventReader byEndDate(final DateTime endDate) {
+    public EventReader setEndDate(final DateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -59,7 +59,7 @@ public class EventReader extends Reader<Event> {
      * @param eventType The event_type
      * @return this
      */
-    public EventReader byEventType(final String eventType) {
+    public EventReader setEventType(final String eventType) {
         this.eventType = eventType;
         return this;
     }
@@ -70,7 +70,7 @@ public class EventReader extends Reader<Event> {
      * @param minutes The minutes
      * @return this
      */
-    public EventReader byMinutes(final Integer minutes) {
+    public EventReader setMinutes(final Integer minutes) {
         this.minutes = minutes;
         return this;
     }
@@ -81,7 +81,7 @@ public class EventReader extends Reader<Event> {
      * @param reservationSid The reservation_sid
      * @return this
      */
-    public EventReader byReservationSid(final String reservationSid) {
+    public EventReader setReservationSid(final String reservationSid) {
         this.reservationSid = reservationSid;
         return this;
     }
@@ -92,7 +92,7 @@ public class EventReader extends Reader<Event> {
      * @param startDate The start_date
      * @return this
      */
-    public EventReader byStartDate(final DateTime startDate) {
+    public EventReader setStartDate(final DateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -103,7 +103,7 @@ public class EventReader extends Reader<Event> {
      * @param taskQueueSid The task_queue_sid
      * @return this
      */
-    public EventReader byTaskQueueSid(final String taskQueueSid) {
+    public EventReader setTaskQueueSid(final String taskQueueSid) {
         this.taskQueueSid = taskQueueSid;
         return this;
     }
@@ -114,7 +114,7 @@ public class EventReader extends Reader<Event> {
      * @param taskSid The task_sid
      * @return this
      */
-    public EventReader byTaskSid(final String taskSid) {
+    public EventReader setTaskSid(final String taskSid) {
         this.taskSid = taskSid;
         return this;
     }
@@ -125,7 +125,7 @@ public class EventReader extends Reader<Event> {
      * @param workerSid The worker_sid
      * @return this
      */
-    public EventReader byWorkerSid(final String workerSid) {
+    public EventReader setWorkerSid(final String workerSid) {
         this.workerSid = workerSid;
         return this;
     }
@@ -136,7 +136,7 @@ public class EventReader extends Reader<Event> {
      * @param workflowSid The workflow_sid
      * @return this
      */
-    public EventReader byWorkflowSid(final String workflowSid) {
+    public EventReader setWorkflowSid(final String workflowSid) {
         this.workflowSid = workflowSid;
         return this;
     }
@@ -148,8 +148,8 @@ public class EventReader extends Reader<Event> {
      * @return Event ResourceSet
      */
     @Override
-    public ResourceSet<Event> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Event> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

@@ -51,7 +51,7 @@ public class RoleTest {
         }};
         
         try {
-            Role.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Role.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Role.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Role.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class RoleTest {
         }};
         
         try {
-            Role.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Role.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
         
-        Role.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Role.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -117,7 +117,7 @@ public class RoleTest {
                     }};
         
         try {
-            Role.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).execute();
+            Role.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -131,7 +131,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
         
-        Role.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).execute();
+        Role.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
     }
 
     @Test
@@ -149,7 +149,7 @@ public class RoleTest {
         }};
         
         try {
-            Role.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Role.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -163,7 +163,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Role.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Role.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -175,7 +175,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Role.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Role.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -193,7 +193,7 @@ public class RoleTest {
         }};
         
         try {
-            Role.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Promoter.listOfOne("permission")).execute();
+            Role.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Promoter.listOfOne("permission")).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -207,6 +207,6 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
         
-        Role.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Promoter.listOfOne("permission")).execute();
+        Role.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Promoter.listOfOne("permission")).update();
     }
 }

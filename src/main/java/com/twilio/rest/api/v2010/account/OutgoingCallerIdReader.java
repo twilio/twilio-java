@@ -45,7 +45,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
      * @param phoneNumber Filter by phone number
      * @return this
      */
-    public OutgoingCallerIdReader byPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
+    public OutgoingCallerIdReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -56,7 +56,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
      * @param friendlyName Filter by friendly name
      * @return this
      */
-    public OutgoingCallerIdReader byFriendlyName(final String friendlyName) {
+    public OutgoingCallerIdReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -68,8 +68,8 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
      * @return OutgoingCallerId ResourceSet
      */
     @Override
-    public ResourceSet<OutgoingCallerId> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<OutgoingCallerId> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

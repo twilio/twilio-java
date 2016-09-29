@@ -45,7 +45,7 @@ public class ActivityUpdater extends Updater<Activity> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Activity execute(final TwilioRestClient client) {
+    public Activity update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

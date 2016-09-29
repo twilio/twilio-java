@@ -43,9 +43,9 @@ public class Participant extends Resource {
      * @param callSid The call_sid
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetch(final String accountSid, 
-                                           final String conferenceSid, 
-                                           final String callSid) {
+    public static ParticipantFetcher fetcher(final String accountSid, 
+                                             final String conferenceSid, 
+                                             final String callSid) {
         return new ParticipantFetcher(accountSid, conferenceSid, callSid);
     }
 
@@ -56,8 +56,8 @@ public class Participant extends Resource {
      * @param callSid The call_sid
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetch(final String conferenceSid, 
-                                           final String callSid) {
+    public static ParticipantFetcher fetcher(final String conferenceSid, 
+                                             final String callSid) {
         return new ParticipantFetcher(conferenceSid, callSid);
     }
 
@@ -69,9 +69,9 @@ public class Participant extends Resource {
      * @param callSid The call_sid
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater update(final String accountSid, 
-                                            final String conferenceSid, 
-                                            final String callSid) {
+    public static ParticipantUpdater updater(final String accountSid, 
+                                             final String conferenceSid, 
+                                             final String callSid) {
         return new ParticipantUpdater(accountSid, conferenceSid, callSid);
     }
 
@@ -82,8 +82,8 @@ public class Participant extends Resource {
      * @param callSid The call_sid
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater update(final String conferenceSid, 
-                                            final String callSid) {
+    public static ParticipantUpdater updater(final String conferenceSid, 
+                                             final String callSid) {
         return new ParticipantUpdater(conferenceSid, callSid);
     }
 
@@ -95,9 +95,9 @@ public class Participant extends Resource {
      * @param callSid The call_sid
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter delete(final String accountSid, 
-                                            final String conferenceSid, 
-                                            final String callSid) {
+    public static ParticipantDeleter deleter(final String accountSid, 
+                                             final String conferenceSid, 
+                                             final String callSid) {
         return new ParticipantDeleter(accountSid, conferenceSid, callSid);
     }
 
@@ -108,8 +108,8 @@ public class Participant extends Resource {
      * @param callSid The call_sid
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter delete(final String conferenceSid, 
-                                            final String callSid) {
+    public static ParticipantDeleter deleter(final String conferenceSid, 
+                                             final String callSid) {
         return new ParticipantDeleter(conferenceSid, callSid);
     }
 
@@ -120,8 +120,8 @@ public class Participant extends Resource {
      * @param conferenceSid The string that uniquely identifies this conference
      * @return ParticipantReader capable of executing the read
      */
-    public static ParticipantReader read(final String accountSid, 
-                                         final String conferenceSid) {
+    public static ParticipantReader reader(final String accountSid, 
+                                           final String conferenceSid) {
         return new ParticipantReader(accountSid, conferenceSid);
     }
 
@@ -131,7 +131,7 @@ public class Participant extends Resource {
      * @param conferenceSid The string that uniquely identifies this conference
      * @return ParticipantReader capable of executing the read
      */
-    public static ParticipantReader read(final String conferenceSid) {
+    public static ParticipantReader reader(final String conferenceSid) {
         return new ParticipantReader(conferenceSid);
     }
 

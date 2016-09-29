@@ -44,7 +44,7 @@ public class TaskReader extends Reader<Task> {
      * @param priority The priority
      * @return this
      */
-    public TaskReader byPriority(final Integer priority) {
+    public TaskReader setPriority(final Integer priority) {
         this.priority = priority;
         return this;
     }
@@ -55,7 +55,7 @@ public class TaskReader extends Reader<Task> {
      * @param assignmentStatus The assignment_status
      * @return this
      */
-    public TaskReader byAssignmentStatus(final Task.Status assignmentStatus) {
+    public TaskReader setAssignmentStatus(final Task.Status assignmentStatus) {
         this.assignmentStatus = assignmentStatus;
         return this;
     }
@@ -66,7 +66,7 @@ public class TaskReader extends Reader<Task> {
      * @param workflowSid The workflow_sid
      * @return this
      */
-    public TaskReader byWorkflowSid(final String workflowSid) {
+    public TaskReader setWorkflowSid(final String workflowSid) {
         this.workflowSid = workflowSid;
         return this;
     }
@@ -77,7 +77,7 @@ public class TaskReader extends Reader<Task> {
      * @param workflowName The workflow_name
      * @return this
      */
-    public TaskReader byWorkflowName(final String workflowName) {
+    public TaskReader setWorkflowName(final String workflowName) {
         this.workflowName = workflowName;
         return this;
     }
@@ -88,7 +88,7 @@ public class TaskReader extends Reader<Task> {
      * @param taskQueueSid The task_queue_sid
      * @return this
      */
-    public TaskReader byTaskQueueSid(final String taskQueueSid) {
+    public TaskReader setTaskQueueSid(final String taskQueueSid) {
         this.taskQueueSid = taskQueueSid;
         return this;
     }
@@ -99,7 +99,7 @@ public class TaskReader extends Reader<Task> {
      * @param taskQueueName The task_queue_name
      * @return this
      */
-    public TaskReader byTaskQueueName(final String taskQueueName) {
+    public TaskReader setTaskQueueName(final String taskQueueName) {
         this.taskQueueName = taskQueueName;
         return this;
     }
@@ -110,7 +110,7 @@ public class TaskReader extends Reader<Task> {
      * @param taskChannel The task_channel
      * @return this
      */
-    public TaskReader byTaskChannel(final String taskChannel) {
+    public TaskReader setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
@@ -122,8 +122,8 @@ public class TaskReader extends Reader<Task> {
      * @return Task ResourceSet
      */
     @Override
-    public ResourceSet<Task> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Task> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

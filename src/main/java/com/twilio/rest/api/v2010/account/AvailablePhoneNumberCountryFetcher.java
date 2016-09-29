@@ -50,7 +50,7 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public AvailablePhoneNumberCountry execute(final TwilioRestClient client) {
+    public AvailablePhoneNumberCountry fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

@@ -41,7 +41,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public OriginationUrl execute(final TwilioRestClient client) {
+    public OriginationUrl fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),

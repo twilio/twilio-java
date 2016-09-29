@@ -97,7 +97,7 @@ public class CredentialCreator extends Creator<Credential> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Credential execute(final TwilioRestClient client) {
+    public Credential create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),

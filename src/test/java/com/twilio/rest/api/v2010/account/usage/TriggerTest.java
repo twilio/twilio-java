@@ -51,7 +51,7 @@ public class TriggerTest {
         }};
         
         try {
-            Trigger.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Trigger.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Trigger.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Trigger.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TriggerTest {
         }};
         
         try {
-            Trigger.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Trigger.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
         
-        Trigger.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Trigger.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class TriggerTest {
         }};
         
         try {
-            Trigger.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Trigger.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
         
-        Trigger.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Trigger.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -149,7 +149,7 @@ public class TriggerTest {
                     }};
         
         try {
-            Trigger.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", URI.create("https://example.com"), "triggerValue", Trigger.UsageCategory.AUTHY_AUTHENTICATIONS).execute();
+            Trigger.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", URI.create("https://example.com"), "triggerValue", Trigger.UsageCategory.AUTHY_AUTHENTICATIONS).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -163,7 +163,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
         
-        Trigger.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", URI.create("https://example.com"), "triggerValue", Trigger.UsageCategory.AUTHY_AUTHENTICATIONS).execute();
+        Trigger.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", URI.create("https://example.com"), "triggerValue", Trigger.UsageCategory.AUTHY_AUTHENTICATIONS).create();
     }
 
     @Test
@@ -181,7 +181,7 @@ public class TriggerTest {
         }};
         
         try {
-            Trigger.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Trigger.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -195,7 +195,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Trigger.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Trigger.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -207,6 +207,6 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Trigger.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Trigger.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

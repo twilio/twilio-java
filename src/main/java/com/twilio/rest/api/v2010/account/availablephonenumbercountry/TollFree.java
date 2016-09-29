@@ -42,8 +42,8 @@ public class TollFree extends Resource {
      * @param countryCode The country_code
      * @return TollFreeReader capable of executing the read
      */
-    public static TollFreeReader read(final String accountSid, 
-                                      final String countryCode) {
+    public static TollFreeReader reader(final String accountSid, 
+                                        final String countryCode) {
         return new TollFreeReader(accountSid, countryCode);
     }
 
@@ -53,7 +53,7 @@ public class TollFree extends Resource {
      * @param countryCode The country_code
      * @return TollFreeReader capable of executing the read
      */
-    public static TollFreeReader read(final String countryCode) {
+    public static TollFreeReader reader(final String countryCode) {
         return new TollFreeReader(countryCode);
     }
 

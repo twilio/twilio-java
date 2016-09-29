@@ -51,8 +51,8 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
      * @return CredentialListMapping ResourceSet
      */
     @Override
-    public ResourceSet<CredentialListMapping> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<CredentialListMapping> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

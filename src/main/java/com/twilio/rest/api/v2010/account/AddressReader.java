@@ -46,7 +46,7 @@ public class AddressReader extends Reader<Address> {
      * @param customerName The customer_name
      * @return this
      */
-    public AddressReader byCustomerName(final String customerName) {
+    public AddressReader setCustomerName(final String customerName) {
         this.customerName = customerName;
         return this;
     }
@@ -57,7 +57,7 @@ public class AddressReader extends Reader<Address> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public AddressReader byFriendlyName(final String friendlyName) {
+    public AddressReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -68,7 +68,7 @@ public class AddressReader extends Reader<Address> {
      * @param isoCountry The iso_country
      * @return this
      */
-    public AddressReader byIsoCountry(final String isoCountry) {
+    public AddressReader setIsoCountry(final String isoCountry) {
         this.isoCountry = isoCountry;
         return this;
     }
@@ -80,8 +80,8 @@ public class AddressReader extends Reader<Address> {
      * @return Address ResourceSet
      */
     @Override
-    public ResourceSet<Address> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Address> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

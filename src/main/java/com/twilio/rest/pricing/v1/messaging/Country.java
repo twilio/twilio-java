@@ -44,7 +44,7 @@ public class Country extends Resource {
      * 
      * @return CountryReader capable of executing the read
      */
-    public static CountryReader read() {
+    public static CountryReader reader() {
         return new CountryReader();
     }
 
@@ -54,7 +54,7 @@ public class Country extends Resource {
      * @param isoCountry The iso_country
      * @return CountryFetcher capable of executing the fetch
      */
-    public static CountryFetcher fetch(final String isoCountry) {
+    public static CountryFetcher fetcher(final String isoCountry) {
         return new CountryFetcher(isoCountry);
     }
 

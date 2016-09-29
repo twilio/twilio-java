@@ -42,7 +42,7 @@ public class Sandbox extends Resource {
      * @param accountSid The account_sid
      * @return SandboxFetcher capable of executing the fetch
      */
-    public static SandboxFetcher fetch(final String accountSid) {
+    public static SandboxFetcher fetcher(final String accountSid) {
         return new SandboxFetcher(accountSid);
     }
 
@@ -51,7 +51,7 @@ public class Sandbox extends Resource {
      * 
      * @return SandboxFetcher capable of executing the fetch
      */
-    public static SandboxFetcher fetch() {
+    public static SandboxFetcher fetcher() {
         return new SandboxFetcher();
     }
 
@@ -61,7 +61,7 @@ public class Sandbox extends Resource {
      * @param accountSid The account_sid
      * @return SandboxUpdater capable of executing the update
      */
-    public static SandboxUpdater update(final String accountSid) {
+    public static SandboxUpdater updater(final String accountSid) {
         return new SandboxUpdater(accountSid);
     }
 
@@ -70,7 +70,7 @@ public class Sandbox extends Resource {
      * 
      * @return SandboxUpdater capable of executing the update
      */
-    public static SandboxUpdater update() {
+    public static SandboxUpdater updater() {
         return new SandboxUpdater();
     }
 

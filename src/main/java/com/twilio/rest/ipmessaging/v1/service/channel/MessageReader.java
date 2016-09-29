@@ -42,8 +42,8 @@ public class MessageReader extends Reader<Message> {
      * @return Message ResourceSet
      */
     @Override
-    public ResourceSet<Message> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Message> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

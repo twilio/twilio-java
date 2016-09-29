@@ -42,7 +42,7 @@ public class Command extends Resource {
      * @param sid The sid
      * @return CommandFetcher capable of executing the fetch
      */
-    public static CommandFetcher fetch(final String sid) {
+    public static CommandFetcher fetcher(final String sid) {
         return new CommandFetcher(sid);
     }
 
@@ -51,7 +51,7 @@ public class Command extends Resource {
      * 
      * @return CommandReader capable of executing the read
      */
-    public static CommandReader read() {
+    public static CommandReader reader() {
         return new CommandReader();
     }
 
@@ -62,8 +62,8 @@ public class Command extends Resource {
      * @param command The command
      * @return CommandCreator capable of executing the create
      */
-    public static CommandCreator create(final String device, 
-                                        final String command) {
+    public static CommandCreator creator(final String device, 
+                                         final String command) {
         return new CommandCreator(device, command);
     }
 

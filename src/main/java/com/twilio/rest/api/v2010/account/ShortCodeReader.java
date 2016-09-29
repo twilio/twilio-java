@@ -46,7 +46,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
      * @param friendlyName Filter by friendly name
      * @return this
      */
-    public ShortCodeReader byFriendlyName(final String friendlyName) {
+    public ShortCodeReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -58,7 +58,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
      * @param shortCode Filter by ShortCode
      * @return this
      */
-    public ShortCodeReader byShortCode(final String shortCode) {
+    public ShortCodeReader setShortCode(final String shortCode) {
         this.shortCode = shortCode;
         return this;
     }
@@ -70,8 +70,8 @@ public class ShortCodeReader extends Reader<ShortCode> {
      * @return ShortCode ResourceSet
      */
     @Override
-    public ResourceSet<ShortCode> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<ShortCode> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

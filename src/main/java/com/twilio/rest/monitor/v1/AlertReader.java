@@ -32,7 +32,7 @@ public class AlertReader extends Reader<Alert> {
      * @param logLevel The log_level
      * @return this
      */
-    public AlertReader byLogLevel(final String logLevel) {
+    public AlertReader setLogLevel(final String logLevel) {
         this.logLevel = logLevel;
         return this;
     }
@@ -43,7 +43,7 @@ public class AlertReader extends Reader<Alert> {
      * @param startDate The start_date
      * @return this
      */
-    public AlertReader byStartDate(final LocalDate startDate) {
+    public AlertReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -54,7 +54,7 @@ public class AlertReader extends Reader<Alert> {
      * @param endDate The end_date
      * @return this
      */
-    public AlertReader byEndDate(final LocalDate endDate) {
+    public AlertReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -66,8 +66,8 @@ public class AlertReader extends Reader<Alert> {
      * @return Alert ResourceSet
      */
     @Override
-    public ResourceSet<Alert> execute(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage());
+    public ResourceSet<Alert> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
     }
 
     /**

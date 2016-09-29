@@ -105,7 +105,7 @@ public class Account extends Resource {
      * 
      * @return AccountCreator capable of executing the create
      */
-    public static AccountCreator create() {
+    public static AccountCreator creator() {
         return new AccountCreator();
     }
 
@@ -115,7 +115,7 @@ public class Account extends Resource {
      * @param sid Fetch by unique Account Sid
      * @return AccountFetcher capable of executing the fetch
      */
-    public static AccountFetcher fetch(final String sid) {
+    public static AccountFetcher fetcher(final String sid) {
         return new AccountFetcher(sid);
     }
 
@@ -124,7 +124,7 @@ public class Account extends Resource {
      * 
      * @return AccountFetcher capable of executing the fetch
      */
-    public static AccountFetcher fetch() {
+    public static AccountFetcher fetcher() {
         return new AccountFetcher();
     }
 
@@ -133,7 +133,7 @@ public class Account extends Resource {
      * 
      * @return AccountReader capable of executing the read
      */
-    public static AccountReader read() {
+    public static AccountReader reader() {
         return new AccountReader();
     }
 
@@ -143,7 +143,7 @@ public class Account extends Resource {
      * @param sid The sid
      * @return AccountUpdater capable of executing the update
      */
-    public static AccountUpdater update(final String sid) {
+    public static AccountUpdater updater(final String sid) {
         return new AccountUpdater(sid);
     }
 
@@ -152,7 +152,7 @@ public class Account extends Resource {
      * 
      * @return AccountUpdater capable of executing the update
      */
-    public static AccountUpdater update() {
+    public static AccountUpdater updater() {
         return new AccountUpdater();
     }
 

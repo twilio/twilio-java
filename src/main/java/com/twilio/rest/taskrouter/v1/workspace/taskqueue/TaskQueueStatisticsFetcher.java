@@ -91,7 +91,7 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public TaskQueueStatistics execute(final TwilioRestClient client) {
+    public TaskQueueStatistics fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),

@@ -57,7 +57,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IpAccessControlList execute(final TwilioRestClient client) {
+    public IpAccessControlList update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

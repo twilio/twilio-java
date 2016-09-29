@@ -168,7 +168,7 @@ public class DeviceUpdater extends Updater<Device> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Device execute(final TwilioRestClient client) {
+    public Device update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

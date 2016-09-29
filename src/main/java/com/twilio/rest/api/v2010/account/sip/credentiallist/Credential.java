@@ -42,8 +42,8 @@ public class Credential extends Resource {
      * @param credentialListSid The credential_list_sid
      * @return CredentialReader capable of executing the read
      */
-    public static CredentialReader read(final String accountSid, 
-                                        final String credentialListSid) {
+    public static CredentialReader reader(final String accountSid, 
+                                          final String credentialListSid) {
         return new CredentialReader(accountSid, credentialListSid);
     }
 
@@ -53,7 +53,7 @@ public class Credential extends Resource {
      * @param credentialListSid The credential_list_sid
      * @return CredentialReader capable of executing the read
      */
-    public static CredentialReader read(final String credentialListSid) {
+    public static CredentialReader reader(final String credentialListSid) {
         return new CredentialReader(credentialListSid);
     }
 
@@ -66,10 +66,10 @@ public class Credential extends Resource {
      * @param password The password
      * @return CredentialCreator capable of executing the create
      */
-    public static CredentialCreator create(final String accountSid, 
-                                           final String credentialListSid, 
-                                           final String username, 
-                                           final String password) {
+    public static CredentialCreator creator(final String accountSid, 
+                                            final String credentialListSid, 
+                                            final String username, 
+                                            final String password) {
         return new CredentialCreator(accountSid, credentialListSid, username, password);
     }
 
@@ -81,9 +81,9 @@ public class Credential extends Resource {
      * @param password The password
      * @return CredentialCreator capable of executing the create
      */
-    public static CredentialCreator create(final String credentialListSid, 
-                                           final String username, 
-                                           final String password) {
+    public static CredentialCreator creator(final String credentialListSid, 
+                                            final String username, 
+                                            final String password) {
         return new CredentialCreator(credentialListSid, username, password);
     }
 
@@ -95,9 +95,9 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialFetcher capable of executing the fetch
      */
-    public static CredentialFetcher fetch(final String accountSid, 
-                                          final String credentialListSid, 
-                                          final String sid) {
+    public static CredentialFetcher fetcher(final String accountSid, 
+                                            final String credentialListSid, 
+                                            final String sid) {
         return new CredentialFetcher(accountSid, credentialListSid, sid);
     }
 
@@ -108,8 +108,8 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialFetcher capable of executing the fetch
      */
-    public static CredentialFetcher fetch(final String credentialListSid, 
-                                          final String sid) {
+    public static CredentialFetcher fetcher(final String credentialListSid, 
+                                            final String sid) {
         return new CredentialFetcher(credentialListSid, sid);
     }
 
@@ -121,9 +121,9 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialUpdater capable of executing the update
      */
-    public static CredentialUpdater update(final String accountSid, 
-                                           final String credentialListSid, 
-                                           final String sid) {
+    public static CredentialUpdater updater(final String accountSid, 
+                                            final String credentialListSid, 
+                                            final String sid) {
         return new CredentialUpdater(accountSid, credentialListSid, sid);
     }
 
@@ -134,8 +134,8 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialUpdater capable of executing the update
      */
-    public static CredentialUpdater update(final String credentialListSid, 
-                                           final String sid) {
+    public static CredentialUpdater updater(final String credentialListSid, 
+                                            final String sid) {
         return new CredentialUpdater(credentialListSid, sid);
     }
 
@@ -147,9 +147,9 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialDeleter capable of executing the delete
      */
-    public static CredentialDeleter delete(final String accountSid, 
-                                           final String credentialListSid, 
-                                           final String sid) {
+    public static CredentialDeleter deleter(final String accountSid, 
+                                            final String credentialListSid, 
+                                            final String sid) {
         return new CredentialDeleter(accountSid, credentialListSid, sid);
     }
 
@@ -160,8 +160,8 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialDeleter capable of executing the delete
      */
-    public static CredentialDeleter delete(final String credentialListSid, 
-                                           final String sid) {
+    public static CredentialDeleter deleter(final String credentialListSid, 
+                                            final String sid) {
         return new CredentialDeleter(credentialListSid, sid);
     }
 

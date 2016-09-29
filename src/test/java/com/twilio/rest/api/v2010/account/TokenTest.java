@@ -51,7 +51,7 @@ public class TokenTest {
         }};
         
         try {
-            Token.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Token.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class TokenTest {
             result = new ObjectMapper();
         }};
         
-        Token.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Token.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
     }
 }

@@ -57,7 +57,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Recording execute(final TwilioRestClient client) {
+    public Recording fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

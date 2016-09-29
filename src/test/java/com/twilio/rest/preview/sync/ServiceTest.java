@@ -51,7 +51,7 @@ public class ServiceTest {
         }};
         
         try {
-            Service.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Service.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -71,7 +71,7 @@ public class ServiceTest {
         }};
         
         try {
-            Service.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Service.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -91,7 +91,7 @@ public class ServiceTest {
         }};
         
         try {
-            Service.create().execute();
+            Service.creator().create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -111,7 +111,7 @@ public class ServiceTest {
         }};
         
         try {
-            Service.read().execute();
+            Service.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -131,7 +131,7 @@ public class ServiceTest {
         }};
         
         try {
-            Service.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Service.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

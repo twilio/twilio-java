@@ -50,7 +50,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IncomingPhoneNumber execute(final TwilioRestClient client) {
+    public IncomingPhoneNumber fetch(final TwilioRestClient client) {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.GET,

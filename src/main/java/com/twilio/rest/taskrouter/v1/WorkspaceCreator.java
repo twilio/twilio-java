@@ -98,7 +98,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Workspace execute(final TwilioRestClient client) {
+    public Workspace create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

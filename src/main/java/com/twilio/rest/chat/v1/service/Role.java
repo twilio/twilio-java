@@ -76,8 +76,8 @@ public class Role extends Resource {
      * @param sid The sid
      * @return RoleFetcher capable of executing the fetch
      */
-    public static RoleFetcher fetch(final String serviceSid, 
-                                    final String sid) {
+    public static RoleFetcher fetcher(final String serviceSid, 
+                                      final String sid) {
         return new RoleFetcher(serviceSid, sid);
     }
 
@@ -88,8 +88,8 @@ public class Role extends Resource {
      * @param sid The sid
      * @return RoleDeleter capable of executing the delete
      */
-    public static RoleDeleter delete(final String serviceSid, 
-                                     final String sid) {
+    public static RoleDeleter deleter(final String serviceSid, 
+                                      final String sid) {
         return new RoleDeleter(serviceSid, sid);
     }
 
@@ -102,10 +102,10 @@ public class Role extends Resource {
      * @param permission The permission
      * @return RoleCreator capable of executing the create
      */
-    public static RoleCreator create(final String serviceSid, 
-                                     final String friendlyName, 
-                                     final Role.RoleType type, 
-                                     final List<String> permission) {
+    public static RoleCreator creator(final String serviceSid, 
+                                      final String friendlyName, 
+                                      final Role.RoleType type, 
+                                      final List<String> permission) {
         return new RoleCreator(serviceSid, friendlyName, type, permission);
     }
 
@@ -115,7 +115,7 @@ public class Role extends Resource {
      * @param serviceSid The service_sid
      * @return RoleReader capable of executing the read
      */
-    public static RoleReader read(final String serviceSid) {
+    public static RoleReader reader(final String serviceSid) {
         return new RoleReader(serviceSid);
     }
 
@@ -127,9 +127,9 @@ public class Role extends Resource {
      * @param permission The permission
      * @return RoleUpdater capable of executing the update
      */
-    public static RoleUpdater update(final String serviceSid, 
-                                     final String sid, 
-                                     final List<String> permission) {
+    public static RoleUpdater updater(final String serviceSid, 
+                                      final String sid, 
+                                      final List<String> permission) {
         return new RoleUpdater(serviceSid, sid, permission);
     }
 

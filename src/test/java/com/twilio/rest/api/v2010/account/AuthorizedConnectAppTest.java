@@ -51,7 +51,7 @@ public class AuthorizedConnectAppTest {
         }};
         
         try {
-            AuthorizedConnectApp.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            AuthorizedConnectApp.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AuthorizedConnectAppTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(AuthorizedConnectApp.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(AuthorizedConnectApp.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class AuthorizedConnectAppTest {
         }};
         
         try {
-            AuthorizedConnectApp.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            AuthorizedConnectApp.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class AuthorizedConnectAppTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(AuthorizedConnectApp.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(AuthorizedConnectApp.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -109,6 +109,6 @@ public class AuthorizedConnectAppTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(AuthorizedConnectApp.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(AuthorizedConnectApp.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

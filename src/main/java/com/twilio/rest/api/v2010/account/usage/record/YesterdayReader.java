@@ -51,7 +51,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @param category The category
      * @return this
      */
-    public YesterdayReader byCategory(final Yesterday.Category category) {
+    public YesterdayReader setCategory(final Yesterday.Category category) {
         this.category = category;
         return this;
     }
@@ -62,7 +62,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public YesterdayReader byStartDate(final DateTime absoluteStartDate) {
+    public YesterdayReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -74,7 +74,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public YesterdayReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public YesterdayReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -86,7 +86,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public YesterdayReader byEndDate(final DateTime absoluteEndDate) {
+    public YesterdayReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -98,7 +98,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public YesterdayReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public YesterdayReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -111,7 +111,7 @@ public class YesterdayReader extends Reader<Yesterday> {
      * @return Yesterday ResourceSet
      */
     @Override
-    public ResourceSet<Yesterday> execute(final TwilioRestClient client) {
+    public ResourceSet<Yesterday> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

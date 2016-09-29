@@ -78,8 +78,8 @@ public class IncomingPhoneNumber extends Resource {
      * @param sid The sid
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
-    public static IncomingPhoneNumberUpdater update(final String ownerAccountSid, 
-                                                    final String sid) {
+    public static IncomingPhoneNumberUpdater updater(final String ownerAccountSid, 
+                                                     final String sid) {
         return new IncomingPhoneNumberUpdater(ownerAccountSid, sid);
     }
 
@@ -89,7 +89,7 @@ public class IncomingPhoneNumber extends Resource {
      * @param sid The sid
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
-    public static IncomingPhoneNumberUpdater update(final String sid) {
+    public static IncomingPhoneNumberUpdater updater(final String sid) {
         return new IncomingPhoneNumberUpdater(sid);
     }
 
@@ -100,8 +100,8 @@ public class IncomingPhoneNumber extends Resource {
      * @param sid Fetch by unique incoming-phone-number Sid
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
-    public static IncomingPhoneNumberFetcher fetch(final String ownerAccountSid, 
-                                                   final String sid) {
+    public static IncomingPhoneNumberFetcher fetcher(final String ownerAccountSid, 
+                                                     final String sid) {
         return new IncomingPhoneNumberFetcher(ownerAccountSid, sid);
     }
 
@@ -111,7 +111,7 @@ public class IncomingPhoneNumber extends Resource {
      * @param sid Fetch by unique incoming-phone-number Sid
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
-    public static IncomingPhoneNumberFetcher fetch(final String sid) {
+    public static IncomingPhoneNumberFetcher fetcher(final String sid) {
         return new IncomingPhoneNumberFetcher(sid);
     }
 
@@ -122,8 +122,8 @@ public class IncomingPhoneNumber extends Resource {
      * @param sid Delete by unique phone-number Sid
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
-    public static IncomingPhoneNumberDeleter delete(final String ownerAccountSid, 
-                                                    final String sid) {
+    public static IncomingPhoneNumberDeleter deleter(final String ownerAccountSid, 
+                                                     final String sid) {
         return new IncomingPhoneNumberDeleter(ownerAccountSid, sid);
     }
 
@@ -133,7 +133,7 @@ public class IncomingPhoneNumber extends Resource {
      * @param sid Delete by unique phone-number Sid
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
-    public static IncomingPhoneNumberDeleter delete(final String sid) {
+    public static IncomingPhoneNumberDeleter deleter(final String sid) {
         return new IncomingPhoneNumberDeleter(sid);
     }
 
@@ -143,7 +143,7 @@ public class IncomingPhoneNumber extends Resource {
      * @param ownerAccountSid The owner_account_sid
      * @return IncomingPhoneNumberReader capable of executing the read
      */
-    public static IncomingPhoneNumberReader read(final String ownerAccountSid) {
+    public static IncomingPhoneNumberReader reader(final String ownerAccountSid) {
         return new IncomingPhoneNumberReader(ownerAccountSid);
     }
 
@@ -152,7 +152,7 @@ public class IncomingPhoneNumber extends Resource {
      * 
      * @return IncomingPhoneNumberReader capable of executing the read
      */
-    public static IncomingPhoneNumberReader read() {
+    public static IncomingPhoneNumberReader reader() {
         return new IncomingPhoneNumberReader();
     }
 
@@ -163,8 +163,8 @@ public class IncomingPhoneNumber extends Resource {
      * @param phoneNumber The phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator create(final String ownerAccountSid, 
-                                                    final com.twilio.type.PhoneNumber phoneNumber) {
+    public static IncomingPhoneNumberCreator creator(final String ownerAccountSid, 
+                                                     final com.twilio.type.PhoneNumber phoneNumber) {
         return new IncomingPhoneNumberCreator(ownerAccountSid, phoneNumber);
     }
 
@@ -174,7 +174,7 @@ public class IncomingPhoneNumber extends Resource {
      * @param phoneNumber The phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator create(final com.twilio.type.PhoneNumber phoneNumber) {
+    public static IncomingPhoneNumberCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
         return new IncomingPhoneNumberCreator(phoneNumber);
     }
 
@@ -185,8 +185,8 @@ public class IncomingPhoneNumber extends Resource {
      * @param areaCode The desired area code for the new number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator create(final String ownerAccountSid, 
-                                                    final String areaCode) {
+    public static IncomingPhoneNumberCreator creator(final String ownerAccountSid, 
+                                                     final String areaCode) {
         return new IncomingPhoneNumberCreator(ownerAccountSid, areaCode);
     }
 
@@ -196,7 +196,7 @@ public class IncomingPhoneNumber extends Resource {
      * @param areaCode The desired area code for the new number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator create(final String areaCode) {
+    public static IncomingPhoneNumberCreator creator(final String areaCode) {
         return new IncomingPhoneNumberCreator(areaCode);
     }
 

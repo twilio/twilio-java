@@ -52,7 +52,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SyncMapItem execute(final TwilioRestClient client) {
+    public SyncMapItem create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

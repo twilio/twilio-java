@@ -77,8 +77,8 @@ public class PhoneNumber extends Resource {
      * @param sid The sid
      * @return PhoneNumberFetcher capable of executing the fetch
      */
-    public static PhoneNumberFetcher fetch(final String trunkSid, 
-                                           final String sid) {
+    public static PhoneNumberFetcher fetcher(final String trunkSid, 
+                                             final String sid) {
         return new PhoneNumberFetcher(trunkSid, sid);
     }
 
@@ -89,8 +89,8 @@ public class PhoneNumber extends Resource {
      * @param sid The sid
      * @return PhoneNumberDeleter capable of executing the delete
      */
-    public static PhoneNumberDeleter delete(final String trunkSid, 
-                                            final String sid) {
+    public static PhoneNumberDeleter deleter(final String trunkSid, 
+                                             final String sid) {
         return new PhoneNumberDeleter(trunkSid, sid);
     }
 
@@ -101,8 +101,8 @@ public class PhoneNumber extends Resource {
      * @param phoneNumberSid The phone_number_sid
      * @return PhoneNumberCreator capable of executing the create
      */
-    public static PhoneNumberCreator create(final String trunkSid, 
-                                            final String phoneNumberSid) {
+    public static PhoneNumberCreator creator(final String trunkSid, 
+                                             final String phoneNumberSid) {
         return new PhoneNumberCreator(trunkSid, phoneNumberSid);
     }
 
@@ -112,7 +112,7 @@ public class PhoneNumber extends Resource {
      * @param trunkSid The trunk_sid
      * @return PhoneNumberReader capable of executing the read
      */
-    public static PhoneNumberReader read(final String trunkSid) {
+    public static PhoneNumberReader reader(final String trunkSid) {
         return new PhoneNumberReader(trunkSid);
     }
 

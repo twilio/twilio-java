@@ -51,7 +51,7 @@ public class DomainTest {
         }};
         
         try {
-            Domain.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Domain.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Domain.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Domain.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Domain.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Domain.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class DomainTest {
         }};
         
         try {
-            Domain.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "domainName").execute();
+            Domain.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "domainName").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
         
-        Domain.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "domainName").execute();
+        Domain.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "domainName").create();
     }
 
     @Test
@@ -127,7 +127,7 @@ public class DomainTest {
         }};
         
         try {
-            Domain.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Domain.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Domain.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Domain.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class DomainTest {
         }};
         
         try {
-            Domain.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Domain.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
         
-        Domain.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Domain.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -191,7 +191,7 @@ public class DomainTest {
         }};
         
         try {
-            Domain.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Domain.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
         
-        Domain.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Domain.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 }

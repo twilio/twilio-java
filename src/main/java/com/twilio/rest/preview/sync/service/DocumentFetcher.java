@@ -41,7 +41,7 @@ public class DocumentFetcher extends Fetcher<Document> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Document execute(final TwilioRestClient client) {
+    public Document fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),

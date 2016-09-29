@@ -55,7 +55,7 @@ public class TokenCreator extends Creator<Token> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Token execute(final TwilioRestClient client) {
+    public Token create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

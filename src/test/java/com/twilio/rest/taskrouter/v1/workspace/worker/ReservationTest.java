@@ -51,7 +51,7 @@ public class ReservationTest {
         }};
         
         try {
-            Reservation.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Reservation.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class ReservationTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Reservation.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Reservation.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class ReservationTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Reservation.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Reservation.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ReservationTest {
         }};
         
         try {
-            Reservation.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Reservation.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class ReservationTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Reservation.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Reservation.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -127,7 +127,7 @@ public class ReservationTest {
         }};
         
         try {
-            Reservation.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Reservation.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,6 +141,6 @@ public class ReservationTest {
             result = new ObjectMapper();
         }};
         
-        Reservation.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Reservation.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

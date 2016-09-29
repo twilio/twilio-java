@@ -38,7 +38,7 @@ public class EventReader extends Reader<Event> {
      * @param actorSid The actor_sid
      * @return this
      */
-    public EventReader byActorSid(final String actorSid) {
+    public EventReader setActorSid(final String actorSid) {
         this.actorSid = actorSid;
         return this;
     }
@@ -49,7 +49,7 @@ public class EventReader extends Reader<Event> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public EventReader byEndDate(final DateTime absoluteEndDate) {
+    public EventReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -61,7 +61,7 @@ public class EventReader extends Reader<Event> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public EventReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public EventReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -73,7 +73,7 @@ public class EventReader extends Reader<Event> {
      * @param eventType The event_type
      * @return this
      */
-    public EventReader byEventType(final String eventType) {
+    public EventReader setEventType(final String eventType) {
         this.eventType = eventType;
         return this;
     }
@@ -84,7 +84,7 @@ public class EventReader extends Reader<Event> {
      * @param resourceSid The resource_sid
      * @return this
      */
-    public EventReader byResourceSid(final String resourceSid) {
+    public EventReader setResourceSid(final String resourceSid) {
         this.resourceSid = resourceSid;
         return this;
     }
@@ -95,7 +95,7 @@ public class EventReader extends Reader<Event> {
      * @param sourceIpAddress The source_ip_address
      * @return this
      */
-    public EventReader bySourceIpAddress(final String sourceIpAddress) {
+    public EventReader setSourceIpAddress(final String sourceIpAddress) {
         this.sourceIpAddress = sourceIpAddress;
         return this;
     }
@@ -106,7 +106,7 @@ public class EventReader extends Reader<Event> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public EventReader byStartDate(final DateTime absoluteStartDate) {
+    public EventReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -118,7 +118,7 @@ public class EventReader extends Reader<Event> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public EventReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public EventReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -131,7 +131,7 @@ public class EventReader extends Reader<Event> {
      * @return Event ResourceSet
      */
     @Override
-    public ResourceSet<Event> execute(final TwilioRestClient client) {
+    public ResourceSet<Event> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

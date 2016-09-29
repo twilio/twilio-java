@@ -43,8 +43,8 @@ public class TaskChannel extends Resource {
      * @param sid The sid
      * @return TaskChannelFetcher capable of executing the fetch
      */
-    public static TaskChannelFetcher fetch(final String workspaceSid, 
-                                           final String sid) {
+    public static TaskChannelFetcher fetcher(final String workspaceSid, 
+                                             final String sid) {
         return new TaskChannelFetcher(workspaceSid, sid);
     }
 
@@ -54,7 +54,7 @@ public class TaskChannel extends Resource {
      * @param workspaceSid The workspace_sid
      * @return TaskChannelReader capable of executing the read
      */
-    public static TaskChannelReader read(final String workspaceSid) {
+    public static TaskChannelReader reader(final String workspaceSid) {
         return new TaskChannelReader(workspaceSid);
     }
 

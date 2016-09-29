@@ -43,8 +43,8 @@ public class TaskQueue extends Resource {
      * @param sid The sid
      * @return TaskQueueFetcher capable of executing the fetch
      */
-    public static TaskQueueFetcher fetch(final String workspaceSid, 
-                                         final String sid) {
+    public static TaskQueueFetcher fetcher(final String workspaceSid, 
+                                           final String sid) {
         return new TaskQueueFetcher(workspaceSid, sid);
     }
 
@@ -55,8 +55,8 @@ public class TaskQueue extends Resource {
      * @param sid The sid
      * @return TaskQueueUpdater capable of executing the update
      */
-    public static TaskQueueUpdater update(final String workspaceSid, 
-                                          final String sid) {
+    public static TaskQueueUpdater updater(final String workspaceSid, 
+                                           final String sid) {
         return new TaskQueueUpdater(workspaceSid, sid);
     }
 
@@ -66,7 +66,7 @@ public class TaskQueue extends Resource {
      * @param workspaceSid The workspace_sid
      * @return TaskQueueReader capable of executing the read
      */
-    public static TaskQueueReader read(final String workspaceSid) {
+    public static TaskQueueReader reader(final String workspaceSid) {
         return new TaskQueueReader(workspaceSid);
     }
 
@@ -79,10 +79,10 @@ public class TaskQueue extends Resource {
      * @param assignmentActivitySid The assignment_activity_sid
      * @return TaskQueueCreator capable of executing the create
      */
-    public static TaskQueueCreator create(final String workspaceSid, 
-                                          final String friendlyName, 
-                                          final String reservationActivitySid, 
-                                          final String assignmentActivitySid) {
+    public static TaskQueueCreator creator(final String workspaceSid, 
+                                           final String friendlyName, 
+                                           final String reservationActivitySid, 
+                                           final String assignmentActivitySid) {
         return new TaskQueueCreator(workspaceSid, friendlyName, reservationActivitySid, assignmentActivitySid);
     }
 
@@ -93,8 +93,8 @@ public class TaskQueue extends Resource {
      * @param sid The sid
      * @return TaskQueueDeleter capable of executing the delete
      */
-    public static TaskQueueDeleter delete(final String workspaceSid, 
-                                          final String sid) {
+    public static TaskQueueDeleter deleter(final String workspaceSid, 
+                                           final String sid) {
         return new TaskQueueDeleter(workspaceSid, sid);
     }
 

@@ -51,7 +51,7 @@ public class TodayReader extends Reader<Today> {
      * @param category The category
      * @return this
      */
-    public TodayReader byCategory(final Today.Category category) {
+    public TodayReader setCategory(final Today.Category category) {
         this.category = category;
         return this;
     }
@@ -62,7 +62,7 @@ public class TodayReader extends Reader<Today> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public TodayReader byStartDate(final DateTime absoluteStartDate) {
+    public TodayReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -74,7 +74,7 @@ public class TodayReader extends Reader<Today> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public TodayReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public TodayReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -86,7 +86,7 @@ public class TodayReader extends Reader<Today> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public TodayReader byEndDate(final DateTime absoluteEndDate) {
+    public TodayReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -98,7 +98,7 @@ public class TodayReader extends Reader<Today> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public TodayReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public TodayReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -111,7 +111,7 @@ public class TodayReader extends Reader<Today> {
      * @return Today ResourceSet
      */
     @Override
-    public ResourceSet<Today> execute(final TwilioRestClient client) {
+    public ResourceSet<Today> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

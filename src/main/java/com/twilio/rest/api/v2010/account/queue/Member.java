@@ -44,9 +44,9 @@ public class Member extends Resource {
      * @param callSid The call_sid
      * @return MemberFetcher capable of executing the fetch
      */
-    public static MemberFetcher fetch(final String accountSid, 
-                                      final String queueSid, 
-                                      final String callSid) {
+    public static MemberFetcher fetcher(final String accountSid, 
+                                        final String queueSid, 
+                                        final String callSid) {
         return new MemberFetcher(accountSid, queueSid, callSid);
     }
 
@@ -57,8 +57,8 @@ public class Member extends Resource {
      * @param callSid The call_sid
      * @return MemberFetcher capable of executing the fetch
      */
-    public static MemberFetcher fetch(final String queueSid, 
-                                      final String callSid) {
+    public static MemberFetcher fetcher(final String queueSid, 
+                                        final String callSid) {
         return new MemberFetcher(queueSid, callSid);
     }
 
@@ -72,11 +72,11 @@ public class Member extends Resource {
      * @param method The method
      * @return MemberUpdater capable of executing the update
      */
-    public static MemberUpdater update(final String accountSid, 
-                                       final String queueSid, 
-                                       final String callSid, 
-                                       final URI url, 
-                                       final HttpMethod method) {
+    public static MemberUpdater updater(final String accountSid, 
+                                        final String queueSid, 
+                                        final String callSid, 
+                                        final URI url, 
+                                        final HttpMethod method) {
         return new MemberUpdater(accountSid, queueSid, callSid, url, method);
     }
 
@@ -89,10 +89,10 @@ public class Member extends Resource {
      * @param method The method
      * @return MemberUpdater capable of executing the update
      */
-    public static MemberUpdater update(final String queueSid, 
-                                       final String callSid, 
-                                       final URI url, 
-                                       final HttpMethod method) {
+    public static MemberUpdater updater(final String queueSid, 
+                                        final String callSid, 
+                                        final URI url, 
+                                        final HttpMethod method) {
         return new MemberUpdater(queueSid, callSid, url, method);
     }
 
@@ -103,8 +103,8 @@ public class Member extends Resource {
      * @param queueSid The Queue in which to find members
      * @return MemberReader capable of executing the read
      */
-    public static MemberReader read(final String accountSid, 
-                                    final String queueSid) {
+    public static MemberReader reader(final String accountSid, 
+                                      final String queueSid) {
         return new MemberReader(accountSid, queueSid);
     }
 
@@ -114,7 +114,7 @@ public class Member extends Resource {
      * @param queueSid The Queue in which to find members
      * @return MemberReader capable of executing the read
      */
-    public static MemberReader read(final String queueSid) {
+    public static MemberReader reader(final String queueSid) {
         return new MemberReader(queueSid);
     }
 

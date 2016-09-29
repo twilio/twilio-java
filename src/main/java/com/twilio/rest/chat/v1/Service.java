@@ -43,7 +43,7 @@ public class Service extends Resource {
      * @param sid The sid
      * @return ServiceFetcher capable of executing the fetch
      */
-    public static ServiceFetcher fetch(final String sid) {
+    public static ServiceFetcher fetcher(final String sid) {
         return new ServiceFetcher(sid);
     }
 
@@ -53,7 +53,7 @@ public class Service extends Resource {
      * @param sid The sid
      * @return ServiceDeleter capable of executing the delete
      */
-    public static ServiceDeleter delete(final String sid) {
+    public static ServiceDeleter deleter(final String sid) {
         return new ServiceDeleter(sid);
     }
 
@@ -63,7 +63,7 @@ public class Service extends Resource {
      * @param friendlyName The friendly_name
      * @return ServiceCreator capable of executing the create
      */
-    public static ServiceCreator create(final String friendlyName) {
+    public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
     }
 
@@ -72,7 +72,7 @@ public class Service extends Resource {
      * 
      * @return ServiceReader capable of executing the read
      */
-    public static ServiceReader read() {
+    public static ServiceReader reader() {
         return new ServiceReader();
     }
 
@@ -82,7 +82,7 @@ public class Service extends Resource {
      * @param sid The sid
      * @return ServiceUpdater capable of executing the update
      */
-    public static ServiceUpdater update(final String sid) {
+    public static ServiceUpdater updater(final String sid) {
         return new ServiceUpdater(sid);
     }
 

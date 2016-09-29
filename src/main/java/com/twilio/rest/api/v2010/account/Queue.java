@@ -42,8 +42,8 @@ public class Queue extends Resource {
      * @param sid Fetch by unique queue Sid
      * @return QueueFetcher capable of executing the fetch
      */
-    public static QueueFetcher fetch(final String accountSid, 
-                                     final String sid) {
+    public static QueueFetcher fetcher(final String accountSid, 
+                                       final String sid) {
         return new QueueFetcher(accountSid, sid);
     }
 
@@ -53,7 +53,7 @@ public class Queue extends Resource {
      * @param sid Fetch by unique queue Sid
      * @return QueueFetcher capable of executing the fetch
      */
-    public static QueueFetcher fetch(final String sid) {
+    public static QueueFetcher fetcher(final String sid) {
         return new QueueFetcher(sid);
     }
 
@@ -64,8 +64,8 @@ public class Queue extends Resource {
      * @param sid The sid
      * @return QueueUpdater capable of executing the update
      */
-    public static QueueUpdater update(final String accountSid, 
-                                      final String sid) {
+    public static QueueUpdater updater(final String accountSid, 
+                                       final String sid) {
         return new QueueUpdater(accountSid, sid);
     }
 
@@ -75,7 +75,7 @@ public class Queue extends Resource {
      * @param sid The sid
      * @return QueueUpdater capable of executing the update
      */
-    public static QueueUpdater update(final String sid) {
+    public static QueueUpdater updater(final String sid) {
         return new QueueUpdater(sid);
     }
 
@@ -86,8 +86,8 @@ public class Queue extends Resource {
      * @param sid Delete by unique queue Sid
      * @return QueueDeleter capable of executing the delete
      */
-    public static QueueDeleter delete(final String accountSid, 
-                                      final String sid) {
+    public static QueueDeleter deleter(final String accountSid, 
+                                       final String sid) {
         return new QueueDeleter(accountSid, sid);
     }
 
@@ -97,7 +97,7 @@ public class Queue extends Resource {
      * @param sid Delete by unique queue Sid
      * @return QueueDeleter capable of executing the delete
      */
-    public static QueueDeleter delete(final String sid) {
+    public static QueueDeleter deleter(final String sid) {
         return new QueueDeleter(sid);
     }
 
@@ -107,7 +107,7 @@ public class Queue extends Resource {
      * @param accountSid The account_sid
      * @return QueueReader capable of executing the read
      */
-    public static QueueReader read(final String accountSid) {
+    public static QueueReader reader(final String accountSid) {
         return new QueueReader(accountSid);
     }
 
@@ -116,7 +116,7 @@ public class Queue extends Resource {
      * 
      * @return QueueReader capable of executing the read
      */
-    public static QueueReader read() {
+    public static QueueReader reader() {
         return new QueueReader();
     }
 
@@ -126,7 +126,7 @@ public class Queue extends Resource {
      * @param accountSid The account_sid
      * @return QueueCreator capable of executing the create
      */
-    public static QueueCreator create(final String accountSid) {
+    public static QueueCreator creator(final String accountSid) {
         return new QueueCreator(accountSid);
     }
 
@@ -135,7 +135,7 @@ public class Queue extends Resource {
      * 
      * @return QueueCreator capable of executing the create
      */
-    public static QueueCreator create() {
+    public static QueueCreator creator() {
         return new QueueCreator();
     }
 

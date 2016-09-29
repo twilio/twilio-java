@@ -51,7 +51,7 @@ public class RoleCreator extends Creator<Role> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Role execute(final TwilioRestClient client) {
+    public Role create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),

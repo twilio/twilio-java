@@ -42,8 +42,8 @@ public class OutgoingCallerId extends Resource {
      * @param sid Fetch by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdFetcher capable of executing the fetch
      */
-    public static OutgoingCallerIdFetcher fetch(final String accountSid, 
-                                                final String sid) {
+    public static OutgoingCallerIdFetcher fetcher(final String accountSid, 
+                                                  final String sid) {
         return new OutgoingCallerIdFetcher(accountSid, sid);
     }
 
@@ -53,7 +53,7 @@ public class OutgoingCallerId extends Resource {
      * @param sid Fetch by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdFetcher capable of executing the fetch
      */
-    public static OutgoingCallerIdFetcher fetch(final String sid) {
+    public static OutgoingCallerIdFetcher fetcher(final String sid) {
         return new OutgoingCallerIdFetcher(sid);
     }
 
@@ -64,8 +64,8 @@ public class OutgoingCallerId extends Resource {
      * @param sid Update by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdUpdater capable of executing the update
      */
-    public static OutgoingCallerIdUpdater update(final String accountSid, 
-                                                 final String sid) {
+    public static OutgoingCallerIdUpdater updater(final String accountSid, 
+                                                  final String sid) {
         return new OutgoingCallerIdUpdater(accountSid, sid);
     }
 
@@ -75,7 +75,7 @@ public class OutgoingCallerId extends Resource {
      * @param sid Update by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdUpdater capable of executing the update
      */
-    public static OutgoingCallerIdUpdater update(final String sid) {
+    public static OutgoingCallerIdUpdater updater(final String sid) {
         return new OutgoingCallerIdUpdater(sid);
     }
 
@@ -86,8 +86,8 @@ public class OutgoingCallerId extends Resource {
      * @param sid Delete by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdDeleter capable of executing the delete
      */
-    public static OutgoingCallerIdDeleter delete(final String accountSid, 
-                                                 final String sid) {
+    public static OutgoingCallerIdDeleter deleter(final String accountSid, 
+                                                  final String sid) {
         return new OutgoingCallerIdDeleter(accountSid, sid);
     }
 
@@ -97,7 +97,7 @@ public class OutgoingCallerId extends Resource {
      * @param sid Delete by unique outgoing-caller-id Sid
      * @return OutgoingCallerIdDeleter capable of executing the delete
      */
-    public static OutgoingCallerIdDeleter delete(final String sid) {
+    public static OutgoingCallerIdDeleter deleter(final String sid) {
         return new OutgoingCallerIdDeleter(sid);
     }
 
@@ -107,7 +107,7 @@ public class OutgoingCallerId extends Resource {
      * @param accountSid The account_sid
      * @return OutgoingCallerIdReader capable of executing the read
      */
-    public static OutgoingCallerIdReader read(final String accountSid) {
+    public static OutgoingCallerIdReader reader(final String accountSid) {
         return new OutgoingCallerIdReader(accountSid);
     }
 
@@ -116,7 +116,7 @@ public class OutgoingCallerId extends Resource {
      * 
      * @return OutgoingCallerIdReader capable of executing the read
      */
-    public static OutgoingCallerIdReader read() {
+    public static OutgoingCallerIdReader reader() {
         return new OutgoingCallerIdReader();
     }
 

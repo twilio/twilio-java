@@ -66,7 +66,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param areaCode The area_code
      * @return this
      */
-    public TollFreeReader byAreaCode(final Integer areaCode) {
+    public TollFreeReader setAreaCode(final Integer areaCode) {
         this.areaCode = areaCode;
         return this;
     }
@@ -77,7 +77,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param contains The contains
      * @return this
      */
-    public TollFreeReader byContains(final String contains) {
+    public TollFreeReader setContains(final String contains) {
         this.contains = contains;
         return this;
     }
@@ -88,7 +88,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param smsEnabled The sms_enabled
      * @return this
      */
-    public TollFreeReader bySmsEnabled(final Boolean smsEnabled) {
+    public TollFreeReader setSmsEnabled(final Boolean smsEnabled) {
         this.smsEnabled = smsEnabled;
         return this;
     }
@@ -99,7 +99,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param mmsEnabled The mms_enabled
      * @return this
      */
-    public TollFreeReader byMmsEnabled(final Boolean mmsEnabled) {
+    public TollFreeReader setMmsEnabled(final Boolean mmsEnabled) {
         this.mmsEnabled = mmsEnabled;
         return this;
     }
@@ -110,7 +110,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param voiceEnabled The voice_enabled
      * @return this
      */
-    public TollFreeReader byVoiceEnabled(final Boolean voiceEnabled) {
+    public TollFreeReader setVoiceEnabled(final Boolean voiceEnabled) {
         this.voiceEnabled = voiceEnabled;
         return this;
     }
@@ -121,7 +121,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param excludeAllAddressRequired The exclude_all_address_required
      * @return this
      */
-    public TollFreeReader byExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
+    public TollFreeReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
         this.excludeAllAddressRequired = excludeAllAddressRequired;
         return this;
     }
@@ -132,7 +132,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param excludeLocalAddressRequired The exclude_local_address_required
      * @return this
      */
-    public TollFreeReader byExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
+    public TollFreeReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
         this.excludeLocalAddressRequired = excludeLocalAddressRequired;
         return this;
     }
@@ -143,7 +143,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param excludeForeignAddressRequired The exclude_foreign_address_required
      * @return this
      */
-    public TollFreeReader byExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
+    public TollFreeReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
         this.excludeForeignAddressRequired = excludeForeignAddressRequired;
         return this;
     }
@@ -154,7 +154,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param beta The beta
      * @return this
      */
-    public TollFreeReader byBeta(final Boolean beta) {
+    public TollFreeReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
@@ -165,7 +165,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param nearNumber The near_number
      * @return this
      */
-    public TollFreeReader byNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
+    public TollFreeReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
         this.nearNumber = nearNumber;
         return this;
     }
@@ -176,7 +176,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param nearLatLong The near_lat_long
      * @return this
      */
-    public TollFreeReader byNearLatLong(final String nearLatLong) {
+    public TollFreeReader setNearLatLong(final String nearLatLong) {
         this.nearLatLong = nearLatLong;
         return this;
     }
@@ -187,7 +187,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param distance The distance
      * @return this
      */
-    public TollFreeReader byDistance(final Integer distance) {
+    public TollFreeReader setDistance(final Integer distance) {
         this.distance = distance;
         return this;
     }
@@ -198,7 +198,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param inPostalCode The in_postal_code
      * @return this
      */
-    public TollFreeReader byInPostalCode(final String inPostalCode) {
+    public TollFreeReader setInPostalCode(final String inPostalCode) {
         this.inPostalCode = inPostalCode;
         return this;
     }
@@ -209,7 +209,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param inRegion The in_region
      * @return this
      */
-    public TollFreeReader byInRegion(final String inRegion) {
+    public TollFreeReader setInRegion(final String inRegion) {
         this.inRegion = inRegion;
         return this;
     }
@@ -220,7 +220,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param inRateCenter The in_rate_center
      * @return this
      */
-    public TollFreeReader byInRateCenter(final String inRateCenter) {
+    public TollFreeReader setInRateCenter(final String inRateCenter) {
         this.inRateCenter = inRateCenter;
         return this;
     }
@@ -231,7 +231,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @param inLata The in_lata
      * @return this
      */
-    public TollFreeReader byInLata(final String inLata) {
+    public TollFreeReader setInLata(final String inLata) {
         this.inLata = inLata;
         return this;
     }
@@ -243,7 +243,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * @return TollFree ResourceSet
      */
     @Override
-    public ResourceSet<TollFree> execute(final TwilioRestClient client) {
+    public ResourceSet<TollFree> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

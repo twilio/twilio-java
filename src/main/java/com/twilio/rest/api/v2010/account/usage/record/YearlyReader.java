@@ -51,7 +51,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param category The category
      * @return this
      */
-    public YearlyReader byCategory(final Yearly.Category category) {
+    public YearlyReader setCategory(final Yearly.Category category) {
         this.category = category;
         return this;
     }
@@ -62,7 +62,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public YearlyReader byStartDate(final DateTime absoluteStartDate) {
+    public YearlyReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -74,7 +74,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public YearlyReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public YearlyReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -86,7 +86,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public YearlyReader byEndDate(final DateTime absoluteEndDate) {
+    public YearlyReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -98,7 +98,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public YearlyReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public YearlyReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -111,7 +111,7 @@ public class YearlyReader extends Reader<Yearly> {
      * @return Yearly ResourceSet
      */
     @Override
-    public ResourceSet<Yearly> execute(final TwilioRestClient client) {
+    public ResourceSet<Yearly> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

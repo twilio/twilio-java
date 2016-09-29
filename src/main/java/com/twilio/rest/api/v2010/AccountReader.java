@@ -30,7 +30,7 @@ public class AccountReader extends Reader<Account> {
      * @param friendlyName FriendlyName to filter on
      * @return this
      */
-    public AccountReader byFriendlyName(final String friendlyName) {
+    public AccountReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -41,7 +41,7 @@ public class AccountReader extends Reader<Account> {
      * @param status Status to filter on
      * @return this
      */
-    public AccountReader byStatus(final Account.Status status) {
+    public AccountReader setStatus(final Account.Status status) {
         this.status = status;
         return this;
     }
@@ -53,7 +53,7 @@ public class AccountReader extends Reader<Account> {
      * @return Account ResourceSet
      */
     @Override
-    public ResourceSet<Account> execute(final TwilioRestClient client) {
+    public ResourceSet<Account> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

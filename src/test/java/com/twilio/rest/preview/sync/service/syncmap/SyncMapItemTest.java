@@ -51,7 +51,7 @@ public class SyncMapItemTest {
         }};
         
         try {
-            SyncMapItem.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "key").execute();
+            SyncMapItem.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "key").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -71,7 +71,7 @@ public class SyncMapItemTest {
         }};
         
         try {
-            SyncMapItem.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "key").execute();
+            SyncMapItem.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "key").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -92,7 +92,7 @@ public class SyncMapItemTest {
                     }};
         
         try {
-            SyncMapItem.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "key", new java.util.HashMap<String, Object>()).execute();
+            SyncMapItem.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "key", new java.util.HashMap<String, Object>()).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class SyncMapItemTest {
         }};
         
         try {
-            SyncMapItem.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SyncMapItem.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class SyncMapItemTest {
         }};
         
         try {
-            SyncMapItem.update("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "key", new java.util.HashMap<String, Object>()).execute();
+            SyncMapItem.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "key", new java.util.HashMap<String, Object>()).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

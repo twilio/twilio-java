@@ -22,14 +22,14 @@ public class CallCreatorExample {
         try {
 
             CallCreator creator =
-                Call.create(
+                Call.creator(
                     "AC123",
                     new PhoneNumber("+14156085895"),
                     new PhoneNumber("+14154888928"),
                     new URI("http://twimlbin.com/4397e62f")
                 );
 
-            Call call = creator.execute();
+            Call call = creator.create();
 
             System.out.println(call.getSid());
             System.out.println(call.getStatus().toString());

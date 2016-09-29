@@ -62,7 +62,7 @@ public class MessageUpdater extends Updater<Message> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Message execute(final TwilioRestClient client) {
+    public Message update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

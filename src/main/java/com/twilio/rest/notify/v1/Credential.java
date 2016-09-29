@@ -73,7 +73,7 @@ public class Credential extends Resource {
      * 
      * @return CredentialReader capable of executing the read
      */
-    public static CredentialReader read() {
+    public static CredentialReader reader() {
         return new CredentialReader();
     }
 
@@ -83,7 +83,7 @@ public class Credential extends Resource {
      * @param type The type
      * @return CredentialCreator capable of executing the create
      */
-    public static CredentialCreator create(final Credential.PushService type) {
+    public static CredentialCreator creator(final Credential.PushService type) {
         return new CredentialCreator(type);
     }
 
@@ -93,7 +93,7 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialFetcher capable of executing the fetch
      */
-    public static CredentialFetcher fetch(final String sid) {
+    public static CredentialFetcher fetcher(final String sid) {
         return new CredentialFetcher(sid);
     }
 
@@ -103,7 +103,7 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialUpdater capable of executing the update
      */
-    public static CredentialUpdater update(final String sid) {
+    public static CredentialUpdater updater(final String sid) {
         return new CredentialUpdater(sid);
     }
 
@@ -113,7 +113,7 @@ public class Credential extends Resource {
      * @param sid The sid
      * @return CredentialDeleter capable of executing the delete
      */
-    public static CredentialDeleter delete(final String sid) {
+    public static CredentialDeleter deleter(final String sid) {
         return new CredentialDeleter(sid);
     }
 

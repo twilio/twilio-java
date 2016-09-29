@@ -62,7 +62,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SigningKey execute(final TwilioRestClient client) {
+    public SigningKey update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

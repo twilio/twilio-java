@@ -51,7 +51,7 @@ public class AccountTest {
         }};
         
         try {
-            Account.create().execute();
+            Account.creator().create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
         
-        Account.create().execute();
+        Account.creator().create();
     }
 
     @Test
@@ -83,7 +83,7 @@ public class AccountTest {
         }};
         
         try {
-            Account.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Account.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Account.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Account.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -115,7 +115,7 @@ public class AccountTest {
         }};
         
         try {
-            Account.read().execute();
+            Account.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Account.read().execute());
+        assertNotNull(Account.reader().read());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Account.read().execute());
+        assertNotNull(Account.reader().read());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class AccountTest {
         }};
         
         try {
-            Account.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Account.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,6 +173,6 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
         
-        Account.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Account.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

@@ -45,7 +45,7 @@ public class ApplicationReader extends Reader<Application> {
      * @param friendlyName Filter by friendly name
      * @return this
      */
-    public ApplicationReader byFriendlyName(final String friendlyName) {
+    public ApplicationReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -57,7 +57,7 @@ public class ApplicationReader extends Reader<Application> {
      * @return Application ResourceSet
      */
     @Override
-    public ResourceSet<Application> execute(final TwilioRestClient client) {
+    public ResourceSet<Application> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

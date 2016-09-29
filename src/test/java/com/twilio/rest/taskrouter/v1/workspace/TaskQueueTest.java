@@ -51,7 +51,7 @@ public class TaskQueueTest {
         }};
         
         try {
-            TaskQueue.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TaskQueue.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TaskQueueTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TaskQueue.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TaskQueue.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TaskQueueTest {
         }};
         
         try {
-            TaskQueue.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TaskQueue.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class TaskQueueTest {
             result = new ObjectMapper();
         }};
         
-        TaskQueue.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        TaskQueue.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class TaskQueueTest {
         }};
         
         try {
-            TaskQueue.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TaskQueue.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class TaskQueueTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TaskQueue.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TaskQueue.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class TaskQueueTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TaskQueue.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TaskQueue.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -161,7 +161,7 @@ public class TaskQueueTest {
                     }};
         
         try {
-            TaskQueue.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TaskQueue.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -175,7 +175,7 @@ public class TaskQueueTest {
             result = new ObjectMapper();
         }};
         
-        TaskQueue.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        TaskQueue.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
     }
 
     @Test
@@ -193,7 +193,7 @@ public class TaskQueueTest {
         }};
         
         try {
-            TaskQueue.delete("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TaskQueue.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -207,6 +207,6 @@ public class TaskQueueTest {
             result = new ObjectMapper();
         }};
         
-        TaskQueue.delete("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        TaskQueue.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 }

@@ -51,7 +51,7 @@ public class RecordingTest {
         }};
         
         try {
-            Recording.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Recording.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class RecordingTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Recording.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Recording.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class RecordingTest {
         }};
         
         try {
-            Recording.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Recording.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class RecordingTest {
             result = new ObjectMapper();
         }};
         
-        Recording.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Recording.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class RecordingTest {
         }};
         
         try {
-            Recording.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Recording.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class RecordingTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Recording.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Recording.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -141,6 +141,6 @@ public class RecordingTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Recording.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Recording.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

@@ -51,7 +51,7 @@ public class LocalTest {
         }};
         
         try {
-            Local.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Local.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class LocalTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Local.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Local.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class LocalTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Local.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Local.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class LocalTest {
         }};
         
         try {
-            Local.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).execute();
+            Local.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,6 +109,6 @@ public class LocalTest {
             result = new ObjectMapper();
         }};
         
-        Local.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).execute();
+        Local.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
     }
 }

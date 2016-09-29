@@ -51,7 +51,7 @@ public class WorkerChannelTest {
         }};
         
         try {
-            WorkerChannel.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            WorkerChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class WorkerChannelTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(WorkerChannel.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(WorkerChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class WorkerChannelTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(WorkerChannel.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(WorkerChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class WorkerChannelTest {
         }};
         
         try {
-            WorkerChannel.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            WorkerChannel.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class WorkerChannelTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(WorkerChannel.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(WorkerChannel.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -127,7 +127,7 @@ public class WorkerChannelTest {
         }};
         
         try {
-            WorkerChannel.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            WorkerChannel.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,6 +141,6 @@ public class WorkerChannelTest {
             result = new ObjectMapper();
         }};
         
-        WorkerChannel.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        WorkerChannel.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

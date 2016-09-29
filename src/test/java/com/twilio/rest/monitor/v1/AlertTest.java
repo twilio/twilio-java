@@ -51,7 +51,7 @@ public class AlertTest {
         }};
         
         try {
-            Alert.fetch("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Alert.fetcher("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Alert.fetch("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Alert.fetcher("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class AlertTest {
         }};
         
         try {
-            Alert.delete("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Alert.deleter("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
         
-        Alert.delete("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Alert.deleter("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class AlertTest {
         }};
         
         try {
-            Alert.read().execute();
+            Alert.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Alert.read().execute());
+        assertNotNull(Alert.reader().read());
     }
 
     @Test
@@ -141,6 +141,6 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Alert.read().execute());
+        assertNotNull(Alert.reader().read());
     }
 }

@@ -318,7 +318,7 @@ public class ApplicationCreator extends Creator<Application> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Application execute(final TwilioRestClient client) {
+    public Application create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

@@ -51,7 +51,7 @@ public class MobileTest {
         }};
         
         try {
-            Mobile.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").execute();
+            Mobile.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class MobileTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Mobile.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").execute());
+        assertNotNull(Mobile.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class MobileTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Mobile.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").execute());
+        assertNotNull(Mobile.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read());
     }
 }

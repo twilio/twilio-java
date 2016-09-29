@@ -97,7 +97,7 @@ public class CredentialUpdater extends Updater<Credential> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Credential execute(final TwilioRestClient client) {
+    public Credential update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),

@@ -41,7 +41,7 @@ public class UserFetcher extends Fetcher<User> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public User execute(final TwilioRestClient client) {
+    public User fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),

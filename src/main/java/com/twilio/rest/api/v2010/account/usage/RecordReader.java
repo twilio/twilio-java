@@ -51,7 +51,7 @@ public class RecordReader extends Reader<Record> {
      * @param category Only include usage of a given category
      * @return this
      */
-    public RecordReader byCategory(final Record.Category category) {
+    public RecordReader setCategory(final Record.Category category) {
         this.category = category;
         return this;
     }
@@ -65,7 +65,7 @@ public class RecordReader extends Reader<Record> {
      * @param absoluteStartDate Filter by start date
      * @return this
      */
-    public RecordReader byStartDate(final DateTime absoluteStartDate) {
+    public RecordReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -80,7 +80,7 @@ public class RecordReader extends Reader<Record> {
      * @param rangeStartDate Filter by start date
      * @return this
      */
-    public RecordReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public RecordReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -94,7 +94,7 @@ public class RecordReader extends Reader<Record> {
      * @param absoluteEndDate Filter by end date
      * @return this
      */
-    public RecordReader byEndDate(final DateTime absoluteEndDate) {
+    public RecordReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -108,7 +108,7 @@ public class RecordReader extends Reader<Record> {
      * @param rangeEndDate Filter by end date
      * @return this
      */
-    public RecordReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public RecordReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -121,7 +121,7 @@ public class RecordReader extends Reader<Record> {
      * @return Record ResourceSet
      */
     @Override
-    public ResourceSet<Record> execute(final TwilioRestClient client) {
+    public ResourceSet<Record> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

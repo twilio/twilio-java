@@ -49,7 +49,7 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean execute(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,

@@ -28,7 +28,7 @@ public class WorkspaceReader extends Reader<Workspace> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public WorkspaceReader byFriendlyName(final String friendlyName) {
+    public WorkspaceReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -40,7 +40,7 @@ public class WorkspaceReader extends Reader<Workspace> {
      * @return Workspace ResourceSet
      */
     @Override
-    public ResourceSet<Workspace> execute(final TwilioRestClient client) {
+    public ResourceSet<Workspace> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

@@ -41,7 +41,7 @@ public class Usage extends Resource {
      * @param deviceSid The device_sid
      * @return UsageFetcher capable of executing the fetch
      */
-    public static UsageFetcher fetch(final String deviceSid) {
+    public static UsageFetcher fetcher(final String deviceSid) {
         return new UsageFetcher(deviceSid);
     }
 

@@ -41,7 +41,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Channel execute(final TwilioRestClient client) {
+    public Channel fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),

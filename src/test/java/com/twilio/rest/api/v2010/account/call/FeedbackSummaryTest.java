@@ -52,7 +52,7 @@ public class FeedbackSummaryTest {
                     }};
         
         try {
-            FeedbackSummary.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).execute();
+            FeedbackSummary.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -66,7 +66,7 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
         
-        FeedbackSummary.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).execute();
+        FeedbackSummary.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create();
     }
 
     @Test
@@ -84,7 +84,7 @@ public class FeedbackSummaryTest {
         }};
         
         try {
-            FeedbackSummary.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            FeedbackSummary.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -98,7 +98,7 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(FeedbackSummary.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(FeedbackSummary.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -116,7 +116,7 @@ public class FeedbackSummaryTest {
         }};
         
         try {
-            FeedbackSummary.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            FeedbackSummary.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,6 +130,6 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
         
-        FeedbackSummary.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        FeedbackSummary.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 }

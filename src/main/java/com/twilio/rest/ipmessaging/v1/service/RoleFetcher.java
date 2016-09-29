@@ -41,7 +41,7 @@ public class RoleFetcher extends Fetcher<Role> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Role execute(final TwilioRestClient client) {
+    public Role fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),

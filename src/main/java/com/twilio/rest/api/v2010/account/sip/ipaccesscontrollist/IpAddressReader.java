@@ -51,7 +51,7 @@ public class IpAddressReader extends Reader<IpAddress> {
      * @return IpAddress ResourceSet
      */
     @Override
-    public ResourceSet<IpAddress> execute(final TwilioRestClient client) {
+    public ResourceSet<IpAddress> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

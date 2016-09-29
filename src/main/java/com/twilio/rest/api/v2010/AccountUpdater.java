@@ -67,7 +67,7 @@ public class AccountUpdater extends Updater<Account> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Account execute(final TwilioRestClient client) {
+    public Account update(final TwilioRestClient client) {
         this.sid = this.sid == null ? client.getAccountSid() : this.sid;
         Request request = new Request(
             HttpMethod.POST,

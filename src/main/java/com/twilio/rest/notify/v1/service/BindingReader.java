@@ -49,7 +49,7 @@ public class BindingReader extends Reader<Binding> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public BindingReader byStartDate(final DateTime absoluteStartDate) {
+    public BindingReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -61,7 +61,7 @@ public class BindingReader extends Reader<Binding> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public BindingReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public BindingReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -73,7 +73,7 @@ public class BindingReader extends Reader<Binding> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public BindingReader byEndDate(final DateTime absoluteEndDate) {
+    public BindingReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -85,7 +85,7 @@ public class BindingReader extends Reader<Binding> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public BindingReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public BindingReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -97,7 +97,7 @@ public class BindingReader extends Reader<Binding> {
      * @param identity The identity
      * @return this
      */
-    public BindingReader byIdentity(final List<String> identity) {
+    public BindingReader setIdentity(final List<String> identity) {
         this.identity = identity;
         return this;
     }
@@ -108,8 +108,8 @@ public class BindingReader extends Reader<Binding> {
      * @param identity The identity
      * @return this
      */
-    public BindingReader byIdentity(final String identity) {
-        return byIdentity(Promoter.listOfOne(identity));
+    public BindingReader setIdentity(final String identity) {
+        return setIdentity(Promoter.listOfOne(identity));
     }
 
     /**
@@ -118,7 +118,7 @@ public class BindingReader extends Reader<Binding> {
      * @param tag The tag
      * @return this
      */
-    public BindingReader byTag(final List<String> tag) {
+    public BindingReader setTag(final List<String> tag) {
         this.tag = tag;
         return this;
     }
@@ -129,8 +129,8 @@ public class BindingReader extends Reader<Binding> {
      * @param tag The tag
      * @return this
      */
-    public BindingReader byTag(final String tag) {
-        return byTag(Promoter.listOfOne(tag));
+    public BindingReader setTag(final String tag) {
+        return setTag(Promoter.listOfOne(tag));
     }
 
     /**
@@ -140,7 +140,7 @@ public class BindingReader extends Reader<Binding> {
      * @return Binding ResourceSet
      */
     @Override
-    public ResourceSet<Binding> execute(final TwilioRestClient client) {
+    public ResourceSet<Binding> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

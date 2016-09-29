@@ -77,7 +77,7 @@ public class WorkerUpdater extends Updater<Worker> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Worker execute(final TwilioRestClient client) {
+    public Worker update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

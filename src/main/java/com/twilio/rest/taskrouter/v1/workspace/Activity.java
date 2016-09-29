@@ -42,8 +42,8 @@ public class Activity extends Resource {
      * @param sid The sid
      * @return ActivityFetcher capable of executing the fetch
      */
-    public static ActivityFetcher fetch(final String workspaceSid, 
-                                        final String sid) {
+    public static ActivityFetcher fetcher(final String workspaceSid, 
+                                          final String sid) {
         return new ActivityFetcher(workspaceSid, sid);
     }
 
@@ -55,9 +55,9 @@ public class Activity extends Resource {
      * @param friendlyName The friendly_name
      * @return ActivityUpdater capable of executing the update
      */
-    public static ActivityUpdater update(final String workspaceSid, 
-                                         final String sid, 
-                                         final String friendlyName) {
+    public static ActivityUpdater updater(final String workspaceSid, 
+                                          final String sid, 
+                                          final String friendlyName) {
         return new ActivityUpdater(workspaceSid, sid, friendlyName);
     }
 
@@ -68,8 +68,8 @@ public class Activity extends Resource {
      * @param sid The sid
      * @return ActivityDeleter capable of executing the delete
      */
-    public static ActivityDeleter delete(final String workspaceSid, 
-                                         final String sid) {
+    public static ActivityDeleter deleter(final String workspaceSid, 
+                                          final String sid) {
         return new ActivityDeleter(workspaceSid, sid);
     }
 
@@ -79,7 +79,7 @@ public class Activity extends Resource {
      * @param workspaceSid The workspace_sid
      * @return ActivityReader capable of executing the read
      */
-    public static ActivityReader read(final String workspaceSid) {
+    public static ActivityReader reader(final String workspaceSid) {
         return new ActivityReader(workspaceSid);
     }
 
@@ -90,8 +90,8 @@ public class Activity extends Resource {
      * @param friendlyName The friendly_name
      * @return ActivityCreator capable of executing the create
      */
-    public static ActivityCreator create(final String workspaceSid, 
-                                         final String friendlyName) {
+    public static ActivityCreator creator(final String workspaceSid, 
+                                          final String friendlyName) {
         return new ActivityCreator(workspaceSid, friendlyName);
     }
 

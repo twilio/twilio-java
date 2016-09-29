@@ -51,7 +51,7 @@ public class OutgoingCallerIdTest {
         }};
         
         try {
-            OutgoingCallerId.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            OutgoingCallerId.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(OutgoingCallerId.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(OutgoingCallerId.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class OutgoingCallerIdTest {
         }};
         
         try {
-            OutgoingCallerId.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            OutgoingCallerId.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
         
-        OutgoingCallerId.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        OutgoingCallerId.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class OutgoingCallerIdTest {
         }};
         
         try {
-            OutgoingCallerId.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            OutgoingCallerId.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
         
-        OutgoingCallerId.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        OutgoingCallerId.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class OutgoingCallerIdTest {
         }};
         
         try {
-            OutgoingCallerId.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            OutgoingCallerId.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(OutgoingCallerId.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(OutgoingCallerId.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,6 +173,6 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(OutgoingCallerId.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(OutgoingCallerId.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

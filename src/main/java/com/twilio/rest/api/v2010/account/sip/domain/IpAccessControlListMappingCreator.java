@@ -57,7 +57,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IpAccessControlListMapping execute(final TwilioRestClient client) {
+    public IpAccessControlListMapping create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

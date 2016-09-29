@@ -30,7 +30,7 @@ public class CommandReader extends Reader<Command> {
      * @param device The device
      * @return this
      */
-    public CommandReader byDevice(final String device) {
+    public CommandReader setDevice(final String device) {
         this.device = device;
         return this;
     }
@@ -41,7 +41,7 @@ public class CommandReader extends Reader<Command> {
      * @param status The status
      * @return this
      */
-    public CommandReader byStatus(final String status) {
+    public CommandReader setStatus(final String status) {
         this.status = status;
         return this;
     }
@@ -52,7 +52,7 @@ public class CommandReader extends Reader<Command> {
      * @param direction The direction
      * @return this
      */
-    public CommandReader byDirection(final String direction) {
+    public CommandReader setDirection(final String direction) {
         this.direction = direction;
         return this;
     }
@@ -64,7 +64,7 @@ public class CommandReader extends Reader<Command> {
      * @return Command ResourceSet
      */
     @Override
-    public ResourceSet<Command> execute(final TwilioRestClient client) {
+    public ResourceSet<Command> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

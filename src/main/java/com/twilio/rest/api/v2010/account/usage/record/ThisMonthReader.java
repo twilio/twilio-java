@@ -51,7 +51,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
      * @param category The category
      * @return this
      */
-    public ThisMonthReader byCategory(final ThisMonth.Category category) {
+    public ThisMonthReader setCategory(final ThisMonth.Category category) {
         this.category = category;
         return this;
     }
@@ -62,7 +62,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public ThisMonthReader byStartDate(final DateTime absoluteStartDate) {
+    public ThisMonthReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -74,7 +74,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public ThisMonthReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public ThisMonthReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -86,7 +86,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public ThisMonthReader byEndDate(final DateTime absoluteEndDate) {
+    public ThisMonthReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -98,7 +98,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public ThisMonthReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public ThisMonthReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -111,7 +111,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
      * @return ThisMonth ResourceSet
      */
     @Override
-    public ResourceSet<ThisMonth> execute(final TwilioRestClient client) {
+    public ResourceSet<ThisMonth> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

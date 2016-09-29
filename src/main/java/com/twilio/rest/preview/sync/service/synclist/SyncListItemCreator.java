@@ -48,7 +48,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SyncListItem execute(final TwilioRestClient client) {
+    public SyncListItem create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

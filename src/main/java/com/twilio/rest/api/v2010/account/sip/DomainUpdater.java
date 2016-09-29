@@ -179,7 +179,7 @@ public class DomainUpdater extends Updater<Domain> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Domain execute(final TwilioRestClient client) {
+    public Domain update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

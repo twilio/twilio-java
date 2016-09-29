@@ -109,8 +109,8 @@ public class Recording extends Resource {
      * @param sid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetch(final String accountSid, 
-                                         final String sid) {
+    public static RecordingFetcher fetcher(final String accountSid, 
+                                           final String sid) {
         return new RecordingFetcher(accountSid, sid);
     }
 
@@ -120,7 +120,7 @@ public class Recording extends Resource {
      * @param sid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetch(final String sid) {
+    public static RecordingFetcher fetcher(final String sid) {
         return new RecordingFetcher(sid);
     }
 
@@ -131,8 +131,8 @@ public class Recording extends Resource {
      * @param sid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter delete(final String accountSid, 
-                                          final String sid) {
+    public static RecordingDeleter deleter(final String accountSid, 
+                                           final String sid) {
         return new RecordingDeleter(accountSid, sid);
     }
 
@@ -142,7 +142,7 @@ public class Recording extends Resource {
      * @param sid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter delete(final String sid) {
+    public static RecordingDeleter deleter(final String sid) {
         return new RecordingDeleter(sid);
     }
 
@@ -152,7 +152,7 @@ public class Recording extends Resource {
      * @param accountSid The account_sid
      * @return RecordingReader capable of executing the read
      */
-    public static RecordingReader read(final String accountSid) {
+    public static RecordingReader reader(final String accountSid) {
         return new RecordingReader(accountSid);
     }
 
@@ -161,7 +161,7 @@ public class Recording extends Resource {
      * 
      * @return RecordingReader capable of executing the read
      */
-    public static RecordingReader read() {
+    public static RecordingReader reader() {
         return new RecordingReader();
     }
 

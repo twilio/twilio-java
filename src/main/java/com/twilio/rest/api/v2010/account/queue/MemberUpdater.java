@@ -73,7 +73,7 @@ public class MemberUpdater extends Updater<Member> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Member execute(final TwilioRestClient client) {
+    public Member update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

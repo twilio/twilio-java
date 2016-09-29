@@ -43,8 +43,8 @@ public class WorkerChannel extends Resource {
      * @param workerSid The worker_sid
      * @return WorkerChannelReader capable of executing the read
      */
-    public static WorkerChannelReader read(final String workspaceSid, 
-                                           final String workerSid) {
+    public static WorkerChannelReader reader(final String workspaceSid, 
+                                             final String workerSid) {
         return new WorkerChannelReader(workspaceSid, workerSid);
     }
 
@@ -56,9 +56,9 @@ public class WorkerChannel extends Resource {
      * @param sid The sid
      * @return WorkerChannelFetcher capable of executing the fetch
      */
-    public static WorkerChannelFetcher fetch(final String workspaceSid, 
-                                             final String workerSid, 
-                                             final String sid) {
+    public static WorkerChannelFetcher fetcher(final String workspaceSid, 
+                                               final String workerSid, 
+                                               final String sid) {
         return new WorkerChannelFetcher(workspaceSid, workerSid, sid);
     }
 
@@ -70,9 +70,9 @@ public class WorkerChannel extends Resource {
      * @param sid The sid
      * @return WorkerChannelUpdater capable of executing the update
      */
-    public static WorkerChannelUpdater update(final String workspaceSid, 
-                                              final String workerSid, 
-                                              final String sid) {
+    public static WorkerChannelUpdater updater(final String workspaceSid, 
+                                               final String workerSid, 
+                                               final String sid) {
         return new WorkerChannelUpdater(workspaceSid, workerSid, sid);
     }
 

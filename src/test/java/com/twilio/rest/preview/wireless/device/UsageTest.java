@@ -51,7 +51,7 @@ public class UsageTest {
         }};
         
         try {
-            Usage.fetch("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Usage.fetcher("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

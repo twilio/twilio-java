@@ -51,7 +51,7 @@ public class AllTimeTest {
         }};
         
         try {
-            AllTime.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            AllTime.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AllTimeTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(AllTime.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(AllTime.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class AllTimeTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(AllTime.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(AllTime.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

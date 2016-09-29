@@ -35,7 +35,7 @@ public class AlertReader extends Reader<Alert> {
      * @param logLevel The log_level
      * @return this
      */
-    public AlertReader byLogLevel(final String logLevel) {
+    public AlertReader setLogLevel(final String logLevel) {
         this.logLevel = logLevel;
         return this;
     }
@@ -46,7 +46,7 @@ public class AlertReader extends Reader<Alert> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public AlertReader byStartDate(final DateTime absoluteStartDate) {
+    public AlertReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -58,7 +58,7 @@ public class AlertReader extends Reader<Alert> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public AlertReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public AlertReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -70,7 +70,7 @@ public class AlertReader extends Reader<Alert> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public AlertReader byEndDate(final DateTime absoluteEndDate) {
+    public AlertReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -82,7 +82,7 @@ public class AlertReader extends Reader<Alert> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public AlertReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public AlertReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -95,7 +95,7 @@ public class AlertReader extends Reader<Alert> {
      * @return Alert ResourceSet
      */
     @Override
-    public ResourceSet<Alert> execute(final TwilioRestClient client) {
+    public ResourceSet<Alert> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

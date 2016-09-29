@@ -47,7 +47,7 @@ public class RoleUpdater extends Updater<Role> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Role execute(final TwilioRestClient client) {
+    public Role update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),

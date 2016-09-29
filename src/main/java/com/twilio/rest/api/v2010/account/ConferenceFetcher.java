@@ -50,7 +50,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Conference execute(final TwilioRestClient client) {
+    public Conference fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

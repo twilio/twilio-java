@@ -38,7 +38,7 @@ public class UserReader extends Reader<User> {
      * @return User ResourceSet
      */
     @Override
-    public ResourceSet<User> execute(final TwilioRestClient client) {
+    public ResourceSet<User> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

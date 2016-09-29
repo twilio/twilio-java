@@ -37,7 +37,7 @@ public class ServiceFetcher extends Fetcher<Service> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Service execute(final TwilioRestClient client) {
+    public Service fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),

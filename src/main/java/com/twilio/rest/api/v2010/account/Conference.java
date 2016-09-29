@@ -75,8 +75,8 @@ public class Conference extends Resource {
      * @param sid Fetch by unique conference Sid
      * @return ConferenceFetcher capable of executing the fetch
      */
-    public static ConferenceFetcher fetch(final String accountSid, 
-                                          final String sid) {
+    public static ConferenceFetcher fetcher(final String accountSid, 
+                                            final String sid) {
         return new ConferenceFetcher(accountSid, sid);
     }
 
@@ -86,7 +86,7 @@ public class Conference extends Resource {
      * @param sid Fetch by unique conference Sid
      * @return ConferenceFetcher capable of executing the fetch
      */
-    public static ConferenceFetcher fetch(final String sid) {
+    public static ConferenceFetcher fetcher(final String sid) {
         return new ConferenceFetcher(sid);
     }
 
@@ -96,7 +96,7 @@ public class Conference extends Resource {
      * @param accountSid The account_sid
      * @return ConferenceReader capable of executing the read
      */
-    public static ConferenceReader read(final String accountSid) {
+    public static ConferenceReader reader(final String accountSid) {
         return new ConferenceReader(accountSid);
     }
 
@@ -105,7 +105,7 @@ public class Conference extends Resource {
      * 
      * @return ConferenceReader capable of executing the read
      */
-    public static ConferenceReader read() {
+    public static ConferenceReader reader() {
         return new ConferenceReader();
     }
 

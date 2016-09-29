@@ -81,7 +81,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IpAddress execute(final TwilioRestClient client) {
+    public IpAddress update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

@@ -43,8 +43,8 @@ public class IpAccessControlList extends Resource {
      * @param sid The sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetch(final String trunkSid, 
-                                                   final String sid) {
+    public static IpAccessControlListFetcher fetcher(final String trunkSid, 
+                                                     final String sid) {
         return new IpAccessControlListFetcher(trunkSid, sid);
     }
 
@@ -55,8 +55,8 @@ public class IpAccessControlList extends Resource {
      * @param sid The sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter delete(final String trunkSid, 
-                                                    final String sid) {
+    public static IpAccessControlListDeleter deleter(final String trunkSid, 
+                                                     final String sid) {
         return new IpAccessControlListDeleter(trunkSid, sid);
     }
 
@@ -67,8 +67,8 @@ public class IpAccessControlList extends Resource {
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator create(final String trunkSid, 
-                                                    final String ipAccessControlListSid) {
+    public static IpAccessControlListCreator creator(final String trunkSid, 
+                                                     final String ipAccessControlListSid) {
         return new IpAccessControlListCreator(trunkSid, ipAccessControlListSid);
     }
 
@@ -78,7 +78,7 @@ public class IpAccessControlList extends Resource {
      * @param trunkSid The trunk_sid
      * @return IpAccessControlListReader capable of executing the read
      */
-    public static IpAccessControlListReader read(final String trunkSid) {
+    public static IpAccessControlListReader reader(final String trunkSid) {
         return new IpAccessControlListReader(trunkSid);
     }
 

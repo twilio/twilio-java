@@ -52,7 +52,7 @@ public class Example {
             PHONE_NUMBER,
             number.getPhoneNumber(),
             "Hello world!"
-        ).execute();
+        ).create();
 
         System.out.println(message.getSid());
         System.out.println(message.getBody());
@@ -63,18 +63,18 @@ public class Example {
             PHONE_NUMBER,
             number.getPhoneNumber(),
             URI.create("https://twilio.com")
-        ).execute();
+        ).create();
         System.out.println(call.getSid());
 
         // Print all the messages
-        Iterable<Message> messages = new MessageReader().execute();
+        Iterable<Message> messages = new MessageReader().read();
         for (Message m : messages) {
             System.out.println(m.getSid());
             System.out.println(m.getBody());
         }
 
         // Get some calls
-        Iterable<Call> calls = new CallReader().pageSize(2).execute();
+        Iterable<Call> calls = new CallReader().pageSize(2).read();
         for (Call c : calls) {
             System.out.println(c.getSid());
         }
@@ -82,16 +82,16 @@ public class Example {
         Trunk trunk = new TrunkCreator()
             .setFriendlyName("shiny trunk")
             .setSecure(false)
-            .execute();
+            .create();
 
         System.out.println(trunk);
 
         // Delete a resource
-        Service service = Service.create().execute();
-        boolean result = Service.delete(service.getSid()).execute();
+        Service service = Service.creator().create();
+        boolean result = Service.deleter(service.getSid()).delete();
         System.out.println(result);
 
-        Iterable<Service> services = Service.read().pageSize(2).execute();
+        Iterable<Service> services = Service.reader().pageSize(2).read();
         int j = 0;
         for (Service s : services) {
             System.out.println("Service " + j + ": " + s.getSid());
@@ -108,7 +108,7 @@ public class Example {
 
     private static IncomingPhoneNumber buyNumber() {
         // Look up some phone numbers
-        Iterable<Local> numbers = new LocalReader(ACCOUNT_SID, "US").execute();
+        Iterable<Local> numbers = new LocalReader(ACCOUNT_SID, "US").read();
 
         // Buy the first phone number
         Iterator<Local> iter = numbers.iterator();
@@ -117,7 +117,7 @@ public class Example {
             return new IncomingPhoneNumberCreator(
                 ACCOUNT_SID,
                 local.getPhoneNumber()
-            ).execute();
+            ).create();
         }
 
         return null;

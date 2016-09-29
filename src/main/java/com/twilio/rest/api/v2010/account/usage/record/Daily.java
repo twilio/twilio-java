@@ -164,7 +164,7 @@ public class Daily extends Resource {
      * @param accountSid The account_sid
      * @return DailyReader capable of executing the read
      */
-    public static DailyReader read(final String accountSid) {
+    public static DailyReader reader(final String accountSid) {
         return new DailyReader(accountSid);
     }
 
@@ -173,7 +173,7 @@ public class Daily extends Resource {
      * 
      * @return DailyReader capable of executing the read
      */
-    public static DailyReader read() {
+    public static DailyReader reader() {
         return new DailyReader();
     }
 

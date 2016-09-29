@@ -37,7 +37,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Credential execute(final TwilioRestClient client) {
+    public Credential fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NOTIFY.toString(),

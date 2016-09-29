@@ -121,10 +121,10 @@ public class Message extends Resource {
      * @param body The body
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String accountSid, 
-                                        final com.twilio.type.PhoneNumber to, 
-                                        final com.twilio.type.PhoneNumber from, 
-                                        final String body) {
+    public static MessageCreator creator(final String accountSid, 
+                                         final com.twilio.type.PhoneNumber to, 
+                                         final com.twilio.type.PhoneNumber from, 
+                                         final String body) {
         return new MessageCreator(accountSid, to, from, body);
     }
 
@@ -136,9 +136,9 @@ public class Message extends Resource {
      * @param body The body
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final com.twilio.type.PhoneNumber to, 
-                                        final com.twilio.type.PhoneNumber from, 
-                                        final String body) {
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
+                                         final com.twilio.type.PhoneNumber from, 
+                                         final String body) {
         return new MessageCreator(to, from, body);
     }
 
@@ -151,10 +151,10 @@ public class Message extends Resource {
      * @param mediaUrl The media_url
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String accountSid, 
-                                        final com.twilio.type.PhoneNumber to, 
-                                        final com.twilio.type.PhoneNumber from, 
-                                        final List<URI> mediaUrl) {
+    public static MessageCreator creator(final String accountSid, 
+                                         final com.twilio.type.PhoneNumber to, 
+                                         final com.twilio.type.PhoneNumber from, 
+                                         final List<URI> mediaUrl) {
         return new MessageCreator(accountSid, to, from, mediaUrl);
     }
 
@@ -166,9 +166,9 @@ public class Message extends Resource {
      * @param mediaUrl The media_url
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final com.twilio.type.PhoneNumber to, 
-                                        final com.twilio.type.PhoneNumber from, 
-                                        final List<URI> mediaUrl) {
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
+                                         final com.twilio.type.PhoneNumber from, 
+                                         final List<URI> mediaUrl) {
         return new MessageCreator(to, from, mediaUrl);
     }
 
@@ -181,10 +181,10 @@ public class Message extends Resource {
      * @param body The body
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String accountSid, 
-                                        final com.twilio.type.PhoneNumber to, 
-                                        final String messagingServiceSid, 
-                                        final String body) {
+    public static MessageCreator creator(final String accountSid, 
+                                         final com.twilio.type.PhoneNumber to, 
+                                         final String messagingServiceSid, 
+                                         final String body) {
         return new MessageCreator(accountSid, to, messagingServiceSid, body);
     }
 
@@ -196,9 +196,9 @@ public class Message extends Resource {
      * @param body The body
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final com.twilio.type.PhoneNumber to, 
-                                        final String messagingServiceSid, 
-                                        final String body) {
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
+                                         final String messagingServiceSid, 
+                                         final String body) {
         return new MessageCreator(to, messagingServiceSid, body);
     }
 
@@ -211,10 +211,10 @@ public class Message extends Resource {
      * @param mediaUrl The media_url
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String accountSid, 
-                                        final com.twilio.type.PhoneNumber to, 
-                                        final String messagingServiceSid, 
-                                        final List<URI> mediaUrl) {
+    public static MessageCreator creator(final String accountSid, 
+                                         final com.twilio.type.PhoneNumber to, 
+                                         final String messagingServiceSid, 
+                                         final List<URI> mediaUrl) {
         return new MessageCreator(accountSid, to, messagingServiceSid, mediaUrl);
     }
 
@@ -226,9 +226,9 @@ public class Message extends Resource {
      * @param mediaUrl The media_url
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final com.twilio.type.PhoneNumber to, 
-                                        final String messagingServiceSid, 
-                                        final List<URI> mediaUrl) {
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
+                                         final String messagingServiceSid, 
+                                         final List<URI> mediaUrl) {
         return new MessageCreator(to, messagingServiceSid, mediaUrl);
     }
 
@@ -239,8 +239,8 @@ public class Message extends Resource {
      * @param sid The message to delete
      * @return MessageDeleter capable of executing the delete
      */
-    public static MessageDeleter delete(final String accountSid, 
-                                        final String sid) {
+    public static MessageDeleter deleter(final String accountSid, 
+                                         final String sid) {
         return new MessageDeleter(accountSid, sid);
     }
 
@@ -250,7 +250,7 @@ public class Message extends Resource {
      * @param sid The message to delete
      * @return MessageDeleter capable of executing the delete
      */
-    public static MessageDeleter delete(final String sid) {
+    public static MessageDeleter deleter(final String sid) {
         return new MessageDeleter(sid);
     }
 
@@ -261,8 +261,8 @@ public class Message extends Resource {
      * @param sid Fetch by unique message Sid
      * @return MessageFetcher capable of executing the fetch
      */
-    public static MessageFetcher fetch(final String accountSid, 
-                                       final String sid) {
+    public static MessageFetcher fetcher(final String accountSid, 
+                                         final String sid) {
         return new MessageFetcher(accountSid, sid);
     }
 
@@ -272,7 +272,7 @@ public class Message extends Resource {
      * @param sid Fetch by unique message Sid
      * @return MessageFetcher capable of executing the fetch
      */
-    public static MessageFetcher fetch(final String sid) {
+    public static MessageFetcher fetcher(final String sid) {
         return new MessageFetcher(sid);
     }
 
@@ -282,7 +282,7 @@ public class Message extends Resource {
      * @param accountSid The account_sid
      * @return MessageReader capable of executing the read
      */
-    public static MessageReader read(final String accountSid) {
+    public static MessageReader reader(final String accountSid) {
         return new MessageReader(accountSid);
     }
 
@@ -291,7 +291,7 @@ public class Message extends Resource {
      * 
      * @return MessageReader capable of executing the read
      */
-    public static MessageReader read() {
+    public static MessageReader reader() {
         return new MessageReader();
     }
 
@@ -302,8 +302,8 @@ public class Message extends Resource {
      * @param sid The message to redact
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater update(final String accountSid, 
-                                        final String sid) {
+    public static MessageUpdater updater(final String accountSid, 
+                                         final String sid) {
         return new MessageUpdater(accountSid, sid);
     }
 
@@ -313,7 +313,7 @@ public class Message extends Resource {
      * @param sid The message to redact
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater update(final String sid) {
+    public static MessageUpdater updater(final String sid) {
         return new MessageUpdater(sid);
     }
 

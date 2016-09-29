@@ -78,8 +78,8 @@ public class Binding extends Resource {
      * @param sid The sid
      * @return BindingFetcher capable of executing the fetch
      */
-    public static BindingFetcher fetch(final String serviceSid, 
-                                       final String sid) {
+    public static BindingFetcher fetcher(final String serviceSid, 
+                                         final String sid) {
         return new BindingFetcher(serviceSid, sid);
     }
 
@@ -90,8 +90,8 @@ public class Binding extends Resource {
      * @param sid The sid
      * @return BindingDeleter capable of executing the delete
      */
-    public static BindingDeleter delete(final String serviceSid, 
-                                        final String sid) {
+    public static BindingDeleter deleter(final String serviceSid, 
+                                         final String sid) {
         return new BindingDeleter(serviceSid, sid);
     }
 
@@ -105,11 +105,11 @@ public class Binding extends Resource {
      * @param address The address
      * @return BindingCreator capable of executing the create
      */
-    public static BindingCreator create(final String serviceSid, 
-                                        final String endpoint, 
-                                        final String identity, 
-                                        final Binding.BindingType bindingType, 
-                                        final String address) {
+    public static BindingCreator creator(final String serviceSid, 
+                                         final String endpoint, 
+                                         final String identity, 
+                                         final Binding.BindingType bindingType, 
+                                         final String address) {
         return new BindingCreator(serviceSid, endpoint, identity, bindingType, address);
     }
 
@@ -119,7 +119,7 @@ public class Binding extends Resource {
      * @param serviceSid The service_sid
      * @return BindingReader capable of executing the read
      */
-    public static BindingReader read(final String serviceSid) {
+    public static BindingReader reader(final String serviceSid) {
         return new BindingReader(serviceSid);
     }
 

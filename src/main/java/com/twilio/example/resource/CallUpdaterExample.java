@@ -22,13 +22,13 @@ public class CallUpdaterExample {
 
         try {
 
-            CallCreator creator = Call.create(
+            CallCreator creator = Call.creator(
                 "AC123",
                 new PhoneNumber("+14156085895"),
                 new PhoneNumber("+14154888928"),
                 new URI("http://twimlbin.com/cc413d9d")
             );
-            Call call = creator.execute();
+            Call call = creator.create();
 
             System.out.println(call.getSid());
             System.out.println(call.getStatus());
@@ -40,11 +40,11 @@ public class CallUpdaterExample {
                 System.out.println("whoops");
             }
 
-            CallUpdater updater = Call.update(
+            CallUpdater updater = Call.updater(
                 "AC123",
                 call.getSid()
             ).setUrl(new URI("http://twimlbin.com/4397e62f"));
-            Call updated = updater.execute();
+            Call updated = updater.update();
 
             System.out.println(updated.getSid());
             System.out.println(updated.getStatus());

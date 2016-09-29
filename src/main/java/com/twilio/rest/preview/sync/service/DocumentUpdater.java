@@ -48,7 +48,7 @@ public class DocumentUpdater extends Updater<Document> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Document execute(final TwilioRestClient client) {
+    public Document update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

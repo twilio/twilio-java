@@ -51,7 +51,7 @@ public class FeedbackTest {
         }};
         
         try {
-            Feedback.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Feedback.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

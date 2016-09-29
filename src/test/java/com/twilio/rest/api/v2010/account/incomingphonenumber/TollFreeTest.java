@@ -51,7 +51,7 @@ public class TollFreeTest {
         }};
         
         try {
-            TollFree.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TollFree.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TollFreeTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TollFree.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TollFree.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class TollFreeTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TollFree.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TollFree.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class TollFreeTest {
         }};
         
         try {
-            TollFree.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).execute();
+            TollFree.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,6 +109,6 @@ public class TollFreeTest {
             result = new ObjectMapper();
         }};
         
-        TollFree.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).execute();
+        TollFree.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
     }
 }

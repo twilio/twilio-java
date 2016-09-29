@@ -38,7 +38,7 @@ public class WorkflowReader extends Reader<Workflow> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public WorkflowReader byFriendlyName(final String friendlyName) {
+    public WorkflowReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -50,7 +50,7 @@ public class WorkflowReader extends Reader<Workflow> {
      * @return Workflow ResourceSet
      */
     @Override
-    public ResourceSet<Workflow> execute(final TwilioRestClient client) {
+    public ResourceSet<Workflow> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

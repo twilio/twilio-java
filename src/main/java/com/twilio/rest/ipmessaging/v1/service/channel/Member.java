@@ -44,9 +44,9 @@ public class Member extends Resource {
      * @param sid The sid
      * @return MemberFetcher capable of executing the fetch
      */
-    public static MemberFetcher fetch(final String serviceSid, 
-                                      final String channelSid, 
-                                      final String sid) {
+    public static MemberFetcher fetcher(final String serviceSid, 
+                                        final String channelSid, 
+                                        final String sid) {
         return new MemberFetcher(serviceSid, channelSid, sid);
     }
 
@@ -58,9 +58,9 @@ public class Member extends Resource {
      * @param identity The identity
      * @return MemberCreator capable of executing the create
      */
-    public static MemberCreator create(final String serviceSid, 
-                                       final String channelSid, 
-                                       final String identity) {
+    public static MemberCreator creator(final String serviceSid, 
+                                        final String channelSid, 
+                                        final String identity) {
         return new MemberCreator(serviceSid, channelSid, identity);
     }
 
@@ -71,8 +71,8 @@ public class Member extends Resource {
      * @param channelSid The channel_sid
      * @return MemberReader capable of executing the read
      */
-    public static MemberReader read(final String serviceSid, 
-                                    final String channelSid) {
+    public static MemberReader reader(final String serviceSid, 
+                                      final String channelSid) {
         return new MemberReader(serviceSid, channelSid);
     }
 
@@ -84,9 +84,9 @@ public class Member extends Resource {
      * @param sid The sid
      * @return MemberDeleter capable of executing the delete
      */
-    public static MemberDeleter delete(final String serviceSid, 
-                                       final String channelSid, 
-                                       final String sid) {
+    public static MemberDeleter deleter(final String serviceSid, 
+                                        final String channelSid, 
+                                        final String sid) {
         return new MemberDeleter(serviceSid, channelSid, sid);
     }
 

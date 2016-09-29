@@ -42,7 +42,7 @@ public class ReservationReader extends Reader<Reservation> {
      * @param reservationStatus The reservation_status
      * @return this
      */
-    public ReservationReader byReservationStatus(final Reservation.Status reservationStatus) {
+    public ReservationReader setReservationStatus(final Reservation.Status reservationStatus) {
         this.reservationStatus = reservationStatus;
         return this;
     }
@@ -54,7 +54,7 @@ public class ReservationReader extends Reader<Reservation> {
      * @return Reservation ResourceSet
      */
     @Override
-    public ResourceSet<Reservation> execute(final TwilioRestClient client) {
+    public ResourceSet<Reservation> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

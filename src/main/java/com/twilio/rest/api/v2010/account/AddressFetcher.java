@@ -50,7 +50,7 @@ public class AddressFetcher extends Fetcher<Address> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Address execute(final TwilioRestClient client) {
+    public Address fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

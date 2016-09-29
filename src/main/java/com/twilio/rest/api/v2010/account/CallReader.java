@@ -54,7 +54,7 @@ public class CallReader extends Reader<Call> {
      * @param to Phone number or Client identifier to filter `to` on
      * @return this
      */
-    public CallReader byTo(final com.twilio.type.PhoneNumber to) {
+    public CallReader setTo(final com.twilio.type.PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -65,7 +65,7 @@ public class CallReader extends Reader<Call> {
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
      */
-    public CallReader byFrom(final com.twilio.type.PhoneNumber from) {
+    public CallReader setFrom(final com.twilio.type.PhoneNumber from) {
         this.from = from;
         return this;
     }
@@ -76,7 +76,7 @@ public class CallReader extends Reader<Call> {
      * @param parentCallSid Parent Call Sid to filter on
      * @return this
      */
-    public CallReader byParentCallSid(final String parentCallSid) {
+    public CallReader setParentCallSid(final String parentCallSid) {
         this.parentCallSid = parentCallSid;
         return this;
     }
@@ -87,7 +87,7 @@ public class CallReader extends Reader<Call> {
      * @param status Status to filter on
      * @return this
      */
-    public CallReader byStatus(final Call.Status status) {
+    public CallReader setStatus(final Call.Status status) {
         this.status = status;
         return this;
     }
@@ -98,7 +98,7 @@ public class CallReader extends Reader<Call> {
      * @param absoluteStartTime StartTime to filter on
      * @return this
      */
-    public CallReader byStartTime(final DateTime absoluteStartTime) {
+    public CallReader setStartTime(final DateTime absoluteStartTime) {
         this.rangeStartTime = null;
         this.absoluteStartTime = absoluteStartTime;
         return this;
@@ -110,7 +110,7 @@ public class CallReader extends Reader<Call> {
      * @param rangeStartTime StartTime to filter on
      * @return this
      */
-    public CallReader byStartTime(final Range<DateTime> rangeStartTime) {
+    public CallReader setStartTime(final Range<DateTime> rangeStartTime) {
         this.absoluteStartTime = null;
         this.rangeStartTime = rangeStartTime;
         return this;
@@ -122,7 +122,7 @@ public class CallReader extends Reader<Call> {
      * @param absoluteEndTime EndTime to filter on
      * @return this
      */
-    public CallReader byEndTime(final DateTime absoluteEndTime) {
+    public CallReader setEndTime(final DateTime absoluteEndTime) {
         this.rangeEndTime = null;
         this.absoluteEndTime = absoluteEndTime;
         return this;
@@ -134,7 +134,7 @@ public class CallReader extends Reader<Call> {
      * @param rangeEndTime EndTime to filter on
      * @return this
      */
-    public CallReader byEndTime(final Range<DateTime> rangeEndTime) {
+    public CallReader setEndTime(final Range<DateTime> rangeEndTime) {
         this.absoluteEndTime = null;
         this.rangeEndTime = rangeEndTime;
         return this;
@@ -147,7 +147,7 @@ public class CallReader extends Reader<Call> {
      * @return Call ResourceSet
      */
     @Override
-    public ResourceSet<Call> execute(final TwilioRestClient client) {
+    public ResourceSet<Call> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

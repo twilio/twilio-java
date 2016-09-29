@@ -51,7 +51,7 @@ public class SyncMapTest {
         }};
         
         try {
-            SyncMap.fetch("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SyncMap.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -71,7 +71,7 @@ public class SyncMapTest {
         }};
         
         try {
-            SyncMap.delete("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SyncMap.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -91,7 +91,7 @@ public class SyncMapTest {
         }};
         
         try {
-            SyncMap.create("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SyncMap.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -111,7 +111,7 @@ public class SyncMapTest {
         }};
         
         try {
-            SyncMap.read("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            SyncMap.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

@@ -50,7 +50,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Notification execute(final TwilioRestClient client) {
+    public Notification fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

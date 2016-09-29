@@ -57,7 +57,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public CredentialList execute(final TwilioRestClient client) {
+    public CredentialList update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

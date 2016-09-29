@@ -81,9 +81,9 @@ public class FeedbackSummary extends Resource {
      * @param endDate The end_date
      * @return FeedbackSummaryCreator capable of executing the create
      */
-    public static FeedbackSummaryCreator create(final String accountSid, 
-                                                final LocalDate startDate, 
-                                                final LocalDate endDate) {
+    public static FeedbackSummaryCreator creator(final String accountSid, 
+                                                 final LocalDate startDate, 
+                                                 final LocalDate endDate) {
         return new FeedbackSummaryCreator(accountSid, startDate, endDate);
     }
 
@@ -94,8 +94,8 @@ public class FeedbackSummary extends Resource {
      * @param endDate The end_date
      * @return FeedbackSummaryCreator capable of executing the create
      */
-    public static FeedbackSummaryCreator create(final LocalDate startDate, 
-                                                final LocalDate endDate) {
+    public static FeedbackSummaryCreator creator(final LocalDate startDate, 
+                                                 final LocalDate endDate) {
         return new FeedbackSummaryCreator(startDate, endDate);
     }
 
@@ -106,8 +106,8 @@ public class FeedbackSummary extends Resource {
      * @param sid The sid
      * @return FeedbackSummaryFetcher capable of executing the fetch
      */
-    public static FeedbackSummaryFetcher fetch(final String accountSid, 
-                                               final String sid) {
+    public static FeedbackSummaryFetcher fetcher(final String accountSid, 
+                                                 final String sid) {
         return new FeedbackSummaryFetcher(accountSid, sid);
     }
 
@@ -117,7 +117,7 @@ public class FeedbackSummary extends Resource {
      * @param sid The sid
      * @return FeedbackSummaryFetcher capable of executing the fetch
      */
-    public static FeedbackSummaryFetcher fetch(final String sid) {
+    public static FeedbackSummaryFetcher fetcher(final String sid) {
         return new FeedbackSummaryFetcher(sid);
     }
 
@@ -128,8 +128,8 @@ public class FeedbackSummary extends Resource {
      * @param sid The sid
      * @return FeedbackSummaryDeleter capable of executing the delete
      */
-    public static FeedbackSummaryDeleter delete(final String accountSid, 
-                                                final String sid) {
+    public static FeedbackSummaryDeleter deleter(final String accountSid, 
+                                                 final String sid) {
         return new FeedbackSummaryDeleter(accountSid, sid);
     }
 
@@ -139,7 +139,7 @@ public class FeedbackSummary extends Resource {
      * @param sid The sid
      * @return FeedbackSummaryDeleter capable of executing the delete
      */
-    public static FeedbackSummaryDeleter delete(final String sid) {
+    public static FeedbackSummaryDeleter deleter(final String sid) {
         return new FeedbackSummaryDeleter(sid);
     }
 

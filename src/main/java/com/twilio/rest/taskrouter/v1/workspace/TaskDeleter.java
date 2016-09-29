@@ -40,7 +40,7 @@ public class TaskDeleter extends Deleter<Task> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean execute(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TASKROUTER.toString(),

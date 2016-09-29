@@ -44,7 +44,7 @@ public class Number extends Resource {
      * @param number The number
      * @return NumberFetcher capable of executing the fetch
      */
-    public static NumberFetcher fetch(final com.twilio.type.PhoneNumber number) {
+    public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber number) {
         return new NumberFetcher(number);
     }
 

@@ -52,7 +52,7 @@ public class ParticipantReader extends Reader<Participant> {
      * @param muted Filter by muted participants
      * @return this
      */
-    public ParticipantReader byMuted(final Boolean muted) {
+    public ParticipantReader setMuted(final Boolean muted) {
         this.muted = muted;
         return this;
     }
@@ -63,7 +63,7 @@ public class ParticipantReader extends Reader<Participant> {
      * @param hold The hold
      * @return this
      */
-    public ParticipantReader byHold(final Boolean hold) {
+    public ParticipantReader setHold(final Boolean hold) {
         this.hold = hold;
         return this;
     }
@@ -75,7 +75,7 @@ public class ParticipantReader extends Reader<Participant> {
      * @return Participant ResourceSet
      */
     @Override
-    public ResourceSet<Participant> execute(final TwilioRestClient client) {
+    public ResourceSet<Participant> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

@@ -100,7 +100,7 @@ public class TriggerUpdater extends Updater<Trigger> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Trigger execute(final TwilioRestClient client) {
+    public Trigger update(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

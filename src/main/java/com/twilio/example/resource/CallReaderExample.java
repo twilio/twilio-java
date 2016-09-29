@@ -17,8 +17,8 @@ public class CallReaderExample {
 
         try {
 
-            CallReader reader = Call.read("AC123");
-            ResourceSet<Call> calls = reader.execute();
+            CallReader reader = Call.reader("AC123");
+            ResourceSet<Call> calls = reader.read();
 
             int idx = 1;
             for (Call call : calls) {

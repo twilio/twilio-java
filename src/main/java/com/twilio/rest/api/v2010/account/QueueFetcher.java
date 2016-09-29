@@ -50,7 +50,7 @@ public class QueueFetcher extends Fetcher<Queue> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Queue execute(final TwilioRestClient client) {
+    public Queue fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

@@ -77,7 +77,7 @@ public class UserCreator extends Creator<User> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public User execute(final TwilioRestClient client) {
+    public User create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),

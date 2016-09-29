@@ -44,9 +44,9 @@ public class Message extends Resource {
      * @param sid The sid
      * @return MessageFetcher capable of executing the fetch
      */
-    public static MessageFetcher fetch(final String serviceSid, 
-                                       final String channelSid, 
-                                       final String sid) {
+    public static MessageFetcher fetcher(final String serviceSid, 
+                                         final String channelSid, 
+                                         final String sid) {
         return new MessageFetcher(serviceSid, channelSid, sid);
     }
 
@@ -58,9 +58,9 @@ public class Message extends Resource {
      * @param body The body
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator create(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String body) {
+    public static MessageCreator creator(final String serviceSid, 
+                                         final String channelSid, 
+                                         final String body) {
         return new MessageCreator(serviceSid, channelSid, body);
     }
 
@@ -71,8 +71,8 @@ public class Message extends Resource {
      * @param channelSid The channel_sid
      * @return MessageReader capable of executing the read
      */
-    public static MessageReader read(final String serviceSid, 
-                                     final String channelSid) {
+    public static MessageReader reader(final String serviceSid, 
+                                       final String channelSid) {
         return new MessageReader(serviceSid, channelSid);
     }
 
@@ -84,9 +84,9 @@ public class Message extends Resource {
      * @param sid The sid
      * @return MessageDeleter capable of executing the delete
      */
-    public static MessageDeleter delete(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String sid) {
+    public static MessageDeleter deleter(final String serviceSid, 
+                                         final String channelSid, 
+                                         final String sid) {
         return new MessageDeleter(serviceSid, channelSid, sid);
     }
 
@@ -99,10 +99,10 @@ public class Message extends Resource {
      * @param body The body
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater update(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String sid, 
-                                        final String body) {
+    public static MessageUpdater updater(final String serviceSid, 
+                                         final String channelSid, 
+                                         final String sid, 
+                                         final String body) {
         return new MessageUpdater(serviceSid, channelSid, sid, body);
     }
 

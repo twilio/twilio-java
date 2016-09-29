@@ -41,8 +41,8 @@ public class DependentPhoneNumber extends Resource {
      * @param addressSid The address_sid
      * @return DependentPhoneNumberReader capable of executing the read
      */
-    public static DependentPhoneNumberReader read(final String accountSid, 
-                                                  final String addressSid) {
+    public static DependentPhoneNumberReader reader(final String accountSid, 
+                                                    final String addressSid) {
         return new DependentPhoneNumberReader(accountSid, addressSid);
     }
 
@@ -52,7 +52,7 @@ public class DependentPhoneNumber extends Resource {
      * @param addressSid The address_sid
      * @return DependentPhoneNumberReader capable of executing the read
      */
-    public static DependentPhoneNumberReader read(final String addressSid) {
+    public static DependentPhoneNumberReader reader(final String addressSid) {
         return new DependentPhoneNumberReader(addressSid);
     }
 

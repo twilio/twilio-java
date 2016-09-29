@@ -42,8 +42,8 @@ public class Mobile extends Resource {
      * @param countryCode The country_code
      * @return MobileReader capable of executing the read
      */
-    public static MobileReader read(final String accountSid, 
-                                    final String countryCode) {
+    public static MobileReader reader(final String accountSid, 
+                                      final String countryCode) {
         return new MobileReader(accountSid, countryCode);
     }
 
@@ -53,7 +53,7 @@ public class Mobile extends Resource {
      * @param countryCode The country_code
      * @return MobileReader capable of executing the read
      */
-    public static MobileReader read(final String countryCode) {
+    public static MobileReader reader(final String countryCode) {
         return new MobileReader(countryCode);
     }
 

@@ -44,7 +44,7 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
      * @return AuthorizedConnectApp ResourceSet
      */
     @Override
-    public ResourceSet<AuthorizedConnectApp> execute(final TwilioRestClient client) {
+    public ResourceSet<AuthorizedConnectApp> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

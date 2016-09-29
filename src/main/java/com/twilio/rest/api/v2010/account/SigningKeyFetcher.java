@@ -50,7 +50,7 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SigningKey execute(final TwilioRestClient client) {
+    public SigningKey fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

@@ -41,7 +41,7 @@ public class NewKey extends Resource {
      * @param accountSid The account_sid
      * @return NewKeyCreator capable of executing the create
      */
-    public static NewKeyCreator create(final String accountSid) {
+    public static NewKeyCreator creator(final String accountSid) {
         return new NewKeyCreator(accountSid);
     }
 
@@ -50,7 +50,7 @@ public class NewKey extends Resource {
      * 
      * @return NewKeyCreator capable of executing the create
      */
-    public static NewKeyCreator create() {
+    public static NewKeyCreator creator() {
         return new NewKeyCreator();
     }
 

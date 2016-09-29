@@ -18,8 +18,8 @@ public abstract class Creator<T extends Resource> {
      *
      * @return future that resolves to requested object
      */
-    public ListenableFuture<T> async() {
-        return async(Twilio.getRestClient());
+    public ListenableFuture<T> createAsync() {
+        return createAsync(Twilio.getRestClient());
     }
 
     /**
@@ -28,10 +28,10 @@ public abstract class Creator<T extends Resource> {
      * @param client client used to make request
      * @return future that resolves to requested object
      */
-    public ListenableFuture<T> async(final TwilioRestClient client) {
+    public ListenableFuture<T> createAsync(final TwilioRestClient client) {
         return Twilio.getExecutorService().submit(new Callable<T>() {
             public T call() {
-                return execute(client);
+                return create(client);
             }
         });
     }
@@ -41,8 +41,8 @@ public abstract class Creator<T extends Resource> {
      *
      * @return Requested object
      */
-    public T execute() {
-        return execute(Twilio.getRestClient());
+    public T create() {
+        return create(Twilio.getRestClient());
     }
 
     /**
@@ -51,5 +51,5 @@ public abstract class Creator<T extends Resource> {
      * @param client client used to make request
      * @return Requested object
      */
-    public abstract T execute(final TwilioRestClient client);
+    public abstract T create(final TwilioRestClient client);
 }

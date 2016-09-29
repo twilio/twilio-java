@@ -53,7 +53,7 @@ public class ActivityCreator extends Creator<Activity> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Activity execute(final TwilioRestClient client) {
+    public Activity create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

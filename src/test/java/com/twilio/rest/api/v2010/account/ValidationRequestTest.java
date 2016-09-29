@@ -51,7 +51,7 @@ public class ValidationRequestTest {
         }};
         
         try {
-            ValidationRequest.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).execute();
+            ValidationRequest.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

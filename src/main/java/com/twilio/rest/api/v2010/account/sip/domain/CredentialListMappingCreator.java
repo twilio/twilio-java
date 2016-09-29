@@ -57,7 +57,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public CredentialListMapping execute(final TwilioRestClient client) {
+    public CredentialListMapping create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

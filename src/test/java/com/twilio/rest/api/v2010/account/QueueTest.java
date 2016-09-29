@@ -51,7 +51,7 @@ public class QueueTest {
         }};
         
         try {
-            Queue.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Queue.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Queue.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Queue.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class QueueTest {
         }};
         
         try {
-            Queue.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Queue.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
         
-        Queue.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Queue.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class QueueTest {
         }};
         
         try {
-            Queue.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Queue.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
         
-        Queue.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Queue.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class QueueTest {
         }};
         
         try {
-            Queue.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Queue.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Queue.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Queue.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Queue.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Queue.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -191,7 +191,7 @@ public class QueueTest {
         }};
         
         try {
-            Queue.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Queue.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
         
-        Queue.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Queue.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
     }
 }

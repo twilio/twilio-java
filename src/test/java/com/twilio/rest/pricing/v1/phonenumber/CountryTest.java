@@ -51,7 +51,7 @@ public class CountryTest {
         }};
         
         try {
-            Country.read().execute();
+            Country.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class CountryTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Country.read().execute());
+        assertNotNull(Country.reader().read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class CountryTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Country.read().execute());
+        assertNotNull(Country.reader().read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class CountryTest {
         }};
         
         try {
-            Country.fetch("US").execute();
+            Country.fetcher("US").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,6 +109,6 @@ public class CountryTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Country.fetch("US").execute());
+        assertNotNull(Country.fetcher("US").fetch());
     }
 }

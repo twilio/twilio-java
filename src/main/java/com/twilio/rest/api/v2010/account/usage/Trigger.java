@@ -230,8 +230,8 @@ public class Trigger extends Resource {
      * @param sid Fetch by unique usage-trigger Sid
      * @return TriggerFetcher capable of executing the fetch
      */
-    public static TriggerFetcher fetch(final String accountSid, 
-                                       final String sid) {
+    public static TriggerFetcher fetcher(final String accountSid, 
+                                         final String sid) {
         return new TriggerFetcher(accountSid, sid);
     }
 
@@ -241,7 +241,7 @@ public class Trigger extends Resource {
      * @param sid Fetch by unique usage-trigger Sid
      * @return TriggerFetcher capable of executing the fetch
      */
-    public static TriggerFetcher fetch(final String sid) {
+    public static TriggerFetcher fetcher(final String sid) {
         return new TriggerFetcher(sid);
     }
 
@@ -252,8 +252,8 @@ public class Trigger extends Resource {
      * @param sid The sid
      * @return TriggerUpdater capable of executing the update
      */
-    public static TriggerUpdater update(final String accountSid, 
-                                        final String sid) {
+    public static TriggerUpdater updater(final String accountSid, 
+                                         final String sid) {
         return new TriggerUpdater(accountSid, sid);
     }
 
@@ -263,7 +263,7 @@ public class Trigger extends Resource {
      * @param sid The sid
      * @return TriggerUpdater capable of executing the update
      */
-    public static TriggerUpdater update(final String sid) {
+    public static TriggerUpdater updater(final String sid) {
         return new TriggerUpdater(sid);
     }
 
@@ -274,8 +274,8 @@ public class Trigger extends Resource {
      * @param sid The sid
      * @return TriggerDeleter capable of executing the delete
      */
-    public static TriggerDeleter delete(final String accountSid, 
-                                        final String sid) {
+    public static TriggerDeleter deleter(final String accountSid, 
+                                         final String sid) {
         return new TriggerDeleter(accountSid, sid);
     }
 
@@ -285,7 +285,7 @@ public class Trigger extends Resource {
      * @param sid The sid
      * @return TriggerDeleter capable of executing the delete
      */
-    public static TriggerDeleter delete(final String sid) {
+    public static TriggerDeleter deleter(final String sid) {
         return new TriggerDeleter(sid);
     }
 
@@ -298,10 +298,10 @@ public class Trigger extends Resource {
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
-    public static TriggerCreator create(final String accountSid, 
-                                        final URI callbackUrl, 
-                                        final String triggerValue, 
-                                        final Trigger.UsageCategory usageCategory) {
+    public static TriggerCreator creator(final String accountSid, 
+                                         final URI callbackUrl, 
+                                         final String triggerValue, 
+                                         final Trigger.UsageCategory usageCategory) {
         return new TriggerCreator(accountSid, callbackUrl, triggerValue, usageCategory);
     }
 
@@ -313,9 +313,9 @@ public class Trigger extends Resource {
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
-    public static TriggerCreator create(final URI callbackUrl, 
-                                        final String triggerValue, 
-                                        final Trigger.UsageCategory usageCategory) {
+    public static TriggerCreator creator(final URI callbackUrl, 
+                                         final String triggerValue, 
+                                         final Trigger.UsageCategory usageCategory) {
         return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
     }
 
@@ -325,7 +325,7 @@ public class Trigger extends Resource {
      * @param accountSid The account_sid
      * @return TriggerReader capable of executing the read
      */
-    public static TriggerReader read(final String accountSid) {
+    public static TriggerReader reader(final String accountSid) {
         return new TriggerReader(accountSid);
     }
 
@@ -334,7 +334,7 @@ public class Trigger extends Resource {
      * 
      * @return TriggerReader capable of executing the read
      */
-    public static TriggerReader read() {
+    public static TriggerReader reader() {
         return new TriggerReader();
     }
 

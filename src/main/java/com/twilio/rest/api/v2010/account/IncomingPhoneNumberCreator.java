@@ -374,7 +374,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IncomingPhoneNumber execute(final TwilioRestClient client) {
+    public IncomingPhoneNumber create(final TwilioRestClient client) {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,

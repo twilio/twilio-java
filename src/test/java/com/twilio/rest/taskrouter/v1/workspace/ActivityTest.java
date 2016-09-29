@@ -51,7 +51,7 @@ public class ActivityTest {
         }};
         
         try {
-            Activity.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Activity.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Activity.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Activity.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ActivityTest {
         }};
         
         try {
-            Activity.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+            Activity.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
         
-        Activity.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+        Activity.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").update();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class ActivityTest {
         }};
         
         try {
-            Activity.delete("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Activity.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
         
-        Activity.delete("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Activity.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class ActivityTest {
         }};
         
         try {
-            Activity.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Activity.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Activity.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Activity.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Activity.read("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Activity.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -191,7 +191,7 @@ public class ActivityTest {
         }};
         
         try {
-            Activity.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+            Activity.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
         
-        Activity.create("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").execute();
+        Activity.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName").create();
     }
 }

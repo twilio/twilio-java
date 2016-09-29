@@ -51,7 +51,7 @@ public class RatePlanTest {
         }};
         
         try {
-            RatePlan.read().execute();
+            RatePlan.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -71,7 +71,7 @@ public class RatePlanTest {
         }};
         
         try {
-            RatePlan.fetch("sid").execute();
+            RatePlan.fetcher("sid").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }

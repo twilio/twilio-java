@@ -27,7 +27,7 @@ public class RatePlanReader extends Reader<RatePlan> {
      * @return RatePlan ResourceSet
      */
     @Override
-    public ResourceSet<RatePlan> execute(final TwilioRestClient client) {
+    public ResourceSet<RatePlan> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

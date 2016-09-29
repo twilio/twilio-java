@@ -51,7 +51,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @param category The category
      * @return this
      */
-    public AllTimeReader byCategory(final AllTime.Category category) {
+    public AllTimeReader setCategory(final AllTime.Category category) {
         this.category = category;
         return this;
     }
@@ -62,7 +62,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public AllTimeReader byStartDate(final DateTime absoluteStartDate) {
+    public AllTimeReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -74,7 +74,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public AllTimeReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public AllTimeReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -86,7 +86,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public AllTimeReader byEndDate(final DateTime absoluteEndDate) {
+    public AllTimeReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -98,7 +98,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public AllTimeReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public AllTimeReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -111,7 +111,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * @return AllTime ResourceSet
      */
     @Override
-    public ResourceSet<AllTime> execute(final TwilioRestClient client) {
+    public ResourceSet<AllTime> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

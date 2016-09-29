@@ -43,8 +43,8 @@ public class User extends Resource {
      * @param sid The sid
      * @return UserFetcher capable of executing the fetch
      */
-    public static UserFetcher fetch(final String serviceSid, 
-                                    final String sid) {
+    public static UserFetcher fetcher(final String serviceSid, 
+                                      final String sid) {
         return new UserFetcher(serviceSid, sid);
     }
 
@@ -55,8 +55,8 @@ public class User extends Resource {
      * @param sid The sid
      * @return UserDeleter capable of executing the delete
      */
-    public static UserDeleter delete(final String serviceSid, 
-                                     final String sid) {
+    public static UserDeleter deleter(final String serviceSid, 
+                                      final String sid) {
         return new UserDeleter(serviceSid, sid);
     }
 
@@ -67,8 +67,8 @@ public class User extends Resource {
      * @param identity The identity
      * @return UserCreator capable of executing the create
      */
-    public static UserCreator create(final String serviceSid, 
-                                     final String identity) {
+    public static UserCreator creator(final String serviceSid, 
+                                      final String identity) {
         return new UserCreator(serviceSid, identity);
     }
 
@@ -78,7 +78,7 @@ public class User extends Resource {
      * @param serviceSid The service_sid
      * @return UserReader capable of executing the read
      */
-    public static UserReader read(final String serviceSid) {
+    public static UserReader reader(final String serviceSid) {
         return new UserReader(serviceSid);
     }
 
@@ -89,8 +89,8 @@ public class User extends Resource {
      * @param sid The sid
      * @return UserUpdater capable of executing the update
      */
-    public static UserUpdater update(final String serviceSid, 
-                                     final String sid) {
+    public static UserUpdater updater(final String serviceSid, 
+                                      final String sid) {
         return new UserUpdater(serviceSid, sid);
     }
 

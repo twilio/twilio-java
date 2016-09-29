@@ -42,7 +42,7 @@ public class Alert extends Resource {
      * @param sid The sid
      * @return AlertFetcher capable of executing the fetch
      */
-    public static AlertFetcher fetch(final String sid) {
+    public static AlertFetcher fetcher(final String sid) {
         return new AlertFetcher(sid);
     }
 
@@ -52,7 +52,7 @@ public class Alert extends Resource {
      * @param sid The sid
      * @return AlertDeleter capable of executing the delete
      */
-    public static AlertDeleter delete(final String sid) {
+    public static AlertDeleter deleter(final String sid) {
         return new AlertDeleter(sid);
     }
 
@@ -61,7 +61,7 @@ public class Alert extends Resource {
      * 
      * @return AlertReader capable of executing the read
      */
-    public static AlertReader read() {
+    public static AlertReader reader() {
         return new AlertReader();
     }
 

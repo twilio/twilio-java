@@ -43,8 +43,8 @@ public class SyncMap extends Resource {
      * @param sid The sid
      * @return SyncMapFetcher capable of executing the fetch
      */
-    public static SyncMapFetcher fetch(final String serviceSid, 
-                                       final String sid) {
+    public static SyncMapFetcher fetcher(final String serviceSid, 
+                                         final String sid) {
         return new SyncMapFetcher(serviceSid, sid);
     }
 
@@ -55,8 +55,8 @@ public class SyncMap extends Resource {
      * @param sid The sid
      * @return SyncMapDeleter capable of executing the delete
      */
-    public static SyncMapDeleter delete(final String serviceSid, 
-                                        final String sid) {
+    public static SyncMapDeleter deleter(final String serviceSid, 
+                                         final String sid) {
         return new SyncMapDeleter(serviceSid, sid);
     }
 
@@ -66,7 +66,7 @@ public class SyncMap extends Resource {
      * @param serviceSid The service_sid
      * @return SyncMapCreator capable of executing the create
      */
-    public static SyncMapCreator create(final String serviceSid) {
+    public static SyncMapCreator creator(final String serviceSid) {
         return new SyncMapCreator(serviceSid);
     }
 
@@ -76,7 +76,7 @@ public class SyncMap extends Resource {
      * @param serviceSid The service_sid
      * @return SyncMapReader capable of executing the read
      */
-    public static SyncMapReader read(final String serviceSid) {
+    public static SyncMapReader reader(final String serviceSid) {
         return new SyncMapReader(serviceSid);
     }
 

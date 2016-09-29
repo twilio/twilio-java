@@ -53,7 +53,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param absoluteDateCreated Filter by date created
      * @return this
      */
-    public ConferenceReader byDateCreated(final DateTime absoluteDateCreated) {
+    public ConferenceReader setDateCreated(final DateTime absoluteDateCreated) {
         this.rangeDateCreated = null;
         this.absoluteDateCreated = absoluteDateCreated;
         return this;
@@ -66,7 +66,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param rangeDateCreated Filter by date created
      * @return this
      */
-    public ConferenceReader byDateCreated(final Range<DateTime> rangeDateCreated) {
+    public ConferenceReader setDateCreated(final Range<DateTime> rangeDateCreated) {
         this.absoluteDateCreated = null;
         this.rangeDateCreated = rangeDateCreated;
         return this;
@@ -80,7 +80,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param absoluteDateUpdated Filter by date updated
      * @return this
      */
-    public ConferenceReader byDateUpdated(final DateTime absoluteDateUpdated) {
+    public ConferenceReader setDateUpdated(final DateTime absoluteDateUpdated) {
         this.rangeDateUpdated = null;
         this.absoluteDateUpdated = absoluteDateUpdated;
         return this;
@@ -94,7 +94,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param rangeDateUpdated Filter by date updated
      * @return this
      */
-    public ConferenceReader byDateUpdated(final Range<DateTime> rangeDateUpdated) {
+    public ConferenceReader setDateUpdated(final Range<DateTime> rangeDateUpdated) {
         this.absoluteDateUpdated = null;
         this.rangeDateUpdated = rangeDateUpdated;
         return this;
@@ -106,7 +106,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param friendlyName Filter by friendly name
      * @return this
      */
-    public ConferenceReader byFriendlyName(final String friendlyName) {
+    public ConferenceReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -118,7 +118,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @param status The status of the conference
      * @return this
      */
-    public ConferenceReader byStatus(final Conference.Status status) {
+    public ConferenceReader setStatus(final Conference.Status status) {
         this.status = status;
         return this;
     }
@@ -130,7 +130,7 @@ public class ConferenceReader extends Reader<Conference> {
      * @return Conference ResourceSet
      */
     @Override
-    public ResourceSet<Conference> execute(final TwilioRestClient client) {
+    public ResourceSet<Conference> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

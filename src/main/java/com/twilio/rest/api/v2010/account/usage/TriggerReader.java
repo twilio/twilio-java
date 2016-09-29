@@ -47,7 +47,7 @@ public class TriggerReader extends Reader<Trigger> {
      * @param recurring Filter by recurring
      * @return this
      */
-    public TriggerReader byRecurring(final Trigger.Recurring recurring) {
+    public TriggerReader setRecurring(final Trigger.Recurring recurring) {
         this.recurring = recurring;
         return this;
     }
@@ -58,7 +58,7 @@ public class TriggerReader extends Reader<Trigger> {
      * @param triggerBy Filter by trigger by
      * @return this
      */
-    public TriggerReader byTriggerBy(final Trigger.TriggerField triggerBy) {
+    public TriggerReader setTriggerBy(final Trigger.TriggerField triggerBy) {
         this.triggerBy = triggerBy;
         return this;
     }
@@ -69,7 +69,7 @@ public class TriggerReader extends Reader<Trigger> {
      * @param usageCategory Filter by Usage Category
      * @return this
      */
-    public TriggerReader byUsageCategory(final Trigger.UsageCategory usageCategory) {
+    public TriggerReader setUsageCategory(final Trigger.UsageCategory usageCategory) {
         this.usageCategory = usageCategory;
         return this;
     }
@@ -81,7 +81,7 @@ public class TriggerReader extends Reader<Trigger> {
      * @return Trigger ResourceSet
      */
     @Override
-    public ResourceSet<Trigger> execute(final TwilioRestClient client) {
+    public ResourceSet<Trigger> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

@@ -39,7 +39,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public TaskQueueReader byFriendlyName(final String friendlyName) {
+    public TaskQueueReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -50,7 +50,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
      * @param evaluateWorkerAttributes The evaluate_worker_attributes
      * @return this
      */
-    public TaskQueueReader byEvaluateWorkerAttributes(final String evaluateWorkerAttributes) {
+    public TaskQueueReader setEvaluateWorkerAttributes(final String evaluateWorkerAttributes) {
         this.evaluateWorkerAttributes = evaluateWorkerAttributes;
         return this;
     }
@@ -62,7 +62,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
      * @return TaskQueue ResourceSet
      */
     @Override
-    public ResourceSet<TaskQueue> execute(final TwilioRestClient client) {
+    public ResourceSet<TaskQueue> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

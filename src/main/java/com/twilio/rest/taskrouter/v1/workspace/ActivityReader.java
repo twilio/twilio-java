@@ -39,7 +39,7 @@ public class ActivityReader extends Reader<Activity> {
      * @param friendlyName The friendly_name
      * @return this
      */
-    public ActivityReader byFriendlyName(final String friendlyName) {
+    public ActivityReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -50,7 +50,7 @@ public class ActivityReader extends Reader<Activity> {
      * @param available The available
      * @return this
      */
-    public ActivityReader byAvailable(final String available) {
+    public ActivityReader setAvailable(final String available) {
         this.available = available;
         return this;
     }
@@ -62,7 +62,7 @@ public class ActivityReader extends Reader<Activity> {
      * @return Activity ResourceSet
      */
     @Override
-    public ResourceSet<Activity> execute(final TwilioRestClient client) {
+    public ResourceSet<Activity> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

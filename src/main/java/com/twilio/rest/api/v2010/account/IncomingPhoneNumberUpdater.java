@@ -341,7 +341,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IncomingPhoneNumber execute(final TwilioRestClient client) {
+    public IncomingPhoneNumber update(final TwilioRestClient client) {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,

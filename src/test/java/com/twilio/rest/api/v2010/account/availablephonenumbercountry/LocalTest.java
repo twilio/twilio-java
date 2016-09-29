@@ -51,7 +51,7 @@ public class LocalTest {
         }};
         
         try {
-            Local.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").execute();
+            Local.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class LocalTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Local.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").execute());
+        assertNotNull(Local.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class LocalTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Local.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").execute());
+        assertNotNull(Local.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read());
     }
 }

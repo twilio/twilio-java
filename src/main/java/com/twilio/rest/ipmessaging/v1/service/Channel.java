@@ -75,8 +75,8 @@ public class Channel extends Resource {
      * @param sid The sid
      * @return ChannelFetcher capable of executing the fetch
      */
-    public static ChannelFetcher fetch(final String serviceSid, 
-                                       final String sid) {
+    public static ChannelFetcher fetcher(final String serviceSid, 
+                                         final String sid) {
         return new ChannelFetcher(serviceSid, sid);
     }
 
@@ -87,8 +87,8 @@ public class Channel extends Resource {
      * @param sid The sid
      * @return ChannelDeleter capable of executing the delete
      */
-    public static ChannelDeleter delete(final String serviceSid, 
-                                        final String sid) {
+    public static ChannelDeleter deleter(final String serviceSid, 
+                                         final String sid) {
         return new ChannelDeleter(serviceSid, sid);
     }
 
@@ -98,7 +98,7 @@ public class Channel extends Resource {
      * @param serviceSid The service_sid
      * @return ChannelCreator capable of executing the create
      */
-    public static ChannelCreator create(final String serviceSid) {
+    public static ChannelCreator creator(final String serviceSid) {
         return new ChannelCreator(serviceSid);
     }
 
@@ -108,7 +108,7 @@ public class Channel extends Resource {
      * @param serviceSid The service_sid
      * @return ChannelReader capable of executing the read
      */
-    public static ChannelReader read(final String serviceSid) {
+    public static ChannelReader reader(final String serviceSid) {
         return new ChannelReader(serviceSid);
     }
 
@@ -119,8 +119,8 @@ public class Channel extends Resource {
      * @param sid The sid
      * @return ChannelUpdater capable of executing the update
      */
-    public static ChannelUpdater update(final String serviceSid, 
-                                        final String sid) {
+    public static ChannelUpdater updater(final String serviceSid, 
+                                         final String sid) {
         return new ChannelUpdater(serviceSid, sid);
     }
 

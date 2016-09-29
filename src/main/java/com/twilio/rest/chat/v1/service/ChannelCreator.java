@@ -85,7 +85,7 @@ public class ChannelCreator extends Creator<Channel> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Channel execute(final TwilioRestClient client) {
+    public Channel create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),

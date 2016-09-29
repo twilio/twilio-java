@@ -37,7 +37,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public RatePlan execute(final TwilioRestClient client) {
+    public RatePlan fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),

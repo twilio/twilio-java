@@ -50,7 +50,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public ConnectApp execute(final TwilioRestClient client) {
+    public ConnectApp fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

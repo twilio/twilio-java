@@ -37,7 +37,7 @@ public class DeviceFetcher extends Fetcher<Device> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Device execute(final TwilioRestClient client) {
+    public Device fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),

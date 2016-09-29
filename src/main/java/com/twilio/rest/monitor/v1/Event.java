@@ -42,7 +42,7 @@ public class Event extends Resource {
      * @param sid The sid
      * @return EventFetcher capable of executing the fetch
      */
-    public static EventFetcher fetch(final String sid) {
+    public static EventFetcher fetcher(final String sid) {
         return new EventFetcher(sid);
     }
 
@@ -51,7 +51,7 @@ public class Event extends Resource {
      * 
      * @return EventReader capable of executing the read
      */
-    public static EventReader read() {
+    public static EventReader reader() {
         return new EventReader();
     }
 

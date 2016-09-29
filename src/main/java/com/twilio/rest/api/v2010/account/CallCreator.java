@@ -372,7 +372,7 @@ public class CallCreator extends Creator<Call> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Call execute(final TwilioRestClient client) {
+    public Call create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

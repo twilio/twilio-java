@@ -51,7 +51,7 @@ public class KeyTest {
         }};
         
         try {
-            Key.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Key.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Key.fetch("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Key.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class KeyTest {
         }};
         
         try {
-            Key.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Key.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
         
-        Key.update("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Key.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class KeyTest {
         }};
         
         try {
-            Key.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Key.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
         
-        Key.delete("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Key.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class KeyTest {
         }};
         
         try {
-            Key.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Key.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Key.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Key.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -173,6 +173,6 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Key.read("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Key.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

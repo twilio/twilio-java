@@ -52,7 +52,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SyncListItem execute(final TwilioRestClient client) {
+    public SyncListItem update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

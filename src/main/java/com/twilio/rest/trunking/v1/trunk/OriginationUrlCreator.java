@@ -59,7 +59,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public OriginationUrl execute(final TwilioRestClient client) {
+    public OriginationUrl create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),

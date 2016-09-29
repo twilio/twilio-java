@@ -108,7 +108,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public FeedbackSummary execute(final TwilioRestClient client) {
+    public FeedbackSummary create(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.POST,

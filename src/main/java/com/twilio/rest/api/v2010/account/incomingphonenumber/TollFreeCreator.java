@@ -283,7 +283,7 @@ public class TollFreeCreator extends Creator<TollFree> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public TollFree execute(final TwilioRestClient client) {
+    public TollFree create(final TwilioRestClient client) {
         this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
         Request request = new Request(
             HttpMethod.POST,

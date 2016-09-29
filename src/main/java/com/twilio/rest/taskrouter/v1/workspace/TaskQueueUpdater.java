@@ -101,7 +101,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public TaskQueue execute(final TwilioRestClient client) {
+    public TaskQueue update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),

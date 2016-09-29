@@ -37,7 +37,7 @@ public class CommandFetcher extends Fetcher<Command> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Command execute(final TwilioRestClient client) {
+    public Command fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),

@@ -110,7 +110,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public PhoneNumber execute(final TwilioRestClient client) {
+    public PhoneNumber fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.LOOKUPS.toString(),

@@ -51,7 +51,7 @@ public class DailyReader extends Reader<Daily> {
      * @param category The category
      * @return this
      */
-    public DailyReader byCategory(final Daily.Category category) {
+    public DailyReader setCategory(final Daily.Category category) {
         this.category = category;
         return this;
     }
@@ -62,7 +62,7 @@ public class DailyReader extends Reader<Daily> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public DailyReader byStartDate(final DateTime absoluteStartDate) {
+    public DailyReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -74,7 +74,7 @@ public class DailyReader extends Reader<Daily> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public DailyReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public DailyReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -86,7 +86,7 @@ public class DailyReader extends Reader<Daily> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public DailyReader byEndDate(final DateTime absoluteEndDate) {
+    public DailyReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -98,7 +98,7 @@ public class DailyReader extends Reader<Daily> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public DailyReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public DailyReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -111,7 +111,7 @@ public class DailyReader extends Reader<Daily> {
      * @return Daily ResourceSet
      */
     @Override
-    public ResourceSet<Daily> execute(final TwilioRestClient client) {
+    public ResourceSet<Daily> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

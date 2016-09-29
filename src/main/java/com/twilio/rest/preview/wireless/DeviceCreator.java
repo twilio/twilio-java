@@ -156,7 +156,7 @@ public class DeviceCreator extends Creator<Device> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Device execute(final TwilioRestClient client) {
+    public Device create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

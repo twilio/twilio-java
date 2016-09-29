@@ -50,7 +50,7 @@ public class KeyFetcher extends Fetcher<Key> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Key execute(final TwilioRestClient client) {
+    public Key fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

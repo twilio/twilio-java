@@ -37,7 +37,7 @@ public class ServiceCreator extends Creator<Service> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Service execute(final TwilioRestClient client) {
+    public Service create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),

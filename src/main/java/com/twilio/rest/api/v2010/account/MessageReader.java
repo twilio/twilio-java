@@ -50,7 +50,7 @@ public class MessageReader extends Reader<Message> {
      * @param to Filter by messages to this number
      * @return this
      */
-    public MessageReader byTo(final com.twilio.type.PhoneNumber to) {
+    public MessageReader setTo(final com.twilio.type.PhoneNumber to) {
         this.to = to;
         return this;
     }
@@ -61,7 +61,7 @@ public class MessageReader extends Reader<Message> {
      * @param from Filter by from number
      * @return this
      */
-    public MessageReader byFrom(final com.twilio.type.PhoneNumber from) {
+    public MessageReader setFrom(final com.twilio.type.PhoneNumber from) {
         this.from = from;
         return this;
     }
@@ -72,7 +72,7 @@ public class MessageReader extends Reader<Message> {
      * @param absoluteDateSent Filter by date sent
      * @return this
      */
-    public MessageReader byDateSent(final DateTime absoluteDateSent) {
+    public MessageReader setDateSent(final DateTime absoluteDateSent) {
         this.rangeDateSent = null;
         this.absoluteDateSent = absoluteDateSent;
         return this;
@@ -84,7 +84,7 @@ public class MessageReader extends Reader<Message> {
      * @param rangeDateSent Filter by date sent
      * @return this
      */
-    public MessageReader byDateSent(final Range<DateTime> rangeDateSent) {
+    public MessageReader setDateSent(final Range<DateTime> rangeDateSent) {
         this.absoluteDateSent = null;
         this.rangeDateSent = rangeDateSent;
         return this;
@@ -97,7 +97,7 @@ public class MessageReader extends Reader<Message> {
      * @return Message ResourceSet
      */
     @Override
-    public ResourceSet<Message> execute(final TwilioRestClient client) {
+    public ResourceSet<Message> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

@@ -44,7 +44,7 @@ public class Trunk extends Resource {
      * @param sid The sid
      * @return TrunkFetcher capable of executing the fetch
      */
-    public static TrunkFetcher fetch(final String sid) {
+    public static TrunkFetcher fetcher(final String sid) {
         return new TrunkFetcher(sid);
     }
 
@@ -54,7 +54,7 @@ public class Trunk extends Resource {
      * @param sid The sid
      * @return TrunkDeleter capable of executing the delete
      */
-    public static TrunkDeleter delete(final String sid) {
+    public static TrunkDeleter deleter(final String sid) {
         return new TrunkDeleter(sid);
     }
 
@@ -63,7 +63,7 @@ public class Trunk extends Resource {
      * 
      * @return TrunkCreator capable of executing the create
      */
-    public static TrunkCreator create() {
+    public static TrunkCreator creator() {
         return new TrunkCreator();
     }
 
@@ -72,7 +72,7 @@ public class Trunk extends Resource {
      * 
      * @return TrunkReader capable of executing the read
      */
-    public static TrunkReader read() {
+    public static TrunkReader reader() {
         return new TrunkReader();
     }
 
@@ -82,7 +82,7 @@ public class Trunk extends Resource {
      * @param sid The sid
      * @return TrunkUpdater capable of executing the update
      */
-    public static TrunkUpdater update(final String sid) {
+    public static TrunkUpdater updater(final String sid) {
         return new TrunkUpdater(sid);
     }
 

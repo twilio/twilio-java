@@ -51,7 +51,7 @@ public class TaskQueueStatisticsTest {
         }};
         
         try {
-            TaskQueueStatistics.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            TaskQueueStatistics.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class TaskQueueStatisticsTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(TaskQueueStatistics.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(TaskQueueStatistics.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 }

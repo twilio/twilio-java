@@ -51,7 +51,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * @param category The category
      * @return this
      */
-    public MonthlyReader byCategory(final Monthly.Category category) {
+    public MonthlyReader setCategory(final Monthly.Category category) {
         this.category = category;
         return this;
     }
@@ -62,7 +62,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * @param absoluteStartDate The absolute_start_date
      * @return this
      */
-    public MonthlyReader byStartDate(final DateTime absoluteStartDate) {
+    public MonthlyReader setStartDate(final DateTime absoluteStartDate) {
         this.rangeStartDate = null;
         this.absoluteStartDate = absoluteStartDate;
         return this;
@@ -74,7 +74,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * @param rangeStartDate The range_start_date
      * @return this
      */
-    public MonthlyReader byStartDate(final Range<DateTime> rangeStartDate) {
+    public MonthlyReader setStartDate(final Range<DateTime> rangeStartDate) {
         this.absoluteStartDate = null;
         this.rangeStartDate = rangeStartDate;
         return this;
@@ -86,7 +86,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * @param absoluteEndDate The absolute_end_date
      * @return this
      */
-    public MonthlyReader byEndDate(final DateTime absoluteEndDate) {
+    public MonthlyReader setEndDate(final DateTime absoluteEndDate) {
         this.rangeEndDate = null;
         this.absoluteEndDate = absoluteEndDate;
         return this;
@@ -98,7 +98,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * @param rangeEndDate The range_end_date
      * @return this
      */
-    public MonthlyReader byEndDate(final Range<DateTime> rangeEndDate) {
+    public MonthlyReader setEndDate(final Range<DateTime> rangeEndDate) {
         this.absoluteEndDate = null;
         this.rangeEndDate = rangeEndDate;
         return this;
@@ -111,7 +111,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * @return Monthly ResourceSet
      */
     @Override
-    public ResourceSet<Monthly> execute(final TwilioRestClient client) {
+    public ResourceSet<Monthly> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

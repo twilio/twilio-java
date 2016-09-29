@@ -73,7 +73,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public WorkspaceStatistics execute(final TwilioRestClient client) {
+    public WorkspaceStatistics fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),

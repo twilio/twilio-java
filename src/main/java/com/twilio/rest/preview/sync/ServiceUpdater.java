@@ -86,7 +86,7 @@ public class ServiceUpdater extends Updater<Service> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Service execute(final TwilioRestClient client) {
+    public Service update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),

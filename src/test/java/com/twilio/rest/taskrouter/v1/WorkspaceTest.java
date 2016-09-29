@@ -51,7 +51,7 @@ public class WorkspaceTest {
         }};
         
         try {
-            Workspace.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Workspace.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Workspace.fetch("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute());
+        assertNotNull(Workspace.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class WorkspaceTest {
         }};
         
         try {
-            Workspace.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Workspace.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
         
-        Workspace.update("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Workspace.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class WorkspaceTest {
         }};
         
         try {
-            Workspace.read().execute();
+            Workspace.reader().read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Workspace.read().execute());
+        assertNotNull(Workspace.reader().read());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
         
-        assertNotNull(Workspace.read().execute());
+        assertNotNull(Workspace.reader().read());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class WorkspaceTest {
         }};
         
         try {
-            Workspace.create("friendlyName").execute();
+            Workspace.creator("friendlyName").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
         
-        Workspace.create("friendlyName").execute();
+        Workspace.creator("friendlyName").create();
     }
 
     @Test
@@ -191,7 +191,7 @@ public class WorkspaceTest {
         }};
         
         try {
-            Workspace.delete("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            Workspace.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
         
-        Workspace.delete("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        Workspace.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 }

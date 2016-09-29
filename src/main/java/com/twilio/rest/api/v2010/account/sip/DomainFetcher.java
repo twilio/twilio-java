@@ -50,7 +50,7 @@ public class DomainFetcher extends Fetcher<Domain> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Domain execute(final TwilioRestClient client) {
+    public Domain fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

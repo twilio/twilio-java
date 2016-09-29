@@ -51,7 +51,7 @@ public class NewKeyTest {
         }};
         
         try {
-            NewKey.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+            NewKey.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class NewKeyTest {
             result = new ObjectMapper();
         }};
         
-        NewKey.create("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute();
+        NewKey.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
     }
 }

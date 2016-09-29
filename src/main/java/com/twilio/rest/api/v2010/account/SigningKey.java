@@ -42,8 +42,8 @@ public class SigningKey extends Resource {
      * @param sid The sid
      * @return SigningKeyFetcher capable of executing the fetch
      */
-    public static SigningKeyFetcher fetch(final String accountSid, 
-                                          final String sid) {
+    public static SigningKeyFetcher fetcher(final String accountSid, 
+                                            final String sid) {
         return new SigningKeyFetcher(accountSid, sid);
     }
 
@@ -53,7 +53,7 @@ public class SigningKey extends Resource {
      * @param sid The sid
      * @return SigningKeyFetcher capable of executing the fetch
      */
-    public static SigningKeyFetcher fetch(final String sid) {
+    public static SigningKeyFetcher fetcher(final String sid) {
         return new SigningKeyFetcher(sid);
     }
 
@@ -64,8 +64,8 @@ public class SigningKey extends Resource {
      * @param sid The sid
      * @return SigningKeyUpdater capable of executing the update
      */
-    public static SigningKeyUpdater update(final String accountSid, 
-                                           final String sid) {
+    public static SigningKeyUpdater updater(final String accountSid, 
+                                            final String sid) {
         return new SigningKeyUpdater(accountSid, sid);
     }
 
@@ -75,7 +75,7 @@ public class SigningKey extends Resource {
      * @param sid The sid
      * @return SigningKeyUpdater capable of executing the update
      */
-    public static SigningKeyUpdater update(final String sid) {
+    public static SigningKeyUpdater updater(final String sid) {
         return new SigningKeyUpdater(sid);
     }
 
@@ -86,8 +86,8 @@ public class SigningKey extends Resource {
      * @param sid The sid
      * @return SigningKeyDeleter capable of executing the delete
      */
-    public static SigningKeyDeleter delete(final String accountSid, 
-                                           final String sid) {
+    public static SigningKeyDeleter deleter(final String accountSid, 
+                                            final String sid) {
         return new SigningKeyDeleter(accountSid, sid);
     }
 
@@ -97,7 +97,7 @@ public class SigningKey extends Resource {
      * @param sid The sid
      * @return SigningKeyDeleter capable of executing the delete
      */
-    public static SigningKeyDeleter delete(final String sid) {
+    public static SigningKeyDeleter deleter(final String sid) {
         return new SigningKeyDeleter(sid);
     }
 
@@ -107,7 +107,7 @@ public class SigningKey extends Resource {
      * @param accountSid The account_sid
      * @return SigningKeyReader capable of executing the read
      */
-    public static SigningKeyReader read(final String accountSid) {
+    public static SigningKeyReader reader(final String accountSid) {
         return new SigningKeyReader(accountSid);
     }
 
@@ -116,7 +116,7 @@ public class SigningKey extends Resource {
      * 
      * @return SigningKeyReader capable of executing the read
      */
-    public static SigningKeyReader read() {
+    public static SigningKeyReader reader() {
         return new SigningKeyReader();
     }
 

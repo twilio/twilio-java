@@ -218,7 +218,7 @@ public class NotificationCreator extends Creator<Notification> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Notification execute(final TwilioRestClient client) {
+    public Notification create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),

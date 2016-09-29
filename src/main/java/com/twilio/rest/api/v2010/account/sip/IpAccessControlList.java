@@ -41,7 +41,7 @@ public class IpAccessControlList extends Resource {
      * @param accountSid The account_sid
      * @return IpAccessControlListReader capable of executing the read
      */
-    public static IpAccessControlListReader read(final String accountSid) {
+    public static IpAccessControlListReader reader(final String accountSid) {
         return new IpAccessControlListReader(accountSid);
     }
 
@@ -50,7 +50,7 @@ public class IpAccessControlList extends Resource {
      * 
      * @return IpAccessControlListReader capable of executing the read
      */
-    public static IpAccessControlListReader read() {
+    public static IpAccessControlListReader reader() {
         return new IpAccessControlListReader();
     }
 
@@ -61,8 +61,8 @@ public class IpAccessControlList extends Resource {
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator create(final String accountSid, 
-                                                    final String friendlyName) {
+    public static IpAccessControlListCreator creator(final String accountSid, 
+                                                     final String friendlyName) {
         return new IpAccessControlListCreator(accountSid, friendlyName);
     }
 
@@ -72,7 +72,7 @@ public class IpAccessControlList extends Resource {
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator create(final String friendlyName) {
+    public static IpAccessControlListCreator creator(final String friendlyName) {
         return new IpAccessControlListCreator(friendlyName);
     }
 
@@ -83,8 +83,8 @@ public class IpAccessControlList extends Resource {
      * @param sid Fetch by unique ip-access-control-list Sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetch(final String accountSid, 
-                                                   final String sid) {
+    public static IpAccessControlListFetcher fetcher(final String accountSid, 
+                                                     final String sid) {
         return new IpAccessControlListFetcher(accountSid, sid);
     }
 
@@ -94,7 +94,7 @@ public class IpAccessControlList extends Resource {
      * @param sid Fetch by unique ip-access-control-list Sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetch(final String sid) {
+    public static IpAccessControlListFetcher fetcher(final String sid) {
         return new IpAccessControlListFetcher(sid);
     }
 
@@ -106,9 +106,9 @@ public class IpAccessControlList extends Resource {
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
-    public static IpAccessControlListUpdater update(final String accountSid, 
-                                                    final String sid, 
-                                                    final String friendlyName) {
+    public static IpAccessControlListUpdater updater(final String accountSid, 
+                                                     final String sid, 
+                                                     final String friendlyName) {
         return new IpAccessControlListUpdater(accountSid, sid, friendlyName);
     }
 
@@ -119,8 +119,8 @@ public class IpAccessControlList extends Resource {
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
-    public static IpAccessControlListUpdater update(final String sid, 
-                                                    final String friendlyName) {
+    public static IpAccessControlListUpdater updater(final String sid, 
+                                                     final String friendlyName) {
         return new IpAccessControlListUpdater(sid, friendlyName);
     }
 
@@ -131,8 +131,8 @@ public class IpAccessControlList extends Resource {
      * @param sid Delete by unique ip-access-control-list Sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter delete(final String accountSid, 
-                                                    final String sid) {
+    public static IpAccessControlListDeleter deleter(final String accountSid, 
+                                                     final String sid) {
         return new IpAccessControlListDeleter(accountSid, sid);
     }
 
@@ -142,7 +142,7 @@ public class IpAccessControlList extends Resource {
      * @param sid Delete by unique ip-access-control-list Sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter delete(final String sid) {
+    public static IpAccessControlListDeleter deleter(final String sid) {
         return new IpAccessControlListDeleter(sid);
     }
 

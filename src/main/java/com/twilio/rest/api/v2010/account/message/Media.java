@@ -43,9 +43,9 @@ public class Media extends Resource {
      * @param sid Delete by unique media Sid
      * @return MediaDeleter capable of executing the delete
      */
-    public static MediaDeleter delete(final String accountSid, 
-                                      final String messageSid, 
-                                      final String sid) {
+    public static MediaDeleter deleter(final String accountSid, 
+                                       final String messageSid, 
+                                       final String sid) {
         return new MediaDeleter(accountSid, messageSid, sid);
     }
 
@@ -56,8 +56,8 @@ public class Media extends Resource {
      * @param sid Delete by unique media Sid
      * @return MediaDeleter capable of executing the delete
      */
-    public static MediaDeleter delete(final String messageSid, 
-                                      final String sid) {
+    public static MediaDeleter deleter(final String messageSid, 
+                                       final String sid) {
         return new MediaDeleter(messageSid, sid);
     }
 
@@ -69,9 +69,9 @@ public class Media extends Resource {
      * @param sid Fetch by unique media Sid
      * @return MediaFetcher capable of executing the fetch
      */
-    public static MediaFetcher fetch(final String accountSid, 
-                                     final String messageSid, 
-                                     final String sid) {
+    public static MediaFetcher fetcher(final String accountSid, 
+                                       final String messageSid, 
+                                       final String sid) {
         return new MediaFetcher(accountSid, messageSid, sid);
     }
 
@@ -82,8 +82,8 @@ public class Media extends Resource {
      * @param sid Fetch by unique media Sid
      * @return MediaFetcher capable of executing the fetch
      */
-    public static MediaFetcher fetch(final String messageSid, 
-                                     final String sid) {
+    public static MediaFetcher fetcher(final String messageSid, 
+                                       final String sid) {
         return new MediaFetcher(messageSid, sid);
     }
 
@@ -94,8 +94,8 @@ public class Media extends Resource {
      * @param messageSid The message_sid
      * @return MediaReader capable of executing the read
      */
-    public static MediaReader read(final String accountSid, 
-                                   final String messageSid) {
+    public static MediaReader reader(final String accountSid, 
+                                     final String messageSid) {
         return new MediaReader(accountSid, messageSid);
     }
 
@@ -105,7 +105,7 @@ public class Media extends Resource {
      * @param messageSid The message_sid
      * @return MediaReader capable of executing the read
      */
-    public static MediaReader read(final String messageSid) {
+    public static MediaReader reader(final String messageSid) {
         return new MediaReader(messageSid);
     }
 

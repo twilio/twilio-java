@@ -56,7 +56,7 @@ public class NotificationReader extends Reader<Notification> {
      * @param log The log
      * @return this
      */
-    public NotificationReader byLog(final Integer log) {
+    public NotificationReader setLog(final Integer log) {
         this.log = log;
         return this;
     }
@@ -67,7 +67,7 @@ public class NotificationReader extends Reader<Notification> {
      * @param absoluteMessageDate The absolute_message_date
      * @return this
      */
-    public NotificationReader byMessageDate(final DateTime absoluteMessageDate) {
+    public NotificationReader setMessageDate(final DateTime absoluteMessageDate) {
         this.rangeMessageDate = null;
         this.absoluteMessageDate = absoluteMessageDate;
         return this;
@@ -79,7 +79,7 @@ public class NotificationReader extends Reader<Notification> {
      * @param rangeMessageDate The range_message_date
      * @return this
      */
-    public NotificationReader byMessageDate(final Range<DateTime> rangeMessageDate) {
+    public NotificationReader setMessageDate(final Range<DateTime> rangeMessageDate) {
         this.absoluteMessageDate = null;
         this.rangeMessageDate = rangeMessageDate;
         return this;
@@ -92,7 +92,7 @@ public class NotificationReader extends Reader<Notification> {
      * @return Notification ResourceSet
      */
     @Override
-    public ResourceSet<Notification> execute(final TwilioRestClient client) {
+    public ResourceSet<Notification> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

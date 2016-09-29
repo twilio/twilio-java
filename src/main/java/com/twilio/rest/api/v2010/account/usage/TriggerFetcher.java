@@ -50,7 +50,7 @@ public class TriggerFetcher extends Fetcher<Trigger> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Trigger execute(final TwilioRestClient client) {
+    public Trigger fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

@@ -57,7 +57,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Credential execute(final TwilioRestClient client) {
+    public Credential fetch(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,

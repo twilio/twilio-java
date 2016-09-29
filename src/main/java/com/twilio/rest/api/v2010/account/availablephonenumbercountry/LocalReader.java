@@ -66,7 +66,7 @@ public class LocalReader extends Reader<Local> {
      * @param areaCode The area_code
      * @return this
      */
-    public LocalReader byAreaCode(final Integer areaCode) {
+    public LocalReader setAreaCode(final Integer areaCode) {
         this.areaCode = areaCode;
         return this;
     }
@@ -77,7 +77,7 @@ public class LocalReader extends Reader<Local> {
      * @param contains The contains
      * @return this
      */
-    public LocalReader byContains(final String contains) {
+    public LocalReader setContains(final String contains) {
         this.contains = contains;
         return this;
     }
@@ -88,7 +88,7 @@ public class LocalReader extends Reader<Local> {
      * @param smsEnabled The sms_enabled
      * @return this
      */
-    public LocalReader bySmsEnabled(final Boolean smsEnabled) {
+    public LocalReader setSmsEnabled(final Boolean smsEnabled) {
         this.smsEnabled = smsEnabled;
         return this;
     }
@@ -99,7 +99,7 @@ public class LocalReader extends Reader<Local> {
      * @param mmsEnabled The mms_enabled
      * @return this
      */
-    public LocalReader byMmsEnabled(final Boolean mmsEnabled) {
+    public LocalReader setMmsEnabled(final Boolean mmsEnabled) {
         this.mmsEnabled = mmsEnabled;
         return this;
     }
@@ -110,7 +110,7 @@ public class LocalReader extends Reader<Local> {
      * @param voiceEnabled The voice_enabled
      * @return this
      */
-    public LocalReader byVoiceEnabled(final Boolean voiceEnabled) {
+    public LocalReader setVoiceEnabled(final Boolean voiceEnabled) {
         this.voiceEnabled = voiceEnabled;
         return this;
     }
@@ -121,7 +121,7 @@ public class LocalReader extends Reader<Local> {
      * @param excludeAllAddressRequired The exclude_all_address_required
      * @return this
      */
-    public LocalReader byExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
+    public LocalReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
         this.excludeAllAddressRequired = excludeAllAddressRequired;
         return this;
     }
@@ -132,7 +132,7 @@ public class LocalReader extends Reader<Local> {
      * @param excludeLocalAddressRequired The exclude_local_address_required
      * @return this
      */
-    public LocalReader byExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
+    public LocalReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
         this.excludeLocalAddressRequired = excludeLocalAddressRequired;
         return this;
     }
@@ -143,7 +143,7 @@ public class LocalReader extends Reader<Local> {
      * @param excludeForeignAddressRequired The exclude_foreign_address_required
      * @return this
      */
-    public LocalReader byExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
+    public LocalReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
         this.excludeForeignAddressRequired = excludeForeignAddressRequired;
         return this;
     }
@@ -154,7 +154,7 @@ public class LocalReader extends Reader<Local> {
      * @param beta The beta
      * @return this
      */
-    public LocalReader byBeta(final Boolean beta) {
+    public LocalReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
@@ -165,7 +165,7 @@ public class LocalReader extends Reader<Local> {
      * @param nearNumber The near_number
      * @return this
      */
-    public LocalReader byNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
+    public LocalReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
         this.nearNumber = nearNumber;
         return this;
     }
@@ -176,7 +176,7 @@ public class LocalReader extends Reader<Local> {
      * @param nearLatLong The near_lat_long
      * @return this
      */
-    public LocalReader byNearLatLong(final String nearLatLong) {
+    public LocalReader setNearLatLong(final String nearLatLong) {
         this.nearLatLong = nearLatLong;
         return this;
     }
@@ -187,7 +187,7 @@ public class LocalReader extends Reader<Local> {
      * @param distance The distance
      * @return this
      */
-    public LocalReader byDistance(final Integer distance) {
+    public LocalReader setDistance(final Integer distance) {
         this.distance = distance;
         return this;
     }
@@ -198,7 +198,7 @@ public class LocalReader extends Reader<Local> {
      * @param inPostalCode The in_postal_code
      * @return this
      */
-    public LocalReader byInPostalCode(final String inPostalCode) {
+    public LocalReader setInPostalCode(final String inPostalCode) {
         this.inPostalCode = inPostalCode;
         return this;
     }
@@ -209,7 +209,7 @@ public class LocalReader extends Reader<Local> {
      * @param inRegion The in_region
      * @return this
      */
-    public LocalReader byInRegion(final String inRegion) {
+    public LocalReader setInRegion(final String inRegion) {
         this.inRegion = inRegion;
         return this;
     }
@@ -220,7 +220,7 @@ public class LocalReader extends Reader<Local> {
      * @param inRateCenter The in_rate_center
      * @return this
      */
-    public LocalReader byInRateCenter(final String inRateCenter) {
+    public LocalReader setInRateCenter(final String inRateCenter) {
         this.inRateCenter = inRateCenter;
         return this;
     }
@@ -231,7 +231,7 @@ public class LocalReader extends Reader<Local> {
      * @param inLata The in_lata
      * @return this
      */
-    public LocalReader byInLata(final String inLata) {
+    public LocalReader setInLata(final String inLata) {
         this.inLata = inLata;
         return this;
     }
@@ -243,7 +243,7 @@ public class LocalReader extends Reader<Local> {
      * @return Local ResourceSet
      */
     @Override
-    public ResourceSet<Local> execute(final TwilioRestClient client) {
+    public ResourceSet<Local> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 

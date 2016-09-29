@@ -42,8 +42,8 @@ public class IpAddress extends Resource {
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @return IpAddressReader capable of executing the read
      */
-    public static IpAddressReader read(final String accountSid, 
-                                       final String ipAccessControlListSid) {
+    public static IpAddressReader reader(final String accountSid, 
+                                         final String ipAccessControlListSid) {
         return new IpAddressReader(accountSid, ipAccessControlListSid);
     }
 
@@ -53,7 +53,7 @@ public class IpAddress extends Resource {
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @return IpAddressReader capable of executing the read
      */
-    public static IpAddressReader read(final String ipAccessControlListSid) {
+    public static IpAddressReader reader(final String ipAccessControlListSid) {
         return new IpAddressReader(ipAccessControlListSid);
     }
 
@@ -66,10 +66,10 @@ public class IpAddress extends Resource {
      * @param ipAddress The ip_address
      * @return IpAddressCreator capable of executing the create
      */
-    public static IpAddressCreator create(final String accountSid, 
-                                          final String ipAccessControlListSid, 
-                                          final String friendlyName, 
-                                          final String ipAddress) {
+    public static IpAddressCreator creator(final String accountSid, 
+                                           final String ipAccessControlListSid, 
+                                           final String friendlyName, 
+                                           final String ipAddress) {
         return new IpAddressCreator(accountSid, ipAccessControlListSid, friendlyName, ipAddress);
     }
 
@@ -81,9 +81,9 @@ public class IpAddress extends Resource {
      * @param ipAddress The ip_address
      * @return IpAddressCreator capable of executing the create
      */
-    public static IpAddressCreator create(final String ipAccessControlListSid, 
-                                          final String friendlyName, 
-                                          final String ipAddress) {
+    public static IpAddressCreator creator(final String ipAccessControlListSid, 
+                                           final String friendlyName, 
+                                           final String ipAddress) {
         return new IpAddressCreator(ipAccessControlListSid, friendlyName, ipAddress);
     }
 
@@ -95,9 +95,9 @@ public class IpAddress extends Resource {
      * @param sid The sid
      * @return IpAddressFetcher capable of executing the fetch
      */
-    public static IpAddressFetcher fetch(final String accountSid, 
-                                         final String ipAccessControlListSid, 
-                                         final String sid) {
+    public static IpAddressFetcher fetcher(final String accountSid, 
+                                           final String ipAccessControlListSid, 
+                                           final String sid) {
         return new IpAddressFetcher(accountSid, ipAccessControlListSid, sid);
     }
 
@@ -108,8 +108,8 @@ public class IpAddress extends Resource {
      * @param sid The sid
      * @return IpAddressFetcher capable of executing the fetch
      */
-    public static IpAddressFetcher fetch(final String ipAccessControlListSid, 
-                                         final String sid) {
+    public static IpAddressFetcher fetcher(final String ipAccessControlListSid, 
+                                           final String sid) {
         return new IpAddressFetcher(ipAccessControlListSid, sid);
     }
 
@@ -121,9 +121,9 @@ public class IpAddress extends Resource {
      * @param sid The sid
      * @return IpAddressUpdater capable of executing the update
      */
-    public static IpAddressUpdater update(final String accountSid, 
-                                          final String ipAccessControlListSid, 
-                                          final String sid) {
+    public static IpAddressUpdater updater(final String accountSid, 
+                                           final String ipAccessControlListSid, 
+                                           final String sid) {
         return new IpAddressUpdater(accountSid, ipAccessControlListSid, sid);
     }
 
@@ -134,8 +134,8 @@ public class IpAddress extends Resource {
      * @param sid The sid
      * @return IpAddressUpdater capable of executing the update
      */
-    public static IpAddressUpdater update(final String ipAccessControlListSid, 
-                                          final String sid) {
+    public static IpAddressUpdater updater(final String ipAccessControlListSid, 
+                                           final String sid) {
         return new IpAddressUpdater(ipAccessControlListSid, sid);
     }
 
@@ -147,9 +147,9 @@ public class IpAddress extends Resource {
      * @param sid The sid
      * @return IpAddressDeleter capable of executing the delete
      */
-    public static IpAddressDeleter delete(final String accountSid, 
-                                          final String ipAccessControlListSid, 
-                                          final String sid) {
+    public static IpAddressDeleter deleter(final String accountSid, 
+                                           final String ipAccessControlListSid, 
+                                           final String sid) {
         return new IpAddressDeleter(accountSid, ipAccessControlListSid, sid);
     }
 
@@ -160,8 +160,8 @@ public class IpAddress extends Resource {
      * @param sid The sid
      * @return IpAddressDeleter capable of executing the delete
      */
-    public static IpAddressDeleter delete(final String ipAccessControlListSid, 
-                                          final String sid) {
+    public static IpAddressDeleter deleter(final String ipAccessControlListSid, 
+                                           final String sid) {
         return new IpAddressDeleter(ipAccessControlListSid, sid);
     }
 

@@ -13,8 +13,6 @@ public enum Domains {
     IPMESSAGING("ip-messaging"),
     LOOKUPS("lookups"),
     MONITOR("monitor"),
-    NOTIFY("notify"),
-    PREVIEW("preview"),
     PRICING("pricing"),
     TASKROUTER("taskrouter"),
     TRUNKING("trunking");

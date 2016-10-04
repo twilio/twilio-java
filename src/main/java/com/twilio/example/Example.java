@@ -7,7 +7,6 @@ import com.twilio.rest.api.v2010.account.CallCreator;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.availablephonenumbercountry.Local;
-import com.twilio.rest.notify.v1.Service;
 import com.twilio.rest.trunking.v1.Trunk;
 import com.twilio.rest.trunking.v1.TrunkCreator;
 import com.twilio.twiml.Play;
@@ -80,18 +79,6 @@ public class Example {
             .create();
 
         System.out.println(trunk);
-
-        // Delete a resource
-        Service service = Service.creator().create();
-        boolean result = Service.deleter(service.getSid()).delete();
-        System.out.println(result);
-
-        Iterable<Service> services = Service.reader().pageSize(2).read();
-        int j = 0;
-        for (Service s : services) {
-            System.out.println("Service " + j + ": " + s.getSid());
-            j++;
-        }
 
         // TwiML
         TwiML twiml = new VoiceResponse.Builder()

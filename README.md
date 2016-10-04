@@ -80,8 +80,6 @@ That will output XML that looks like this:
 
 The documentation for the Twilio API can be found [here](http://twilio.com/docs)
 
-This will also build the javadoc in `twilio-java/docs`. You can open the `index.html` located there to view it locally.
-
 # Getting help
 
 If you need help installing or using the library, please contact Twilio Support at help@twilio.com first. Twilio's Support staff are well-versed in all of the Twilio Helper Libraries, and usually reply within 24 hours.

@@ -1,9 +1,14 @@
 package com.twilio.twiml;
 
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.List;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/conference.
@@ -45,6 +50,33 @@ public class Conference extends TwiML {
         }
     }
 
+    public enum ConferenceEvent {
+        START("start"),
+        END("end"),
+        JOIN("join"),
+        LEAVE("leave"),
+        MUTE("mute"),
+        HOLD("hold");
+
+        private final String value;
+
+        ConferenceEvent(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+
+        public static final Function<ConferenceEvent, String> TO_STRING = new Function<ConferenceEvent, String>() {
+            @Override
+            public String apply(ConferenceEvent event) {
+                return event.toString();
+            }
+        };
+    }
+
     @XmlAttribute
     private final Boolean muted;
 
@@ -78,8 +110,19 @@ public class Conference extends TwiML {
     @XmlAttribute
     private final String eventCallbackUrl;
 
+    @XmlAttribute
+    private final String statusCallbackEvent;
+
+    @XmlAttribute
+    private final Method statusCallbackMethod;
+
+    @XmlAttribute
+    private final String statusCallback;
+
     @XmlValue
     private final String name;
+
+    private final List<ConferenceEvent> statusCallbackEvents;
 
     // For XML Serialization
     private Conference() {
@@ -98,6 +141,15 @@ public class Conference extends TwiML {
         this.waitUrl = b.waitUrl;
         this.eventCallbackUrl = b.eventCallbackUrl;
         this.name = b.name;
+        this.statusCallbackEvents = b.statusCallbackEvents;
+        this.statusCallbackMethod = b.statusCallbackMethod;
+        this.statusCallback = b.statusCallback;
+
+        if (this.statusCallbackEvents != null) {
+            this.statusCallbackEvent = Joiner.on(" ").join(Lists.transform(this.statusCallbackEvents, ConferenceEvent.TO_STRING));
+        } else {
+            this.statusCallbackEvent = null;
+        }
     }
 
     public Boolean isMuted() {
@@ -140,6 +192,18 @@ public class Conference extends TwiML {
         return eventCallbackUrl;
     }
 
+    public Method getStatusCallbackMethod() {
+        return statusCallbackMethod;
+    }
+
+    public String getStatusCallback() {
+        return statusCallback;
+    }
+
+    public List<ConferenceEvent> getStatusCallbackEvents() {
+        return statusCallbackEvents;
+    }
+
     public String getName() {
         return name;
     }
@@ -155,6 +219,9 @@ public class Conference extends TwiML {
         private Method waitMethod;
         private String waitUrl;
         private String eventCallbackUrl;
+        private List<ConferenceEvent> statusCallbackEvents;
+        private Method statusCallbackMethod;
+        private String statusCallback;
         private String name;
 
         public Builder(String name) {
@@ -203,6 +270,21 @@ public class Conference extends TwiML {
 
         public Builder waitUrl(String waitUrl) {
             this.waitUrl = waitUrl;
+            return this;
+        }
+
+        public Builder statusCallbackEvents(List<ConferenceEvent> statusCallbackEvents) {
+            this.statusCallbackEvents = statusCallbackEvents;
+            return this;
+        }
+
+        public Builder statusCallback(String statusCallback) {
+            this.statusCallback = statusCallback;
+            return this;
+        }
+
+        public Builder statusCallbackMethod(Method statusCallbackMethod) {
+            this.statusCallbackMethod = statusCallbackMethod;
             return this;
         }
 

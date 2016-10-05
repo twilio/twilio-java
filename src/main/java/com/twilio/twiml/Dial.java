@@ -18,7 +18,9 @@ public class Dial extends TwiML {
     public enum Record {
         DO_NOT_RECORD("do-not-record"),
         RECORD_FROM_RINGING("record-from-ringing"),
-        RECORD_FROM_ANSWER("record-from-answer");
+        RECORD_FROM_ANSWER("record-from-answer"),
+        RECORD_FROM_ANSWER_DUAL("record-from-answer-dual"),
+        RECORD_FROM_RINGING_DUAL("record-from-ringing-dual");
 
         private final String value;
 
@@ -67,6 +69,12 @@ public class Dial extends TwiML {
     private final String callerId;
 
     @XmlAttribute
+    private final String recordingStatusCallback;
+
+    @XmlAttribute
+    private final Method recordingStatusCallbackMethod;
+
+    @XmlAttribute
     @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Record record;
 
@@ -107,6 +115,8 @@ public class Dial extends TwiML {
         this.action = b.action;
         this.method = b.method;
         this.callerId = b.callerId;
+        this.recordingStatusCallback = b.recordingStatusCallback;
+        this.recordingStatusCallbackMethod = b.recordingStatusCallbackMethod;
         this.record = b.record;
         this.trim = b.trim;
         this.numbers = Lists.newArrayList(b.numbers);
@@ -138,6 +148,14 @@ public class Dial extends TwiML {
 
     public String getCallerId() {
         return callerId;
+    }
+
+    public String getRecordingStatusCallback() {
+        return recordingStatusCallback;
+    }
+
+    public Method getRecordingStatusCallbackMethod() {
+        return recordingStatusCallbackMethod;
     }
 
     public Record getRecord() {
@@ -175,6 +193,8 @@ public class Dial extends TwiML {
         private String action;
         private Method method;
         private String callerId;
+        private String recordingStatusCallback;
+        private Method recordingStatusCallbackMethod;
         private Record record;
         private Trim trim;
         private List<Number> numbers = Lists.newArrayList();
@@ -210,6 +230,16 @@ public class Dial extends TwiML {
 
         public Builder callerId(String callerId) {
             this.callerId = callerId;
+            return this;
+        }
+
+        public Builder recordingStatusCallback(String recordingStatusCallback) {
+            this.recordingStatusCallback = recordingStatusCallback;
+            return this;
+        }
+
+        public Builder recordingStatusCallbackMethod(Method recordingStatusCallbackMethod) {
+            this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
             return this;
         }
 

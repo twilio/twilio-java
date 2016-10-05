@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
   <name>twilio</name>
   <version>7.0.1-SNAPSHOT</version>
-  <description>Release Candidate for Next-Gen Twilio Java Helper Library</description>
+  <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>
     <license>

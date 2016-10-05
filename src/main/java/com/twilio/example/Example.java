@@ -7,6 +7,7 @@ import com.twilio.rest.api.v2010.account.CallCreator;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.availablephonenumbercountry.Local;
+import com.twilio.rest.api.v2010.account.usage.Record;
 import com.twilio.rest.trunking.v1.Trunk;
 import com.twilio.rest.trunking.v1.TrunkCreator;
 import com.twilio.twiml.Play;
@@ -35,6 +36,11 @@ public class Example {
     public static void main(String[] args) throws TwiMLException {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        Iterable<Record> usage = Record.reader().read();
+        for (Record record : usage) {
+            System.out.println(record);
+        }
 
         // Get a number
         IncomingPhoneNumber number = buyNumber();

@@ -1,7 +1,14 @@
 twilio-java changelog
 =====================
 
-[2016-09-07] Version 7.0.0
+[2016-10-05] Version 7.1.0-alpha-1
+--------------------------
+- Update Usage Records to use `LocalDate` instead of `DateTime`
+- Update TwiML Generator to reflect latest docs:
+    - Add `statusCallbackEvent`, `statusCallbackMethod`, `statusCallback` to `Conference`
+    - Add `recordingStatusCallback`, `recordingStatusCallbackMethod` to `Dial`
+
+[2016-10-04] Version 7.0.0
 --------------------------
 **New Major Version**
 

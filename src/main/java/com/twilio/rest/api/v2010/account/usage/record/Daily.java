@@ -25,7 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Daily extends Resource {
-    private static final long serialVersionUID = 99256854755798L;
+    private static final long serialVersionUID = 174526935435776L;
 
     public enum Category {
         AUTHY_AUTHENTICATIONS("authy-authentications"),
@@ -220,10 +220,10 @@ public class Daily extends Resource {
     private final String count;
     private final String countUnit;
     private final String description;
-    private final DateTime endDate;
+    private final LocalDate endDate;
     private final BigDecimal price;
     private final Currency priceUnit;
-    private final DateTime startDate;
+    private final LocalDate startDate;
     private final Map<String, String> subresourceUris;
     private final String uri;
     private final String usage;
@@ -265,10 +265,10 @@ public class Daily extends Resource {
         this.count = count;
         this.countUnit = countUnit;
         this.description = description;
-        this.endDate = DateConverter.iso8601DateTimeFromString(endDate);
+        this.endDate = DateConverter.localDateFromString(endDate);
         this.price = price;
         this.priceUnit = priceUnit;
-        this.startDate = DateConverter.iso8601DateTimeFromString(startDate);
+        this.startDate = DateConverter.localDateFromString(startDate);
         this.subresourceUris = subresourceUris;
         this.uri = uri;
         this.usage = usage;
@@ -334,7 +334,7 @@ public class Daily extends Resource {
      * 
      * @return The end_date
      */
-    public final DateTime getEndDate() {
+    public final LocalDate getEndDate() {
         return this.endDate;
     }
 
@@ -361,7 +361,7 @@ public class Daily extends Resource {
      * 
      * @return The start_date
      */
-    public final DateTime getStartDate() {
+    public final LocalDate getStartDate() {
         return this.startDate;
     }
 

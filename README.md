@@ -28,12 +28,11 @@ String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/accou
 
 Twilio.init(accountSid, authToken);
 
-Message message = Message.create(
-    ACCOUNT_SID,
-    new PhoneNumber("+15558881234"),
-    new PhoneNumber("+15559994321"),
-    "Hello world!"
-).execute();
+Message message = Message.creator(
+    new PhoneNumber("+15558881234"),  // To number
+    new PhoneNumber("+15559994321"),  // From number
+    "Hello world!"                    // SMS body
+).create();
 
 System.out.println(message.getSid());
 ```
@@ -45,14 +44,13 @@ String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/accou
 
 Twilio.init(accountSid, authToken);
 
-Call call = Call.create(
-    ACCOUNT_SID,
-    new PhoneNumber("+15558881234"),
-    new PhoneNumber("+15559994321"),
+Call call = Call.creator(
+    new PhoneNumber("+15558881234"),  // To number
+    new PhoneNumber("+15559994321"),  // From number
     
     // Read TwiML at this URL when a call connects (hold music)
     new URI("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
-).execute();
+).create();
 
 System.out.println(call.getSid());
 ```

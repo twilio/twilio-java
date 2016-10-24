@@ -35,7 +35,7 @@ functionality will only be added to the current version.  The current version -
 1 will continue to be supported with bugfixes and security updates, but no new 
 features.
 
-## Edge Features (Edge Branch)
+## Edge Features (alpha Branch)
 
 Twilio frequently rolls out new features in public and private beta periods.
 Twilio strives to ship early and often and bake customer feedback back into our 

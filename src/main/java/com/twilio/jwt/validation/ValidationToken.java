@@ -3,6 +3,8 @@ package com.twilio.jwt.validation;
 import com.google.common.base.Charsets;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import com.google.common.io.CharStreams;
@@ -19,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -80,19 +81,19 @@ public class ValidationToken extends Jwt {
 
         // Normalize all the headers
         Header[] lowercaseHeaders = LOWERCASE_KEYS.apply(headers);
-        Arrays.sort(lowercaseHeaders, new Comparator<Header>() {
-            @Override
-            public int compare(Header o1, Header o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+        Map<String, List<String>> combinedHeaders = COMBINE_HEADERS.apply(lowercaseHeaders);
 
         // Add the headers that we care about
-        for (Header header: lowercaseHeaders) {
-            if (signedHeaders.contains(header.getName().toLowerCase())) {
-                signature.append(header.getName().toLowerCase().trim())
+        for (String header : signedHeaders) {
+            String lowercase = header.toLowerCase().trim();
+
+            if (combinedHeaders.containsKey(lowercase)) {
+                List<String> values = combinedHeaders.get(lowercase);
+                Collections.sort(values);
+
+                signature.append(lowercase)
                     .append(":")
-                    .append(header.getValue().trim())
+                    .append(Joiner.on(',').join(values))
                     .append(NEW_LINE);
             }
         }
@@ -102,8 +103,10 @@ public class ValidationToken extends Jwt {
         signature.append(includedHeaders).append(NEW_LINE);
 
         // Hash and hex the request payload
-        String hashedPayload = HASH_FUNCTION.hashString(requestBody, Charsets.UTF_8).toString();
-        signature.append(hashedPayload).append(NEW_LINE);
+        if (!Strings.isNullOrEmpty(requestBody)) {
+            String hashedPayload = HASH_FUNCTION.hashString(requestBody, Charsets.UTF_8).toString();
+            signature.append(hashedPayload);
+        }
 
         // Hash and hex the canonical request
         String hashedSignature = HASH_FUNCTION.hashString(signature.toString(), Charsets.UTF_8).toString();
@@ -142,6 +145,23 @@ public class ValidationToken extends Jwt {
 
         return builder.build();
     }
+
+    private static Function<Header[], Map<String, List<String>>> COMBINE_HEADERS = new Function<Header[], Map<String, List<String>>>() {
+        @Override
+        public Map<String, List<String>> apply(Header[] headers) {
+            Map<String, List<String>> combinedHeaders = new HashMap<>();
+
+            for (Header header : headers)  {
+                if (combinedHeaders.containsKey(header.getName())) {
+                    combinedHeaders.get(header.getName()).add(header.getValue());
+                } else {
+                    combinedHeaders.put(header.getName(), Lists.newArrayList(header.getValue()));
+                }
+            }
+
+            return combinedHeaders;
+        }
+    };
 
     private static Function<Header[], Header[]> LOWERCASE_KEYS = new Function<Header[], Header[]>() {
         @Override

@@ -7,14 +7,16 @@ import io.jsonwebtoken.Jwts;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.apache.http.Header;
-import org.apache.http.HttpRequest;
-import org.apache.http.RequestLine;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.message.BasicHeader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
@@ -27,10 +29,10 @@ public class ValidationTokenTest {
     private Header[] headers;
 
     @Mocked
-    private HttpRequest request;
+    private HttpEntityEnclosingRequest request;
 
     @Mocked
-    private RequestLine requestLine;
+    private HttpEntity entity;
 
     @Before
     public void setup() {
@@ -83,7 +85,38 @@ public class ValidationTokenTest {
 
 
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("3e84e1e5af4c084e413f9bd103f9f11abb3d5f58c4b0b72a79a986aebe58cd5b", claims.get("rqh"));
+        Assert.assertEquals("4b3d2666845a38f00259a5231a08765bb2d12564bc4469fd5b2816204c588967", claims.get("rqh"));
+    }
+
+    @Test
+    public void testTokenFromPostRequest() throws IOException {
+        new Expectations() {{
+            request.getRequestLine().getMethod();
+            result = "POST";
+
+            request.getRequestLine().getUri();
+            result = "/Messages";
+
+            request.getAllHeaders();
+            result = headers;
+
+            request.getEntity();
+            result = entity;
+
+            entity.getContent();
+            result = new ByteArrayInputStream("testbody".getBytes(StandardCharsets.UTF_8));
+        }};
+
+        Jwt jwt = ValidationToken.fromHttpRequest(CREDENTIAL_SID, SECRET, request, SIGNED_HEADERS);
+        Claims claims =
+            Jwts.parser()
+                .setSigningKey(SECRET.getBytes())
+                .parseClaimsJws(jwt.toJwt())
+                .getBody();
+
+
+        Assert.assertEquals("authorization;host", claims.get("hrh"));
+        Assert.assertEquals("bd792c967c20d546c738b94068f5f72758a10d26c12979677501e1eefe58c65a", claims.get("rqh"));
     }
 
     private void validateToken(Claims claims) {

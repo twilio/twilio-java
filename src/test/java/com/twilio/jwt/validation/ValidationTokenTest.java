@@ -60,7 +60,7 @@ public class ValidationTokenTest {
 
 
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("bfafc3f201c57e422fd753271b15de4893e20ab1acb41c0c0b5b10c31497b7d6", claims.get("rqh"));
+        Assert.assertEquals("4dc9b67bed579647914587b0e22a1c65c1641d8674797cd82de65e766cce5f80", claims.get("rqh"));
     }
 
     @Test

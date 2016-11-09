@@ -32,6 +32,7 @@ public class ValidationToken extends Jwt {
     private static final HashFunction HASH_FUNCTION = Hashing.sha256();
     private static final String NEW_LINE = "\n";
 
+    private final String credentialSid;
     private final String method;
     private final String uri;
     private final String queryString;
@@ -46,6 +47,7 @@ public class ValidationToken extends Jwt {
             b.credentialSid,
             new Date(new Date().getTime() + b.ttl * 1000)
         );
+        this.credentialSid = b.credentialSid;
         this.method = b.method;
         this.uri = b.uri;
         this.queryString = b.queryString;
@@ -56,7 +58,10 @@ public class ValidationToken extends Jwt {
 
     @Override
     public Map<String, Object> getHeaders() {
-        return Collections.emptyMap();
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("cty", "twilio-pkrv;v=1");
+        headers.put("kid", this.credentialSid);
+        return headers;
     }
 
     @Override
@@ -65,7 +70,8 @@ public class ValidationToken extends Jwt {
 
         // Sort the signed headers
         Collections.sort(signedHeaders);
-        String includedHeaders = Joiner.on(";").join(signedHeaders);
+        List<String> lowercaseSignedHeaders = Lists.transform(signedHeaders, LOWERCASE_STRING);
+        String includedHeaders = Joiner.on(";").join(lowercaseSignedHeaders);
         payload.put("hrh", includedHeaders);
 
         // Add the method and uri
@@ -84,7 +90,7 @@ public class ValidationToken extends Jwt {
         Map<String, List<String>> combinedHeaders = COMBINE_HEADERS.apply(lowercaseHeaders);
 
         // Add the headers that we care about
-        for (String header : signedHeaders) {
+        for (String header : lowercaseSignedHeaders) {
             String lowercase = header.toLowerCase().trim();
 
             if (combinedHeaders.containsKey(lowercase)) {
@@ -172,6 +178,13 @@ public class ValidationToken extends Jwt {
             }
 
             return lowercaseHeaders;
+        }
+    };
+
+    private static Function<String, String> LOWERCASE_STRING = new Function<String, String>() {
+        @Override
+        public String apply(String s) {
+            return s.toLowerCase();
         }
     };
 

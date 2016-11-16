@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueue extends Resource {
-    private static final long serialVersionUID = 237451693529850L;
+    private static final long serialVersionUID = 97200418607847L;
 
     /**
      * Create a TaskQueueFetcher to execute fetch.
@@ -149,6 +149,7 @@ public class TaskQueue extends Resource {
     private final String targetWorkers;
     private final URI url;
     private final String workspaceSid;
+    private final Map<String, String> links;
 
     @JsonCreator
     private TaskQueue(@JsonProperty("account_sid")
@@ -176,7 +177,9 @@ public class TaskQueue extends Resource {
                       @JsonProperty("url")
                       final URI url, 
                       @JsonProperty("workspace_sid")
-                      final String workspaceSid) {
+                      final String workspaceSid, 
+                      @JsonProperty("links")
+                      final Map<String, String> links) {
         this.accountSid = accountSid;
         this.assignmentActivitySid = assignmentActivitySid;
         this.assignmentActivityName = assignmentActivityName;
@@ -190,6 +193,7 @@ public class TaskQueue extends Resource {
         this.targetWorkers = targetWorkers;
         this.url = url;
         this.workspaceSid = workspaceSid;
+        this.links = links;
     }
 
     /**
@@ -309,6 +313,15 @@ public class TaskQueue extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -333,7 +346,8 @@ public class TaskQueue extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(targetWorkers, other.targetWorkers) && 
                Objects.equals(url, other.url) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -350,7 +364,8 @@ public class TaskQueue extends Resource {
                             sid,
                             targetWorkers,
                             url,
-                            workspaceSid);
+                            workspaceSid,
+                            links);
     }
 
     @Override
@@ -369,6 +384,7 @@ public class TaskQueue extends Resource {
                           .add("targetWorkers", targetWorkers)
                           .add("url", url)
                           .add("workspaceSid", workspaceSid)
+                          .add("links", links)
                           .toString();
     }
 }

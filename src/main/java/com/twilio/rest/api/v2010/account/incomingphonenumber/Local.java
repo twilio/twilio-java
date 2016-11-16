@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Local extends Resource {
-    private static final long serialVersionUID = 40781203062485L;
+    private static final long serialVersionUID = 145405771566124L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -166,6 +166,7 @@ public class Local extends Resource {
     private final URI smsUrl;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
+    private final String trunkSid;
     private final String uri;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
@@ -209,6 +210,8 @@ public class Local extends Resource {
                   final URI statusCallback, 
                   @JsonProperty("status_callback_method")
                   final HttpMethod statusCallbackMethod, 
+                  @JsonProperty("trunk_sid")
+                  final String trunkSid, 
                   @JsonProperty("uri")
                   final String uri, 
                   @JsonProperty("voice_application_sid")
@@ -240,6 +243,7 @@ public class Local extends Resource {
         this.smsUrl = smsUrl;
         this.statusCallback = statusCallback;
         this.statusCallbackMethod = statusCallbackMethod;
+        this.trunkSid = trunkSid;
         this.uri = uri;
         this.voiceApplicationSid = voiceApplicationSid;
         this.voiceCallerIdLookup = voiceCallerIdLookup;
@@ -403,6 +407,15 @@ public class Local extends Resource {
     }
 
     /**
+     * Returns The The trunk_sid.
+     * 
+     * @return The trunk_sid
+     */
+    public final String getTrunkSid() {
+        return this.trunkSid;
+    }
+
+    /**
      * Returns The The uri.
      * 
      * @return The uri
@@ -494,6 +507,7 @@ public class Local extends Resource {
                Objects.equals(smsUrl, other.smsUrl) && 
                Objects.equals(statusCallback, other.statusCallback) && 
                Objects.equals(statusCallbackMethod, other.statusCallbackMethod) && 
+               Objects.equals(trunkSid, other.trunkSid) && 
                Objects.equals(uri, other.uri) && 
                Objects.equals(voiceApplicationSid, other.voiceApplicationSid) && 
                Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) && 
@@ -522,6 +536,7 @@ public class Local extends Resource {
                             smsUrl,
                             statusCallback,
                             statusCallbackMethod,
+                            trunkSid,
                             uri,
                             voiceApplicationSid,
                             voiceCallerIdLookup,
@@ -551,6 +566,7 @@ public class Local extends Resource {
                           .add("smsUrl", smsUrl)
                           .add("statusCallback", statusCallback)
                           .add("statusCallbackMethod", statusCallbackMethod)
+                          .add("trunkSid", trunkSid)
                           .add("uri", uri)
                           .add("voiceApplicationSid", voiceApplicationSid)
                           .add("voiceCallerIdLookup", voiceCallerIdLookup)

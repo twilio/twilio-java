@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Member extends Resource {
-    private static final long serialVersionUID = 56143758683259L;
+    private static final long serialVersionUID = 868140426804L;
 
     /**
      * Create a MemberFetcher to execute fetch.
@@ -91,6 +91,20 @@ public class Member extends Resource {
     }
 
     /**
+     * Create a MemberUpdater to execute update.
+     * 
+     * @param serviceSid The service_sid
+     * @param channelSid The channel_sid
+     * @param sid The sid
+     * @return MemberUpdater capable of executing the update
+     */
+    public static MemberUpdater updater(final String serviceSid, 
+                                        final String channelSid, 
+                                        final String sid) {
+        return new MemberUpdater(serviceSid, channelSid, sid);
+    }
+
+    /**
      * Converts a JSON String into a Member object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
@@ -132,6 +146,8 @@ public class Member extends Resource {
     private final String channelSid;
     private final String serviceSid;
     private final String identity;
+    private final Integer lastConsumedMessageIndex;
+    private final DateTime lastConsumptionTimestamp;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String roleSid;
@@ -148,6 +164,10 @@ public class Member extends Resource {
                    final String serviceSid, 
                    @JsonProperty("identity")
                    final String identity, 
+                   @JsonProperty("last_consumed_message_index")
+                   final Integer lastConsumedMessageIndex, 
+                   @JsonProperty("last_consumption_timestamp")
+                   final String lastConsumptionTimestamp, 
                    @JsonProperty("date_created")
                    final String dateCreated, 
                    @JsonProperty("date_updated")
@@ -161,6 +181,8 @@ public class Member extends Resource {
         this.channelSid = channelSid;
         this.serviceSid = serviceSid;
         this.identity = identity;
+        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
+        this.lastConsumptionTimestamp = DateConverter.iso8601DateTimeFromString(lastConsumptionTimestamp);
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.roleSid = roleSid;
@@ -210,6 +232,24 @@ public class Member extends Resource {
      */
     public final String getIdentity() {
         return this.identity;
+    }
+
+    /**
+     * Returns The The last_consumed_message_index.
+     * 
+     * @return The last_consumed_message_index
+     */
+    public final Integer getLastConsumedMessageIndex() {
+        return this.lastConsumedMessageIndex;
+    }
+
+    /**
+     * Returns The The last_consumption_timestamp.
+     * 
+     * @return The last_consumption_timestamp
+     */
+    public final DateTime getLastConsumptionTimestamp() {
+        return this.lastConsumptionTimestamp;
     }
 
     /**
@@ -265,6 +305,8 @@ public class Member extends Resource {
                Objects.equals(channelSid, other.channelSid) && 
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(identity, other.identity) && 
+               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
+               Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(roleSid, other.roleSid) && 
@@ -278,6 +320,8 @@ public class Member extends Resource {
                             channelSid,
                             serviceSid,
                             identity,
+                            lastConsumedMessageIndex,
+                            lastConsumptionTimestamp,
                             dateCreated,
                             dateUpdated,
                             roleSid,
@@ -292,6 +336,8 @@ public class Member extends Resource {
                           .add("channelSid", channelSid)
                           .add("serviceSid", serviceSid)
                           .add("identity", identity)
+                          .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
+                          .add("lastConsumptionTimestamp", lastConsumptionTimestamp)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("roleSid", roleSid)

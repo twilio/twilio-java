@@ -28,12 +28,13 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 232068402359085L;
+    private static final long serialVersionUID = 115057158409790L;
 
     /**
      * Create a RecordingFetcher to execute fetch.
@@ -154,6 +155,7 @@ public class Recording extends Resource {
     private final DateTime dateUpdated;
     private final String duration;
     private final String sid;
+    private final BigDecimal price;
     private final String uri;
 
     @JsonCreator
@@ -171,6 +173,8 @@ public class Recording extends Resource {
                       final String duration, 
                       @JsonProperty("sid")
                       final String sid, 
+                      @JsonProperty("price")
+                      final BigDecimal price, 
                       @JsonProperty("uri")
                       final String uri) {
         this.accountSid = accountSid;
@@ -180,6 +184,7 @@ public class Recording extends Resource {
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.duration = duration;
         this.sid = sid;
+        this.price = price;
         this.uri = uri;
     }
 
@@ -247,6 +252,15 @@ public class Recording extends Resource {
     }
 
     /**
+     * Returns The The price.
+     * 
+     * @return The price
+     */
+    public final BigDecimal getPrice() {
+        return this.price;
+    }
+
+    /**
      * Returns The The uri.
      * 
      * @return The uri
@@ -274,6 +288,7 @@ public class Recording extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(duration, other.duration) && 
                Objects.equals(sid, other.sid) && 
+               Objects.equals(price, other.price) && 
                Objects.equals(uri, other.uri);
     }
 
@@ -286,6 +301,7 @@ public class Recording extends Resource {
                             dateUpdated,
                             duration,
                             sid,
+                            price,
                             uri);
     }
 
@@ -299,6 +315,7 @@ public class Recording extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("duration", duration)
                           .add("sid", sid)
+                          .add("price", price)
                           .add("uri", uri)
                           .toString();
     }

@@ -25,7 +25,7 @@ public class CallUpdater extends Updater<Call> {
     private final String sid;
     private URI url;
     private HttpMethod method;
-    private Call.Status status;
+    private Call.UpdateStatus status;
     private URI fallbackUrl;
     private HttpMethod fallbackMethod;
     private URI statusCallback;
@@ -96,7 +96,7 @@ public class CallUpdater extends Updater<Call> {
      * @param status Status to update the Call with
      * @return this
      */
-    public CallUpdater setStatus(final Call.Status status) {
+    public CallUpdater setStatus(final Call.UpdateStatus status) {
         this.status = status;
         return this;
     }

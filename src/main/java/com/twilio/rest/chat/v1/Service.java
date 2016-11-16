@@ -30,12 +30,13 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 232026251916691L;
+    private static final long serialVersionUID = 110406953204037L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -132,9 +133,15 @@ public class Service extends Resource {
     private final String defaultChannelRoleSid;
     private final String defaultChannelCreatorRoleSid;
     private final Boolean readStatusEnabled;
+    private final Boolean reachabilityEnabled;
     private final Integer typingIndicatorTimeout;
     private final Integer consumptionReportInterval;
     private final Map<String, Object> webhooks;
+    private final String preWebhookUrl;
+    private final String postWebhookUrl;
+    private final String webhookMethod;
+    private final List<String> webhookFilters;
+    private final Map<String, Object> notifications;
     private final URI url;
     private final Map<String, String> links;
 
@@ -157,12 +164,24 @@ public class Service extends Resource {
                     final String defaultChannelCreatorRoleSid, 
                     @JsonProperty("read_status_enabled")
                     final Boolean readStatusEnabled, 
+                    @JsonProperty("reachability_enabled")
+                    final Boolean reachabilityEnabled, 
                     @JsonProperty("typing_indicator_timeout")
                     final Integer typingIndicatorTimeout, 
                     @JsonProperty("consumption_report_interval")
                     final Integer consumptionReportInterval, 
                     @JsonProperty("webhooks")
                     final Map<String, Object> webhooks, 
+                    @JsonProperty("pre_webhook_url")
+                    final String preWebhookUrl, 
+                    @JsonProperty("post_webhook_url")
+                    final String postWebhookUrl, 
+                    @JsonProperty("webhook_method")
+                    final String webhookMethod, 
+                    @JsonProperty("webhook_filters")
+                    final List<String> webhookFilters, 
+                    @JsonProperty("notifications")
+                    final Map<String, Object> notifications, 
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
@@ -176,9 +195,15 @@ public class Service extends Resource {
         this.defaultChannelRoleSid = defaultChannelRoleSid;
         this.defaultChannelCreatorRoleSid = defaultChannelCreatorRoleSid;
         this.readStatusEnabled = readStatusEnabled;
+        this.reachabilityEnabled = reachabilityEnabled;
         this.typingIndicatorTimeout = typingIndicatorTimeout;
         this.consumptionReportInterval = consumptionReportInterval;
         this.webhooks = webhooks;
+        this.preWebhookUrl = preWebhookUrl;
+        this.postWebhookUrl = postWebhookUrl;
+        this.webhookMethod = webhookMethod;
+        this.webhookFilters = webhookFilters;
+        this.notifications = notifications;
         this.url = url;
         this.links = links;
     }
@@ -265,6 +290,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The reachability_enabled.
+     * 
+     * @return The reachability_enabled
+     */
+    public final Boolean getReachabilityEnabled() {
+        return this.reachabilityEnabled;
+    }
+
+    /**
      * Returns The The typing_indicator_timeout.
      * 
      * @return The typing_indicator_timeout
@@ -289,6 +323,51 @@ public class Service extends Resource {
      */
     public final Map<String, Object> getWebhooks() {
         return this.webhooks;
+    }
+
+    /**
+     * Returns The The pre_webhook_url.
+     * 
+     * @return The pre_webhook_url
+     */
+    public final String getPreWebhookUrl() {
+        return this.preWebhookUrl;
+    }
+
+    /**
+     * Returns The The post_webhook_url.
+     * 
+     * @return The post_webhook_url
+     */
+    public final String getPostWebhookUrl() {
+        return this.postWebhookUrl;
+    }
+
+    /**
+     * Returns The The webhook_method.
+     * 
+     * @return The webhook_method
+     */
+    public final String getWebhookMethod() {
+        return this.webhookMethod;
+    }
+
+    /**
+     * Returns The The webhook_filters.
+     * 
+     * @return The webhook_filters
+     */
+    public final List<String> getWebhookFilters() {
+        return this.webhookFilters;
+    }
+
+    /**
+     * Returns The The notifications.
+     * 
+     * @return The notifications
+     */
+    public final Map<String, Object> getNotifications() {
+        return this.notifications;
     }
 
     /**
@@ -330,9 +409,15 @@ public class Service extends Resource {
                Objects.equals(defaultChannelRoleSid, other.defaultChannelRoleSid) && 
                Objects.equals(defaultChannelCreatorRoleSid, other.defaultChannelCreatorRoleSid) && 
                Objects.equals(readStatusEnabled, other.readStatusEnabled) && 
+               Objects.equals(reachabilityEnabled, other.reachabilityEnabled) && 
                Objects.equals(typingIndicatorTimeout, other.typingIndicatorTimeout) && 
                Objects.equals(consumptionReportInterval, other.consumptionReportInterval) && 
                Objects.equals(webhooks, other.webhooks) && 
+               Objects.equals(preWebhookUrl, other.preWebhookUrl) && 
+               Objects.equals(postWebhookUrl, other.postWebhookUrl) && 
+               Objects.equals(webhookMethod, other.webhookMethod) && 
+               Objects.equals(webhookFilters, other.webhookFilters) && 
+               Objects.equals(notifications, other.notifications) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -348,9 +433,15 @@ public class Service extends Resource {
                             defaultChannelRoleSid,
                             defaultChannelCreatorRoleSid,
                             readStatusEnabled,
+                            reachabilityEnabled,
                             typingIndicatorTimeout,
                             consumptionReportInterval,
                             webhooks,
+                            preWebhookUrl,
+                            postWebhookUrl,
+                            webhookMethod,
+                            webhookFilters,
+                            notifications,
                             url,
                             links);
     }
@@ -367,9 +458,15 @@ public class Service extends Resource {
                           .add("defaultChannelRoleSid", defaultChannelRoleSid)
                           .add("defaultChannelCreatorRoleSid", defaultChannelCreatorRoleSid)
                           .add("readStatusEnabled", readStatusEnabled)
+                          .add("reachabilityEnabled", reachabilityEnabled)
                           .add("typingIndicatorTimeout", typingIndicatorTimeout)
                           .add("consumptionReportInterval", consumptionReportInterval)
                           .add("webhooks", webhooks)
+                          .add("preWebhookUrl", preWebhookUrl)
+                          .add("postWebhookUrl", postWebhookUrl)
+                          .add("webhookMethod", webhookMethod)
+                          .add("webhookFilters", webhookFilters)
+                          .add("notifications", notifications)
                           .add("url", url)
                           .add("links", links)
                           .toString();

@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Country extends Resource {
-    private static final long serialVersionUID = 157533851169375L;
+    private static final long serialVersionUID = 214707935181184L;
 
     /**
      * Create a CountryReader to execute read.
@@ -98,7 +98,6 @@ public class Country extends Resource {
     private final String isoCountry;
     private final List<PhoneNumberPrice> phoneNumberPrices;
     private final Currency priceUnit;
-    private final URI uri;
     private final URI url;
 
     @JsonCreator
@@ -111,15 +110,12 @@ public class Country extends Resource {
                     @JsonProperty("price_unit")
                     @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
                     final Currency priceUnit, 
-                    @JsonProperty("uri")
-                    final URI uri, 
                     @JsonProperty("url")
                     final URI url) {
         this.country = country;
         this.isoCountry = isoCountry;
         this.phoneNumberPrices = phoneNumberPrices;
         this.priceUnit = priceUnit;
-        this.uri = uri;
         this.url = url;
     }
 
@@ -169,15 +165,6 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The uri.
-     * 
-     * @return The uri
-     */
-    public final URI getUri() {
-        return this.uri;
-    }
-
-    /**
      * Returns The The url.
      * 
      * @return The url
@@ -202,7 +189,6 @@ public class Country extends Resource {
                Objects.equals(isoCountry, other.isoCountry) && 
                Objects.equals(phoneNumberPrices, other.phoneNumberPrices) && 
                Objects.equals(priceUnit, other.priceUnit) && 
-               Objects.equals(uri, other.uri) && 
                Objects.equals(url, other.url);
     }
 
@@ -212,7 +198,6 @@ public class Country extends Resource {
                             isoCountry,
                             phoneNumberPrices,
                             priceUnit,
-                            uri,
                             url);
     }
 
@@ -223,7 +208,6 @@ public class Country extends Resource {
                           .add("isoCountry", isoCountry)
                           .add("phoneNumberPrices", phoneNumberPrices)
                           .add("priceUnit", priceUnit)
-                          .add("uri", uri)
                           .add("url", url)
                           .toString();
     }

@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 19477703234495L;
+    private static final long serialVersionUID = 168059278252645L;
 
     /**
      * Create a MessageFetcher to execute fetch.
@@ -145,6 +145,7 @@ public class Message extends Resource {
 
     private final String sid;
     private final String accountSid;
+    private final String attributes;
     private final String serviceSid;
     private final String to;
     private final DateTime dateCreated;
@@ -152,6 +153,7 @@ public class Message extends Resource {
     private final Boolean wasEdited;
     private final String from;
     private final String body;
+    private final Integer index;
     private final URI url;
 
     @JsonCreator
@@ -159,6 +161,8 @@ public class Message extends Resource {
                     final String sid, 
                     @JsonProperty("account_sid")
                     final String accountSid, 
+                    @JsonProperty("attributes")
+                    final String attributes, 
                     @JsonProperty("service_sid")
                     final String serviceSid, 
                     @JsonProperty("to")
@@ -173,10 +177,13 @@ public class Message extends Resource {
                     final String from, 
                     @JsonProperty("body")
                     final String body, 
+                    @JsonProperty("index")
+                    final Integer index, 
                     @JsonProperty("url")
                     final URI url) {
         this.sid = sid;
         this.accountSid = accountSid;
+        this.attributes = attributes;
         this.serviceSid = serviceSid;
         this.to = to;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -184,6 +191,7 @@ public class Message extends Resource {
         this.wasEdited = wasEdited;
         this.from = from;
         this.body = body;
+        this.index = index;
         this.url = url;
     }
 
@@ -203,6 +211,15 @@ public class Message extends Resource {
      */
     public final String getAccountSid() {
         return this.accountSid;
+    }
+
+    /**
+     * Returns The The attributes.
+     * 
+     * @return The attributes
+     */
+    public final String getAttributes() {
+        return this.attributes;
     }
 
     /**
@@ -269,6 +286,15 @@ public class Message extends Resource {
     }
 
     /**
+     * Returns The The index.
+     * 
+     * @return The index
+     */
+    public final Integer getIndex() {
+        return this.index;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -291,6 +317,7 @@ public class Message extends Resource {
         
         return Objects.equals(sid, other.sid) && 
                Objects.equals(accountSid, other.accountSid) && 
+               Objects.equals(attributes, other.attributes) && 
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(to, other.to) && 
                Objects.equals(dateCreated, other.dateCreated) && 
@@ -298,6 +325,7 @@ public class Message extends Resource {
                Objects.equals(wasEdited, other.wasEdited) && 
                Objects.equals(from, other.from) && 
                Objects.equals(body, other.body) && 
+               Objects.equals(index, other.index) && 
                Objects.equals(url, other.url);
     }
 
@@ -305,6 +333,7 @@ public class Message extends Resource {
     public int hashCode() {
         return Objects.hash(sid,
                             accountSid,
+                            attributes,
                             serviceSid,
                             to,
                             dateCreated,
@@ -312,6 +341,7 @@ public class Message extends Resource {
                             wasEdited,
                             from,
                             body,
+                            index,
                             url);
     }
 
@@ -320,6 +350,7 @@ public class Message extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("sid", sid)
                           .add("accountSid", accountSid)
+                          .add("attributes", attributes)
                           .add("serviceSid", serviceSid)
                           .add("to", to)
                           .add("dateCreated", dateCreated)
@@ -327,6 +358,7 @@ public class Message extends Resource {
                           .add("wasEdited", wasEdited)
                           .add("from", from)
                           .add("body", body)
+                          .add("index", index)
                           .add("url", url)
                           .toString();
     }

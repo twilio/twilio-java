@@ -28,12 +28,13 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Activity extends Resource {
-    private static final long serialVersionUID = 22270788626396L;
+    private static final long serialVersionUID = 66226006406843L;
 
     /**
      * Create a ActivityFetcher to execute fetch.
@@ -140,6 +141,7 @@ public class Activity extends Resource {
     private final String friendlyName;
     private final String sid;
     private final String workspaceSid;
+    private final URI url;
 
     @JsonCreator
     private Activity(@JsonProperty("account_sid")
@@ -155,7 +157,9 @@ public class Activity extends Resource {
                      @JsonProperty("sid")
                      final String sid, 
                      @JsonProperty("workspace_sid")
-                     final String workspaceSid) {
+                     final String workspaceSid, 
+                     @JsonProperty("url")
+                     final URI url) {
         this.accountSid = accountSid;
         this.available = available;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -163,6 +167,7 @@ public class Activity extends Resource {
         this.friendlyName = friendlyName;
         this.sid = sid;
         this.workspaceSid = workspaceSid;
+        this.url = url;
     }
 
     /**
@@ -228,6 +233,15 @@ public class Activity extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -246,7 +260,8 @@ public class Activity extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(sid, other.sid) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -257,7 +272,8 @@ public class Activity extends Resource {
                             dateUpdated,
                             friendlyName,
                             sid,
-                            workspaceSid);
+                            workspaceSid,
+                            url);
     }
 
     @Override
@@ -270,6 +286,7 @@ public class Activity extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("sid", sid)
                           .add("workspaceSid", workspaceSid)
+                          .add("url", url)
                           .toString();
     }
 }

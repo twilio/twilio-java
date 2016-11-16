@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends Resource {
-    private static final long serialVersionUID = 209403357744814L;
+    private static final long serialVersionUID = 202906107580763L;
 
     /**
      * Create a UserFetcher to execute fetch.
@@ -134,8 +134,12 @@ public class User extends Resource {
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
+    private final String attributes;
+    private final String friendlyName;
     private final String roleSid;
     private final String identity;
+    private final Boolean isOnline;
+    private final Boolean isNotifiable;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -147,10 +151,18 @@ public class User extends Resource {
                  final String accountSid, 
                  @JsonProperty("service_sid")
                  final String serviceSid, 
+                 @JsonProperty("attributes")
+                 final String attributes, 
+                 @JsonProperty("friendly_name")
+                 final String friendlyName, 
                  @JsonProperty("role_sid")
                  final String roleSid, 
                  @JsonProperty("identity")
                  final String identity, 
+                 @JsonProperty("is_online")
+                 final Boolean isOnline, 
+                 @JsonProperty("is_notifiable")
+                 final Boolean isNotifiable, 
                  @JsonProperty("date_created")
                  final String dateCreated, 
                  @JsonProperty("date_updated")
@@ -160,8 +172,12 @@ public class User extends Resource {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
+        this.attributes = attributes;
+        this.friendlyName = friendlyName;
         this.roleSid = roleSid;
         this.identity = identity;
+        this.isOnline = isOnline;
+        this.isNotifiable = isNotifiable;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -195,6 +211,24 @@ public class User extends Resource {
     }
 
     /**
+     * Returns The The attributes.
+     * 
+     * @return The attributes
+     */
+    public final String getAttributes() {
+        return this.attributes;
+    }
+
+    /**
+     * Returns The The friendly_name.
+     * 
+     * @return The friendly_name
+     */
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    /**
      * Returns The The role_sid.
      * 
      * @return The role_sid
@@ -210,6 +244,24 @@ public class User extends Resource {
      */
     public final String getIdentity() {
         return this.identity;
+    }
+
+    /**
+     * Returns The The is_online.
+     * 
+     * @return The is_online
+     */
+    public final Boolean getIsOnline() {
+        return this.isOnline;
+    }
+
+    /**
+     * Returns The The is_notifiable.
+     * 
+     * @return The is_notifiable
+     */
+    public final Boolean getIsNotifiable() {
+        return this.isNotifiable;
     }
 
     /**
@@ -254,8 +306,12 @@ public class User extends Resource {
         return Objects.equals(sid, other.sid) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(serviceSid, other.serviceSid) && 
+               Objects.equals(attributes, other.attributes) && 
+               Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(roleSid, other.roleSid) && 
                Objects.equals(identity, other.identity) && 
+               Objects.equals(isOnline, other.isOnline) && 
+               Objects.equals(isNotifiable, other.isNotifiable) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url);
@@ -266,8 +322,12 @@ public class User extends Resource {
         return Objects.hash(sid,
                             accountSid,
                             serviceSid,
+                            attributes,
+                            friendlyName,
                             roleSid,
                             identity,
+                            isOnline,
+                            isNotifiable,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -279,8 +339,12 @@ public class User extends Resource {
                           .add("sid", sid)
                           .add("accountSid", accountSid)
                           .add("serviceSid", serviceSid)
+                          .add("attributes", attributes)
+                          .add("friendlyName", friendlyName)
                           .add("roleSid", roleSid)
                           .add("identity", identity)
+                          .add("isOnline", isOnline)
+                          .add("isNotifiable", isNotifiable)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

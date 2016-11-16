@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Workspace extends Resource {
-    private static final long serialVersionUID = 151366087577659L;
+    private static final long serialVersionUID = 197684323807396L;
 
     /**
      * Create a WorkspaceFetcher to execute fetch.
@@ -135,6 +135,8 @@ public class Workspace extends Resource {
     private final String sid;
     private final String timeoutActivityName;
     private final String timeoutActivitySid;
+    private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Workspace(@JsonProperty("account_sid")
@@ -160,7 +162,11 @@ public class Workspace extends Resource {
                       @JsonProperty("timeout_activity_name")
                       final String timeoutActivityName, 
                       @JsonProperty("timeout_activity_sid")
-                      final String timeoutActivitySid) {
+                      final String timeoutActivitySid, 
+                      @JsonProperty("url")
+                      final URI url, 
+                      @JsonProperty("links")
+                      final Map<String, String> links) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -173,6 +179,8 @@ public class Workspace extends Resource {
         this.sid = sid;
         this.timeoutActivityName = timeoutActivityName;
         this.timeoutActivitySid = timeoutActivitySid;
+        this.url = url;
+        this.links = links;
     }
 
     /**
@@ -283,6 +291,24 @@ public class Workspace extends Resource {
         return this.timeoutActivitySid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -306,7 +332,9 @@ public class Workspace extends Resource {
                Objects.equals(multiTaskEnabled, other.multiTaskEnabled) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(timeoutActivityName, other.timeoutActivityName) && 
-               Objects.equals(timeoutActivitySid, other.timeoutActivitySid);
+               Objects.equals(timeoutActivitySid, other.timeoutActivitySid) && 
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -322,7 +350,9 @@ public class Workspace extends Resource {
                             multiTaskEnabled,
                             sid,
                             timeoutActivityName,
-                            timeoutActivitySid);
+                            timeoutActivitySid,
+                            url,
+                            links);
     }
 
     @Override
@@ -340,6 +370,8 @@ public class Workspace extends Resource {
                           .add("sid", sid)
                           .add("timeoutActivityName", timeoutActivityName)
                           .add("timeoutActivitySid", timeoutActivitySid)
+                          .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

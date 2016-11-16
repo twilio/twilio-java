@@ -28,12 +28,13 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task extends Resource {
-    private static final long serialVersionUID = 108246653344881L;
+    private static final long serialVersionUID = 210558338206180L;
 
     public enum Status {
         PENDING("pending"),
@@ -182,6 +183,7 @@ public class Task extends Resource {
     private final Integer timeout;
     private final String workflowSid;
     private final String workspaceSid;
+    private final URI url;
 
     @JsonCreator
     private Task(@JsonProperty("account_sid")
@@ -213,7 +215,9 @@ public class Task extends Resource {
                  @JsonProperty("workflow_sid")
                  final String workflowSid, 
                  @JsonProperty("workspace_sid")
-                 final String workspaceSid) {
+                 final String workspaceSid, 
+                 @JsonProperty("url")
+                 final URI url) {
         this.accountSid = accountSid;
         this.age = age;
         this.assignmentStatus = assignmentStatus;
@@ -229,6 +233,7 @@ public class Task extends Resource {
         this.timeout = timeout;
         this.workflowSid = workflowSid;
         this.workspaceSid = workspaceSid;
+        this.url = url;
     }
 
     /**
@@ -366,6 +371,15 @@ public class Task extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -392,7 +406,8 @@ public class Task extends Resource {
                Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) && 
                Objects.equals(timeout, other.timeout) && 
                Objects.equals(workflowSid, other.workflowSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -411,7 +426,8 @@ public class Task extends Resource {
                             taskChannelUniqueName,
                             timeout,
                             workflowSid,
-                            workspaceSid);
+                            workspaceSid,
+                            url);
     }
 
     @Override
@@ -432,6 +448,7 @@ public class Task extends Resource {
                           .add("timeout", timeout)
                           .add("workflowSid", workflowSid)
                           .add("workspaceSid", workspaceSid)
+                          .add("url", url)
                           .toString();
     }
 }

@@ -29,12 +29,13 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event extends Resource {
-    private static final long serialVersionUID = 47454553486237L;
+    private static final long serialVersionUID = 124591176455880L;
 
     /**
      * Create a EventFetcher to execute fetch.
@@ -104,6 +105,8 @@ public class Event extends Resource {
     private final String sid;
     private final String source;
     private final String sourceIpAddress;
+    private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Event(@JsonProperty("account_sid")
@@ -129,7 +132,11 @@ public class Event extends Resource {
                   @JsonProperty("source")
                   final String source, 
                   @JsonProperty("source_ip_address")
-                  final String sourceIpAddress) {
+                  final String sourceIpAddress, 
+                  @JsonProperty("url")
+                  final URI url, 
+                  @JsonProperty("links")
+                  final Map<String, String> links) {
         this.accountSid = accountSid;
         this.actorSid = actorSid;
         this.actorType = actorType;
@@ -142,6 +149,8 @@ public class Event extends Resource {
         this.sid = sid;
         this.source = source;
         this.sourceIpAddress = sourceIpAddress;
+        this.url = url;
+        this.links = links;
     }
 
     /**
@@ -252,6 +261,24 @@ public class Event extends Resource {
         return this.sourceIpAddress;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -275,7 +302,9 @@ public class Event extends Resource {
                Objects.equals(resourceType, other.resourceType) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(source, other.source) && 
-               Objects.equals(sourceIpAddress, other.sourceIpAddress);
+               Objects.equals(sourceIpAddress, other.sourceIpAddress) && 
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -291,7 +320,9 @@ public class Event extends Resource {
                             resourceType,
                             sid,
                             source,
-                            sourceIpAddress);
+                            sourceIpAddress,
+                            url,
+                            links);
     }
 
     @Override
@@ -309,6 +340,8 @@ public class Event extends Resource {
                           .add("sid", sid)
                           .add("source", source)
                           .add("sourceIpAddress", sourceIpAddress)
+                          .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

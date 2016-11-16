@@ -10,6 +10,7 @@ package com.twilio.rest.chat.v1.service.channel;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,9 +20,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.util.List;
+
 public class MemberReader extends Reader<Member> {
     private final String serviceSid;
     private final String channelSid;
+    private List<String> identity;
 
     /**
      * Construct a new MemberReader.
@@ -33,6 +37,27 @@ public class MemberReader extends Reader<Member> {
                         final String channelSid) {
         this.serviceSid = serviceSid;
         this.channelSid = channelSid;
+    }
+
+    /**
+     * The identity.
+     * 
+     * @param identity The identity
+     * @return this
+     */
+    public MemberReader setIdentity(final List<String> identity) {
+        this.identity = identity;
+        return this;
+    }
+
+    /**
+     * The identity.
+     * 
+     * @param identity The identity
+     * @return this
+     */
+    public MemberReader setIdentity(final String identity) {
+        return setIdentity(Promoter.listOfOne(identity));
     }
 
     /**
@@ -127,6 +152,12 @@ public class MemberReader extends Reader<Member> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (identity != null) {
+            for (String prop : identity) {
+                request.addQueryParam("Identity", prop);
+            }
+        }
+        
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

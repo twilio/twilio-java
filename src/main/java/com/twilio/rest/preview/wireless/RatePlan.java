@@ -30,12 +30,13 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatePlan extends Resource {
-    private static final long serialVersionUID = 159290993578774L;
+    private static final long serialVersionUID = 255981823638757L;
 
     /**
      * Create a RatePlanReader to execute read.
@@ -54,6 +55,25 @@ public class RatePlan extends Resource {
      */
     public static RatePlanFetcher fetcher(final String sid) {
         return new RatePlanFetcher(sid);
+    }
+
+    /**
+     * Create a RatePlanCreator to execute create.
+     * 
+     * @return RatePlanCreator capable of executing the create
+     */
+    public static RatePlanCreator creator() {
+        return new RatePlanCreator();
+    }
+
+    /**
+     * Create a RatePlanUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return RatePlanUpdater capable of executing the update
+     */
+    public static RatePlanUpdater updater(final String sid) {
+        return new RatePlanUpdater(sid);
     }
 
     /**
@@ -98,14 +118,10 @@ public class RatePlan extends Resource {
     private final String alias;
     private final String accountSid;
     private final String friendlyName;
-    private final String dataMetering;
-    private final Map<String, Object> capabilities;
-    private final Integer voiceCap;
-    private final Integer messagingCap;
-    private final Integer commandsCap;
-    private final Integer dataCap;
-    private final Integer capPeriod;
-    private final String capUnit;
+    private final List<String> roaming;
+    private final Map<String, Object> data;
+    private final Map<String, Object> commands;
+    private final Map<String, Object> renewal;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -119,22 +135,14 @@ public class RatePlan extends Resource {
                      final String accountSid, 
                      @JsonProperty("friendly_name")
                      final String friendlyName, 
-                     @JsonProperty("data_metering")
-                     final String dataMetering, 
-                     @JsonProperty("capabilities")
-                     final Map<String, Object> capabilities, 
-                     @JsonProperty("voice_cap")
-                     final Integer voiceCap, 
-                     @JsonProperty("messaging_cap")
-                     final Integer messagingCap, 
-                     @JsonProperty("commands_cap")
-                     final Integer commandsCap, 
-                     @JsonProperty("data_cap")
-                     final Integer dataCap, 
-                     @JsonProperty("cap_period")
-                     final Integer capPeriod, 
-                     @JsonProperty("cap_unit")
-                     final String capUnit, 
+                     @JsonProperty("roaming")
+                     final List<String> roaming, 
+                     @JsonProperty("data")
+                     final Map<String, Object> data, 
+                     @JsonProperty("commands")
+                     final Map<String, Object> commands, 
+                     @JsonProperty("renewal")
+                     final Map<String, Object> renewal, 
                      @JsonProperty("date_created")
                      final String dateCreated, 
                      @JsonProperty("date_updated")
@@ -145,14 +153,10 @@ public class RatePlan extends Resource {
         this.alias = alias;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
-        this.dataMetering = dataMetering;
-        this.capabilities = capabilities;
-        this.voiceCap = voiceCap;
-        this.messagingCap = messagingCap;
-        this.commandsCap = commandsCap;
-        this.dataCap = dataCap;
-        this.capPeriod = capPeriod;
-        this.capUnit = capUnit;
+        this.roaming = roaming;
+        this.data = data;
+        this.commands = commands;
+        this.renewal = renewal;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -195,75 +199,39 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The data_metering.
+     * Returns The The roaming.
      * 
-     * @return The data_metering
+     * @return The roaming
      */
-    public final String getDataMetering() {
-        return this.dataMetering;
+    public final List<String> getRoaming() {
+        return this.roaming;
     }
 
     /**
-     * Returns The The capabilities.
+     * Returns The The data.
      * 
-     * @return The capabilities
+     * @return The data
      */
-    public final Map<String, Object> getCapabilities() {
-        return this.capabilities;
+    public final Map<String, Object> getData() {
+        return this.data;
     }
 
     /**
-     * Returns The The voice_cap.
+     * Returns The The commands.
      * 
-     * @return The voice_cap
+     * @return The commands
      */
-    public final Integer getVoiceCap() {
-        return this.voiceCap;
+    public final Map<String, Object> getCommands() {
+        return this.commands;
     }
 
     /**
-     * Returns The The messaging_cap.
+     * Returns The The renewal.
      * 
-     * @return The messaging_cap
+     * @return The renewal
      */
-    public final Integer getMessagingCap() {
-        return this.messagingCap;
-    }
-
-    /**
-     * Returns The The commands_cap.
-     * 
-     * @return The commands_cap
-     */
-    public final Integer getCommandsCap() {
-        return this.commandsCap;
-    }
-
-    /**
-     * Returns The The data_cap.
-     * 
-     * @return The data_cap
-     */
-    public final Integer getDataCap() {
-        return this.dataCap;
-    }
-
-    /**
-     * Returns The The cap_period.
-     * 
-     * @return The cap_period
-     */
-    public final Integer getCapPeriod() {
-        return this.capPeriod;
-    }
-
-    /**
-     * Returns The The cap_unit.
-     * 
-     * @return The cap_unit
-     */
-    public final String getCapUnit() {
-        return this.capUnit;
+    public final Map<String, Object> getRenewal() {
+        return this.renewal;
     }
 
     /**
@@ -309,14 +277,10 @@ public class RatePlan extends Resource {
                Objects.equals(alias, other.alias) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dataMetering, other.dataMetering) && 
-               Objects.equals(capabilities, other.capabilities) && 
-               Objects.equals(voiceCap, other.voiceCap) && 
-               Objects.equals(messagingCap, other.messagingCap) && 
-               Objects.equals(commandsCap, other.commandsCap) && 
-               Objects.equals(dataCap, other.dataCap) && 
-               Objects.equals(capPeriod, other.capPeriod) && 
-               Objects.equals(capUnit, other.capUnit) && 
+               Objects.equals(roaming, other.roaming) && 
+               Objects.equals(data, other.data) && 
+               Objects.equals(commands, other.commands) && 
+               Objects.equals(renewal, other.renewal) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url);
@@ -328,14 +292,10 @@ public class RatePlan extends Resource {
                             alias,
                             accountSid,
                             friendlyName,
-                            dataMetering,
-                            capabilities,
-                            voiceCap,
-                            messagingCap,
-                            commandsCap,
-                            dataCap,
-                            capPeriod,
-                            capUnit,
+                            roaming,
+                            data,
+                            commands,
+                            renewal,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -348,14 +308,10 @@ public class RatePlan extends Resource {
                           .add("alias", alias)
                           .add("accountSid", accountSid)
                           .add("friendlyName", friendlyName)
-                          .add("dataMetering", dataMetering)
-                          .add("capabilities", capabilities)
-                          .add("voiceCap", voiceCap)
-                          .add("messagingCap", messagingCap)
-                          .add("commandsCap", commandsCap)
-                          .add("dataCap", dataCap)
-                          .add("capPeriod", capPeriod)
-                          .add("capUnit", capUnit)
+                          .add("roaming", roaming)
+                          .add("data", data)
+                          .add("commands", commands)
+                          .add("renewal", renewal)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

@@ -8,6 +8,7 @@
 package com.twilio.rest;
 
 public enum Domains {
+    ACCOUNTS("accounts"),
     API("api"),
     CHAT("ip-messaging"),
     IPMESSAGING("ip-messaging"),

@@ -48,48 +48,6 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
-     * The identity.
-     * 
-     * @param identity The identity
-     * @return this
-     */
-    public NotificationCreator setIdentity(final List<String> identity) {
-        this.identity = identity;
-        return this;
-    }
-
-    /**
-     * The identity.
-     * 
-     * @param identity The identity
-     * @return this
-     */
-    public NotificationCreator setIdentity(final String identity) {
-        return setIdentity(Promoter.listOfOne(identity));
-    }
-
-    /**
-     * The tag.
-     * 
-     * @param tag The tag
-     * @return this
-     */
-    public NotificationCreator setTag(final List<String> tag) {
-        this.tag = tag;
-        return this;
-    }
-
-    /**
-     * The tag.
-     * 
-     * @param tag The tag
-     * @return this
-     */
-    public NotificationCreator setTag(final String tag) {
-        return setTag(Promoter.listOfOne(tag));
-    }
-
-    /**
      * The body.
      * 
      * @param body The body
@@ -208,6 +166,48 @@ public class NotificationCreator extends Creator<Notification> {
     public NotificationCreator setFacebookMessenger(final Map<String, Object> facebookMessenger) {
         this.facebookMessenger = facebookMessenger;
         return this;
+    }
+
+    /**
+     * The identity.
+     * 
+     * @param identity The identity
+     * @return this
+     */
+    public NotificationCreator setIdentity(final List<String> identity) {
+        this.identity = identity;
+        return this;
+    }
+
+    /**
+     * The identity.
+     * 
+     * @param identity The identity
+     * @return this
+     */
+    public NotificationCreator setIdentity(final String identity) {
+        return setIdentity(Promoter.listOfOne(identity));
+    }
+
+    /**
+     * The tag.
+     * 
+     * @param tag The tag
+     * @return this
+     */
+    public NotificationCreator setTag(final List<String> tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    /**
+     * The tag.
+     * 
+     * @param tag The tag
+     * @return this
+     */
+    public NotificationCreator setTag(final String tag) {
+        return setTag(Promoter.listOfOne(tag));
     }
 
     /**

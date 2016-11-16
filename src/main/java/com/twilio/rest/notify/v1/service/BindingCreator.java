@@ -28,6 +28,7 @@ public class BindingCreator extends Creator<Binding> {
     private final String address;
     private List<String> tag;
     private String notificationProtocolVersion;
+    private String credentialSid;
 
     /**
      * Construct a new BindingCreator.
@@ -79,6 +80,17 @@ public class BindingCreator extends Creator<Binding> {
      */
     public BindingCreator setNotificationProtocolVersion(final String notificationProtocolVersion) {
         this.notificationProtocolVersion = notificationProtocolVersion;
+        return this;
+    }
+
+    /**
+     * The credential_sid.
+     * 
+     * @param credentialSid The credential_sid
+     * @return this
+     */
+    public BindingCreator setCredentialSid(final String credentialSid) {
+        this.credentialSid = credentialSid;
         return this;
     }
 
@@ -151,6 +163,10 @@ public class BindingCreator extends Creator<Binding> {
         
         if (notificationProtocolVersion != null) {
             request.addPostParam("NotificationProtocolVersion", notificationProtocolVersion);
+        }
+        
+        if (credentialSid != null) {
+            request.addPostParam("CredentialSid", credentialSid);
         }
     }
 }

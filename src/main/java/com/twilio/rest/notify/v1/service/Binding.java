@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Binding extends Resource {
-    private static final long serialVersionUID = 72408629014564L;
+    private static final long serialVersionUID = 264145617789738L;
 
     public enum BindingType {
         APN("apn"),
@@ -163,6 +163,7 @@ public class Binding extends Resource {
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
+    private final String credentialSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String notificationProtocolVersion;
@@ -180,6 +181,8 @@ public class Binding extends Resource {
                     final String accountSid, 
                     @JsonProperty("service_sid")
                     final String serviceSid, 
+                    @JsonProperty("credential_sid")
+                    final String credentialSid, 
                     @JsonProperty("date_created")
                     final String dateCreated, 
                     @JsonProperty("date_updated")
@@ -201,6 +204,7 @@ public class Binding extends Resource {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
+        this.credentialSid = credentialSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.notificationProtocolVersion = notificationProtocolVersion;
@@ -237,6 +241,15 @@ public class Binding extends Resource {
      */
     public final String getServiceSid() {
         return this.serviceSid;
+    }
+
+    /**
+     * Returns The The credential_sid.
+     * 
+     * @return The credential_sid
+     */
+    public final String getCredentialSid() {
+        return this.credentialSid;
     }
 
     /**
@@ -335,6 +348,7 @@ public class Binding extends Resource {
         return Objects.equals(sid, other.sid) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(serviceSid, other.serviceSid) && 
+               Objects.equals(credentialSid, other.credentialSid) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(notificationProtocolVersion, other.notificationProtocolVersion) && 
@@ -351,6 +365,7 @@ public class Binding extends Resource {
         return Objects.hash(sid,
                             accountSid,
                             serviceSid,
+                            credentialSid,
                             dateCreated,
                             dateUpdated,
                             notificationProtocolVersion,
@@ -368,6 +383,7 @@ public class Binding extends Resource {
                           .add("sid", sid)
                           .add("accountSid", accountSid)
                           .add("serviceSid", serviceSid)
+                          .add("credentialSid", credentialSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("notificationProtocolVersion", notificationProtocolVersion)

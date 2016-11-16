@@ -5,7 +5,7 @@
  *       /       /       
  */
 
-package com.twilio.rest.preview.wireless;
+package com.twilio.rest.accounts.v1.credential;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,51 +33,70 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Command extends Resource {
-    private static final long serialVersionUID = 127550348564341L;
+public class PublicKey extends Resource {
+    private static final long serialVersionUID = 108884981918794L;
 
     /**
-     * Create a CommandFetcher to execute fetch.
+     * Create a PublicKeyReader to execute read.
+     * 
+     * @return PublicKeyReader capable of executing the read
+     */
+    public static PublicKeyReader reader() {
+        return new PublicKeyReader();
+    }
+
+    /**
+     * Create a PublicKeyCreator to execute create.
+     * 
+     * @param publicKey The public_key
+     * @return PublicKeyCreator capable of executing the create
+     */
+    public static PublicKeyCreator creator(final String publicKey) {
+        return new PublicKeyCreator(publicKey);
+    }
+
+    /**
+     * Create a PublicKeyFetcher to execute fetch.
      * 
      * @param sid The sid
-     * @return CommandFetcher capable of executing the fetch
+     * @return PublicKeyFetcher capable of executing the fetch
      */
-    public static CommandFetcher fetcher(final String sid) {
-        return new CommandFetcher(sid);
+    public static PublicKeyFetcher fetcher(final String sid) {
+        return new PublicKeyFetcher(sid);
     }
 
     /**
-     * Create a CommandReader to execute read.
+     * Create a PublicKeyUpdater to execute update.
      * 
-     * @return CommandReader capable of executing the read
+     * @param sid The sid
+     * @return PublicKeyUpdater capable of executing the update
      */
-    public static CommandReader reader() {
-        return new CommandReader();
+    public static PublicKeyUpdater updater(final String sid) {
+        return new PublicKeyUpdater(sid);
     }
 
     /**
-     * Create a CommandCreator to execute create.
+     * Create a PublicKeyDeleter to execute delete.
      * 
-     * @param device The device
-     * @param command The command
-     * @return CommandCreator capable of executing the create
+     * @param sid The sid
+     * @return PublicKeyDeleter capable of executing the delete
      */
-    public static CommandCreator creator(final String device, 
-                                         final String command) {
-        return new CommandCreator(device, command);
+    public static PublicKeyDeleter deleter(final String sid) {
+        return new PublicKeyDeleter(sid);
     }
 
     /**
-     * Converts a JSON String into a Command object using the provided ObjectMapper.
+     * Converts a JSON String into a PublicKey object using the provided
+     * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return Command object represented by the provided JSON
+     * @return PublicKey object represented by the provided JSON
      */
-    public static Command fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PublicKey fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Command.class);
+            return objectMapper.readValue(json, PublicKey.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -86,17 +105,17 @@ public class Command extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Command object using the provided
+     * Converts a JSON InputStream into a PublicKey object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return Command object represented by the provided JSON
+     * @return PublicKey object represented by the provided JSON
      */
-    public static Command fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PublicKey fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Command.class);
+            return objectMapper.readValue(json, PublicKey.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -106,43 +125,27 @@ public class Command extends Resource {
 
     private final String sid;
     private final String accountSid;
-    private final String deviceSid;
-    private final String command;
-    private final String commandMode;
-    private final String status;
-    private final String direction;
+    private final String friendlyName;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
-    private Command(@JsonProperty("sid")
-                    final String sid, 
-                    @JsonProperty("account_sid")
-                    final String accountSid, 
-                    @JsonProperty("device_sid")
-                    final String deviceSid, 
-                    @JsonProperty("command")
-                    final String command, 
-                    @JsonProperty("command_mode")
-                    final String commandMode, 
-                    @JsonProperty("status")
-                    final String status, 
-                    @JsonProperty("direction")
-                    final String direction, 
-                    @JsonProperty("date_created")
-                    final String dateCreated, 
-                    @JsonProperty("date_updated")
-                    final String dateUpdated, 
-                    @JsonProperty("url")
-                    final URI url) {
+    private PublicKey(@JsonProperty("sid")
+                      final String sid, 
+                      @JsonProperty("account_sid")
+                      final String accountSid, 
+                      @JsonProperty("friendly_name")
+                      final String friendlyName, 
+                      @JsonProperty("date_created")
+                      final String dateCreated, 
+                      @JsonProperty("date_updated")
+                      final String dateUpdated, 
+                      @JsonProperty("url")
+                      final URI url) {
         this.sid = sid;
         this.accountSid = accountSid;
-        this.deviceSid = deviceSid;
-        this.command = command;
-        this.commandMode = commandMode;
-        this.status = status;
-        this.direction = direction;
+        this.friendlyName = friendlyName;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -167,48 +170,12 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The device_sid.
+     * Returns The The friendly_name.
      * 
-     * @return The device_sid
+     * @return The friendly_name
      */
-    public final String getDeviceSid() {
-        return this.deviceSid;
-    }
-
-    /**
-     * Returns The The command.
-     * 
-     * @return The command
-     */
-    public final String getCommand() {
-        return this.command;
-    }
-
-    /**
-     * Returns The The command_mode.
-     * 
-     * @return The command_mode
-     */
-    public final String getCommandMode() {
-        return this.commandMode;
-    }
-
-    /**
-     * Returns The The status.
-     * 
-     * @return The status
-     */
-    public final String getStatus() {
-        return this.status;
-    }
-
-    /**
-     * Returns The The direction.
-     * 
-     * @return The direction
-     */
-    public final String getDirection() {
-        return this.direction;
+    public final String getFriendlyName() {
+        return this.friendlyName;
     }
 
     /**
@@ -248,15 +215,11 @@ public class Command extends Resource {
             return false;
         }
         
-        Command other = (Command) o;
+        PublicKey other = (PublicKey) o;
         
         return Objects.equals(sid, other.sid) && 
                Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(deviceSid, other.deviceSid) && 
-               Objects.equals(command, other.command) && 
-               Objects.equals(commandMode, other.commandMode) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(direction, other.direction) && 
+               Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url);
@@ -266,11 +229,7 @@ public class Command extends Resource {
     public int hashCode() {
         return Objects.hash(sid,
                             accountSid,
-                            deviceSid,
-                            command,
-                            commandMode,
-                            status,
-                            direction,
+                            friendlyName,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -281,11 +240,7 @@ public class Command extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("sid", sid)
                           .add("accountSid", accountSid)
-                          .add("deviceSid", deviceSid)
-                          .add("command", command)
-                          .add("commandMode", commandMode)
-                          .add("status", status)
-                          .add("direction", direction)
+                          .add("friendlyName", friendlyName)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

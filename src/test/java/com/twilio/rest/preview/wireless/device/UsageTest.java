@@ -55,4 +55,16 @@ public class UsageTest {
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
+
+    @Test
+    public void testFetchResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"commands_costs\": {},\"commands_usage\": {},\"data_costs\": {},\"data_usage\": {},\"device_alias\": \"device_alias\",\"device_sid\": \"DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"period\": {},\"url\": \"http://www.example.com\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        assertNotNull(Usage.fetcher("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+    }
 }

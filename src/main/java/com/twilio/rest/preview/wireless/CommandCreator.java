@@ -25,6 +25,8 @@ public class CommandCreator extends Creator<Command> {
     private final String command;
     private String callbackMethod;
     private URI callbackUrl;
+    private String commandMode;
+    private String includeSid;
 
     /**
      * Construct a new CommandCreator.
@@ -68,6 +70,28 @@ public class CommandCreator extends Creator<Command> {
      */
     public CommandCreator setCallbackUrl(final String callbackUrl) {
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
+
+    /**
+     * The command_mode.
+     * 
+     * @param commandMode The command_mode
+     * @return this
+     */
+    public CommandCreator setCommandMode(final String commandMode) {
+        this.commandMode = commandMode;
+        return this;
+    }
+
+    /**
+     * The include_sid.
+     * 
+     * @param includeSid The include_sid
+     * @return this
+     */
+    public CommandCreator setIncludeSid(final String includeSid) {
+        this.includeSid = includeSid;
+        return this;
     }
 
     /**
@@ -129,6 +153,14 @@ public class CommandCreator extends Creator<Command> {
         
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+        }
+        
+        if (commandMode != null) {
+            request.addPostParam("CommandMode", commandMode);
+        }
+        
+        if (includeSid != null) {
+            request.addPostParam("IncludeSid", includeSid);
         }
     }
 }

@@ -38,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 8764009288306L;
+    private static final long serialVersionUID = 201754449447651L;
 
     public enum Status {
         QUEUED("queued"),
@@ -300,21 +300,25 @@ public class Message extends Resource {
      * 
      * @param accountSid The account_sid
      * @param sid The message to redact
+     * @param body The body
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String accountSid, 
-                                         final String sid) {
-        return new MessageUpdater(accountSid, sid);
+                                         final String sid, 
+                                         final String body) {
+        return new MessageUpdater(accountSid, sid, body);
     }
 
     /**
      * Create a MessageUpdater to execute update.
      * 
      * @param sid The message to redact
+     * @param body The body
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater updater(final String sid) {
-        return new MessageUpdater(sid);
+    public static MessageUpdater updater(final String sid, 
+                                         final String body) {
+        return new MessageUpdater(sid, body);
     }
 
     /**
@@ -364,6 +368,7 @@ public class Message extends Resource {
     private final Integer errorCode;
     private final String errorMessage;
     private final com.twilio.type.PhoneNumber from;
+    private final String messagingServiceSid;
     private final String numMedia;
     private final String numSegments;
     private final BigDecimal price;
@@ -395,6 +400,8 @@ public class Message extends Resource {
                     final String errorMessage, 
                     @JsonProperty("from")
                     final com.twilio.type.PhoneNumber from, 
+                    @JsonProperty("messaging_service_sid")
+                    final String messagingServiceSid, 
                     @JsonProperty("num_media")
                     final String numMedia, 
                     @JsonProperty("num_segments")
@@ -424,6 +431,7 @@ public class Message extends Resource {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.from = from;
+        this.messagingServiceSid = messagingServiceSid;
         this.numMedia = numMedia;
         this.numSegments = numSegments;
         this.price = price;
@@ -523,6 +531,15 @@ public class Message extends Resource {
      */
     public final com.twilio.type.PhoneNumber getFrom() {
         return this.from;
+    }
+
+    /**
+     * Returns The The messaging_service_sid.
+     * 
+     * @return The messaging_service_sid
+     */
+    public final String getMessagingServiceSid() {
+        return this.messagingServiceSid;
     }
 
     /**
@@ -628,6 +645,7 @@ public class Message extends Resource {
                Objects.equals(errorCode, other.errorCode) && 
                Objects.equals(errorMessage, other.errorMessage) && 
                Objects.equals(from, other.from) && 
+               Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
                Objects.equals(numMedia, other.numMedia) && 
                Objects.equals(numSegments, other.numSegments) && 
                Objects.equals(price, other.price) && 
@@ -651,6 +669,7 @@ public class Message extends Resource {
                             errorCode,
                             errorMessage,
                             from,
+                            messagingServiceSid,
                             numMedia,
                             numSegments,
                             price,
@@ -675,6 +694,7 @@ public class Message extends Resource {
                           .add("errorCode", errorCode)
                           .add("errorMessage", errorMessage)
                           .add("from", from)
+                          .add("messagingServiceSid", messagingServiceSid)
                           .add("numMedia", numMedia)
                           .add("numSegments", numSegments)
                           .add("price", price)

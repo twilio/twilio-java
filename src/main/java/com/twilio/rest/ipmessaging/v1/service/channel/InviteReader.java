@@ -22,18 +22,18 @@ import com.twilio.rest.Domains;
 
 import java.util.List;
 
-public class MemberReader extends Reader<Member> {
+public class InviteReader extends Reader<Invite> {
     private final String serviceSid;
     private final String channelSid;
     private List<String> identity;
 
     /**
-     * Construct a new MemberReader.
+     * Construct a new InviteReader.
      * 
      * @param serviceSid The service_sid
      * @param channelSid The channel_sid
      */
-    public MemberReader(final String serviceSid, 
+    public InviteReader(final String serviceSid, 
                         final String channelSid) {
         this.serviceSid = serviceSid;
         this.channelSid = channelSid;
@@ -45,7 +45,7 @@ public class MemberReader extends Reader<Member> {
      * @param identity The identity
      * @return this
      */
-    public MemberReader setIdentity(final List<String> identity) {
+    public InviteReader setIdentity(final List<String> identity) {
         this.identity = identity;
         return this;
     }
@@ -56,7 +56,7 @@ public class MemberReader extends Reader<Member> {
      * @param identity The identity
      * @return this
      */
-    public MemberReader setIdentity(final String identity) {
+    public InviteReader setIdentity(final String identity) {
         return setIdentity(Promoter.listOfOne(identity));
     }
 
@@ -64,10 +64,10 @@ public class MemberReader extends Reader<Member> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Member ResourceSet
+     * @return Invite ResourceSet
      */
     @Override
-    public ResourceSet<Member> read(final TwilioRestClient client) {
+    public ResourceSet<Invite> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -75,15 +75,15 @@ public class MemberReader extends Reader<Member> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Member ResourceSet
+     * @return Invite ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Member> firstPage(final TwilioRestClient client) {
+    public Page<Invite> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Members",
+            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Invites",
             client.getRegion()
         );
         
@@ -99,7 +99,7 @@ public class MemberReader extends Reader<Member> {
      * @return Next Page
      */
     @Override
-    public Page<Member> nextPage(final Page<Member> page, 
+    public Page<Invite> nextPage(final Page<Invite> page, 
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -112,17 +112,17 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * Generate a Page of Member Resources for a given request.
+     * Generate a Page of Invite Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Member> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Invite> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
-            throw new ApiConnectionException("Member read failed: Unable to connect to server");
+            throw new ApiConnectionException("Invite read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -139,9 +139,9 @@ public class MemberReader extends Reader<Member> {
         }
         
         return Page.fromJson(
-            "members",
+            "invites",
             response.getContent(),
-            Member.class,
+            Invite.class,
             client.getObjectMapper()
         );
     }

@@ -160,11 +160,11 @@ public class Notification extends Resource {
     private final URI moreInfo;
     private final HttpMethod requestMethod;
     private final URI requestUrl;
-    private final String sid;
-    private final String uri;
     private final String requestVariables;
     private final String responseBody;
     private final String responseHeaders;
+    private final String sid;
+    private final String uri;
 
     @JsonCreator
     private Notification(@JsonProperty("account_sid")
@@ -191,16 +191,16 @@ public class Notification extends Resource {
                          final HttpMethod requestMethod, 
                          @JsonProperty("request_url")
                          final URI requestUrl, 
-                         @JsonProperty("sid")
-                         final String sid, 
-                         @JsonProperty("uri")
-                         final String uri, 
                          @JsonProperty("request_variables")
                          final String requestVariables, 
                          @JsonProperty("response_body")
                          final String responseBody, 
                          @JsonProperty("response_headers")
-                         final String responseHeaders) {
+                         final String responseHeaders, 
+                         @JsonProperty("sid")
+                         final String sid, 
+                         @JsonProperty("uri")
+                         final String uri) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -213,11 +213,11 @@ public class Notification extends Resource {
         this.moreInfo = moreInfo;
         this.requestMethod = requestMethod;
         this.requestUrl = requestUrl;
-        this.sid = sid;
-        this.uri = uri;
         this.requestVariables = requestVariables;
         this.responseBody = responseBody;
         this.responseHeaders = responseHeaders;
+        this.sid = sid;
+        this.uri = uri;
     }
 
     /**
@@ -329,24 +329,6 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
-     */
-    public final String getSid() {
-        return this.sid;
-    }
-
-    /**
-     * Returns The The uri.
-     * 
-     * @return The uri
-     */
-    public final String getUri() {
-        return this.uri;
-    }
-
-    /**
      * Returns The The request_variables.
      * 
      * @return The request_variables
@@ -373,6 +355,24 @@ public class Notification extends Resource {
         return this.responseHeaders;
     }
 
+    /**
+     * Returns The The sid.
+     * 
+     * @return The sid
+     */
+    public final String getSid() {
+        return this.sid;
+    }
+
+    /**
+     * Returns The The uri.
+     * 
+     * @return The uri
+     */
+    public final String getUri() {
+        return this.uri;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -397,11 +397,11 @@ public class Notification extends Resource {
                Objects.equals(moreInfo, other.moreInfo) && 
                Objects.equals(requestMethod, other.requestMethod) && 
                Objects.equals(requestUrl, other.requestUrl) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uri, other.uri) && 
                Objects.equals(requestVariables, other.requestVariables) && 
                Objects.equals(responseBody, other.responseBody) && 
-               Objects.equals(responseHeaders, other.responseHeaders);
+               Objects.equals(responseHeaders, other.responseHeaders) && 
+               Objects.equals(sid, other.sid) && 
+               Objects.equals(uri, other.uri);
     }
 
     @Override
@@ -418,11 +418,11 @@ public class Notification extends Resource {
                             moreInfo,
                             requestMethod,
                             requestUrl,
-                            sid,
-                            uri,
                             requestVariables,
                             responseBody,
-                            responseHeaders);
+                            responseHeaders,
+                            sid,
+                            uri);
     }
 
     @Override
@@ -440,11 +440,11 @@ public class Notification extends Resource {
                           .add("moreInfo", moreInfo)
                           .add("requestMethod", requestMethod)
                           .add("requestUrl", requestUrl)
-                          .add("sid", sid)
-                          .add("uri", uri)
                           .add("requestVariables", requestVariables)
                           .add("responseBody", responseBody)
                           .add("responseHeaders", responseHeaders)
+                          .add("sid", sid)
+                          .add("uri", uri)
                           .toString();
     }
 }

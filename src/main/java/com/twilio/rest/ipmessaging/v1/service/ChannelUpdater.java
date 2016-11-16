@@ -23,7 +23,6 @@ public class ChannelUpdater extends Updater<Channel> {
     private String friendlyName;
     private String uniqueName;
     private String attributes;
-    private Channel.ChannelType type;
 
     /**
      * Construct a new ChannelUpdater.
@@ -67,17 +66,6 @@ public class ChannelUpdater extends Updater<Channel> {
      */
     public ChannelUpdater setAttributes(final String attributes) {
         this.attributes = attributes;
-        return this;
-    }
-
-    /**
-     * The type.
-     * 
-     * @param type The type
-     * @return this
-     */
-    public ChannelUpdater setType(final Channel.ChannelType type) {
-        this.type = type;
         return this;
     }
 
@@ -136,10 +124,6 @@ public class ChannelUpdater extends Updater<Channel> {
         
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
-        }
-        
-        if (type != null) {
-            request.addPostParam("Type", type.toString());
         }
     }
 }

@@ -124,19 +124,22 @@ public class Queue extends Resource {
      * Create a QueueCreator to execute create.
      * 
      * @param accountSid The account_sid
+     * @param friendlyName A user-provided string that identifies this queue.
      * @return QueueCreator capable of executing the create
      */
-    public static QueueCreator creator(final String accountSid) {
-        return new QueueCreator(accountSid);
+    public static QueueCreator creator(final String accountSid, 
+                                       final String friendlyName) {
+        return new QueueCreator(accountSid, friendlyName);
     }
 
     /**
      * Create a QueueCreator to execute create.
      * 
+     * @param friendlyName A user-provided string that identifies this queue.
      * @return QueueCreator capable of executing the create
      */
-    public static QueueCreator creator() {
-        return new QueueCreator();
+    public static QueueCreator creator(final String friendlyName) {
+        return new QueueCreator(friendlyName);
     }
 
     /**

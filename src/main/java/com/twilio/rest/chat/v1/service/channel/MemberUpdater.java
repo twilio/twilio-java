@@ -5,7 +5,7 @@
  *       /       /       
  */
 
-package com.twilio.rest.ipmessaging.v1.service;
+package com.twilio.rest.chat.v1.service.channel;
 
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
@@ -17,22 +17,25 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class UserUpdater extends Updater<User> {
+public class MemberUpdater extends Updater<Member> {
     private final String serviceSid;
+    private final String channelSid;
     private final String sid;
     private String roleSid;
-    private String attributes;
-    private String friendlyName;
+    private Integer lastConsumedMessageIndex;
 
     /**
-     * Construct a new UserUpdater.
+     * Construct a new MemberUpdater.
      * 
      * @param serviceSid The service_sid
+     * @param channelSid The channel_sid
      * @param sid The sid
      */
-    public UserUpdater(final String serviceSid, 
-                       final String sid) {
+    public MemberUpdater(final String serviceSid, 
+                         final String channelSid, 
+                         final String sid) {
         this.serviceSid = serviceSid;
+        this.channelSid = channelSid;
         this.sid = sid;
     }
 
@@ -42,30 +45,19 @@ public class UserUpdater extends Updater<User> {
      * @param roleSid The role_sid
      * @return this
      */
-    public UserUpdater setRoleSid(final String roleSid) {
+    public MemberUpdater setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
         return this;
     }
 
     /**
-     * The attributes.
+     * The last_consumed_message_index.
      * 
-     * @param attributes The attributes
+     * @param lastConsumedMessageIndex The last_consumed_message_index
      * @return this
      */
-    public UserUpdater setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
-
-    /**
-     * The friendly_name.
-     * 
-     * @param friendlyName The friendly_name
-     * @return this
-     */
-    public UserUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
+    public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
+        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         return this;
     }
 
@@ -73,15 +65,15 @@ public class UserUpdater extends Updater<User> {
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated User
+     * @return Updated Member
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public User update(final TwilioRestClient client) {
+    public Member update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
+            Domains.CHAT.toString(),
+            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Members/" + this.sid + "",
             client.getRegion()
         );
         
@@ -89,7 +81,7 @@ public class UserUpdater extends Updater<User> {
         Response response = client.request(request);
         
         if (response == null) {
-            throw new ApiConnectionException("User update failed: Unable to connect to server");
+            throw new ApiConnectionException("Member update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -105,7 +97,7 @@ public class UserUpdater extends Updater<User> {
             );
         }
         
-        return User.fromJson(response.getStream(), client.getObjectMapper());
+        return Member.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -118,12 +110,8 @@ public class UserUpdater extends Updater<User> {
             request.addPostParam("RoleSid", roleSid);
         }
         
-        if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
-        }
-        
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+        if (lastConsumedMessageIndex != null) {
+            request.addPostParam("LastConsumedMessageIndex", lastConsumedMessageIndex.toString());
         }
     }
 }

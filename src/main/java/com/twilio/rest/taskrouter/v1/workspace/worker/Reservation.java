@@ -28,12 +28,13 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Reservation extends Resource {
-    private static final long serialVersionUID = 183495073541563L;
+    private static final long serialVersionUID = 156834658396048L;
 
     public enum Status {
         PENDING("pending"),
@@ -158,6 +159,8 @@ public class Reservation extends Resource {
     private final String workerName;
     private final String workerSid;
     private final String workspaceSid;
+    private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Reservation(@JsonProperty("account_sid")
@@ -177,7 +180,11 @@ public class Reservation extends Resource {
                         @JsonProperty("worker_sid")
                         final String workerSid, 
                         @JsonProperty("workspace_sid")
-                        final String workspaceSid) {
+                        final String workspaceSid, 
+                        @JsonProperty("url")
+                        final URI url, 
+                        @JsonProperty("links")
+                        final Map<String, String> links) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -187,6 +194,8 @@ public class Reservation extends Resource {
         this.workerName = workerName;
         this.workerSid = workerSid;
         this.workspaceSid = workspaceSid;
+        this.url = url;
+        this.links = links;
     }
 
     /**
@@ -270,6 +279,24 @@ public class Reservation extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -290,7 +317,9 @@ public class Reservation extends Resource {
                Objects.equals(taskSid, other.taskSid) && 
                Objects.equals(workerName, other.workerName) && 
                Objects.equals(workerSid, other.workerSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -303,7 +332,9 @@ public class Reservation extends Resource {
                             taskSid,
                             workerName,
                             workerSid,
-                            workspaceSid);
+                            workspaceSid,
+                            url,
+                            links);
     }
 
     @Override
@@ -318,6 +349,8 @@ public class Reservation extends Resource {
                           .add("workerName", workerName)
                           .add("workerSid", workerSid)
                           .add("workspaceSid", workspaceSid)
+                          .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

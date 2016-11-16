@@ -19,33 +19,28 @@ import com.twilio.rest.Domains;
 
 public class QueueCreator extends Creator<Queue> {
     private String accountSid;
-    private String friendlyName;
+    private final String friendlyName;
     private Integer maxSize;
 
     /**
      * Construct a new QueueCreator.
+     * 
+     * @param friendlyName A user-provided string that identifies this queue.
      */
-    public QueueCreator() {
+    public QueueCreator(final String friendlyName) {
+        this.friendlyName = friendlyName;
     }
 
     /**
      * Construct a new QueueCreator.
      * 
      * @param accountSid The account_sid
-     */
-    public QueueCreator(final String accountSid) {
-        this.accountSid = accountSid;
-    }
-
-    /**
-     * A user-provided string that identifies this queue..
-     * 
      * @param friendlyName A user-provided string that identifies this queue.
-     * @return this
      */
-    public QueueCreator setFriendlyName(final String friendlyName) {
+    public QueueCreator(final String accountSid, 
+                        final String friendlyName) {
+        this.accountSid = accountSid;
         this.friendlyName = friendlyName;
-        return this;
     }
 
     /**

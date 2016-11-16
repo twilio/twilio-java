@@ -33,7 +33,109 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 177171582152744L;
+    private static final long serialVersionUID = 45291997382517L;
+
+    public enum Status {
+        QUEUED("queued"),
+        CONNECTING("connecting"),
+        RINGING("ringing"),
+        CONNECTED("connected"),
+        COMPLETE("complete"),
+        FAILED("failed");
+    
+        private final String value;
+        
+        private Status(final String value) {
+            this.value = value;
+        }
+        
+        public String toString() {
+            return value;
+        }
+        
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
+        @JsonCreator
+        public static Status forValue(final String value) {
+            String normalized = value.replace("-", "_").toUpperCase();
+            try {
+                return Status.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
+        }
+    }
+
+    public enum Beep {
+        TRUE("true"),
+        FALSE("false"),
+        ONENTER("onEnter"),
+        ONEXIT("onExit");
+    
+        private final String value;
+        
+        private Beep(final String value) {
+            this.value = value;
+        }
+        
+        public String toString() {
+            return value;
+        }
+        
+        /**
+         * Generate a Beep from a string.
+         * @param value string value
+         * @return generated Beep
+         */
+        @JsonCreator
+        public static Beep forValue(final String value) {
+            String normalized = value.replace("-", "_").toUpperCase();
+            try {
+                return Beep.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
+        }
+    }
+
+    public enum ConferenceRecord {
+        DO_NOT_RECORD("do-not-record"),
+        RECORD_FROM_START("record-from-start");
+    
+        private final String value;
+        
+        private ConferenceRecord(final String value) {
+            this.value = value;
+        }
+        
+        public String toString() {
+            return value;
+        }
+        
+        /**
+         * Generate a ConferenceRecord from a string.
+         * @param value string value
+         * @return generated ConferenceRecord
+         */
+        @JsonCreator
+        public static ConferenceRecord forValue(final String value) {
+            String normalized = value.replace("-", "_").toUpperCase();
+            try {
+                return ConferenceRecord.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
+        }
+    }
 
     /**
      * Create a ParticipantFetcher to execute fetch.
@@ -85,6 +187,36 @@ public class Participant extends Resource {
     public static ParticipantUpdater updater(final String conferenceSid, 
                                              final String callSid) {
         return new ParticipantUpdater(conferenceSid, callSid);
+    }
+
+    /**
+     * Create a ParticipantCreator to execute create.
+     * 
+     * @param accountSid The account_sid
+     * @param conferenceSid The conference_sid
+     * @param from The from
+     * @param to The to
+     * @return ParticipantCreator capable of executing the create
+     */
+    public static ParticipantCreator creator(final String accountSid, 
+                                             final String conferenceSid, 
+                                             final com.twilio.type.PhoneNumber from, 
+                                             final com.twilio.type.PhoneNumber to) {
+        return new ParticipantCreator(accountSid, conferenceSid, from, to);
+    }
+
+    /**
+     * Create a ParticipantCreator to execute create.
+     * 
+     * @param conferenceSid The conference_sid
+     * @param from The from
+     * @param to The to
+     * @return ParticipantCreator capable of executing the create
+     */
+    public static ParticipantCreator creator(final String conferenceSid, 
+                                             final com.twilio.type.PhoneNumber from, 
+                                             final com.twilio.type.PhoneNumber to) {
+        return new ParticipantCreator(conferenceSid, from, to);
     }
 
     /**
@@ -182,6 +314,7 @@ public class Participant extends Resource {
     private final Boolean muted;
     private final Boolean hold;
     private final Boolean startConferenceOnEnter;
+    private final Participant.Status status;
     private final String uri;
 
     @JsonCreator
@@ -203,6 +336,8 @@ public class Participant extends Resource {
                         final Boolean hold, 
                         @JsonProperty("start_conference_on_enter")
                         final Boolean startConferenceOnEnter, 
+                        @JsonProperty("status")
+                        final Participant.Status status, 
                         @JsonProperty("uri")
                         final String uri) {
         this.accountSid = accountSid;
@@ -214,6 +349,7 @@ public class Participant extends Resource {
         this.muted = muted;
         this.hold = hold;
         this.startConferenceOnEnter = startConferenceOnEnter;
+        this.status = status;
         this.uri = uri;
     }
 
@@ -308,6 +444,15 @@ public class Participant extends Resource {
     }
 
     /**
+     * Returns The The status.
+     * 
+     * @return The status
+     */
+    public final Participant.Status getStatus() {
+        return this.status;
+    }
+
+    /**
      * Returns The The URI for this resource.
      * 
      * @return The URI for this resource
@@ -337,6 +482,7 @@ public class Participant extends Resource {
                Objects.equals(muted, other.muted) && 
                Objects.equals(hold, other.hold) && 
                Objects.equals(startConferenceOnEnter, other.startConferenceOnEnter) && 
+               Objects.equals(status, other.status) && 
                Objects.equals(uri, other.uri);
     }
 
@@ -351,6 +497,7 @@ public class Participant extends Resource {
                             muted,
                             hold,
                             startConferenceOnEnter,
+                            status,
                             uri);
     }
 
@@ -366,6 +513,7 @@ public class Participant extends Resource {
                           .add("muted", muted)
                           .add("hold", hold)
                           .add("startConferenceOnEnter", startConferenceOnEnter)
+                          .add("status", status)
                           .add("uri", uri)
                           .toString();
     }

@@ -5,9 +5,9 @@
  *       /       /       
  */
 
-package com.twilio.rest.ipmessaging.v1.service;
+package com.twilio.rest.chat.v1.service.channel;
 
-import com.twilio.base.Updater;
+import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,23 +17,25 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class UserUpdater extends Updater<User> {
+public class InviteCreator extends Creator<Invite> {
     private final String serviceSid;
-    private final String sid;
+    private final String channelSid;
+    private final String identity;
     private String roleSid;
-    private String attributes;
-    private String friendlyName;
 
     /**
-     * Construct a new UserUpdater.
+     * Construct a new InviteCreator.
      * 
      * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param channelSid The channel_sid
+     * @param identity The identity
      */
-    public UserUpdater(final String serviceSid, 
-                       final String sid) {
+    public InviteCreator(final String serviceSid, 
+                         final String channelSid, 
+                         final String identity) {
         this.serviceSid = serviceSid;
-        this.sid = sid;
+        this.channelSid = channelSid;
+        this.identity = identity;
     }
 
     /**
@@ -42,46 +44,24 @@ public class UserUpdater extends Updater<User> {
      * @param roleSid The role_sid
      * @return this
      */
-    public UserUpdater setRoleSid(final String roleSid) {
+    public InviteCreator setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
         return this;
     }
 
     /**
-     * The attributes.
-     * 
-     * @param attributes The attributes
-     * @return this
-     */
-    public UserUpdater setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
-
-    /**
-     * The friendly_name.
-     * 
-     * @param friendlyName The friendly_name
-     * @return this
-     */
-    public UserUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
-
-    /**
-     * Make the request to the Twilio API to perform the update.
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated User
+     * @return Created Invite
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public User update(final TwilioRestClient client) {
+    public Invite create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
+            Domains.CHAT.toString(),
+            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Invites",
             client.getRegion()
         );
         
@@ -89,7 +69,7 @@ public class UserUpdater extends Updater<User> {
         Response response = client.request(request);
         
         if (response == null) {
-            throw new ApiConnectionException("User update failed: Unable to connect to server");
+            throw new ApiConnectionException("Invite creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -105,7 +85,7 @@ public class UserUpdater extends Updater<User> {
             );
         }
         
-        return User.fromJson(response.getStream(), client.getObjectMapper());
+        return Invite.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -114,16 +94,12 @@ public class UserUpdater extends Updater<User> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (identity != null) {
+            request.addPostParam("Identity", identity);
+        }
+        
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
-        }
-        
-        if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
-        }
-        
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
         }
     }
 }

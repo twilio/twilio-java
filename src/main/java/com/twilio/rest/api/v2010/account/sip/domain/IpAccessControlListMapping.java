@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IpAccessControlListMapping extends Resource {
-    private static final long serialVersionUID = 231948195815052L;
+    private static final long serialVersionUID = 214188792953524L;
 
     /**
      * Create a IpAccessControlListMappingFetcher to execute fetch.
@@ -179,6 +179,7 @@ public class IpAccessControlListMapping extends Resource {
     private final String friendlyName;
     private final String sid;
     private final String uri;
+    private final Map<String, String> subresourceUris;
 
     @JsonCreator
     private IpAccessControlListMapping(@JsonProperty("account_sid")
@@ -192,13 +193,16 @@ public class IpAccessControlListMapping extends Resource {
                                        @JsonProperty("sid")
                                        final String sid, 
                                        @JsonProperty("uri")
-                                       final String uri) {
+                                       final String uri, 
+                                       @JsonProperty("subresource_uris")
+                                       final Map<String, String> subresourceUris) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.sid = sid;
         this.uri = uri;
+        this.subresourceUris = subresourceUris;
     }
 
     /**
@@ -255,6 +259,15 @@ public class IpAccessControlListMapping extends Resource {
         return this.uri;
     }
 
+    /**
+     * Returns The The subresource_uris.
+     * 
+     * @return The subresource_uris
+     */
+    public final Map<String, String> getSubresourceUris() {
+        return this.subresourceUris;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -272,7 +285,8 @@ public class IpAccessControlListMapping extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(sid, other.sid) && 
-               Objects.equals(uri, other.uri);
+               Objects.equals(uri, other.uri) && 
+               Objects.equals(subresourceUris, other.subresourceUris);
     }
 
     @Override
@@ -282,7 +296,8 @@ public class IpAccessControlListMapping extends Resource {
                             dateUpdated,
                             friendlyName,
                             sid,
-                            uri);
+                            uri,
+                            subresourceUris);
     }
 
     @Override
@@ -294,6 +309,7 @@ public class IpAccessControlListMapping extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("sid", sid)
                           .add("uri", uri)
+                          .add("subresourceUris", subresourceUris)
                           .toString();
     }
 }

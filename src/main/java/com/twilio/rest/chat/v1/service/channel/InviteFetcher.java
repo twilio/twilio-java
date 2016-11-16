@@ -7,7 +7,7 @@
 
 package com.twilio.rest.chat.v1.service.channel;
 
-import com.twilio.base.Updater;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,63 +17,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class MessageUpdater extends Updater<Message> {
+public class InviteFetcher extends Fetcher<Invite> {
     private final String serviceSid;
     private final String channelSid;
     private final String sid;
-    private final String body;
-    private String attributes;
 
     /**
-     * Construct a new MessageUpdater.
+     * Construct a new InviteFetcher.
      * 
      * @param serviceSid The service_sid
      * @param channelSid The channel_sid
      * @param sid The sid
-     * @param body The body
      */
-    public MessageUpdater(final String serviceSid, 
-                          final String channelSid, 
-                          final String sid, 
-                          final String body) {
+    public InviteFetcher(final String serviceSid, 
+                         final String channelSid, 
+                         final String sid) {
         this.serviceSid = serviceSid;
         this.channelSid = channelSid;
         this.sid = sid;
-        this.body = body;
     }
 
     /**
-     * The attributes.
-     * 
-     * @param attributes The attributes
-     * @return this
-     */
-    public MessageUpdater setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
-
-    /**
-     * Make the request to the Twilio API to perform the update.
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Message
+     * @return Fetched Invite
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Message update(final TwilioRestClient client) {
+    public Invite fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.POST,
+            HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Messages/" + this.sid + "",
+            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Invites/" + this.sid + "",
             client.getRegion()
         );
         
-        addPostParams(request);
         Response response = client.request(request);
         
         if (response == null) {
-            throw new ApiConnectionException("Message update failed: Unable to connect to server");
+            throw new ApiConnectionException("Invite fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -89,21 +72,6 @@ public class MessageUpdater extends Updater<Message> {
             );
         }
         
-        return Message.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested post parameters to the Request.
-     * 
-     * @param request Request to add post params to
-     */
-    private void addPostParams(final Request request) {
-        if (body != null) {
-            request.addPostParam("Body", body);
-        }
-        
-        if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
-        }
+        return Invite.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

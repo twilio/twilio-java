@@ -33,88 +33,74 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Member extends Resource {
-    private static final long serialVersionUID = 868140426804L;
+public class Invite extends Resource {
+    private static final long serialVersionUID = 189960368613614L;
 
     /**
-     * Create a MemberFetcher to execute fetch.
+     * Create a InviteFetcher to execute fetch.
      * 
      * @param serviceSid The service_sid
      * @param channelSid The channel_sid
      * @param sid The sid
-     * @return MemberFetcher capable of executing the fetch
+     * @return InviteFetcher capable of executing the fetch
      */
-    public static MemberFetcher fetcher(final String serviceSid, 
+    public static InviteFetcher fetcher(final String serviceSid, 
                                         final String channelSid, 
                                         final String sid) {
-        return new MemberFetcher(serviceSid, channelSid, sid);
+        return new InviteFetcher(serviceSid, channelSid, sid);
     }
 
     /**
-     * Create a MemberCreator to execute create.
+     * Create a InviteCreator to execute create.
      * 
      * @param serviceSid The service_sid
      * @param channelSid The channel_sid
      * @param identity The identity
-     * @return MemberCreator capable of executing the create
+     * @return InviteCreator capable of executing the create
      */
-    public static MemberCreator creator(final String serviceSid, 
+    public static InviteCreator creator(final String serviceSid, 
                                         final String channelSid, 
                                         final String identity) {
-        return new MemberCreator(serviceSid, channelSid, identity);
+        return new InviteCreator(serviceSid, channelSid, identity);
     }
 
     /**
-     * Create a MemberReader to execute read.
+     * Create a InviteReader to execute read.
      * 
      * @param serviceSid The service_sid
      * @param channelSid The channel_sid
-     * @return MemberReader capable of executing the read
+     * @return InviteReader capable of executing the read
      */
-    public static MemberReader reader(final String serviceSid, 
+    public static InviteReader reader(final String serviceSid, 
                                       final String channelSid) {
-        return new MemberReader(serviceSid, channelSid);
+        return new InviteReader(serviceSid, channelSid);
     }
 
     /**
-     * Create a MemberDeleter to execute delete.
+     * Create a InviteDeleter to execute delete.
      * 
      * @param serviceSid The service_sid
      * @param channelSid The channel_sid
      * @param sid The sid
-     * @return MemberDeleter capable of executing the delete
+     * @return InviteDeleter capable of executing the delete
      */
-    public static MemberDeleter deleter(final String serviceSid, 
+    public static InviteDeleter deleter(final String serviceSid, 
                                         final String channelSid, 
                                         final String sid) {
-        return new MemberDeleter(serviceSid, channelSid, sid);
+        return new InviteDeleter(serviceSid, channelSid, sid);
     }
 
     /**
-     * Create a MemberUpdater to execute update.
-     * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
-     * @return MemberUpdater capable of executing the update
-     */
-    public static MemberUpdater updater(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String sid) {
-        return new MemberUpdater(serviceSid, channelSid, sid);
-    }
-
-    /**
-     * Converts a JSON String into a Member object using the provided ObjectMapper.
+     * Converts a JSON String into a Invite object using the provided ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return Member object represented by the provided JSON
+     * @return Invite object represented by the provided JSON
      */
-    public static Member fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Invite fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Member.class);
+            return objectMapper.readValue(json, Invite.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -123,17 +109,17 @@ public class Member extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Member object using the provided
+     * Converts a JSON InputStream into a Invite object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return Member object represented by the provided JSON
+     * @return Invite object represented by the provided JSON
      */
-    public static Member fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Invite fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Member.class);
+            return objectMapper.readValue(json, Invite.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -146,15 +132,14 @@ public class Member extends Resource {
     private final String channelSid;
     private final String serviceSid;
     private final String identity;
-    private final Integer lastConsumedMessageIndex;
-    private final DateTime lastConsumptionTimestamp;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String roleSid;
+    private final String createdBy;
     private final URI url;
 
     @JsonCreator
-    private Member(@JsonProperty("sid")
+    private Invite(@JsonProperty("sid")
                    final String sid, 
                    @JsonProperty("account_sid")
                    final String accountSid, 
@@ -164,16 +149,14 @@ public class Member extends Resource {
                    final String serviceSid, 
                    @JsonProperty("identity")
                    final String identity, 
-                   @JsonProperty("last_consumed_message_index")
-                   final Integer lastConsumedMessageIndex, 
-                   @JsonProperty("last_consumption_timestamp")
-                   final String lastConsumptionTimestamp, 
                    @JsonProperty("date_created")
                    final String dateCreated, 
                    @JsonProperty("date_updated")
                    final String dateUpdated, 
                    @JsonProperty("role_sid")
                    final String roleSid, 
+                   @JsonProperty("created_by")
+                   final String createdBy, 
                    @JsonProperty("url")
                    final URI url) {
         this.sid = sid;
@@ -181,11 +164,10 @@ public class Member extends Resource {
         this.channelSid = channelSid;
         this.serviceSid = serviceSid;
         this.identity = identity;
-        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
-        this.lastConsumptionTimestamp = DateConverter.iso8601DateTimeFromString(lastConsumptionTimestamp);
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.roleSid = roleSid;
+        this.createdBy = createdBy;
         this.url = url;
     }
 
@@ -235,24 +217,6 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The last_consumed_message_index.
-     * 
-     * @return The last_consumed_message_index
-     */
-    public final Integer getLastConsumedMessageIndex() {
-        return this.lastConsumedMessageIndex;
-    }
-
-    /**
-     * Returns The The last_consumption_timestamp.
-     * 
-     * @return The last_consumption_timestamp
-     */
-    public final DateTime getLastConsumptionTimestamp() {
-        return this.lastConsumptionTimestamp;
-    }
-
-    /**
      * Returns The The date_created.
      * 
      * @return The date_created
@@ -280,6 +244,15 @@ public class Member extends Resource {
     }
 
     /**
+     * Returns The The created_by.
+     * 
+     * @return The created_by
+     */
+    public final String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -298,18 +271,17 @@ public class Member extends Resource {
             return false;
         }
         
-        Member other = (Member) o;
+        Invite other = (Invite) o;
         
         return Objects.equals(sid, other.sid) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(channelSid, other.channelSid) && 
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(identity, other.identity) && 
-               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
-               Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(roleSid, other.roleSid) && 
+               Objects.equals(createdBy, other.createdBy) && 
                Objects.equals(url, other.url);
     }
 
@@ -320,11 +292,10 @@ public class Member extends Resource {
                             channelSid,
                             serviceSid,
                             identity,
-                            lastConsumedMessageIndex,
-                            lastConsumptionTimestamp,
                             dateCreated,
                             dateUpdated,
                             roleSid,
+                            createdBy,
                             url);
     }
 
@@ -336,11 +307,10 @@ public class Member extends Resource {
                           .add("channelSid", channelSid)
                           .add("serviceSid", serviceSid)
                           .add("identity", identity)
-                          .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
-                          .add("lastConsumptionTimestamp", lastConsumptionTimestamp)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("roleSid", roleSid)
+                          .add("createdBy", createdBy)
                           .add("url", url)
                           .toString();
     }

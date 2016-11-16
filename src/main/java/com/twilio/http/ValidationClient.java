@@ -16,6 +16,7 @@ import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.PrivateKey;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class ValidationClient extends HttpClient {
 
     private final org.apache.http.client.HttpClient client;
 
-    public ValidationClient(String credentialSid, String publicKey) {
+    public ValidationClient(String accountSid, String credentialSid, String signingKey, PrivateKey privateKey) {
         RequestConfig config = RequestConfig.custom()
             .setConnectTimeout(CONNECTION_TIMEOUT)
             .setSocketTimeout(SOCKET_TIMEOUT)
@@ -45,7 +46,7 @@ public class ValidationClient extends HttpClient {
             .setDefaultRequestConfig(config)
             .setDefaultHeaders(headers)
             .setMaxConnPerRoute(10)
-            .addInterceptorLast(new ValidationInterceptor(credentialSid, publicKey))
+            .addInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey))
             .build();
     }
 

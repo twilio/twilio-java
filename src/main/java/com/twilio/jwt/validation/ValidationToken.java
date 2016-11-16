@@ -19,6 +19,7 @@ import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.PrivateKey;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -30,9 +31,12 @@ import java.util.Map;
 public class ValidationToken extends Jwt {
 
     private static final HashFunction HASH_FUNCTION = Hashing.sha256();
+    private static final String CTY = "twilio-pkrv;v=1";
     private static final String NEW_LINE = "\n";
 
+    private final String accountSid;
     private final String credentialSid;
+    private final String signingKeySid;
     private final String method;
     private final String uri;
     private final String queryString;
@@ -42,12 +46,14 @@ public class ValidationToken extends Jwt {
 
     private ValidationToken(Builder b) {
         super(
-            SignatureAlgorithm.HS256,
+            SignatureAlgorithm.RS256,
             b.privateKey,
             b.credentialSid,
             new Date(new Date().getTime() + b.ttl * 1000)
         );
+        this.accountSid = b.accountSid;
         this.credentialSid = b.credentialSid;
+        this.signingKeySid = b.signingKeySid;
         this.method = b.method;
         this.uri = b.uri;
         this.queryString = b.queryString;
@@ -59,7 +65,7 @@ public class ValidationToken extends Jwt {
     @Override
     public Map<String, Object> getHeaders() {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("cty", "twilio-pkrv;v=1");
+        headers.put("cty", CTY);
         headers.put("kid", this.credentialSid);
         return headers;
     }
@@ -67,6 +73,9 @@ public class ValidationToken extends Jwt {
     @Override
     public Map<String, Object> getClaims() {
         Map<String, Object> payload = new HashMap<>();
+
+        payload.put("iss", this.signingKeySid);
+        payload.put("sub", this.accountSid);
 
         // Sort the signed headers
         Collections.sort(signedHeaders);
@@ -122,12 +131,14 @@ public class ValidationToken extends Jwt {
     }
 
     public static ValidationToken fromHttpRequest(
+        String accountSid,
         String credentialSid,
-        String privateKey,
+        String signingKeySid,
+        PrivateKey privateKey,
         HttpRequest request,
         List<String> signedHeaders
     ) throws IOException {
-        Builder builder = new Builder(credentialSid, privateKey);
+        Builder builder = new Builder(accountSid, credentialSid, signingKeySid, privateKey);
 
         String method = request.getRequestLine().getMethod();
         builder.method(method);
@@ -190,18 +201,22 @@ public class ValidationToken extends Jwt {
 
     public static class Builder {
 
+        private String accountSid;
         private String credentialSid;
-        private String privateKey;
+        private String signingKeySid;
+        private PrivateKey privateKey;
         private String method;
         private String uri;
         private String queryString = "";
         private Header[] headers;
         private List<String> signedHeaders = Collections.emptyList();
         private String requestBody = "";
-        private int ttl = 3600;
+        private int ttl = 300;
 
-        public Builder(String credentialSid, String privateKey) {
+        public Builder(String accountSid, String credentialSid, String signingKeySid, PrivateKey privateKey) {
+            this.accountSid = accountSid;
             this.credentialSid = credentialSid;
+            this.signingKeySid = signingKeySid;
             this.privateKey = privateKey;
         }
 

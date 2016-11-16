@@ -27,12 +27,13 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 23007963816035L;
+    private static final long serialVersionUID = 86959676472232L;
 
     public enum Type {
         LANDLINE("landline"),
@@ -121,6 +122,7 @@ public class PhoneNumber extends Resource {
     private final String nationalFormat;
     private final Map<String, String> carrier;
     private final Map<String, Object> addOns;
+    private final URI url;
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("caller_name")
@@ -134,13 +136,16 @@ public class PhoneNumber extends Resource {
                         @JsonProperty("carrier")
                         final Map<String, String> carrier, 
                         @JsonProperty("add_ons")
-                        final Map<String, Object> addOns) {
+                        final Map<String, Object> addOns, 
+                        @JsonProperty("url")
+                        final URI url) {
         this.callerName = callerName;
         this.countryCode = countryCode;
         this.phoneNumber = phoneNumber;
         this.nationalFormat = nationalFormat;
         this.carrier = carrier;
         this.addOns = addOns;
+        this.url = url;
     }
 
     /**
@@ -206,6 +211,15 @@ public class PhoneNumber extends Resource {
         return this.addOns;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -223,7 +237,8 @@ public class PhoneNumber extends Resource {
                Objects.equals(phoneNumber, other.phoneNumber) && 
                Objects.equals(nationalFormat, other.nationalFormat) && 
                Objects.equals(carrier, other.carrier) && 
-               Objects.equals(addOns, other.addOns);
+               Objects.equals(addOns, other.addOns) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -233,7 +248,8 @@ public class PhoneNumber extends Resource {
                             phoneNumber,
                             nationalFormat,
                             carrier,
-                            addOns);
+                            addOns,
+                            url);
     }
 
     @Override
@@ -245,6 +261,7 @@ public class PhoneNumber extends Resource {
                           .add("nationalFormat", nationalFormat)
                           .add("carrier", carrier)
                           .add("addOns", addOns)
+                          .add("url", url)
                           .toString();
     }
 }

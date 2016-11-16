@@ -55,4 +55,16 @@ public class ValidationRequestTest {
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
+
+    @Test
+    public void testCreateResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"phone_number\": \"+18001234567\",\"validation_code\": 100}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        ValidationRequest.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
+    }
 }

@@ -28,12 +28,13 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Worker extends Resource {
-    private static final long serialVersionUID = 267403389002552L;
+    private static final long serialVersionUID = 71992031157502L;
 
     /**
      * Create a WorkerReader to execute read.
@@ -141,6 +142,8 @@ public class Worker extends Resource {
     private final String friendlyName;
     private final String sid;
     private final String workspaceSid;
+    private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Worker(@JsonProperty("account_sid")
@@ -164,7 +167,11 @@ public class Worker extends Resource {
                    @JsonProperty("sid")
                    final String sid, 
                    @JsonProperty("workspace_sid")
-                   final String workspaceSid) {
+                   final String workspaceSid, 
+                   @JsonProperty("url")
+                   final URI url, 
+                   @JsonProperty("links")
+                   final Map<String, String> links) {
         this.accountSid = accountSid;
         this.activityName = activityName;
         this.activitySid = activitySid;
@@ -176,6 +183,8 @@ public class Worker extends Resource {
         this.friendlyName = friendlyName;
         this.sid = sid;
         this.workspaceSid = workspaceSid;
+        this.url = url;
+        this.links = links;
     }
 
     /**
@@ -277,6 +286,24 @@ public class Worker extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -299,7 +326,9 @@ public class Worker extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(sid, other.sid) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -314,7 +343,9 @@ public class Worker extends Resource {
                             dateUpdated,
                             friendlyName,
                             sid,
-                            workspaceSid);
+                            workspaceSid,
+                            url,
+                            links);
     }
 
     @Override
@@ -331,6 +362,8 @@ public class Worker extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("sid", sid)
                           .add("workspaceSid", workspaceSid)
+                          .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

@@ -183,7 +183,7 @@ public class TaskTest {
                                                       Domains.TASKROUTER.toString(),
                                                       "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks");
                         request.addPostParam("Attributes", serialize("attributes"));
-        request.addPostParam("WorkflowSid", serialize("WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+        request.addPostParam("WorkflowSid", serialize("WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -192,7 +192,7 @@ public class TaskTest {
                     }};
         
         try {
-            Task.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "attributes", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+            Task.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "attributes", "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,6 +206,6 @@ public class TaskTest {
             result = new ObjectMapper();
         }};
         
-        Task.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "attributes", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+        Task.creator("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "attributes", "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
     }
 }

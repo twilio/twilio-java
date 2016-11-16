@@ -55,4 +55,16 @@ public class FeedbackTest {
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
+
+    @Test
+    public void testCreateResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"Thu, 30 Jul 2015 20:00:00 +0000\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\",\"message_sid\": \"MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outcome\": \"confirmed\",\"uri\": \"uri\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        Feedback.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+    }
 }

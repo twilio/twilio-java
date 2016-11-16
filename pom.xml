@@ -7,7 +7,7 @@
   <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>7.1.1-SNAPSHOT</version>
+  <version>7.1.0-alpha-2-SNAPSHOT</version>
   <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>
@@ -176,7 +176,7 @@
           <use>true</use>
           <windowtitle>Twilio Java</windowtitle>
           <doctitle><![CDATA[<h1>Twilio Java</h1>]]></doctitle>
-          <bottom><![CDATA[<i>Copyright &#169; 2011 Twilio, Inc. All Rights Reserved.</i>]]></bottom>
+          <bottom><![CDATA[<i>Copyright &#169; 2016 Twilio, Inc. All Rights Reserved.</i>]]></bottom>
         </configuration>
       </plugin>
 

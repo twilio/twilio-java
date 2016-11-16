@@ -1,7 +1,33 @@
 twilio-java changelog
 =====================
 
-[2016-10-05] Version 7.1.0
+[2016-11-16] Version 7.2.0-alpha-1
+--------------------------
+- Add PublicKey Credentials.
+- Add create/update to RatePlans.
+- Use separate enum for Updating  Call `status`. This enum only exposes the statuses that a Call can be updated to.
+- Move the `body` parameter to be required in updating Messages.
+- Move the `friendlyName` parameter to be r  equired in creating Queues.
+- Update to latest Notify.
+- Add Particpant creation to Conferences.
+- Add filtering by `CallSid` to Recordings.
+- Add missing fields to Call Recordings.
+- Add missing fields to Conferences.
+- Add missing fields to IncomingPhoneNumbers.
+- Add missing fields to Messages.
+
+- * Twilio Chat *
+    - Add Invites
+    - Add `reachabilityEnabled`, `preWebhookUrl`, `postWebhookUrl`, `webhookMethod`, `webhookFilters`, `notifications` to Services.
+    - Add `attributes`, `friendlyName`, `isOnline`, `isNotifiable` to Users.
+    - Add `lastConsumedMessageIndex`, `lastConsumptionTimestamp` to Members.
+    - Add `attributes`, `index` to Messages.
+    - Add ability to update Members.
+    - Add filtering by `identity` on Members.
+    - Add webhook related parameters to Service updates.
+    - Remove updating of `type` on Channels. 
+
+[2016-10-05] Version 7.1.0-alpha-1
 --------------------------
 - Update Usage Records to use `LocalDate` instead of `DateTime`
 - Update TwiML Generator to reflect latest docs:

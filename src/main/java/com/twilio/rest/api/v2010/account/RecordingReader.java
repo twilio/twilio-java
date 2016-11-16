@@ -26,6 +26,7 @@ public class RecordingReader extends Reader<Recording> {
     private String accountSid;
     private DateTime absoluteDateCreated;
     private Range<DateTime> rangeDateCreated;
+    private String callSid;
 
     /**
      * Construct a new RecordingReader.
@@ -65,6 +66,17 @@ public class RecordingReader extends Reader<Recording> {
     public RecordingReader setDateCreated(final Range<DateTime> rangeDateCreated) {
         this.absoluteDateCreated = null;
         this.rangeDateCreated = rangeDateCreated;
+        return this;
+    }
+
+    /**
+     * Only show recordings made during the call given by the indicated sid.
+     * 
+     * @param callSid Filter by call_sid
+     * @return this
+     */
+    public RecordingReader setCallSid(final String callSid) {
+        this.callSid = callSid;
         return this;
     }
 
@@ -165,6 +177,10 @@ public class RecordingReader extends Reader<Recording> {
             request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
         } else if (rangeDateCreated != null) {
             request.addQueryDateTimeRange("DateCreated", rangeDateCreated);
+        }
+        
+        if (callSid != null) {
+            request.addQueryParam("CallSid", callSid);
         }
         
         if (getPageSize() != null) {

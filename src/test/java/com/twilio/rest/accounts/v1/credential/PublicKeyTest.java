@@ -57,12 +57,36 @@ public class PublicKeyTest {
     }
 
     @Test
+    public void testReadEmptyResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"credentials\": [],\"meta\": {\"first_page_url\": \"https://accounts.twilio.com/v1/Credentials/PublicKeys?Page=0&PageSize=50\",\"key\": \"credentials\",\"next_page_url\": null,\"page\": 0,\"page_size\": 0,\"previous_page_url\": null,\"url\": \"https://accounts.twilio.com/v1/Credentials/PublicKeys\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        assertNotNull(PublicKey.reader().read());
+    }
+
+    @Test
+    public void testReadFullResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"credentials\": [{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"friendly_name\": \"friendly_name\",\"sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"http://www.example.com\"}],\"meta\": {\"first_page_url\": \"https://accounts.twilio.com/v1/Credentials/PublicKeys?Page=0&PageSize=50\",\"key\": \"credentials\",\"next_page_url\": null,\"page\": 0,\"page_size\": 1,\"previous_page_url\": null,\"url\": \"https://accounts.twilio.com/v1/Credentials/PublicKeys\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        assertNotNull(PublicKey.reader().read());
+    }
+
+    @Test
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/PublicKeys");
-            request.addPostParam("PublicKey", serialize("publicKey"));
+            request.addPostParam("PublicKey", serialize("publickey"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -71,9 +95,21 @@ public class PublicKeyTest {
         }};
         
         try {
-            PublicKey.creator("publicKey").create();
+            PublicKey.creator("publickey").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testCreateResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"friendly_name\": \"friendly_name\",\"sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"http://www.example.com\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        PublicKey.creator("publickey").create();
     }
 
     @Test
@@ -97,6 +133,18 @@ public class PublicKeyTest {
     }
 
     @Test
+    public void testFetchResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"friendly_name\": \"friendly_name\",\"sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"http://www.example.com\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        assertNotNull(PublicKey.fetcher("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+    }
+
+    @Test
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
@@ -117,6 +165,18 @@ public class PublicKeyTest {
     }
 
     @Test
+    public void testUpdateResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"friendly_name\": \"friendly_name\",\"sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"http://www.example.com\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        PublicKey.updater("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+    }
+
+    @Test
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
@@ -134,5 +194,17 @@ public class PublicKeyTest {
             PublicKey.deleter("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testDeleteResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("null", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+        
+        PublicKey.deleter("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
     }
 }

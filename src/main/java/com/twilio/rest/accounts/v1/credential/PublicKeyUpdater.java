@@ -20,7 +20,6 @@ import com.twilio.rest.Domains;
 public class PublicKeyUpdater extends Updater<PublicKey> {
     private final String sid;
     private String friendlyName;
-    private String publicKey;
 
     /**
      * Construct a new PublicKeyUpdater.
@@ -39,17 +38,6 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
      */
     public PublicKeyUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
-        return this;
-    }
-
-    /**
-     * The public_key.
-     * 
-     * @param publicKey The public_key
-     * @return this
-     */
-    public PublicKeyUpdater setPublicKey(final String publicKey) {
-        this.publicKey = publicKey;
         return this;
     }
 
@@ -100,10 +88,6 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-        }
-        
-        if (publicKey != null) {
-            request.addPostParam("PublicKey", publicKey);
         }
     }
 }

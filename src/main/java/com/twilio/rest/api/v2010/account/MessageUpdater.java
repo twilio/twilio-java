@@ -20,15 +20,18 @@ import com.twilio.rest.Domains;
 public class MessageUpdater extends Updater<Message> {
     private String accountSid;
     private final String sid;
-    private String body;
+    private final String body;
 
     /**
      * Construct a new MessageUpdater.
      * 
      * @param sid The message to redact
+     * @param body The body
      */
-    public MessageUpdater(final String sid) {
+    public MessageUpdater(final String sid, 
+                          final String body) {
         this.sid = sid;
+        this.body = body;
     }
 
     /**
@@ -36,22 +39,14 @@ public class MessageUpdater extends Updater<Message> {
      * 
      * @param accountSid The account_sid
      * @param sid The message to redact
+     * @param body The body
      */
     public MessageUpdater(final String accountSid, 
-                          final String sid) {
+                          final String sid, 
+                          final String body) {
         this.accountSid = accountSid;
         this.sid = sid;
-    }
-
-    /**
-     * The body.
-     * 
-     * @param body The body
-     * @return this
-     */
-    public MessageUpdater setBody(final String body) {
         this.body = body;
-        return this;
     }
 
     /**

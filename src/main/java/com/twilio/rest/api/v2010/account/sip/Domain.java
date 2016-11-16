@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Domain extends Resource {
-    private static final long serialVersionUID = 139851556323628L;
+    private static final long serialVersionUID = 72982381631904L;
 
     /**
      * Create a DomainReader to execute read.
@@ -195,6 +195,7 @@ public class Domain extends Resource {
     private final HttpMethod voiceStatusCallbackMethod;
     private final URI voiceStatusCallbackUrl;
     private final URI voiceUrl;
+    private final Map<String, String> subresourceUris;
 
     @JsonCreator
     private Domain(@JsonProperty("account_sid")
@@ -226,7 +227,9 @@ public class Domain extends Resource {
                    @JsonProperty("voice_status_callback_url")
                    final URI voiceStatusCallbackUrl, 
                    @JsonProperty("voice_url")
-                   final URI voiceUrl) {
+                   final URI voiceUrl, 
+                   @JsonProperty("subresource_uris")
+                   final Map<String, String> subresourceUris) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.authType = authType;
@@ -242,6 +245,7 @@ public class Domain extends Resource {
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;
         this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         this.voiceUrl = voiceUrl;
+        this.subresourceUris = subresourceUris;
     }
 
     /**
@@ -379,6 +383,15 @@ public class Domain extends Resource {
         return this.voiceUrl;
     }
 
+    /**
+     * Returns The The subresource_uris.
+     * 
+     * @return The subresource_uris
+     */
+    public final Map<String, String> getSubresourceUris() {
+        return this.subresourceUris;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -405,7 +418,8 @@ public class Domain extends Resource {
                Objects.equals(voiceMethod, other.voiceMethod) && 
                Objects.equals(voiceStatusCallbackMethod, other.voiceStatusCallbackMethod) && 
                Objects.equals(voiceStatusCallbackUrl, other.voiceStatusCallbackUrl) && 
-               Objects.equals(voiceUrl, other.voiceUrl);
+               Objects.equals(voiceUrl, other.voiceUrl) && 
+               Objects.equals(subresourceUris, other.subresourceUris);
     }
 
     @Override
@@ -424,7 +438,8 @@ public class Domain extends Resource {
                             voiceMethod,
                             voiceStatusCallbackMethod,
                             voiceStatusCallbackUrl,
-                            voiceUrl);
+                            voiceUrl,
+                            subresourceUris);
     }
 
     @Override
@@ -445,6 +460,7 @@ public class Domain extends Resource {
                           .add("voiceStatusCallbackMethod", voiceStatusCallbackMethod)
                           .add("voiceStatusCallbackUrl", voiceStatusCallbackUrl)
                           .add("voiceUrl", voiceUrl)
+                          .add("subresourceUris", subresourceUris)
                           .toString();
     }
 }

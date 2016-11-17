@@ -1,7 +1,6 @@
 package com.twilio.example;
 
 
-import com.twilio.Twilio;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.http.ValidationClient;
 import com.twilio.rest.accounts.v1.credential.PublicKey;
@@ -37,32 +36,31 @@ public class ValidationExample {
         TwilioRestClient client =
             new TwilioRestClient.Builder(ACCOUNT_SID, AUTH_TOKEN)
                 .build();
-        Twilio.setRestClient(client);
 
         // Create a public key and signing key using the default client
         PublicKey key = PublicKey.creator(
             Base64.encodeBase64String(pk.getEncoded())
-        ).setFriendlyName("Public Key").create();
-        NewSigningKey signingKey = NewSigningKey.creator().create();
+        ).setFriendlyName("Public Key").create(client);
+
+        NewSigningKey signingKey = NewSigningKey.creator().create(client);
 
         // Switch to validation client as the default client
-        client = new TwilioRestClient.Builder(signingKey.getSid(), signingKey.getSecret())
+        TwilioRestClient validationClient = new TwilioRestClient.Builder(signingKey.getSid(), signingKey.getSecret())
             .accountSid(ACCOUNT_SID)
             .httpClient(new ValidationClient(ACCOUNT_SID, key.getSid(), signingKey.getSid(), pair.getPrivate()))
             .build();
-        Twilio.setRestClient(client);
 
         // Make REST API requests
-        Iterable<Message> messages = Message.reader().read();
+        Iterable<Message> messages = Message.reader().read(validationClient);
         for (Message m : messages) {
             System.out.println(m.getBody());
         }
 
         Message m = Message.creator(
-            new PhoneNumber("+11234567890"),
-            new PhoneNumber("+10987654321"),
+            new PhoneNumber("+1XXXXXXXXXX"),
+            new PhoneNumber("+1XXXXXXXXXX"),
             "Asymmetric Auth Test"
-        ).create();
+        ).create(validationClient);
         System.out.println(m.getSid());
 
     }

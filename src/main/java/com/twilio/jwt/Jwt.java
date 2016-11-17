@@ -4,7 +4,8 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import java.nio.charset.StandardCharsets;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.Map;
 public abstract class Jwt {
 
     private final SignatureAlgorithm algorithm;
-    private final String secret;
+    private final Key secretKey;
     private final String issuer;
     private final Date expiration;
 
@@ -33,8 +34,30 @@ public abstract class Jwt {
         String issuer,
         Date expiration
     ) {
+        this(
+            algorithm,
+            new SecretKeySpec(secret.getBytes(), algorithm.getJcaName()),
+            issuer,
+            expiration
+        );
+    }
+
+    /**
+     * Create a new JWT.
+     *
+     * @param algorithm algorithm to use
+     * @param secretKey secret key
+     * @param issuer JWT issuer
+     * @param expiration expiration Date
+     */
+    public Jwt(
+        SignatureAlgorithm algorithm,
+        Key secretKey,
+        String issuer,
+        Date expiration
+    ) {
         this.algorithm = algorithm;
-        this.secret = secret;
+        this.secretKey = secretKey;
         this.issuer = issuer;
         this.expiration = expiration;
     }
@@ -51,7 +74,7 @@ public abstract class Jwt {
 
         JwtBuilder builder =
             Jwts.builder()
-                .signWith(this.algorithm, this.secret.getBytes(StandardCharsets.UTF_8))
+                .signWith(this.algorithm, this.secretKey)
                 .setHeaderParams(headers)
                 .setIssuer(this.issuer)
                 .setExpiration(expiration);

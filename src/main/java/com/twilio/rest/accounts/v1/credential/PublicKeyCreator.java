@@ -99,7 +99,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
      */
     private void addPostParams(final Request request) {
         if (publicKey != null) {
-            request.addPostParam("PublicKey", publicKey);
+            request.addPostParam("PublicKey", publicKey.toString());
         }
         
         if (friendlyName != null) {

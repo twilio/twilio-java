@@ -86,7 +86,7 @@ public class PublicKeyTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/PublicKeys");
-            request.addPostParam("PublicKey", serialize("publicKey"));
+            request.addPostParam("PublicKey", serialize("publickey"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -95,7 +95,7 @@ public class PublicKeyTest {
         }};
         
         try {
-            PublicKey.creator("publicKey").create();
+            PublicKey.creator("publickey").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
         
-        PublicKey.creator("publicKey").create();
+        PublicKey.creator("publickey").create();
     }
 
     @Test

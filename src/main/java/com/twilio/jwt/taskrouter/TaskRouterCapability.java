@@ -49,7 +49,7 @@ public class TaskRouterCapability extends Jwt {
         payload.put("account_sid", this.accountSid);
         payload.put("friendly_name", this.friendlyName);
         payload.put("workspace_sid", this.workspaceSid);
-        payload.put("channel_id", this.channelId);
+        payload.put("channel", this.channelId);
 
         if (channelId.startsWith("WK")) {
             payload.put("worker_sid", this.channelId);

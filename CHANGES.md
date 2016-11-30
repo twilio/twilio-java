@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2016-11-30] Version 7.3.0
+--------------------------
+- Add `recordingStatusCallback` and `recordingStatusCallbackMethod` to Conference TwiML
+- Fix TaskRouter Capabaility generation
+- Address potential NPE in `ApiException`
+
 [2016-11-16] Version 7.2.0
 --------------------------
 - Use separate enum for Updating Call `status`. This enum only exposes the statuses that a Call can be updated to.

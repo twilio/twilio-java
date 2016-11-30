@@ -27,11 +27,9 @@ public class Policy {
     private final HttpMethod method;
 
     @JsonProperty("query_filter")
-    @JsonSerialize(using = FilterRequirementSerializer.class)
     private final Map<String, FilterRequirement> queryFilter;
 
     @JsonProperty("post_filter")
-    @JsonSerialize(using = FilterRequirementSerializer.class)
     private final Map<String, FilterRequirement> postFilter;
 
     @JsonProperty("allow")
@@ -147,21 +145,6 @@ public class Policy {
 
         public Policy build() {
             return new Policy(this);
-        }
-    }
-
-    private static class FilterRequirementSerializer extends JsonSerializer<Map<String, FilterRequirement>> {
-        @Override
-        public void serialize(
-            Map<String, FilterRequirement> stringFilterRequirementMap, 
-            JsonGenerator jsonGenerator, 
-            SerializerProvider serializerProvider
-        ) throws IOException, JsonProcessingException {
-            for (Map.Entry<String, FilterRequirement> entry : stringFilterRequirementMap.entrySet()) {
-                jsonGenerator.writeObjectFieldStart(entry.getKey());
-                jsonGenerator.writeBooleanField("required", entry.getValue().value());
-                jsonGenerator.writeEndObject();
-            }
         }
     }
 }

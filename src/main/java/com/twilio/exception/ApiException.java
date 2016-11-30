@@ -44,7 +44,7 @@ public class ApiException extends TwilioException {
         this.status = status;
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
@@ -52,7 +52,7 @@ public class ApiException extends TwilioException {
         return moreInfo;
     }
 
-    public int getStatusCode() {
+    public Integer getStatusCode() {
         return status;
     }
 }

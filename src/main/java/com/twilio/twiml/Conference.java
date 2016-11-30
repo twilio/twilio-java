@@ -119,6 +119,12 @@ public class Conference extends TwiML {
     @XmlAttribute
     private final String statusCallback;
 
+    @XmlAttribute
+    private final String recordingStatusCallback;
+
+    @XmlAttribute
+    private final Method recordingStatusCallbackMethod;
+
     @XmlValue
     private final String name;
 
@@ -144,6 +150,8 @@ public class Conference extends TwiML {
         this.statusCallbackEvents = b.statusCallbackEvents;
         this.statusCallbackMethod = b.statusCallbackMethod;
         this.statusCallback = b.statusCallback;
+        this.recordingStatusCallback = b.recordingStatusCallback;
+        this.recordingStatusCallbackMethod = b.recordingStatusCallbackMethod;
 
         if (this.statusCallbackEvents != null) {
             this.statusCallbackEvent = Joiner.on(" ").join(Lists.transform(this.statusCallbackEvents, ConferenceEvent.TO_STRING));
@@ -204,6 +212,14 @@ public class Conference extends TwiML {
         return statusCallbackEvents;
     }
 
+    public String getRecordingStatusCallback() {
+        return recordingStatusCallback;
+    }
+
+    public Method getRecordingStatusCallbackMethod() {
+        return recordingStatusCallbackMethod;
+    }
+
     public String getName() {
         return name;
     }
@@ -222,6 +238,8 @@ public class Conference extends TwiML {
         private List<ConferenceEvent> statusCallbackEvents;
         private Method statusCallbackMethod;
         private String statusCallback;
+        private String recordingStatusCallback;
+        private Method recordingStatusCallbackMethod;
         private String name;
 
         public Builder(String name) {
@@ -290,6 +308,16 @@ public class Conference extends TwiML {
 
         public Builder eventCallbackUrl(String eventCallbackUrl) {
             this.eventCallbackUrl = eventCallbackUrl;
+            return this;
+        }
+
+        public Builder recordingStatusCallback(String recordingStatusCallback) {
+            this.recordingStatusCallback = recordingStatusCallback;
+            return this;
+        }
+
+        public Builder recordingStatusCallbackMethod(Method recordingStatusCallbackMethod) {
+            this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
             return this;
         }
 

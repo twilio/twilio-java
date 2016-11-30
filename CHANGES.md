@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2016-11-30] Version 7.3.0-alpha-1
+--------------------------
+- Add `recordingStatusCallback` and `recordingStatusCallbackMethod` to Conference TwiML
+- Fix TaskRouter Capabaility generation
+- Address potential NPE in `ApiException`
+
 [2016-11-16] Version 7.2.0-alpha-1
 --------------------------
 - Add PublicKey Credentials.

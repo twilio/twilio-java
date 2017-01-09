@@ -1,5 +1,6 @@
 package com.twilio.converter;
 
+import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -16,7 +17,7 @@ public class DateConverter {
         DateTimeFormat.forPattern(DATE_PATTERN).withZone(DateTimeZone.UTC);
 
     private static final DateTimeFormatter RFC2822_DATE_TIME_FORMATTER =
-        DateTimeFormat.forPattern(RFC2822_DATE_TIME).withZone(DateTimeZone.UTC);
+        DateTimeFormat.forPattern(RFC2822_DATE_TIME).withZone(DateTimeZone.UTC).withLocale(new Locale("en_US"));
 
     private static final DateTimeFormatter ISO8601_DATE_TIME_FORMATTER =
         DateTimeFormat.forPattern(ISO8601_DATE_TIME).withZone(DateTimeZone.UTC);

@@ -25,6 +25,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     private String reservationActivitySid;
     private String assignmentActivitySid;
     private Integer maxReservedWorkers;
+    private TaskQueue.TaskOrder taskOrder;
 
     /**
      * Construct a new TaskQueueUpdater.
@@ -94,6 +95,17 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
+     * The task_order.
+     * 
+     * @param taskOrder The task_order
+     * @return this
+     */
+    public TaskQueueUpdater setTaskOrder(final TaskQueue.TaskOrder taskOrder) {
+        this.taskOrder = taskOrder;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -156,6 +168,10 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
         
         if (maxReservedWorkers != null) {
             request.addPostParam("MaxReservedWorkers", maxReservedWorkers.toString());
+        }
+        
+        if (taskOrder != null) {
+            request.addPostParam("TaskOrder", taskOrder.toString());
         }
     }
 }

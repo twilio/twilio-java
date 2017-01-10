@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends Resource {
-    private static final long serialVersionUID = 202906107580763L;
+    private static final long serialVersionUID = 15696146917822L;
 
     /**
      * Create a UserFetcher to execute fetch.
@@ -142,6 +142,7 @@ public class User extends Resource {
     private final Boolean isNotifiable;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final Map<String, String> links;
     private final URI url;
 
     @JsonCreator
@@ -167,6 +168,8 @@ public class User extends Resource {
                  final String dateCreated, 
                  @JsonProperty("date_updated")
                  final String dateUpdated, 
+                 @JsonProperty("links")
+                 final Map<String, String> links, 
                  @JsonProperty("url")
                  final URI url) {
         this.sid = sid;
@@ -180,6 +183,7 @@ public class User extends Resource {
         this.isNotifiable = isNotifiable;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.links = links;
         this.url = url;
     }
 
@@ -283,6 +287,15 @@ public class User extends Resource {
     }
 
     /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -314,6 +327,7 @@ public class User extends Resource {
                Objects.equals(isNotifiable, other.isNotifiable) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
+               Objects.equals(links, other.links) && 
                Objects.equals(url, other.url);
     }
 
@@ -330,6 +344,7 @@ public class User extends Resource {
                             isNotifiable,
                             dateCreated,
                             dateUpdated,
+                            links,
                             url);
     }
 
@@ -347,6 +362,7 @@ public class User extends Resource {
                           .add("isNotifiable", isNotifiable)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("links", links)
                           .add("url", url)
                           .toString();
     }

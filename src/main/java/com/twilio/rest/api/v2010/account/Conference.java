@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conference extends Resource {
-    private static final long serialVersionUID = 26859400656542L;
+    private static final long serialVersionUID = 150944769427087L;
 
     public enum Status {
         INIT("init"),
@@ -60,6 +60,37 @@ public class Conference extends Resource {
             String normalized = value.replace("-", "_").toUpperCase();
             try {
                 return Status.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
+        }
+    }
+
+    public enum UpdateStatus {
+        COMPLETED("completed");
+    
+        private final String value;
+        
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+        
+        public String toString() {
+            return value;
+        }
+        
+        /**
+         * Generate a UpdateStatus from a string.
+         * @param value string value
+         * @return generated UpdateStatus
+         */
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            String normalized = value.replace("-", "_").toUpperCase();
+            try {
+                return UpdateStatus.valueOf(normalized);
             } catch (RuntimeException e) {
         
                 // Don't blow up of value does not exist
@@ -110,6 +141,28 @@ public class Conference extends Resource {
     }
 
     /**
+     * Create a ConferenceUpdater to execute update.
+     * 
+     * @param accountSid The account_sid
+     * @param sid The sid
+     * @return ConferenceUpdater capable of executing the update
+     */
+    public static ConferenceUpdater updater(final String accountSid, 
+                                            final String sid) {
+        return new ConferenceUpdater(accountSid, sid);
+    }
+
+    /**
+     * Create a ConferenceUpdater to execute update.
+     * 
+     * @param sid The sid
+     * @return ConferenceUpdater capable of executing the update
+     */
+    public static ConferenceUpdater updater(final String sid) {
+        return new ConferenceUpdater(sid);
+    }
+
+    /**
      * Converts a JSON String into a Conference object using the provided
      * ObjectMapper.
      * 
@@ -152,6 +205,7 @@ public class Conference extends Resource {
     private final DateTime dateUpdated;
     private final String apiVersion;
     private final String friendlyName;
+    private final String region;
     private final String sid;
     private final Conference.Status status;
     private final String uri;
@@ -168,6 +222,8 @@ public class Conference extends Resource {
                        final String apiVersion, 
                        @JsonProperty("friendly_name")
                        final String friendlyName, 
+                       @JsonProperty("region")
+                       final String region, 
                        @JsonProperty("sid")
                        final String sid, 
                        @JsonProperty("status")
@@ -181,6 +237,7 @@ public class Conference extends Resource {
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.apiVersion = apiVersion;
         this.friendlyName = friendlyName;
+        this.region = region;
         this.sid = sid;
         this.status = status;
         this.uri = uri;
@@ -230,6 +287,15 @@ public class Conference extends Resource {
      */
     public final String getFriendlyName() {
         return this.friendlyName;
+    }
+
+    /**
+     * Returns The The region.
+     * 
+     * @return The region
+     */
+    public final String getRegion() {
+        return this.region;
     }
 
     /**
@@ -285,6 +351,7 @@ public class Conference extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(apiVersion, other.apiVersion) && 
                Objects.equals(friendlyName, other.friendlyName) && 
+               Objects.equals(region, other.region) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(status, other.status) && 
                Objects.equals(uri, other.uri) && 
@@ -298,6 +365,7 @@ public class Conference extends Resource {
                             dateUpdated,
                             apiVersion,
                             friendlyName,
+                            region,
                             sid,
                             status,
                             uri,
@@ -312,6 +380,7 @@ public class Conference extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("apiVersion", apiVersion)
                           .add("friendlyName", friendlyName)
+                          .add("region", region)
                           .add("sid", sid)
                           .add("status", status)
                           .add("uri", uri)

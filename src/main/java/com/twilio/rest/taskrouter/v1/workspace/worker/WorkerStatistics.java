@@ -27,12 +27,13 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkerStatistics extends Resource {
-    private static final long serialVersionUID = 174071152398170L;
+    private static final long serialVersionUID = 174560494604680L;
 
     /**
      * Create a WorkerStatisticsFetcher to execute fetch.
@@ -88,6 +89,7 @@ public class WorkerStatistics extends Resource {
     private final Map<String, Object> cumulative;
     private final String workerSid;
     private final String workspaceSid;
+    private final URI url;
 
     @JsonCreator
     private WorkerStatistics(@JsonProperty("account_sid")
@@ -97,11 +99,14 @@ public class WorkerStatistics extends Resource {
                              @JsonProperty("worker_sid")
                              final String workerSid, 
                              @JsonProperty("workspace_sid")
-                             final String workspaceSid) {
+                             final String workspaceSid, 
+                             @JsonProperty("url")
+                             final URI url) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.workerSid = workerSid;
         this.workspaceSid = workspaceSid;
+        this.url = url;
     }
 
     /**
@@ -140,6 +145,15 @@ public class WorkerStatistics extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -155,7 +169,8 @@ public class WorkerStatistics extends Resource {
         return Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(cumulative, other.cumulative) && 
                Objects.equals(workerSid, other.workerSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -163,7 +178,8 @@ public class WorkerStatistics extends Resource {
         return Objects.hash(accountSid,
                             cumulative,
                             workerSid,
-                            workspaceSid);
+                            workspaceSid,
+                            url);
     }
 
     @Override
@@ -173,6 +189,7 @@ public class WorkerStatistics extends Resource {
                           .add("cumulative", cumulative)
                           .add("workerSid", workerSid)
                           .add("workspaceSid", workspaceSid)
+                          .add("url", url)
                           .toString();
     }
 }

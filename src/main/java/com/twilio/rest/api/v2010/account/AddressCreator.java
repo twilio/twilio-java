@@ -26,6 +26,7 @@ public class AddressCreator extends Creator<Address> {
     private final String postalCode;
     private final String isoCountry;
     private String friendlyName;
+    private Boolean emergencyEnabled;
 
     /**
      * Construct a new AddressCreator.
@@ -86,6 +87,17 @@ public class AddressCreator extends Creator<Address> {
      */
     public AddressCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The emergency_enabled.
+     * 
+     * @param emergencyEnabled The emergency_enabled
+     * @return this
+     */
+    public AddressCreator setEmergencyEnabled(final Boolean emergencyEnabled) {
+        this.emergencyEnabled = emergencyEnabled;
         return this;
     }
 
@@ -161,6 +173,10 @@ public class AddressCreator extends Creator<Address> {
         
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+        
+        if (emergencyEnabled != null) {
+            request.addPostParam("EmergencyEnabled", emergencyEnabled.toString());
         }
     }
 }

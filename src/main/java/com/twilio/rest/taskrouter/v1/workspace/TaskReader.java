@@ -28,6 +28,9 @@ public class TaskReader extends Reader<Task> {
     private String taskQueueSid;
     private String taskQueueName;
     private String taskChannel;
+    private String evaluateTaskAttributes;
+    private String ordering;
+    private Boolean hasAddons;
 
     /**
      * Construct a new TaskReader.
@@ -112,6 +115,39 @@ public class TaskReader extends Reader<Task> {
      */
     public TaskReader setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
+        return this;
+    }
+
+    /**
+     * The evaluate_task_attributes.
+     * 
+     * @param evaluateTaskAttributes The evaluate_task_attributes
+     * @return this
+     */
+    public TaskReader setEvaluateTaskAttributes(final String evaluateTaskAttributes) {
+        this.evaluateTaskAttributes = evaluateTaskAttributes;
+        return this;
+    }
+
+    /**
+     * The ordering.
+     * 
+     * @param ordering The ordering
+     * @return this
+     */
+    public TaskReader setOrdering(final String ordering) {
+        this.ordering = ordering;
+        return this;
+    }
+
+    /**
+     * The has_addons.
+     * 
+     * @param hasAddons The has_addons
+     * @return this
+     */
+    public TaskReader setHasAddons(final Boolean hasAddons) {
+        this.hasAddons = hasAddons;
         return this;
     }
 
@@ -233,6 +269,18 @@ public class TaskReader extends Reader<Task> {
         
         if (taskChannel != null) {
             request.addQueryParam("TaskChannel", taskChannel);
+        }
+        
+        if (evaluateTaskAttributes != null) {
+            request.addQueryParam("EvaluateTaskAttributes", evaluateTaskAttributes);
+        }
+        
+        if (ordering != null) {
+            request.addQueryParam("Ordering", ordering);
+        }
+        
+        if (hasAddons != null) {
+            request.addQueryParam("HasAddons", hasAddons.toString());
         }
         
         if (getPageSize() != null) {

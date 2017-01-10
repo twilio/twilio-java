@@ -24,6 +24,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     private final String assignmentActivitySid;
     private String targetWorkers;
     private Integer maxReservedWorkers;
+    private TaskQueue.TaskOrder taskOrder;
 
     /**
      * Construct a new TaskQueueCreator.
@@ -62,6 +63,17 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      */
     public TaskQueueCreator setMaxReservedWorkers(final Integer maxReservedWorkers) {
         this.maxReservedWorkers = maxReservedWorkers;
+        return this;
+    }
+
+    /**
+     * The task_order.
+     * 
+     * @param taskOrder The task_order
+     * @return this
+     */
+    public TaskQueueCreator setTaskOrder(final TaskQueue.TaskOrder taskOrder) {
+        this.taskOrder = taskOrder;
         return this;
     }
 
@@ -128,6 +140,10 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
         
         if (maxReservedWorkers != null) {
             request.addPostParam("MaxReservedWorkers", maxReservedWorkers.toString());
+        }
+        
+        if (taskOrder != null) {
+            request.addPostParam("TaskOrder", taskOrder.toString());
         }
     }
 }

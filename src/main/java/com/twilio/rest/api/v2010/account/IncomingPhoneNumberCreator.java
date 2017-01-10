@@ -40,6 +40,8 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private URI voiceFallbackUrl;
     private HttpMethod voiceMethod;
     private URI voiceUrl;
+    private IncomingPhoneNumber.EmergencyStatus emergencyStatus;
+    private String emergencyAddressSid;
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
@@ -344,6 +346,28 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
+     * The emergency_status.
+     * 
+     * @param emergencyStatus The emergency_status
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus) {
+        this.emergencyStatus = emergencyStatus;
+        return this;
+    }
+
+    /**
+     * The emergency_address_sid.
+     * 
+     * @param emergencyAddressSid The emergency_address_sid
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setEmergencyAddressSid(final String emergencyAddressSid) {
+        this.emergencyAddressSid = emergencyAddressSid;
+        return this;
+    }
+
+    /**
      * The phone number to purchase. e.g., +16175551212 (E.164 format).
      * 
      * @param phoneNumber The phone number
@@ -482,6 +506,14 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         
         if (voiceUrl != null) {
             request.addPostParam("VoiceUrl", voiceUrl.toString());
+        }
+        
+        if (emergencyStatus != null) {
+            request.addPostParam("EmergencyStatus", emergencyStatus.toString());
+        }
+        
+        if (emergencyAddressSid != null) {
+            request.addPostParam("EmergencyAddressSid", emergencyAddressSid);
         }
     }
 }

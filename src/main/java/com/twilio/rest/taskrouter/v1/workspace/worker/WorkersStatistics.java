@@ -27,12 +27,13 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkersStatistics extends Resource {
-    private static final long serialVersionUID = 176548291123699L;
+    private static final long serialVersionUID = 181724864721054L;
 
     /**
      * Create a WorkersStatisticsFetcher to execute fetch.
@@ -86,6 +87,7 @@ public class WorkersStatistics extends Resource {
     private final Map<String, Object> cumulative;
     private final Map<String, Object> realtime;
     private final String workspaceSid;
+    private final URI url;
 
     @JsonCreator
     private WorkersStatistics(@JsonProperty("account_sid")
@@ -95,11 +97,14 @@ public class WorkersStatistics extends Resource {
                               @JsonProperty("realtime")
                               final Map<String, Object> realtime, 
                               @JsonProperty("workspace_sid")
-                              final String workspaceSid) {
+                              final String workspaceSid, 
+                              @JsonProperty("url")
+                              final URI url) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.realtime = realtime;
         this.workspaceSid = workspaceSid;
+        this.url = url;
     }
 
     /**
@@ -138,6 +143,15 @@ public class WorkersStatistics extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -153,7 +167,8 @@ public class WorkersStatistics extends Resource {
         return Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(cumulative, other.cumulative) && 
                Objects.equals(realtime, other.realtime) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -161,7 +176,8 @@ public class WorkersStatistics extends Resource {
         return Objects.hash(accountSid,
                             cumulative,
                             realtime,
-                            workspaceSid);
+                            workspaceSid,
+                            url);
     }
 
     @Override
@@ -171,6 +187,7 @@ public class WorkersStatistics extends Resource {
                           .add("cumulative", cumulative)
                           .add("realtime", realtime)
                           .add("workspaceSid", workspaceSid)
+                          .add("url", url)
                           .toString();
     }
 }

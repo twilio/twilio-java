@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 168059278252645L;
+    private static final long serialVersionUID = 80490170560647L;
 
     /**
      * Create a MessageFetcher to execute fetch.
@@ -96,14 +96,12 @@ public class Message extends Resource {
      * @param serviceSid The service_sid
      * @param channelSid The channel_sid
      * @param sid The sid
-     * @param body The body
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String serviceSid, 
                                          final String channelSid, 
-                                         final String sid, 
-                                         final String body) {
-        return new MessageUpdater(serviceSid, channelSid, sid, body);
+                                         final String sid) {
+        return new MessageUpdater(serviceSid, channelSid, sid);
     }
 
     /**

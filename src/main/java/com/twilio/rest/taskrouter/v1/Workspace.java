@@ -34,7 +34,39 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Workspace extends Resource {
-    private static final long serialVersionUID = 197684323807396L;
+    private static final long serialVersionUID = 142810260954575L;
+
+    public enum QueueOrder {
+        FIFO("FIFO"),
+        LIFO("LIFO");
+    
+        private final String value;
+        
+        private QueueOrder(final String value) {
+            this.value = value;
+        }
+        
+        public String toString() {
+            return value;
+        }
+        
+        /**
+         * Generate a QueueOrder from a string.
+         * @param value string value
+         * @return generated QueueOrder
+         */
+        @JsonCreator
+        public static QueueOrder forValue(final String value) {
+            String normalized = value.replace("-", "_").toUpperCase();
+            try {
+                return QueueOrder.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
+        }
+    }
 
     /**
      * Create a WorkspaceFetcher to execute fetch.
@@ -135,6 +167,7 @@ public class Workspace extends Resource {
     private final String sid;
     private final String timeoutActivityName;
     private final String timeoutActivitySid;
+    private final Workspace.QueueOrder prioritizeQueueOrder;
     private final URI url;
     private final Map<String, String> links;
 
@@ -163,6 +196,8 @@ public class Workspace extends Resource {
                       final String timeoutActivityName, 
                       @JsonProperty("timeout_activity_sid")
                       final String timeoutActivitySid, 
+                      @JsonProperty("prioritize_queue_order")
+                      final Workspace.QueueOrder prioritizeQueueOrder, 
                       @JsonProperty("url")
                       final URI url, 
                       @JsonProperty("links")
@@ -179,6 +214,7 @@ public class Workspace extends Resource {
         this.sid = sid;
         this.timeoutActivityName = timeoutActivityName;
         this.timeoutActivitySid = timeoutActivitySid;
+        this.prioritizeQueueOrder = prioritizeQueueOrder;
         this.url = url;
         this.links = links;
     }
@@ -292,6 +328,15 @@ public class Workspace extends Resource {
     }
 
     /**
+     * Returns The The prioritize_queue_order.
+     * 
+     * @return The prioritize_queue_order
+     */
+    public final Workspace.QueueOrder getPrioritizeQueueOrder() {
+        return this.prioritizeQueueOrder;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -333,6 +378,7 @@ public class Workspace extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(timeoutActivityName, other.timeoutActivityName) && 
                Objects.equals(timeoutActivitySid, other.timeoutActivitySid) && 
+               Objects.equals(prioritizeQueueOrder, other.prioritizeQueueOrder) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -351,6 +397,7 @@ public class Workspace extends Resource {
                             sid,
                             timeoutActivityName,
                             timeoutActivitySid,
+                            prioritizeQueueOrder,
                             url,
                             links);
     }
@@ -370,6 +417,7 @@ public class Workspace extends Resource {
                           .add("sid", sid)
                           .add("timeoutActivityName", timeoutActivityName)
                           .add("timeoutActivitySid", timeoutActivitySid)
+                          .add("prioritizeQueueOrder", prioritizeQueueOrder)
                           .add("url", url)
                           .add("links", links)
                           .toString();

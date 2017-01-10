@@ -32,7 +32,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueuesStatistics extends Resource {
-    private static final long serialVersionUID = 246523371655676L;
+    private static final long serialVersionUID = 212191647411252L;
 
     /**
      * Create a TaskQueuesStatisticsReader to execute read.
@@ -83,7 +83,7 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final Map<String, String> cumulative;
+    private final Map<String, Object> cumulative;
     private final Map<String, Object> realtime;
     private final String taskQueueSid;
     private final String workspaceSid;
@@ -92,7 +92,7 @@ public class TaskQueuesStatistics extends Resource {
     private TaskQueuesStatistics(@JsonProperty("account_sid")
                                  final String accountSid, 
                                  @JsonProperty("cumulative")
-                                 final Map<String, String> cumulative, 
+                                 final Map<String, Object> cumulative, 
                                  @JsonProperty("realtime")
                                  final Map<String, Object> realtime, 
                                  @JsonProperty("task_queue_sid")
@@ -120,7 +120,7 @@ public class TaskQueuesStatistics extends Resource {
      * 
      * @return The cumulative
      */
-    public final Map<String, String> getCumulative() {
+    public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 

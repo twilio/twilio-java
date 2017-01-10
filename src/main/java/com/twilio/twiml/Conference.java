@@ -3,12 +3,18 @@ package com.twilio.twiml;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.namespace.QName;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/conference.
@@ -128,6 +134,9 @@ public class Conference extends TwiML {
     @XmlValue
     private final String name;
 
+    @XmlAnyAttribute
+    private Map<QName, String> options;
+
     private final List<ConferenceEvent> statusCallbackEvents;
 
     // For XML Serialization
@@ -152,6 +161,7 @@ public class Conference extends TwiML {
         this.statusCallback = b.statusCallback;
         this.recordingStatusCallback = b.recordingStatusCallback;
         this.recordingStatusCallbackMethod = b.recordingStatusCallbackMethod;
+        this.options = Maps.newHashMap(b.options);
 
         if (this.statusCallbackEvents != null) {
             this.statusCallbackEvent = Joiner.on(" ").join(Lists.transform(this.statusCallbackEvents, ConferenceEvent.TO_STRING));
@@ -224,6 +234,16 @@ public class Conference extends TwiML {
         return name;
     }
 
+    public Map<String, String> getOptions() {
+        Map<String, String> convertedMap = new HashMap<>();
+
+        Set<QName> keys = options.keySet();
+        for (QName key : keys) {
+            convertedMap.put(key.getNamespaceURI(), options.get(key));
+        }
+        return convertedMap;
+    }
+
     public static class Builder {
         private Boolean muted;
         private Boolean startConferenceOnEnter;
@@ -241,6 +261,7 @@ public class Conference extends TwiML {
         private String recordingStatusCallback;
         private Method recordingStatusCallbackMethod;
         private String name;
+        private Map<QName, String> options = Maps.newHashMap();
 
         public Builder(String name) {
             this.name = name;
@@ -318,6 +339,11 @@ public class Conference extends TwiML {
 
         public Builder recordingStatusCallbackMethod(Method recordingStatusCallbackMethod) {
             this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
+            return this;
+        }
+
+        public Builder options(String key, String value) {
+            this.options.put(new QName(key), value);
             return this;
         }
 

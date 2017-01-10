@@ -37,7 +37,7 @@ public class Pause extends TwiML {
     }
 
     public Map<String, String> getOptions() {
-        Map<String, String> convertedMap = new HashMap();
+        Map<String, String> convertedMap = new HashMap<>();
 
         Set<QName> keys = options.keySet();
         for (QName key : keys) {

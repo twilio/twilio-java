@@ -5,6 +5,8 @@ import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Locale;
+
 /**
  * Test Class for {@link DateConverter}.
  */
@@ -66,5 +68,19 @@ public class DateConverterTest {
     public void testLocalDateToString() {
         String date = DateConverter.dateStringFromLocalDate(new LocalDate(2016, 9, 21));
         Assert.assertEquals("2016-09-21", date);
+    }
+
+    @Test
+    public void testDifferentLocaleRFC2822() {
+        Locale.setDefault(new Locale("fr", "CA"));
+        DateTime dateTime = DateConverter.rfc2822DateTimeFromString("Tue, 29 Mar 2016 13:00:05 +0000");
+        Assert.assertNotNull(dateTime);
+    }
+
+    @Test
+    public void testDifferentLocaleISO8601() {
+        Locale.setDefault(new Locale("fr", "CA"));
+        DateTime dateTime = DateConverter.iso8601DateTimeFromString("2016-01-15T21:49:24Z");
+        Assert.assertNotNull(dateTime);
     }
 }

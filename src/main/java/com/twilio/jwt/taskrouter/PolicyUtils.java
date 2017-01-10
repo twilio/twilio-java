@@ -37,8 +37,14 @@ public class PolicyUtils {
             .method(HttpMethod.GET)
             .allowed(true)
             .build();
+        
+        Policy workerFetch = new Policy.Builder()
+            .url(UrlUtils.worker(workspaceSid, workerSid))
+            .method(HttpMethod.GET)
+            .allowed(true)
+            .build();
 
-        return Lists.newArrayList(activities, tasks, reservations);
+        return Lists.newArrayList(activities, tasks, reservations, workerFetch);
     }
 
     /**

@@ -71,9 +71,16 @@ public class DateConverterTest {
     }
 
     @Test
-    public void testDifferentLocal() {
+    public void testDifferentLocaleRFC2822() {
         Locale.setDefault(new Locale("fr", "CA"));
         DateTime dateTime = DateConverter.rfc2822DateTimeFromString("Tue, 29 Mar 2016 13:00:05 +0000");
+        Assert.assertNotNull(dateTime);
+    }
+
+    @Test
+    public void testDifferentLocaleISO8601() {
+        Locale.setDefault(new Locale("fr", "CA"));
+        DateTime dateTime = DateConverter.iso8601DateTimeFromString("2016-01-15T21:49:24Z");
         Assert.assertNotNull(dateTime);
     }
 }

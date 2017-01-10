@@ -40,6 +40,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     private URI voiceFallbackUrl;
     private HttpMethod voiceMethod;
     private URI voiceUrl;
+    private IncomingPhoneNumber.EmergencyStatus emergencyStatus;
+    private String emergencyAddressSid;
 
     /**
      * Construct a new IncomingPhoneNumberUpdater.
@@ -334,6 +336,28 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
+     * The emergency_status.
+     * 
+     * @param emergencyStatus The emergency_status
+     * @return this
+     */
+    public IncomingPhoneNumberUpdater setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus) {
+        this.emergencyStatus = emergencyStatus;
+        return this;
+    }
+
+    /**
+     * The emergency_address_sid.
+     * 
+     * @param emergencyAddressSid The emergency_address_sid
+     * @return this
+     */
+    public IncomingPhoneNumberUpdater setEmergencyAddressSid(final String emergencyAddressSid) {
+        this.emergencyAddressSid = emergencyAddressSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -445,6 +469,14 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         
         if (voiceUrl != null) {
             request.addPostParam("VoiceUrl", voiceUrl.toString());
+        }
+        
+        if (emergencyStatus != null) {
+            request.addPostParam("EmergencyStatus", emergencyStatus.toString());
+        }
+        
+        if (emergencyAddressSid != null) {
+            request.addPostParam("EmergencyAddressSid", emergencyAddressSid);
         }
     }
 }

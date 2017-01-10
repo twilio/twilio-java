@@ -34,7 +34,39 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueue extends Resource {
-    private static final long serialVersionUID = 97200418607847L;
+    private static final long serialVersionUID = 86871980541241L;
+
+    public enum TaskOrder {
+        FIFO("FIFO"),
+        LIFO("LIFO");
+    
+        private final String value;
+        
+        private TaskOrder(final String value) {
+            this.value = value;
+        }
+        
+        public String toString() {
+            return value;
+        }
+        
+        /**
+         * Generate a TaskOrder from a string.
+         * @param value string value
+         * @return generated TaskOrder
+         */
+        @JsonCreator
+        public static TaskOrder forValue(final String value) {
+            String normalized = value.replace("-", "_").toUpperCase();
+            try {
+                return TaskOrder.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
+        }
+    }
 
     /**
      * Create a TaskQueueFetcher to execute fetch.
@@ -147,6 +179,7 @@ public class TaskQueue extends Resource {
     private final String reservationActivityName;
     private final String sid;
     private final String targetWorkers;
+    private final TaskQueue.TaskOrder taskOrder;
     private final URI url;
     private final String workspaceSid;
     private final Map<String, String> links;
@@ -174,6 +207,8 @@ public class TaskQueue extends Resource {
                       final String sid, 
                       @JsonProperty("target_workers")
                       final String targetWorkers, 
+                      @JsonProperty("task_order")
+                      final TaskQueue.TaskOrder taskOrder, 
                       @JsonProperty("url")
                       final URI url, 
                       @JsonProperty("workspace_sid")
@@ -191,6 +226,7 @@ public class TaskQueue extends Resource {
         this.reservationActivityName = reservationActivityName;
         this.sid = sid;
         this.targetWorkers = targetWorkers;
+        this.taskOrder = taskOrder;
         this.url = url;
         this.workspaceSid = workspaceSid;
         this.links = links;
@@ -296,6 +332,15 @@ public class TaskQueue extends Resource {
     }
 
     /**
+     * Returns The The task_order.
+     * 
+     * @return The task_order
+     */
+    public final TaskQueue.TaskOrder getTaskOrder() {
+        return this.taskOrder;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -345,6 +390,7 @@ public class TaskQueue extends Resource {
                Objects.equals(reservationActivityName, other.reservationActivityName) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(targetWorkers, other.targetWorkers) && 
+               Objects.equals(taskOrder, other.taskOrder) && 
                Objects.equals(url, other.url) && 
                Objects.equals(workspaceSid, other.workspaceSid) && 
                Objects.equals(links, other.links);
@@ -363,6 +409,7 @@ public class TaskQueue extends Resource {
                             reservationActivityName,
                             sid,
                             targetWorkers,
+                            taskOrder,
                             url,
                             workspaceSid,
                             links);
@@ -382,6 +429,7 @@ public class TaskQueue extends Resource {
                           .add("reservationActivityName", reservationActivityName)
                           .add("sid", sid)
                           .add("targetWorkers", targetWorkers)
+                          .add("taskOrder", taskOrder)
                           .add("url", url)
                           .add("workspaceSid", workspaceSid)
                           .add("links", links)

@@ -28,6 +28,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     private String friendlyName;
     private Boolean multiTaskEnabled;
     private String timeoutActivitySid;
+    private Workspace.QueueOrder prioritizeQueueOrder;
 
     /**
      * Construct a new WorkspaceUpdater.
@@ -115,6 +116,17 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
+     * The prioritize_queue_order.
+     * 
+     * @param prioritizeQueueOrder The prioritize_queue_order
+     * @return this
+     */
+    public WorkspaceUpdater setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder) {
+        this.prioritizeQueueOrder = prioritizeQueueOrder;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -181,6 +193,10 @@ public class WorkspaceUpdater extends Updater<Workspace> {
         
         if (timeoutActivitySid != null) {
             request.addPostParam("TimeoutActivitySid", timeoutActivitySid);
+        }
+        
+        if (prioritizeQueueOrder != null) {
+            request.addPostParam("PrioritizeQueueOrder", prioritizeQueueOrder.toString());
         }
     }
 }

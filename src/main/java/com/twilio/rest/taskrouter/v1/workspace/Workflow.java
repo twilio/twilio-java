@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Workflow extends Resource {
-    private static final long serialVersionUID = 90619369199227L;
+    private static final long serialVersionUID = 205559746169581L;
 
     /**
      * Create a WorkflowFetcher to execute fetch.
@@ -146,6 +146,7 @@ public class Workflow extends Resource {
     private final Integer taskReservationTimeout;
     private final String workspaceSid;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Workflow(@JsonProperty("account_sid")
@@ -171,7 +172,9 @@ public class Workflow extends Resource {
                      @JsonProperty("workspace_sid")
                      final String workspaceSid, 
                      @JsonProperty("url")
-                     final URI url) {
+                     final URI url, 
+                     @JsonProperty("links")
+                     final Map<String, String> links) {
         this.accountSid = accountSid;
         this.assignmentCallbackUrl = assignmentCallbackUrl;
         this.configuration = configuration;
@@ -184,6 +187,7 @@ public class Workflow extends Resource {
         this.taskReservationTimeout = taskReservationTimeout;
         this.workspaceSid = workspaceSid;
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -294,6 +298,15 @@ public class Workflow extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -317,7 +330,8 @@ public class Workflow extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(taskReservationTimeout, other.taskReservationTimeout) && 
                Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -333,7 +347,8 @@ public class Workflow extends Resource {
                             sid,
                             taskReservationTimeout,
                             workspaceSid,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -351,6 +366,7 @@ public class Workflow extends Resource {
                           .add("taskReservationTimeout", taskReservationTimeout)
                           .add("workspaceSid", workspaceSid)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

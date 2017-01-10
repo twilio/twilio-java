@@ -26,6 +26,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
     private String eventsFilter;
     private Boolean multiTaskEnabled;
     private String template;
+    private Workspace.QueueOrder prioritizeQueueOrder;
 
     /**
      * Construct a new WorkspaceCreator.
@@ -87,6 +88,17 @@ public class WorkspaceCreator extends Creator<Workspace> {
      */
     public WorkspaceCreator setTemplate(final String template) {
         this.template = template;
+        return this;
+    }
+
+    /**
+     * The prioritize_queue_order.
+     * 
+     * @param prioritizeQueueOrder The prioritize_queue_order
+     * @return this
+     */
+    public WorkspaceCreator setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder) {
+        this.prioritizeQueueOrder = prioritizeQueueOrder;
         return this;
     }
 
@@ -153,6 +165,10 @@ public class WorkspaceCreator extends Creator<Workspace> {
         
         if (template != null) {
             request.addPostParam("Template", template);
+        }
+        
+        if (prioritizeQueueOrder != null) {
+            request.addPostParam("PrioritizeQueueOrder", prioritizeQueueOrder.toString());
         }
     }
 }

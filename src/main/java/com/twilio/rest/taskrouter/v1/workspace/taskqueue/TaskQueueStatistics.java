@@ -27,12 +27,13 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueueStatistics extends Resource {
-    private static final long serialVersionUID = 246523371655676L;
+    private static final long serialVersionUID = 25740453860502L;
 
     /**
      * Create a TaskQueueStatisticsFetcher to execute fetch.
@@ -85,27 +86,31 @@ public class TaskQueueStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final Map<String, String> cumulative;
+    private final Map<String, Object> cumulative;
     private final Map<String, Object> realtime;
     private final String taskQueueSid;
     private final String workspaceSid;
+    private final URI url;
 
     @JsonCreator
     private TaskQueueStatistics(@JsonProperty("account_sid")
                                 final String accountSid, 
                                 @JsonProperty("cumulative")
-                                final Map<String, String> cumulative, 
+                                final Map<String, Object> cumulative, 
                                 @JsonProperty("realtime")
                                 final Map<String, Object> realtime, 
                                 @JsonProperty("task_queue_sid")
                                 final String taskQueueSid, 
                                 @JsonProperty("workspace_sid")
-                                final String workspaceSid) {
+                                final String workspaceSid, 
+                                @JsonProperty("url")
+                                final URI url) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.realtime = realtime;
         this.taskQueueSid = taskQueueSid;
         this.workspaceSid = workspaceSid;
+        this.url = url;
     }
 
     /**
@@ -122,7 +127,7 @@ public class TaskQueueStatistics extends Resource {
      * 
      * @return The cumulative
      */
-    public final Map<String, String> getCumulative() {
+    public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
@@ -153,6 +158,15 @@ public class TaskQueueStatistics extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -169,7 +183,8 @@ public class TaskQueueStatistics extends Resource {
                Objects.equals(cumulative, other.cumulative) && 
                Objects.equals(realtime, other.realtime) && 
                Objects.equals(taskQueueSid, other.taskQueueSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -178,7 +193,8 @@ public class TaskQueueStatistics extends Resource {
                             cumulative,
                             realtime,
                             taskQueueSid,
-                            workspaceSid);
+                            workspaceSid,
+                            url);
     }
 
     @Override
@@ -189,6 +205,7 @@ public class TaskQueueStatistics extends Resource {
                           .add("realtime", realtime)
                           .add("taskQueueSid", taskQueueSid)
                           .add("workspaceSid", workspaceSid)
+                          .add("url", url)
                           .toString();
     }
 }

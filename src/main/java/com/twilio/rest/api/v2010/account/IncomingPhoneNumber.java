@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IncomingPhoneNumber extends Resource {
-    private static final long serialVersionUID = 145405771566124L;
+    private static final long serialVersionUID = 172848453454291L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -63,6 +63,38 @@ public class IncomingPhoneNumber extends Resource {
             String normalized = value.replace("-", "_").toUpperCase();
             try {
                 return AddressRequirement.valueOf(normalized);
+            } catch (RuntimeException e) {
+        
+                // Don't blow up of value does not exist
+                return null;
+            }
+        }
+    }
+
+    public enum EmergencyStatus {
+        ACTIVE("Active"),
+        INACTIVE("Inactive");
+    
+        private final String value;
+        
+        private EmergencyStatus(final String value) {
+            this.value = value;
+        }
+        
+        public String toString() {
+            return value;
+        }
+        
+        /**
+         * Generate a EmergencyStatus from a string.
+         * @param value string value
+         * @return generated EmergencyStatus
+         */
+        @JsonCreator
+        public static EmergencyStatus forValue(final String value) {
+            String normalized = value.replace("-", "_").toUpperCase();
+            try {
+                return EmergencyStatus.valueOf(normalized);
             } catch (RuntimeException e) {
         
                 // Don't blow up of value does not exist
@@ -263,6 +295,8 @@ public class IncomingPhoneNumber extends Resource {
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceMethod;
     private final URI voiceUrl;
+    private final IncomingPhoneNumber.EmergencyStatus emergencyStatus;
+    private final String emergencyAddressSid;
 
     @JsonCreator
     private IncomingPhoneNumber(@JsonProperty("account_sid")
@@ -314,7 +348,11 @@ public class IncomingPhoneNumber extends Resource {
                                 @JsonProperty("voice_method")
                                 final HttpMethod voiceMethod, 
                                 @JsonProperty("voice_url")
-                                final URI voiceUrl) {
+                                final URI voiceUrl, 
+                                @JsonProperty("emergency_status")
+                                final IncomingPhoneNumber.EmergencyStatus emergencyStatus, 
+                                @JsonProperty("emergency_address_sid")
+                                final String emergencyAddressSid) {
         this.accountSid = accountSid;
         this.addressRequirements = addressRequirements;
         this.apiVersion = apiVersion;
@@ -340,6 +378,8 @@ public class IncomingPhoneNumber extends Resource {
         this.voiceFallbackUrl = voiceFallbackUrl;
         this.voiceMethod = voiceMethod;
         this.voiceUrl = voiceUrl;
+        this.emergencyStatus = emergencyStatus;
+        this.emergencyAddressSid = emergencyAddressSid;
     }
 
     /**
@@ -567,6 +607,24 @@ public class IncomingPhoneNumber extends Resource {
         return this.voiceUrl;
     }
 
+    /**
+     * Returns The The emergency_status.
+     * 
+     * @return The emergency_status
+     */
+    public final IncomingPhoneNumber.EmergencyStatus getEmergencyStatus() {
+        return this.emergencyStatus;
+    }
+
+    /**
+     * Returns The The emergency_address_sid.
+     * 
+     * @return The emergency_address_sid
+     */
+    public final String getEmergencyAddressSid() {
+        return this.emergencyAddressSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -603,7 +661,9 @@ public class IncomingPhoneNumber extends Resource {
                Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
                Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
                Objects.equals(voiceMethod, other.voiceMethod) && 
-               Objects.equals(voiceUrl, other.voiceUrl);
+               Objects.equals(voiceUrl, other.voiceUrl) && 
+               Objects.equals(emergencyStatus, other.emergencyStatus) && 
+               Objects.equals(emergencyAddressSid, other.emergencyAddressSid);
     }
 
     @Override
@@ -632,7 +692,9 @@ public class IncomingPhoneNumber extends Resource {
                             voiceFallbackMethod,
                             voiceFallbackUrl,
                             voiceMethod,
-                            voiceUrl);
+                            voiceUrl,
+                            emergencyStatus,
+                            emergencyAddressSid);
     }
 
     @Override
@@ -663,6 +725,8 @@ public class IncomingPhoneNumber extends Resource {
                           .add("voiceFallbackUrl", voiceFallbackUrl)
                           .add("voiceMethod", voiceMethod)
                           .add("voiceUrl", voiceUrl)
+                          .add("emergencyStatus", emergencyStatus)
+                          .add("emergencyAddressSid", emergencyAddressSid)
                           .toString();
     }
 }

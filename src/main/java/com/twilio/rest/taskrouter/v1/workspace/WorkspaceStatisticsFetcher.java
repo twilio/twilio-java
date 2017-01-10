@@ -8,6 +8,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Fetcher;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,12 +17,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
     private final String workspaceSid;
     private Integer minutes;
-    private String startDate;
-    private String endDate;
+    private DateTime startDate;
+    private DateTime endDate;
 
     /**
      * Construct a new WorkspaceStatisticsFetcher.
@@ -49,7 +51,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
      * @param startDate The start_date
      * @return this
      */
-    public WorkspaceStatisticsFetcher setStartDate(final String startDate) {
+    public WorkspaceStatisticsFetcher setStartDate(final DateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -60,7 +62,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
      * @param endDate The end_date
      * @return this
      */
-    public WorkspaceStatisticsFetcher setEndDate(final String endDate) {
+    public WorkspaceStatisticsFetcher setEndDate(final DateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -115,11 +117,11 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
         }
         
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate);
+            request.addQueryParam("StartDate", startDate.toString());
         }
         
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate);
+            request.addQueryParam("EndDate", endDate.toString());
         }
     }
 }

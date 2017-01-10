@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Member extends Resource {
-    private static final long serialVersionUID = 868140426804L;
+    private static final long serialVersionUID = 102574959310114L;
 
     /**
      * Create a MemberFetcher to execute fetch.
@@ -146,11 +146,11 @@ public class Member extends Resource {
     private final String channelSid;
     private final String serviceSid;
     private final String identity;
-    private final Integer lastConsumedMessageIndex;
-    private final DateTime lastConsumptionTimestamp;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String roleSid;
+    private final Integer lastConsumedMessageIndex;
+    private final DateTime lastConsumptionTimestamp;
     private final URI url;
 
     @JsonCreator
@@ -164,16 +164,16 @@ public class Member extends Resource {
                    final String serviceSid, 
                    @JsonProperty("identity")
                    final String identity, 
-                   @JsonProperty("last_consumed_message_index")
-                   final Integer lastConsumedMessageIndex, 
-                   @JsonProperty("last_consumption_timestamp")
-                   final String lastConsumptionTimestamp, 
                    @JsonProperty("date_created")
                    final String dateCreated, 
                    @JsonProperty("date_updated")
                    final String dateUpdated, 
                    @JsonProperty("role_sid")
                    final String roleSid, 
+                   @JsonProperty("last_consumed_message_index")
+                   final Integer lastConsumedMessageIndex, 
+                   @JsonProperty("last_consumption_timestamp")
+                   final String lastConsumptionTimestamp, 
                    @JsonProperty("url")
                    final URI url) {
         this.sid = sid;
@@ -181,11 +181,11 @@ public class Member extends Resource {
         this.channelSid = channelSid;
         this.serviceSid = serviceSid;
         this.identity = identity;
-        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
-        this.lastConsumptionTimestamp = DateConverter.iso8601DateTimeFromString(lastConsumptionTimestamp);
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.roleSid = roleSid;
+        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
+        this.lastConsumptionTimestamp = DateConverter.iso8601DateTimeFromString(lastConsumptionTimestamp);
         this.url = url;
     }
 
@@ -235,24 +235,6 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The last_consumed_message_index.
-     * 
-     * @return The last_consumed_message_index
-     */
-    public final Integer getLastConsumedMessageIndex() {
-        return this.lastConsumedMessageIndex;
-    }
-
-    /**
-     * Returns The The last_consumption_timestamp.
-     * 
-     * @return The last_consumption_timestamp
-     */
-    public final DateTime getLastConsumptionTimestamp() {
-        return this.lastConsumptionTimestamp;
-    }
-
-    /**
      * Returns The The date_created.
      * 
      * @return The date_created
@@ -277,6 +259,24 @@ public class Member extends Resource {
      */
     public final String getRoleSid() {
         return this.roleSid;
+    }
+
+    /**
+     * Returns The The last_consumed_message_index.
+     * 
+     * @return The last_consumed_message_index
+     */
+    public final Integer getLastConsumedMessageIndex() {
+        return this.lastConsumedMessageIndex;
+    }
+
+    /**
+     * Returns The The last_consumption_timestamp.
+     * 
+     * @return The last_consumption_timestamp
+     */
+    public final DateTime getLastConsumptionTimestamp() {
+        return this.lastConsumptionTimestamp;
     }
 
     /**
@@ -305,11 +305,11 @@ public class Member extends Resource {
                Objects.equals(channelSid, other.channelSid) && 
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(identity, other.identity) && 
-               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
-               Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(roleSid, other.roleSid) && 
+               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
+               Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) && 
                Objects.equals(url, other.url);
     }
 
@@ -320,11 +320,11 @@ public class Member extends Resource {
                             channelSid,
                             serviceSid,
                             identity,
-                            lastConsumedMessageIndex,
-                            lastConsumptionTimestamp,
                             dateCreated,
                             dateUpdated,
                             roleSid,
+                            lastConsumedMessageIndex,
+                            lastConsumptionTimestamp,
                             url);
     }
 
@@ -336,11 +336,11 @@ public class Member extends Resource {
                           .add("channelSid", channelSid)
                           .add("serviceSid", serviceSid)
                           .add("identity", identity)
-                          .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
-                          .add("lastConsumptionTimestamp", lastConsumptionTimestamp)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("roleSid", roleSid)
+                          .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
+                          .add("lastConsumptionTimestamp", lastConsumptionTimestamp)
                           .add("url", url)
                           .toString();
     }

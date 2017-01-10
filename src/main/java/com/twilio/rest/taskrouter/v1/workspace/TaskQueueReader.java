@@ -23,6 +23,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     private final String workspaceSid;
     private String friendlyName;
     private String evaluateWorkerAttributes;
+    private String workerSid;
 
     /**
      * Construct a new TaskQueueReader.
@@ -52,6 +53,17 @@ public class TaskQueueReader extends Reader<TaskQueue> {
      */
     public TaskQueueReader setEvaluateWorkerAttributes(final String evaluateWorkerAttributes) {
         this.evaluateWorkerAttributes = evaluateWorkerAttributes;
+        return this;
+    }
+
+    /**
+     * The worker_sid.
+     * 
+     * @param workerSid The worker_sid
+     * @return this
+     */
+    public TaskQueueReader setWorkerSid(final String workerSid) {
+        this.workerSid = workerSid;
         return this;
     }
 
@@ -153,6 +165,10 @@ public class TaskQueueReader extends Reader<TaskQueue> {
         
         if (evaluateWorkerAttributes != null) {
             request.addQueryParam("EvaluateWorkerAttributes", evaluateWorkerAttributes);
+        }
+        
+        if (workerSid != null) {
+            request.addQueryParam("WorkerSid", workerSid);
         }
         
         if (getPageSize() != null) {

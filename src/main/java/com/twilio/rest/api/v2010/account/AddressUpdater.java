@@ -26,6 +26,7 @@ public class AddressUpdater extends Updater<Address> {
     private String city;
     private String region;
     private String postalCode;
+    private Boolean emergencyEnabled;
 
     /**
      * Construct a new AddressUpdater.
@@ -115,6 +116,17 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
+     * The emergency_enabled.
+     * 
+     * @param emergencyEnabled The emergency_enabled
+     * @return this
+     */
+    public AddressUpdater setEmergencyEnabled(final Boolean emergencyEnabled) {
+        this.emergencyEnabled = emergencyEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -182,6 +194,10 @@ public class AddressUpdater extends Updater<Address> {
         
         if (postalCode != null) {
             request.addPostParam("PostalCode", postalCode);
+        }
+        
+        if (emergencyEnabled != null) {
+            request.addPostParam("EmergencyEnabled", emergencyEnabled.toString());
         }
     }
 }

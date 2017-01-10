@@ -1,6 +1,33 @@
 twilio-java changelog
 =====================
 
+[2017-01-10] Version 7.4.0
+--------------------------
+- Added new AddOnResults API.
+- Allow undocumented TwiML voice parameters for Conference, Dial, and Pause PR #317.
+- Fix dates being serialized to null in some locales PR #320.
+- Add `emergencyEnabled` field to Addresses.
+- Add support for emergency phone numbers.
+- Add support for ending conferences via the API.
+- Add `region` field to Conferences.
+
+- **Twilio Chat**
+    - Add `membersCount` and `messagesCount` to Channel.
+    - Add support for filtering on channel type when reading list of Channels.
+    - Add `last_consumed_message_index` and `last_consumption_timestamp` fields to Member.
+    - Remove ability to update Message body, was never supported by API (backwards incompatible).
+    - Add support for new UserChannel Resource.
+
+- **Taskrouter**
+    - Add default worker fetch policy PR #313.
+    - Add queue ordering for Workspace, TaskQueue.
+    - Remove ability to specify `attributes` and `workflowSid` on Task creation (backwards incompatible).
+    - Add `addons`, `taskQueueFriendlyName`, `workflowFriendlyName`, metdata to Task.
+    - Use DateTimes for WorkspaceStatistics filtering (backwards incompatible).
+    - Fix TaskQueueStatistics `cumulative` field incorrect type (backwards incompatible).
+    - Fix TaskQueuesStatistics `cumulative` field incorrect type (backwards incompatible).
+    - Remove ability to set `friendlyName` on TaskQueueStatistics (backwards incompatible).
+
 [2016-11-30] Version 7.3.0
 --------------------------
 - Add `recordingStatusCallback` and `recordingStatusCallbackMethod` to Conference TwiML
@@ -19,7 +46,7 @@ twilio-java changelog
 - Add missing fields to IncomingPhoneNumbers.
 - Add missing fields to Messages.
 
-- * Twilio Chat *
+- **Twilio Chat**
     - Add Invites
     - Add `reachabilityEnabled`, `preWebhookUrl`, `postWebhookUrl`, `webhookMethod`, `webhookFilters`, `notifications` to Services.
     - Add `attributes`, `friendlyName`, `isOnline`, `isNotifiable` to Users.

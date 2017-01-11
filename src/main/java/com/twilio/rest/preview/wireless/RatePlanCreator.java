@@ -27,8 +27,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
     private Integer dataLimit;
     private String dataMetering;
     private Boolean commandsEnabled;
-    private Integer renewalPeriod;
-    private String renewalUnits;
+    private String renewal;
 
     /**
      * The alias.
@@ -107,24 +106,13 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The renewal_period.
+     * The renewal.
      * 
-     * @param renewalPeriod The renewal_period
+     * @param renewal The renewal
      * @return this
      */
-    public RatePlanCreator setRenewalPeriod(final Integer renewalPeriod) {
-        this.renewalPeriod = renewalPeriod;
-        return this;
-    }
-
-    /**
-     * The renewal_units.
-     * 
-     * @param renewalUnits The renewal_units
-     * @return this
-     */
-    public RatePlanCreator setRenewalUnits(final String renewalUnits) {
-        this.renewalUnits = renewalUnits;
+    public RatePlanCreator setRenewal(final String renewal) {
+        this.renewal = renewal;
         return this;
     }
 
@@ -199,12 +187,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
             request.addPostParam("CommandsEnabled", commandsEnabled.toString());
         }
         
-        if (renewalPeriod != null) {
-            request.addPostParam("RenewalPeriod", renewalPeriod.toString());
-        }
-        
-        if (renewalUnits != null) {
-            request.addPostParam("RenewalUnits", renewalUnits);
+        if (renewal != null) {
+            request.addPostParam("Renewal", renewal);
         }
     }
 }

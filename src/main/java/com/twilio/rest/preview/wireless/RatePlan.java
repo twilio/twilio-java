@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatePlan extends Resource {
-    private static final long serialVersionUID = 255981823638757L;
+    private static final long serialVersionUID = 1403964494264L;
 
     /**
      * Create a RatePlanReader to execute read.
@@ -121,7 +121,7 @@ public class RatePlan extends Resource {
     private final List<String> roaming;
     private final Map<String, Object> data;
     private final Map<String, Object> commands;
-    private final Map<String, Object> renewal;
+    private final String renewal;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -142,7 +142,7 @@ public class RatePlan extends Resource {
                      @JsonProperty("commands")
                      final Map<String, Object> commands, 
                      @JsonProperty("renewal")
-                     final Map<String, Object> renewal, 
+                     final String renewal, 
                      @JsonProperty("date_created")
                      final String dateCreated, 
                      @JsonProperty("date_updated")
@@ -230,7 +230,7 @@ public class RatePlan extends Resource {
      * 
      * @return The renewal
      */
-    public final Map<String, Object> getRenewal() {
+    public final String getRenewal() {
         return this.renewal;
     }
 

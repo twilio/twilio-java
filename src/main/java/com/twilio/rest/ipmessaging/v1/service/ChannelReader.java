@@ -10,6 +10,7 @@ package com.twilio.rest.ipmessaging.v1.service;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,8 +20,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.util.List;
+
 public class ChannelReader extends Reader<Channel> {
     private final String serviceSid;
+    private List<Channel.ChannelType> type;
 
     /**
      * Construct a new ChannelReader.
@@ -29,6 +33,27 @@ public class ChannelReader extends Reader<Channel> {
      */
     public ChannelReader(final String serviceSid) {
         this.serviceSid = serviceSid;
+    }
+
+    /**
+     * The type.
+     * 
+     * @param type The type
+     * @return this
+     */
+    public ChannelReader setType(final List<Channel.ChannelType> type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * The type.
+     * 
+     * @param type The type
+     * @return this
+     */
+    public ChannelReader setType(final Channel.ChannelType type) {
+        return setType(Promoter.listOfOne(type));
     }
 
     /**
@@ -123,6 +148,12 @@ public class ChannelReader extends Reader<Channel> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (type != null) {
+            for (Channel.ChannelType prop : type) {
+                request.addQueryParam("Type", prop.toString());
+            }
+        }
+        
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

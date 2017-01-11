@@ -23,6 +23,7 @@ A huge thanks to all of our contributors:
 - D Keith Casey Jr
 - Doug Black
 - Eric Anderle
+- Evan Fossier
 - Frank
 - Frank Stratton
 - Girish Bharadwaj
@@ -47,6 +48,7 @@ A huge thanks to all of our contributors:
 - Sunil Veluvali
 - Takuji Shimokawa
 - Thomas Wilsher
+- Thomas Connors
 - Vincent Pizzo
 - olivier bourgain
 - rschiffert@twilio.com

@@ -19,8 +19,8 @@ import com.twilio.rest.Domains;
 
 public class TaskCreator extends Creator<Task> {
     private final String workspaceSid;
-    private final String attributes;
-    private final String workflowSid;
+    private String attributes;
+    private String workflowSid;
     private Integer timeout;
     private Integer priority;
     private String taskChannel;
@@ -29,15 +29,31 @@ public class TaskCreator extends Creator<Task> {
      * Construct a new TaskCreator.
      * 
      * @param workspaceSid The workspace_sid
-     * @param attributes The attributes
-     * @param workflowSid The workflow_sid
      */
-    public TaskCreator(final String workspaceSid, 
-                       final String attributes, 
-                       final String workflowSid) {
+    public TaskCreator(final String workspaceSid) {
         this.workspaceSid = workspaceSid;
+    }
+
+    /**
+     * The attributes.
+     * 
+     * @param attributes The attributes
+     * @return this
+     */
+    public TaskCreator setAttributes(final String attributes) {
         this.attributes = attributes;
+        return this;
+    }
+
+    /**
+     * The workflow_sid.
+     * 
+     * @param workflowSid The workflow_sid
+     * @return this
+     */
+    public TaskCreator setWorkflowSid(final String workflowSid) {
         this.workflowSid = workflowSid;
+        return this;
     }
 
     /**

@@ -21,7 +21,7 @@ public class MessageUpdater extends Updater<Message> {
     private final String serviceSid;
     private final String channelSid;
     private final String sid;
-    private final String body;
+    private String body;
     private String attributes;
 
     /**
@@ -30,16 +30,24 @@ public class MessageUpdater extends Updater<Message> {
      * @param serviceSid The service_sid
      * @param channelSid The channel_sid
      * @param sid The sid
-     * @param body The body
      */
     public MessageUpdater(final String serviceSid, 
                           final String channelSid, 
-                          final String sid, 
-                          final String body) {
+                          final String sid) {
         this.serviceSid = serviceSid;
         this.channelSid = channelSid;
         this.sid = sid;
+    }
+
+    /**
+     * The body.
+     * 
+     * @param body The body
+     * @return this
+     */
+    public MessageUpdater setBody(final String body) {
         this.body = body;
+        return this;
     }
 
     /**

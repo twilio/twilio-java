@@ -27,12 +27,13 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkflowStatistics extends Resource {
-    private static final long serialVersionUID = 164789370388563L;
+    private static final long serialVersionUID = 71533106021042L;
 
     /**
      * Create a WorkflowStatisticsFetcher to execute fetch.
@@ -89,6 +90,7 @@ public class WorkflowStatistics extends Resource {
     private final Map<String, Object> realtime;
     private final String workflowSid;
     private final String workspaceSid;
+    private final URI url;
 
     @JsonCreator
     private WorkflowStatistics(@JsonProperty("account_sid")
@@ -100,12 +102,15 @@ public class WorkflowStatistics extends Resource {
                                @JsonProperty("workflow_sid")
                                final String workflowSid, 
                                @JsonProperty("workspace_sid")
-                               final String workspaceSid) {
+                               final String workspaceSid, 
+                               @JsonProperty("url")
+                               final URI url) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.realtime = realtime;
         this.workflowSid = workflowSid;
         this.workspaceSid = workspaceSid;
+        this.url = url;
     }
 
     /**
@@ -153,6 +158,15 @@ public class WorkflowStatistics extends Resource {
         return this.workspaceSid;
     }
 
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -169,7 +183,8 @@ public class WorkflowStatistics extends Resource {
                Objects.equals(cumulative, other.cumulative) && 
                Objects.equals(realtime, other.realtime) && 
                Objects.equals(workflowSid, other.workflowSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid);
+               Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -178,7 +193,8 @@ public class WorkflowStatistics extends Resource {
                             cumulative,
                             realtime,
                             workflowSid,
-                            workspaceSid);
+                            workspaceSid,
+                            url);
     }
 
     @Override
@@ -189,6 +205,7 @@ public class WorkflowStatistics extends Resource {
                           .add("realtime", realtime)
                           .add("workflowSid", workflowSid)
                           .add("workspaceSid", workspaceSid)
+                          .add("url", url)
                           .toString();
     }
 }

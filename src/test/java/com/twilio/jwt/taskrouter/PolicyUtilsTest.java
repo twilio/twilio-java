@@ -35,8 +35,14 @@ public class PolicyUtilsTest {
             .method(HttpMethod.GET)
             .allowed(true)
             .build();
+        
+        Policy workerFetch = new Policy.Builder()
+                .url(UrlUtils.worker(workspaceSid, workerSid))
+                .method(HttpMethod.GET)
+                .allowed(true)
+                .build();
 
-        List<Policy> policies = Lists.newArrayList(activities, tasks, reservations);
+        List<Policy> policies = Lists.newArrayList(activities, tasks, reservations, workerFetch);
         Assert.assertEquals(
             policies,
             PolicyUtils.defaultWorkerPolicies(workspaceSid, workerSid)

@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task extends Resource {
-    private static final long serialVersionUID = 210558338206180L;
+    private static final long serialVersionUID = 37662678894198L;
 
     public enum Status {
         PENDING("pending"),
@@ -121,14 +121,10 @@ public class Task extends Resource {
      * Create a TaskCreator to execute create.
      * 
      * @param workspaceSid The workspace_sid
-     * @param attributes The attributes
-     * @param workflowSid The workflow_sid
      * @return TaskCreator capable of executing the create
      */
-    public static TaskCreator creator(final String workspaceSid, 
-                                      final String attributes, 
-                                      final String workflowSid) {
-        return new TaskCreator(workspaceSid, attributes, workflowSid);
+    public static TaskCreator creator(final String workspaceSid) {
+        return new TaskCreator(workspaceSid);
     }
 
     /**
@@ -172,18 +168,22 @@ public class Task extends Resource {
     private final Integer age;
     private final Task.Status assignmentStatus;
     private final String attributes;
+    private final String addons;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final Integer priority;
     private final String reason;
     private final String sid;
     private final String taskQueueSid;
+    private final String taskQueueFriendlyName;
     private final String taskChannelSid;
     private final String taskChannelUniqueName;
     private final Integer timeout;
     private final String workflowSid;
+    private final String workflowFriendlyName;
     private final String workspaceSid;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Task(@JsonProperty("account_sid")
@@ -194,6 +194,8 @@ public class Task extends Resource {
                  final Task.Status assignmentStatus, 
                  @JsonProperty("attributes")
                  final String attributes, 
+                 @JsonProperty("addons")
+                 final String addons, 
                  @JsonProperty("date_created")
                  final String dateCreated, 
                  @JsonProperty("date_updated")
@@ -206,6 +208,8 @@ public class Task extends Resource {
                  final String sid, 
                  @JsonProperty("task_queue_sid")
                  final String taskQueueSid, 
+                 @JsonProperty("task_queue_friendly_name")
+                 final String taskQueueFriendlyName, 
                  @JsonProperty("task_channel_sid")
                  final String taskChannelSid, 
                  @JsonProperty("task_channel_unique_name")
@@ -214,26 +218,34 @@ public class Task extends Resource {
                  final Integer timeout, 
                  @JsonProperty("workflow_sid")
                  final String workflowSid, 
+                 @JsonProperty("workflow_friendly_name")
+                 final String workflowFriendlyName, 
                  @JsonProperty("workspace_sid")
                  final String workspaceSid, 
                  @JsonProperty("url")
-                 final URI url) {
+                 final URI url, 
+                 @JsonProperty("links")
+                 final Map<String, String> links) {
         this.accountSid = accountSid;
         this.age = age;
         this.assignmentStatus = assignmentStatus;
         this.attributes = attributes;
+        this.addons = addons;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.priority = priority;
         this.reason = reason;
         this.sid = sid;
         this.taskQueueSid = taskQueueSid;
+        this.taskQueueFriendlyName = taskQueueFriendlyName;
         this.taskChannelSid = taskChannelSid;
         this.taskChannelUniqueName = taskChannelUniqueName;
         this.timeout = timeout;
         this.workflowSid = workflowSid;
+        this.workflowFriendlyName = workflowFriendlyName;
         this.workspaceSid = workspaceSid;
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -270,6 +282,15 @@ public class Task extends Resource {
      */
     public final String getAttributes() {
         return this.attributes;
+    }
+
+    /**
+     * Returns The The addons.
+     * 
+     * @return The addons
+     */
+    public final String getAddons() {
+        return this.addons;
     }
 
     /**
@@ -327,6 +348,15 @@ public class Task extends Resource {
     }
 
     /**
+     * Returns The The task_queue_friendly_name.
+     * 
+     * @return The task_queue_friendly_name
+     */
+    public final String getTaskQueueFriendlyName() {
+        return this.taskQueueFriendlyName;
+    }
+
+    /**
      * Returns The The task_channel_sid.
      * 
      * @return The task_channel_sid
@@ -363,6 +393,15 @@ public class Task extends Resource {
     }
 
     /**
+     * Returns The The workflow_friendly_name.
+     * 
+     * @return The workflow_friendly_name
+     */
+    public final String getWorkflowFriendlyName() {
+        return this.workflowFriendlyName;
+    }
+
+    /**
      * Returns The The workspace_sid.
      * 
      * @return The workspace_sid
@@ -378,6 +417,15 @@ public class Task extends Resource {
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
     }
 
     @Override
@@ -396,18 +444,22 @@ public class Task extends Resource {
                Objects.equals(age, other.age) && 
                Objects.equals(assignmentStatus, other.assignmentStatus) && 
                Objects.equals(attributes, other.attributes) && 
+               Objects.equals(addons, other.addons) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(priority, other.priority) && 
                Objects.equals(reason, other.reason) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(taskQueueSid, other.taskQueueSid) && 
+               Objects.equals(taskQueueFriendlyName, other.taskQueueFriendlyName) && 
                Objects.equals(taskChannelSid, other.taskChannelSid) && 
                Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) && 
                Objects.equals(timeout, other.timeout) && 
                Objects.equals(workflowSid, other.workflowSid) && 
+               Objects.equals(workflowFriendlyName, other.workflowFriendlyName) && 
                Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -416,18 +468,22 @@ public class Task extends Resource {
                             age,
                             assignmentStatus,
                             attributes,
+                            addons,
                             dateCreated,
                             dateUpdated,
                             priority,
                             reason,
                             sid,
                             taskQueueSid,
+                            taskQueueFriendlyName,
                             taskChannelSid,
                             taskChannelUniqueName,
                             timeout,
                             workflowSid,
+                            workflowFriendlyName,
                             workspaceSid,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -437,18 +493,22 @@ public class Task extends Resource {
                           .add("age", age)
                           .add("assignmentStatus", assignmentStatus)
                           .add("attributes", attributes)
+                          .add("addons", addons)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("priority", priority)
                           .add("reason", reason)
                           .add("sid", sid)
                           .add("taskQueueSid", taskQueueSid)
+                          .add("taskQueueFriendlyName", taskQueueFriendlyName)
                           .add("taskChannelSid", taskChannelSid)
                           .add("taskChannelUniqueName", taskChannelUniqueName)
                           .add("timeout", timeout)
                           .add("workflowSid", workflowSid)
+                          .add("workflowFriendlyName", workflowFriendlyName)
                           .add("workspaceSid", workspaceSid)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

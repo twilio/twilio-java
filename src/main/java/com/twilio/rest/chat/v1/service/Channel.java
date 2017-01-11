@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Channel extends Resource {
-    private static final long serialVersionUID = 147553862953443L;
+    private static final long serialVersionUID = 267741172679383L;
 
     public enum ChannelType {
         PUBLIC("public"),
@@ -171,6 +171,8 @@ public class Channel extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String createdBy;
+    private final Integer membersCount;
+    private final Integer messagesCount;
     private final URI url;
     private final Map<String, String> links;
 
@@ -195,6 +197,10 @@ public class Channel extends Resource {
                     final String dateUpdated, 
                     @JsonProperty("created_by")
                     final String createdBy, 
+                    @JsonProperty("members_count")
+                    final Integer membersCount, 
+                    @JsonProperty("messages_count")
+                    final Integer messagesCount, 
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
@@ -209,6 +215,8 @@ public class Channel extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
+        this.membersCount = membersCount;
+        this.messagesCount = messagesCount;
         this.url = url;
         this.links = links;
     }
@@ -304,6 +312,24 @@ public class Channel extends Resource {
     }
 
     /**
+     * Returns The The members_count.
+     * 
+     * @return The members_count
+     */
+    public final Integer getMembersCount() {
+        return this.membersCount;
+    }
+
+    /**
+     * Returns The The messages_count.
+     * 
+     * @return The messages_count
+     */
+    public final Integer getMessagesCount() {
+        return this.messagesCount;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -343,6 +369,8 @@ public class Channel extends Resource {
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(createdBy, other.createdBy) && 
+               Objects.equals(membersCount, other.membersCount) && 
+               Objects.equals(messagesCount, other.messagesCount) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -359,6 +387,8 @@ public class Channel extends Resource {
                             dateCreated,
                             dateUpdated,
                             createdBy,
+                            membersCount,
+                            messagesCount,
                             url,
                             links);
     }
@@ -376,6 +406,8 @@ public class Channel extends Resource {
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("createdBy", createdBy)
+                          .add("membersCount", membersCount)
+                          .add("messagesCount", messagesCount)
                           .add("url", url)
                           .add("links", links)
                           .toString();

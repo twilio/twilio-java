@@ -23,7 +23,6 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
     private final String workspaceSid;
     private final String taskQueueSid;
     private DateTime endDate;
-    private String friendlyName;
     private Integer minutes;
     private DateTime startDate;
 
@@ -47,17 +46,6 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
      */
     public TaskQueueStatisticsFetcher setEndDate(final DateTime endDate) {
         this.endDate = endDate;
-        return this;
-    }
-
-    /**
-     * The friendly_name.
-     * 
-     * @param friendlyName The friendly_name
-     * @return this
-     */
-    public TaskQueueStatisticsFetcher setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
         return this;
     }
 
@@ -130,10 +118,6 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
     private void addQueryParams(final Request request) {
         if (endDate != null) {
             request.addQueryParam("EndDate", endDate.toString());
-        }
-        
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
         }
         
         if (minutes != null) {

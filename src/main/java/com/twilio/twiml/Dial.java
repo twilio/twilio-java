@@ -1,13 +1,15 @@
 package com.twilio.twiml;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.namespace.QName;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/dial.
@@ -84,13 +86,13 @@ public class Dial extends TwiML {
 
     @SuppressWarnings("checkstyle:indentation")
     @XmlElements({
-        @XmlElement(name = "Number", type = Number.class)
+            @XmlElement(name = "Number", type = Number.class)
     })
     private final List<Number> numbers;
 
     @SuppressWarnings("checkstyle:indentation")
     @XmlElements({
-        @XmlElement(name = "Client", type = Client.class)
+            @XmlElement(name = "Client", type = Client.class)
     })
     private final List<Client> clients;
 
@@ -102,6 +104,9 @@ public class Dial extends TwiML {
 
     @XmlElement(name = "Sip")
     private final Sip sip;
+
+    @XmlAnyAttribute
+    private Map<QName, String> options;
 
     // For XML Serialization
     private Dial() {
@@ -124,6 +129,7 @@ public class Dial extends TwiML {
         this.conference = b.conference;
         this.queue = b.queue;
         this.sip = b.sip;
+        this.options = Maps.newHashMap(b.options);
     }
 
     public Boolean isHangupOnStar() {
@@ -186,6 +192,16 @@ public class Dial extends TwiML {
         return sip;
     }
 
+    public Map<String, String> getOptions() {
+        Map<String, String> convertedMap = new HashMap<>();
+
+        Set<QName> keys = options.keySet();
+        for (QName key : keys) {
+            convertedMap.put(key.getNamespaceURI(), options.get(key));
+        }
+        return convertedMap;
+    }
+
     public static class Builder {
         private Boolean hangupOnStar;
         private Integer timeout;
@@ -202,6 +218,7 @@ public class Dial extends TwiML {
         private Conference conference;
         private Queue queue;
         private Sip sip;
+        private Map<QName, String> options = Maps.newHashMap();
 
         public Builder hangupOnStar(boolean hangupOnStar) {
             this.hangupOnStar = hangupOnStar;
@@ -275,6 +292,11 @@ public class Dial extends TwiML {
 
         public Builder sip(Sip sip) {
             this.sip = sip;
+            return this;
+        }
+
+        public Builder options(String key, String value) {
+            this.options.put(new QName(key), value);
             return this;
         }
 

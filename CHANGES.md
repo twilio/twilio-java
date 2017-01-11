@@ -11,6 +11,10 @@ twilio-java changelog
 - Add support for ending conferences via the API.
 - Add `region` field to Conferences.
 
+- **Wireless**
+    - Creating RatePlan now takes single `renewal` string instead of `renewalPeriod` and `renewalUnits` (backwards incompatible).
+    - Change RatePlan `renewal` field to String (backwards incompatible).
+
 - **Twilio Chat**
     - Add `membersCount` and `messagesCount` to Channel.
     - Add support for filtering on channel type when reading list of Channels.

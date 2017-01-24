@@ -25,6 +25,19 @@ public class WorkflowRuleTarget extends TaskRouterResource {
     @JsonProperty("timeout")
     private final Integer timeout;
 
+    @JsonCreator
+    private WorkflowRuleTarget(
+        @JsonProperty("queue") String queue,
+        @JsonProperty("expression") String expression,
+        @JsonProperty("priority") Integer priority,
+        @JsonProperty("timeout") Integer timeout
+    ) {
+        this.queue = queue;
+        this.expression = expression;
+        this.priority = priority;
+        this.timeout = timeout;
+    }
+
     private WorkflowRuleTarget(Builder b) throws IllegalArgumentException {
         this.queue = b.queue;
         this.expression = b.expression;
@@ -87,7 +100,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
      */
     public static WorkflowRuleTarget fromJson(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(json, Builder.class).build();
+        return mapper.readValue(json, WorkflowRuleTarget.class);
     }
 
     public static class Builder {
@@ -96,19 +109,6 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         private String expression;
         private Integer priority;
         private Integer timeout;
-
-        @JsonCreator
-        private Builder(
-            @JsonProperty("queue") String queue,
-            @JsonProperty("expression") String expression,
-            @JsonProperty("priority") Integer priority,
-            @JsonProperty("timeout") Integer timeout
-        ) {
-            this.queue = queue;
-            this.expression = expression;
-            this.priority = priority;
-            this.timeout = timeout;
-        }
 
         public Builder(String queue) {
             this.queue = queue;

@@ -24,9 +24,8 @@ public class Workflow extends TaskRouterResource {
      *
      * @param workflowRules list of workflow rules (in order they will be processed)
      * @param defaultTarget default filter
-     * @throws Exception if unable to create Workflow
      */
-    public Workflow(List<WorkflowRule> workflowRules, WorkflowRuleTarget defaultTarget) throws Exception {
+    public Workflow(List<WorkflowRule> workflowRules, WorkflowRuleTarget defaultTarget) {
         taskRouting = new TaskRouting(workflowRules, defaultTarget);
     }
 

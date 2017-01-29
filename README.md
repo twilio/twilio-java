@@ -4,7 +4,7 @@
 
 twilio-java uses Maven.  At present the jars *are* available from a public [maven](http://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
 
-Use the following dependency in your project:
+Use the following dependency in your project to grab via Maven:
 
        <dependency>
           <groupId>com.twilio.sdk</groupId>
@@ -13,6 +13,11 @@ Use the following dependency in your project:
           <scope>compile</scope>
        </dependency>
 
+or Gradle:
+```groovy
+compile "com.twilio.sdk:twilio:7.X.X"
+````
+       
 If you want to compile it yourself, here's how:
 
     $ git clone git@github.com:twilio/twilio-java

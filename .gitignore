@@ -1,25 +1,5 @@
-# Make sure to ignore Eclipse files
-.classpath
-.project
-.settings
-
-# Macisms
-.DS_Store
-# Where maven compiles by default
-target
-
-#IntelliJ project files
-*.iml
 .idea
-
-# Java Files that should be ignored
-*.class
-
-# Package Files
-*.jar
-*.war
-*.ear
-
-# Backup files
-*.bak
-scratch
+out/
+*.iml
+target/
+src/main/java/com/twilio/rest/Twilio.java.bak

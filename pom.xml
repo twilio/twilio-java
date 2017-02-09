@@ -1,12 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <!-- Project identification section -->
   <groupId>com.twilio.sdk</groupId>
-  <artifactId>twilio-java-sdk</artifactId>
+  <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
-  <name>twilio-java-sdk</name>
-  <version>5.10.2-SNAPSHOT</version>
-  <description>Java helper library for Twilio services</description>
-  <url>http://www.twilio.com</url>
+  <name>twilio</name>
+  <version>7.4.4-SNAPSHOT</version>
+  <description>Twilio Java Helper Library</description>
+  <url>https://www.twilio.com</url>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -21,9 +24,9 @@
   </scm>
   <developers>
     <developer>
-      <id>support</id>
-      <name>Twilio Support</name>
-      <email>help@twilio.com</email>
+      <id>api</id>
+      <name>Twilio API</name>
+      <email>api@twilio.com</email>
       <organization>Twilio, Inc.</organization>
       <organizationUrl>https://www.twilio.com</organizationUrl>
       <timezone>-7</timezone>
@@ -31,103 +34,91 @@
   </developers>
 
   <properties>
-    <jackson.version>1.9.3</jackson.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <jackson.version>2.4.3</jackson.version>
   </properties>
 
   <dependencies>
-
-    <!-- HttpComponents -->
     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.2.6</version>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>18.0</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-      <version>4.2.5</version>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.5</version>
     </dependency>
-
-    <!-- Commons -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.3.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.googlecode.json-simple</groupId>
-      <artifactId>json-simple</artifactId>
-      <version>1.1</version>
-    </dependency>
-
-    <!-- Jackson -->
-    <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-core-asl</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
       <version>0.4</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>4.4.4</version>
+    </dependency>
+
+    <!-- Jackson -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- XML Generation -->
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.2</version>
+    </dependency>
+
     <!-- test dependencies -->
+    <dependency>
+      <groupId>org.jmockit</groupId>
+      <artifactId>jmockit</artifactId>
+      <version>1.12</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>1.8.4</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <profiles>
-      <profile>
-          <id>doclint-java8-disable</id>
-          <activation>
-              <jdk>[1.8,)</jdk>
-          </activation>
-          <build>
-              <plugins>
-                  <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-javadoc-plugin</artifactId>
-                      <configuration>
-                          <additionalparam>-Xdoclint:none</additionalparam>
-                      </configuration>
-                  </plugin>
-              </plugins>
-          </build>
-      </profile>
-  </profiles>
 
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.5</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
+
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.3</version>
         <configuration>
@@ -147,29 +138,16 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.8</version>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.17</version>
         <configuration>
-          <show>public</show>
-          <nohelp>true</nohelp>
-          <author>true</author>
-          <version>true</version>
-          <use>true</use>
-          <windowtitle>Twilio Java</windowtitle>
-          <doctitle><![CDATA[<h1>Twilio Java</h1>]]></doctitle>
-          <bottom><![CDATA[<i>Copyright &#169; 2011 Twilio, Inc. All Rights Reserved.</i>]]></bottom>
+          <configLocation>checkstyle.xml</configLocation>
         </configuration>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
@@ -183,6 +161,25 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <reportOutputDirectory>${env.TWILIO_DOCS_ROOT}</reportOutputDirectory>
+          <destDir>java/${project.version}</destDir>
+          <show>public</show>
+          <nohelp>true</nohelp>
+          <author>true</author>
+          <version>true</version>
+          <use>true</use>
+          <windowtitle>Twilio Java</windowtitle>
+          <doctitle><![CDATA[<h1>Twilio Java</h1>]]></doctitle>
+          <bottom><![CDATA[<i>Copyright &#169; 2016 Twilio, Inc. All Rights Reserved.</i>]]></bottom>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
@@ -193,6 +190,7 @@
           </formats>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 
@@ -202,4 +200,5 @@
     <artifactId>oss-parent</artifactId>
     <version>7</version>
   </parent>
+
 </project>

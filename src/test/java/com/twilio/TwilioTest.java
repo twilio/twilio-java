@@ -1,0 +1,63 @@
+package com.twilio;
+
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.exception.AuthenticationException;
+import org.junit.Test;
+
+import java.util.concurrent.Executors;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+public class TwilioTest {
+
+    public static String serialize(Object object) {
+        return object.toString();
+    }
+
+    @Test
+    public void testGetExecutorService() {
+        assertNotNull(Twilio.getExecutorService());
+    }
+
+    @Test(expected = AuthenticationException.class)
+    public void testGetRestClientNullAccountSid() {
+        Twilio.setRestClient(null);
+        Twilio.setUsername(null);
+        Twilio.setPassword(null);
+
+        Twilio.getRestClient();
+        fail("AuthenticationException was expected");
+    }
+
+    @Test(expected = AuthenticationException.class)
+    public void testSetAccountSidNull() {
+        Twilio.setUsername(null);
+        fail("AuthenticationException was expected");
+    }
+
+    @Test(expected = AuthenticationException.class)
+    public void testSetAuthTokenNull() {
+        Twilio.setPassword(null);
+        fail("AuthenticationException was expected");
+    }
+
+    @Test
+    public void testSetExecutorService() {
+        ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(
+                Executors.newCachedThreadPool());
+        Twilio.setExecutorService(listeningExecutorService);
+        assertEquals(listeningExecutorService, Twilio.getExecutorService());
+    }
+
+    @Test
+    public void testSetRestClient() {
+        TwilioRestClient twilioRestClient = new TwilioRestClient.Builder("AC123", "AUTH TOKEN").build();
+        Twilio.setRestClient(twilioRestClient);
+        assertEquals(twilioRestClient, Twilio.getRestClient());
+    }
+
+}

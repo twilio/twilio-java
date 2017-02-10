@@ -1,7 +1,7 @@
 twilio-java changelog
 =====================
 
-[2017-01-10] Version 7.5.0-alpha-1
+[2017-01-10] Version 7.5.0-alpha-2
 --------------------------
 - Add `validated` field to Addresses
 - Add FCM Credential support
@@ -11,6 +11,13 @@ twilio-java changelog
 - Fix Workflow json generation
 - Add TaskRouterGrant
 - Add `recordingStatusCallback` and `recordingStatusCallbackMethod` to Record TwiML
+- Add `AssignedAddOns` to `IncomingPhoneNumbers`
+- Add `marketplace` to Preview
+- Support FCM notification types
+- **Sync**
+    - Add `Documents`
+    - Add `Permissions` for Lists and Maps
+    - 
 
 [2017-01-10] Version 7.4.0-alpha-1
 --------------------------

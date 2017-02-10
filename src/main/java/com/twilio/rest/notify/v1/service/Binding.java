@@ -41,6 +41,7 @@ public class Binding extends Resource {
         APN("apn"),
         GCM("gcm"),
         SMS("sms"),
+        FCM("fcm"),
         FACEBOOK_MESSENGER("facebook-messenger");
     
         private final String value;

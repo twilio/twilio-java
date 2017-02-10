@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 19874426997483L;
+    private static final long serialVersionUID = 133636516526090L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -129,6 +129,7 @@ public class Service extends Resource {
     private final URI url;
     private final URI webhookUrl;
     private final Boolean reachabilityWebhooksEnabled;
+    private final Boolean aclEnabled;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -148,6 +149,8 @@ public class Service extends Resource {
                     final URI webhookUrl, 
                     @JsonProperty("reachability_webhooks_enabled")
                     final Boolean reachabilityWebhooksEnabled, 
+                    @JsonProperty("acl_enabled")
+                    final Boolean aclEnabled, 
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -158,6 +161,7 @@ public class Service extends Resource {
         this.url = url;
         this.webhookUrl = webhookUrl;
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
+        this.aclEnabled = aclEnabled;
         this.links = links;
     }
 
@@ -234,6 +238,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The acl_enabled.
+     * 
+     * @return The acl_enabled
+     */
+    public final Boolean getAclEnabled() {
+        return this.aclEnabled;
+    }
+
+    /**
      * Returns The The links.
      * 
      * @return The links
@@ -262,6 +275,7 @@ public class Service extends Resource {
                Objects.equals(url, other.url) && 
                Objects.equals(webhookUrl, other.webhookUrl) && 
                Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) && 
+               Objects.equals(aclEnabled, other.aclEnabled) && 
                Objects.equals(links, other.links);
     }
 
@@ -275,6 +289,7 @@ public class Service extends Resource {
                             url,
                             webhookUrl,
                             reachabilityWebhooksEnabled,
+                            aclEnabled,
                             links);
     }
 
@@ -289,6 +304,7 @@ public class Service extends Resource {
                           .add("url", url)
                           .add("webhookUrl", webhookUrl)
                           .add("reachabilityWebhooksEnabled", reachabilityWebhooksEnabled)
+                          .add("aclEnabled", aclEnabled)
                           .add("links", links)
                           .toString();
     }

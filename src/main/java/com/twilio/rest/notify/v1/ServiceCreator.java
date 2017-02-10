@@ -25,6 +25,8 @@ public class ServiceCreator extends Creator<Service> {
     private String facebookMessengerPageId;
     private String defaultApnNotificationProtocolVersion;
     private String defaultGcmNotificationProtocolVersion;
+    private String fcmCredentialSid;
+    private String defaultFcmNotificationProtocolVersion;
 
     /**
      * The friendly_name.
@@ -106,6 +108,29 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * The fcm_credential_sid.
+     * 
+     * @param fcmCredentialSid The fcm_credential_sid
+     * @return this
+     */
+    public ServiceCreator setFcmCredentialSid(final String fcmCredentialSid) {
+        this.fcmCredentialSid = fcmCredentialSid;
+        return this;
+    }
+
+    /**
+     * The default_fcm_notification_protocol_version.
+     * 
+     * @param defaultFcmNotificationProtocolVersion The
+     *                                              default_fcm_notification_protocol_version
+     * @return this
+     */
+    public ServiceCreator setDefaultFcmNotificationProtocolVersion(final String defaultFcmNotificationProtocolVersion) {
+        this.defaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -176,6 +201,14 @@ public class ServiceCreator extends Creator<Service> {
         
         if (defaultGcmNotificationProtocolVersion != null) {
             request.addPostParam("DefaultGcmNotificationProtocolVersion", defaultGcmNotificationProtocolVersion);
+        }
+        
+        if (fcmCredentialSid != null) {
+            request.addPostParam("FcmCredentialSid", fcmCredentialSid);
+        }
+        
+        if (defaultFcmNotificationProtocolVersion != null) {
+            request.addPostParam("DefaultFcmNotificationProtocolVersion", defaultFcmNotificationProtocolVersion);
         }
     }
 }

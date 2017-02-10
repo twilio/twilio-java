@@ -37,6 +37,7 @@ public class NotificationCreator extends Creator<Notification> {
     private String gcm;
     private String sms;
     private Map<String, Object> facebookMessenger;
+    private String fcm;
 
     /**
      * Construct a new NotificationCreator.
@@ -165,6 +166,17 @@ public class NotificationCreator extends Creator<Notification> {
      */
     public NotificationCreator setFacebookMessenger(final Map<String, Object> facebookMessenger) {
         this.facebookMessenger = facebookMessenger;
+        return this;
+    }
+
+    /**
+     * The fcm.
+     * 
+     * @param fcm The fcm
+     * @return this
+     */
+    public NotificationCreator setFcm(final String fcm) {
+        this.fcm = fcm;
         return this;
     }
 
@@ -309,6 +321,10 @@ public class NotificationCreator extends Creator<Notification> {
         
         if (facebookMessenger != null) {
             request.addPostParam("FacebookMessenger", Converter.mapToJson(facebookMessenger));
+        }
+        
+        if (fcm != null) {
+            request.addPostParam("Fcm", fcm);
         }
     }
 }

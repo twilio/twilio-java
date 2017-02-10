@@ -24,6 +24,7 @@ public class CredentialUpdater extends Updater<Credential> {
     private String privateKey;
     private Boolean sandbox;
     private String apiKey;
+    private String secret;
 
     /**
      * Construct a new CredentialUpdater.
@@ -90,6 +91,17 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
+     * The secret.
+     * 
+     * @param secret The secret
+     * @return this
+     */
+    public CredentialUpdater setSecret(final String secret) {
+        this.secret = secret;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -152,6 +164,10 @@ public class CredentialUpdater extends Updater<Credential> {
         
         if (apiKey != null) {
             request.addPostParam("ApiKey", apiKey);
+        }
+        
+        if (secret != null) {
+            request.addPostParam("Secret", secret);
         }
     }
 }

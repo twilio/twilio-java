@@ -38,7 +38,8 @@ public class Credential extends Resource {
 
     public enum PushService {
         GCM("gcm"),
-        APN("apn");
+        APN("apn"),
+        FCM("fcm");
     
         private final String value;
         

@@ -24,6 +24,7 @@ public class ServiceCreator extends Creator<Service> {
     private String friendlyName;
     private URI webhookUrl;
     private Boolean reachabilityWebhooksEnabled;
+    private Boolean aclEnabled;
 
     /**
      * The friendly_name.
@@ -65,6 +66,17 @@ public class ServiceCreator extends Creator<Service> {
      */
     public ServiceCreator setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
+        return this;
+    }
+
+    /**
+     * The acl_enabled.
+     * 
+     * @param aclEnabled The acl_enabled
+     * @return this
+     */
+    public ServiceCreator setAclEnabled(final Boolean aclEnabled) {
+        this.aclEnabled = aclEnabled;
         return this;
     }
 
@@ -123,6 +135,10 @@ public class ServiceCreator extends Creator<Service> {
         
         if (reachabilityWebhooksEnabled != null) {
             request.addPostParam("ReachabilityWebhooksEnabled", reachabilityWebhooksEnabled.toString());
+        }
+        
+        if (aclEnabled != null) {
+            request.addPostParam("AclEnabled", aclEnabled.toString());
         }
     }
 }

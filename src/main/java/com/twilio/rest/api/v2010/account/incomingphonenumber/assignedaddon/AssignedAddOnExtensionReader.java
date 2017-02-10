@@ -5,7 +5,7 @@
  *       /       /       
  */
 
-package com.twilio.rest.api.v2010.account.sip.domain;
+package com.twilio.rest.api.v2010.account.incomingphonenumber.assignedaddon;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,53 +19,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RegistrationEndpointReader extends Reader<RegistrationEndpoint> {
+public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension> {
     private String accountSid;
-    private final String domainSid;
-    private final String region;
-    private final String registrant;
+    private final String resourceSid;
+    private final String assignedAddOnSid;
 
     /**
-     * Construct a new RegistrationEndpointReader.
+     * Construct a new AssignedAddOnExtensionReader.
      * 
-     * @param domainSid The domain_sid
-     * @param region The region
-     * @param registrant The registrant
+     * @param resourceSid The resource_sid
+     * @param assignedAddOnSid The assigned_add_on_sid
      */
-    public RegistrationEndpointReader(final String domainSid, 
-                                      final String region, 
-                                      final String registrant) {
-        this.domainSid = domainSid;
-        this.region = region;
-        this.registrant = registrant;
+    public AssignedAddOnExtensionReader(final String resourceSid, 
+                                        final String assignedAddOnSid) {
+        this.resourceSid = resourceSid;
+        this.assignedAddOnSid = assignedAddOnSid;
     }
 
     /**
-     * Construct a new RegistrationEndpointReader.
+     * Construct a new AssignedAddOnExtensionReader.
      * 
      * @param accountSid The account_sid
-     * @param domainSid The domain_sid
-     * @param region The region
-     * @param registrant The registrant
+     * @param resourceSid The resource_sid
+     * @param assignedAddOnSid The assigned_add_on_sid
      */
-    public RegistrationEndpointReader(final String accountSid, 
-                                      final String domainSid, 
-                                      final String region, 
-                                      final String registrant) {
+    public AssignedAddOnExtensionReader(final String accountSid, 
+                                        final String resourceSid, 
+                                        final String assignedAddOnSid) {
         this.accountSid = accountSid;
-        this.domainSid = domainSid;
-        this.region = region;
-        this.registrant = registrant;
+        this.resourceSid = resourceSid;
+        this.assignedAddOnSid = assignedAddOnSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return RegistrationEndpoint ResourceSet
+     * @return AssignedAddOnExtension ResourceSet
      */
     @Override
-    public ResourceSet<RegistrationEndpoint> read(final TwilioRestClient client) {
+    public ResourceSet<AssignedAddOnExtension> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -73,16 +66,16 @@ public class RegistrationEndpointReader extends Reader<RegistrationEndpoint> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return RegistrationEndpoint ResourceSet
+     * @return AssignedAddOnExtension ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<RegistrationEndpoint> firstPage(final TwilioRestClient client) {
+    public Page<AssignedAddOnExtension> firstPage(final TwilioRestClient client) {
         this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.domainSid + "/Registrations/" + this.region + "/" + this.registrant + ".json",
+            "/2010-04-01/Accounts/" + this.accountSid + "/IncomingPhoneNumbers/" + this.resourceSid + "/AssignedAddOns/" + this.assignedAddOnSid + "/Extensions.json",
             client.getRegion()
         );
         
@@ -98,8 +91,8 @@ public class RegistrationEndpointReader extends Reader<RegistrationEndpoint> {
      * @return Next Page
      */
     @Override
-    public Page<RegistrationEndpoint> nextPage(final Page<RegistrationEndpoint> page, 
-                                               final TwilioRestClient client) {
+    public Page<AssignedAddOnExtension> nextPage(final Page<AssignedAddOnExtension> page, 
+                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
@@ -111,17 +104,17 @@ public class RegistrationEndpointReader extends Reader<RegistrationEndpoint> {
     }
 
     /**
-     * Generate a Page of RegistrationEndpoint Resources for a given request.
+     * Generate a Page of AssignedAddOnExtension Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<RegistrationEndpoint> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<AssignedAddOnExtension> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         
         if (response == null) {
-            throw new ApiConnectionException("RegistrationEndpoint read failed: Unable to connect to server");
+            throw new ApiConnectionException("AssignedAddOnExtension read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -138,9 +131,9 @@ public class RegistrationEndpointReader extends Reader<RegistrationEndpoint> {
         }
         
         return Page.fromJson(
-            "registrations",
+            "extensions",
             response.getContent(),
-            RegistrationEndpoint.class,
+            AssignedAddOnExtension.class,
             client.getObjectMapper()
         );
     }

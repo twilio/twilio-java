@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Document extends Resource {
-    private static final long serialVersionUID = 117870210623898L;
+    private static final long serialVersionUID = 140626500811731L;
 
     /**
      * Create a DocumentFetcher to execute fetch.
@@ -138,6 +138,7 @@ public class Document extends Resource {
     private final String accountSid;
     private final String serviceSid;
     private final URI url;
+    private final Map<String, String> links;
     private final String revision;
     private final Map<String, Object> data;
     private final DateTime dateCreated;
@@ -155,6 +156,8 @@ public class Document extends Resource {
                      final String serviceSid, 
                      @JsonProperty("url")
                      final URI url, 
+                     @JsonProperty("links")
+                     final Map<String, String> links, 
                      @JsonProperty("revision")
                      final String revision, 
                      @JsonProperty("data")
@@ -170,6 +173,7 @@ public class Document extends Resource {
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
         this.url = url;
+        this.links = links;
         this.revision = revision;
         this.data = data;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -220,6 +224,15 @@ public class Document extends Resource {
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
     }
 
     /**
@@ -284,6 +297,7 @@ public class Document extends Resource {
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links) && 
                Objects.equals(revision, other.revision) && 
                Objects.equals(data, other.data) && 
                Objects.equals(dateCreated, other.dateCreated) && 
@@ -298,6 +312,7 @@ public class Document extends Resource {
                             accountSid,
                             serviceSid,
                             url,
+                            links,
                             revision,
                             data,
                             dateCreated,
@@ -313,6 +328,7 @@ public class Document extends Resource {
                           .add("accountSid", accountSid)
                           .add("serviceSid", serviceSid)
                           .add("url", url)
+                          .add("links", links)
                           .add("revision", revision)
                           .add("data", data)
                           .add("dateCreated", dateCreated)

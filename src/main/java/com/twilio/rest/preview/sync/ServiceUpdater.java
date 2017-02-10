@@ -25,6 +25,7 @@ public class ServiceUpdater extends Updater<Service> {
     private URI webhookUrl;
     private String friendlyName;
     private Boolean reachabilityWebhooksEnabled;
+    private Boolean aclEnabled;
 
     /**
      * Construct a new ServiceUpdater.
@@ -75,6 +76,17 @@ public class ServiceUpdater extends Updater<Service> {
      */
     public ServiceUpdater setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
+        return this;
+    }
+
+    /**
+     * The acl_enabled.
+     * 
+     * @param aclEnabled The acl_enabled
+     * @return this
+     */
+    public ServiceUpdater setAclEnabled(final Boolean aclEnabled) {
+        this.aclEnabled = aclEnabled;
         return this;
     }
 
@@ -133,6 +145,10 @@ public class ServiceUpdater extends Updater<Service> {
         
         if (reachabilityWebhooksEnabled != null) {
             request.addPostParam("ReachabilityWebhooksEnabled", reachabilityWebhooksEnabled.toString());
+        }
+        
+        if (aclEnabled != null) {
+            request.addPostParam("AclEnabled", aclEnabled.toString());
         }
     }
 }

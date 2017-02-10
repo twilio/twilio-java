@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 268486811093222L;
+    private static final long serialVersionUID = 206358655298516L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -128,10 +128,12 @@ public class Service extends Resource {
     private final DateTime dateUpdated;
     private final String apnCredentialSid;
     private final String gcmCredentialSid;
+    private final String fcmCredentialSid;
     private final String messagingServiceSid;
     private final String facebookMessengerPageId;
     private final String defaultApnNotificationProtocolVersion;
     private final String defaultGcmNotificationProtocolVersion;
+    private final String defaultFcmNotificationProtocolVersion;
     private final URI url;
     private final Map<String, String> links;
 
@@ -150,6 +152,8 @@ public class Service extends Resource {
                     final String apnCredentialSid, 
                     @JsonProperty("gcm_credential_sid")
                     final String gcmCredentialSid, 
+                    @JsonProperty("fcm_credential_sid")
+                    final String fcmCredentialSid, 
                     @JsonProperty("messaging_service_sid")
                     final String messagingServiceSid, 
                     @JsonProperty("facebook_messenger_page_id")
@@ -158,6 +162,8 @@ public class Service extends Resource {
                     final String defaultApnNotificationProtocolVersion, 
                     @JsonProperty("default_gcm_notification_protocol_version")
                     final String defaultGcmNotificationProtocolVersion, 
+                    @JsonProperty("default_fcm_notification_protocol_version")
+                    final String defaultFcmNotificationProtocolVersion, 
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
@@ -169,10 +175,12 @@ public class Service extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.apnCredentialSid = apnCredentialSid;
         this.gcmCredentialSid = gcmCredentialSid;
+        this.fcmCredentialSid = fcmCredentialSid;
         this.messagingServiceSid = messagingServiceSid;
         this.facebookMessengerPageId = facebookMessengerPageId;
         this.defaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion;
         this.defaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion;
+        this.defaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion;
         this.url = url;
         this.links = links;
     }
@@ -241,6 +249,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The fcm_credential_sid.
+     * 
+     * @return The fcm_credential_sid
+     */
+    public final String getFcmCredentialSid() {
+        return this.fcmCredentialSid;
+    }
+
+    /**
      * Returns The The messaging_service_sid.
      * 
      * @return The messaging_service_sid
@@ -274,6 +291,15 @@ public class Service extends Resource {
      */
     public final String getDefaultGcmNotificationProtocolVersion() {
         return this.defaultGcmNotificationProtocolVersion;
+    }
+
+    /**
+     * Returns The The default_fcm_notification_protocol_version.
+     * 
+     * @return The default_fcm_notification_protocol_version
+     */
+    public final String getDefaultFcmNotificationProtocolVersion() {
+        return this.defaultFcmNotificationProtocolVersion;
     }
 
     /**
@@ -313,10 +339,12 @@ public class Service extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(apnCredentialSid, other.apnCredentialSid) && 
                Objects.equals(gcmCredentialSid, other.gcmCredentialSid) && 
+               Objects.equals(fcmCredentialSid, other.fcmCredentialSid) && 
                Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
                Objects.equals(facebookMessengerPageId, other.facebookMessengerPageId) && 
                Objects.equals(defaultApnNotificationProtocolVersion, other.defaultApnNotificationProtocolVersion) && 
                Objects.equals(defaultGcmNotificationProtocolVersion, other.defaultGcmNotificationProtocolVersion) && 
+               Objects.equals(defaultFcmNotificationProtocolVersion, other.defaultFcmNotificationProtocolVersion) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -330,10 +358,12 @@ public class Service extends Resource {
                             dateUpdated,
                             apnCredentialSid,
                             gcmCredentialSid,
+                            fcmCredentialSid,
                             messagingServiceSid,
                             facebookMessengerPageId,
                             defaultApnNotificationProtocolVersion,
                             defaultGcmNotificationProtocolVersion,
+                            defaultFcmNotificationProtocolVersion,
                             url,
                             links);
     }
@@ -348,10 +378,12 @@ public class Service extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("apnCredentialSid", apnCredentialSid)
                           .add("gcmCredentialSid", gcmCredentialSid)
+                          .add("fcmCredentialSid", fcmCredentialSid)
                           .add("messagingServiceSid", messagingServiceSid)
                           .add("facebookMessengerPageId", facebookMessengerPageId)
                           .add("defaultApnNotificationProtocolVersion", defaultApnNotificationProtocolVersion)
                           .add("defaultGcmNotificationProtocolVersion", defaultGcmNotificationProtocolVersion)
+                          .add("defaultFcmNotificationProtocolVersion", defaultFcmNotificationProtocolVersion)
                           .add("url", url)
                           .add("links", links)
                           .toString();

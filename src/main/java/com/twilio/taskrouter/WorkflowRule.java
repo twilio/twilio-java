@@ -19,6 +19,18 @@ public class WorkflowRule extends TaskRouterResource {
     private final String friendlyName;
     private final List<WorkflowRuleTarget> targets;
 
+    @JsonCreator
+    private WorkflowRule(
+        @JsonProperty("expression") String expression,
+        @JsonProperty("filter_friendly_name") String filterFriendlyName,
+        @JsonProperty("friendly_name") String friendlyName,
+        @JsonProperty("targets") List<WorkflowRuleTarget> targets
+    ) {
+        this.expression = expression;
+        this.friendlyName = friendlyName != null ? friendlyName : filterFriendlyName;
+        this.targets = targets;
+    }
+
     /**
      * Define a workflow rule.
      * @param b workflow rule builder
@@ -76,7 +88,7 @@ public class WorkflowRule extends TaskRouterResource {
      */
     public static WorkflowRule fromJson(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(json, Builder.class).build();
+        return mapper.readValue(json, WorkflowRule.class);
     }
 
     public static class Builder {
@@ -84,19 +96,6 @@ public class WorkflowRule extends TaskRouterResource {
         private String expression;
         private String friendlyName;
         private List<WorkflowRuleTarget> targets;
-
-        @JsonCreator
-        private Builder(
-            @JsonProperty("expression") String expression,
-            @JsonProperty("filter_friendly_name") String filterFriendlyName,
-            @JsonProperty("friendly_name") String friendlyName,
-            @JsonProperty("targets") List<WorkflowRuleTarget> targets
-        ) {
-            this.expression = expression;
-            this.friendlyName = filterFriendlyName;
-            this.friendlyName = friendlyName;
-            this.targets = targets;
-        }
 
         public Builder(String expression, List<WorkflowRuleTarget> targets) {
             this.expression = expression;

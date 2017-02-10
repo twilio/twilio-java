@@ -10,6 +10,7 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,15 +20,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.util.List;
+
 public class TaskReader extends Reader<Task> {
     private final String workspaceSid;
     private Integer priority;
-    private Task.Status assignmentStatus;
+    private List<String> assignmentStatus;
     private String workflowSid;
     private String workflowName;
     private String taskQueueSid;
     private String taskQueueName;
-    private String taskChannel;
     private String evaluateTaskAttributes;
     private String ordering;
     private Boolean hasAddons;
@@ -58,9 +60,19 @@ public class TaskReader extends Reader<Task> {
      * @param assignmentStatus The assignment_status
      * @return this
      */
-    public TaskReader setAssignmentStatus(final Task.Status assignmentStatus) {
+    public TaskReader setAssignmentStatus(final List<String> assignmentStatus) {
         this.assignmentStatus = assignmentStatus;
         return this;
+    }
+
+    /**
+     * The assignment_status.
+     * 
+     * @param assignmentStatus The assignment_status
+     * @return this
+     */
+    public TaskReader setAssignmentStatus(final String assignmentStatus) {
+        return setAssignmentStatus(Promoter.listOfOne(assignmentStatus));
     }
 
     /**
@@ -104,17 +116,6 @@ public class TaskReader extends Reader<Task> {
      */
     public TaskReader setTaskQueueName(final String taskQueueName) {
         this.taskQueueName = taskQueueName;
-        return this;
-    }
-
-    /**
-     * The task_channel.
-     * 
-     * @param taskChannel The task_channel
-     * @return this
-     */
-    public TaskReader setTaskChannel(final String taskChannel) {
-        this.taskChannel = taskChannel;
         return this;
     }
 
@@ -248,7 +249,9 @@ public class TaskReader extends Reader<Task> {
         }
         
         if (assignmentStatus != null) {
-            request.addQueryParam("AssignmentStatus", assignmentStatus.toString());
+            for (String prop : assignmentStatus) {
+                request.addQueryParam("AssignmentStatus", prop);
+            }
         }
         
         if (workflowSid != null) {
@@ -265,10 +268,6 @@ public class TaskReader extends Reader<Task> {
         
         if (taskQueueName != null) {
             request.addQueryParam("TaskQueueName", taskQueueName);
-        }
-        
-        if (taskChannel != null) {
-            request.addQueryParam("TaskChannel", taskChannel);
         }
         
         if (evaluateTaskAttributes != null) {

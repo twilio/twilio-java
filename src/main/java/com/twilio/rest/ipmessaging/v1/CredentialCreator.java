@@ -24,6 +24,7 @@ public class CredentialCreator extends Creator<Credential> {
     private String privateKey;
     private Boolean sandbox;
     private String apiKey;
+    private String secret;
 
     /**
      * Construct a new CredentialCreator.
@@ -86,6 +87,17 @@ public class CredentialCreator extends Creator<Credential> {
      */
     public CredentialCreator setApiKey(final String apiKey) {
         this.apiKey = apiKey;
+        return this;
+    }
+
+    /**
+     * The secret.
+     * 
+     * @param secret The secret
+     * @return this
+     */
+    public CredentialCreator setSecret(final String secret) {
+        this.secret = secret;
         return this;
     }
 
@@ -156,6 +168,10 @@ public class CredentialCreator extends Creator<Credential> {
         
         if (apiKey != null) {
             request.addPostParam("ApiKey", apiKey);
+        }
+        
+        if (secret != null) {
+            request.addPostParam("Secret", secret);
         }
     }
 }

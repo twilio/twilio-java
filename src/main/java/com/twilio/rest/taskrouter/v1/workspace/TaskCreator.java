@@ -19,11 +19,11 @@ import com.twilio.rest.Domains;
 
 public class TaskCreator extends Creator<Task> {
     private final String workspaceSid;
-    private String attributes;
-    private String workflowSid;
     private Integer timeout;
     private Integer priority;
     private String taskChannel;
+    private String workflowSid;
+    private String attributes;
 
     /**
      * Construct a new TaskCreator.
@@ -32,28 +32,6 @@ public class TaskCreator extends Creator<Task> {
      */
     public TaskCreator(final String workspaceSid) {
         this.workspaceSid = workspaceSid;
-    }
-
-    /**
-     * The attributes.
-     * 
-     * @param attributes The attributes
-     * @return this
-     */
-    public TaskCreator setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
-
-    /**
-     * The workflow_sid.
-     * 
-     * @param workflowSid The workflow_sid
-     * @return this
-     */
-    public TaskCreator setWorkflowSid(final String workflowSid) {
-        this.workflowSid = workflowSid;
-        return this;
     }
 
     /**
@@ -86,6 +64,28 @@ public class TaskCreator extends Creator<Task> {
      */
     public TaskCreator setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
+        return this;
+    }
+
+    /**
+     * The workflow_sid.
+     * 
+     * @param workflowSid The workflow_sid
+     * @return this
+     */
+    public TaskCreator setWorkflowSid(final String workflowSid) {
+        this.workflowSid = workflowSid;
+        return this;
+    }
+
+    /**
+     * The attributes.
+     * 
+     * @param attributes The attributes
+     * @return this
+     */
+    public TaskCreator setAttributes(final String attributes) {
+        this.attributes = attributes;
         return this;
     }
 
@@ -134,14 +134,6 @@ public class TaskCreator extends Creator<Task> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
-        }
-        
-        if (workflowSid != null) {
-            request.addPostParam("WorkflowSid", workflowSid);
-        }
-        
         if (timeout != null) {
             request.addPostParam("Timeout", timeout.toString());
         }
@@ -152,6 +144,14 @@ public class TaskCreator extends Creator<Task> {
         
         if (taskChannel != null) {
             request.addPostParam("TaskChannel", taskChannel);
+        }
+        
+        if (workflowSid != null) {
+            request.addPostParam("WorkflowSid", workflowSid);
+        }
+        
+        if (attributes != null) {
+            request.addPostParam("Attributes", attributes);
         }
     }
 }

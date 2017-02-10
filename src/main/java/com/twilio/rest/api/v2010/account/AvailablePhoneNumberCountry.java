@@ -138,18 +138,18 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The The country_code.
+     * Returns The The ISO Country code to lookup phone numbers for..
      * 
-     * @return The country_code
+     * @return The ISO Country code to lookup phone numbers for.
      */
     public final String getSid() {
         return this.getCountryCode();
     }
 
     /**
-     * Returns The The country_code.
+     * Returns The The ISO Country code to lookup phone numbers for..
      * 
-     * @return The country_code
+     * @return The ISO Country code to lookup phone numbers for.
      */
     public final String getCountryCode() {
         return this.countryCode;

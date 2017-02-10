@@ -20,21 +20,29 @@ import com.twilio.rest.Domains;
 public class ActivityUpdater extends Updater<Activity> {
     private final String workspaceSid;
     private final String sid;
-    private final String friendlyName;
+    private String friendlyName;
 
     /**
      * Construct a new ActivityUpdater.
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
-     * @param friendlyName The friendly_name
      */
     public ActivityUpdater(final String workspaceSid, 
-                           final String sid, 
-                           final String friendlyName) {
+                           final String sid) {
         this.workspaceSid = workspaceSid;
         this.sid = sid;
+    }
+
+    /**
+     * The friendly_name.
+     * 
+     * @param friendlyName The friendly_name
+     * @return this
+     */
+    public ActivityUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
     }
 
     /**

@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Address extends Resource {
-    private static final long serialVersionUID = 81565212445182L;
+    private static final long serialVersionUID = 205717359907857L;
 
     /**
      * Create a AddressCreator to execute create.
@@ -212,6 +212,7 @@ public class Address extends Resource {
     private final String street;
     private final String uri;
     private final Boolean emergencyEnabled;
+    private final Boolean validated;
 
     @JsonCreator
     private Address(@JsonProperty("account_sid")
@@ -239,7 +240,9 @@ public class Address extends Resource {
                     @JsonProperty("uri")
                     final String uri, 
                     @JsonProperty("emergency_enabled")
-                    final Boolean emergencyEnabled) {
+                    final Boolean emergencyEnabled, 
+                    @JsonProperty("validated")
+                    final Boolean validated) {
         this.accountSid = accountSid;
         this.city = city;
         this.customerName = customerName;
@@ -253,6 +256,7 @@ public class Address extends Resource {
         this.street = street;
         this.uri = uri;
         this.emergencyEnabled = emergencyEnabled;
+        this.validated = validated;
     }
 
     /**
@@ -372,6 +376,15 @@ public class Address extends Resource {
         return this.emergencyEnabled;
     }
 
+    /**
+     * Returns The The validated.
+     * 
+     * @return The validated
+     */
+    public final Boolean getValidated() {
+        return this.validated;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -396,7 +409,8 @@ public class Address extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(street, other.street) && 
                Objects.equals(uri, other.uri) && 
-               Objects.equals(emergencyEnabled, other.emergencyEnabled);
+               Objects.equals(emergencyEnabled, other.emergencyEnabled) && 
+               Objects.equals(validated, other.validated);
     }
 
     @Override
@@ -413,7 +427,8 @@ public class Address extends Resource {
                             sid,
                             street,
                             uri,
-                            emergencyEnabled);
+                            emergencyEnabled,
+                            validated);
     }
 
     @Override
@@ -432,6 +447,7 @@ public class Address extends Resource {
                           .add("street", street)
                           .add("uri", uri)
                           .add("emergencyEnabled", emergencyEnabled)
+                          .add("validated", validated)
                           .toString();
     }
 }

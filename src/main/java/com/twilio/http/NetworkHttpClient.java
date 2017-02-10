@@ -43,6 +43,7 @@ public class NetworkHttpClient extends HttpClient {
         );
 
         client = HttpClientBuilder.create()
+            .useSystemProperties()
             .setConnectionManager(new PoolingHttpClientConnectionManager())
             .setDefaultRequestConfig(config)
             .setDefaultHeaders(headers)

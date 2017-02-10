@@ -167,6 +167,35 @@ public class AccessTokenTest {
     }
 
     @Test
+    public void testTaskRouterGrant() {
+        TaskRouterGrant trg = new TaskRouterGrant()
+                .setWorkspaceSid("WS123")
+                .setWorkerSid("WK123")
+                .setRole("worker");
+
+        Jwt token =
+                new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                        .grant(trg)
+                        .build();
+
+        Claims claims =
+                Jwts.parser()
+                        .setSigningKey(SECRET.getBytes())
+                        .parseClaimsJws(token.toJwt())
+                        .getBody();
+
+        validateToken(claims);
+
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Assert.assertEquals(1, decodedGrants.size());
+
+        Map<String, Object> grant = (Map<String, Object>) decodedGrants.get("task_router");
+        Assert.assertEquals("WS123", grant.get("workspace_sid"));
+        Assert.assertEquals("WK123", grant.get("worker_sid"));
+        Assert.assertEquals("worker", grant.get("role"));
+    }
+
+    @Test
     public void testCompleteToken() {
         IpMessagingGrant ipg = new IpMessagingGrant()
             .setDeploymentRoleSid("RL123")

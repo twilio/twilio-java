@@ -22,6 +22,7 @@ import com.twilio.rest.Domains;
 public class MessageReader extends Reader<Message> {
     private final String serviceSid;
     private final String channelSid;
+    private Message.OrderType order;
 
     /**
      * Construct a new MessageReader.
@@ -33,6 +34,17 @@ public class MessageReader extends Reader<Message> {
                          final String channelSid) {
         this.serviceSid = serviceSid;
         this.channelSid = channelSid;
+    }
+
+    /**
+     * The order.
+     * 
+     * @param order The order
+     * @return this
+     */
+    public MessageReader setOrder(final Message.OrderType order) {
+        this.order = order;
+        return this;
     }
 
     /**
@@ -127,6 +139,10 @@ public class MessageReader extends Reader<Message> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (order != null) {
+            request.addQueryParam("Order", order.toString());
+        }
+        
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

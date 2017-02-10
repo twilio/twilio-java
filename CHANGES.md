@@ -1,6 +1,17 @@
 twilio-java changelog
 =====================
 
+[2017-01-10] Version 7.5.0-alpha-1
+--------------------------
+- Add `validated` field to Addresses
+- Add FCM Credential support
+- Add `Order` parameter to Chat Message filterting
+- Remove required updating of `friendlyName` parameter when updating TaskRouter Activities
+- Accept multiple `assignmentStatus`'s when filtering `Tasks`
+- Fix Workflow json generation
+- Add TaskRouterGrant
+- Add `recordingStatusCallback` and `recordingStatusCallbackMethod` to Record TwiML
+
 [2017-01-10] Version 7.4.0-alpha-1
 --------------------------
 - Added new AddOnResults API.

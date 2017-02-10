@@ -29,6 +29,12 @@ public class Record extends TwiML {
     private final Method method;
 
     @XmlAttribute
+    private final String recordingStatusCallback;
+
+    @XmlAttribute
+    private final Method recordingStatusCallbackMethod;
+
+    @XmlAttribute
     private final String finishOnKey;
 
     @XmlAttribute
@@ -50,6 +56,8 @@ public class Record extends TwiML {
         this.maxLength = b.maxLength;
         this.action = b.action;
         this.method = b.method;
+        this.recordingStatusCallback = b.recordingStatusCallback;
+        this.recordingStatusCallbackMethod = b.recordingStatusCallbackMethod;
         this.finishOnKey = b.finishOnKey;
         this.transcribeCallback = b.transcribeCallback;
         this.trim = b.trim;
@@ -79,6 +87,14 @@ public class Record extends TwiML {
         return method;
     }
 
+    public String getRecordingStatusCallback() {
+        return recordingStatusCallback;
+    }
+
+    public Method getRecordingStatusCallbackMethod() {
+        return recordingStatusCallbackMethod;
+    }
+
     public String getFinishOnKey() {
         return finishOnKey;
     }
@@ -98,6 +114,8 @@ public class Record extends TwiML {
         private Integer maxLength;
         private String action;
         private Method method;
+        private String recordingStatusCallback;
+        private Method recordingStatusCallbackMethod;
         private String finishOnKey;
         private String transcribeCallback;
         private Trim trim;
@@ -129,6 +147,16 @@ public class Record extends TwiML {
 
         public Builder method(Method method) {
             this.method = method;
+            return this;
+        }
+
+        public Builder recordingStatusCallback(String recordingStatusCallback) {
+            this.recordingStatusCallback = recordingStatusCallback;
+            return this;
+        }
+
+        public Builder recordingStatusCallbackMethod(Method recordingStatusCallbackMethod) {
+            this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
             return this;
         }
 

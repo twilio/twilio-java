@@ -33,7 +33,6 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private URI smsUrl;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
-    private String trunkSid;
     private String voiceApplicationSid;
     private Boolean voiceCallerIdLookup;
     private HttpMethod voiceFallbackMethod;
@@ -42,6 +41,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private URI voiceUrl;
     private IncomingPhoneNumber.EmergencyStatus emergencyStatus;
     private String emergencyAddressSid;
+    private String trunkSid;
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
@@ -231,21 +231,6 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
-     * The 34 character sid of the Trunk Twilio should use to handle phone calls to
-     * this number. If a `TrunkSid` is present, Twilio will ignore all of the voice
-     * urls  and voice applications above and use those set on the Trunk. Setting a
-     * `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice
-     * versa..
-     * 
-     * @param trunkSid Unique string to identify the trunk
-     * @return this
-     */
-    public IncomingPhoneNumberCreator setTrunkSid(final String trunkSid) {
-        this.trunkSid = trunkSid;
-        return this;
-    }
-
-    /**
      * The 34 character sid of the application Twilio should use to handle phone
      * calls to this number. If a `VoiceApplicationSid` is present, Twilio will
      * ignore all of the voice urls above and use those set on the application.
@@ -368,6 +353,21 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
+     * The 34 character sid of the Trunk Twilio should use to handle phone calls to
+     * this number. If a `TrunkSid` is present, Twilio will ignore all of the voice
+     * urls  and voice applications above and use those set on the Trunk. Setting a
+     * `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice
+     * versa..
+     * 
+     * @param trunkSid Unique string to identify the trunk
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setTrunkSid(final String trunkSid) {
+        this.trunkSid = trunkSid;
+        return this;
+    }
+
+    /**
      * The phone number to purchase. e.g., +16175551212 (E.164 format).
      * 
      * @param phoneNumber The phone number
@@ -480,10 +480,6 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
         }
         
-        if (trunkSid != null) {
-            request.addPostParam("TrunkSid", trunkSid);
-        }
-        
         if (voiceApplicationSid != null) {
             request.addPostParam("VoiceApplicationSid", voiceApplicationSid);
         }
@@ -514,6 +510,10 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         
         if (emergencyAddressSid != null) {
             request.addPostParam("EmergencyAddressSid", emergencyAddressSid);
+        }
+        
+        if (trunkSid != null) {
+            request.addPostParam("TrunkSid", trunkSid);
         }
     }
 }

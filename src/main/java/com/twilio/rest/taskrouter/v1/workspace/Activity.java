@@ -53,13 +53,11 @@ public class Activity extends Resource {
      * 
      * @param workspaceSid The workspace_sid
      * @param sid The sid
-     * @param friendlyName The friendly_name
      * @return ActivityUpdater capable of executing the update
      */
     public static ActivityUpdater updater(final String workspaceSid, 
-                                          final String sid, 
-                                          final String friendlyName) {
-        return new ActivityUpdater(workspaceSid, sid, friendlyName);
+                                          final String sid) {
+        return new ActivityUpdater(workspaceSid, sid);
     }
 
     /**

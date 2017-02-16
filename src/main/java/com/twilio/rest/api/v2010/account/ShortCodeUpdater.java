@@ -21,8 +21,8 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class ShortCodeUpdater extends Updater<ShortCode> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
     private String friendlyName;
     private String apiVersion;
     private URI smsUrl;
@@ -33,22 +33,22 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * Construct a new ShortCodeUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public ShortCodeUpdater(final String sid) {
-        this.sid = sid;
+    public ShortCodeUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new ShortCodeUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      */
-    public ShortCodeUpdater(final String accountSid, 
-                            final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public ShortCodeUpdater(final String pathAccountSid, 
+                            final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -156,11 +156,11 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ShortCode update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SMS/ShortCodes/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SMS/ShortCodes/" + this.pathSid + ".json",
             client.getRegion()
         );
         

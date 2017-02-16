@@ -18,8 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AddressUpdater extends Updater<Address> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
     private String friendlyName;
     private String customerName;
     private String street;
@@ -31,22 +31,22 @@ public class AddressUpdater extends Updater<Address> {
     /**
      * Construct a new AddressUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public AddressUpdater(final String sid) {
-        this.sid = sid;
+    public AddressUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new AddressUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      */
-    public AddressUpdater(final String accountSid, 
-                          final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public AddressUpdater(final String pathAccountSid, 
+                          final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -135,11 +135,11 @@ public class AddressUpdater extends Updater<Address> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Address update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Addresses/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses/" + this.pathSid + ".json",
             client.getRegion()
         );
         

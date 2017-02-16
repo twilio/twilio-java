@@ -38,131 +38,131 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param pathAccountSid The account_sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
      * @return IpAddressReader capable of executing the read
      */
-    public static IpAddressReader reader(final String accountSid, 
-                                         final String ipAccessControlListSid) {
-        return new IpAddressReader(accountSid, ipAccessControlListSid);
+    public static IpAddressReader reader(final String pathAccountSid, 
+                                         final String pathIpAccessControlListSid) {
+        return new IpAddressReader(pathAccountSid, pathIpAccessControlListSid);
     }
 
     /**
      * Create a IpAddressReader to execute read.
      * 
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
      * @return IpAddressReader capable of executing the read
      */
-    public static IpAddressReader reader(final String ipAccessControlListSid) {
-        return new IpAddressReader(ipAccessControlListSid);
+    public static IpAddressReader reader(final String pathIpAccessControlListSid) {
+        return new IpAddressReader(pathIpAccessControlListSid);
     }
 
     /**
      * Create a IpAddressCreator to execute create.
      * 
-     * @param accountSid The account_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param pathAccountSid The account_sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
      * @param friendlyName The friendly_name
      * @param ipAddress The ip_address
      * @return IpAddressCreator capable of executing the create
      */
-    public static IpAddressCreator creator(final String accountSid, 
-                                           final String ipAccessControlListSid, 
+    public static IpAddressCreator creator(final String pathAccountSid, 
+                                           final String pathIpAccessControlListSid, 
                                            final String friendlyName, 
                                            final String ipAddress) {
-        return new IpAddressCreator(accountSid, ipAccessControlListSid, friendlyName, ipAddress);
+        return new IpAddressCreator(pathAccountSid, pathIpAccessControlListSid, friendlyName, ipAddress);
     }
 
     /**
      * Create a IpAddressCreator to execute create.
      * 
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
      * @param friendlyName The friendly_name
      * @param ipAddress The ip_address
      * @return IpAddressCreator capable of executing the create
      */
-    public static IpAddressCreator creator(final String ipAccessControlListSid, 
+    public static IpAddressCreator creator(final String pathIpAccessControlListSid, 
                                            final String friendlyName, 
                                            final String ipAddress) {
-        return new IpAddressCreator(ipAccessControlListSid, friendlyName, ipAddress);
+        return new IpAddressCreator(pathIpAccessControlListSid, friendlyName, ipAddress);
     }
 
     /**
      * Create a IpAddressFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathSid The sid
      * @return IpAddressFetcher capable of executing the fetch
      */
-    public static IpAddressFetcher fetcher(final String accountSid, 
-                                           final String ipAccessControlListSid, 
-                                           final String sid) {
-        return new IpAddressFetcher(accountSid, ipAccessControlListSid, sid);
+    public static IpAddressFetcher fetcher(final String pathAccountSid, 
+                                           final String pathIpAccessControlListSid, 
+                                           final String pathSid) {
+        return new IpAddressFetcher(pathAccountSid, pathIpAccessControlListSid, pathSid);
     }
 
     /**
      * Create a IpAddressFetcher to execute fetch.
      * 
-     * @param ipAccessControlListSid The ip_access_control_list_sid
-     * @param sid The sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathSid The sid
      * @return IpAddressFetcher capable of executing the fetch
      */
-    public static IpAddressFetcher fetcher(final String ipAccessControlListSid, 
-                                           final String sid) {
-        return new IpAddressFetcher(ipAccessControlListSid, sid);
+    public static IpAddressFetcher fetcher(final String pathIpAccessControlListSid, 
+                                           final String pathSid) {
+        return new IpAddressFetcher(pathIpAccessControlListSid, pathSid);
     }
 
     /**
      * Create a IpAddressUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathSid The sid
      * @return IpAddressUpdater capable of executing the update
      */
-    public static IpAddressUpdater updater(final String accountSid, 
-                                           final String ipAccessControlListSid, 
-                                           final String sid) {
-        return new IpAddressUpdater(accountSid, ipAccessControlListSid, sid);
+    public static IpAddressUpdater updater(final String pathAccountSid, 
+                                           final String pathIpAccessControlListSid, 
+                                           final String pathSid) {
+        return new IpAddressUpdater(pathAccountSid, pathIpAccessControlListSid, pathSid);
     }
 
     /**
      * Create a IpAddressUpdater to execute update.
      * 
-     * @param ipAccessControlListSid The ip_access_control_list_sid
-     * @param sid The sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathSid The sid
      * @return IpAddressUpdater capable of executing the update
      */
-    public static IpAddressUpdater updater(final String ipAccessControlListSid, 
-                                           final String sid) {
-        return new IpAddressUpdater(ipAccessControlListSid, sid);
+    public static IpAddressUpdater updater(final String pathIpAccessControlListSid, 
+                                           final String pathSid) {
+        return new IpAddressUpdater(pathIpAccessControlListSid, pathSid);
     }
 
     /**
      * Create a IpAddressDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathSid The sid
      * @return IpAddressDeleter capable of executing the delete
      */
-    public static IpAddressDeleter deleter(final String accountSid, 
-                                           final String ipAccessControlListSid, 
-                                           final String sid) {
-        return new IpAddressDeleter(accountSid, ipAccessControlListSid, sid);
+    public static IpAddressDeleter deleter(final String pathAccountSid, 
+                                           final String pathIpAccessControlListSid, 
+                                           final String pathSid) {
+        return new IpAddressDeleter(pathAccountSid, pathIpAccessControlListSid, pathSid);
     }
 
     /**
      * Create a IpAddressDeleter to execute delete.
      * 
-     * @param ipAccessControlListSid The ip_access_control_list_sid
-     * @param sid The sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathSid The sid
      * @return IpAddressDeleter capable of executing the delete
      */
-    public static IpAddressDeleter deleter(final String ipAccessControlListSid, 
-                                           final String sid) {
-        return new IpAddressDeleter(ipAccessControlListSid, sid);
+    public static IpAddressDeleter deleter(final String pathIpAccessControlListSid, 
+                                           final String pathSid) {
+        return new IpAddressDeleter(pathIpAccessControlListSid, pathSid);
     }
 
     /**

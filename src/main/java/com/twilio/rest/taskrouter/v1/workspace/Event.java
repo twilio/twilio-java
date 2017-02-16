@@ -39,23 +39,23 @@ public class Event extends Resource {
     /**
      * Create a EventFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return EventFetcher capable of executing the fetch
      */
-    public static EventFetcher fetcher(final String workspaceSid, 
-                                       final String sid) {
-        return new EventFetcher(workspaceSid, sid);
+    public static EventFetcher fetcher(final String pathWorkspaceSid, 
+                                       final String pathSid) {
+        return new EventFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a EventReader to execute read.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @return EventReader capable of executing the read
      */
-    public static EventReader reader(final String workspaceSid) {
-        return new EventReader(workspaceSid);
+    public static EventReader reader(final String pathWorkspaceSid) {
+        return new EventReader(pathWorkspaceSid);
     }
 
     /**

@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class RoleReader extends Reader<Role> {
-    private final String serviceSid;
+    private final String pathServiceSid;
 
     /**
      * Construct a new RoleReader.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public RoleReader(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public RoleReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class RoleReader extends Reader<Role> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Roles",
+            "/v1/Services/" + this.pathServiceSid + "/Roles",
             client.getRegion()
         );
         

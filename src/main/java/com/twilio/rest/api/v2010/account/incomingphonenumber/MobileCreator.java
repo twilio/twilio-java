@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class MobileCreator extends Creator<Mobile> {
-    private String ownerAccountSid;
+    private String pathAccountSid;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
@@ -51,12 +51,12 @@ public class MobileCreator extends Creator<Mobile> {
     /**
      * Construct a new MobileCreator.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @param phoneNumber The phone_number
      */
-    public MobileCreator(final String ownerAccountSid, 
+    public MobileCreator(final String pathAccountSid, 
                          final com.twilio.type.PhoneNumber phoneNumber) {
-        this.ownerAccountSid = ownerAccountSid;
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -284,11 +284,11 @@ public class MobileCreator extends Creator<Mobile> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Mobile create(final TwilioRestClient client) {
-        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/Mobile.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Mobile.json",
             client.getRegion()
         );
         

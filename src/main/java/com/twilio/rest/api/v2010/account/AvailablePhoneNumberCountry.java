@@ -37,11 +37,11 @@ public class AvailablePhoneNumberCountry extends Resource {
     /**
      * Create a AvailablePhoneNumberCountryReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return AvailablePhoneNumberCountryReader capable of executing the read
      */
-    public static AvailablePhoneNumberCountryReader reader(final String accountSid) {
-        return new AvailablePhoneNumberCountryReader(accountSid);
+    public static AvailablePhoneNumberCountryReader reader(final String pathAccountSid) {
+        return new AvailablePhoneNumberCountryReader(pathAccountSid);
     }
 
     /**
@@ -56,23 +56,23 @@ public class AvailablePhoneNumberCountry extends Resource {
     /**
      * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param countryCode The country_code
+     * @param pathAccountSid The account_sid
+     * @param pathCountryCode The country_code
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
-    public static AvailablePhoneNumberCountryFetcher fetcher(final String accountSid, 
-                                                             final String countryCode) {
-        return new AvailablePhoneNumberCountryFetcher(accountSid, countryCode);
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathAccountSid, 
+                                                             final String pathCountryCode) {
+        return new AvailablePhoneNumberCountryFetcher(pathAccountSid, pathCountryCode);
     }
 
     /**
      * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
      * 
-     * @param countryCode The country_code
+     * @param pathCountryCode The country_code
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
-    public static AvailablePhoneNumberCountryFetcher fetcher(final String countryCode) {
-        return new AvailablePhoneNumberCountryFetcher(countryCode);
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathCountryCode) {
+        return new AvailablePhoneNumberCountryFetcher(pathCountryCode);
     }
 
     /**

@@ -75,41 +75,41 @@ public class Reservation extends Resource {
     /**
      * Create a ReservationReader to execute read.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
      * @return ReservationReader capable of executing the read
      */
-    public static ReservationReader reader(final String workspaceSid, 
-                                           final String workerSid) {
-        return new ReservationReader(workspaceSid, workerSid);
+    public static ReservationReader reader(final String pathWorkspaceSid, 
+                                           final String pathWorkerSid) {
+        return new ReservationReader(pathWorkspaceSid, pathWorkerSid);
     }
 
     /**
      * Create a ReservationFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
+     * @param pathSid The sid
      * @return ReservationFetcher capable of executing the fetch
      */
-    public static ReservationFetcher fetcher(final String workspaceSid, 
-                                             final String workerSid, 
-                                             final String sid) {
-        return new ReservationFetcher(workspaceSid, workerSid, sid);
+    public static ReservationFetcher fetcher(final String pathWorkspaceSid, 
+                                             final String pathWorkerSid, 
+                                             final String pathSid) {
+        return new ReservationFetcher(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
 
     /**
      * Create a ReservationUpdater to execute update.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
+     * @param pathSid The sid
      * @return ReservationUpdater capable of executing the update
      */
-    public static ReservationUpdater updater(final String workspaceSid, 
-                                             final String workerSid, 
-                                             final String sid) {
-        return new ReservationUpdater(workspaceSid, workerSid, sid);
+    public static ReservationUpdater updater(final String pathWorkspaceSid, 
+                                             final String pathWorkerSid, 
+                                             final String pathSid) {
+        return new ReservationUpdater(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
 
     /**

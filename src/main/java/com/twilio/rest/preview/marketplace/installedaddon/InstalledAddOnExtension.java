@@ -37,37 +37,37 @@ public class InstalledAddOnExtension extends Resource {
     /**
      * Create a InstalledAddOnExtensionFetcher to execute fetch.
      * 
-     * @param installedAddOnSid The installed_add_on_sid
-     * @param sid The unique Extension Sid
+     * @param pathInstalledAddOnSid The installed_add_on_sid
+     * @param pathSid The unique Extension Sid
      * @return InstalledAddOnExtensionFetcher capable of executing the fetch
      */
-    public static InstalledAddOnExtensionFetcher fetcher(final String installedAddOnSid, 
-                                                         final String sid) {
-        return new InstalledAddOnExtensionFetcher(installedAddOnSid, sid);
+    public static InstalledAddOnExtensionFetcher fetcher(final String pathInstalledAddOnSid, 
+                                                         final String pathSid) {
+        return new InstalledAddOnExtensionFetcher(pathInstalledAddOnSid, pathSid);
     }
 
     /**
      * Create a InstalledAddOnExtensionUpdater to execute update.
      * 
-     * @param installedAddOnSid The installed_add_on_sid
-     * @param sid The sid
+     * @param pathInstalledAddOnSid The installed_add_on_sid
+     * @param pathSid The sid
      * @param enabled A Boolean indicating if the Extension will be invoked
      * @return InstalledAddOnExtensionUpdater capable of executing the update
      */
-    public static InstalledAddOnExtensionUpdater updater(final String installedAddOnSid, 
-                                                         final String sid, 
+    public static InstalledAddOnExtensionUpdater updater(final String pathInstalledAddOnSid, 
+                                                         final String pathSid, 
                                                          final Boolean enabled) {
-        return new InstalledAddOnExtensionUpdater(installedAddOnSid, sid, enabled);
+        return new InstalledAddOnExtensionUpdater(pathInstalledAddOnSid, pathSid, enabled);
     }
 
     /**
      * Create a InstalledAddOnExtensionReader to execute read.
      * 
-     * @param installedAddOnSid The installed_add_on_sid
+     * @param pathInstalledAddOnSid The installed_add_on_sid
      * @return InstalledAddOnExtensionReader capable of executing the read
      */
-    public static InstalledAddOnExtensionReader reader(final String installedAddOnSid) {
-        return new InstalledAddOnExtensionReader(installedAddOnSid);
+    public static InstalledAddOnExtensionReader reader(final String pathInstalledAddOnSid) {
+        return new InstalledAddOnExtensionReader(pathInstalledAddOnSid);
     }
 
     /**

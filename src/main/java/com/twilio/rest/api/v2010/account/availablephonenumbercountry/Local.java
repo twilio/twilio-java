@@ -38,23 +38,23 @@ public class Local extends Resource {
     /**
      * Create a LocalReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param countryCode The country_code
+     * @param pathAccountSid The account_sid
+     * @param pathCountryCode The country_code
      * @return LocalReader capable of executing the read
      */
-    public static LocalReader reader(final String accountSid, 
-                                     final String countryCode) {
-        return new LocalReader(accountSid, countryCode);
+    public static LocalReader reader(final String pathAccountSid, 
+                                     final String pathCountryCode) {
+        return new LocalReader(pathAccountSid, pathCountryCode);
     }
 
     /**
      * Create a LocalReader to execute read.
      * 
-     * @param countryCode The country_code
+     * @param pathCountryCode The country_code
      * @return LocalReader capable of executing the read
      */
-    public static LocalReader reader(final String countryCode) {
-        return new LocalReader(countryCode);
+    public static LocalReader reader(final String pathCountryCode) {
+        return new LocalReader(pathCountryCode);
     }
 
     /**

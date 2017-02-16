@@ -21,8 +21,9 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class CommandCreator extends Creator<Command> {
-    private final String device;
     private final String command;
+    private String device;
+    private String sim;
     private String callbackMethod;
     private URI callbackUrl;
     private String commandMode;
@@ -31,13 +32,32 @@ public class CommandCreator extends Creator<Command> {
     /**
      * Construct a new CommandCreator.
      * 
-     * @param device The device
      * @param command The command
      */
-    public CommandCreator(final String device, 
-                          final String command) {
-        this.device = device;
+    public CommandCreator(final String command) {
         this.command = command;
+    }
+
+    /**
+     * The device.
+     * 
+     * @param device The device
+     * @return this
+     */
+    public CommandCreator setDevice(final String device) {
+        this.device = device;
+        return this;
+    }
+
+    /**
+     * The sim.
+     * 
+     * @param sim The sim
+     * @return this
+     */
+    public CommandCreator setSim(final String sim) {
+        this.sim = sim;
+        return this;
     }
 
     /**
@@ -139,12 +159,16 @@ public class CommandCreator extends Creator<Command> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (command != null) {
+            request.addPostParam("Command", command);
+        }
+        
         if (device != null) {
             request.addPostParam("Device", device);
         }
         
-        if (command != null) {
-            request.addPostParam("Command", command);
+        if (sim != null) {
+            request.addPostParam("Sim", sim);
         }
         
         if (callbackMethod != null) {

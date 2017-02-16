@@ -18,42 +18,42 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class PayloadDeleter extends Deleter<Payload> {
-    private String accountSid;
-    private final String referenceSid;
-    private final String addOnResultSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathReferenceSid;
+    private final String pathAddOnResultSid;
+    private final String pathSid;
 
     /**
      * Construct a new PayloadDeleter.
      * 
-     * @param referenceSid The reference_sid
-     * @param addOnResultSid The add_on_result_sid
-     * @param sid Delete by unique payload Sid
+     * @param pathReferenceSid The reference_sid
+     * @param pathAddOnResultSid The add_on_result_sid
+     * @param pathSid Delete by unique payload Sid
      */
-    public PayloadDeleter(final String referenceSid, 
-                          final String addOnResultSid, 
-                          final String sid) {
-        this.referenceSid = referenceSid;
-        this.addOnResultSid = addOnResultSid;
-        this.sid = sid;
+    public PayloadDeleter(final String pathReferenceSid, 
+                          final String pathAddOnResultSid, 
+                          final String pathSid) {
+        this.pathReferenceSid = pathReferenceSid;
+        this.pathAddOnResultSid = pathAddOnResultSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new PayloadDeleter.
      * 
-     * @param accountSid The account_sid
-     * @param referenceSid The reference_sid
-     * @param addOnResultSid The add_on_result_sid
-     * @param sid Delete by unique payload Sid
+     * @param pathAccountSid The account_sid
+     * @param pathReferenceSid The reference_sid
+     * @param pathAddOnResultSid The add_on_result_sid
+     * @param pathSid Delete by unique payload Sid
      */
-    public PayloadDeleter(final String accountSid, 
-                          final String referenceSid, 
-                          final String addOnResultSid, 
-                          final String sid) {
-        this.accountSid = accountSid;
-        this.referenceSid = referenceSid;
-        this.addOnResultSid = addOnResultSid;
-        this.sid = sid;
+    public PayloadDeleter(final String pathAccountSid, 
+                          final String pathReferenceSid, 
+                          final String pathAddOnResultSid, 
+                          final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathReferenceSid = pathReferenceSid;
+        this.pathAddOnResultSid = pathAddOnResultSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -64,11 +64,11 @@ public class PayloadDeleter extends Deleter<Payload> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Recordings/" + this.referenceSid + "/AddOnResults/" + this.addOnResultSid + "/Payloads/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults/" + this.pathAddOnResultSid + "/Payloads/" + this.pathSid + ".json",
             client.getRegion()
         );
         

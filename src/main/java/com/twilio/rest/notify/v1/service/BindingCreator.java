@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class BindingCreator extends Creator<Binding> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private final String endpoint;
     private final String identity;
     private final Binding.BindingType bindingType;
@@ -33,18 +33,18 @@ public class BindingCreator extends Creator<Binding> {
     /**
      * Construct a new BindingCreator.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @param endpoint The endpoint
      * @param identity The identity
      * @param bindingType The binding_type
      * @param address The address
      */
-    public BindingCreator(final String serviceSid, 
+    public BindingCreator(final String pathServiceSid, 
                           final String endpoint, 
                           final String identity, 
                           final Binding.BindingType bindingType, 
                           final String address) {
-        this.serviceSid = serviceSid;
+        this.pathServiceSid = pathServiceSid;
         this.endpoint = endpoint;
         this.identity = identity;
         this.bindingType = bindingType;
@@ -106,7 +106,7 @@ public class BindingCreator extends Creator<Binding> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.serviceSid + "/Bindings",
+            "/v1/Services/" + this.pathServiceSid + "/Bindings",
             client.getRegion()
         );
         

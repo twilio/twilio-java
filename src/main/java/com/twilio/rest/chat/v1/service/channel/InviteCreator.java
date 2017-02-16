@@ -18,23 +18,23 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InviteCreator extends Creator<Invite> {
-    private final String serviceSid;
-    private final String channelSid;
+    private final String pathServiceSid;
+    private final String pathChannelSid;
     private final String identity;
     private String roleSid;
 
     /**
      * Construct a new InviteCreator.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @param identity The identity
      */
-    public InviteCreator(final String serviceSid, 
-                         final String channelSid, 
+    public InviteCreator(final String pathServiceSid, 
+                         final String pathChannelSid, 
                          final String identity) {
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
         this.identity = identity;
     }
 
@@ -61,7 +61,7 @@ public class InviteCreator extends Creator<Invite> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Invites",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites",
             client.getRegion()
         );
         

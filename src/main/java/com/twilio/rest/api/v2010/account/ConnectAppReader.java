@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ConnectAppReader extends Reader<ConnectApp> {
-    private String accountSid;
+    private String pathAccountSid;
 
     /**
      * Construct a new ConnectAppReader.
@@ -31,10 +31,10 @@ public class ConnectAppReader extends Reader<ConnectApp> {
     /**
      * Construct a new ConnectAppReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public ConnectAppReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public ConnectAppReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class ConnectAppReader extends Reader<ConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<ConnectApp> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/ConnectApps.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/ConnectApps.json",
             client.getRegion()
         );
         

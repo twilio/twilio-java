@@ -70,55 +70,55 @@ public class ConnectApp extends Resource {
     /**
      * Create a ConnectAppFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique connect-app Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique connect-app Sid
      * @return ConnectAppFetcher capable of executing the fetch
      */
-    public static ConnectAppFetcher fetcher(final String accountSid, 
-                                            final String sid) {
-        return new ConnectAppFetcher(accountSid, sid);
+    public static ConnectAppFetcher fetcher(final String pathAccountSid, 
+                                            final String pathSid) {
+        return new ConnectAppFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ConnectAppFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique connect-app Sid
+     * @param pathSid Fetch by unique connect-app Sid
      * @return ConnectAppFetcher capable of executing the fetch
      */
-    public static ConnectAppFetcher fetcher(final String sid) {
-        return new ConnectAppFetcher(sid);
+    public static ConnectAppFetcher fetcher(final String pathSid) {
+        return new ConnectAppFetcher(pathSid);
     }
 
     /**
      * Create a ConnectAppUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @return ConnectAppUpdater capable of executing the update
      */
-    public static ConnectAppUpdater updater(final String accountSid, 
-                                            final String sid) {
-        return new ConnectAppUpdater(accountSid, sid);
+    public static ConnectAppUpdater updater(final String pathAccountSid, 
+                                            final String pathSid) {
+        return new ConnectAppUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ConnectAppUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return ConnectAppUpdater capable of executing the update
      */
-    public static ConnectAppUpdater updater(final String sid) {
-        return new ConnectAppUpdater(sid);
+    public static ConnectAppUpdater updater(final String pathSid) {
+        return new ConnectAppUpdater(pathSid);
     }
 
     /**
      * Create a ConnectAppReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return ConnectAppReader capable of executing the read
      */
-    public static ConnectAppReader reader(final String accountSid) {
-        return new ConnectAppReader(accountSid);
+    public static ConnectAppReader reader(final String pathAccountSid) {
+        return new ConnectAppReader(pathAccountSid);
     }
 
     /**

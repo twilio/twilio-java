@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new IpAccessControlListDeleter.
      * 
-     * @param sid Delete by unique ip-access-control-list Sid
+     * @param pathSid Delete by unique ip-access-control-list Sid
      */
-    public IpAccessControlListDeleter(final String sid) {
-        this.sid = sid;
+    public IpAccessControlListDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new IpAccessControlListDeleter.
      * 
-     * @param accountSid The account_sid
-     * @param sid Delete by unique ip-access-control-list Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Delete by unique ip-access-control-list Sid
      */
-    public IpAccessControlListDeleter(final String accountSid, 
-                                      final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public IpAccessControlListDeleter(final String pathAccountSid, 
+                                      final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -50,11 +50,11 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathSid + ".json",
             client.getRegion()
         );
         

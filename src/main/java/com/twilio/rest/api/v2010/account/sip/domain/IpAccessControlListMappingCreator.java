@@ -18,34 +18,34 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAccessControlListMappingCreator extends Creator<IpAccessControlListMapping> {
-    private String accountSid;
-    private final String domainSid;
+    private String pathAccountSid;
+    private final String pathDomainSid;
     private final String ipAccessControlListSid;
 
     /**
      * Construct a new IpAccessControlListMappingCreator.
      * 
-     * @param domainSid The domain_sid
+     * @param pathDomainSid The domain_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      */
-    public IpAccessControlListMappingCreator(final String domainSid, 
+    public IpAccessControlListMappingCreator(final String pathDomainSid, 
                                              final String ipAccessControlListSid) {
-        this.domainSid = domainSid;
+        this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
     /**
      * Construct a new IpAccessControlListMappingCreator.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      */
-    public IpAccessControlListMappingCreator(final String accountSid, 
-                                             final String domainSid, 
+    public IpAccessControlListMappingCreator(final String pathAccountSid, 
+                                             final String pathDomainSid, 
                                              final String ipAccessControlListSid) {
-        this.accountSid = accountSid;
-        this.domainSid = domainSid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
@@ -58,11 +58,11 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlListMapping create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.domainSid + "/IpAccessControlListMappings.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings.json",
             client.getRegion()
         );
         

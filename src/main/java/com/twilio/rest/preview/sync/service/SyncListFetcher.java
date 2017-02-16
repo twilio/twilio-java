@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncListFetcher extends Fetcher<SyncList> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new SyncListFetcher.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public SyncListFetcher(final String serviceSid, 
-                           final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public SyncListFetcher(final String pathServiceSid, 
+                           final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +45,7 @@ public class SyncListFetcher extends Fetcher<SyncList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Lists/" + this.sid + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserCreator extends Creator<User> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private final String identity;
     private String roleSid;
     private String attributes;
@@ -27,12 +27,12 @@ public class UserCreator extends Creator<User> {
     /**
      * Construct a new UserCreator.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @param identity The identity
      */
-    public UserCreator(final String serviceSid, 
+    public UserCreator(final String pathServiceSid, 
                        final String identity) {
-        this.serviceSid = serviceSid;
+        this.pathServiceSid = pathServiceSid;
         this.identity = identity;
     }
 
@@ -81,7 +81,7 @@ public class UserCreator extends Creator<User> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Users",
+            "/v1/Services/" + this.pathServiceSid + "/Users",
             client.getRegion()
         );
         

@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class QueueCreator extends Creator<Queue> {
-    private String accountSid;
+    private String pathAccountSid;
     private final String friendlyName;
     private Integer maxSize;
 
@@ -34,12 +34,12 @@ public class QueueCreator extends Creator<Queue> {
     /**
      * Construct a new QueueCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param friendlyName A user-provided string that identifies this queue.
      */
-    public QueueCreator(final String accountSid, 
+    public QueueCreator(final String pathAccountSid, 
                         final String friendlyName) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
@@ -64,11 +64,11 @@ public class QueueCreator extends Creator<Queue> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Queue create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Queues.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues.json",
             client.getRegion()
         );
         

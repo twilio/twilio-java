@@ -18,22 +18,22 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtension> {
-    private final String installedAddOnSid;
-    private final String sid;
+    private final String pathInstalledAddOnSid;
+    private final String pathSid;
     private final Boolean enabled;
 
     /**
      * Construct a new InstalledAddOnExtensionUpdater.
      * 
-     * @param installedAddOnSid The installed_add_on_sid
-     * @param sid The sid
+     * @param pathInstalledAddOnSid The installed_add_on_sid
+     * @param pathSid The sid
      * @param enabled A Boolean indicating if the Extension will be invoked
      */
-    public InstalledAddOnExtensionUpdater(final String installedAddOnSid, 
-                                          final String sid, 
+    public InstalledAddOnExtensionUpdater(final String pathInstalledAddOnSid, 
+                                          final String pathSid, 
                                           final Boolean enabled) {
-        this.installedAddOnSid = installedAddOnSid;
-        this.sid = sid;
+        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
+        this.pathSid = pathSid;
         this.enabled = enabled;
     }
 
@@ -49,7 +49,7 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.installedAddOnSid + "/Extensions/" + this.sid + "",
+            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -21,22 +21,22 @@ import com.twilio.rest.Domains;
 import java.util.Map;
 
 public class DocumentUpdater extends Updater<Document> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
     private final Map<String, Object> data;
 
     /**
      * Construct a new DocumentUpdater.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @param data The data
      */
-    public DocumentUpdater(final String serviceSid, 
-                           final String sid, 
+    public DocumentUpdater(final String pathServiceSid, 
+                           final String pathSid, 
                            final Map<String, Object> data) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
         this.data = data;
     }
 
@@ -52,7 +52,7 @@ public class DocumentUpdater extends Updater<Document> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Documents/" + this.sid + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
             client.getRegion()
         );
         

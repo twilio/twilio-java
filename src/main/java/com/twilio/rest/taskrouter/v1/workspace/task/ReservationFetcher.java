@@ -18,23 +18,23 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ReservationFetcher extends Fetcher<Reservation> {
-    private final String workspaceSid;
-    private final String taskSid;
-    private final String sid;
+    private final String pathWorkspaceSid;
+    private final String pathTaskSid;
+    private final String pathSid;
 
     /**
      * Construct a new ReservationFetcher.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param taskSid The task_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathTaskSid The task_sid
+     * @param pathSid The sid
      */
-    public ReservationFetcher(final String workspaceSid, 
-                              final String taskSid, 
-                              final String sid) {
-        this.workspaceSid = workspaceSid;
-        this.taskSid = taskSid;
-        this.sid = sid;
+    public ReservationFetcher(final String pathWorkspaceSid, 
+                              final String pathTaskSid, 
+                              final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskSid = pathTaskSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -49,7 +49,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.taskSid + "/Reservations/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathTaskSid + "/Reservations/" + this.pathSid + "",
             client.getRegion()
         );
         

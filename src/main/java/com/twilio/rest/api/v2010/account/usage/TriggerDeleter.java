@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TriggerDeleter extends Deleter<Trigger> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new TriggerDeleter.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public TriggerDeleter(final String sid) {
-        this.sid = sid;
+    public TriggerDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new TriggerDeleter.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      */
-    public TriggerDeleter(final String accountSid, 
-                          final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public TriggerDeleter(final String pathAccountSid, 
+                          final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -50,11 +50,11 @@ public class TriggerDeleter extends Deleter<Trigger> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers/" + this.pathSid + ".json",
             client.getRegion()
         );
         

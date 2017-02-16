@@ -91,31 +91,31 @@ public class Credential extends Resource {
     /**
      * Create a CredentialFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return CredentialFetcher capable of executing the fetch
      */
-    public static CredentialFetcher fetcher(final String sid) {
-        return new CredentialFetcher(sid);
+    public static CredentialFetcher fetcher(final String pathSid) {
+        return new CredentialFetcher(pathSid);
     }
 
     /**
      * Create a CredentialUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return CredentialUpdater capable of executing the update
      */
-    public static CredentialUpdater updater(final String sid) {
-        return new CredentialUpdater(sid);
+    public static CredentialUpdater updater(final String pathSid) {
+        return new CredentialUpdater(pathSid);
     }
 
     /**
      * Create a CredentialDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return CredentialDeleter capable of executing the delete
      */
-    public static CredentialDeleter deleter(final String sid) {
-        return new CredentialDeleter(sid);
+    public static CredentialDeleter deleter(final String pathSid) {
+        return new CredentialDeleter(pathSid);
     }
 
     /**

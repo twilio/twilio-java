@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialListCreator extends Creator<CredentialList> {
-    private String accountSid;
+    private String pathAccountSid;
     private final String friendlyName;
 
     /**
@@ -33,12 +33,12 @@ public class CredentialListCreator extends Creator<CredentialList> {
     /**
      * Construct a new CredentialListCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param friendlyName The friendly_name
      */
-    public CredentialListCreator(final String accountSid, 
+    public CredentialListCreator(final String pathAccountSid, 
                                  final String friendlyName) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
@@ -51,11 +51,11 @@ public class CredentialListCreator extends Creator<CredentialList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public CredentialList create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists.json",
             client.getRegion()
         );
         

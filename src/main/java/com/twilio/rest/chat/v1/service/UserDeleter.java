@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserDeleter extends Deleter<User> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new UserDeleter.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public UserDeleter(final String serviceSid, 
-                       final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public UserDeleter(final String pathServiceSid, 
+                       final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,7 +44,7 @@ public class UserDeleter extends Deleter<User> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class PublicKeyDeleter extends Deleter<PublicKey> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new PublicKeyDeleter.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public PublicKeyDeleter(final String sid) {
-        this.sid = sid;
+    public PublicKeyDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -40,7 +40,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.sid + "",
+            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
             client.getRegion()
         );
         

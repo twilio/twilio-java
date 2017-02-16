@@ -20,35 +20,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension> {
-    private String accountSid;
-    private final String resourceSid;
-    private final String assignedAddOnSid;
+    private String pathAccountSid;
+    private final String pathResourceSid;
+    private final String pathAssignedAddOnSid;
 
     /**
      * Construct a new AssignedAddOnExtensionReader.
      * 
-     * @param resourceSid The resource_sid
-     * @param assignedAddOnSid The assigned_add_on_sid
+     * @param pathResourceSid The resource_sid
+     * @param pathAssignedAddOnSid The assigned_add_on_sid
      */
-    public AssignedAddOnExtensionReader(final String resourceSid, 
-                                        final String assignedAddOnSid) {
-        this.resourceSid = resourceSid;
-        this.assignedAddOnSid = assignedAddOnSid;
+    public AssignedAddOnExtensionReader(final String pathResourceSid, 
+                                        final String pathAssignedAddOnSid) {
+        this.pathResourceSid = pathResourceSid;
+        this.pathAssignedAddOnSid = pathAssignedAddOnSid;
     }
 
     /**
      * Construct a new AssignedAddOnExtensionReader.
      * 
-     * @param accountSid The account_sid
-     * @param resourceSid The resource_sid
-     * @param assignedAddOnSid The assigned_add_on_sid
+     * @param pathAccountSid The account_sid
+     * @param pathResourceSid The resource_sid
+     * @param pathAssignedAddOnSid The assigned_add_on_sid
      */
-    public AssignedAddOnExtensionReader(final String accountSid, 
-                                        final String resourceSid, 
-                                        final String assignedAddOnSid) {
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
-        this.assignedAddOnSid = assignedAddOnSid;
+    public AssignedAddOnExtensionReader(final String pathAccountSid, 
+                                        final String pathResourceSid, 
+                                        final String pathAssignedAddOnSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
+        this.pathAssignedAddOnSid = pathAssignedAddOnSid;
     }
 
     /**
@@ -71,11 +71,11 @@ public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension>
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<AssignedAddOnExtension> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/IncomingPhoneNumbers/" + this.resourceSid + "/AssignedAddOns/" + this.assignedAddOnSid + "/Extensions.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns/" + this.pathAssignedAddOnSid + "/Extensions.json",
             client.getRegion()
         );
         

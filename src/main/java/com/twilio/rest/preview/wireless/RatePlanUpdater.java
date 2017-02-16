@@ -18,27 +18,27 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class RatePlanUpdater extends Updater<RatePlan> {
-    private final String sid;
-    private String alias;
+    private final String pathSid;
+    private String uniqueName;
     private String friendlyName;
 
     /**
      * Construct a new RatePlanUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public RatePlanUpdater(final String sid) {
-        this.sid = sid;
+    public RatePlanUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
-     * The alias.
+     * The unique_name.
      * 
-     * @param alias The alias
+     * @param uniqueName The unique_name
      * @return this
      */
-    public RatePlanUpdater setAlias(final String alias) {
-        this.alias = alias;
+    public RatePlanUpdater setUniqueName(final String uniqueName) {
+        this.uniqueName = uniqueName;
         return this;
     }
 
@@ -65,7 +65,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans/" + this.sid + "",
+            "/wireless/RatePlans/" + this.pathSid + "",
             client.getRegion()
         );
         
@@ -98,8 +98,8 @@ public class RatePlanUpdater extends Updater<RatePlan> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (alias != null) {
-            request.addPostParam("Alias", alias);
+        if (uniqueName != null) {
+            request.addPostParam("UniqueName", uniqueName);
         }
         
         if (friendlyName != null) {

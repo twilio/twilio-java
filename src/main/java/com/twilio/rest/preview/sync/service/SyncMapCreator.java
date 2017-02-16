@@ -18,16 +18,16 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapCreator extends Creator<SyncMap> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private String uniqueName;
 
     /**
      * Construct a new SyncMapCreator.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public SyncMapCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public SyncMapCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -53,7 +53,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Maps",
+            "/Sync/Services/" + this.pathServiceSid + "/Maps",
             client.getRegion()
         );
         

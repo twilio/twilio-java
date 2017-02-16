@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ChannelDeleter extends Deleter<Channel> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new ChannelDeleter.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public ChannelDeleter(final String serviceSid, 
-                          final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public ChannelDeleter(final String pathServiceSid, 
+                          final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,7 +44,7 @@ public class ChannelDeleter extends Deleter<Channel> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathSid + "",
             client.getRegion()
         );
         

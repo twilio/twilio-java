@@ -161,11 +161,11 @@ public class Today extends Resource {
     /**
      * Create a TodayReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return TodayReader capable of executing the read
      */
-    public static TodayReader reader(final String accountSid) {
-        return new TodayReader(accountSid);
+    public static TodayReader reader(final String pathAccountSid) {
+        return new TodayReader(pathAccountSid);
     }
 
     /**

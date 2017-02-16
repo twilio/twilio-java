@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialFetcher extends Fetcher<Credential> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new CredentialFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public CredentialFetcher(final String sid) {
-        this.sid = sid;
+    public CredentialFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Credentials/" + this.sid + "",
+            "/v1/Credentials/" + this.pathSid + "",
             client.getRegion()
         );
         

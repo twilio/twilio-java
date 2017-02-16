@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtension> {
-    private final String installedAddOnSid;
-    private final String sid;
+    private final String pathInstalledAddOnSid;
+    private final String pathSid;
 
     /**
      * Construct a new InstalledAddOnExtensionFetcher.
      * 
-     * @param installedAddOnSid The installed_add_on_sid
-     * @param sid The unique Extension Sid
+     * @param pathInstalledAddOnSid The installed_add_on_sid
+     * @param pathSid The unique Extension Sid
      */
-    public InstalledAddOnExtensionFetcher(final String installedAddOnSid, 
-                                          final String sid) {
-        this.installedAddOnSid = installedAddOnSid;
-        this.sid = sid;
+    public InstalledAddOnExtensionFetcher(final String pathInstalledAddOnSid, 
+                                          final String pathSid) {
+        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +45,7 @@ public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtens
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.installedAddOnSid + "/Extensions/" + this.sid + "",
+            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -161,11 +161,11 @@ public class Record extends Resource {
     /**
      * Create a RecordReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return RecordReader capable of executing the read
      */
-    public static RecordReader reader(final String accountSid) {
-        return new RecordReader(accountSid);
+    public static RecordReader reader(final String pathAccountSid) {
+        return new RecordReader(pathAccountSid);
     }
 
     /**

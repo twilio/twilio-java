@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TaskCreator extends Creator<Task> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private Integer timeout;
     private Integer priority;
     private String taskChannel;
@@ -28,10 +28,10 @@ public class TaskCreator extends Creator<Task> {
     /**
      * Construct a new TaskCreator.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      */
-    public TaskCreator(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public TaskCreator(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
@@ -101,7 +101,7 @@ public class TaskCreator extends Creator<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Tasks",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks",
             client.getRegion()
         );
         

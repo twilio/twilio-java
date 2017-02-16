@@ -147,17 +147,17 @@ public class Call extends Resource {
     /**
      * Create a CallCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param to Phone number, SIP address or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator creator(final String accountSid, 
+    public static CallCreator creator(final String pathAccountSid, 
                                       final com.twilio.type.Endpoint to, 
                                       final com.twilio.type.PhoneNumber from, 
                                       final URI url) {
-        return new CallCreator(accountSid, to, from, url);
+        return new CallCreator(pathAccountSid, to, from, url);
     }
 
     /**
@@ -177,18 +177,18 @@ public class Call extends Resource {
     /**
      * Create a CallCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param to Phone number, SIP address or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator creator(final String accountSid, 
+    public static CallCreator creator(final String pathAccountSid, 
                                       final com.twilio.type.Endpoint to, 
                                       final com.twilio.type.PhoneNumber from, 
                                       final String applicationSid) {
-        return new CallCreator(accountSid, to, from, applicationSid);
+        return new CallCreator(pathAccountSid, to, from, applicationSid);
     }
 
     /**
@@ -209,55 +209,55 @@ public class Call extends Resource {
     /**
      * Create a CallDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid Call Sid that uniquely identifies the Call to delete
+     * @param pathAccountSid The account_sid
+     * @param pathSid Call Sid that uniquely identifies the Call to delete
      * @return CallDeleter capable of executing the delete
      */
-    public static CallDeleter deleter(final String accountSid, 
-                                      final String sid) {
-        return new CallDeleter(accountSid, sid);
+    public static CallDeleter deleter(final String pathAccountSid, 
+                                      final String pathSid) {
+        return new CallDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CallDeleter to execute delete.
      * 
-     * @param sid Call Sid that uniquely identifies the Call to delete
+     * @param pathSid Call Sid that uniquely identifies the Call to delete
      * @return CallDeleter capable of executing the delete
      */
-    public static CallDeleter deleter(final String sid) {
-        return new CallDeleter(sid);
+    public static CallDeleter deleter(final String pathSid) {
+        return new CallDeleter(pathSid);
     }
 
     /**
      * Create a CallFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Call Sid that uniquely identifies the Call to fetch
+     * @param pathAccountSid The account_sid
+     * @param pathSid Call Sid that uniquely identifies the Call to fetch
      * @return CallFetcher capable of executing the fetch
      */
-    public static CallFetcher fetcher(final String accountSid, 
-                                      final String sid) {
-        return new CallFetcher(accountSid, sid);
+    public static CallFetcher fetcher(final String pathAccountSid, 
+                                      final String pathSid) {
+        return new CallFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CallFetcher to execute fetch.
      * 
-     * @param sid Call Sid that uniquely identifies the Call to fetch
+     * @param pathSid Call Sid that uniquely identifies the Call to fetch
      * @return CallFetcher capable of executing the fetch
      */
-    public static CallFetcher fetcher(final String sid) {
-        return new CallFetcher(sid);
+    public static CallFetcher fetcher(final String pathSid) {
+        return new CallFetcher(pathSid);
     }
 
     /**
      * Create a CallReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return CallReader capable of executing the read
      */
-    public static CallReader reader(final String accountSid) {
-        return new CallReader(accountSid);
+    public static CallReader reader(final String pathAccountSid) {
+        return new CallReader(pathAccountSid);
     }
 
     /**
@@ -272,23 +272,23 @@ public class Call extends Resource {
     /**
      * Create a CallUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param sid Call Sid that uniquely identifies the Call to update
+     * @param pathAccountSid The account_sid
+     * @param pathSid Call Sid that uniquely identifies the Call to update
      * @return CallUpdater capable of executing the update
      */
-    public static CallUpdater updater(final String accountSid, 
-                                      final String sid) {
-        return new CallUpdater(accountSid, sid);
+    public static CallUpdater updater(final String pathAccountSid, 
+                                      final String pathSid) {
+        return new CallUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CallUpdater to execute update.
      * 
-     * @param sid Call Sid that uniquely identifies the Call to update
+     * @param pathSid Call Sid that uniquely identifies the Call to update
      * @return CallUpdater capable of executing the update
      */
-    public static CallUpdater updater(final String sid) {
-        return new CallUpdater(sid);
+    public static CallUpdater updater(final String pathSid) {
+        return new CallUpdater(pathSid);
     }
 
     /**

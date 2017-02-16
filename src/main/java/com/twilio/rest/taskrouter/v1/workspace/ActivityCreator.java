@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ActivityCreator extends Creator<Activity> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private final String friendlyName;
     private Boolean available;
 
     /**
      * Construct a new ActivityCreator.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      */
-    public ActivityCreator(final String workspaceSid, 
+    public ActivityCreator(final String pathWorkspaceSid, 
                            final String friendlyName) {
-        this.workspaceSid = workspaceSid;
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -57,7 +57,7 @@ public class ActivityCreator extends Creator<Activity> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Activities",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities",
             client.getRegion()
         );
         

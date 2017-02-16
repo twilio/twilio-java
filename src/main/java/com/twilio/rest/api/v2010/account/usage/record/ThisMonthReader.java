@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.LocalDate;
 
 public class ThisMonthReader extends Reader<ThisMonth> {
-    private String accountSid;
+    private String pathAccountSid;
     private ThisMonth.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -36,10 +36,10 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     /**
      * Construct a new ThisMonthReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public ThisMonthReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public ThisMonthReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -95,11 +95,11 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<ThisMonth> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/ThisMonth.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/ThisMonth.json",
             client.getRegion()
         );
         

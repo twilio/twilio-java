@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapReader extends Reader<SyncMap> {
-    private final String serviceSid;
+    private final String pathServiceSid;
 
     /**
      * Construct a new SyncMapReader.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public SyncMapReader(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public SyncMapReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class SyncMapReader extends Reader<SyncMap> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Maps",
+            "/Sync/Services/" + this.pathServiceSid + "/Maps",
             client.getRegion()
         );
         

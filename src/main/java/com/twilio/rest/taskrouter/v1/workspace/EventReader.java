@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class EventReader extends Reader<Event> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private DateTime endDate;
     private String eventType;
     private Integer minutes;
@@ -36,10 +36,10 @@ public class EventReader extends Reader<Event> {
     /**
      * Construct a new EventReader.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      */
-    public EventReader(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public EventReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
@@ -164,7 +164,7 @@ public class EventReader extends Reader<Event> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Events",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Events",
             client.getRegion()
         );
         

@@ -23,7 +23,7 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class TaskReader extends Reader<Task> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private Integer priority;
     private List<String> assignmentStatus;
     private String workflowSid;
@@ -37,10 +37,10 @@ public class TaskReader extends Reader<Task> {
     /**
      * Construct a new TaskReader.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      */
-    public TaskReader(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public TaskReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
@@ -175,7 +175,7 @@ public class TaskReader extends Reader<Task> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Tasks",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks",
             client.getRegion()
         );
         

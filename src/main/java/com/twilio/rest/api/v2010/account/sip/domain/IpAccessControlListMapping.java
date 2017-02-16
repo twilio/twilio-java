@@ -38,101 +38,101 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid The sid
      * @return IpAccessControlListMappingFetcher capable of executing the fetch
      */
-    public static IpAccessControlListMappingFetcher fetcher(final String accountSid, 
-                                                            final String domainSid, 
-                                                            final String sid) {
-        return new IpAccessControlListMappingFetcher(accountSid, domainSid, sid);
+    public static IpAccessControlListMappingFetcher fetcher(final String pathAccountSid, 
+                                                            final String pathDomainSid, 
+                                                            final String pathSid) {
+        return new IpAccessControlListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListMappingFetcher to execute fetch.
      * 
-     * @param domainSid The domain_sid
-     * @param sid The sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid The sid
      * @return IpAccessControlListMappingFetcher capable of executing the fetch
      */
-    public static IpAccessControlListMappingFetcher fetcher(final String domainSid, 
-                                                            final String sid) {
-        return new IpAccessControlListMappingFetcher(domainSid, sid);
+    public static IpAccessControlListMappingFetcher fetcher(final String pathDomainSid, 
+                                                            final String pathSid) {
+        return new IpAccessControlListMappingFetcher(pathDomainSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListMappingCreator to execute create.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @return IpAccessControlListMappingCreator capable of executing the create
      */
-    public static IpAccessControlListMappingCreator creator(final String accountSid, 
-                                                            final String domainSid, 
+    public static IpAccessControlListMappingCreator creator(final String pathAccountSid, 
+                                                            final String pathDomainSid, 
                                                             final String ipAccessControlListSid) {
-        return new IpAccessControlListMappingCreator(accountSid, domainSid, ipAccessControlListSid);
+        return new IpAccessControlListMappingCreator(pathAccountSid, pathDomainSid, ipAccessControlListSid);
     }
 
     /**
      * Create a IpAccessControlListMappingCreator to execute create.
      * 
-     * @param domainSid The domain_sid
+     * @param pathDomainSid The domain_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      * @return IpAccessControlListMappingCreator capable of executing the create
      */
-    public static IpAccessControlListMappingCreator creator(final String domainSid, 
+    public static IpAccessControlListMappingCreator creator(final String pathDomainSid, 
                                                             final String ipAccessControlListSid) {
-        return new IpAccessControlListMappingCreator(domainSid, ipAccessControlListSid);
+        return new IpAccessControlListMappingCreator(pathDomainSid, ipAccessControlListSid);
     }
 
     /**
      * Create a IpAccessControlListMappingReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
      * @return IpAccessControlListMappingReader capable of executing the read
      */
-    public static IpAccessControlListMappingReader reader(final String accountSid, 
-                                                          final String domainSid) {
-        return new IpAccessControlListMappingReader(accountSid, domainSid);
+    public static IpAccessControlListMappingReader reader(final String pathAccountSid, 
+                                                          final String pathDomainSid) {
+        return new IpAccessControlListMappingReader(pathAccountSid, pathDomainSid);
     }
 
     /**
      * Create a IpAccessControlListMappingReader to execute read.
      * 
-     * @param domainSid The domain_sid
+     * @param pathDomainSid The domain_sid
      * @return IpAccessControlListMappingReader capable of executing the read
      */
-    public static IpAccessControlListMappingReader reader(final String domainSid) {
-        return new IpAccessControlListMappingReader(domainSid);
+    public static IpAccessControlListMappingReader reader(final String pathDomainSid) {
+        return new IpAccessControlListMappingReader(pathDomainSid);
     }
 
     /**
      * Create a IpAccessControlListMappingDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid The sid
      * @return IpAccessControlListMappingDeleter capable of executing the delete
      */
-    public static IpAccessControlListMappingDeleter deleter(final String accountSid, 
-                                                            final String domainSid, 
-                                                            final String sid) {
-        return new IpAccessControlListMappingDeleter(accountSid, domainSid, sid);
+    public static IpAccessControlListMappingDeleter deleter(final String pathAccountSid, 
+                                                            final String pathDomainSid, 
+                                                            final String pathSid) {
+        return new IpAccessControlListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListMappingDeleter to execute delete.
      * 
-     * @param domainSid The domain_sid
-     * @param sid The sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid The sid
      * @return IpAccessControlListMappingDeleter capable of executing the delete
      */
-    public static IpAccessControlListMappingDeleter deleter(final String domainSid, 
-                                                            final String sid) {
-        return new IpAccessControlListMappingDeleter(domainSid, sid);
+    public static IpAccessControlListMappingDeleter deleter(final String pathDomainSid, 
+                                                            final String pathSid) {
+        return new IpAccessControlListMappingDeleter(pathDomainSid, pathSid);
     }
 
     /**

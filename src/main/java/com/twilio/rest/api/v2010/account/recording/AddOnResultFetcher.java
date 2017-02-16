@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AddOnResultFetcher extends Fetcher<AddOnResult> {
-    private String accountSid;
-    private final String referenceSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathReferenceSid;
+    private final String pathSid;
 
     /**
      * Construct a new AddOnResultFetcher.
      * 
-     * @param referenceSid The reference_sid
-     * @param sid Fetch by unique result Sid
+     * @param pathReferenceSid The reference_sid
+     * @param pathSid Fetch by unique result Sid
      */
-    public AddOnResultFetcher(final String referenceSid, 
-                              final String sid) {
-        this.referenceSid = referenceSid;
-        this.sid = sid;
+    public AddOnResultFetcher(final String pathReferenceSid, 
+                              final String pathSid) {
+        this.pathReferenceSid = pathReferenceSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new AddOnResultFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param referenceSid The reference_sid
-     * @param sid Fetch by unique result Sid
+     * @param pathAccountSid The account_sid
+     * @param pathReferenceSid The reference_sid
+     * @param pathSid Fetch by unique result Sid
      */
-    public AddOnResultFetcher(final String accountSid, 
-                              final String referenceSid, 
-                              final String sid) {
-        this.accountSid = accountSid;
-        this.referenceSid = referenceSid;
-        this.sid = sid;
+    public AddOnResultFetcher(final String pathAccountSid, 
+                              final String pathReferenceSid, 
+                              final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathReferenceSid = pathReferenceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -58,11 +58,11 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public AddOnResult fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Recordings/" + this.referenceSid + "/AddOnResults/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults/" + this.pathSid + ".json",
             client.getRegion()
         );
         

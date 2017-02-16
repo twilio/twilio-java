@@ -18,34 +18,34 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
     private final String friendlyName;
 
     /**
      * Construct a new IpAccessControlListUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @param friendlyName A human readable description of this resource
      */
-    public IpAccessControlListUpdater(final String sid, 
+    public IpAccessControlListUpdater(final String pathSid, 
                                       final String friendlyName) {
-        this.sid = sid;
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
     /**
      * Construct a new IpAccessControlListUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @param friendlyName A human readable description of this resource
      */
-    public IpAccessControlListUpdater(final String accountSid, 
-                                      final String sid, 
+    public IpAccessControlListUpdater(final String pathAccountSid, 
+                                      final String pathSid, 
                                       final String friendlyName) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
@@ -58,11 +58,11 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathSid + ".json",
             client.getRegion()
         );
         

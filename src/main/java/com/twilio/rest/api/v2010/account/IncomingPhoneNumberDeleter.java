@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
-    private String ownerAccountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new IncomingPhoneNumberDeleter.
      * 
-     * @param sid Delete by unique phone-number Sid
+     * @param pathSid Delete by unique phone-number Sid
      */
-    public IncomingPhoneNumberDeleter(final String sid) {
-        this.sid = sid;
+    public IncomingPhoneNumberDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new IncomingPhoneNumberDeleter.
      * 
-     * @param ownerAccountSid The owner_account_sid
-     * @param sid Delete by unique phone-number Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Delete by unique phone-number Sid
      */
-    public IncomingPhoneNumberDeleter(final String ownerAccountSid, 
-                                      final String sid) {
-        this.ownerAccountSid = ownerAccountSid;
-        this.sid = sid;
+    public IncomingPhoneNumberDeleter(final String pathAccountSid, 
+                                      final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -50,11 +50,11 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json",
             client.getRegion()
         );
         

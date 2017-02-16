@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TaskQueueFetcher extends Fetcher<TaskQueue> {
-    private final String workspaceSid;
-    private final String sid;
+    private final String pathWorkspaceSid;
+    private final String pathSid;
 
     /**
      * Construct a new TaskQueueFetcher.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      */
-    public TaskQueueFetcher(final String workspaceSid, 
-                            final String sid) {
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public TaskQueueFetcher(final String pathWorkspaceSid, 
+                            final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +45,7 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MobileReader extends Reader<Mobile> {
-    private String ownerAccountSid;
+    private String pathAccountSid;
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
@@ -34,10 +34,10 @@ public class MobileReader extends Reader<Mobile> {
     /**
      * Construct a new MobileReader.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      */
-    public MobileReader(final String ownerAccountSid) {
-        this.ownerAccountSid = ownerAccountSid;
+    public MobileReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -93,11 +93,11 @@ public class MobileReader extends Reader<Mobile> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Mobile> firstPage(final TwilioRestClient client) {
-        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/Mobile.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Mobile.json",
             client.getRegion()
         );
         

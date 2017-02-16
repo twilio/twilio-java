@@ -226,83 +226,83 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique usage-trigger Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique usage-trigger Sid
      * @return TriggerFetcher capable of executing the fetch
      */
-    public static TriggerFetcher fetcher(final String accountSid, 
-                                         final String sid) {
-        return new TriggerFetcher(accountSid, sid);
+    public static TriggerFetcher fetcher(final String pathAccountSid, 
+                                         final String pathSid) {
+        return new TriggerFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique usage-trigger Sid
+     * @param pathSid Fetch by unique usage-trigger Sid
      * @return TriggerFetcher capable of executing the fetch
      */
-    public static TriggerFetcher fetcher(final String sid) {
-        return new TriggerFetcher(sid);
+    public static TriggerFetcher fetcher(final String pathSid) {
+        return new TriggerFetcher(pathSid);
     }
 
     /**
      * Create a TriggerUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @return TriggerUpdater capable of executing the update
      */
-    public static TriggerUpdater updater(final String accountSid, 
-                                         final String sid) {
-        return new TriggerUpdater(accountSid, sid);
+    public static TriggerUpdater updater(final String pathAccountSid, 
+                                         final String pathSid) {
+        return new TriggerUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return TriggerUpdater capable of executing the update
      */
-    public static TriggerUpdater updater(final String sid) {
-        return new TriggerUpdater(sid);
+    public static TriggerUpdater updater(final String pathSid) {
+        return new TriggerUpdater(pathSid);
     }
 
     /**
      * Create a TriggerDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @return TriggerDeleter capable of executing the delete
      */
-    public static TriggerDeleter deleter(final String accountSid, 
-                                         final String sid) {
-        return new TriggerDeleter(accountSid, sid);
+    public static TriggerDeleter deleter(final String pathAccountSid, 
+                                         final String pathSid) {
+        return new TriggerDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return TriggerDeleter capable of executing the delete
      */
-    public static TriggerDeleter deleter(final String sid) {
-        return new TriggerDeleter(sid);
+    public static TriggerDeleter deleter(final String pathSid) {
+        return new TriggerDeleter(pathSid);
     }
 
     /**
      * Create a TriggerCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param callbackUrl URL Twilio will request when the trigger fires
      * @param triggerValue the value at which the trigger will fire
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
-    public static TriggerCreator creator(final String accountSid, 
+    public static TriggerCreator creator(final String pathAccountSid, 
                                          final URI callbackUrl, 
                                          final String triggerValue, 
                                          final Trigger.UsageCategory usageCategory) {
-        return new TriggerCreator(accountSid, callbackUrl, triggerValue, usageCategory);
+        return new TriggerCreator(pathAccountSid, callbackUrl, triggerValue, usageCategory);
     }
 
     /**
@@ -322,11 +322,11 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return TriggerReader capable of executing the read
      */
-    public static TriggerReader reader(final String accountSid) {
-        return new TriggerReader(accountSid);
+    public static TriggerReader reader(final String pathAccountSid) {
+        return new TriggerReader(pathAccountSid);
     }
 
     /**

@@ -18,23 +18,23 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MemberFetcher extends Fetcher<Member> {
-    private final String serviceSid;
-    private final String channelSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathChannelSid;
+    private final String pathSid;
 
     /**
      * Construct a new MemberFetcher.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
-    public MemberFetcher(final String serviceSid, 
-                         final String channelSid, 
-                         final String sid) {
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
-        this.sid = sid;
+    public MemberFetcher(final String pathServiceSid, 
+                         final String pathChannelSid, 
+                         final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -49,7 +49,7 @@ public class MemberFetcher extends Fetcher<Member> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Members/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + "",
             client.getRegion()
         );
         

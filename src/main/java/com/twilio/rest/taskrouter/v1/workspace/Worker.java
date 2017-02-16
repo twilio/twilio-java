@@ -39,59 +39,59 @@ public class Worker extends Resource {
     /**
      * Create a WorkerReader to execute read.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @return WorkerReader capable of executing the read
      */
-    public static WorkerReader reader(final String workspaceSid) {
-        return new WorkerReader(workspaceSid);
+    public static WorkerReader reader(final String pathWorkspaceSid) {
+        return new WorkerReader(pathWorkspaceSid);
     }
 
     /**
      * Create a WorkerCreator to execute create.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @return WorkerCreator capable of executing the create
      */
-    public static WorkerCreator creator(final String workspaceSid, 
+    public static WorkerCreator creator(final String pathWorkspaceSid, 
                                         final String friendlyName) {
-        return new WorkerCreator(workspaceSid, friendlyName);
+        return new WorkerCreator(pathWorkspaceSid, friendlyName);
     }
 
     /**
      * Create a WorkerFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return WorkerFetcher capable of executing the fetch
      */
-    public static WorkerFetcher fetcher(final String workspaceSid, 
-                                        final String sid) {
-        return new WorkerFetcher(workspaceSid, sid);
+    public static WorkerFetcher fetcher(final String pathWorkspaceSid, 
+                                        final String pathSid) {
+        return new WorkerFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkerUpdater to execute update.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return WorkerUpdater capable of executing the update
      */
-    public static WorkerUpdater updater(final String workspaceSid, 
-                                        final String sid) {
-        return new WorkerUpdater(workspaceSid, sid);
+    public static WorkerUpdater updater(final String pathWorkspaceSid, 
+                                        final String pathSid) {
+        return new WorkerUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkerDeleter to execute delete.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return WorkerDeleter capable of executing the delete
      */
-    public static WorkerDeleter deleter(final String workspaceSid, 
-                                        final String sid) {
-        return new WorkerDeleter(workspaceSid, sid);
+    public static WorkerDeleter deleter(final String pathWorkspaceSid, 
+                                        final String pathSid) {
+        return new WorkerDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**

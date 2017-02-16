@@ -20,16 +20,16 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class WorkflowReader extends Reader<Workflow> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private String friendlyName;
 
     /**
      * Construct a new WorkflowReader.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      */
-    public WorkflowReader(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public WorkflowReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
@@ -66,7 +66,7 @@ public class WorkflowReader extends Reader<Workflow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Workflows",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows",
             client.getRegion()
         );
         

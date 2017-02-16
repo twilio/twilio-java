@@ -37,61 +37,64 @@ public class SyncMapPermission extends Resource {
     /**
      * Create a SyncMapPermissionFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid Sync Map SID or unique name.
-     * @param identity Identity of the user to whom the Sync Map Permission applies.
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid Sync Map SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Map Permission
+     *                     applies.
      * @return SyncMapPermissionFetcher capable of executing the fetch
      */
-    public static SyncMapPermissionFetcher fetcher(final String serviceSid, 
-                                                   final String mapSid, 
-                                                   final String identity) {
-        return new SyncMapPermissionFetcher(serviceSid, mapSid, identity);
+    public static SyncMapPermissionFetcher fetcher(final String pathServiceSid, 
+                                                   final String pathMapSid, 
+                                                   final String pathIdentity) {
+        return new SyncMapPermissionFetcher(pathServiceSid, pathMapSid, pathIdentity);
     }
 
     /**
      * Create a SyncMapPermissionDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid Sync Map SID or unique name.
-     * @param identity Identity of the user to whom the Sync Map Permission applies.
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid Sync Map SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Map Permission
+     *                     applies.
      * @return SyncMapPermissionDeleter capable of executing the delete
      */
-    public static SyncMapPermissionDeleter deleter(final String serviceSid, 
-                                                   final String mapSid, 
-                                                   final String identity) {
-        return new SyncMapPermissionDeleter(serviceSid, mapSid, identity);
+    public static SyncMapPermissionDeleter deleter(final String pathServiceSid, 
+                                                   final String pathMapSid, 
+                                                   final String pathIdentity) {
+        return new SyncMapPermissionDeleter(pathServiceSid, pathMapSid, pathIdentity);
     }
 
     /**
      * Create a SyncMapPermissionReader to execute read.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid Sync Map SID or unique name.
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid Sync Map SID or unique name.
      * @return SyncMapPermissionReader capable of executing the read
      */
-    public static SyncMapPermissionReader reader(final String serviceSid, 
-                                                 final String mapSid) {
-        return new SyncMapPermissionReader(serviceSid, mapSid);
+    public static SyncMapPermissionReader reader(final String pathServiceSid, 
+                                                 final String pathMapSid) {
+        return new SyncMapPermissionReader(pathServiceSid, pathMapSid);
     }
 
     /**
      * Create a SyncMapPermissionUpdater to execute update.
      * 
-     * @param serviceSid Sync Service Instance SID.
-     * @param mapSid Sync Map SID or unique name.
-     * @param identity Identity of the user to whom the Sync Map Permission applies.
+     * @param pathServiceSid Sync Service Instance SID.
+     * @param pathMapSid Sync Map SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Map Permission
+     *                     applies.
      * @param read Read access.
      * @param write Write access.
      * @param manage Manage access.
      * @return SyncMapPermissionUpdater capable of executing the update
      */
-    public static SyncMapPermissionUpdater updater(final String serviceSid, 
-                                                   final String mapSid, 
-                                                   final String identity, 
+    public static SyncMapPermissionUpdater updater(final String pathServiceSid, 
+                                                   final String pathMapSid, 
+                                                   final String pathIdentity, 
                                                    final Boolean read, 
                                                    final Boolean write, 
                                                    final Boolean manage) {
-        return new SyncMapPermissionUpdater(serviceSid, mapSid, identity, read, write, manage);
+        return new SyncMapPermissionUpdater(pathServiceSid, pathMapSid, pathIdentity, read, write, manage);
     }
 
     /**

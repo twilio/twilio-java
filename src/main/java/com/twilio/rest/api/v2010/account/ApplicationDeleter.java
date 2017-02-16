@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ApplicationDeleter extends Deleter<Application> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new ApplicationDeleter.
      * 
-     * @param sid The application sid to delete
+     * @param pathSid The application sid to delete
      */
-    public ApplicationDeleter(final String sid) {
-        this.sid = sid;
+    public ApplicationDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new ApplicationDeleter.
      * 
-     * @param accountSid The account_sid
-     * @param sid The application sid to delete
+     * @param pathAccountSid The account_sid
+     * @param pathSid The application sid to delete
      */
-    public ApplicationDeleter(final String accountSid, 
-                              final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public ApplicationDeleter(final String pathAccountSid, 
+                              final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -50,11 +50,11 @@ public class ApplicationDeleter extends Deleter<Application> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Applications/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications/" + this.pathSid + ".json",
             client.getRegion()
         );
         

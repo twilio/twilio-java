@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CallDeleter extends Deleter<Call> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new CallDeleter.
      * 
-     * @param sid Call Sid that uniquely identifies the Call to delete
+     * @param pathSid Call Sid that uniquely identifies the Call to delete
      */
-    public CallDeleter(final String sid) {
-        this.sid = sid;
+    public CallDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new CallDeleter.
      * 
-     * @param accountSid The account_sid
-     * @param sid Call Sid that uniquely identifies the Call to delete
+     * @param pathAccountSid The account_sid
+     * @param pathSid Call Sid that uniquely identifies the Call to delete
      */
-    public CallDeleter(final String accountSid, 
-                       final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public CallDeleter(final String pathAccountSid, 
+                       final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -50,11 +50,11 @@ public class CallDeleter extends Deleter<Call> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathSid + ".json",
             client.getRegion()
         );
         

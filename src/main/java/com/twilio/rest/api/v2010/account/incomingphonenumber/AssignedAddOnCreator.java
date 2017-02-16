@@ -18,36 +18,36 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
-    private String accountSid;
-    private final String resourceSid;
+    private String pathAccountSid;
+    private final String pathResourceSid;
     private final String installedAddOnSid;
 
     /**
      * Construct a new AssignedAddOnCreator.
      * 
-     * @param resourceSid The resource_sid
+     * @param pathResourceSid The resource_sid
      * @param installedAddOnSid A string that uniquely identifies the Add-on
      *                          installation
      */
-    public AssignedAddOnCreator(final String resourceSid, 
+    public AssignedAddOnCreator(final String pathResourceSid, 
                                 final String installedAddOnSid) {
-        this.resourceSid = resourceSid;
+        this.pathResourceSid = pathResourceSid;
         this.installedAddOnSid = installedAddOnSid;
     }
 
     /**
      * Construct a new AssignedAddOnCreator.
      * 
-     * @param accountSid The account_sid
-     * @param resourceSid The resource_sid
+     * @param pathAccountSid The account_sid
+     * @param pathResourceSid The resource_sid
      * @param installedAddOnSid A string that uniquely identifies the Add-on
      *                          installation
      */
-    public AssignedAddOnCreator(final String accountSid, 
-                                final String resourceSid, 
+    public AssignedAddOnCreator(final String pathAccountSid, 
+                                final String pathResourceSid, 
                                 final String installedAddOnSid) {
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
         this.installedAddOnSid = installedAddOnSid;
     }
 
@@ -60,11 +60,11 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public AssignedAddOn create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/IncomingPhoneNumbers/" + this.resourceSid + "/AssignedAddOns.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns.json",
             client.getRegion()
         );
         

@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AlertDeleter extends Deleter<Alert> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new AlertDeleter.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public AlertDeleter(final String sid) {
-        this.sid = sid;
+    public AlertDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -40,7 +40,7 @@ public class AlertDeleter extends Deleter<Alert> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.MONITOR.toString(),
-            "/v1/Alerts/" + this.sid + "",
+            "/v1/Alerts/" + this.pathSid + "",
             client.getRegion()
         );
         

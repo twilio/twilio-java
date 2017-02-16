@@ -36,13 +36,13 @@ public class ValidationRequest extends Resource {
     /**
      * Create a ValidationRequestCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param phoneNumber The phone_number
      * @return ValidationRequestCreator capable of executing the create
      */
-    public static ValidationRequestCreator creator(final String accountSid, 
+    public static ValidationRequestCreator creator(final String pathAccountSid, 
                                                    final com.twilio.type.PhoneNumber phoneNumber) {
-        return new ValidationRequestCreator(accountSid, phoneNumber);
+        return new ValidationRequestCreator(pathAccountSid, phoneNumber);
     }
 
     /**

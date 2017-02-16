@@ -18,9 +18,9 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
-    private final String serviceSid;
-    private final String documentSid;
-    private final String identity;
+    private final String pathServiceSid;
+    private final String pathDocumentSid;
+    private final String pathIdentity;
     private final Boolean read;
     private final Boolean write;
     private final Boolean manage;
@@ -28,23 +28,23 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
     /**
      * Construct a new DocumentPermissionUpdater.
      * 
-     * @param serviceSid Sync Service Instance SID.
-     * @param documentSid Sync Document SID or unique name.
-     * @param identity Identity of the user to whom the Sync Document Permission
-     *                 applies.
+     * @param pathServiceSid Sync Service Instance SID.
+     * @param pathDocumentSid Sync Document SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Document
+     *                     Permission applies.
      * @param read Read access.
      * @param write Write access.
      * @param manage Manage access.
      */
-    public DocumentPermissionUpdater(final String serviceSid, 
-                                     final String documentSid, 
-                                     final String identity, 
+    public DocumentPermissionUpdater(final String pathServiceSid, 
+                                     final String pathDocumentSid, 
+                                     final String pathIdentity, 
                                      final Boolean read, 
                                      final Boolean write, 
                                      final Boolean manage) {
-        this.serviceSid = serviceSid;
-        this.documentSid = documentSid;
-        this.identity = identity;
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
+        this.pathIdentity = pathIdentity;
         this.read = read;
         this.write = write;
         this.manage = manage;
@@ -62,7 +62,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Documents/" + this.documentSid + "/Permissions/" + this.identity + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + "",
             client.getRegion()
         );
         

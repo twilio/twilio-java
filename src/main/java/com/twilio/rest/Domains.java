@@ -18,7 +18,8 @@ public enum Domains {
     PREVIEW("preview"),
     PRICING("pricing"),
     TASKROUTER("taskrouter"),
-    TRUNKING("trunking");
+    TRUNKING("trunking"),
+    VIDEO("video");
     
     private final String value;
     

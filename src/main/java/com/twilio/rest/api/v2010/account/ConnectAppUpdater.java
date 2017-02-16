@@ -22,8 +22,8 @@ import java.net.URI;
 import java.util.List;
 
 public class ConnectAppUpdater extends Updater<ConnectApp> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
     private URI authorizeRedirectUrl;
     private String companyName;
     private HttpMethod deauthorizeCallbackMethod;
@@ -36,22 +36,22 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     /**
      * Construct a new ConnectAppUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public ConnectAppUpdater(final String sid) {
-        this.sid = sid;
+    public ConnectAppUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new ConnectAppUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      */
-    public ConnectAppUpdater(final String accountSid, 
-                             final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public ConnectAppUpdater(final String pathAccountSid, 
+                             final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -201,11 +201,11 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ConnectApp update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/ConnectApps/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/ConnectApps/" + this.pathSid + ".json",
             client.getRegion()
         );
         

@@ -41,11 +41,11 @@ public class Number extends Resource {
     /**
      * Create a NumberFetcher to execute fetch.
      * 
-     * @param number The number
+     * @param pathNumber The number
      * @return NumberFetcher capable of executing the fetch
      */
-    public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber number) {
-        return new NumberFetcher(number);
+    public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathNumber) {
+        return new NumberFetcher(pathNumber);
     }
 
     /**

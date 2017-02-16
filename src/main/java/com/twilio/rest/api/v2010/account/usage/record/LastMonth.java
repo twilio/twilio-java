@@ -161,11 +161,11 @@ public class LastMonth extends Resource {
     /**
      * Create a LastMonthReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return LastMonthReader capable of executing the read
      */
-    public static LastMonthReader reader(final String accountSid) {
-        return new LastMonthReader(accountSid);
+    public static LastMonthReader reader(final String pathAccountSid) {
+        return new LastMonthReader(pathAccountSid);
     }
 
     /**

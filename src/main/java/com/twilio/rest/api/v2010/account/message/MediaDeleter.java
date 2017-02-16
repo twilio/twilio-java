@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MediaDeleter extends Deleter<Media> {
-    private String accountSid;
-    private final String messageSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathMessageSid;
+    private final String pathSid;
 
     /**
      * Construct a new MediaDeleter.
      * 
-     * @param messageSid The message_sid
-     * @param sid Delete by unique media Sid
+     * @param pathMessageSid The message_sid
+     * @param pathSid Delete by unique media Sid
      */
-    public MediaDeleter(final String messageSid, 
-                        final String sid) {
-        this.messageSid = messageSid;
-        this.sid = sid;
+    public MediaDeleter(final String pathMessageSid, 
+                        final String pathSid) {
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new MediaDeleter.
      * 
-     * @param accountSid The account_sid
-     * @param messageSid The message_sid
-     * @param sid Delete by unique media Sid
+     * @param pathAccountSid The account_sid
+     * @param pathMessageSid The message_sid
+     * @param pathSid Delete by unique media Sid
      */
-    public MediaDeleter(final String accountSid, 
-                        final String messageSid, 
-                        final String sid) {
-        this.accountSid = accountSid;
-        this.messageSid = messageSid;
-        this.sid = sid;
+    public MediaDeleter(final String pathAccountSid, 
+                        final String pathMessageSid, 
+                        final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class MediaDeleter extends Deleter<Media> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.messageSid + "/Media/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Media/" + this.pathSid + ".json",
             client.getRegion()
         );
         

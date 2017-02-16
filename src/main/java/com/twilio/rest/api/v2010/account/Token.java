@@ -40,11 +40,11 @@ public class Token extends Resource {
     /**
      * Create a TokenCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return TokenCreator capable of executing the create
      */
-    public static TokenCreator creator(final String accountSid) {
-        return new TokenCreator(accountSid);
+    public static TokenCreator creator(final String pathAccountSid) {
+        return new TokenCreator(pathAccountSid);
     }
 
     /**

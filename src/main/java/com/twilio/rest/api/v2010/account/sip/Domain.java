@@ -39,11 +39,11 @@ public class Domain extends Resource {
     /**
      * Create a DomainReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return DomainReader capable of executing the read
      */
-    public static DomainReader reader(final String accountSid) {
-        return new DomainReader(accountSid);
+    public static DomainReader reader(final String pathAccountSid) {
+        return new DomainReader(pathAccountSid);
     }
 
     /**
@@ -58,13 +58,13 @@ public class Domain extends Resource {
     /**
      * Create a DomainCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return DomainCreator capable of executing the create
      */
-    public static DomainCreator creator(final String accountSid, 
+    public static DomainCreator creator(final String pathAccountSid, 
                                         final String domainName) {
-        return new DomainCreator(accountSid, domainName);
+        return new DomainCreator(pathAccountSid, domainName);
     }
 
     /**
@@ -80,67 +80,67 @@ public class Domain extends Resource {
     /**
      * Create a DomainFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique Domain Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique Domain Sid
      * @return DomainFetcher capable of executing the fetch
      */
-    public static DomainFetcher fetcher(final String accountSid, 
-                                        final String sid) {
-        return new DomainFetcher(accountSid, sid);
+    public static DomainFetcher fetcher(final String pathAccountSid, 
+                                        final String pathSid) {
+        return new DomainFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a DomainFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique Domain Sid
+     * @param pathSid Fetch by unique Domain Sid
      * @return DomainFetcher capable of executing the fetch
      */
-    public static DomainFetcher fetcher(final String sid) {
-        return new DomainFetcher(sid);
+    public static DomainFetcher fetcher(final String pathSid) {
+        return new DomainFetcher(pathSid);
     }
 
     /**
      * Create a DomainUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @return DomainUpdater capable of executing the update
      */
-    public static DomainUpdater updater(final String accountSid, 
-                                        final String sid) {
-        return new DomainUpdater(accountSid, sid);
+    public static DomainUpdater updater(final String pathAccountSid, 
+                                        final String pathSid) {
+        return new DomainUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a DomainUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return DomainUpdater capable of executing the update
      */
-    public static DomainUpdater updater(final String sid) {
-        return new DomainUpdater(sid);
+    public static DomainUpdater updater(final String pathSid) {
+        return new DomainUpdater(pathSid);
     }
 
     /**
      * Create a DomainDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @return DomainDeleter capable of executing the delete
      */
-    public static DomainDeleter deleter(final String accountSid, 
-                                        final String sid) {
-        return new DomainDeleter(accountSid, sid);
+    public static DomainDeleter deleter(final String pathAccountSid, 
+                                        final String pathSid) {
+        return new DomainDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a DomainDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return DomainDeleter capable of executing the delete
      */
-    public static DomainDeleter deleter(final String sid) {
-        return new DomainDeleter(sid);
+    public static DomainDeleter deleter(final String pathSid) {
+        return new DomainDeleter(pathSid);
     }
 
     /**

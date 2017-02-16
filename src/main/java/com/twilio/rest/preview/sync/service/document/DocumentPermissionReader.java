@@ -20,19 +20,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DocumentPermissionReader extends Reader<DocumentPermission> {
-    private final String serviceSid;
-    private final String documentSid;
+    private final String pathServiceSid;
+    private final String pathDocumentSid;
 
     /**
      * Construct a new DocumentPermissionReader.
      * 
-     * @param serviceSid The service_sid
-     * @param documentSid Sync Document SID or unique name.
+     * @param pathServiceSid The service_sid
+     * @param pathDocumentSid Sync Document SID or unique name.
      */
-    public DocumentPermissionReader(final String serviceSid, 
-                                    final String documentSid) {
-        this.serviceSid = serviceSid;
-        this.documentSid = documentSid;
+    public DocumentPermissionReader(final String pathServiceSid, 
+                                    final String pathDocumentSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
     }
 
     /**
@@ -58,7 +58,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Documents/" + this.documentSid + "/Permissions",
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions",
             client.getRegion()
         );
         

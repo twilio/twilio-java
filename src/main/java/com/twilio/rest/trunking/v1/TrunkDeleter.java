@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TrunkDeleter extends Deleter<Trunk> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new TrunkDeleter.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public TrunkDeleter(final String sid) {
-        this.sid = sid;
+    public TrunkDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -40,7 +40,7 @@ public class TrunkDeleter extends Deleter<Trunk> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.sid + "",
+            "/v1/Trunks/" + this.pathSid + "",
             client.getRegion()
         );
         

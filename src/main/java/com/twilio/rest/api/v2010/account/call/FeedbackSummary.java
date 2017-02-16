@@ -76,15 +76,15 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param startDate The start_date
      * @param endDate The end_date
      * @return FeedbackSummaryCreator capable of executing the create
      */
-    public static FeedbackSummaryCreator creator(final String accountSid, 
+    public static FeedbackSummaryCreator creator(final String pathAccountSid, 
                                                  final LocalDate startDate, 
                                                  final LocalDate endDate) {
-        return new FeedbackSummaryCreator(accountSid, startDate, endDate);
+        return new FeedbackSummaryCreator(pathAccountSid, startDate, endDate);
     }
 
     /**
@@ -102,45 +102,45 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @return FeedbackSummaryFetcher capable of executing the fetch
      */
-    public static FeedbackSummaryFetcher fetcher(final String accountSid, 
-                                                 final String sid) {
-        return new FeedbackSummaryFetcher(accountSid, sid);
+    public static FeedbackSummaryFetcher fetcher(final String pathAccountSid, 
+                                                 final String pathSid) {
+        return new FeedbackSummaryFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a FeedbackSummaryFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return FeedbackSummaryFetcher capable of executing the fetch
      */
-    public static FeedbackSummaryFetcher fetcher(final String sid) {
-        return new FeedbackSummaryFetcher(sid);
+    public static FeedbackSummaryFetcher fetcher(final String pathSid) {
+        return new FeedbackSummaryFetcher(pathSid);
     }
 
     /**
      * Create a FeedbackSummaryDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @return FeedbackSummaryDeleter capable of executing the delete
      */
-    public static FeedbackSummaryDeleter deleter(final String accountSid, 
-                                                 final String sid) {
-        return new FeedbackSummaryDeleter(accountSid, sid);
+    public static FeedbackSummaryDeleter deleter(final String pathAccountSid, 
+                                                 final String pathSid) {
+        return new FeedbackSummaryDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a FeedbackSummaryDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return FeedbackSummaryDeleter capable of executing the delete
      */
-    public static FeedbackSummaryDeleter deleter(final String sid) {
-        return new FeedbackSummaryDeleter(sid);
+    public static FeedbackSummaryDeleter deleter(final String pathSid) {
+        return new FeedbackSummaryDeleter(pathSid);
     }
 
     /**

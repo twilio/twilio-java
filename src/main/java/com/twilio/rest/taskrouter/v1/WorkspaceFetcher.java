@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class WorkspaceFetcher extends Fetcher<Workspace> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new WorkspaceFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public WorkspaceFetcher(final String sid) {
-        this.sid = sid;
+    public WorkspaceFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathSid + "",
             client.getRegion()
         );
         

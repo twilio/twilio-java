@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TaskQueueReader extends Reader<TaskQueue> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private String friendlyName;
     private String evaluateWorkerAttributes;
     private String workerSid;
@@ -28,10 +28,10 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     /**
      * Construct a new TaskQueueReader.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      */
-    public TaskQueueReader(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public TaskQueueReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
@@ -90,7 +90,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues",
             client.getRegion()
         );
         

@@ -21,6 +21,7 @@ import com.twilio.rest.Domains;
 
 public class CommandReader extends Reader<Command> {
     private String device;
+    private String sim;
     private String status;
     private String direction;
 
@@ -32,6 +33,17 @@ public class CommandReader extends Reader<Command> {
      */
     public CommandReader setDevice(final String device) {
         this.device = device;
+        return this;
+    }
+
+    /**
+     * The sim.
+     * 
+     * @param sim The sim
+     * @return this
+     */
+    public CommandReader setSim(final String sim) {
+        this.sim = sim;
         return this;
     }
 
@@ -151,6 +163,10 @@ public class CommandReader extends Reader<Command> {
     private void addQueryParams(final Request request) {
         if (device != null) {
             request.addQueryParam("Device", device);
+        }
+        
+        if (sim != null) {
+            request.addQueryParam("Sim", sim);
         }
         
         if (status != null) {

@@ -18,8 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TaskUpdater extends Updater<Task> {
-    private final String workspaceSid;
-    private final String sid;
+    private final String pathWorkspaceSid;
+    private final String pathSid;
     private String attributes;
     private Task.Status assignmentStatus;
     private String reason;
@@ -29,13 +29,13 @@ public class TaskUpdater extends Updater<Task> {
     /**
      * Construct a new TaskUpdater.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      */
-    public TaskUpdater(final String workspaceSid, 
-                       final String sid) {
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public TaskUpdater(final String pathWorkspaceSid, 
+                       final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -105,7 +105,7 @@ public class TaskUpdater extends Updater<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathSid + "",
             client.getRegion()
         );
         

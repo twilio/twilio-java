@@ -74,75 +74,75 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param recordingSid The recording_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathRecordingSid The recording_sid
+     * @param pathSid The sid
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetcher(final String accountSid, 
-                                               final String recordingSid, 
-                                               final String sid) {
-        return new TranscriptionFetcher(accountSid, recordingSid, sid);
+    public static TranscriptionFetcher fetcher(final String pathAccountSid, 
+                                               final String pathRecordingSid, 
+                                               final String pathSid) {
+        return new TranscriptionFetcher(pathAccountSid, pathRecordingSid, pathSid);
     }
 
     /**
      * Create a TranscriptionFetcher to execute fetch.
      * 
-     * @param recordingSid The recording_sid
-     * @param sid The sid
+     * @param pathRecordingSid The recording_sid
+     * @param pathSid The sid
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetcher(final String recordingSid, 
-                                               final String sid) {
-        return new TranscriptionFetcher(recordingSid, sid);
+    public static TranscriptionFetcher fetcher(final String pathRecordingSid, 
+                                               final String pathSid) {
+        return new TranscriptionFetcher(pathRecordingSid, pathSid);
     }
 
     /**
      * Create a TranscriptionDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param recordingSid The recording_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathRecordingSid The recording_sid
+     * @param pathSid The sid
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter deleter(final String accountSid, 
-                                               final String recordingSid, 
-                                               final String sid) {
-        return new TranscriptionDeleter(accountSid, recordingSid, sid);
+    public static TranscriptionDeleter deleter(final String pathAccountSid, 
+                                               final String pathRecordingSid, 
+                                               final String pathSid) {
+        return new TranscriptionDeleter(pathAccountSid, pathRecordingSid, pathSid);
     }
 
     /**
      * Create a TranscriptionDeleter to execute delete.
      * 
-     * @param recordingSid The recording_sid
-     * @param sid The sid
+     * @param pathRecordingSid The recording_sid
+     * @param pathSid The sid
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter deleter(final String recordingSid, 
-                                               final String sid) {
-        return new TranscriptionDeleter(recordingSid, sid);
+    public static TranscriptionDeleter deleter(final String pathRecordingSid, 
+                                               final String pathSid) {
+        return new TranscriptionDeleter(pathRecordingSid, pathSid);
     }
 
     /**
      * Create a TranscriptionReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param recordingSid The recording_sid
+     * @param pathAccountSid The account_sid
+     * @param pathRecordingSid The recording_sid
      * @return TranscriptionReader capable of executing the read
      */
-    public static TranscriptionReader reader(final String accountSid, 
-                                             final String recordingSid) {
-        return new TranscriptionReader(accountSid, recordingSid);
+    public static TranscriptionReader reader(final String pathAccountSid, 
+                                             final String pathRecordingSid) {
+        return new TranscriptionReader(pathAccountSid, pathRecordingSid);
     }
 
     /**
      * Create a TranscriptionReader to execute read.
      * 
-     * @param recordingSid The recording_sid
+     * @param pathRecordingSid The recording_sid
      * @return TranscriptionReader capable of executing the read
      */
-    public static TranscriptionReader reader(final String recordingSid) {
-        return new TranscriptionReader(recordingSid);
+    public static TranscriptionReader reader(final String pathRecordingSid) {
+        return new TranscriptionReader(pathRecordingSid);
     }
 
     /**

@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TriggerReader extends Reader<Trigger> {
-    private String accountSid;
+    private String pathAccountSid;
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
     private Trigger.UsageCategory usageCategory;
@@ -34,10 +34,10 @@ public class TriggerReader extends Reader<Trigger> {
     /**
      * Construct a new TriggerReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public TriggerReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public TriggerReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -94,11 +94,11 @@ public class TriggerReader extends Reader<Trigger> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Trigger> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers.json",
             client.getRegion()
         );
         

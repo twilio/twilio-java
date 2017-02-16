@@ -18,8 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ChannelUpdater extends Updater<Channel> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
     private String friendlyName;
     private String uniqueName;
     private String attributes;
@@ -27,13 +27,13 @@ public class ChannelUpdater extends Updater<Channel> {
     /**
      * Construct a new ChannelUpdater.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public ChannelUpdater(final String serviceSid, 
-                          final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public ChannelUpdater(final String pathServiceSid, 
+                          final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -81,7 +81,7 @@ public class ChannelUpdater extends Updater<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathSid + "",
             client.getRegion()
         );
         

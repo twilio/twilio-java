@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ConferenceFetcher extends Fetcher<Conference> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new ConferenceFetcher.
      * 
-     * @param sid Fetch by unique conference Sid
+     * @param pathSid Fetch by unique conference Sid
      */
-    public ConferenceFetcher(final String sid) {
-        this.sid = sid;
+    public ConferenceFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new ConferenceFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique conference Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique conference Sid
      */
-    public ConferenceFetcher(final String accountSid, 
-                             final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public ConferenceFetcher(final String pathAccountSid, 
+                             final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -51,11 +51,11 @@ public class ConferenceFetcher extends Fetcher<Conference> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Conference fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Conferences/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathSid + ".json",
             client.getRegion()
         );
         

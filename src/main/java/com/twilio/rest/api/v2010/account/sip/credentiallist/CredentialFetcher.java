@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialFetcher extends Fetcher<Credential> {
-    private String accountSid;
-    private final String credentialListSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathCredentialListSid;
+    private final String pathSid;
 
     /**
      * Construct a new CredentialFetcher.
      * 
-     * @param credentialListSid The credential_list_sid
-     * @param sid The sid
+     * @param pathCredentialListSid The credential_list_sid
+     * @param pathSid The sid
      */
-    public CredentialFetcher(final String credentialListSid, 
-                             final String sid) {
-        this.credentialListSid = credentialListSid;
-        this.sid = sid;
+    public CredentialFetcher(final String pathCredentialListSid, 
+                             final String pathSid) {
+        this.pathCredentialListSid = pathCredentialListSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new CredentialFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param credentialListSid The credential_list_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathCredentialListSid The credential_list_sid
+     * @param pathSid The sid
      */
-    public CredentialFetcher(final String accountSid, 
-                             final String credentialListSid, 
-                             final String sid) {
-        this.accountSid = accountSid;
-        this.credentialListSid = credentialListSid;
-        this.sid = sid;
+    public CredentialFetcher(final String pathAccountSid, 
+                             final String pathCredentialListSid, 
+                             final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCredentialListSid = pathCredentialListSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -58,11 +58,11 @@ public class CredentialFetcher extends Fetcher<Credential> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Credential fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists/" + this.credentialListSid + "/Credentials/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists/" + this.pathCredentialListSid + "/Credentials/" + this.pathSid + ".json",
             client.getRegion()
         );
         

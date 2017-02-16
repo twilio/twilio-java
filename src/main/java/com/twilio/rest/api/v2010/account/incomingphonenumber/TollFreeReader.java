@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TollFreeReader extends Reader<TollFree> {
-    private String ownerAccountSid;
+    private String pathAccountSid;
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
@@ -34,10 +34,10 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * Construct a new TollFreeReader.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      */
-    public TollFreeReader(final String ownerAccountSid) {
-        this.ownerAccountSid = ownerAccountSid;
+    public TollFreeReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -93,11 +93,11 @@ public class TollFreeReader extends Reader<TollFree> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<TollFree> firstPage(final TwilioRestClient client) {
-        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/TollFree.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/TollFree.json",
             client.getRegion()
         );
         

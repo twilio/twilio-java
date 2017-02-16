@@ -74,55 +74,55 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique transcription Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique transcription Sid
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetcher(final String accountSid, 
-                                               final String sid) {
-        return new TranscriptionFetcher(accountSid, sid);
+    public static TranscriptionFetcher fetcher(final String pathAccountSid, 
+                                               final String pathSid) {
+        return new TranscriptionFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TranscriptionFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique transcription Sid
+     * @param pathSid Fetch by unique transcription Sid
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetcher(final String sid) {
-        return new TranscriptionFetcher(sid);
+    public static TranscriptionFetcher fetcher(final String pathSid) {
+        return new TranscriptionFetcher(pathSid);
     }
 
     /**
      * Create a TranscriptionDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid Delete by unique transcription Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Delete by unique transcription Sid
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter deleter(final String accountSid, 
-                                               final String sid) {
-        return new TranscriptionDeleter(accountSid, sid);
+    public static TranscriptionDeleter deleter(final String pathAccountSid, 
+                                               final String pathSid) {
+        return new TranscriptionDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TranscriptionDeleter to execute delete.
      * 
-     * @param sid Delete by unique transcription Sid
+     * @param pathSid Delete by unique transcription Sid
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter deleter(final String sid) {
-        return new TranscriptionDeleter(sid);
+    public static TranscriptionDeleter deleter(final String pathSid) {
+        return new TranscriptionDeleter(pathSid);
     }
 
     /**
      * Create a TranscriptionReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return TranscriptionReader capable of executing the read
      */
-    public static TranscriptionReader reader(final String accountSid) {
-        return new TranscriptionReader(accountSid);
+    public static TranscriptionReader reader(final String pathAccountSid) {
+        return new TranscriptionReader(pathAccountSid);
     }
 
     /**

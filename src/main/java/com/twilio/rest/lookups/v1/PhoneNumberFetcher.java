@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
-    private final com.twilio.type.PhoneNumber phoneNumber;
+    private final com.twilio.type.PhoneNumber pathPhoneNumber;
     private String countryCode;
     private List<String> type;
     private List<String> addOns;
@@ -32,10 +32,10 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     /**
      * Construct a new PhoneNumberFetcher.
      * 
-     * @param phoneNumber The phone_number
+     * @param pathPhoneNumber The phone_number
      */
-    public PhoneNumberFetcher(final com.twilio.type.PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public PhoneNumberFetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
     /**
@@ -114,7 +114,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.LOOKUPS.toString(),
-            "/v1/PhoneNumbers/" + this.phoneNumber + "",
+            "/v1/PhoneNumbers/" + this.pathPhoneNumber + "",
             client.getRegion()
         );
         

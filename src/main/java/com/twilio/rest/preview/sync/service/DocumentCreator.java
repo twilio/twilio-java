@@ -21,17 +21,17 @@ import com.twilio.rest.Domains;
 import java.util.Map;
 
 public class DocumentCreator extends Creator<Document> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private String uniqueName;
     private Map<String, Object> data;
 
     /**
      * Construct a new DocumentCreator.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public DocumentCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public DocumentCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -68,7 +68,7 @@ public class DocumentCreator extends Creator<Document> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Documents",
+            "/Sync/Services/" + this.pathServiceSid + "/Documents",
             client.getRegion()
         );
         

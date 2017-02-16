@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class OriginationUrlReader extends Reader<OriginationUrl> {
-    private final String trunkSid;
+    private final String pathTrunkSid;
 
     /**
      * Construct a new OriginationUrlReader.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      */
-    public OriginationUrlReader(final String trunkSid) {
-        this.trunkSid = trunkSid;
+    public OriginationUrlReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/OriginationUrls",
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls",
             client.getRegion()
         );
         

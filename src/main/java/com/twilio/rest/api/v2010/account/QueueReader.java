@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class QueueReader extends Reader<Queue> {
-    private String accountSid;
+    private String pathAccountSid;
 
     /**
      * Construct a new QueueReader.
@@ -31,10 +31,10 @@ public class QueueReader extends Reader<Queue> {
     /**
      * Construct a new QueueReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public QueueReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public QueueReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class QueueReader extends Reader<Queue> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Queue> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Queues.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues.json",
             client.getRegion()
         );
         

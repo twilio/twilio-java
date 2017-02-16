@@ -39,11 +39,11 @@ public class Sandbox extends Resource {
     /**
      * Create a SandboxFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return SandboxFetcher capable of executing the fetch
      */
-    public static SandboxFetcher fetcher(final String accountSid) {
-        return new SandboxFetcher(accountSid);
+    public static SandboxFetcher fetcher(final String pathAccountSid) {
+        return new SandboxFetcher(pathAccountSid);
     }
 
     /**
@@ -58,11 +58,11 @@ public class Sandbox extends Resource {
     /**
      * Create a SandboxUpdater to execute update.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return SandboxUpdater capable of executing the update
      */
-    public static SandboxUpdater updater(final String accountSid) {
-        return new SandboxUpdater(accountSid);
+    public static SandboxUpdater updater(final String pathAccountSid) {
+        return new SandboxUpdater(pathAccountSid);
     }
 
     /**

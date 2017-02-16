@@ -104,73 +104,73 @@ public class SyncMapItem extends Resource {
     /**
      * Create a SyncMapItemFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid The map_sid
-     * @param key The key
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid The map_sid
+     * @param pathKey The key
      * @return SyncMapItemFetcher capable of executing the fetch
      */
-    public static SyncMapItemFetcher fetcher(final String serviceSid, 
-                                             final String mapSid, 
-                                             final String key) {
-        return new SyncMapItemFetcher(serviceSid, mapSid, key);
+    public static SyncMapItemFetcher fetcher(final String pathServiceSid, 
+                                             final String pathMapSid, 
+                                             final String pathKey) {
+        return new SyncMapItemFetcher(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**
      * Create a SyncMapItemDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid The map_sid
-     * @param key The key
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid The map_sid
+     * @param pathKey The key
      * @return SyncMapItemDeleter capable of executing the delete
      */
-    public static SyncMapItemDeleter deleter(final String serviceSid, 
-                                             final String mapSid, 
-                                             final String key) {
-        return new SyncMapItemDeleter(serviceSid, mapSid, key);
+    public static SyncMapItemDeleter deleter(final String pathServiceSid, 
+                                             final String pathMapSid, 
+                                             final String pathKey) {
+        return new SyncMapItemDeleter(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**
      * Create a SyncMapItemCreator to execute create.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid The map_sid
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid The map_sid
      * @param key The key
      * @param data The data
      * @return SyncMapItemCreator capable of executing the create
      */
-    public static SyncMapItemCreator creator(final String serviceSid, 
-                                             final String mapSid, 
+    public static SyncMapItemCreator creator(final String pathServiceSid, 
+                                             final String pathMapSid, 
                                              final String key, 
                                              final Map<String, Object> data) {
-        return new SyncMapItemCreator(serviceSid, mapSid, key, data);
+        return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }
 
     /**
      * Create a SyncMapItemReader to execute read.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid The map_sid
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid The map_sid
      * @return SyncMapItemReader capable of executing the read
      */
-    public static SyncMapItemReader reader(final String serviceSid, 
-                                           final String mapSid) {
-        return new SyncMapItemReader(serviceSid, mapSid);
+    public static SyncMapItemReader reader(final String pathServiceSid, 
+                                           final String pathMapSid) {
+        return new SyncMapItemReader(pathServiceSid, pathMapSid);
     }
 
     /**
      * Create a SyncMapItemUpdater to execute update.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid The map_sid
-     * @param key The key
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid The map_sid
+     * @param pathKey The key
      * @param data The data
      * @return SyncMapItemUpdater capable of executing the update
      */
-    public static SyncMapItemUpdater updater(final String serviceSid, 
-                                             final String mapSid, 
-                                             final String key, 
+    public static SyncMapItemUpdater updater(final String pathServiceSid, 
+                                             final String pathMapSid, 
+                                             final String pathKey, 
                                              final Map<String, Object> data) {
-        return new SyncMapItemUpdater(serviceSid, mapSid, key, data);
+        return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey, data);
     }
 
     /**

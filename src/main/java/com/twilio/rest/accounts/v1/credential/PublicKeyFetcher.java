@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class PublicKeyFetcher extends Fetcher<PublicKey> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new PublicKeyFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public PublicKeyFetcher(final String sid) {
-        this.sid = sid;
+    public PublicKeyFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class PublicKeyFetcher extends Fetcher<PublicKey> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.sid + "",
+            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
             client.getRegion()
         );
         

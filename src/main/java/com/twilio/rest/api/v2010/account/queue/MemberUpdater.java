@@ -20,26 +20,26 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class MemberUpdater extends Updater<Member> {
-    private String accountSid;
-    private final String queueSid;
-    private final String callSid;
+    private String pathAccountSid;
+    private final String pathQueueSid;
+    private final String pathCallSid;
     private final URI url;
     private final HttpMethod method;
 
     /**
      * Construct a new MemberUpdater.
      * 
-     * @param queueSid The Queue in which to find the members
-     * @param callSid The call_sid
+     * @param pathQueueSid The Queue in which to find the members
+     * @param pathCallSid The call_sid
      * @param url The url
      * @param method The method
      */
-    public MemberUpdater(final String queueSid, 
-                         final String callSid, 
+    public MemberUpdater(final String pathQueueSid, 
+                         final String pathCallSid, 
                          final URI url, 
                          final HttpMethod method) {
-        this.queueSid = queueSid;
-        this.callSid = callSid;
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
         this.url = url;
         this.method = method;
     }
@@ -47,20 +47,20 @@ public class MemberUpdater extends Updater<Member> {
     /**
      * Construct a new MemberUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param queueSid The Queue in which to find the members
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathQueueSid The Queue in which to find the members
+     * @param pathCallSid The call_sid
      * @param url The url
      * @param method The method
      */
-    public MemberUpdater(final String accountSid, 
-                         final String queueSid, 
-                         final String callSid, 
+    public MemberUpdater(final String pathAccountSid, 
+                         final String pathQueueSid, 
+                         final String pathCallSid, 
                          final URI url, 
                          final HttpMethod method) {
-        this.accountSid = accountSid;
-        this.queueSid = queueSid;
-        this.callSid = callSid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
         this.url = url;
         this.method = method;
     }
@@ -74,11 +74,11 @@ public class MemberUpdater extends Updater<Member> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Member update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Queues/" + this.queueSid + "/Members/" + this.callSid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathQueueSid + "/Members/" + this.pathCallSid + ".json",
             client.getRegion()
         );
         

@@ -161,11 +161,11 @@ public class Monthly extends Resource {
     /**
      * Create a MonthlyReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return MonthlyReader capable of executing the read
      */
-    public static MonthlyReader reader(final String accountSid) {
-        return new MonthlyReader(accountSid);
+    public static MonthlyReader reader(final String pathAccountSid) {
+        return new MonthlyReader(pathAccountSid);
     }
 
     /**

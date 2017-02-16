@@ -18,18 +18,18 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialListCreator extends Creator<CredentialList> {
-    private final String trunkSid;
+    private final String pathTrunkSid;
     private final String credentialListSid;
 
     /**
      * Construct a new CredentialListCreator.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      * @param credentialListSid The credential_list_sid
      */
-    public CredentialListCreator(final String trunkSid, 
+    public CredentialListCreator(final String pathTrunkSid, 
                                  final String credentialListSid) {
-        this.trunkSid = trunkSid;
+        this.pathTrunkSid = pathTrunkSid;
         this.credentialListSid = credentialListSid;
     }
 
@@ -45,7 +45,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/CredentialLists",
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists",
             client.getRegion()
         );
         

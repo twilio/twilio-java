@@ -38,11 +38,11 @@ public class NewSigningKey extends Resource {
     /**
      * Create a NewSigningKeyCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return NewSigningKeyCreator capable of executing the create
      */
-    public static NewSigningKeyCreator creator(final String accountSid) {
-        return new NewSigningKeyCreator(accountSid);
+    public static NewSigningKeyCreator creator(final String pathAccountSid) {
+        return new NewSigningKeyCreator(pathAccountSid);
     }
 
     /**

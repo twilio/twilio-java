@@ -23,7 +23,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class RecordingReader extends Reader<Recording> {
-    private String accountSid;
+    private String pathAccountSid;
     private DateTime absoluteDateCreated;
     private Range<DateTime> rangeDateCreated;
     private String callSid;
@@ -37,10 +37,10 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public RecordingReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public RecordingReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -100,11 +100,11 @@ public class RecordingReader extends Reader<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Recording> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Recordings.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings.json",
             client.getRegion()
         );
         

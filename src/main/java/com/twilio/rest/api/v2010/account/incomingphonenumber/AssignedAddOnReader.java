@@ -20,28 +20,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AssignedAddOnReader extends Reader<AssignedAddOn> {
-    private String accountSid;
-    private final String resourceSid;
+    private String pathAccountSid;
+    private final String pathResourceSid;
 
     /**
      * Construct a new AssignedAddOnReader.
      * 
-     * @param resourceSid The resource_sid
+     * @param pathResourceSid The resource_sid
      */
-    public AssignedAddOnReader(final String resourceSid) {
-        this.resourceSid = resourceSid;
+    public AssignedAddOnReader(final String pathResourceSid) {
+        this.pathResourceSid = pathResourceSid;
     }
 
     /**
      * Construct a new AssignedAddOnReader.
      * 
-     * @param accountSid The account_sid
-     * @param resourceSid The resource_sid
+     * @param pathAccountSid The account_sid
+     * @param pathResourceSid The resource_sid
      */
-    public AssignedAddOnReader(final String accountSid, 
-                               final String resourceSid) {
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
+    public AssignedAddOnReader(final String pathAccountSid, 
+                               final String pathResourceSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
     }
 
     /**
@@ -64,11 +64,11 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<AssignedAddOn> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/IncomingPhoneNumbers/" + this.resourceSid + "/AssignedAddOns.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns.json",
             client.getRegion()
         );
         

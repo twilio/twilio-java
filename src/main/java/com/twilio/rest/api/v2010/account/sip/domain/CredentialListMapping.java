@@ -38,101 +38,101 @@ public class CredentialListMapping extends Resource {
     /**
      * Create a CredentialListMappingCreator to execute create.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
      * @param credentialListSid The credential_list_sid
      * @return CredentialListMappingCreator capable of executing the create
      */
-    public static CredentialListMappingCreator creator(final String accountSid, 
-                                                       final String domainSid, 
+    public static CredentialListMappingCreator creator(final String pathAccountSid, 
+                                                       final String pathDomainSid, 
                                                        final String credentialListSid) {
-        return new CredentialListMappingCreator(accountSid, domainSid, credentialListSid);
+        return new CredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
     /**
      * Create a CredentialListMappingCreator to execute create.
      * 
-     * @param domainSid The domain_sid
+     * @param pathDomainSid The domain_sid
      * @param credentialListSid The credential_list_sid
      * @return CredentialListMappingCreator capable of executing the create
      */
-    public static CredentialListMappingCreator creator(final String domainSid, 
+    public static CredentialListMappingCreator creator(final String pathDomainSid, 
                                                        final String credentialListSid) {
-        return new CredentialListMappingCreator(domainSid, credentialListSid);
+        return new CredentialListMappingCreator(pathDomainSid, credentialListSid);
     }
 
     /**
      * Create a CredentialListMappingReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
      * @return CredentialListMappingReader capable of executing the read
      */
-    public static CredentialListMappingReader reader(final String accountSid, 
-                                                     final String domainSid) {
-        return new CredentialListMappingReader(accountSid, domainSid);
+    public static CredentialListMappingReader reader(final String pathAccountSid, 
+                                                     final String pathDomainSid) {
+        return new CredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
 
     /**
      * Create a CredentialListMappingReader to execute read.
      * 
-     * @param domainSid The domain_sid
+     * @param pathDomainSid The domain_sid
      * @return CredentialListMappingReader capable of executing the read
      */
-    public static CredentialListMappingReader reader(final String domainSid) {
-        return new CredentialListMappingReader(domainSid);
+    public static CredentialListMappingReader reader(final String pathDomainSid) {
+        return new CredentialListMappingReader(pathDomainSid);
     }
 
     /**
      * Create a CredentialListMappingFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid The sid
      * @return CredentialListMappingFetcher capable of executing the fetch
      */
-    public static CredentialListMappingFetcher fetcher(final String accountSid, 
-                                                       final String domainSid, 
-                                                       final String sid) {
-        return new CredentialListMappingFetcher(accountSid, domainSid, sid);
+    public static CredentialListMappingFetcher fetcher(final String pathAccountSid, 
+                                                       final String pathDomainSid, 
+                                                       final String pathSid) {
+        return new CredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a CredentialListMappingFetcher to execute fetch.
      * 
-     * @param domainSid The domain_sid
-     * @param sid The sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid The sid
      * @return CredentialListMappingFetcher capable of executing the fetch
      */
-    public static CredentialListMappingFetcher fetcher(final String domainSid, 
-                                                       final String sid) {
-        return new CredentialListMappingFetcher(domainSid, sid);
+    public static CredentialListMappingFetcher fetcher(final String pathDomainSid, 
+                                                       final String pathSid) {
+        return new CredentialListMappingFetcher(pathDomainSid, pathSid);
     }
 
     /**
      * Create a CredentialListMappingDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid The sid
      * @return CredentialListMappingDeleter capable of executing the delete
      */
-    public static CredentialListMappingDeleter deleter(final String accountSid, 
-                                                       final String domainSid, 
-                                                       final String sid) {
-        return new CredentialListMappingDeleter(accountSid, domainSid, sid);
+    public static CredentialListMappingDeleter deleter(final String pathAccountSid, 
+                                                       final String pathDomainSid, 
+                                                       final String pathSid) {
+        return new CredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a CredentialListMappingDeleter to execute delete.
      * 
-     * @param domainSid The domain_sid
-     * @param sid The sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid The sid
      * @return CredentialListMappingDeleter capable of executing the delete
      */
-    public static CredentialListMappingDeleter deleter(final String domainSid, 
-                                                       final String sid) {
-        return new CredentialListMappingDeleter(domainSid, sid);
+    public static CredentialListMappingDeleter deleter(final String pathDomainSid, 
+                                                       final String pathSid) {
+        return new CredentialListMappingDeleter(pathDomainSid, pathSid);
     }
 
     /**

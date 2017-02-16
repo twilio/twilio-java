@@ -34,16 +34,16 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Command extends Resource {
-    private static final long serialVersionUID = 127550348564341L;
+    private static final long serialVersionUID = 102379842720145L;
 
     /**
      * Create a CommandFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return CommandFetcher capable of executing the fetch
      */
-    public static CommandFetcher fetcher(final String sid) {
-        return new CommandFetcher(sid);
+    public static CommandFetcher fetcher(final String pathSid) {
+        return new CommandFetcher(pathSid);
     }
 
     /**
@@ -58,13 +58,11 @@ public class Command extends Resource {
     /**
      * Create a CommandCreator to execute create.
      * 
-     * @param device The device
      * @param command The command
      * @return CommandCreator capable of executing the create
      */
-    public static CommandCreator creator(final String device, 
-                                         final String command) {
-        return new CommandCreator(device, command);
+    public static CommandCreator creator(final String command) {
+        return new CommandCreator(command);
     }
 
     /**
@@ -107,6 +105,7 @@ public class Command extends Resource {
     private final String sid;
     private final String accountSid;
     private final String deviceSid;
+    private final String simSid;
     private final String command;
     private final String commandMode;
     private final String status;
@@ -122,6 +121,8 @@ public class Command extends Resource {
                     final String accountSid, 
                     @JsonProperty("device_sid")
                     final String deviceSid, 
+                    @JsonProperty("sim_sid")
+                    final String simSid, 
                     @JsonProperty("command")
                     final String command, 
                     @JsonProperty("command_mode")
@@ -139,6 +140,7 @@ public class Command extends Resource {
         this.sid = sid;
         this.accountSid = accountSid;
         this.deviceSid = deviceSid;
+        this.simSid = simSid;
         this.command = command;
         this.commandMode = commandMode;
         this.status = status;
@@ -173,6 +175,15 @@ public class Command extends Resource {
      */
     public final String getDeviceSid() {
         return this.deviceSid;
+    }
+
+    /**
+     * Returns The The sim_sid.
+     * 
+     * @return The sim_sid
+     */
+    public final String getSimSid() {
+        return this.simSid;
     }
 
     /**
@@ -253,6 +264,7 @@ public class Command extends Resource {
         return Objects.equals(sid, other.sid) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(deviceSid, other.deviceSid) && 
+               Objects.equals(simSid, other.simSid) && 
                Objects.equals(command, other.command) && 
                Objects.equals(commandMode, other.commandMode) && 
                Objects.equals(status, other.status) && 
@@ -267,6 +279,7 @@ public class Command extends Resource {
         return Objects.hash(sid,
                             accountSid,
                             deviceSid,
+                            simSid,
                             command,
                             commandMode,
                             status,
@@ -282,6 +295,7 @@ public class Command extends Resource {
                           .add("sid", sid)
                           .add("accountSid", accountSid)
                           .add("deviceSid", deviceSid)
+                          .add("simSid", simSid)
                           .add("command", command)
                           .add("commandMode", commandMode)
                           .add("status", status)

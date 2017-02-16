@@ -18,16 +18,16 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class PublicKeyUpdater extends Updater<PublicKey> {
-    private final String sid;
+    private final String pathSid;
     private String friendlyName;
 
     /**
      * Construct a new PublicKeyUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public PublicKeyUpdater(final String sid) {
-        this.sid = sid;
+    public PublicKeyUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -53,7 +53,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.sid + "",
+            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -37,23 +37,23 @@ public class DependentPhoneNumber extends Resource {
     /**
      * Create a DependentPhoneNumberReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param addressSid The address_sid
+     * @param pathAccountSid The account_sid
+     * @param pathAddressSid The address_sid
      * @return DependentPhoneNumberReader capable of executing the read
      */
-    public static DependentPhoneNumberReader reader(final String accountSid, 
-                                                    final String addressSid) {
-        return new DependentPhoneNumberReader(accountSid, addressSid);
+    public static DependentPhoneNumberReader reader(final String pathAccountSid, 
+                                                    final String pathAddressSid) {
+        return new DependentPhoneNumberReader(pathAccountSid, pathAddressSid);
     }
 
     /**
      * Create a DependentPhoneNumberReader to execute read.
      * 
-     * @param addressSid The address_sid
+     * @param pathAddressSid The address_sid
      * @return DependentPhoneNumberReader capable of executing the read
      */
-    public static DependentPhoneNumberReader reader(final String addressSid) {
-        return new DependentPhoneNumberReader(addressSid);
+    public static DependentPhoneNumberReader reader(final String pathAddressSid) {
+        return new DependentPhoneNumberReader(pathAddressSid);
     }
 
     /**

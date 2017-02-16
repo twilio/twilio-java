@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CountryFetcher extends Fetcher<Country> {
-    private final String isoCountry;
+    private final String pathIsoCountry;
 
     /**
      * Construct a new CountryFetcher.
      * 
-     * @param isoCountry The iso_country
+     * @param pathIsoCountry The iso_country
      */
-    public CountryFetcher(final String isoCountry) {
-        this.isoCountry = isoCountry;
+    public CountryFetcher(final String pathIsoCountry) {
+        this.pathIsoCountry = pathIsoCountry;
     }
 
     /**
@@ -41,7 +41,7 @@ public class CountryFetcher extends Fetcher<Country> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v1/Voice/Countries/" + this.isoCountry + "",
+            "/v1/Voice/Countries/" + this.pathIsoCountry + "",
             client.getRegion()
         );
         

@@ -20,19 +20,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncListPermissionReader extends Reader<SyncListPermission> {
-    private final String serviceSid;
-    private final String listSid;
+    private final String pathServiceSid;
+    private final String pathListSid;
 
     /**
      * Construct a new SyncListPermissionReader.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid Sync List SID or unique name.
+     * @param pathServiceSid The service_sid
+     * @param pathListSid Sync List SID or unique name.
      */
-    public SyncListPermissionReader(final String serviceSid, 
-                                    final String listSid) {
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
+    public SyncListPermissionReader(final String pathServiceSid, 
+                                    final String pathListSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
     }
 
     /**
@@ -58,7 +58,7 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Lists/" + this.listSid + "/Permissions",
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions",
             client.getRegion()
         );
         

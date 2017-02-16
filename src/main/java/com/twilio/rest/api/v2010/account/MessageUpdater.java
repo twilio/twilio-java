@@ -18,34 +18,34 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MessageUpdater extends Updater<Message> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
     private final String body;
 
     /**
      * Construct a new MessageUpdater.
      * 
-     * @param sid The message to redact
+     * @param pathSid The message to redact
      * @param body The body
      */
-    public MessageUpdater(final String sid, 
+    public MessageUpdater(final String pathSid, 
                           final String body) {
-        this.sid = sid;
+        this.pathSid = pathSid;
         this.body = body;
     }
 
     /**
      * Construct a new MessageUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param sid The message to redact
+     * @param pathAccountSid The account_sid
+     * @param pathSid The message to redact
      * @param body The body
      */
-    public MessageUpdater(final String accountSid, 
-                          final String sid, 
+    public MessageUpdater(final String pathAccountSid, 
+                          final String pathSid, 
                           final String body) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
         this.body = body;
     }
 
@@ -58,11 +58,11 @@ public class MessageUpdater extends Updater<Message> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Message update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathSid + ".json",
             client.getRegion()
         );
         

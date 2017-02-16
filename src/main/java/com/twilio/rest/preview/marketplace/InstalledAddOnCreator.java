@@ -22,6 +22,7 @@ import java.util.Map;
 
 public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     private final String availableAddOnSid;
+    private final Boolean acceptTermsOfService;
     private Map<String, Object> configuration;
     private String uniqueName;
 
@@ -30,9 +31,13 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
      * 
      * @param availableAddOnSid A string that uniquely identifies the Add-on to
      *                          install
+     * @param acceptTermsOfService A boolean reflecting your acceptance of the
+     *                             Terms of Service
      */
-    public InstalledAddOnCreator(final String availableAddOnSid) {
+    public InstalledAddOnCreator(final String availableAddOnSid, 
+                                 final Boolean acceptTermsOfService) {
         this.availableAddOnSid = availableAddOnSid;
+        this.acceptTermsOfService = acceptTermsOfService;
     }
 
     /**
@@ -107,6 +112,10 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     private void addPostParams(final Request request) {
         if (availableAddOnSid != null) {
             request.addPostParam("AvailableAddOnSid", availableAddOnSid);
+        }
+        
+        if (acceptTermsOfService != null) {
+            request.addPostParam("AcceptTermsOfService", acceptTermsOfService.toString());
         }
         
         if (configuration != null) {

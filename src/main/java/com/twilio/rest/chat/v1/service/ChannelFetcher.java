@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ChannelFetcher extends Fetcher<Channel> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new ChannelFetcher.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public ChannelFetcher(final String serviceSid, 
-                          final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public ChannelFetcher(final String pathServiceSid, 
+                          final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +45,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathSid + "",
             client.getRegion()
         );
         

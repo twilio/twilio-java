@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialListReader extends Reader<CredentialList> {
-    private String accountSid;
+    private String pathAccountSid;
 
     /**
      * Construct a new CredentialListReader.
@@ -31,10 +31,10 @@ public class CredentialListReader extends Reader<CredentialList> {
     /**
      * Construct a new CredentialListReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public CredentialListReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public CredentialListReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class CredentialListReader extends Reader<CredentialList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<CredentialList> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists.json",
             client.getRegion()
         );
         

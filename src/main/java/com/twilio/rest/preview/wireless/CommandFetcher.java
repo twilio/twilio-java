@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CommandFetcher extends Fetcher<Command> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new CommandFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public CommandFetcher(final String sid) {
-        this.sid = sid;
+    public CommandFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class CommandFetcher extends Fetcher<Command> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/Commands/" + this.sid + "",
+            "/wireless/Commands/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -58,31 +58,31 @@ public class PublicKey extends Resource {
     /**
      * Create a PublicKeyFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return PublicKeyFetcher capable of executing the fetch
      */
-    public static PublicKeyFetcher fetcher(final String sid) {
-        return new PublicKeyFetcher(sid);
+    public static PublicKeyFetcher fetcher(final String pathSid) {
+        return new PublicKeyFetcher(pathSid);
     }
 
     /**
      * Create a PublicKeyUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return PublicKeyUpdater capable of executing the update
      */
-    public static PublicKeyUpdater updater(final String sid) {
-        return new PublicKeyUpdater(sid);
+    public static PublicKeyUpdater updater(final String pathSid) {
+        return new PublicKeyUpdater(pathSid);
     }
 
     /**
      * Create a PublicKeyDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return PublicKeyDeleter capable of executing the delete
      */
-    public static PublicKeyDeleter deleter(final String sid) {
-        return new PublicKeyDeleter(sid);
+    public static PublicKeyDeleter deleter(final String pathSid) {
+        return new PublicKeyDeleter(pathSid);
     }
 
     /**

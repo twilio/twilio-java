@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class ValidationRequestCreator extends Creator<ValidationRequest> {
-    private String accountSid;
+    private String pathAccountSid;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private String friendlyName;
     private Integer callDelay;
@@ -41,12 +41,12 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     /**
      * Construct a new ValidationRequestCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param phoneNumber The phone_number
      */
-    public ValidationRequestCreator(final String accountSid, 
+    public ValidationRequestCreator(final String pathAccountSid, 
                                     final com.twilio.type.PhoneNumber phoneNumber) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -124,11 +124,11 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public ValidationRequest create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/OutgoingCallerIds.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds.json",
             client.getRegion()
         );
         

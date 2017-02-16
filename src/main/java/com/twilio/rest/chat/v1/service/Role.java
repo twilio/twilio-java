@@ -72,65 +72,65 @@ public class Role extends Resource {
     /**
      * Create a RoleFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return RoleFetcher capable of executing the fetch
      */
-    public static RoleFetcher fetcher(final String serviceSid, 
-                                      final String sid) {
-        return new RoleFetcher(serviceSid, sid);
+    public static RoleFetcher fetcher(final String pathServiceSid, 
+                                      final String pathSid) {
+        return new RoleFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a RoleDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return RoleDeleter capable of executing the delete
      */
-    public static RoleDeleter deleter(final String serviceSid, 
-                                      final String sid) {
-        return new RoleDeleter(serviceSid, sid);
+    public static RoleDeleter deleter(final String pathServiceSid, 
+                                      final String pathSid) {
+        return new RoleDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a RoleCreator to execute create.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @param friendlyName The friendly_name
      * @param type The type
      * @param permission The permission
      * @return RoleCreator capable of executing the create
      */
-    public static RoleCreator creator(final String serviceSid, 
+    public static RoleCreator creator(final String pathServiceSid, 
                                       final String friendlyName, 
                                       final Role.RoleType type, 
                                       final List<String> permission) {
-        return new RoleCreator(serviceSid, friendlyName, type, permission);
+        return new RoleCreator(pathServiceSid, friendlyName, type, permission);
     }
 
     /**
      * Create a RoleReader to execute read.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return RoleReader capable of executing the read
      */
-    public static RoleReader reader(final String serviceSid) {
-        return new RoleReader(serviceSid);
+    public static RoleReader reader(final String pathServiceSid) {
+        return new RoleReader(pathServiceSid);
     }
 
     /**
      * Create a RoleUpdater to execute update.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @param permission The permission
      * @return RoleUpdater capable of executing the update
      */
-    public static RoleUpdater updater(final String serviceSid, 
-                                      final String sid, 
+    public static RoleUpdater updater(final String pathServiceSid, 
+                                      final String pathSid, 
                                       final List<String> permission) {
-        return new RoleUpdater(serviceSid, sid, permission);
+        return new RoleUpdater(pathServiceSid, pathSid, permission);
     }
 
     /**

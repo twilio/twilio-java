@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialListReader extends Reader<CredentialList> {
-    private final String trunkSid;
+    private final String pathTrunkSid;
 
     /**
      * Construct a new CredentialListReader.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      */
-    public CredentialListReader(final String trunkSid) {
-        this.trunkSid = trunkSid;
+    public CredentialListReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class CredentialListReader extends Reader<CredentialList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/CredentialLists",
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists",
             client.getRegion()
         );
         

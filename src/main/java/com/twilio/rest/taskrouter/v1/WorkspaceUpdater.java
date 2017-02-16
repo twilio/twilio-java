@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class WorkspaceUpdater extends Updater<Workspace> {
-    private final String sid;
+    private final String pathSid;
     private String defaultActivitySid;
     private URI eventCallbackUrl;
     private String eventsFilter;
@@ -33,10 +33,10 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * Construct a new WorkspaceUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public WorkspaceUpdater(final String sid) {
-        this.sid = sid;
+    public WorkspaceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -138,7 +138,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathSid + "",
             client.getRegion()
         );
         

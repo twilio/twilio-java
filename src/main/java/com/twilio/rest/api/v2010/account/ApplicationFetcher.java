@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ApplicationFetcher extends Fetcher<Application> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new ApplicationFetcher.
      * 
-     * @param sid Fetch by unique Application Sid
+     * @param pathSid Fetch by unique Application Sid
      */
-    public ApplicationFetcher(final String sid) {
-        this.sid = sid;
+    public ApplicationFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new ApplicationFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique Application Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique Application Sid
      */
-    public ApplicationFetcher(final String accountSid, 
-                              final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public ApplicationFetcher(final String pathAccountSid, 
+                              final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -51,11 +51,11 @@ public class ApplicationFetcher extends Fetcher<Application> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Application fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Applications/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications/" + this.pathSid + ".json",
             client.getRegion()
         );
         

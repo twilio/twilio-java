@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
-    private String ownerAccountSid;
+    private String pathAccountSid;
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
@@ -34,10 +34,10 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberReader.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      */
-    public IncomingPhoneNumberReader(final String ownerAccountSid) {
-        this.ownerAccountSid = ownerAccountSid;
+    public IncomingPhoneNumberReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -94,11 +94,11 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<IncomingPhoneNumber> firstPage(final TwilioRestClient client) {
-        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers.json",
             client.getRegion()
         );
         

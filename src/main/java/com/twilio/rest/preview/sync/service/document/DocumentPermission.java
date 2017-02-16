@@ -37,64 +37,64 @@ public class DocumentPermission extends Resource {
     /**
      * Create a DocumentPermissionFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param documentSid Sync Document SID or unique name.
-     * @param identity Identity of the user to whom the Sync Document Permission
-     *                 applies.
+     * @param pathServiceSid The service_sid
+     * @param pathDocumentSid Sync Document SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Document
+     *                     Permission applies.
      * @return DocumentPermissionFetcher capable of executing the fetch
      */
-    public static DocumentPermissionFetcher fetcher(final String serviceSid, 
-                                                    final String documentSid, 
-                                                    final String identity) {
-        return new DocumentPermissionFetcher(serviceSid, documentSid, identity);
+    public static DocumentPermissionFetcher fetcher(final String pathServiceSid, 
+                                                    final String pathDocumentSid, 
+                                                    final String pathIdentity) {
+        return new DocumentPermissionFetcher(pathServiceSid, pathDocumentSid, pathIdentity);
     }
 
     /**
      * Create a DocumentPermissionDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param documentSid Sync Document SID or unique name.
-     * @param identity Identity of the user to whom the Sync Document Permission
-     *                 applies.
+     * @param pathServiceSid The service_sid
+     * @param pathDocumentSid Sync Document SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Document
+     *                     Permission applies.
      * @return DocumentPermissionDeleter capable of executing the delete
      */
-    public static DocumentPermissionDeleter deleter(final String serviceSid, 
-                                                    final String documentSid, 
-                                                    final String identity) {
-        return new DocumentPermissionDeleter(serviceSid, documentSid, identity);
+    public static DocumentPermissionDeleter deleter(final String pathServiceSid, 
+                                                    final String pathDocumentSid, 
+                                                    final String pathIdentity) {
+        return new DocumentPermissionDeleter(pathServiceSid, pathDocumentSid, pathIdentity);
     }
 
     /**
      * Create a DocumentPermissionReader to execute read.
      * 
-     * @param serviceSid The service_sid
-     * @param documentSid Sync Document SID or unique name.
+     * @param pathServiceSid The service_sid
+     * @param pathDocumentSid Sync Document SID or unique name.
      * @return DocumentPermissionReader capable of executing the read
      */
-    public static DocumentPermissionReader reader(final String serviceSid, 
-                                                  final String documentSid) {
-        return new DocumentPermissionReader(serviceSid, documentSid);
+    public static DocumentPermissionReader reader(final String pathServiceSid, 
+                                                  final String pathDocumentSid) {
+        return new DocumentPermissionReader(pathServiceSid, pathDocumentSid);
     }
 
     /**
      * Create a DocumentPermissionUpdater to execute update.
      * 
-     * @param serviceSid Sync Service Instance SID.
-     * @param documentSid Sync Document SID or unique name.
-     * @param identity Identity of the user to whom the Sync Document Permission
-     *                 applies.
+     * @param pathServiceSid Sync Service Instance SID.
+     * @param pathDocumentSid Sync Document SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Document
+     *                     Permission applies.
      * @param read Read access.
      * @param write Write access.
      * @param manage Manage access.
      * @return DocumentPermissionUpdater capable of executing the update
      */
-    public static DocumentPermissionUpdater updater(final String serviceSid, 
-                                                    final String documentSid, 
-                                                    final String identity, 
+    public static DocumentPermissionUpdater updater(final String pathServiceSid, 
+                                                    final String pathDocumentSid, 
+                                                    final String pathIdentity, 
                                                     final Boolean read, 
                                                     final Boolean write, 
                                                     final Boolean manage) {
-        return new DocumentPermissionUpdater(serviceSid, documentSid, identity, read, write, manage);
+        return new DocumentPermissionUpdater(pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage);
     }
 
     /**

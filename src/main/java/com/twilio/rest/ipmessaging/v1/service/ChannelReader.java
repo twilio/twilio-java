@@ -23,16 +23,16 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class ChannelReader extends Reader<Channel> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private List<Channel.ChannelType> type;
 
     /**
      * Construct a new ChannelReader.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public ChannelReader(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public ChannelReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -79,7 +79,7 @@ public class ChannelReader extends Reader<Channel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels",
+            "/v1/Services/" + this.pathServiceSid + "/Channels",
             client.getRegion()
         );
         

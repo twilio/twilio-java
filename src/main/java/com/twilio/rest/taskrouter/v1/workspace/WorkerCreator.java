@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class WorkerCreator extends Creator<Worker> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private final String friendlyName;
     private String activitySid;
     private String attributes;
@@ -26,12 +26,12 @@ public class WorkerCreator extends Creator<Worker> {
     /**
      * Construct a new WorkerCreator.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      */
-    public WorkerCreator(final String workspaceSid, 
+    public WorkerCreator(final String pathWorkspaceSid, 
                          final String friendlyName) {
-        this.workspaceSid = workspaceSid;
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -69,7 +69,7 @@ public class WorkerCreator extends Creator<Worker> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Workers",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers",
             client.getRegion()
         );
         

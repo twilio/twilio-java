@@ -39,41 +39,41 @@ public class WorkerChannel extends Resource {
     /**
      * Create a WorkerChannelReader to execute read.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
      * @return WorkerChannelReader capable of executing the read
      */
-    public static WorkerChannelReader reader(final String workspaceSid, 
-                                             final String workerSid) {
-        return new WorkerChannelReader(workspaceSid, workerSid);
+    public static WorkerChannelReader reader(final String pathWorkspaceSid, 
+                                             final String pathWorkerSid) {
+        return new WorkerChannelReader(pathWorkspaceSid, pathWorkerSid);
     }
 
     /**
      * Create a WorkerChannelFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
+     * @param pathSid The sid
      * @return WorkerChannelFetcher capable of executing the fetch
      */
-    public static WorkerChannelFetcher fetcher(final String workspaceSid, 
-                                               final String workerSid, 
-                                               final String sid) {
-        return new WorkerChannelFetcher(workspaceSid, workerSid, sid);
+    public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid, 
+                                               final String pathWorkerSid, 
+                                               final String pathSid) {
+        return new WorkerChannelFetcher(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
 
     /**
      * Create a WorkerChannelUpdater to execute update.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
+     * @param pathSid The sid
      * @return WorkerChannelUpdater capable of executing the update
      */
-    public static WorkerChannelUpdater updater(final String workspaceSid, 
-                                               final String workerSid, 
-                                               final String sid) {
-        return new WorkerChannelUpdater(workspaceSid, workerSid, sid);
+    public static WorkerChannelUpdater updater(final String pathWorkspaceSid, 
+                                               final String pathWorkerSid, 
+                                               final String pathSid) {
+        return new WorkerChannelUpdater(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
 
     /**

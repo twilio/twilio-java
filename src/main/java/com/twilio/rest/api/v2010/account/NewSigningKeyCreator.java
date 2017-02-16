@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class NewSigningKeyCreator extends Creator<NewSigningKey> {
-    private String accountSid;
+    private String pathAccountSid;
     private String friendlyName;
 
     /**
@@ -30,10 +30,10 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
     /**
      * Construct a new NewSigningKeyCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public NewSigningKeyCreator(final String accountSid) {
-        this.accountSid = accountSid;
+    public NewSigningKeyCreator(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -56,11 +56,11 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public NewSigningKey create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SigningKeys.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys.json",
             client.getRegion()
         );
         

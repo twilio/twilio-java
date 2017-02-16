@@ -21,35 +21,35 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class FeedbackUpdater extends Updater<Feedback> {
-    private String accountSid;
-    private final String callSid;
+    private String pathAccountSid;
+    private final String pathCallSid;
     private final Integer qualityScore;
     private List<Feedback.Issues> issue;
 
     /**
      * Construct a new FeedbackUpdater.
      * 
-     * @param callSid The call_sid
+     * @param pathCallSid The call_sid
      * @param qualityScore An integer from 1 to 5
      */
-    public FeedbackUpdater(final String callSid, 
+    public FeedbackUpdater(final String pathCallSid, 
                            final Integer qualityScore) {
-        this.callSid = callSid;
+        this.pathCallSid = pathCallSid;
         this.qualityScore = qualityScore;
     }
 
     /**
      * Construct a new FeedbackUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call_sid
      * @param qualityScore An integer from 1 to 5
      */
-    public FeedbackUpdater(final String accountSid, 
-                           final String callSid, 
+    public FeedbackUpdater(final String pathAccountSid, 
+                           final String pathCallSid, 
                            final Integer qualityScore) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
         this.qualityScore = qualityScore;
     }
 
@@ -83,11 +83,11 @@ public class FeedbackUpdater extends Updater<Feedback> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Feedback update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Feedback.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Feedback.json",
             client.getRegion()
         );
         

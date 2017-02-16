@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 80490170560647L;
+    private static final long serialVersionUID = 68490171213295L;
 
     public enum OrderType {
         ASC("asc"),
@@ -71,69 +71,69 @@ public class Message extends Resource {
     /**
      * Create a MessageFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MessageFetcher capable of executing the fetch
      */
-    public static MessageFetcher fetcher(final String serviceSid, 
-                                         final String channelSid, 
-                                         final String sid) {
-        return new MessageFetcher(serviceSid, channelSid, sid);
+    public static MessageFetcher fetcher(final String pathServiceSid, 
+                                         final String pathChannelSid, 
+                                         final String pathSid) {
+        return new MessageFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @param body The body
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final String serviceSid, 
-                                         final String channelSid, 
+    public static MessageCreator creator(final String pathServiceSid, 
+                                         final String pathChannelSid, 
                                          final String body) {
-        return new MessageCreator(serviceSid, channelSid, body);
+        return new MessageCreator(pathServiceSid, pathChannelSid, body);
     }
 
     /**
      * Create a MessageReader to execute read.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @return MessageReader capable of executing the read
      */
-    public static MessageReader reader(final String serviceSid, 
-                                       final String channelSid) {
-        return new MessageReader(serviceSid, channelSid);
+    public static MessageReader reader(final String pathServiceSid, 
+                                       final String pathChannelSid) {
+        return new MessageReader(pathServiceSid, pathChannelSid);
     }
 
     /**
      * Create a MessageDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MessageDeleter capable of executing the delete
      */
-    public static MessageDeleter deleter(final String serviceSid, 
-                                         final String channelSid, 
-                                         final String sid) {
-        return new MessageDeleter(serviceSid, channelSid, sid);
+    public static MessageDeleter deleter(final String pathServiceSid, 
+                                         final String pathChannelSid, 
+                                         final String pathSid) {
+        return new MessageDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MessageUpdater to execute update.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater updater(final String serviceSid, 
-                                         final String channelSid, 
-                                         final String sid) {
-        return new MessageUpdater(serviceSid, channelSid, sid);
+    public static MessageUpdater updater(final String pathServiceSid, 
+                                         final String pathChannelSid, 
+                                         final String pathSid) {
+        return new MessageUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
@@ -178,6 +178,7 @@ public class Message extends Resource {
     private final String attributes;
     private final String serviceSid;
     private final String to;
+    private final String channelSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final Boolean wasEdited;
@@ -197,6 +198,8 @@ public class Message extends Resource {
                     final String serviceSid, 
                     @JsonProperty("to")
                     final String to, 
+                    @JsonProperty("channel_sid")
+                    final String channelSid, 
                     @JsonProperty("date_created")
                     final String dateCreated, 
                     @JsonProperty("date_updated")
@@ -216,6 +219,7 @@ public class Message extends Resource {
         this.attributes = attributes;
         this.serviceSid = serviceSid;
         this.to = to;
+        this.channelSid = channelSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.wasEdited = wasEdited;
@@ -268,6 +272,15 @@ public class Message extends Resource {
      */
     public final String getTo() {
         return this.to;
+    }
+
+    /**
+     * Returns The The channel_sid.
+     * 
+     * @return The channel_sid
+     */
+    public final String getChannelSid() {
+        return this.channelSid;
     }
 
     /**
@@ -350,6 +363,7 @@ public class Message extends Resource {
                Objects.equals(attributes, other.attributes) && 
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(to, other.to) && 
+               Objects.equals(channelSid, other.channelSid) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(wasEdited, other.wasEdited) && 
@@ -366,6 +380,7 @@ public class Message extends Resource {
                             attributes,
                             serviceSid,
                             to,
+                            channelSid,
                             dateCreated,
                             dateUpdated,
                             wasEdited,
@@ -383,6 +398,7 @@ public class Message extends Resource {
                           .add("attributes", attributes)
                           .add("serviceSid", serviceSid)
                           .add("to", to)
+                          .add("channelSid", channelSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("wasEdited", wasEdited)

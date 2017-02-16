@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
-    private final String trunkSid;
-    private final String sid;
+    private final String pathTrunkSid;
+    private final String pathSid;
 
     /**
      * Construct a new IpAccessControlListDeleter.
      * 
-     * @param trunkSid The trunk_sid
-     * @param sid The sid
+     * @param pathTrunkSid The trunk_sid
+     * @param pathSid The sid
      */
-    public IpAccessControlListDeleter(final String trunkSid, 
-                                      final String sid) {
-        this.trunkSid = trunkSid;
-        this.sid = sid;
+    public IpAccessControlListDeleter(final String pathTrunkSid, 
+                                      final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,7 +44,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/IpAccessControlLists/" + this.sid + "",
+            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists/" + this.pathSid + "",
             client.getRegion()
         );
         

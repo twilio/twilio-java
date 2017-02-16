@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
-    private String accountSid;
+    private String pathAccountSid;
     private final String friendlyName;
 
     /**
@@ -33,12 +33,12 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
     /**
      * Construct a new IpAccessControlListCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param friendlyName A human readable description of this resource
      */
-    public IpAccessControlListCreator(final String accountSid, 
+    public IpAccessControlListCreator(final String pathAccountSid, 
                                       final String friendlyName) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
@@ -51,11 +51,11 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAccessControlList create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists.json",
             client.getRegion()
         );
         

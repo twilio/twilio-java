@@ -39,55 +39,55 @@ public class Invite extends Resource {
     /**
      * Create a InviteFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return InviteFetcher capable of executing the fetch
      */
-    public static InviteFetcher fetcher(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String sid) {
-        return new InviteFetcher(serviceSid, channelSid, sid);
+    public static InviteFetcher fetcher(final String pathServiceSid, 
+                                        final String pathChannelSid, 
+                                        final String pathSid) {
+        return new InviteFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a InviteCreator to execute create.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @param identity The identity
      * @return InviteCreator capable of executing the create
      */
-    public static InviteCreator creator(final String serviceSid, 
-                                        final String channelSid, 
+    public static InviteCreator creator(final String pathServiceSid, 
+                                        final String pathChannelSid, 
                                         final String identity) {
-        return new InviteCreator(serviceSid, channelSid, identity);
+        return new InviteCreator(pathServiceSid, pathChannelSid, identity);
     }
 
     /**
      * Create a InviteReader to execute read.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @return InviteReader capable of executing the read
      */
-    public static InviteReader reader(final String serviceSid, 
-                                      final String channelSid) {
-        return new InviteReader(serviceSid, channelSid);
+    public static InviteReader reader(final String pathServiceSid, 
+                                      final String pathChannelSid) {
+        return new InviteReader(pathServiceSid, pathChannelSid);
     }
 
     /**
      * Create a InviteDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return InviteDeleter capable of executing the delete
      */
-    public static InviteDeleter deleter(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String sid) {
-        return new InviteDeleter(serviceSid, channelSid, sid);
+    public static InviteDeleter deleter(final String pathServiceSid, 
+                                        final String pathChannelSid, 
+                                        final String pathSid) {
+        return new InviteDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**

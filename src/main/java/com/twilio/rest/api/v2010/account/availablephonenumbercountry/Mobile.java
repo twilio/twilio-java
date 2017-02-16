@@ -38,23 +38,23 @@ public class Mobile extends Resource {
     /**
      * Create a MobileReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param countryCode The country_code
+     * @param pathAccountSid The account_sid
+     * @param pathCountryCode The country_code
      * @return MobileReader capable of executing the read
      */
-    public static MobileReader reader(final String accountSid, 
-                                      final String countryCode) {
-        return new MobileReader(accountSid, countryCode);
+    public static MobileReader reader(final String pathAccountSid, 
+                                      final String pathCountryCode) {
+        return new MobileReader(pathAccountSid, pathCountryCode);
     }
 
     /**
      * Create a MobileReader to execute read.
      * 
-     * @param countryCode The country_code
+     * @param pathCountryCode The country_code
      * @return MobileReader capable of executing the read
      */
-    public static MobileReader reader(final String countryCode) {
-        return new MobileReader(countryCode);
+    public static MobileReader reader(final String pathCountryCode) {
+        return new MobileReader(pathCountryCode);
     }
 
     /**

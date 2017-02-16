@@ -20,28 +20,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AddOnResultReader extends Reader<AddOnResult> {
-    private String accountSid;
-    private final String referenceSid;
+    private String pathAccountSid;
+    private final String pathReferenceSid;
 
     /**
      * Construct a new AddOnResultReader.
      * 
-     * @param referenceSid The reference_sid
+     * @param pathReferenceSid The reference_sid
      */
-    public AddOnResultReader(final String referenceSid) {
-        this.referenceSid = referenceSid;
+    public AddOnResultReader(final String pathReferenceSid) {
+        this.pathReferenceSid = pathReferenceSid;
     }
 
     /**
      * Construct a new AddOnResultReader.
      * 
-     * @param accountSid The account_sid
-     * @param referenceSid The reference_sid
+     * @param pathAccountSid The account_sid
+     * @param pathReferenceSid The reference_sid
      */
-    public AddOnResultReader(final String accountSid, 
-                             final String referenceSid) {
-        this.accountSid = accountSid;
-        this.referenceSid = referenceSid;
+    public AddOnResultReader(final String pathAccountSid, 
+                             final String pathReferenceSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathReferenceSid = pathReferenceSid;
     }
 
     /**
@@ -64,11 +64,11 @@ public class AddOnResultReader extends Reader<AddOnResult> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<AddOnResult> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Recordings/" + this.referenceSid + "/AddOnResults.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults.json",
             client.getRegion()
         );
         

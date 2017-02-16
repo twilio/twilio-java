@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class RatePlanFetcher extends Fetcher<RatePlan> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new RatePlanFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public RatePlanFetcher(final String sid) {
-        this.sid = sid;
+    public RatePlanFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans/" + this.sid + "",
+            "/wireless/RatePlans/" + this.pathSid + "",
             client.getRegion()
         );
         

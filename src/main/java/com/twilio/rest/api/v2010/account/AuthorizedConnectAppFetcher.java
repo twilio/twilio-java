@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
-    private String accountSid;
-    private final String connectAppSid;
+    private String pathAccountSid;
+    private final String pathConnectAppSid;
 
     /**
      * Construct a new AuthorizedConnectAppFetcher.
      * 
-     * @param connectAppSid The connect_app_sid
+     * @param pathConnectAppSid The connect_app_sid
      */
-    public AuthorizedConnectAppFetcher(final String connectAppSid) {
-        this.connectAppSid = connectAppSid;
+    public AuthorizedConnectAppFetcher(final String pathConnectAppSid) {
+        this.pathConnectAppSid = pathConnectAppSid;
     }
 
     /**
      * Construct a new AuthorizedConnectAppFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param connectAppSid The connect_app_sid
+     * @param pathAccountSid The account_sid
+     * @param pathConnectAppSid The connect_app_sid
      */
-    public AuthorizedConnectAppFetcher(final String accountSid, 
-                                       final String connectAppSid) {
-        this.accountSid = accountSid;
-        this.connectAppSid = connectAppSid;
+    public AuthorizedConnectAppFetcher(final String pathAccountSid, 
+                                       final String pathConnectAppSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConnectAppSid = pathConnectAppSid;
     }
 
     /**
@@ -51,11 +51,11 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public AuthorizedConnectApp fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/AuthorizedConnectApps/" + this.connectAppSid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AuthorizedConnectApps/" + this.pathConnectAppSid + ".json",
             client.getRegion()
         );
         

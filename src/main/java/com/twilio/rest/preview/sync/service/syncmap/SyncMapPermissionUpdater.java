@@ -18,9 +18,9 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
-    private final String serviceSid;
-    private final String mapSid;
-    private final String identity;
+    private final String pathServiceSid;
+    private final String pathMapSid;
+    private final String pathIdentity;
     private final Boolean read;
     private final Boolean write;
     private final Boolean manage;
@@ -28,22 +28,23 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
     /**
      * Construct a new SyncMapPermissionUpdater.
      * 
-     * @param serviceSid Sync Service Instance SID.
-     * @param mapSid Sync Map SID or unique name.
-     * @param identity Identity of the user to whom the Sync Map Permission applies.
+     * @param pathServiceSid Sync Service Instance SID.
+     * @param pathMapSid Sync Map SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Map Permission
+     *                     applies.
      * @param read Read access.
      * @param write Write access.
      * @param manage Manage access.
      */
-    public SyncMapPermissionUpdater(final String serviceSid, 
-                                    final String mapSid, 
-                                    final String identity, 
+    public SyncMapPermissionUpdater(final String pathServiceSid, 
+                                    final String pathMapSid, 
+                                    final String pathIdentity, 
                                     final Boolean read, 
                                     final Boolean write, 
                                     final Boolean manage) {
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
-        this.identity = identity;
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
+        this.pathIdentity = pathIdentity;
         this.read = read;
         this.write = write;
         this.manage = manage;
@@ -61,7 +62,7 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Maps/" + this.mapSid + "/Permissions/" + this.identity + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions/" + this.pathIdentity + "",
             client.getRegion()
         );
         

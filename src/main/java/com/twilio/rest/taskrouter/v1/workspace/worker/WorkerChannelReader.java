@@ -20,19 +20,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class WorkerChannelReader extends Reader<WorkerChannel> {
-    private final String workspaceSid;
-    private final String workerSid;
+    private final String pathWorkspaceSid;
+    private final String pathWorkerSid;
 
     /**
      * Construct a new WorkerChannelReader.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
      */
-    public WorkerChannelReader(final String workspaceSid, 
-                               final String workerSid) {
-        this.workspaceSid = workspaceSid;
-        this.workerSid = workerSid;
+    public WorkerChannelReader(final String pathWorkspaceSid, 
+                               final String pathWorkerSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
     }
 
     /**
@@ -58,7 +58,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.workerSid + "/Channels",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels",
             client.getRegion()
         );
         

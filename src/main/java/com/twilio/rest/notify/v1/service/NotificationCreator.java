@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class NotificationCreator extends Creator<Notification> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private List<String> identity;
     private List<String> tag;
     private String body;
@@ -42,10 +42,10 @@ public class NotificationCreator extends Creator<Notification> {
     /**
      * Construct a new NotificationCreator.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public NotificationCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public NotificationCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -234,7 +234,7 @@ public class NotificationCreator extends Creator<Notification> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.serviceSid + "/Notifications",
+            "/v1/Services/" + this.pathServiceSid + "/Notifications",
             client.getRegion()
         );
         

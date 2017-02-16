@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class LocalCreator extends Creator<Local> {
-    private String ownerAccountSid;
+    private String pathAccountSid;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
@@ -51,12 +51,12 @@ public class LocalCreator extends Creator<Local> {
     /**
      * Construct a new LocalCreator.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @param phoneNumber The phone_number
      */
-    public LocalCreator(final String ownerAccountSid, 
+    public LocalCreator(final String pathAccountSid, 
                         final com.twilio.type.PhoneNumber phoneNumber) {
-        this.ownerAccountSid = ownerAccountSid;
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -284,11 +284,11 @@ public class LocalCreator extends Creator<Local> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Local create(final TwilioRestClient client) {
-        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/Local.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Local.json",
             client.getRegion()
         );
         

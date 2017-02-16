@@ -21,22 +21,22 @@ import com.twilio.rest.Domains;
 import java.util.Map;
 
 public class SyncListItemCreator extends Creator<SyncListItem> {
-    private final String serviceSid;
-    private final String listSid;
+    private final String pathServiceSid;
+    private final String pathListSid;
     private final Map<String, Object> data;
 
     /**
      * Construct a new SyncListItemCreator.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid The list_sid
+     * @param pathServiceSid The service_sid
+     * @param pathListSid The list_sid
      * @param data The data
      */
-    public SyncListItemCreator(final String serviceSid, 
-                               final String listSid, 
+    public SyncListItemCreator(final String pathServiceSid, 
+                               final String pathListSid, 
                                final Map<String, Object> data) {
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
         this.data = data;
     }
 
@@ -52,7 +52,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Lists/" + this.listSid + "/Items",
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items",
             client.getRegion()
         );
         

@@ -39,59 +39,59 @@ public class User extends Resource {
     /**
      * Create a UserFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return UserFetcher capable of executing the fetch
      */
-    public static UserFetcher fetcher(final String serviceSid, 
-                                      final String sid) {
-        return new UserFetcher(serviceSid, sid);
+    public static UserFetcher fetcher(final String pathServiceSid, 
+                                      final String pathSid) {
+        return new UserFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a UserDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return UserDeleter capable of executing the delete
      */
-    public static UserDeleter deleter(final String serviceSid, 
-                                      final String sid) {
-        return new UserDeleter(serviceSid, sid);
+    public static UserDeleter deleter(final String pathServiceSid, 
+                                      final String pathSid) {
+        return new UserDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a UserCreator to execute create.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @param identity The identity
      * @return UserCreator capable of executing the create
      */
-    public static UserCreator creator(final String serviceSid, 
+    public static UserCreator creator(final String pathServiceSid, 
                                       final String identity) {
-        return new UserCreator(serviceSid, identity);
+        return new UserCreator(pathServiceSid, identity);
     }
 
     /**
      * Create a UserReader to execute read.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return UserReader capable of executing the read
      */
-    public static UserReader reader(final String serviceSid) {
-        return new UserReader(serviceSid);
+    public static UserReader reader(final String pathServiceSid) {
+        return new UserReader(pathServiceSid);
     }
 
     /**
      * Create a UserUpdater to execute update.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return UserUpdater capable of executing the update
      */
-    public static UserUpdater updater(final String serviceSid, 
-                                      final String sid) {
-        return new UserUpdater(serviceSid, sid);
+    public static UserUpdater updater(final String pathServiceSid, 
+                                      final String pathSid) {
+        return new UserUpdater(pathServiceSid, pathSid);
     }
 
     /**

@@ -39,21 +39,21 @@ public class Alert extends Resource {
     /**
      * Create a AlertFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return AlertFetcher capable of executing the fetch
      */
-    public static AlertFetcher fetcher(final String sid) {
-        return new AlertFetcher(sid);
+    public static AlertFetcher fetcher(final String pathSid) {
+        return new AlertFetcher(pathSid);
     }
 
     /**
      * Create a AlertDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return AlertDeleter capable of executing the delete
      */
-    public static AlertDeleter deleter(final String sid) {
-        return new AlertDeleter(sid);
+    public static AlertDeleter deleter(final String pathSid) {
+        return new AlertDeleter(pathSid);
     }
 
     /**

@@ -23,30 +23,30 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class MediaReader extends Reader<Media> {
-    private String accountSid;
-    private final String messageSid;
+    private String pathAccountSid;
+    private final String pathMessageSid;
     private DateTime absoluteDateCreated;
     private Range<DateTime> rangeDateCreated;
 
     /**
      * Construct a new MediaReader.
      * 
-     * @param messageSid The message_sid
+     * @param pathMessageSid The message_sid
      */
-    public MediaReader(final String messageSid) {
-        this.messageSid = messageSid;
+    public MediaReader(final String pathMessageSid) {
+        this.pathMessageSid = pathMessageSid;
     }
 
     /**
      * Construct a new MediaReader.
      * 
-     * @param accountSid The account_sid
-     * @param messageSid The message_sid
+     * @param pathAccountSid The account_sid
+     * @param pathMessageSid The message_sid
      */
-    public MediaReader(final String accountSid, 
-                       final String messageSid) {
-        this.accountSid = accountSid;
-        this.messageSid = messageSid;
+    public MediaReader(final String pathAccountSid, 
+                       final String pathMessageSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
     /**
@@ -95,11 +95,11 @@ public class MediaReader extends Reader<Media> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Media> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.messageSid + "/Media.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Media.json",
             client.getRegion()
         );
         

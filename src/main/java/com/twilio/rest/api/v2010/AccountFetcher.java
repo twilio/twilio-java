@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AccountFetcher extends Fetcher<Account> {
-    private String sid;
+    private String pathSid;
 
     /**
      * Construct a new AccountFetcher.
@@ -29,10 +29,10 @@ public class AccountFetcher extends Fetcher<Account> {
     /**
      * Construct a new AccountFetcher.
      * 
-     * @param sid Fetch by unique Account Sid
+     * @param pathSid Fetch by unique Account Sid
      */
-    public AccountFetcher(final String sid) {
-        this.sid = sid;
+    public AccountFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,11 +44,11 @@ public class AccountFetcher extends Fetcher<Account> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Account fetch(final TwilioRestClient client) {
-        this.sid = this.sid == null ? client.getAccountSid() : this.sid;
+        this.pathSid = this.pathSid == null ? client.getAccountSid() : this.pathSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathSid + ".json",
             client.getRegion()
         );
         

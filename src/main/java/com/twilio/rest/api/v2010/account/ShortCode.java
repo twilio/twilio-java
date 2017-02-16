@@ -39,55 +39,55 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique short-code Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique short-code Sid
      * @return ShortCodeFetcher capable of executing the fetch
      */
-    public static ShortCodeFetcher fetcher(final String accountSid, 
-                                           final String sid) {
-        return new ShortCodeFetcher(accountSid, sid);
+    public static ShortCodeFetcher fetcher(final String pathAccountSid, 
+                                           final String pathSid) {
+        return new ShortCodeFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ShortCodeFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique short-code Sid
+     * @param pathSid Fetch by unique short-code Sid
      * @return ShortCodeFetcher capable of executing the fetch
      */
-    public static ShortCodeFetcher fetcher(final String sid) {
-        return new ShortCodeFetcher(sid);
+    public static ShortCodeFetcher fetcher(final String pathSid) {
+        return new ShortCodeFetcher(pathSid);
     }
 
     /**
      * Create a ShortCodeUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @return ShortCodeUpdater capable of executing the update
      */
-    public static ShortCodeUpdater updater(final String accountSid, 
-                                           final String sid) {
-        return new ShortCodeUpdater(accountSid, sid);
+    public static ShortCodeUpdater updater(final String pathAccountSid, 
+                                           final String pathSid) {
+        return new ShortCodeUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ShortCodeUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return ShortCodeUpdater capable of executing the update
      */
-    public static ShortCodeUpdater updater(final String sid) {
-        return new ShortCodeUpdater(sid);
+    public static ShortCodeUpdater updater(final String pathSid) {
+        return new ShortCodeUpdater(pathSid);
     }
 
     /**
      * Create a ShortCodeReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return ShortCodeReader capable of executing the read
      */
-    public static ShortCodeReader reader(final String accountSid) {
-        return new ShortCodeReader(accountSid);
+    public static ShortCodeReader reader(final String pathAccountSid) {
+        return new ShortCodeReader(pathAccountSid);
     }
 
     /**

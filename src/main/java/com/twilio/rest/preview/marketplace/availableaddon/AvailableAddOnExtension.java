@@ -37,23 +37,23 @@ public class AvailableAddOnExtension extends Resource {
     /**
      * Create a AvailableAddOnExtensionFetcher to execute fetch.
      * 
-     * @param availableAddOnSid The available_add_on_sid
-     * @param sid The unique Extension Sid
+     * @param pathAvailableAddOnSid The available_add_on_sid
+     * @param pathSid The unique Extension Sid
      * @return AvailableAddOnExtensionFetcher capable of executing the fetch
      */
-    public static AvailableAddOnExtensionFetcher fetcher(final String availableAddOnSid, 
-                                                         final String sid) {
-        return new AvailableAddOnExtensionFetcher(availableAddOnSid, sid);
+    public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid, 
+                                                         final String pathSid) {
+        return new AvailableAddOnExtensionFetcher(pathAvailableAddOnSid, pathSid);
     }
 
     /**
      * Create a AvailableAddOnExtensionReader to execute read.
      * 
-     * @param availableAddOnSid The available_add_on_sid
+     * @param pathAvailableAddOnSid The available_add_on_sid
      * @return AvailableAddOnExtensionReader capable of executing the read
      */
-    public static AvailableAddOnExtensionReader reader(final String availableAddOnSid) {
-        return new AvailableAddOnExtensionReader(availableAddOnSid);
+    public static AvailableAddOnExtensionReader reader(final String pathAvailableAddOnSid) {
+        return new AvailableAddOnExtensionReader(pathAvailableAddOnSid);
     }
 
     /**

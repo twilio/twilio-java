@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialDeleter extends Deleter<Credential> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new CredentialDeleter.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public CredentialDeleter(final String sid) {
-        this.sid = sid;
+    public CredentialDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -40,7 +40,7 @@ public class CredentialDeleter extends Deleter<Credential> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.NOTIFY.toString(),
-            "/v1/Credentials/" + this.sid + "",
+            "/v1/Credentials/" + this.pathSid + "",
             client.getRegion()
         );
         

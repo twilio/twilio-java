@@ -23,7 +23,7 @@ import java.net.URI;
 import java.util.List;
 
 public class CallCreator extends Creator<Call> {
-    private String accountSid;
+    private String pathAccountSid;
     private final com.twilio.type.Endpoint to;
     private final com.twilio.type.PhoneNumber from;
     private URI url;
@@ -62,16 +62,16 @@ public class CallCreator extends Creator<Call> {
     /**
      * Construct a new CallCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param to Phone number, SIP address or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      */
-    public CallCreator(final String accountSid, 
+    public CallCreator(final String pathAccountSid, 
                        final com.twilio.type.Endpoint to, 
                        final com.twilio.type.PhoneNumber from, 
                        final URI url) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.url = url;
@@ -96,17 +96,17 @@ public class CallCreator extends Creator<Call> {
     /**
      * Construct a new CallCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param to Phone number, SIP address or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
      */
-    public CallCreator(final String accountSid, 
+    public CallCreator(final String pathAccountSid, 
                        final com.twilio.type.Endpoint to, 
                        final com.twilio.type.PhoneNumber from, 
                        final String applicationSid) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.applicationSid = applicationSid;
@@ -373,11 +373,11 @@ public class CallCreator extends Creator<Call> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Call create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json",
             client.getRegion()
         );
         

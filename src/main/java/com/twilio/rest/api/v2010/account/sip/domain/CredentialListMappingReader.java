@@ -20,28 +20,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialListMappingReader extends Reader<CredentialListMapping> {
-    private String accountSid;
-    private final String domainSid;
+    private String pathAccountSid;
+    private final String pathDomainSid;
 
     /**
      * Construct a new CredentialListMappingReader.
      * 
-     * @param domainSid The domain_sid
+     * @param pathDomainSid The domain_sid
      */
-    public CredentialListMappingReader(final String domainSid) {
-        this.domainSid = domainSid;
+    public CredentialListMappingReader(final String pathDomainSid) {
+        this.pathDomainSid = pathDomainSid;
     }
 
     /**
      * Construct a new CredentialListMappingReader.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
      */
-    public CredentialListMappingReader(final String accountSid, 
-                                       final String domainSid) {
-        this.accountSid = accountSid;
-        this.domainSid = domainSid;
+    public CredentialListMappingReader(final String pathAccountSid, 
+                                       final String pathDomainSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
     }
 
     /**
@@ -64,11 +64,11 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<CredentialListMapping> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.domainSid + "/CredentialListMappings.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/CredentialListMappings.json",
             client.getRegion()
         );
         

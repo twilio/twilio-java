@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TranscriptionFetcher extends Fetcher<Transcription> {
-    private String accountSid;
-    private final String recordingSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathRecordingSid;
+    private final String pathSid;
 
     /**
      * Construct a new TranscriptionFetcher.
      * 
-     * @param recordingSid The recording_sid
-     * @param sid The sid
+     * @param pathRecordingSid The recording_sid
+     * @param pathSid The sid
      */
-    public TranscriptionFetcher(final String recordingSid, 
-                                final String sid) {
-        this.recordingSid = recordingSid;
-        this.sid = sid;
+    public TranscriptionFetcher(final String pathRecordingSid, 
+                                final String pathSid) {
+        this.pathRecordingSid = pathRecordingSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new TranscriptionFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param recordingSid The recording_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathRecordingSid The recording_sid
+     * @param pathSid The sid
      */
-    public TranscriptionFetcher(final String accountSid, 
-                                final String recordingSid, 
-                                final String sid) {
-        this.accountSid = accountSid;
-        this.recordingSid = recordingSid;
-        this.sid = sid;
+    public TranscriptionFetcher(final String pathAccountSid, 
+                                final String pathRecordingSid, 
+                                final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathRecordingSid = pathRecordingSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -58,11 +58,11 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Transcription fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Recordings/" + this.recordingSid + "/Transcriptions/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathRecordingSid + "/Transcriptions/" + this.pathSid + ".json",
             client.getRegion()
         );
         

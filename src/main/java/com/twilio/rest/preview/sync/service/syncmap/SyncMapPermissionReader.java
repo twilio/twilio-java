@@ -20,19 +20,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
-    private final String serviceSid;
-    private final String mapSid;
+    private final String pathServiceSid;
+    private final String pathMapSid;
 
     /**
      * Construct a new SyncMapPermissionReader.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid Sync Map SID or unique name.
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid Sync Map SID or unique name.
      */
-    public SyncMapPermissionReader(final String serviceSid, 
-                                   final String mapSid) {
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
+    public SyncMapPermissionReader(final String pathServiceSid, 
+                                   final String pathMapSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
     }
 
     /**
@@ -58,7 +58,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Maps/" + this.mapSid + "/Permissions",
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions",
             client.getRegion()
         );
         

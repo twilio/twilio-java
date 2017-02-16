@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncListReader extends Reader<SyncList> {
-    private final String serviceSid;
+    private final String pathServiceSid;
 
     /**
      * Construct a new SyncListReader.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public SyncListReader(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public SyncListReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class SyncListReader extends Reader<SyncList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Lists",
+            "/Sync/Services/" + this.pathServiceSid + "/Lists",
             client.getRegion()
         );
         

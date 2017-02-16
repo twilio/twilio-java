@@ -112,11 +112,11 @@ public class Account extends Resource {
     /**
      * Create a AccountFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique Account Sid
+     * @param pathSid Fetch by unique Account Sid
      * @return AccountFetcher capable of executing the fetch
      */
-    public static AccountFetcher fetcher(final String sid) {
-        return new AccountFetcher(sid);
+    public static AccountFetcher fetcher(final String pathSid) {
+        return new AccountFetcher(pathSid);
     }
 
     /**
@@ -140,11 +140,11 @@ public class Account extends Resource {
     /**
      * Create a AccountUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return AccountUpdater capable of executing the update
      */
-    public static AccountUpdater updater(final String sid) {
-        return new AccountUpdater(sid);
+    public static AccountUpdater updater(final String pathSid) {
+        return new AccountUpdater(pathSid);
     }
 
     /**

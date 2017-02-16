@@ -18,8 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserUpdater extends Updater<User> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
     private String roleSid;
     private String attributes;
     private String friendlyName;
@@ -27,13 +27,13 @@ public class UserUpdater extends Updater<User> {
     /**
      * Construct a new UserUpdater.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public UserUpdater(final String serviceSid, 
-                       final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public UserUpdater(final String pathServiceSid, 
+                       final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -81,7 +81,7 @@ public class UserUpdater extends Updater<User> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Users/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + "",
             client.getRegion()
         );
         

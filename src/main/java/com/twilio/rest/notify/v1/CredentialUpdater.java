@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialUpdater extends Updater<Credential> {
-    private final String sid;
+    private final String pathSid;
     private String friendlyName;
     private String certificate;
     private String privateKey;
@@ -29,10 +29,10 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * Construct a new CredentialUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public CredentialUpdater(final String sid) {
-        this.sid = sid;
+    public CredentialUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -113,7 +113,7 @@ public class CredentialUpdater extends Updater<Credential> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Credentials/" + this.sid + "",
+            "/v1/Credentials/" + this.pathSid + "",
             client.getRegion()
         );
         

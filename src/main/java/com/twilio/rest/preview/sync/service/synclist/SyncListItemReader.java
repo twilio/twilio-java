@@ -20,8 +20,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncListItemReader extends Reader<SyncListItem> {
-    private final String serviceSid;
-    private final String listSid;
+    private final String pathServiceSid;
+    private final String pathListSid;
     private SyncListItem.QueryResultOrder order;
     private String from;
     private SyncListItem.QueryFromBoundType bounds;
@@ -29,13 +29,13 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     /**
      * Construct a new SyncListItemReader.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid The list_sid
+     * @param pathServiceSid The service_sid
+     * @param pathListSid The list_sid
      */
-    public SyncListItemReader(final String serviceSid, 
-                              final String listSid) {
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
+    public SyncListItemReader(final String pathServiceSid, 
+                              final String pathListSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
     }
 
     /**
@@ -94,7 +94,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Lists/" + this.listSid + "/Items",
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items",
             client.getRegion()
         );
         

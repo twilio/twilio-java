@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DocumentReader extends Reader<Document> {
-    private final String serviceSid;
+    private final String pathServiceSid;
 
     /**
      * Construct a new DocumentReader.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public DocumentReader(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public DocumentReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class DocumentReader extends Reader<Document> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Documents",
+            "/Sync/Services/" + this.pathServiceSid + "/Documents",
             client.getRegion()
         );
         

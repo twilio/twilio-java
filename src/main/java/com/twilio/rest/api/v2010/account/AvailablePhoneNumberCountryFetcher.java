@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNumberCountry> {
-    private String accountSid;
-    private final String countryCode;
+    private String pathAccountSid;
+    private final String pathCountryCode;
 
     /**
      * Construct a new AvailablePhoneNumberCountryFetcher.
      * 
-     * @param countryCode The country_code
+     * @param pathCountryCode The country_code
      */
-    public AvailablePhoneNumberCountryFetcher(final String countryCode) {
-        this.countryCode = countryCode;
+    public AvailablePhoneNumberCountryFetcher(final String pathCountryCode) {
+        this.pathCountryCode = pathCountryCode;
     }
 
     /**
      * Construct a new AvailablePhoneNumberCountryFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param countryCode The country_code
+     * @param pathAccountSid The account_sid
+     * @param pathCountryCode The country_code
      */
-    public AvailablePhoneNumberCountryFetcher(final String accountSid, 
-                                              final String countryCode) {
-        this.accountSid = accountSid;
-        this.countryCode = countryCode;
+    public AvailablePhoneNumberCountryFetcher(final String pathAccountSid, 
+                                              final String pathCountryCode) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCountryCode = pathCountryCode;
     }
 
     /**
@@ -51,11 +51,11 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public AvailablePhoneNumberCountry fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/AvailablePhoneNumbers/" + this.countryCode + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AvailablePhoneNumbers/" + this.pathCountryCode + ".json",
             client.getRegion()
         );
         

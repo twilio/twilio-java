@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class PhoneNumberReader extends Reader<PhoneNumber> {
-    private final String trunkSid;
+    private final String pathTrunkSid;
 
     /**
      * Construct a new PhoneNumberReader.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      */
-    public PhoneNumberReader(final String trunkSid) {
-        this.trunkSid = trunkSid;
+    public PhoneNumberReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/PhoneNumbers",
+            "/v1/Trunks/" + this.pathTrunkSid + "/PhoneNumbers",
             client.getRegion()
         );
         

@@ -69,13 +69,13 @@ public class UserChannel extends Resource {
     /**
      * Create a UserChannelReader to execute read.
      * 
-     * @param serviceSid The service_sid
-     * @param userSid The user_sid
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
      * @return UserChannelReader capable of executing the read
      */
-    public static UserChannelReader reader(final String serviceSid, 
-                                           final String userSid) {
-        return new UserChannelReader(serviceSid, userSid);
+    public static UserChannelReader reader(final String pathServiceSid, 
+                                           final String pathUserSid) {
+        return new UserChannelReader(pathServiceSid, pathUserSid);
     }
 
     /**

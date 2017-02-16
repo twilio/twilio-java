@@ -23,20 +23,20 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class MemberReader extends Reader<Member> {
-    private final String serviceSid;
-    private final String channelSid;
+    private final String pathServiceSid;
+    private final String pathChannelSid;
     private List<String> identity;
 
     /**
      * Construct a new MemberReader.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      */
-    public MemberReader(final String serviceSid, 
-                        final String channelSid) {
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
+    public MemberReader(final String pathServiceSid, 
+                        final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
     /**
@@ -83,7 +83,7 @@ public class MemberReader extends Reader<Member> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Members",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members",
             client.getRegion()
         );
         

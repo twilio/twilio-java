@@ -18,42 +18,42 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtension> {
-    private String accountSid;
-    private final String resourceSid;
-    private final String assignedAddOnSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathResourceSid;
+    private final String pathAssignedAddOnSid;
+    private final String pathSid;
 
     /**
      * Construct a new AssignedAddOnExtensionFetcher.
      * 
-     * @param resourceSid The resource_sid
-     * @param assignedAddOnSid The assigned_add_on_sid
-     * @param sid The unique Extension Sid
+     * @param pathResourceSid The resource_sid
+     * @param pathAssignedAddOnSid The assigned_add_on_sid
+     * @param pathSid The unique Extension Sid
      */
-    public AssignedAddOnExtensionFetcher(final String resourceSid, 
-                                         final String assignedAddOnSid, 
-                                         final String sid) {
-        this.resourceSid = resourceSid;
-        this.assignedAddOnSid = assignedAddOnSid;
-        this.sid = sid;
+    public AssignedAddOnExtensionFetcher(final String pathResourceSid, 
+                                         final String pathAssignedAddOnSid, 
+                                         final String pathSid) {
+        this.pathResourceSid = pathResourceSid;
+        this.pathAssignedAddOnSid = pathAssignedAddOnSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new AssignedAddOnExtensionFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param resourceSid The resource_sid
-     * @param assignedAddOnSid The assigned_add_on_sid
-     * @param sid The unique Extension Sid
+     * @param pathAccountSid The account_sid
+     * @param pathResourceSid The resource_sid
+     * @param pathAssignedAddOnSid The assigned_add_on_sid
+     * @param pathSid The unique Extension Sid
      */
-    public AssignedAddOnExtensionFetcher(final String accountSid, 
-                                         final String resourceSid, 
-                                         final String assignedAddOnSid, 
-                                         final String sid) {
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
-        this.assignedAddOnSid = assignedAddOnSid;
-        this.sid = sid;
+    public AssignedAddOnExtensionFetcher(final String pathAccountSid, 
+                                         final String pathResourceSid, 
+                                         final String pathAssignedAddOnSid, 
+                                         final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
+        this.pathAssignedAddOnSid = pathAssignedAddOnSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -65,11 +65,11 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public AssignedAddOnExtension fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/IncomingPhoneNumbers/" + this.resourceSid + "/AssignedAddOns/" + this.assignedAddOnSid + "/Extensions/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns/" + this.pathAssignedAddOnSid + "/Extensions/" + this.pathSid + ".json",
             client.getRegion()
         );
         

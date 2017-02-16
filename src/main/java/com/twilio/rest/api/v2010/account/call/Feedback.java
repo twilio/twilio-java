@@ -77,75 +77,75 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackCreator to execute create.
      * 
-     * @param accountSid The account_sid
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call_sid
      * @param qualityScore The quality_score
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator creator(final String accountSid, 
-                                          final String callSid, 
+    public static FeedbackCreator creator(final String pathAccountSid, 
+                                          final String pathCallSid, 
                                           final Integer qualityScore) {
-        return new FeedbackCreator(accountSid, callSid, qualityScore);
+        return new FeedbackCreator(pathAccountSid, pathCallSid, qualityScore);
     }
 
     /**
      * Create a FeedbackCreator to execute create.
      * 
-     * @param callSid The call_sid
+     * @param pathCallSid The call_sid
      * @param qualityScore The quality_score
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator creator(final String callSid, 
+    public static FeedbackCreator creator(final String pathCallSid, 
                                           final Integer qualityScore) {
-        return new FeedbackCreator(callSid, qualityScore);
+        return new FeedbackCreator(pathCallSid, qualityScore);
     }
 
     /**
      * Create a FeedbackFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param callSid The call sid that uniquely identifies the call
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call sid that uniquely identifies the call
      * @return FeedbackFetcher capable of executing the fetch
      */
-    public static FeedbackFetcher fetcher(final String accountSid, 
-                                          final String callSid) {
-        return new FeedbackFetcher(accountSid, callSid);
+    public static FeedbackFetcher fetcher(final String pathAccountSid, 
+                                          final String pathCallSid) {
+        return new FeedbackFetcher(pathAccountSid, pathCallSid);
     }
 
     /**
      * Create a FeedbackFetcher to execute fetch.
      * 
-     * @param callSid The call sid that uniquely identifies the call
+     * @param pathCallSid The call sid that uniquely identifies the call
      * @return FeedbackFetcher capable of executing the fetch
      */
-    public static FeedbackFetcher fetcher(final String callSid) {
-        return new FeedbackFetcher(callSid);
+    public static FeedbackFetcher fetcher(final String pathCallSid) {
+        return new FeedbackFetcher(pathCallSid);
     }
 
     /**
      * Create a FeedbackUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call_sid
      * @param qualityScore An integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
-    public static FeedbackUpdater updater(final String accountSid, 
-                                          final String callSid, 
+    public static FeedbackUpdater updater(final String pathAccountSid, 
+                                          final String pathCallSid, 
                                           final Integer qualityScore) {
-        return new FeedbackUpdater(accountSid, callSid, qualityScore);
+        return new FeedbackUpdater(pathAccountSid, pathCallSid, qualityScore);
     }
 
     /**
      * Create a FeedbackUpdater to execute update.
      * 
-     * @param callSid The call_sid
+     * @param pathCallSid The call_sid
      * @param qualityScore An integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
-    public static FeedbackUpdater updater(final String callSid, 
+    public static FeedbackUpdater updater(final String pathCallSid, 
                                           final Integer qualityScore) {
-        return new FeedbackUpdater(callSid, qualityScore);
+        return new FeedbackUpdater(pathCallSid, qualityScore);
     }
 
     /**

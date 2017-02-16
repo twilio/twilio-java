@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AddressReader extends Reader<Address> {
-    private String accountSid;
+    private String pathAccountSid;
     private String customerName;
     private String friendlyName;
     private String isoCountry;
@@ -34,10 +34,10 @@ public class AddressReader extends Reader<Address> {
     /**
      * Construct a new AddressReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public AddressReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public AddressReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -93,11 +93,11 @@ public class AddressReader extends Reader<Address> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Address> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Addresses.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json",
             client.getRegion()
         );
         

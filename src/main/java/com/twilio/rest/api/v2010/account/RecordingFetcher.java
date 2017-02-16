@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class RecordingFetcher extends Fetcher<Recording> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new RecordingFetcher.
      * 
-     * @param sid Fetch by unique recording Sid
+     * @param pathSid Fetch by unique recording Sid
      */
-    public RecordingFetcher(final String sid) {
-        this.sid = sid;
+    public RecordingFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new RecordingFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique recording Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique recording Sid
      */
-    public RecordingFetcher(final String accountSid, 
-                            final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public RecordingFetcher(final String pathAccountSid, 
+                            final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -51,11 +51,11 @@ public class RecordingFetcher extends Fetcher<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Recording fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Recordings/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathSid + ".json",
             client.getRegion()
         );
         

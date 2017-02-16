@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class NotificationFetcher extends Fetcher<Notification> {
-    private String accountSid;
-    private final String callSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathCallSid;
+    private final String pathSid;
 
     /**
      * Construct a new NotificationFetcher.
      * 
-     * @param callSid The call_sid
-     * @param sid The sid
+     * @param pathCallSid The call_sid
+     * @param pathSid The sid
      */
-    public NotificationFetcher(final String callSid, 
-                               final String sid) {
-        this.callSid = callSid;
-        this.sid = sid;
+    public NotificationFetcher(final String pathCallSid, 
+                               final String pathSid) {
+        this.pathCallSid = pathCallSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new NotificationFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param callSid The call_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call_sid
+     * @param pathSid The sid
      */
-    public NotificationFetcher(final String accountSid, 
-                               final String callSid, 
-                               final String sid) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
-        this.sid = sid;
+    public NotificationFetcher(final String pathAccountSid, 
+                               final String pathCallSid, 
+                               final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -58,11 +58,11 @@ public class NotificationFetcher extends Fetcher<Notification> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Notification fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Notifications/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Notifications/" + this.pathSid + ".json",
             client.getRegion()
         );
         

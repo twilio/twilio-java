@@ -21,25 +21,25 @@ import com.twilio.rest.Domains;
 import java.util.Map;
 
 public class SyncMapItemCreator extends Creator<SyncMapItem> {
-    private final String serviceSid;
-    private final String mapSid;
+    private final String pathServiceSid;
+    private final String pathMapSid;
     private final String key;
     private final Map<String, Object> data;
 
     /**
      * Construct a new SyncMapItemCreator.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid The map_sid
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid The map_sid
      * @param key The key
      * @param data The data
      */
-    public SyncMapItemCreator(final String serviceSid, 
-                              final String mapSid, 
+    public SyncMapItemCreator(final String pathServiceSid, 
+                              final String pathMapSid, 
                               final String key, 
                               final Map<String, Object> data) {
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
         this.key = key;
         this.data = data;
     }
@@ -56,7 +56,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Maps/" + this.mapSid + "/Items",
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items",
             client.getRegion()
         );
         

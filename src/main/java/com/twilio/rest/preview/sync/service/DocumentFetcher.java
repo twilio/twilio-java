@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DocumentFetcher extends Fetcher<Document> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new DocumentFetcher.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public DocumentFetcher(final String serviceSid, 
-                           final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public DocumentFetcher(final String pathServiceSid, 
+                           final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +45,7 @@ public class DocumentFetcher extends Fetcher<Document> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Documents/" + this.sid + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
             client.getRegion()
         );
         

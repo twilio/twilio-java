@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class WorkflowDeleter extends Deleter<Workflow> {
-    private final String workspaceSid;
-    private final String sid;
+    private final String pathWorkspaceSid;
+    private final String pathSid;
 
     /**
      * Construct a new WorkflowDeleter.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      */
-    public WorkflowDeleter(final String workspaceSid, 
-                           final String sid) {
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public WorkflowDeleter(final String pathWorkspaceSid, 
+                           final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,7 +44,7 @@ public class WorkflowDeleter extends Deleter<Workflow> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Workflows/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + "",
             client.getRegion()
         );
         

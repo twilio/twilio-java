@@ -71,57 +71,57 @@ public class Channel extends Resource {
     /**
      * Create a ChannelFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return ChannelFetcher capable of executing the fetch
      */
-    public static ChannelFetcher fetcher(final String serviceSid, 
-                                         final String sid) {
-        return new ChannelFetcher(serviceSid, sid);
+    public static ChannelFetcher fetcher(final String pathServiceSid, 
+                                         final String pathSid) {
+        return new ChannelFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a ChannelDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return ChannelDeleter capable of executing the delete
      */
-    public static ChannelDeleter deleter(final String serviceSid, 
-                                         final String sid) {
-        return new ChannelDeleter(serviceSid, sid);
+    public static ChannelDeleter deleter(final String pathServiceSid, 
+                                         final String pathSid) {
+        return new ChannelDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a ChannelCreator to execute create.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return ChannelCreator capable of executing the create
      */
-    public static ChannelCreator creator(final String serviceSid) {
-        return new ChannelCreator(serviceSid);
+    public static ChannelCreator creator(final String pathServiceSid) {
+        return new ChannelCreator(pathServiceSid);
     }
 
     /**
      * Create a ChannelReader to execute read.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return ChannelReader capable of executing the read
      */
-    public static ChannelReader reader(final String serviceSid) {
-        return new ChannelReader(serviceSid);
+    public static ChannelReader reader(final String pathServiceSid) {
+        return new ChannelReader(pathServiceSid);
     }
 
     /**
      * Create a ChannelUpdater to execute update.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return ChannelUpdater capable of executing the update
      */
-    public static ChannelUpdater updater(final String serviceSid, 
-                                         final String sid) {
-        return new ChannelUpdater(serviceSid, sid);
+    public static ChannelUpdater updater(final String pathServiceSid, 
+                                         final String pathSid) {
+        return new ChannelUpdater(pathServiceSid, pathSid);
     }
 
     /**

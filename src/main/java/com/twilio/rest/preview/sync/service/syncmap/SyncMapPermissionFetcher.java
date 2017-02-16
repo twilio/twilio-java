@@ -18,23 +18,24 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
-    private final String serviceSid;
-    private final String mapSid;
-    private final String identity;
+    private final String pathServiceSid;
+    private final String pathMapSid;
+    private final String pathIdentity;
 
     /**
      * Construct a new SyncMapPermissionFetcher.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid Sync Map SID or unique name.
-     * @param identity Identity of the user to whom the Sync Map Permission applies.
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid Sync Map SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Map Permission
+     *                     applies.
      */
-    public SyncMapPermissionFetcher(final String serviceSid, 
-                                    final String mapSid, 
-                                    final String identity) {
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
-        this.identity = identity;
+    public SyncMapPermissionFetcher(final String pathServiceSid, 
+                                    final String pathMapSid, 
+                                    final String pathIdentity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
+        this.pathIdentity = pathIdentity;
     }
 
     /**
@@ -49,7 +50,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Maps/" + this.mapSid + "/Permissions/" + this.identity + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions/" + this.pathIdentity + "",
             client.getRegion()
         );
         

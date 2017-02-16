@@ -20,7 +20,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class OriginationUrlCreator extends Creator<OriginationUrl> {
-    private final String trunkSid;
+    private final String pathTrunkSid;
     private final Integer weight;
     private final Integer priority;
     private final Boolean enabled;
@@ -30,20 +30,20 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
     /**
      * Construct a new OriginationUrlCreator.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      * @param weight The weight
      * @param priority The priority
      * @param enabled The enabled
      * @param friendlyName The friendly_name
      * @param sipUrl The sip_url
      */
-    public OriginationUrlCreator(final String trunkSid, 
+    public OriginationUrlCreator(final String pathTrunkSid, 
                                  final Integer weight, 
                                  final Integer priority, 
                                  final Boolean enabled, 
                                  final String friendlyName, 
                                  final URI sipUrl) {
-        this.trunkSid = trunkSid;
+        this.pathTrunkSid = pathTrunkSid;
         this.weight = weight;
         this.priority = priority;
         this.enabled = enabled;
@@ -63,7 +63,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/OriginationUrls",
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls",
             client.getRegion()
         );
         

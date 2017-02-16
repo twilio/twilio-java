@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SigningKeyReader extends Reader<SigningKey> {
-    private String accountSid;
+    private String pathAccountSid;
 
     /**
      * Construct a new SigningKeyReader.
@@ -31,10 +31,10 @@ public class SigningKeyReader extends Reader<SigningKey> {
     /**
      * Construct a new SigningKeyReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public SigningKeyReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public SigningKeyReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class SigningKeyReader extends Reader<SigningKey> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<SigningKey> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SigningKeys.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys.json",
             client.getRegion()
         );
         

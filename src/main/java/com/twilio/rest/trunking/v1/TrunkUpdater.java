@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class TrunkUpdater extends Updater<Trunk> {
-    private final String sid;
+    private final String pathSid;
     private String friendlyName;
     private String domainName;
     private URI disasterRecoveryUrl;
@@ -32,10 +32,10 @@ public class TrunkUpdater extends Updater<Trunk> {
     /**
      * Construct a new TrunkUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public TrunkUpdater(final String sid) {
-        this.sid = sid;
+    public TrunkUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -126,7 +126,7 @@ public class TrunkUpdater extends Updater<Trunk> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.sid + "",
+            "/v1/Trunks/" + this.pathSid + "",
             client.getRegion()
         );
         

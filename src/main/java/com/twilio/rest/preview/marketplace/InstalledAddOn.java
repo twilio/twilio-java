@@ -42,40 +42,43 @@ public class InstalledAddOn extends Resource {
      * 
      * @param availableAddOnSid A string that uniquely identifies the Add-on to
      *                          install
+     * @param acceptTermsOfService A boolean reflecting your acceptance of the
+     *                             Terms of Service
      * @return InstalledAddOnCreator capable of executing the create
      */
-    public static InstalledAddOnCreator creator(final String availableAddOnSid) {
-        return new InstalledAddOnCreator(availableAddOnSid);
+    public static InstalledAddOnCreator creator(final String availableAddOnSid, 
+                                                final Boolean acceptTermsOfService) {
+        return new InstalledAddOnCreator(availableAddOnSid, acceptTermsOfService);
     }
 
     /**
      * Create a InstalledAddOnDeleter to execute delete.
      * 
-     * @param sid The Installed Add-on Sid to delete
+     * @param pathSid The Installed Add-on Sid to delete
      * @return InstalledAddOnDeleter capable of executing the delete
      */
-    public static InstalledAddOnDeleter deleter(final String sid) {
-        return new InstalledAddOnDeleter(sid);
+    public static InstalledAddOnDeleter deleter(final String pathSid) {
+        return new InstalledAddOnDeleter(pathSid);
     }
 
     /**
      * Create a InstalledAddOnFetcher to execute fetch.
      * 
-     * @param sid The unique Installed Add-on Sid
+     * @param pathSid The unique Installed Add-on Sid
      * @return InstalledAddOnFetcher capable of executing the fetch
      */
-    public static InstalledAddOnFetcher fetcher(final String sid) {
-        return new InstalledAddOnFetcher(sid);
+    public static InstalledAddOnFetcher fetcher(final String pathSid) {
+        return new InstalledAddOnFetcher(pathSid);
     }
 
     /**
      * Create a InstalledAddOnUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return InstalledAddOnUpdater capable of executing the update
      */
-    public static InstalledAddOnUpdater updater(final String sid) {
-        return new InstalledAddOnUpdater(sid);
+    public static InstalledAddOnUpdater updater(final String pathSid) {
+        return new InstalledAddOnUpdater(pathSid);
     }
 
     /**

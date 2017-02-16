@@ -74,11 +74,11 @@ public class Local extends Resource {
     /**
      * Create a LocalReader to execute read.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @return LocalReader capable of executing the read
      */
-    public static LocalReader reader(final String ownerAccountSid) {
-        return new LocalReader(ownerAccountSid);
+    public static LocalReader reader(final String pathAccountSid) {
+        return new LocalReader(pathAccountSid);
     }
 
     /**
@@ -93,13 +93,13 @@ public class Local extends Resource {
     /**
      * Create a LocalCreator to execute create.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @param phoneNumber The phone_number
      * @return LocalCreator capable of executing the create
      */
-    public static LocalCreator creator(final String ownerAccountSid, 
+    public static LocalCreator creator(final String pathAccountSid, 
                                        final com.twilio.type.PhoneNumber phoneNumber) {
-        return new LocalCreator(ownerAccountSid, phoneNumber);
+        return new LocalCreator(pathAccountSid, phoneNumber);
     }
 
     /**

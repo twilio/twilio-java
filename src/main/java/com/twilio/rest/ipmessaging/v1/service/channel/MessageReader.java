@@ -20,20 +20,20 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MessageReader extends Reader<Message> {
-    private final String serviceSid;
-    private final String channelSid;
+    private final String pathServiceSid;
+    private final String pathChannelSid;
     private Message.OrderType order;
 
     /**
      * Construct a new MessageReader.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      */
-    public MessageReader(final String serviceSid, 
-                         final String channelSid) {
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
+    public MessageReader(final String pathServiceSid, 
+                         final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
     /**
@@ -70,7 +70,7 @@ public class MessageReader extends Reader<Message> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Messages",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages",
             client.getRegion()
         );
         

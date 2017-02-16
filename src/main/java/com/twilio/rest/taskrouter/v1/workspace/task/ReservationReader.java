@@ -20,20 +20,20 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ReservationReader extends Reader<Reservation> {
-    private final String workspaceSid;
-    private final String taskSid;
+    private final String pathWorkspaceSid;
+    private final String pathTaskSid;
     private Reservation.Status reservationStatus;
 
     /**
      * Construct a new ReservationReader.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param taskSid The task_sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathTaskSid The task_sid
      */
-    public ReservationReader(final String workspaceSid, 
-                             final String taskSid) {
-        this.workspaceSid = workspaceSid;
-        this.taskSid = taskSid;
+    public ReservationReader(final String pathWorkspaceSid, 
+                             final String pathTaskSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskSid = pathTaskSid;
     }
 
     /**
@@ -70,7 +70,7 @@ public class ReservationReader extends Reader<Reservation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.taskSid + "/Reservations",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathTaskSid + "/Reservations",
             client.getRegion()
         );
         

@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TaskQueueCreator extends Creator<TaskQueue> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private final String friendlyName;
     private final String reservationActivitySid;
     private final String assignmentActivitySid;
@@ -29,16 +29,16 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     /**
      * Construct a new TaskQueueCreator.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @param reservationActivitySid The reservation_activity_sid
      * @param assignmentActivitySid The assignment_activity_sid
      */
-    public TaskQueueCreator(final String workspaceSid, 
+    public TaskQueueCreator(final String pathWorkspaceSid, 
                             final String friendlyName, 
                             final String reservationActivitySid, 
                             final String assignmentActivitySid) {
-        this.workspaceSid = workspaceSid;
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
         this.reservationActivitySid = reservationActivitySid;
         this.assignmentActivitySid = assignmentActivitySid;
@@ -89,7 +89,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues",
             client.getRegion()
         );
         

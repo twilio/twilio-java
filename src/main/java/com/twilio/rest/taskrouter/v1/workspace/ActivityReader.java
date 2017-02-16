@@ -20,17 +20,17 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ActivityReader extends Reader<Activity> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private String friendlyName;
     private String available;
 
     /**
      * Construct a new ActivityReader.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      */
-    public ActivityReader(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public ActivityReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
@@ -78,7 +78,7 @@ public class ActivityReader extends Reader<Activity> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Activities",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities",
             client.getRegion()
         );
         

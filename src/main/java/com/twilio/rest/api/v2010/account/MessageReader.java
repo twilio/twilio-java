@@ -23,7 +23,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class MessageReader extends Reader<Message> {
-    private String accountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private DateTime absoluteDateSent;
@@ -38,10 +38,10 @@ public class MessageReader extends Reader<Message> {
     /**
      * Construct a new MessageReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public MessageReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public MessageReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -110,11 +110,11 @@ public class MessageReader extends Reader<Message> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Message> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Messages.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages.json",
             client.getRegion()
         );
         

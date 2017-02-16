@@ -73,47 +73,47 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberFetcher to execute fetch.
      * 
-     * @param trunkSid The trunk_sid
-     * @param sid The sid
+     * @param pathTrunkSid The trunk_sid
+     * @param pathSid The sid
      * @return PhoneNumberFetcher capable of executing the fetch
      */
-    public static PhoneNumberFetcher fetcher(final String trunkSid, 
-                                             final String sid) {
-        return new PhoneNumberFetcher(trunkSid, sid);
+    public static PhoneNumberFetcher fetcher(final String pathTrunkSid, 
+                                             final String pathSid) {
+        return new PhoneNumberFetcher(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a PhoneNumberDeleter to execute delete.
      * 
-     * @param trunkSid The trunk_sid
-     * @param sid The sid
+     * @param pathTrunkSid The trunk_sid
+     * @param pathSid The sid
      * @return PhoneNumberDeleter capable of executing the delete
      */
-    public static PhoneNumberDeleter deleter(final String trunkSid, 
-                                             final String sid) {
-        return new PhoneNumberDeleter(trunkSid, sid);
+    public static PhoneNumberDeleter deleter(final String pathTrunkSid, 
+                                             final String pathSid) {
+        return new PhoneNumberDeleter(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a PhoneNumberCreator to execute create.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      * @param phoneNumberSid The phone_number_sid
      * @return PhoneNumberCreator capable of executing the create
      */
-    public static PhoneNumberCreator creator(final String trunkSid, 
+    public static PhoneNumberCreator creator(final String pathTrunkSid, 
                                              final String phoneNumberSid) {
-        return new PhoneNumberCreator(trunkSid, phoneNumberSid);
+        return new PhoneNumberCreator(pathTrunkSid, phoneNumberSid);
     }
 
     /**
      * Create a PhoneNumberReader to execute read.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      * @return PhoneNumberReader capable of executing the read
      */
-    public static PhoneNumberReader reader(final String trunkSid) {
-        return new PhoneNumberReader(trunkSid);
+    public static PhoneNumberReader reader(final String pathTrunkSid) {
+        return new PhoneNumberReader(pathTrunkSid);
     }
 
     /**

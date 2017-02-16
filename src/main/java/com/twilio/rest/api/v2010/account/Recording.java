@@ -105,55 +105,55 @@ public class Recording extends Resource {
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique recording Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetcher(final String accountSid, 
-                                           final String sid) {
-        return new RecordingFetcher(accountSid, sid);
+    public static RecordingFetcher fetcher(final String pathAccountSid, 
+                                           final String pathSid) {
+        return new RecordingFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique recording Sid
+     * @param pathSid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetcher(final String sid) {
-        return new RecordingFetcher(sid);
+    public static RecordingFetcher fetcher(final String pathSid) {
+        return new RecordingFetcher(pathSid);
     }
 
     /**
      * Create a RecordingDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid Delete by unique recording Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter deleter(final String accountSid, 
-                                           final String sid) {
-        return new RecordingDeleter(accountSid, sid);
+    public static RecordingDeleter deleter(final String pathAccountSid, 
+                                           final String pathSid) {
+        return new RecordingDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a RecordingDeleter to execute delete.
      * 
-     * @param sid Delete by unique recording Sid
+     * @param pathSid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter deleter(final String sid) {
-        return new RecordingDeleter(sid);
+    public static RecordingDeleter deleter(final String pathSid) {
+        return new RecordingDeleter(pathSid);
     }
 
     /**
      * Create a RecordingReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return RecordingReader capable of executing the read
      */
-    public static RecordingReader reader(final String accountSid) {
-        return new RecordingReader(accountSid);
+    public static RecordingReader reader(final String pathAccountSid) {
+        return new RecordingReader(pathAccountSid);
     }
 
     /**

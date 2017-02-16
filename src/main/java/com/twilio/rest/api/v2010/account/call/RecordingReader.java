@@ -23,30 +23,30 @@ import com.twilio.rest.Domains;
 import org.joda.time.LocalDate;
 
 public class RecordingReader extends Reader<Recording> {
-    private String accountSid;
-    private final String callSid;
+    private String pathAccountSid;
+    private final String pathCallSid;
     private LocalDate absoluteDateCreated;
     private Range<LocalDate> rangeDateCreated;
 
     /**
      * Construct a new RecordingReader.
      * 
-     * @param callSid The call_sid
+     * @param pathCallSid The call_sid
      */
-    public RecordingReader(final String callSid) {
-        this.callSid = callSid;
+    public RecordingReader(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
     /**
      * Construct a new RecordingReader.
      * 
-     * @param accountSid The account_sid
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call_sid
      */
-    public RecordingReader(final String accountSid, 
-                           final String callSid) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public RecordingReader(final String pathAccountSid, 
+                           final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     /**
@@ -93,11 +93,11 @@ public class RecordingReader extends Reader<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Recording> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Recordings.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings.json",
             client.getRegion()
         );
         

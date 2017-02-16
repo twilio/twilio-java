@@ -39,47 +39,47 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListFetcher to execute fetch.
      * 
-     * @param trunkSid The trunk_sid
-     * @param sid The sid
+     * @param pathTrunkSid The trunk_sid
+     * @param pathSid The sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetcher(final String trunkSid, 
-                                                final String sid) {
-        return new CredentialListFetcher(trunkSid, sid);
+    public static CredentialListFetcher fetcher(final String pathTrunkSid, 
+                                                final String pathSid) {
+        return new CredentialListFetcher(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a CredentialListDeleter to execute delete.
      * 
-     * @param trunkSid The trunk_sid
-     * @param sid The sid
+     * @param pathTrunkSid The trunk_sid
+     * @param pathSid The sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter deleter(final String trunkSid, 
-                                                final String sid) {
-        return new CredentialListDeleter(trunkSid, sid);
+    public static CredentialListDeleter deleter(final String pathTrunkSid, 
+                                                final String pathSid) {
+        return new CredentialListDeleter(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a CredentialListCreator to execute create.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      * @param credentialListSid The credential_list_sid
      * @return CredentialListCreator capable of executing the create
      */
-    public static CredentialListCreator creator(final String trunkSid, 
+    public static CredentialListCreator creator(final String pathTrunkSid, 
                                                 final String credentialListSid) {
-        return new CredentialListCreator(trunkSid, credentialListSid);
+        return new CredentialListCreator(pathTrunkSid, credentialListSid);
     }
 
     /**
      * Create a CredentialListReader to execute read.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      * @return CredentialListReader capable of executing the read
      */
-    public static CredentialListReader reader(final String trunkSid) {
-        return new CredentialListReader(trunkSid);
+    public static CredentialListReader reader(final String pathTrunkSid) {
+        return new CredentialListReader(pathTrunkSid);
     }
 
     /**

@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class NumberFetcher extends Fetcher<Number> {
-    private final com.twilio.type.PhoneNumber number;
+    private final com.twilio.type.PhoneNumber pathNumber;
 
     /**
      * Construct a new NumberFetcher.
      * 
-     * @param number The number
+     * @param pathNumber The number
      */
-    public NumberFetcher(final com.twilio.type.PhoneNumber number) {
-        this.number = number;
+    public NumberFetcher(final com.twilio.type.PhoneNumber pathNumber) {
+        this.pathNumber = pathNumber;
     }
 
     /**
@@ -41,7 +41,7 @@ public class NumberFetcher extends Fetcher<Number> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v1/Voice/Numbers/" + this.number + "",
+            "/v1/Voice/Numbers/" + this.pathNumber + "",
             client.getRegion()
         );
         

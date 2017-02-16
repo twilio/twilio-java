@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAddressFetcher extends Fetcher<IpAddress> {
-    private String accountSid;
-    private final String ipAccessControlListSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathIpAccessControlListSid;
+    private final String pathSid;
 
     /**
      * Construct a new IpAddressFetcher.
      * 
-     * @param ipAccessControlListSid The ip_access_control_list_sid
-     * @param sid The sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathSid The sid
      */
-    public IpAddressFetcher(final String ipAccessControlListSid, 
-                            final String sid) {
-        this.ipAccessControlListSid = ipAccessControlListSid;
-        this.sid = sid;
+    public IpAddressFetcher(final String pathIpAccessControlListSid, 
+                            final String pathSid) {
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new IpAddressFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathSid The sid
      */
-    public IpAddressFetcher(final String accountSid, 
-                            final String ipAccessControlListSid, 
-                            final String sid) {
-        this.accountSid = accountSid;
-        this.ipAccessControlListSid = ipAccessControlListSid;
-        this.sid = sid;
+    public IpAddressFetcher(final String pathAccountSid, 
+                            final String pathIpAccessControlListSid, 
+                            final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -58,11 +58,11 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IpAddress fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists/" + this.ipAccessControlListSid + "/IpAddresses/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathIpAccessControlListSid + "/IpAddresses/" + this.pathSid + ".json",
             client.getRegion()
         );
         

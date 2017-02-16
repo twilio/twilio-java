@@ -18,29 +18,29 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
     private String friendlyName;
 
     /**
      * Construct a new OutgoingCallerIdUpdater.
      * 
-     * @param sid Update by unique outgoing-caller-id Sid
+     * @param pathSid Update by unique outgoing-caller-id Sid
      */
-    public OutgoingCallerIdUpdater(final String sid) {
-        this.sid = sid;
+    public OutgoingCallerIdUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new OutgoingCallerIdUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param sid Update by unique outgoing-caller-id Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Update by unique outgoing-caller-id Sid
      */
-    public OutgoingCallerIdUpdater(final String accountSid, 
-                                   final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public OutgoingCallerIdUpdater(final String pathAccountSid, 
+                                   final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -63,11 +63,11 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public OutgoingCallerId update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/OutgoingCallerIds/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds/" + this.pathSid + ".json",
             client.getRegion()
         );
         

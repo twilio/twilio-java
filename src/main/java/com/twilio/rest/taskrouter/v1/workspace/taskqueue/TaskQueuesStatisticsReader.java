@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private DateTime endDate;
     private String friendlyName;
     private Integer minutes;
@@ -31,10 +31,10 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     /**
      * Construct a new TaskQueuesStatisticsReader.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      */
-    public TaskQueuesStatisticsReader(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public TaskQueuesStatisticsReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
@@ -104,7 +104,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues/Statistics",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/Statistics",
             client.getRegion()
         );
         

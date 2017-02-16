@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class WorkflowCreator extends Creator<Workflow> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private final String friendlyName;
     private final String configuration;
     private URI assignmentCallbackUrl;
@@ -31,14 +31,14 @@ public class WorkflowCreator extends Creator<Workflow> {
     /**
      * Construct a new WorkflowCreator.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @param configuration The configuration
      */
-    public WorkflowCreator(final String workspaceSid, 
+    public WorkflowCreator(final String pathWorkspaceSid, 
                            final String friendlyName, 
                            final String configuration) {
-        this.workspaceSid = workspaceSid;
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
         this.configuration = configuration;
     }
@@ -108,7 +108,7 @@ public class WorkflowCreator extends Creator<Workflow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Workflows",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows",
             client.getRegion()
         );
         

@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
-    private final String trunkSid;
-    private final String sid;
+    private final String pathTrunkSid;
+    private final String pathSid;
 
     /**
      * Construct a new OriginationUrlFetcher.
      * 
-     * @param trunkSid The trunk_sid
-     * @param sid The sid
+     * @param pathTrunkSid The trunk_sid
+     * @param pathSid The sid
      */
-    public OriginationUrlFetcher(final String trunkSid, 
-                                 final String sid) {
-        this.trunkSid = trunkSid;
-        this.sid = sid;
+    public OriginationUrlFetcher(final String pathTrunkSid, 
+                                 final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +45,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/OriginationUrls/" + this.sid + "",
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls/" + this.pathSid + "",
             client.getRegion()
         );
         

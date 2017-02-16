@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserReader extends Reader<User> {
-    private final String serviceSid;
+    private final String pathServiceSid;
 
     /**
      * Construct a new UserReader.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public UserReader(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public UserReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class UserReader extends Reader<User> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Users",
+            "/v1/Services/" + this.pathServiceSid + "/Users",
             client.getRegion()
         );
         

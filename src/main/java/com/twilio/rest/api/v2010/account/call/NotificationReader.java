@@ -23,8 +23,8 @@ import com.twilio.rest.Domains;
 import org.joda.time.LocalDate;
 
 public class NotificationReader extends Reader<Notification> {
-    private String accountSid;
-    private final String callSid;
+    private String pathAccountSid;
+    private final String pathCallSid;
     private Integer log;
     private LocalDate absoluteMessageDate;
     private Range<LocalDate> rangeMessageDate;
@@ -32,22 +32,22 @@ public class NotificationReader extends Reader<Notification> {
     /**
      * Construct a new NotificationReader.
      * 
-     * @param callSid The call_sid
+     * @param pathCallSid The call_sid
      */
-    public NotificationReader(final String callSid) {
-        this.callSid = callSid;
+    public NotificationReader(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
     /**
      * Construct a new NotificationReader.
      * 
-     * @param accountSid The account_sid
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call_sid
      */
-    public NotificationReader(final String accountSid, 
-                              final String callSid) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public NotificationReader(final String pathAccountSid, 
+                              final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     /**
@@ -105,11 +105,11 @@ public class NotificationReader extends Reader<Notification> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Notification> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Notifications.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Notifications.json",
             client.getRegion()
         );
         

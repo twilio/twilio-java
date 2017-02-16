@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
-    private String accountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String friendlyName;
 
@@ -33,10 +33,10 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     /**
      * Construct a new OutgoingCallerIdReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public OutgoingCallerIdReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public OutgoingCallerIdReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -81,11 +81,11 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<OutgoingCallerId> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/OutgoingCallerIds.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds.json",
             client.getRegion()
         );
         

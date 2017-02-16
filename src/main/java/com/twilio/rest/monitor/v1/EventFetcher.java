@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class EventFetcher extends Fetcher<Event> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new EventFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public EventFetcher(final String sid) {
-        this.sid = sid;
+    public EventFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class EventFetcher extends Fetcher<Event> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),
-            "/v1/Events/" + this.sid + "",
+            "/v1/Events/" + this.pathSid + "",
             client.getRegion()
         );
         

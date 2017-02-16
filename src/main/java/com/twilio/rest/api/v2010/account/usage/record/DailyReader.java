@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.LocalDate;
 
 public class DailyReader extends Reader<Daily> {
-    private String accountSid;
+    private String pathAccountSid;
     private Daily.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -36,10 +36,10 @@ public class DailyReader extends Reader<Daily> {
     /**
      * Construct a new DailyReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public DailyReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public DailyReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -95,11 +95,11 @@ public class DailyReader extends Reader<Daily> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Daily> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/Daily.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/Daily.json",
             client.getRegion()
         );
         

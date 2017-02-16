@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AccountUpdater extends Updater<Account> {
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private Account.Status status;
 
@@ -31,10 +31,10 @@ public class AccountUpdater extends Updater<Account> {
     /**
      * Construct a new AccountUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public AccountUpdater(final String sid) {
-        this.sid = sid;
+    public AccountUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -68,11 +68,11 @@ public class AccountUpdater extends Updater<Account> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Account update(final TwilioRestClient client) {
-        this.sid = this.sid == null ? client.getAccountSid() : this.sid;
+        this.pathSid = this.pathSid == null ? client.getAccountSid() : this.pathSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathSid + ".json",
             client.getRegion()
         );
         

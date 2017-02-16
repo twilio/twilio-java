@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SandboxFetcher extends Fetcher<Sandbox> {
-    private String accountSid;
+    private String pathAccountSid;
 
     /**
      * Construct a new SandboxFetcher.
@@ -29,10 +29,10 @@ public class SandboxFetcher extends Fetcher<Sandbox> {
     /**
      * Construct a new SandboxFetcher.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public SandboxFetcher(final String accountSid) {
-        this.accountSid = accountSid;
+    public SandboxFetcher(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -44,11 +44,11 @@ public class SandboxFetcher extends Fetcher<Sandbox> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Sandbox fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Sandbox.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Sandbox.json",
             client.getRegion()
         );
         

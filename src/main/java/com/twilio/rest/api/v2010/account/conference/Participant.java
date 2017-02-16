@@ -140,131 +140,131 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param conferenceSid The string that uniquely identifies this conference
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathCallSid The call_sid
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetcher(final String accountSid, 
-                                             final String conferenceSid, 
-                                             final String callSid) {
-        return new ParticipantFetcher(accountSid, conferenceSid, callSid);
+    public static ParticipantFetcher fetcher(final String pathAccountSid, 
+                                             final String pathConferenceSid, 
+                                             final String pathCallSid) {
+        return new ParticipantFetcher(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantFetcher to execute fetch.
      * 
-     * @param conferenceSid The string that uniquely identifies this conference
-     * @param callSid The call_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathCallSid The call_sid
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetcher(final String conferenceSid, 
-                                             final String callSid) {
-        return new ParticipantFetcher(conferenceSid, callSid);
+    public static ParticipantFetcher fetcher(final String pathConferenceSid, 
+                                             final String pathCallSid) {
+        return new ParticipantFetcher(pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param conferenceSid The string that uniquely identifies this conference
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathCallSid The call_sid
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater updater(final String accountSid, 
-                                             final String conferenceSid, 
-                                             final String callSid) {
-        return new ParticipantUpdater(accountSid, conferenceSid, callSid);
+    public static ParticipantUpdater updater(final String pathAccountSid, 
+                                             final String pathConferenceSid, 
+                                             final String pathCallSid) {
+        return new ParticipantUpdater(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantUpdater to execute update.
      * 
-     * @param conferenceSid The string that uniquely identifies this conference
-     * @param callSid The call_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathCallSid The call_sid
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater updater(final String conferenceSid, 
-                                             final String callSid) {
-        return new ParticipantUpdater(conferenceSid, callSid);
+    public static ParticipantUpdater updater(final String pathConferenceSid, 
+                                             final String pathCallSid) {
+        return new ParticipantUpdater(pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantCreator to execute create.
      * 
-     * @param accountSid The account_sid
-     * @param conferenceSid The conference_sid
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The conference_sid
      * @param from The from
      * @param to The to
      * @return ParticipantCreator capable of executing the create
      */
-    public static ParticipantCreator creator(final String accountSid, 
-                                             final String conferenceSid, 
+    public static ParticipantCreator creator(final String pathAccountSid, 
+                                             final String pathConferenceSid, 
                                              final com.twilio.type.PhoneNumber from, 
                                              final com.twilio.type.PhoneNumber to) {
-        return new ParticipantCreator(accountSid, conferenceSid, from, to);
+        return new ParticipantCreator(pathAccountSid, pathConferenceSid, from, to);
     }
 
     /**
      * Create a ParticipantCreator to execute create.
      * 
-     * @param conferenceSid The conference_sid
+     * @param pathConferenceSid The conference_sid
      * @param from The from
      * @param to The to
      * @return ParticipantCreator capable of executing the create
      */
-    public static ParticipantCreator creator(final String conferenceSid, 
+    public static ParticipantCreator creator(final String pathConferenceSid, 
                                              final com.twilio.type.PhoneNumber from, 
                                              final com.twilio.type.PhoneNumber to) {
-        return new ParticipantCreator(conferenceSid, from, to);
+        return new ParticipantCreator(pathConferenceSid, from, to);
     }
 
     /**
      * Create a ParticipantDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param conferenceSid The string that uniquely identifies this conference
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathCallSid The call_sid
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter deleter(final String accountSid, 
-                                             final String conferenceSid, 
-                                             final String callSid) {
-        return new ParticipantDeleter(accountSid, conferenceSid, callSid);
+    public static ParticipantDeleter deleter(final String pathAccountSid, 
+                                             final String pathConferenceSid, 
+                                             final String pathCallSid) {
+        return new ParticipantDeleter(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantDeleter to execute delete.
      * 
-     * @param conferenceSid The string that uniquely identifies this conference
-     * @param callSid The call_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathCallSid The call_sid
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter deleter(final String conferenceSid, 
-                                             final String callSid) {
-        return new ParticipantDeleter(conferenceSid, callSid);
+    public static ParticipantDeleter deleter(final String pathConferenceSid, 
+                                             final String pathCallSid) {
+        return new ParticipantDeleter(pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param conferenceSid The string that uniquely identifies this conference
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
      * @return ParticipantReader capable of executing the read
      */
-    public static ParticipantReader reader(final String accountSid, 
-                                           final String conferenceSid) {
-        return new ParticipantReader(accountSid, conferenceSid);
+    public static ParticipantReader reader(final String pathAccountSid, 
+                                           final String pathConferenceSid) {
+        return new ParticipantReader(pathAccountSid, pathConferenceSid);
     }
 
     /**
      * Create a ParticipantReader to execute read.
      * 
-     * @param conferenceSid The string that uniquely identifies this conference
+     * @param pathConferenceSid The string that uniquely identifies this conference
      * @return ParticipantReader capable of executing the read
      */
-    public static ParticipantReader reader(final String conferenceSid) {
-        return new ParticipantReader(conferenceSid);
+    public static ParticipantReader reader(final String pathConferenceSid) {
+        return new ParticipantReader(pathConferenceSid);
     }
 
     /**

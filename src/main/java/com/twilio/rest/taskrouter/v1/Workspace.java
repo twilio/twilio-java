@@ -71,21 +71,21 @@ public class Workspace extends Resource {
     /**
      * Create a WorkspaceFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return WorkspaceFetcher capable of executing the fetch
      */
-    public static WorkspaceFetcher fetcher(final String sid) {
-        return new WorkspaceFetcher(sid);
+    public static WorkspaceFetcher fetcher(final String pathSid) {
+        return new WorkspaceFetcher(pathSid);
     }
 
     /**
      * Create a WorkspaceUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return WorkspaceUpdater capable of executing the update
      */
-    public static WorkspaceUpdater updater(final String sid) {
-        return new WorkspaceUpdater(sid);
+    public static WorkspaceUpdater updater(final String pathSid) {
+        return new WorkspaceUpdater(pathSid);
     }
 
     /**
@@ -110,11 +110,11 @@ public class Workspace extends Resource {
     /**
      * Create a WorkspaceDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return WorkspaceDeleter capable of executing the delete
      */
-    public static WorkspaceDeleter deleter(final String sid) {
-        return new WorkspaceDeleter(sid);
+    public static WorkspaceDeleter deleter(final String pathSid) {
+        return new WorkspaceDeleter(pathSid);
     }
 
     /**

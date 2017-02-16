@@ -21,17 +21,17 @@ import com.twilio.rest.Domains;
 import java.util.Map;
 
 public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
-    private final String sid;
+    private final String pathSid;
     private Map<String, Object> configuration;
     private String uniqueName;
 
     /**
      * Construct a new InstalledAddOnUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public InstalledAddOnUpdater(final String sid) {
-        this.sid = sid;
+    public InstalledAddOnUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -70,7 +70,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.sid + "",
+            "/marketplace/InstalledAddOns/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DocumentDeleter extends Deleter<Document> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new DocumentDeleter.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public DocumentDeleter(final String serviceSid, 
-                           final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public DocumentDeleter(final String pathServiceSid, 
+                           final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,7 +44,7 @@ public class DocumentDeleter extends Deleter<Document> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Documents/" + this.sid + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
             client.getRegion()
         );
         

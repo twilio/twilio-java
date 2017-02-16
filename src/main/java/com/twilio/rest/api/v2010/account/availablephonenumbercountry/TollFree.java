@@ -38,23 +38,23 @@ public class TollFree extends Resource {
     /**
      * Create a TollFreeReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param countryCode The country_code
+     * @param pathAccountSid The account_sid
+     * @param pathCountryCode The country_code
      * @return TollFreeReader capable of executing the read
      */
-    public static TollFreeReader reader(final String accountSid, 
-                                        final String countryCode) {
-        return new TollFreeReader(accountSid, countryCode);
+    public static TollFreeReader reader(final String pathAccountSid, 
+                                        final String pathCountryCode) {
+        return new TollFreeReader(pathAccountSid, pathCountryCode);
     }
 
     /**
      * Create a TollFreeReader to execute read.
      * 
-     * @param countryCode The country_code
+     * @param pathCountryCode The country_code
      * @return TollFreeReader capable of executing the read
      */
-    public static TollFreeReader reader(final String countryCode) {
-        return new TollFreeReader(countryCode);
+    public static TollFreeReader reader(final String pathCountryCode) {
+        return new TollFreeReader(pathCountryCode);
     }
 
     /**

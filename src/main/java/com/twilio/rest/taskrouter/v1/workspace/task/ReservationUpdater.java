@@ -21,9 +21,9 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class ReservationUpdater extends Updater<Reservation> {
-    private final String workspaceSid;
-    private final String taskSid;
-    private final String sid;
+    private final String pathWorkspaceSid;
+    private final String pathTaskSid;
+    private final String pathSid;
     private Reservation.Status reservationStatus;
     private String workerActivitySid;
     private String instruction;
@@ -47,16 +47,16 @@ public class ReservationUpdater extends Updater<Reservation> {
     /**
      * Construct a new ReservationUpdater.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param taskSid The task_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathTaskSid The task_sid
+     * @param pathSid The sid
      */
-    public ReservationUpdater(final String workspaceSid, 
-                              final String taskSid, 
-                              final String sid) {
-        this.workspaceSid = workspaceSid;
-        this.taskSid = taskSid;
-        this.sid = sid;
+    public ReservationUpdater(final String pathWorkspaceSid, 
+                              final String pathTaskSid, 
+                              final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskSid = pathTaskSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -320,7 +320,7 @@ public class ReservationUpdater extends Updater<Reservation> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Tasks/" + this.taskSid + "/Reservations/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathTaskSid + "/Reservations/" + this.pathSid + "",
             client.getRegion()
         );
         

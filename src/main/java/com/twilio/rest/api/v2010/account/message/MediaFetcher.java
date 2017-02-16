@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MediaFetcher extends Fetcher<Media> {
-    private String accountSid;
-    private final String messageSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathMessageSid;
+    private final String pathSid;
 
     /**
      * Construct a new MediaFetcher.
      * 
-     * @param messageSid The message_sid
-     * @param sid Fetch by unique media Sid
+     * @param pathMessageSid The message_sid
+     * @param pathSid Fetch by unique media Sid
      */
-    public MediaFetcher(final String messageSid, 
-                        final String sid) {
-        this.messageSid = messageSid;
-        this.sid = sid;
+    public MediaFetcher(final String pathMessageSid, 
+                        final String pathSid) {
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new MediaFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param messageSid The message_sid
-     * @param sid Fetch by unique media Sid
+     * @param pathAccountSid The account_sid
+     * @param pathMessageSid The message_sid
+     * @param pathSid Fetch by unique media Sid
      */
-    public MediaFetcher(final String accountSid, 
-                        final String messageSid, 
-                        final String sid) {
-        this.accountSid = accountSid;
-        this.messageSid = messageSid;
-        this.sid = sid;
+    public MediaFetcher(final String pathAccountSid, 
+                        final String pathMessageSid, 
+                        final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -58,11 +58,11 @@ public class MediaFetcher extends Fetcher<Media> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Media fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.messageSid + "/Media/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Media/" + this.pathSid + ".json",
             client.getRegion()
         );
         

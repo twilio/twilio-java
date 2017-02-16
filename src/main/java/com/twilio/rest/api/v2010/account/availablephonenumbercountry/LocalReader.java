@@ -20,8 +20,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class LocalReader extends Reader<Local> {
-    private String accountSid;
-    private final String countryCode;
+    private String pathAccountSid;
+    private final String pathCountryCode;
     private Integer areaCode;
     private String contains;
     private Boolean smsEnabled;
@@ -42,22 +42,22 @@ public class LocalReader extends Reader<Local> {
     /**
      * Construct a new LocalReader.
      * 
-     * @param countryCode The country_code
+     * @param pathCountryCode The country_code
      */
-    public LocalReader(final String countryCode) {
-        this.countryCode = countryCode;
+    public LocalReader(final String pathCountryCode) {
+        this.pathCountryCode = pathCountryCode;
     }
 
     /**
      * Construct a new LocalReader.
      * 
-     * @param accountSid The account_sid
-     * @param countryCode The country_code
+     * @param pathAccountSid The account_sid
+     * @param pathCountryCode The country_code
      */
-    public LocalReader(final String accountSid, 
-                       final String countryCode) {
-        this.accountSid = accountSid;
-        this.countryCode = countryCode;
+    public LocalReader(final String pathAccountSid, 
+                       final String pathCountryCode) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCountryCode = pathCountryCode;
     }
 
     /**
@@ -256,11 +256,11 @@ public class LocalReader extends Reader<Local> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Local> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/AvailablePhoneNumbers/" + this.countryCode + "/Local.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AvailablePhoneNumbers/" + this.pathCountryCode + "/Local.json",
             client.getRegion()
         );
         

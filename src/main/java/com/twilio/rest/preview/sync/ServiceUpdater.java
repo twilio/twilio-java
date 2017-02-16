@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class ServiceUpdater extends Updater<Service> {
-    private final String sid;
+    private final String pathSid;
     private URI webhookUrl;
     private String friendlyName;
     private Boolean reachabilityWebhooksEnabled;
@@ -30,10 +30,10 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Construct a new ServiceUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public ServiceUpdater(final String sid) {
-        this.sid = sid;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -102,7 +102,7 @@ public class ServiceUpdater extends Updater<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.sid + "",
+            "/Sync/Services/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -71,11 +71,11 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberFetcher to execute fetch.
      * 
-     * @param phoneNumber The phone_number
+     * @param pathPhoneNumber The phone_number
      * @return PhoneNumberFetcher capable of executing the fetch
      */
-    public static PhoneNumberFetcher fetcher(final com.twilio.type.PhoneNumber phoneNumber) {
-        return new PhoneNumberFetcher(phoneNumber);
+    public static PhoneNumberFetcher fetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
+        return new PhoneNumberFetcher(pathPhoneNumber);
     }
 
     /**

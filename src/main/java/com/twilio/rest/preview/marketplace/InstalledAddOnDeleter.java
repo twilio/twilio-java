@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new InstalledAddOnDeleter.
      * 
-     * @param sid The Installed Add-on Sid to delete
+     * @param pathSid The Installed Add-on Sid to delete
      */
-    public InstalledAddOnDeleter(final String sid) {
-        this.sid = sid;
+    public InstalledAddOnDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -40,7 +40,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.sid + "",
+            "/marketplace/InstalledAddOns/" + this.pathSid + "",
             client.getRegion()
         );
         

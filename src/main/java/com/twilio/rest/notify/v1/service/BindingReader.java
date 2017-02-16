@@ -25,7 +25,7 @@ import org.joda.time.LocalDate;
 import java.util.List;
 
 public class BindingReader extends Reader<Binding> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private LocalDate startDate;
     private LocalDate endDate;
     private List<String> identity;
@@ -34,10 +34,10 @@ public class BindingReader extends Reader<Binding> {
     /**
      * Construct a new BindingReader.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public BindingReader(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public BindingReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -127,7 +127,7 @@ public class BindingReader extends Reader<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.serviceSid + "/Bindings",
+            "/v1/Services/" + this.pathServiceSid + "/Bindings",
             client.getRegion()
         );
         

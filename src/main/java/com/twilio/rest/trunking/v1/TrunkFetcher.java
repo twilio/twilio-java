@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TrunkFetcher extends Fetcher<Trunk> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new TrunkFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public TrunkFetcher(final String sid) {
-        this.sid = sid;
+    public TrunkFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.sid + "",
+            "/v1/Trunks/" + this.pathSid + "",
             client.getRegion()
         );
         

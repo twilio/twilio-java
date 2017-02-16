@@ -18,22 +18,22 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialCreator extends Creator<Credential> {
-    private String accountSid;
-    private final String credentialListSid;
+    private String pathAccountSid;
+    private final String pathCredentialListSid;
     private final String username;
     private final String password;
 
     /**
      * Construct a new CredentialCreator.
      * 
-     * @param credentialListSid The credential_list_sid
+     * @param pathCredentialListSid The credential_list_sid
      * @param username The username
      * @param password The password
      */
-    public CredentialCreator(final String credentialListSid, 
+    public CredentialCreator(final String pathCredentialListSid, 
                              final String username, 
                              final String password) {
-        this.credentialListSid = credentialListSid;
+        this.pathCredentialListSid = pathCredentialListSid;
         this.username = username;
         this.password = password;
     }
@@ -41,17 +41,17 @@ public class CredentialCreator extends Creator<Credential> {
     /**
      * Construct a new CredentialCreator.
      * 
-     * @param accountSid The account_sid
-     * @param credentialListSid The credential_list_sid
+     * @param pathAccountSid The account_sid
+     * @param pathCredentialListSid The credential_list_sid
      * @param username The username
      * @param password The password
      */
-    public CredentialCreator(final String accountSid, 
-                             final String credentialListSid, 
+    public CredentialCreator(final String pathAccountSid, 
+                             final String pathCredentialListSid, 
                              final String username, 
                              final String password) {
-        this.accountSid = accountSid;
-        this.credentialListSid = credentialListSid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathCredentialListSid = pathCredentialListSid;
         this.username = username;
         this.password = password;
     }
@@ -65,11 +65,11 @@ public class CredentialCreator extends Creator<Credential> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Credential create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/CredentialLists/" + this.credentialListSid + "/Credentials.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists/" + this.pathCredentialListSid + "/Credentials.json",
             client.getRegion()
         );
         

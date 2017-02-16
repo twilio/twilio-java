@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class BindingFetcher extends Fetcher<Binding> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new BindingFetcher.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public BindingFetcher(final String serviceSid, 
-                          final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public BindingFetcher(final String pathServiceSid, 
+                          final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +45,7 @@ public class BindingFetcher extends Fetcher<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.serviceSid + "/Bindings/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + "",
             client.getRegion()
         );
         

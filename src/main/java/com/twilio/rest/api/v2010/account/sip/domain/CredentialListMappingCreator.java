@@ -18,34 +18,34 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialListMappingCreator extends Creator<CredentialListMapping> {
-    private String accountSid;
-    private final String domainSid;
+    private String pathAccountSid;
+    private final String pathDomainSid;
     private final String credentialListSid;
 
     /**
      * Construct a new CredentialListMappingCreator.
      * 
-     * @param domainSid The domain_sid
+     * @param pathDomainSid The domain_sid
      * @param credentialListSid The credential_list_sid
      */
-    public CredentialListMappingCreator(final String domainSid, 
+    public CredentialListMappingCreator(final String pathDomainSid, 
                                         final String credentialListSid) {
-        this.domainSid = domainSid;
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
     /**
      * Construct a new CredentialListMappingCreator.
      * 
-     * @param accountSid The account_sid
-     * @param domainSid The domain_sid
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
      * @param credentialListSid The credential_list_sid
      */
-    public CredentialListMappingCreator(final String accountSid, 
-                                        final String domainSid, 
+    public CredentialListMappingCreator(final String pathAccountSid, 
+                                        final String pathDomainSid, 
                                         final String credentialListSid) {
-        this.accountSid = accountSid;
-        this.domainSid = domainSid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
@@ -58,11 +58,11 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public CredentialListMapping create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains/" + this.domainSid + "/CredentialListMappings.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/CredentialListMappings.json",
             client.getRegion()
         );
         

@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TaskChannelFetcher extends Fetcher<TaskChannel> {
-    private final String workspaceSid;
-    private final String sid;
+    private final String pathWorkspaceSid;
+    private final String pathSid;
 
     /**
      * Construct a new TaskChannelFetcher.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      */
-    public TaskChannelFetcher(final String workspaceSid, 
-                              final String sid) {
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public TaskChannelFetcher(final String pathWorkspaceSid, 
+                              final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +45,7 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/TaskChannels/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -72,11 +72,11 @@ public class Notification extends Resource {
     /**
      * Create a NotificationCreator to execute create.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return NotificationCreator capable of executing the create
      */
-    public static NotificationCreator creator(final String serviceSid) {
-        return new NotificationCreator(serviceSid);
+    public static NotificationCreator creator(final String pathServiceSid) {
+        return new NotificationCreator(pathServiceSid);
     }
 
     /**

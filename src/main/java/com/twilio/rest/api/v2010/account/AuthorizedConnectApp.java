@@ -72,33 +72,33 @@ public class AuthorizedConnectApp extends Resource {
     /**
      * Create a AuthorizedConnectAppFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param connectAppSid The connect_app_sid
+     * @param pathAccountSid The account_sid
+     * @param pathConnectAppSid The connect_app_sid
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
-    public static AuthorizedConnectAppFetcher fetcher(final String accountSid, 
-                                                      final String connectAppSid) {
-        return new AuthorizedConnectAppFetcher(accountSid, connectAppSid);
+    public static AuthorizedConnectAppFetcher fetcher(final String pathAccountSid, 
+                                                      final String pathConnectAppSid) {
+        return new AuthorizedConnectAppFetcher(pathAccountSid, pathConnectAppSid);
     }
 
     /**
      * Create a AuthorizedConnectAppFetcher to execute fetch.
      * 
-     * @param connectAppSid The connect_app_sid
+     * @param pathConnectAppSid The connect_app_sid
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
-    public static AuthorizedConnectAppFetcher fetcher(final String connectAppSid) {
-        return new AuthorizedConnectAppFetcher(connectAppSid);
+    public static AuthorizedConnectAppFetcher fetcher(final String pathConnectAppSid) {
+        return new AuthorizedConnectAppFetcher(pathConnectAppSid);
     }
 
     /**
      * Create a AuthorizedConnectAppReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return AuthorizedConnectAppReader capable of executing the read
      */
-    public static AuthorizedConnectAppReader reader(final String accountSid) {
-        return new AuthorizedConnectAppReader(accountSid);
+    public static AuthorizedConnectAppReader reader(final String pathAccountSid) {
+        return new AuthorizedConnectAppReader(pathAccountSid);
     }
 
     /**

@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
-    private final String trunkSid;
+    private final String pathTrunkSid;
 
     /**
      * Construct a new IpAccessControlListReader.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      */
-    public IpAccessControlListReader(final String trunkSid) {
-        this.trunkSid = trunkSid;
+    public IpAccessControlListReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/IpAccessControlLists",
+            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists",
             client.getRegion()
         );
         

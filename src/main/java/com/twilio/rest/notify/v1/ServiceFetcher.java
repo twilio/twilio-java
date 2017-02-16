@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ServiceFetcher extends Fetcher<Service> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new ServiceFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public ServiceFetcher(final String sid) {
-        this.sid = sid;
+    public ServiceFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class ServiceFetcher extends Fetcher<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.sid + "",
+            "/v1/Services/" + this.pathSid + "",
             client.getRegion()
         );
         

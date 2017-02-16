@@ -76,75 +76,75 @@ public class AddOnResult extends Resource {
     /**
      * Create a AddOnResultFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param referenceSid The reference_sid
-     * @param sid Fetch by unique result Sid
+     * @param pathAccountSid The account_sid
+     * @param pathReferenceSid The reference_sid
+     * @param pathSid Fetch by unique result Sid
      * @return AddOnResultFetcher capable of executing the fetch
      */
-    public static AddOnResultFetcher fetcher(final String accountSid, 
-                                             final String referenceSid, 
-                                             final String sid) {
-        return new AddOnResultFetcher(accountSid, referenceSid, sid);
+    public static AddOnResultFetcher fetcher(final String pathAccountSid, 
+                                             final String pathReferenceSid, 
+                                             final String pathSid) {
+        return new AddOnResultFetcher(pathAccountSid, pathReferenceSid, pathSid);
     }
 
     /**
      * Create a AddOnResultFetcher to execute fetch.
      * 
-     * @param referenceSid The reference_sid
-     * @param sid Fetch by unique result Sid
+     * @param pathReferenceSid The reference_sid
+     * @param pathSid Fetch by unique result Sid
      * @return AddOnResultFetcher capable of executing the fetch
      */
-    public static AddOnResultFetcher fetcher(final String referenceSid, 
-                                             final String sid) {
-        return new AddOnResultFetcher(referenceSid, sid);
+    public static AddOnResultFetcher fetcher(final String pathReferenceSid, 
+                                             final String pathSid) {
+        return new AddOnResultFetcher(pathReferenceSid, pathSid);
     }
 
     /**
      * Create a AddOnResultReader to execute read.
      * 
-     * @param accountSid The account_sid
-     * @param referenceSid The reference_sid
+     * @param pathAccountSid The account_sid
+     * @param pathReferenceSid The reference_sid
      * @return AddOnResultReader capable of executing the read
      */
-    public static AddOnResultReader reader(final String accountSid, 
-                                           final String referenceSid) {
-        return new AddOnResultReader(accountSid, referenceSid);
+    public static AddOnResultReader reader(final String pathAccountSid, 
+                                           final String pathReferenceSid) {
+        return new AddOnResultReader(pathAccountSid, pathReferenceSid);
     }
 
     /**
      * Create a AddOnResultReader to execute read.
      * 
-     * @param referenceSid The reference_sid
+     * @param pathReferenceSid The reference_sid
      * @return AddOnResultReader capable of executing the read
      */
-    public static AddOnResultReader reader(final String referenceSid) {
-        return new AddOnResultReader(referenceSid);
+    public static AddOnResultReader reader(final String pathReferenceSid) {
+        return new AddOnResultReader(pathReferenceSid);
     }
 
     /**
      * Create a AddOnResultDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param referenceSid The reference_sid
-     * @param sid Delete by unique result Sid
+     * @param pathAccountSid The account_sid
+     * @param pathReferenceSid The reference_sid
+     * @param pathSid Delete by unique result Sid
      * @return AddOnResultDeleter capable of executing the delete
      */
-    public static AddOnResultDeleter deleter(final String accountSid, 
-                                             final String referenceSid, 
-                                             final String sid) {
-        return new AddOnResultDeleter(accountSid, referenceSid, sid);
+    public static AddOnResultDeleter deleter(final String pathAccountSid, 
+                                             final String pathReferenceSid, 
+                                             final String pathSid) {
+        return new AddOnResultDeleter(pathAccountSid, pathReferenceSid, pathSid);
     }
 
     /**
      * Create a AddOnResultDeleter to execute delete.
      * 
-     * @param referenceSid The reference_sid
-     * @param sid Delete by unique result Sid
+     * @param pathReferenceSid The reference_sid
+     * @param pathSid Delete by unique result Sid
      * @return AddOnResultDeleter capable of executing the delete
      */
-    public static AddOnResultDeleter deleter(final String referenceSid, 
-                                             final String sid) {
-        return new AddOnResultDeleter(referenceSid, sid);
+    public static AddOnResultDeleter deleter(final String pathReferenceSid, 
+                                             final String pathSid) {
+        return new AddOnResultDeleter(pathReferenceSid, pathSid);
     }
 
     /**

@@ -23,7 +23,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.LocalDate;
 
 public class ConferenceReader extends Reader<Conference> {
-    private String accountSid;
+    private String pathAccountSid;
     private LocalDate absoluteDateCreated;
     private Range<LocalDate> rangeDateCreated;
     private LocalDate absoluteDateUpdated;
@@ -40,10 +40,10 @@ public class ConferenceReader extends Reader<Conference> {
     /**
      * Construct a new ConferenceReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public ConferenceReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public ConferenceReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -143,11 +143,11 @@ public class ConferenceReader extends Reader<Conference> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Conference> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Conferences.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences.json",
             client.getRegion()
         );
         

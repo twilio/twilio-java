@@ -20,7 +20,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
-    private final String workspaceSid;
+    private final String pathWorkspaceSid;
     private Integer minutes;
     private DateTime startDate;
     private DateTime endDate;
@@ -28,10 +28,10 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
     /**
      * Construct a new WorkspaceStatisticsFetcher.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      */
-    public WorkspaceStatisticsFetcher(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public WorkspaceStatisticsFetcher(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
@@ -79,7 +79,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Statistics",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Statistics",
             client.getRegion()
         );
         

@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TranscriptionReader extends Reader<Transcription> {
-    private String accountSid;
+    private String pathAccountSid;
 
     /**
      * Construct a new TranscriptionReader.
@@ -31,10 +31,10 @@ public class TranscriptionReader extends Reader<Transcription> {
     /**
      * Construct a new TranscriptionReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public TranscriptionReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public TranscriptionReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class TranscriptionReader extends Reader<Transcription> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Transcription> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Transcriptions.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Transcriptions.json",
             client.getRegion()
         );
         

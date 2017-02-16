@@ -20,8 +20,8 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
-    private final String workspaceSid;
-    private final String taskQueueSid;
+    private final String pathWorkspaceSid;
+    private final String pathTaskQueueSid;
     private DateTime endDate;
     private Integer minutes;
     private DateTime startDate;
@@ -29,13 +29,13 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
     /**
      * Construct a new TaskQueueStatisticsFetcher.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param taskQueueSid The task_queue_sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathTaskQueueSid The task_queue_sid
      */
-    public TaskQueueStatisticsFetcher(final String workspaceSid, 
-                                      final String taskQueueSid) {
-        this.workspaceSid = workspaceSid;
-        this.taskQueueSid = taskQueueSid;
+    public TaskQueueStatisticsFetcher(final String pathWorkspaceSid, 
+                                      final String pathTaskQueueSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskQueueSid = pathTaskQueueSid;
     }
 
     /**
@@ -83,7 +83,7 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/TaskQueues/" + this.taskQueueSid + "/Statistics",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathTaskQueueSid + "/Statistics",
             client.getRegion()
         );
         

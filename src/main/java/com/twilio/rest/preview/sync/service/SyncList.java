@@ -39,45 +39,45 @@ public class SyncList extends Resource {
     /**
      * Create a SyncListFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return SyncListFetcher capable of executing the fetch
      */
-    public static SyncListFetcher fetcher(final String serviceSid, 
-                                          final String sid) {
-        return new SyncListFetcher(serviceSid, sid);
+    public static SyncListFetcher fetcher(final String pathServiceSid, 
+                                          final String pathSid) {
+        return new SyncListFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncListDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return SyncListDeleter capable of executing the delete
      */
-    public static SyncListDeleter deleter(final String serviceSid, 
-                                          final String sid) {
-        return new SyncListDeleter(serviceSid, sid);
+    public static SyncListDeleter deleter(final String pathServiceSid, 
+                                          final String pathSid) {
+        return new SyncListDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncListCreator to execute create.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return SyncListCreator capable of executing the create
      */
-    public static SyncListCreator creator(final String serviceSid) {
-        return new SyncListCreator(serviceSid);
+    public static SyncListCreator creator(final String pathServiceSid) {
+        return new SyncListCreator(pathServiceSid);
     }
 
     /**
      * Create a SyncListReader to execute read.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return SyncListReader capable of executing the read
      */
-    public static SyncListReader reader(final String serviceSid) {
-        return new SyncListReader(serviceSid);
+    public static SyncListReader reader(final String pathServiceSid) {
+        return new SyncListReader(pathServiceSid);
     }
 
     /**

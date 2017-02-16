@@ -40,59 +40,59 @@ public class Document extends Resource {
     /**
      * Create a DocumentFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return DocumentFetcher capable of executing the fetch
      */
-    public static DocumentFetcher fetcher(final String serviceSid, 
-                                          final String sid) {
-        return new DocumentFetcher(serviceSid, sid);
+    public static DocumentFetcher fetcher(final String pathServiceSid, 
+                                          final String pathSid) {
+        return new DocumentFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a DocumentDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return DocumentDeleter capable of executing the delete
      */
-    public static DocumentDeleter deleter(final String serviceSid, 
-                                          final String sid) {
-        return new DocumentDeleter(serviceSid, sid);
+    public static DocumentDeleter deleter(final String pathServiceSid, 
+                                          final String pathSid) {
+        return new DocumentDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a DocumentCreator to execute create.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return DocumentCreator capable of executing the create
      */
-    public static DocumentCreator creator(final String serviceSid) {
-        return new DocumentCreator(serviceSid);
+    public static DocumentCreator creator(final String pathServiceSid) {
+        return new DocumentCreator(pathServiceSid);
     }
 
     /**
      * Create a DocumentReader to execute read.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return DocumentReader capable of executing the read
      */
-    public static DocumentReader reader(final String serviceSid) {
-        return new DocumentReader(serviceSid);
+    public static DocumentReader reader(final String pathServiceSid) {
+        return new DocumentReader(pathServiceSid);
     }
 
     /**
      * Create a DocumentUpdater to execute update.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @param data The data
      * @return DocumentUpdater capable of executing the update
      */
-    public static DocumentUpdater updater(final String serviceSid, 
-                                          final String sid, 
+    public static DocumentUpdater updater(final String pathServiceSid, 
+                                          final String pathSid, 
                                           final Map<String, Object> data) {
-        return new DocumentUpdater(serviceSid, sid, data);
+        return new DocumentUpdater(pathServiceSid, pathSid, data);
     }
 
     /**

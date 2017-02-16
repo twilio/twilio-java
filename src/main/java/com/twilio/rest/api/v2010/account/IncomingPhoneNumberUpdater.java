@@ -21,8 +21,8 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
-    private String ownerAccountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
     private String accountSid;
     private String apiVersion;
     private String friendlyName;
@@ -46,22 +46,22 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public IncomingPhoneNumberUpdater(final String sid) {
-        this.sid = sid;
+    public IncomingPhoneNumberUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new IncomingPhoneNumberUpdater.
      * 
-     * @param ownerAccountSid The owner_account_sid
-     * @param sid The sid
+     * @param pathAccountSid The new owner of the phone number
+     * @param pathSid The sid
      */
-    public IncomingPhoneNumberUpdater(final String ownerAccountSid, 
-                                      final String sid) {
-        this.ownerAccountSid = ownerAccountSid;
-        this.sid = sid;
+    public IncomingPhoneNumberUpdater(final String pathAccountSid, 
+                                      final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -366,11 +366,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IncomingPhoneNumber update(final TwilioRestClient client) {
-        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json",
             client.getRegion()
         );
         
@@ -403,10 +403,6 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (accountSid != null) {
-            request.addPostParam("AccountSid", accountSid);
-        }
-        
         if (apiVersion != null) {
             request.addPostParam("ApiVersion", apiVersion);
         }

@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ParticipantDeleter extends Deleter<Participant> {
-    private String accountSid;
-    private final String conferenceSid;
-    private final String callSid;
+    private String pathAccountSid;
+    private final String pathConferenceSid;
+    private final String pathCallSid;
 
     /**
      * Construct a new ParticipantDeleter.
      * 
-     * @param conferenceSid The string that uniquely identifies this conference
-     * @param callSid The call_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathCallSid The call_sid
      */
-    public ParticipantDeleter(final String conferenceSid, 
-                              final String callSid) {
-        this.conferenceSid = conferenceSid;
-        this.callSid = callSid;
+    public ParticipantDeleter(final String pathConferenceSid, 
+                              final String pathCallSid) {
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathCallSid = pathCallSid;
     }
 
     /**
      * Construct a new ParticipantDeleter.
      * 
-     * @param accountSid The account_sid
-     * @param conferenceSid The string that uniquely identifies this conference
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathCallSid The call_sid
      */
-    public ParticipantDeleter(final String accountSid, 
-                              final String conferenceSid, 
-                              final String callSid) {
-        this.accountSid = accountSid;
-        this.conferenceSid = conferenceSid;
-        this.callSid = callSid;
+    public ParticipantDeleter(final String pathAccountSid, 
+                              final String pathConferenceSid, 
+                              final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathCallSid = pathCallSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class ParticipantDeleter extends Deleter<Participant> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Conferences/" + this.conferenceSid + "/Participants/" + this.callSid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json",
             client.getRegion()
         );
         

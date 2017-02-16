@@ -20,8 +20,8 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
-    private final String workspaceSid;
-    private final String workerSid;
+    private final String pathWorkspaceSid;
+    private final String pathWorkerSid;
     private Integer minutes;
     private DateTime startDate;
     private DateTime endDate;
@@ -29,13 +29,13 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     /**
      * Construct a new WorkerStatisticsFetcher.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
      */
-    public WorkerStatisticsFetcher(final String workspaceSid, 
-                                   final String workerSid) {
-        this.workspaceSid = workspaceSid;
-        this.workerSid = workerSid;
+    public WorkerStatisticsFetcher(final String pathWorkspaceSid, 
+                                   final String pathWorkerSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
     }
 
     /**
@@ -83,7 +83,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Workers/" + this.workerSid + "/Statistics",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Statistics",
             client.getRegion()
         );
         

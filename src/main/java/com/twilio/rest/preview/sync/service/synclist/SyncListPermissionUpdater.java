@@ -18,9 +18,9 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
-    private final String serviceSid;
-    private final String listSid;
-    private final String identity;
+    private final String pathServiceSid;
+    private final String pathListSid;
+    private final String pathIdentity;
     private final Boolean read;
     private final Boolean write;
     private final Boolean manage;
@@ -28,23 +28,23 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
     /**
      * Construct a new SyncListPermissionUpdater.
      * 
-     * @param serviceSid Sync Service Instance SID.
-     * @param listSid Sync List SID or unique name.
-     * @param identity Identity of the user to whom the Sync List Permission
-     *                 applies.
+     * @param pathServiceSid Sync Service Instance SID.
+     * @param pathListSid Sync List SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync List Permission
+     *                     applies.
      * @param read Read access.
      * @param write Write access.
      * @param manage Manage access.
      */
-    public SyncListPermissionUpdater(final String serviceSid, 
-                                     final String listSid, 
-                                     final String identity, 
+    public SyncListPermissionUpdater(final String pathServiceSid, 
+                                     final String pathListSid, 
+                                     final String pathIdentity, 
                                      final Boolean read, 
                                      final Boolean write, 
                                      final Boolean manage) {
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
-        this.identity = identity;
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIdentity = pathIdentity;
         this.read = read;
         this.write = write;
         this.manage = manage;
@@ -62,7 +62,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Lists/" + this.listSid + "/Permissions/" + this.identity + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + "",
             client.getRegion()
         );
         

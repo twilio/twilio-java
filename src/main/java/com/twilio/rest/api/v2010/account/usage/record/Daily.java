@@ -161,11 +161,11 @@ public class Daily extends Resource {
     /**
      * Create a DailyReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return DailyReader capable of executing the read
      */
-    public static DailyReader reader(final String accountSid) {
-        return new DailyReader(accountSid);
+    public static DailyReader reader(final String pathAccountSid) {
+        return new DailyReader(pathAccountSid);
     }
 
     /**

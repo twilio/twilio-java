@@ -22,7 +22,7 @@ import java.net.URI;
 import java.util.List;
 
 public class ServiceUpdater extends Updater<Service> {
-    private final String sid;
+    private final String pathSid;
     private String friendlyName;
     private String defaultServiceRoleSid;
     private String defaultChannelRoleSid;
@@ -95,10 +95,10 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Construct a new ServiceUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public ServiceUpdater(final String sid) {
-        this.sid = sid;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -1059,7 +1059,7 @@ public class ServiceUpdater extends Updater<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.sid + "",
+            "/v1/Services/" + this.pathSid + "",
             client.getRegion()
         );
         

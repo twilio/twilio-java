@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class DomainCreator extends Creator<Domain> {
-    private String accountSid;
+    private String pathAccountSid;
     private final String domainName;
     private String friendlyName;
     private String authType;
@@ -44,12 +44,12 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * Construct a new DomainCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param domainName The unique address on Twilio to route SIP traffic
      */
-    public DomainCreator(final String accountSid, 
+    public DomainCreator(final String pathAccountSid, 
                          final String domainName) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.domainName = domainName;
     }
 
@@ -186,11 +186,11 @@ public class DomainCreator extends Creator<Domain> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Domain create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/Domains.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains.json",
             client.getRegion()
         );
         

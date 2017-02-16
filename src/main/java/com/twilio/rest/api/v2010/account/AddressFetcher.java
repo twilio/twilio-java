@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AddressFetcher extends Fetcher<Address> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new AddressFetcher.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public AddressFetcher(final String sid) {
-        this.sid = sid;
+    public AddressFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new AddressFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      */
-    public AddressFetcher(final String accountSid, 
-                          final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public AddressFetcher(final String pathAccountSid, 
+                          final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -51,11 +51,11 @@ public class AddressFetcher extends Fetcher<Address> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Address fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Addresses/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses/" + this.pathSid + ".json",
             client.getRegion()
         );
         

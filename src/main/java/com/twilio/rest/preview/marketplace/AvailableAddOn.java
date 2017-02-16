@@ -38,11 +38,11 @@ public class AvailableAddOn extends Resource {
     /**
      * Create a AvailableAddOnFetcher to execute fetch.
      * 
-     * @param sid The unique Available Add-on Sid
+     * @param pathSid The unique Available Add-on Sid
      * @return AvailableAddOnFetcher capable of executing the fetch
      */
-    public static AvailableAddOnFetcher fetcher(final String sid) {
-        return new AvailableAddOnFetcher(sid);
+    public static AvailableAddOnFetcher fetcher(final String pathSid) {
+        return new AvailableAddOnFetcher(pathSid);
     }
 
     /**

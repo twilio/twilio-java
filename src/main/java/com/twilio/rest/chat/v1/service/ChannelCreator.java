@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ChannelCreator extends Creator<Channel> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private String friendlyName;
     private String uniqueName;
     private String attributes;
@@ -27,10 +27,10 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * Construct a new ChannelCreator.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      */
-    public ChannelCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public ChannelCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     /**
@@ -89,7 +89,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels",
+            "/v1/Services/" + this.pathServiceSid + "/Channels",
             client.getRegion()
         );
         

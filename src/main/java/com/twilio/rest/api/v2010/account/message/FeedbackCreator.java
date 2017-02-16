@@ -18,29 +18,29 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class FeedbackCreator extends Creator<Feedback> {
-    private String accountSid;
-    private final String messageSid;
+    private String pathAccountSid;
+    private final String pathMessageSid;
     private Feedback.Outcome outcome;
 
     /**
      * Construct a new FeedbackCreator.
      * 
-     * @param messageSid The message_sid
+     * @param pathMessageSid The message_sid
      */
-    public FeedbackCreator(final String messageSid) {
-        this.messageSid = messageSid;
+    public FeedbackCreator(final String pathMessageSid) {
+        this.pathMessageSid = pathMessageSid;
     }
 
     /**
      * Construct a new FeedbackCreator.
      * 
-     * @param accountSid The account_sid
-     * @param messageSid The message_sid
+     * @param pathAccountSid The account_sid
+     * @param pathMessageSid The message_sid
      */
-    public FeedbackCreator(final String accountSid, 
-                           final String messageSid) {
-        this.accountSid = accountSid;
-        this.messageSid = messageSid;
+    public FeedbackCreator(final String pathAccountSid, 
+                           final String pathMessageSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
     /**
@@ -63,11 +63,11 @@ public class FeedbackCreator extends Creator<Feedback> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Feedback create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Messages/" + this.messageSid + "/Feedback.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Feedback.json",
             client.getRegion()
         );
         

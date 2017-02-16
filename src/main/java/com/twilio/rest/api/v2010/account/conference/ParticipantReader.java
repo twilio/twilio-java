@@ -20,30 +20,30 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ParticipantReader extends Reader<Participant> {
-    private String accountSid;
-    private final String conferenceSid;
+    private String pathAccountSid;
+    private final String pathConferenceSid;
     private Boolean muted;
     private Boolean hold;
 
     /**
      * Construct a new ParticipantReader.
      * 
-     * @param conferenceSid The string that uniquely identifies this conference
+     * @param pathConferenceSid The string that uniquely identifies this conference
      */
-    public ParticipantReader(final String conferenceSid) {
-        this.conferenceSid = conferenceSid;
+    public ParticipantReader(final String pathConferenceSid) {
+        this.pathConferenceSid = pathConferenceSid;
     }
 
     /**
      * Construct a new ParticipantReader.
      * 
-     * @param accountSid The account_sid
-     * @param conferenceSid The string that uniquely identifies this conference
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
      */
-    public ParticipantReader(final String accountSid, 
-                             final String conferenceSid) {
-        this.accountSid = accountSid;
-        this.conferenceSid = conferenceSid;
+    public ParticipantReader(final String pathAccountSid, 
+                             final String pathConferenceSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
     }
 
     /**
@@ -88,11 +88,11 @@ public class ParticipantReader extends Reader<Participant> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Participant> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Conferences/" + this.conferenceSid + "/Participants.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json",
             client.getRegion()
         );
         

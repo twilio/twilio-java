@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AssignedAddOnDeleter extends Deleter<AssignedAddOn> {
-    private String accountSid;
-    private final String resourceSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathResourceSid;
+    private final String pathSid;
 
     /**
      * Construct a new AssignedAddOnDeleter.
      * 
-     * @param resourceSid The resource_sid
-     * @param sid The Installed Add-on Sid to remove
+     * @param pathResourceSid The resource_sid
+     * @param pathSid The Installed Add-on Sid to remove
      */
-    public AssignedAddOnDeleter(final String resourceSid, 
-                                final String sid) {
-        this.resourceSid = resourceSid;
-        this.sid = sid;
+    public AssignedAddOnDeleter(final String pathResourceSid, 
+                                final String pathSid) {
+        this.pathResourceSid = pathResourceSid;
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new AssignedAddOnDeleter.
      * 
-     * @param accountSid The account_sid
-     * @param resourceSid The resource_sid
-     * @param sid The Installed Add-on Sid to remove
+     * @param pathAccountSid The account_sid
+     * @param pathResourceSid The resource_sid
+     * @param pathSid The Installed Add-on Sid to remove
      */
-    public AssignedAddOnDeleter(final String accountSid, 
-                                final String resourceSid, 
-                                final String sid) {
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
-        this.sid = sid;
+    public AssignedAddOnDeleter(final String pathAccountSid, 
+                                final String pathResourceSid, 
+                                final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class AssignedAddOnDeleter extends Deleter<AssignedAddOn> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/IncomingPhoneNumbers/" + this.resourceSid + "/AssignedAddOns/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns/" + this.pathSid + ".json",
             client.getRegion()
         );
         

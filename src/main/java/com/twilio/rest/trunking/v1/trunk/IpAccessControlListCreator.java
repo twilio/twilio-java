@@ -18,18 +18,18 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
-    private final String trunkSid;
+    private final String pathTrunkSid;
     private final String ipAccessControlListSid;
 
     /**
      * Construct a new IpAccessControlListCreator.
      * 
-     * @param trunkSid The trunk_sid
+     * @param pathTrunkSid The trunk_sid
      * @param ipAccessControlListSid The ip_access_control_list_sid
      */
-    public IpAccessControlListCreator(final String trunkSid, 
+    public IpAccessControlListCreator(final String pathTrunkSid, 
                                       final String ipAccessControlListSid) {
-        this.trunkSid = trunkSid;
+        this.pathTrunkSid = pathTrunkSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
@@ -45,7 +45,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/IpAccessControlLists",
+            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists",
             client.getRegion()
         );
         

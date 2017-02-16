@@ -40,11 +40,11 @@ public class Event extends Resource {
     /**
      * Create a EventFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return EventFetcher capable of executing the fetch
      */
-    public static EventFetcher fetcher(final String sid) {
-        return new EventFetcher(sid);
+    public static EventFetcher fetcher(final String pathSid) {
+        return new EventFetcher(pathSid);
     }
 
     /**

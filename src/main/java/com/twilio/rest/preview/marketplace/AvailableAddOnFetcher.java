@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new AvailableAddOnFetcher.
      * 
-     * @param sid The unique Available Add-on Sid
+     * @param pathSid The unique Available Add-on Sid
      */
-    public AvailableAddOnFetcher(final String sid) {
-        this.sid = sid;
+    public AvailableAddOnFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.sid + "",
+            "/marketplace/AvailableAddOns/" + this.pathSid + "",
             client.getRegion()
         );
         

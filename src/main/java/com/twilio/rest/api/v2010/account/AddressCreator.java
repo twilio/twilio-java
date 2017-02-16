@@ -18,7 +18,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AddressCreator extends Creator<Address> {
-    private String accountSid;
+    private String pathAccountSid;
     private final String customerName;
     private final String street;
     private final String city;
@@ -55,7 +55,7 @@ public class AddressCreator extends Creator<Address> {
     /**
      * Construct a new AddressCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param customerName The customer_name
      * @param street The street
      * @param city The city
@@ -63,14 +63,14 @@ public class AddressCreator extends Creator<Address> {
      * @param postalCode The postal_code
      * @param isoCountry The iso_country
      */
-    public AddressCreator(final String accountSid, 
+    public AddressCreator(final String pathAccountSid, 
                           final String customerName, 
                           final String street, 
                           final String city, 
                           final String region, 
                           final String postalCode, 
                           final String isoCountry) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.customerName = customerName;
         this.street = street;
         this.city = city;
@@ -110,11 +110,11 @@ public class AddressCreator extends Creator<Address> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Address create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Addresses.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json",
             client.getRegion()
         );
         

@@ -20,28 +20,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class TranscriptionReader extends Reader<Transcription> {
-    private String accountSid;
-    private final String recordingSid;
+    private String pathAccountSid;
+    private final String pathRecordingSid;
 
     /**
      * Construct a new TranscriptionReader.
      * 
-     * @param recordingSid The recording_sid
+     * @param pathRecordingSid The recording_sid
      */
-    public TranscriptionReader(final String recordingSid) {
-        this.recordingSid = recordingSid;
+    public TranscriptionReader(final String pathRecordingSid) {
+        this.pathRecordingSid = pathRecordingSid;
     }
 
     /**
      * Construct a new TranscriptionReader.
      * 
-     * @param accountSid The account_sid
-     * @param recordingSid The recording_sid
+     * @param pathAccountSid The account_sid
+     * @param pathRecordingSid The recording_sid
      */
-    public TranscriptionReader(final String accountSid, 
-                               final String recordingSid) {
-        this.accountSid = accountSid;
-        this.recordingSid = recordingSid;
+    public TranscriptionReader(final String pathAccountSid, 
+                               final String pathRecordingSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathRecordingSid = pathRecordingSid;
     }
 
     /**
@@ -64,11 +64,11 @@ public class TranscriptionReader extends Reader<Transcription> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Transcription> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Recordings/" + this.recordingSid + "/Transcriptions.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathRecordingSid + "/Transcriptions.json",
             client.getRegion()
         );
         

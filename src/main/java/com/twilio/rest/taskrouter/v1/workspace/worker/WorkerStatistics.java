@@ -38,13 +38,13 @@ public class WorkerStatistics extends Resource {
     /**
      * Create a WorkerStatisticsFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param workerSid The worker_sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkerSid The worker_sid
      * @return WorkerStatisticsFetcher capable of executing the fetch
      */
-    public static WorkerStatisticsFetcher fetcher(final String workspaceSid, 
-                                                  final String workerSid) {
-        return new WorkerStatisticsFetcher(workspaceSid, workerSid);
+    public static WorkerStatisticsFetcher fetcher(final String pathWorkspaceSid, 
+                                                  final String pathWorkerSid) {
+        return new WorkerStatisticsFetcher(pathWorkspaceSid, pathWorkerSid);
     }
 
     /**

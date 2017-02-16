@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.LocalDate;
 
 public class AllTimeReader extends Reader<AllTime> {
-    private String accountSid;
+    private String pathAccountSid;
     private AllTime.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -36,10 +36,10 @@ public class AllTimeReader extends Reader<AllTime> {
     /**
      * Construct a new AllTimeReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public AllTimeReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public AllTimeReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -95,11 +95,11 @@ public class AllTimeReader extends Reader<AllTime> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<AllTime> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/AllTime.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/AllTime.json",
             client.getRegion()
         );
         

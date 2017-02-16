@@ -21,8 +21,8 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class OriginationUrlUpdater extends Updater<OriginationUrl> {
-    private final String trunkSid;
-    private final String sid;
+    private final String pathTrunkSid;
+    private final String pathSid;
     private Integer weight;
     private Integer priority;
     private Boolean enabled;
@@ -32,13 +32,13 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     /**
      * Construct a new OriginationUrlUpdater.
      * 
-     * @param trunkSid The trunk_sid
-     * @param sid The sid
+     * @param pathTrunkSid The trunk_sid
+     * @param pathSid The sid
      */
-    public OriginationUrlUpdater(final String trunkSid, 
-                                 final String sid) {
-        this.trunkSid = trunkSid;
-        this.sid = sid;
+    public OriginationUrlUpdater(final String pathTrunkSid, 
+                                 final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -118,7 +118,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/OriginationUrls/" + this.sid + "",
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls/" + this.pathSid + "",
             client.getRegion()
         );
         

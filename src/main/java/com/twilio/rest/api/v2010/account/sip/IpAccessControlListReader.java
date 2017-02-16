@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
-    private String accountSid;
+    private String pathAccountSid;
 
     /**
      * Construct a new IpAccessControlListReader.
@@ -31,10 +31,10 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     /**
      * Construct a new IpAccessControlListReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public IpAccessControlListReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public IpAccessControlListReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -57,11 +57,11 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<IpAccessControlList> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SIP/IpAccessControlLists.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists.json",
             client.getRegion()
         );
         

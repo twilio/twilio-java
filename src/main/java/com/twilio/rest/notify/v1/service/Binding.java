@@ -75,53 +75,53 @@ public class Binding extends Resource {
     /**
      * Create a BindingFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return BindingFetcher capable of executing the fetch
      */
-    public static BindingFetcher fetcher(final String serviceSid, 
-                                         final String sid) {
-        return new BindingFetcher(serviceSid, sid);
+    public static BindingFetcher fetcher(final String pathServiceSid, 
+                                         final String pathSid) {
+        return new BindingFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a BindingDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return BindingDeleter capable of executing the delete
      */
-    public static BindingDeleter deleter(final String serviceSid, 
-                                         final String sid) {
-        return new BindingDeleter(serviceSid, sid);
+    public static BindingDeleter deleter(final String pathServiceSid, 
+                                         final String pathSid) {
+        return new BindingDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a BindingCreator to execute create.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @param endpoint The endpoint
      * @param identity The identity
      * @param bindingType The binding_type
      * @param address The address
      * @return BindingCreator capable of executing the create
      */
-    public static BindingCreator creator(final String serviceSid, 
+    public static BindingCreator creator(final String pathServiceSid, 
                                          final String endpoint, 
                                          final String identity, 
                                          final Binding.BindingType bindingType, 
                                          final String address) {
-        return new BindingCreator(serviceSid, endpoint, identity, bindingType, address);
+        return new BindingCreator(pathServiceSid, endpoint, identity, bindingType, address);
     }
 
     /**
      * Create a BindingReader to execute read.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @return BindingReader capable of executing the read
      */
-    public static BindingReader reader(final String serviceSid) {
-        return new BindingReader(serviceSid);
+    public static BindingReader reader(final String pathServiceSid) {
+        return new BindingReader(pathServiceSid);
     }
 
     /**

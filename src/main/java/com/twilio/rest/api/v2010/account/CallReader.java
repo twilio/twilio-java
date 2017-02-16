@@ -23,7 +23,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 public class CallReader extends Reader<Call> {
-    private String accountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private String parentCallSid;
@@ -42,10 +42,10 @@ public class CallReader extends Reader<Call> {
     /**
      * Construct a new CallReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public CallReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public CallReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -160,11 +160,11 @@ public class CallReader extends Reader<Call> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Call> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json",
             client.getRegion()
         );
         

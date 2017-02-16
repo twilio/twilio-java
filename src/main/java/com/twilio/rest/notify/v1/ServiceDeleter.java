@@ -18,15 +18,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ServiceDeleter extends Deleter<Service> {
-    private final String sid;
+    private final String pathSid;
 
     /**
      * Construct a new ServiceDeleter.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public ServiceDeleter(final String sid) {
-        this.sid = sid;
+    public ServiceDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
@@ -40,7 +40,7 @@ public class ServiceDeleter extends Deleter<Service> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.sid + "",
+            "/v1/Services/" + this.pathSid + "",
             client.getRegion()
         );
         

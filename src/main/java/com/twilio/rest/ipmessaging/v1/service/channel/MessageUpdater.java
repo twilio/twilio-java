@@ -18,25 +18,25 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MessageUpdater extends Updater<Message> {
-    private final String serviceSid;
-    private final String channelSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathChannelSid;
+    private final String pathSid;
     private String body;
     private String attributes;
 
     /**
      * Construct a new MessageUpdater.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
-    public MessageUpdater(final String serviceSid, 
-                          final String channelSid, 
-                          final String sid) {
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
-        this.sid = sid;
+    public MessageUpdater(final String pathServiceSid, 
+                          final String pathChannelSid, 
+                          final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -73,7 +73,7 @@ public class MessageUpdater extends Updater<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Messages/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + "",
             client.getRegion()
         );
         

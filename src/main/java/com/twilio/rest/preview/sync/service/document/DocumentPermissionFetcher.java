@@ -18,24 +18,24 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
-    private final String serviceSid;
-    private final String documentSid;
-    private final String identity;
+    private final String pathServiceSid;
+    private final String pathDocumentSid;
+    private final String pathIdentity;
 
     /**
      * Construct a new DocumentPermissionFetcher.
      * 
-     * @param serviceSid The service_sid
-     * @param documentSid Sync Document SID or unique name.
-     * @param identity Identity of the user to whom the Sync Document Permission
-     *                 applies.
+     * @param pathServiceSid The service_sid
+     * @param pathDocumentSid Sync Document SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync Document
+     *                     Permission applies.
      */
-    public DocumentPermissionFetcher(final String serviceSid, 
-                                     final String documentSid, 
-                                     final String identity) {
-        this.serviceSid = serviceSid;
-        this.documentSid = documentSid;
-        this.identity = identity;
+    public DocumentPermissionFetcher(final String pathServiceSid, 
+                                     final String pathDocumentSid, 
+                                     final String pathIdentity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
+        this.pathIdentity = pathIdentity;
     }
 
     /**
@@ -50,7 +50,7 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Documents/" + this.documentSid + "/Permissions/" + this.identity + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + "",
             client.getRegion()
         );
         

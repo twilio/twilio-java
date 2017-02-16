@@ -20,15 +20,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtension> {
-    private final String installedAddOnSid;
+    private final String pathInstalledAddOnSid;
 
     /**
      * Construct a new InstalledAddOnExtensionReader.
      * 
-     * @param installedAddOnSid The installed_add_on_sid
+     * @param pathInstalledAddOnSid The installed_add_on_sid
      */
-    public InstalledAddOnExtensionReader(final String installedAddOnSid) {
-        this.installedAddOnSid = installedAddOnSid;
+    public InstalledAddOnExtensionReader(final String pathInstalledAddOnSid) {
+        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
     }
 
     /**
@@ -54,7 +54,7 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.installedAddOnSid + "/Extensions",
+            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions",
             client.getRegion()
         );
         

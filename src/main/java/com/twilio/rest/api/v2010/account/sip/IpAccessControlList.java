@@ -38,11 +38,11 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return IpAccessControlListReader capable of executing the read
      */
-    public static IpAccessControlListReader reader(final String accountSid) {
-        return new IpAccessControlListReader(accountSid);
+    public static IpAccessControlListReader reader(final String pathAccountSid) {
+        return new IpAccessControlListReader(pathAccountSid);
     }
 
     /**
@@ -57,13 +57,13 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator creator(final String accountSid, 
+    public static IpAccessControlListCreator creator(final String pathAccountSid, 
                                                      final String friendlyName) {
-        return new IpAccessControlListCreator(accountSid, friendlyName);
+        return new IpAccessControlListCreator(pathAccountSid, friendlyName);
     }
 
     /**
@@ -79,71 +79,71 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique ip-access-control-list Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique ip-access-control-list Sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetcher(final String accountSid, 
-                                                     final String sid) {
-        return new IpAccessControlListFetcher(accountSid, sid);
+    public static IpAccessControlListFetcher fetcher(final String pathAccountSid, 
+                                                     final String pathSid) {
+        return new IpAccessControlListFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique ip-access-control-list Sid
+     * @param pathSid Fetch by unique ip-access-control-list Sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetcher(final String sid) {
-        return new IpAccessControlListFetcher(sid);
+    public static IpAccessControlListFetcher fetcher(final String pathSid) {
+        return new IpAccessControlListFetcher(pathSid);
     }
 
     /**
      * Create a IpAccessControlListUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
-    public static IpAccessControlListUpdater updater(final String accountSid, 
-                                                     final String sid, 
+    public static IpAccessControlListUpdater updater(final String pathAccountSid, 
+                                                     final String pathSid, 
                                                      final String friendlyName) {
-        return new IpAccessControlListUpdater(accountSid, sid, friendlyName);
+        return new IpAccessControlListUpdater(pathAccountSid, pathSid, friendlyName);
     }
 
     /**
      * Create a IpAccessControlListUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
-    public static IpAccessControlListUpdater updater(final String sid, 
+    public static IpAccessControlListUpdater updater(final String pathSid, 
                                                      final String friendlyName) {
-        return new IpAccessControlListUpdater(sid, friendlyName);
+        return new IpAccessControlListUpdater(pathSid, friendlyName);
     }
 
     /**
      * Create a IpAccessControlListDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid Delete by unique ip-access-control-list Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Delete by unique ip-access-control-list Sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter deleter(final String accountSid, 
-                                                     final String sid) {
-        return new IpAccessControlListDeleter(accountSid, sid);
+    public static IpAccessControlListDeleter deleter(final String pathAccountSid, 
+                                                     final String pathSid) {
+        return new IpAccessControlListDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListDeleter to execute delete.
      * 
-     * @param sid Delete by unique ip-access-control-list Sid
+     * @param pathSid Delete by unique ip-access-control-list Sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter deleter(final String sid) {
-        return new IpAccessControlListDeleter(sid);
+    public static IpAccessControlListDeleter deleter(final String pathSid) {
+        return new IpAccessControlListDeleter(pathSid);
     }
 
     /**

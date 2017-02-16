@@ -161,11 +161,11 @@ public class AllTime extends Resource {
     /**
      * Create a AllTimeReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return AllTimeReader capable of executing the read
      */
-    public static AllTimeReader reader(final String accountSid) {
-        return new AllTimeReader(accountSid);
+    public static AllTimeReader reader(final String pathAccountSid) {
+        return new AllTimeReader(pathAccountSid);
     }
 
     /**

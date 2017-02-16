@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class FeedbackFetcher extends Fetcher<Feedback> {
-    private String accountSid;
-    private final String callSid;
+    private String pathAccountSid;
+    private final String pathCallSid;
 
     /**
      * Construct a new FeedbackFetcher.
      * 
-     * @param callSid The call sid that uniquely identifies the call
+     * @param pathCallSid The call sid that uniquely identifies the call
      */
-    public FeedbackFetcher(final String callSid) {
-        this.callSid = callSid;
+    public FeedbackFetcher(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
     /**
      * Construct a new FeedbackFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param callSid The call sid that uniquely identifies the call
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call sid that uniquely identifies the call
      */
-    public FeedbackFetcher(final String accountSid, 
-                           final String callSid) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public FeedbackFetcher(final String pathAccountSid, 
+                           final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     /**
@@ -51,11 +51,11 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Feedback fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.callSid + "/Feedback.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Feedback.json",
             client.getRegion()
         );
         

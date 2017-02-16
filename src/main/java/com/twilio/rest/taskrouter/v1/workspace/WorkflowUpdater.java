@@ -21,8 +21,8 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class WorkflowUpdater extends Updater<Workflow> {
-    private final String workspaceSid;
-    private final String sid;
+    private final String pathWorkspaceSid;
+    private final String pathSid;
     private String friendlyName;
     private URI assignmentCallbackUrl;
     private URI fallbackAssignmentCallbackUrl;
@@ -32,13 +32,13 @@ public class WorkflowUpdater extends Updater<Workflow> {
     /**
      * Construct a new WorkflowUpdater.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      */
-    public WorkflowUpdater(final String workspaceSid, 
-                           final String sid) {
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public WorkflowUpdater(final String pathWorkspaceSid, 
+                           final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -128,7 +128,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Workflows/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + "",
             client.getRegion()
         );
         

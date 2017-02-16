@@ -38,11 +38,11 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return CredentialListReader capable of executing the read
      */
-    public static CredentialListReader reader(final String accountSid) {
-        return new CredentialListReader(accountSid);
+    public static CredentialListReader reader(final String pathAccountSid) {
+        return new CredentialListReader(pathAccountSid);
     }
 
     /**
@@ -57,13 +57,13 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param friendlyName The friendly_name
      * @return CredentialListCreator capable of executing the create
      */
-    public static CredentialListCreator creator(final String accountSid, 
+    public static CredentialListCreator creator(final String pathAccountSid, 
                                                 final String friendlyName) {
-        return new CredentialListCreator(accountSid, friendlyName);
+        return new CredentialListCreator(pathAccountSid, friendlyName);
     }
 
     /**
@@ -79,71 +79,71 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique credential Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique credential Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetcher(final String accountSid, 
-                                                final String sid) {
-        return new CredentialListFetcher(accountSid, sid);
+    public static CredentialListFetcher fetcher(final String pathAccountSid, 
+                                                final String pathSid) {
+        return new CredentialListFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CredentialListFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique credential Sid
+     * @param pathSid Fetch by unique credential Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetcher(final String sid) {
-        return new CredentialListFetcher(sid);
+    public static CredentialListFetcher fetcher(final String pathSid) {
+        return new CredentialListFetcher(pathSid);
     }
 
     /**
      * Create a CredentialListUpdater to execute update.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      * @param friendlyName The friendly_name
      * @return CredentialListUpdater capable of executing the update
      */
-    public static CredentialListUpdater updater(final String accountSid, 
-                                                final String sid, 
+    public static CredentialListUpdater updater(final String pathAccountSid, 
+                                                final String pathSid, 
                                                 final String friendlyName) {
-        return new CredentialListUpdater(accountSid, sid, friendlyName);
+        return new CredentialListUpdater(pathAccountSid, pathSid, friendlyName);
     }
 
     /**
      * Create a CredentialListUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @param friendlyName The friendly_name
      * @return CredentialListUpdater capable of executing the update
      */
-    public static CredentialListUpdater updater(final String sid, 
+    public static CredentialListUpdater updater(final String pathSid, 
                                                 final String friendlyName) {
-        return new CredentialListUpdater(sid, friendlyName);
+        return new CredentialListUpdater(pathSid, friendlyName);
     }
 
     /**
      * Create a CredentialListDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid Delete by unique credential Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Delete by unique credential Sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter deleter(final String accountSid, 
-                                                final String sid) {
-        return new CredentialListDeleter(accountSid, sid);
+    public static CredentialListDeleter deleter(final String pathAccountSid, 
+                                                final String pathSid) {
+        return new CredentialListDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CredentialListDeleter to execute delete.
      * 
-     * @param sid Delete by unique credential Sid
+     * @param pathSid Delete by unique credential Sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter deleter(final String sid) {
-        return new CredentialListDeleter(sid);
+    public static CredentialListDeleter deleter(final String pathSid) {
+        return new CredentialListDeleter(pathSid);
     }
 
     /**

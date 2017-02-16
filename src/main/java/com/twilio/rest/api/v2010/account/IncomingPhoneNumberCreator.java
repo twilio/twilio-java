@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
-    private String ownerAccountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String areaCode;
     private String apiVersion;
@@ -55,12 +55,12 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberCreator.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @param phoneNumber The phone number
      */
-    public IncomingPhoneNumberCreator(final String ownerAccountSid, 
+    public IncomingPhoneNumberCreator(final String pathAccountSid, 
                                       final com.twilio.type.PhoneNumber phoneNumber) {
-        this.ownerAccountSid = ownerAccountSid;
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -76,12 +76,12 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberCreator.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @param areaCode The desired area code for the new number
      */
-    public IncomingPhoneNumberCreator(final String ownerAccountSid, 
+    public IncomingPhoneNumberCreator(final String pathAccountSid, 
                                       final String areaCode) {
-        this.ownerAccountSid = ownerAccountSid;
+        this.pathAccountSid = pathAccountSid;
         this.areaCode = areaCode;
     }
 
@@ -399,11 +399,11 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public IncomingPhoneNumber create(final TwilioRestClient client) {
-        this.ownerAccountSid = this.ownerAccountSid == null ? client.getAccountSid() : this.ownerAccountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.ownerAccountSid + "/IncomingPhoneNumbers.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers.json",
             client.getRegion()
         );
         

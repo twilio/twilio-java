@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class ApplicationCreator extends Creator<Application> {
-    private String accountSid;
+    private String pathAccountSid;
     private final String friendlyName;
     private String apiVersion;
     private URI voiceUrl;
@@ -50,12 +50,12 @@ public class ApplicationCreator extends Creator<Application> {
     /**
      * Construct a new ApplicationCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param friendlyName Human readable description of this resource
      */
-    public ApplicationCreator(final String accountSid, 
+    public ApplicationCreator(final String pathAccountSid, 
                               final String friendlyName) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
@@ -319,11 +319,11 @@ public class ApplicationCreator extends Creator<Application> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Application create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Applications.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications.json",
             client.getRegion()
         );
         

@@ -18,20 +18,20 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ActivityUpdater extends Updater<Activity> {
-    private final String workspaceSid;
-    private final String sid;
+    private final String pathWorkspaceSid;
+    private final String pathSid;
     private String friendlyName;
 
     /**
      * Construct a new ActivityUpdater.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      */
-    public ActivityUpdater(final String workspaceSid, 
-                           final String sid) {
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public ActivityUpdater(final String pathWorkspaceSid, 
+                           final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -57,7 +57,7 @@ public class ActivityUpdater extends Updater<Activity> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.workspaceSid + "/Activities/" + this.sid + "",
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities/" + this.pathSid + "",
             client.getRegion()
         );
         

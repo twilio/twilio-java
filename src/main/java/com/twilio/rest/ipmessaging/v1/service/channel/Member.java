@@ -39,69 +39,69 @@ public class Member extends Resource {
     /**
      * Create a MemberFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MemberFetcher capable of executing the fetch
      */
-    public static MemberFetcher fetcher(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String sid) {
-        return new MemberFetcher(serviceSid, channelSid, sid);
+    public static MemberFetcher fetcher(final String pathServiceSid, 
+                                        final String pathChannelSid, 
+                                        final String pathSid) {
+        return new MemberFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MemberCreator to execute create.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @param identity The identity
      * @return MemberCreator capable of executing the create
      */
-    public static MemberCreator creator(final String serviceSid, 
-                                        final String channelSid, 
+    public static MemberCreator creator(final String pathServiceSid, 
+                                        final String pathChannelSid, 
                                         final String identity) {
-        return new MemberCreator(serviceSid, channelSid, identity);
+        return new MemberCreator(pathServiceSid, pathChannelSid, identity);
     }
 
     /**
      * Create a MemberReader to execute read.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @return MemberReader capable of executing the read
      */
-    public static MemberReader reader(final String serviceSid, 
-                                      final String channelSid) {
-        return new MemberReader(serviceSid, channelSid);
+    public static MemberReader reader(final String pathServiceSid, 
+                                      final String pathChannelSid) {
+        return new MemberReader(pathServiceSid, pathChannelSid);
     }
 
     /**
      * Create a MemberDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MemberDeleter capable of executing the delete
      */
-    public static MemberDeleter deleter(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String sid) {
-        return new MemberDeleter(serviceSid, channelSid, sid);
+    public static MemberDeleter deleter(final String pathServiceSid, 
+                                        final String pathChannelSid, 
+                                        final String pathSid) {
+        return new MemberDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MemberUpdater to execute update.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MemberUpdater capable of executing the update
      */
-    public static MemberUpdater updater(final String serviceSid, 
-                                        final String channelSid, 
-                                        final String sid) {
-        return new MemberUpdater(serviceSid, channelSid, sid);
+    public static MemberUpdater updater(final String pathServiceSid, 
+                                        final String pathChannelSid, 
+                                        final String pathSid) {
+        return new MemberUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**

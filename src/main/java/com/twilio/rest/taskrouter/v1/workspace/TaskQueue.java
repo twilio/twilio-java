@@ -71,63 +71,63 @@ public class TaskQueue extends Resource {
     /**
      * Create a TaskQueueFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return TaskQueueFetcher capable of executing the fetch
      */
-    public static TaskQueueFetcher fetcher(final String workspaceSid, 
-                                           final String sid) {
-        return new TaskQueueFetcher(workspaceSid, sid);
+    public static TaskQueueFetcher fetcher(final String pathWorkspaceSid, 
+                                           final String pathSid) {
+        return new TaskQueueFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskQueueUpdater to execute update.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return TaskQueueUpdater capable of executing the update
      */
-    public static TaskQueueUpdater updater(final String workspaceSid, 
-                                           final String sid) {
-        return new TaskQueueUpdater(workspaceSid, sid);
+    public static TaskQueueUpdater updater(final String pathWorkspaceSid, 
+                                           final String pathSid) {
+        return new TaskQueueUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskQueueReader to execute read.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @return TaskQueueReader capable of executing the read
      */
-    public static TaskQueueReader reader(final String workspaceSid) {
-        return new TaskQueueReader(workspaceSid);
+    public static TaskQueueReader reader(final String pathWorkspaceSid) {
+        return new TaskQueueReader(pathWorkspaceSid);
     }
 
     /**
      * Create a TaskQueueCreator to execute create.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @param reservationActivitySid The reservation_activity_sid
      * @param assignmentActivitySid The assignment_activity_sid
      * @return TaskQueueCreator capable of executing the create
      */
-    public static TaskQueueCreator creator(final String workspaceSid, 
+    public static TaskQueueCreator creator(final String pathWorkspaceSid, 
                                            final String friendlyName, 
                                            final String reservationActivitySid, 
                                            final String assignmentActivitySid) {
-        return new TaskQueueCreator(workspaceSid, friendlyName, reservationActivitySid, assignmentActivitySid);
+        return new TaskQueueCreator(pathWorkspaceSid, friendlyName, reservationActivitySid, assignmentActivitySid);
     }
 
     /**
      * Create a TaskQueueDeleter to execute delete.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return TaskQueueDeleter capable of executing the delete
      */
-    public static TaskQueueDeleter deleter(final String workspaceSid, 
-                                           final String sid) {
-        return new TaskQueueDeleter(workspaceSid, sid);
+    public static TaskQueueDeleter deleter(final String pathWorkspaceSid, 
+                                           final String pathSid) {
+        return new TaskQueueDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**

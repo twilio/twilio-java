@@ -38,11 +38,11 @@ public class WorkspaceStatistics extends Resource {
     /**
      * Create a WorkspaceStatisticsFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @return WorkspaceStatisticsFetcher capable of executing the fetch
      */
-    public static WorkspaceStatisticsFetcher fetcher(final String workspaceSid) {
-        return new WorkspaceStatisticsFetcher(workspaceSid);
+    public static WorkspaceStatisticsFetcher fetcher(final String pathWorkspaceSid) {
+        return new WorkspaceStatisticsFetcher(pathWorkspaceSid);
     }
 
     /**

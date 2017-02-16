@@ -20,28 +20,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
-    private String accountSid;
-    private final String addressSid;
+    private String pathAccountSid;
+    private final String pathAddressSid;
 
     /**
      * Construct a new DependentPhoneNumberReader.
      * 
-     * @param addressSid The address_sid
+     * @param pathAddressSid The address_sid
      */
-    public DependentPhoneNumberReader(final String addressSid) {
-        this.addressSid = addressSid;
+    public DependentPhoneNumberReader(final String pathAddressSid) {
+        this.pathAddressSid = pathAddressSid;
     }
 
     /**
      * Construct a new DependentPhoneNumberReader.
      * 
-     * @param accountSid The account_sid
-     * @param addressSid The address_sid
+     * @param pathAccountSid The account_sid
+     * @param pathAddressSid The address_sid
      */
-    public DependentPhoneNumberReader(final String accountSid, 
-                                      final String addressSid) {
-        this.accountSid = accountSid;
-        this.addressSid = addressSid;
+    public DependentPhoneNumberReader(final String pathAccountSid, 
+                                      final String pathAddressSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathAddressSid = pathAddressSid;
     }
 
     /**
@@ -64,11 +64,11 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<DependentPhoneNumber> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Addresses/" + this.addressSid + "/DependentPhoneNumbers.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses/" + this.pathAddressSid + "/DependentPhoneNumbers.json",
             client.getRegion()
         );
         

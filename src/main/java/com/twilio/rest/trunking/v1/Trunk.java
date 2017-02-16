@@ -41,21 +41,21 @@ public class Trunk extends Resource {
     /**
      * Create a TrunkFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return TrunkFetcher capable of executing the fetch
      */
-    public static TrunkFetcher fetcher(final String sid) {
-        return new TrunkFetcher(sid);
+    public static TrunkFetcher fetcher(final String pathSid) {
+        return new TrunkFetcher(pathSid);
     }
 
     /**
      * Create a TrunkDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return TrunkDeleter capable of executing the delete
      */
-    public static TrunkDeleter deleter(final String sid) {
-        return new TrunkDeleter(sid);
+    public static TrunkDeleter deleter(final String pathSid) {
+        return new TrunkDeleter(pathSid);
     }
 
     /**
@@ -79,11 +79,11 @@ public class Trunk extends Resource {
     /**
      * Create a TrunkUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return TrunkUpdater capable of executing the update
      */
-    public static TrunkUpdater updater(final String sid) {
-        return new TrunkUpdater(sid);
+    public static TrunkUpdater updater(final String pathSid) {
+        return new TrunkUpdater(pathSid);
     }
 
     /**

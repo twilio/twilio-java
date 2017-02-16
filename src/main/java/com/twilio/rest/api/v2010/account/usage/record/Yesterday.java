@@ -161,11 +161,11 @@ public class Yesterday extends Resource {
     /**
      * Create a YesterdayReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return YesterdayReader capable of executing the read
      */
-    public static YesterdayReader reader(final String accountSid) {
-        return new YesterdayReader(accountSid);
+    public static YesterdayReader reader(final String pathAccountSid) {
+        return new YesterdayReader(pathAccountSid);
     }
 
     /**

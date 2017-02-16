@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class RoleDeleter extends Deleter<Role> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new RoleDeleter.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public RoleDeleter(final String serviceSid, 
-                       final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public RoleDeleter(final String pathServiceSid, 
+                       final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,7 +44,7 @@ public class RoleDeleter extends Deleter<Role> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Roles/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + "",
             client.getRegion()
         );
         

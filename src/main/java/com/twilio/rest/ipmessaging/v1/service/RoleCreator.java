@@ -20,7 +20,7 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class RoleCreator extends Creator<Role> {
-    private final String serviceSid;
+    private final String pathServiceSid;
     private final String friendlyName;
     private final Role.RoleType type;
     private final List<String> permission;
@@ -28,16 +28,16 @@ public class RoleCreator extends Creator<Role> {
     /**
      * Construct a new RoleCreator.
      * 
-     * @param serviceSid The service_sid
+     * @param pathServiceSid The service_sid
      * @param friendlyName The friendly_name
      * @param type The type
      * @param permission The permission
      */
-    public RoleCreator(final String serviceSid, 
+    public RoleCreator(final String pathServiceSid, 
                        final String friendlyName, 
                        final Role.RoleType type, 
                        final List<String> permission) {
-        this.serviceSid = serviceSid;
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
         this.type = type;
         this.permission = permission;
@@ -55,7 +55,7 @@ public class RoleCreator extends Creator<Role> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Roles",
+            "/v1/Services/" + this.pathServiceSid + "/Roles",
             client.getRegion()
         );
         

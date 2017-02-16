@@ -18,23 +18,23 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
-    private final String serviceSid;
-    private final String mapSid;
-    private final String key;
+    private final String pathServiceSid;
+    private final String pathMapSid;
+    private final String pathKey;
 
     /**
      * Construct a new SyncMapItemFetcher.
      * 
-     * @param serviceSid The service_sid
-     * @param mapSid The map_sid
-     * @param key The key
+     * @param pathServiceSid The service_sid
+     * @param pathMapSid The map_sid
+     * @param pathKey The key
      */
-    public SyncMapItemFetcher(final String serviceSid, 
-                              final String mapSid, 
-                              final String key) {
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
-        this.key = key;
+    public SyncMapItemFetcher(final String pathServiceSid, 
+                              final String pathMapSid, 
+                              final String pathKey) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
+        this.pathKey = pathKey;
     }
 
     /**
@@ -49,7 +49,7 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Maps/" + this.mapSid + "/Items/" + this.key + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + "",
             client.getRegion()
         );
         

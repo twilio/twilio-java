@@ -23,7 +23,7 @@ import java.net.URI;
 import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
-    private String accountSid;
+    private String pathAccountSid;
     private final com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private String messagingServiceSid;
@@ -52,16 +52,16 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param to The phone number to receive the message
      * @param from The phone number that initiated the message
      * @param body The body
      */
-    public MessageCreator(final String accountSid, 
+    public MessageCreator(final String pathAccountSid, 
                           final com.twilio.type.PhoneNumber to, 
                           final com.twilio.type.PhoneNumber from, 
                           final String body) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.body = body;
@@ -85,16 +85,16 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param to The phone number to receive the message
      * @param from The phone number that initiated the message
      * @param mediaUrl The media_url
      */
-    public MessageCreator(final String accountSid, 
+    public MessageCreator(final String pathAccountSid, 
                           final com.twilio.type.PhoneNumber to, 
                           final com.twilio.type.PhoneNumber from, 
                           final List<URI> mediaUrl) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.mediaUrl = mediaUrl;
@@ -118,16 +118,16 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param to The phone number to receive the message
      * @param messagingServiceSid The messaging_service_sid
      * @param body The body
      */
-    public MessageCreator(final String accountSid, 
+    public MessageCreator(final String pathAccountSid, 
                           final com.twilio.type.PhoneNumber to, 
                           final String messagingServiceSid, 
                           final String body) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.body = body;
@@ -151,16 +151,16 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param to The phone number to receive the message
      * @param messagingServiceSid The messaging_service_sid
      * @param mediaUrl The media_url
      */
-    public MessageCreator(final String accountSid, 
+    public MessageCreator(final String pathAccountSid, 
                           final com.twilio.type.PhoneNumber to, 
                           final String messagingServiceSid, 
                           final List<URI> mediaUrl) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.mediaUrl = mediaUrl;
@@ -295,11 +295,11 @@ public class MessageCreator extends Creator<Message> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Message create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Messages.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages.json",
             client.getRegion()
         );
         

@@ -20,7 +20,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class TriggerCreator extends Creator<Trigger> {
-    private String accountSid;
+    private String pathAccountSid;
     private final URI callbackUrl;
     private final String triggerValue;
     private final Trigger.UsageCategory usageCategory;
@@ -47,16 +47,16 @@ public class TriggerCreator extends Creator<Trigger> {
     /**
      * Construct a new TriggerCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param callbackUrl URL Twilio will request when the trigger fires
      * @param triggerValue the value at which the trigger will fire
      * @param usageCategory The usage category the trigger watches
      */
-    public TriggerCreator(final String accountSid, 
+    public TriggerCreator(final String pathAccountSid, 
                           final URI callbackUrl, 
                           final String triggerValue, 
                           final Trigger.UsageCategory usageCategory) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
         this.usageCategory = usageCategory;
@@ -119,11 +119,11 @@ public class TriggerCreator extends Creator<Trigger> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Trigger create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Triggers.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers.json",
             client.getRegion()
         );
         

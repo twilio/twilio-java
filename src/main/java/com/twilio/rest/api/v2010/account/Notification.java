@@ -39,55 +39,55 @@ public class Notification extends Resource {
     /**
      * Create a NotificationFetcher to execute fetch.
      * 
-     * @param accountSid The account_sid
-     * @param sid Fetch by unique notification Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique notification Sid
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetcher(final String accountSid, 
-                                              final String sid) {
-        return new NotificationFetcher(accountSid, sid);
+    public static NotificationFetcher fetcher(final String pathAccountSid, 
+                                              final String pathSid) {
+        return new NotificationFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a NotificationFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique notification Sid
+     * @param pathSid Fetch by unique notification Sid
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetcher(final String sid) {
-        return new NotificationFetcher(sid);
+    public static NotificationFetcher fetcher(final String pathSid) {
+        return new NotificationFetcher(pathSid);
     }
 
     /**
      * Create a NotificationDeleter to execute delete.
      * 
-     * @param accountSid The account_sid
-     * @param sid Delete by unique notification Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Delete by unique notification Sid
      * @return NotificationDeleter capable of executing the delete
      */
-    public static NotificationDeleter deleter(final String accountSid, 
-                                              final String sid) {
-        return new NotificationDeleter(accountSid, sid);
+    public static NotificationDeleter deleter(final String pathAccountSid, 
+                                              final String pathSid) {
+        return new NotificationDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a NotificationDeleter to execute delete.
      * 
-     * @param sid Delete by unique notification Sid
+     * @param pathSid Delete by unique notification Sid
      * @return NotificationDeleter capable of executing the delete
      */
-    public static NotificationDeleter deleter(final String sid) {
-        return new NotificationDeleter(sid);
+    public static NotificationDeleter deleter(final String pathSid) {
+        return new NotificationDeleter(pathSid);
     }
 
     /**
      * Create a NotificationReader to execute read.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return NotificationReader capable of executing the read
      */
-    public static NotificationReader reader(final String accountSid) {
-        return new NotificationReader(accountSid);
+    public static NotificationReader reader(final String pathAccountSid) {
+        return new NotificationReader(pathAccountSid);
     }
 
     /**

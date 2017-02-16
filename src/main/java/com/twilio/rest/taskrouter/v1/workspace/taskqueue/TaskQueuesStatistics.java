@@ -37,11 +37,11 @@ public class TaskQueuesStatistics extends Resource {
     /**
      * Create a TaskQueuesStatisticsReader to execute read.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @return TaskQueuesStatisticsReader capable of executing the read
      */
-    public static TaskQueuesStatisticsReader reader(final String workspaceSid) {
-        return new TaskQueuesStatisticsReader(workspaceSid);
+    public static TaskQueuesStatisticsReader reader(final String pathWorkspaceSid) {
+        return new TaskQueuesStatisticsReader(pathWorkspaceSid);
     }
 
     /**

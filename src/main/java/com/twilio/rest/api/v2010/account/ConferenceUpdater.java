@@ -18,29 +18,29 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ConferenceUpdater extends Updater<Conference> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
     private Conference.UpdateStatus status;
 
     /**
      * Construct a new ConferenceUpdater.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      */
-    public ConferenceUpdater(final String sid) {
-        this.sid = sid;
+    public ConferenceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new ConferenceUpdater.
      * 
-     * @param accountSid The account_sid
-     * @param sid The sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid The sid
      */
-    public ConferenceUpdater(final String accountSid, 
-                             final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public ConferenceUpdater(final String pathAccountSid, 
+                             final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -63,11 +63,11 @@ public class ConferenceUpdater extends Updater<Conference> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Conference update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Conferences/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathSid + ".json",
             client.getRegion()
         );
         

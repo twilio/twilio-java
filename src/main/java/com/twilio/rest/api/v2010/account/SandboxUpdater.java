@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class SandboxUpdater extends Updater<Sandbox> {
-    private String accountSid;
+    private String pathAccountSid;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
     private URI smsUrl;
@@ -38,10 +38,10 @@ public class SandboxUpdater extends Updater<Sandbox> {
     /**
      * Construct a new SandboxUpdater.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public SandboxUpdater(final String accountSid) {
-        this.accountSid = accountSid;
+    public SandboxUpdater(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -149,11 +149,11 @@ public class SandboxUpdater extends Updater<Sandbox> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Sandbox update(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Sandbox.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Sandbox.json",
             client.getRegion()
         );
         

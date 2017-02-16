@@ -18,8 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MessageCreator extends Creator<Message> {
-    private final String serviceSid;
-    private final String channelSid;
+    private final String pathServiceSid;
+    private final String pathChannelSid;
     private final String body;
     private String from;
     private String attributes;
@@ -27,15 +27,15 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @param body The body
      */
-    public MessageCreator(final String serviceSid, 
-                          final String channelSid, 
+    public MessageCreator(final String pathServiceSid, 
+                          final String pathChannelSid, 
                           final String body) {
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
         this.body = body;
     }
 
@@ -73,7 +73,7 @@ public class MessageCreator extends Creator<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Messages",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages",
             client.getRegion()
         );
         

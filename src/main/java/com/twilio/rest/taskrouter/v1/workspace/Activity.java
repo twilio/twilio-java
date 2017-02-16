@@ -39,59 +39,59 @@ public class Activity extends Resource {
     /**
      * Create a ActivityFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return ActivityFetcher capable of executing the fetch
      */
-    public static ActivityFetcher fetcher(final String workspaceSid, 
-                                          final String sid) {
-        return new ActivityFetcher(workspaceSid, sid);
+    public static ActivityFetcher fetcher(final String pathWorkspaceSid, 
+                                          final String pathSid) {
+        return new ActivityFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a ActivityUpdater to execute update.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return ActivityUpdater capable of executing the update
      */
-    public static ActivityUpdater updater(final String workspaceSid, 
-                                          final String sid) {
-        return new ActivityUpdater(workspaceSid, sid);
+    public static ActivityUpdater updater(final String pathWorkspaceSid, 
+                                          final String pathSid) {
+        return new ActivityUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a ActivityDeleter to execute delete.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return ActivityDeleter capable of executing the delete
      */
-    public static ActivityDeleter deleter(final String workspaceSid, 
-                                          final String sid) {
-        return new ActivityDeleter(workspaceSid, sid);
+    public static ActivityDeleter deleter(final String pathWorkspaceSid, 
+                                          final String pathSid) {
+        return new ActivityDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a ActivityReader to execute read.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @return ActivityReader capable of executing the read
      */
-    public static ActivityReader reader(final String workspaceSid) {
-        return new ActivityReader(workspaceSid);
+    public static ActivityReader reader(final String pathWorkspaceSid) {
+        return new ActivityReader(pathWorkspaceSid);
     }
 
     /**
      * Create a ActivityCreator to execute create.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName The friendly_name
      * @return ActivityCreator capable of executing the create
      */
-    public static ActivityCreator creator(final String workspaceSid, 
+    public static ActivityCreator creator(final String pathWorkspaceSid, 
                                           final String friendlyName) {
-        return new ActivityCreator(workspaceSid, friendlyName);
+        return new ActivityCreator(pathWorkspaceSid, friendlyName);
     }
 
     /**

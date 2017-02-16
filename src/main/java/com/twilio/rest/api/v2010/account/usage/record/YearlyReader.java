@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.LocalDate;
 
 public class YearlyReader extends Reader<Yearly> {
-    private String accountSid;
+    private String pathAccountSid;
     private Yearly.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -36,10 +36,10 @@ public class YearlyReader extends Reader<Yearly> {
     /**
      * Construct a new YearlyReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public YearlyReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public YearlyReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -95,11 +95,11 @@ public class YearlyReader extends Reader<Yearly> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Yearly> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Usage/Records/Yearly.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/Yearly.json",
             client.getRegion()
         );
         

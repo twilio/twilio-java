@@ -20,7 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ShortCodeReader extends Reader<ShortCode> {
-    private String accountSid;
+    private String pathAccountSid;
     private String friendlyName;
     private String shortCode;
 
@@ -33,10 +33,10 @@ public class ShortCodeReader extends Reader<ShortCode> {
     /**
      * Construct a new ShortCodeReader.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      */
-    public ShortCodeReader(final String accountSid) {
-        this.accountSid = accountSid;
+    public ShortCodeReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
@@ -83,11 +83,11 @@ public class ShortCodeReader extends Reader<ShortCode> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<ShortCode> firstPage(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/SMS/ShortCodes.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SMS/ShortCodes.json",
             client.getRegion()
         );
         

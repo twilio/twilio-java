@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialListDeleter extends Deleter<CredentialList> {
-    private final String trunkSid;
-    private final String sid;
+    private final String pathTrunkSid;
+    private final String pathSid;
 
     /**
      * Construct a new CredentialListDeleter.
      * 
-     * @param trunkSid The trunk_sid
-     * @param sid The sid
+     * @param pathTrunkSid The trunk_sid
+     * @param pathSid The sid
      */
-    public CredentialListDeleter(final String trunkSid, 
-                                 final String sid) {
-        this.trunkSid = trunkSid;
-        this.sid = sid;
+    public CredentialListDeleter(final String pathTrunkSid, 
+                                 final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,7 +44,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.trunkSid + "/CredentialLists/" + this.sid + "",
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + "",
             client.getRegion()
         );
         

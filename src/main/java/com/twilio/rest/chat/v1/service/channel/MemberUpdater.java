@@ -18,25 +18,25 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MemberUpdater extends Updater<Member> {
-    private final String serviceSid;
-    private final String channelSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathChannelSid;
+    private final String pathSid;
     private String roleSid;
     private Integer lastConsumedMessageIndex;
 
     /**
      * Construct a new MemberUpdater.
      * 
-     * @param serviceSid The service_sid
-     * @param channelSid The channel_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
-    public MemberUpdater(final String serviceSid, 
-                         final String channelSid, 
-                         final String sid) {
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
-        this.sid = sid;
+    public MemberUpdater(final String pathServiceSid, 
+                         final String pathChannelSid, 
+                         final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -73,7 +73,7 @@ public class MemberUpdater extends Updater<Member> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.serviceSid + "/Channels/" + this.channelSid + "/Members/" + this.sid + "",
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + "",
             client.getRegion()
         );
         

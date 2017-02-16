@@ -18,28 +18,28 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CallFetcher extends Fetcher<Call> {
-    private String accountSid;
-    private final String sid;
+    private String pathAccountSid;
+    private final String pathSid;
 
     /**
      * Construct a new CallFetcher.
      * 
-     * @param sid Call Sid that uniquely identifies the Call to fetch
+     * @param pathSid Call Sid that uniquely identifies the Call to fetch
      */
-    public CallFetcher(final String sid) {
-        this.sid = sid;
+    public CallFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Construct a new CallFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param sid Call Sid that uniquely identifies the Call to fetch
+     * @param pathAccountSid The account_sid
+     * @param pathSid Call Sid that uniquely identifies the Call to fetch
      */
-    public CallFetcher(final String accountSid, 
-                       final String sid) {
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public CallFetcher(final String pathAccountSid, 
+                       final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -51,11 +51,11 @@ public class CallFetcher extends Fetcher<Call> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Call fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls/" + this.sid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathSid + ".json",
             client.getRegion()
         );
         

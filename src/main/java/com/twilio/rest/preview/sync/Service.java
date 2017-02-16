@@ -39,21 +39,21 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return ServiceFetcher capable of executing the fetch
      */
-    public static ServiceFetcher fetcher(final String sid) {
-        return new ServiceFetcher(sid);
+    public static ServiceFetcher fetcher(final String pathSid) {
+        return new ServiceFetcher(pathSid);
     }
 
     /**
      * Create a ServiceDeleter to execute delete.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return ServiceDeleter capable of executing the delete
      */
-    public static ServiceDeleter deleter(final String sid) {
-        return new ServiceDeleter(sid);
+    public static ServiceDeleter deleter(final String pathSid) {
+        return new ServiceDeleter(pathSid);
     }
 
     /**
@@ -77,11 +77,11 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return ServiceUpdater capable of executing the update
      */
-    public static ServiceUpdater updater(final String sid) {
-        return new ServiceUpdater(sid);
+    public static ServiceUpdater updater(final String pathSid) {
+        return new ServiceUpdater(pathSid);
     }
 
     /**

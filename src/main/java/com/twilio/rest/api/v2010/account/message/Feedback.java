@@ -70,23 +70,23 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackCreator to execute create.
      * 
-     * @param accountSid The account_sid
-     * @param messageSid The message_sid
+     * @param pathAccountSid The account_sid
+     * @param pathMessageSid The message_sid
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator creator(final String accountSid, 
-                                          final String messageSid) {
-        return new FeedbackCreator(accountSid, messageSid);
+    public static FeedbackCreator creator(final String pathAccountSid, 
+                                          final String pathMessageSid) {
+        return new FeedbackCreator(pathAccountSid, pathMessageSid);
     }
 
     /**
      * Create a FeedbackCreator to execute create.
      * 
-     * @param messageSid The message_sid
+     * @param pathMessageSid The message_sid
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator creator(final String messageSid) {
-        return new FeedbackCreator(messageSid);
+    public static FeedbackCreator creator(final String pathMessageSid) {
+        return new FeedbackCreator(pathMessageSid);
     }
 
     /**

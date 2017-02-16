@@ -22,8 +22,8 @@ import java.net.URI;
 import java.util.List;
 
 public class ParticipantCreator extends Creator<Participant> {
-    private String accountSid;
-    private final String conferenceSid;
+    private String pathAccountSid;
+    private final String pathConferenceSid;
     private final com.twilio.type.PhoneNumber from;
     private final com.twilio.type.PhoneNumber to;
     private URI statusCallback;
@@ -48,14 +48,14 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * Construct a new ParticipantCreator.
      * 
-     * @param conferenceSid The conference_sid
+     * @param pathConferenceSid The conference_sid
      * @param from The from
      * @param to The to
      */
-    public ParticipantCreator(final String conferenceSid, 
+    public ParticipantCreator(final String pathConferenceSid, 
                               final com.twilio.type.PhoneNumber from, 
                               final com.twilio.type.PhoneNumber to) {
-        this.conferenceSid = conferenceSid;
+        this.pathConferenceSid = pathConferenceSid;
         this.from = from;
         this.to = to;
     }
@@ -63,17 +63,17 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * Construct a new ParticipantCreator.
      * 
-     * @param accountSid The account_sid
-     * @param conferenceSid The conference_sid
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The conference_sid
      * @param from The from
      * @param to The to
      */
-    public ParticipantCreator(final String accountSid, 
-                              final String conferenceSid, 
+    public ParticipantCreator(final String pathAccountSid, 
+                              final String pathConferenceSid, 
                               final com.twilio.type.PhoneNumber from, 
                               final com.twilio.type.PhoneNumber to) {
-        this.accountSid = accountSid;
-        this.conferenceSid = conferenceSid;
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
         this.from = from;
         this.to = to;
     }
@@ -335,11 +335,11 @@ public class ParticipantCreator extends Creator<Participant> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Participant create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Conferences/" + this.conferenceSid + "/Participants.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json",
             client.getRegion()
         );
         

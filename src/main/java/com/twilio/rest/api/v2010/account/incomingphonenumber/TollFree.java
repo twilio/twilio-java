@@ -74,11 +74,11 @@ public class TollFree extends Resource {
     /**
      * Create a TollFreeReader to execute read.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @return TollFreeReader capable of executing the read
      */
-    public static TollFreeReader reader(final String ownerAccountSid) {
-        return new TollFreeReader(ownerAccountSid);
+    public static TollFreeReader reader(final String pathAccountSid) {
+        return new TollFreeReader(pathAccountSid);
     }
 
     /**
@@ -93,13 +93,13 @@ public class TollFree extends Resource {
     /**
      * Create a TollFreeCreator to execute create.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @param phoneNumber The phone_number
      * @return TollFreeCreator capable of executing the create
      */
-    public static TollFreeCreator creator(final String ownerAccountSid, 
+    public static TollFreeCreator creator(final String pathAccountSid, 
                                           final com.twilio.type.PhoneNumber phoneNumber) {
-        return new TollFreeCreator(ownerAccountSid, phoneNumber);
+        return new TollFreeCreator(pathAccountSid, phoneNumber);
     }
 
     /**

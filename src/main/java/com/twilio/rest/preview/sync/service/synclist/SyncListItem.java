@@ -104,71 +104,71 @@ public class SyncListItem extends Resource {
     /**
      * Create a SyncListItemFetcher to execute fetch.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid The list_sid
-     * @param index The index
+     * @param pathServiceSid The service_sid
+     * @param pathListSid The list_sid
+     * @param pathIndex The index
      * @return SyncListItemFetcher capable of executing the fetch
      */
-    public static SyncListItemFetcher fetcher(final String serviceSid, 
-                                              final String listSid, 
-                                              final Integer index) {
-        return new SyncListItemFetcher(serviceSid, listSid, index);
+    public static SyncListItemFetcher fetcher(final String pathServiceSid, 
+                                              final String pathListSid, 
+                                              final Integer pathIndex) {
+        return new SyncListItemFetcher(pathServiceSid, pathListSid, pathIndex);
     }
 
     /**
      * Create a SyncListItemDeleter to execute delete.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid The list_sid
-     * @param index The index
+     * @param pathServiceSid The service_sid
+     * @param pathListSid The list_sid
+     * @param pathIndex The index
      * @return SyncListItemDeleter capable of executing the delete
      */
-    public static SyncListItemDeleter deleter(final String serviceSid, 
-                                              final String listSid, 
-                                              final Integer index) {
-        return new SyncListItemDeleter(serviceSid, listSid, index);
+    public static SyncListItemDeleter deleter(final String pathServiceSid, 
+                                              final String pathListSid, 
+                                              final Integer pathIndex) {
+        return new SyncListItemDeleter(pathServiceSid, pathListSid, pathIndex);
     }
 
     /**
      * Create a SyncListItemCreator to execute create.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid The list_sid
+     * @param pathServiceSid The service_sid
+     * @param pathListSid The list_sid
      * @param data The data
      * @return SyncListItemCreator capable of executing the create
      */
-    public static SyncListItemCreator creator(final String serviceSid, 
-                                              final String listSid, 
+    public static SyncListItemCreator creator(final String pathServiceSid, 
+                                              final String pathListSid, 
                                               final Map<String, Object> data) {
-        return new SyncListItemCreator(serviceSid, listSid, data);
+        return new SyncListItemCreator(pathServiceSid, pathListSid, data);
     }
 
     /**
      * Create a SyncListItemReader to execute read.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid The list_sid
+     * @param pathServiceSid The service_sid
+     * @param pathListSid The list_sid
      * @return SyncListItemReader capable of executing the read
      */
-    public static SyncListItemReader reader(final String serviceSid, 
-                                            final String listSid) {
-        return new SyncListItemReader(serviceSid, listSid);
+    public static SyncListItemReader reader(final String pathServiceSid, 
+                                            final String pathListSid) {
+        return new SyncListItemReader(pathServiceSid, pathListSid);
     }
 
     /**
      * Create a SyncListItemUpdater to execute update.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid The list_sid
-     * @param index The index
+     * @param pathServiceSid The service_sid
+     * @param pathListSid The list_sid
+     * @param pathIndex The index
      * @param data The data
      * @return SyncListItemUpdater capable of executing the update
      */
-    public static SyncListItemUpdater updater(final String serviceSid, 
-                                              final String listSid, 
-                                              final Integer index, 
+    public static SyncListItemUpdater updater(final String pathServiceSid, 
+                                              final String pathListSid, 
+                                              final Integer pathIndex, 
                                               final Map<String, Object> data) {
-        return new SyncListItemUpdater(serviceSid, listSid, index, data);
+        return new SyncListItemUpdater(pathServiceSid, pathListSid, pathIndex, data);
     }
 
     /**

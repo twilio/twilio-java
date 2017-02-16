@@ -38,11 +38,11 @@ public class NewKey extends Resource {
     /**
      * Create a NewKeyCreator to execute create.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @return NewKeyCreator capable of executing the create
      */
-    public static NewKeyCreator creator(final String accountSid) {
-        return new NewKeyCreator(accountSid);
+    public static NewKeyCreator creator(final String pathAccountSid) {
+        return new NewKeyCreator(pathAccountSid);
     }
 
     /**

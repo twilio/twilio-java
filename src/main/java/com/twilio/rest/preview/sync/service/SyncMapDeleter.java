@@ -18,19 +18,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapDeleter extends Deleter<SyncMap> {
-    private final String serviceSid;
-    private final String sid;
+    private final String pathServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new SyncMapDeleter.
      * 
-     * @param serviceSid The service_sid
-     * @param sid The sid
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
-    public SyncMapDeleter(final String serviceSid, 
-                          final String sid) {
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public SyncMapDeleter(final String pathServiceSid, 
+                          final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -44,7 +44,7 @@ public class SyncMapDeleter extends Deleter<SyncMap> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Maps/" + this.sid + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + "",
             client.getRegion()
         );
         

@@ -18,35 +18,35 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MemberFetcher extends Fetcher<Member> {
-    private String accountSid;
-    private final String queueSid;
-    private final String callSid;
+    private String pathAccountSid;
+    private final String pathQueueSid;
+    private final String pathCallSid;
 
     /**
      * Construct a new MemberFetcher.
      * 
-     * @param queueSid The Queue in which to find the members
-     * @param callSid The call_sid
+     * @param pathQueueSid The Queue in which to find the members
+     * @param pathCallSid The call_sid
      */
-    public MemberFetcher(final String queueSid, 
-                         final String callSid) {
-        this.queueSid = queueSid;
-        this.callSid = callSid;
+    public MemberFetcher(final String pathQueueSid, 
+                         final String pathCallSid) {
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
     }
 
     /**
      * Construct a new MemberFetcher.
      * 
-     * @param accountSid The account_sid
-     * @param queueSid The Queue in which to find the members
-     * @param callSid The call_sid
+     * @param pathAccountSid The account_sid
+     * @param pathQueueSid The Queue in which to find the members
+     * @param pathCallSid The call_sid
      */
-    public MemberFetcher(final String accountSid, 
-                         final String queueSid, 
-                         final String callSid) {
-        this.accountSid = accountSid;
-        this.queueSid = queueSid;
-        this.callSid = callSid;
+    public MemberFetcher(final String pathAccountSid, 
+                         final String pathQueueSid, 
+                         final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
     }
 
     /**
@@ -58,11 +58,11 @@ public class MemberFetcher extends Fetcher<Member> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Member fetch(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Queues/" + this.queueSid + "/Members/" + this.callSid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathQueueSid + "/Members/" + this.pathCallSid + ".json",
             client.getRegion()
         );
         

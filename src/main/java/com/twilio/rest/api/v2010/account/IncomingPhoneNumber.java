@@ -106,77 +106,77 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberUpdater to execute update.
      * 
-     * @param ownerAccountSid The owner_account_sid
-     * @param sid The sid
+     * @param pathAccountSid The new owner of the phone number
+     * @param pathSid The sid
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
-    public static IncomingPhoneNumberUpdater updater(final String ownerAccountSid, 
-                                                     final String sid) {
-        return new IncomingPhoneNumberUpdater(ownerAccountSid, sid);
+    public static IncomingPhoneNumberUpdater updater(final String pathAccountSid, 
+                                                     final String pathSid) {
+        return new IncomingPhoneNumberUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberUpdater to execute update.
      * 
-     * @param sid The sid
+     * @param pathSid The sid
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
-    public static IncomingPhoneNumberUpdater updater(final String sid) {
-        return new IncomingPhoneNumberUpdater(sid);
+    public static IncomingPhoneNumberUpdater updater(final String pathSid) {
+        return new IncomingPhoneNumberUpdater(pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberFetcher to execute fetch.
      * 
-     * @param ownerAccountSid The owner_account_sid
-     * @param sid Fetch by unique incoming-phone-number Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Fetch by unique incoming-phone-number Sid
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
-    public static IncomingPhoneNumberFetcher fetcher(final String ownerAccountSid, 
-                                                     final String sid) {
-        return new IncomingPhoneNumberFetcher(ownerAccountSid, sid);
+    public static IncomingPhoneNumberFetcher fetcher(final String pathAccountSid, 
+                                                     final String pathSid) {
+        return new IncomingPhoneNumberFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberFetcher to execute fetch.
      * 
-     * @param sid Fetch by unique incoming-phone-number Sid
+     * @param pathSid Fetch by unique incoming-phone-number Sid
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
-    public static IncomingPhoneNumberFetcher fetcher(final String sid) {
-        return new IncomingPhoneNumberFetcher(sid);
+    public static IncomingPhoneNumberFetcher fetcher(final String pathSid) {
+        return new IncomingPhoneNumberFetcher(pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberDeleter to execute delete.
      * 
-     * @param ownerAccountSid The owner_account_sid
-     * @param sid Delete by unique phone-number Sid
+     * @param pathAccountSid The account_sid
+     * @param pathSid Delete by unique phone-number Sid
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
-    public static IncomingPhoneNumberDeleter deleter(final String ownerAccountSid, 
-                                                     final String sid) {
-        return new IncomingPhoneNumberDeleter(ownerAccountSid, sid);
+    public static IncomingPhoneNumberDeleter deleter(final String pathAccountSid, 
+                                                     final String pathSid) {
+        return new IncomingPhoneNumberDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberDeleter to execute delete.
      * 
-     * @param sid Delete by unique phone-number Sid
+     * @param pathSid Delete by unique phone-number Sid
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
-    public static IncomingPhoneNumberDeleter deleter(final String sid) {
-        return new IncomingPhoneNumberDeleter(sid);
+    public static IncomingPhoneNumberDeleter deleter(final String pathSid) {
+        return new IncomingPhoneNumberDeleter(pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberReader to execute read.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @return IncomingPhoneNumberReader capable of executing the read
      */
-    public static IncomingPhoneNumberReader reader(final String ownerAccountSid) {
-        return new IncomingPhoneNumberReader(ownerAccountSid);
+    public static IncomingPhoneNumberReader reader(final String pathAccountSid) {
+        return new IncomingPhoneNumberReader(pathAccountSid);
     }
 
     /**
@@ -191,13 +191,13 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @param phoneNumber The phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator creator(final String ownerAccountSid, 
+    public static IncomingPhoneNumberCreator creator(final String pathAccountSid, 
                                                      final com.twilio.type.PhoneNumber phoneNumber) {
-        return new IncomingPhoneNumberCreator(ownerAccountSid, phoneNumber);
+        return new IncomingPhoneNumberCreator(pathAccountSid, phoneNumber);
     }
 
     /**
@@ -213,13 +213,13 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
-     * @param ownerAccountSid The owner_account_sid
+     * @param pathAccountSid The account_sid
      * @param areaCode The desired area code for the new number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator creator(final String ownerAccountSid, 
+    public static IncomingPhoneNumberCreator creator(final String pathAccountSid, 
                                                      final String areaCode) {
-        return new IncomingPhoneNumberCreator(ownerAccountSid, areaCode);
+        return new IncomingPhoneNumberCreator(pathAccountSid, areaCode);
     }
 
     /**

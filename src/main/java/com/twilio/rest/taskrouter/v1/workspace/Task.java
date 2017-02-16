@@ -74,57 +74,57 @@ public class Task extends Resource {
     /**
      * Create a TaskFetcher to execute fetch.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return TaskFetcher capable of executing the fetch
      */
-    public static TaskFetcher fetcher(final String workspaceSid, 
-                                      final String sid) {
-        return new TaskFetcher(workspaceSid, sid);
+    public static TaskFetcher fetcher(final String pathWorkspaceSid, 
+                                      final String pathSid) {
+        return new TaskFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskUpdater to execute update.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return TaskUpdater capable of executing the update
      */
-    public static TaskUpdater updater(final String workspaceSid, 
-                                      final String sid) {
-        return new TaskUpdater(workspaceSid, sid);
+    public static TaskUpdater updater(final String pathWorkspaceSid, 
+                                      final String pathSid) {
+        return new TaskUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskDeleter to execute delete.
      * 
-     * @param workspaceSid The workspace_sid
-     * @param sid The sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      * @return TaskDeleter capable of executing the delete
      */
-    public static TaskDeleter deleter(final String workspaceSid, 
-                                      final String sid) {
-        return new TaskDeleter(workspaceSid, sid);
+    public static TaskDeleter deleter(final String pathWorkspaceSid, 
+                                      final String pathSid) {
+        return new TaskDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskReader to execute read.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @return TaskReader capable of executing the read
      */
-    public static TaskReader reader(final String workspaceSid) {
-        return new TaskReader(workspaceSid);
+    public static TaskReader reader(final String pathWorkspaceSid) {
+        return new TaskReader(pathWorkspaceSid);
     }
 
     /**
      * Create a TaskCreator to execute create.
      * 
-     * @param workspaceSid The workspace_sid
+     * @param pathWorkspaceSid The workspace_sid
      * @return TaskCreator capable of executing the create
      */
-    public static TaskCreator creator(final String workspaceSid) {
-        return new TaskCreator(workspaceSid);
+    public static TaskCreator creator(final String pathWorkspaceSid) {
+        return new TaskCreator(pathWorkspaceSid);
     }
 
     /**

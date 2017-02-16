@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class RatePlanCreator extends Creator<RatePlan> {
-    private String alias;
+    private String uniqueName;
     private String friendlyName;
     private List<String> roaming;
     private Integer dataLimit;
@@ -30,13 +30,13 @@ public class RatePlanCreator extends Creator<RatePlan> {
     private String renewal;
 
     /**
-     * The alias.
+     * The unique_name.
      * 
-     * @param alias The alias
+     * @param uniqueName The unique_name
      * @return this
      */
-    public RatePlanCreator setAlias(final String alias) {
-        this.alias = alias;
+    public RatePlanCreator setUniqueName(final String uniqueName) {
+        this.uniqueName = uniqueName;
         return this;
     }
 
@@ -161,8 +161,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (alias != null) {
-            request.addPostParam("Alias", alias);
+        if (uniqueName != null) {
+            request.addPostParam("UniqueName", uniqueName);
         }
         
         if (friendlyName != null) {

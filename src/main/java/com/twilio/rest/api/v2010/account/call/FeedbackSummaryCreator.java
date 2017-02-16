@@ -23,7 +23,7 @@ import org.joda.time.LocalDate;
 import java.net.URI;
 
 public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
-    private String accountSid;
+    private String pathAccountSid;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private Boolean includeSubaccounts;
@@ -45,14 +45,14 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     /**
      * Construct a new FeedbackSummaryCreator.
      * 
-     * @param accountSid The account_sid
+     * @param pathAccountSid The account_sid
      * @param startDate The start_date
      * @param endDate The end_date
      */
-    public FeedbackSummaryCreator(final String accountSid, 
+    public FeedbackSummaryCreator(final String pathAccountSid, 
                                   final LocalDate startDate, 
                                   final LocalDate endDate) {
-        this.accountSid = accountSid;
+        this.pathAccountSid = pathAccountSid;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -109,11 +109,11 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public FeedbackSummary create(final TwilioRestClient client) {
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.accountSid + "/Calls/FeedbackSummary.json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/FeedbackSummary.json",
             client.getRegion()
         );
         

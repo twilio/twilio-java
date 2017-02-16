@@ -18,24 +18,24 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
-    private final String serviceSid;
-    private final String listSid;
-    private final String identity;
+    private final String pathServiceSid;
+    private final String pathListSid;
+    private final String pathIdentity;
 
     /**
      * Construct a new SyncListPermissionDeleter.
      * 
-     * @param serviceSid The service_sid
-     * @param listSid Sync List SID or unique name.
-     * @param identity Identity of the user to whom the Sync List Permission
-     *                 applies.
+     * @param pathServiceSid The service_sid
+     * @param pathListSid Sync List SID or unique name.
+     * @param pathIdentity Identity of the user to whom the Sync List Permission
+     *                     applies.
      */
-    public SyncListPermissionDeleter(final String serviceSid, 
-                                     final String listSid, 
-                                     final String identity) {
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
-        this.identity = identity;
+    public SyncListPermissionDeleter(final String pathServiceSid, 
+                                     final String pathListSid, 
+                                     final String pathIdentity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIdentity = pathIdentity;
     }
 
     /**
@@ -49,7 +49,7 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.serviceSid + "/Lists/" + this.listSid + "/Permissions/" + this.identity + "",
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + "",
             client.getRegion()
         );
         

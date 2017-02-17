@@ -1,7 +1,20 @@
 twilio-java changelog
 =====================
+[2017-02-16] Version 7.5.0-alpha-3
+----------------------------------
+- Add support for video.twilio.com
+- Prefix all path variables with `path` to allow passing form parameters that have the same name.
+- Add `channelSid` property to chat Messages
+- Add `acceptTermsOfService` property to marketplace InstalledAddOns
 
-[2017-01-10] Version 7.5.0-alpha-2
+- **Wireless**
+- Add `simSid` property to wireless Commands
+- Allow updating `device` on wireless Commands
+- Rename `alias` paramter to `uniqueName` on wireless RatePlans
+- Add Sim resource
+- Add SimUsage resource
+
+[2017-02-10] Version 7.5.0-alpha-2
 --------------------------
 - Add `validated` field to Addresses
 - Add FCM Credential support
@@ -17,7 +30,6 @@ twilio-java changelog
 - **Sync**
     - Add `Documents`
     - Add `Permissions` for Lists and Maps
-    - 
 
 [2017-01-10] Version 7.4.0-alpha-1
 --------------------------

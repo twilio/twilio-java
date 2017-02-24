@@ -166,5 +166,13 @@ public class RequestTest {
         assertTrue(request.requiresAuthentication());
     }
 
+    @Test
+    public void testEquals() {
+        Request request = new Request(HttpMethod.DELETE, "/uri");
+        request.setAuth("username", "password");
+        assertFalse(request.equals(new Object()));
+        assertFalse(request.equals(null));
+    }
+
 }
 

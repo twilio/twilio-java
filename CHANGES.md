@@ -9,7 +9,7 @@ twilio-java changelog
     - Add `PublicKey` resource
 - Namespace all path parameters
 
-[2017-01-10] Version 7.5.0
+[2017-02-10] Version 7.5.0
 --------------------------
 - Add `validated` field to Addresses
 - Add FCM Credential support

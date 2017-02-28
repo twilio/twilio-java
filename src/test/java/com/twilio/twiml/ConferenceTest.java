@@ -1,5 +1,6 @@
 package com.twilio.twiml;
 
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,11 +19,14 @@ public class ConferenceTest {
             .beep(Conference.Beep.FALSE)
             .record(Conference.Record.DO_NOT_RECORD)
             .trim(Trim.DO_NOT_TRIM)
+            .statusCallback("http://twilio.com")
+            .statusCallbackEvents(Lists.newArrayList(Conference.ConferenceEvent.END, Conference.ConferenceEvent.JOIN))
+            .statusCallbackMethod(Method.GET)
             .waitMethod(Method.POST)
             .waitUrl("http://twilio.ca")
             .build();
 
-        Assert.assertEquals("<Conference muted=\"true\" startConferenceOnEnter=\"true\" endConferenceOnExit=\"false\" maxParticipants=\"10\" beep=\"false\" record=\"do-not-record\" trim=\"do-not-trim\" waitMethod=\"POST\" waitUrl=\"http://twilio.ca\">my conference</Conference>", conference.toXml());
+        Assert.assertEquals("<Conference muted=\"true\" startConferenceOnEnter=\"true\" endConferenceOnExit=\"false\" maxParticipants=\"10\" beep=\"false\" record=\"do-not-record\" trim=\"do-not-trim\" waitMethod=\"POST\" waitUrl=\"http://twilio.ca\" statusCallbackEvent=\"end join\" statusCallbackMethod=\"GET\" statusCallback=\"http://twilio.com\">my conference</Conference>", conference.toXml());
     }
 
     @Test

@@ -2,5 +2,5 @@
 out/
 *.iml
 target/
-src/main/java/com/twilio/rest/Twilio.java.bak
+src/main/java/com/twilio/Twilio.java.bak
 secret.key

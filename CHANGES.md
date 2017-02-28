@@ -1,6 +1,13 @@
 twilio-java changelog
 =====================
 
+[2017-02-28] Version 7.6.0
+--------------------------
+- Add `ValidationToken`s for Client Validation
+- Add `accounts.twilio.com` subdomain
+    - Add `PublicKey` resource
+- Namespace all path parameters
+
 [2017-01-10] Version 7.5.0
 --------------------------
 - Add `validated` field to Addresses

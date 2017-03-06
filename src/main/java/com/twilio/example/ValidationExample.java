@@ -59,7 +59,7 @@ public class ValidationExample {
         Message m = Message.creator(
             new PhoneNumber("+1XXXXXXXXXX"),
             new PhoneNumber("+1XXXXXXXXXX"),
-            "Asymmetric Auth Test"
+            "Public Key Client Validation Test"
         ).create(validationClient);
         System.out.println(m.getSid());
 

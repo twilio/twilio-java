@@ -33,7 +33,7 @@ public class InboundCallPrice {
 
         @JsonCreator
         public static Type forValue(final String value) {
-            return value == null ? null : Type.valueOf(value.toUpperCase());
+            return value == null ? null : Type.valueOf(value.toUpperCase().replaceAll(" ", ""));
         }
     }
 

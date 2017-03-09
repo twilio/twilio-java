@@ -52,7 +52,8 @@ public class PhoneNumberPrice {
                 return null;
             }
 
-            return Type.valueOf(value.toUpperCase());
+            String enum_value = value.toUpperCase().replaceAll(" ", "");
+            return Type.valueOf(enum_value);
         }
     }
 

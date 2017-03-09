@@ -23,4 +23,18 @@ public class InboundCallPriceTest extends TypeTest {
         Assert.assertEquals(2.00, icp.getCurrentPrice(), 0.00);
         Assert.assertEquals(InboundCallPrice.Type.MOBILE, icp.getType());
     }
+
+    @Test
+    public void testFromJsonTollFree() throws IOException {
+        String json = "{\n" +
+                "    \"base_price\": 1.00,\n" +
+                "    \"current_price\": 2.00,\n" +
+                "    \"type\": \"toll free\"\n" +
+                "}";
+
+        InboundCallPrice icp = fromJson(json, InboundCallPrice.class);
+        Assert.assertEquals(1.00, icp.getBasePrice(), 0.00);
+        Assert.assertEquals(2.00, icp.getCurrentPrice(), 0.00);
+        Assert.assertEquals(InboundCallPrice.Type.TOLLFREE, icp.getType());
+    }
 }

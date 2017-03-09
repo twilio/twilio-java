@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -59,14 +60,7 @@ public class PhoneNumber extends Resource {
          */
         @JsonCreator
         public static AddressRequirement forValue(final String value) {
-            String normalized = value.replace("-", "_").toUpperCase();
-            try {
-                return AddressRequirement.valueOf(normalized);
-            } catch (RuntimeException e) {
-
-                // Don't blow up of value does not exist
-                return null;
-            }
+            return Promoter.enumFromString(value, AddressRequirement.values());
         }
     }
 

@@ -3,6 +3,7 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
+import com.twilio.converter.Promoter;
 
 import java.util.Objects;
 
@@ -48,12 +49,7 @@ public class PhoneNumberPrice {
          */
         @JsonCreator
         public static Type forValue(final String value) {
-            if (value == null) {
-                return null;
-            }
-
-            String enum_value = value.toUpperCase().replaceAll(" ", "");
-            return Type.valueOf(enum_value);
+            return Promoter.enumFromString(value, Type.values());
         }
     }
 

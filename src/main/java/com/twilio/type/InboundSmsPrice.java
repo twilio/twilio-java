@@ -3,6 +3,7 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
+import com.twilio.converter.Promoter;
 
 import java.util.Objects;
 
@@ -33,7 +34,7 @@ public class InboundSmsPrice {
 
         @JsonCreator
         public static Type forValue(final String value) {
-            return value == null ? null : Type.valueOf(value.toUpperCase());
+            return Promoter.enumFromString(value, Type.values());
         }
     }
 

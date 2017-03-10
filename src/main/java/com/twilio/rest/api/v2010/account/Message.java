@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -67,14 +68,7 @@ public class Message extends Resource {
          */
         @JsonCreator
         public static Status forValue(final String value) {
-            String normalized = value.replace("-", "_").toUpperCase();
-            try {
-                return Status.valueOf(normalized);
-            } catch (RuntimeException e) {
-
-                // Don't blow up of value does not exist
-                return null;
-            }
+            return Promoter.enumFromString(value, Status.values());
         }
     }
 
@@ -101,14 +95,7 @@ public class Message extends Resource {
          */
         @JsonCreator
         public static Direction forValue(final String value) {
-            String normalized = value.replace("-", "_").toUpperCase();
-            try {
-                return Direction.valueOf(normalized);
-            } catch (RuntimeException e) {
-
-                // Don't blow up of value does not exist
-                return null;
-            }
+            return Promoter.enumFromString(value, Direction.values());
         }
     }
 

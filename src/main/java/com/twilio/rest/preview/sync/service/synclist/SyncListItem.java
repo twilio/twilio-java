@@ -17,6 +17,7 @@ import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -30,6 +31,7 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -58,14 +60,7 @@ public class SyncListItem extends Resource {
          */
         @JsonCreator
         public static QueryResultOrder forValue(final String value) {
-            String normalized = value.replace("-", "_").toUpperCase();
-            try {
-                return QueryResultOrder.valueOf(normalized);
-            } catch (RuntimeException e) {
-
-                // Don't blow up of value does not exist
-                return null;
-            }
+            return Promoter.enumFromString(value, QueryResultOrder.values());
         }
     }
 
@@ -90,14 +85,7 @@ public class SyncListItem extends Resource {
          */
         @JsonCreator
         public static QueryFromBoundType forValue(final String value) {
-            String normalized = value.replace("-", "_").toUpperCase();
-            try {
-                return QueryFromBoundType.valueOf(normalized);
-            } catch (RuntimeException e) {
-
-                // Don't blow up of value does not exist
-                return null;
-            }
+            return Promoter.enumFromString(value, QueryFromBoundType.values());
         }
     }
 

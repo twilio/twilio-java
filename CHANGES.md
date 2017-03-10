@@ -1,7 +1,15 @@
 twilio-java changelog
 =====================
 
-[2017-02-10] Version 7.6.0-alpha-1
+[2017-03-10] Version 7.7.0-alpha-1
+--------------------------
+- Fix bug in Enum parsing
+- Bump Jackson to 2.8.7
+- Remove `Sandbox`
+- Add `Recordings` to `video.twilio.com`
+- Add `messaging.twilio.com`
+
+[2017-02-28] Version 7.6.0-alpha-1
 --------------------------
 - Namespace all path parameters
 - Rename `devices` to `sims` in `wireless`

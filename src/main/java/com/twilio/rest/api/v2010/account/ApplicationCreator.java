@@ -41,7 +41,7 @@ public class ApplicationCreator extends Creator<Application> {
     /**
      * Construct a new ApplicationCreator.
      * 
-     * @param friendlyName Human readable description of this resource
+     * @param friendlyName The friendly_name
      */
     public ApplicationCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -51,7 +51,7 @@ public class ApplicationCreator extends Creator<Application> {
      * Construct a new ApplicationCreator.
      * 
      * @param pathAccountSid The account_sid
-     * @param friendlyName Human readable description of this resource
+     * @param friendlyName The friendly_name
      */
     public ApplicationCreator(final String pathAccountSid, 
                               final String friendlyName) {

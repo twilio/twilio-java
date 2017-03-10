@@ -33,4 +33,26 @@ public class Promoter {
         list.add(one);
         return list;
     }
+
+    /**
+     * Convert a string to a enum type
+     *
+     * @param value string value
+     * @param values enum values
+     * @param <T> enum type
+     * @return converted enum if able to convert; null otherwise
+     */
+    public static <T extends Enum<?>> T enumFromString(final String value, final T[] values) {
+        if (value == null) {
+            return null;
+        }
+
+        for (T v : values) {
+            if (v.toString().equalsIgnoreCase(value)) {
+                return v;
+            }
+        }
+
+        return null;
+    }
 }

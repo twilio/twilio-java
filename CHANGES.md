@@ -1,6 +1,11 @@
 twilio-java changelog
 =====================
 
+[2017-03-10] Version 7.7.0
+--------------------------
+- Bump Jackson dependency to 2.8.7
+- Fix bug in Enum serialization
+- Delete `Sandbox`s
 
 [2017-02-28] Version 7.6.0
 --------------------------

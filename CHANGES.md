@@ -1,6 +1,10 @@
 twilio-java changelog
 =====================
 
+[2017-03-21] Version 7.7.1
+--------------------------
+- Allow customizing configuration for NetworkHttpClient
+
 [2017-03-10] Version 7.7.0
 --------------------------
 - Bump Jackson dependency to 2.8.7

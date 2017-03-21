@@ -63,7 +63,7 @@ public class TwilioRestClient {
         private String password;
         private String accountSid;
         private String region;
-        private HttpClient httpClient = new NetworkHttpClient();
+        private HttpClient httpClient;
 
         /**
          * Create a new Twilio Rest Client.
@@ -93,6 +93,9 @@ public class TwilioRestClient {
         }
 
         public TwilioRestClient build() {
+            if (this.httpClient == null) {
+                 this.httpClient = new NetworkHttpClient();
+            }
             return new TwilioRestClient(this);
         }
     }

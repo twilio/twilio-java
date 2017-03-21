@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2017-03-22] Version 7.7.2
+--------------------------
+- Add Answering Machine Detection to Call creation
+- Add `WRAPPING` entry to Status for Task
+
+- **Twilio Chat**
+  - Add `limits` map to Service
+  - Add `limitsChannelMembers` and `limitsUserChannels` field to ServiceUpdater
+
 [2017-03-21] Version 7.7.1
 --------------------------
 - Allow customizing configuration for NetworkHttpClient
@@ -83,7 +92,7 @@ twilio-java changelog
     - Add ability to update Members.
     - Add filtering by `identity` on Members.
     - Add webhook related parameters to Service updates.
-    - Remove updating of `type` on Channels. 
+    - Remove updating of `type` on Channels.
 
 [2016-10-05] Version 7.1.0
 --------------------------
@@ -173,5 +182,3 @@ This version brings a host of changes to update and modernize the `twilio-java` 
 [2015-09-14] Version 5.0.0
 --------------------------
 - Remove deprecated total and numpages from ListResource and response parsers
-
-

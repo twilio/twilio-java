@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends Resource {
-    private static final long serialVersionUID = 15696146917822L;
+    private static final long serialVersionUID = 15176818292650L;
 
     /**
      * Create a UserFetcher to execute fetch.
@@ -142,6 +142,7 @@ public class User extends Resource {
     private final Boolean isNotifiable;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final Integer joinedChannelsCount;
     private final Map<String, String> links;
     private final URI url;
 
@@ -168,6 +169,8 @@ public class User extends Resource {
                  final String dateCreated, 
                  @JsonProperty("date_updated")
                  final String dateUpdated, 
+                 @JsonProperty("joined_channels_count")
+                 final Integer joinedChannelsCount, 
                  @JsonProperty("links")
                  final Map<String, String> links, 
                  @JsonProperty("url")
@@ -183,6 +186,7 @@ public class User extends Resource {
         this.isNotifiable = isNotifiable;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.joinedChannelsCount = joinedChannelsCount;
         this.links = links;
         this.url = url;
     }
@@ -287,6 +291,15 @@ public class User extends Resource {
     }
 
     /**
+     * Returns The The joined_channels_count.
+     * 
+     * @return The joined_channels_count
+     */
+    public final Integer getJoinedChannelsCount() {
+        return this.joinedChannelsCount;
+    }
+
+    /**
      * Returns The The links.
      * 
      * @return The links
@@ -327,6 +340,7 @@ public class User extends Resource {
                Objects.equals(isNotifiable, other.isNotifiable) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
+               Objects.equals(joinedChannelsCount, other.joinedChannelsCount) && 
                Objects.equals(links, other.links) && 
                Objects.equals(url, other.url);
     }
@@ -344,6 +358,7 @@ public class User extends Resource {
                             isNotifiable,
                             dateCreated,
                             dateUpdated,
+                            joinedChannelsCount,
                             links,
                             url);
     }
@@ -362,6 +377,7 @@ public class User extends Resource {
                           .add("isNotifiable", isNotifiable)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("joinedChannelsCount", joinedChannelsCount)
                           .add("links", links)
                           .add("url", url)
                           .toString();

@@ -43,6 +43,8 @@ public class CallCreator extends Creator<Call> {
     private HttpMethod recordingStatusCallbackMethod;
     private String sipAuthUsername;
     private String sipAuthPassword;
+    private String machineDetection;
+    private Integer machineDetectionTimeout;
 
     /**
      * Construct a new CallCreator.
@@ -328,6 +330,31 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * Twilio will try to detect if a human, fax machine or answering machine has
+     * answered the call. Possible value are `Enable` and `DetectMessageEnd`..
+     * 
+     * @param machineDetection Enable machine detection or end of greeting detection
+     * @return this
+     */
+    public CallCreator setMachineDetection(final String machineDetection) {
+        this.machineDetection = machineDetection;
+        return this;
+    }
+
+    /**
+     * The integer number of miliseconds that Twilio should wait while
+     * machine_detection is performned before timing out..
+     * 
+     * @param machineDetectionTimeout Number of miliseconds to wait for machine
+     *                                detection
+     * @return this
+     */
+    public CallCreator setMachineDetectionTimeout(final Integer machineDetectionTimeout) {
+        this.machineDetectionTimeout = machineDetectionTimeout;
+        return this;
+    }
+
+    /**
      * The fully qualified URL that should be consulted when the call connects. Just
      * like when you set a URL on a phone number for handling inbound calls..
      * 
@@ -486,6 +513,14 @@ public class CallCreator extends Creator<Call> {
 
         if (sipAuthPassword != null) {
             request.addPostParam("SipAuthPassword", sipAuthPassword);
+        }
+
+        if (machineDetection != null) {
+            request.addPostParam("MachineDetection", machineDetection);
+        }
+
+        if (machineDetectionTimeout != null) {
+            request.addPostParam("MachineDetectionTimeout", machineDetectionTimeout.toString());
         }
     }
 }

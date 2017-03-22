@@ -42,7 +42,8 @@ public class Task extends Resource {
         RESERVED("reserved"),
         ASSIGNED("assigned"),
         CANCELED("canceled"),
-        COMPLETED("completed");
+        COMPLETED("completed"),
+        WRAPPING("wrapping");
 
         private final String value;
 

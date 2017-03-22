@@ -27,6 +27,7 @@ public class RoomCreator extends Creator<Room> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private Integer maxParticipants;
+    private Boolean recordParticipantsOnConnect;
 
     /**
      * The enable_turn.
@@ -105,6 +106,17 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * The record_participants_on_connect.
+     * 
+     * @param recordParticipantsOnConnect The record_participants_on_connect
+     * @return this
+     */
+    public RoomCreator setRecordParticipantsOnConnect(final Boolean recordParticipantsOnConnect) {
+        this.recordParticipantsOnConnect = recordParticipantsOnConnect;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -171,6 +183,10 @@ public class RoomCreator extends Creator<Room> {
 
         if (maxParticipants != null) {
             request.addPostParam("MaxParticipants", maxParticipants.toString());
+        }
+
+        if (recordParticipantsOnConnect != null) {
+            request.addPostParam("RecordParticipantsOnConnect", recordParticipantsOnConnect.toString());
         }
     }
 }

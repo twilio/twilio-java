@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 110406953204037L;
+    private static final long serialVersionUID = 209287578457944L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -136,6 +136,7 @@ public class Service extends Resource {
     private final Boolean reachabilityEnabled;
     private final Integer typingIndicatorTimeout;
     private final Integer consumptionReportInterval;
+    private final Map<String, Object> limits;
     private final Map<String, Object> webhooks;
     private final String preWebhookUrl;
     private final String postWebhookUrl;
@@ -170,6 +171,8 @@ public class Service extends Resource {
                     final Integer typingIndicatorTimeout, 
                     @JsonProperty("consumption_report_interval")
                     final Integer consumptionReportInterval, 
+                    @JsonProperty("limits")
+                    final Map<String, Object> limits, 
                     @JsonProperty("webhooks")
                     final Map<String, Object> webhooks, 
                     @JsonProperty("pre_webhook_url")
@@ -198,6 +201,7 @@ public class Service extends Resource {
         this.reachabilityEnabled = reachabilityEnabled;
         this.typingIndicatorTimeout = typingIndicatorTimeout;
         this.consumptionReportInterval = consumptionReportInterval;
+        this.limits = limits;
         this.webhooks = webhooks;
         this.preWebhookUrl = preWebhookUrl;
         this.postWebhookUrl = postWebhookUrl;
@@ -317,6 +321,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The limits.
+     * 
+     * @return The limits
+     */
+    public final Map<String, Object> getLimits() {
+        return this.limits;
+    }
+
+    /**
      * Returns The The webhooks.
      * 
      * @return The webhooks
@@ -412,6 +425,7 @@ public class Service extends Resource {
                Objects.equals(reachabilityEnabled, other.reachabilityEnabled) && 
                Objects.equals(typingIndicatorTimeout, other.typingIndicatorTimeout) && 
                Objects.equals(consumptionReportInterval, other.consumptionReportInterval) && 
+               Objects.equals(limits, other.limits) && 
                Objects.equals(webhooks, other.webhooks) && 
                Objects.equals(preWebhookUrl, other.preWebhookUrl) && 
                Objects.equals(postWebhookUrl, other.postWebhookUrl) && 
@@ -436,6 +450,7 @@ public class Service extends Resource {
                             reachabilityEnabled,
                             typingIndicatorTimeout,
                             consumptionReportInterval,
+                            limits,
                             webhooks,
                             preWebhookUrl,
                             postWebhookUrl,
@@ -461,6 +476,7 @@ public class Service extends Resource {
                           .add("reachabilityEnabled", reachabilityEnabled)
                           .add("typingIndicatorTimeout", typingIndicatorTimeout)
                           .add("consumptionReportInterval", consumptionReportInterval)
+                          .add("limits", limits)
                           .add("webhooks", webhooks)
                           .add("preWebhookUrl", preWebhookUrl)
                           .add("postWebhookUrl", postWebhookUrl)

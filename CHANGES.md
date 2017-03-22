@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2017-03-22] Version 7.7.2-alpha-1
+--------------------------
+- Add Answering Machine Detection to Call creation
+- Add `WRAPPING` entry to Status for Task
+- Add `recordParticipantsOnConnect` to Rooms
+- **Twilio Chat**
+  - Add `limits` map to Service
+  - Add `limitsChannelMembers` and `limitsUserChannels` field to ServiceUpdater
+
 [2017-03-21] Version 7.7.1-alpha-1
 --------------------------
 - Allow customizing configuration for NetworkHttpClient

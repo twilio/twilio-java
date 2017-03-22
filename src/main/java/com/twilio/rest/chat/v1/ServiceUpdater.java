@@ -91,6 +91,8 @@ public class ServiceUpdater extends Updater<Service> {
     private URI webhooksOnMemberRemovedUrl;
     private HttpMethod webhooksOnMemberRemovedMethod;
     private String webhooksOnMemberRemovedFormat;
+    private Integer limitsChannelMembers;
+    private Integer limitsUserChannels;
 
     /**
      * Construct a new ServiceUpdater.
@@ -1048,6 +1050,28 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The limits.channel_members.
+     * 
+     * @param limitsChannelMembers The limits.channel_members
+     * @return this
+     */
+    public ServiceUpdater setLimitsChannelMembers(final Integer limitsChannelMembers) {
+        this.limitsChannelMembers = limitsChannelMembers;
+        return this;
+    }
+
+    /**
+     * The limits.user_channels.
+     * 
+     * @param limitsUserChannels The limits.user_channels
+     * @return this
+     */
+    public ServiceUpdater setLimitsUserChannels(final Integer limitsUserChannels) {
+        this.limitsUserChannels = limitsUserChannels;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -1364,6 +1388,14 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (webhooksOnMemberRemovedFormat != null) {
             request.addPostParam("Webhooks.OnMemberRemoved.Format", webhooksOnMemberRemovedFormat);
+        }
+
+        if (limitsChannelMembers != null) {
+            request.addPostParam("Limits.ChannelMembers", limitsChannelMembers.toString());
+        }
+
+        if (limitsUserChannels != null) {
+            request.addPostParam("Limits.UserChannels", limitsUserChannels.toString());
         }
     }
 }

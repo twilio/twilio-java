@@ -40,6 +40,7 @@ public class Recording extends Resource {
     public enum Status {
         PROCESSING("processing"),
         COMPLETED("completed"),
+        DELETED("deleted"),
         FAILED("failed");
 
         private final String value;

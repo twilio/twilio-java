@@ -1,6 +1,7 @@
 package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
@@ -15,6 +16,7 @@ import java.util.Objects;
  *     <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
  * </p>
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OutboundSmsPrice {
     private final String mcc;
     private final String mnc;

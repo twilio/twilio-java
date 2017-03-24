@@ -1,6 +1,7 @@
 package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 /**
  * POJO representation of a Twilio ICE server.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class IceServer {
     private final String credential;
     private final String username;

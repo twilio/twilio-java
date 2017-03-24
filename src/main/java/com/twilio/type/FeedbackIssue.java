@@ -1,6 +1,7 @@
 package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
@@ -14,6 +15,7 @@ import java.util.Objects;
  *     <a href=https://www.twilio.com/docs/api/rest/call-feedback>Feedback docs</a>
  * </p>
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedbackIssue {
     private final int count;
     private final String description;

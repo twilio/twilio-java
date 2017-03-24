@@ -3,6 +3,10 @@ twilio-java changelog
 
 [2017-03-22] Version 7.7.2
 --------------------------
+- Fix a bug where unexpected JSON properties caused exceptions.
+
+[2017-03-22] Version 7.7.2
+--------------------------
 - Add Answering Machine Detection to Call creation
 - Add `WRAPPING` entry to Status for Task
 

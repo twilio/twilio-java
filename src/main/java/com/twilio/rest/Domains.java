@@ -11,6 +11,7 @@ public enum Domains {
     ACCOUNTS("accounts"),
     API("api"),
     CHAT("ip-messaging"),
+    FAX("fax"),
     IPMESSAGING("ip-messaging"),
     LOOKUPS("lookups"),
     MONITOR("monitor"),

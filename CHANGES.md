@@ -1,6 +1,11 @@
 twilio-java changelog
 =====================
 
+[2017-04-01] Version 7.8.0-alpha-1
+--------------------------
+- Add Twilio Programmable Fax.
+- Fix a bug where unexpected JSON properties caused exceptions.
+
 [2017-03-22] Version 7.7.2-alpha-1
 --------------------------
 - Add Answering Machine Detection to Call creation

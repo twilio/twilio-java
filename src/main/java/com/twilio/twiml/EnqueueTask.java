@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/enqueue.
  *
- * Use this one if you are using TaskRouter tasks.
+ * <p>Use this one if you are using TaskRouter tasks.</p>
  */
 @XmlRootElement(name = "Enqueue")
 public class EnqueueTask extends TwiML {

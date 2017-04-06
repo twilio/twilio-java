@@ -1,6 +1,8 @@
-.idea
-out/
 *.iml
+
+.idea/
+out/
 target/
-src/main/java/com/twilio/Twilio.java.bak
+
 secret.key
+src/main/java/com/twilio/Twilio.java.bak

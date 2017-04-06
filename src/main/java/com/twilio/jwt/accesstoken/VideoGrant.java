@@ -1,12 +1,14 @@
 package com.twilio.jwt.accesstoken;
 
 /**
- * Grant used to access Twilio Video
+ * Grant used to access Twilio Video.
  *
- * For more information see:
- * <a href="https://www.twilio.com/docs/api/rest/access-tokens">
- *     https://www.twilio.com/docs/api/rest/access-tokens
- * </a>
+ * <p>
+ *     For more information see:
+ *     <a href="https://www.twilio.com/docs/api/rest/access-tokens">
+ *         https://www.twilio.com/docs/api/rest/access-tokens
+ *     </a>
+ * </p>
  */
 public class VideoGrant implements Grant {
 
@@ -29,6 +31,7 @@ public class VideoGrant implements Grant {
         return new Payload(this);
     }
 
+    @SuppressWarnings("checkstyle:membername")
     public class Payload {
         public final String configuration_profile_sid;
 

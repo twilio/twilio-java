@@ -52,12 +52,14 @@ public class NetworkHttpClient extends HttpClient {
     }
 
     /**
-     * Create a new HTTP Client using custom configuration
+     * Create a new HTTP Client using custom configuration.
      */
-    public NetworkHttpClient(HttpClientBuilder clientBuilder){
+    public NetworkHttpClient(HttpClientBuilder clientBuilder) {
         Collection<Header> headers = Lists.<Header>newArrayList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"),
+                new BasicHeader(
+                    HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"
+                ),
                 new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
                 new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );

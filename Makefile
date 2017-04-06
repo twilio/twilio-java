@@ -11,6 +11,3 @@ test:
 
 docs:
 	mvn javadoc:javadoc
-
-deploy:
-	./deploy.sh

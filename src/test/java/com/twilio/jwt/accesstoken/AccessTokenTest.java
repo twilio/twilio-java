@@ -89,7 +89,7 @@ public class AccessTokenTest {
 
     @Test
     public void testVideoGrant() {
-        VideoGrant cg = new VideoGrant().setConfigurationProfileSid("CP123");
+        VideoGrant cg = new VideoGrant().setRoom("RM123");
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
                 .grant(cg)
@@ -107,7 +107,7 @@ public class AccessTokenTest {
         Assert.assertEquals(1, decodedGrants.size());
 
         Map<String, Object> grant = (Map<String, Object>) decodedGrants.get("video");
-        Assert.assertEquals("CP123", grant.get("configuration_profile_sid"));
+        Assert.assertEquals("RM123", grant.get("room"));
     }
 
     @Test

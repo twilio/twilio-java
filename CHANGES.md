@@ -1,7 +1,15 @@
 twilio-java changelog
 =====================
 
-[2017-03-22] Version 7.7.2
+[2017-03-22] Version 7.8.1
+--------------------------
+- Add `validityPeriod` optional parameter to Message creation.
+- Add TaskRouterGrant.
+- Update VideoGrant.
+    - Add `room` as preferred grant granularity.
+    - Deprecate setting `configurationProfileSid` on grant.
+
+[2017-03-24] Version 7.8.0
 --------------------------
 - Fix a bug where unexpected JSON properties caused exceptions.
 

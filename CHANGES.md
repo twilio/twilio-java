@@ -1,6 +1,13 @@
 twilio-java changelog
 =====================
 
+[2017-04-12] Version 7.8.1-alpha1
+--------------------------
+- Add TaskRouterGrant.
+- Update VideoGrant.
+    - Add `room` as preferred grant granularity.
+    - Deprecate setting `configurationProfileSid` on grant.
+
 [2017-04-01] Version 7.8.0-alpha-1
 --------------------------
 - Add Twilio Programmable Fax.

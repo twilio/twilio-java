@@ -33,6 +33,7 @@ public class MessageCreator extends Creator<Message> {
     private String applicationSid;
     private BigDecimal maxPrice;
     private Boolean provideFeedback;
+    private Integer validityPeriod;
 
     /**
      * Construct a new MessageCreator.
@@ -222,6 +223,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * The validity_period.
+     * 
+     * @param validityPeriod The validity_period
+     * @return this
+     */
+    public MessageCreator setValidityPeriod(final Integer validityPeriod) {
+        this.validityPeriod = validityPeriod;
+        return this;
+    }
+
+    /**
      * A Twilio phone number or alphanumeric sender ID enabled for the type of
      * message you wish to send..
      * 
@@ -368,6 +380,10 @@ public class MessageCreator extends Creator<Message> {
 
         if (provideFeedback != null) {
             request.addPostParam("ProvideFeedback", provideFeedback.toString());
+        }
+
+        if (validityPeriod != null) {
+            request.addPostParam("ValidityPeriod", validityPeriod.toString());
         }
     }
 }

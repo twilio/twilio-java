@@ -133,6 +133,18 @@ public class RoomTest {
     }
 
     @Test
+    public void testReadWithStatusResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"rooms\": [{\"sid\": \"RM4070b618362c1682b2385b1f9982833c\",\"status\": \"completed\",\"date_created\": \"2017-04-03T22:21:49Z\",\"date_updated\": \"2017-04-03T22:21:51Z\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"peer-to-peer\",\"enable_turn\": true,\"unique_name\": \"RM4070b618362c1682b2385b1f9982833c\",\"status_callback\": null,\"status_callback_method\": \"POST\",\"start_time\": null,\"end_time\": \"2017-04-03T22:21:51Z\",\"duration\": 2,\"max_participants\": 10,\"record_participants_on_connect\": false,\"url\": \"https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://video.twilio.com/v1/Rooms?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Rooms?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"rooms\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(Room.reader().read());
+    }
+
+    @Test
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,

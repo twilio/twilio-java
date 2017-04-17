@@ -1,5 +1,7 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Grant used to access Twilio Video
  *
@@ -20,7 +22,7 @@ public class VideoGrant implements Grant {
      */
     @Deprecated
     public String getConfigurationProfileSid() {
-        return configurationProfileSid;
+        return this.configurationProfileSid;
     }
 
     /**
@@ -30,7 +32,7 @@ public class VideoGrant implements Grant {
      * @return updated VideoGrant instance
      */
     @Deprecated
-    public VideoGrant setConfigurationProfileSid(String configurationProfileSid) {
+    public VideoGrant setConfigurationProfileSid(final String configurationProfileSid) {
         this.configurationProfileSid = configurationProfileSid;
         return this;
     }
@@ -40,7 +42,7 @@ public class VideoGrant implements Grant {
      * @return The room name or sid or null if not set.
      */
     public String getRoom() {
-        return room;
+        return this.room;
     }
 
     /**
@@ -48,7 +50,7 @@ public class VideoGrant implements Grant {
      * @param roomSidOrName a room sid or name
      * @return updated VideoGrant instance
      */
-    public VideoGrant setRoom(String roomSidOrName) {
+    public VideoGrant setRoom(final String roomSidOrName) {
         this.room = roomSidOrName;
         return this;
     }
@@ -61,6 +63,7 @@ public class VideoGrant implements Grant {
         return new Payload(this);
     }
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public class Payload {
         public final String configuration_profile_sid;
         public final String room;

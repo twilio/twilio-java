@@ -1,6 +1,13 @@
 twilio-java changelog
 =====================
 
+[2017-04-18] Version 7.9.0
+--------------------------
+- Add Twilio Programmable Chat version 2
+- Allow updating `AccountSid` on `IncomingPhoneNumber`s
+- Include only populated fields in `VideoGrant`
+- Deprecate `ConversationsGrant`
+
 [2017-03-22] Version 7.8.1
 --------------------------
 - Add `validityPeriod` optional parameter to Message creation.

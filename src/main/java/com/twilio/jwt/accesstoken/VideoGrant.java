@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  */
 public class VideoGrant implements Grant {
 
-    public String configurationProfileSid;
-    public String room;
+    private String configurationProfileSid;
+    private String room;
 
     /**
      * Get the configuration profile sid of this grant.

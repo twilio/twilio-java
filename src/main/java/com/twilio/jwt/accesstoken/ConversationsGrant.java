@@ -3,6 +3,7 @@ package com.twilio.jwt.accesstoken;
 /**
  * Grant used to access Twilio Conversations.
  *
+ * @deprecated use {@link VideoGrant} instead.
  * <p>
  *     For more information see:
  *     <a href="https://www.twilio.com/docs/api/rest/access-tokens">
@@ -10,6 +11,7 @@ package com.twilio.jwt.accesstoken;
  *     </a>
  * </p>
  */
+@Deprecated
 public class ConversationsGrant implements Grant {
 
     private String configurationProfileSid;

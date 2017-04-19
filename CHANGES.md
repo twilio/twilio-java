@@ -1,7 +1,7 @@
 twilio-java changelog
 =====================
 
-[2017-04-18] Version 7.9.0-alpha-1
+[2017-04-18] Version 7.9.0-alpha-2
 --------------------------
 - Add Twilio Programmable Chat version 2
 - Allow updating `AccountSid` on `IncomingPhoneNumber`s

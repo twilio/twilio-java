@@ -30,6 +30,7 @@ public class ServiceUpdater extends Updater<Service> {
     private URI statusCallback;
     private Boolean stickySender;
     private Boolean mmsConverter;
+    private Boolean smartEncoding;
 
     /**
      * Construct a new ServiceUpdater.
@@ -159,6 +160,17 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The smart_encoding.
+     * 
+     * @param smartEncoding The smart_encoding
+     * @return this
+     */
+    public ServiceUpdater setSmartEncoding(final Boolean smartEncoding) {
+        this.smartEncoding = smartEncoding;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -233,6 +245,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (mmsConverter != null) {
             request.addPostParam("MmsConverter", mmsConverter.toString());
+        }
+
+        if (smartEncoding != null) {
+            request.addPostParam("SmartEncoding", smartEncoding.toString());
         }
     }
 }

@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 201383260463574L;
+    private static final long serialVersionUID = 217724278339071L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -134,6 +134,7 @@ public class Service extends Resource {
     private final URI statusCallback;
     private final Boolean stickySender;
     private final Boolean mmsConverter;
+    private final Boolean smartEncoding;
     private final URI url;
     private final Map<String, String> links;
 
@@ -162,6 +163,8 @@ public class Service extends Resource {
                     final Boolean stickySender, 
                     @JsonProperty("mms_converter")
                     final Boolean mmsConverter, 
+                    @JsonProperty("smart_encoding")
+                    final Boolean smartEncoding, 
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
@@ -178,6 +181,7 @@ public class Service extends Resource {
         this.statusCallback = statusCallback;
         this.stickySender = stickySender;
         this.mmsConverter = mmsConverter;
+        this.smartEncoding = smartEncoding;
         this.url = url;
         this.links = links;
     }
@@ -291,6 +295,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The smart_encoding.
+     * 
+     * @return The smart_encoding
+     */
+    public final Boolean getSmartEncoding() {
+        return this.smartEncoding;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -332,6 +345,7 @@ public class Service extends Resource {
                Objects.equals(statusCallback, other.statusCallback) && 
                Objects.equals(stickySender, other.stickySender) && 
                Objects.equals(mmsConverter, other.mmsConverter) && 
+               Objects.equals(smartEncoding, other.smartEncoding) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -350,6 +364,7 @@ public class Service extends Resource {
                             statusCallback,
                             stickySender,
                             mmsConverter,
+                            smartEncoding,
                             url,
                             links);
     }
@@ -369,6 +384,7 @@ public class Service extends Resource {
                           .add("statusCallback", statusCallback)
                           .add("stickySender", stickySender)
                           .add("mmsConverter", mmsConverter)
+                          .add("smartEncoding", smartEncoding)
                           .add("url", url)
                           .add("links", links)
                           .toString();

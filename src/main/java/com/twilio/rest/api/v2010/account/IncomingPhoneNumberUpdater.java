@@ -403,6 +403,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (accountSid != null) {
+            request.addPostParam("AccountSid", accountSid);
+        }
+
         if (apiVersion != null) {
             request.addPostParam("ApiVersion", apiVersion);
         }

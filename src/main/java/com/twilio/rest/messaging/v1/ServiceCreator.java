@@ -29,6 +29,7 @@ public class ServiceCreator extends Creator<Service> {
     private URI statusCallback;
     private Boolean stickySender;
     private Boolean mmsConverter;
+    private Boolean smartEncoding;
 
     /**
      * Construct a new ServiceCreator.
@@ -147,6 +148,17 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * The smart_encoding.
+     * 
+     * @param smartEncoding The smart_encoding
+     * @return this
+     */
+    public ServiceCreator setSmartEncoding(final Boolean smartEncoding) {
+        this.smartEncoding = smartEncoding;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -221,6 +233,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (mmsConverter != null) {
             request.addPostParam("MmsConverter", mmsConverter.toString());
+        }
+
+        if (smartEncoding != null) {
+            request.addPostParam("SmartEncoding", smartEncoding.toString());
         }
     }
 }

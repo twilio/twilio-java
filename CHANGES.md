@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2017-04-18] Version 7.9.0-alpha-1
+--------------------------
+- Add Twilio Programmable Chat version 2
+- Allow updating `AccountSid` on `IncomingPhoneNumber`s
+- Add `smartEncoding` to Messaging Services
+- All delete's of `RatePlans`
+- Include only populated fields in `VideoGrant`
+- Deprecate `ConversationsGrant`
+
 [2017-04-12] Version 7.8.1-alpha1
 --------------------------
 - Add TaskRouterGrant.

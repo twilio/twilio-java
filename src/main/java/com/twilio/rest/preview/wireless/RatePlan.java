@@ -77,6 +77,16 @@ public class RatePlan extends Resource {
     }
 
     /**
+     * Create a RatePlanDeleter to execute delete.
+     * 
+     * @param pathSid The sid
+     * @return RatePlanDeleter capable of executing the delete
+     */
+    public static RatePlanDeleter deleter(final String pathSid) {
+        return new RatePlanDeleter(pathSid);
+    }
+
+    /**
      * Converts a JSON String into a RatePlan object using the provided
      * ObjectMapper.
      * 

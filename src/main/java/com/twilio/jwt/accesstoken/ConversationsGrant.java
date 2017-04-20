@@ -10,6 +10,7 @@ package com.twilio.jwt.accesstoken;
  *     </a>
  * </p>
  */
+@Deprecated
 public class ConversationsGrant implements Grant {
 
     private String configurationProfileSid;

@@ -7,6 +7,8 @@ import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
+import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -95,14 +97,23 @@ public class NetworkHttpClient extends HttpClient {
             }
         }
 
+        HttpResponse response = null;
+
         try {
-            HttpResponse response = client.execute(builder.build());
+            response = client.execute(builder.build());
             return new Response(
-                response.getEntity() == null ? null : response.getEntity().getContent(),
+
+                // Consume the entire HTTP response before returning the stream
+                response.getEntity() == null ? null : new BufferedHttpEntity(response.getEntity()).getContent(),
                 response.getStatusLine().getStatusCode()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage());
+        } finally {
+
+            // Ensure this response is properly closed
+            HttpClientUtils.closeQuietly(response);
+
         }
 
     }

@@ -161,15 +161,6 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The identity.
-     * 
-     * @return The identity
-     */
-    public final String getSid() {
-        return this.getIdentity();
-    }
-
-    /**
      * Returns The The sid.
      * 
      * @return The sid

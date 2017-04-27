@@ -32,18 +32,26 @@ public class ParticipantCreator extends Creator<Participant> {
     private Integer timeout;
     private Boolean record;
     private Boolean muted;
-    private Participant.Beep beep;
+    private String beep;
     private Boolean startConferenceOnEnter;
     private Boolean endConferenceOnExit;
     private URI waitUrl;
     private HttpMethod waitMethod;
     private Boolean earlyMedia;
     private Integer maxParticipants;
-    private Participant.ConferenceRecord conferenceRecord;
+    private String conferenceRecord;
     private String conferenceTrim;
     private URI conferenceStatusCallback;
     private HttpMethod conferenceStatusCallbackMethod;
     private List<String> conferenceStatusCallbackEvent;
+    private String recordingChannels;
+    private URI recordingStatusCallback;
+    private HttpMethod recordingStatusCallbackMethod;
+    private String sipAuthUsername;
+    private String sipAuthPassword;
+    private String region;
+    private URI conferenceRecordingStatusCallback;
+    private HttpMethod conferenceRecordingStatusCallbackMethod;
 
     /**
      * Construct a new ParticipantCreator.
@@ -170,7 +178,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * @param beep The beep
      * @return this
      */
-    public ParticipantCreator setBeep(final Participant.Beep beep) {
+    public ParticipantCreator setBeep(final String beep) {
         this.beep = beep;
         return this;
     }
@@ -257,7 +265,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * @param conferenceRecord The conference_record
      * @return this
      */
-    public ParticipantCreator setConferenceRecord(final Participant.ConferenceRecord conferenceRecord) {
+    public ParticipantCreator setConferenceRecord(final String conferenceRecord) {
         this.conferenceRecord = conferenceRecord;
         return this;
     }
@@ -324,6 +332,117 @@ public class ParticipantCreator extends Creator<Participant> {
      */
     public ParticipantCreator setConferenceStatusCallbackEvent(final String conferenceStatusCallbackEvent) {
         return setConferenceStatusCallbackEvent(Promoter.listOfOne(conferenceStatusCallbackEvent));
+    }
+
+    /**
+     * The recording_channels.
+     * 
+     * @param recordingChannels The recording_channels
+     * @return this
+     */
+    public ParticipantCreator setRecordingChannels(final String recordingChannels) {
+        this.recordingChannels = recordingChannels;
+        return this;
+    }
+
+    /**
+     * The recording_status_callback.
+     * 
+     * @param recordingStatusCallback The recording_status_callback
+     * @return this
+     */
+    public ParticipantCreator setRecordingStatusCallback(final URI recordingStatusCallback) {
+        this.recordingStatusCallback = recordingStatusCallback;
+        return this;
+    }
+
+    /**
+     * The recording_status_callback.
+     * 
+     * @param recordingStatusCallback The recording_status_callback
+     * @return this
+     */
+    public ParticipantCreator setRecordingStatusCallback(final String recordingStatusCallback) {
+        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
+    }
+
+    /**
+     * The recording_status_callback_method.
+     * 
+     * @param recordingStatusCallbackMethod The recording_status_callback_method
+     * @return this
+     */
+    public ParticipantCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
+        this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
+        return this;
+    }
+
+    /**
+     * The sip_auth_username.
+     * 
+     * @param sipAuthUsername The sip_auth_username
+     * @return this
+     */
+    public ParticipantCreator setSipAuthUsername(final String sipAuthUsername) {
+        this.sipAuthUsername = sipAuthUsername;
+        return this;
+    }
+
+    /**
+     * The sip_auth_password.
+     * 
+     * @param sipAuthPassword The sip_auth_password
+     * @return this
+     */
+    public ParticipantCreator setSipAuthPassword(final String sipAuthPassword) {
+        this.sipAuthPassword = sipAuthPassword;
+        return this;
+    }
+
+    /**
+     * The region.
+     * 
+     * @param region The region
+     * @return this
+     */
+    public ParticipantCreator setRegion(final String region) {
+        this.region = region;
+        return this;
+    }
+
+    /**
+     * The conference_recording_status_callback.
+     * 
+     * @param conferenceRecordingStatusCallback The
+     *                                          conference_recording_status_callback
+     * @return this
+     */
+    public ParticipantCreator setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
+        this.conferenceRecordingStatusCallback = conferenceRecordingStatusCallback;
+        return this;
+    }
+
+    /**
+     * The conference_recording_status_callback.
+     * 
+     * @param conferenceRecordingStatusCallback The
+     *                                          conference_recording_status_callback
+     * @return this
+     */
+    public ParticipantCreator setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
+        return setConferenceRecordingStatusCallback(Promoter.uriFromString(conferenceRecordingStatusCallback));
+    }
+
+    /**
+     * The conference_recording_status_callback_method.
+     * 
+     * @param conferenceRecordingStatusCallbackMethod The
+     *                                                conference_recording_status_callback_method
+     * @return this
+     */
+    public ParticipantCreator setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {
+        this.conferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod;
+        return this;
     }
 
     /**
@@ -407,7 +526,7 @@ public class ParticipantCreator extends Creator<Participant> {
         }
 
         if (beep != null) {
-            request.addPostParam("Beep", beep.toString());
+            request.addPostParam("Beep", beep);
         }
 
         if (startConferenceOnEnter != null) {
@@ -435,7 +554,7 @@ public class ParticipantCreator extends Creator<Participant> {
         }
 
         if (conferenceRecord != null) {
-            request.addPostParam("ConferenceRecord", conferenceRecord.toString());
+            request.addPostParam("ConferenceRecord", conferenceRecord);
         }
 
         if (conferenceTrim != null) {
@@ -454,6 +573,38 @@ public class ParticipantCreator extends Creator<Participant> {
             for (String prop : conferenceStatusCallbackEvent) {
                 request.addPostParam("ConferenceStatusCallbackEvent", prop);
             }
+        }
+
+        if (recordingChannels != null) {
+            request.addPostParam("RecordingChannels", recordingChannels);
+        }
+
+        if (recordingStatusCallback != null) {
+            request.addPostParam("RecordingStatusCallback", recordingStatusCallback.toString());
+        }
+
+        if (recordingStatusCallbackMethod != null) {
+            request.addPostParam("RecordingStatusCallbackMethod", recordingStatusCallbackMethod.toString());
+        }
+
+        if (sipAuthUsername != null) {
+            request.addPostParam("SipAuthUsername", sipAuthUsername);
+        }
+
+        if (sipAuthPassword != null) {
+            request.addPostParam("SipAuthPassword", sipAuthPassword);
+        }
+
+        if (region != null) {
+            request.addPostParam("Region", region);
+        }
+
+        if (conferenceRecordingStatusCallback != null) {
+            request.addPostParam("ConferenceRecordingStatusCallback", conferenceRecordingStatusCallback.toString());
+        }
+
+        if (conferenceRecordingStatusCallbackMethod != null) {
+            request.addPostParam("ConferenceRecordingStatusCallbackMethod", conferenceRecordingStatusCallbackMethod.toString());
         }
     }
 }

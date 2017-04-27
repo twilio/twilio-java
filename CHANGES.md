@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2017-04-27] Version 7.9.1
+--------------------------
+- Remove conference participant `Beep` and `ConferenceRecord` enums, use `String` instead (backwards incompatible).
+- Add `recordingChannels`, `recordingStatusCallback`, `recordingStatusCallbackMethod`, `sipAuthUsername`, `sipAuthPassword`, `region`, `conferenceRecordingStatusCallback`, `conferenceRecordingStatusCallbackMethod` parameter support to conference participant creation.
+- Update missing categories in Usage Trigger enums.
+
 [2017-04-18] Version 7.9.0
 --------------------------
 - Add Twilio Programmable Chat version 2

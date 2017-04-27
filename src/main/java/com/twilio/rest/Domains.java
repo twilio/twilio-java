@@ -10,9 +10,9 @@ package com.twilio.rest;
 public enum Domains {
     ACCOUNTS("accounts"),
     API("api"),
-    CHAT("ip-messaging"),
+    CHAT("chat"),
     FAX("fax"),
-    IPMESSAGING("ip-messaging"),
+    IPMESSAGING("chat"),
     LOOKUPS("lookups"),
     MONITOR("monitor"),
     NOTIFY("notify"),

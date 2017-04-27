@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 206358655298516L;
+    private static final long serialVersionUID = 56482084573136L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -134,6 +134,7 @@ public class Service extends Resource {
     private final String defaultApnNotificationProtocolVersion;
     private final String defaultGcmNotificationProtocolVersion;
     private final String defaultFcmNotificationProtocolVersion;
+    private final Boolean logEnabled;
     private final URI url;
     private final Map<String, String> links;
 
@@ -164,6 +165,8 @@ public class Service extends Resource {
                     final String defaultGcmNotificationProtocolVersion, 
                     @JsonProperty("default_fcm_notification_protocol_version")
                     final String defaultFcmNotificationProtocolVersion, 
+                    @JsonProperty("log_enabled")
+                    final Boolean logEnabled, 
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
@@ -181,6 +184,7 @@ public class Service extends Resource {
         this.defaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion;
         this.defaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion;
         this.defaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion;
+        this.logEnabled = logEnabled;
         this.url = url;
         this.links = links;
     }
@@ -303,6 +307,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The log_enabled.
+     * 
+     * @return The log_enabled
+     */
+    public final Boolean getLogEnabled() {
+        return this.logEnabled;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -345,6 +358,7 @@ public class Service extends Resource {
                Objects.equals(defaultApnNotificationProtocolVersion, other.defaultApnNotificationProtocolVersion) && 
                Objects.equals(defaultGcmNotificationProtocolVersion, other.defaultGcmNotificationProtocolVersion) && 
                Objects.equals(defaultFcmNotificationProtocolVersion, other.defaultFcmNotificationProtocolVersion) && 
+               Objects.equals(logEnabled, other.logEnabled) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -364,6 +378,7 @@ public class Service extends Resource {
                             defaultApnNotificationProtocolVersion,
                             defaultGcmNotificationProtocolVersion,
                             defaultFcmNotificationProtocolVersion,
+                            logEnabled,
                             url,
                             links);
     }
@@ -384,6 +399,7 @@ public class Service extends Resource {
                           .add("defaultApnNotificationProtocolVersion", defaultApnNotificationProtocolVersion)
                           .add("defaultGcmNotificationProtocolVersion", defaultGcmNotificationProtocolVersion)
                           .add("defaultFcmNotificationProtocolVersion", defaultFcmNotificationProtocolVersion)
+                          .add("logEnabled", logEnabled)
                           .add("url", url)
                           .add("links", links)
                           .toString();

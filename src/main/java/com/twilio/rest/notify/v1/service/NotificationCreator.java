@@ -38,6 +38,7 @@ public class NotificationCreator extends Creator<Notification> {
     private String sms;
     private Map<String, Object> facebookMessenger;
     private String fcm;
+    private List<String> segment;
 
     /**
      * Construct a new NotificationCreator.
@@ -178,6 +179,27 @@ public class NotificationCreator extends Creator<Notification> {
     public NotificationCreator setFcm(final String fcm) {
         this.fcm = fcm;
         return this;
+    }
+
+    /**
+     * The segment.
+     * 
+     * @param segment The segment
+     * @return this
+     */
+    public NotificationCreator setSegment(final List<String> segment) {
+        this.segment = segment;
+        return this;
+    }
+
+    /**
+     * The segment.
+     * 
+     * @param segment The segment
+     * @return this
+     */
+    public NotificationCreator setSegment(final String segment) {
+        return setSegment(Promoter.listOfOne(segment));
     }
 
     /**
@@ -325,6 +347,12 @@ public class NotificationCreator extends Creator<Notification> {
 
         if (fcm != null) {
             request.addPostParam("Fcm", fcm);
+        }
+
+        if (segment != null) {
+            for (String prop : segment) {
+                request.addPostParam("Segment", prop);
+            }
         }
     }
 }

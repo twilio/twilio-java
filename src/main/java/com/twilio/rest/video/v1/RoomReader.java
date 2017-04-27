@@ -23,9 +23,9 @@ import org.joda.time.DateTime;
 
 public class RoomReader extends Reader<Room> {
     private Room.RoomStatus status;
-    private DateTime startTimeAfter;
-    private DateTime startTimeBefore;
     private String uniqueName;
+    private DateTime dateCreatedAfter;
+    private DateTime dateCreatedBefore;
 
     /**
      * The status.
@@ -39,28 +39,6 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The start_time_after.
-     * 
-     * @param startTimeAfter The start_time_after
-     * @return this
-     */
-    public RoomReader setStartTimeAfter(final DateTime startTimeAfter) {
-        this.startTimeAfter = startTimeAfter;
-        return this;
-    }
-
-    /**
-     * The start_time_before.
-     * 
-     * @param startTimeBefore The start_time_before
-     * @return this
-     */
-    public RoomReader setStartTimeBefore(final DateTime startTimeBefore) {
-        this.startTimeBefore = startTimeBefore;
-        return this;
-    }
-
-    /**
      * The unique_name.
      * 
      * @param uniqueName The unique_name
@@ -68,6 +46,28 @@ public class RoomReader extends Reader<Room> {
      */
     public RoomReader setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
+        return this;
+    }
+
+    /**
+     * The date_created_after.
+     * 
+     * @param dateCreatedAfter The date_created_after
+     * @return this
+     */
+    public RoomReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
+
+    /**
+     * The date_created_before.
+     * 
+     * @param dateCreatedBefore The date_created_before
+     * @return this
+     */
+    public RoomReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+        this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
@@ -167,16 +167,16 @@ public class RoomReader extends Reader<Room> {
             request.addQueryParam("Status", status.toString());
         }
 
-        if (startTimeAfter != null) {
-            request.addQueryParam("StartTimeAfter", startTimeAfter.toString());
-        }
-
-        if (startTimeBefore != null) {
-            request.addQueryParam("StartTimeBefore", startTimeBefore.toString());
-        }
-
         if (uniqueName != null) {
             request.addQueryParam("UniqueName", uniqueName);
+        }
+
+        if (dateCreatedAfter != null) {
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+        }
+
+        if (dateCreatedBefore != null) {
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
         }
 
         if (getPageSize() != null) {

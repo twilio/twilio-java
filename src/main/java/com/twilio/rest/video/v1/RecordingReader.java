@@ -10,6 +10,7 @@ package com.twilio.rest.video.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,9 +20,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.util.List;
+
 public class RecordingReader extends Reader<Recording> {
     private Recording.Status status;
     private String sourceSid;
+    private List<String> groupingSid;
 
     /**
      * The status.
@@ -43,6 +47,27 @@ public class RecordingReader extends Reader<Recording> {
     public RecordingReader setSourceSid(final String sourceSid) {
         this.sourceSid = sourceSid;
         return this;
+    }
+
+    /**
+     * The grouping_sid.
+     * 
+     * @param groupingSid The grouping_sid
+     * @return this
+     */
+    public RecordingReader setGroupingSid(final List<String> groupingSid) {
+        this.groupingSid = groupingSid;
+        return this;
+    }
+
+    /**
+     * The grouping_sid.
+     * 
+     * @param groupingSid The grouping_sid
+     * @return this
+     */
+    public RecordingReader setGroupingSid(final String groupingSid) {
+        return setGroupingSid(Promoter.listOfOne(groupingSid));
     }
 
     /**
@@ -143,6 +168,12 @@ public class RecordingReader extends Reader<Recording> {
 
         if (sourceSid != null) {
             request.addQueryParam("SourceSid", sourceSid);
+        }
+
+        if (groupingSid != null) {
+            for (String prop : groupingSid) {
+                request.addQueryParam("GroupingSid", prop);
+            }
         }
 
         if (getPageSize() != null) {

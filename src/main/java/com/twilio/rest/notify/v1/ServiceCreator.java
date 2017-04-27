@@ -27,6 +27,7 @@ public class ServiceCreator extends Creator<Service> {
     private String defaultGcmNotificationProtocolVersion;
     private String fcmCredentialSid;
     private String defaultFcmNotificationProtocolVersion;
+    private Boolean logEnabled;
 
     /**
      * The friendly_name.
@@ -131,6 +132,17 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * The log_enabled.
+     * 
+     * @param logEnabled The log_enabled
+     * @return this
+     */
+    public ServiceCreator setLogEnabled(final Boolean logEnabled) {
+        this.logEnabled = logEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -209,6 +221,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (defaultFcmNotificationProtocolVersion != null) {
             request.addPostParam("DefaultFcmNotificationProtocolVersion", defaultFcmNotificationProtocolVersion);
+        }
+
+        if (logEnabled != null) {
+            request.addPostParam("LogEnabled", logEnabled.toString());
         }
     }
 }

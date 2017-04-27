@@ -1,5 +1,21 @@
 twilio-java changelog
 =====================
+[2017-04-27] Version 7.9.1-alpha-1
+----------------------------------
+- Remove conference participant `Beep` and `ConferenceRecord` enums, use `String` instead (backwards incompatible).
+- Add `recordingChannels`, `recordingStatusCallback`, `recordingStatusCallbackMethod`, `sipAuthUsername`, `sipAuthPassword`, `region`, `conferenceRecordingStatusCallback`, `conferenceRecordingStatusCallbackMethod` parameter support to conference participant creation.
+- Update missing categories in Usage Trigger enums.
+- Alpha Changes:
+    - Add `smartEncoding` parameter to messaging Service.
+    - Make `endpoint ` parameter optional for notify service bindings (backwards incompatible).
+    - Add `segments` property to notify service notifications.
+    - Add `logEnabled` property to notify services.
+    - New Notify resources: Segment, SegmentMembership, UserBinding, User
+    - Add ability to delete Wireless RatePlans
+    - Add `groupingSid` parameter to Video Recordings.
+    - Remove `startTime` property from Video Rooms (backwards incompatible).
+    - Replace `startTimeBefore/After` filtering with `dateCreatedBefore/After` on Video Rooms (backwards incompatible).
+
 
 [2017-04-18] Version 7.9.0-alpha-2
 --------------------------

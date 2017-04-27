@@ -22,30 +22,27 @@ import java.util.List;
 
 public class BindingCreator extends Creator<Binding> {
     private final String pathServiceSid;
-    private final String endpoint;
     private final String identity;
     private final Binding.BindingType bindingType;
     private final String address;
     private List<String> tag;
     private String notificationProtocolVersion;
     private String credentialSid;
+    private String endpoint;
 
     /**
      * Construct a new BindingCreator.
      * 
      * @param pathServiceSid The service_sid
-     * @param endpoint The endpoint
      * @param identity The identity
      * @param bindingType The binding_type
      * @param address The address
      */
     public BindingCreator(final String pathServiceSid, 
-                          final String endpoint, 
                           final String identity, 
                           final Binding.BindingType bindingType, 
                           final String address) {
         this.pathServiceSid = pathServiceSid;
-        this.endpoint = endpoint;
         this.identity = identity;
         this.bindingType = bindingType;
         this.address = address;
@@ -95,6 +92,17 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
+     * The endpoint.
+     * 
+     * @param endpoint The endpoint
+     * @return this
+     */
+    public BindingCreator setEndpoint(final String endpoint) {
+        this.endpoint = endpoint;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -139,10 +147,6 @@ public class BindingCreator extends Creator<Binding> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (endpoint != null) {
-            request.addPostParam("Endpoint", endpoint);
-        }
-
         if (identity != null) {
             request.addPostParam("Identity", identity);
         }
@@ -167,6 +171,10 @@ public class BindingCreator extends Creator<Binding> {
 
         if (credentialSid != null) {
             request.addPostParam("CredentialSid", credentialSid);
+        }
+
+        if (endpoint != null) {
+            request.addPostParam("Endpoint", endpoint);
         }
     }
 }

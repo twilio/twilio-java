@@ -28,6 +28,7 @@ public class ServiceUpdater extends Updater<Service> {
     private String defaultGcmNotificationProtocolVersion;
     private String fcmCredentialSid;
     private String defaultFcmNotificationProtocolVersion;
+    private Boolean logEnabled;
 
     /**
      * Construct a new ServiceUpdater.
@@ -141,6 +142,17 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The log_enabled.
+     * 
+     * @param logEnabled The log_enabled
+     * @return this
+     */
+    public ServiceUpdater setLogEnabled(final Boolean logEnabled) {
+        this.logEnabled = logEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -219,6 +231,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (defaultFcmNotificationProtocolVersion != null) {
             request.addPostParam("DefaultFcmNotificationProtocolVersion", defaultFcmNotificationProtocolVersion);
+        }
+
+        if (logEnabled != null) {
+            request.addPostParam("LogEnabled", logEnabled.toString());
         }
     }
 }

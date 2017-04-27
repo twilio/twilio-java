@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -30,12 +31,13 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 169226474030009L;
+    private static final long serialVersionUID = 281410576660800L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -220,6 +222,7 @@ public class Recording extends Resource {
     private final Integer duration;
     private final Recording.Format containerFormat;
     private final Recording.Codec codec;
+    private final Map<String, Object> groupingSids;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -245,6 +248,8 @@ public class Recording extends Resource {
                       final Recording.Format containerFormat, 
                       @JsonProperty("codec")
                       final Recording.Codec codec, 
+                      @JsonProperty("grouping_sids")
+                      final Map<String, Object> groupingSids, 
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -258,6 +263,7 @@ public class Recording extends Resource {
         this.duration = duration;
         this.containerFormat = containerFormat;
         this.codec = codec;
+        this.groupingSids = groupingSids;
         this.links = links;
     }
 
@@ -361,6 +367,15 @@ public class Recording extends Resource {
     }
 
     /**
+     * Returns The The grouping_sids.
+     * 
+     * @return The grouping_sids
+     */
+    public final Map<String, Object> getGroupingSids() {
+        return this.groupingSids;
+    }
+
+    /**
      * Returns The The links.
      * 
      * @return The links
@@ -392,6 +407,7 @@ public class Recording extends Resource {
                Objects.equals(duration, other.duration) && 
                Objects.equals(containerFormat, other.containerFormat) && 
                Objects.equals(codec, other.codec) && 
+               Objects.equals(groupingSids, other.groupingSids) && 
                Objects.equals(links, other.links);
     }
 
@@ -408,6 +424,7 @@ public class Recording extends Resource {
                             duration,
                             containerFormat,
                             codec,
+                            groupingSids,
                             links);
     }
 
@@ -425,6 +442,7 @@ public class Recording extends Resource {
                           .add("duration", duration)
                           .add("containerFormat", containerFormat)
                           .add("codec", codec)
+                          .add("groupingSids", groupingSids)
                           .add("links", links)
                           .toString();
     }

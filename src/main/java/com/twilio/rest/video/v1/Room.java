@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Room extends Resource {
-    private static final long serialVersionUID = 30898233605935L;
+    private static final long serialVersionUID = 141491428942687L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -174,7 +174,6 @@ public class Room extends Resource {
     private final String uniqueName;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
-    private final DateTime startTime;
     private final DateTime endTime;
     private final Integer duration;
     private final Room.RoomType type;
@@ -201,8 +200,6 @@ public class Room extends Resource {
                  final URI statusCallback, 
                  @JsonProperty("status_callback_method")
                  final HttpMethod statusCallbackMethod, 
-                 @JsonProperty("start_time")
-                 final String startTime, 
                  @JsonProperty("end_time")
                  final String endTime, 
                  @JsonProperty("duration")
@@ -224,7 +221,6 @@ public class Room extends Resource {
         this.uniqueName = uniqueName;
         this.statusCallback = statusCallback;
         this.statusCallbackMethod = statusCallbackMethod;
-        this.startTime = DateConverter.iso8601DateTimeFromString(startTime);
         this.endTime = DateConverter.iso8601DateTimeFromString(endTime);
         this.duration = duration;
         this.type = type;
@@ -315,15 +311,6 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The start_time.
-     * 
-     * @return The start_time
-     */
-    public final DateTime getStartTime() {
-        return this.startTime;
-    }
-
-    /**
      * Returns The The end_time.
      * 
      * @return The end_time
@@ -398,7 +385,6 @@ public class Room extends Resource {
                Objects.equals(uniqueName, other.uniqueName) && 
                Objects.equals(statusCallback, other.statusCallback) && 
                Objects.equals(statusCallbackMethod, other.statusCallbackMethod) && 
-               Objects.equals(startTime, other.startTime) && 
                Objects.equals(endTime, other.endTime) && 
                Objects.equals(duration, other.duration) && 
                Objects.equals(type, other.type) && 
@@ -418,7 +404,6 @@ public class Room extends Resource {
                             uniqueName,
                             statusCallback,
                             statusCallbackMethod,
-                            startTime,
                             endTime,
                             duration,
                             type,
@@ -439,7 +424,6 @@ public class Room extends Resource {
                           .add("uniqueName", uniqueName)
                           .add("statusCallback", statusCallback)
                           .add("statusCallbackMethod", statusCallbackMethod)
-                          .add("startTime", startTime)
                           .add("endTime", endTime)
                           .add("duration", duration)
                           .add("type", type)

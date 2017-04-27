@@ -36,14 +36,15 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Binding extends Resource {
-    private static final long serialVersionUID = 264145617789738L;
+    private static final long serialVersionUID = 19604548272115L;
 
     public enum BindingType {
         APN("apn"),
         GCM("gcm"),
         SMS("sms"),
         FCM("fcm"),
-        FACEBOOK_MESSENGER("facebook-messenger");
+        FACEBOOK_MESSENGER("facebook-messenger"),
+        ALEXA("alexa");
 
         private final String value;
 
@@ -94,18 +95,16 @@ public class Binding extends Resource {
      * Create a BindingCreator to execute create.
      * 
      * @param pathServiceSid The service_sid
-     * @param endpoint The endpoint
      * @param identity The identity
      * @param bindingType The binding_type
      * @param address The address
      * @return BindingCreator capable of executing the create
      */
     public static BindingCreator creator(final String pathServiceSid, 
-                                         final String endpoint, 
                                          final String identity, 
                                          final Binding.BindingType bindingType, 
                                          final String address) {
-        return new BindingCreator(pathServiceSid, endpoint, identity, bindingType, address);
+        return new BindingCreator(pathServiceSid, identity, bindingType, address);
     }
 
     /**
@@ -168,6 +167,7 @@ public class Binding extends Resource {
     private final String address;
     private final List<String> tags;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Binding(@JsonProperty("sid")
@@ -195,7 +195,9 @@ public class Binding extends Resource {
                     @JsonProperty("tags")
                     final List<String> tags, 
                     @JsonProperty("url")
-                    final URI url) {
+                    final URI url, 
+                    @JsonProperty("links")
+                    final Map<String, String> links) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -209,6 +211,7 @@ public class Binding extends Resource {
         this.address = address;
         this.tags = tags;
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -328,6 +331,15 @@ public class Binding extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -352,7 +364,8 @@ public class Binding extends Resource {
                Objects.equals(bindingType, other.bindingType) && 
                Objects.equals(address, other.address) && 
                Objects.equals(tags, other.tags) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -369,7 +382,8 @@ public class Binding extends Resource {
                             bindingType,
                             address,
                             tags,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -388,6 +402,7 @@ public class Binding extends Resource {
                           .add("address", address)
                           .add("tags", tags)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

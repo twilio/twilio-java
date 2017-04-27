@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Notification extends Resource {
-    private static final long serialVersionUID = 239493407416322L;
+    private static final long serialVersionUID = 169114501293629L;
 
     public enum Priority {
         HIGH("high"),
@@ -117,6 +117,7 @@ public class Notification extends Resource {
     private final DateTime dateCreated;
     private final List<String> identities;
     private final List<String> tags;
+    private final List<String> segments;
     private final Notification.Priority priority;
     private final Integer ttl;
     private final String title;
@@ -143,6 +144,8 @@ public class Notification extends Resource {
                          final List<String> identities, 
                          @JsonProperty("tags")
                          final List<String> tags, 
+                         @JsonProperty("segments")
+                         final List<String> segments, 
                          @JsonProperty("priority")
                          final Notification.Priority priority, 
                          @JsonProperty("ttl")
@@ -173,6 +176,7 @@ public class Notification extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.identities = identities;
         this.tags = tags;
+        this.segments = segments;
         this.priority = priority;
         this.ttl = ttl;
         this.title = title;
@@ -239,6 +243,15 @@ public class Notification extends Resource {
      */
     public final List<String> getTags() {
         return this.tags;
+    }
+
+    /**
+     * Returns The The segments.
+     * 
+     * @return The segments
+     */
+    public final List<String> getSegments() {
+        return this.segments;
     }
 
     /**
@@ -367,6 +380,7 @@ public class Notification extends Resource {
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(identities, other.identities) && 
                Objects.equals(tags, other.tags) && 
+               Objects.equals(segments, other.segments) && 
                Objects.equals(priority, other.priority) && 
                Objects.equals(ttl, other.ttl) && 
                Objects.equals(title, other.title) && 
@@ -389,6 +403,7 @@ public class Notification extends Resource {
                             dateCreated,
                             identities,
                             tags,
+                            segments,
                             priority,
                             ttl,
                             title,
@@ -412,6 +427,7 @@ public class Notification extends Resource {
                           .add("dateCreated", dateCreated)
                           .add("identities", identities)
                           .add("tags", tags)
+                          .add("segments", segments)
                           .add("priority", priority)
                           .add("ttl", ttl)
                           .add("title", title)

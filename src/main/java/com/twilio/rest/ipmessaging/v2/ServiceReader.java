@@ -7,11 +7,13 @@
 
 package com.twilio.rest.ipmessaging.v2;
 
+import com.google.common.base.Joiner;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.exception.InvalidRequestException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -52,6 +54,35 @@ public class ServiceReader extends Reader<Service> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return Target Page
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Service> getPage(final String targetUrl, final TwilioRestClient client) {
+        String resourceUrl = "https://"
+                           + Joiner.on(".").skipNulls().join(
+                                Domains.IPMESSAGING.toString(),
+                                client.getRegion(),
+                                "twilio",
+                                "com")
+                           + "/v2/Services";
+        if (!targetUrl.startsWith(resourceUrl)) {
+            throw new InvalidRequestException("Invalid targetUrl for Service resource.");
+        }
+
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -64,6 +95,26 @@ public class ServiceReader extends Reader<Service> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.IPMESSAGING.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<Service> previousPage(final Page<Service> page, 
+                                      final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.IPMESSAGING.toString(),
                 client.getRegion()
             )

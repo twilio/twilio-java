@@ -7,11 +7,13 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.google.common.base.Joiner;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.exception.InvalidRequestException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -94,6 +96,36 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return Target Page
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<OutgoingCallerId> getPage(final String targetUrl, final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        String resourceUrl = "https://"
+                           + Joiner.on(".").skipNulls().join(
+                                Domains.API.toString(),
+                                client.getRegion(),
+                                "twilio",
+                                "com")
+                           + "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds.json";
+        if (!targetUrl.startsWith(resourceUrl)) {
+            throw new InvalidRequestException("Invalid targetUrl for OutgoingCallerId resource.");
+        }
+
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -106,6 +138,26 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.API.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<OutgoingCallerId> previousPage(final Page<OutgoingCallerId> page, 
+                                               final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.API.toString(),
                 client.getRegion()
             )

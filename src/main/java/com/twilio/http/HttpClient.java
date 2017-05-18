@@ -1,5 +1,7 @@
 package com.twilio.http;
 
+import java.io.IOException;
+
 public abstract class HttpClient {
 
     public static final int ANY_500 = -500;
@@ -39,6 +41,12 @@ public abstract class HttpClient {
 
             if (!shouldRetry(response, retryCodes)) {
                 return response;
+            }
+
+            try {
+                response.getStream().close();
+            } catch (IOException e) {
+
             }
 
             try {

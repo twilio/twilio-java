@@ -79,12 +79,12 @@ public class ValidationToken extends Jwt {
         String includedHeaders = Joiner.on(";").join(lowercaseSignedHeaders);
         payload.put("hrh", includedHeaders);
 
-        String signature =
-                new SignatureCreator(method, uri, queryString, requestBody, headers).createSignature(
+        String canonicalRequest =
+                new RequestCanonicalizer(method, uri, queryString, requestBody, headers).create(
                         lowercaseSignedHeaders, HASH_FUNCTION);
 
         // Hash and hex the canonical request
-        String hashedSignature = HASH_FUNCTION.hashString(signature, Charsets.UTF_8).toString();
+        String hashedSignature = HASH_FUNCTION.hashString(canonicalRequest, Charsets.UTF_8).toString();
         payload.put("rqh", hashedSignature);
 
         return payload;
@@ -122,7 +122,6 @@ public class ValidationToken extends Jwt {
 
         return builder.build();
     }
-
 
     private static Function<String, String> LOWERCASE_STRING = new Function<String, String>() {
         @Override

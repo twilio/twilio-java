@@ -25,13 +25,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Creates a canonical signature out of HTTP request components.
+ * Creates a canonical string out of HTTP request components.
  * <p>
- * The process of generating the signature is described <a href="https://www.twilio
+ * The process of generating the canonical request is described <a href="https://www.twilio
  * .com/docs/api/credentials/public-key-client-validation-getting-started#3-create-hash-of-the-canonical-request"
  * >here</a>.
  */
-class SignatureCreator {
+class RequestCanonicalizer {
 
     private static final String NEW_LINE = "\n";
     private static final Pattern TOKEN_REPLACE_PATTERN =
@@ -43,7 +43,7 @@ class SignatureCreator {
     private final String requestBody;
     private final Header[] headers;
 
-    public SignatureCreator(String method, String uri, String queryString, String requestBody, Header[] headers) {
+    public RequestCanonicalizer(String method, String uri, String queryString, String requestBody, Header[] headers) {
         this.method = method;
         this.uri = uri;
         this.queryString = queryString;
@@ -51,16 +51,23 @@ class SignatureCreator {
         this.headers = headers;
     }
 
-    public String createSignature(List<String> sortedIncludedHeaders, HashFunction hashFunction) {
+    /**
+     * Creates a canonical request string out of HTTP request components.
+     *
+     * @param sortedIncludedHeaders the headers that should be included into canonical request string
+     * @param hashFunction          the hashing function applied to request payload
+     * @return a string representing the canonical request
+     */
+    public String create(List<String> sortedIncludedHeaders, HashFunction hashFunction) {
         // Add the method and uri
-        StringBuilder signature = new StringBuilder();
-        signature.append(method).append(NEW_LINE);
+        StringBuilder canonicalRequest = new StringBuilder();
+        canonicalRequest.append(method).append(NEW_LINE);
         String canonicalUri = CANONICALIZE_PATH.apply(uri);
-        signature.append(canonicalUri).append(NEW_LINE);
+        canonicalRequest.append(canonicalUri).append(NEW_LINE);
 
         // Get the query args, replace whitespace and values that should be not encoded, sort and rejoin
         String canonicalQuery = CANONICALIZE_QUERY.apply(queryString);
-        signature.append(canonicalQuery).append(NEW_LINE);
+        canonicalRequest.append(canonicalQuery).append(NEW_LINE);
 
         // Normalize all the headers
         Header[] lowercaseHeaders = LOWERCASE_KEYS.apply(headers);
@@ -74,23 +81,23 @@ class SignatureCreator {
                 List<String> values = combinedHeaders.get(lowercase);
                 Collections.sort(values);
 
-                signature.append(lowercase)
+                canonicalRequest.append(lowercase)
                          .append(":")
                          .append(Joiner.on(',').join(values))
                          .append(NEW_LINE);
             }
         }
-        signature.append(NEW_LINE);
+        canonicalRequest.append(NEW_LINE);
 
         // Mark the headers that we care about
-        signature.append(Joiner.on(";").join(sortedIncludedHeaders)).append(NEW_LINE);
+        canonicalRequest.append(Joiner.on(";").join(sortedIncludedHeaders)).append(NEW_LINE);
 
         // Hash and hex the request payload
         if (!Strings.isNullOrEmpty(requestBody)) {
             String hashedPayload = hashFunction.hashString(requestBody, Charsets.UTF_8).toString();
-            signature.append(hashedPayload);
+            canonicalRequest.append(hashedPayload);
         }
-        return signature.toString();
+        return canonicalRequest.toString();
     }
 
     private static Function<Header[], Map<String, List<String>>> COMBINE_HEADERS = new Function<Header[], Map<String, List<String>>>() {
@@ -115,8 +122,8 @@ class SignatureCreator {
      * <ul>
      * <li> Normalizing the path (remove redundant path elements)
      * <li> URL-encodes the remaining path
-     * <li> Replaces a set of control characters with the values defined in the signature contract
-     *                 (e.g., space should be represented as %20 in the signature)
+     * <li> Replaces a set of control characters with the values defined in the contract
+     *                 (e.g., space should be represented as %20 in the canonical request)
      * <li> When no path is provided, returns '/'
      * </ul>
      */
@@ -142,8 +149,8 @@ class SignatureCreator {
     /**
      * Creates a canonical query string out of already URL encoded queryParams by:
      * <ul>
-     * <li> Replaces a set of control characters with the values defined in the signature contract
-     *                 (e.g., space should be represented as %20 in the signature)
+     * <li> Replaces a set of control characters with the values defined in the contract
+     *                 (e.g., space should be represented as %20 in the canonical request)
      * <li> ASCII Sort the combined “key=value” strings (not just the ‘keys’)
      * <li> Join all key/value pairs with a ‘&’ in between
      * </ul>
@@ -172,7 +179,7 @@ class SignatureCreator {
     };
 
     /**
-     * Replaces the special characters in the URLEncoded string with the replacement values defined by the signing spec.
+     * Replaces the special characters in the URLEncoded string with the replacement values defined by the spec.
      *
      * Partially copied from https://github.com/aws/aws-sdk-java: com.amazonaws.util.SdkHttpUtils (2017-05-19)
      *

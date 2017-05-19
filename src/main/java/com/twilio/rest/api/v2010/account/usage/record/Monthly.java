@@ -103,6 +103,12 @@ public class Monthly extends Resource {
         MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE("marketplace-whitepages-pro-phone-intelligence"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION("marketplace-whitepages-pro-phone-reputation"),
         MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
+        MARKETPLACE_WOLFARM_SPOKEN_RESULTS("marketplace-wolfarm-spoken-results"),
+        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
+        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
+        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
         MEDIASTORAGE("mediastorage"),
         MMS("mms"),
         MMS_INBOUND("mms-inbound"),
@@ -114,12 +120,17 @@ public class Monthly extends Resource {
         MONITOR_READS("monitor-reads"),
         MONITOR_STORAGE("monitor-storage"),
         MONITOR_WRITES("monitor-writes"),
+        NOTIFY("notify"),
+        NOTIFY_ACTIONS_ATTEMPTS("notify-actions-attempts"),
+        NOTIFY_CHANNELS("notify-channels"),
         NUMBER_FORMAT_LOOKUPS("number-format-lookups"),
         PCHAT("pchat"),
         PCHAT_ACTIONS("pchat-actions"),
         PCHAT_APS("pchat-aps"),
         PCHAT_NOTIFICATIONS("pchat-notifications"),
         PCHAT_READS("pchat-reads"),
+        PCHAT_USERS("pchat-users"),
+        PCHAT_MESSAGES("pchat-messages"),
         PFAX("pfax"),
         PFAX_MINUTES("pfax-minutes"),
         PFAX_MINUTES_INBOUND("pfax-minutes-inbound"),
@@ -161,6 +172,7 @@ public class Monthly extends Resource {
         SMS_OUTBOUND_CONTENT_INSPECTION("sms-outbound-content-inspection"),
         SMS_OUTBOUND_LONGCODE("sms-outbound-longcode"),
         SMS_OUTBOUND_SHORTCODE("sms-outbound-shortcode"),
+        SMS_MESSAGES_FEATURES("sms-messages-features"),
         TASKROUTER_TASKS("taskrouter-tasks"),
         TOTALPRICE("totalprice"),
         TRANSCRIPTIONS("transcriptions"),
@@ -207,7 +219,8 @@ public class Monthly extends Resource {
         WIRELESS_USAGE_MRC("wireless-usage-mrc"),
         WIRELESS_USAGE_MRC_CUSTOM("wireless-usage-mrc-custom"),
         WIRELESS_USAGE_MRC_INDIVIDUAL("wireless-usage-mrc-individual"),
-        WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled");
+        WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled"),
+        SYNC("sync");
 
         private final String value;
 

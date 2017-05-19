@@ -184,15 +184,6 @@ public class Member extends Resource {
      * 
      * @return Unique string that identifies this resource
      */
-    public final String getSid() {
-        return this.getCallSid();
-    }
-
-    /**
-     * Returns The Unique string that identifies this resource.
-     * 
-     * @return Unique string that identifies this resource
-     */
     public final String getCallSid() {
         return this.callSid;
     }

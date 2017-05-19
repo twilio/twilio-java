@@ -143,15 +143,6 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The phone_number.
-     * 
-     * @return The phone_number
-     */
-    public final String getSid() {
-        return this.getPhoneNumber().toString();
-    }
-
-    /**
      * Returns The The caller_name.
      * 
      * @return The caller_name

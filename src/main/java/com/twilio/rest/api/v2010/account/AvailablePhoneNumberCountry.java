@@ -142,15 +142,6 @@ public class AvailablePhoneNumberCountry extends Resource {
      * 
      * @return The ISO Country code to lookup phone numbers for.
      */
-    public final String getSid() {
-        return this.getCountryCode();
-    }
-
-    /**
-     * Returns The The ISO Country code to lookup phone numbers for..
-     * 
-     * @return The ISO Country code to lookup phone numbers for.
-     */
     public final String getCountryCode() {
         return this.countryCode;
     }

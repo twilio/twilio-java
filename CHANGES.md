@@ -1,6 +1,14 @@
 twilio-java changelog
 =====================
 
+[2017-05-19] Version 7.10.0
+--------------------------
+- Add video.twilio.com
+- Add additional usage categories
+- Fix Client Validation URL encoding
+- Close all connections in finally block
+- Remove convenience method `getSid()` on records that do not have a sid
+
 [2017-04-27] Version 7.9.1
 --------------------------
 - Remove conference participant `Beep` and `ConferenceRecord` enums, use `String` instead (backwards incompatible).

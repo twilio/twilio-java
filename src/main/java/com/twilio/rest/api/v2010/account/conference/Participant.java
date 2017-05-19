@@ -282,15 +282,6 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this call.
-     * 
-     * @return A string that uniquely identifies this call
-     */
-    public final String getSid() {
-        return this.getCallSid();
-    }
-
-    /**
      * Returns The The unique sid that identifies this account.
      * 
      * @return The unique sid that identifies this account

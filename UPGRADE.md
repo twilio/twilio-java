@@ -3,6 +3,54 @@
 _After `7.4.0` all `MINOR` and `MAJOR` version bumps will have upgrade notes 
 posted here._
 
+[2017-05-19] 7.9.x to 7.10.x
+---------------------------
+
+### CHANGED - Remove convenience method `getSid()` on records that do not have a sid
+
+#### Rationale
+There already exists a getter for the resource
+
+#### Affected Resources
+  - `src/main/java/com/twilio/rest/lookups/v1/PhoneNumber.java`
+
+```java
+// 7.9.x
+resource.getSid();
+```
+
+```java
+// 7.10.x
+resource.getPhoneNumber().toString();
+```
+
+  - `src/main/java/com/twilio/rest/pricing/v1/messaging/Country.java`
+  - `src/main/java/com/twilio/rest/pricing/v1/phonenumber/Country.java`
+  - `src/main/java/com/twilio/rest/pricing/v1/voice/Country.java`
+
+```java
+// 7.9.x
+resource.getSid();
+```
+
+```java
+// 7.10.x
+resource.getIsoCountry();
+```
+
+  - `src/main/java/com/twilio/rest/pricing/v1/voice/Number.java`
+
+```java
+// 7.9.x
+resource.getSid();
+```
+
+```java
+// 7.10.x
+resource.getNumber().toString();
+```
+
+
 [2017-02-01] 7.4.x to 7.5.x
 ---------------------------
 

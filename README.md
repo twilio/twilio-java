@@ -54,7 +54,7 @@ Twilio.init(accountSid, authToken);
 Call call = Call.creator(
     new PhoneNumber("+15558881234"),  // To number
     new PhoneNumber("+15559994321"),  // From number
-    
+
     // Read TwiML at this URL when a call connects (hold music)
     new URI("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
 ).create();
@@ -63,7 +63,7 @@ System.out.println(call.getSid());
 ```
 
 ### Generating TwiML
-To control phone calls, your application needs to output [TwiML](http://www.twilio.com/docs/api/twiml/). 
+To control phone calls, your application needs to output [TwiML](http://www.twilio.com/docs/api/twiml/).
 TwiML in twilio-java now use the builder pattern!
 ```java
 TwiML twiml = new VoiceResponse.Builder()

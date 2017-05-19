@@ -171,6 +171,15 @@ class SignatureCreator {
         }
     };
 
+    /**
+     * Replaces the special characters in the URLEncoded string with the replacement values defined by the signing spec.
+     *
+     * Partially copied from https://github.com/aws/aws-sdk-java: com.amazonaws.util.SdkHttpUtils (2017-05-19)
+     *
+     * @param string the string to replace characters in
+     * @param replaceSlash whether the encoded '/' should be replaced
+     * @return the string after replacements
+     */
     private static String replace(String string, boolean replaceSlash) {
         if (Strings.isNullOrEmpty(string)) {
             return string;

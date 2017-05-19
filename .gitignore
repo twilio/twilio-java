@@ -2,7 +2,6 @@
 out/
 *.iml
 target/
-java/
 src/main/java/com/twilio/Twilio.java.bak
 secret.key
 pom.xml.releaseBackup

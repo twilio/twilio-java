@@ -1,5 +1,18 @@
 twilio-java changelog
 =====================
+
+[2017-05-22] Version 7.10.1-alpha-1
+----------------------------------
+- Add video.twilio.com
+- Add additional usage categories
+- Fix Client Validation URL encoding
+- Close all connections in finally block
+- Remove convenience method `getSid()` on records that do not have a sid
+- *Alpha Changes:*
+    - Add wireless.twilio.com
+    - Add sync.twilio.com
+    - Add ability to Delete Faxes
+
 [2017-04-27] Version 7.9.1-alpha-1
 ----------------------------------
 - Remove conference participant `Beep` and `ConferenceRecord` enums, use `String` instead (backwards incompatible).
@@ -14,8 +27,7 @@ twilio-java changelog
     - Add ability to delete Wireless RatePlans
     - Add `groupingSid` parameter to Video Recordings.
     - Remove `startTime` property from Video Rooms (backwards incompatible).
-    - Replace `startTimeBefore/After` filtering with `dateCreatedBefore/After` on Video Rooms (backwards incompatible).
-
+    - Replace `startTimeBefore/After` filtering with `dateCreatedBefore/After` on Video Rooms (backwards incompatible).\
 
 [2017-04-18] Version 7.9.0-alpha-2
 --------------------------

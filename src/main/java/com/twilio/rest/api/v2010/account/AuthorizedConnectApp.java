@@ -187,15 +187,6 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this app.
-     * 
-     * @return A string that uniquely identifies this app
-     */
-    public final String getSid() {
-        return this.getConnectAppSid();
-    }
-
-    /**
      * Returns The The unique sid that identifies this account.
      * 
      * @return The unique sid that identifies this account

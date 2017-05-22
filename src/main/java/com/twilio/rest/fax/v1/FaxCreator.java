@@ -21,23 +21,22 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class FaxCreator extends Creator<Fax> {
-    private final String from;
     private final String to;
     private final URI mediaUrl;
     private Fax.Quality quality;
     private URI statusCallback;
+    private String from;
+    private String sipAuthUsername;
+    private String sipAuthPassword;
 
     /**
      * Construct a new FaxCreator.
      * 
-     * @param from The from
      * @param to The to
      * @param mediaUrl The media_url
      */
-    public FaxCreator(final String from, 
-                      final String to, 
+    public FaxCreator(final String to, 
                       final URI mediaUrl) {
-        this.from = from;
         this.to = to;
         this.mediaUrl = mediaUrl;
     }
@@ -72,6 +71,39 @@ public class FaxCreator extends Creator<Fax> {
      */
     public FaxCreator setStatusCallback(final String statusCallback) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
+
+    /**
+     * The from.
+     * 
+     * @param from The from
+     * @return this
+     */
+    public FaxCreator setFrom(final String from) {
+        this.from = from;
+        return this;
+    }
+
+    /**
+     * The sip_auth_username.
+     * 
+     * @param sipAuthUsername The sip_auth_username
+     * @return this
+     */
+    public FaxCreator setSipAuthUsername(final String sipAuthUsername) {
+        this.sipAuthUsername = sipAuthUsername;
+        return this;
+    }
+
+    /**
+     * The sip_auth_password.
+     * 
+     * @param sipAuthPassword The sip_auth_password
+     * @return this
+     */
+    public FaxCreator setSipAuthPassword(final String sipAuthPassword) {
+        this.sipAuthPassword = sipAuthPassword;
+        return this;
     }
 
     /**
@@ -119,10 +151,6 @@ public class FaxCreator extends Creator<Fax> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (from != null) {
-            request.addPostParam("From", from);
-        }
-
         if (to != null) {
             request.addPostParam("To", to);
         }
@@ -137,6 +165,18 @@ public class FaxCreator extends Creator<Fax> {
 
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
+        }
+
+        if (from != null) {
+            request.addPostParam("From", from);
+        }
+
+        if (sipAuthUsername != null) {
+            request.addPostParam("SipAuthUsername", sipAuthUsername);
+        }
+
+        if (sipAuthPassword != null) {
+            request.addPostParam("SipAuthPassword", sipAuthPassword);
         }
     }
 }

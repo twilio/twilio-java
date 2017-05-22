@@ -139,15 +139,6 @@ public class SegmentMembership extends Resource {
     }
 
     /**
-     * Returns The The segment.
-     * 
-     * @return The segment
-     */
-    public final String getSid() {
-        return this.getSegment();
-    }
-
-    /**
      * Returns The The account_sid.
      * 
      * @return The account_sid

@@ -246,15 +246,6 @@ public class SyncListItem extends Resource {
      * 
      * @return The index
      */
-    public final String getSid() {
-        return this.getIndex().toString();
-    }
-
-    /**
-     * Returns The The index.
-     * 
-     * @return The index
-     */
     public final Integer getIndex() {
         return this.index;
     }

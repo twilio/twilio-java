@@ -10,6 +10,7 @@ package com.twilio.rest.fax.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,10 +19,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class FaxReader extends Reader<Fax> {
     private String from;
     private String to;
+    private DateTime dateCreatedOnOrBefore;
+    private DateTime dateCreatedAfter;
 
     /**
      * The from.
@@ -42,6 +46,28 @@ public class FaxReader extends Reader<Fax> {
      */
     public FaxReader setTo(final String to) {
         this.to = to;
+        return this;
+    }
+
+    /**
+     * The date_created_on_or_before.
+     * 
+     * @param dateCreatedOnOrBefore The date_created_on_or_before
+     * @return this
+     */
+    public FaxReader setDateCreatedOnOrBefore(final DateTime dateCreatedOnOrBefore) {
+        this.dateCreatedOnOrBefore = dateCreatedOnOrBefore;
+        return this;
+    }
+
+    /**
+     * The date_created_after.
+     * 
+     * @param dateCreatedAfter The date_created_after
+     * @return this
+     */
+    public FaxReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+        this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
@@ -143,6 +169,14 @@ public class FaxReader extends Reader<Fax> {
 
         if (to != null) {
             request.addQueryParam("To", to);
+        }
+
+        if (dateCreatedOnOrBefore != null) {
+            request.addQueryParam("DateCreatedOnOrBefore", dateCreatedOnOrBefore.toString());
+        }
+
+        if (dateCreatedAfter != null) {
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
         }
 
         if (getPageSize() != null) {

@@ -21,7 +21,9 @@ public enum Domains {
     TASKROUTER("taskrouter"),
     TRUNKING("trunking"),
     VIDEO("video"),
-    MESSAGING("messaging");
+    MESSAGING("messaging"),
+    WIRELESS("wireless"),
+    SYNC("sync");
 
     private final String value;
 

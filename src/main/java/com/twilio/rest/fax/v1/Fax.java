@@ -38,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Fax extends Resource {
-    private static final long serialVersionUID = 135542230963523L;
+    private static final long serialVersionUID = 7078250221484L;
 
     public enum Direction {
         INBOUND("inbound"),
@@ -170,15 +170,13 @@ public class Fax extends Resource {
     /**
      * Create a FaxCreator to execute create.
      * 
-     * @param from The from
      * @param to The to
      * @param mediaUrl The media_url
      * @return FaxCreator capable of executing the create
      */
-    public static FaxCreator creator(final String from, 
-                                     final String to, 
+    public static FaxCreator creator(final String to, 
                                      final URI mediaUrl) {
-        return new FaxCreator(from, to, mediaUrl);
+        return new FaxCreator(to, mediaUrl);
     }
 
     /**
@@ -189,6 +187,16 @@ public class Fax extends Resource {
      */
     public static FaxUpdater updater(final String pathSid) {
         return new FaxUpdater(pathSid);
+    }
+
+    /**
+     * Create a FaxDeleter to execute delete.
+     * 
+     * @param pathSid The sid
+     * @return FaxDeleter capable of executing the delete
+     */
+    public static FaxDeleter deleter(final String pathSid) {
+        return new FaxDeleter(pathSid);
     }
 
     /**
@@ -233,6 +241,7 @@ public class Fax extends Resource {
     private final String from;
     private final String to;
     private final Fax.Quality quality;
+    private final String mediaSid;
     private final String mediaUrl;
     private final Integer numPages;
     private final Integer duration;
@@ -243,6 +252,7 @@ public class Fax extends Resource {
     private final Currency priceUnit;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final Map<String, String> links;
     private final URI url;
 
     @JsonCreator
@@ -256,6 +266,8 @@ public class Fax extends Resource {
                 final String to, 
                 @JsonProperty("quality")
                 final Fax.Quality quality, 
+                @JsonProperty("media_sid")
+                final String mediaSid, 
                 @JsonProperty("media_url")
                 final String mediaUrl, 
                 @JsonProperty("num_pages")
@@ -277,6 +289,8 @@ public class Fax extends Resource {
                 final String dateCreated, 
                 @JsonProperty("date_updated")
                 final String dateUpdated, 
+                @JsonProperty("links")
+                final Map<String, String> links, 
                 @JsonProperty("url")
                 final URI url) {
         this.sid = sid;
@@ -284,6 +298,7 @@ public class Fax extends Resource {
         this.from = from;
         this.to = to;
         this.quality = quality;
+        this.mediaSid = mediaSid;
         this.mediaUrl = mediaUrl;
         this.numPages = numPages;
         this.duration = duration;
@@ -294,6 +309,7 @@ public class Fax extends Resource {
         this.priceUnit = priceUnit;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.links = links;
         this.url = url;
     }
 
@@ -340,6 +356,15 @@ public class Fax extends Resource {
      */
     public final Fax.Quality getQuality() {
         return this.quality;
+    }
+
+    /**
+     * Returns The The media_sid.
+     * 
+     * @return The media_sid
+     */
+    public final String getMediaSid() {
+        return this.mediaSid;
     }
 
     /**
@@ -433,6 +458,15 @@ public class Fax extends Resource {
     }
 
     /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -458,6 +492,7 @@ public class Fax extends Resource {
                Objects.equals(from, other.from) && 
                Objects.equals(to, other.to) && 
                Objects.equals(quality, other.quality) && 
+               Objects.equals(mediaSid, other.mediaSid) && 
                Objects.equals(mediaUrl, other.mediaUrl) && 
                Objects.equals(numPages, other.numPages) && 
                Objects.equals(duration, other.duration) && 
@@ -468,6 +503,7 @@ public class Fax extends Resource {
                Objects.equals(priceUnit, other.priceUnit) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
+               Objects.equals(links, other.links) && 
                Objects.equals(url, other.url);
     }
 
@@ -478,6 +514,7 @@ public class Fax extends Resource {
                             from,
                             to,
                             quality,
+                            mediaSid,
                             mediaUrl,
                             numPages,
                             duration,
@@ -488,6 +525,7 @@ public class Fax extends Resource {
                             priceUnit,
                             dateCreated,
                             dateUpdated,
+                            links,
                             url);
     }
 
@@ -499,6 +537,7 @@ public class Fax extends Resource {
                           .add("from", from)
                           .add("to", to)
                           .add("quality", quality)
+                          .add("mediaSid", mediaSid)
                           .add("mediaUrl", mediaUrl)
                           .add("numPages", numPages)
                           .add("duration", duration)
@@ -509,6 +548,7 @@ public class Fax extends Resource {
                           .add("priceUnit", priceUnit)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("links", links)
                           .add("url", url)
                           .toString();
     }

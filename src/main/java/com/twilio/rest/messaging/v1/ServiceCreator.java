@@ -30,6 +30,10 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean stickySender;
     private Boolean mmsConverter;
     private Boolean smartEncoding;
+    private Service.ScanMessageContent scanMessageContent;
+    private Boolean fallbackToLongCode;
+    private Boolean areaCodeGeomatch;
+    private Integer validityPeriod;
 
     /**
      * Construct a new ServiceCreator.
@@ -159,6 +163,50 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * The scan_message_content.
+     * 
+     * @param scanMessageContent The scan_message_content
+     * @return this
+     */
+    public ServiceCreator setScanMessageContent(final Service.ScanMessageContent scanMessageContent) {
+        this.scanMessageContent = scanMessageContent;
+        return this;
+    }
+
+    /**
+     * The fallback_to_long_code.
+     * 
+     * @param fallbackToLongCode The fallback_to_long_code
+     * @return this
+     */
+    public ServiceCreator setFallbackToLongCode(final Boolean fallbackToLongCode) {
+        this.fallbackToLongCode = fallbackToLongCode;
+        return this;
+    }
+
+    /**
+     * The area_code_geomatch.
+     * 
+     * @param areaCodeGeomatch The area_code_geomatch
+     * @return this
+     */
+    public ServiceCreator setAreaCodeGeomatch(final Boolean areaCodeGeomatch) {
+        this.areaCodeGeomatch = areaCodeGeomatch;
+        return this;
+    }
+
+    /**
+     * The validity_period.
+     * 
+     * @param validityPeriod The validity_period
+     * @return this
+     */
+    public ServiceCreator setValidityPeriod(final Integer validityPeriod) {
+        this.validityPeriod = validityPeriod;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -237,6 +285,22 @@ public class ServiceCreator extends Creator<Service> {
 
         if (smartEncoding != null) {
             request.addPostParam("SmartEncoding", smartEncoding.toString());
+        }
+
+        if (scanMessageContent != null) {
+            request.addPostParam("ScanMessageContent", scanMessageContent.toString());
+        }
+
+        if (fallbackToLongCode != null) {
+            request.addPostParam("FallbackToLongCode", fallbackToLongCode.toString());
+        }
+
+        if (areaCodeGeomatch != null) {
+            request.addPostParam("AreaCodeGeomatch", areaCodeGeomatch.toString());
+        }
+
+        if (validityPeriod != null) {
+            request.addPostParam("ValidityPeriod", validityPeriod.toString());
         }
     }
 }

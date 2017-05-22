@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sim extends Resource {
-    private static final long serialVersionUID = 69555378033119L;
+    private static final long serialVersionUID = 114188106016645L;
 
     /**
      * Create a SimFetcher to execute fetch.
@@ -112,6 +112,14 @@ public class Sim extends Resource {
     private final String status;
     private final URI commandsCallbackUrl;
     private final String commandsCallbackMethod;
+    private final HttpMethod smsFallbackMethod;
+    private final URI smsFallbackUrl;
+    private final HttpMethod smsMethod;
+    private final URI smsUrl;
+    private final HttpMethod voiceFallbackMethod;
+    private final URI voiceFallbackUrl;
+    private final HttpMethod voiceMethod;
+    private final URI voiceUrl;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -138,6 +146,22 @@ public class Sim extends Resource {
                 final URI commandsCallbackUrl, 
                 @JsonProperty("commands_callback_method")
                 final String commandsCallbackMethod, 
+                @JsonProperty("sms_fallback_method")
+                final HttpMethod smsFallbackMethod, 
+                @JsonProperty("sms_fallback_url")
+                final URI smsFallbackUrl, 
+                @JsonProperty("sms_method")
+                final HttpMethod smsMethod, 
+                @JsonProperty("sms_url")
+                final URI smsUrl, 
+                @JsonProperty("voice_fallback_method")
+                final HttpMethod voiceFallbackMethod, 
+                @JsonProperty("voice_fallback_url")
+                final URI voiceFallbackUrl, 
+                @JsonProperty("voice_method")
+                final HttpMethod voiceMethod, 
+                @JsonProperty("voice_url")
+                final URI voiceUrl, 
                 @JsonProperty("date_created")
                 final String dateCreated, 
                 @JsonProperty("date_updated")
@@ -156,6 +180,14 @@ public class Sim extends Resource {
         this.status = status;
         this.commandsCallbackUrl = commandsCallbackUrl;
         this.commandsCallbackMethod = commandsCallbackMethod;
+        this.smsFallbackMethod = smsFallbackMethod;
+        this.smsFallbackUrl = smsFallbackUrl;
+        this.smsMethod = smsMethod;
+        this.smsUrl = smsUrl;
+        this.voiceFallbackMethod = voiceFallbackMethod;
+        this.voiceFallbackUrl = voiceFallbackUrl;
+        this.voiceMethod = voiceMethod;
+        this.voiceUrl = voiceUrl;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -253,6 +285,78 @@ public class Sim extends Resource {
     }
 
     /**
+     * Returns The The sms_fallback_method.
+     * 
+     * @return The sms_fallback_method
+     */
+    public final HttpMethod getSmsFallbackMethod() {
+        return this.smsFallbackMethod;
+    }
+
+    /**
+     * Returns The The sms_fallback_url.
+     * 
+     * @return The sms_fallback_url
+     */
+    public final URI getSmsFallbackUrl() {
+        return this.smsFallbackUrl;
+    }
+
+    /**
+     * Returns The The sms_method.
+     * 
+     * @return The sms_method
+     */
+    public final HttpMethod getSmsMethod() {
+        return this.smsMethod;
+    }
+
+    /**
+     * Returns The The sms_url.
+     * 
+     * @return The sms_url
+     */
+    public final URI getSmsUrl() {
+        return this.smsUrl;
+    }
+
+    /**
+     * Returns The The voice_fallback_method.
+     * 
+     * @return The voice_fallback_method
+     */
+    public final HttpMethod getVoiceFallbackMethod() {
+        return this.voiceFallbackMethod;
+    }
+
+    /**
+     * Returns The The voice_fallback_url.
+     * 
+     * @return The voice_fallback_url
+     */
+    public final URI getVoiceFallbackUrl() {
+        return this.voiceFallbackUrl;
+    }
+
+    /**
+     * Returns The The voice_method.
+     * 
+     * @return The voice_method
+     */
+    public final HttpMethod getVoiceMethod() {
+        return this.voiceMethod;
+    }
+
+    /**
+     * Returns The The voice_url.
+     * 
+     * @return The voice_url
+     */
+    public final URI getVoiceUrl() {
+        return this.voiceUrl;
+    }
+
+    /**
      * Returns The The date_created.
      * 
      * @return The date_created
@@ -310,6 +414,14 @@ public class Sim extends Resource {
                Objects.equals(status, other.status) && 
                Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) && 
                Objects.equals(commandsCallbackMethod, other.commandsCallbackMethod) && 
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
+               Objects.equals(smsMethod, other.smsMethod) && 
+               Objects.equals(smsUrl, other.smsUrl) && 
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
+               Objects.equals(voiceMethod, other.voiceMethod) && 
+               Objects.equals(voiceUrl, other.voiceUrl) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url) && 
@@ -328,6 +440,14 @@ public class Sim extends Resource {
                             status,
                             commandsCallbackUrl,
                             commandsCallbackMethod,
+                            smsFallbackMethod,
+                            smsFallbackUrl,
+                            smsMethod,
+                            smsUrl,
+                            voiceFallbackMethod,
+                            voiceFallbackUrl,
+                            voiceMethod,
+                            voiceUrl,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -347,6 +467,14 @@ public class Sim extends Resource {
                           .add("status", status)
                           .add("commandsCallbackUrl", commandsCallbackUrl)
                           .add("commandsCallbackMethod", commandsCallbackMethod)
+                          .add("smsFallbackMethod", smsFallbackMethod)
+                          .add("smsFallbackUrl", smsFallbackUrl)
+                          .add("smsMethod", smsMethod)
+                          .add("smsUrl", smsUrl)
+                          .add("voiceFallbackMethod", voiceFallbackMethod)
+                          .add("voiceFallbackUrl", voiceFallbackUrl)
+                          .add("voiceMethod", voiceMethod)
+                          .add("voiceUrl", voiceUrl)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

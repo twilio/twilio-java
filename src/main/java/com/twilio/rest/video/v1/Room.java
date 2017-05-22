@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Room extends Resource {
-    private static final long serialVersionUID = 141491428942687L;
+    private static final long serialVersionUID = 5910525592452L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -180,6 +180,7 @@ public class Room extends Resource {
     private final Integer maxParticipants;
     private final Boolean recordParticipantsOnConnect;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Room(@JsonProperty("sid")
@@ -211,7 +212,9 @@ public class Room extends Resource {
                  @JsonProperty("record_participants_on_connect")
                  final Boolean recordParticipantsOnConnect, 
                  @JsonProperty("url")
-                 final URI url) {
+                 final URI url, 
+                 @JsonProperty("links")
+                 final Map<String, String> links) {
         this.sid = sid;
         this.status = status;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -227,6 +230,7 @@ public class Room extends Resource {
         this.maxParticipants = maxParticipants;
         this.recordParticipantsOnConnect = recordParticipantsOnConnect;
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -364,6 +368,15 @@ public class Room extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -390,7 +403,8 @@ public class Room extends Resource {
                Objects.equals(type, other.type) && 
                Objects.equals(maxParticipants, other.maxParticipants) && 
                Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -409,7 +423,8 @@ public class Room extends Resource {
                             type,
                             maxParticipants,
                             recordParticipantsOnConnect,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -430,6 +445,7 @@ public class Room extends Resource {
                           .add("maxParticipants", maxParticipants)
                           .add("recordParticipantsOnConnect", recordParticipantsOnConnect)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

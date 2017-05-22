@@ -123,15 +123,6 @@ public class Number extends Resource {
      * 
      * @return The number
      */
-    public final String getSid() {
-        return this.getNumber().toString();
-    }
-
-    /**
-     * Returns The The number.
-     * 
-     * @return The number
-     */
     public final com.twilio.type.PhoneNumber getNumber() {
         return this.number;
     }

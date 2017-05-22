@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -34,7 +35,33 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 217724278339071L;
+    private static final long serialVersionUID = 275468569060244L;
+
+    public enum ScanMessageContent {
+        INHERIT("inherit"),
+        ENABLE("enable"),
+        DISABLE("disable");
+
+        private final String value;
+
+        private ScanMessageContent(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ScanMessageContent from a string.
+         * @param value string value
+         * @return generated ScanMessageContent
+         */
+        @JsonCreator
+        public static ScanMessageContent forValue(final String value) {
+            return Promoter.enumFromString(value, ScanMessageContent.values());
+        }
+    }
 
     /**
      * Create a ServiceCreator to execute create.
@@ -135,6 +162,10 @@ public class Service extends Resource {
     private final Boolean stickySender;
     private final Boolean mmsConverter;
     private final Boolean smartEncoding;
+    private final Service.ScanMessageContent scanMessageContent;
+    private final Boolean fallbackToLongCode;
+    private final Boolean areaCodeGeomatch;
+    private final Integer validityPeriod;
     private final URI url;
     private final Map<String, String> links;
 
@@ -165,6 +196,14 @@ public class Service extends Resource {
                     final Boolean mmsConverter, 
                     @JsonProperty("smart_encoding")
                     final Boolean smartEncoding, 
+                    @JsonProperty("scan_message_content")
+                    final Service.ScanMessageContent scanMessageContent, 
+                    @JsonProperty("fallback_to_long_code")
+                    final Boolean fallbackToLongCode, 
+                    @JsonProperty("area_code_geomatch")
+                    final Boolean areaCodeGeomatch, 
+                    @JsonProperty("validity_period")
+                    final Integer validityPeriod, 
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
@@ -182,6 +221,10 @@ public class Service extends Resource {
         this.stickySender = stickySender;
         this.mmsConverter = mmsConverter;
         this.smartEncoding = smartEncoding;
+        this.scanMessageContent = scanMessageContent;
+        this.fallbackToLongCode = fallbackToLongCode;
+        this.areaCodeGeomatch = areaCodeGeomatch;
+        this.validityPeriod = validityPeriod;
         this.url = url;
         this.links = links;
     }
@@ -304,6 +347,42 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The scan_message_content.
+     * 
+     * @return The scan_message_content
+     */
+    public final Service.ScanMessageContent getScanMessageContent() {
+        return this.scanMessageContent;
+    }
+
+    /**
+     * Returns The The fallback_to_long_code.
+     * 
+     * @return The fallback_to_long_code
+     */
+    public final Boolean getFallbackToLongCode() {
+        return this.fallbackToLongCode;
+    }
+
+    /**
+     * Returns The The area_code_geomatch.
+     * 
+     * @return The area_code_geomatch
+     */
+    public final Boolean getAreaCodeGeomatch() {
+        return this.areaCodeGeomatch;
+    }
+
+    /**
+     * Returns The The validity_period.
+     * 
+     * @return The validity_period
+     */
+    public final Integer getValidityPeriod() {
+        return this.validityPeriod;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -346,6 +425,10 @@ public class Service extends Resource {
                Objects.equals(stickySender, other.stickySender) && 
                Objects.equals(mmsConverter, other.mmsConverter) && 
                Objects.equals(smartEncoding, other.smartEncoding) && 
+               Objects.equals(scanMessageContent, other.scanMessageContent) && 
+               Objects.equals(fallbackToLongCode, other.fallbackToLongCode) && 
+               Objects.equals(areaCodeGeomatch, other.areaCodeGeomatch) && 
+               Objects.equals(validityPeriod, other.validityPeriod) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -365,6 +448,10 @@ public class Service extends Resource {
                             stickySender,
                             mmsConverter,
                             smartEncoding,
+                            scanMessageContent,
+                            fallbackToLongCode,
+                            areaCodeGeomatch,
+                            validityPeriod,
                             url,
                             links);
     }
@@ -385,6 +472,10 @@ public class Service extends Resource {
                           .add("stickySender", stickySender)
                           .add("mmsConverter", mmsConverter)
                           .add("smartEncoding", smartEncoding)
+                          .add("scanMessageContent", scanMessageContent)
+                          .add("fallbackToLongCode", fallbackToLongCode)
+                          .add("areaCodeGeomatch", areaCodeGeomatch)
+                          .add("validityPeriod", validityPeriod)
                           .add("url", url)
                           .add("links", links)
                           .toString();

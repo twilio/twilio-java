@@ -30,6 +30,14 @@ public class SimUpdater extends Updater<Sim> {
     private String status;
     private HttpMethod commandsCallbackMethod;
     private URI commandsCallbackUrl;
+    private HttpMethod smsFallbackMethod;
+    private URI smsFallbackUrl;
+    private HttpMethod smsMethod;
+    private URI smsUrl;
+    private HttpMethod voiceFallbackMethod;
+    private URI voiceFallbackUrl;
+    private HttpMethod voiceMethod;
+    private URI voiceUrl;
 
     /**
      * Construct a new SimUpdater.
@@ -149,6 +157,134 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
+     * The sms_fallback_method.
+     * 
+     * @param smsFallbackMethod The sms_fallback_method
+     * @return this
+     */
+    public SimUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
+        this.smsFallbackMethod = smsFallbackMethod;
+        return this;
+    }
+
+    /**
+     * The sms_fallback_url.
+     * 
+     * @param smsFallbackUrl The sms_fallback_url
+     * @return this
+     */
+    public SimUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
+        this.smsFallbackUrl = smsFallbackUrl;
+        return this;
+    }
+
+    /**
+     * The sms_fallback_url.
+     * 
+     * @param smsFallbackUrl The sms_fallback_url
+     * @return this
+     */
+    public SimUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
+
+    /**
+     * The sms_method.
+     * 
+     * @param smsMethod The sms_method
+     * @return this
+     */
+    public SimUpdater setSmsMethod(final HttpMethod smsMethod) {
+        this.smsMethod = smsMethod;
+        return this;
+    }
+
+    /**
+     * The sms_url.
+     * 
+     * @param smsUrl The sms_url
+     * @return this
+     */
+    public SimUpdater setSmsUrl(final URI smsUrl) {
+        this.smsUrl = smsUrl;
+        return this;
+    }
+
+    /**
+     * The sms_url.
+     * 
+     * @param smsUrl The sms_url
+     * @return this
+     */
+    public SimUpdater setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
+
+    /**
+     * The voice_fallback_method.
+     * 
+     * @param voiceFallbackMethod The voice_fallback_method
+     * @return this
+     */
+    public SimUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
+        this.voiceFallbackMethod = voiceFallbackMethod;
+        return this;
+    }
+
+    /**
+     * The voice_fallback_url.
+     * 
+     * @param voiceFallbackUrl The voice_fallback_url
+     * @return this
+     */
+    public SimUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
+        this.voiceFallbackUrl = voiceFallbackUrl;
+        return this;
+    }
+
+    /**
+     * The voice_fallback_url.
+     * 
+     * @param voiceFallbackUrl The voice_fallback_url
+     * @return this
+     */
+    public SimUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
+
+    /**
+     * The voice_method.
+     * 
+     * @param voiceMethod The voice_method
+     * @return this
+     */
+    public SimUpdater setVoiceMethod(final HttpMethod voiceMethod) {
+        this.voiceMethod = voiceMethod;
+        return this;
+    }
+
+    /**
+     * The voice_url.
+     * 
+     * @param voiceUrl The voice_url
+     * @return this
+     */
+    public SimUpdater setVoiceUrl(final URI voiceUrl) {
+        this.voiceUrl = voiceUrl;
+        return this;
+    }
+
+    /**
+     * The voice_url.
+     * 
+     * @param voiceUrl The voice_url
+     * @return this
+     */
+    public SimUpdater setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -223,6 +359,38 @@ public class SimUpdater extends Updater<Sim> {
 
         if (commandsCallbackUrl != null) {
             request.addPostParam("CommandsCallbackUrl", commandsCallbackUrl.toString());
+        }
+
+        if (smsFallbackMethod != null) {
+            request.addPostParam("SmsFallbackMethod", smsFallbackMethod.toString());
+        }
+
+        if (smsFallbackUrl != null) {
+            request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
+        }
+
+        if (smsMethod != null) {
+            request.addPostParam("SmsMethod", smsMethod.toString());
+        }
+
+        if (smsUrl != null) {
+            request.addPostParam("SmsUrl", smsUrl.toString());
+        }
+
+        if (voiceFallbackMethod != null) {
+            request.addPostParam("VoiceFallbackMethod", voiceFallbackMethod.toString());
+        }
+
+        if (voiceFallbackUrl != null) {
+            request.addPostParam("VoiceFallbackUrl", voiceFallbackUrl.toString());
+        }
+
+        if (voiceMethod != null) {
+            request.addPostParam("VoiceMethod", voiceMethod.toString());
+        }
+
+        if (voiceUrl != null) {
+            request.addPostParam("VoiceUrl", voiceUrl.toString());
         }
     }
 }

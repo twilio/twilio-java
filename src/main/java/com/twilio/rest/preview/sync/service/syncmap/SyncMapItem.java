@@ -248,15 +248,6 @@ public class SyncMapItem extends Resource {
      * 
      * @return The key
      */
-    public final String getSid() {
-        return this.getKey();
-    }
-
-    /**
-     * Returns The The key.
-     * 
-     * @return The key
-     */
     public final String getKey() {
         return this.key;
     }

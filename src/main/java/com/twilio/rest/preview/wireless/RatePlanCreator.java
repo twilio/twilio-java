@@ -23,11 +23,14 @@ import java.util.List;
 public class RatePlanCreator extends Creator<RatePlan> {
     private String uniqueName;
     private String friendlyName;
-    private List<String> roaming;
+    private Boolean dataEnabled;
     private Integer dataLimit;
     private String dataMetering;
+    private Boolean messagingEnabled;
+    private Boolean voiceEnabled;
     private Boolean commandsEnabled;
-    private String renewal;
+    private Boolean nationalRoamingEnabled;
+    private List<String> internationalRoaming;
 
     /**
      * The unique_name.
@@ -52,24 +55,14 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The roaming.
+     * The data_enabled.
      * 
-     * @param roaming The roaming
+     * @param dataEnabled The data_enabled
      * @return this
      */
-    public RatePlanCreator setRoaming(final List<String> roaming) {
-        this.roaming = roaming;
+    public RatePlanCreator setDataEnabled(final Boolean dataEnabled) {
+        this.dataEnabled = dataEnabled;
         return this;
-    }
-
-    /**
-     * The roaming.
-     * 
-     * @param roaming The roaming
-     * @return this
-     */
-    public RatePlanCreator setRoaming(final String roaming) {
-        return setRoaming(Promoter.listOfOne(roaming));
     }
 
     /**
@@ -95,6 +88,28 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
+     * The messaging_enabled.
+     * 
+     * @param messagingEnabled The messaging_enabled
+     * @return this
+     */
+    public RatePlanCreator setMessagingEnabled(final Boolean messagingEnabled) {
+        this.messagingEnabled = messagingEnabled;
+        return this;
+    }
+
+    /**
+     * The voice_enabled.
+     * 
+     * @param voiceEnabled The voice_enabled
+     * @return this
+     */
+    public RatePlanCreator setVoiceEnabled(final Boolean voiceEnabled) {
+        this.voiceEnabled = voiceEnabled;
+        return this;
+    }
+
+    /**
      * The commands_enabled.
      * 
      * @param commandsEnabled The commands_enabled
@@ -106,14 +121,35 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The renewal.
+     * The national_roaming_enabled.
      * 
-     * @param renewal The renewal
+     * @param nationalRoamingEnabled The national_roaming_enabled
      * @return this
      */
-    public RatePlanCreator setRenewal(final String renewal) {
-        this.renewal = renewal;
+    public RatePlanCreator setNationalRoamingEnabled(final Boolean nationalRoamingEnabled) {
+        this.nationalRoamingEnabled = nationalRoamingEnabled;
         return this;
+    }
+
+    /**
+     * The international_roaming.
+     * 
+     * @param internationalRoaming The international_roaming
+     * @return this
+     */
+    public RatePlanCreator setInternationalRoaming(final List<String> internationalRoaming) {
+        this.internationalRoaming = internationalRoaming;
+        return this;
+    }
+
+    /**
+     * The international_roaming.
+     * 
+     * @param internationalRoaming The international_roaming
+     * @return this
+     */
+    public RatePlanCreator setInternationalRoaming(final String internationalRoaming) {
+        return setInternationalRoaming(Promoter.listOfOne(internationalRoaming));
     }
 
     /**
@@ -169,10 +205,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
             request.addPostParam("FriendlyName", friendlyName);
         }
 
-        if (roaming != null) {
-            for (String prop : roaming) {
-                request.addPostParam("Roaming", prop);
-            }
+        if (dataEnabled != null) {
+            request.addPostParam("DataEnabled", dataEnabled.toString());
         }
 
         if (dataLimit != null) {
@@ -183,12 +217,26 @@ public class RatePlanCreator extends Creator<RatePlan> {
             request.addPostParam("DataMetering", dataMetering);
         }
 
+        if (messagingEnabled != null) {
+            request.addPostParam("MessagingEnabled", messagingEnabled.toString());
+        }
+
+        if (voiceEnabled != null) {
+            request.addPostParam("VoiceEnabled", voiceEnabled.toString());
+        }
+
         if (commandsEnabled != null) {
             request.addPostParam("CommandsEnabled", commandsEnabled.toString());
         }
 
-        if (renewal != null) {
-            request.addPostParam("Renewal", renewal);
+        if (nationalRoamingEnabled != null) {
+            request.addPostParam("NationalRoamingEnabled", nationalRoamingEnabled.toString());
+        }
+
+        if (internationalRoaming != null) {
+            for (String prop : internationalRoaming) {
+                request.addPostParam("InternationalRoaming", prop);
+            }
         }
     }
 }

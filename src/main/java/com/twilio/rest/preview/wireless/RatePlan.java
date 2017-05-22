@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -36,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatePlan extends Resource {
-    private static final long serialVersionUID = 248492653064720L;
+    private static final long serialVersionUID = 263617052418126L;
 
     /**
      * Create a RatePlanReader to execute read.
@@ -128,10 +127,13 @@ public class RatePlan extends Resource {
     private final String uniqueName;
     private final String accountSid;
     private final String friendlyName;
-    private final List<String> roaming;
-    private final Map<String, Object> data;
-    private final Map<String, Object> commands;
-    private final String renewal;
+    private final Boolean dataEnabled;
+    private final String dataMetering;
+    private final Integer dataLimit;
+    private final Boolean messagingEnabled;
+    private final Boolean voiceEnabled;
+    private final Boolean nationalRoamingEnabled;
+    private final List<String> internationalRoaming;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -145,14 +147,20 @@ public class RatePlan extends Resource {
                      final String accountSid, 
                      @JsonProperty("friendly_name")
                      final String friendlyName, 
-                     @JsonProperty("roaming")
-                     final List<String> roaming, 
-                     @JsonProperty("data")
-                     final Map<String, Object> data, 
-                     @JsonProperty("commands")
-                     final Map<String, Object> commands, 
-                     @JsonProperty("renewal")
-                     final String renewal, 
+                     @JsonProperty("data_enabled")
+                     final Boolean dataEnabled, 
+                     @JsonProperty("data_metering")
+                     final String dataMetering, 
+                     @JsonProperty("data_limit")
+                     final Integer dataLimit, 
+                     @JsonProperty("messaging_enabled")
+                     final Boolean messagingEnabled, 
+                     @JsonProperty("voice_enabled")
+                     final Boolean voiceEnabled, 
+                     @JsonProperty("national_roaming_enabled")
+                     final Boolean nationalRoamingEnabled, 
+                     @JsonProperty("international_roaming")
+                     final List<String> internationalRoaming, 
                      @JsonProperty("date_created")
                      final String dateCreated, 
                      @JsonProperty("date_updated")
@@ -163,10 +171,13 @@ public class RatePlan extends Resource {
         this.uniqueName = uniqueName;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
-        this.roaming = roaming;
-        this.data = data;
-        this.commands = commands;
-        this.renewal = renewal;
+        this.dataEnabled = dataEnabled;
+        this.dataMetering = dataMetering;
+        this.dataLimit = dataLimit;
+        this.messagingEnabled = messagingEnabled;
+        this.voiceEnabled = voiceEnabled;
+        this.nationalRoamingEnabled = nationalRoamingEnabled;
+        this.internationalRoaming = internationalRoaming;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -209,39 +220,66 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The roaming.
+     * Returns The The data_enabled.
      * 
-     * @return The roaming
+     * @return The data_enabled
      */
-    public final List<String> getRoaming() {
-        return this.roaming;
+    public final Boolean getDataEnabled() {
+        return this.dataEnabled;
     }
 
     /**
-     * Returns The The data.
+     * Returns The The data_metering.
      * 
-     * @return The data
+     * @return The data_metering
      */
-    public final Map<String, Object> getData() {
-        return this.data;
+    public final String getDataMetering() {
+        return this.dataMetering;
     }
 
     /**
-     * Returns The The commands.
+     * Returns The The data_limit.
      * 
-     * @return The commands
+     * @return The data_limit
      */
-    public final Map<String, Object> getCommands() {
-        return this.commands;
+    public final Integer getDataLimit() {
+        return this.dataLimit;
     }
 
     /**
-     * Returns The The renewal.
+     * Returns The The messaging_enabled.
      * 
-     * @return The renewal
+     * @return The messaging_enabled
      */
-    public final String getRenewal() {
-        return this.renewal;
+    public final Boolean getMessagingEnabled() {
+        return this.messagingEnabled;
+    }
+
+    /**
+     * Returns The The voice_enabled.
+     * 
+     * @return The voice_enabled
+     */
+    public final Boolean getVoiceEnabled() {
+        return this.voiceEnabled;
+    }
+
+    /**
+     * Returns The The national_roaming_enabled.
+     * 
+     * @return The national_roaming_enabled
+     */
+    public final Boolean getNationalRoamingEnabled() {
+        return this.nationalRoamingEnabled;
+    }
+
+    /**
+     * Returns The The international_roaming.
+     * 
+     * @return The international_roaming
+     */
+    public final List<String> getInternationalRoaming() {
+        return this.internationalRoaming;
     }
 
     /**
@@ -287,10 +325,13 @@ public class RatePlan extends Resource {
                Objects.equals(uniqueName, other.uniqueName) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(roaming, other.roaming) && 
-               Objects.equals(data, other.data) && 
-               Objects.equals(commands, other.commands) && 
-               Objects.equals(renewal, other.renewal) && 
+               Objects.equals(dataEnabled, other.dataEnabled) && 
+               Objects.equals(dataMetering, other.dataMetering) && 
+               Objects.equals(dataLimit, other.dataLimit) && 
+               Objects.equals(messagingEnabled, other.messagingEnabled) && 
+               Objects.equals(voiceEnabled, other.voiceEnabled) && 
+               Objects.equals(nationalRoamingEnabled, other.nationalRoamingEnabled) && 
+               Objects.equals(internationalRoaming, other.internationalRoaming) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url);
@@ -302,10 +343,13 @@ public class RatePlan extends Resource {
                             uniqueName,
                             accountSid,
                             friendlyName,
-                            roaming,
-                            data,
-                            commands,
-                            renewal,
+                            dataEnabled,
+                            dataMetering,
+                            dataLimit,
+                            messagingEnabled,
+                            voiceEnabled,
+                            nationalRoamingEnabled,
+                            internationalRoaming,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -318,10 +362,13 @@ public class RatePlan extends Resource {
                           .add("uniqueName", uniqueName)
                           .add("accountSid", accountSid)
                           .add("friendlyName", friendlyName)
-                          .add("roaming", roaming)
-                          .add("data", data)
-                          .add("commands", commands)
-                          .add("renewal", renewal)
+                          .add("dataEnabled", dataEnabled)
+                          .add("dataMetering", dataMetering)
+                          .add("dataLimit", dataLimit)
+                          .add("messagingEnabled", messagingEnabled)
+                          .add("voiceEnabled", voiceEnabled)
+                          .add("nationalRoamingEnabled", nationalRoamingEnabled)
+                          .add("internationalRoaming", internationalRoaming)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

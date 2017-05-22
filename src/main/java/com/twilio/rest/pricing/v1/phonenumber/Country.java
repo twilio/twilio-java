@@ -120,15 +120,6 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The iso_country.
-     * 
-     * @return The iso_country
-     */
-    public final String getSid() {
-        return this.getIsoCountry();
-    }
-
-    /**
      * Returns The The country.
      * 
      * @return The country

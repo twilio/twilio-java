@@ -17,18 +17,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingFetcher extends Fetcher<Recording> {
+public class RoomRecordingFetcher extends Fetcher<RoomRecording> {
     private final String pathRoomSid;
     private final String pathSid;
 
     /**
-     * Construct a new RecordingFetcher.
+     * Construct a new RoomRecordingFetcher.
      * 
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
      */
-    public RecordingFetcher(final String pathRoomSid, 
-                            final String pathSid) {
+    public RoomRecordingFetcher(final String pathRoomSid, 
+                                final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
     }
@@ -37,11 +37,11 @@ public class RecordingFetcher extends Fetcher<Recording> {
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Recording
+     * @return Fetched RoomRecording
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Recording fetch(final TwilioRestClient client) {
+    public RoomRecording fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
@@ -52,7 +52,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("RoomRecording fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -68,6 +68,6 @@ public class RecordingFetcher extends Fetcher<Recording> {
             );
         }
 
-        return Recording.fromJson(response.getStream(), client.getObjectMapper());
+        return RoomRecording.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

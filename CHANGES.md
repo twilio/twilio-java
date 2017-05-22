@@ -1,6 +1,10 @@
 twilio-java changelog
 =====================
 
+[2017-05-19] Version 7.11.0
+--------------------------
+- Rename `Recording` to `RoomRecording` in Twilio Video
+
 [2017-05-19] Version 7.10.0
 --------------------------
 - Add video.twilio.com

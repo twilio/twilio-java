@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Recording extends Resource {
+public class RoomRecording extends Resource {
     private static final long serialVersionUID = 258585563555163L;
 
     public enum Status {
@@ -144,39 +144,39 @@ public class Recording extends Resource {
     }
 
     /**
-     * Create a RecordingFetcher to execute fetch.
+     * Create a RoomRecordingFetcher to execute fetch.
      * 
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
-     * @return RecordingFetcher capable of executing the fetch
+     * @return RoomRecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetcher(final String pathRoomSid, 
-                                           final String pathSid) {
-        return new RecordingFetcher(pathRoomSid, pathSid);
+    public static RoomRecordingFetcher fetcher(final String pathRoomSid, 
+                                               final String pathSid) {
+        return new RoomRecordingFetcher(pathRoomSid, pathSid);
     }
 
     /**
-     * Create a RecordingReader to execute read.
+     * Create a RoomRecordingReader to execute read.
      * 
      * @param pathRoomSid The room_sid
-     * @return RecordingReader capable of executing the read
+     * @return RoomRecordingReader capable of executing the read
      */
-    public static RecordingReader reader(final String pathRoomSid) {
-        return new RecordingReader(pathRoomSid);
+    public static RoomRecordingReader reader(final String pathRoomSid) {
+        return new RoomRecordingReader(pathRoomSid);
     }
 
     /**
-     * Converts a JSON String into a Recording object using the provided
+     * Converts a JSON String into a RoomRecording object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
+     * @return RoomRecording object represented by the provided JSON
      */
-    public static Recording fromJson(final String json, final ObjectMapper objectMapper) {
+    public static RoomRecording fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Recording.class);
+            return objectMapper.readValue(json, RoomRecording.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -185,17 +185,17 @@ public class Recording extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Recording object using the provided
+     * Converts a JSON InputStream into a RoomRecording object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
+     * @return RoomRecording object represented by the provided JSON
      */
-    public static Recording fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static RoomRecording fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Recording.class);
+            return objectMapper.readValue(json, RoomRecording.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -204,49 +204,49 @@ public class Recording extends Resource {
     }
 
     private final String accountSid;
-    private final Recording.Status status;
+    private final RoomRecording.Status status;
     private final DateTime dateCreated;
     private final String sid;
     private final String sourceSid;
     private final Integer size;
-    private final Recording.Type type;
+    private final RoomRecording.Type type;
     private final Integer duration;
-    private final Recording.Format containerFormat;
-    private final Recording.Codec codec;
+    private final RoomRecording.Format containerFormat;
+    private final RoomRecording.Codec codec;
     private final Map<String, Object> groupingSids;
     private final String roomSid;
     private final URI url;
     private final Map<String, String> links;
 
     @JsonCreator
-    private Recording(@JsonProperty("account_sid")
-                      final String accountSid, 
-                      @JsonProperty("status")
-                      final Recording.Status status, 
-                      @JsonProperty("date_created")
-                      final String dateCreated, 
-                      @JsonProperty("sid")
-                      final String sid, 
-                      @JsonProperty("source_sid")
-                      final String sourceSid, 
-                      @JsonProperty("size")
-                      final Integer size, 
-                      @JsonProperty("type")
-                      final Recording.Type type, 
-                      @JsonProperty("duration")
-                      final Integer duration, 
-                      @JsonProperty("container_format")
-                      final Recording.Format containerFormat, 
-                      @JsonProperty("codec")
-                      final Recording.Codec codec, 
-                      @JsonProperty("grouping_sids")
-                      final Map<String, Object> groupingSids, 
-                      @JsonProperty("room_sid")
-                      final String roomSid, 
-                      @JsonProperty("url")
-                      final URI url, 
-                      @JsonProperty("links")
-                      final Map<String, String> links) {
+    private RoomRecording(@JsonProperty("account_sid")
+                          final String accountSid, 
+                          @JsonProperty("status")
+                          final RoomRecording.Status status, 
+                          @JsonProperty("date_created")
+                          final String dateCreated, 
+                          @JsonProperty("sid")
+                          final String sid, 
+                          @JsonProperty("source_sid")
+                          final String sourceSid, 
+                          @JsonProperty("size")
+                          final Integer size, 
+                          @JsonProperty("type")
+                          final RoomRecording.Type type, 
+                          @JsonProperty("duration")
+                          final Integer duration, 
+                          @JsonProperty("container_format")
+                          final RoomRecording.Format containerFormat, 
+                          @JsonProperty("codec")
+                          final RoomRecording.Codec codec, 
+                          @JsonProperty("grouping_sids")
+                          final Map<String, Object> groupingSids, 
+                          @JsonProperty("room_sid")
+                          final String roomSid, 
+                          @JsonProperty("url")
+                          final URI url, 
+                          @JsonProperty("links")
+                          final Map<String, String> links) {
         this.accountSid = accountSid;
         this.status = status;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -277,7 +277,7 @@ public class Recording extends Resource {
      * 
      * @return The status
      */
-    public final Recording.Status getStatus() {
+    public final RoomRecording.Status getStatus() {
         return this.status;
     }
 
@@ -322,7 +322,7 @@ public class Recording extends Resource {
      * 
      * @return The type
      */
-    public final Recording.Type getType() {
+    public final RoomRecording.Type getType() {
         return this.type;
     }
 
@@ -340,7 +340,7 @@ public class Recording extends Resource {
      * 
      * @return The container_format
      */
-    public final Recording.Format getContainerFormat() {
+    public final RoomRecording.Format getContainerFormat() {
         return this.containerFormat;
     }
 
@@ -349,7 +349,7 @@ public class Recording extends Resource {
      * 
      * @return The codec
      */
-    public final Recording.Codec getCodec() {
+    public final RoomRecording.Codec getCodec() {
         return this.codec;
     }
 
@@ -399,7 +399,7 @@ public class Recording extends Resource {
             return false;
         }
 
-        Recording other = (Recording) o;
+        RoomRecording other = (RoomRecording) o;
 
         return Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(status, other.status) && 

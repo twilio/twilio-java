@@ -3,6 +3,31 @@
 _After `7.4.0` all `MINOR` and `MAJOR` version bumps will have upgrade notes 
 posted here._
 
+
+[2017-05-24] 7.10.x to 7.11.x
+---------------------------
+
+### CHANGED - Rename `Recording` to `RoomRecording` in TwilioVideo
+
+#### Affected Resources
+    - `src/main/java/com/twilio/rest/video/v1/room/Recording.java`
+    - `src/main/java/com/twilio/rest/video/v1/room/RecordingFetcher.java`
+    - `src/main/java/com/twilio/rest/video/v1/room/RecordingReader.java`
+    - `src/test/java/com/twilio/rest/video/v1/room/RecordingTest.java`
+
+```java
+// 7.10.x
+Recording.fetcher();
+Recording.reader();
+```
+
+```java
+// 7.11.x
+RoomRecording.fetcher();
+RoomRecording.reader();
+```
+
+
 [2017-05-19] 7.9.x to 7.10.x
 ---------------------------
 

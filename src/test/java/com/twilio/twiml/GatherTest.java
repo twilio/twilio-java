@@ -19,10 +19,11 @@ public class GatherTest {
             .play(new Play.Builder("Hi!").build())
             .say(new Say.Builder("Hello world!").build())
             .timeout(5)
+            .hints("Hi there")
             .build();
 
         Assert.assertEquals(
-            "<Gather timeout=\"5\" numDigits=\"4\" action=\"/gather\" method=\"GET\" finishOnKey=\"1\">" +
+            "<Gather timeout=\"5\" numDigits=\"4\" action=\"/gather\" method=\"GET\" finishOnKey=\"1\" hints=\"Hi there\">" +
                 "<Pause/>" +
                 "<Play>Hi!</Play>" +
                 "<Say>Hello world!</Say>" +

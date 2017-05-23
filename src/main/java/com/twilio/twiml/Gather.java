@@ -29,6 +29,24 @@ public class Gather extends TwiML {
     @XmlAttribute
     private final String finishOnKey;
 
+    @XmlAttribute
+    private final String partialResultCallback;
+
+    @XmlAttribute
+    private final Method partialResultCallbackMethod;
+
+    @XmlAttribute
+    private final Language language;
+
+    @XmlAttribute
+    private final String hints;
+
+    @XmlAttribute
+    private final Boolean bargeIn;
+
+    @XmlAttribute
+    private final String acknowledgeSoundUrl;
+
     @SuppressWarnings("checkstyle:indentation")
     @XmlElements({
         @XmlElement(name = "Say", type = Say.class),
@@ -49,6 +67,12 @@ public class Gather extends TwiML {
         this.method = b.method;
         this.finishOnKey = b.finishOnKey;
         this.actions = Lists.newArrayList(b.actions);
+        this.partialResultCallback = b.partialResultCallback;
+        this.partialResultCallbackMethod = b.partialResultCallbackMethod;
+        this.language = b.language;
+        this.hints = b.hints;
+        this.bargeIn = b.bargeIn;
+        this.acknowledgeSoundUrl = b.acknowledgeSoundUrl;
     }
 
     public Integer getTimeout() {
@@ -75,6 +99,30 @@ public class Gather extends TwiML {
         return actions;
     }
 
+    public String getPartialResultCallback() {
+        return partialResultCallback;
+    }
+
+    public Method getPartialResultCallbackMethod() {
+        return partialResultCallbackMethod;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public String getHints() {
+        return hints;
+    }
+
+    public Boolean getBargeIn() {
+        return bargeIn;
+    }
+
+    public String getAcknowledgeSoundUrl() {
+        return acknowledgeSoundUrl;
+    }
+
     public static class Builder {
         private Integer timeout;
         private Integer numDigits;
@@ -82,6 +130,12 @@ public class Gather extends TwiML {
         private Method method;
         private String finishOnKey;
         private List<TwiML> actions = Lists.newArrayList();
+        private String partialResultCallback;
+        private Method partialResultCallbackMethod;
+        private Language language;
+        private String hints;
+        private Boolean bargeIn;
+        private String acknowledgeSoundUrl;
 
         public Builder timeout(int timeout) {
             this.timeout = timeout;
@@ -120,6 +174,36 @@ public class Gather extends TwiML {
 
         public Builder pause(Pause pause) {
             this.actions.add(pause);
+            return this;
+        }
+
+        public Builder partialResultCallback(String partialResultCallback) {
+            this.partialResultCallback = partialResultCallback;
+            return this;
+        }
+
+        public Builder partialResultCallbackMethod(Method partialResultCallbackMethod) {
+            this.partialResultCallbackMethod = partialResultCallbackMethod;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder hints(String hints) {
+            this.hints = hints;
+            return this;
+        }
+
+        public Builder bargeIn(Boolean bargeIn) {
+            this.bargeIn = bargeIn;
+            return this;
+        }
+
+        public Builder acknowledgeSoundUrl(String acknowledgeSoundUrl) {
+            this.acknowledgeSoundUrl = acknowledgeSoundUrl;
             return this;
         }
 

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1.room;
+package com.twilio.rest.preview.proxy;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,26 +19,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingReader extends Reader<Recording> {
-    private final String pathRoomSid;
-
-    /**
-     * Construct a new RecordingReader.
-     * 
-     * @param pathRoomSid The room_sid
-     */
-    public RecordingReader(final String pathRoomSid) {
-        this.pathRoomSid = pathRoomSid;
-    }
-
+public class ServiceReader extends Reader<Service> {
     /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Recording ResourceSet
+     * @return Service ResourceSet
      */
     @Override
-    public ResourceSet<Recording> read(final TwilioRestClient client) {
+    public ResourceSet<Service> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -46,15 +35,15 @@ public class RecordingReader extends Reader<Recording> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Recording ResourceSet
+     * @return Service ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Recording> firstPage(final TwilioRestClient client) {
+    public Page<Service> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Recordings",
+            Domains.PREVIEW.toString(),
+            "/Proxy/Services",
             client.getRegion()
         );
 
@@ -70,12 +59,12 @@ public class RecordingReader extends Reader<Recording> {
      * @return Next Page
      */
     @Override
-    public Page<Recording> nextPage(final Page<Recording> page, 
-                                    final TwilioRestClient client) {
+    public Page<Service> nextPage(final Page<Service> page, 
+                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.VIDEO.toString(),
+                Domains.PREVIEW.toString(),
                 client.getRegion()
             )
         );
@@ -83,17 +72,17 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Generate a Page of Recording Resources for a given request.
+     * Generate a Page of Service Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Recording> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Service> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording read failed: Unable to connect to server");
+            throw new ApiConnectionException("Service read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -110,9 +99,9 @@ public class RecordingReader extends Reader<Recording> {
         }
 
         return Page.fromJson(
-            "recordings",
+            "services",
             response.getContent(),
-            Recording.class,
+            Service.class,
             client.getObjectMapper()
         );
     }

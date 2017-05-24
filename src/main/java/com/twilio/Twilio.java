@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
-    public static final String VERSION = "7.10.1-alpha-1";
+    public static final String VERSION = "7.11.0-alpha-1";
     public static final String JAVA_VERSION = System.getProperty("java.version");
 
     private static String username;

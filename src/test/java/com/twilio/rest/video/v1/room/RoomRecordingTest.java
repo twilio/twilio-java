@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class RecordingTest {
+public class RoomRecordingTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -51,7 +51,7 @@ public class RecordingTest {
         }};
 
         try {
-            Recording.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            RoomRecording.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class RecordingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Recording.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(RoomRecording.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class RecordingTest {
         }};
 
         try {
-            Recording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            RoomRecording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class RecordingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Recording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(RoomRecording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -109,6 +109,6 @@ public class RecordingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Recording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(RoomRecording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 }

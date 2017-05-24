@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2017-05-24] Version 7.11.0-alpha-1
+----------------------------------
+- Add HostedNumbers preview support.
+- Add Proxy preview support.
+- Add BulkExports preview support.
+
 [2017-05-22] Version 7.10.1-alpha-1
 ----------------------------------
 - Add video.twilio.com

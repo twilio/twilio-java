@@ -7,13 +7,11 @@
 
 package com.twilio.rest.chat.v2;
 
-import com.google.common.base.Joiner;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.InvalidRequestException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -63,17 +61,6 @@ public class CredentialReader extends Reader<Credential> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Credential> getPage(final String targetUrl, final TwilioRestClient client) {
-        String resourceUrl = "https://"
-                           + Joiner.on(".").skipNulls().join(
-                                Domains.CHAT.toString(),
-                                client.getRegion(),
-                                "twilio",
-                                "com")
-                           + "/v2/Credentials";
-        if (!targetUrl.startsWith(resourceUrl)) {
-            throw new InvalidRequestException("Invalid targetUrl for Credential resource.");
-        }
-
         Request request = new Request(
             HttpMethod.GET,
             targetUrl

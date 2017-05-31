@@ -7,14 +7,12 @@
 
 package com.twilio.rest.api.v2010.account.usage.record;
 
-import com.google.common.base.Joiner;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.InvalidRequestException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -120,17 +118,6 @@ public class LastMonthReader extends Reader<LastMonth> {
     @SuppressWarnings("checkstyle:linelength")
     public Page<LastMonth> getPage(final String targetUrl, final TwilioRestClient client) {
         this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        String resourceUrl = "https://"
-                           + Joiner.on(".").skipNulls().join(
-                                Domains.API.toString(),
-                                client.getRegion(),
-                                "twilio",
-                                "com")
-                           + "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/LastMonth.json";
-        if (!targetUrl.startsWith(resourceUrl)) {
-            throw new InvalidRequestException("Invalid targetUrl for LastMonth resource.");
-        }
-
         Request request = new Request(
             HttpMethod.GET,
             targetUrl

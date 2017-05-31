@@ -7,13 +7,11 @@
 
 package com.twilio.rest.taskrouter.v1;
 
-import com.google.common.base.Joiner;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.InvalidRequestException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -76,17 +74,6 @@ public class WorkspaceReader extends Reader<Workspace> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Workspace> getPage(final String targetUrl, final TwilioRestClient client) {
-        String resourceUrl = "https://"
-                           + Joiner.on(".").skipNulls().join(
-                                Domains.TASKROUTER.toString(),
-                                client.getRegion(),
-                                "twilio",
-                                "com")
-                           + "/v1/Workspaces";
-        if (!targetUrl.startsWith(resourceUrl)) {
-            throw new InvalidRequestException("Invalid targetUrl for Workspace resource.");
-        }
-
         Request request = new Request(
             HttpMethod.GET,
             targetUrl

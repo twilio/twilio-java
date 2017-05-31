@@ -7,13 +7,11 @@
 
 package com.twilio.rest.trunking.v1.trunk;
 
-import com.google.common.base.Joiner;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.InvalidRequestException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -74,17 +72,6 @@ public class CredentialListReader extends Reader<CredentialList> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<CredentialList> getPage(final String targetUrl, final TwilioRestClient client) {
-        String resourceUrl = "https://"
-                           + Joiner.on(".").skipNulls().join(
-                                Domains.TRUNKING.toString(),
-                                client.getRegion(),
-                                "twilio",
-                                "com")
-                           + "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists";
-        if (!targetUrl.startsWith(resourceUrl)) {
-            throw new InvalidRequestException("Invalid targetUrl for CredentialList resource.");
-        }
-
         Request request = new Request(
             HttpMethod.GET,
             targetUrl

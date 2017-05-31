@@ -7,14 +7,12 @@
 
 package com.twilio.rest.ipmessaging.v1.service;
 
-import com.google.common.base.Joiner;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.InvalidRequestException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -99,17 +97,6 @@ public class ChannelReader extends Reader<Channel> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Channel> getPage(final String targetUrl, final TwilioRestClient client) {
-        String resourceUrl = "https://"
-                           + Joiner.on(".").skipNulls().join(
-                                Domains.IPMESSAGING.toString(),
-                                client.getRegion(),
-                                "twilio",
-                                "com")
-                           + "/v1/Services/" + this.pathServiceSid + "/Channels";
-        if (!targetUrl.startsWith(resourceUrl)) {
-            throw new InvalidRequestException("Invalid targetUrl for Channel resource.");
-        }
-
         Request request = new Request(
             HttpMethod.GET,
             targetUrl

@@ -7,14 +7,12 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
-import com.google.common.base.Joiner;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.InvalidRequestException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -184,17 +182,6 @@ public class EventReader extends Reader<Event> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public Page<Event> getPage(final String targetUrl, final TwilioRestClient client) {
-        String resourceUrl = "https://"
-                           + Joiner.on(".").skipNulls().join(
-                                Domains.TASKROUTER.toString(),
-                                client.getRegion(),
-                                "twilio",
-                                "com")
-                           + "/v1/Workspaces/" + this.pathWorkspaceSid + "/Events";
-        if (!targetUrl.startsWith(resourceUrl)) {
-            throw new InvalidRequestException("Invalid targetUrl for Event resource.");
-        }
-
         Request request = new Request(
             HttpMethod.GET,
             targetUrl

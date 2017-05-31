@@ -219,7 +219,8 @@ public class LastMonth extends Resource {
         WIRELESS_USAGE_MRC("wireless-usage-mrc"),
         WIRELESS_USAGE_MRC_CUSTOM("wireless-usage-mrc-custom"),
         WIRELESS_USAGE_MRC_INDIVIDUAL("wireless-usage-mrc-individual"),
-        WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled");
+        WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled"),
+        SYNC("sync");
 
         private final String value;
 

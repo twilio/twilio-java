@@ -81,7 +81,7 @@ public class CredentialReader extends Reader<Credential> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Credential ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

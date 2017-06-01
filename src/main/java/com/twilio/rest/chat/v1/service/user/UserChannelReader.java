@@ -71,7 +71,7 @@ public class UserChannelReader extends Reader<UserChannel> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return UserChannel ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

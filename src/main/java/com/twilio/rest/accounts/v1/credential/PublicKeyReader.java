@@ -56,7 +56,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return PublicKey ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

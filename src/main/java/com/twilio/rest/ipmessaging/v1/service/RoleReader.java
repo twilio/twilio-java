@@ -67,7 +67,7 @@ public class RoleReader extends Reader<Role> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Role ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

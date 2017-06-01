@@ -74,7 +74,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return IpAccessControlList ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

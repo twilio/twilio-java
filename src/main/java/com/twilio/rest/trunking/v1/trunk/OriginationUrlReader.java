@@ -67,7 +67,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return OriginationUrl ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

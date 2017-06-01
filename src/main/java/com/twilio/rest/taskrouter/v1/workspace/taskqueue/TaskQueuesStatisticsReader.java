@@ -117,7 +117,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return TaskQueuesStatistics ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

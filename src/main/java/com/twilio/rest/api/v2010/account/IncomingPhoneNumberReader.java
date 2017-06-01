@@ -111,7 +111,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return IncomingPhoneNumber ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

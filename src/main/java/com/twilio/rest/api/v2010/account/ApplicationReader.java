@@ -87,7 +87,7 @@ public class ApplicationReader extends Reader<Application> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Application ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

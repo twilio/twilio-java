@@ -81,7 +81,7 @@ public class TranscriptionReader extends Reader<Transcription> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Transcription ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

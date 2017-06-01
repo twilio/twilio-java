@@ -74,7 +74,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return AvailablePhoneNumberCountry ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

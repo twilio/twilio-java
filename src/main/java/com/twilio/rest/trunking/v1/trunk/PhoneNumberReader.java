@@ -67,7 +67,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return PhoneNumber ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

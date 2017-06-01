@@ -112,7 +112,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Monthly ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

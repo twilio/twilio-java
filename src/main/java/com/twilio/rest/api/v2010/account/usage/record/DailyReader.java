@@ -112,7 +112,7 @@ public class DailyReader extends Reader<Daily> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Daily ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

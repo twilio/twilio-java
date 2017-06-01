@@ -151,7 +151,7 @@ public class WorkerReader extends Reader<Worker> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Worker ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

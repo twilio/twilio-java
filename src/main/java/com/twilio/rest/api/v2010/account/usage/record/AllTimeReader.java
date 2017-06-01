@@ -112,7 +112,7 @@ public class AllTimeReader extends Reader<AllTime> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return AllTime ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

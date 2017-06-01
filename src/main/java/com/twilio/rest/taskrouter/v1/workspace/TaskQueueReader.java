@@ -103,7 +103,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return TaskQueue ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

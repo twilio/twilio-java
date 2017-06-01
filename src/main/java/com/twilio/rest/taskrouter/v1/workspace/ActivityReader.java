@@ -91,7 +91,7 @@ public class ActivityReader extends Reader<Activity> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Activity ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

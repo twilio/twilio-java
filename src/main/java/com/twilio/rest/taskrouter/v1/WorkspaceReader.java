@@ -69,7 +69,7 @@ public class WorkspaceReader extends Reader<Workspace> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Workspace ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

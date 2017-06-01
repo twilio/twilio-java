@@ -81,7 +81,7 @@ public class IpAddressReader extends Reader<IpAddress> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return IpAddress ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

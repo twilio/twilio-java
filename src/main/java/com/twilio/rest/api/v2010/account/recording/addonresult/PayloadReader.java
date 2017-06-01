@@ -88,7 +88,7 @@ public class PayloadReader extends Reader<Payload> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Payload ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

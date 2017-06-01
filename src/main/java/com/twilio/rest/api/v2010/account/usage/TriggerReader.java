@@ -111,7 +111,7 @@ public class TriggerReader extends Reader<Trigger> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Target Page
+     * @return Trigger ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")

@@ -37,6 +37,14 @@ public class Redirect extends TwiML {
         private Method method;
         private String url;
 
+        public Builder() {
+
+        }
+
+        public Builder(String url) {
+            this.url = url;
+        }
+
         public Builder method(Method method) {
             this.method = method;
             return this;

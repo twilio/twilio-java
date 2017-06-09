@@ -13,8 +13,6 @@ import java.util.concurrent.Callable;
  */
 public abstract class Reader<T extends Resource> {
 
-    private static final int MAX_PAGE_SIZE = 1000;
-
     private Integer pageSize;
     private Long limit;
 
@@ -99,7 +97,7 @@ public abstract class Reader<T extends Resource> {
     }
 
     public Reader<T> pageSize(final int pageSize) {
-        this.pageSize = Math.min(pageSize, MAX_PAGE_SIZE);
+        this.pageSize = pageSize;
         return this;
     }
 
@@ -117,7 +115,7 @@ public abstract class Reader<T extends Resource> {
         this.limit = limit;
 
         if (this.pageSize == null) {
-            this.pageSize = (int)Math.min(this.limit, MAX_PAGE_SIZE);
+            this.pageSize = (new Long(this.limit)).intValue();
         }
 
         return this;

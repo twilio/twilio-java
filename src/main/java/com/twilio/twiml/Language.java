@@ -4,18 +4,18 @@ package com.twilio.twiml;
  * Twilio Languages
  */
 public enum Language {
-	/**
+    /**
      *  Constants compatible with '<Say>' when `voice`
      *  is not set or is set to 'man' or 'woman':
      */
 
-	// German
+    // German
     DE("de"),
-	// English (default)
+    // English (default)
     EN("en"),
-	// Spanish
+    // Spanish
     ES("es"),
-	// French
+    // French
     FR("fr"),
     // English (United Kingdom)
     GB("en-gb"),
@@ -82,10 +82,10 @@ public enum Language {
     // Swedish (Sweden)
     SV_SE("sv-SE"),
 
-	/**
+    /**
      * Constants compatible with '<Gather>'.
      */
-	// Afrikaans (South Africa)
+    // Afrikaans (South Africa)
     AF_ZA("af-ZA"),
     // Arabic (United Arab Emirates)
     AR_AE("ar-AE"),

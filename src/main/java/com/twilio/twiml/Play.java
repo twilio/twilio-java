@@ -47,8 +47,17 @@ public class Play extends TwiML {
         private String digits;
         private String body;
 
+        public Builder() {
+
+        }
+
         public Builder(String body) {
             this.body = body;
+        }
+
+        public Builder body(String body) {
+            this.body = body;
+            return this;
         }
 
         public Builder loop(int loop) {

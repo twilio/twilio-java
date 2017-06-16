@@ -6,6 +6,16 @@ public class InvalidRequestException extends TwilioException {
 
     private final String param;
 
+    public InvalidRequestException(final String message) {
+        super(message, null);
+        this.param = null;
+    }
+
+    public InvalidRequestException(final String message, final String param) {
+        super(message, null);
+        this.param = param;
+    }
+
     public InvalidRequestException(final String message, final String param, final Throwable cause) {
         super(message, cause);
         this.param = param;

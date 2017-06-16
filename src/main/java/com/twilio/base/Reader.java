@@ -76,10 +76,29 @@ public abstract class Reader<T extends Resource> {
     public abstract Page<T> firstPage(final TwilioRestClient client);
 
     /**
+     * Retrieve the target page of resources.
+     *
+     * @param String targetUrl API-generated URL for the requested results page
+     * @return Page containing the target pageSize of resources
+     */
+    public Page<T> getPage(final String targetUrl) {
+        return getPage(targetUrl, Twilio.getRestClient());
+    }
+
+    /**
+     * Retrieve the target page of resources.
+     *
+     * @param String targetUrl API-generated URL for the requested results page
+     * @param client client used to fetch
+     * @return Page containing the target pageSize of resources
+     */
+    public abstract Page<T> getPage(final String targetUrl, final TwilioRestClient client);
+
+    /**
      * Fetch the following page of resources.
      *
      * @param page current page of resources
-     * @return Page containing the first pageSize of resources
+     * @return Page containing the next pageSize of resources
      */
     public Page<T> nextPage(final Page<T> page) {
         return nextPage(page, Twilio.getRestClient());
@@ -90,9 +109,28 @@ public abstract class Reader<T extends Resource> {
      *
      * @param page current page of resources
      * @param client client used to fetch
-     * @return Page containing the first pageSize of resources
+     * @return Page containing the next pageSize of resources
      */
     public abstract Page<T> nextPage(final Page<T> page, final TwilioRestClient client);
+
+    /**
+     * Fetch the prior page of resources.
+     *
+     * @param page current page of resources
+     * @return Page containing the previous pageSize of resources
+     */
+    public Page<T> previousPage(final Page<T> page) {
+        return previousPage(page, Twilio.getRestClient());
+    }
+
+    /**
+     * Fetch the prior page of resources using specified client.
+     *
+     * @param page current page of resources
+     * @param client client used to fetch
+     * @return Page containing the previous pageSize of resources
+     */
+    public abstract Page<T> previousPage(final Page<T> page, final TwilioRestClient client);
 
     public Integer getPageSize() {
         return pageSize;

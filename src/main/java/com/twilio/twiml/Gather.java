@@ -47,6 +47,9 @@ public class Gather extends TwiML {
     @XmlAttribute
     private final String acknowledgeSoundUrl;
 
+    @XmlAttribute
+    private final String input;
+
     @SuppressWarnings("checkstyle:indentation")
     @XmlElements({
         @XmlElement(name = "Say", type = Say.class),
@@ -73,6 +76,7 @@ public class Gather extends TwiML {
         this.hints = b.hints;
         this.bargeIn = b.bargeIn;
         this.acknowledgeSoundUrl = b.acknowledgeSoundUrl;
+        this.input = b.input;
     }
 
     public Integer getTimeout() {
@@ -123,6 +127,10 @@ public class Gather extends TwiML {
         return acknowledgeSoundUrl;
     }
 
+    public String getInput() {
+        return input;
+    }
+
     public static class Builder {
         private Integer timeout;
         private Integer numDigits;
@@ -136,6 +144,7 @@ public class Gather extends TwiML {
         private String hints;
         private Boolean bargeIn;
         private String acknowledgeSoundUrl;
+        private String input;
 
         public Builder timeout(int timeout) {
             this.timeout = timeout;
@@ -204,6 +213,11 @@ public class Gather extends TwiML {
 
         public Builder acknowledgeSoundUrl(String acknowledgeSoundUrl) {
             this.acknowledgeSoundUrl = acknowledgeSoundUrl;
+            return this;
+        }
+
+        public Builder input(String input) {
+            this.input = input;
             return this;
         }
 

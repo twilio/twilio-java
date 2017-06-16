@@ -24,6 +24,7 @@ public class MobileReader extends Reader<Mobile> {
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
+    private String origin;
 
     /**
      * Construct a new MobileReader.
@@ -74,6 +75,17 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     /**
+     * The origin.
+     * 
+     * @param origin The origin
+     * @return this
+     */
+    public MobileReader setOrigin(final String origin) {
+        this.origin = origin;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -106,6 +118,25 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return Mobile ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Mobile> getPage(final String targetUrl, final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -118,6 +149,26 @@ public class MobileReader extends Reader<Mobile> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.API.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<Mobile> previousPage(final Page<Mobile> page, 
+                                     final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.API.toString(),
                 client.getRegion()
             )
@@ -176,6 +227,10 @@ public class MobileReader extends Reader<Mobile> {
 
         if (phoneNumber != null) {
             request.addQueryParam("PhoneNumber", phoneNumber.toString());
+        }
+
+        if (origin != null) {
+            request.addQueryParam("Origin", origin);
         }
 
         if (getPageSize() != null) {

@@ -24,6 +24,7 @@ public class TollFreeReader extends Reader<TollFree> {
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
+    private String origin;
 
     /**
      * Construct a new TollFreeReader.
@@ -74,6 +75,17 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
+     * The origin.
+     * 
+     * @param origin The origin
+     * @return this
+     */
+    public TollFreeReader setOrigin(final String origin) {
+        this.origin = origin;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -106,6 +118,25 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return TollFree ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<TollFree> getPage(final String targetUrl, final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -118,6 +149,26 @@ public class TollFreeReader extends Reader<TollFree> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.API.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<TollFree> previousPage(final Page<TollFree> page, 
+                                       final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.API.toString(),
                 client.getRegion()
             )
@@ -176,6 +227,10 @@ public class TollFreeReader extends Reader<TollFree> {
 
         if (phoneNumber != null) {
             request.addQueryParam("PhoneNumber", phoneNumber.toString());
+        }
+
+        if (origin != null) {
+            request.addQueryParam("Origin", origin);
         }
 
         if (getPageSize() != null) {

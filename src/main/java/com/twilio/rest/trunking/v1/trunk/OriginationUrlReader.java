@@ -63,6 +63,24 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return OriginationUrl ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<OriginationUrl> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -75,6 +93,26 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.TRUNKING.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<OriginationUrl> previousPage(final Page<OriginationUrl> page, 
+                                             final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.TRUNKING.toString(),
                 client.getRegion()
             )

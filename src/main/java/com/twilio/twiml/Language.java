@@ -5,7 +5,7 @@ package com.twilio.twiml;
  */
 public enum Language {
     /**
-     *  Constants compatible with '<Say>' when `voice`
+     *  Constants compatible with Say verb when `voice`
      *  is not set or is set to 'man' or 'woman':
      */
 
@@ -21,7 +21,7 @@ public enum Language {
     GB("en-gb"),
 
     /**
-     * Constants compatible with '<Say>' when `voice`
+     * Constants compatible with Say verb when `voice`
      * is 'alice'.
      */
     // Chinese (Mandarin)
@@ -32,8 +32,8 @@ public enum Language {
     ZH_TW("zh-TW"),
 
     /**
-     * Constants compatible with '<Say>' when `voice`
-     * is 'alice' and with '<Gather>'.
+     * Constants compatible with Say verb when `voice`
+     * is 'alice' and with Gather verb.
      */
     // Catalan (Spain)
     CA_ES("ca-ES"),
@@ -83,7 +83,7 @@ public enum Language {
     SV_SE("sv-SE"),
 
     /**
-     * Constants compatible with '<Gather>'.
+     * Constants compatible with Gather verb.
      */
     // Afrikaans (South Africa)
     AF_ZA("af-ZA"),

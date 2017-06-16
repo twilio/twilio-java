@@ -37,7 +37,7 @@ public class NetworkHttpClient extends HttpClient {
             .setConnectTimeout(CONNECTION_TIMEOUT)
             .setSocketTimeout(SOCKET_TIMEOUT)
             .build();
-        
+
         Collection<Header> headers = Lists.<Header>newArrayList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
@@ -56,6 +56,8 @@ public class NetworkHttpClient extends HttpClient {
 
     /**
      * Create a new HTTP Client using custom configuration
+     * @param clientBuilder an HttpClientBuilder
+     * @return headers
      */
     public NetworkHttpClient(HttpClientBuilder clientBuilder) {
         Collection<Header> headers = Lists.<Header>newArrayList(

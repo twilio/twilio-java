@@ -76,7 +76,7 @@ public abstract class Reader<T extends Resource> {
     /**
      * Retrieve the target page of resources.
      *
-     * @param String targetUrl API-generated URL for the requested results page
+     * @param targetUrl API-generated URL for the requested results page
      * @return Page containing the target pageSize of resources
      */
     public Page<T> getPage(final String targetUrl) {
@@ -86,7 +86,7 @@ public abstract class Reader<T extends Resource> {
     /**
      * Retrieve the target page of resources.
      *
-     * @param String targetUrl API-generated URL for the requested results page
+     * @param targetUrl API-generated URL for the requested results page
      * @param client client used to fetch
      * @return Page containing the target pageSize of resources
      */

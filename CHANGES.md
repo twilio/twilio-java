@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2017-06-16] Version 7.12.0-alpha-1
+----------------------------------
+- Remove client-side max page size validation.
+- Add `locality` field to `AvailablePhoneNumbers`.
+- Add `origin` field to `IncomingPhoneNumbers`.
+- Add `inLocality` parameter to `AvailablePhoneNumbers`.
+- Add `origin` parameter to `IncomingPhoneNumbers`.
+- Add new sync categories to `UsageRecords`.
+- Add `getPage()` method for reentrant paging.
+- Add `input` to `<Gather>`.
+- Remove mandatory url parameter in `<Play>`.
+- Parallelize tests.
+- Update `Language` enum.
+- Add Alexa support to Notify.
+
 [2017-05-24] Version 7.11.0-alpha-1
 ----------------------------------
 - Add HostedNumbers preview support.

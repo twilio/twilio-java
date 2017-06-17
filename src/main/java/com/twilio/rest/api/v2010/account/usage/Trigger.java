@@ -171,6 +171,10 @@ public class Trigger extends Resource {
         SMS_OUTBOUND_LONGCODE("sms-outbound-longcode"),
         SMS_OUTBOUND_SHORTCODE("sms-outbound-shortcode"),
         SMS_MESSAGES_FEATURES("sms-messages-features"),
+        SYNC("sync"),
+        SYNC_ACTIONS("sync-actions"),
+        SYNC_ENDPOINT_HOURS("sync-endpoint-hours"),
+        SYNC_ENDPOINT_HOURS_ABOVE_DAILY_CAP("sync-endpoint-hours-above-daily-cap"),
         TASKROUTER_TASKS("taskrouter-tasks"),
         TOTALPRICE("totalprice"),
         TRANSCRIPTIONS("transcriptions"),
@@ -217,8 +221,7 @@ public class Trigger extends Resource {
         WIRELESS_USAGE_MRC("wireless-usage-mrc"),
         WIRELESS_USAGE_MRC_CUSTOM("wireless-usage-mrc-custom"),
         WIRELESS_USAGE_MRC_INDIVIDUAL("wireless-usage-mrc-individual"),
-        WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled"),
-        SYNC("sync");
+        WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled");
 
         private final String value;
 

@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Local extends Resource {
-    private static final long serialVersionUID = 145405771566124L;
+    private static final long serialVersionUID = 113059783533989L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -152,6 +152,7 @@ public class Local extends Resource {
     private final DateTime dateUpdated;
     private final String friendlyName;
     private final com.twilio.type.PhoneNumber phoneNumber;
+    private final String origin;
     private final String sid;
     private final String smsApplicationSid;
     private final HttpMethod smsFallbackMethod;
@@ -188,6 +189,8 @@ public class Local extends Resource {
                   final String friendlyName, 
                   @JsonProperty("phone_number")
                   final com.twilio.type.PhoneNumber phoneNumber, 
+                  @JsonProperty("origin")
+                  final String origin, 
                   @JsonProperty("sid")
                   final String sid, 
                   @JsonProperty("sms_application_sid")
@@ -229,6 +232,7 @@ public class Local extends Resource {
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
+        this.origin = origin;
         this.sid = sid;
         this.smsApplicationSid = smsApplicationSid;
         this.smsFallbackMethod = smsFallbackMethod;
@@ -326,6 +330,15 @@ public class Local extends Resource {
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
+    }
+
+    /**
+     * Returns The The origin.
+     * 
+     * @return The origin
+     */
+    public final String getOrigin() {
+        return this.origin;
     }
 
     /**
@@ -493,6 +506,7 @@ public class Local extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(phoneNumber, other.phoneNumber) && 
+               Objects.equals(origin, other.origin) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(smsApplicationSid, other.smsApplicationSid) && 
                Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
@@ -522,6 +536,7 @@ public class Local extends Resource {
                             dateUpdated,
                             friendlyName,
                             phoneNumber,
+                            origin,
                             sid,
                             smsApplicationSid,
                             smsFallbackMethod,
@@ -552,6 +567,7 @@ public class Local extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("friendlyName", friendlyName)
                           .add("phoneNumber", phoneNumber)
+                          .add("origin", origin)
                           .add("sid", sid)
                           .add("smsApplicationSid", smsApplicationSid)
                           .add("smsFallbackMethod", smsFallbackMethod)

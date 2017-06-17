@@ -23,7 +23,7 @@ public class FaxDeleter extends Deleter<Fax> {
     /**
      * Construct a new FaxDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this fax.
      */
     public FaxDeleter(final String pathSid) {
         this.pathSid = pathSid;

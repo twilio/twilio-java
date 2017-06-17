@@ -28,9 +28,10 @@ public class FaxReader extends Reader<Fax> {
     private DateTime dateCreatedAfter;
 
     /**
-     * The from.
+     * Filters the returned list to only include faxes sent from the supplied
+     * number, given in E.164 format..
      * 
-     * @param from The from
+     * @param from Include only faxes sent from
      * @return this
      */
     public FaxReader setFrom(final String from) {
@@ -39,9 +40,10 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * The to.
+     * Filters the returned list to only include faxes sent to the supplied number,
+     * given in E.164 format..
      * 
-     * @param to The to
+     * @param to Include only faxes sent to
      * @return this
      */
     public FaxReader setTo(final String to) {
@@ -50,9 +52,10 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * The date_created_on_or_before.
+     * Filters the returned list to only include faxes created on or before the
+     * supplied date, given in ISO 8601 format..
      * 
-     * @param dateCreatedOnOrBefore The date_created_on_or_before
+     * @param dateCreatedOnOrBefore Include only faxes created on or before
      * @return this
      */
     public FaxReader setDateCreatedOnOrBefore(final DateTime dateCreatedOnOrBefore) {
@@ -61,9 +64,10 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * The date_created_after.
+     * Filters the returned list to only include faxes created after the supplied
+     * date, given in ISO 8601 format..
      * 
-     * @param dateCreatedAfter The date_created_after
+     * @param dateCreatedAfter Include only faxes created after
      * @return this
      */
     public FaxReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -103,6 +107,24 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return Fax ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<Fax> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -115,6 +137,26 @@ public class FaxReader extends Reader<Fax> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.FAX.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<Fax> previousPage(final Page<Fax> page, 
+                                  final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.FAX.toString(),
                 client.getRegion()
             )

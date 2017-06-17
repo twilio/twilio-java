@@ -39,6 +39,7 @@ public class NotificationCreator extends Creator<Notification> {
     private Map<String, Object> facebookMessenger;
     private String fcm;
     private List<String> segment;
+    private String alexa;
 
     /**
      * Construct a new NotificationCreator.
@@ -203,6 +204,17 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
+     * The alexa.
+     * 
+     * @param alexa The alexa
+     * @return this
+     */
+    public NotificationCreator setAlexa(final String alexa) {
+        this.alexa = alexa;
+        return this;
+    }
+
+    /**
      * The identity.
      * 
      * @param identity The identity
@@ -353,6 +365,10 @@ public class NotificationCreator extends Creator<Notification> {
             for (String prop : segment) {
                 request.addPostParam("Segment", prop);
             }
+        }
+
+        if (alexa != null) {
+            request.addPostParam("Alexa", alexa);
         }
     }
 }

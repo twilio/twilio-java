@@ -39,8 +39,8 @@ public class FaxMedia extends Resource {
     /**
      * Create a FaxMediaFetcher to execute fetch.
      * 
-     * @param pathFaxSid The fax_sid
-     * @param pathSid The sid
+     * @param pathFaxSid Fax SID
+     * @param pathSid A string that uniquely identifies this fax media
      * @return FaxMediaFetcher capable of executing the fetch
      */
     public static FaxMediaFetcher fetcher(final String pathFaxSid, 
@@ -51,7 +51,7 @@ public class FaxMedia extends Resource {
     /**
      * Create a FaxMediaReader to execute read.
      * 
-     * @param pathFaxSid The fax_sid
+     * @param pathFaxSid Fax SID
      * @return FaxMediaReader capable of executing the read
      */
     public static FaxMediaReader reader(final String pathFaxSid) {
@@ -61,8 +61,8 @@ public class FaxMedia extends Resource {
     /**
      * Create a FaxMediaDeleter to execute delete.
      * 
-     * @param pathFaxSid The fax_sid
-     * @param pathSid The sid
+     * @param pathFaxSid Fax SID
+     * @param pathSid A string that uniquely identifies this fax media
      * @return FaxMediaDeleter capable of executing the delete
      */
     public static FaxMediaDeleter deleter(final String pathFaxSid, 
@@ -141,63 +141,63 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this fax media.
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this fax media
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account SID.
      * 
-     * @return The account_sid
+     * @return Account SID
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The fax_sid.
+     * Returns The Fax SID.
      * 
-     * @return The fax_sid
+     * @return Fax SID
      */
     public final String getFaxSid() {
         return this.faxSid;
     }
 
     /**
-     * Returns The The content_type.
+     * Returns The Media content type.
      * 
-     * @return The content_type
+     * @return Media content type
      */
     public final String getContentType() {
         return this.contentType;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this fax media was created.
      * 
-     * @return The date_created
+     * @return The date this fax media was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this fax media was updated.
      * 
-     * @return The date_updated
+     * @return The date this fax media was updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource.
      * 
-     * @return The url
+     * @return The URL of this resource
      */
     public final URI getUrl() {
         return this.url;

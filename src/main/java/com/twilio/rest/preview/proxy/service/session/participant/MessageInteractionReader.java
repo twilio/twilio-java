@@ -71,6 +71,24 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return MessageInteraction ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<MessageInteraction> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -83,6 +101,26 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.PREVIEW.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<MessageInteraction> previousPage(final Page<MessageInteraction> page, 
+                                                 final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.PREVIEW.toString(),
                 client.getRegion()
             )

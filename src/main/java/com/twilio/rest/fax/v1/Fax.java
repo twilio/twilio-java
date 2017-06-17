@@ -151,7 +151,7 @@ public class Fax extends Resource {
     /**
      * Create a FaxFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this fax.
      * @return FaxFetcher capable of executing the fetch
      */
     public static FaxFetcher fetcher(final String pathSid) {
@@ -170,8 +170,8 @@ public class Fax extends Resource {
     /**
      * Create a FaxCreator to execute create.
      * 
-     * @param to The to
-     * @param mediaUrl The media_url
+     * @param to The phone number or SIP address to send the fax to
+     * @param mediaUrl URL that points to the fax media
      * @return FaxCreator capable of executing the create
      */
     public static FaxCreator creator(final String to, 
@@ -182,7 +182,7 @@ public class Fax extends Resource {
     /**
      * Create a FaxUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this fax.
      * @return FaxUpdater capable of executing the update
      */
     public static FaxUpdater updater(final String pathSid) {
@@ -192,7 +192,7 @@ public class Fax extends Resource {
     /**
      * Create a FaxDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this fax.
      * @return FaxDeleter capable of executing the delete
      */
     public static FaxDeleter deleter(final String pathSid) {
@@ -314,162 +314,162 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this fax..
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this fax.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account SID.
      * 
-     * @return The account_sid
+     * @return Account SID
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The from.
+     * Returns The The party that sent the fax.
      * 
-     * @return The from
+     * @return The party that sent the fax
      */
     public final String getFrom() {
         return this.from;
     }
 
     /**
-     * Returns The The to.
+     * Returns The The party that received the fax.
      * 
-     * @return The to
+     * @return The party that received the fax
      */
     public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The The quality.
+     * Returns The The quality of this fax.
      * 
-     * @return The quality
+     * @return The quality of this fax
      */
     public final Fax.Quality getQuality() {
         return this.quality;
     }
 
     /**
-     * Returns The The media_sid.
+     * Returns The Media SID.
      * 
-     * @return The media_sid
+     * @return Media SID
      */
     public final String getMediaSid() {
         return this.mediaSid;
     }
 
     /**
-     * Returns The The media_url.
+     * Returns The URL pointing to fax media.
      * 
-     * @return The media_url
+     * @return URL pointing to fax media
      */
     public final String getMediaUrl() {
         return this.mediaUrl;
     }
 
     /**
-     * Returns The The num_pages.
+     * Returns The Number of pages.
      * 
-     * @return The num_pages
+     * @return Number of pages
      */
     public final Integer getNumPages() {
         return this.numPages;
     }
 
     /**
-     * Returns The The duration.
+     * Returns The The time taken to transmit the fax.
      * 
-     * @return The duration
+     * @return The time taken to transmit the fax
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of this fax.
      * 
-     * @return The status
+     * @return The status of this fax
      */
     public final Fax.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The direction.
+     * Returns The The direction of this fax.
      * 
-     * @return The direction
+     * @return The direction of this fax
      */
     public final Fax.Direction getDirection() {
         return this.direction;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The The API version used.
      * 
-     * @return The api_version
+     * @return The API version used
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The price.
+     * Returns The Fax transmission price.
      * 
-     * @return The price
+     * @return Fax transmission price
      */
     public final BigDecimal getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The The price_unit.
+     * Returns The Currency used for billing.
      * 
-     * @return The price_unit
+     * @return Currency used for billing
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this fax was created.
      * 
-     * @return The date_created
+     * @return The date this fax was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this fax was updated.
      * 
-     * @return The date_updated
+     * @return The date this fax was updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Nested resource URLs.
      * 
-     * @return The links
+     * @return Nested resource URLs
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource.
      * 
-     * @return The url
+     * @return The URL of this resource
      */
     public final URI getUrl() {
         return this.url;

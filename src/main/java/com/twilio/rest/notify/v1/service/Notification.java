@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Notification extends Resource {
-    private static final long serialVersionUID = 169114501293629L;
+    private static final long serialVersionUID = 91178018403492L;
 
     public enum Priority {
         HIGH("high"),
@@ -130,6 +130,7 @@ public class Notification extends Resource {
     private final Map<String, Object> fcm;
     private final Map<String, Object> sms;
     private final Map<String, Object> facebookMessenger;
+    private final Map<String, Object> alexa;
 
     @JsonCreator
     private Notification(@JsonProperty("sid")
@@ -169,7 +170,9 @@ public class Notification extends Resource {
                          @JsonProperty("sms")
                          final Map<String, Object> sms, 
                          @JsonProperty("facebook_messenger")
-                         final Map<String, Object> facebookMessenger) {
+                         final Map<String, Object> facebookMessenger, 
+                         @JsonProperty("alexa")
+                         final Map<String, Object> alexa) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -189,6 +192,7 @@ public class Notification extends Resource {
         this.fcm = fcm;
         this.sms = sms;
         this.facebookMessenger = facebookMessenger;
+        this.alexa = alexa;
     }
 
     /**
@@ -362,6 +366,15 @@ public class Notification extends Resource {
         return this.facebookMessenger;
     }
 
+    /**
+     * Returns The The alexa.
+     * 
+     * @return The alexa
+     */
+    public final Map<String, Object> getAlexa() {
+        return this.alexa;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -392,7 +405,8 @@ public class Notification extends Resource {
                Objects.equals(gcm, other.gcm) && 
                Objects.equals(fcm, other.fcm) && 
                Objects.equals(sms, other.sms) && 
-               Objects.equals(facebookMessenger, other.facebookMessenger);
+               Objects.equals(facebookMessenger, other.facebookMessenger) && 
+               Objects.equals(alexa, other.alexa);
     }
 
     @Override
@@ -415,7 +429,8 @@ public class Notification extends Resource {
                             gcm,
                             fcm,
                             sms,
-                            facebookMessenger);
+                            facebookMessenger,
+                            alexa);
     }
 
     @Override
@@ -440,6 +455,7 @@ public class Notification extends Resource {
                           .add("fcm", fcm)
                           .add("sms", sms)
                           .add("facebookMessenger", facebookMessenger)
+                          .add("alexa", alexa)
                           .toString();
     }
 }

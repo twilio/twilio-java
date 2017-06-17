@@ -67,6 +67,24 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return SyncMapPermission ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<SyncMapPermission> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -79,6 +97,26 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.SYNC.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<SyncMapPermission> previousPage(final Page<SyncMapPermission> page, 
+                                                final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.SYNC.toString(),
                 client.getRegion()
             )

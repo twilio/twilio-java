@@ -38,7 +38,8 @@ public class UsageRecord extends Resource {
 
     public enum Granularity {
         HOURLY("hourly"),
-        DAILY("daily");
+        DAILY("daily"),
+        ALL("all");
 
         private final String value;
 

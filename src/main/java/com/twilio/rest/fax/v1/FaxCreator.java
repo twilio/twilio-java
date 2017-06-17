@@ -28,12 +28,13 @@ public class FaxCreator extends Creator<Fax> {
     private String from;
     private String sipAuthUsername;
     private String sipAuthPassword;
+    private Boolean storeMedia;
 
     /**
      * Construct a new FaxCreator.
      * 
-     * @param to The to
-     * @param mediaUrl The media_url
+     * @param to The phone number or SIP address to send the fax to
+     * @param mediaUrl URL that points to the fax media
      */
     public FaxCreator(final String to, 
                       final URI mediaUrl) {
@@ -42,9 +43,10 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The quality.
+     * The quality setting to use for this fax. One of `standard`, `fine` or
+     * `superfine`..
      * 
-     * @param quality The quality
+     * @param quality The quality of this fax
      * @return this
      */
     public FaxCreator setQuality(final Fax.Quality quality) {
@@ -53,9 +55,9 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The status_callback.
+     * The URL that Twilio will request when the status of the fax changes..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback URL for fax status callbacks
      * @return this
      */
     public FaxCreator setStatusCallback(final URI statusCallback) {
@@ -64,9 +66,9 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The status_callback.
+     * The URL that Twilio will request when the status of the fax changes..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback URL for fax status callbacks
      * @return this
      */
     public FaxCreator setStatusCallback(final String statusCallback) {
@@ -74,9 +76,13 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The from.
+     * The phone number to use as the caller id, E.164-formatted. If using a phone
+     * number, it must be a Twilio number or a verified outgoing caller id for your
+     * account. If sending to a SIP address, this can be any alphanumeric string
+     * (plus the characters `+`, `_`, `.`, and `-`) to use in the From header of the
+     * SIP request..
      * 
-     * @param from The from
+     * @param from Twilio number from which to originate the fax
      * @return this
      */
     public FaxCreator setFrom(final String from) {
@@ -85,9 +91,11 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The sip_auth_username.
+     * The username to use for authentication when sending to a SIP address. Allowed
+     * characters are alphanumeric characters, plus `-`, `&`, `=`, `+`, `$`, `,`,
+     * `;`, `:`, `?`, `/`, `_`, `.`, `!`, `~`, `*`, `'`, `(`, and `)`..
      * 
-     * @param sipAuthUsername The sip_auth_username
+     * @param sipAuthUsername Username for SIP authentication
      * @return this
      */
     public FaxCreator setSipAuthUsername(final String sipAuthUsername) {
@@ -96,13 +104,27 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The sip_auth_password.
+     * The password to use for authentication when sending to a SIP address. Allowed
+     * characters are alphanumeric characters, plus `-`, `&`, `=`, `+`, `$`, `_`,
+     * `.`, `!`, `~`, `*`, `'`, `(`, and `)`..
      * 
-     * @param sipAuthPassword The sip_auth_password
+     * @param sipAuthPassword Password for SIP authentication
      * @return this
      */
     public FaxCreator setSipAuthPassword(final String sipAuthPassword) {
         this.sipAuthPassword = sipAuthPassword;
+        return this;
+    }
+
+    /**
+     * Whether or not to store a copy of the sent media on Twilio's servers for
+     * later retrieval (defaults to `true`).
+     * 
+     * @param storeMedia Whether or not to store media
+     * @return this
+     */
+    public FaxCreator setStoreMedia(final Boolean storeMedia) {
+        this.storeMedia = storeMedia;
         return this;
     }
 
@@ -177,6 +199,10 @@ public class FaxCreator extends Creator<Fax> {
 
         if (sipAuthPassword != null) {
             request.addPostParam("SipAuthPassword", sipAuthPassword);
+        }
+
+        if (storeMedia != null) {
+            request.addPostParam("StoreMedia", storeMedia.toString());
         }
     }
 }

@@ -24,8 +24,8 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
     /**
      * Construct a new FaxMediaFetcher.
      * 
-     * @param pathFaxSid The fax_sid
-     * @param pathSid The sid
+     * @param pathFaxSid Fax SID
+     * @param pathSid A string that uniquely identifies this fax media
      */
     public FaxMediaFetcher(final String pathFaxSid, 
                            final String pathSid) {

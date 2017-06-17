@@ -43,7 +43,8 @@ public class UserBinding extends Resource {
         GCM("gcm"),
         SMS("sms"),
         FCM("fcm"),
-        FACEBOOK_MESSENGER("facebook-messenger");
+        FACEBOOK_MESSENGER("facebook-messenger"),
+        ALEXA("alexa");
 
         private final String value;
 

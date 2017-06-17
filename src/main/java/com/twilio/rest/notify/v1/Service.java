@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 56482084573136L;
+    private static final long serialVersionUID = 238809456440649L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -137,6 +137,8 @@ public class Service extends Resource {
     private final Boolean logEnabled;
     private final URI url;
     private final Map<String, String> links;
+    private final String alexaSkillId;
+    private final String defaultAlexaNotificationProtocolVersion;
 
     @JsonCreator
     private Service(@JsonProperty("sid")
@@ -170,7 +172,11 @@ public class Service extends Resource {
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
-                    final Map<String, String> links) {
+                    final Map<String, String> links, 
+                    @JsonProperty("alexa_skill_id")
+                    final String alexaSkillId, 
+                    @JsonProperty("default_alexa_notification_protocol_version")
+                    final String defaultAlexaNotificationProtocolVersion) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
@@ -187,6 +193,8 @@ public class Service extends Resource {
         this.logEnabled = logEnabled;
         this.url = url;
         this.links = links;
+        this.alexaSkillId = alexaSkillId;
+        this.defaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion;
     }
 
     /**
@@ -333,6 +341,24 @@ public class Service extends Resource {
         return this.links;
     }
 
+    /**
+     * Returns The The alexa_skill_id.
+     * 
+     * @return The alexa_skill_id
+     */
+    public final String getAlexaSkillId() {
+        return this.alexaSkillId;
+    }
+
+    /**
+     * Returns The The default_alexa_notification_protocol_version.
+     * 
+     * @return The default_alexa_notification_protocol_version
+     */
+    public final String getDefaultAlexaNotificationProtocolVersion() {
+        return this.defaultAlexaNotificationProtocolVersion;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -360,7 +386,9 @@ public class Service extends Resource {
                Objects.equals(defaultFcmNotificationProtocolVersion, other.defaultFcmNotificationProtocolVersion) && 
                Objects.equals(logEnabled, other.logEnabled) && 
                Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links);
+               Objects.equals(links, other.links) && 
+               Objects.equals(alexaSkillId, other.alexaSkillId) && 
+               Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion);
     }
 
     @Override
@@ -380,7 +408,9 @@ public class Service extends Resource {
                             defaultFcmNotificationProtocolVersion,
                             logEnabled,
                             url,
-                            links);
+                            links,
+                            alexaSkillId,
+                            defaultAlexaNotificationProtocolVersion);
     }
 
     @Override
@@ -402,6 +432,8 @@ public class Service extends Resource {
                           .add("logEnabled", logEnabled)
                           .add("url", url)
                           .add("links", links)
+                          .add("alexaSkillId", alexaSkillId)
+                          .add("defaultAlexaNotificationProtocolVersion", defaultAlexaNotificationProtocolVersion)
                           .toString();
     }
 }

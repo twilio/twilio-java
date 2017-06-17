@@ -69,31 +69,6 @@ public class HostedNumberOrder extends Resource {
         }
     }
 
-    public enum Type {
-        LOCAL("local"),
-        TOLLFREE("tollfree");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Type from a string.
-         * @param value string value
-         * @return generated Type
-         */
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     /**
      * Create a HostedNumberOrderFetcher to execute fetch.
      * 
@@ -138,7 +113,6 @@ public class HostedNumberOrder extends Resource {
      * 
      * @param addressSid Address sid.
      * @param phoneNumber An E164 formatted phone number.
-     * @param type Phone number type.
      * @param isoCountry ISO country code.
      * @param smsCapability Specify SMS capability to host.
      * @param email Email.
@@ -146,11 +120,10 @@ public class HostedNumberOrder extends Resource {
      */
     public static HostedNumberOrderCreator creator(final String addressSid, 
                                                    final com.twilio.type.PhoneNumber phoneNumber, 
-                                                   final HostedNumberOrder.Type type, 
                                                    final String isoCountry, 
                                                    final Boolean smsCapability, 
                                                    final String email) {
-        return new HostedNumberOrderCreator(addressSid, phoneNumber, type, isoCountry, smsCapability, email);
+        return new HostedNumberOrderCreator(addressSid, phoneNumber, isoCountry, smsCapability, email);
     }
 
     /**

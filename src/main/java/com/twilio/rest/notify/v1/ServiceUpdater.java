@@ -29,6 +29,8 @@ public class ServiceUpdater extends Updater<Service> {
     private String fcmCredentialSid;
     private String defaultFcmNotificationProtocolVersion;
     private Boolean logEnabled;
+    private String alexaSkillId;
+    private String defaultAlexaNotificationProtocolVersion;
 
     /**
      * Construct a new ServiceUpdater.
@@ -153,6 +155,29 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The alexa_skill_id.
+     * 
+     * @param alexaSkillId The alexa_skill_id
+     * @return this
+     */
+    public ServiceUpdater setAlexaSkillId(final String alexaSkillId) {
+        this.alexaSkillId = alexaSkillId;
+        return this;
+    }
+
+    /**
+     * The default_alexa_notification_protocol_version.
+     * 
+     * @param defaultAlexaNotificationProtocolVersion The
+     *                                                default_alexa_notification_protocol_version
+     * @return this
+     */
+    public ServiceUpdater setDefaultAlexaNotificationProtocolVersion(final String defaultAlexaNotificationProtocolVersion) {
+        this.defaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -235,6 +260,14 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (logEnabled != null) {
             request.addPostParam("LogEnabled", logEnabled.toString());
+        }
+
+        if (alexaSkillId != null) {
+            request.addPostParam("AlexaSkillId", alexaSkillId);
+        }
+
+        if (defaultAlexaNotificationProtocolVersion != null) {
+            request.addPostParam("DefaultAlexaNotificationProtocolVersion", defaultAlexaNotificationProtocolVersion);
         }
     }
 }

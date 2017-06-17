@@ -184,7 +184,6 @@ public class HostedNumberOrderTest {
                                                       "/HostedNumbers/HostedNumberOrders");
                         request.addPostParam("AddressSid", serialize("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
         request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+987654321")));
-        request.addPostParam("Type", serialize(HostedNumberOrder.Type.LOCAL));
         request.addPostParam("IsoCountry", serialize("isoCountry"));
         request.addPostParam("SmsCapability", serialize(true));
         request.addPostParam("Email", serialize("email"));
@@ -196,7 +195,7 @@ public class HostedNumberOrderTest {
                     }};
 
         try {
-            HostedNumberOrder.creator("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), HostedNumberOrder.Type.LOCAL, "isoCountry", true, "email").create();
+            HostedNumberOrder.creator("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true, "email").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -210,6 +209,6 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.creator("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), HostedNumberOrder.Type.LOCAL, "isoCountry", true, "email").create();
+        HostedNumberOrder.creator("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true, "email").create();
     }
 }

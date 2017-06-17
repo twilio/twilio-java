@@ -63,6 +63,24 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return AlphaSender ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<AlphaSender> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -75,6 +93,26 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.MESSAGING.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<AlphaSender> previousPage(final Page<AlphaSender> page, 
+                                          final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.MESSAGING.toString(),
                 client.getRegion()
             )

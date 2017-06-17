@@ -41,6 +41,7 @@ public class Sim extends Resource {
         NEW("new"),
         READY("ready"),
         ACTIVE("active"),
+        SUSPENDED("suspended"),
         DEACTIVATED("deactivated"),
         CANCELED("canceled"),
         SCHEDULED("scheduled"),

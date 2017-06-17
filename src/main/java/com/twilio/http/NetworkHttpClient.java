@@ -57,7 +57,6 @@ public class NetworkHttpClient extends HttpClient {
     /**
      * Create a new HTTP Client using custom configuration
      * @param clientBuilder an HttpClientBuilder
-     * @return headers
      */
     public NetworkHttpClient(HttpClientBuilder clientBuilder) {
         Collection<Header> headers = Lists.<Header>newArrayList(

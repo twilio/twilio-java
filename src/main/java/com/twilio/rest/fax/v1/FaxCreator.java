@@ -91,9 +91,7 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The username to use for authentication when sending to a SIP address. Allowed
-     * characters are alphanumeric characters, plus `-`, `&`, `=`, `+`, `$`, `,`,
-     * `;`, `:`, `?`, `/`, `_`, `.`, `!`, `~`, `*`, `'`, `(`, and `)`..
+     * The username to use for authentication when sending to a SIP address..
      * 
      * @param sipAuthUsername Username for SIP authentication
      * @return this
@@ -104,9 +102,7 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The password to use for authentication when sending to a SIP address. Allowed
-     * characters are alphanumeric characters, plus `-`, `&`, `=`, `+`, `$`, `_`,
-     * `.`, `!`, `~`, `*`, `'`, `(`, and `)`..
+     * The password to use for authentication when sending to a SIP address..
      * 
      * @param sipAuthPassword Password for SIP authentication
      * @return this

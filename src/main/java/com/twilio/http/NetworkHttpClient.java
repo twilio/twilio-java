@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -36,7 +37,7 @@ public class NetworkHttpClient extends HttpClient {
             .setConnectTimeout(CONNECTION_TIMEOUT)
             .setSocketTimeout(SOCKET_TIMEOUT)
             .build();
-        
+
         Collection<Header> headers = Lists.<Header>newArrayList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
@@ -55,6 +56,7 @@ public class NetworkHttpClient extends HttpClient {
 
     /**
      * Create a new HTTP Client using custom configuration
+     * @param clientBuilder an HttpClientBuilder
      */
     public NetworkHttpClient(HttpClientBuilder clientBuilder){
         Collection<Header> headers = Lists.<Header>newArrayList(
@@ -77,7 +79,8 @@ public class NetworkHttpClient extends HttpClient {
      */
     public Response makeRequest(final Request request) {
 
-        RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
+        HttpMethod method = request.getMethod();
+        RequestBuilder builder = RequestBuilder.create(method.toString())
             .setUri(request.constructURL().toString())
             .setVersion(HttpVersion.HTTP_1_1)
             .setCharset(StandardCharsets.UTF_8);
@@ -86,7 +89,6 @@ public class NetworkHttpClient extends HttpClient {
             builder.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());
         }
 
-        HttpMethod method = request.getMethod();
         if (method == HttpMethod.POST) {
             builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
 
@@ -101,10 +103,10 @@ public class NetworkHttpClient extends HttpClient {
 
         try {
             response = client.execute(builder.build());
+            HttpEntity entity = response.getEntity();
             return new Response(
-
                 // Consume the entire HTTP response before returning the stream
-                response.getEntity() == null ? null : new BufferedHttpEntity(response.getEntity()).getContent(),
+                entity == null ? null : new BufferedHttpEntity(entity).getContent(),
                 response.getStatusLine().getStatusCode()
             );
         } catch (IOException e) {

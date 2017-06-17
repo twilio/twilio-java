@@ -12,7 +12,7 @@ public class SayTest {
     public void testXml() throws TwiMLException {
         Say say = new Say.Builder("I <3 Twilio")
             .loop(4)
-            .language(Language.EN_GB)
+            .language(Language.GB)
             .voice(Say.Voice.MAN)
             .build();
 

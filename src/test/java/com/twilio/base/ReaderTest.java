@@ -29,7 +29,7 @@ public class ReaderTest {
     @Test
     public void testMaxPageSize() {
         Reader<Call> reader = new CallReader().pageSize(Integer.MAX_VALUE);
-        Assert.assertEquals(1000, reader.getPageSize().intValue());
+        Assert.assertEquals(Integer.MAX_VALUE, reader.getPageSize().intValue());
         Assert.assertNull(reader.getLimit());
     }
 
@@ -44,7 +44,7 @@ public class ReaderTest {
     public void testSetLimitMaxPageSize() {
         Reader<Call> reader = new CallReader().limit(Integer.MAX_VALUE);
         Assert.assertEquals(Integer.MAX_VALUE, reader.getLimit().intValue());
-        Assert.assertEquals(1000, reader.getPageSize().intValue());
+        Assert.assertEquals(Integer.MAX_VALUE, reader.getPageSize().intValue());
     }
 
     @Test

@@ -45,12 +45,15 @@ public class NetworkHttpClient extends HttpClient {
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
+        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+	    connectionManager.setDefaultMaxPerRoute(10);
+	    connectionManager.setMaxTotal(10*2);
+        
         client = HttpClientBuilder.create()
             .useSystemProperties()
-            .setConnectionManager(new PoolingHttpClientConnectionManager())
+            .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(config)
             .setDefaultHeaders(headers)
-            .setMaxConnPerRoute(10)
             .build();
     }
 

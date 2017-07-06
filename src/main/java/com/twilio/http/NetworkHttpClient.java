@@ -1,5 +1,6 @@
 package com.twilio.http;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
@@ -46,7 +47,7 @@ public class NetworkHttpClient extends HttpClient {
         );
 
         String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
-        boolean isGoogleAppEngine = googleAppEngineVersion != null && !googleAppEngineVersion.isEmpty();
+        boolean isGoogleAppEngine = Strings.isNullOrEmpty(googleAppEngineVersion);
 
         org.apache.http.impl.client.HttpClientBuilder clientBuilder = HttpClientBuilder.create();
 

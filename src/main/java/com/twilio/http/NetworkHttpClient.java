@@ -47,11 +47,11 @@ public class NetworkHttpClient extends HttpClient {
         );
 
         String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
-        boolean isGoogleAppEngine = Strings.isNullOrEmpty(googleAppEngineVersion);
+        boolean isNotGoogleAppEngine = Strings.isNullOrEmpty(googleAppEngineVersion);
 
         org.apache.http.impl.client.HttpClientBuilder clientBuilder = HttpClientBuilder.create();
 
-        if (!isGoogleAppEngine) {
+        if (isNotGoogleAppEngine) {
             clientBuilder.useSystemProperties();
         }
 

@@ -3,8 +3,15 @@ twilio-java changelog
 
 [2017-07-12] Version 7.13.0-alpha-1
 ------------------------------------
+
+- Change git tagging scheme to be consistent with other twilio libraries.
+- Fix crashes on Google App Engine when using default NetworkHttpClient. Issue
+  #377. Thanks to @katafractari for helping identify the bug and test the fix.
+
 **Api**
+- Rename incorrectly named `AnnounceUrlMethod` to `AnnounceMethod` on Participants.
 - Update `AnnounceMethod` parameter naming for consistency
+- Add new UsageRecord categoreies for Rooms and Speech Recognition.
 
 **Messaging**
 - Fix incorrectly typed capabilities property for PhoneNumbers.

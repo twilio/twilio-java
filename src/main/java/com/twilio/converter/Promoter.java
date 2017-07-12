@@ -35,7 +35,7 @@ public class Promoter {
     }
 
     /**
-     * Convert a string to a enum type
+     * Convert a string to a enum type.
      *
      * @param value string value
      * @param values enum values

@@ -28,6 +28,14 @@ public class ValidationClient extends HttpClient {
 
     private final org.apache.http.client.HttpClient client;
 
+    /**
+     * Create a new ValidationClient.
+     * 
+     * @param  accountSid Twilio Account SID
+     * @param  credentialSid Twilio Credential SID
+     * @param  signingKey Twilio Signing key
+     * @param  privateKey Private Key
+     */
     public ValidationClient(String accountSid, String credentialSid, String signingKey, PrivateKey privateKey) {
         RequestConfig config = RequestConfig.custom()
             .setConnectTimeout(CONNECTION_TIMEOUT)

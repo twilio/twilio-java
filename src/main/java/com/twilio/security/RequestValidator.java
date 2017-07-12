@@ -33,11 +33,11 @@ public class RequestValidator {
                 List<String> sortedKeys = new ArrayList<>(params.keySet());
                 Collections.sort(sortedKeys);
 
-                for (String s : sortedKeys) {
-                    builder.append(s);
+                for (String key : sortedKeys) {
+                    builder.append(key);
 
-                    String v = params.get(s);
-                    builder.append(v == null ? "" : v);
+                    String value = params.get(key);
+                    builder.append(value == null ? "" : value);
                 }
             }
 
@@ -57,13 +57,13 @@ public class RequestValidator {
             return false;
         }
 
-        int n = a.length();
-        if (n != b.length()) {
+        int length = a.length();
+        if (length != b.length()) {
             return false;
         }
 
         int mismatch = 0;
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < length; ++i) {
             mismatch |= a.charAt(i) ^ b.charAt(i);
         }
         return mismatch == 0;

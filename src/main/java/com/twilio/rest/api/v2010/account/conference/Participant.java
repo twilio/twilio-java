@@ -65,58 +65,6 @@ public class Participant extends Resource {
         }
     }
 
-    public enum Beep {
-        TRUE("true"),
-        FALSE("false"),
-        ONENTER("onEnter"),
-        ONEXIT("onExit");
-
-        private final String value;
-
-        private Beep(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Beep from a string.
-         * @param value string value
-         * @return generated Beep
-         */
-        @JsonCreator
-        public static Beep forValue(final String value) {
-            return Promoter.enumFromString(value, Beep.values());
-        }
-    }
-
-    public enum ConferenceRecord {
-        DO_NOT_RECORD("do-not-record"),
-        RECORD_FROM_START("record-from-start");
-
-        private final String value;
-
-        private ConferenceRecord(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a ConferenceRecord from a string.
-         * @param value string value
-         * @return generated ConferenceRecord
-         */
-        @JsonCreator
-        public static ConferenceRecord forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceRecord.values());
-        }
-    }
-
     /**
      * Create a ParticipantFetcher to execute fetch.
      * 
@@ -331,15 +279,6 @@ public class Participant extends Resource {
         this.startConferenceOnEnter = startConferenceOnEnter;
         this.status = status;
         this.uri = uri;
-    }
-
-    /**
-     * Returns The A string that uniquely identifies this call.
-     * 
-     * @return A string that uniquely identifies this call
-     */
-    public final String getSid() {
-        return this.getCallSid();
     }
 
     /**

@@ -28,6 +28,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     private Boolean hold;
     private URI holdUrl;
     private HttpMethod holdMethod;
+    private URI announceUrl;
+    private HttpMethod announceUrlMethod;
 
     /**
      * Construct a new ParticipantUpdater.
@@ -111,6 +113,38 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
+     * The announce_url.
+     * 
+     * @param announceUrl The announce_url
+     * @return this
+     */
+    public ParticipantUpdater setAnnounceUrl(final URI announceUrl) {
+        this.announceUrl = announceUrl;
+        return this;
+    }
+
+    /**
+     * The announce_url.
+     * 
+     * @param announceUrl The announce_url
+     * @return this
+     */
+    public ParticipantUpdater setAnnounceUrl(final String announceUrl) {
+        return setAnnounceUrl(Promoter.uriFromString(announceUrl));
+    }
+
+    /**
+     * The announce_url_method.
+     * 
+     * @param announceUrlMethod The announce_url_method
+     * @return this
+     */
+    public ParticipantUpdater setAnnounceUrlMethod(final HttpMethod announceUrlMethod) {
+        this.announceUrlMethod = announceUrlMethod;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -170,6 +204,14 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         if (holdMethod != null) {
             request.addPostParam("HoldMethod", holdMethod.toString());
+        }
+
+        if (announceUrl != null) {
+            request.addPostParam("AnnounceUrl", announceUrl.toString());
+        }
+
+        if (announceUrlMethod != null) {
+            request.addPostParam("AnnounceUrlMethod", announceUrlMethod.toString());
         }
     }
 }

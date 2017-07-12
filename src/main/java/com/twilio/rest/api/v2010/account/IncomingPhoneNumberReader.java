@@ -24,6 +24,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
+    private String origin;
 
     /**
      * Construct a new IncomingPhoneNumberReader.
@@ -75,6 +76,17 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
+     * The origin.
+     * 
+     * @param origin The origin
+     * @return this
+     */
+    public IncomingPhoneNumberReader setOrigin(final String origin) {
+        this.origin = origin;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -107,6 +119,25 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
+     * Retrieve the target page from the Twilio API.
+     * 
+     * @param targetUrl API-generated URL for the requested results page
+     * @param client TwilioRestClient with which to make the request
+     * @return IncomingPhoneNumber ResourceSet
+     */
+    @Override
+    @SuppressWarnings("checkstyle:linelength")
+    public Page<IncomingPhoneNumber> getPage(final String targetUrl, final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
+
+        return pageForRequest(client, request);
+    }
+
+    /**
      * Retrieve the next page from the Twilio API.
      * 
      * @param page current page
@@ -119,6 +150,26 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
+                Domains.API.toString(),
+                client.getRegion()
+            )
+        );
+        return pageForRequest(client, request);
+    }
+
+    /**
+     * Retrieve the previous page from the Twilio API.
+     * 
+     * @param page current page
+     * @param client TwilioRestClient with which to make the request
+     * @return Previous Page
+     */
+    @Override
+    public Page<IncomingPhoneNumber> previousPage(final Page<IncomingPhoneNumber> page, 
+                                                  final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(
                 Domains.API.toString(),
                 client.getRegion()
             )
@@ -177,6 +228,10 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
         if (phoneNumber != null) {
             request.addQueryParam("PhoneNumber", phoneNumber.toString());
+        }
+
+        if (origin != null) {
+            request.addQueryParam("Origin", origin);
         }
 
         if (getPageSize() != null) {

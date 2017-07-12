@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TollFree extends Resource {
-    private static final long serialVersionUID = 250162359733040L;
+    private static final long serialVersionUID = 16937856072206L;
 
     /**
      * Create a TollFreeReader to execute read.
@@ -98,6 +98,7 @@ public class TollFree extends Resource {
     private final com.twilio.type.PhoneNumber friendlyName;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String lata;
+    private final String locality;
     private final String rateCenter;
     private final BigDecimal latitude;
     private final BigDecimal longitude;
@@ -115,6 +116,8 @@ public class TollFree extends Resource {
                      final com.twilio.type.PhoneNumber phoneNumber, 
                      @JsonProperty("lata")
                      final String lata, 
+                     @JsonProperty("locality")
+                     final String locality, 
                      @JsonProperty("rate_center")
                      final String rateCenter, 
                      @JsonProperty("latitude")
@@ -136,6 +139,7 @@ public class TollFree extends Resource {
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
         this.lata = lata;
+        this.locality = locality;
         this.rateCenter = rateCenter;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -172,6 +176,15 @@ public class TollFree extends Resource {
      */
     public final String getLata() {
         return this.lata;
+    }
+
+    /**
+     * Returns The The locality.
+     * 
+     * @return The locality
+     */
+    public final String getLocality() {
+        return this.locality;
     }
 
     /**
@@ -270,6 +283,7 @@ public class TollFree extends Resource {
         return Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(phoneNumber, other.phoneNumber) && 
                Objects.equals(lata, other.lata) && 
+               Objects.equals(locality, other.locality) && 
                Objects.equals(rateCenter, other.rateCenter) && 
                Objects.equals(latitude, other.latitude) && 
                Objects.equals(longitude, other.longitude) && 
@@ -286,6 +300,7 @@ public class TollFree extends Resource {
         return Objects.hash(friendlyName,
                             phoneNumber,
                             lata,
+                            locality,
                             rateCenter,
                             latitude,
                             longitude,
@@ -303,6 +318,7 @@ public class TollFree extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("phoneNumber", phoneNumber)
                           .add("lata", lata)
+                          .add("locality", locality)
                           .add("rateCenter", rateCenter)
                           .add("latitude", latitude)
                           .add("longitude", longitude)

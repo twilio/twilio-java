@@ -25,7 +25,7 @@ public class RequestTest {
         Request request = new Request(HttpMethod.GET, Domains.IPMESSAGING.toString(), "/v1/uri");
         assertNotNull(request);
         assertEquals(HttpMethod.GET, request.getMethod());
-        assertEquals("https://ip-messaging.twilio.com/v1/uri", request.getUrl());
+        assertEquals("https://chat.twilio.com/v1/uri", request.getUrl());
     }
 
     @Test

@@ -1,7 +1,54 @@
 twilio-java changelog
 =====================
 
-[2017-03-22] Version 7.7.2
+[2017-06-16] Version 7.12.0
+--------------------------
+- Remove client-side max page size validation.
+- Add `locality` field to `AvailablePhoneNumbers`.
+- Add `origin` field to `IncomingPhoneNumbers`.
+- Add `inLocality` parameter to `AvailablePhoneNumbers`.
+- Add `origin` parameter to `IncomingPhoneNumbers`.
+- Add new sync categories to `UsageRecords`.
+- Add `getPage()` method for reentrant paging.
+- Add `input` to `<Gather>`.
+- Remove mandatory url parameter in `<Play>`.
+- Parallelize tests.
+- Update `Language` enum.
+
+[2017-05-24] Version 7.11.0
+--------------------------
+- Rename `Recording` to `RoomRecording` in Twilio Video
+
+[2017-05-19] Version 7.10.0
+--------------------------
+- Add video.twilio.com
+- Add additional usage categories
+- Fix Client Validation URL encoding
+- Close all connections in finally block
+- Remove convenience method `getSid()` on records that do not have a sid
+
+[2017-04-27] Version 7.9.1
+--------------------------
+- Remove conference participant `Beep` and `ConferenceRecord` enums, use `String` instead (backwards incompatible).
+- Add `recordingChannels`, `recordingStatusCallback`, `recordingStatusCallbackMethod`, `sipAuthUsername`, `sipAuthPassword`, `region`, `conferenceRecordingStatusCallback`, `conferenceRecordingStatusCallbackMethod` parameter support to conference participant creation.
+- Update missing categories in Usage Trigger enums.
+
+[2017-04-18] Version 7.9.0
+--------------------------
+- Add Twilio Programmable Chat version 2
+- Allow updating `AccountSid` on `IncomingPhoneNumber`s
+- Include only populated fields in `VideoGrant`
+- Deprecate `ConversationsGrant`
+
+[2017-03-22] Version 7.8.1
+--------------------------
+- Add `validityPeriod` optional parameter to Message creation.
+- Add TaskRouterGrant.
+- Update VideoGrant.
+    - Add `room` as preferred grant granularity.
+    - Deprecate setting `configurationProfileSid` on grant.
+
+[2017-03-24] Version 7.8.0
 --------------------------
 - Fix a bug where unexpected JSON properties caused exceptions.
 

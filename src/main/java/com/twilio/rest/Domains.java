@@ -10,13 +10,14 @@ package com.twilio.rest;
 public enum Domains {
     ACCOUNTS("accounts"),
     API("api"),
-    CHAT("ip-messaging"),
-    IPMESSAGING("ip-messaging"),
+    CHAT("chat"),
+    IPMESSAGING("chat"),
     LOOKUPS("lookups"),
     MONITOR("monitor"),
     PRICING("pricing"),
     TASKROUTER("taskrouter"),
-    TRUNKING("trunking");
+    TRUNKING("trunking"),
+    VIDEO("video");
 
     private final String value;
 

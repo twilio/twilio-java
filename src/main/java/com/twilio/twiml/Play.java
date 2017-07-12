@@ -14,7 +14,7 @@ public class Play extends TwiML {
     private final Integer loop;
 
     @XmlAttribute
-    private final Integer digits;
+    private final String digits;
 
     @XmlValue
     private final String body;
@@ -34,7 +34,7 @@ public class Play extends TwiML {
         return loop;
     }
 
-    public Integer getDigits() {
+    public String getDigits() {
         return digits;
     }
 
@@ -44,11 +44,20 @@ public class Play extends TwiML {
 
     public static class Builder {
         private Integer loop;
-        private Integer digits;
+        private String digits;
         private String body;
+
+        public Builder() {
+
+        }
 
         public Builder(String body) {
             this.body = body;
+        }
+
+        public Builder body(String body) {
+            this.body = body;
+            return this;
         }
 
         public Builder loop(int loop) {
@@ -56,7 +65,7 @@ public class Play extends TwiML {
             return this;
         }
 
-        public Builder digits(int digits) {
+        public Builder digits(String digits) {
             this.digits = digits;
             return this;
         }

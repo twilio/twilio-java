@@ -1,5 +1,6 @@
 package com.twilio.http;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
@@ -45,13 +46,22 @@ public class NetworkHttpClient extends HttpClient {
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
-        client = HttpClientBuilder.create()
-            .useSystemProperties()
+        String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
+        boolean isNotGoogleAppEngine = Strings.isNullOrEmpty(googleAppEngineVersion);
+
+        org.apache.http.impl.client.HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+
+        if (isNotGoogleAppEngine) {
+            clientBuilder.useSystemProperties();
+        }
+
+        clientBuilder
             .setConnectionManager(new PoolingHttpClientConnectionManager())
             .setDefaultRequestConfig(config)
             .setDefaultHeaders(headers)
-            .setMaxConnPerRoute(10)
-            .build();
+            .setMaxConnPerRoute(10);
+
+        client = clientBuilder.build();
     }
 
     /**

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -34,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 115057158409790L;
+    private static final long serialVersionUID = 94068262472894L;
 
     /**
      * Create a RecordingFetcher to execute fetch.
@@ -157,6 +158,8 @@ public class Recording extends Resource {
     private final String sid;
     private final BigDecimal price;
     private final String uri;
+    private final String encryptionType;
+    private final Map<String, Object> encryptionDetails;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -176,7 +179,11 @@ public class Recording extends Resource {
                       @JsonProperty("price")
                       final BigDecimal price, 
                       @JsonProperty("uri")
-                      final String uri) {
+                      final String uri, 
+                      @JsonProperty("encryption_type")
+                      final String encryptionType, 
+                      @JsonProperty("encryption_details")
+                      final Map<String, Object> encryptionDetails) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -186,6 +193,8 @@ public class Recording extends Resource {
         this.sid = sid;
         this.price = price;
         this.uri = uri;
+        this.encryptionType = encryptionType;
+        this.encryptionDetails = encryptionDetails;
     }
 
     /**
@@ -269,6 +278,24 @@ public class Recording extends Resource {
         return this.uri;
     }
 
+    /**
+     * Returns The The encryption_type.
+     * 
+     * @return The encryption_type
+     */
+    public final String getEncryptionType() {
+        return this.encryptionType;
+    }
+
+    /**
+     * Returns The The encryption_details.
+     * 
+     * @return The encryption_details
+     */
+    public final Map<String, Object> getEncryptionDetails() {
+        return this.encryptionDetails;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -289,7 +316,9 @@ public class Recording extends Resource {
                Objects.equals(duration, other.duration) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(price, other.price) && 
-               Objects.equals(uri, other.uri);
+               Objects.equals(uri, other.uri) && 
+               Objects.equals(encryptionType, other.encryptionType) && 
+               Objects.equals(encryptionDetails, other.encryptionDetails);
     }
 
     @Override
@@ -302,7 +331,9 @@ public class Recording extends Resource {
                             duration,
                             sid,
                             price,
-                            uri);
+                            uri,
+                            encryptionType,
+                            encryptionDetails);
     }
 
     @Override
@@ -317,6 +348,8 @@ public class Recording extends Resource {
                           .add("sid", sid)
                           .add("price", price)
                           .add("uri", uri)
+                          .add("encryptionType", encryptionType)
+                          .add("encryptionDetails", encryptionDetails)
                           .toString();
     }
 }

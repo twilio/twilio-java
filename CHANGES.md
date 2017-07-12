@@ -1,6 +1,29 @@
 twilio-java changelog
 =====================
 
+[2017-07-12] Version 7.13.0
+----------------------------
+**Api**
+- Update `AnnounceMethod` parameter naming for consistency
+- [omit] Rachet /Keys and /SigningKeys
+
+**Notify**
+- Add `ToBinding` optional parameter on Notifications resource creation. Accepted values are json strings.
+
+**Preview**
+- Add `verification_attempts` to HostedNumberOrders.
+- Add `status_callback_url` and `status_callback_method` to HostedNumberOrders.
+- [omit] Enabled beta feature flag (api.vault.data-platform) for bulk_exports api
+
+**Video**
+- Filter recordings by date using the parameters `DateCreatedAfter` and `DateCreatedBefore`.
+- Override the default time-to-live of a recording's media URL through the `Ttl` parameter (in seconds, default value is 3600).
+- Add query parameters `SourceSid`, `Status`, `DateCreatedAfter` and `DateCreatedBefore` to the convenience method for retrieving Room recordings.
+
+**Wireless**
+- Added national and international data limits to the RatePlans resource.
+
+
 [2017-06-16] Version 7.12.0
 --------------------------
 - Remove client-side max page size validation.

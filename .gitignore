@@ -6,3 +6,4 @@ src/main/java/com/twilio/Twilio.java.bak
 secret.key
 pom.xml.releaseBackup
 release.properties
+java/

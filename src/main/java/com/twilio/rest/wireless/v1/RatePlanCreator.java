@@ -30,6 +30,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
     private Boolean voiceEnabled;
     private Boolean nationalRoamingEnabled;
     private List<String> internationalRoaming;
+    private Integer nationalRoamingDataLimit;
+    private Integer internationalRoamingDataLimit;
 
     /**
      * The unique_name.
@@ -141,6 +143,28 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
+     * The national_roaming_data_limit.
+     * 
+     * @param nationalRoamingDataLimit The national_roaming_data_limit
+     * @return this
+     */
+    public RatePlanCreator setNationalRoamingDataLimit(final Integer nationalRoamingDataLimit) {
+        this.nationalRoamingDataLimit = nationalRoamingDataLimit;
+        return this;
+    }
+
+    /**
+     * The international_roaming_data_limit.
+     * 
+     * @param internationalRoamingDataLimit The international_roaming_data_limit
+     * @return this
+     */
+    public RatePlanCreator setInternationalRoamingDataLimit(final Integer internationalRoamingDataLimit) {
+        this.internationalRoamingDataLimit = internationalRoamingDataLimit;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -221,6 +245,14 @@ public class RatePlanCreator extends Creator<RatePlan> {
             for (String prop : internationalRoaming) {
                 request.addPostParam("InternationalRoaming", prop);
             }
+        }
+
+        if (nationalRoamingDataLimit != null) {
+            request.addPostParam("NationalRoamingDataLimit", nationalRoamingDataLimit.toString());
+        }
+
+        if (internationalRoamingDataLimit != null) {
+            request.addPostParam("InternationalRoamingDataLimit", internationalRoamingDataLimit.toString());
         }
     }
 }

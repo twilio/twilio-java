@@ -35,6 +35,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     private HttpMethod smsMethod;
     private URI smsFallbackUrl;
     private HttpMethod smsFallbackMethod;
+    private URI statusCallbackUrl;
+    private HttpMethod statusCallbackMethod;
 
     /**
      * Construct a new HostedNumberOrderCreator.
@@ -184,6 +186,41 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
+     * Optional. The Status Callback URL attached to the IncomingPhoneNumber
+     * resource..
+     * 
+     * @param statusCallbackUrl Status Callback URL.
+     * @return this
+     */
+    public HostedNumberOrderCreator setStatusCallbackUrl(final URI statusCallbackUrl) {
+        this.statusCallbackUrl = statusCallbackUrl;
+        return this;
+    }
+
+    /**
+     * Optional. The Status Callback URL attached to the IncomingPhoneNumber
+     * resource..
+     * 
+     * @param statusCallbackUrl Status Callback URL.
+     * @return this
+     */
+    public HostedNumberOrderCreator setStatusCallbackUrl(final String statusCallbackUrl) {
+        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
+    }
+
+    /**
+     * Optional. The Status Callback Method attached to the IncomingPhoneNumber
+     * resource..
+     * 
+     * @param statusCallbackMethod Status Callback Method.
+     * @return this
+     */
+    public HostedNumberOrderCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+        this.statusCallbackMethod = statusCallbackMethod;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -280,6 +317,14 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
         if (smsFallbackMethod != null) {
             request.addPostParam("SmsFallbackMethod", smsFallbackMethod.toString());
+        }
+
+        if (statusCallbackUrl != null) {
+            request.addPostParam("StatusCallbackUrl", statusCallbackUrl.toString());
+        }
+
+        if (statusCallbackMethod != null) {
+            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
         }
     }
 }

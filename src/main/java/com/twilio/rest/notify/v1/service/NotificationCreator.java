@@ -40,6 +40,7 @@ public class NotificationCreator extends Creator<Notification> {
     private String fcm;
     private List<String> segment;
     private String alexa;
+    private List<String> toBinding;
 
     /**
      * Construct a new NotificationCreator.
@@ -215,6 +216,27 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
+     * The to_binding.
+     * 
+     * @param toBinding The to_binding
+     * @return this
+     */
+    public NotificationCreator setToBinding(final List<String> toBinding) {
+        this.toBinding = toBinding;
+        return this;
+    }
+
+    /**
+     * The to_binding.
+     * 
+     * @param toBinding The to_binding
+     * @return this
+     */
+    public NotificationCreator setToBinding(final String toBinding) {
+        return setToBinding(Promoter.listOfOne(toBinding));
+    }
+
+    /**
      * The identity.
      * 
      * @param identity The identity
@@ -369,6 +391,12 @@ public class NotificationCreator extends Creator<Notification> {
 
         if (alexa != null) {
             request.addPostParam("Alexa", alexa);
+        }
+
+        if (toBinding != null) {
+            for (String prop : toBinding) {
+                request.addPostParam("ToBinding", prop);
+            }
         }
     }
 }

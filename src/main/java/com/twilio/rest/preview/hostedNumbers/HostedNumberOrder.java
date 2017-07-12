@@ -37,10 +37,12 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HostedNumberOrder extends Resource {
-    private static final long serialVersionUID = 251161975866561L;
+    private static final long serialVersionUID = 254466053516521L;
 
     public enum Status {
         RECEIVED("received"),
+        PENDING_VERIFICATION("pending-verification"),
+        VERIFIED("verified"),
         PENDING_LOA("pending-loa"),
         CARRIER_PROCESSING("carrier-processing"),
         TESTING("testing"),
@@ -176,6 +178,7 @@ public class HostedNumberOrder extends Resource {
     private final HostedNumberOrder.Status status;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final Integer verificationAttempts;
     private final String email;
     private final List<String> ccEmails;
     private final URI url;
@@ -205,6 +208,8 @@ public class HostedNumberOrder extends Resource {
                               final String dateCreated, 
                               @JsonProperty("date_updated")
                               final String dateUpdated, 
+                              @JsonProperty("verification_attempts")
+                              final Integer verificationAttempts, 
                               @JsonProperty("email")
                               final String email, 
                               @JsonProperty("cc_emails")
@@ -223,6 +228,7 @@ public class HostedNumberOrder extends Resource {
         this.status = status;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.verificationAttempts = verificationAttempts;
         this.email = email;
         this.ccEmails = ccEmails;
         this.url = url;
@@ -337,6 +343,17 @@ public class HostedNumberOrder extends Resource {
     }
 
     /**
+     * Returns The The number of verification attempts made to verify ownership of
+     * the phone number..
+     * 
+     * @return The number of verification attempts made to verify ownership of the
+     *         phone number.
+     */
+    public final Integer getVerificationAttempts() {
+        return this.verificationAttempts;
+    }
+
+    /**
      * Returns The Email..
      * 
      * @return Email.
@@ -387,6 +404,7 @@ public class HostedNumberOrder extends Resource {
                Objects.equals(status, other.status) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
+               Objects.equals(verificationAttempts, other.verificationAttempts) && 
                Objects.equals(email, other.email) && 
                Objects.equals(ccEmails, other.ccEmails) && 
                Objects.equals(url, other.url);
@@ -406,6 +424,7 @@ public class HostedNumberOrder extends Resource {
                             status,
                             dateCreated,
                             dateUpdated,
+                            verificationAttempts,
                             email,
                             ccEmails,
                             url);
@@ -426,6 +445,7 @@ public class HostedNumberOrder extends Resource {
                           .add("status", status)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("verificationAttempts", verificationAttempts)
                           .add("email", email)
                           .add("ccEmails", ccEmails)
                           .add("url", url)

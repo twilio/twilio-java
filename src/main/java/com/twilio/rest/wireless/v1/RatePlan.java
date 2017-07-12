@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatePlan extends Resource {
-    private static final long serialVersionUID = 263617052418126L;
+    private static final long serialVersionUID = 106587229564985L;
 
     /**
      * Create a RatePlanReader to execute read.
@@ -133,7 +133,9 @@ public class RatePlan extends Resource {
     private final Boolean messagingEnabled;
     private final Boolean voiceEnabled;
     private final Boolean nationalRoamingEnabled;
+    private final Integer nationalRoamingDataLimit;
     private final List<String> internationalRoaming;
+    private final Integer internationalRoamingDataLimit;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -159,8 +161,12 @@ public class RatePlan extends Resource {
                      final Boolean voiceEnabled, 
                      @JsonProperty("national_roaming_enabled")
                      final Boolean nationalRoamingEnabled, 
+                     @JsonProperty("national_roaming_data_limit")
+                     final Integer nationalRoamingDataLimit, 
                      @JsonProperty("international_roaming")
                      final List<String> internationalRoaming, 
+                     @JsonProperty("international_roaming_data_limit")
+                     final Integer internationalRoamingDataLimit, 
                      @JsonProperty("date_created")
                      final String dateCreated, 
                      @JsonProperty("date_updated")
@@ -177,7 +183,9 @@ public class RatePlan extends Resource {
         this.messagingEnabled = messagingEnabled;
         this.voiceEnabled = voiceEnabled;
         this.nationalRoamingEnabled = nationalRoamingEnabled;
+        this.nationalRoamingDataLimit = nationalRoamingDataLimit;
         this.internationalRoaming = internationalRoaming;
+        this.internationalRoamingDataLimit = internationalRoamingDataLimit;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -274,12 +282,30 @@ public class RatePlan extends Resource {
     }
 
     /**
+     * Returns The The national_roaming_data_limit.
+     * 
+     * @return The national_roaming_data_limit
+     */
+    public final Integer getNationalRoamingDataLimit() {
+        return this.nationalRoamingDataLimit;
+    }
+
+    /**
      * Returns The The international_roaming.
      * 
      * @return The international_roaming
      */
     public final List<String> getInternationalRoaming() {
         return this.internationalRoaming;
+    }
+
+    /**
+     * Returns The The international_roaming_data_limit.
+     * 
+     * @return The international_roaming_data_limit
+     */
+    public final Integer getInternationalRoamingDataLimit() {
+        return this.internationalRoamingDataLimit;
     }
 
     /**
@@ -331,7 +357,9 @@ public class RatePlan extends Resource {
                Objects.equals(messagingEnabled, other.messagingEnabled) && 
                Objects.equals(voiceEnabled, other.voiceEnabled) && 
                Objects.equals(nationalRoamingEnabled, other.nationalRoamingEnabled) && 
+               Objects.equals(nationalRoamingDataLimit, other.nationalRoamingDataLimit) && 
                Objects.equals(internationalRoaming, other.internationalRoaming) && 
+               Objects.equals(internationalRoamingDataLimit, other.internationalRoamingDataLimit) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url);
@@ -349,7 +377,9 @@ public class RatePlan extends Resource {
                             messagingEnabled,
                             voiceEnabled,
                             nationalRoamingEnabled,
+                            nationalRoamingDataLimit,
                             internationalRoaming,
+                            internationalRoamingDataLimit,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -368,7 +398,9 @@ public class RatePlan extends Resource {
                           .add("messagingEnabled", messagingEnabled)
                           .add("voiceEnabled", voiceEnabled)
                           .add("nationalRoamingEnabled", nationalRoamingEnabled)
+                          .add("nationalRoamingDataLimit", nationalRoamingDataLimit)
                           .add("internationalRoaming", internationalRoaming)
+                          .add("internationalRoamingDataLimit", internationalRoamingDataLimit)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NewKey extends Resource {
-    private static final long serialVersionUID = 61650791237409L;
+    private static final long serialVersionUID = 233349476807945L;
 
     /**
      * Create a NewKeyCreator to execute create.

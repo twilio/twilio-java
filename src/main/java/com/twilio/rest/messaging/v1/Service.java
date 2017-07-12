@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 275468569060244L;
+    private static final long serialVersionUID = 43395598923285L;
 
     public enum ScanMessageContent {
         INHERIT("inherit"),
@@ -165,6 +165,7 @@ public class Service extends Resource {
     private final Service.ScanMessageContent scanMessageContent;
     private final Boolean fallbackToLongCode;
     private final Boolean areaCodeGeomatch;
+    private final Boolean synchronousValidation;
     private final Integer validityPeriod;
     private final URI url;
     private final Map<String, String> links;
@@ -202,6 +203,8 @@ public class Service extends Resource {
                     final Boolean fallbackToLongCode, 
                     @JsonProperty("area_code_geomatch")
                     final Boolean areaCodeGeomatch, 
+                    @JsonProperty("synchronous_validation")
+                    final Boolean synchronousValidation, 
                     @JsonProperty("validity_period")
                     final Integer validityPeriod, 
                     @JsonProperty("url")
@@ -224,6 +227,7 @@ public class Service extends Resource {
         this.scanMessageContent = scanMessageContent;
         this.fallbackToLongCode = fallbackToLongCode;
         this.areaCodeGeomatch = areaCodeGeomatch;
+        this.synchronousValidation = synchronousValidation;
         this.validityPeriod = validityPeriod;
         this.url = url;
         this.links = links;
@@ -374,6 +378,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The synchronous_validation.
+     * 
+     * @return The synchronous_validation
+     */
+    public final Boolean getSynchronousValidation() {
+        return this.synchronousValidation;
+    }
+
+    /**
      * Returns The The validity_period.
      * 
      * @return The validity_period
@@ -428,6 +441,7 @@ public class Service extends Resource {
                Objects.equals(scanMessageContent, other.scanMessageContent) && 
                Objects.equals(fallbackToLongCode, other.fallbackToLongCode) && 
                Objects.equals(areaCodeGeomatch, other.areaCodeGeomatch) && 
+               Objects.equals(synchronousValidation, other.synchronousValidation) && 
                Objects.equals(validityPeriod, other.validityPeriod) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
@@ -451,6 +465,7 @@ public class Service extends Resource {
                             scanMessageContent,
                             fallbackToLongCode,
                             areaCodeGeomatch,
+                            synchronousValidation,
                             validityPeriod,
                             url,
                             links);
@@ -475,6 +490,7 @@ public class Service extends Resource {
                           .add("scanMessageContent", scanMessageContent)
                           .add("fallbackToLongCode", fallbackToLongCode)
                           .add("areaCodeGeomatch", areaCodeGeomatch)
+                          .add("synchronousValidation", synchronousValidation)
                           .add("validityPeriod", validityPeriod)
                           .add("url", url)
                           .add("links", links)

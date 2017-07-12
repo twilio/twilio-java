@@ -24,7 +24,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.PhoneNumberCapabilities;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -36,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 193136223397872L;
+    private static final long serialVersionUID = 177917350059297L;
 
     /**
      * Create a PhoneNumberCreator to execute create.
@@ -129,7 +128,7 @@ public class PhoneNumber extends Resource {
     private final DateTime dateUpdated;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String countryCode;
-    private final List<PhoneNumberCapabilities> capabilities;
+    private final List<String> capabilities;
     private final URI url;
 
     @JsonCreator
@@ -148,7 +147,7 @@ public class PhoneNumber extends Resource {
                         @JsonProperty("country_code")
                         final String countryCode, 
                         @JsonProperty("capabilities")
-                        final List<PhoneNumberCapabilities> capabilities, 
+                        final List<String> capabilities, 
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -230,7 +229,7 @@ public class PhoneNumber extends Resource {
      * 
      * @return The capabilities
      */
-    public final List<PhoneNumberCapabilities> getCapabilities() {
+    public final List<String> getCapabilities() {
         return this.capabilities;
     }
 

@@ -27,9 +27,9 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     private String uniqueName;
 
     /**
-     * The Status of this HostedNumberOrder. One of `received`, `pending-loa`,
-     * `carrier-processing`, `testing`, `completed`, `failed`, or
-     * `action-required`..
+     * The Status of this HostedNumberOrder. One of `received`,
+     * `pending-verification`, `verified`, `pending-loa`, `carrier-processing`,
+     * `testing`, `completed`, `failed`, or `action-required`..
      * 
      * @param status The Status of this HostedNumberOrder.
      * @return this

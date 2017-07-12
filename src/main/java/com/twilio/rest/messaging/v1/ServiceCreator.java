@@ -34,6 +34,7 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean fallbackToLongCode;
     private Boolean areaCodeGeomatch;
     private Integer validityPeriod;
+    private Boolean synchronousValidation;
 
     /**
      * Construct a new ServiceCreator.
@@ -207,6 +208,17 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * The synchronous_validation.
+     * 
+     * @param synchronousValidation The synchronous_validation
+     * @return this
+     */
+    public ServiceCreator setSynchronousValidation(final Boolean synchronousValidation) {
+        this.synchronousValidation = synchronousValidation;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -301,6 +313,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (validityPeriod != null) {
             request.addPostParam("ValidityPeriod", validityPeriod.toString());
+        }
+
+        if (synchronousValidation != null) {
+            request.addPostParam("SynchronousValidation", synchronousValidation.toString());
         }
     }
 }

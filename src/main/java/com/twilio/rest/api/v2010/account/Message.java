@@ -584,9 +584,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The The URI for any subresources.
      * 
-     * @return The subresource_uris
+     * @return The URI for any subresources
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

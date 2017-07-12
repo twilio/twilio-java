@@ -35,6 +35,7 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean fallbackToLongCode;
     private Boolean areaCodeGeomatch;
     private Integer validityPeriod;
+    private Boolean synchronousValidation;
 
     /**
      * Construct a new ServiceUpdater.
@@ -219,6 +220,17 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The synchronous_validation.
+     * 
+     * @param synchronousValidation The synchronous_validation
+     * @return this
+     */
+    public ServiceUpdater setSynchronousValidation(final Boolean synchronousValidation) {
+        this.synchronousValidation = synchronousValidation;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -313,6 +325,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (validityPeriod != null) {
             request.addPostParam("ValidityPeriod", validityPeriod.toString());
+        }
+
+        if (synchronousValidation != null) {
+            request.addPostParam("SynchronousValidation", synchronousValidation.toString());
         }
     }
 }

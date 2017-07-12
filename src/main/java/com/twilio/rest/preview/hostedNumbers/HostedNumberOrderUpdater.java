@@ -27,6 +27,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     private String email;
     private List<String> ccEmails;
     private HostedNumberOrder.Status status;
+    private String verificationCode;
 
     /**
      * Construct a new HostedNumberOrderUpdater.
@@ -98,13 +99,25 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
     /**
      * The Status of this HostedNumberOrder. User can only update this to
-     * `pending-loa`..
+     * `pending-loa` or `pending-verification`..
      * 
      * @param status The Status of this HostedNumberOrder.
      * @return this
      */
     public HostedNumberOrderUpdater setStatus(final HostedNumberOrder.Status status) {
         this.status = status;
+        return this;
+    }
+
+    /**
+     * A verification code that is given to the user via a phone call to the phone
+     * number that is being hosted..
+     * 
+     * @param verificationCode A verification code.
+     * @return this
+     */
+    public HostedNumberOrderUpdater setVerificationCode(final String verificationCode) {
+        this.verificationCode = verificationCode;
         return this;
     }
 
@@ -173,6 +186,10 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
         if (status != null) {
             request.addPostParam("Status", status.toString());
+        }
+
+        if (verificationCode != null) {
+            request.addPostParam("VerificationCode", verificationCode);
         }
     }
 }

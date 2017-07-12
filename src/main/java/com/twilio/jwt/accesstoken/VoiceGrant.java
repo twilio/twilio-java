@@ -27,6 +27,13 @@ public class VoiceGrant implements Grant {
         return this;
     }
 
+    /**
+     * Set the outgoing application.
+     * 
+     * @param  outgoingApplicationSid outgoing application sid
+     * @param  outgoingApplicationParams outgoing application parameters
+     * @return voice grant
+     */
     public VoiceGrant setOutgoingApplication(
         String outgoingApplicationSid,
         Map<String, Object> outgoingApplicationParams
@@ -62,6 +69,11 @@ public class VoiceGrant implements Grant {
         public String push_credential_sid;
         public String endpoint_id;
 
+        /**
+         * Generate VoiceGrant payload.
+         * 
+         * @param  grant VoiceGrant
+         */
         public Payload(VoiceGrant grant) {
             if (!Strings.isNullOrEmpty(grant.outgoingApplicationSid)) {
                 this.outgoing = new HashMap<>();

@@ -36,12 +36,16 @@ public class Pause extends TwiML {
         return length;
     }
 
+    /**
+     * Convert options map to string map.
+     * 
+     * @return Converted options map
+     */
     public Map<String, String> getOptions() {
         Map<String, String> convertedMap = new HashMap<>();
 
-        Set<QName> keys = options.keySet();
-        for (QName key : keys) {
-            convertedMap.put(key.getNamespaceURI(), options.get(key));
+        for (Map.Entry<QName, String> entry : options.entrySet()) {
+            convertedMap.put(entry.getKey().getNamespaceURI(), entry.getValue());
         }
         return convertedMap;
     }

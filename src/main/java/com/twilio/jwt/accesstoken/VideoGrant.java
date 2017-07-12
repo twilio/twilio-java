@@ -3,12 +3,14 @@ package com.twilio.jwt.accesstoken;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
- * Grant used to access Twilio Video
+ * Grant used to access Twilio Video.
  *
- * For more information see:
- * <a href="https://www.twilio.com/docs/api/rest/access-tokens">
- *     https://www.twilio.com/docs/api/rest/access-tokens
- * </a>
+ * <p>
+ *     For more information see:
+ *     <a href="https://www.twilio.com/docs/api/rest/access-tokens">
+ *         https://www.twilio.com/docs/api/rest/access-tokens
+ *     </a>
+ * </p>
  */
 public class VideoGrant implements Grant {
 
@@ -63,6 +65,8 @@ public class VideoGrant implements Grant {
         return new Payload(this);
     }
 
+
+    @SuppressWarnings("checkstyle:membername")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public class Payload {
         public final String configuration_profile_sid;

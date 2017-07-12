@@ -90,6 +90,18 @@ public class ValidationToken extends Jwt {
         return payload;
     }
 
+    /**
+     * Create a ValidationToken from an HTTP Request.
+     * 
+     * @param  accountSid Twilio Account SID
+     * @param  credentialSid Twilio Credential SID
+     * @param  signingKeySid Twilio Signing Key SID
+     * @param  privateKey Private Key
+     * @param  request HTTP Request
+     * @param  signedHeaders Headers to sign
+     * 
+     * @throws IOException when unable to generate
+     */
     public static ValidationToken fromHttpRequest(
         String accountSid,
         String credentialSid,
@@ -144,6 +156,14 @@ public class ValidationToken extends Jwt {
         private String requestBody = "";
         private int ttl = 300;
 
+        /**
+         * Create a new ValidationToken Builder.
+         * 
+         * @param  accountSid Twilio Account SID
+         * @param  credentialSid Twilio Crednetial SID
+         * @param  signingKeySid Twilio Signing Key SID
+         * @param  privateKey Private Key
+         */
         public Builder(String accountSid, String credentialSid, String signingKeySid, PrivateKey privateKey) {
             this.accountSid = accountSid;
             this.credentialSid = credentialSid;

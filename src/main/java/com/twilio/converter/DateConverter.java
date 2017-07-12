@@ -1,11 +1,12 @@
 package com.twilio.converter;
 
-import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Locale;
 
 public class DateConverter {
 
@@ -71,10 +72,10 @@ public class DateConverter {
      * @return formatted date in YYYY-MM-DD
      */
     public static String dateStringFromLocalDate(LocalDate date) {
-       try {
-           return date.toString(DATE_PATTERN);
-       } catch (Exception e) {
-           return null;
-       }
+        try {
+            return date.toString(DATE_PATTERN);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -164,7 +164,9 @@ public class Conference extends TwiML {
         this.options = Maps.newHashMap(b.options);
 
         if (this.statusCallbackEvents != null) {
-            this.statusCallbackEvent = Joiner.on(" ").join(Lists.transform(this.statusCallbackEvents, ConferenceEvent.TO_STRING));
+            this.statusCallbackEvent = Joiner.on(" ").join(
+                Lists.transform(this.statusCallbackEvents, ConferenceEvent.TO_STRING)
+            );
         } else {
             this.statusCallbackEvent = null;
         }
@@ -234,12 +236,16 @@ public class Conference extends TwiML {
         return name;
     }
 
+    /**
+     * Convert options map to string map.
+     * 
+     * @return Converted options map
+     */
     public Map<String, String> getOptions() {
         Map<String, String> convertedMap = new HashMap<>();
 
-        Set<QName> keys = options.keySet();
-        for (QName key : keys) {
-            convertedMap.put(key.getNamespaceURI(), options.get(key));
+        for (Map.Entry<QName, String> entry : options.entrySet()) {
+            convertedMap.put(entry.getKey().getNamespaceURI(), entry.getValue());
         }
         return convertedMap;
     }

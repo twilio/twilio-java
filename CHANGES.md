@@ -3,17 +3,20 @@ twilio-java changelog
 
 [2017-07-12] Version 7.13.0
 ----------------------------
+- Change git tagging scheme to be consistent with other twilio libraries.
+- Fix crashes on Google App Engine when using default NetworkHttpClient. Issue #377. Thanks to @katafractari for helping identify the bug and test the fix.
+
 **Api**
-- Update `AnnounceMethod` parameter naming for consistency
-- [omit] Rachet /Keys and /SigningKeys
+- Fix incorrectly named `AnnounceUrlMethod` to `AnnounceMethod` parameter naming on Conference Participant Updating.
+- Add `encryptionType` and `encryptionDetails` support to Call Recordings.
+- Add new UsageRecord categories for Rooms and Speech Recognition.
 
 **Notify**
 - Add `ToBinding` optional parameter on Notifications resource creation. Accepted values are json strings.
 
 **Preview**
-- Add `verification_attempts` to HostedNumberOrders.
-- Add `status_callback_url` and `status_callback_method` to HostedNumberOrders.
-- [omit] Enabled beta feature flag (api.vault.data-platform) for bulk_exports api
+- Add `verificationAttempts` to HostedNumberOrders.
+- Add `statusCallbackUrl` and `statusCallbackMethod` to HostedNumberOrders.
 
 **Video**
 - Filter recordings by date using the parameters `DateCreatedAfter` and `DateCreatedBefore`.

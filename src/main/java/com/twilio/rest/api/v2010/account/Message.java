@@ -49,7 +49,8 @@ public class Message extends Resource {
         DELIVERED("delivered"),
         UNDELIVERED("undelivered"),
         RECEIVING("receiving"),
-        RECEIVED("received");
+        RECEIVED("received"),
+        ACCEPTED("accepted");
 
         private final String value;
 

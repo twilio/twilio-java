@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2017-07-19] Version 7.13.1-alpha-1
+------------------------------------
+**Api**
+- Update `status` enum for Messages to include 'accepted'
+
+
 [2017-07-12] Version 7.13.0-alpha-1
 ------------------------------------
 

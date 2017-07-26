@@ -12,7 +12,9 @@ import java.lang.annotation.Target;
   ElementType.CONSTRUCTOR,
   ElementType.FIELD,
   ElementType.METHOD,
-  ElementType.TYPE
+  ElementType.TYPE,
+  ElementType.PACKAGE,
+  ElementType.PARAMETER
 })
 @Documented
 public @interface Beta {}

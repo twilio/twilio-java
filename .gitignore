@@ -3,8 +3,7 @@
 .idea/
 out/
 target/
-java/
-src/main/java/com/twilio/Twilio.java.bak
+./java/
 secret.key
 pom.xml.releaseBackup
 release.properties

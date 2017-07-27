@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 94068262472894L;
+    private static final long serialVersionUID = 51581236095087L;
 
     /**
      * Create a RecordingFetcher to execute fetch.
@@ -158,7 +158,6 @@ public class Recording extends Resource {
     private final String sid;
     private final BigDecimal price;
     private final String uri;
-    private final String encryptionType;
     private final Map<String, Object> encryptionDetails;
 
     @JsonCreator
@@ -180,8 +179,6 @@ public class Recording extends Resource {
                       final BigDecimal price, 
                       @JsonProperty("uri")
                       final String uri, 
-                      @JsonProperty("encryption_type")
-                      final String encryptionType, 
                       @JsonProperty("encryption_details")
                       final Map<String, Object> encryptionDetails) {
         this.accountSid = accountSid;
@@ -193,7 +190,6 @@ public class Recording extends Resource {
         this.sid = sid;
         this.price = price;
         this.uri = uri;
-        this.encryptionType = encryptionType;
         this.encryptionDetails = encryptionDetails;
     }
 
@@ -279,15 +275,6 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The encryption_type.
-     * 
-     * @return The encryption_type
-     */
-    public final String getEncryptionType() {
-        return this.encryptionType;
-    }
-
-    /**
      * Returns The The encryption_details.
      * 
      * @return The encryption_details
@@ -317,7 +304,6 @@ public class Recording extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(price, other.price) && 
                Objects.equals(uri, other.uri) && 
-               Objects.equals(encryptionType, other.encryptionType) && 
                Objects.equals(encryptionDetails, other.encryptionDetails);
     }
 
@@ -332,7 +318,6 @@ public class Recording extends Resource {
                             sid,
                             price,
                             uri,
-                            encryptionType,
                             encryptionDetails);
     }
 
@@ -348,7 +333,6 @@ public class Recording extends Resource {
                           .add("sid", sid)
                           .add("price", price)
                           .add("uri", uri)
-                          .add("encryptionType", encryptionType)
                           .add("encryptionDetails", encryptionDetails)
                           .toString();
     }

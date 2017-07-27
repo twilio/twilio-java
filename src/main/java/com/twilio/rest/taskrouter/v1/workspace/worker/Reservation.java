@@ -66,6 +66,63 @@ public class Reservation extends Resource {
         }
     }
 
+    public enum CallStatus {
+        INITIATED("initiated"),
+        RINGING("ringing"),
+        ANSWERED("answered"),
+        COMPLETED("completed");
+
+        private final String value;
+
+        private CallStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a CallStatus from a string.
+         * @param value string value
+         * @return generated CallStatus
+         */
+        @JsonCreator
+        public static CallStatus forValue(final String value) {
+            return Promoter.enumFromString(value, CallStatus.values());
+        }
+    }
+
+    public enum ConferenceEvent {
+        START("start"),
+        END("end"),
+        JOIN("join"),
+        LEAVE("leave"),
+        MUTE("mute"),
+        HOLD("hold"),
+        SPEAKER("speaker");
+
+        private final String value;
+
+        private ConferenceEvent(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ConferenceEvent from a string.
+         * @param value string value
+         * @return generated ConferenceEvent
+         */
+        @JsonCreator
+        public static ConferenceEvent forValue(final String value) {
+            return Promoter.enumFromString(value, ConferenceEvent.values());
+        }
+    }
+
     /**
      * Create a ReservationReader to execute read.
      * 

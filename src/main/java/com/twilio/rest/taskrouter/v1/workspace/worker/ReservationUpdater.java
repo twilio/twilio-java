@@ -19,6 +19,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 import java.net.URI;
+import java.util.List;
 
 public class ReservationUpdater extends Updater<Reservation> {
     private final String pathWorkspaceSid;
@@ -43,6 +44,36 @@ public class ReservationUpdater extends Updater<Reservation> {
     private String redirectCallSid;
     private Boolean redirectAccept;
     private URI redirectUrl;
+    private String to;
+    private String from;
+    private URI statusCallback;
+    private HttpMethod statusCallbackMethod;
+    private List<Reservation.CallStatus> statusCallbackEvent;
+    private Integer timeout;
+    private Boolean record;
+    private Boolean muted;
+    private String beep;
+    private Boolean startConferenceOnEnter;
+    private Boolean endConferenceOnExit;
+    private URI waitUrl;
+    private HttpMethod waitMethod;
+    private Boolean earlyMedia;
+    private Integer maxParticipants;
+    private URI conferenceStatusCallback;
+    private HttpMethod conferenceStatusCallbackMethod;
+    private List<Reservation.ConferenceEvent> conferenceStatusCallbackEvent;
+    private String conferenceRecord;
+    private String conferenceTrim;
+    private String recordingChannels;
+    private URI recordingStatusCallback;
+    private HttpMethod recordingStatusCallbackMethod;
+    private URI conferenceRecordingStatusCallback;
+    private HttpMethod conferenceRecordingStatusCallbackMethod;
+    private String region;
+    private String sipAuthUsername;
+    private String sipAuthPassword;
+    private List<String> dequeueStatusCallbackEvent;
+    private String postWorkActivitySid;
 
     /**
      * Construct a new ReservationUpdater.
@@ -309,6 +340,419 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
+     * The to.
+     * 
+     * @param to The to
+     * @return this
+     */
+    public ReservationUpdater setTo(final String to) {
+        this.to = to;
+        return this;
+    }
+
+    /**
+     * The from.
+     * 
+     * @param from The from
+     * @return this
+     */
+    public ReservationUpdater setFrom(final String from) {
+        this.from = from;
+        return this;
+    }
+
+    /**
+     * The status_callback.
+     * 
+     * @param statusCallback The status_callback
+     * @return this
+     */
+    public ReservationUpdater setStatusCallback(final URI statusCallback) {
+        this.statusCallback = statusCallback;
+        return this;
+    }
+
+    /**
+     * The status_callback.
+     * 
+     * @param statusCallback The status_callback
+     * @return this
+     */
+    public ReservationUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
+
+    /**
+     * The status_callback_method.
+     * 
+     * @param statusCallbackMethod The status_callback_method
+     * @return this
+     */
+    public ReservationUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+        this.statusCallbackMethod = statusCallbackMethod;
+        return this;
+    }
+
+    /**
+     * The status_callback_event.
+     * 
+     * @param statusCallbackEvent The status_callback_event
+     * @return this
+     */
+    public ReservationUpdater setStatusCallbackEvent(final List<Reservation.CallStatus> statusCallbackEvent) {
+        this.statusCallbackEvent = statusCallbackEvent;
+        return this;
+    }
+
+    /**
+     * The status_callback_event.
+     * 
+     * @param statusCallbackEvent The status_callback_event
+     * @return this
+     */
+    public ReservationUpdater setStatusCallbackEvent(final Reservation.CallStatus statusCallbackEvent) {
+        return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
+    }
+
+    /**
+     * The timeout.
+     * 
+     * @param timeout The timeout
+     * @return this
+     */
+    public ReservationUpdater setTimeout(final Integer timeout) {
+        this.timeout = timeout;
+        return this;
+    }
+
+    /**
+     * The record.
+     * 
+     * @param record The record
+     * @return this
+     */
+    public ReservationUpdater setRecord(final Boolean record) {
+        this.record = record;
+        return this;
+    }
+
+    /**
+     * The muted.
+     * 
+     * @param muted The muted
+     * @return this
+     */
+    public ReservationUpdater setMuted(final Boolean muted) {
+        this.muted = muted;
+        return this;
+    }
+
+    /**
+     * The beep.
+     * 
+     * @param beep The beep
+     * @return this
+     */
+    public ReservationUpdater setBeep(final String beep) {
+        this.beep = beep;
+        return this;
+    }
+
+    /**
+     * The start_conference_on_enter.
+     * 
+     * @param startConferenceOnEnter The start_conference_on_enter
+     * @return this
+     */
+    public ReservationUpdater setStartConferenceOnEnter(final Boolean startConferenceOnEnter) {
+        this.startConferenceOnEnter = startConferenceOnEnter;
+        return this;
+    }
+
+    /**
+     * The end_conference_on_exit.
+     * 
+     * @param endConferenceOnExit The end_conference_on_exit
+     * @return this
+     */
+    public ReservationUpdater setEndConferenceOnExit(final Boolean endConferenceOnExit) {
+        this.endConferenceOnExit = endConferenceOnExit;
+        return this;
+    }
+
+    /**
+     * The wait_url.
+     * 
+     * @param waitUrl The wait_url
+     * @return this
+     */
+    public ReservationUpdater setWaitUrl(final URI waitUrl) {
+        this.waitUrl = waitUrl;
+        return this;
+    }
+
+    /**
+     * The wait_url.
+     * 
+     * @param waitUrl The wait_url
+     * @return this
+     */
+    public ReservationUpdater setWaitUrl(final String waitUrl) {
+        return setWaitUrl(Promoter.uriFromString(waitUrl));
+    }
+
+    /**
+     * The wait_method.
+     * 
+     * @param waitMethod The wait_method
+     * @return this
+     */
+    public ReservationUpdater setWaitMethod(final HttpMethod waitMethod) {
+        this.waitMethod = waitMethod;
+        return this;
+    }
+
+    /**
+     * The early_media.
+     * 
+     * @param earlyMedia The early_media
+     * @return this
+     */
+    public ReservationUpdater setEarlyMedia(final Boolean earlyMedia) {
+        this.earlyMedia = earlyMedia;
+        return this;
+    }
+
+    /**
+     * The max_participants.
+     * 
+     * @param maxParticipants The max_participants
+     * @return this
+     */
+    public ReservationUpdater setMaxParticipants(final Integer maxParticipants) {
+        this.maxParticipants = maxParticipants;
+        return this;
+    }
+
+    /**
+     * The conference_status_callback.
+     * 
+     * @param conferenceStatusCallback The conference_status_callback
+     * @return this
+     */
+    public ReservationUpdater setConferenceStatusCallback(final URI conferenceStatusCallback) {
+        this.conferenceStatusCallback = conferenceStatusCallback;
+        return this;
+    }
+
+    /**
+     * The conference_status_callback.
+     * 
+     * @param conferenceStatusCallback The conference_status_callback
+     * @return this
+     */
+    public ReservationUpdater setConferenceStatusCallback(final String conferenceStatusCallback) {
+        return setConferenceStatusCallback(Promoter.uriFromString(conferenceStatusCallback));
+    }
+
+    /**
+     * The conference_status_callback_method.
+     * 
+     * @param conferenceStatusCallbackMethod The conference_status_callback_method
+     * @return this
+     */
+    public ReservationUpdater setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod) {
+        this.conferenceStatusCallbackMethod = conferenceStatusCallbackMethod;
+        return this;
+    }
+
+    /**
+     * The conference_status_callback_event.
+     * 
+     * @param conferenceStatusCallbackEvent The conference_status_callback_event
+     * @return this
+     */
+    public ReservationUpdater setConferenceStatusCallbackEvent(final List<Reservation.ConferenceEvent> conferenceStatusCallbackEvent) {
+        this.conferenceStatusCallbackEvent = conferenceStatusCallbackEvent;
+        return this;
+    }
+
+    /**
+     * The conference_status_callback_event.
+     * 
+     * @param conferenceStatusCallbackEvent The conference_status_callback_event
+     * @return this
+     */
+    public ReservationUpdater setConferenceStatusCallbackEvent(final Reservation.ConferenceEvent conferenceStatusCallbackEvent) {
+        return setConferenceStatusCallbackEvent(Promoter.listOfOne(conferenceStatusCallbackEvent));
+    }
+
+    /**
+     * The conference_record.
+     * 
+     * @param conferenceRecord The conference_record
+     * @return this
+     */
+    public ReservationUpdater setConferenceRecord(final String conferenceRecord) {
+        this.conferenceRecord = conferenceRecord;
+        return this;
+    }
+
+    /**
+     * The conference_trim.
+     * 
+     * @param conferenceTrim The conference_trim
+     * @return this
+     */
+    public ReservationUpdater setConferenceTrim(final String conferenceTrim) {
+        this.conferenceTrim = conferenceTrim;
+        return this;
+    }
+
+    /**
+     * The recording_channels.
+     * 
+     * @param recordingChannels The recording_channels
+     * @return this
+     */
+    public ReservationUpdater setRecordingChannels(final String recordingChannels) {
+        this.recordingChannels = recordingChannels;
+        return this;
+    }
+
+    /**
+     * The recording_status_callback.
+     * 
+     * @param recordingStatusCallback The recording_status_callback
+     * @return this
+     */
+    public ReservationUpdater setRecordingStatusCallback(final URI recordingStatusCallback) {
+        this.recordingStatusCallback = recordingStatusCallback;
+        return this;
+    }
+
+    /**
+     * The recording_status_callback.
+     * 
+     * @param recordingStatusCallback The recording_status_callback
+     * @return this
+     */
+    public ReservationUpdater setRecordingStatusCallback(final String recordingStatusCallback) {
+        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
+    }
+
+    /**
+     * The recording_status_callback_method.
+     * 
+     * @param recordingStatusCallbackMethod The recording_status_callback_method
+     * @return this
+     */
+    public ReservationUpdater setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
+        this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
+        return this;
+    }
+
+    /**
+     * The conference_recording_status_callback.
+     * 
+     * @param conferenceRecordingStatusCallback The
+     *                                          conference_recording_status_callback
+     * @return this
+     */
+    public ReservationUpdater setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
+        this.conferenceRecordingStatusCallback = conferenceRecordingStatusCallback;
+        return this;
+    }
+
+    /**
+     * The conference_recording_status_callback.
+     * 
+     * @param conferenceRecordingStatusCallback The
+     *                                          conference_recording_status_callback
+     * @return this
+     */
+    public ReservationUpdater setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
+        return setConferenceRecordingStatusCallback(Promoter.uriFromString(conferenceRecordingStatusCallback));
+    }
+
+    /**
+     * The conference_recording_status_callback_method.
+     * 
+     * @param conferenceRecordingStatusCallbackMethod The
+     *                                                conference_recording_status_callback_method
+     * @return this
+     */
+    public ReservationUpdater setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {
+        this.conferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod;
+        return this;
+    }
+
+    /**
+     * The region.
+     * 
+     * @param region The region
+     * @return this
+     */
+    public ReservationUpdater setRegion(final String region) {
+        this.region = region;
+        return this;
+    }
+
+    /**
+     * The sip_auth_username.
+     * 
+     * @param sipAuthUsername The sip_auth_username
+     * @return this
+     */
+    public ReservationUpdater setSipAuthUsername(final String sipAuthUsername) {
+        this.sipAuthUsername = sipAuthUsername;
+        return this;
+    }
+
+    /**
+     * The sip_auth_password.
+     * 
+     * @param sipAuthPassword The sip_auth_password
+     * @return this
+     */
+    public ReservationUpdater setSipAuthPassword(final String sipAuthPassword) {
+        this.sipAuthPassword = sipAuthPassword;
+        return this;
+    }
+
+    /**
+     * The dequeue_status_callback_event.
+     * 
+     * @param dequeueStatusCallbackEvent The dequeue_status_callback_event
+     * @return this
+     */
+    public ReservationUpdater setDequeueStatusCallbackEvent(final List<String> dequeueStatusCallbackEvent) {
+        this.dequeueStatusCallbackEvent = dequeueStatusCallbackEvent;
+        return this;
+    }
+
+    /**
+     * The dequeue_status_callback_event.
+     * 
+     * @param dequeueStatusCallbackEvent The dequeue_status_callback_event
+     * @return this
+     */
+    public ReservationUpdater setDequeueStatusCallbackEvent(final String dequeueStatusCallbackEvent) {
+        return setDequeueStatusCallbackEvent(Promoter.listOfOne(dequeueStatusCallbackEvent));
+    }
+
+    /**
+     * The post_work_activity_sid.
+     * 
+     * @param postWorkActivitySid The post_work_activity_sid
+     * @return this
+     */
+    public ReservationUpdater setPostWorkActivitySid(final String postWorkActivitySid) {
+        this.postWorkActivitySid = postWorkActivitySid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -427,6 +871,132 @@ public class ReservationUpdater extends Updater<Reservation> {
 
         if (redirectUrl != null) {
             request.addPostParam("RedirectUrl", redirectUrl.toString());
+        }
+
+        if (to != null) {
+            request.addPostParam("To", to);
+        }
+
+        if (from != null) {
+            request.addPostParam("From", from);
+        }
+
+        if (statusCallback != null) {
+            request.addPostParam("StatusCallback", statusCallback.toString());
+        }
+
+        if (statusCallbackMethod != null) {
+            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+        }
+
+        if (statusCallbackEvent != null) {
+            for (Reservation.CallStatus prop : statusCallbackEvent) {
+                request.addPostParam("StatusCallbackEvent", prop.toString());
+            }
+        }
+
+        if (timeout != null) {
+            request.addPostParam("Timeout", timeout.toString());
+        }
+
+        if (record != null) {
+            request.addPostParam("Record", record.toString());
+        }
+
+        if (muted != null) {
+            request.addPostParam("Muted", muted.toString());
+        }
+
+        if (beep != null) {
+            request.addPostParam("Beep", beep);
+        }
+
+        if (startConferenceOnEnter != null) {
+            request.addPostParam("StartConferenceOnEnter", startConferenceOnEnter.toString());
+        }
+
+        if (endConferenceOnExit != null) {
+            request.addPostParam("EndConferenceOnExit", endConferenceOnExit.toString());
+        }
+
+        if (waitUrl != null) {
+            request.addPostParam("WaitUrl", waitUrl.toString());
+        }
+
+        if (waitMethod != null) {
+            request.addPostParam("WaitMethod", waitMethod.toString());
+        }
+
+        if (earlyMedia != null) {
+            request.addPostParam("EarlyMedia", earlyMedia.toString());
+        }
+
+        if (maxParticipants != null) {
+            request.addPostParam("MaxParticipants", maxParticipants.toString());
+        }
+
+        if (conferenceStatusCallback != null) {
+            request.addPostParam("ConferenceStatusCallback", conferenceStatusCallback.toString());
+        }
+
+        if (conferenceStatusCallbackMethod != null) {
+            request.addPostParam("ConferenceStatusCallbackMethod", conferenceStatusCallbackMethod.toString());
+        }
+
+        if (conferenceStatusCallbackEvent != null) {
+            for (Reservation.ConferenceEvent prop : conferenceStatusCallbackEvent) {
+                request.addPostParam("ConferenceStatusCallbackEvent", prop.toString());
+            }
+        }
+
+        if (conferenceRecord != null) {
+            request.addPostParam("ConferenceRecord", conferenceRecord);
+        }
+
+        if (conferenceTrim != null) {
+            request.addPostParam("ConferenceTrim", conferenceTrim);
+        }
+
+        if (recordingChannels != null) {
+            request.addPostParam("RecordingChannels", recordingChannels);
+        }
+
+        if (recordingStatusCallback != null) {
+            request.addPostParam("RecordingStatusCallback", recordingStatusCallback.toString());
+        }
+
+        if (recordingStatusCallbackMethod != null) {
+            request.addPostParam("RecordingStatusCallbackMethod", recordingStatusCallbackMethod.toString());
+        }
+
+        if (conferenceRecordingStatusCallback != null) {
+            request.addPostParam("ConferenceRecordingStatusCallback", conferenceRecordingStatusCallback.toString());
+        }
+
+        if (conferenceRecordingStatusCallbackMethod != null) {
+            request.addPostParam("ConferenceRecordingStatusCallbackMethod", conferenceRecordingStatusCallbackMethod.toString());
+        }
+
+        if (region != null) {
+            request.addPostParam("Region", region);
+        }
+
+        if (sipAuthUsername != null) {
+            request.addPostParam("SipAuthUsername", sipAuthUsername);
+        }
+
+        if (sipAuthPassword != null) {
+            request.addPostParam("SipAuthPassword", sipAuthPassword);
+        }
+
+        if (dequeueStatusCallbackEvent != null) {
+            for (String prop : dequeueStatusCallbackEvent) {
+                request.addPostParam("DequeueStatusCallbackEvent", prop);
+            }
+        }
+
+        if (postWorkActivitySid != null) {
+            request.addPostParam("PostWorkActivitySid", postWorkActivitySid);
         }
     }
 }

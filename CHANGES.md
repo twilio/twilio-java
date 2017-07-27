@@ -1,6 +1,24 @@
 twilio-java changelog
 =====================
 
+[2017-07-27] Version 7.14.0
+----------------------------
+**Api**
+- Remove unused `encryption_type` property on Recordings *(breaking change)*
+
+**Messaging**
+- Fix incorrectly typed capabilities property for PhoneNumbers.
+
+**Notify**
+- Add `ToBinding` optional parameter on Notifications resource creation. Accepted values are json strings.
+
+**Preview**
+- Add `sms_application_sid` to HostedNumberOrders.
+
+**Taskrouter**
+- Fully support conference functionality in reservations.
+
+
 [2017-07-19] Version 7.13.1
 ----------------------------
 **Api**

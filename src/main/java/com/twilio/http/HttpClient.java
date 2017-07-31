@@ -12,6 +12,9 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
+    public Response last_response;
+    public Request last_request;
+
     /**
      * Make a request.
      *
@@ -50,6 +53,10 @@ public abstract class HttpClient {
             // Decrement retries
             retries--;
         }
+
+        last_request = request;
+        last_response = response;
+
         return response;
     }
 

@@ -12,8 +12,8 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
-    public Response last_response;
-    public Request last_request;
+    public Response lastResponse;
+    public Request lastRequest;
 
     /**
      * Make a request.
@@ -41,7 +41,7 @@ public abstract class HttpClient {
             response = makeRequest(request);
 
             if (!shouldRetry(response, retryCodes)) {
-                return response;
+                break;
             }
 
             try {
@@ -54,10 +54,18 @@ public abstract class HttpClient {
             retries--;
         }
 
-        last_request = request;
-        last_response = response;
+        lastRequest = request;
+        lastResponse = response;
 
         return response;
+    }
+
+    public Response getLastResponse() {
+        return lastResponse;
+    }
+
+    public Request getLastRequest() {
+        return lastRequest;
     }
 
     protected boolean shouldRetry(final Response response, final int[] retryCodes) {

@@ -1,5 +1,7 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -7,4 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Hangup")
 public class Hangup extends TwiML {
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .toString();
+    }
+
 }

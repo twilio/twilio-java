@@ -1,5 +1,8 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
@@ -31,6 +34,34 @@ public class Redirect extends TwiML {
 
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Redirect redirect = (Redirect) o;
+        return method == redirect.method &&
+            Objects.equal(url, redirect.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(method, url);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("method", method)
+            .add("url", url)
+            .toString();
     }
 
     public static class Builder {

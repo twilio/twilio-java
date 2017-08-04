@@ -1,5 +1,8 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
@@ -40,6 +43,36 @@ public class Play extends TwiML {
 
     public String getBody() {
         return body;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Play play = (Play) o;
+        return Objects.equal(loop, play.loop) &&
+            Objects.equal(digits, play.digits) &&
+            Objects.equal(body, play.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(loop, digits, body);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("loop", loop)
+            .add("digits", digits)
+            .add("body", body)
+            .toString();
     }
 
     public static class Builder {

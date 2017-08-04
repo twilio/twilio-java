@@ -1,5 +1,7 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -8,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/pause.
@@ -48,6 +49,34 @@ public class Pause extends TwiML {
             convertedMap.put(entry.getKey().getNamespaceURI(), entry.getValue());
         }
         return convertedMap;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Pause pause = (Pause) o;
+        return Objects.equal(length, pause.length) &&
+            Objects.equal(options, pause.options);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(length, options);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("length", length)
+            .add("options", options)
+            .toString();
     }
 
     public static class Builder {

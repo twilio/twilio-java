@@ -1,5 +1,8 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
@@ -64,6 +67,42 @@ public class Sms extends TwiML {
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Sms sms = (Sms) o;
+        return Objects.equal(to, sms.to) &&
+            Objects.equal(from, sms.from) &&
+            method == sms.method &&
+            Objects.equal(action, sms.action) &&
+            Objects.equal(statusCallback, sms.statusCallback) &&
+            Objects.equal(message, sms.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(to, from, method, action, statusCallback, message);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("to", to)
+            .add("from", from)
+            .add("method", method)
+            .add("action", action)
+            .add("statusCallback", statusCallback)
+            .add("message", message)
+            .toString();
     }
 
     public static class Builder {

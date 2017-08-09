@@ -12,8 +12,8 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
-    public Response lastResponse;
-    public Request lastRequest;
+    private Response lastResponse;
+    private Request lastRequest;
 
     /**
      * Make a request.

@@ -30,7 +30,6 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     private Boolean enabled;
     private URI webhookUrl;
     private String webhookMethod;
-    private String email;
 
     /**
      * Construct a new ExportConfigurationUpdater.
@@ -81,17 +80,6 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
      */
     public ExportConfigurationUpdater setWebhookMethod(final String webhookMethod) {
         this.webhookMethod = webhookMethod;
-        return this;
-    }
-
-    /**
-     * The email.
-     * 
-     * @param email The email
-     * @return this
-     */
-    public ExportConfigurationUpdater setEmail(final String email) {
-        this.email = email;
         return this;
     }
 
@@ -150,10 +138,6 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
         if (webhookMethod != null) {
             request.addPostParam("WebhookMethod", webhookMethod);
-        }
-
-        if (email != null) {
-            request.addPostParam("Email", email);
         }
     }
 }

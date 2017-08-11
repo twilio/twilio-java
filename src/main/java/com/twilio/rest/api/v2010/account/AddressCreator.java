@@ -27,6 +27,7 @@ public class AddressCreator extends Creator<Address> {
     private final String isoCountry;
     private String friendlyName;
     private Boolean emergencyEnabled;
+    private Boolean autoCorrectAddress;
 
     /**
      * Construct a new AddressCreator.
@@ -98,6 +99,17 @@ public class AddressCreator extends Creator<Address> {
      */
     public AddressCreator setEmergencyEnabled(final Boolean emergencyEnabled) {
         this.emergencyEnabled = emergencyEnabled;
+        return this;
+    }
+
+    /**
+     * The auto_correct_address.
+     * 
+     * @param autoCorrectAddress The auto_correct_address
+     * @return this
+     */
+    public AddressCreator setAutoCorrectAddress(final Boolean autoCorrectAddress) {
+        this.autoCorrectAddress = autoCorrectAddress;
         return this;
     }
 
@@ -177,6 +189,10 @@ public class AddressCreator extends Creator<Address> {
 
         if (emergencyEnabled != null) {
             request.addPostParam("EmergencyEnabled", emergencyEnabled.toString());
+        }
+
+        if (autoCorrectAddress != null) {
+            request.addPostParam("AutoCorrectAddress", autoCorrectAddress.toString());
         }
     }
 }

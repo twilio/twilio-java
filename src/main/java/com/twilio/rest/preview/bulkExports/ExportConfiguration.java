@@ -37,7 +37,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExportConfiguration extends Resource {
-    private static final long serialVersionUID = 176838978581780L;
+    private static final long serialVersionUID = 121290827357040L;
 
     /**
      * Create a ExportConfigurationFetcher to execute fetch.
@@ -100,7 +100,6 @@ public class ExportConfiguration extends Resource {
     private final Boolean enabled;
     private final URI webhookUrl;
     private final String webhookMethod;
-    private final String email;
     private final String resourceType;
     private final URI url;
 
@@ -111,8 +110,6 @@ public class ExportConfiguration extends Resource {
                                 final URI webhookUrl, 
                                 @JsonProperty("webhook_method")
                                 final String webhookMethod, 
-                                @JsonProperty("email")
-                                final String email, 
                                 @JsonProperty("resource_type")
                                 final String resourceType, 
                                 @JsonProperty("url")
@@ -120,7 +117,6 @@ public class ExportConfiguration extends Resource {
         this.enabled = enabled;
         this.webhookUrl = webhookUrl;
         this.webhookMethod = webhookMethod;
-        this.email = email;
         this.resourceType = resourceType;
         this.url = url;
     }
@@ -150,15 +146,6 @@ public class ExportConfiguration extends Resource {
      */
     public final String getWebhookMethod() {
         return this.webhookMethod;
-    }
-
-    /**
-     * Returns The The email.
-     * 
-     * @return The email
-     */
-    public final String getEmail() {
-        return this.email;
     }
 
     /**
@@ -194,7 +181,6 @@ public class ExportConfiguration extends Resource {
         return Objects.equals(enabled, other.enabled) && 
                Objects.equals(webhookUrl, other.webhookUrl) && 
                Objects.equals(webhookMethod, other.webhookMethod) && 
-               Objects.equals(email, other.email) && 
                Objects.equals(resourceType, other.resourceType) && 
                Objects.equals(url, other.url);
     }
@@ -204,7 +190,6 @@ public class ExportConfiguration extends Resource {
         return Objects.hash(enabled,
                             webhookUrl,
                             webhookMethod,
-                            email,
                             resourceType,
                             url);
     }
@@ -215,7 +200,6 @@ public class ExportConfiguration extends Resource {
                           .add("enabled", enabled)
                           .add("webhookUrl", webhookUrl)
                           .add("webhookMethod", webhookMethod)
-                          .add("email", email)
                           .add("resourceType", resourceType)
                           .add("url", url)
                           .toString();

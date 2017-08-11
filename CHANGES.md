@@ -6,6 +6,7 @@ twilio-java changelog
 **Api**
 - Add New wireless usage keys added
 - Add `auto_correct_address` param for Addresses create and update
+- Add .hashCode(), .equals(), and .toString() methods
 
 **Preview**
 - Removed 'email' from bulk_exports configuration api [bi]. No migration plan needed because api has not been used yet.

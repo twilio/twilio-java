@@ -36,6 +36,7 @@ public abstract class HttpClient {
      */
     public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
                                     final long delayMillis) {
+        lastRequest = request;
         Response response = null;
         while (retries > 0) {
             response = makeRequest(request);
@@ -54,7 +55,6 @@ public abstract class HttpClient {
             retries--;
         }
 
-        lastRequest = request;
         lastResponse = response;
 
         return response;

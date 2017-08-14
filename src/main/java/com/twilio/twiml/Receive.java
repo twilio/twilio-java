@@ -10,46 +10,47 @@ package com.twilio.twiml;
 import com.twilio.http.HttpMethod;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-@XmlRootElement(name = "Redirect")
-public class Redirect extends TwiML {
+@XmlRootElement(name = "Receive")
+public class Receive extends TwiML {
+    @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
+    private final URI action;
     @XmlAttribute
     @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final HttpMethod method;
-    @XmlValue
-    private final URI url;
 
-    private Redirect() {
-        this(new Builder(null));
+    private Receive() {
+        this(new Builder());
     }
 
-    private Redirect(Builder b) {
+    private Receive(Builder b) {
         super(b.options);
+        this.action = b.action;
         this.method = b.method;
-        this.url = b.url;
+    }
+
+    public URI getAction() {
+        return action;
     }
 
     public HttpMethod getMethod() {
         return method;
     }
 
-    public URI getUrl() {
-        return url;
-    }
-
     public static class Builder {
+        private URI action;
         private HttpMethod method;
-        private URI url;
         private Map<String, String> options = new HashMap<>();
 
-        public Builder(URI url) {
-            this.url = url;
+        public Builder action(URI action) {
+            this.action = action;
+            return this;
         }
 
         public Builder method(HttpMethod method) {
@@ -62,8 +63,8 @@ public class Redirect extends TwiML {
             return this;
         }
 
-        public Redirect build() {
-            return new Redirect(this);
+        public Receive build() {
+            return new Receive(this);
         }
     }
 }

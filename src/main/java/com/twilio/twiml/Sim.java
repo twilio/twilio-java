@@ -7,37 +7,36 @@
 
 package com.twilio.twiml;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@XmlRootElement(name = "Pause")
-public class Pause extends TwiML {
-    @XmlAttribute
-    private final Integer length;
+@XmlRootElement(name = "Sim")
+public class Sim extends TwiML {
+    @XmlValue
+    private final String simSid;
 
-    private Pause() {
-        this(new Builder());
+    private Sim() {
+        this(new Builder(null));
     }
 
-    private Pause(Builder b) {
+    private Sim(Builder b) {
         super(b.options);
-        this.length = b.length;
+        this.simSid = b.simSid;
     }
 
-    public Integer getLength() {
-        return length;
+    public String getSimSid() {
+        return simSid;
     }
 
     public static class Builder {
-        private Integer length;
+        private String simSid;
         private Map<String, String> options = new HashMap<>();
 
-        public Builder length(Integer length) {
-            this.length = length;
-            return this;
+        public Builder(String simSid) {
+            this.simSid = simSid;
         }
 
         public Builder option(String key, String value) {
@@ -45,8 +44,8 @@ public class Pause extends TwiML {
             return this;
         }
 
-        public Pause build() {
-            return new Pause(this);
+        public Sim build() {
+            return new Sim(this);
         }
     }
 }

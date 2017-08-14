@@ -10,7 +10,7 @@ public class PlayTest {
 
     @Test
     public void testXml() throws TwiMLException {
-        Play play = new Play.Builder("play this!")
+        Play play = new Play.Builder()
             .digits("5w")
             .loop(3)
             .build();
@@ -20,7 +20,7 @@ public class PlayTest {
 
     @Test
     public void testUrl() throws TwiMLException {
-        Play play = new Play.Builder("play this!")
+        Play play = new Play.Builder()
             .digits("5w")
             .loop(3)
             .build();

@@ -1,8 +1,12 @@
 package com.twilio.twiml;
 
 import com.google.common.collect.Lists;
+import com.twilio.http.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Test class for {@link Sip}.
@@ -10,14 +14,14 @@ import org.junit.Test;
 public class SipTest {
 
     @Test
-    public void testXml() throws TwiMLException {
-        Sip sip = new Sip.Builder("sippy")
-            .method(Method.GET)
+    public void testXml() throws TwiMLException, URISyntaxException {
+        Sip sip = new Sip.Builder(new URI("sippy"))
+            .method(HttpMethod.GET)
             .password("hunter2")
-            .statusCallback("http://twilio.com")
-            .statusCallbackEvents(Lists.newArrayList(Event.ANSWERED))
-            .statusCallbackMethod(Method.POST)
-            .url("http://twilio.ca")
+            .statusCallback(new URI("http://twilio.com"))
+            .statusCallbackEvent(Lists.newArrayList(Sip.Event.ANSWERED))
+            .statusCallbackMethod(HttpMethod.POST)
+            .url(new URI("http://twilio.ca"))
             .username("johnny")
             .build();
 
@@ -25,14 +29,14 @@ public class SipTest {
     }
 
     @Test
-    public void testUrl() throws TwiMLException {
-        Sip sip = new Sip.Builder("sippy")
-            .method(Method.GET)
+    public void testUrl() throws TwiMLException, URISyntaxException {
+        Sip sip = new Sip.Builder(new URI("sippy"))
+            .method(HttpMethod.GET)
             .password("hunter2")
-            .statusCallback("http://twilio.com")
-            .statusCallbackEvents(Lists.newArrayList(Event.ANSWERED))
-            .statusCallbackMethod(Method.POST)
-            .url("http://twilio.ca")
+            .statusCallback(new URI("http://twilio.com"))
+            .statusCallbackEvent(Lists.newArrayList(Sip.Event.ANSWERED))
+            .statusCallbackMethod(HttpMethod.POST)
+            .url(new URI("http://twilio.ca"))
             .username("johnny")
             .build();
 

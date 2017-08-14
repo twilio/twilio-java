@@ -1,7 +1,11 @@
 package com.twilio.twiml;
 
+import com.twilio.http.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Test class for {@link Enqueue}.
@@ -9,13 +13,13 @@ import org.junit.Test;
 public class EnqueueTest {
 
     @Test
-    public void testXml() throws TwiMLException {
+    public void testXml() throws TwiMLException, URISyntaxException {
         Enqueue enqueue = new Enqueue.Builder()
-            .queueName("enqueue")
-            .action("/enqueue")
-            .method(Method.GET)
-            .waitUrl("/wait")
-            .waitUrlMethod(Method.POST)
+            .name("enqueue")
+            .action(new URI("/enqueue"))
+            .method(HttpMethod.GET)
+            .waitUrl(new URI("/wait"))
+            .waitUrlMethod(HttpMethod.POST)
             .workflowSid("WF123")
             .build();
 
@@ -23,13 +27,13 @@ public class EnqueueTest {
     }
 
     @Test
-    public void testUrl() throws TwiMLException {
+    public void testUrl() throws TwiMLException, URISyntaxException {
         Enqueue enqueue = new Enqueue.Builder()
-            .queueName("enqueue")
-            .action("/enqueue")
-            .method(Method.GET)
-            .waitUrl("/wait")
-            .waitUrlMethod(Method.POST)
+            .name("enqueue")
+            .action(new URI("/enqueue"))
+            .method(HttpMethod.GET)
+            .waitUrl(new URI("/wait"))
+            .waitUrlMethod(HttpMethod.POST)
             .workflowSid("WF123")
             .build();
 

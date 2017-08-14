@@ -17,16 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 @XmlRootElement(name = "Response")
-public class MessagingResponse extends TwiML {
+public class FaxResponse extends TwiML {
     @SuppressWarnings("checkstyle:indentation")
-    @XmlElements({@XmlElement(name = "Message", type = Message.class), @XmlElement(name = "Redirect", type = Redirect.class)})
+    @XmlElements({@XmlElement(name = "Receive", type = Receive.class)})
     private final List<TwiML> children;
 
-    private MessagingResponse() {
+    private FaxResponse() {
         this(new Builder());
     }
 
-    private MessagingResponse(Builder b) {
+    private FaxResponse(Builder b) {
         super(b.options);
         this.children = b.children;
     }
@@ -39,13 +39,8 @@ public class MessagingResponse extends TwiML {
         private Map<String, String> options = new HashMap<>();
         private List<TwiML> children = new ArrayList<>();
 
-        public Builder message(Message message) {
-            this.children.add(message);
-            return this;
-        }
-
-        public Builder redirect(Redirect redirect) {
-            this.children.add(redirect);
+        public Builder receive(Receive receive) {
+            this.children.add(receive);
             return this;
         }
 
@@ -54,8 +49,8 @@ public class MessagingResponse extends TwiML {
             return this;
         }
 
-        public MessagingResponse build() {
-            return new MessagingResponse(this);
+        public FaxResponse build() {
+            return new FaxResponse(this);
         }
     }
 }

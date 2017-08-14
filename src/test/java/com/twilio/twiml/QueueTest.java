@@ -1,5 +1,6 @@
 package com.twilio.twiml;
 
+import com.twilio.http.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ public class QueueTest {
     @Test
     public void testXml() throws TwiMLException {
         Queue queue = new Queue.Builder("my queue")
-            .method(Method.GET)
+            .method(HttpMethod.GET)
             .postWorkActivitySid("WA124")
             .reservationSid("WR123")
             .build();
@@ -22,7 +23,7 @@ public class QueueTest {
     @Test
     public void testUrl() throws TwiMLException {
         Queue queue = new Queue.Builder("my queue")
-            .method(Method.GET)
+            .method(HttpMethod.GET)
             .postWorkActivitySid("WA124")
             .reservationSid("WR123")
             .build();

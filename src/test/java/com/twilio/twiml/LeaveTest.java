@@ -10,13 +10,13 @@ public class LeaveTest {
 
     @Test
     public void testXml() throws TwiMLException {
-        Leave leave = new Leave();
+        Leave leave = new Leave.Builder().build();
         Assert.assertEquals("<Leave/>", leave.toXml());
     }
 
     @Test
     public void testUrl() throws TwiMLException {
-        Leave leave = new Leave();
+        Leave leave = new Leave.Builder().build();
         Assert.assertEquals("%3CLeave%2F%3E", leave.toUrl());
     }
 

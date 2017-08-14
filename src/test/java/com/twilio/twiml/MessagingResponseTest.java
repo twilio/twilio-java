@@ -11,7 +11,6 @@ public class MessagingResponseTest {
     @Test
     public void testXml() throws TwiMLException {
         MessagingResponse response = new MessagingResponse.Builder()
-            .redirect(new Redirect.Builder().build())
             .message(new Message.Builder().build())
             .build();
 
@@ -25,7 +24,6 @@ public class MessagingResponseTest {
     @Test
     public void testUrl() throws TwiMLException {
         MessagingResponse response = new MessagingResponse.Builder()
-            .redirect(new Redirect.Builder().build())
             .message(new Message.Builder().build())
             .build();
 

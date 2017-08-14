@@ -7,46 +7,31 @@
 
 package com.twilio.twiml;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@XmlRootElement(name = "Pause")
-public class Pause extends TwiML {
-    @XmlAttribute
-    private final Integer length;
-
-    private Pause() {
+@XmlRootElement(name = "Echo")
+public class Echo extends TwiML {
+    private Echo() {
         this(new Builder());
     }
 
-    private Pause(Builder b) {
+    private Echo(Builder b) {
         super(b.options);
-        this.length = b.length;
-    }
-
-    public Integer getLength() {
-        return length;
     }
 
     public static class Builder {
-        private Integer length;
         private Map<String, String> options = new HashMap<>();
-
-        public Builder length(Integer length) {
-            this.length = length;
-            return this;
-        }
 
         public Builder option(String key, String value) {
             this.options.put(key, value);
             return this;
         }
 
-        public Pause build() {
-            return new Pause(this);
+        public Echo build() {
+            return new Echo(this);
         }
     }
 }

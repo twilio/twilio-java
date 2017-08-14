@@ -28,6 +28,7 @@ public class RoomCreator extends Creator<Room> {
     private HttpMethod statusCallbackMethod;
     private Integer maxParticipants;
     private Boolean recordParticipantsOnConnect;
+    private Room.VideoCodec videoCodecs;
 
     /**
      * The enable_turn.
@@ -117,6 +118,17 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * The video_codecs.
+     * 
+     * @param videoCodecs The video_codecs
+     * @return this
+     */
+    public RoomCreator setVideoCodecs(final Room.VideoCodec videoCodecs) {
+        this.videoCodecs = videoCodecs;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -187,6 +199,10 @@ public class RoomCreator extends Creator<Room> {
 
         if (recordParticipantsOnConnect != null) {
             request.addPostParam("RecordParticipantsOnConnect", recordParticipantsOnConnect.toString());
+        }
+
+        if (videoCodecs != null) {
+            request.addPostParam("VideoCodecs", videoCodecs.toString());
         }
     }
 }

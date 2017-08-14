@@ -34,6 +34,11 @@ public class MessageCreator extends Creator<Message> {
     private BigDecimal maxPrice;
     private Boolean provideFeedback;
     private Integer validityPeriod;
+    private String maxRate;
+    private Boolean forceDelivery;
+    private String providerSid;
+    private Message.ContentRetention contentRetention;
+    private Message.AddressRetention addressRetention;
 
     /**
      * Construct a new MessageCreator.
@@ -234,6 +239,61 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * The max_rate.
+     * 
+     * @param maxRate The max_rate
+     * @return this
+     */
+    public MessageCreator setMaxRate(final String maxRate) {
+        this.maxRate = maxRate;
+        return this;
+    }
+
+    /**
+     * The force_delivery.
+     * 
+     * @param forceDelivery The force_delivery
+     * @return this
+     */
+    public MessageCreator setForceDelivery(final Boolean forceDelivery) {
+        this.forceDelivery = forceDelivery;
+        return this;
+    }
+
+    /**
+     * The provider_sid.
+     * 
+     * @param providerSid The provider_sid
+     * @return this
+     */
+    public MessageCreator setProviderSid(final String providerSid) {
+        this.providerSid = providerSid;
+        return this;
+    }
+
+    /**
+     * The content_retention.
+     * 
+     * @param contentRetention The content_retention
+     * @return this
+     */
+    public MessageCreator setContentRetention(final Message.ContentRetention contentRetention) {
+        this.contentRetention = contentRetention;
+        return this;
+    }
+
+    /**
+     * The address_retention.
+     * 
+     * @param addressRetention The address_retention
+     * @return this
+     */
+    public MessageCreator setAddressRetention(final Message.AddressRetention addressRetention) {
+        this.addressRetention = addressRetention;
+        return this;
+    }
+
+    /**
      * A Twilio phone number or alphanumeric sender ID enabled for the type of
      * message you wish to send..
      * 
@@ -384,6 +444,26 @@ public class MessageCreator extends Creator<Message> {
 
         if (validityPeriod != null) {
             request.addPostParam("ValidityPeriod", validityPeriod.toString());
+        }
+
+        if (maxRate != null) {
+            request.addPostParam("MaxRate", maxRate);
+        }
+
+        if (forceDelivery != null) {
+            request.addPostParam("ForceDelivery", forceDelivery.toString());
+        }
+
+        if (providerSid != null) {
+            request.addPostParam("ProviderSid", providerSid);
+        }
+
+        if (contentRetention != null) {
+            request.addPostParam("ContentRetention", contentRetention.toString());
+        }
+
+        if (addressRetention != null) {
+            request.addPostParam("AddressRetention", addressRetention.toString());
         }
     }
 }

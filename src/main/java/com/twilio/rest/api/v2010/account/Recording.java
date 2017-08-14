@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 163262699813470L;
+    private static final long serialVersionUID = 3137535276492L;
 
     public enum Source {
         DIALVERB("DialVerb"),
@@ -204,7 +204,6 @@ public class Recording extends Resource {
     private final Integer channels;
     private final Recording.Source source;
     private final String uri;
-    private final String encryptionType;
     private final Map<String, Object> encryptionDetails;
 
     @JsonCreator
@@ -234,8 +233,6 @@ public class Recording extends Resource {
                       final Recording.Source source, 
                       @JsonProperty("uri")
                       final String uri, 
-                      @JsonProperty("encryption_type")
-                      final String encryptionType, 
                       @JsonProperty("encryption_details")
                       final Map<String, Object> encryptionDetails) {
         this.accountSid = accountSid;
@@ -251,7 +248,6 @@ public class Recording extends Resource {
         this.channels = channels;
         this.source = source;
         this.uri = uri;
-        this.encryptionType = encryptionType;
         this.encryptionDetails = encryptionDetails;
     }
 
@@ -373,15 +369,6 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The type of encryption used for this resource..
-     * 
-     * @return The type of encryption used for this resource.
-     */
-    public final String getEncryptionType() {
-        return this.encryptionType;
-    }
-
-    /**
      * Returns The The encryption_details.
      * 
      * @return The encryption_details
@@ -415,7 +402,6 @@ public class Recording extends Resource {
                Objects.equals(channels, other.channels) && 
                Objects.equals(source, other.source) && 
                Objects.equals(uri, other.uri) && 
-               Objects.equals(encryptionType, other.encryptionType) && 
                Objects.equals(encryptionDetails, other.encryptionDetails);
     }
 
@@ -434,7 +420,6 @@ public class Recording extends Resource {
                             channels,
                             source,
                             uri,
-                            encryptionType,
                             encryptionDetails);
     }
 
@@ -454,7 +439,6 @@ public class Recording extends Resource {
                           .add("channels", channels)
                           .add("source", source)
                           .add("uri", uri)
-                          .add("encryptionType", encryptionType)
                           .add("encryptionDetails", encryptionDetails)
                           .toString();
     }

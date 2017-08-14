@@ -100,6 +100,56 @@ public class Message extends Resource {
         }
     }
 
+    public enum ContentRetention {
+        RETAIN("retain"),
+        DISCARD("discard");
+
+        private final String value;
+
+        private ContentRetention(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ContentRetention from a string.
+         * @param value string value
+         * @return generated ContentRetention
+         */
+        @JsonCreator
+        public static ContentRetention forValue(final String value) {
+            return Promoter.enumFromString(value, ContentRetention.values());
+        }
+    }
+
+    public enum AddressRetention {
+        RETAIN("retain"),
+        DISCARD("discard");
+
+        private final String value;
+
+        private AddressRetention(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a AddressRetention from a string.
+         * @param value string value
+         * @return generated AddressRetention
+         */
+        @JsonCreator
+        public static AddressRetention forValue(final String value) {
+            return Promoter.enumFromString(value, AddressRetention.values());
+        }
+    }
+
     /**
      * Create a MessageCreator to execute create.
      * 

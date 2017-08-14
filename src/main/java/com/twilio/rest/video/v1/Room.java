@@ -88,6 +88,31 @@ public class Room extends Resource {
         }
     }
 
+    public enum VideoCodec {
+        VP8("VP8"),
+        H264("H264");
+
+        private final String value;
+
+        private VideoCodec(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a VideoCodec from a string.
+         * @param value string value
+         * @return generated VideoCodec
+         */
+        @JsonCreator
+        public static VideoCodec forValue(final String value) {
+            return Promoter.enumFromString(value, VideoCodec.values());
+        }
+    }
+
     /**
      * Create a RoomFetcher to execute fetch.
      * 

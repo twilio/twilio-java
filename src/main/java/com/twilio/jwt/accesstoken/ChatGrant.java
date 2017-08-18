@@ -1,7 +1,7 @@
 package com.twilio.jwt.accesstoken;
 
 /**
- * Grant used to access Twilio IP Messaging.
+ * Grant used to access Twilio Chat.
  *
  * <p>
  *     For more information see:
@@ -10,8 +10,7 @@ package com.twilio.jwt.accesstoken;
  *     </a>
  * </p>
  */
-@Deprecated
-public class IpMessagingGrant implements Grant {
+public class ChatGrant implements Grant {
 
     private String serviceSid;
     private String deploymentRoleSid;
@@ -22,7 +21,7 @@ public class IpMessagingGrant implements Grant {
         return serviceSid;
     }
 
-    public IpMessagingGrant setServiceSid(String serviceSid) {
+    public ChatGrant setServiceSid(String serviceSid) {
         this.serviceSid = serviceSid;
         return this;
     }
@@ -32,7 +31,7 @@ public class IpMessagingGrant implements Grant {
         return pushCredentialSid;
     }
 
-    public IpMessagingGrant setPushCredentialSid(String pushCredentialSid) {
+    public ChatGrant setPushCredentialSid(String pushCredentialSid) {
         this.pushCredentialSid = pushCredentialSid;
         return this;
     }
@@ -41,7 +40,7 @@ public class IpMessagingGrant implements Grant {
         return deploymentRoleSid;
     }
 
-    public IpMessagingGrant setDeploymentRoleSid(String deploymentRoleSid) {
+    public ChatGrant setDeploymentRoleSid(String deploymentRoleSid) {
         this.deploymentRoleSid = deploymentRoleSid;
         return this;
     }
@@ -50,13 +49,13 @@ public class IpMessagingGrant implements Grant {
         return endpointId;
     }
 
-    public IpMessagingGrant setEndpointId(String endpointId) {
+    public ChatGrant setEndpointId(String endpointId) {
         this.endpointId = endpointId;
         return this;
     }
 
     public String getGrantKey() {
-        return "ip_messaging";
+        return "chat";
     }
 
     public Object getPayload() {
@@ -75,7 +74,7 @@ public class IpMessagingGrant implements Grant {
          *
          * @param grant IP Messaging grant
          */
-        public Payload(IpMessagingGrant grant) {
+        public Payload(ChatGrant grant) {
             this.service_sid = grant.serviceSid;
             this.deployment_role_sid = grant.deploymentRoleSid;
             this.endpoint_id = grant.endpointId;

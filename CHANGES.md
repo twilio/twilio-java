@@ -10,6 +10,9 @@ twilio-java changelog
 - Add channel message media information
 - Add service instance message media information
 
+**Preview**
+- Add DeployedDevices.
+
 **Sync**
 - Add support for Service Instance unique names
 

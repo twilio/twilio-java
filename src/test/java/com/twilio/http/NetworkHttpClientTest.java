@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 public class NetworkHttpClientTest {
@@ -171,6 +172,8 @@ public class NetworkHttpClientTest {
         }};
 
         httpClient.reliableRequest(request);
+        assertNotNull(httpClient.getLastRequest());
+        assertNotNull(httpClient.getLastResponse());
     }
 
     @Test

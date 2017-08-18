@@ -11,13 +11,19 @@ public enum Domains {
     ACCOUNTS("accounts"),
     API("api"),
     CHAT("chat"),
+    FAX("fax"),
     IPMESSAGING("chat"),
     LOOKUPS("lookups"),
     MONITOR("monitor"),
+    NOTIFY("notify"),
+    PREVIEW("preview"),
     PRICING("pricing"),
     TASKROUTER("taskrouter"),
     TRUNKING("trunking"),
-    VIDEO("video");
+    VIDEO("video"),
+    MESSAGING("messaging"),
+    WIRELESS("wireless"),
+    SYNC("sync");
 
     private final String value;
 

@@ -1,6 +1,8 @@
 package com.twilio.twiml;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -92,6 +94,58 @@ public class Sip extends TwiML {
 
     public Method getStatusCallbackMethod() {
         return statusCallbackMethod;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Sip sip = (Sip) o;
+        return Objects.equal(username, sip.username) &&
+            Objects.equal(password, sip.password) &&
+            Objects.equal(url, sip.url) &&
+            method == sip.method &&
+            Objects.equal(statusCallbackEvent, sip.statusCallbackEvent) &&
+            Objects.equal(statusCallback, sip.statusCallback) &&
+            statusCallbackMethod == sip.statusCallbackMethod &&
+            Objects.equal(uri, sip.uri) &&
+            Objects.equal(statusCallbackEvents, sip.statusCallbackEvents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(
+            username,
+            password,
+            url,
+            method,
+            statusCallbackEvent,
+            statusCallback,
+            statusCallbackMethod,
+            uri,
+            statusCallbackEvents
+        );
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("username", username)
+            .add("password", password)
+            .add("url", url)
+            .add("method", method)
+            .add("statusCallbackEvent", statusCallbackEvent)
+            .add("statusCallback", statusCallback)
+            .add("statusCallbackMethod", statusCallbackMethod)
+            .add("uri", uri)
+            .add("statusCallbackEvents", statusCallbackEvents)
+            .toString();
     }
 
     public static class Builder {

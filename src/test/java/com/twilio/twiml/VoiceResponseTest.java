@@ -63,4 +63,12 @@ public class VoiceResponseTest {
 
         Assert.assertEquals("%3CResponse%3E%3CRedirect%2F%3E%3CDial%2F%3E%3CEnqueue%3Eenqueue%3C%2FEnqueue%3E%3CGather%2F%3E%3CHangup%2F%3E%3CLeave%2F%3E%3CPause%2F%3E%3CPlay%3Ehola%3C%2FPlay%3E%3CRecord%2F%3E%3CReject%2F%3E%3CSay%3Ehello+world%3C%2FSay%3E%3CSms%3Etest+sms%3C%2FSms%3E%3C%2FResponse%3E", response.toUrl());
     }
+
+    @Test
+    public void testEquals() {
+        Assert.assertEquals(
+            new VoiceResponse.Builder().say(new Say.Builder("Transferring to sales").build()).build(),
+            new VoiceResponse.Builder().say(new Say.Builder("Transferring to sales").build()).build()
+        );
+    }
 }

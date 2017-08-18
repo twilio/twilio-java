@@ -1,6 +1,8 @@
 package com.twilio.twiml;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -76,6 +78,52 @@ public class Client extends TwiML {
 
     public String getStatusCallback() {
         return statusCallback;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Client client = (Client) o;
+        return method == client.method &&
+            Objects.equal(url, client.url) &&
+            Objects.equal(statusCallbackEvent, client.statusCallbackEvent) &&
+            statusCallbackMethod == client.statusCallbackMethod &&
+            Objects.equal(statusCallback, client.statusCallback) &&
+            Objects.equal(name, client.name) &&
+            Objects.equal(statusCallbackEvents, client.statusCallbackEvents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(
+            method,
+            url,
+            statusCallbackEvent,
+            statusCallbackMethod,
+            statusCallback,
+            name,
+            statusCallbackEvents
+        );
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("method", method)
+            .add("url", url)
+            .add("statusCallbackEvent", statusCallbackEvent)
+            .add("statusCallbackMethod", statusCallbackMethod)
+            .add("statusCallback", statusCallback)
+            .add("name", name)
+            .add("statusCallbackEvents", statusCallbackEvents)
+            .toString();
     }
 
     public static class Builder {

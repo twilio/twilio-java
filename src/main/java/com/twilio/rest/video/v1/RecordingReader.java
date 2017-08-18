@@ -10,6 +10,7 @@ package com.twilio.rest.video.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -19,6 +20,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class RecordingReader extends Reader<Recording> {
     private Recording.Status status;
     private String sourceSid;
     private List<String> groupingSid;
+    private DateTime dateCreatedAfter;
+    private DateTime dateCreatedBefore;
 
     /**
      * The status.
@@ -68,6 +72,28 @@ public class RecordingReader extends Reader<Recording> {
      */
     public RecordingReader setGroupingSid(final String groupingSid) {
         return setGroupingSid(Promoter.listOfOne(groupingSid));
+    }
+
+    /**
+     * The date_created_after.
+     * 
+     * @param dateCreatedAfter The date_created_after
+     * @return this
+     */
+    public RecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
+
+    /**
+     * The date_created_before.
+     * 
+     * @param dateCreatedBefore The date_created_before
+     * @return this
+     */
+    public RecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
     }
 
     /**
@@ -212,6 +238,14 @@ public class RecordingReader extends Reader<Recording> {
             for (String prop : groupingSid) {
                 request.addQueryParam("GroupingSid", prop);
             }
+        }
+
+        if (dateCreatedAfter != null) {
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+        }
+
+        if (dateCreatedBefore != null) {
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
         }
 
         if (getPageSize() != null) {

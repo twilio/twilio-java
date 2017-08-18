@@ -92,9 +92,14 @@ public class TwilioRestClient {
             return this;
         }
 
+        /**
+         * Build new TwilioRestClient.
+         * 
+         * @return TwilioRestClient instance
+         */
         public TwilioRestClient build() {
             if (this.httpClient == null) {
-                 this.httpClient = new NetworkHttpClient();
+                this.httpClient = new NetworkHttpClient();
             }
             return new TwilioRestClient(this);
         }

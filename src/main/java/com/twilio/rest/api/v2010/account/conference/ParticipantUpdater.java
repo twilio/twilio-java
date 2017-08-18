@@ -29,7 +29,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     private URI holdUrl;
     private HttpMethod holdMethod;
     private URI announceUrl;
-    private HttpMethod announceUrlMethod;
+    private HttpMethod announceMethod;
 
     /**
      * Construct a new ParticipantUpdater.
@@ -134,13 +134,13 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The announce_url_method.
+     * The announce_method.
      * 
-     * @param announceUrlMethod The announce_url_method
+     * @param announceMethod The announce_method
      * @return this
      */
-    public ParticipantUpdater setAnnounceUrlMethod(final HttpMethod announceUrlMethod) {
-        this.announceUrlMethod = announceUrlMethod;
+    public ParticipantUpdater setAnnounceMethod(final HttpMethod announceMethod) {
+        this.announceMethod = announceMethod;
         return this;
     }
 
@@ -210,8 +210,8 @@ public class ParticipantUpdater extends Updater<Participant> {
             request.addPostParam("AnnounceUrl", announceUrl.toString());
         }
 
-        if (announceUrlMethod != null) {
-            request.addPostParam("AnnounceUrlMethod", announceUrlMethod.toString());
+        if (announceMethod != null) {
+            request.addPostParam("AnnounceMethod", announceMethod.toString());
         }
     }
 }

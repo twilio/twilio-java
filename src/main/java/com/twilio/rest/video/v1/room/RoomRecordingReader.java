@@ -10,6 +10,7 @@ package com.twilio.rest.video.v1.room;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,9 +19,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class RoomRecordingReader extends Reader<RoomRecording> {
     private final String pathRoomSid;
+    private RoomRecording.Status status;
+    private String sourceSid;
+    private DateTime dateCreatedAfter;
+    private DateTime dateCreatedBefore;
 
     /**
      * Construct a new RoomRecordingReader.
@@ -29,6 +35,50 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
      */
     public RoomRecordingReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
+    }
+
+    /**
+     * The status.
+     * 
+     * @param status The status
+     * @return this
+     */
+    public RoomRecordingReader setStatus(final RoomRecording.Status status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The source_sid.
+     * 
+     * @param sourceSid The source_sid
+     * @return this
+     */
+    public RoomRecordingReader setSourceSid(final String sourceSid) {
+        this.sourceSid = sourceSid;
+        return this;
+    }
+
+    /**
+     * The date_created_after.
+     * 
+     * @param dateCreatedAfter The date_created_after
+     * @return this
+     */
+    public RoomRecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
+
+    /**
+     * The date_created_before.
+     * 
+     * @param dateCreatedBefore The date_created_before
+     * @return this
+     */
+    public RoomRecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
     }
 
     /**
@@ -161,6 +211,22 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (status != null) {
+            request.addQueryParam("Status", status.toString());
+        }
+
+        if (sourceSid != null) {
+            request.addQueryParam("SourceSid", sourceSid);
+        }
+
+        if (dateCreatedAfter != null) {
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+        }
+
+        if (dateCreatedBefore != null) {
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

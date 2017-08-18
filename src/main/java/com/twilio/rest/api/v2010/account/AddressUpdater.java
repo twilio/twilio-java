@@ -27,6 +27,7 @@ public class AddressUpdater extends Updater<Address> {
     private String region;
     private String postalCode;
     private Boolean emergencyEnabled;
+    private Boolean autoCorrectAddress;
 
     /**
      * Construct a new AddressUpdater.
@@ -127,6 +128,17 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
+     * The auto_correct_address.
+     * 
+     * @param autoCorrectAddress The auto_correct_address
+     * @return this
+     */
+    public AddressUpdater setAutoCorrectAddress(final Boolean autoCorrectAddress) {
+        this.autoCorrectAddress = autoCorrectAddress;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -198,6 +210,10 @@ public class AddressUpdater extends Updater<Address> {
 
         if (emergencyEnabled != null) {
             request.addPostParam("EmergencyEnabled", emergencyEnabled.toString());
+        }
+
+        if (autoCorrectAddress != null) {
+            request.addPostParam("AutoCorrectAddress", autoCorrectAddress.toString());
         }
     }
 }

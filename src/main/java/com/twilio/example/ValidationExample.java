@@ -52,16 +52,15 @@ public class ValidationExample {
 
         // Make REST API requests
         Iterable<Message> messages = Message.reader().read(validationClient);
-        for (Message m : messages) {
-            System.out.println(m.getBody());
+        for (Message message : messages) {
+            System.out.println(message.getBody());
         }
 
-        Message m = Message.creator(
+        Message message = Message.creator(
             new PhoneNumber("+1XXXXXXXXXX"),
             new PhoneNumber("+1XXXXXXXXXX"),
             "Public Key Client Validation Test"
         ).create(validationClient);
-        System.out.println(m.getSid());
-
+        System.out.println(message.getSid());
     }
 }

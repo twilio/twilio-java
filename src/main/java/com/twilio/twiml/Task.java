@@ -1,5 +1,8 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
@@ -40,6 +43,36 @@ public class Task extends TwiML {
 
     public String getData() {
         return data;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Task task = (Task) o;
+        return Objects.equal(priority, task.priority) &&
+            Objects.equal(timeout, task.timeout) &&
+            Objects.equal(data, task.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(priority, timeout, data);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("priority", priority)
+            .add("timeout", timeout)
+            .add("data", data)
+            .toString();
     }
 
     public static class Builder {

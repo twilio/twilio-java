@@ -1,5 +1,6 @@
 package com.twilio.http;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
@@ -45,26 +46,37 @@ public class NetworkHttpClient extends HttpClient {
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
+        String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
+        boolean isNotGoogleAppEngine = Strings.isNullOrEmpty(googleAppEngineVersion);
+
+        org.apache.http.impl.client.HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+
+        if (isNotGoogleAppEngine) {
+            clientBuilder.useSystemProperties();
+        }
+      
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
-	    connectionManager.setDefaultMaxPerRoute(10);
-	    connectionManager.setMaxTotal(10*2);
-        
-        client = HttpClientBuilder.create()
-            .useSystemProperties()
+	      connectionManager.setDefaultMaxPerRoute(10);
+	      connectionManager.setMaxTotal(10*2);
+
+        clientBuilder
             .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(config)
             .setDefaultHeaders(headers)
-            .build();
+
+        client = clientBuilder.build();
     }
 
     /**
-     * Create a new HTTP Client using custom configuration
-     * @param clientBuilder an HttpClientBuilder
+     * Create a new HTTP Client using custom configuration.
+     * @param clientBuilder an HttpClientBuilder.
      */
     public NetworkHttpClient(HttpClientBuilder clientBuilder) {
         Collection<Header> headers = Lists.<Header>newArrayList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"),
+                new BasicHeader(
+                    HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"
+                ),
                 new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
                 new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );

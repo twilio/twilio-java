@@ -1,6 +1,8 @@
 package com.twilio.twiml;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -84,6 +86,55 @@ public class Number extends TwiML {
 
     public Method getStatusCallbackMethod() {
         return statusCallbackMethod;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Number number1 = (Number) o;
+        return Objects.equal(sendDigits, number1.sendDigits) &&
+            Objects.equal(url, number1.url) &&
+            method == number1.method &&
+            Objects.equal(statusCallbackEvent, number1.statusCallbackEvent) &&
+            Objects.equal(statusCallback, number1.statusCallback) &&
+            statusCallbackMethod == number1.statusCallbackMethod &&
+            Objects.equal(number, number1.number) &&
+            Objects.equal(statusCallbackEvents, number1.statusCallbackEvents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(
+            sendDigits,
+            url,
+            method,
+            statusCallbackEvent,
+            statusCallback,
+            statusCallbackMethod,
+            number,
+            statusCallbackEvents
+        );
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("sendDigits", sendDigits)
+            .add("url", url)
+            .add("method", method)
+            .add("statusCallbackEvent", statusCallbackEvent)
+            .add("statusCallback", statusCallback)
+            .add("statusCallbackMethod", statusCallbackMethod)
+            .add("number", number)
+            .add("statusCallbackEvents", statusCallbackEvents)
+            .toString();
     }
 
     public static class Builder {

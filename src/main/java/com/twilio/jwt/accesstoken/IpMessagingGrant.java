@@ -10,6 +10,7 @@ package com.twilio.jwt.accesstoken;
  *     </a>
  * </p>
  */
+@Deprecated
 public class IpMessagingGrant implements Grant {
 
     private String serviceSid;

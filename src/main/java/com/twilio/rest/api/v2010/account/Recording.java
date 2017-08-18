@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -34,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 153152921511997L;
+    private static final long serialVersionUID = 3137535276492L;
 
     public enum Source {
         DIALVERB("DialVerb"),
@@ -203,6 +204,7 @@ public class Recording extends Resource {
     private final Integer channels;
     private final Recording.Source source;
     private final String uri;
+    private final Map<String, Object> encryptionDetails;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -230,7 +232,9 @@ public class Recording extends Resource {
                       @JsonProperty("source")
                       final Recording.Source source, 
                       @JsonProperty("uri")
-                      final String uri) {
+                      final String uri, 
+                      @JsonProperty("encryption_details")
+                      final Map<String, Object> encryptionDetails) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -244,6 +248,7 @@ public class Recording extends Resource {
         this.channels = channels;
         this.source = source;
         this.uri = uri;
+        this.encryptionDetails = encryptionDetails;
     }
 
     /**
@@ -363,6 +368,15 @@ public class Recording extends Resource {
         return this.uri;
     }
 
+    /**
+     * Returns The The encryption_details.
+     * 
+     * @return The encryption_details
+     */
+    public final Map<String, Object> getEncryptionDetails() {
+        return this.encryptionDetails;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -387,7 +401,8 @@ public class Recording extends Resource {
                Objects.equals(status, other.status) && 
                Objects.equals(channels, other.channels) && 
                Objects.equals(source, other.source) && 
-               Objects.equals(uri, other.uri);
+               Objects.equals(uri, other.uri) && 
+               Objects.equals(encryptionDetails, other.encryptionDetails);
     }
 
     @Override
@@ -404,7 +419,8 @@ public class Recording extends Resource {
                             status,
                             channels,
                             source,
-                            uri);
+                            uri,
+                            encryptionDetails);
     }
 
     @Override
@@ -423,6 +439,7 @@ public class Recording extends Resource {
                           .add("channels", channels)
                           .add("source", source)
                           .add("uri", uri)
+                          .add("encryptionDetails", encryptionDetails)
                           .toString();
     }
 }

@@ -54,7 +54,7 @@ public class NetworkHttpClient extends HttpClient {
         if (isNotGoogleAppEngine) {
             clientBuilder.useSystemProperties();
         }
-      
+
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
 	      connectionManager.setDefaultMaxPerRoute(10);
 	      connectionManager.setMaxTotal(10*2);
@@ -62,7 +62,7 @@ public class NetworkHttpClient extends HttpClient {
         clientBuilder
             .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(config)
-            .setDefaultHeaders(headers)
+            .setDefaultHeaders(headers);
 
         client = clientBuilder.build();
     }

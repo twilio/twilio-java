@@ -1,5 +1,8 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -105,6 +108,64 @@ public class Record extends TwiML {
 
     public Trim getTrim() {
         return trim;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Record record = (Record) o;
+        return Objects.equal(transcribe, record.transcribe) &&
+            Objects.equal(playBeep, record.playBeep) &&
+            Objects.equal(timeout, record.timeout) &&
+            Objects.equal(maxLength, record.maxLength) &&
+            Objects.equal(action, record.action) &&
+            method == record.method &&
+            Objects.equal(recordingStatusCallback, record.recordingStatusCallback) &&
+            recordingStatusCallbackMethod == record.recordingStatusCallbackMethod &&
+            Objects.equal(finishOnKey, record.finishOnKey) &&
+            Objects.equal(transcribeCallback, record.transcribeCallback) &&
+            trim == record.trim;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(
+            transcribe,
+            playBeep,
+            timeout,
+            maxLength,
+            action,
+            method,
+            recordingStatusCallback,
+            recordingStatusCallbackMethod,
+            finishOnKey,
+            transcribeCallback,
+            trim
+        );
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("transcribe", transcribe)
+            .add("playBeep", playBeep)
+            .add("timeout", timeout)
+            .add("maxLength", maxLength)
+            .add("action", action)
+            .add("method", method)
+            .add("recordingStatusCallback", recordingStatusCallback)
+            .add("recordingStatusCallbackMethod", recordingStatusCallbackMethod)
+            .add("finishOnKey", finishOnKey)
+            .add("transcribeCallback", transcribeCallback)
+            .add("trim", trim)
+            .toString();
     }
 
     public static class Builder {

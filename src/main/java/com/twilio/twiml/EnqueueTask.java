@@ -1,6 +1,9 @@
 package com.twilio.twiml;
 
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -67,6 +70,42 @@ public class EnqueueTask extends TwiML {
 
     public Task getTask() {
         return task;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EnqueueTask that = (EnqueueTask) o;
+        return Objects.equal(action, that.action) &&
+            method == that.method &&
+            Objects.equal(waitUrl, that.waitUrl) &&
+            waitUrlMethod == that.waitUrlMethod &&
+            Objects.equal(workflowSid, that.workflowSid) &&
+            Objects.equal(task, that.task);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(action, method, waitUrl, waitUrlMethod, workflowSid, task);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("action", action)
+            .add("method", method)
+            .add("waitUrl", waitUrl)
+            .add("waitUrlMethod", waitUrlMethod)
+            .add("workflowSid", workflowSid)
+            .add("task", task)
+            .toString();
     }
 
     public static class Builder {

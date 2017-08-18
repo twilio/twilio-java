@@ -2,6 +2,8 @@ package com.twilio.twiml;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -14,7 +16,6 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/conference.
@@ -248,6 +249,85 @@ public class Conference extends TwiML {
             convertedMap.put(entry.getKey().getNamespaceURI(), entry.getValue());
         }
         return convertedMap;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Conference that = (Conference) o;
+        return Objects.equal(muted, that.muted) &&
+            Objects.equal(startConferenceOnEnter, that.startConferenceOnEnter) &&
+            Objects.equal(endConferenceOnExit, that.endConferenceOnExit) &&
+            Objects.equal(maxParticipants, that.maxParticipants) &&
+            beep == that.beep &&
+            record == that.record &&
+            trim == that.trim &&
+            waitMethod == that.waitMethod &&
+            Objects.equal(waitUrl, that.waitUrl) &&
+            Objects.equal(eventCallbackUrl, that.eventCallbackUrl) &&
+            Objects.equal(statusCallbackEvent, that.statusCallbackEvent) &&
+            statusCallbackMethod == that.statusCallbackMethod &&
+            Objects.equal(statusCallback, that.statusCallback) &&
+            Objects.equal(recordingStatusCallback, that.recordingStatusCallback) &&
+            recordingStatusCallbackMethod == that.recordingStatusCallbackMethod &&
+            Objects.equal(name, that.name) &&
+            Objects.equal(options, that.options) &&
+            Objects.equal(statusCallbackEvents, that.statusCallbackEvents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(
+            muted,
+            startConferenceOnEnter,
+            endConferenceOnExit,
+            maxParticipants,
+            beep,
+            record,
+            trim,
+            waitMethod,
+            waitUrl,
+            eventCallbackUrl,
+            statusCallbackEvent,
+            statusCallbackMethod,
+            statusCallback,
+            recordingStatusCallback,
+            recordingStatusCallbackMethod,
+            name,
+            options,
+            statusCallbackEvents
+        );
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("muted", muted)
+            .add("startConferenceOnEnter", startConferenceOnEnter)
+            .add("endConferenceOnExit", endConferenceOnExit)
+            .add("maxParticipants", maxParticipants)
+            .add("beep", beep)
+            .add("record", record)
+            .add("trim", trim)
+            .add("waitMethod", waitMethod)
+            .add("waitUrl", waitUrl)
+            .add("eventCallbackUrl", eventCallbackUrl)
+            .add("statusCallbackEvent", statusCallbackEvent)
+            .add("statusCallbackMethod", statusCallbackMethod)
+            .add("statusCallback", statusCallback)
+            .add("recordingStatusCallback", recordingStatusCallback)
+            .add("recordingStatusCallbackMethod", recordingStatusCallbackMethod)
+            .add("name", name)
+            .add("options", options)
+            .add("statusCallbackEvents", statusCallbackEvents)
+            .toString();
     }
 
     public static class Builder {

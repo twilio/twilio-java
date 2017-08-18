@@ -1,5 +1,8 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
@@ -68,6 +71,38 @@ public class Say extends TwiML {
 
     public String getBody() {
         return body;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Say say = (Say) o;
+        return Objects.equal(loop, say.loop) &&
+            language == say.language &&
+            voice == say.voice &&
+            Objects.equal(body, say.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(loop, language, voice, body);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("loop", loop)
+            .add("language", language)
+            .add("voice", voice)
+            .add("body", body)
+            .toString();
     }
 
     public static class Builder {

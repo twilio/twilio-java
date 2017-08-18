@@ -1,15 +1,20 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAnyAttribute;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * TwiML wrapper for @see https://www.twilio.com/docs/api/twiml/dial.
@@ -204,6 +209,79 @@ public class Dial extends TwiML {
             convertedMap.put(entry.getKey().getNamespaceURI(), entry.getValue());
         }
         return convertedMap;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Dial dial = (Dial) o;
+        return Objects.equal(hangupOnStar, dial.hangupOnStar) &&
+            Objects.equal(timeout, dial.timeout) &&
+            Objects.equal(timeLimit, dial.timeLimit) &&
+            Objects.equal(action, dial.action) &&
+            method == dial.method &&
+            Objects.equal(callerId, dial.callerId) &&
+            Objects.equal(recordingStatusCallback, dial.recordingStatusCallback) &&
+            recordingStatusCallbackMethod == dial.recordingStatusCallbackMethod &&
+            record == dial.record &&
+            trim == dial.trim &&
+            Objects.equal(numbers, dial.numbers) &&
+            Objects.equal(clients, dial.clients) &&
+            Objects.equal(conference, dial.conference) &&
+            Objects.equal(queue, dial.queue) &&
+            Objects.equal(sip, dial.sip) &&
+            Objects.equal(options, dial.options);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(
+            hangupOnStar,
+            timeout,
+            timeLimit,
+            action,
+            method,
+            callerId,
+            recordingStatusCallback,
+            recordingStatusCallbackMethod,
+            record,
+            trim,
+            numbers,
+            clients,
+            conference,
+            queue,
+            sip,
+            options
+        );
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("hangupOnStar", hangupOnStar)
+            .add("timeout", timeout)
+            .add("timeLimit", timeLimit)
+            .add("action", action)
+            .add("method", method)
+            .add("callerId", callerId)
+            .add("recordingStatusCallback", recordingStatusCallback)
+            .add("recordingStatusCallbackMethod", recordingStatusCallbackMethod)
+            .add("record", record)
+            .add("trim", trim)
+            .add("numbers", numbers)
+            .add("clients", clients)
+            .add("conference", conference)
+            .add("queue", queue)
+            .add("sip", sip)
+            .add("options", options)
+            .toString();
     }
 
     public static class Builder {

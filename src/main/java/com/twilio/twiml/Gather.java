@@ -1,5 +1,7 @@
 package com.twilio.twiml;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -129,6 +131,70 @@ public class Gather extends TwiML {
 
     public String getInput() {
         return input;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Gather gather = (Gather) o;
+        return Objects.equal(timeout, gather.timeout) &&
+            Objects.equal(numDigits, gather.numDigits) &&
+            Objects.equal(action, gather.action) &&
+            method == gather.method &&
+            Objects.equal(finishOnKey, gather.finishOnKey) &&
+            Objects.equal(partialResultCallback, gather.partialResultCallback) &&
+            partialResultCallbackMethod == gather.partialResultCallbackMethod &&
+            language == gather.language &&
+            Objects.equal(hints, gather.hints) &&
+            Objects.equal(bargeIn, gather.bargeIn) &&
+            Objects.equal(acknowledgeSoundUrl, gather.acknowledgeSoundUrl) &&
+            Objects.equal(input, gather.input) &&
+            Objects.equal(actions, gather.actions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(
+            timeout,
+            numDigits,
+            action,
+            method,
+            finishOnKey,
+            partialResultCallback,
+            partialResultCallbackMethod,
+            language,
+            hints,
+            bargeIn,
+            acknowledgeSoundUrl,
+            input,
+            actions
+        );
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("timeout", timeout)
+            .add("numDigits", numDigits)
+            .add("action", action)
+            .add("method", method)
+            .add("finishOnKey", finishOnKey)
+            .add("partialResultCallback", partialResultCallback)
+            .add("partialResultCallbackMethod", partialResultCallbackMethod)
+            .add("language", language)
+            .add("hints", hints)
+            .add("bargeIn", bargeIn)
+            .add("acknowledgeSoundUrl", acknowledgeSoundUrl)
+            .add("input", input)
+            .add("actions", actions)
+            .toString();
     }
 
     public static class Builder {

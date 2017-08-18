@@ -38,6 +38,7 @@ public class Gather extends TwiML {
     private final Method partialResultCallbackMethod;
 
     @XmlAttribute
+    @XmlJavaTypeAdapter(TwiML.ToStringAdapter.class)
     private final Language language;
 
     @XmlAttribute

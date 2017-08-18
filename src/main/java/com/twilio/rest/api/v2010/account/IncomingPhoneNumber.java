@@ -90,6 +90,31 @@ public class IncomingPhoneNumber extends Resource {
         }
     }
 
+    public enum VoiceReceiveMode {
+        VOICE("voice"),
+        FAX("fax");
+
+        private final String value;
+
+        private VoiceReceiveMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a VoiceReceiveMode from a string.
+         * @param value string value
+         * @return generated VoiceReceiveMode
+         */
+        @JsonCreator
+        public static VoiceReceiveMode forValue(final String value) {
+            return Promoter.enumFromString(value, VoiceReceiveMode.values());
+        }
+    }
+
     /**
      * Create a IncomingPhoneNumberUpdater to execute update.
      * 

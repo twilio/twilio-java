@@ -42,6 +42,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     private IncomingPhoneNumber.EmergencyStatus emergencyStatus;
     private String emergencyAddressSid;
     private String trunkSid;
+    private IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
 
     /**
      * Construct a new IncomingPhoneNumberUpdater.
@@ -358,6 +359,17 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
+     * The voice_receive_mode.
+     * 
+     * @param voiceReceiveMode The voice_receive_mode
+     * @return this
+     */
+    public IncomingPhoneNumberUpdater setVoiceReceiveMode(final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode) {
+        this.voiceReceiveMode = voiceReceiveMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -477,6 +489,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
         if (trunkSid != null) {
             request.addPostParam("TrunkSid", trunkSid);
+        }
+
+        if (voiceReceiveMode != null) {
+            request.addPostParam("VoiceReceiveMode", voiceReceiveMode.toString());
         }
     }
 }

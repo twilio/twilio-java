@@ -32,7 +32,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
     /**
      * Construct a new DocumentPermissionUpdater.
      * 
-     * @param pathServiceSid Sync Service Instance SID.
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
      *                     Permission applies.

@@ -83,7 +83,7 @@ public class SyncListPermission extends Resource {
     /**
      * Create a SyncListPermissionUpdater to execute update.
      * 
-     * @param pathServiceSid Sync Service Instance SID.
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
      *                     applies.

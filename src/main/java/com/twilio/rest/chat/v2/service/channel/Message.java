@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -35,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 68490171213295L;
+    private static final long serialVersionUID = 250705891567968L;
 
     public enum OrderType {
         ASC("asc"),
@@ -179,6 +180,8 @@ public class Message extends Resource {
     private final String from;
     private final String body;
     private final Integer index;
+    private final String type;
+    private final Map<String, Object> media;
     private final URI url;
 
     @JsonCreator
@@ -206,6 +209,10 @@ public class Message extends Resource {
                     final String body, 
                     @JsonProperty("index")
                     final Integer index, 
+                    @JsonProperty("type")
+                    final String type, 
+                    @JsonProperty("media")
+                    final Map<String, Object> media, 
                     @JsonProperty("url")
                     final URI url) {
         this.sid = sid;
@@ -220,6 +227,8 @@ public class Message extends Resource {
         this.from = from;
         this.body = body;
         this.index = index;
+        this.type = type;
+        this.media = media;
         this.url = url;
     }
 
@@ -332,6 +341,24 @@ public class Message extends Resource {
     }
 
     /**
+     * Returns The The type.
+     * 
+     * @return The type
+     */
+    public final String getType() {
+        return this.type;
+    }
+
+    /**
+     * Returns The The media.
+     * 
+     * @return The media
+     */
+    public final Map<String, Object> getMedia() {
+        return this.media;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -364,6 +391,8 @@ public class Message extends Resource {
                Objects.equals(from, other.from) && 
                Objects.equals(body, other.body) && 
                Objects.equals(index, other.index) && 
+               Objects.equals(type, other.type) && 
+               Objects.equals(media, other.media) && 
                Objects.equals(url, other.url);
     }
 
@@ -381,6 +410,8 @@ public class Message extends Resource {
                             from,
                             body,
                             index,
+                            type,
+                            media,
                             url);
     }
 
@@ -399,6 +430,8 @@ public class Message extends Resource {
                           .add("from", from)
                           .add("body", body)
                           .add("index", index)
+                          .add("type", type)
+                          .add("media", media)
                           .add("url", url)
                           .toString();
     }

@@ -50,6 +50,7 @@ public class ServiceUpdater extends Updater<Service> {
     private List<String> webhookFilters;
     private Integer limitsChannelMembers;
     private Integer limitsUserChannels;
+    private String mediaCompatibilityMessage;
 
     /**
      * Construct a new ServiceUpdater.
@@ -398,6 +399,17 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The media.compatibility_message.
+     * 
+     * @param mediaCompatibilityMessage The media.compatibility_message
+     * @return this
+     */
+    public ServiceUpdater setMediaCompatibilityMessage(final String mediaCompatibilityMessage) {
+        this.mediaCompatibilityMessage = mediaCompatibilityMessage;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -550,6 +562,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (limitsUserChannels != null) {
             request.addPostParam("Limits.UserChannels", limitsUserChannels.toString());
+        }
+
+        if (mediaCompatibilityMessage != null) {
+            request.addPostParam("Media.CompatibilityMessage", mediaCompatibilityMessage);
         }
     }
 }

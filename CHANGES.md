@@ -1,6 +1,19 @@
 twilio-java changelog
 =====================
 
+[2017-08-18] Version 7.14.2
+----------------------------
+**Api**
+- Add VoiceReceiveMode {'voice', 'fax'} option to IncomingPhoneNumber UPDATE requests
+
+**Chat**
+- Add channel message media information
+- Add service instance message media information
+
+**Sync**
+- Add support for Service Instance unique names
+
+
 [2017-08-11] Version 7.14.1
 ----------------------------
 **Api**

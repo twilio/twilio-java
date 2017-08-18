@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 215309225155355L;
+    private static final long serialVersionUID = 11650699677791L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -142,6 +142,7 @@ public class Service extends Resource {
     private final String webhookMethod;
     private final List<String> webhookFilters;
     private final Map<String, Object> notifications;
+    private final Map<String, Object> media;
     private final URI url;
     private final Map<String, String> links;
 
@@ -182,6 +183,8 @@ public class Service extends Resource {
                     final List<String> webhookFilters, 
                     @JsonProperty("notifications")
                     final Map<String, Object> notifications, 
+                    @JsonProperty("media")
+                    final Map<String, Object> media, 
                     @JsonProperty("url")
                     final URI url, 
                     @JsonProperty("links")
@@ -204,6 +207,7 @@ public class Service extends Resource {
         this.webhookMethod = webhookMethod;
         this.webhookFilters = webhookFilters;
         this.notifications = notifications;
+        this.media = media;
         this.url = url;
         this.links = links;
     }
@@ -371,6 +375,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The media.
+     * 
+     * @return The media
+     */
+    public final Map<String, Object> getMedia() {
+        return this.media;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -418,6 +431,7 @@ public class Service extends Resource {
                Objects.equals(webhookMethod, other.webhookMethod) && 
                Objects.equals(webhookFilters, other.webhookFilters) && 
                Objects.equals(notifications, other.notifications) && 
+               Objects.equals(media, other.media) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -442,6 +456,7 @@ public class Service extends Resource {
                             webhookMethod,
                             webhookFilters,
                             notifications,
+                            media,
                             url,
                             links);
     }
@@ -467,6 +482,7 @@ public class Service extends Resource {
                           .add("webhookMethod", webhookMethod)
                           .add("webhookFilters", webhookFilters)
                           .add("notifications", notifications)
+                          .add("media", media)
                           .add("url", url)
                           .add("links", links)
                           .toString();

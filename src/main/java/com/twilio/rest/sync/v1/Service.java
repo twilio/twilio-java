@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 133636516526090L;
+    private static final long serialVersionUID = 123093367857654L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -126,6 +126,7 @@ public class Service extends Resource {
     }
 
     private final String sid;
+    private final String uniqueName;
     private final String accountSid;
     private final String friendlyName;
     private final DateTime dateCreated;
@@ -139,6 +140,8 @@ public class Service extends Resource {
     @JsonCreator
     private Service(@JsonProperty("sid")
                     final String sid, 
+                    @JsonProperty("unique_name")
+                    final String uniqueName, 
                     @JsonProperty("account_sid")
                     final String accountSid, 
                     @JsonProperty("friendly_name")
@@ -158,6 +161,7 @@ public class Service extends Resource {
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
+        this.uniqueName = uniqueName;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -176,6 +180,15 @@ public class Service extends Resource {
      */
     public final String getSid() {
         return this.sid;
+    }
+
+    /**
+     * Returns The The unique_name.
+     * 
+     * @return The unique_name
+     */
+    public final String getUniqueName() {
+        return this.uniqueName;
     }
 
     /**
@@ -272,6 +285,7 @@ public class Service extends Resource {
         Service other = (Service) o;
 
         return Objects.equals(sid, other.sid) && 
+               Objects.equals(uniqueName, other.uniqueName) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(dateCreated, other.dateCreated) && 
@@ -286,6 +300,7 @@ public class Service extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(sid,
+                            uniqueName,
                             accountSid,
                             friendlyName,
                             dateCreated,
@@ -301,6 +316,7 @@ public class Service extends Resource {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("sid", sid)
+                          .add("uniqueName", uniqueName)
                           .add("accountSid", accountSid)
                           .add("friendlyName", friendlyName)
                           .add("dateCreated", dateCreated)

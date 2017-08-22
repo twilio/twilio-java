@@ -8,6 +8,7 @@
 package com.twilio.rest.chat.v2.service.channel;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,12 +17,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class MemberCreator extends Creator<Member> {
     private final String pathServiceSid;
     private final String pathChannelSid;
     private final String identity;
     private String roleSid;
+    private Integer lastConsumedMessageIndex;
+    private DateTime lastConsumptionTimestamp;
+    private DateTime dateCreated;
+    private DateTime dateUpdated;
 
     /**
      * Construct a new MemberCreator.
@@ -46,6 +52,50 @@ public class MemberCreator extends Creator<Member> {
      */
     public MemberCreator setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
+        return this;
+    }
+
+    /**
+     * The last_consumed_message_index.
+     * 
+     * @param lastConsumedMessageIndex The last_consumed_message_index
+     * @return this
+     */
+    public MemberCreator setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
+        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
+        return this;
+    }
+
+    /**
+     * The last_consumption_timestamp.
+     * 
+     * @param lastConsumptionTimestamp The last_consumption_timestamp
+     * @return this
+     */
+    public MemberCreator setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+        this.lastConsumptionTimestamp = lastConsumptionTimestamp;
+        return this;
+    }
+
+    /**
+     * The date_created.
+     * 
+     * @param dateCreated The date_created
+     * @return this
+     */
+    public MemberCreator setDateCreated(final DateTime dateCreated) {
+        this.dateCreated = dateCreated;
+        return this;
+    }
+
+    /**
+     * The date_updated.
+     * 
+     * @param dateUpdated The date_updated
+     * @return this
+     */
+    public MemberCreator setDateUpdated(final DateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
         return this;
     }
 
@@ -100,6 +150,22 @@ public class MemberCreator extends Creator<Member> {
 
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
+        }
+
+        if (lastConsumedMessageIndex != null) {
+            request.addPostParam("LastConsumedMessageIndex", lastConsumedMessageIndex.toString());
+        }
+
+        if (lastConsumptionTimestamp != null) {
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toString());
+        }
+
+        if (dateCreated != null) {
+            request.addPostParam("DateCreated", dateCreated.toString());
+        }
+
+        if (dateUpdated != null) {
+            request.addPostParam("DateUpdated", dateUpdated.toString());
         }
     }
 }

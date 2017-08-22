@@ -8,6 +8,7 @@
 package com.twilio.rest.ipmessaging.v2.service.channel;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class MemberUpdater extends Updater<Member> {
     private final String pathServiceSid;
@@ -23,6 +25,9 @@ public class MemberUpdater extends Updater<Member> {
     private final String pathSid;
     private String roleSid;
     private Integer lastConsumedMessageIndex;
+    private DateTime lastConsumptionTimestamp;
+    private DateTime dateCreated;
+    private DateTime dateUpdated;
 
     /**
      * Construct a new MemberUpdater.
@@ -58,6 +63,39 @@ public class MemberUpdater extends Updater<Member> {
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
+        return this;
+    }
+
+    /**
+     * The last_consumption_timestamp.
+     * 
+     * @param lastConsumptionTimestamp The last_consumption_timestamp
+     * @return this
+     */
+    public MemberUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+        this.lastConsumptionTimestamp = lastConsumptionTimestamp;
+        return this;
+    }
+
+    /**
+     * The date_created.
+     * 
+     * @param dateCreated The date_created
+     * @return this
+     */
+    public MemberUpdater setDateCreated(final DateTime dateCreated) {
+        this.dateCreated = dateCreated;
+        return this;
+    }
+
+    /**
+     * The date_updated.
+     * 
+     * @param dateUpdated The date_updated
+     * @return this
+     */
+    public MemberUpdater setDateUpdated(final DateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
         return this;
     }
 
@@ -112,6 +150,18 @@ public class MemberUpdater extends Updater<Member> {
 
         if (lastConsumedMessageIndex != null) {
             request.addPostParam("LastConsumedMessageIndex", lastConsumedMessageIndex.toString());
+        }
+
+        if (lastConsumptionTimestamp != null) {
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toString());
+        }
+
+        if (dateCreated != null) {
+            request.addPostParam("DateCreated", dateCreated.toString());
+        }
+
+        if (dateUpdated != null) {
+            request.addPostParam("DateUpdated", dateUpdated.toString());
         }
     }
 }

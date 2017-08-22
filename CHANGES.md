@@ -1,6 +1,19 @@
 twilio-java changelog
 =====================
 
+[2017-08-22] Version 7.14.3
+----------------------------
+**Api**
+- Update `status` enum for Recordings to include 'failed'
+- Add `error_code` property on Recordings
+
+**Chat**
+- Add mutable parameters for channel, members and messages
+
+**Video**
+- Add `video_codec` enum and `video_codecs` parameter, which can be set to either `VP8` or `H264` during room creation.
+
+
 [2017-08-18] Version 7.14.2
 ----------------------------
 **Api**

@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 250705891567968L;
+    private static final long serialVersionUID = 240696203452729L;
 
     public enum OrderType {
         ASC("asc"),
@@ -176,6 +176,7 @@ public class Message extends Resource {
     private final String channelSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final String lastUpdatedBy;
     private final Boolean wasEdited;
     private final String from;
     private final String body;
@@ -201,6 +202,8 @@ public class Message extends Resource {
                     final String dateCreated, 
                     @JsonProperty("date_updated")
                     final String dateUpdated, 
+                    @JsonProperty("last_updated_by")
+                    final String lastUpdatedBy, 
                     @JsonProperty("was_edited")
                     final Boolean wasEdited, 
                     @JsonProperty("from")
@@ -223,6 +226,7 @@ public class Message extends Resource {
         this.channelSid = channelSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.lastUpdatedBy = lastUpdatedBy;
         this.wasEdited = wasEdited;
         this.from = from;
         this.body = body;
@@ -302,6 +306,15 @@ public class Message extends Resource {
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
+    }
+
+    /**
+     * Returns The The last_updated_by.
+     * 
+     * @return The last_updated_by
+     */
+    public final String getLastUpdatedBy() {
+        return this.lastUpdatedBy;
     }
 
     /**
@@ -387,6 +400,7 @@ public class Message extends Resource {
                Objects.equals(channelSid, other.channelSid) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
+               Objects.equals(lastUpdatedBy, other.lastUpdatedBy) && 
                Objects.equals(wasEdited, other.wasEdited) && 
                Objects.equals(from, other.from) && 
                Objects.equals(body, other.body) && 
@@ -406,6 +420,7 @@ public class Message extends Resource {
                             channelSid,
                             dateCreated,
                             dateUpdated,
+                            lastUpdatedBy,
                             wasEdited,
                             from,
                             body,
@@ -426,6 +441,7 @@ public class Message extends Resource {
                           .add("channelSid", channelSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("lastUpdatedBy", lastUpdatedBy)
                           .add("wasEdited", wasEdited)
                           .add("from", from)
                           .add("body", body)

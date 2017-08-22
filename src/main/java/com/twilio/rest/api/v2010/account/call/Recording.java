@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 51581236095087L;
+    private static final long serialVersionUID = 64068502356457L;
 
     /**
      * Create a RecordingFetcher to execute fetch.
@@ -159,6 +159,7 @@ public class Recording extends Resource {
     private final BigDecimal price;
     private final String uri;
     private final Map<String, Object> encryptionDetails;
+    private final Integer errorCode;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -180,7 +181,9 @@ public class Recording extends Resource {
                       @JsonProperty("uri")
                       final String uri, 
                       @JsonProperty("encryption_details")
-                      final Map<String, Object> encryptionDetails) {
+                      final Map<String, Object> encryptionDetails, 
+                      @JsonProperty("error_code")
+                      final Integer errorCode) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -191,6 +194,7 @@ public class Recording extends Resource {
         this.price = price;
         this.uri = uri;
         this.encryptionDetails = encryptionDetails;
+        this.errorCode = errorCode;
     }
 
     /**
@@ -283,6 +287,15 @@ public class Recording extends Resource {
         return this.encryptionDetails;
     }
 
+    /**
+     * Returns The The error_code.
+     * 
+     * @return The error_code
+     */
+    public final Integer getErrorCode() {
+        return this.errorCode;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -304,7 +317,8 @@ public class Recording extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(price, other.price) && 
                Objects.equals(uri, other.uri) && 
-               Objects.equals(encryptionDetails, other.encryptionDetails);
+               Objects.equals(encryptionDetails, other.encryptionDetails) && 
+               Objects.equals(errorCode, other.errorCode);
     }
 
     @Override
@@ -318,7 +332,8 @@ public class Recording extends Resource {
                             sid,
                             price,
                             uri,
-                            encryptionDetails);
+                            encryptionDetails,
+                            errorCode);
     }
 
     @Override
@@ -334,6 +349,7 @@ public class Recording extends Resource {
                           .add("price", price)
                           .add("uri", uri)
                           .add("encryptionDetails", encryptionDetails)
+                          .add("errorCode", errorCode)
                           .toString();
     }
 }

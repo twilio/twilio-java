@@ -8,6 +8,7 @@
 package com.twilio.rest.chat.v2.service.channel;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class MessageCreator extends Creator<Message> {
     private final String pathServiceSid;
@@ -23,6 +25,9 @@ public class MessageCreator extends Creator<Message> {
     private final String body;
     private String from;
     private String attributes;
+    private DateTime dateCreated;
+    private DateTime dateUpdated;
+    private String lastUpdatedBy;
 
     /**
      * Construct a new MessageCreator.
@@ -58,6 +63,39 @@ public class MessageCreator extends Creator<Message> {
      */
     public MessageCreator setAttributes(final String attributes) {
         this.attributes = attributes;
+        return this;
+    }
+
+    /**
+     * The date_created.
+     * 
+     * @param dateCreated The date_created
+     * @return this
+     */
+    public MessageCreator setDateCreated(final DateTime dateCreated) {
+        this.dateCreated = dateCreated;
+        return this;
+    }
+
+    /**
+     * The date_updated.
+     * 
+     * @param dateUpdated The date_updated
+     * @return this
+     */
+    public MessageCreator setDateUpdated(final DateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
+        return this;
+    }
+
+    /**
+     * The last_updated_by.
+     * 
+     * @param lastUpdatedBy The last_updated_by
+     * @return this
+     */
+    public MessageCreator setLastUpdatedBy(final String lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
         return this;
     }
 
@@ -116,6 +154,18 @@ public class MessageCreator extends Creator<Message> {
 
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+
+        if (dateCreated != null) {
+            request.addPostParam("DateCreated", dateCreated.toString());
+        }
+
+        if (dateUpdated != null) {
+            request.addPostParam("DateUpdated", dateUpdated.toString());
+        }
+
+        if (lastUpdatedBy != null) {
+            request.addPostParam("LastUpdatedBy", lastUpdatedBy);
         }
     }
 }

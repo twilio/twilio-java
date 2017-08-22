@@ -8,6 +8,7 @@
 package com.twilio.rest.ipmessaging.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class ChannelCreator extends Creator<Channel> {
     private final String pathServiceSid;
@@ -23,6 +25,9 @@ public class ChannelCreator extends Creator<Channel> {
     private String uniqueName;
     private String attributes;
     private Channel.ChannelType type;
+    private DateTime dateCreated;
+    private DateTime dateUpdated;
+    private String createdBy;
 
     /**
      * Construct a new ChannelCreator.
@@ -74,6 +79,39 @@ public class ChannelCreator extends Creator<Channel> {
      */
     public ChannelCreator setType(final Channel.ChannelType type) {
         this.type = type;
+        return this;
+    }
+
+    /**
+     * The date_created.
+     * 
+     * @param dateCreated The date_created
+     * @return this
+     */
+    public ChannelCreator setDateCreated(final DateTime dateCreated) {
+        this.dateCreated = dateCreated;
+        return this;
+    }
+
+    /**
+     * The date_updated.
+     * 
+     * @param dateUpdated The date_updated
+     * @return this
+     */
+    public ChannelCreator setDateUpdated(final DateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
+        return this;
+    }
+
+    /**
+     * The created_by.
+     * 
+     * @param createdBy The created_by
+     * @return this
+     */
+    public ChannelCreator setCreatedBy(final String createdBy) {
+        this.createdBy = createdBy;
         return this;
     }
 
@@ -136,6 +174,18 @@ public class ChannelCreator extends Creator<Channel> {
 
         if (type != null) {
             request.addPostParam("Type", type.toString());
+        }
+
+        if (dateCreated != null) {
+            request.addPostParam("DateCreated", dateCreated.toString());
+        }
+
+        if (dateUpdated != null) {
+            request.addPostParam("DateUpdated", dateUpdated.toString());
+        }
+
+        if (createdBy != null) {
+            request.addPostParam("CreatedBy", createdBy);
         }
     }
 }

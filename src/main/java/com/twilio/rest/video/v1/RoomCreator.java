@@ -29,6 +29,7 @@ public class RoomCreator extends Creator<Room> {
     private Integer maxParticipants;
     private Boolean recordParticipantsOnConnect;
     private Room.VideoCodec videoCodecs;
+    private String mediaRegion;
 
     /**
      * The enable_turn.
@@ -129,6 +130,17 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * The media_region.
+     * 
+     * @param mediaRegion The media_region
+     * @return this
+     */
+    public RoomCreator setMediaRegion(final String mediaRegion) {
+        this.mediaRegion = mediaRegion;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -203,6 +215,10 @@ public class RoomCreator extends Creator<Room> {
 
         if (videoCodecs != null) {
             request.addPostParam("VideoCodecs", videoCodecs.toString());
+        }
+
+        if (mediaRegion != null) {
+            request.addPostParam("MediaRegion", mediaRegion);
         }
     }
 }

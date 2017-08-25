@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2017-08-25] Version 7.14.4
+----------------------------
+**Video**
+- New `media_region` parameter when creating a room, which controls which region media will be served out of.
+
+
 [2017-08-22] Version 7.14.3
 ----------------------------
 **Library**

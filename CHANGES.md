@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2017-09-01] Version 7.14.5
+----------------------------
+**Sync**
+- Add support for Streams
+
+**Wireless**
+- Added DataSessions sub-resource to Sims.
+
+
 [2017-08-25] Version 7.14.4
 ----------------------------
 **Video**

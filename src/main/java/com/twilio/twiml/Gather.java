@@ -140,6 +140,10 @@ public class Gather extends TwiML {
         return input;
     }
 
+    public String getSpeechTimeout() {
+        return speechTimeout;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -297,6 +301,11 @@ public class Gather extends TwiML {
 
         public Builder speechTimeout(String speechTimeout) {
             this.speechTimeout = speechTimeout;
+            return this;
+        }
+
+        public Builder speechTimeout(int speechTimeout) {
+            this.speechTimeout = Integer.toString(speechTimeout);
             return this;
         }
 

@@ -16,7 +16,7 @@ import java.util.Map;
 @XmlRootElement(name = "Task")
 public class Task extends TwiML {
     @XmlValue
-    private final String attributes;
+    private final String body;
 
     private Task() {
         this(new Builder(null));
@@ -24,19 +24,19 @@ public class Task extends TwiML {
 
     private Task(Builder b) {
         super(b.options);
-        this.attributes = b.attributes;
+        this.body = b.body;
     }
 
-    public String getAttributes() {
-        return attributes;
+    public String getBody() {
+        return body;
     }
 
     public static class Builder {
-        private String attributes;
+        private String body;
         private Map<String, String> options = new HashMap<>();
 
-        public Builder(String attributes) {
-            this.attributes = attributes;
+        public Builder(String body) {
+            this.body = body;
         }
 
         public Builder option(String key, String value) {

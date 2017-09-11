@@ -188,6 +188,7 @@
         <version>2.5.3</version>
         <configuration>
           <tagNameFormat>@{project.version}</tagNameFormat>
+          <arguments>-DskipTests=${skip.tests}</arguments>
         </configuration>
       </plugin>
 
@@ -209,7 +210,6 @@
         <configuration>
           <forkCount>8</forkCount>
           <reuseForks>true</reuseForks>
-          <skipTests>${skip.tests}</skipTests>
         </configuration>
       </plugin>
 

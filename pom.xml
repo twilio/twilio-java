@@ -36,6 +36,7 @@
 
   <properties>
     <jackson.version>2.8.7</jackson.version>
+    <skip.tests>false</skip.tests>
   </properties>
 
   <dependencies>
@@ -187,6 +188,7 @@
         <version>2.5.3</version>
         <configuration>
           <tagNameFormat>@{project.version}</tagNameFormat>
+          <arguments>-DskipTests=${skip.tests}</arguments>
         </configuration>
       </plugin>
 

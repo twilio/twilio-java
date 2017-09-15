@@ -3,6 +3,9 @@ twilio-java changelog
 
 [2017-09-15] Version 7.14.6
 ----------------------------
+
+- Add speechTimeout to Gather verb.
+
 **Api**
 - Add `sip_registration` property on SIP Domains
 - Add new video and market usage category keys

@@ -31,6 +31,7 @@ public class DomainUpdater extends Updater<Domain> {
     private HttpMethod voiceStatusCallbackMethod;
     private URI voiceStatusCallbackUrl;
     private URI voiceUrl;
+    private Boolean sipRegistration;
 
     /**
      * Construct a new DomainUpdater.
@@ -172,6 +173,17 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
+     * The sip_registration.
+     * 
+     * @param sipRegistration The sip_registration
+     * @return this
+     */
+    public DomainUpdater setSipRegistration(final Boolean sipRegistration) {
+        this.sipRegistration = sipRegistration;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -247,6 +259,10 @@ public class DomainUpdater extends Updater<Domain> {
 
         if (voiceUrl != null) {
             request.addPostParam("VoiceUrl", voiceUrl.toString());
+        }
+
+        if (sipRegistration != null) {
+            request.addPostParam("SipRegistration", sipRegistration.toString());
         }
     }
 }

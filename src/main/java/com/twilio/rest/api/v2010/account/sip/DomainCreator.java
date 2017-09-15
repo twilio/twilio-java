@@ -31,6 +31,7 @@ public class DomainCreator extends Creator<Domain> {
     private HttpMethod voiceFallbackMethod;
     private URI voiceStatusCallbackUrl;
     private HttpMethod voiceStatusCallbackMethod;
+    private Boolean sipRegistration;
 
     /**
      * Construct a new DomainCreator.
@@ -178,6 +179,17 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
+     * The sip_registration.
+     * 
+     * @param sipRegistration The sip_registration
+     * @return this
+     */
+    public DomainCreator setSipRegistration(final Boolean sipRegistration) {
+        this.sipRegistration = sipRegistration;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -257,6 +269,10 @@ public class DomainCreator extends Creator<Domain> {
 
         if (voiceStatusCallbackMethod != null) {
             request.addPostParam("VoiceStatusCallbackMethod", voiceStatusCallbackMethod.toString());
+        }
+
+        if (sipRegistration != null) {
+            request.addPostParam("SipRegistration", sipRegistration.toString());
         }
     }
 }

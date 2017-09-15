@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Domain extends Resource {
-    private static final long serialVersionUID = 72982381631904L;
+    private static final long serialVersionUID = 8739716800197L;
 
     /**
      * Create a DomainReader to execute read.
@@ -196,6 +196,7 @@ public class Domain extends Resource {
     private final URI voiceStatusCallbackUrl;
     private final URI voiceUrl;
     private final Map<String, String> subresourceUris;
+    private final Boolean sipRegistration;
 
     @JsonCreator
     private Domain(@JsonProperty("account_sid")
@@ -229,7 +230,9 @@ public class Domain extends Resource {
                    @JsonProperty("voice_url")
                    final URI voiceUrl, 
                    @JsonProperty("subresource_uris")
-                   final Map<String, String> subresourceUris) {
+                   final Map<String, String> subresourceUris, 
+                   @JsonProperty("sip_registration")
+                   final Boolean sipRegistration) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.authType = authType;
@@ -246,6 +249,7 @@ public class Domain extends Resource {
         this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         this.voiceUrl = voiceUrl;
         this.subresourceUris = subresourceUris;
+        this.sipRegistration = sipRegistration;
     }
 
     /**
@@ -392,6 +396,15 @@ public class Domain extends Resource {
         return this.subresourceUris;
     }
 
+    /**
+     * Returns The If SIP registration is allowed.
+     * 
+     * @return If SIP registration is allowed
+     */
+    public final Boolean getSipRegistration() {
+        return this.sipRegistration;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -419,7 +432,8 @@ public class Domain extends Resource {
                Objects.equals(voiceStatusCallbackMethod, other.voiceStatusCallbackMethod) && 
                Objects.equals(voiceStatusCallbackUrl, other.voiceStatusCallbackUrl) && 
                Objects.equals(voiceUrl, other.voiceUrl) && 
-               Objects.equals(subresourceUris, other.subresourceUris);
+               Objects.equals(subresourceUris, other.subresourceUris) && 
+               Objects.equals(sipRegistration, other.sipRegistration);
     }
 
     @Override
@@ -439,7 +453,8 @@ public class Domain extends Resource {
                             voiceStatusCallbackMethod,
                             voiceStatusCallbackUrl,
                             voiceUrl,
-                            subresourceUris);
+                            subresourceUris,
+                            sipRegistration);
     }
 
     @Override
@@ -461,6 +476,7 @@ public class Domain extends Resource {
                           .add("voiceStatusCallbackUrl", voiceStatusCallbackUrl)
                           .add("voiceUrl", voiceUrl)
                           .add("subresourceUris", subresourceUris)
+                          .add("sipRegistration", sipRegistration)
                           .toString();
     }
 }

@@ -19,6 +19,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 import java.net.URI;
+import java.util.List;
 
 public class RoomCreator extends Creator<Room> {
     private Boolean enableTurn;
@@ -28,7 +29,7 @@ public class RoomCreator extends Creator<Room> {
     private HttpMethod statusCallbackMethod;
     private Integer maxParticipants;
     private Boolean recordParticipantsOnConnect;
-    private Room.VideoCodec videoCodecs;
+    private List<Room.VideoCodec> videoCodecs;
     private String mediaRegion;
 
     /**
@@ -124,9 +125,19 @@ public class RoomCreator extends Creator<Room> {
      * @param videoCodecs The video_codecs
      * @return this
      */
-    public RoomCreator setVideoCodecs(final Room.VideoCodec videoCodecs) {
+    public RoomCreator setVideoCodecs(final List<Room.VideoCodec> videoCodecs) {
         this.videoCodecs = videoCodecs;
         return this;
+    }
+
+    /**
+     * The video_codecs.
+     * 
+     * @param videoCodecs The video_codecs
+     * @return this
+     */
+    public RoomCreator setVideoCodecs(final Room.VideoCodec videoCodecs) {
+        return setVideoCodecs(Promoter.listOfOne(videoCodecs));
     }
 
     /**
@@ -214,7 +225,9 @@ public class RoomCreator extends Creator<Room> {
         }
 
         if (videoCodecs != null) {
-            request.addPostParam("VideoCodecs", videoCodecs.toString());
+            for (Room.VideoCodec prop : videoCodecs) {
+                request.addPostParam("VideoCodecs", prop.toString());
+            }
         }
 
         if (mediaRegion != null) {

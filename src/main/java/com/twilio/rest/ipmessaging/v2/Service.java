@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 11650699677791L;
+    private static final long serialVersionUID = 81815704097903L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -141,6 +141,8 @@ public class Service extends Resource {
     private final String postWebhookUrl;
     private final String webhookMethod;
     private final List<String> webhookFilters;
+    private final Integer preWebhookRetryCount;
+    private final Integer postWebhookRetryCount;
     private final Map<String, Object> notifications;
     private final Map<String, Object> media;
     private final URI url;
@@ -181,6 +183,10 @@ public class Service extends Resource {
                     final String webhookMethod, 
                     @JsonProperty("webhook_filters")
                     final List<String> webhookFilters, 
+                    @JsonProperty("pre_webhook_retry_count")
+                    final Integer preWebhookRetryCount, 
+                    @JsonProperty("post_webhook_retry_count")
+                    final Integer postWebhookRetryCount, 
                     @JsonProperty("notifications")
                     final Map<String, Object> notifications, 
                     @JsonProperty("media")
@@ -206,6 +212,8 @@ public class Service extends Resource {
         this.postWebhookUrl = postWebhookUrl;
         this.webhookMethod = webhookMethod;
         this.webhookFilters = webhookFilters;
+        this.preWebhookRetryCount = preWebhookRetryCount;
+        this.postWebhookRetryCount = postWebhookRetryCount;
         this.notifications = notifications;
         this.media = media;
         this.url = url;
@@ -366,6 +374,24 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The The pre_webhook_retry_count.
+     * 
+     * @return The pre_webhook_retry_count
+     */
+    public final Integer getPreWebhookRetryCount() {
+        return this.preWebhookRetryCount;
+    }
+
+    /**
+     * Returns The The post_webhook_retry_count.
+     * 
+     * @return The post_webhook_retry_count
+     */
+    public final Integer getPostWebhookRetryCount() {
+        return this.postWebhookRetryCount;
+    }
+
+    /**
      * Returns The The notifications.
      * 
      * @return The notifications
@@ -430,6 +456,8 @@ public class Service extends Resource {
                Objects.equals(postWebhookUrl, other.postWebhookUrl) && 
                Objects.equals(webhookMethod, other.webhookMethod) && 
                Objects.equals(webhookFilters, other.webhookFilters) && 
+               Objects.equals(preWebhookRetryCount, other.preWebhookRetryCount) && 
+               Objects.equals(postWebhookRetryCount, other.postWebhookRetryCount) && 
                Objects.equals(notifications, other.notifications) && 
                Objects.equals(media, other.media) && 
                Objects.equals(url, other.url) && 
@@ -455,6 +483,8 @@ public class Service extends Resource {
                             postWebhookUrl,
                             webhookMethod,
                             webhookFilters,
+                            preWebhookRetryCount,
+                            postWebhookRetryCount,
                             notifications,
                             media,
                             url,
@@ -481,6 +511,8 @@ public class Service extends Resource {
                           .add("postWebhookUrl", postWebhookUrl)
                           .add("webhookMethod", webhookMethod)
                           .add("webhookFilters", webhookFilters)
+                          .add("preWebhookRetryCount", preWebhookRetryCount)
+                          .add("postWebhookRetryCount", postWebhookRetryCount)
                           .add("notifications", notifications)
                           .add("media", media)
                           .add("url", url)

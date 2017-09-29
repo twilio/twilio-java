@@ -25,6 +25,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     private Integer minutes;
     private DateTime startDate;
     private DateTime endDate;
+    private String taskChannel;
 
     /**
      * Construct a new WorkerStatisticsFetcher.
@@ -68,6 +69,17 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
      */
     public WorkerStatisticsFetcher setEndDate(final DateTime endDate) {
         this.endDate = endDate;
+        return this;
+    }
+
+    /**
+     * The task_channel.
+     * 
+     * @param taskChannel The task_channel
+     * @return this
+     */
+    public WorkerStatisticsFetcher setTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
         return this;
     }
 
@@ -126,6 +138,10 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
 
         if (endDate != null) {
             request.addQueryParam("EndDate", endDate.toString());
+        }
+
+        if (taskChannel != null) {
+            request.addQueryParam("TaskChannel", taskChannel);
         }
     }
 }

@@ -25,6 +25,8 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
     private DateTime endDate;
     private Integer minutes;
     private DateTime startDate;
+    private String taskChannel;
+    private String splitByWaitTime;
 
     /**
      * Construct a new TaskQueueStatisticsFetcher.
@@ -68,6 +70,28 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
      */
     public TaskQueueStatisticsFetcher setStartDate(final DateTime startDate) {
         this.startDate = startDate;
+        return this;
+    }
+
+    /**
+     * The task_channel.
+     * 
+     * @param taskChannel The task_channel
+     * @return this
+     */
+    public TaskQueueStatisticsFetcher setTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
+        return this;
+    }
+
+    /**
+     * The split_by_wait_time.
+     * 
+     * @param splitByWaitTime The split_by_wait_time
+     * @return this
+     */
+    public TaskQueueStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime) {
+        this.splitByWaitTime = splitByWaitTime;
         return this;
     }
 
@@ -126,6 +150,14 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
 
         if (startDate != null) {
             request.addQueryParam("StartDate", startDate.toString());
+        }
+
+        if (taskChannel != null) {
+            request.addQueryParam("TaskChannel", taskChannel);
+        }
+
+        if (splitByWaitTime != null) {
+            request.addQueryParam("SplitByWaitTime", splitByWaitTime);
         }
     }
 }

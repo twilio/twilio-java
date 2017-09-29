@@ -22,26 +22,24 @@ import org.joda.time.DateTime;
 public class MessageCreator extends Creator<Message> {
     private final String pathServiceSid;
     private final String pathChannelSid;
-    private final String body;
     private String from;
     private String attributes;
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String lastUpdatedBy;
+    private String body;
+    private String mediaSid;
 
     /**
      * Construct a new MessageCreator.
      * 
      * @param pathServiceSid The service_sid
      * @param pathChannelSid The channel_sid
-     * @param body The body
      */
     public MessageCreator(final String pathServiceSid, 
-                          final String pathChannelSid, 
-                          final String body) {
+                          final String pathChannelSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
-        this.body = body;
     }
 
     /**
@@ -100,6 +98,28 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * The body.
+     * 
+     * @param body The body
+     * @return this
+     */
+    public MessageCreator setBody(final String body) {
+        this.body = body;
+        return this;
+    }
+
+    /**
+     * The media_sid.
+     * 
+     * @param mediaSid The media_sid
+     * @return this
+     */
+    public MessageCreator setMediaSid(final String mediaSid) {
+        this.mediaSid = mediaSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -144,10 +164,6 @@ public class MessageCreator extends Creator<Message> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (body != null) {
-            request.addPostParam("Body", body);
-        }
-
         if (from != null) {
             request.addPostParam("From", from);
         }
@@ -166,6 +182,14 @@ public class MessageCreator extends Creator<Message> {
 
         if (lastUpdatedBy != null) {
             request.addPostParam("LastUpdatedBy", lastUpdatedBy);
+        }
+
+        if (body != null) {
+            request.addPostParam("Body", body);
+        }
+
+        if (mediaSid != null) {
+            request.addPostParam("MediaSid", mediaSid);
         }
     }
 }

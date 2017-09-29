@@ -82,13 +82,11 @@ public class Message extends Resource {
      * 
      * @param pathServiceSid The service_sid
      * @param pathChannelSid The channel_sid
-     * @param body The body
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathServiceSid, 
-                                         final String pathChannelSid, 
-                                         final String body) {
-        return new MessageCreator(pathServiceSid, pathChannelSid, body);
+                                         final String pathChannelSid) {
+        return new MessageCreator(pathServiceSid, pathChannelSid);
     }
 
     /**

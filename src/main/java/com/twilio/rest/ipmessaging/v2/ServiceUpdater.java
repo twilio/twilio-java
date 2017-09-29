@@ -51,6 +51,8 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer limitsChannelMembers;
     private Integer limitsUserChannels;
     private String mediaCompatibilityMessage;
+    private Integer preWebhookRetryCount;
+    private Integer postWebhookRetryCount;
 
     /**
      * Construct a new ServiceUpdater.
@@ -410,6 +412,28 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The pre_webhook_retry_count.
+     * 
+     * @param preWebhookRetryCount The pre_webhook_retry_count
+     * @return this
+     */
+    public ServiceUpdater setPreWebhookRetryCount(final Integer preWebhookRetryCount) {
+        this.preWebhookRetryCount = preWebhookRetryCount;
+        return this;
+    }
+
+    /**
+     * The post_webhook_retry_count.
+     * 
+     * @param postWebhookRetryCount The post_webhook_retry_count
+     * @return this
+     */
+    public ServiceUpdater setPostWebhookRetryCount(final Integer postWebhookRetryCount) {
+        this.postWebhookRetryCount = postWebhookRetryCount;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -566,6 +590,14 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (mediaCompatibilityMessage != null) {
             request.addPostParam("Media.CompatibilityMessage", mediaCompatibilityMessage);
+        }
+
+        if (preWebhookRetryCount != null) {
+            request.addPostParam("PreWebhookRetryCount", preWebhookRetryCount.toString());
+        }
+
+        if (postWebhookRetryCount != null) {
+            request.addPostParam("PostWebhookRetryCount", postWebhookRetryCount.toString());
         }
     }
 }

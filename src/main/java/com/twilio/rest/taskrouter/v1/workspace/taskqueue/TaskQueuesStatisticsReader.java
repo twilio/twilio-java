@@ -27,6 +27,8 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     private String friendlyName;
     private Integer minutes;
     private DateTime startDate;
+    private String taskChannel;
+    private String splitByWaitTime;
 
     /**
      * Construct a new TaskQueuesStatisticsReader.
@@ -78,6 +80,28 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      */
     public TaskQueuesStatisticsReader setStartDate(final DateTime startDate) {
         this.startDate = startDate;
+        return this;
+    }
+
+    /**
+     * The task_channel.
+     * 
+     * @param taskChannel The task_channel
+     * @return this
+     */
+    public TaskQueuesStatisticsReader setTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
+        return this;
+    }
+
+    /**
+     * The split_by_wait_time.
+     * 
+     * @param splitByWaitTime The split_by_wait_time
+     * @return this
+     */
+    public TaskQueuesStatisticsReader setSplitByWaitTime(final String splitByWaitTime) {
+        this.splitByWaitTime = splitByWaitTime;
         return this;
     }
 
@@ -225,6 +249,14 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
         if (startDate != null) {
             request.addQueryParam("StartDate", startDate.toString());
+        }
+
+        if (taskChannel != null) {
+            request.addQueryParam("TaskChannel", taskChannel);
+        }
+
+        if (splitByWaitTime != null) {
+            request.addQueryParam("SplitByWaitTime", splitByWaitTime);
         }
 
         if (getPageSize() != null) {

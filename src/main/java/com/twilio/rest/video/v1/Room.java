@@ -30,12 +30,13 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Room extends Resource {
-    private static final long serialVersionUID = 5910525592452L;
+    private static final long serialVersionUID = 168357833886027L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -204,6 +205,7 @@ public class Room extends Resource {
     private final Room.RoomType type;
     private final Integer maxParticipants;
     private final Boolean recordParticipantsOnConnect;
+    private final List<Room.VideoCodec> videoCodecs;
     private final URI url;
     private final Map<String, String> links;
 
@@ -236,6 +238,8 @@ public class Room extends Resource {
                  final Integer maxParticipants, 
                  @JsonProperty("record_participants_on_connect")
                  final Boolean recordParticipantsOnConnect, 
+                 @JsonProperty("video_codecs")
+                 final List<Room.VideoCodec> videoCodecs, 
                  @JsonProperty("url")
                  final URI url, 
                  @JsonProperty("links")
@@ -254,6 +258,7 @@ public class Room extends Resource {
         this.type = type;
         this.maxParticipants = maxParticipants;
         this.recordParticipantsOnConnect = recordParticipantsOnConnect;
+        this.videoCodecs = videoCodecs;
         this.url = url;
         this.links = links;
     }
@@ -385,6 +390,15 @@ public class Room extends Resource {
     }
 
     /**
+     * Returns The The video_codecs.
+     * 
+     * @return The video_codecs
+     */
+    public final List<Room.VideoCodec> getVideoCodecs() {
+        return this.videoCodecs;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -428,6 +442,7 @@ public class Room extends Resource {
                Objects.equals(type, other.type) && 
                Objects.equals(maxParticipants, other.maxParticipants) && 
                Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) && 
+               Objects.equals(videoCodecs, other.videoCodecs) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -448,6 +463,7 @@ public class Room extends Resource {
                             type,
                             maxParticipants,
                             recordParticipantsOnConnect,
+                            videoCodecs,
                             url,
                             links);
     }
@@ -469,6 +485,7 @@ public class Room extends Resource {
                           .add("type", type)
                           .add("maxParticipants", maxParticipants)
                           .add("recordParticipantsOnConnect", recordParticipantsOnConnect)
+                          .add("videoCodecs", videoCodecs)
                           .add("url", url)
                           .add("links", links)
                           .toString();

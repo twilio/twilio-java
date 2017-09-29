@@ -27,6 +27,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     private String taskQueueSid;
     private String taskQueueName;
     private String friendlyName;
+    private String taskChannel;
 
     /**
      * Construct a new WorkersStatisticsFetcher.
@@ -104,6 +105,17 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
+     * The task_channel.
+     * 
+     * @param taskChannel The task_channel
+     * @return this
+     */
+    public WorkersStatisticsFetcher setTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -170,6 +182,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
 
         if (friendlyName != null) {
             request.addQueryParam("FriendlyName", friendlyName);
+        }
+
+        if (taskChannel != null) {
+            request.addQueryParam("TaskChannel", taskChannel);
         }
     }
 }

@@ -84,37 +84,37 @@ public class WorkersStatistics extends Resource {
         }
     }
 
-    private final String accountSid;
-    private final Map<String, Object> cumulative;
     private final Map<String, Object> realtime;
+    private final Map<String, Object> cumulative;
+    private final String accountSid;
     private final String workspaceSid;
     private final URI url;
 
     @JsonCreator
-    private WorkersStatistics(@JsonProperty("account_sid")
-                              final String accountSid, 
+    private WorkersStatistics(@JsonProperty("realtime")
+                              final Map<String, Object> realtime, 
                               @JsonProperty("cumulative")
                               final Map<String, Object> cumulative, 
-                              @JsonProperty("realtime")
-                              final Map<String, Object> realtime, 
+                              @JsonProperty("account_sid")
+                              final String accountSid, 
                               @JsonProperty("workspace_sid")
                               final String workspaceSid, 
                               @JsonProperty("url")
                               final URI url) {
-        this.accountSid = accountSid;
-        this.cumulative = cumulative;
         this.realtime = realtime;
+        this.cumulative = cumulative;
+        this.accountSid = accountSid;
         this.workspaceSid = workspaceSid;
         this.url = url;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The realtime.
      * 
-     * @return The account_sid
+     * @return The realtime
      */
-    public final String getAccountSid() {
-        return this.accountSid;
+    public final Map<String, Object> getRealtime() {
+        return this.realtime;
     }
 
     /**
@@ -127,12 +127,12 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
-     * Returns The The realtime.
+     * Returns The The account_sid.
      * 
-     * @return The realtime
+     * @return The account_sid
      */
-    public final Map<String, Object> getRealtime() {
-        return this.realtime;
+    public final String getAccountSid() {
+        return this.accountSid;
     }
 
     /**
@@ -165,18 +165,18 @@ public class WorkersStatistics extends Resource {
 
         WorkersStatistics other = (WorkersStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
+        return Objects.equals(realtime, other.realtime) && 
                Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(realtime, other.realtime) && 
+               Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(workspaceSid, other.workspaceSid) && 
                Objects.equals(url, other.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid,
+        return Objects.hash(realtime,
                             cumulative,
-                            realtime,
+                            accountSid,
                             workspaceSid,
                             url);
     }
@@ -184,9 +184,9 @@ public class WorkersStatistics extends Resource {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("cumulative", cumulative)
                           .add("realtime", realtime)
+                          .add("cumulative", cumulative)
+                          .add("accountSid", accountSid)
                           .add("workspaceSid", workspaceSid)
                           .add("url", url)
                           .toString();

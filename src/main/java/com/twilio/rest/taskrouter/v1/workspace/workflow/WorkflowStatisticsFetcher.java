@@ -25,6 +25,8 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     private Integer minutes;
     private DateTime startDate;
     private DateTime endDate;
+    private String taskChannel;
+    private String splitByWaitTime;
 
     /**
      * Construct a new WorkflowStatisticsFetcher.
@@ -68,6 +70,28 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
      */
     public WorkflowStatisticsFetcher setEndDate(final DateTime endDate) {
         this.endDate = endDate;
+        return this;
+    }
+
+    /**
+     * The task_channel.
+     * 
+     * @param taskChannel The task_channel
+     * @return this
+     */
+    public WorkflowStatisticsFetcher setTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
+        return this;
+    }
+
+    /**
+     * The split_by_wait_time.
+     * 
+     * @param splitByWaitTime The split_by_wait_time
+     * @return this
+     */
+    public WorkflowStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime) {
+        this.splitByWaitTime = splitByWaitTime;
         return this;
     }
 
@@ -126,6 +150,14 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
 
         if (endDate != null) {
             request.addQueryParam("EndDate", endDate.toString());
+        }
+
+        if (taskChannel != null) {
+            request.addQueryParam("TaskChannel", taskChannel);
+        }
+
+        if (splitByWaitTime != null) {
+            request.addQueryParam("SplitByWaitTime", splitByWaitTime);
         }
     }
 }

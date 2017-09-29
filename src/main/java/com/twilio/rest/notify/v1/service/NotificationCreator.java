@@ -36,14 +36,14 @@ public class NotificationCreator extends Creator<Notification> {
     private String title;
     private String sound;
     private String action;
-    private String data;
-    private String apn;
-    private String gcm;
-    private String sms;
+    private Map<String, Object> data;
+    private Map<String, Object> apn;
+    private Map<String, Object> gcm;
+    private Map<String, Object> sms;
     private Map<String, Object> facebookMessenger;
-    private String fcm;
+    private Map<String, Object> fcm;
     private List<String> segment;
-    private String alexa;
+    private Map<String, Object> alexa;
     private List<String> toBinding;
 
     /**
@@ -127,7 +127,7 @@ public class NotificationCreator extends Creator<Notification> {
      * @param data The data
      * @return this
      */
-    public NotificationCreator setData(final String data) {
+    public NotificationCreator setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -138,7 +138,7 @@ public class NotificationCreator extends Creator<Notification> {
      * @param apn The apn
      * @return this
      */
-    public NotificationCreator setApn(final String apn) {
+    public NotificationCreator setApn(final Map<String, Object> apn) {
         this.apn = apn;
         return this;
     }
@@ -149,7 +149,7 @@ public class NotificationCreator extends Creator<Notification> {
      * @param gcm The gcm
      * @return this
      */
-    public NotificationCreator setGcm(final String gcm) {
+    public NotificationCreator setGcm(final Map<String, Object> gcm) {
         this.gcm = gcm;
         return this;
     }
@@ -160,7 +160,7 @@ public class NotificationCreator extends Creator<Notification> {
      * @param sms The sms
      * @return this
      */
-    public NotificationCreator setSms(final String sms) {
+    public NotificationCreator setSms(final Map<String, Object> sms) {
         this.sms = sms;
         return this;
     }
@@ -182,7 +182,7 @@ public class NotificationCreator extends Creator<Notification> {
      * @param fcm The fcm
      * @return this
      */
-    public NotificationCreator setFcm(final String fcm) {
+    public NotificationCreator setFcm(final Map<String, Object> fcm) {
         this.fcm = fcm;
         return this;
     }
@@ -214,7 +214,7 @@ public class NotificationCreator extends Creator<Notification> {
      * @param alexa The alexa
      * @return this
      */
-    public NotificationCreator setAlexa(final String alexa) {
+    public NotificationCreator setAlexa(final Map<String, Object> alexa) {
         this.alexa = alexa;
         return this;
     }
@@ -364,19 +364,19 @@ public class NotificationCreator extends Creator<Notification> {
         }
 
         if (data != null) {
-            request.addPostParam("Data", data);
+            request.addPostParam("Data", Converter.mapToJson(data));
         }
 
         if (apn != null) {
-            request.addPostParam("Apn", apn);
+            request.addPostParam("Apn", Converter.mapToJson(apn));
         }
 
         if (gcm != null) {
-            request.addPostParam("Gcm", gcm);
+            request.addPostParam("Gcm", Converter.mapToJson(gcm));
         }
 
         if (sms != null) {
-            request.addPostParam("Sms", sms);
+            request.addPostParam("Sms", Converter.mapToJson(sms));
         }
 
         if (facebookMessenger != null) {
@@ -384,7 +384,7 @@ public class NotificationCreator extends Creator<Notification> {
         }
 
         if (fcm != null) {
-            request.addPostParam("Fcm", fcm);
+            request.addPostParam("Fcm", Converter.mapToJson(fcm));
         }
 
         if (segment != null) {
@@ -394,7 +394,7 @@ public class NotificationCreator extends Creator<Notification> {
         }
 
         if (alexa != null) {
-            request.addPostParam("Alexa", alexa);
+            request.addPostParam("Alexa", Converter.mapToJson(alexa));
         }
 
         if (toBinding != null) {

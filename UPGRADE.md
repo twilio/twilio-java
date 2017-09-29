@@ -3,6 +3,40 @@
 _After `7.4.0` all `MINOR` and `MAJOR` version bumps will have upgrade notes 
 posted here._
 
+[2017-05-24] 7.14.x to 7.15.x
+---------------------------
+
+### CHANGED - Make `body` an optional parameter on Chat Message creation.
+
+```java
+// 7.14.x
+Message.creator("IS123", "CH123", "this is the body");
+```
+
+```java
+// 7.15.x
+MessageCreator creator = Message.creator("IS123", "CH123");
+```
+
+### CHANGED - `data`, `apn`, `gcm`, `fcm`, `sms` parameters in `Notifications` create resource are maps instead of strings.
+
+```java
+// 7.14.x
+NotificationCreator notificationCreator = Notification.creator("IS123");
+notificationCreator.setData("{\"key\": \"value\"}");
+notificationCreator.setApn("{\"key\": \"value\"}");
+```
+
+```java
+// 7.15.x
+Map<String, Object> data = new HashMap<~>();
+data.put("key", "value);
+
+NotificationCreator notificationCreator = Notification.creator("IS123");
+notificationCreator.setData(data);
+notificationCreator.setApn(data);
+```
+
 
 [2017-05-24] 7.10.x to 7.11.x
 ---------------------------

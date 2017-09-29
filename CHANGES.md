@@ -3,18 +3,16 @@ twilio-java changelog
 
 [2017-09-29] Version 7.15.0
 ----------------------------
-**Api**
-- [omit] Added hidden fields for SMS experimentation
-
 **Chat**
 - Make member accessible through identity
 - Make channel subresources accessible by channel unique name
 - Set get list 'max_page_size' parameter to 100
 - Add service instance webhook retry configuration
 - Add media message capability
+- Make `body` an optional parameter on Message creation. *(breaking change)*
 
 **Notify**
-- `data`, `apn`, `gcm`, `fcm`, `sms` parameters in `Notifications` create resource are objects instead of strings. *(breaking change)*
+- `data`, `apn`, `gcm`, `fcm`, `sms` parameters in `Notifications` create resource are maps instead of strings. *(breaking change)*
 
 **Taskrouter**
 - Add new query ability by TaskChannelSid or TaskChannelUniqueName

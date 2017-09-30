@@ -228,7 +228,7 @@
         <executions>
           <execution>
             <id>sign-artifacts</id>
-            <phase>package</phase>
+            <phase>verify</phase>
             <goals>
               <goal>sign</goal>
             </goals>

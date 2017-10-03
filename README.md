@@ -99,7 +99,7 @@ That will output XML that looks like this:
 
 # Documentation
 
-The documentation for the Twilio API can be found [here.](http://twilio.com/docs)
+The documentation for the Twilio API can be found [here.](http://twilio.com/docs/api)
 
 # Getting help
 

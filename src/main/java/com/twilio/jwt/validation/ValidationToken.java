@@ -101,6 +101,7 @@ public class ValidationToken extends Jwt {
      * @param  signedHeaders Headers to sign
      * 
      * @throws IOException when unable to generate
+     * @return The ValidationToken generated from the HttpRequest
      */
     public static ValidationToken fromHttpRequest(
         String accountSid,

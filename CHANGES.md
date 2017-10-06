@@ -4,10 +4,10 @@ twilio-java changelog
 [2017-10-06] Version 7.15.1
 ----------------------------
 **Preview**
-- Add `acc_security` (authy-phone-verification) initial api-definitions
+- Add `acc_security` (authy-phone-verification) initial api
 
 **Taskrouter**
-- [bi] Less verbose naming of cumulative and real time statistics
+- Less verbose naming of cumulative and real time statistics *(breaking change)*
 
 
 [2017-09-29] Version 7.15.0

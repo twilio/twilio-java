@@ -182,11 +182,9 @@ public class HostedNumberOrderTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.PREVIEW.toString(),
                                                       "/HostedNumbers/HostedNumberOrders");
-                        request.addPostParam("AddressSid", serialize("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-        request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+987654321")));
+                        request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+987654321")));
         request.addPostParam("IsoCountry", serialize("isoCountry"));
         request.addPostParam("SmsCapability", serialize(true));
-        request.addPostParam("Email", serialize("email"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -195,7 +193,7 @@ public class HostedNumberOrderTest {
                     }};
 
         try {
-            HostedNumberOrder.creator("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true, "email").create();
+            HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -209,6 +207,18 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.creator("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true, "email").create();
+        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true).create();
+    }
+
+    @Test
+    public void testCreateWithoutOptionalLoaFieldsResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"address_sid\": null,\"capabilities\": {\"sms\": true,\"voice\": false},\"cc_emails\": [],\"date_created\": \"2017-03-28T20:06:39Z\",\"date_updated\": \"2017-03-28T20:06:39Z\",\"email\": null,\"friendly_name\": null,\"incoming_phone_number_sid\": \"PN11111111111111111111111111111111\",\"phone_number\": \"+14153608311\",\"sid\": \"HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"signing_document_sid\": null,\"status\": \"received\",\"unique_name\": null,\"url\": \"https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"verification_attempts\": 0}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true).create();
     }
 }

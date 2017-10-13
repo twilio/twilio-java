@@ -39,6 +39,7 @@ public class MessageCreator extends Creator<Message> {
     private String providerSid;
     private Message.ContentRetention contentRetention;
     private Message.AddressRetention addressRetention;
+    private Boolean smartEncoded;
 
     /**
      * Construct a new MessageCreator.
@@ -294,6 +295,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * The smart_encoded.
+     * 
+     * @param smartEncoded The smart_encoded
+     * @return this
+     */
+    public MessageCreator setSmartEncoded(final Boolean smartEncoded) {
+        this.smartEncoded = smartEncoded;
+        return this;
+    }
+
+    /**
      * A Twilio phone number or alphanumeric sender ID enabled for the type of
      * message you wish to send..
      * 
@@ -464,6 +476,10 @@ public class MessageCreator extends Creator<Message> {
 
         if (addressRetention != null) {
             request.addPostParam("AddressRetention", addressRetention.toString());
+        }
+
+        if (smartEncoded != null) {
+            request.addPostParam("SmartEncoded", smartEncoded.toString());
         }
     }
 }

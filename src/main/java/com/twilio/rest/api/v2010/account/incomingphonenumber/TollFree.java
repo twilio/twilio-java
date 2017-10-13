@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TollFree extends Resource {
-    private static final long serialVersionUID = 113059783533989L;
+    private static final long serialVersionUID = 248867603226422L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -152,6 +152,7 @@ public class TollFree extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String friendlyName;
+    private final String identitySid;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String origin;
     private final String sid;
@@ -188,6 +189,8 @@ public class TollFree extends Resource {
                      final String dateUpdated, 
                      @JsonProperty("friendly_name")
                      final String friendlyName, 
+                     @JsonProperty("identity_sid")
+                     final String identitySid, 
                      @JsonProperty("phone_number")
                      final com.twilio.type.PhoneNumber phoneNumber, 
                      @JsonProperty("origin")
@@ -232,6 +235,7 @@ public class TollFree extends Resource {
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
+        this.identitySid = identitySid;
         this.phoneNumber = phoneNumber;
         this.origin = origin;
         this.sid = sid;
@@ -322,6 +326,15 @@ public class TollFree extends Resource {
      */
     public final String getFriendlyName() {
         return this.friendlyName;
+    }
+
+    /**
+     * Returns The The identity_sid.
+     * 
+     * @return The identity_sid
+     */
+    public final String getIdentitySid() {
+        return this.identitySid;
     }
 
     /**
@@ -506,6 +519,7 @@ public class TollFree extends Resource {
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(friendlyName, other.friendlyName) && 
+               Objects.equals(identitySid, other.identitySid) && 
                Objects.equals(phoneNumber, other.phoneNumber) && 
                Objects.equals(origin, other.origin) && 
                Objects.equals(sid, other.sid) && 
@@ -536,6 +550,7 @@ public class TollFree extends Resource {
                             dateCreated,
                             dateUpdated,
                             friendlyName,
+                            identitySid,
                             phoneNumber,
                             origin,
                             sid,
@@ -567,6 +582,7 @@ public class TollFree extends Resource {
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("friendlyName", friendlyName)
+                          .add("identitySid", identitySid)
                           .add("phoneNumber", phoneNumber)
                           .add("origin", origin)
                           .add("sid", sid)

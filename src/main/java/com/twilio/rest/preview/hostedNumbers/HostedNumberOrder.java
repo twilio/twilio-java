@@ -118,19 +118,15 @@ public class HostedNumberOrder extends Resource {
     /**
      * Create a HostedNumberOrderCreator to execute create.
      * 
-     * @param addressSid Address sid.
      * @param phoneNumber An E164 formatted phone number.
      * @param isoCountry ISO country code.
      * @param smsCapability Specify SMS capability to host.
-     * @param email Email.
      * @return HostedNumberOrderCreator capable of executing the create
      */
-    public static HostedNumberOrderCreator creator(final String addressSid, 
-                                                   final com.twilio.type.PhoneNumber phoneNumber, 
+    public static HostedNumberOrderCreator creator(final com.twilio.type.PhoneNumber phoneNumber, 
                                                    final String isoCountry, 
-                                                   final Boolean smsCapability, 
-                                                   final String email) {
-        return new HostedNumberOrderCreator(addressSid, phoneNumber, isoCountry, smsCapability, email);
+                                                   final Boolean smsCapability) {
+        return new HostedNumberOrderCreator(phoneNumber, isoCountry, smsCapability);
     }
 
     /**

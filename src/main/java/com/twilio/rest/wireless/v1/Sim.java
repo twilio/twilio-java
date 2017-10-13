@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sim extends Resource {
-    private static final long serialVersionUID = 52250415786948L;
+    private static final long serialVersionUID = 165671562845710L;
 
     public enum Status {
         NEW("new"),
@@ -160,6 +160,7 @@ public class Sim extends Resource {
     private final DateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
+    private final String ipAddress;
 
     @JsonCreator
     private Sim(@JsonProperty("sid")
@@ -205,7 +206,9 @@ public class Sim extends Resource {
                 @JsonProperty("url")
                 final URI url, 
                 @JsonProperty("links")
-                final Map<String, String> links) {
+                final Map<String, String> links, 
+                @JsonProperty("ip_address")
+                final String ipAddress) {
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.accountSid = accountSid;
@@ -228,6 +231,7 @@ public class Sim extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.links = links;
+        this.ipAddress = ipAddress;
     }
 
     /**
@@ -428,6 +432,15 @@ public class Sim extends Resource {
         return this.links;
     }
 
+    /**
+     * Returns The The ip_address.
+     * 
+     * @return The ip_address
+     */
+    public final String getIpAddress() {
+        return this.ipAddress;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -461,7 +474,8 @@ public class Sim extends Resource {
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links);
+               Objects.equals(links, other.links) && 
+               Objects.equals(ipAddress, other.ipAddress);
     }
 
     @Override
@@ -487,7 +501,8 @@ public class Sim extends Resource {
                             dateCreated,
                             dateUpdated,
                             url,
-                            links);
+                            links,
+                            ipAddress);
     }
 
     @Override
@@ -515,6 +530,7 @@ public class Sim extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
                           .add("links", links)
+                          .add("ipAddress", ipAddress)
                           .toString();
     }
 }

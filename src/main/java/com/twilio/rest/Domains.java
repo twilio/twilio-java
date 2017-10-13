@@ -18,6 +18,7 @@ public enum Domains {
     NOTIFY("notify"),
     PREVIEW("preview"),
     PRICING("pricing"),
+    PROXY("proxy"),
     TASKROUTER("taskrouter"),
     TRUNKING("trunking"),
     VIDEO("video"),

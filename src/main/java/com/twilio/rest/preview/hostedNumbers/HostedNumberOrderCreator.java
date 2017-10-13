@@ -27,11 +27,9 @@ import java.util.List;
  * access, please contact help@twilio.com.
  */
 public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
-    private final String addressSid;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String isoCountry;
     private final Boolean smsCapability;
-    private final String email;
     private String accountSid;
     private String friendlyName;
     private String uniqueName;
@@ -43,26 +41,22 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     private URI statusCallbackUrl;
     private HttpMethod statusCallbackMethod;
     private String smsApplicationSid;
+    private String addressSid;
+    private String email;
 
     /**
      * Construct a new HostedNumberOrderCreator.
      * 
-     * @param addressSid Address sid.
      * @param phoneNumber An E164 formatted phone number.
      * @param isoCountry ISO country code.
      * @param smsCapability Specify SMS capability to host.
-     * @param email Email.
      */
-    public HostedNumberOrderCreator(final String addressSid, 
-                                    final com.twilio.type.PhoneNumber phoneNumber, 
+    public HostedNumberOrderCreator(final com.twilio.type.PhoneNumber phoneNumber, 
                                     final String isoCountry, 
-                                    final Boolean smsCapability, 
-                                    final String email) {
-        this.addressSid = addressSid;
+                                    final Boolean smsCapability) {
         this.phoneNumber = phoneNumber;
         this.isoCountry = isoCountry;
         this.smsCapability = smsCapability;
-        this.email = email;
     }
 
     /**
@@ -240,6 +234,29 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
+     * Optional. A 34 character string that uniquely identifies the Address resource
+     * that represents the address of the owner of this phone number..
+     * 
+     * @param addressSid Address sid.
+     * @return this
+     */
+    public HostedNumberOrderCreator setAddressSid(final String addressSid) {
+        this.addressSid = addressSid;
+        return this;
+    }
+
+    /**
+     * Optional. Email of the owner of this phone number that is being hosted..
+     * 
+     * @param email Email.
+     * @return this
+     */
+    public HostedNumberOrderCreator setEmail(final String email) {
+        this.email = email;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -284,10 +301,6 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (addressSid != null) {
-            request.addPostParam("AddressSid", addressSid);
-        }
-
         if (phoneNumber != null) {
             request.addPostParam("PhoneNumber", phoneNumber.toString());
         }
@@ -298,10 +311,6 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
         if (smsCapability != null) {
             request.addPostParam("SmsCapability", smsCapability.toString());
-        }
-
-        if (email != null) {
-            request.addPostParam("Email", email);
         }
 
         if (accountSid != null) {
@@ -348,6 +357,14 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
         if (smsApplicationSid != null) {
             request.addPostParam("SmsApplicationSid", smsApplicationSid);
+        }
+
+        if (addressSid != null) {
+            request.addPostParam("AddressSid", addressSid);
+        }
+
+        if (email != null) {
+            request.addPostParam("Email", email);
         }
     }
 }

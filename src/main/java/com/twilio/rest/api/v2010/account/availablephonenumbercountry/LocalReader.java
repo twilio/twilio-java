@@ -39,6 +39,7 @@ public class LocalReader extends Reader<Local> {
     private String inRateCenter;
     private String inLata;
     private String inLocality;
+    private Boolean faxEnabled;
 
     /**
      * Construct a new LocalReader.
@@ -249,6 +250,17 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
+     * The fax_enabled.
+     * 
+     * @param faxEnabled The fax_enabled
+     * @return this
+     */
+    public LocalReader setFaxEnabled(final Boolean faxEnabled) {
+        this.faxEnabled = faxEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -446,6 +458,10 @@ public class LocalReader extends Reader<Local> {
 
         if (inLocality != null) {
             request.addQueryParam("InLocality", inLocality);
+        }
+
+        if (faxEnabled != null) {
+            request.addQueryParam("FaxEnabled", faxEnabled.toString());
         }
 
         if (getPageSize() != null) {

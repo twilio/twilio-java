@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Mobile extends Resource {
-    private static final long serialVersionUID = 248867603226422L;
+    private static final long serialVersionUID = 143061101403982L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -144,6 +144,7 @@ public class Mobile extends Resource {
     }
 
     private final String accountSid;
+    private final String addressSid;
     private final Mobile.AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
@@ -174,6 +175,8 @@ public class Mobile extends Resource {
     @JsonCreator
     private Mobile(@JsonProperty("account_sid")
                    final String accountSid, 
+                   @JsonProperty("address_sid")
+                   final String addressSid, 
                    @JsonProperty("address_requirements")
                    final Mobile.AddressRequirement addressRequirements, 
                    @JsonProperty("api_version")
@@ -227,6 +230,7 @@ public class Mobile extends Resource {
                    @JsonProperty("voice_url")
                    final URI voiceUrl) {
         this.accountSid = accountSid;
+        this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
         this.apiVersion = apiVersion;
         this.beta = beta;
@@ -262,6 +266,15 @@ public class Mobile extends Resource {
      */
     public final String getAccountSid() {
         return this.accountSid;
+    }
+
+    /**
+     * Returns The The address_sid.
+     * 
+     * @return The address_sid
+     */
+    public final String getAddressSid() {
+        return this.addressSid;
     }
 
     /**
@@ -511,6 +524,7 @@ public class Mobile extends Resource {
         Mobile other = (Mobile) o;
 
         return Objects.equals(accountSid, other.accountSid) && 
+               Objects.equals(addressSid, other.addressSid) && 
                Objects.equals(addressRequirements, other.addressRequirements) && 
                Objects.equals(apiVersion, other.apiVersion) && 
                Objects.equals(beta, other.beta) && 
@@ -542,6 +556,7 @@ public class Mobile extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(accountSid,
+                            addressSid,
                             addressRequirements,
                             apiVersion,
                             beta,
@@ -574,6 +589,7 @@ public class Mobile extends Resource {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
+                          .add("addressSid", addressSid)
                           .add("addressRequirements", addressRequirements)
                           .add("apiVersion", apiVersion)
                           .add("beta", beta)

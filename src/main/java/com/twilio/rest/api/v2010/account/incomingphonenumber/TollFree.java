@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TollFree extends Resource {
-    private static final long serialVersionUID = 248867603226422L;
+    private static final long serialVersionUID = 143061101403982L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -145,6 +145,7 @@ public class TollFree extends Resource {
     }
 
     private final String accountSid;
+    private final String addressSid;
     private final TollFree.AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
@@ -175,6 +176,8 @@ public class TollFree extends Resource {
     @JsonCreator
     private TollFree(@JsonProperty("account_sid")
                      final String accountSid, 
+                     @JsonProperty("address_sid")
+                     final String addressSid, 
                      @JsonProperty("address_requirements")
                      final TollFree.AddressRequirement addressRequirements, 
                      @JsonProperty("api_version")
@@ -228,6 +231,7 @@ public class TollFree extends Resource {
                      @JsonProperty("voice_url")
                      final URI voiceUrl) {
         this.accountSid = accountSid;
+        this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
         this.apiVersion = apiVersion;
         this.beta = beta;
@@ -263,6 +267,15 @@ public class TollFree extends Resource {
      */
     public final String getAccountSid() {
         return this.accountSid;
+    }
+
+    /**
+     * Returns The The address_sid.
+     * 
+     * @return The address_sid
+     */
+    public final String getAddressSid() {
+        return this.addressSid;
     }
 
     /**
@@ -512,6 +525,7 @@ public class TollFree extends Resource {
         TollFree other = (TollFree) o;
 
         return Objects.equals(accountSid, other.accountSid) && 
+               Objects.equals(addressSid, other.addressSid) && 
                Objects.equals(addressRequirements, other.addressRequirements) && 
                Objects.equals(apiVersion, other.apiVersion) && 
                Objects.equals(beta, other.beta) && 
@@ -543,6 +557,7 @@ public class TollFree extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(accountSid,
+                            addressSid,
                             addressRequirements,
                             apiVersion,
                             beta,
@@ -575,6 +590,7 @@ public class TollFree extends Resource {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
+                          .add("addressSid", addressSid)
                           .add("addressRequirements", addressRequirements)
                           .add("apiVersion", apiVersion)
                           .add("beta", beta)

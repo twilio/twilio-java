@@ -39,6 +39,7 @@ public class LocalCreator extends Creator<Local> {
     private HttpMethod voiceMethod;
     private URI voiceUrl;
     private String identitySid;
+    private String addressSid;
 
     /**
      * Construct a new LocalCreator.
@@ -288,6 +289,17 @@ public class LocalCreator extends Creator<Local> {
     }
 
     /**
+     * The address_sid.
+     * 
+     * @param addressSid The address_sid
+     * @return this
+     */
+    public LocalCreator setAddressSid(final String addressSid) {
+        this.addressSid = addressSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -399,6 +411,10 @@ public class LocalCreator extends Creator<Local> {
 
         if (identitySid != null) {
             request.addPostParam("IdentitySid", identitySid);
+        }
+
+        if (addressSid != null) {
+            request.addPostParam("AddressSid", addressSid);
         }
     }
 }

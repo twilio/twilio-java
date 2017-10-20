@@ -44,6 +44,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     private String trunkSid;
     private IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
     private String identitySid;
+    private String addressSid;
 
     /**
      * Construct a new IncomingPhoneNumberUpdater.
@@ -384,6 +385,19 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
+     * The 34 character sid of the address Twilio should use to associate with the
+     * number. Addresses are required in some regions to meet local regulations.
+     * 
+     * @param addressSid Unique string that identifies the address associated with
+     *                   number
+     * @return this
+     */
+    public IncomingPhoneNumberUpdater setAddressSid(final String addressSid) {
+        this.addressSid = addressSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -511,6 +525,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
         if (identitySid != null) {
             request.addPostParam("IdentitySid", identitySid);
+        }
+
+        if (addressSid != null) {
+            request.addPostParam("AddressSid", addressSid);
         }
     }
 }

@@ -43,6 +43,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private String emergencyAddressSid;
     private String trunkSid;
     private String identitySid;
+    private String addressSid;
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
@@ -382,6 +383,19 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
+     * The 34 character sid of the address Twilio should use to associate with the
+     * number. Addresses are required in some regions to meet local regulations.
+     * 
+     * @param addressSid Unique string that identifies the address associated with
+     *                   number
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setAddressSid(final String addressSid) {
+        this.addressSid = addressSid;
+        return this;
+    }
+
+    /**
      * The phone number to purchase. e.g., +16175551212 (E.164 format).
      * 
      * @param phoneNumber The phone number
@@ -532,6 +546,10 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
         if (identitySid != null) {
             request.addPostParam("IdentitySid", identitySid);
+        }
+
+        if (addressSid != null) {
+            request.addPostParam("AddressSid", addressSid);
         }
     }
 }

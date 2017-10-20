@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IncomingPhoneNumber extends Resource {
-    private static final long serialVersionUID = 125276820829407L;
+    private static final long serialVersionUID = 109967921858440L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -283,6 +283,7 @@ public class IncomingPhoneNumber extends Resource {
     }
 
     private final String accountSid;
+    private final String addressSid;
     private final IncomingPhoneNumber.AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
@@ -315,6 +316,8 @@ public class IncomingPhoneNumber extends Resource {
     @JsonCreator
     private IncomingPhoneNumber(@JsonProperty("account_sid")
                                 final String accountSid, 
+                                @JsonProperty("address_sid")
+                                final String addressSid, 
                                 @JsonProperty("address_requirements")
                                 final IncomingPhoneNumber.AddressRequirement addressRequirements, 
                                 @JsonProperty("api_version")
@@ -372,6 +375,7 @@ public class IncomingPhoneNumber extends Resource {
                                 @JsonProperty("emergency_address_sid")
                                 final String emergencyAddressSid) {
         this.accountSid = accountSid;
+        this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
         this.apiVersion = apiVersion;
         this.beta = beta;
@@ -409,6 +413,15 @@ public class IncomingPhoneNumber extends Resource {
      */
     public final String getAccountSid() {
         return this.accountSid;
+    }
+
+    /**
+     * Returns The Unique string that identifies the address associated with number.
+     * 
+     * @return Unique string that identifies the address associated with number
+     */
+    public final String getAddressSid() {
+        return this.addressSid;
     }
 
     /**
@@ -677,6 +690,7 @@ public class IncomingPhoneNumber extends Resource {
         IncomingPhoneNumber other = (IncomingPhoneNumber) o;
 
         return Objects.equals(accountSid, other.accountSid) && 
+               Objects.equals(addressSid, other.addressSid) && 
                Objects.equals(addressRequirements, other.addressRequirements) && 
                Objects.equals(apiVersion, other.apiVersion) && 
                Objects.equals(beta, other.beta) && 
@@ -710,6 +724,7 @@ public class IncomingPhoneNumber extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(accountSid,
+                            addressSid,
                             addressRequirements,
                             apiVersion,
                             beta,
@@ -744,6 +759,7 @@ public class IncomingPhoneNumber extends Resource {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
+                          .add("addressSid", addressSid)
                           .add("addressRequirements", addressRequirements)
                           .add("apiVersion", apiVersion)
                           .add("beta", beta)

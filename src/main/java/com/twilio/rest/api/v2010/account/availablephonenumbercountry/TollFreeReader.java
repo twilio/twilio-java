@@ -39,6 +39,7 @@ public class TollFreeReader extends Reader<TollFree> {
     private String inRateCenter;
     private String inLata;
     private String inLocality;
+    private Boolean faxEnabled;
 
     /**
      * Construct a new TollFreeReader.
@@ -249,6 +250,17 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
+     * The fax_enabled.
+     * 
+     * @param faxEnabled The fax_enabled
+     * @return this
+     */
+    public TollFreeReader setFaxEnabled(final Boolean faxEnabled) {
+        this.faxEnabled = faxEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -446,6 +458,10 @@ public class TollFreeReader extends Reader<TollFree> {
 
         if (inLocality != null) {
             request.addQueryParam("InLocality", inLocality);
+        }
+
+        if (faxEnabled != null) {
+            request.addQueryParam("FaxEnabled", faxEnabled.toString());
         }
 
         if (getPageSize() != null) {

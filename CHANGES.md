@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2017-11-03] Version 7.15.5
+----------------------------
+**Api**
+- Add programmable video keys
+
+**Video**
+- Add `Participants`
+
+
 [2017-10-27] Version 7.15.4
 ----------------------------
 **Chat**

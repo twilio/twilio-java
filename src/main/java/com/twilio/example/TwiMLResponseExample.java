@@ -1,12 +1,15 @@
 package com.twilio.example;
 
-import com.twilio.twiml.Conference;
-import com.twilio.twiml.Dial;
-import com.twilio.twiml.Gather;
-import com.twilio.twiml.Redirect;
-import com.twilio.twiml.Say;
+import com.twilio.twiml.voice.Conference;
+import com.twilio.twiml.voice.Dial;
+import com.twilio.twiml.voice.Gather;
+import com.twilio.twiml.voice.Redirect;
+import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.VoiceResponse;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * The Class TwiMLResponseExample.
@@ -20,7 +23,7 @@ public class TwiMLResponseExample {
      * @param args command line args
      * @throws TwiMLException if cannot generate TwiML
      */
-    public static void main(final String[] args) throws TwiMLException {
+    public static void main(final String[] args) throws TwiMLException, URISyntaxException {
         // Say
         Say say = new Say.Builder("Hello World!")
             .voice(Say.Voice.MAN)
@@ -39,7 +42,7 @@ public class TwiMLResponseExample {
             .say(new Say.Builder("Press 1").build())
             .build();
 
-        Redirect redirect = new Redirect.Builder().build();
+        Redirect redirect = new Redirect.Builder(new URI("https://example.com")).build();
 
         response = new VoiceResponse.Builder()
             .gather(gather)
@@ -55,7 +58,7 @@ public class TwiMLResponseExample {
 
         Dial dial = new Dial.Builder()
             .callerId("+1 (555) 555-5555")
-            .action("foo")
+            .action(new URI("https:///example.com"))
             .hangupOnStar(true)
             .conference(conference)
             .build();

@@ -1,6 +1,7 @@
 package com.twilio.converter;
 
 import com.google.common.collect.Lists;
+import com.twilio.type.PhoneNumber;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,6 +19,12 @@ public class PromoterTest {
             "https://trunking.twilio.com/v1/Trunks/TK123/OriginationUrls",
             uri.toString()
         );
+    }
+
+    @Test
+    public void testPhoneNumberFromString() {
+        PhoneNumber pn = Promoter.phoneNumberFromString("+12345678910");
+        Assert.assertEquals(new PhoneNumber("+12345678910"), pn);
     }
 
     @Test

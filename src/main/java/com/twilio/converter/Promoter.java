@@ -1,5 +1,7 @@
 package com.twilio.converter;
 
+import com.twilio.type.PhoneNumber;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -19,6 +21,16 @@ public class Promoter {
         } catch (URISyntaxException e) {
             return null;
         }
+    }
+
+    /**
+     * Create a @see com.twilio.types.PhoneNumber from a string
+     *
+     * @param pn PhoneNumber to convert
+     * @return built @see com.twilio.types.PhoneNumber
+     */
+    public static PhoneNumber phoneNumberFromString(final String pn) {
+        return new PhoneNumber(pn);
     }
 
     /**

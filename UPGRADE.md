@@ -3,6 +3,26 @@
 _After `7.4.0` all `MINOR` and `MAJOR` version bumps will have upgrade notes 
 posted here._
 
+[2017-11-XX] 7.15.x to 7.16.x
+---------------------------
+
+### CHANGED - Make `data` an optional parameter on Sync Document/List Item/Map Item update.
+
+```java
+// 7.15.x
+Document.updater("IS123", "ET123", data).update();
+SyncListItem.updater("IS123", "ES123", 1, data).update();
+SyncMapItem.updater("IS123", "MP123", "myKey", data).update();
+```
+
+```java
+// 7.16.x
+Document.updater("IS123", "ET123").setData(data).update();
+SyncListItem.updater("IS123", "ES123", 1).setData(data).update();
+SyncMapItem.updater("IS123", "MP123", "myKey").setData(data).update();
+```
+
+
 [2017-05-24] 7.14.x to 7.15.x
 ---------------------------
 

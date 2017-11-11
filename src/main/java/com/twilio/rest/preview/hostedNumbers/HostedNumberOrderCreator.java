@@ -28,7 +28,6 @@ import java.util.List;
  */
 public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     private final com.twilio.type.PhoneNumber phoneNumber;
-    private final String isoCountry;
     private final Boolean smsCapability;
     private String accountSid;
     private String friendlyName;
@@ -48,14 +47,11 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
      * Construct a new HostedNumberOrderCreator.
      * 
      * @param phoneNumber An E164 formatted phone number.
-     * @param isoCountry ISO country code.
      * @param smsCapability Specify SMS capability to host.
      */
     public HostedNumberOrderCreator(final com.twilio.type.PhoneNumber phoneNumber, 
-                                    final String isoCountry, 
                                     final Boolean smsCapability) {
         this.phoneNumber = phoneNumber;
-        this.isoCountry = isoCountry;
         this.smsCapability = smsCapability;
     }
 
@@ -303,10 +299,6 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
             request.addPostParam("PhoneNumber", phoneNumber.toString());
-        }
-
-        if (isoCountry != null) {
-            request.addPostParam("IsoCountry", isoCountry);
         }
 
         if (smsCapability != null) {

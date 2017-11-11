@@ -8,6 +8,7 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -21,6 +22,7 @@ import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -32,8 +34,9 @@ public class SessionUpdater extends Updater<Session> {
     private String uniqueName;
     private DateTime dateExpiry;
     private Integer ttl;
+    private Session.Mode mode;
     private Session.Status status;
-    private List<String> participants;
+    private List<Map<String, Object>> participants;
 
     /**
      * Construct a new SessionUpdater.
@@ -82,6 +85,18 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
+     * The Mode of this Session. One of `message-only`, `voice-only` or
+     * `voice-and-message`..
+     * 
+     * @param mode The Mode of this Session
+     * @return this
+     */
+    public SessionUpdater setMode(final Session.Mode mode) {
+        this.mode = mode;
+        return this;
+    }
+
+    /**
      * The Status of this Session. One of `in-progess`, `closed`, `failed`,
      * `unknown` or `completed`..
      * 
@@ -99,7 +114,7 @@ public class SessionUpdater extends Updater<Session> {
      * @param participants A list of phone numbers to add to this Session.
      * @return this
      */
-    public SessionUpdater setParticipants(final List<String> participants) {
+    public SessionUpdater setParticipants(final List<Map<String, Object>> participants) {
         this.participants = participants;
         return this;
     }
@@ -110,7 +125,7 @@ public class SessionUpdater extends Updater<Session> {
      * @param participants A list of phone numbers to add to this Session.
      * @return this
      */
-    public SessionUpdater setParticipants(final String participants) {
+    public SessionUpdater setParticipants(final Map<String, Object> participants) {
         return setParticipants(Promoter.listOfOne(participants));
     }
 
@@ -171,13 +186,17 @@ public class SessionUpdater extends Updater<Session> {
             request.addPostParam("Ttl", ttl.toString());
         }
 
+        if (mode != null) {
+            request.addPostParam("Mode", mode.toString());
+        }
+
         if (status != null) {
             request.addPostParam("Status", status.toString());
         }
 
         if (participants != null) {
-            for (String prop : participants) {
-                request.addPostParam("Participants", prop);
+            for (Map<String, Object> prop : participants) {
+                request.addPostParam("Participants", Converter.mapToJson(prop));
             }
         }
     }

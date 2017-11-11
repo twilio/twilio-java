@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.proxy.v1.service;
+package com.twilio.rest.preview.studio.flow;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -18,42 +18,39 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
-public class PhoneNumberCreator extends Creator<PhoneNumber> {
-    private final String pathServiceSid;
-    private String sid;
-    private com.twilio.type.PhoneNumber phoneNumber;
+public class EngagementCreator extends Creator<Engagement> {
+    private final String pathFlowSid;
+    private final com.twilio.type.PhoneNumber to;
+    private final com.twilio.type.PhoneNumber from;
+    private String parameters;
 
     /**
-     * Construct a new PhoneNumberCreator.
+     * Construct a new EngagementCreator.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param pathFlowSid Flow Sid.
+     * @param to The to
+     * @param from The from
      */
-    public PhoneNumberCreator(final String pathServiceSid) {
-        this.pathServiceSid = pathServiceSid;
+    public EngagementCreator(final String pathFlowSid, 
+                             final com.twilio.type.PhoneNumber to, 
+                             final com.twilio.type.PhoneNumber from) {
+        this.pathFlowSid = pathFlowSid;
+        this.to = to;
+        this.from = from;
     }
 
     /**
-     * A 34 character string that uniquely identifies this Phone Number..
+     * The parameters.
      * 
-     * @param sid A string that uniquely identifies this Phone Number.
+     * @param parameters The parameters
      * @return this
      */
-    public PhoneNumberCreator setSid(final String sid) {
-        this.sid = sid;
-        return this;
-    }
-
-    /**
-     * The phone_number.
-     * 
-     * @param phoneNumber The phone_number
-     * @return this
-     */
-    public PhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public EngagementCreator setParameters(final String parameters) {
+        this.parameters = parameters;
         return this;
     }
 
@@ -61,15 +58,15 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created PhoneNumber
+     * @return Created Engagement
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public PhoneNumber create(final TwilioRestClient client) {
+    public Engagement create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers",
+            Domains.PREVIEW.toString(),
+            "/Studio/Flows/" + this.pathFlowSid + "/Engagements",
             client.getRegion()
         );
 
@@ -77,7 +74,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PhoneNumber creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Engagement creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -93,7 +90,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
             );
         }
 
-        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+        return Engagement.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -102,12 +99,16 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (sid != null) {
-            request.addPostParam("Sid", sid);
+        if (to != null) {
+            request.addPostParam("To", to.toString());
         }
 
-        if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+        if (from != null) {
+            request.addPostParam("From", from.toString());
+        }
+
+        if (parameters != null) {
+            request.addPostParam("Parameters", parameters);
         }
     }
 }

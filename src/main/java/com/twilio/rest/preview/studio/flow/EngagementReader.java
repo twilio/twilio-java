@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.proxy.v1.service.session;
+package com.twilio.rest.preview.studio.flow;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -20,45 +20,30 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
-public class ParticipantReader extends Reader<Participant> {
-    private final String pathServiceSid;
-    private final String pathSessionSid;
-    private String identifier;
+public class EngagementReader extends Reader<Engagement> {
+    private final String pathFlowSid;
 
     /**
-     * Construct a new ParticipantReader.
+     * Construct a new EngagementReader.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
+     * @param pathFlowSid Flow Sid.
      */
-    public ParticipantReader(final String pathServiceSid, 
-                             final String pathSessionSid) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSessionSid = pathSessionSid;
-    }
-
-    /**
-     * The identifier.
-     * 
-     * @param identifier The identifier
-     * @return this
-     */
-    public ParticipantReader setIdentifier(final String identifier) {
-        this.identifier = identifier;
-        return this;
+    public EngagementReader(final String pathFlowSid) {
+        this.pathFlowSid = pathFlowSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Participant ResourceSet
+     * @return Engagement ResourceSet
      */
     @Override
-    public ResourceSet<Participant> read(final TwilioRestClient client) {
+    public ResourceSet<Engagement> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -66,15 +51,15 @@ public class ParticipantReader extends Reader<Participant> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Participant ResourceSet
+     * @return Engagement ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Participant> firstPage(final TwilioRestClient client) {
+    public Page<Engagement> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants",
+            Domains.PREVIEW.toString(),
+            "/Studio/Flows/" + this.pathFlowSid + "/Engagements",
             client.getRegion()
         );
 
@@ -87,11 +72,11 @@ public class ParticipantReader extends Reader<Participant> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Participant ResourceSet
+     * @return Engagement ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Participant> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Engagement> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -108,12 +93,12 @@ public class ParticipantReader extends Reader<Participant> {
      * @return Next Page
      */
     @Override
-    public Page<Participant> nextPage(final Page<Participant> page, 
-                                      final TwilioRestClient client) {
+    public Page<Engagement> nextPage(final Page<Engagement> page, 
+                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PROXY.toString(),
+                Domains.PREVIEW.toString(),
                 client.getRegion()
             )
         );
@@ -128,12 +113,12 @@ public class ParticipantReader extends Reader<Participant> {
      * @return Previous Page
      */
     @Override
-    public Page<Participant> previousPage(final Page<Participant> page, 
-                                          final TwilioRestClient client) {
+    public Page<Engagement> previousPage(final Page<Engagement> page, 
+                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PROXY.toString(),
+                Domains.PREVIEW.toString(),
                 client.getRegion()
             )
         );
@@ -141,17 +126,17 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Generate a Page of Participant Resources for a given request.
+     * Generate a Page of Engagement Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Participant> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Engagement> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Participant read failed: Unable to connect to server");
+            throw new ApiConnectionException("Engagement read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -168,9 +153,9 @@ public class ParticipantReader extends Reader<Participant> {
         }
 
         return Page.fromJson(
-            "participants",
+            "engagements",
             response.getContent(),
-            Participant.class,
+            Engagement.class,
             client.getObjectMapper()
         );
     }
@@ -181,10 +166,6 @@ public class ParticipantReader extends Reader<Participant> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (identifier != null) {
-            request.addQueryParam("Identifier", identifier);
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

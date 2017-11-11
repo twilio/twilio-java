@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,33 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 212532143969403L;
-
-    public enum ParticipantType {
-        MESSAGE_ONLY("message-only"),
-        VOICE_ONLY("voice-only"),
-        VOICE_AND_MESSAGE("voice-and-message");
-
-        private final String value;
-
-        private ParticipantType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a ParticipantType from a string.
-         * @param value string value
-         * @return generated ParticipantType
-         */
-        @JsonCreator
-        public static ParticipantType forValue(final String value) {
-            return Promoter.enumFromString(value, ParticipantType.values());
-        }
-    }
+    private static final long serialVersionUID = 233073623535354L;
 
     /**
      * Create a ParticipantFetcher to execute fetch.
@@ -178,7 +151,6 @@ public class Participant extends Resource {
     private final String serviceSid;
     private final String accountSid;
     private final String friendlyName;
-    private final Participant.ParticipantType participantType;
     private final String identifier;
     private final String proxyIdentifier;
     private final String proxyIdentifierSid;
@@ -199,8 +171,6 @@ public class Participant extends Resource {
                         final String accountSid, 
                         @JsonProperty("friendly_name")
                         final String friendlyName, 
-                        @JsonProperty("participant_type")
-                        final Participant.ParticipantType participantType, 
                         @JsonProperty("identifier")
                         final String identifier, 
                         @JsonProperty("proxy_identifier")
@@ -222,7 +192,6 @@ public class Participant extends Resource {
         this.serviceSid = serviceSid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
-        this.participantType = participantType;
         this.identifier = identifier;
         this.proxyIdentifier = proxyIdentifier;
         this.proxyIdentifierSid = proxyIdentifierSid;
@@ -279,15 +248,6 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The Participant Type of this Participant.
-     * 
-     * @return The Participant Type of this Participant
-     */
-    public final Participant.ParticipantType getParticipantType() {
-        return this.participantType;
-    }
-
-    /**
      * Returns The The phone number of this Participant..
      * 
      * @return The phone number of this Participant.
@@ -297,9 +257,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The proxy phone number for this Participant..
+     * Returns The The proxy_identifier.
      * 
-     * @return The proxy phone number for this Participant.
+     * @return The proxy_identifier
      */
     public final String getProxyIdentifier() {
         return this.proxyIdentifier;
@@ -376,7 +336,6 @@ public class Participant extends Resource {
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(participantType, other.participantType) && 
                Objects.equals(identifier, other.identifier) && 
                Objects.equals(proxyIdentifier, other.proxyIdentifier) && 
                Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) && 
@@ -394,7 +353,6 @@ public class Participant extends Resource {
                             serviceSid,
                             accountSid,
                             friendlyName,
-                            participantType,
                             identifier,
                             proxyIdentifier,
                             proxyIdentifierSid,
@@ -413,7 +371,6 @@ public class Participant extends Resource {
                           .add("serviceSid", serviceSid)
                           .add("accountSid", accountSid)
                           .add("friendlyName", friendlyName)
-                          .add("participantType", participantType)
                           .add("identifier", identifier)
                           .add("proxyIdentifier", proxyIdentifier)
                           .add("proxyIdentifierSid", proxyIdentifierSid)

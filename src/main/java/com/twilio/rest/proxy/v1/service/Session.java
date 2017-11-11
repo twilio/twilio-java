@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Session extends Resource {
-    private static final long serialVersionUID = 113836279925164L;
+    private static final long serialVersionUID = 77727837293795L;
 
     public enum Status {
         IN_PROGESS("in-progess"),
@@ -66,6 +66,32 @@ public class Session extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Mode {
+        MESSAGE_ONLY("message-only"),
+        VOICE_ONLY("voice-only"),
+        VOICE_AND_MESSAGE("voice-and-message");
+
+        private final String value;
+
+        private Mode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Mode from a string.
+         * @param value string value
+         * @return generated Mode
+         */
+        @JsonCreator
+        public static Mode forValue(final String value) {
+            return Promoter.enumFromString(value, Mode.values());
         }
     }
 
@@ -173,6 +199,7 @@ public class Session extends Resource {
     private final Session.Status status;
     private final String closedReason;
     private final Integer ttl;
+    private final Session.Mode mode;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -201,6 +228,8 @@ public class Session extends Resource {
                     final String closedReason, 
                     @JsonProperty("ttl")
                     final Integer ttl, 
+                    @JsonProperty("mode")
+                    final Session.Mode mode, 
                     @JsonProperty("date_created")
                     final String dateCreated, 
                     @JsonProperty("date_updated")
@@ -220,6 +249,7 @@ public class Session extends Resource {
         this.status = status;
         this.closedReason = closedReason;
         this.ttl = ttl;
+        this.mode = mode;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -326,6 +356,15 @@ public class Session extends Resource {
     }
 
     /**
+     * Returns The The Mode of this Session.
+     * 
+     * @return The Mode of this Session
+     */
+    public final Session.Mode getMode() {
+        return this.mode;
+    }
+
+    /**
      * Returns The The date this Session was created.
      * 
      * @return The date this Session was created
@@ -384,6 +423,7 @@ public class Session extends Resource {
                Objects.equals(status, other.status) && 
                Objects.equals(closedReason, other.closedReason) && 
                Objects.equals(ttl, other.ttl) && 
+               Objects.equals(mode, other.mode) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url) && 
@@ -403,6 +443,7 @@ public class Session extends Resource {
                             status,
                             closedReason,
                             ttl,
+                            mode,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -423,6 +464,7 @@ public class Session extends Resource {
                           .add("status", status)
                           .add("closedReason", closedReason)
                           .add("ttl", ttl)
+                          .add("mode", mode)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

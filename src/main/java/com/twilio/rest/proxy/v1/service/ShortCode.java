@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,12 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.PhoneNumberCapabilities;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShortCode extends Resource {
-    private static final long serialVersionUID = 151706562619006L;
+    private static final long serialVersionUID = 205194223187327L;
 
     /**
      * Create a ShortCodeCreator to execute create.
@@ -133,7 +132,7 @@ public class ShortCode extends Resource {
     private final DateTime dateUpdated;
     private final String shortCode;
     private final String isoCountry;
-    private final List<Map<String, Object>> capabilities;
+    private final PhoneNumberCapabilities capabilities;
     private final URI url;
 
     @JsonCreator
@@ -152,7 +151,7 @@ public class ShortCode extends Resource {
                       @JsonProperty("iso_country")
                       final String isoCountry, 
                       @JsonProperty("capabilities")
-                      final List<Map<String, Object>> capabilities, 
+                      final PhoneNumberCapabilities capabilities, 
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -234,7 +233,7 @@ public class ShortCode extends Resource {
      * 
      * @return Nested resource URLs.
      */
-    public final List<Map<String, Object>> getCapabilities() {
+    public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 

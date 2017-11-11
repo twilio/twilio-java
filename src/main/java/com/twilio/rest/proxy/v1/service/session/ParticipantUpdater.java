@@ -25,7 +25,6 @@ public class ParticipantUpdater extends Updater<Participant> {
     private final String pathServiceSid;
     private final String pathSessionSid;
     private final String pathSid;
-    private Participant.ParticipantType participantType;
     private String identifier;
     private String friendlyName;
     private String proxyIdentifier;
@@ -44,18 +43,6 @@ public class ParticipantUpdater extends Updater<Participant> {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
         this.pathSid = pathSid;
-    }
-
-    /**
-     * The Participant Type of this Participant. One of `message-only`, `voice-only`
-     * or `voice-and-message`..
-     * 
-     * @param participantType The Participant Type of this Participant
-     * @return this
-     */
-    public ParticipantUpdater setParticipantType(final Participant.ParticipantType participantType) {
-        this.participantType = participantType;
-        return this;
     }
 
     /**
@@ -147,10 +134,6 @@ public class ParticipantUpdater extends Updater<Participant> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (participantType != null) {
-            request.addPostParam("ParticipantType", participantType.toString());
-        }
-
         if (identifier != null) {
             request.addPostParam("Identifier", identifier);
         }

@@ -183,7 +183,6 @@ public class HostedNumberOrderTest {
                                                       Domains.PREVIEW.toString(),
                                                       "/HostedNumbers/HostedNumberOrders");
                         request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+987654321")));
-        request.addPostParam("IsoCountry", serialize("isoCountry"));
         request.addPostParam("SmsCapability", serialize(true));
                         twilioRestClient.request(request);
                         times = 1;
@@ -193,7 +192,7 @@ public class HostedNumberOrderTest {
                     }};
 
         try {
-            HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true).create();
+            HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), true).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -207,7 +206,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true).create();
+        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), true).create();
     }
 
     @Test
@@ -219,6 +218,6 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), "isoCountry", true).create();
+        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+987654321"), true).create();
     }
 }

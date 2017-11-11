@@ -26,7 +26,6 @@ public class ParticipantCreator extends Creator<Participant> {
     private final String pathSessionSid;
     private final String identifier;
     private String friendlyName;
-    private Participant.ParticipantType participantType;
     private String proxyIdentifier;
     private String proxyIdentifierSid;
 
@@ -53,18 +52,6 @@ public class ParticipantCreator extends Creator<Participant> {
      */
     public ParticipantCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
-        return this;
-    }
-
-    /**
-     * The Participant Type of this Participant. One of `message-only`, `voice-only`
-     * or `voice-and-message`..
-     * 
-     * @param participantType The Participant Type of this Participant
-     * @return this
-     */
-    public ParticipantCreator setParticipantType(final Participant.ParticipantType participantType) {
-        this.participantType = participantType;
         return this;
     }
 
@@ -141,10 +128,6 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-        }
-
-        if (participantType != null) {
-            request.addPostParam("ParticipantType", participantType.toString());
         }
 
         if (proxyIdentifier != null) {

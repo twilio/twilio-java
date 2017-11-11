@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.proxy.v1.service;
+package com.twilio.rest.accounts.v1.credential;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -17,43 +17,39 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class PhoneNumberCreator extends Creator<PhoneNumber> {
-    private final String pathServiceSid;
-    private String sid;
-    private com.twilio.type.PhoneNumber phoneNumber;
+public class AwsCreator extends Creator<Aws> {
+    private final String credentials;
+    private String friendlyName;
+    private String accountSid;
 
     /**
-     * Construct a new PhoneNumberCreator.
+     * Construct a new AwsCreator.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param credentials The credentials
      */
-    public PhoneNumberCreator(final String pathServiceSid) {
-        this.pathServiceSid = pathServiceSid;
+    public AwsCreator(final String credentials) {
+        this.credentials = credentials;
     }
 
     /**
-     * A 34 character string that uniquely identifies this Phone Number..
+     * The friendly_name.
      * 
-     * @param sid A string that uniquely identifies this Phone Number.
+     * @param friendlyName The friendly_name
      * @return this
      */
-    public PhoneNumberCreator setSid(final String sid) {
-        this.sid = sid;
+    public AwsCreator setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
         return this;
     }
 
     /**
-     * The phone_number.
+     * The account_sid.
      * 
-     * @param phoneNumber The phone_number
+     * @param accountSid The account_sid
      * @return this
      */
-    public PhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public AwsCreator setAccountSid(final String accountSid) {
+        this.accountSid = accountSid;
         return this;
     }
 
@@ -61,15 +57,15 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created PhoneNumber
+     * @return Created Aws
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public PhoneNumber create(final TwilioRestClient client) {
+    public Aws create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers",
+            Domains.ACCOUNTS.toString(),
+            "/v1/Credentials/AWS",
             client.getRegion()
         );
 
@@ -77,7 +73,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PhoneNumber creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Aws creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -93,7 +89,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
             );
         }
 
-        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+        return Aws.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -102,12 +98,16 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (sid != null) {
-            request.addPostParam("Sid", sid);
+        if (credentials != null) {
+            request.addPostParam("Credentials", credentials.toString());
         }
 
-        if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (accountSid != null) {
+            request.addPostParam("AccountSid", accountSid);
         }
     }
 }

@@ -29,6 +29,10 @@ public class ServiceUpdater extends Updater<Service> {
     private String friendlyName;
     private Integer defaultTtl;
     private URI callbackUrl;
+    private Service.GeoMatchLevel geoMatchLevel;
+    private Service.NumberSelectionBehavior numberSelectionBehavior;
+    private URI interceptCallbackUrl;
+    private URI outOfSessionCallbackUrl;
 
     /**
      * Construct a new ServiceUpdater.
@@ -80,6 +84,75 @@ public class ServiceUpdater extends Updater<Service> {
      */
     public ServiceUpdater setCallbackUrl(final String callbackUrl) {
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
+
+    /**
+     * Whether to find proxy numbers in the same areacode..
+     * 
+     * @param geoMatchLevel Whether to find proxy numbers in the same areacode.
+     * @return this
+     */
+    public ServiceUpdater setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel) {
+        this.geoMatchLevel = geoMatchLevel;
+        return this;
+    }
+
+    /**
+     * What behavior to use when choosing a proxy number..
+     * 
+     * @param numberSelectionBehavior What behavior to use when choosing a proxy
+     *                                number.
+     * @return this
+     */
+    public ServiceUpdater setNumberSelectionBehavior(final Service.NumberSelectionBehavior numberSelectionBehavior) {
+        this.numberSelectionBehavior = numberSelectionBehavior;
+        return this;
+    }
+
+    /**
+     * A URL for Twilio call before each Interaction. An error status code will
+     * prevent the interaction from continuing..
+     * 
+     * @param interceptCallbackUrl A URL for Twilio call before each Interaction.
+     * @return this
+     */
+    public ServiceUpdater setInterceptCallbackUrl(final URI interceptCallbackUrl) {
+        this.interceptCallbackUrl = interceptCallbackUrl;
+        return this;
+    }
+
+    /**
+     * A URL for Twilio call before each Interaction. An error status code will
+     * prevent the interaction from continuing..
+     * 
+     * @param interceptCallbackUrl A URL for Twilio call before each Interaction.
+     * @return this
+     */
+    public ServiceUpdater setInterceptCallbackUrl(final String interceptCallbackUrl) {
+        return setInterceptCallbackUrl(Promoter.uriFromString(interceptCallbackUrl));
+    }
+
+    /**
+     * A URL for Twilio call when a new Interaction has no Session..
+     * 
+     * @param outOfSessionCallbackUrl A URL for Twilio call when a new Interaction
+     *                                has no Session.
+     * @return this
+     */
+    public ServiceUpdater setOutOfSessionCallbackUrl(final URI outOfSessionCallbackUrl) {
+        this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
+        return this;
+    }
+
+    /**
+     * A URL for Twilio call when a new Interaction has no Session..
+     * 
+     * @param outOfSessionCallbackUrl A URL for Twilio call when a new Interaction
+     *                                has no Session.
+     * @return this
+     */
+    public ServiceUpdater setOutOfSessionCallbackUrl(final String outOfSessionCallbackUrl) {
+        return setOutOfSessionCallbackUrl(Promoter.uriFromString(outOfSessionCallbackUrl));
     }
 
     /**
@@ -137,6 +210,22 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+        }
+
+        if (geoMatchLevel != null) {
+            request.addPostParam("GeoMatchLevel", geoMatchLevel.toString());
+        }
+
+        if (numberSelectionBehavior != null) {
+            request.addPostParam("NumberSelectionBehavior", numberSelectionBehavior.toString());
+        }
+
+        if (interceptCallbackUrl != null) {
+            request.addPostParam("InterceptCallbackUrl", interceptCallbackUrl.toString());
+        }
+
+        if (outOfSessionCallbackUrl != null) {
+            request.addPostParam("OutOfSessionCallbackUrl", outOfSessionCallbackUrl.toString());
         }
     }
 }

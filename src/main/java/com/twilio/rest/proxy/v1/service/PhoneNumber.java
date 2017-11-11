@@ -30,7 +30,6 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -46,12 +45,10 @@ public class PhoneNumber extends Resource {
      * Create a PhoneNumberCreator to execute create.
      * 
      * @param pathServiceSid Service Sid.
-     * @param sid A string that uniquely identifies this Phone Number.
      * @return PhoneNumberCreator capable of executing the create
      */
-    public static PhoneNumberCreator creator(final String pathServiceSid, 
-                                             final String sid) {
-        return new PhoneNumberCreator(pathServiceSid, sid);
+    public static PhoneNumberCreator creator(final String pathServiceSid) {
+        return new PhoneNumberCreator(pathServiceSid);
     }
 
     /**
@@ -134,7 +131,7 @@ public class PhoneNumber extends Resource {
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String friendlyName;
     private final String isoCountry;
-    private final List<PhoneNumberCapabilities> capabilities;
+    private final PhoneNumberCapabilities capabilities;
     private final URI url;
 
     @JsonCreator
@@ -155,7 +152,7 @@ public class PhoneNumber extends Resource {
                         @JsonProperty("iso_country")
                         final String isoCountry, 
                         @JsonProperty("capabilities")
-                        final List<PhoneNumberCapabilities> capabilities, 
+                        final PhoneNumberCapabilities capabilities, 
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -247,7 +244,7 @@ public class PhoneNumber extends Resource {
      * 
      * @return A list of capabilities.
      */
-    public final List<PhoneNumberCapabilities> getCapabilities() {
+    public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,7 +39,59 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 40707227994798L;
+    private static final long serialVersionUID = 265915420451422L;
+
+    public enum GeoMatchLevel {
+        AREA_CODE("area_code"),
+        OVERLAY("overlay"),
+        RADIUS("radius"),
+        COUNTRY("country");
+
+        private final String value;
+
+        private GeoMatchLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a GeoMatchLevel from a string.
+         * @param value string value
+         * @return generated GeoMatchLevel
+         */
+        @JsonCreator
+        public static GeoMatchLevel forValue(final String value) {
+            return Promoter.enumFromString(value, GeoMatchLevel.values());
+        }
+    }
+
+    public enum NumberSelectionBehavior {
+        AVOID_STICKY("avoid_sticky"),
+        PREFER_STICKY("prefer_sticky");
+
+        private final String value;
+
+        private NumberSelectionBehavior(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a NumberSelectionBehavior from a string.
+         * @param value string value
+         * @return generated NumberSelectionBehavior
+         */
+        @JsonCreator
+        public static NumberSelectionBehavior forValue(final String value) {
+            return Promoter.enumFromString(value, NumberSelectionBehavior.values());
+        }
+    }
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -130,6 +183,10 @@ public class Service extends Resource {
     private final String accountSid;
     private final URI callbackUrl;
     private final Integer defaultTtl;
+    private final Service.NumberSelectionBehavior numberSelectionBehavior;
+    private final Service.GeoMatchLevel geoMatchLevel;
+    private final URI interceptCallbackUrl;
+    private final URI outOfSessionCallbackUrl;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -146,6 +203,14 @@ public class Service extends Resource {
                     final URI callbackUrl, 
                     @JsonProperty("default_ttl")
                     final Integer defaultTtl, 
+                    @JsonProperty("number_selection_behavior")
+                    final Service.NumberSelectionBehavior numberSelectionBehavior, 
+                    @JsonProperty("geo_match_level")
+                    final Service.GeoMatchLevel geoMatchLevel, 
+                    @JsonProperty("intercept_callback_url")
+                    final URI interceptCallbackUrl, 
+                    @JsonProperty("out_of_session_callback_url")
+                    final URI outOfSessionCallbackUrl, 
                     @JsonProperty("date_created")
                     final String dateCreated, 
                     @JsonProperty("date_updated")
@@ -159,6 +224,10 @@ public class Service extends Resource {
         this.accountSid = accountSid;
         this.callbackUrl = callbackUrl;
         this.defaultTtl = defaultTtl;
+        this.numberSelectionBehavior = numberSelectionBehavior;
+        this.geoMatchLevel = geoMatchLevel;
+        this.interceptCallbackUrl = interceptCallbackUrl;
+        this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -208,6 +277,42 @@ public class Service extends Resource {
      */
     public final Integer getDefaultTtl() {
         return this.defaultTtl;
+    }
+
+    /**
+     * Returns The What behavior to use when choosing a proxy number..
+     * 
+     * @return What behavior to use when choosing a proxy number.
+     */
+    public final Service.NumberSelectionBehavior getNumberSelectionBehavior() {
+        return this.numberSelectionBehavior;
+    }
+
+    /**
+     * Returns The Whether to find proxy numbers in the same areacode..
+     * 
+     * @return Whether to find proxy numbers in the same areacode.
+     */
+    public final Service.GeoMatchLevel getGeoMatchLevel() {
+        return this.geoMatchLevel;
+    }
+
+    /**
+     * Returns The A URL for Twilio call before each Interaction..
+     * 
+     * @return A URL for Twilio call before each Interaction.
+     */
+    public final URI getInterceptCallbackUrl() {
+        return this.interceptCallbackUrl;
+    }
+
+    /**
+     * Returns The A URL for Twilio call when a new Interaction has no Session..
+     * 
+     * @return A URL for Twilio call when a new Interaction has no Session.
+     */
+    public final URI getOutOfSessionCallbackUrl() {
+        return this.outOfSessionCallbackUrl;
     }
 
     /**
@@ -263,6 +368,10 @@ public class Service extends Resource {
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(callbackUrl, other.callbackUrl) && 
                Objects.equals(defaultTtl, other.defaultTtl) && 
+               Objects.equals(numberSelectionBehavior, other.numberSelectionBehavior) && 
+               Objects.equals(geoMatchLevel, other.geoMatchLevel) && 
+               Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) && 
+               Objects.equals(outOfSessionCallbackUrl, other.outOfSessionCallbackUrl) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url) && 
@@ -276,6 +385,10 @@ public class Service extends Resource {
                             accountSid,
                             callbackUrl,
                             defaultTtl,
+                            numberSelectionBehavior,
+                            geoMatchLevel,
+                            interceptCallbackUrl,
+                            outOfSessionCallbackUrl,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -290,6 +403,10 @@ public class Service extends Resource {
                           .add("accountSid", accountSid)
                           .add("callbackUrl", callbackUrl)
                           .add("defaultTtl", defaultTtl)
+                          .add("numberSelectionBehavior", numberSelectionBehavior)
+                          .add("geoMatchLevel", geoMatchLevel)
+                          .add("interceptCallbackUrl", interceptCallbackUrl)
+                          .add("outOfSessionCallbackUrl", outOfSessionCallbackUrl)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

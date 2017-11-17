@@ -5,11 +5,12 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1.room.roomparticipant;
+package com.twilio.rest.video.v1.room;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,31 +19,76 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
-public class PublishedTrackReader extends Reader<PublishedTrack> {
+public class ParticipantReader extends Reader<Participant> {
     private final String pathRoomSid;
-    private final String pathParticipantSid;
+    private Participant.Status status;
+    private String identity;
+    private DateTime dateCreatedAfter;
+    private DateTime dateCreatedBefore;
 
     /**
-     * Construct a new PublishedTrackReader.
+     * Construct a new ParticipantReader.
      * 
      * @param pathRoomSid The room_sid
-     * @param pathParticipantSid The participant_sid
      */
-    public PublishedTrackReader(final String pathRoomSid, 
-                                final String pathParticipantSid) {
+    public ParticipantReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
-        this.pathParticipantSid = pathParticipantSid;
+    }
+
+    /**
+     * The status.
+     * 
+     * @param status The status
+     * @return this
+     */
+    public ParticipantReader setStatus(final Participant.Status status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The identity.
+     * 
+     * @param identity The identity
+     * @return this
+     */
+    public ParticipantReader setIdentity(final String identity) {
+        this.identity = identity;
+        return this;
+    }
+
+    /**
+     * The date_created_after.
+     * 
+     * @param dateCreatedAfter The date_created_after
+     * @return this
+     */
+    public ParticipantReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
+
+    /**
+     * The date_created_before.
+     * 
+     * @param dateCreatedBefore The date_created_before
+     * @return this
+     */
+    public ParticipantReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return PublishedTrack ResourceSet
+     * @return Participant ResourceSet
      */
     @Override
-    public ResourceSet<PublishedTrack> read(final TwilioRestClient client) {
+    public ResourceSet<Participant> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -50,15 +96,15 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return PublishedTrack ResourceSet
+     * @return Participant ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<PublishedTrack> firstPage(final TwilioRestClient client) {
+    public Page<Participant> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks",
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants",
             client.getRegion()
         );
 
@@ -71,11 +117,11 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return PublishedTrack ResourceSet
+     * @return Participant ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<PublishedTrack> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Participant> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -92,8 +138,8 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
      * @return Next Page
      */
     @Override
-    public Page<PublishedTrack> nextPage(final Page<PublishedTrack> page, 
-                                         final TwilioRestClient client) {
+    public Page<Participant> nextPage(final Page<Participant> page, 
+                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
@@ -112,8 +158,8 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
      * @return Previous Page
      */
     @Override
-    public Page<PublishedTrack> previousPage(final Page<PublishedTrack> page, 
-                                             final TwilioRestClient client) {
+    public Page<Participant> previousPage(final Page<Participant> page, 
+                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
@@ -125,17 +171,17 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
     }
 
     /**
-     * Generate a Page of PublishedTrack Resources for a given request.
+     * Generate a Page of Participant Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<PublishedTrack> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Participant> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PublishedTrack read failed: Unable to connect to server");
+            throw new ApiConnectionException("Participant read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -152,9 +198,9 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         }
 
         return Page.fromJson(
-            "published_tracks",
+            "participants",
             response.getContent(),
-            PublishedTrack.class,
+            Participant.class,
             client.getObjectMapper()
         );
     }
@@ -165,6 +211,22 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (status != null) {
+            request.addQueryParam("Status", status.toString());
+        }
+
+        if (identity != null) {
+            request.addQueryParam("Identity", identity);
+        }
+
+        if (dateCreatedAfter != null) {
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+        }
+
+        if (dateCreatedBefore != null) {
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

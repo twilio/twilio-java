@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1.room.roomparticipant;
+package com.twilio.rest.video.v1.room.participant;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;

@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 281410576660800L;
+    private static final long serialVersionUID = 164375086263692L;
 
     public enum Status {
         PROCESSING("processing"),

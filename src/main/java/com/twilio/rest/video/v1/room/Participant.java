@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RoomParticipant extends Resource {
+public class Participant extends Resource {
     private static final long serialVersionUID = 74043418166647L;
 
     public enum Status {
@@ -63,51 +63,51 @@ public class RoomParticipant extends Resource {
     }
 
     /**
-     * Create a RoomParticipantFetcher to execute fetch.
+     * Create a ParticipantFetcher to execute fetch.
      * 
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
-     * @return RoomParticipantFetcher capable of executing the fetch
+     * @return ParticipantFetcher capable of executing the fetch
      */
-    public static RoomParticipantFetcher fetcher(final String pathRoomSid, 
-                                                 final String pathSid) {
-        return new RoomParticipantFetcher(pathRoomSid, pathSid);
+    public static ParticipantFetcher fetcher(final String pathRoomSid, 
+                                             final String pathSid) {
+        return new ParticipantFetcher(pathRoomSid, pathSid);
     }
 
     /**
-     * Create a RoomParticipantReader to execute read.
+     * Create a ParticipantReader to execute read.
      * 
      * @param pathRoomSid The room_sid
-     * @return RoomParticipantReader capable of executing the read
+     * @return ParticipantReader capable of executing the read
      */
-    public static RoomParticipantReader reader(final String pathRoomSid) {
-        return new RoomParticipantReader(pathRoomSid);
+    public static ParticipantReader reader(final String pathRoomSid) {
+        return new ParticipantReader(pathRoomSid);
     }
 
     /**
-     * Create a RoomParticipantUpdater to execute update.
+     * Create a ParticipantUpdater to execute update.
      * 
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
-     * @return RoomParticipantUpdater capable of executing the update
+     * @return ParticipantUpdater capable of executing the update
      */
-    public static RoomParticipantUpdater updater(final String pathRoomSid, 
-                                                 final String pathSid) {
-        return new RoomParticipantUpdater(pathRoomSid, pathSid);
+    public static ParticipantUpdater updater(final String pathRoomSid, 
+                                             final String pathSid) {
+        return new ParticipantUpdater(pathRoomSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a RoomParticipant object using the provided
+     * Converts a JSON String into a Participant object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return RoomParticipant object represented by the provided JSON
+     * @return Participant object represented by the provided JSON
      */
-    public static RoomParticipant fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Participant fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, RoomParticipant.class);
+            return objectMapper.readValue(json, Participant.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -116,17 +116,17 @@ public class RoomParticipant extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a RoomParticipant object using the provided
+     * Converts a JSON InputStream into a Participant object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return RoomParticipant object represented by the provided JSON
+     * @return Participant object represented by the provided JSON
      */
-    public static RoomParticipant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Participant fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, RoomParticipant.class);
+            return objectMapper.readValue(json, Participant.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -137,7 +137,7 @@ public class RoomParticipant extends Resource {
     private final String sid;
     private final String roomSid;
     private final String accountSid;
-    private final RoomParticipant.Status status;
+    private final Participant.Status status;
     private final String identity;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
@@ -148,30 +148,30 @@ public class RoomParticipant extends Resource {
     private final Map<String, String> links;
 
     @JsonCreator
-    private RoomParticipant(@JsonProperty("sid")
-                            final String sid, 
-                            @JsonProperty("room_sid")
-                            final String roomSid, 
-                            @JsonProperty("account_sid")
-                            final String accountSid, 
-                            @JsonProperty("status")
-                            final RoomParticipant.Status status, 
-                            @JsonProperty("identity")
-                            final String identity, 
-                            @JsonProperty("date_created")
-                            final String dateCreated, 
-                            @JsonProperty("date_updated")
-                            final String dateUpdated, 
-                            @JsonProperty("start_time")
-                            final String startTime, 
-                            @JsonProperty("end_time")
-                            final String endTime, 
-                            @JsonProperty("duration")
-                            final Integer duration, 
-                            @JsonProperty("url")
-                            final URI url, 
-                            @JsonProperty("links")
-                            final Map<String, String> links) {
+    private Participant(@JsonProperty("sid")
+                        final String sid, 
+                        @JsonProperty("room_sid")
+                        final String roomSid, 
+                        @JsonProperty("account_sid")
+                        final String accountSid, 
+                        @JsonProperty("status")
+                        final Participant.Status status, 
+                        @JsonProperty("identity")
+                        final String identity, 
+                        @JsonProperty("date_created")
+                        final String dateCreated, 
+                        @JsonProperty("date_updated")
+                        final String dateUpdated, 
+                        @JsonProperty("start_time")
+                        final String startTime, 
+                        @JsonProperty("end_time")
+                        final String endTime, 
+                        @JsonProperty("duration")
+                        final Integer duration, 
+                        @JsonProperty("url")
+                        final URI url, 
+                        @JsonProperty("links")
+                        final Map<String, String> links) {
         this.sid = sid;
         this.roomSid = roomSid;
         this.accountSid = accountSid;
@@ -218,7 +218,7 @@ public class RoomParticipant extends Resource {
      * 
      * @return The status
      */
-    public final RoomParticipant.Status getStatus() {
+    public final Participant.Status getStatus() {
         return this.status;
     }
 
@@ -304,7 +304,7 @@ public class RoomParticipant extends Resource {
             return false;
         }
 
-        RoomParticipant other = (RoomParticipant) o;
+        Participant other = (Participant) o;
 
         return Objects.equals(sid, other.sid) && 
                Objects.equals(roomSid, other.roomSid) && 

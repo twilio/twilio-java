@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class RoomParticipantTest {
+public class ParticipantTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -51,7 +51,7 @@ public class RoomParticipantTest {
         }};
 
         try {
-            RoomParticipant.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Participant.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class RoomParticipantTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RoomParticipant.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Participant.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class RoomParticipantTest {
         }};
 
         try {
-            RoomParticipant.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            Participant.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class RoomParticipantTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RoomParticipant.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Participant.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -109,7 +109,7 @@ public class RoomParticipantTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RoomParticipant.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Participant.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
     }
 
     @Test
@@ -127,7 +127,7 @@ public class RoomParticipantTest {
         }};
 
         try {
-            RoomParticipant.updater("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Participant.updater("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,6 +141,6 @@ public class RoomParticipantTest {
             result = new ObjectMapper();
         }};
 
-        RoomParticipant.updater("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Participant.updater("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
     }
 }

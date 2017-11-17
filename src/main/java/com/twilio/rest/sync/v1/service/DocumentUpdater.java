@@ -28,21 +28,41 @@ import java.util.Map;
 public class DocumentUpdater extends Updater<Document> {
     private final String pathServiceSid;
     private final String pathSid;
-    private final Map<String, Object> data;
+    private Map<String, Object> data;
+    private Integer ttl;
 
     /**
      * Construct a new DocumentUpdater.
      * 
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
-     * @param data The data
      */
     public DocumentUpdater(final String pathServiceSid, 
-                           final String pathSid, 
-                           final Map<String, Object> data) {
+                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
+    }
+
+    /**
+     * The data.
+     * 
+     * @param data The data
+     * @return this
+     */
+    public DocumentUpdater setData(final Map<String, Object> data) {
         this.data = data;
+        return this;
+    }
+
+    /**
+     * The ttl.
+     * 
+     * @param ttl The ttl
+     * @return this
+     */
+    public DocumentUpdater setTtl(final Integer ttl) {
+        this.ttl = ttl;
+        return this;
     }
 
     /**
@@ -92,6 +112,10 @@ public class DocumentUpdater extends Updater<Document> {
     private void addPostParams(final Request request) {
         if (data != null) {
             request.addPostParam("Data", Converter.mapToJson(data));
+        }
+
+        if (ttl != null) {
+            request.addPostParam("Ttl", ttl.toString());
         }
     }
 }

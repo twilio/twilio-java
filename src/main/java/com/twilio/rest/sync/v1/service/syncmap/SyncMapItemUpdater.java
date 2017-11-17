@@ -29,7 +29,8 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private final String pathServiceSid;
     private final String pathMapSid;
     private final String pathKey;
-    private final Map<String, Object> data;
+    private Map<String, Object> data;
+    private Integer ttl;
 
     /**
      * Construct a new SyncMapItemUpdater.
@@ -37,16 +38,35 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
-     * @param data The data
      */
     public SyncMapItemUpdater(final String pathServiceSid, 
                               final String pathMapSid, 
-                              final String pathKey, 
-                              final Map<String, Object> data) {
+                              final String pathKey) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
         this.pathKey = pathKey;
+    }
+
+    /**
+     * The data.
+     * 
+     * @param data The data
+     * @return this
+     */
+    public SyncMapItemUpdater setData(final Map<String, Object> data) {
         this.data = data;
+        return this;
+    }
+
+    /**
+     * The ttl.
+     * 
+     * @param ttl The ttl
+     * @return this
+     */
+    public SyncMapItemUpdater setTtl(final Integer ttl) {
+        this.ttl = ttl;
+        return this;
     }
 
     /**
@@ -96,6 +116,10 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private void addPostParams(final Request request) {
         if (data != null) {
             request.addPostParam("Data", Converter.mapToJson(data));
+        }
+
+        if (ttl != null) {
+            request.addPostParam("Ttl", ttl.toString());
         }
     }
 }

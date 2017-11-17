@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Document extends Resource {
-    private static final long serialVersionUID = 140626500811731L;
+    private static final long serialVersionUID = 114918671939352L;
 
     /**
      * Create a DocumentFetcher to execute fetch.
@@ -91,13 +91,11 @@ public class Document extends Resource {
      * 
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
-     * @param data The data
      * @return DocumentUpdater capable of executing the update
      */
     public static DocumentUpdater updater(final String pathServiceSid, 
-                                          final String pathSid, 
-                                          final Map<String, Object> data) {
-        return new DocumentUpdater(pathServiceSid, pathSid, data);
+                                          final String pathSid) {
+        return new DocumentUpdater(pathServiceSid, pathSid);
     }
 
     /**
@@ -146,6 +144,7 @@ public class Document extends Resource {
     private final Map<String, String> links;
     private final String revision;
     private final Map<String, Object> data;
+    private final DateTime dateExpires;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String createdBy;
@@ -167,6 +166,8 @@ public class Document extends Resource {
                      final String revision, 
                      @JsonProperty("data")
                      final Map<String, Object> data, 
+                     @JsonProperty("date_expires")
+                     final String dateExpires, 
                      @JsonProperty("date_created")
                      final String dateCreated, 
                      @JsonProperty("date_updated")
@@ -181,6 +182,7 @@ public class Document extends Resource {
         this.links = links;
         this.revision = revision;
         this.data = data;
+        this.dateExpires = DateConverter.iso8601DateTimeFromString(dateExpires);
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
@@ -259,6 +261,15 @@ public class Document extends Resource {
     }
 
     /**
+     * Returns The The date_expires.
+     * 
+     * @return The date_expires
+     */
+    public final DateTime getDateExpires() {
+        return this.dateExpires;
+    }
+
+    /**
      * Returns The The date_created.
      * 
      * @return The date_created
@@ -305,6 +316,7 @@ public class Document extends Resource {
                Objects.equals(links, other.links) && 
                Objects.equals(revision, other.revision) && 
                Objects.equals(data, other.data) && 
+               Objects.equals(dateExpires, other.dateExpires) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(createdBy, other.createdBy);
@@ -320,6 +332,7 @@ public class Document extends Resource {
                             links,
                             revision,
                             data,
+                            dateExpires,
                             dateCreated,
                             dateUpdated,
                             createdBy);
@@ -336,6 +349,7 @@ public class Document extends Resource {
                           .add("links", links)
                           .add("revision", revision)
                           .add("data", data)
+                          .add("dateExpires", dateExpires)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("createdBy", createdBy)

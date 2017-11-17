@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SyncMap extends Resource {
-    private static final long serialVersionUID = 198331554255718L;
+    private static final long serialVersionUID = 113063121662943L;
 
     /**
      * Create a SyncMapFetcher to execute fetch.
@@ -72,6 +72,18 @@ public class SyncMap extends Resource {
      */
     public static SyncMapCreator creator(final String pathServiceSid) {
         return new SyncMapCreator(pathServiceSid);
+    }
+
+    /**
+     * Create a SyncMapUpdater to execute update.
+     * 
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
+     * @return SyncMapUpdater capable of executing the update
+     */
+    public static SyncMapUpdater updater(final String pathServiceSid, 
+                                         final String pathSid) {
+        return new SyncMapUpdater(pathServiceSid, pathSid);
     }
 
     /**
@@ -128,6 +140,7 @@ public class SyncMap extends Resource {
     private final URI url;
     private final Map<String, String> links;
     private final String revision;
+    private final DateTime dateExpires;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String createdBy;
@@ -147,6 +160,8 @@ public class SyncMap extends Resource {
                     final Map<String, String> links, 
                     @JsonProperty("revision")
                     final String revision, 
+                    @JsonProperty("date_expires")
+                    final String dateExpires, 
                     @JsonProperty("date_created")
                     final String dateCreated, 
                     @JsonProperty("date_updated")
@@ -160,6 +175,7 @@ public class SyncMap extends Resource {
         this.url = url;
         this.links = links;
         this.revision = revision;
+        this.dateExpires = DateConverter.iso8601DateTimeFromString(dateExpires);
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
@@ -229,6 +245,15 @@ public class SyncMap extends Resource {
     }
 
     /**
+     * Returns The The date_expires.
+     * 
+     * @return The date_expires
+     */
+    public final DateTime getDateExpires() {
+        return this.dateExpires;
+    }
+
+    /**
      * Returns The The date_created.
      * 
      * @return The date_created
@@ -274,6 +299,7 @@ public class SyncMap extends Resource {
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links) && 
                Objects.equals(revision, other.revision) && 
+               Objects.equals(dateExpires, other.dateExpires) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(createdBy, other.createdBy);
@@ -288,6 +314,7 @@ public class SyncMap extends Resource {
                             url,
                             links,
                             revision,
+                            dateExpires,
                             dateCreated,
                             dateUpdated,
                             createdBy);
@@ -303,6 +330,7 @@ public class SyncMap extends Resource {
                           .add("url", url)
                           .add("links", links)
                           .add("revision", revision)
+                          .add("dateExpires", dateExpires)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("createdBy", createdBy)

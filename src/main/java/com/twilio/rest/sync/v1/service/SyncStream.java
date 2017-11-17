@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SyncStream extends Resource {
-    private static final long serialVersionUID = 219327580968831L;
+    private static final long serialVersionUID = 240146789601739L;
 
     /**
      * Create a SyncStreamFetcher to execute fetch.
@@ -72,6 +72,18 @@ public class SyncStream extends Resource {
      */
     public static SyncStreamCreator creator(final String pathServiceSid) {
         return new SyncStreamCreator(pathServiceSid);
+    }
+
+    /**
+     * Create a SyncStreamUpdater to execute update.
+     * 
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
+     * @return SyncStreamUpdater capable of executing the update
+     */
+    public static SyncStreamUpdater updater(final String pathServiceSid, 
+                                            final String pathSid) {
+        return new SyncStreamUpdater(pathServiceSid, pathSid);
     }
 
     /**
@@ -128,6 +140,7 @@ public class SyncStream extends Resource {
     private final String serviceSid;
     private final URI url;
     private final Map<String, String> links;
+    private final DateTime dateExpires;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String createdBy;
@@ -145,6 +158,8 @@ public class SyncStream extends Resource {
                        final URI url, 
                        @JsonProperty("links")
                        final Map<String, String> links, 
+                       @JsonProperty("date_expires")
+                       final String dateExpires, 
                        @JsonProperty("date_created")
                        final String dateCreated, 
                        @JsonProperty("date_updated")
@@ -157,6 +172,7 @@ public class SyncStream extends Resource {
         this.serviceSid = serviceSid;
         this.url = url;
         this.links = links;
+        this.dateExpires = DateConverter.iso8601DateTimeFromString(dateExpires);
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
@@ -217,6 +233,15 @@ public class SyncStream extends Resource {
     }
 
     /**
+     * Returns The The date this Stream expires..
+     * 
+     * @return The date this Stream expires.
+     */
+    public final DateTime getDateExpires() {
+        return this.dateExpires;
+    }
+
+    /**
      * Returns The The date this Stream was created..
      * 
      * @return The date this Stream was created.
@@ -261,6 +286,7 @@ public class SyncStream extends Resource {
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links) && 
+               Objects.equals(dateExpires, other.dateExpires) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(createdBy, other.createdBy);
@@ -274,6 +300,7 @@ public class SyncStream extends Resource {
                             serviceSid,
                             url,
                             links,
+                            dateExpires,
                             dateCreated,
                             dateUpdated,
                             createdBy);
@@ -288,6 +315,7 @@ public class SyncStream extends Resource {
                           .add("serviceSid", serviceSid)
                           .add("url", url)
                           .add("links", links)
+                          .add("dateExpires", dateExpires)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("createdBy", createdBy)

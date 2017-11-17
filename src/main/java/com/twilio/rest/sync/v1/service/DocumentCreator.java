@@ -29,6 +29,7 @@ public class DocumentCreator extends Creator<Document> {
     private final String pathServiceSid;
     private String uniqueName;
     private Map<String, Object> data;
+    private Integer ttl;
 
     /**
      * Construct a new DocumentCreator.
@@ -58,6 +59,17 @@ public class DocumentCreator extends Creator<Document> {
      */
     public DocumentCreator setData(final Map<String, Object> data) {
         this.data = data;
+        return this;
+    }
+
+    /**
+     * The ttl.
+     * 
+     * @param ttl The ttl
+     * @return this
+     */
+    public DocumentCreator setTtl(final Integer ttl) {
+        this.ttl = ttl;
         return this;
     }
 
@@ -112,6 +124,10 @@ public class DocumentCreator extends Creator<Document> {
 
         if (data != null) {
             request.addPostParam("Data", Converter.mapToJson(data));
+        }
+
+        if (ttl != null) {
+            request.addPostParam("Ttl", ttl.toString());
         }
     }
 }

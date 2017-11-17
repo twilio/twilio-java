@@ -17,18 +17,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RoomParticipantFetcher extends Fetcher<RoomParticipant> {
+public class ParticipantFetcher extends Fetcher<Participant> {
     private final String pathRoomSid;
     private final String pathSid;
 
     /**
-     * Construct a new RoomParticipantFetcher.
+     * Construct a new ParticipantFetcher.
      * 
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
      */
-    public RoomParticipantFetcher(final String pathRoomSid, 
-                                  final String pathSid) {
+    public ParticipantFetcher(final String pathRoomSid, 
+                              final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
     }
@@ -37,11 +37,11 @@ public class RoomParticipantFetcher extends Fetcher<RoomParticipant> {
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched RoomParticipant
+     * @return Fetched Participant
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public RoomParticipant fetch(final TwilioRestClient client) {
+    public Participant fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
@@ -52,7 +52,7 @@ public class RoomParticipantFetcher extends Fetcher<RoomParticipant> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RoomParticipant fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Participant fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -68,6 +68,6 @@ public class RoomParticipantFetcher extends Fetcher<RoomParticipant> {
             );
         }
 
-        return RoomParticipant.fromJson(response.getStream(), client.getObjectMapper());
+        return Participant.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

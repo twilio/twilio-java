@@ -24,6 +24,7 @@ import com.twilio.rest.Domains;
 public class SyncStreamCreator extends Creator<SyncStream> {
     private final String pathServiceSid;
     private String uniqueName;
+    private Integer ttl;
 
     /**
      * Construct a new SyncStreamCreator.
@@ -43,6 +44,18 @@ public class SyncStreamCreator extends Creator<SyncStream> {
      */
     public SyncStreamCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
+        return this;
+    }
+
+    /**
+     * Optional time-to-live of this Stream in seconds. In the range [1, 31 536 000
+     * (1 year)], or 0 for infinity..
+     * 
+     * @param ttl Stream TTL.
+     * @return this
+     */
+    public SyncStreamCreator setTtl(final Integer ttl) {
+        this.ttl = ttl;
         return this;
     }
 
@@ -93,6 +106,10 @@ public class SyncStreamCreator extends Creator<SyncStream> {
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+        }
+
+        if (ttl != null) {
+            request.addPostParam("Ttl", ttl.toString());
         }
     }
 }

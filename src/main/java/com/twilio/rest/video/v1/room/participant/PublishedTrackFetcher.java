@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1.room;
+package com.twilio.rest.video.v1.room.participant;
 
-import com.twilio.base.Updater;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,55 +17,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RoomParticipantUpdater extends Updater<RoomParticipant> {
+public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
     private final String pathRoomSid;
+    private final String pathParticipantSid;
     private final String pathSid;
-    private RoomParticipant.Status status;
 
     /**
-     * Construct a new RoomParticipantUpdater.
+     * Construct a new PublishedTrackFetcher.
      * 
      * @param pathRoomSid The room_sid
+     * @param pathParticipantSid The participant_sid
      * @param pathSid The sid
      */
-    public RoomParticipantUpdater(final String pathRoomSid, 
-                                  final String pathSid) {
+    public PublishedTrackFetcher(final String pathRoomSid, 
+                                 final String pathParticipantSid, 
+                                 final String pathSid) {
         this.pathRoomSid = pathRoomSid;
+        this.pathParticipantSid = pathParticipantSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * The status.
-     * 
-     * @param status The status
-     * @return this
-     */
-    public RoomParticipantUpdater setStatus(final RoomParticipant.Status status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Make the request to the Twilio API to perform the update.
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated RoomParticipant
+     * @return Fetched PublishedTrack
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public RoomParticipant update(final TwilioRestClient client) {
+    public PublishedTrack fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.POST,
+            HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + "",
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks/" + this.pathSid + "",
             client.getRegion()
         );
 
-        addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RoomParticipant update failed: Unable to connect to server");
+            throw new ApiConnectionException("PublishedTrack fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -81,17 +72,6 @@ public class RoomParticipantUpdater extends Updater<RoomParticipant> {
             );
         }
 
-        return RoomParticipant.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested post parameters to the Request.
-     * 
-     * @param request Request to add post params to
-     */
-    private void addPostParams(final Request request) {
-        if (status != null) {
-            request.addPostParam("Status", status.toString());
-        }
+        return PublishedTrack.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SyncListItem extends Resource {
-    private static final long serialVersionUID = 211432738907618L;
+    private static final long serialVersionUID = 156990163506527L;
 
     public enum QueryResultOrder {
         ASC("asc"),
@@ -153,14 +153,12 @@ public class SyncListItem extends Resource {
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
-     * @param data The data
      * @return SyncListItemUpdater capable of executing the update
      */
     public static SyncListItemUpdater updater(final String pathServiceSid, 
                                               final String pathListSid, 
-                                              final Integer pathIndex, 
-                                              final Map<String, Object> data) {
-        return new SyncListItemUpdater(pathServiceSid, pathListSid, pathIndex, data);
+                                              final Integer pathIndex) {
+        return new SyncListItemUpdater(pathServiceSid, pathListSid, pathIndex);
     }
 
     /**
@@ -208,6 +206,7 @@ public class SyncListItem extends Resource {
     private final URI url;
     private final String revision;
     private final Map<String, Object> data;
+    private final DateTime dateExpires;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String createdBy;
@@ -227,6 +226,8 @@ public class SyncListItem extends Resource {
                          final String revision, 
                          @JsonProperty("data")
                          final Map<String, Object> data, 
+                         @JsonProperty("date_expires")
+                         final String dateExpires, 
                          @JsonProperty("date_created")
                          final String dateCreated, 
                          @JsonProperty("date_updated")
@@ -240,6 +241,7 @@ public class SyncListItem extends Resource {
         this.url = url;
         this.revision = revision;
         this.data = data;
+        this.dateExpires = DateConverter.iso8601DateTimeFromString(dateExpires);
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
@@ -309,6 +311,15 @@ public class SyncListItem extends Resource {
     }
 
     /**
+     * Returns The The date_expires.
+     * 
+     * @return The date_expires
+     */
+    public final DateTime getDateExpires() {
+        return this.dateExpires;
+    }
+
+    /**
      * Returns The The date_created.
      * 
      * @return The date_created
@@ -354,6 +365,7 @@ public class SyncListItem extends Resource {
                Objects.equals(url, other.url) && 
                Objects.equals(revision, other.revision) && 
                Objects.equals(data, other.data) && 
+               Objects.equals(dateExpires, other.dateExpires) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(createdBy, other.createdBy);
@@ -368,6 +380,7 @@ public class SyncListItem extends Resource {
                             url,
                             revision,
                             data,
+                            dateExpires,
                             dateCreated,
                             dateUpdated,
                             createdBy);
@@ -383,6 +396,7 @@ public class SyncListItem extends Resource {
                           .add("url", url)
                           .add("revision", revision)
                           .add("data", data)
+                          .add("dateExpires", dateExpires)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("createdBy", createdBy)

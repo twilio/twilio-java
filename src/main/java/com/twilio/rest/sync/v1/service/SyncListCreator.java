@@ -24,6 +24,7 @@ import com.twilio.rest.Domains;
 public class SyncListCreator extends Creator<SyncList> {
     private final String pathServiceSid;
     private String uniqueName;
+    private Integer ttl;
 
     /**
      * Construct a new SyncListCreator.
@@ -42,6 +43,17 @@ public class SyncListCreator extends Creator<SyncList> {
      */
     public SyncListCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
+        return this;
+    }
+
+    /**
+     * The ttl.
+     * 
+     * @param ttl The ttl
+     * @return this
+     */
+    public SyncListCreator setTtl(final Integer ttl) {
+        this.ttl = ttl;
         return this;
     }
 
@@ -92,6 +104,10 @@ public class SyncListCreator extends Creator<SyncList> {
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+        }
+
+        if (ttl != null) {
+            request.addPostParam("Ttl", ttl.toString());
         }
     }
 }

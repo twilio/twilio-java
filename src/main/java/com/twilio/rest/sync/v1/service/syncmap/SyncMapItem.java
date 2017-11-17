@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SyncMapItem extends Resource {
-    private static final long serialVersionUID = 209160747826518L;
+    private static final long serialVersionUID = 280430240185290L;
 
     public enum QueryResultOrder {
         ASC("asc"),
@@ -155,14 +155,12 @@ public class SyncMapItem extends Resource {
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
-     * @param data The data
      * @return SyncMapItemUpdater capable of executing the update
      */
     public static SyncMapItemUpdater updater(final String pathServiceSid, 
                                              final String pathMapSid, 
-                                             final String pathKey, 
-                                             final Map<String, Object> data) {
-        return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey, data);
+                                             final String pathKey) {
+        return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**
@@ -210,6 +208,7 @@ public class SyncMapItem extends Resource {
     private final URI url;
     private final String revision;
     private final Map<String, Object> data;
+    private final DateTime dateExpires;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String createdBy;
@@ -229,6 +228,8 @@ public class SyncMapItem extends Resource {
                         final String revision, 
                         @JsonProperty("data")
                         final Map<String, Object> data, 
+                        @JsonProperty("date_expires")
+                        final String dateExpires, 
                         @JsonProperty("date_created")
                         final String dateCreated, 
                         @JsonProperty("date_updated")
@@ -242,6 +243,7 @@ public class SyncMapItem extends Resource {
         this.url = url;
         this.revision = revision;
         this.data = data;
+        this.dateExpires = DateConverter.iso8601DateTimeFromString(dateExpires);
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
@@ -311,6 +313,15 @@ public class SyncMapItem extends Resource {
     }
 
     /**
+     * Returns The The date_expires.
+     * 
+     * @return The date_expires
+     */
+    public final DateTime getDateExpires() {
+        return this.dateExpires;
+    }
+
+    /**
      * Returns The The date_created.
      * 
      * @return The date_created
@@ -356,6 +367,7 @@ public class SyncMapItem extends Resource {
                Objects.equals(url, other.url) && 
                Objects.equals(revision, other.revision) && 
                Objects.equals(data, other.data) && 
+               Objects.equals(dateExpires, other.dateExpires) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(createdBy, other.createdBy);
@@ -370,6 +382,7 @@ public class SyncMapItem extends Resource {
                             url,
                             revision,
                             data,
+                            dateExpires,
                             dateCreated,
                             dateUpdated,
                             createdBy);
@@ -385,6 +398,7 @@ public class SyncMapItem extends Resource {
                           .add("url", url)
                           .add("revision", revision)
                           .add("data", data)
+                          .add("dateExpires", dateExpires)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("createdBy", createdBy)

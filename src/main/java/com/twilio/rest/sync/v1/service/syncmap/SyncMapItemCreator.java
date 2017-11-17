@@ -30,6 +30,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     private final String pathMapSid;
     private final String key;
     private final Map<String, Object> data;
+    private Integer ttl;
 
     /**
      * Construct a new SyncMapItemCreator.
@@ -47,6 +48,17 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         this.pathMapSid = pathMapSid;
         this.key = key;
         this.data = data;
+    }
+
+    /**
+     * The ttl.
+     * 
+     * @param ttl The ttl
+     * @return this
+     */
+    public SyncMapItemCreator setTtl(final Integer ttl) {
+        this.ttl = ttl;
+        return this;
     }
 
     /**
@@ -100,6 +112,10 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
         if (data != null) {
             request.addPostParam("Data", Converter.mapToJson(data));
+        }
+
+        if (ttl != null) {
+            request.addPostParam("Ttl", ttl.toString());
         }
     }
 }

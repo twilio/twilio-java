@@ -25,6 +25,32 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
+    private String email;
+    private AuthorizationDocument.Status status;
+
+    /**
+     * Email that this AuthorizationDocument will be sent to for signing..
+     * 
+     * @param email Email.
+     * @return this
+     */
+    public AuthorizationDocumentReader setEmail(final String email) {
+        this.email = email;
+        return this;
+    }
+
+    /**
+     * The Status of this AuthorizationDocument. One of `opened`, `signing`,
+     * `signed`, `canceled`, or `failed`..
+     * 
+     * @param status The Status of this AuthorizationDocument.
+     * @return this
+     */
+    public AuthorizationDocumentReader setStatus(final AuthorizationDocument.Status status) {
+        this.status = status;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the read.
      * 
@@ -155,6 +181,14 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (email != null) {
+            request.addQueryParam("Email", email);
+        }
+
+        if (status != null) {
+            request.addQueryParam("Status", status.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

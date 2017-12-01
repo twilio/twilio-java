@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataSession extends Resource {
-    private static final long serialVersionUID = 154469790777803L;
+    private static final long serialVersionUID = 147675841254752L;
 
     /**
      * Create a DataSessionReader to execute read.
@@ -93,8 +93,8 @@ public class DataSession extends Resource {
     private final String simSid;
     private final String accountSid;
     private final String radioLink;
-    private final Integer operatorMcc;
-    private final Integer operatorMnc;
+    private final String operatorMcc;
+    private final String operatorMnc;
     private final String operatorCountry;
     private final String operatorName;
     private final String cellId;
@@ -115,9 +115,9 @@ public class DataSession extends Resource {
                         @JsonProperty("radio_link")
                         final String radioLink, 
                         @JsonProperty("operator_mcc")
-                        final Integer operatorMcc, 
+                        final String operatorMcc, 
                         @JsonProperty("operator_mnc")
-                        final Integer operatorMnc, 
+                        final String operatorMnc, 
                         @JsonProperty("operator_country")
                         final String operatorCountry, 
                         @JsonProperty("operator_name")
@@ -194,7 +194,7 @@ public class DataSession extends Resource {
      * 
      * @return The operator_mcc
      */
-    public final Integer getOperatorMcc() {
+    public final String getOperatorMcc() {
         return this.operatorMcc;
     }
 
@@ -203,7 +203,7 @@ public class DataSession extends Resource {
      * 
      * @return The operator_mnc
      */
-    public final Integer getOperatorMnc() {
+    public final String getOperatorMnc() {
         return this.operatorMnc;
     }
 

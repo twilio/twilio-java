@@ -17,6 +17,7 @@ import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,7 +36,61 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 64068502356457L;
+    private static final long serialVersionUID = 45761543846502L;
+
+    public enum Source {
+        DIALVERB("DialVerb"),
+        CONFERENCE("Conference"),
+        OUTBOUNDAPI("OutboundAPI"),
+        TRUNKING("Trunking"),
+        RECORDVERB("RecordVerb");
+
+        private final String value;
+
+        private Source(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Source from a string.
+         * @param value string value
+         * @return generated Source
+         */
+        @JsonCreator
+        public static Source forValue(final String value) {
+            return Promoter.enumFromString(value, Source.values());
+        }
+    }
+
+    public enum Status {
+        PROCESSING("processing"),
+        COMPLETED("completed"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
 
     /**
      * Create a RecordingFetcher to execute fetch.
@@ -160,6 +215,10 @@ public class Recording extends Resource {
     private final String uri;
     private final Map<String, Object> encryptionDetails;
     private final Integer errorCode;
+    private final Recording.Status status;
+    private final Recording.Source source;
+    private final Integer channels;
+    private final String priceUnit;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -183,7 +242,15 @@ public class Recording extends Resource {
                       @JsonProperty("encryption_details")
                       final Map<String, Object> encryptionDetails, 
                       @JsonProperty("error_code")
-                      final Integer errorCode) {
+                      final Integer errorCode, 
+                      @JsonProperty("status")
+                      final Recording.Status status, 
+                      @JsonProperty("source")
+                      final Recording.Source source, 
+                      @JsonProperty("channels")
+                      final Integer channels, 
+                      @JsonProperty("price_unit")
+                      final String priceUnit) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -195,6 +262,10 @@ public class Recording extends Resource {
         this.uri = uri;
         this.encryptionDetails = encryptionDetails;
         this.errorCode = errorCode;
+        this.status = status;
+        this.source = source;
+        this.channels = channels;
+        this.priceUnit = priceUnit;
     }
 
     /**
@@ -296,6 +367,42 @@ public class Recording extends Resource {
         return this.errorCode;
     }
 
+    /**
+     * Returns The The status.
+     * 
+     * @return The status
+     */
+    public final Recording.Status getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Returns The The source.
+     * 
+     * @return The source
+     */
+    public final Recording.Source getSource() {
+        return this.source;
+    }
+
+    /**
+     * Returns The The channels.
+     * 
+     * @return The channels
+     */
+    public final Integer getChannels() {
+        return this.channels;
+    }
+
+    /**
+     * Returns The The price_unit.
+     * 
+     * @return The price_unit
+     */
+    public final String getPriceUnit() {
+        return this.priceUnit;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -318,7 +425,11 @@ public class Recording extends Resource {
                Objects.equals(price, other.price) && 
                Objects.equals(uri, other.uri) && 
                Objects.equals(encryptionDetails, other.encryptionDetails) && 
-               Objects.equals(errorCode, other.errorCode);
+               Objects.equals(errorCode, other.errorCode) && 
+               Objects.equals(status, other.status) && 
+               Objects.equals(source, other.source) && 
+               Objects.equals(channels, other.channels) && 
+               Objects.equals(priceUnit, other.priceUnit);
     }
 
     @Override
@@ -333,7 +444,11 @@ public class Recording extends Resource {
                             price,
                             uri,
                             encryptionDetails,
-                            errorCode);
+                            errorCode,
+                            status,
+                            source,
+                            channels,
+                            priceUnit);
     }
 
     @Override
@@ -350,6 +465,10 @@ public class Recording extends Resource {
                           .add("uri", uri)
                           .add("encryptionDetails", encryptionDetails)
                           .add("errorCode", errorCode)
+                          .add("status", status)
+                          .add("source", source)
+                          .add("channels", channels)
+                          .add("priceUnit", priceUnit)
                           .toString();
     }
 }

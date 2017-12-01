@@ -26,7 +26,7 @@ import java.net.URI;
  */
 public class ServiceUpdater extends Updater<Service> {
     private final String pathSid;
-    private String friendlyName;
+    private String uniqueName;
     private Integer defaultTtl;
     private URI callbackUrl;
     private Service.GeoMatchLevel geoMatchLevel;
@@ -46,11 +46,11 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * A human readable description of this resource, up to 64 characters..
      * 
-     * @param friendlyName A human readable description of this resource.
+     * @param uniqueName A human readable description of this resource.
      * @return this
      */
-    public ServiceUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
+    public ServiceUpdater setUniqueName(final String uniqueName) {
+        this.uniqueName = uniqueName;
         return this;
     }
 
@@ -200,8 +200,8 @@ public class ServiceUpdater extends Updater<Service> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+        if (uniqueName != null) {
+            request.addPostParam("UniqueName", uniqueName);
         }
 
         if (defaultTtl != null) {

@@ -15,6 +15,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
+import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,16 +26,69 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DependentPhoneNumber extends Resource {
-    private static final long serialVersionUID = 249031953071048L;
+    private static final long serialVersionUID = 256288666692769L;
+
+    public enum AddressRequirement {
+        NONE("none"),
+        ANY("any"),
+        LOCAL("local"),
+        FOREIGN("foreign");
+
+        private final String value;
+
+        private AddressRequirement(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a AddressRequirement from a string.
+         * @param value string value
+         * @return generated AddressRequirement
+         */
+        @JsonCreator
+        public static AddressRequirement forValue(final String value) {
+            return Promoter.enumFromString(value, AddressRequirement.values());
+        }
+    }
+
+    public enum EmergencyStatus {
+        ACTIVE("Active"),
+        INACTIVE("Inactive");
+
+        private final String value;
+
+        private EmergencyStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a EmergencyStatus from a string.
+         * @param value string value
+         * @return generated EmergencyStatus
+         */
+        @JsonCreator
+        public static EmergencyStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyStatus.values());
+        }
+    }
 
     /**
      * Create a DependentPhoneNumberReader to execute read.
@@ -94,52 +150,130 @@ public class DependentPhoneNumber extends Resource {
         }
     }
 
+    private final String sid;
+    private final String accountSid;
     private final com.twilio.type.PhoneNumber friendlyName;
     private final com.twilio.type.PhoneNumber phoneNumber;
-    private final String lata;
-    private final String rateCenter;
-    private final BigDecimal latitude;
-    private final BigDecimal longitude;
-    private final String region;
-    private final String postalCode;
-    private final String isoCountry;
-    private final String addressRequirements;
-    private final Map<String, String> capabilities;
+    private final URI voiceUrl;
+    private final HttpMethod voiceMethod;
+    private final HttpMethod voiceFallbackMethod;
+    private final URI voiceFallbackUrl;
+    private final Boolean voiceCallerIdLookup;
+    private final DateTime dateCreated;
+    private final DateTime dateUpdated;
+    private final HttpMethod smsFallbackMethod;
+    private final URI smsFallbackUrl;
+    private final HttpMethod smsMethod;
+    private final URI smsUrl;
+    private final DependentPhoneNumber.AddressRequirement addressRequirements;
+    private final Map<String, Object> capabilities;
+    private final URI statusCallback;
+    private final HttpMethod statusCallbackMethod;
+    private final String apiVersion;
+    private final String smsApplicationSid;
+    private final String voiceApplicationSid;
+    private final String trunkSid;
+    private final DependentPhoneNumber.EmergencyStatus emergencyStatus;
+    private final String emergencyAddressSid;
+    private final String uri;
 
     @JsonCreator
-    private DependentPhoneNumber(@JsonProperty("friendly_name")
+    private DependentPhoneNumber(@JsonProperty("sid")
+                                 final String sid, 
+                                 @JsonProperty("account_sid")
+                                 final String accountSid, 
+                                 @JsonProperty("friendly_name")
                                  final com.twilio.type.PhoneNumber friendlyName, 
                                  @JsonProperty("phone_number")
                                  final com.twilio.type.PhoneNumber phoneNumber, 
-                                 @JsonProperty("lata")
-                                 final String lata, 
-                                 @JsonProperty("rate_center")
-                                 final String rateCenter, 
-                                 @JsonProperty("latitude")
-                                 final BigDecimal latitude, 
-                                 @JsonProperty("longitude")
-                                 final BigDecimal longitude, 
-                                 @JsonProperty("region")
-                                 final String region, 
-                                 @JsonProperty("postal_code")
-                                 final String postalCode, 
-                                 @JsonProperty("iso_country")
-                                 final String isoCountry, 
+                                 @JsonProperty("voice_url")
+                                 final URI voiceUrl, 
+                                 @JsonProperty("voice_method")
+                                 final HttpMethod voiceMethod, 
+                                 @JsonProperty("voice_fallback_method")
+                                 final HttpMethod voiceFallbackMethod, 
+                                 @JsonProperty("voice_fallback_url")
+                                 final URI voiceFallbackUrl, 
+                                 @JsonProperty("voice_caller_id_lookup")
+                                 final Boolean voiceCallerIdLookup, 
+                                 @JsonProperty("date_created")
+                                 final String dateCreated, 
+                                 @JsonProperty("date_updated")
+                                 final String dateUpdated, 
+                                 @JsonProperty("sms_fallback_method")
+                                 final HttpMethod smsFallbackMethod, 
+                                 @JsonProperty("sms_fallback_url")
+                                 final URI smsFallbackUrl, 
+                                 @JsonProperty("sms_method")
+                                 final HttpMethod smsMethod, 
+                                 @JsonProperty("sms_url")
+                                 final URI smsUrl, 
                                  @JsonProperty("address_requirements")
-                                 final String addressRequirements, 
+                                 final DependentPhoneNumber.AddressRequirement addressRequirements, 
                                  @JsonProperty("capabilities")
-                                 final Map<String, String> capabilities) {
+                                 final Map<String, Object> capabilities, 
+                                 @JsonProperty("status_callback")
+                                 final URI statusCallback, 
+                                 @JsonProperty("status_callback_method")
+                                 final HttpMethod statusCallbackMethod, 
+                                 @JsonProperty("api_version")
+                                 final String apiVersion, 
+                                 @JsonProperty("sms_application_sid")
+                                 final String smsApplicationSid, 
+                                 @JsonProperty("voice_application_sid")
+                                 final String voiceApplicationSid, 
+                                 @JsonProperty("trunk_sid")
+                                 final String trunkSid, 
+                                 @JsonProperty("emergency_status")
+                                 final DependentPhoneNumber.EmergencyStatus emergencyStatus, 
+                                 @JsonProperty("emergency_address_sid")
+                                 final String emergencyAddressSid, 
+                                 @JsonProperty("uri")
+                                 final String uri) {
+        this.sid = sid;
+        this.accountSid = accountSid;
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
-        this.lata = lata;
-        this.rateCenter = rateCenter;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.region = region;
-        this.postalCode = postalCode;
-        this.isoCountry = isoCountry;
+        this.voiceUrl = voiceUrl;
+        this.voiceMethod = voiceMethod;
+        this.voiceFallbackMethod = voiceFallbackMethod;
+        this.voiceFallbackUrl = voiceFallbackUrl;
+        this.voiceCallerIdLookup = voiceCallerIdLookup;
+        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.smsFallbackMethod = smsFallbackMethod;
+        this.smsFallbackUrl = smsFallbackUrl;
+        this.smsMethod = smsMethod;
+        this.smsUrl = smsUrl;
         this.addressRequirements = addressRequirements;
         this.capabilities = capabilities;
+        this.statusCallback = statusCallback;
+        this.statusCallbackMethod = statusCallbackMethod;
+        this.apiVersion = apiVersion;
+        this.smsApplicationSid = smsApplicationSid;
+        this.voiceApplicationSid = voiceApplicationSid;
+        this.trunkSid = trunkSid;
+        this.emergencyStatus = emergencyStatus;
+        this.emergencyAddressSid = emergencyAddressSid;
+        this.uri = uri;
+    }
+
+    /**
+     * Returns The The sid.
+     * 
+     * @return The sid
+     */
+    public final String getSid() {
+        return this.sid;
+    }
+
+    /**
+     * Returns The The account_sid.
+     * 
+     * @return The account_sid
+     */
+    public final String getAccountSid() {
+        return this.accountSid;
     }
 
     /**
@@ -161,66 +295,102 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The lata.
+     * Returns The The voice_url.
      * 
-     * @return The lata
+     * @return The voice_url
      */
-    public final String getLata() {
-        return this.lata;
+    public final URI getVoiceUrl() {
+        return this.voiceUrl;
     }
 
     /**
-     * Returns The The rate_center.
+     * Returns The The voice_method.
      * 
-     * @return The rate_center
+     * @return The voice_method
      */
-    public final String getRateCenter() {
-        return this.rateCenter;
+    public final HttpMethod getVoiceMethod() {
+        return this.voiceMethod;
     }
 
     /**
-     * Returns The The latitude.
+     * Returns The The voice_fallback_method.
      * 
-     * @return The latitude
+     * @return The voice_fallback_method
      */
-    public final BigDecimal getLatitude() {
-        return this.latitude;
+    public final HttpMethod getVoiceFallbackMethod() {
+        return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The The longitude.
+     * Returns The The voice_fallback_url.
      * 
-     * @return The longitude
+     * @return The voice_fallback_url
      */
-    public final BigDecimal getLongitude() {
-        return this.longitude;
+    public final URI getVoiceFallbackUrl() {
+        return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The The region.
+     * Returns The The voice_caller_id_lookup.
      * 
-     * @return The region
+     * @return The voice_caller_id_lookup
      */
-    public final String getRegion() {
-        return this.region;
+    public final Boolean getVoiceCallerIdLookup() {
+        return this.voiceCallerIdLookup;
     }
 
     /**
-     * Returns The The postal_code.
+     * Returns The The date_created.
      * 
-     * @return The postal_code
+     * @return The date_created
      */
-    public final String getPostalCode() {
-        return this.postalCode;
+    public final DateTime getDateCreated() {
+        return this.dateCreated;
     }
 
     /**
-     * Returns The The iso_country.
+     * Returns The The date_updated.
      * 
-     * @return The iso_country
+     * @return The date_updated
      */
-    public final String getIsoCountry() {
-        return this.isoCountry;
+    public final DateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    /**
+     * Returns The The sms_fallback_method.
+     * 
+     * @return The sms_fallback_method
+     */
+    public final HttpMethod getSmsFallbackMethod() {
+        return this.smsFallbackMethod;
+    }
+
+    /**
+     * Returns The The sms_fallback_url.
+     * 
+     * @return The sms_fallback_url
+     */
+    public final URI getSmsFallbackUrl() {
+        return this.smsFallbackUrl;
+    }
+
+    /**
+     * Returns The The sms_method.
+     * 
+     * @return The sms_method
+     */
+    public final HttpMethod getSmsMethod() {
+        return this.smsMethod;
+    }
+
+    /**
+     * Returns The The sms_url.
+     * 
+     * @return The sms_url
+     */
+    public final URI getSmsUrl() {
+        return this.smsUrl;
     }
 
     /**
@@ -228,7 +398,7 @@ public class DependentPhoneNumber extends Resource {
      * 
      * @return The address_requirements
      */
-    public final String getAddressRequirements() {
+    public final DependentPhoneNumber.AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
@@ -237,8 +407,89 @@ public class DependentPhoneNumber extends Resource {
      * 
      * @return The capabilities
      */
-    public final Map<String, String> getCapabilities() {
+    public final Map<String, Object> getCapabilities() {
         return this.capabilities;
+    }
+
+    /**
+     * Returns The The status_callback.
+     * 
+     * @return The status_callback
+     */
+    public final URI getStatusCallback() {
+        return this.statusCallback;
+    }
+
+    /**
+     * Returns The The status_callback_method.
+     * 
+     * @return The status_callback_method
+     */
+    public final HttpMethod getStatusCallbackMethod() {
+        return this.statusCallbackMethod;
+    }
+
+    /**
+     * Returns The The api_version.
+     * 
+     * @return The api_version
+     */
+    public final String getApiVersion() {
+        return this.apiVersion;
+    }
+
+    /**
+     * Returns The The sms_application_sid.
+     * 
+     * @return The sms_application_sid
+     */
+    public final String getSmsApplicationSid() {
+        return this.smsApplicationSid;
+    }
+
+    /**
+     * Returns The The voice_application_sid.
+     * 
+     * @return The voice_application_sid
+     */
+    public final String getVoiceApplicationSid() {
+        return this.voiceApplicationSid;
+    }
+
+    /**
+     * Returns The The trunk_sid.
+     * 
+     * @return The trunk_sid
+     */
+    public final String getTrunkSid() {
+        return this.trunkSid;
+    }
+
+    /**
+     * Returns The The emergency_status.
+     * 
+     * @return The emergency_status
+     */
+    public final DependentPhoneNumber.EmergencyStatus getEmergencyStatus() {
+        return this.emergencyStatus;
+    }
+
+    /**
+     * Returns The The emergency_address_sid.
+     * 
+     * @return The emergency_address_sid
+     */
+    public final String getEmergencyAddressSid() {
+        return this.emergencyAddressSid;
+    }
+
+    /**
+     * Returns The The uri.
+     * 
+     * @return The uri
+     */
+    public final String getUri() {
+        return this.uri;
     }
 
     @Override
@@ -253,48 +504,93 @@ public class DependentPhoneNumber extends Resource {
 
         DependentPhoneNumber other = (DependentPhoneNumber) o;
 
-        return Objects.equals(friendlyName, other.friendlyName) && 
+        return Objects.equals(sid, other.sid) && 
+               Objects.equals(accountSid, other.accountSid) && 
+               Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(lata, other.lata) && 
-               Objects.equals(rateCenter, other.rateCenter) && 
-               Objects.equals(latitude, other.latitude) && 
-               Objects.equals(longitude, other.longitude) && 
-               Objects.equals(region, other.region) && 
-               Objects.equals(postalCode, other.postalCode) && 
-               Objects.equals(isoCountry, other.isoCountry) && 
+               Objects.equals(voiceUrl, other.voiceUrl) && 
+               Objects.equals(voiceMethod, other.voiceMethod) && 
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
+               Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) && 
+               Objects.equals(dateCreated, other.dateCreated) && 
+               Objects.equals(dateUpdated, other.dateUpdated) && 
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
+               Objects.equals(smsMethod, other.smsMethod) && 
+               Objects.equals(smsUrl, other.smsUrl) && 
                Objects.equals(addressRequirements, other.addressRequirements) && 
-               Objects.equals(capabilities, other.capabilities);
+               Objects.equals(capabilities, other.capabilities) && 
+               Objects.equals(statusCallback, other.statusCallback) && 
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) && 
+               Objects.equals(apiVersion, other.apiVersion) && 
+               Objects.equals(smsApplicationSid, other.smsApplicationSid) && 
+               Objects.equals(voiceApplicationSid, other.voiceApplicationSid) && 
+               Objects.equals(trunkSid, other.trunkSid) && 
+               Objects.equals(emergencyStatus, other.emergencyStatus) && 
+               Objects.equals(emergencyAddressSid, other.emergencyAddressSid) && 
+               Objects.equals(uri, other.uri);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(friendlyName,
+        return Objects.hash(sid,
+                            accountSid,
+                            friendlyName,
                             phoneNumber,
-                            lata,
-                            rateCenter,
-                            latitude,
-                            longitude,
-                            region,
-                            postalCode,
-                            isoCountry,
+                            voiceUrl,
+                            voiceMethod,
+                            voiceFallbackMethod,
+                            voiceFallbackUrl,
+                            voiceCallerIdLookup,
+                            dateCreated,
+                            dateUpdated,
+                            smsFallbackMethod,
+                            smsFallbackUrl,
+                            smsMethod,
+                            smsUrl,
                             addressRequirements,
-                            capabilities);
+                            capabilities,
+                            statusCallback,
+                            statusCallbackMethod,
+                            apiVersion,
+                            smsApplicationSid,
+                            voiceApplicationSid,
+                            trunkSid,
+                            emergencyStatus,
+                            emergencyAddressSid,
+                            uri);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                          .add("sid", sid)
+                          .add("accountSid", accountSid)
                           .add("friendlyName", friendlyName)
                           .add("phoneNumber", phoneNumber)
-                          .add("lata", lata)
-                          .add("rateCenter", rateCenter)
-                          .add("latitude", latitude)
-                          .add("longitude", longitude)
-                          .add("region", region)
-                          .add("postalCode", postalCode)
-                          .add("isoCountry", isoCountry)
+                          .add("voiceUrl", voiceUrl)
+                          .add("voiceMethod", voiceMethod)
+                          .add("voiceFallbackMethod", voiceFallbackMethod)
+                          .add("voiceFallbackUrl", voiceFallbackUrl)
+                          .add("voiceCallerIdLookup", voiceCallerIdLookup)
+                          .add("dateCreated", dateCreated)
+                          .add("dateUpdated", dateUpdated)
+                          .add("smsFallbackMethod", smsFallbackMethod)
+                          .add("smsFallbackUrl", smsFallbackUrl)
+                          .add("smsMethod", smsMethod)
+                          .add("smsUrl", smsUrl)
                           .add("addressRequirements", addressRequirements)
                           .add("capabilities", capabilities)
+                          .add("statusCallback", statusCallback)
+                          .add("statusCallbackMethod", statusCallbackMethod)
+                          .add("apiVersion", apiVersion)
+                          .add("smsApplicationSid", smsApplicationSid)
+                          .add("voiceApplicationSid", voiceApplicationSid)
+                          .add("trunkSid", trunkSid)
+                          .add("emergencyStatus", emergencyStatus)
+                          .add("emergencyAddressSid", emergencyAddressSid)
+                          .add("uri", uri)
                           .toString();
     }
 }

@@ -25,7 +25,7 @@ import java.net.URI;
  * change. Use them with caution.
  */
 public class ServiceCreator extends Creator<Service> {
-    private String friendlyName;
+    private final String uniqueName;
     private Integer defaultTtl;
     private URI callbackUrl;
     private Service.GeoMatchLevel geoMatchLevel;
@@ -34,14 +34,13 @@ public class ServiceCreator extends Creator<Service> {
     private URI outOfSessionCallbackUrl;
 
     /**
-     * A human readable description of this resource, up to 64 characters..
+     * Construct a new ServiceCreator.
      * 
-     * @param friendlyName A human readable description of this resource.
-     * @return this
+     * @param uniqueName The human-readable string that uniquely identifies this
+     *                   Service.
      */
-    public ServiceCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
+    public ServiceCreator(final String uniqueName) {
+        this.uniqueName = uniqueName;
     }
 
     /**
@@ -190,8 +189,8 @@ public class ServiceCreator extends Creator<Service> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+        if (uniqueName != null) {
+            request.addPostParam("UniqueName", uniqueName);
         }
 
         if (defaultTtl != null) {

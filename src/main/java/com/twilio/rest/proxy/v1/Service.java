@@ -39,10 +39,10 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 265915420451422L;
+    private static final long serialVersionUID = 101873270100140L;
 
     public enum GeoMatchLevel {
-        AREA_CODE("area_code"),
+        AREA_CODE("area-code"),
         OVERLAY("overlay"),
         RADIUS("radius"),
         COUNTRY("country");
@@ -69,8 +69,8 @@ public class Service extends Resource {
     }
 
     public enum NumberSelectionBehavior {
-        AVOID_STICKY("avoid_sticky"),
-        PREFER_STICKY("prefer_sticky");
+        AVOID_STICKY("avoid-sticky"),
+        PREFER_STICKY("prefer-sticky");
 
         private final String value;
 
@@ -115,10 +115,12 @@ public class Service extends Resource {
     /**
      * Create a ServiceCreator to execute create.
      * 
+     * @param uniqueName The human-readable string that uniquely identifies this
+     *                   Service.
      * @return ServiceCreator capable of executing the create
      */
-    public static ServiceCreator creator() {
-        return new ServiceCreator();
+    public static ServiceCreator creator(final String uniqueName) {
+        return new ServiceCreator(uniqueName);
     }
 
     /**
@@ -179,7 +181,7 @@ public class Service extends Resource {
     }
 
     private final String sid;
-    private final String friendlyName;
+    private final String uniqueName;
     private final String accountSid;
     private final URI callbackUrl;
     private final Integer defaultTtl;
@@ -195,8 +197,8 @@ public class Service extends Resource {
     @JsonCreator
     private Service(@JsonProperty("sid")
                     final String sid, 
-                    @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    @JsonProperty("unique_name")
+                    final String uniqueName, 
                     @JsonProperty("account_sid")
                     final String accountSid, 
                     @JsonProperty("callback_url")
@@ -220,7 +222,7 @@ public class Service extends Resource {
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
-        this.friendlyName = friendlyName;
+        this.uniqueName = uniqueName;
         this.accountSid = accountSid;
         this.callbackUrl = callbackUrl;
         this.defaultTtl = defaultTtl;
@@ -248,8 +250,8 @@ public class Service extends Resource {
      * 
      * @return A human readable description of this resource.
      */
-    public final String getFriendlyName() {
-        return this.friendlyName;
+    public final String getUniqueName() {
+        return this.uniqueName;
     }
 
     /**
@@ -364,7 +366,7 @@ public class Service extends Resource {
         Service other = (Service) o;
 
         return Objects.equals(sid, other.sid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
+               Objects.equals(uniqueName, other.uniqueName) && 
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(callbackUrl, other.callbackUrl) && 
                Objects.equals(defaultTtl, other.defaultTtl) && 
@@ -381,7 +383,7 @@ public class Service extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(sid,
-                            friendlyName,
+                            uniqueName,
                             accountSid,
                             callbackUrl,
                             defaultTtl,
@@ -399,7 +401,7 @@ public class Service extends Resource {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("sid", sid)
-                          .add("friendlyName", friendlyName)
+                          .add("uniqueName", uniqueName)
                           .add("accountSid", accountSid)
                           .add("callbackUrl", callbackUrl)
                           .add("defaultTtl", defaultTtl)

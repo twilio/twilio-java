@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Room extends Resource {
-    private static final long serialVersionUID = 168357833886027L;
+    private static final long serialVersionUID = 27249312310182L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -206,6 +206,7 @@ public class Room extends Resource {
     private final Integer maxParticipants;
     private final Boolean recordParticipantsOnConnect;
     private final List<Room.VideoCodec> videoCodecs;
+    private final String mediaRegion;
     private final URI url;
     private final Map<String, String> links;
 
@@ -240,6 +241,8 @@ public class Room extends Resource {
                  final Boolean recordParticipantsOnConnect, 
                  @JsonProperty("video_codecs")
                  final List<Room.VideoCodec> videoCodecs, 
+                 @JsonProperty("media_region")
+                 final String mediaRegion, 
                  @JsonProperty("url")
                  final URI url, 
                  @JsonProperty("links")
@@ -259,6 +262,7 @@ public class Room extends Resource {
         this.maxParticipants = maxParticipants;
         this.recordParticipantsOnConnect = recordParticipantsOnConnect;
         this.videoCodecs = videoCodecs;
+        this.mediaRegion = mediaRegion;
         this.url = url;
         this.links = links;
     }
@@ -399,6 +403,15 @@ public class Room extends Resource {
     }
 
     /**
+     * Returns The The media_region.
+     * 
+     * @return The media_region
+     */
+    public final String getMediaRegion() {
+        return this.mediaRegion;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -443,6 +456,7 @@ public class Room extends Resource {
                Objects.equals(maxParticipants, other.maxParticipants) && 
                Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) && 
                Objects.equals(videoCodecs, other.videoCodecs) && 
+               Objects.equals(mediaRegion, other.mediaRegion) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -464,6 +478,7 @@ public class Room extends Resource {
                             maxParticipants,
                             recordParticipantsOnConnect,
                             videoCodecs,
+                            mediaRegion,
                             url,
                             links);
     }
@@ -486,6 +501,7 @@ public class Room extends Resource {
                           .add("maxParticipants", maxParticipants)
                           .add("recordParticipantsOnConnect", recordParticipantsOnConnect)
                           .add("videoCodecs", videoCodecs)
+                          .add("mediaRegion", mediaRegion)
                           .add("url", url)
                           .add("links", links)
                           .toString();

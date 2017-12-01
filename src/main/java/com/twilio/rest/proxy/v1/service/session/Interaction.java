@@ -138,6 +138,20 @@ public class Interaction extends Resource {
     }
 
     /**
+     * Create a InteractionDeleter to execute delete.
+     * 
+     * @param pathServiceSid Service Sid.
+     * @param pathSessionSid Session Sid.
+     * @param pathSid A string that uniquely identifies this Interaction.
+     * @return InteractionDeleter capable of executing the delete
+     */
+    public static InteractionDeleter deleter(final String pathServiceSid, 
+                                             final String pathSessionSid, 
+                                             final String pathSid) {
+        return new InteractionDeleter(pathServiceSid, pathSessionSid, pathSid);
+    }
+
+    /**
      * Converts a JSON String into a Interaction object using the provided
      * ObjectMapper.
      * 

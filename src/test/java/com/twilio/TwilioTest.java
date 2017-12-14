@@ -6,6 +6,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.exception.AuthenticationException;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.concurrent.Executors;
 
 import static org.junit.Assert.assertEquals;
@@ -16,6 +17,11 @@ public class TwilioTest {
 
     public static String serialize(Object object) {
         return object.toString();
+    }
+
+    public static String serialize(List list) {
+        // NOTE: This relies on the fact that integration tests only ever generate single element lists.
+        return list.get(0).toString();
     }
 
     @Test

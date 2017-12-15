@@ -10,14 +10,15 @@ import com.twilio.rest.api.v2010.account.availablephonenumbercountry.Local;
 import com.twilio.rest.api.v2010.account.usage.Record;
 import com.twilio.rest.trunking.v1.Trunk;
 import com.twilio.rest.trunking.v1.TrunkCreator;
-import com.twilio.twiml.Play;
-import com.twilio.twiml.Say;
+import com.twilio.twiml.voice.Play;
+import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.TwiML;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.VoiceResponse;
 import com.twilio.type.PhoneNumber;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 
 public class Example {
@@ -33,7 +34,7 @@ public class Example {
      * @param args command line args
      * @throws TwiMLException if unable to generate TwiML
      */
-    public static void main(String[] args) throws TwiMLException {
+    public static void main(String[] args) throws TwiMLException, URISyntaxException {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
@@ -89,7 +90,7 @@ public class Example {
         // TwiML
         TwiML twiml = new VoiceResponse.Builder()
             .say(new Say.Builder("Hello World!").build())
-            .play(new Play.Builder("https://api.twilio.com/cowbell.mp3").loop(5).build())
+            .play(new Play.Builder().url(new URI("https://api.twilio.com/cowbell.mp3")).loop(5).build())
             .build();
         System.out.println(twiml.toXml());
     }

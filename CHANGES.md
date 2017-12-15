@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2017-12-15] Version 7.17.0
+----------------------------
+**Library**
+- Autogenerate TwiML Resources *(breaking change)*.
+- Improved consistency between TwiML classes and faster updates.
+- Allow setting arbitrary attributes on any TwiML resource.
+- Use proper Java types in TwiML resources *(breaking change)*.
+- Restructure TwiML package *(breaking change)*.
+
 [2017-12-01] Version 7.16.1
 ----------------------------
 **Api**

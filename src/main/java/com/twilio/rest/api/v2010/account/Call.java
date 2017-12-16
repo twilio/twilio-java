@@ -39,7 +39,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Call extends Resource {
-    private static final long serialVersionUID = 224465341716803L;
+    private static final long serialVersionUID = 194998930798610L;
 
     public enum Event {
         INITIATED("initiated"),

@@ -12,6 +12,7 @@ import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -56,6 +57,16 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
+     * Filter by messages to this number.
+     * 
+     * @param to Filter by messages to this number
+     * @return this
+     */
+    public MessageReader setTo(final String to) {
+        return setTo(Promoter.phoneNumberFromString(to));
+    }
+
+    /**
      * Only show messages from this phone number.
      * 
      * @param from Filter by from number
@@ -64,6 +75,16 @@ public class MessageReader extends Reader<Message> {
     public MessageReader setFrom(final com.twilio.type.PhoneNumber from) {
         this.from = from;
         return this;
+    }
+
+    /**
+     * Only show messages from this phone number.
+     * 
+     * @param from Filter by from number
+     * @return this
+     */
+    public MessageReader setFrom(final String from) {
+        return setFrom(Promoter.phoneNumberFromString(from));
     }
 
     /**

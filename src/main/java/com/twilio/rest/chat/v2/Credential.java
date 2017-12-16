@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Credential extends Resource {
-    private static final long serialVersionUID = 77946155752213L;
+    private static final long serialVersionUID = 133884911230690L;
 
     public enum PushService {
         GCM("gcm"),

@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Reservation extends Resource {
-    private static final long serialVersionUID = 156834658396048L;
+    private static final long serialVersionUID = 63448280807644L;
 
     public enum Status {
         PENDING("pending"),

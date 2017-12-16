@@ -45,6 +45,7 @@ public class CallCreator extends Creator<Call> {
     private String sipAuthPassword;
     private String machineDetection;
     private Integer machineDetectionTimeout;
+    private List<String> recordingStatusCallbackEvent;
 
     /**
      * Construct a new CallCreator.
@@ -355,6 +356,27 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * The recording_status_callback_event.
+     * 
+     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * @return this
+     */
+    public CallCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent) {
+        this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
+        return this;
+    }
+
+    /**
+     * The recording_status_callback_event.
+     * 
+     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * @return this
+     */
+    public CallCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent) {
+        return setRecordingStatusCallbackEvent(Promoter.listOfOne(recordingStatusCallbackEvent));
+    }
+
+    /**
      * The fully qualified URL that should be consulted when the call connects. Just
      * like when you set a URL on a phone number for handling inbound calls..
      * 
@@ -521,6 +543,12 @@ public class CallCreator extends Creator<Call> {
 
         if (machineDetectionTimeout != null) {
             request.addPostParam("MachineDetectionTimeout", machineDetectionTimeout.toString());
+        }
+
+        if (recordingStatusCallbackEvent != null) {
+            for (String prop : recordingStatusCallbackEvent) {
+                request.addPostParam("RecordingStatusCallbackEvent", prop);
+            }
         }
     }
 }

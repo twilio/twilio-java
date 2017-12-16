@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IncomingPhoneNumber extends Resource {
-    private static final long serialVersionUID = 109967921858440L;
+    private static final long serialVersionUID = 145062524051297L;
 
     public enum AddressRequirement {
         NONE("none"),

@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task extends Resource {
-    private static final long serialVersionUID = 37662678894198L;
+    private static final long serialVersionUID = 85038586124308L;
 
     public enum Status {
         PENDING("pending"),

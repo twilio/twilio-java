@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Binding extends Resource {
-    private static final long serialVersionUID = 272307863470500L;
+    private static final long serialVersionUID = 102481637129176L;
 
     public enum BindingType {
         GCM("gcm"),

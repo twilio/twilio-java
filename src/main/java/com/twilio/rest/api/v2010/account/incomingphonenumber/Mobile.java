@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Mobile extends Resource {
-    private static final long serialVersionUID = 143061101403982L;
+    private static final long serialVersionUID = 123614477626957L;
 
     public enum AddressRequirement {
         NONE("none"),

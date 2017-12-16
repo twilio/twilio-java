@@ -10,6 +10,7 @@ package com.twilio.rest.preview.hostedNumbers;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -53,6 +54,16 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     public HostedNumberOrderReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
+    }
+
+    /**
+     * An E164 formatted phone number hosted by this HostedNumberOrder..
+     * 
+     * @param phoneNumber An E164 formatted phone number.
+     * @return this
+     */
+    public HostedNumberOrderReader setPhoneNumber(final String phoneNumber) {
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
 
     /**

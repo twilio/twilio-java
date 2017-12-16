@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VerificationCheck extends Resource {
-    private static final long serialVersionUID = 279120413763566L;
+    private static final long serialVersionUID = 135291297208530L;
 
     public enum Channel {
         SMS("sms"),

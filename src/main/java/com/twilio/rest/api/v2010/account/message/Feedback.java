@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Feedback extends Resource {
-    private static final long serialVersionUID = 255348385418437L;
+    private static final long serialVersionUID = 93685573726475L;
 
     public enum Outcome {
         CONFIRMED("confirmed"),

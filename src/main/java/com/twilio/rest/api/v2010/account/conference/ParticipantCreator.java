@@ -52,6 +52,8 @@ public class ParticipantCreator extends Creator<Participant> {
     private String region;
     private URI conferenceRecordingStatusCallback;
     private HttpMethod conferenceRecordingStatusCallbackMethod;
+    private List<String> recordingStatusCallbackEvent;
+    private List<String> conferenceRecordingStatusCallbackEvent;
 
     /**
      * Construct a new ParticipantCreator.
@@ -446,6 +448,50 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * The recording_status_callback_event.
+     * 
+     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * @return this
+     */
+    public ParticipantCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent) {
+        this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
+        return this;
+    }
+
+    /**
+     * The recording_status_callback_event.
+     * 
+     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * @return this
+     */
+    public ParticipantCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent) {
+        return setRecordingStatusCallbackEvent(Promoter.listOfOne(recordingStatusCallbackEvent));
+    }
+
+    /**
+     * The conference_recording_status_callback_event.
+     * 
+     * @param conferenceRecordingStatusCallbackEvent The
+     *                                               conference_recording_status_callback_event
+     * @return this
+     */
+    public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final List<String> conferenceRecordingStatusCallbackEvent) {
+        this.conferenceRecordingStatusCallbackEvent = conferenceRecordingStatusCallbackEvent;
+        return this;
+    }
+
+    /**
+     * The conference_recording_status_callback_event.
+     * 
+     * @param conferenceRecordingStatusCallbackEvent The
+     *                                               conference_recording_status_callback_event
+     * @return this
+     */
+    public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final String conferenceRecordingStatusCallbackEvent) {
+        return setConferenceRecordingStatusCallbackEvent(Promoter.listOfOne(conferenceRecordingStatusCallbackEvent));
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -605,6 +651,18 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (conferenceRecordingStatusCallbackMethod != null) {
             request.addPostParam("ConferenceRecordingStatusCallbackMethod", conferenceRecordingStatusCallbackMethod.toString());
+        }
+
+        if (recordingStatusCallbackEvent != null) {
+            for (String prop : recordingStatusCallbackEvent) {
+                request.addPostParam("RecordingStatusCallbackEvent", prop);
+            }
+        }
+
+        if (conferenceRecordingStatusCallbackEvent != null) {
+            for (String prop : conferenceRecordingStatusCallbackEvent) {
+                request.addPostParam("ConferenceRecordingStatusCallbackEvent", prop);
+            }
         }
     }
 }

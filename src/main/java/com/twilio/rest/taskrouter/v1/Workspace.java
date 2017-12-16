@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Workspace extends Resource {
-    private static final long serialVersionUID = 142810260954575L;
+    private static final long serialVersionUID = 173419493907327L;
 
     public enum QueueOrder {
         FIFO("FIFO"),

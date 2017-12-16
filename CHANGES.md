@@ -3,6 +3,19 @@ twilio-java changelog
 
 [2017-12-15] Version 7.17.0
 ----------------------------
+**Api**
+- Add `voip`, `national`, `shared_cost`, and `machine_to_machine` sub-resources to `/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{IsoCountryCode}/`
+- Add programmable video keys
+
+**Preview**
+- Add `verification_type` and `verification_document_sid` to HostedNumberOrders.
+
+**Proxy**
+- Fixed typo in session status enum value
+
+
+[2017-12-15] Version 7.17.0
+----------------------------
 **Library**
 - Autogenerate TwiML Resources *(breaking change)*.
 - Improved consistency between TwiML classes and faster updates.

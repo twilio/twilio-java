@@ -35,37 +35,12 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 64924791987569L;
-
-    public enum Source {
-        DIALVERB("DialVerb"),
-        CONFERENCE("Conference"),
-        OUTBOUNDAPI("OutboundAPI"),
-        TRUNKING("Trunking"),
-        RECORDVERB("RecordVerb");
-
-        private final String value;
-
-        private Source(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Source from a string.
-         * @param value string value
-         * @return generated Source
-         */
-        @JsonCreator
-        public static Source forValue(final String value) {
-            return Promoter.enumFromString(value, Source.values());
-        }
-    }
+    private static final long serialVersionUID = 243997298277448L;
 
     public enum Status {
+        IN_PROGRESS("in-progress"),
+        PAUSED("paused"),
+        STOPPED("stopped"),
         PROCESSING("processing"),
         COMPLETED("completed"),
         FAILED("failed");
@@ -88,6 +63,36 @@ public class Recording extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Source {
+        DIALVERB("DialVerb"),
+        CONFERENCE("Conference"),
+        OUTBOUNDAPI("OutboundAPI"),
+        TRUNKING("Trunking"),
+        RECORDVERB("RecordVerb"),
+        STARTCALLRECORDINGAPI("StartCallRecordingAPI"),
+        STARTCONFERENCERECORDINGAPI("StartConferenceRecordingAPI");
+
+        private final String value;
+
+        private Source(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Source from a string.
+         * @param value string value
+         * @return generated Source
+         */
+        @JsonCreator
+        public static Source forValue(final String value) {
+            return Promoter.enumFromString(value, Source.values());
         }
     }
 
@@ -204,9 +209,10 @@ public class Recording extends Resource {
     private final Recording.Status status;
     private final Integer channels;
     private final Recording.Source source;
+    private final Integer errorCode;
     private final String uri;
     private final Map<String, Object> encryptionDetails;
-    private final Integer errorCode;
+    private final Map<String, String> subresourceUris;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -233,12 +239,14 @@ public class Recording extends Resource {
                       final Integer channels, 
                       @JsonProperty("source")
                       final Recording.Source source, 
+                      @JsonProperty("error_code")
+                      final Integer errorCode, 
                       @JsonProperty("uri")
                       final String uri, 
                       @JsonProperty("encryption_details")
                       final Map<String, Object> encryptionDetails, 
-                      @JsonProperty("error_code")
-                      final Integer errorCode) {
+                      @JsonProperty("subresource_uris")
+                      final Map<String, String> subresourceUris) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -251,9 +259,10 @@ public class Recording extends Resource {
         this.status = status;
         this.channels = channels;
         this.source = source;
+        this.errorCode = errorCode;
         this.uri = uri;
         this.encryptionDetails = encryptionDetails;
-        this.errorCode = errorCode;
+        this.subresourceUris = subresourceUris;
     }
 
     /**
@@ -275,9 +284,10 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The call during which the recording was made..
+     * Returns The The unique id for the call leg that corresponds to the
+     * recording..
      * 
-     * @return The call during which the recording was made.
+     * @return The unique id for the call leg that corresponds to the recording.
      */
     public final String getCallSid() {
         return this.callSid;
@@ -320,48 +330,59 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The price.
+     * Returns The The one-time cost of creating this recording..
      * 
-     * @return The price
+     * @return The one-time cost of creating this recording.
      */
     public final String getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The The price_unit.
+     * Returns The The currency used in the Price property..
      * 
-     * @return The price_unit
+     * @return The currency used in the Price property.
      */
     public final String getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of the recording..
      * 
-     * @return The status
+     * @return The status of the recording.
      */
     public final Recording.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The channels.
+     * Returns The The number of channels in the final recording file as an
+     * integer..
      * 
-     * @return The channels
+     * @return The number of channels in the final recording file as an integer.
      */
     public final Integer getChannels() {
         return this.channels;
     }
 
     /**
-     * Returns The The source.
+     * Returns The The way in which this recording was created..
      * 
-     * @return The source
+     * @return The way in which this recording was created.
      */
     public final Recording.Source getSource() {
         return this.source;
+    }
+
+    /**
+     * Returns The More information about the recording failure, if Status is
+     * failed..
+     * 
+     * @return More information about the recording failure, if Status is failed.
+     */
+    public final Integer getErrorCode() {
+        return this.errorCode;
     }
 
     /**
@@ -383,13 +404,12 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The More information about the recording failure, if Status is
-     * failed..
+     * Returns The The subresource_uris.
      * 
-     * @return More information about the recording failure, if Status is failed.
+     * @return The subresource_uris
      */
-    public final Integer getErrorCode() {
-        return this.errorCode;
+    public final Map<String, String> getSubresourceUris() {
+        return this.subresourceUris;
     }
 
     @Override
@@ -416,9 +436,10 @@ public class Recording extends Resource {
                Objects.equals(status, other.status) && 
                Objects.equals(channels, other.channels) && 
                Objects.equals(source, other.source) && 
+               Objects.equals(errorCode, other.errorCode) && 
                Objects.equals(uri, other.uri) && 
                Objects.equals(encryptionDetails, other.encryptionDetails) && 
-               Objects.equals(errorCode, other.errorCode);
+               Objects.equals(subresourceUris, other.subresourceUris);
     }
 
     @Override
@@ -435,9 +456,10 @@ public class Recording extends Resource {
                             status,
                             channels,
                             source,
+                            errorCode,
                             uri,
                             encryptionDetails,
-                            errorCode);
+                            subresourceUris);
     }
 
     @Override
@@ -455,9 +477,10 @@ public class Recording extends Resource {
                           .add("status", status)
                           .add("channels", channels)
                           .add("source", source)
+                          .add("errorCode", errorCode)
                           .add("uri", uri)
                           .add("encryptionDetails", encryptionDetails)
-                          .add("errorCode", errorCode)
+                          .add("subresourceUris", subresourceUris)
                           .toString();
     }
 }

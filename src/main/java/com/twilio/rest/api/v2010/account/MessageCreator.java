@@ -318,6 +318,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * A Twilio phone number or alphanumeric sender ID enabled for the type of
+     * message you wish to send..
+     * 
+     * @param from The phone number that initiated the message
+     * @return this
+     */
+    public MessageCreator setFrom(final String from) {
+        return setFrom(Promoter.phoneNumberFromString(from));
+    }
+
+    /**
      * The messaging_service_sid.
      * 
      * @param messagingServiceSid The messaging_service_sid

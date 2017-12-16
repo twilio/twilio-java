@@ -10,6 +10,7 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -72,6 +73,16 @@ public class LocalReader extends Reader<Local> {
     public LocalReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
+    }
+
+    /**
+     * The phone_number.
+     * 
+     * @param phoneNumber The phone_number
+     * @return this
+     */
+    public LocalReader setPhoneNumber(final String phoneNumber) {
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
 
     /**

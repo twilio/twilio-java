@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Interaction extends Resource {
-    private static final long serialVersionUID = 7450383459740L;
+    private static final long serialVersionUID = 79439226975965L;
 
     public enum Status {
         COMPLETED("completed"),

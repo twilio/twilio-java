@@ -42,7 +42,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HostedNumberOrder extends Resource {
-    private static final long serialVersionUID = 254466053516521L;
+    private static final long serialVersionUID = 273092781006289L;
 
     public enum Status {
         RECEIVED("received"),
@@ -73,6 +73,31 @@ public class HostedNumberOrder extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum VerificationType {
+        PHONE_CALL("phone-call"),
+        PHONE_BILL("phone-bill");
+
+        private final String value;
+
+        private VerificationType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a VerificationType from a string.
+         * @param value string value
+         * @return generated VerificationType
+         */
+        @JsonCreator
+        public static VerificationType forValue(final String value) {
+            return Promoter.enumFromString(value, VerificationType.values());
         }
     }
 
@@ -181,6 +206,8 @@ public class HostedNumberOrder extends Resource {
     private final String email;
     private final List<String> ccEmails;
     private final URI url;
+    private final HostedNumberOrder.VerificationType verificationType;
+    private final String verificationDocumentSid;
 
     @JsonCreator
     private HostedNumberOrder(@JsonProperty("sid")
@@ -214,7 +241,11 @@ public class HostedNumberOrder extends Resource {
                               @JsonProperty("cc_emails")
                               final List<String> ccEmails, 
                               @JsonProperty("url")
-                              final URI url) {
+                              final URI url, 
+                              @JsonProperty("verification_type")
+                              final HostedNumberOrder.VerificationType verificationType, 
+                              @JsonProperty("verification_document_sid")
+                              final String verificationDocumentSid) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.incomingPhoneNumberSid = incomingPhoneNumberSid;
@@ -231,6 +262,8 @@ public class HostedNumberOrder extends Resource {
         this.email = email;
         this.ccEmails = ccEmails;
         this.url = url;
+        this.verificationType = verificationType;
+        this.verificationDocumentSid = verificationDocumentSid;
     }
 
     /**
@@ -379,6 +412,25 @@ public class HostedNumberOrder extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The method used for verifying ownership of the number to be
+     * hosted..
+     * 
+     * @return The method used for verifying ownership of the number to be hosted.
+     */
+    public final HostedNumberOrder.VerificationType getVerificationType() {
+        return this.verificationType;
+    }
+
+    /**
+     * Returns The Verification Document Sid..
+     * 
+     * @return Verification Document Sid.
+     */
+    public final String getVerificationDocumentSid() {
+        return this.verificationDocumentSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -406,7 +458,9 @@ public class HostedNumberOrder extends Resource {
                Objects.equals(verificationAttempts, other.verificationAttempts) && 
                Objects.equals(email, other.email) && 
                Objects.equals(ccEmails, other.ccEmails) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(verificationType, other.verificationType) && 
+               Objects.equals(verificationDocumentSid, other.verificationDocumentSid);
     }
 
     @Override
@@ -426,7 +480,9 @@ public class HostedNumberOrder extends Resource {
                             verificationAttempts,
                             email,
                             ccEmails,
-                            url);
+                            url,
+                            verificationType,
+                            verificationDocumentSid);
     }
 
     @Override
@@ -448,6 +504,8 @@ public class HostedNumberOrder extends Resource {
                           .add("email", email)
                           .add("ccEmails", ccEmails)
                           .add("url", url)
+                          .add("verificationType", verificationType)
+                          .add("verificationDocumentSid", verificationDocumentSid)
                           .toString();
     }
 }

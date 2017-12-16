@@ -39,7 +39,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 201754449447651L;
+    private static final long serialVersionUID = 61377418909039L;
 
     public enum Status {
         QUEUED("queued"),

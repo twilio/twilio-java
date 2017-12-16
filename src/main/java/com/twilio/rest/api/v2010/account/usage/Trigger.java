@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trigger extends Resource {
-    private static final long serialVersionUID = 265472878252662L;
+    private static final long serialVersionUID = 174561249107274L;
 
     public enum UsageCategory {
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
@@ -69,6 +69,8 @@ public class Trigger extends Resource {
         CONVERSATIONS_PARTICIPANTS("conversations-participants"),
         CPS("cps"),
         GROUP_ROOMS("group-rooms"),
+        GROUP_ROOMS_DATA_TRACK("group-rooms-data-track"),
+        GROUP_ROOMS_ENCRYPTED_MEDIA_RECORDED("group-rooms-encrypted-media-recorded"),
         GROUP_ROOMS_MEDIA_DOWNLOADED("group-rooms-media-downloaded"),
         GROUP_ROOMS_MEDIA_RECORDED("group-rooms-media-recorded"),
         GROUP_ROOMS_MEDIA_ROUTED("group-rooms-media-routed"),

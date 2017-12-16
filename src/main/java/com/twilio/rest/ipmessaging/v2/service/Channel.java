@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Channel extends Resource {
-    private static final long serialVersionUID = 267741172679383L;
+    private static final long serialVersionUID = 275623534063843L;
 
     public enum ChannelType {
         PUBLIC("public"),

@@ -97,7 +97,7 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The Status of this Session. One of `in-progess`, `closed`, `failed`,
+     * The Status of this Session. One of `in-progress`, `closed`, `failed`,
      * `unknown` or `completed`..
      * 
      * @param status The Status of this Session

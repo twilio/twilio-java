@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Feedback extends Resource {
-    private static final long serialVersionUID = 234556362553174L;
+    private static final long serialVersionUID = 172313514850197L;
 
     public enum Issues {
         AUDIO_LATENCY("audio-latency"),

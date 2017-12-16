@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Record extends Resource {
-    private static final long serialVersionUID = 174526935435776L;
+    private static final long serialVersionUID = 71406401031495L;
 
     public enum Category {
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
@@ -71,6 +71,8 @@ public class Record extends Resource {
         CONVERSATIONS_PARTICIPANTS("conversations-participants"),
         CPS("cps"),
         GROUP_ROOMS("group-rooms"),
+        GROUP_ROOMS_DATA_TRACK("group-rooms-data-track"),
+        GROUP_ROOMS_ENCRYPTED_MEDIA_RECORDED("group-rooms-encrypted-media-recorded"),
         GROUP_ROOMS_MEDIA_DOWNLOADED("group-rooms-media-downloaded"),
         GROUP_ROOMS_MEDIA_RECORDED("group-rooms-media-recorded"),
         GROUP_ROOMS_MEDIA_ROUTED("group-rooms-media-routed"),

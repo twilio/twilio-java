@@ -8,6 +8,7 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -55,6 +56,16 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     public PhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
+    }
+
+    /**
+     * The phone_number.
+     * 
+     * @param phoneNumber The phone_number
+     * @return this
+     */
+    public PhoneNumberCreator setPhoneNumber(final String phoneNumber) {
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
 
     /**

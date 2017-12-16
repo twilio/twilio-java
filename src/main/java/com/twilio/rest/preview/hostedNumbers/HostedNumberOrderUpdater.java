@@ -33,6 +33,8 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     private List<String> ccEmails;
     private HostedNumberOrder.Status status;
     private String verificationCode;
+    private HostedNumberOrder.VerificationType verificationType;
+    private String verificationDocumentSid;
 
     /**
      * Construct a new HostedNumberOrderUpdater.
@@ -127,6 +129,31 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     }
 
     /**
+     * Optional. The method used for verifying ownership of the number to be hosted.
+     * One of phone-call (default) or phone-bill..
+     * 
+     * @param verificationType Verification Type.
+     * @return this
+     */
+    public HostedNumberOrderUpdater setVerificationType(final HostedNumberOrder.VerificationType verificationType) {
+        this.verificationType = verificationType;
+        return this;
+    }
+
+    /**
+     * Optional. The unique sid identifier of the Identity Document that represents
+     * the document for verifying ownership of the number to be hosted. Required
+     * when VerificationType is phone-bill..
+     * 
+     * @param verificationDocumentSid Verification Document Sid
+     * @return this
+     */
+    public HostedNumberOrderUpdater setVerificationDocumentSid(final String verificationDocumentSid) {
+        this.verificationDocumentSid = verificationDocumentSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -195,6 +222,14 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
         if (verificationCode != null) {
             request.addPostParam("VerificationCode", verificationCode);
+        }
+
+        if (verificationType != null) {
+            request.addPostParam("VerificationType", verificationType.toString());
+        }
+
+        if (verificationDocumentSid != null) {
+            request.addPostParam("VerificationDocumentSid", verificationDocumentSid);
         }
     }
 }

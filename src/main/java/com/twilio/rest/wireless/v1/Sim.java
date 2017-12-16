@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sim extends Resource {
-    private static final long serialVersionUID = 165671562845710L;
+    private static final long serialVersionUID = 120029106133082L;
 
     public enum Status {
         NEW("new"),

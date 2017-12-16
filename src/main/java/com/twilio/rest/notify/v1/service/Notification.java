@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Notification extends Resource {
-    private static final long serialVersionUID = 91178018403492L;
+    private static final long serialVersionUID = 275926337068118L;
 
     public enum Priority {
         HIGH("high"),

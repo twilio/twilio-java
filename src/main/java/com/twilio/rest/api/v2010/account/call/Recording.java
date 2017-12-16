@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
@@ -31,42 +32,18 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 45761543846502L;
-
-    public enum Source {
-        DIALVERB("DialVerb"),
-        CONFERENCE("Conference"),
-        OUTBOUNDAPI("OutboundAPI"),
-        TRUNKING("Trunking"),
-        RECORDVERB("RecordVerb");
-
-        private final String value;
-
-        private Source(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Source from a string.
-         * @param value string value
-         * @return generated Source
-         */
-        @JsonCreator
-        public static Source forValue(final String value) {
-            return Promoter.enumFromString(value, Source.values());
-        }
-    }
+    private static final long serialVersionUID = 231172714460621L;
 
     public enum Status {
+        IN_PROGRESS("in-progress"),
+        PAUSED("paused"),
+        STOPPED("stopped"),
         PROCESSING("processing"),
         COMPLETED("completed"),
         FAILED("failed");
@@ -89,6 +66,36 @@ public class Recording extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Source {
+        DIALVERB("DialVerb"),
+        CONFERENCE("Conference"),
+        OUTBOUNDAPI("OutboundAPI"),
+        TRUNKING("Trunking"),
+        RECORDVERB("RecordVerb"),
+        STARTCALLRECORDINGAPI("StartCallRecordingAPI"),
+        STARTCONFERENCERECORDINGAPI("StartConferenceRecordingAPI");
+
+        private final String value;
+
+        private Source(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Source from a string.
+         * @param value string value
+         * @return generated Source
+         */
+        @JsonCreator
+        public static Source forValue(final String value) {
+            return Promoter.enumFromString(value, Source.values());
         }
     }
 
@@ -214,11 +221,11 @@ public class Recording extends Resource {
     private final BigDecimal price;
     private final String uri;
     private final Map<String, Object> encryptionDetails;
-    private final Integer errorCode;
+    private final Currency priceUnit;
     private final Recording.Status status;
-    private final Recording.Source source;
     private final Integer channels;
-    private final String priceUnit;
+    private final Recording.Source source;
+    private final Integer errorCode;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -241,16 +248,17 @@ public class Recording extends Resource {
                       final String uri, 
                       @JsonProperty("encryption_details")
                       final Map<String, Object> encryptionDetails, 
-                      @JsonProperty("error_code")
-                      final Integer errorCode, 
+                      @JsonProperty("price_unit")
+                      @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+                      final Currency priceUnit, 
                       @JsonProperty("status")
                       final Recording.Status status, 
-                      @JsonProperty("source")
-                      final Recording.Source source, 
                       @JsonProperty("channels")
                       final Integer channels, 
-                      @JsonProperty("price_unit")
-                      final String priceUnit) {
+                      @JsonProperty("source")
+                      final Recording.Source source, 
+                      @JsonProperty("error_code")
+                      final Integer errorCode) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -261,11 +269,11 @@ public class Recording extends Resource {
         this.price = price;
         this.uri = uri;
         this.encryptionDetails = encryptionDetails;
-        this.errorCode = errorCode;
-        this.status = status;
-        this.source = source;
-        this.channels = channels;
         this.priceUnit = priceUnit;
+        this.status = status;
+        this.channels = channels;
+        this.source = source;
+        this.errorCode = errorCode;
     }
 
     /**
@@ -359,12 +367,12 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The error_code.
+     * Returns The The price_unit.
      * 
-     * @return The error_code
+     * @return The price_unit
      */
-    public final Integer getErrorCode() {
-        return this.errorCode;
+    public final Currency getPriceUnit() {
+        return this.priceUnit;
     }
 
     /**
@@ -377,15 +385,6 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The source.
-     * 
-     * @return The source
-     */
-    public final Recording.Source getSource() {
-        return this.source;
-    }
-
-    /**
      * Returns The The channels.
      * 
      * @return The channels
@@ -395,12 +394,21 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The price_unit.
+     * Returns The The source.
      * 
-     * @return The price_unit
+     * @return The source
      */
-    public final String getPriceUnit() {
-        return this.priceUnit;
+    public final Recording.Source getSource() {
+        return this.source;
+    }
+
+    /**
+     * Returns The The error_code.
+     * 
+     * @return The error_code
+     */
+    public final Integer getErrorCode() {
+        return this.errorCode;
     }
 
     @Override
@@ -425,11 +433,11 @@ public class Recording extends Resource {
                Objects.equals(price, other.price) && 
                Objects.equals(uri, other.uri) && 
                Objects.equals(encryptionDetails, other.encryptionDetails) && 
-               Objects.equals(errorCode, other.errorCode) && 
+               Objects.equals(priceUnit, other.priceUnit) && 
                Objects.equals(status, other.status) && 
-               Objects.equals(source, other.source) && 
                Objects.equals(channels, other.channels) && 
-               Objects.equals(priceUnit, other.priceUnit);
+               Objects.equals(source, other.source) && 
+               Objects.equals(errorCode, other.errorCode);
     }
 
     @Override
@@ -444,11 +452,11 @@ public class Recording extends Resource {
                             price,
                             uri,
                             encryptionDetails,
-                            errorCode,
+                            priceUnit,
                             status,
-                            source,
                             channels,
-                            priceUnit);
+                            source,
+                            errorCode);
     }
 
     @Override
@@ -464,11 +472,11 @@ public class Recording extends Resource {
                           .add("price", price)
                           .add("uri", uri)
                           .add("encryptionDetails", encryptionDetails)
-                          .add("errorCode", errorCode)
-                          .add("status", status)
-                          .add("source", source)
-                          .add("channels", channels)
                           .add("priceUnit", priceUnit)
+                          .add("status", status)
+                          .add("channels", channels)
+                          .add("source", source)
+                          .add("errorCode", errorCode)
                           .toString();
     }
 }

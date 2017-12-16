@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ModelBuild extends Resource {
-    private static final long serialVersionUID = 239798869018222L;
+    private static final long serialVersionUID = 236747167754916L;
 
     public enum Status {
         ENQUEUED("enqueued"),

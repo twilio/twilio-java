@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Flow extends Resource {
-    private static final long serialVersionUID = 137416587994443L;
+    private static final long serialVersionUID = 219120061630961L;
 
     public enum Status {
         DRAFT("draft"),

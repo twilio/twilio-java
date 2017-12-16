@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 43395598923285L;
+    private static final long serialVersionUID = 155674022160031L;
 
     public enum ScanMessageContent {
         INHERIT("inherit"),

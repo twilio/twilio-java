@@ -108,7 +108,7 @@ public class RoleTest {
                                                       "/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles");
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("Type", serialize(Role.RoleType.CHANNEL));
-        request.addPostParam("Permission", serialize("permission"));
+        request.addPostParam("Permission", serialize(Promoter.listOfOne("permission")));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -184,7 +184,7 @@ public class RoleTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.CHAT.toString(),
                                           "/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            request.addPostParam("Permission", serialize("permission"));
+            request.addPostParam("Permission", serialize(Promoter.listOfOne("permission")));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

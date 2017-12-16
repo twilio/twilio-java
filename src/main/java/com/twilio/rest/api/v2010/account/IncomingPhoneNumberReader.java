@@ -10,6 +10,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -73,6 +74,16 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     public IncomingPhoneNumberReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
+    }
+
+    /**
+     * Only show the incoming phone number resources that match this pattern.
+     * 
+     * @param phoneNumber Filter by incoming phone number
+     * @return this
+     */
+    public IncomingPhoneNumberReader setPhoneNumber(final String phoneNumber) {
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
 
     /**

@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AddOnResult extends Resource {
-    private static final long serialVersionUID = 178294559429976L;
+    private static final long serialVersionUID = 195304696893034L;
 
     public enum Status {
         CANCELED("canceled"),

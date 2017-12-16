@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Local extends Resource {
-    private static final long serialVersionUID = 143061101403982L;
+    private static final long serialVersionUID = 75964804463033L;
 
     public enum AddressRequirement {
         NONE("none"),

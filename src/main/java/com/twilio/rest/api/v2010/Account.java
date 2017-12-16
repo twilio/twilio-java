@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Account extends Resource {
-    private static final long serialVersionUID = 68381032403131L;
+    private static final long serialVersionUID = 82837000699633L;
 
     public enum Status {
         ACTIVE("active"),

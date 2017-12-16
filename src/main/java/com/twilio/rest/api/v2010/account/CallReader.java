@@ -12,6 +12,7 @@ import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -60,6 +61,16 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
+     * Only show calls to this phone number or Client identifier.
+     * 
+     * @param to Phone number or Client identifier to filter `to` on
+     * @return this
+     */
+    public CallReader setTo(final String to) {
+        return setTo(Promoter.phoneNumberFromString(to));
+    }
+
+    /**
      * Only show calls from this phone number or Client identifier.
      * 
      * @param from Phone number or Client identifier to filter `from` on
@@ -68,6 +79,16 @@ public class CallReader extends Reader<Call> {
     public CallReader setFrom(final com.twilio.type.PhoneNumber from) {
         this.from = from;
         return this;
+    }
+
+    /**
+     * Only show calls from this phone number or Client identifier.
+     * 
+     * @param from Phone number or Client identifier to filter `from` on
+     * @return this
+     */
+    public CallReader setFrom(final String from) {
+        return setFrom(Promoter.phoneNumberFromString(from));
     }
 
     /**

@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 74043418166647L;
+    private static final long serialVersionUID = 34001242407544L;
 
     public enum Status {
         CONNECTED("connected"),

@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConnectApp extends Resource {
-    private static final long serialVersionUID = 247633580579926L;
+    private static final long serialVersionUID = 269497828076419L;
 
     public enum Permission {
         GET_ALL("get-all"),

@@ -150,7 +150,7 @@ public class AuthorizationDocumentTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.PREVIEW.toString(),
                                                       "/HostedNumbers/AuthorizationDocuments");
-                        request.addPostParam("HostedNumberOrderSids", serialize("hostedNumberOrderSids"));
+                        request.addPostParam("HostedNumberOrderSids", serialize(Promoter.listOfOne("hostedNumberOrderSids")));
         request.addPostParam("AddressSid", serialize("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
         request.addPostParam("Email", serialize("email"));
                         twilioRestClient.request(request);

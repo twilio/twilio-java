@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PublishedTrack extends Resource {
-    private static final long serialVersionUID = 111815519328151L;
+    private static final long serialVersionUID = 4379513694924L;
 
     public enum Kind {
         AUDIO("audio"),

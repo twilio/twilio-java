@@ -42,7 +42,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Fax extends Resource {
-    private static final long serialVersionUID = 7078250221484L;
+    private static final long serialVersionUID = 272370485490742L;
 
     public enum Direction {
         INBOUND("inbound"),

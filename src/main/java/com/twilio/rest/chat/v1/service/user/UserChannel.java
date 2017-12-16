@@ -32,7 +32,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserChannel extends Resource {
-    private static final long serialVersionUID = 158542275357573L;
+    private static final long serialVersionUID = 254880238496884L;
 
     public enum ChannelStatus {
         JOINED("joined"),

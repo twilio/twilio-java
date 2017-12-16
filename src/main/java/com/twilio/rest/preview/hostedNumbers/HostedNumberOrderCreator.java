@@ -42,6 +42,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     private String smsApplicationSid;
     private String addressSid;
     private String email;
+    private HostedNumberOrder.VerificationType verificationType;
+    private String verificationDocumentSid;
 
     /**
      * Construct a new HostedNumberOrderCreator.
@@ -253,6 +255,31 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
+     * Optional. The method used for verifying ownership of the number to be hosted.
+     * One of phone-call (default) or phone-bill..
+     * 
+     * @param verificationType Verification Type.
+     * @return this
+     */
+    public HostedNumberOrderCreator setVerificationType(final HostedNumberOrder.VerificationType verificationType) {
+        this.verificationType = verificationType;
+        return this;
+    }
+
+    /**
+     * Optional. The unique sid identifier of the Identity Document that represents
+     * the document for verifying ownership of the number to be hosted. Required
+     * when VerificationType is phone-bill..
+     * 
+     * @param verificationDocumentSid Verification Document Sid
+     * @return this
+     */
+    public HostedNumberOrderCreator setVerificationDocumentSid(final String verificationDocumentSid) {
+        this.verificationDocumentSid = verificationDocumentSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -357,6 +384,14 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
         if (email != null) {
             request.addPostParam("Email", email);
+        }
+
+        if (verificationType != null) {
+            request.addPostParam("VerificationType", verificationType.toString());
+        }
+
+        if (verificationDocumentSid != null) {
+            request.addPostParam("VerificationDocumentSid", verificationDocumentSid);
         }
     }
 }

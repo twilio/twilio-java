@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthorizationDocument extends Resource {
-    private static final long serialVersionUID = 18655651057576L;
+    private static final long serialVersionUID = 190118783884022L;
 
     public enum Status {
         OPENED("opened"),

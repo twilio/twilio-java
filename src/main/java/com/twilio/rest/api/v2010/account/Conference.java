@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conference extends Resource {
-    private static final long serialVersionUID = 150944769427087L;
+    private static final long serialVersionUID = 81655469535043L;
 
     public enum Status {
         INIT("init"),

@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 96793423733524L;
+    private static final long serialVersionUID = 266625125959809L;
 
     public enum ParticipantType {
         SMS("sms"),

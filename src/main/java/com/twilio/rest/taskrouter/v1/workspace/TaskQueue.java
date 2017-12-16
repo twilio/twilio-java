@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueue extends Resource {
-    private static final long serialVersionUID = 86871980541241L;
+    private static final long serialVersionUID = 31174194031326L;
 
     public enum TaskOrder {
         FIFO("FIFO"),

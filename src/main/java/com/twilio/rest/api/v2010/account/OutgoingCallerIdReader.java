@@ -10,6 +10,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -48,6 +49,16 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     public OutgoingCallerIdReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
+    }
+
+    /**
+     * Only show the caller id resource that exactly matches this phone number.
+     * 
+     * @param phoneNumber Filter by phone number
+     * @return this
+     */
+    public OutgoingCallerIdReader setPhoneNumber(final String phoneNumber) {
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
 
     /**

@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Session extends Resource {
-    private static final long serialVersionUID = 277512442353597L;
+    private static final long serialVersionUID = 239445933669161L;
 
     public enum Status {
         IN_PROGESS("in-progess"),

@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Room extends Resource {
-    private static final long serialVersionUID = 27249312310182L;
+    private static final long serialVersionUID = 123703237879933L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),

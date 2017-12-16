@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 101873270100140L;
+    private static final long serialVersionUID = 38310522618070L;
 
     public enum GeoMatchLevel {
         AREA_CODE("area-code"),

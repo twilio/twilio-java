@@ -38,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedbackSummary extends Resource {
-    private static final long serialVersionUID = 167286727474638L;
+    private static final long serialVersionUID = 164951485289659L;
 
     public enum Status {
         QUEUED("queued"),

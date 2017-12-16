@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthorizedConnectApp extends Resource {
-    private static final long serialVersionUID = 77011834457452L;
+    private static final long serialVersionUID = 67218777245125L;
 
     public enum Permission {
         GET_ALL("get-all"),

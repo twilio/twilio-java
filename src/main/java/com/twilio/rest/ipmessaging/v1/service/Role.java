@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Role extends Resource {
-    private static final long serialVersionUID = 136946012216407L;
+    private static final long serialVersionUID = 78785177979928L;
 
     public enum RoleType {
         CHANNEL("channel"),

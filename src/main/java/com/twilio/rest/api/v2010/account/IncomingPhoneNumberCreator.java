@@ -407,6 +407,16 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
+     * The phone number to purchase. e.g., +16175551212 (E.164 format).
+     * 
+     * @param phoneNumber The phone number
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setPhoneNumber(final String phoneNumber) {
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
+    }
+
+    /**
      * The desired area code for the new phone number. Any three digit US or Canada
      * rea code is valid.
      * 

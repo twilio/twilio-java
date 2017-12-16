@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Command extends Resource {
-    private static final long serialVersionUID = 220586481683797L;
+    private static final long serialVersionUID = 246232114569704L;
 
     public enum Direction {
         FROM_SIM("from_sim"),

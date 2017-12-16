@@ -10,6 +10,7 @@ package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -170,6 +171,16 @@ public class LocalReader extends Reader<Local> {
     public LocalReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
         this.nearNumber = nearNumber;
         return this;
+    }
+
+    /**
+     * The near_number.
+     * 
+     * @param nearNumber The near_number
+     * @return this
+     */
+    public LocalReader setNearNumber(final String nearNumber) {
+        return setNearNumber(Promoter.phoneNumberFromString(nearNumber));
     }
 
     /**

@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Transcription extends Resource {
-    private static final long serialVersionUID = 226252531194892L;
+    private static final long serialVersionUID = 3308072321352L;
 
     public enum Status {
         IN_PROGRESS("in-progress"),

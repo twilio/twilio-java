@@ -31,13 +31,12 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomRecording extends Resource {
-    private static final long serialVersionUID = 258585563555163L;
+    private static final long serialVersionUID = 153207399156996L;
 
     public enum Status {
         PROCESSING("processing"),

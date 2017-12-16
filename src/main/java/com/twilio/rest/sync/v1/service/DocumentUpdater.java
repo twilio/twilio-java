@@ -18,7 +18,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-import java.util.List;
 import java.util.Map;
 
 /**

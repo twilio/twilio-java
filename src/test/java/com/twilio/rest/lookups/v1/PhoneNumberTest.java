@@ -41,7 +41,7 @@ public class PhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.LOOKUPS.toString(),
-                                          "/v1/PhoneNumbers/+987654321");
+                                          "/v1/PhoneNumbers/+15017122661");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+987654321")).fetch();
+            PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+987654321")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
     }
 }

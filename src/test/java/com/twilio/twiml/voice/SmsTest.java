@@ -20,8 +20,8 @@ public class SmsTest {
     @Test
     public void testElementWithParams() {
         Sms elem = new Sms.Builder("message")
-            .to(new com.twilio.type.PhoneNumber("+123456789"))
-            .from(new com.twilio.type.PhoneNumber("+987654321"))
+            .to(new com.twilio.type.PhoneNumber("+15558675310"))
+            .from(new com.twilio.type.PhoneNumber("+15017122661"))
             .action(URI.create("https://example.com"))
             .method(HttpMethod.GET)
             .statusCallback(URI.create("https://example.com"))
@@ -29,7 +29,7 @@ public class SmsTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Sms action=\"https://example.com\" from=\"+987654321\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+123456789\">message</Sms>",
+            "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>",
             elem.toXml()
         );
     }

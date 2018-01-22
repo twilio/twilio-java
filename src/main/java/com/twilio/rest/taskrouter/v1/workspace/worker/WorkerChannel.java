@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkerChannel extends Resource {
-    private static final long serialVersionUID = 1787446627857L;
+    private static final long serialVersionUID = 181596062682267L;
 
     /**
      * Create a WorkerChannelReader to execute read.
@@ -126,7 +126,6 @@ public class WorkerChannel extends Resource {
     private final String taskChannelUniqueName;
     private final String workerSid;
     private final String workspaceSid;
-    private final Map<String, String> links;
     private final URI url;
 
     @JsonCreator
@@ -154,8 +153,6 @@ public class WorkerChannel extends Resource {
                           final String workerSid, 
                           @JsonProperty("workspace_sid")
                           final String workspaceSid, 
-                          @JsonProperty("links")
-                          final Map<String, String> links, 
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -170,7 +167,6 @@ public class WorkerChannel extends Resource {
         this.taskChannelUniqueName = taskChannelUniqueName;
         this.workerSid = workerSid;
         this.workspaceSid = workspaceSid;
-        this.links = links;
         this.url = url;
     }
 
@@ -283,15 +279,6 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
-     */
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    /**
      * Returns The The url.
      * 
      * @return The url
@@ -324,7 +311,6 @@ public class WorkerChannel extends Resource {
                Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) && 
                Objects.equals(workerSid, other.workerSid) && 
                Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(links, other.links) && 
                Objects.equals(url, other.url);
     }
 
@@ -342,7 +328,6 @@ public class WorkerChannel extends Resource {
                             taskChannelUniqueName,
                             workerSid,
                             workspaceSid,
-                            links,
                             url);
     }
 
@@ -361,7 +346,6 @@ public class WorkerChannel extends Resource {
                           .add("taskChannelUniqueName", taskChannelUniqueName)
                           .add("workerSid", workerSid)
                           .add("workspaceSid", workspaceSid)
-                          .add("links", links)
                           .add("url", url)
                           .toString();
     }

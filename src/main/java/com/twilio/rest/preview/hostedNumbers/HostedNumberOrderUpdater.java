@@ -35,6 +35,8 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     private String verificationCode;
     private HostedNumberOrder.VerificationType verificationType;
     private String verificationDocumentSid;
+    private String extension;
+    private Integer callDelay;
 
     /**
      * Construct a new HostedNumberOrderUpdater.
@@ -154,6 +156,28 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     }
 
     /**
+     * The extension.
+     * 
+     * @param extension The extension
+     * @return this
+     */
+    public HostedNumberOrderUpdater setExtension(final String extension) {
+        this.extension = extension;
+        return this;
+    }
+
+    /**
+     * The call_delay.
+     * 
+     * @param callDelay The call_delay
+     * @return this
+     */
+    public HostedNumberOrderUpdater setCallDelay(final Integer callDelay) {
+        this.callDelay = callDelay;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -230,6 +254,14 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
         if (verificationDocumentSid != null) {
             request.addPostParam("VerificationDocumentSid", verificationDocumentSid);
+        }
+
+        if (extension != null) {
+            request.addPostParam("Extension", extension);
+        }
+
+        if (callDelay != null) {
+            request.addPostParam("CallDelay", callDelay.toString());
         }
     }
 }

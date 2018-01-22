@@ -182,7 +182,7 @@ public class IncomingPhoneNumberTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json");
-            request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+987654321")));
+            request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -191,7 +191,7 @@ public class IncomingPhoneNumberTest {
         }};
 
         try {
-            IncomingPhoneNumber.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
+            IncomingPhoneNumber.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15017122661")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321")).create();
+        IncomingPhoneNumber.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15017122661")).create();
     }
 }

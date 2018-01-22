@@ -106,8 +106,8 @@ public class EngagementTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.PREVIEW.toString(),
                                                       "/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements");
-                        request.addPostParam("To", serialize(new com.twilio.type.PhoneNumber("+123456789")));
-        request.addPostParam("From", serialize(new com.twilio.type.PhoneNumber("+987654321")));
+                        request.addPostParam("To", serialize(new com.twilio.type.PhoneNumber("+15558675310")));
+        request.addPostParam("From", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -116,7 +116,7 @@ public class EngagementTest {
                     }};
 
         try {
-            Engagement.creator("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+123456789"), new com.twilio.type.PhoneNumber("+987654321")).create();
+            Engagement.creator("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,7 +130,7 @@ public class EngagementTest {
             result = new ObjectMapper();
         }};
 
-        Engagement.creator("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+123456789"), new com.twilio.type.PhoneNumber("+987654321")).create();
+        Engagement.creator("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661")).create();
     }
 
     @Test

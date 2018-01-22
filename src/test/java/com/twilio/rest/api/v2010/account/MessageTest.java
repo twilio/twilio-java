@@ -42,8 +42,8 @@ public class MessageTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.API.toString(),
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json");
-                        request.addPostParam("To", serialize(new com.twilio.type.PhoneNumber("+123456789")));
-        request.addPostParam("From", serialize(new com.twilio.type.PhoneNumber("+987654321")));
+                        request.addPostParam("To", serialize(new com.twilio.type.PhoneNumber("+15558675310")));
+        request.addPostParam("From", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
         request.addPostParam("Body", serialize("body"));
                         twilioRestClient.request(request);
                         times = 1;
@@ -53,7 +53,7 @@ public class MessageTest {
                     }};
 
         try {
-            Message.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+123456789"), new com.twilio.type.PhoneNumber("+987654321"), "body").create();
+            Message.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -67,7 +67,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+123456789"), new com.twilio.type.PhoneNumber("+987654321"), "body").create();
+        Message.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
     }
 
     @Test

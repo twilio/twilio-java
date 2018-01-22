@@ -53,6 +53,7 @@ public class ServiceUpdater extends Updater<Service> {
     private String mediaCompatibilityMessage;
     private Integer preWebhookRetryCount;
     private Integer postWebhookRetryCount;
+    private Boolean notificationsLogEnabled;
 
     /**
      * Construct a new ServiceUpdater.
@@ -434,6 +435,17 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The notifications.log_enabled.
+     * 
+     * @param notificationsLogEnabled The notifications.log_enabled
+     * @return this
+     */
+    public ServiceUpdater setNotificationsLogEnabled(final Boolean notificationsLogEnabled) {
+        this.notificationsLogEnabled = notificationsLogEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -598,6 +610,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (postWebhookRetryCount != null) {
             request.addPostParam("PostWebhookRetryCount", postWebhookRetryCount.toString());
+        }
+
+        if (notificationsLogEnabled != null) {
+            request.addPostParam("Notifications.LogEnabled", notificationsLogEnabled.toString());
         }
     }
 }

@@ -96,8 +96,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. A list of emails that LOA document for this HostedNumberOrder will
-     * be carbon copied to..
+     * Optional. A list of emails that the LOA document for this HostedNumberOrder
+     * will be carbon copied to..
      * 
      * @param ccEmails A list of emails.
      * @return this
@@ -108,8 +108,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. A list of emails that LOA document for this HostedNumberOrder will
-     * be carbon copied to..
+     * Optional. A list of emails that the LOA document for this HostedNumberOrder
+     * will be carbon copied to..
      * 
      * @param ccEmails A list of emails.
      * @return this

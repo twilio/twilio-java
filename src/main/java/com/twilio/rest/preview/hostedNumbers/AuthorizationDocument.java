@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthorizationDocument extends Resource {
-    private static final long serialVersionUID = 190118783884022L;
+    private static final long serialVersionUID = 156014201571905L;
 
     public enum Status {
         OPENED("opened"),
@@ -160,6 +160,7 @@ public class AuthorizationDocument extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private AuthorizationDocument(@JsonProperty("sid")
@@ -177,7 +178,9 @@ public class AuthorizationDocument extends Resource {
                                   @JsonProperty("date_updated")
                                   final String dateUpdated, 
                                   @JsonProperty("url")
-                                  final URI url) {
+                                  final URI url, 
+                                  @JsonProperty("links")
+                                  final Map<String, String> links) {
         this.sid = sid;
         this.addressSid = addressSid;
         this.status = status;
@@ -186,6 +189,7 @@ public class AuthorizationDocument extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -260,6 +264,15 @@ public class AuthorizationDocument extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -279,7 +292,8 @@ public class AuthorizationDocument extends Resource {
                Objects.equals(ccEmails, other.ccEmails) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -291,7 +305,8 @@ public class AuthorizationDocument extends Resource {
                             ccEmails,
                             dateCreated,
                             dateUpdated,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -305,6 +320,7 @@ public class AuthorizationDocument extends Resource {
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

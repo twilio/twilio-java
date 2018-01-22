@@ -33,6 +33,7 @@ public class FaxCreator extends Creator<Fax> {
     private String sipAuthUsername;
     private String sipAuthPassword;
     private Boolean storeMedia;
+    private Integer ttl;
 
     /**
      * Construct a new FaxCreator.
@@ -129,6 +130,18 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
+     * How many minutes from when a fax was initiated should Twilio attempt to send
+     * a fax..
+     * 
+     * @param ttl How many minutes to attempt a fax
+     * @return this
+     */
+    public FaxCreator setTtl(final Integer ttl) {
+        this.ttl = ttl;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -203,6 +216,10 @@ public class FaxCreator extends Creator<Fax> {
 
         if (storeMedia != null) {
             request.addPostParam("StoreMedia", storeMedia.toString());
+        }
+
+        if (ttl != null) {
+            request.addPostParam("Ttl", ttl.toString());
         }
     }
 }

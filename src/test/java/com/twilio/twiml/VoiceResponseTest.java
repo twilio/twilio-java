@@ -145,8 +145,8 @@ public class VoiceResponseTest {
         builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build());
 
         builder.sms(new Sms.Builder("message")
-                    .to(new com.twilio.type.PhoneNumber("+123456789"))
-                    .from(new com.twilio.type.PhoneNumber("+987654321"))
+                    .to(new com.twilio.type.PhoneNumber("+15558675310"))
+                    .from(new com.twilio.type.PhoneNumber("+15017122661"))
                     .action(URI.create("https://example.com"))
                     .method(HttpMethod.GET)
                     .statusCallback(URI.create("https://example.com"))
@@ -170,7 +170,7 @@ public class VoiceResponseTest {
                 "<Redirect method=\"GET\">https://example.com</Redirect>" +
                 "<Reject reason=\"rejected\"/>" +
                 "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>" +
-                "<Sms action=\"https://example.com\" from=\"+987654321\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+123456789\">message</Sms>" +
+                "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
             "</Response>",
             elem.toXml()
         );

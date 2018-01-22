@@ -27,6 +27,7 @@ public class RecordingReader extends Reader<Recording> {
     private DateTime absoluteDateCreated;
     private Range<DateTime> rangeDateCreated;
     private String callSid;
+    private String conferenceSid;
 
     /**
      * Construct a new RecordingReader.
@@ -77,6 +78,17 @@ public class RecordingReader extends Reader<Recording> {
      */
     public RecordingReader setCallSid(final String callSid) {
         this.callSid = callSid;
+        return this;
+    }
+
+    /**
+     * The conference_sid.
+     * 
+     * @param conferenceSid The conference_sid
+     * @return this
+     */
+    public RecordingReader setConferenceSid(final String conferenceSid) {
+        this.conferenceSid = conferenceSid;
         return this;
     }
 
@@ -220,6 +232,10 @@ public class RecordingReader extends Reader<Recording> {
 
         if (callSid != null) {
             request.addQueryParam("CallSid", callSid);
+        }
+
+        if (conferenceSid != null) {
+            request.addQueryParam("ConferenceSid", conferenceSid);
         }
 
         if (getPageSize() != null) {

@@ -21,7 +21,7 @@ import java.util.List;
 public class NumberTest {
     @Test
     public void testElementWithParams() {
-        Number elem = new Number.Builder(new com.twilio.type.PhoneNumber("+987654321"))
+        Number elem = new Number.Builder(new com.twilio.type.PhoneNumber("+15017122661"))
             .sendDigits("send_digits")
             .url(URI.create("https://example.com"))
             .method(HttpMethod.GET)
@@ -32,7 +32,7 @@ public class NumberTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Number method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+987654321</Number>",
+            "<Number method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>",
             elem.toXml()
         );
     }

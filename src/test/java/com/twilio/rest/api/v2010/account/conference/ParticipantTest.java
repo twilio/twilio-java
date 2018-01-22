@@ -106,8 +106,8 @@ public class ParticipantTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.API.toString(),
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json");
-                        request.addPostParam("From", serialize(new com.twilio.type.PhoneNumber("+987654321")));
-        request.addPostParam("To", serialize(new com.twilio.type.PhoneNumber("+123456789")));
+                        request.addPostParam("From", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
+        request.addPostParam("To", serialize(new com.twilio.type.PhoneNumber("+15558675310")));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -116,7 +116,7 @@ public class ParticipantTest {
                     }};
 
         try {
-            Participant.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), new com.twilio.type.PhoneNumber("+123456789")).create();
+            Participant.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15017122661"), new com.twilio.type.PhoneNumber("+15558675310")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,7 +130,7 @@ public class ParticipantTest {
             result = new ObjectMapper();
         }};
 
-        Participant.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), new com.twilio.type.PhoneNumber("+123456789")).create();
+        Participant.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15017122661"), new com.twilio.type.PhoneNumber("+15558675310")).create();
     }
 
     @Test
@@ -142,7 +142,7 @@ public class ParticipantTest {
             result = new ObjectMapper();
         }};
 
-        Participant.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+987654321"), new com.twilio.type.PhoneNumber("+123456789")).create();
+        Participant.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15017122661"), new com.twilio.type.PhoneNumber("+15558675310")).create();
     }
 
     @Test

@@ -42,8 +42,8 @@ public class CallTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.API.toString(),
                                                       "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json");
-                        request.addPostParam("To", serialize(new com.twilio.type.PhoneNumber("+123456789")));
-        request.addPostParam("From", serialize(new com.twilio.type.PhoneNumber("+987654321")));
+                        request.addPostParam("To", serialize(new com.twilio.type.PhoneNumber("+15558675310")));
+        request.addPostParam("From", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
         request.addPostParam("Url", serialize(URI.create("https://example.com")));
                         twilioRestClient.request(request);
                         times = 1;
@@ -53,7 +53,7 @@ public class CallTest {
                     }};
 
         try {
-            Call.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+123456789"), new com.twilio.type.PhoneNumber("+987654321"), URI.create("https://example.com")).create();
+            Call.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), URI.create("https://example.com")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -67,7 +67,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        Call.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+123456789"), new com.twilio.type.PhoneNumber("+987654321"), URI.create("https://example.com")).create();
+        Call.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), URI.create("https://example.com")).create();
     }
 
     @Test

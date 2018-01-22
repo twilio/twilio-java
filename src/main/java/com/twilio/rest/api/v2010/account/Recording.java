@@ -200,6 +200,7 @@ public class Recording extends Resource {
     private final String accountSid;
     private final String apiVersion;
     private final String callSid;
+    private final String conferenceSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String duration;
@@ -221,6 +222,8 @@ public class Recording extends Resource {
                       final String apiVersion, 
                       @JsonProperty("call_sid")
                       final String callSid, 
+                      @JsonProperty("conference_sid")
+                      final String conferenceSid, 
                       @JsonProperty("date_created")
                       final String dateCreated, 
                       @JsonProperty("date_updated")
@@ -250,6 +253,7 @@ public class Recording extends Resource {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
+        this.conferenceSid = conferenceSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.duration = duration;
@@ -291,6 +295,17 @@ public class Recording extends Resource {
      */
     public final String getCallSid() {
         return this.callSid;
+    }
+
+    /**
+     * Returns The The unique id for the conference associated with the recording,
+     * if a conference recording..
+     * 
+     * @return The unique id for the conference associated with the recording, if a
+     *         conference recording.
+     */
+    public final String getConferenceSid() {
+        return this.conferenceSid;
     }
 
     /**
@@ -427,6 +442,7 @@ public class Recording extends Resource {
         return Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(apiVersion, other.apiVersion) && 
                Objects.equals(callSid, other.callSid) && 
+               Objects.equals(conferenceSid, other.conferenceSid) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(duration, other.duration) && 
@@ -447,6 +463,7 @@ public class Recording extends Resource {
         return Objects.hash(accountSid,
                             apiVersion,
                             callSid,
+                            conferenceSid,
                             dateCreated,
                             dateUpdated,
                             duration,
@@ -468,6 +485,7 @@ public class Recording extends Resource {
                           .add("accountSid", accountSid)
                           .add("apiVersion", apiVersion)
                           .add("callSid", callSid)
+                          .add("conferenceSid", conferenceSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("duration", duration)

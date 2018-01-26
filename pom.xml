@@ -55,6 +55,14 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+                <keyname>${gpg.keyname}</keyname>
+                <passphrase>${gpg.passphrase}</passphrase>
+                <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                </gpgArguments>
+            </configuration>
           </plugin>
         </plugins>
       </build>

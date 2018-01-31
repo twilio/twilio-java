@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.studio.flow;
+package com.twilio.rest.studio.v1;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -18,23 +18,18 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class EngagementDeleter extends Deleter<Engagement> {
-    private final String pathFlowSid;
+public class FlowDeleter extends Deleter<Flow> {
     private final String pathSid;
 
     /**
-     * Construct a new EngagementDeleter.
+     * Construct a new FlowDeleter.
      * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid A string that uniquely identifies this Engagement.
+     * @param pathSid The sid
      */
-    public EngagementDeleter(final String pathFlowSid, 
-                             final String pathSid) {
-        this.pathFlowSid = pathFlowSid;
+    public FlowDeleter(final String pathSid) {
         this.pathSid = pathSid;
     }
 
@@ -48,15 +43,15 @@ public class EngagementDeleter extends Deleter<Engagement> {
     public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.PREVIEW.toString(),
-            "/Studio/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + "",
+            Domains.STUDIO.toString(),
+            "/v1/Flows/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Engagement delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Flow delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

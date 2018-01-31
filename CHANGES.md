@@ -1,6 +1,24 @@
 twilio-java changelog
 =====================
 
+[2018-01-30] Version 7.17.6
+----------------------------
+**Api**
+- Add `studio-engagements` usage key
+
+**Preview**
+- Remove Studio Engagement Deletion
+
+**Studio**
+- Initial Release
+
+**Video**
+- [omit] Beta: Allow updates to `SubscribedTracks`.
+- Add `SubscribedTracks`.
+- Add track name to Video Recording resource
+- Add Composition and Composition Media resources
+
+
 [2018-01-22] Version 7.17.1
 ----------------------------
 **Api**

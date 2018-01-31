@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 42757880710893L;
+    private static final long serialVersionUID = 154425564562042L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -222,6 +222,7 @@ public class Recording extends Resource {
     private final Recording.Format containerFormat;
     private final Recording.Codec codec;
     private final Map<String, Object> groupingSids;
+    private final String trackName;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -249,6 +250,8 @@ public class Recording extends Resource {
                       final Recording.Codec codec, 
                       @JsonProperty("grouping_sids")
                       final Map<String, Object> groupingSids, 
+                      @JsonProperty("track_name")
+                      final String trackName, 
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -263,6 +266,7 @@ public class Recording extends Resource {
         this.containerFormat = containerFormat;
         this.codec = codec;
         this.groupingSids = groupingSids;
+        this.trackName = trackName;
         this.links = links;
     }
 
@@ -375,6 +379,15 @@ public class Recording extends Resource {
     }
 
     /**
+     * Returns The The track_name.
+     * 
+     * @return The track_name
+     */
+    public final String getTrackName() {
+        return this.trackName;
+    }
+
+    /**
      * Returns The The links.
      * 
      * @return The links
@@ -407,6 +420,7 @@ public class Recording extends Resource {
                Objects.equals(containerFormat, other.containerFormat) && 
                Objects.equals(codec, other.codec) && 
                Objects.equals(groupingSids, other.groupingSids) && 
+               Objects.equals(trackName, other.trackName) && 
                Objects.equals(links, other.links);
     }
 
@@ -424,6 +438,7 @@ public class Recording extends Resource {
                             containerFormat,
                             codec,
                             groupingSids,
+                            trackName,
                             links);
     }
 
@@ -442,6 +457,7 @@ public class Recording extends Resource {
                           .add("containerFormat", containerFormat)
                           .add("codec", codec)
                           .add("groupingSids", groupingSids)
+                          .add("trackName", trackName)
                           .add("links", links)
                           .toString();
     }

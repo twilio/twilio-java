@@ -24,7 +24,8 @@ public enum Domains {
     VIDEO("video"),
     MESSAGING("messaging"),
     WIRELESS("wireless"),
-    SYNC("sync");
+    SYNC("sync"),
+    STUDIO("studio");
 
     private final String value;
 

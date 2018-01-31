@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.studio.flow;
+package com.twilio.rest.studio.v1.flow;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -35,13 +35,12 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Engagement extends Resource {
-    private static final long serialVersionUID = 59724732183846L;
+    private static final long serialVersionUID = 131970036431728L;
 
     public enum Status {
         ACTIVE("active"),
@@ -71,7 +70,7 @@ public class Engagement extends Resource {
     /**
      * Create a EngagementReader to execute read.
      * 
-     * @param pathFlowSid Flow Sid.
+     * @param pathFlowSid The flow_sid
      * @return EngagementReader capable of executing the read
      */
     public static EngagementReader reader(final String pathFlowSid) {
@@ -93,7 +92,7 @@ public class Engagement extends Resource {
     /**
      * Create a EngagementCreator to execute create.
      * 
-     * @param pathFlowSid Flow Sid.
+     * @param pathFlowSid The flow_sid
      * @param to The to
      * @param from The from
      * @return EngagementCreator capable of executing the create
@@ -146,7 +145,7 @@ public class Engagement extends Resource {
     private final String accountSid;
     private final String flowSid;
     private final String contactSid;
-    private final com.twilio.type.PhoneNumber contactChannelAddress;
+    private final String contactChannelAddress;
     private final Engagement.Status status;
     private final Map<String, Object> context;
     private final DateTime dateCreated;
@@ -164,7 +163,7 @@ public class Engagement extends Resource {
                        @JsonProperty("contact_sid")
                        final String contactSid, 
                        @JsonProperty("contact_channel_address")
-                       final com.twilio.type.PhoneNumber contactChannelAddress, 
+                       final String contactChannelAddress, 
                        @JsonProperty("status")
                        final Engagement.Status status, 
                        @JsonProperty("context")
@@ -191,101 +190,99 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Engagement..
+     * Returns The The sid.
      * 
-     * @return A string that uniquely identifies this Engagement.
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The account_sid.
      * 
-     * @return Account Sid.
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Flow Sid..
+     * Returns The The flow_sid.
      * 
-     * @return Flow Sid.
+     * @return The flow_sid
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The Contact Sid..
+     * Returns The The contact_sid.
      * 
-     * @return Contact Sid.
+     * @return The contact_sid
      */
     public final String getContactSid() {
         return this.contactSid;
     }
 
     /**
-     * Returns The The phone number, SIP address or Client identifier that triggered
-     * this Engagement..
+     * Returns The The contact_channel_address.
      * 
-     * @return The phone number, SIP address or Client identifier that triggered
-     *         this Engagement.
+     * @return The contact_channel_address
      */
-    public final com.twilio.type.PhoneNumber getContactChannelAddress() {
+    public final String getContactChannelAddress() {
         return this.contactChannelAddress;
     }
 
     /**
-     * Returns The The Status of this Engagement.
+     * Returns The The status.
      * 
-     * @return The Status of this Engagement
+     * @return The status
      */
     public final Engagement.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The The context.
      * 
-     * @return Nested resource URLs.
+     * @return The context
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The date this Engagement was created.
+     * Returns The The date_created.
      * 
-     * @return The date this Engagement was created
+     * @return The date_created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Engagement was updated.
+     * Returns The The date_updated.
      * 
-     * @return The date this Engagement was updated
+     * @return The date_updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The url.
      * 
-     * @return The URL of this resource.
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The The links.
      * 
-     * @return Nested resource URLs.
+     * @return The links
      */
     public final Map<String, String> getLinks() {
         return this.links;

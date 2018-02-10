@@ -8,6 +8,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,10 +18,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.net.URI;
+
 public class ConferenceUpdater extends Updater<Conference> {
     private String pathAccountSid;
     private final String pathSid;
     private Conference.UpdateStatus status;
+    private URI announceUrl;
+    private HttpMethod announceMethod;
 
     /**
      * Construct a new ConferenceUpdater.
@@ -51,6 +56,38 @@ public class ConferenceUpdater extends Updater<Conference> {
      */
     public ConferenceUpdater setStatus(final Conference.UpdateStatus status) {
         this.status = status;
+        return this;
+    }
+
+    /**
+     * The announce_url.
+     * 
+     * @param announceUrl The announce_url
+     * @return this
+     */
+    public ConferenceUpdater setAnnounceUrl(final URI announceUrl) {
+        this.announceUrl = announceUrl;
+        return this;
+    }
+
+    /**
+     * The announce_url.
+     * 
+     * @param announceUrl The announce_url
+     * @return this
+     */
+    public ConferenceUpdater setAnnounceUrl(final String announceUrl) {
+        return setAnnounceUrl(Promoter.uriFromString(announceUrl));
+    }
+
+    /**
+     * The announce_method.
+     * 
+     * @param announceMethod The announce_method
+     * @return this
+     */
+    public ConferenceUpdater setAnnounceMethod(final HttpMethod announceMethod) {
+        this.announceMethod = announceMethod;
         return this;
     }
 
@@ -102,6 +139,14 @@ public class ConferenceUpdater extends Updater<Conference> {
     private void addPostParams(final Request request) {
         if (status != null) {
             request.addPostParam("Status", status.toString());
+        }
+
+        if (announceUrl != null) {
+            request.addPostParam("AnnounceUrl", announceUrl.toString());
+        }
+
+        if (announceMethod != null) {
+            request.addPostParam("AnnounceMethod", announceMethod.toString());
         }
     }
 }

@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2018-02-09] Version 7.17.7
+----------------------------
+**Api**
+- Add `AnnounceUrl` and `AnnounceMethod` params for conference announce
+
+**Chat**
+- Add support to looking up user channels by identity in v1
+
+
 [2018-01-30] Version 7.17.6
 ----------------------------
 **Api**

@@ -36,6 +36,8 @@ public class CompositionCreator extends Creator<Composition> {
     private Integer desiredMaxDuration;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+    private Boolean trim;
+    private Boolean reuse;
 
     /**
      * The audio_sources.
@@ -167,6 +169,28 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
+     * The trim.
+     * 
+     * @param trim The trim
+     * @return this
+     */
+    public CompositionCreator setTrim(final Boolean trim) {
+        this.trim = trim;
+        return this;
+    }
+
+    /**
+     * The reuse.
+     * 
+     * @param reuse The reuse
+     * @return this
+     */
+    public CompositionCreator setReuse(final Boolean reuse) {
+        this.reuse = reuse;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -249,6 +273,14 @@ public class CompositionCreator extends Creator<Composition> {
 
         if (statusCallbackMethod != null) {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+        }
+
+        if (trim != null) {
+            request.addPostParam("Trim", trim.toString());
+        }
+
+        if (reuse != null) {
+            request.addPostParam("Reuse", reuse.toString());
         }
     }
 }

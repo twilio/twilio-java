@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2018-02-23] Version 7.17.8
+----------------------------
+**Api**
+- Add `trim` param to Outbound Calls API
+
+**Lookups**
+- Add support for `fraud` lookup type
+
+**Numbers**
+- Initial Release
+
+**Video**
+- [composer] Add `SEQUENCE` value to available layouts, and `trim` and `reuse` params.
+
+
 [2018-02-09] Version 7.17.7
 ----------------------------
 **Api**

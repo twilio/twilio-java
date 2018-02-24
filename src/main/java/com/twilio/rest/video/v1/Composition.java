@@ -100,9 +100,10 @@ public class Composition extends Resource {
     }
 
     public enum VideoLayout {
-        GRID("GRID"),
-        SINGLE("SINGLE"),
-        PIP("PIP");
+        GRID("grid"),
+        SINGLE("single"),
+        PIP("pip"),
+        SEQUENCE("sequence");
 
         private final String value;
 

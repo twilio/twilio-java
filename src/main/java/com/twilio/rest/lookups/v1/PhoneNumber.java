@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 86959676472232L;
+    private static final long serialVersionUID = 198564396301377L;
 
     public enum Type {
         LANDLINE("landline"),
@@ -115,6 +115,7 @@ public class PhoneNumber extends Resource {
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String nationalFormat;
     private final Map<String, String> carrier;
+    private final Map<String, String> fraud;
     private final Map<String, Object> addOns;
     private final URI url;
 
@@ -129,6 +130,8 @@ public class PhoneNumber extends Resource {
                         final String nationalFormat, 
                         @JsonProperty("carrier")
                         final Map<String, String> carrier, 
+                        @JsonProperty("fraud")
+                        final Map<String, String> fraud, 
                         @JsonProperty("add_ons")
                         final Map<String, Object> addOns, 
                         @JsonProperty("url")
@@ -138,6 +141,7 @@ public class PhoneNumber extends Resource {
         this.phoneNumber = phoneNumber;
         this.nationalFormat = nationalFormat;
         this.carrier = carrier;
+        this.fraud = fraud;
         this.addOns = addOns;
         this.url = url;
     }
@@ -188,6 +192,15 @@ public class PhoneNumber extends Resource {
     }
 
     /**
+     * Returns The The fraud.
+     * 
+     * @return The fraud
+     */
+    public final Map<String, String> getFraud() {
+        return this.fraud;
+    }
+
+    /**
      * Returns The The add_ons.
      * 
      * @return The add_ons
@@ -222,6 +235,7 @@ public class PhoneNumber extends Resource {
                Objects.equals(phoneNumber, other.phoneNumber) && 
                Objects.equals(nationalFormat, other.nationalFormat) && 
                Objects.equals(carrier, other.carrier) && 
+               Objects.equals(fraud, other.fraud) && 
                Objects.equals(addOns, other.addOns) && 
                Objects.equals(url, other.url);
     }
@@ -233,6 +247,7 @@ public class PhoneNumber extends Resource {
                             phoneNumber,
                             nationalFormat,
                             carrier,
+                            fraud,
                             addOns,
                             url);
     }
@@ -245,6 +260,7 @@ public class PhoneNumber extends Resource {
                           .add("phoneNumber", phoneNumber)
                           .add("nationalFormat", nationalFormat)
                           .add("carrier", carrier)
+                          .add("fraud", fraud)
                           .add("addOns", addOns)
                           .add("url", url)
                           .toString();

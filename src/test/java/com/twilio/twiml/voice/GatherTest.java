@@ -7,11 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Test class for {@link Gather}
@@ -38,7 +40,7 @@ public class GatherTest {
     @Test
     public void testElementWithParams() {
         Gather elem = new Gather.Builder()
-            .input(Gather.Input.DTMF)
+            .inputs(Promoter.listOfOne(Gather.Input.DTMF))
             .action(URI.create("https://example.com"))
             .method(HttpMethod.GET)
             .timeout(1)

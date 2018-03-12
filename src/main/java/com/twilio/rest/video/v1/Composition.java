@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Composition extends Resource {
-    private static final long serialVersionUID = 260026599629326L;
+    private static final long serialVersionUID = 247780808822825L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -217,6 +217,7 @@ public class Composition extends Resource {
     private final Integer size;
     private final Integer duration;
     private final URI url;
+    private final String roomSid;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -250,6 +251,8 @@ public class Composition extends Resource {
                         final Integer duration, 
                         @JsonProperty("url")
                         final URI url, 
+                        @JsonProperty("room_sid")
+                        final String roomSid, 
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -267,6 +270,7 @@ public class Composition extends Resource {
         this.size = size;
         this.duration = duration;
         this.url = url;
+        this.roomSid = roomSid;
         this.links = links;
     }
 
@@ -406,6 +410,15 @@ public class Composition extends Resource {
     }
 
     /**
+     * Returns The The room_sid.
+     * 
+     * @return The room_sid
+     */
+    public final String getRoomSid() {
+        return this.roomSid;
+    }
+
+    /**
      * Returns The The links.
      * 
      * @return The links
@@ -441,6 +454,7 @@ public class Composition extends Resource {
                Objects.equals(size, other.size) && 
                Objects.equals(duration, other.duration) && 
                Objects.equals(url, other.url) && 
+               Objects.equals(roomSid, other.roomSid) && 
                Objects.equals(links, other.links);
     }
 
@@ -461,6 +475,7 @@ public class Composition extends Resource {
                             size,
                             duration,
                             url,
+                            roomSid,
                             links);
     }
 
@@ -482,6 +497,7 @@ public class Composition extends Resource {
                           .add("size", size)
                           .add("duration", duration)
                           .add("url", url)
+                          .add("roomSid", roomSid)
                           .add("links", links)
                           .toString();
     }

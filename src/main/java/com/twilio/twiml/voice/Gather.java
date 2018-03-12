@@ -14,6 +14,7 @@ import com.twilio.twiml.TwiML;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -139,7 +140,7 @@ public class Gather extends TwiML {
         }
     }
 
-    private final Gather.Input input;
+    private final List<Gather.Input> input;
     private final URI action;
     private final HttpMethod method;
     private final Integer timeout;
@@ -191,8 +192,8 @@ public class Gather extends TwiML {
         // Preserve order of attributes
         Map<String, String> attrs = new HashMap<>();
 
-        if (this.getInput() != null) {
-            attrs.put("input", this.getInput().toString());
+        if (this.getInputs() != null) {
+            attrs.put("input", this.getInputsAsString());
         }
         if (this.getAction() != null) {
             attrs.put("action", this.getAction().toString());
@@ -242,8 +243,20 @@ public class Gather extends TwiML {
      * 
      * @return Input type Twilio should accept
      */
-    public Gather.Input getInput() {
+    public List<Gather.Input> getInputs() {
         return input;
+    }
+
+    protected String getInputsAsString() {
+        StringBuilder sb = new StringBuilder();
+        Iterator<Gather.Input> iter = this.getInputs().iterator();
+        while (iter.hasNext()) {
+            sb.append(iter.next().toString());
+            if (iter.hasNext()) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
     }
 
     /**
@@ -369,7 +382,7 @@ public class Gather extends TwiML {
      * Create a new {@code <Gather>} element
      */
     public static class Builder {
-        private Gather.Input input;
+        private List<Gather.Input> input;
         private URI action;
         private HttpMethod method;
         private Integer timeout;
@@ -389,8 +402,16 @@ public class Gather extends TwiML {
         /**
          * Input type Twilio should accept
          */
-        public Builder input(Gather.Input input) {
+        public Builder inputs(List<Gather.Input> input) {
             this.input = input;
+            return this;
+        }
+
+        /**
+         * Input type Twilio should accept
+         */
+        public Builder inputs(Gather.Input input) {
+            this.input = Promoter.listOfOne(input);
             return this;
         }
 

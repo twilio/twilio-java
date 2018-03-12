@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2018-03-12] Version 7.17.9
+----------------------------
+**Api**
+- Add `caller_id` param to Outbound Calls API
+- Release `trim` recording Outbound Calls API functionality in helper libraries
+
+**Video**
+- [composer] Add `room_sid` to Composition resource.
+
+
 [2018-02-23] Version 7.17.8
 ----------------------------
 **Api**

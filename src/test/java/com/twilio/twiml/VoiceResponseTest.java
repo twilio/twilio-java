@@ -93,7 +93,7 @@ public class VoiceResponseTest {
                     .build());
 
         builder.gather(new Gather.Builder()
-                    .input(Gather.Input.DTMF)
+                    .inputs(Promoter.listOfOne(Gather.Input.DTMF))
                     .action(URI.create("https://example.com"))
                     .method(HttpMethod.GET)
                     .timeout(1)

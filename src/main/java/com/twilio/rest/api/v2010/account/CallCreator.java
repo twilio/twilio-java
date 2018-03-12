@@ -46,6 +46,8 @@ public class CallCreator extends Creator<Call> {
     private String machineDetection;
     private Integer machineDetectionTimeout;
     private List<String> recordingStatusCallbackEvent;
+    private String trim;
+    private String callerId;
 
     /**
      * Construct a new CallCreator.
@@ -377,6 +379,35 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * Set this parameter to control trimming of silence on the recording.  Possible
+     * values are `trim-silence` or `do-not-trim`. Defaults to `trim-silence`..
+     * 
+     * @param trim Set this parameter to control trimming of silence on the
+     *             recording.
+     * @return this
+     */
+    public CallCreator setTrim(final String trim) {
+        this.trim = trim;
+        return this;
+    }
+
+    /**
+     * The phone number, SIP address or Client identifier that made this Call. Phone
+     * numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted
+     * as `name@company.com`..
+     * 
+     * @param callerId The phone number, SIP address or Client identifier that made
+     *                 this Call. Phone numbers are in E.164 format (e.g.
+     *                 +16175551212). SIP addresses are formatted as
+     *                 `name@company.com`.
+     * @return this
+     */
+    public CallCreator setCallerId(final String callerId) {
+        this.callerId = callerId;
+        return this;
+    }
+
+    /**
      * The fully qualified URL that should be consulted when the call connects. Just
      * like when you set a URL on a phone number for handling inbound calls..
      * 
@@ -549,6 +580,14 @@ public class CallCreator extends Creator<Call> {
             for (String prop : recordingStatusCallbackEvent) {
                 request.addPostParam("RecordingStatusCallbackEvent", prop);
             }
+        }
+
+        if (trim != null) {
+            request.addPostParam("Trim", trim);
+        }
+
+        if (callerId != null) {
+            request.addPostParam("CallerId", callerId);
         }
     }
 }

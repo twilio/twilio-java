@@ -30,6 +30,7 @@ public class CompositionReader extends Reader<Composition> {
     private Composition.Status status;
     private DateTime dateCreatedAfter;
     private DateTime dateCreatedBefore;
+    private String roomSid;
 
     /**
      * The status.
@@ -61,6 +62,17 @@ public class CompositionReader extends Reader<Composition> {
      */
     public CompositionReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    /**
+     * The room_sid.
+     * 
+     * @param roomSid The room_sid
+     * @return this
+     */
+    public CompositionReader setRoomSid(final String roomSid) {
+        this.roomSid = roomSid;
         return this;
     }
 
@@ -204,6 +216,10 @@ public class CompositionReader extends Reader<Composition> {
 
         if (dateCreatedBefore != null) {
             request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+        }
+
+        if (roomSid != null) {
+            request.addQueryParam("RoomSid", roomSid);
         }
 
         if (getPageSize() != null) {

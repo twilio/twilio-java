@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Step extends Resource {
-    private static final long serialVersionUID = 99874208172157L;
+    private static final long serialVersionUID = 221317830784095L;
 
     /**
      * Create a StepReader to execute read.
@@ -115,6 +115,7 @@ public class Step extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Step(@JsonProperty("sid")
@@ -138,7 +139,9 @@ public class Step extends Resource {
                  @JsonProperty("date_updated")
                  final String dateUpdated, 
                  @JsonProperty("url")
-                 final URI url) {
+                 final URI url, 
+                 @JsonProperty("links")
+                 final Map<String, String> links) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.flowSid = flowSid;
@@ -150,6 +153,7 @@ public class Step extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -251,6 +255,15 @@ public class Step extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The links.
+     * 
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -273,7 +286,8 @@ public class Step extends Resource {
                Objects.equals(transitionedTo, other.transitionedTo) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -288,7 +302,8 @@ public class Step extends Resource {
                             transitionedTo,
                             dateCreated,
                             dateUpdated,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -305,6 +320,7 @@ public class Step extends Resource {
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.lookups.v1;
+package com.twilio.rest.studio.v1.flow.engagement.step;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class PhoneNumberTest {
+public class StepContextTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -40,8 +40,8 @@ public class PhoneNumberTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          Domains.LOOKUPS.toString(),
-                                          "/v1/PhoneNumbers/+15017122661");
+                                          Domains.STUDIO.toString(),
+                                          "/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps/FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch();
+            StepContext.fetcher("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,11 +60,11 @@ public class PhoneNumberTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"caller_name\": {\"caller_name\": \"Delicious Cheese Cake\",\"caller_type\": \"CONSUMER\",\"error_code\": null},\"carrier\": {\"error_code\": null,\"mobile_country_code\": \"310\",\"mobile_network_code\": \"456\",\"name\": \"verizon\",\"type\": \"mobile\"},\"country_code\": \"US\",\"national_format\": \"(510) 867-5309\",\"phone_number\": \"+15108675309\",\"add_ons\": {\"status\": \"successful\",\"message\": null,\"code\": null,\"results\": {}},\"url\": \"https://lookups.twilio.com/v1/PhoneNumbers/phone_number\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"context\": {\"foo\": \"bar\"},\"flow_sid\": \"FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"engagement_sid\": \"FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"step_sid\": \"FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps/FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(StepContext.fetcher("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
     }
 }

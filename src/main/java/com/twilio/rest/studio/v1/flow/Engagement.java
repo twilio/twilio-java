@@ -146,8 +146,8 @@ public class Engagement extends Resource {
     private final String flowSid;
     private final String contactSid;
     private final String contactChannelAddress;
-    private final Engagement.Status status;
     private final Map<String, Object> context;
+    private final Engagement.Status status;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -164,10 +164,10 @@ public class Engagement extends Resource {
                        final String contactSid, 
                        @JsonProperty("contact_channel_address")
                        final String contactChannelAddress, 
-                       @JsonProperty("status")
-                       final Engagement.Status status, 
                        @JsonProperty("context")
                        final Map<String, Object> context, 
+                       @JsonProperty("status")
+                       final Engagement.Status status, 
                        @JsonProperty("date_created")
                        final String dateCreated, 
                        @JsonProperty("date_updated")
@@ -181,8 +181,8 @@ public class Engagement extends Resource {
         this.flowSid = flowSid;
         this.contactSid = contactSid;
         this.contactChannelAddress = contactChannelAddress;
-        this.status = status;
         this.context = context;
+        this.status = status;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -235,21 +235,21 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The status.
-     * 
-     * @return The status
-     */
-    public final Engagement.Status getStatus() {
-        return this.status;
-    }
-
-    /**
      * Returns The The context.
      * 
      * @return The context
      */
     public final Map<String, Object> getContext() {
         return this.context;
+    }
+
+    /**
+     * Returns The The status.
+     * 
+     * @return The status
+     */
+    public final Engagement.Status getStatus() {
+        return this.status;
     }
 
     /**
@@ -305,8 +305,8 @@ public class Engagement extends Resource {
                Objects.equals(flowSid, other.flowSid) && 
                Objects.equals(contactSid, other.contactSid) && 
                Objects.equals(contactChannelAddress, other.contactChannelAddress) && 
-               Objects.equals(status, other.status) && 
                Objects.equals(context, other.context) && 
+               Objects.equals(status, other.status) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url) && 
@@ -320,8 +320,8 @@ public class Engagement extends Resource {
                             flowSid,
                             contactSid,
                             contactChannelAddress,
-                            status,
                             context,
+                            status,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -336,8 +336,8 @@ public class Engagement extends Resource {
                           .add("flowSid", flowSid)
                           .add("contactSid", contactSid)
                           .add("contactChannelAddress", contactChannelAddress)
-                          .add("status", status)
                           .add("context", context)
+                          .add("status", status)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

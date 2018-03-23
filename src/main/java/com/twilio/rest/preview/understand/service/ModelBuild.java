@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ModelBuild extends Resource {
-    private static final long serialVersionUID = 236747167754916L;
+    private static final long serialVersionUID = 38538045675462L;
 
     public enum Status {
         ENQUEUED("enqueued"),
@@ -172,6 +172,8 @@ public class ModelBuild extends Resource {
     private final ModelBuild.Status status;
     private final String uniqueName;
     private final URI url;
+    private final Integer buildDuration;
+    private final Integer errorCode;
 
     @JsonCreator
     private ModelBuild(@JsonProperty("account_sid")
@@ -189,7 +191,11 @@ public class ModelBuild extends Resource {
                        @JsonProperty("unique_name")
                        final String uniqueName, 
                        @JsonProperty("url")
-                       final URI url) {
+                       final URI url, 
+                       @JsonProperty("build_duration")
+                       final Integer buildDuration, 
+                       @JsonProperty("error_code")
+                       final Integer errorCode) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -198,6 +204,8 @@ public class ModelBuild extends Resource {
         this.status = status;
         this.uniqueName = uniqueName;
         this.url = url;
+        this.buildDuration = buildDuration;
+        this.errorCode = errorCode;
     }
 
     /**
@@ -272,6 +280,24 @@ public class ModelBuild extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The build_duration.
+     * 
+     * @return The build_duration
+     */
+    public final Integer getBuildDuration() {
+        return this.buildDuration;
+    }
+
+    /**
+     * Returns The The error_code.
+     * 
+     * @return The error_code
+     */
+    public final Integer getErrorCode() {
+        return this.errorCode;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -291,7 +317,9 @@ public class ModelBuild extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(status, other.status) && 
                Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(buildDuration, other.buildDuration) && 
+               Objects.equals(errorCode, other.errorCode);
     }
 
     @Override
@@ -303,7 +331,9 @@ public class ModelBuild extends Resource {
                             sid,
                             status,
                             uniqueName,
-                            url);
+                            url,
+                            buildDuration,
+                            errorCode);
     }
 
     @Override
@@ -317,6 +347,8 @@ public class ModelBuild extends Resource {
                           .add("status", status)
                           .add("uniqueName", uniqueName)
                           .add("url", url)
+                          .add("buildDuration", buildDuration)
+                          .add("errorCode", errorCode)
                           .toString();
     }
 }

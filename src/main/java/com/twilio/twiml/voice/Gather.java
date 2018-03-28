@@ -25,7 +25,7 @@ public class Gather extends TwiML {
     public enum Input {
         DTMF("dtmf"),
         SPEECH("speech"),
-        DTMF_SPEECH("dtmf_speech");
+        DTMF_SPEECH("dtmf speech");
 
         private final String value;
 

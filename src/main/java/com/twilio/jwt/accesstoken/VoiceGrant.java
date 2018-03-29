@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Grant used to access Twilio Conversations.
+ * Grant used to access Twilio Voice
  *
  * <p>
  *     For more information see:
@@ -17,10 +17,16 @@ import java.util.Map;
  */
 public class VoiceGrant implements Grant {
 
+    private Boolean incomingAllow;
     private String outgoingApplicationSid;
     private Map<String, Object> outgoingApplicationParams;
     private String pushCredentialSid;
     private String endpointId;
+
+    public VoiceGrant setIncomingAllow(Boolean incomingAllow) {
+      this.incomingAllow = incomingAllow;
+      return this;
+    }
 
     public VoiceGrant setOutgoingApplicationSid(String outgoingApplicationSid) {
         this.outgoingApplicationSid = outgoingApplicationSid;
@@ -65,6 +71,7 @@ public class VoiceGrant implements Grant {
 
     @SuppressWarnings("checkstyle:membername")
     public class Payload {
+        public Map<String, Object> incoming;
         public Map<String, Object> outgoing;
         public String push_credential_sid;
         public String endpoint_id;
@@ -75,6 +82,11 @@ public class VoiceGrant implements Grant {
          * @param  grant VoiceGrant
          */
         public Payload(VoiceGrant grant) {
+            if (grant.incomingAllow == true) {
+              this.incoming = new HashMap<>();
+              this.incoming.put("allow", true);
+            }
+
             if (!Strings.isNullOrEmpty(grant.outgoingApplicationSid)) {
                 this.outgoing = new HashMap<>();
                 this.outgoing.put("application_sid", grant.outgoingApplicationSid);

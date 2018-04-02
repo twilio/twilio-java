@@ -66,7 +66,7 @@ Twilio.init(credentialsProvider);
 #If using Environment Variables Export the ff :
 
 export TWILLIO_ACCOUNT_SID="ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
-exrort TWILLIO_AUTH_TOKEN="XXXXXXXX";  // Your Auth Token from www.twilio.com/user/account
+export TWILLIO_AUTH_TOKEN="XXXXXXXX";  // Your Auth Token from www.twilio.com/user/account
 
 ```
 

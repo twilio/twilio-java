@@ -44,6 +44,18 @@ If you want to compile it yourself, here's how:
 
 # Quickstart
 
+
+## Using System Properties
+
+```
+-Dtwilio.accountSid=XXXXXXX -Dtwilio.authToken=XXXXX
+```
+```java
+TwilioCredentialsProvider credentialsProvider = new SystemPropertiesCredentialsProvider.getCredentials();
+
+Twilio.init(credentialsProvider);
+
+```
 ## Using ~/.twilio/credentials
 
 ```
@@ -53,7 +65,7 @@ authToken  = XXXXXXXXXXXX
 
 ```
 ```java
-TwillioCredentialsProvider credentialsProvider = new SharedCredentialsProvider.getCredentials();
+TwilioCredentialsProvider credentialsProvider = new SharedCredentialsProvider.getCredentials();
 
 Twilio.init(credentialsProvider);
 
@@ -65,14 +77,14 @@ Twilio.init(credentialsProvider);
 
 #If using Environment Variables Export the ff :
 
-export TWILLIO_ACCOUNT_SID="ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
-export TWILLIO_AUTH_TOKEN="XXXXXXXX";  // Your Auth Token from www.twilio.com/user/account
+export TWILIO_ACCOUNT_SID="ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
+export TWILIO_AUTH_TOKEN="XXXXXXXX";  // Your Auth Token from www.twilio.com/user/account
 
 ```
 
 ```java
 
-TwillioCredentialsProvider credentialsProvider = new EnvironmentVariableCredentialsProvider.getCredentials();
+TwilioCredentialsProvider credentialsProvider = new EnvironmentVariableCredentialsProvider.getCredentials();
 
 Twilio.init(credentialsProvider);
 

@@ -2,6 +2,8 @@ package com.twilio;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.twilio.credential.TwilioCredentialsProvider;
+import com.twilio.credential.TwilioCredentials;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.exception.AuthenticationException;
 
@@ -45,6 +47,21 @@ public class Twilio {
         Twilio.setUsername(username);
         Twilio.setPassword(password);
         Twilio.setAccountSid(accountSid);
+    }
+
+    /**
+     * Initialize the Twilio environment.
+     *
+     * @param credentialsProvider provides account sid and auth token to use
+     */
+
+    public static void init(final TwilioCredentialsProvider credentialsProvider) {
+
+        TwilioCredentials credentials = credentialsProvider.getCredentials();
+
+        Twilio.setAccountSid(credentials.getAccountSid());
+        Twilio.setPassword(credentials.getAuthToken());
+
     }
 
     /**
@@ -104,7 +121,7 @@ public class Twilio {
     /**
      * Returns (and initializes if not initialized) the Twilio Rest Client.
      *
-     * @return the TWilio Rest Client
+     * @return the Twilio Rest Client
      * @throws AuthenticationException if initialization required and either accountSid or authToken is null
      */
     public static TwilioRestClient getRestClient() {

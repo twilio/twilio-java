@@ -44,10 +44,45 @@ If you want to compile it yourself, here's how:
 
 # Quickstart
 
+## Using ~/.twilio/credentials
+
+```
+[default]
+accountSid = XXXXXXXXXXXX
+authToken  = XXXXXXXXXXXX
+
+```
+```java
+TwillioCredentialsProvider credentialsProvider = new SharedCredentialsProvider.getCredentials();
+
+Twilio.init(credentialsProvider);
+
+```
+
+### Using Environment Variables
+
+```bash
+
+#If using Environment Variables Export the ff :
+
+export TWILLIO_ACCOUNT_SID="ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
+exrort TWILLIO_AUTH_TOKEN="XXXXXXXX";  // Your Auth Token from www.twilio.com/user/account
+
+```
+
+```java
+
+TwillioCredentialsProvider credentialsProvider = new EnvironmentVariableCredentialsProvider.getCredentials();
+
+Twilio.init(credentialsProvider);
+
+```
+
 ### Send a SMS
 ```java
 String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
 String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
+
 
 Twilio.init(accountSid, authToken);
 

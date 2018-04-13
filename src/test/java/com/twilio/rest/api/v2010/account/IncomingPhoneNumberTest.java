@@ -41,7 +41,7 @@ public class IncomingPhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class IncomingPhoneNumberTest {
         }};
 
         try {
-            IncomingPhoneNumber.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            IncomingPhoneNumber.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        IncomingPhoneNumber.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -73,7 +73,7 @@ public class IncomingPhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class IncomingPhoneNumberTest {
         }};
 
         try {
-            IncomingPhoneNumber.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            IncomingPhoneNumber.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IncomingPhoneNumber.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(IncomingPhoneNumber.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class IncomingPhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class IncomingPhoneNumberTest {
         }};
 
         try {
-            IncomingPhoneNumber.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            IncomingPhoneNumber.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        IncomingPhoneNumber.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -137,7 +137,7 @@ public class IncomingPhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class IncomingPhoneNumberTest {
         }};
 
         try {
-            IncomingPhoneNumber.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IncomingPhoneNumber.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IncomingPhoneNumber.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -181,7 +181,7 @@ public class IncomingPhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json");
             request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class IncomingPhoneNumberTest {
         }};
 
         try {
-            IncomingPhoneNumber.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15017122661")).create();
+            IncomingPhoneNumber.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new com.twilio.type.PhoneNumber("+15017122661")).create();
+        IncomingPhoneNumber.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create();
     }
 }

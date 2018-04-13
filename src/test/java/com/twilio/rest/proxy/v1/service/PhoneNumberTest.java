@@ -41,7 +41,7 @@ public class PhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PROXY.toString(),
-                                          "/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers");
+                                          "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.creator("KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+            PhoneNumber.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        PhoneNumber.creator("KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+        PhoneNumber.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test
@@ -73,7 +73,7 @@ public class PhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PROXY.toString(),
-                                          "/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.deleter("KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            PhoneNumber.deleter("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        PhoneNumber.deleter("KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        PhoneNumber.deleter("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class PhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PROXY.toString(),
-                                          "/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers");
+                                          "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.reader("KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            PhoneNumber.reader("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.reader("KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(PhoneNumber.reader("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -137,7 +137,7 @@ public class PhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PROXY.toString(),
-                                          "/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.fetcher("KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            PhoneNumber.fetcher("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,6 +161,6 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher("KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(PhoneNumber.fetcher("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 }

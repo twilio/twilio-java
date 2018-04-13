@@ -41,7 +41,7 @@ public class UserTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class UserTest {
         }};
 
         try {
-            User.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            User.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(User.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(User.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class UserTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class UserTest {
         }};
 
         try {
-            User.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            User.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        User.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        User.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class UserTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users");
             request.addPostParam("Identity", serialize("identity"));
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class UserTest {
         }};
 
         try {
-            User.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "identity").create();
+            User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        User.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "identity").create();
+        User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create();
     }
 
     @Test
@@ -137,7 +137,7 @@ public class UserTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users");
             
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class UserTest {
         }};
 
         try {
-            User.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(User.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(User.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -181,7 +181,7 @@ public class UserTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class UserTest {
         }};
 
         try {
-            User.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            User.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        User.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        User.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

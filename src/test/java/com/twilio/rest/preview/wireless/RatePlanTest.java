@@ -85,7 +85,7 @@ public class RatePlanTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/wireless/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/wireless/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -95,7 +95,7 @@ public class RatePlanTest {
         }};
 
         try {
-            RatePlan.fetcher("WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            RatePlan.fetcher("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class RatePlanTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RatePlan.fetcher("WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(RatePlan.fetcher("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class RatePlanTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/wireless/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/wireless/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -159,7 +159,7 @@ public class RatePlanTest {
         }};
 
         try {
-            RatePlan.updater("WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            RatePlan.updater("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class RatePlanTest {
             result = new ObjectMapper();
         }};
 
-        RatePlan.updater("WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        RatePlan.updater("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -181,7 +181,7 @@ public class RatePlanTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
-                                          "/wireless/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/wireless/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class RatePlanTest {
         }};
 
         try {
-            RatePlan.deleter("WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            RatePlan.deleter("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class RatePlanTest {
             result = new ObjectMapper();
         }};
 
-        RatePlan.deleter("WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        RatePlan.deleter("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 }

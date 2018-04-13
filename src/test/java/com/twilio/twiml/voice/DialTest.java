@@ -95,7 +95,7 @@ public class DialTest {
                     .maxParticipants(1)
                     .record(Conference.Record.DO_NOT_RECORD)
                     .region(Conference.Region.US1)
-                    .whisper("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                    .whisper("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                     .trim(Conference.Trim.TRIM_SILENCE)
                     .statusCallbackEvents(Promoter.listOfOne(Conference.Event.START))
                     .statusCallback(URI.create("https://example.com"))
@@ -122,7 +122,7 @@ public class DialTest {
                     .postWorkActivitySid("post_work_activity_sid")
                     .build());
 
-        builder.sim(new Sim.Builder("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").build());
+        builder.sim(new Sim.Builder("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").build());
 
         builder.sip(new Sip.Builder(URI.create("https://example.com"))
                     .username("username")
@@ -140,10 +140,10 @@ public class DialTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
                 "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">name</Client>" +
-                "<Conference beep=\"true\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" maxParticipants=\"1\" muted=\"true\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"started\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\" whisper=\"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\">name</Conference>" +
+                "<Conference beep=\"true\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" maxParticipants=\"1\" muted=\"true\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"started\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\" whisper=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\">name</Conference>" +
                 "<Number method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
-                "<Sim>DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Sim>" +
+                "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
                 "<Sip method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
             "</Dial>",
             elem.toXml()

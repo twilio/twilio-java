@@ -41,7 +41,7 @@ public class CertificateTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates/CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates/CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.fetcher("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Certificate.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Certificate.fetcher("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Certificate.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class CertificateTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates/CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates/CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.deleter("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Certificate.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        Certificate.deleter("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Certificate.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class CertificateTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates");
             request.addPostParam("CertificateData", serialize("certificateData"));
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.creator("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "certificateData").create();
+            Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificateData").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        Certificate.creator("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "certificateData").create();
+        Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificateData").create();
     }
 
     @Test
@@ -137,7 +137,7 @@ public class CertificateTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates");
             
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.reader("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            Certificate.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Certificate.reader("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Certificate.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Certificate.reader("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Certificate.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -181,7 +181,7 @@ public class CertificateTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates/CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates/CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.updater("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Certificate.updater("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        Certificate.updater("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Certificate.updater("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

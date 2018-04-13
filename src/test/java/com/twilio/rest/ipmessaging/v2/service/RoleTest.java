@@ -41,7 +41,7 @@ public class RoleTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class RoleTest {
         }};
 
         try {
-            Role.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Role.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Role.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Role.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class RoleTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class RoleTest {
         }};
 
         try {
-            Role.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Role.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        Role.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Role.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class RoleTest {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.IPMESSAGING.toString(),
-                                                      "/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles");
+                                                      "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles");
                         request.addPostParam("FriendlyName", serialize("friendlyName"));
         request.addPostParam("Type", serialize(Role.RoleType.CHANNEL));
         request.addPostParam("Permission", serialize(Promoter.listOfOne("permission")));
@@ -117,7 +117,7 @@ public class RoleTest {
                     }};
 
         try {
-            Role.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
+            Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -131,7 +131,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        Role.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
+        Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
     }
 
     @Test
@@ -139,7 +139,7 @@ public class RoleTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles");
+                                          "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles");
             
             twilioRestClient.request(request);
             times = 1;
@@ -149,7 +149,7 @@ public class RoleTest {
         }};
 
         try {
-            Role.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            Role.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -163,7 +163,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Role.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Role.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -175,7 +175,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Role.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Role.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -183,7 +183,7 @@ public class RoleTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.IPMESSAGING.toString(),
-                                          "/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             request.addPostParam("Permission", serialize(Promoter.listOfOne("permission")));
             twilioRestClient.request(request);
             times = 1;
@@ -193,7 +193,7 @@ public class RoleTest {
         }};
 
         try {
-            Role.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Promoter.listOfOne("permission")).update();
+            Role.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Promoter.listOfOne("permission")).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -207,6 +207,6 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        Role.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Promoter.listOfOne("permission")).update();
+        Role.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Promoter.listOfOne("permission")).update();
     }
 }

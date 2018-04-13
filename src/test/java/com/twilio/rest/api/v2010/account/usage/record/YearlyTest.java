@@ -41,7 +41,7 @@ public class YearlyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/Yearly.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Usage/Records/Yearly.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class YearlyTest {
         }};
 
         try {
-            Yearly.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class YearlyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Yearly.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class YearlyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Yearly.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

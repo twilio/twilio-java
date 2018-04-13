@@ -41,7 +41,7 @@ public class KeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys/KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Keys/KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class KeyTest {
         }};
 
         try {
-            Key.fetcher("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Key.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Key.fetcher("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Key.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class KeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys/KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Keys/KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class KeyTest {
         }};
 
         try {
-            Key.deleter("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Key.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        Key.deleter("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Key.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class KeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Keys");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class KeyTest {
         }};
 
         try {
-            Key.creator("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+            Key.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        Key.creator("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+        Key.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test
@@ -137,7 +137,7 @@ public class KeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Keys");
             
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class KeyTest {
         }};
 
         try {
-            Key.reader("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            Key.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Key.reader("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Key.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Key.reader("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Key.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -181,7 +181,7 @@ public class KeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys/KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Keys/KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class KeyTest {
         }};
 
         try {
-            Key.updater("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Key.updater("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        Key.updater("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "KYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Key.updater("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

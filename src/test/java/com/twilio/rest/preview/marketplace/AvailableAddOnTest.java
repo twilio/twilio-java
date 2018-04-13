@@ -41,7 +41,7 @@ public class AvailableAddOnTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/marketplace/AvailableAddOns/XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class AvailableAddOnTest {
         }};
 
         try {
-            AvailableAddOn.fetcher("XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            AvailableAddOn.fetcher("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AvailableAddOnTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AvailableAddOn.fetcher("XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(AvailableAddOn.fetcher("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test

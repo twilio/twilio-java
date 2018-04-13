@@ -41,7 +41,7 @@ public class RoomTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
-                                          "/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class RoomTest {
         }};
 
         try {
-            Room.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Room.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Room.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Room.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class RoomTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
-                                          "/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             request.addPostParam("Status", serialize(Room.RoomStatus.IN_PROGRESS));
             twilioRestClient.request(request);
             times = 1;
@@ -159,7 +159,7 @@ public class RoomTest {
         }};
 
         try {
-            Room.updater("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Room.RoomStatus.IN_PROGRESS).update();
+            Room.updater("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Room.RoomStatus.IN_PROGRESS).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,6 +173,6 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.updater("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Room.RoomStatus.IN_PROGRESS).update();
+        Room.updater("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Room.RoomStatus.IN_PROGRESS).update();
     }
 }

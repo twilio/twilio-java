@@ -73,7 +73,7 @@ public class FlowTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.STUDIO.toString(),
-                                          "/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class FlowTest {
         }};
 
         try {
-            Flow.fetcher("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Flow.fetcher("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class FlowTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Flow.fetcher("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Flow.fetcher("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class FlowTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.STUDIO.toString(),
-                                          "/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class FlowTest {
         }};
 
         try {
-            Flow.deleter("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Flow.deleter("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,6 +129,6 @@ public class FlowTest {
             result = new ObjectMapper();
         }};
 
-        Flow.deleter("FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Flow.deleter("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 }

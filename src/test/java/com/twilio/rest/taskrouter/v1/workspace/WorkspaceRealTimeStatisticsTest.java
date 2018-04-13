@@ -41,7 +41,7 @@ public class WorkspaceRealTimeStatisticsTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RealTimeStatistics");
+                                          "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class WorkspaceRealTimeStatisticsTest {
         }};
 
         try {
-            WorkspaceRealTimeStatistics.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            WorkspaceRealTimeStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class WorkspaceRealTimeStatisticsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(WorkspaceRealTimeStatistics.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(WorkspaceRealTimeStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 }

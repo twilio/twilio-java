@@ -41,7 +41,7 @@ public class FeedbackSummaryTest {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.API.toString(),
-                                                      "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/FeedbackSummary.json");
+                                                      "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary.json");
                         request.addPostParam("StartDate", serialize(DateConverter.localDateFromString("2008-01-02")));
         request.addPostParam("EndDate", serialize(DateConverter.localDateFromString("2008-01-02")));
                         twilioRestClient.request(request);
@@ -52,7 +52,7 @@ public class FeedbackSummaryTest {
                     }};
 
         try {
-            FeedbackSummary.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create();
+            FeedbackSummary.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -66,7 +66,7 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
 
-        FeedbackSummary.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create();
+        FeedbackSummary.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create();
     }
 
     @Test
@@ -74,7 +74,7 @@ public class FeedbackSummaryTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/FeedbackSummary/FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -84,7 +84,7 @@ public class FeedbackSummaryTest {
         }};
 
         try {
-            FeedbackSummary.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            FeedbackSummary.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -98,7 +98,7 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FeedbackSummary.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(FeedbackSummary.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class FeedbackSummaryTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/FeedbackSummary/FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -116,7 +116,7 @@ public class FeedbackSummaryTest {
         }};
 
         try {
-            FeedbackSummary.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            FeedbackSummary.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,6 +130,6 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
 
-        FeedbackSummary.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        FeedbackSummary.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 }

@@ -41,7 +41,7 @@ public class EventTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.MONITOR.toString(),
-                                          "/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Events/AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class EventTest {
         }};
 
         try {
-            Event.fetcher("AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Event.fetcher("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class EventTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Event.fetcher("AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Event.fetcher("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test

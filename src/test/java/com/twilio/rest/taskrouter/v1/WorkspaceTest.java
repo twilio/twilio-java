@@ -41,7 +41,7 @@ public class WorkspaceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class WorkspaceTest {
         }};
 
         try {
-            Workspace.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Workspace.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Workspace.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Workspace.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class WorkspaceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.TASKROUTER.toString(),
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class WorkspaceTest {
         }};
 
         try {
-            Workspace.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Workspace.updater("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
 
-        Workspace.updater("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Workspace.updater("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -181,7 +181,7 @@ public class WorkspaceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.TASKROUTER.toString(),
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class WorkspaceTest {
         }};
 
         try {
-            Workspace.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Workspace.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
 
-        Workspace.deleter("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Workspace.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 }

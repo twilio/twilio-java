@@ -8,6 +8,7 @@
 package com.twilio.rest.studio.v1.flow;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,6 +18,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.util.Map;
+
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
@@ -25,7 +28,7 @@ public class EngagementCreator extends Creator<Engagement> {
     private final String pathFlowSid;
     private final com.twilio.type.PhoneNumber to;
     private final com.twilio.type.PhoneNumber from;
-    private String parameters;
+    private Map<String, Object> parameters;
 
     /**
      * Construct a new EngagementCreator.
@@ -48,7 +51,7 @@ public class EngagementCreator extends Creator<Engagement> {
      * @param parameters The parameters
      * @return this
      */
-    public EngagementCreator setParameters(final String parameters) {
+    public EngagementCreator setParameters(final Map<String, Object> parameters) {
         this.parameters = parameters;
         return this;
     }
@@ -107,7 +110,7 @@ public class EngagementCreator extends Creator<Engagement> {
         }
 
         if (parameters != null) {
-            request.addPostParam("Parameters", parameters);
+            request.addPostParam("Parameters", Converter.mapToJson(parameters));
         }
     }
 }

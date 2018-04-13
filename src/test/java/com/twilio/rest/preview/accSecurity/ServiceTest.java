@@ -73,7 +73,7 @@ public class ServiceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/Verification/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.fetcher("VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Service.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Service.fetcher("VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Service.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -137,7 +137,7 @@ public class ServiceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/Verification/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.updater("VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Service.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,6 +161,6 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        Service.updater("VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Service.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

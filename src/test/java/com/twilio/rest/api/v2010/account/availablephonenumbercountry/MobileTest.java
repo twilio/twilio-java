@@ -41,7 +41,7 @@ public class MobileTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Mobile.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class MobileTest {
         }};
 
         try {
-            Mobile.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read();
+            Mobile.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class MobileTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Mobile.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read());
+        assertNotNull(Mobile.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class MobileTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Mobile.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read());
+        assertNotNull(Mobile.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
     }
 }

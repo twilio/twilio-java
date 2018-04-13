@@ -41,7 +41,7 @@ public class CommandTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/wireless/Commands/DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class CommandTest {
         }};
 
         try {
-            Command.fetcher("DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Command.fetcher("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class CommandTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Command.fetcher("DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Command.fetcher("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test

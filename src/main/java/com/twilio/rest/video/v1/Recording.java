@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 154425564562042L;
+    private static final long serialVersionUID = 66126851640411L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -215,7 +215,7 @@ public class Recording extends Resource {
     private final DateTime dateCreated;
     private final String sid;
     private final String sourceSid;
-    private final Integer size;
+    private final String size;
     private final URI url;
     private final Recording.Type type;
     private final Integer duration;
@@ -237,7 +237,7 @@ public class Recording extends Resource {
                       @JsonProperty("source_sid")
                       final String sourceSid, 
                       @JsonProperty("size")
-                      final Integer size, 
+                      final String size, 
                       @JsonProperty("url")
                       final URI url, 
                       @JsonProperty("type")
@@ -320,7 +320,7 @@ public class Recording extends Resource {
      * 
      * @return The size
      */
-    public final Integer getSize() {
+    public final String getSize() {
         return this.size;
     }
 

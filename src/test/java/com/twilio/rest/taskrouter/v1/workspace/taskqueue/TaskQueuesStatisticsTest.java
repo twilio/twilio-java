@@ -41,7 +41,7 @@ public class TaskQueuesStatisticsTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics");
+                                          "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/Statistics");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class TaskQueuesStatisticsTest {
         }};
 
         try {
-            TaskQueuesStatistics.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TaskQueuesStatisticsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TaskQueuesStatistics.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class TaskQueuesStatisticsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TaskQueuesStatistics.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

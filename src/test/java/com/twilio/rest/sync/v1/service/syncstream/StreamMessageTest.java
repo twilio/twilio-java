@@ -41,7 +41,7 @@ public class StreamMessageTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams/TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages");
             request.addPostParam("Data", serialize(new java.util.HashMap<String, Object>()));
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class StreamMessageTest {
         }};
 
         try {
-            StreamMessage.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new java.util.HashMap<String, Object>()).create();
+            StreamMessage.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class StreamMessageTest {
             result = new ObjectMapper();
         }};
 
-        StreamMessage.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new java.util.HashMap<String, Object>()).create();
+        StreamMessage.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create();
     }
 }

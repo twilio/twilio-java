@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2018-04-13] Version 7.19.0
+----------------------------
+**Library**
+- PR #404: Add incoming.allow to AccessToken VoiceGrant. Thanks to @ryan-rowland!
+
+**Preview**
+- Support for Understand V2 APIs - renames various resources and adds new fields
+
+**Studio**
+- Change parameters type from string to object in engagement resource
+
+**Video**
+- [Recordings] Change `size` type to `long`. **(breaking change)**
+
+
 [2018-03-22] Version 7.18.0
 ----------------------------
 **Lookups**

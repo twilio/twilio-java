@@ -41,7 +41,7 @@ public class AlertTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.MONITOR.toString(),
-                                          "/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class AlertTest {
         }};
 
         try {
-            Alert.fetcher("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Alert.fetcher("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Alert.fetcher("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Alert.fetcher("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class AlertTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.MONITOR.toString(),
-                                          "/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class AlertTest {
         }};
 
         try {
-            Alert.deleter("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Alert.deleter("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
 
-        Alert.deleter("NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Alert.deleter("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test

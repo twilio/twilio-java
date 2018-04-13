@@ -41,7 +41,7 @@ public class SyncStreamTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams/TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class SyncStreamTest {
         }};
 
         try {
-            SyncStream.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            SyncStream.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class SyncStreamTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncStream.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(SyncStream.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class SyncStreamTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams/TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class SyncStreamTest {
         }};
 
         try {
-            SyncStream.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            SyncStream.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class SyncStreamTest {
             result = new ObjectMapper();
         }};
 
-        SyncStream.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        SyncStream.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class SyncStreamTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class SyncStreamTest {
         }};
 
         try {
-            SyncStream.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+            SyncStream.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class SyncStreamTest {
             result = new ObjectMapper();
         }};
 
-        SyncStream.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+        SyncStream.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test
@@ -137,7 +137,7 @@ public class SyncStreamTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams/TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class SyncStreamTest {
         }};
 
         try {
-            SyncStream.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            SyncStream.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class SyncStreamTest {
             result = new ObjectMapper();
         }};
 
-        SyncStream.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        SyncStream.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -169,7 +169,7 @@ public class SyncStreamTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams");
             
             twilioRestClient.request(request);
             times = 1;
@@ -179,7 +179,7 @@ public class SyncStreamTest {
         }};
 
         try {
-            SyncStream.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -193,7 +193,7 @@ public class SyncStreamTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncStream.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -205,6 +205,6 @@ public class SyncStreamTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncStream.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

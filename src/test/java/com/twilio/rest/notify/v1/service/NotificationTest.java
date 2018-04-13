@@ -41,7 +41,7 @@ public class NotificationTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.NOTIFY.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class NotificationTest {
         }};
 
         try {
-            Notification.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+            Notification.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class NotificationTest {
             result = new ObjectMapper();
         }};
 
-        Notification.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+        Notification.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test
@@ -77,6 +77,6 @@ public class NotificationTest {
             result = new ObjectMapper();
         }};
 
-        Notification.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+        Notification.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 }

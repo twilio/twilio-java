@@ -41,7 +41,7 @@ public class TollFreeTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/TollFree.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/TollFree.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class TollFreeTest {
         }};
 
         try {
-            TollFree.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read();
+            TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TollFreeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TollFree.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read());
+        assertNotNull(TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class TollFreeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TollFree.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").read());
+        assertNotNull(TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
     }
 }

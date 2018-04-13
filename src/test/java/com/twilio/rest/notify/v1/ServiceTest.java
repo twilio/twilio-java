@@ -73,7 +73,7 @@ public class ServiceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.NOTIFY.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Service.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        Service.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Service.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class ServiceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Service.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Service.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Service.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -181,7 +181,7 @@ public class ServiceTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.NOTIFY.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Service.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        Service.updater("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Service.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

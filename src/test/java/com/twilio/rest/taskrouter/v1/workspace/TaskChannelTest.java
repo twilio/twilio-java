@@ -41,7 +41,7 @@ public class TaskChannelTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels/TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskChannels/TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class TaskChannelTest {
         }};
 
         try {
-            TaskChannel.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            TaskChannel.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TaskChannel.fetcher("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(TaskChannel.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class TaskChannelTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
-                                          "/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels");
+                                          "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskChannels");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class TaskChannelTest {
         }};
 
         try {
-            TaskChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            TaskChannel.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TaskChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(TaskChannel.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -109,6 +109,6 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TaskChannel.reader("WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(TaskChannel.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

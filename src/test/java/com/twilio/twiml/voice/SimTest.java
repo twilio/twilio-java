@@ -16,11 +16,11 @@ import org.junit.Test;
 public class SimTest {
     @Test
     public void testElementWithParams() {
-        Sim elem = new Sim.Builder("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").build();
+        Sim elem = new Sim.Builder("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Sim>DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Sim>",
+            "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>",
             elem.toXml()
         );
     }

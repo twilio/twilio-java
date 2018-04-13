@@ -41,7 +41,7 @@ public class DataSessionTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.WIRELESS.toString(),
-                                          "/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DataSessions");
+                                          "/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DataSessions");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class DataSessionTest {
         }};
 
         try {
-            DataSession.reader("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            DataSession.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class DataSessionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(DataSession.reader("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(DataSession.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

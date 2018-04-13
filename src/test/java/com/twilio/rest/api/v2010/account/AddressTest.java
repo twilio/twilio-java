@@ -41,7 +41,7 @@ public class AddressTest {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.API.toString(),
-                                                      "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json");
+                                                      "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses.json");
                         request.addPostParam("CustomerName", serialize("customerName"));
         request.addPostParam("Street", serialize("street"));
         request.addPostParam("City", serialize("city"));
@@ -56,7 +56,7 @@ public class AddressTest {
                     }};
 
         try {
-            Address.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "customerName", "street", "city", "region", "postalCode", "US").create();
+            Address.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "customerName", "street", "city", "region", "postalCode", "US").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -70,7 +70,7 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        Address.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "customerName", "street", "city", "region", "postalCode", "US").create();
+        Address.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "customerName", "street", "city", "region", "postalCode", "US").create();
     }
 
     @Test
@@ -78,7 +78,7 @@ public class AddressTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses/ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -88,7 +88,7 @@ public class AddressTest {
         }};
 
         try {
-            Address.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Address.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -102,7 +102,7 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        Address.deleter("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Address.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -110,7 +110,7 @@ public class AddressTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses/ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -120,7 +120,7 @@ public class AddressTest {
         }};
 
         try {
-            Address.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Address.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -134,7 +134,7 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Address.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Address.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -142,7 +142,7 @@ public class AddressTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses/ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -152,7 +152,7 @@ public class AddressTest {
         }};
 
         try {
-            Address.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Address.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -166,7 +166,7 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        Address.updater("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Address.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -174,7 +174,7 @@ public class AddressTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -184,7 +184,7 @@ public class AddressTest {
         }};
 
         try {
-            Address.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            Address.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -198,7 +198,7 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Address.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Address.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -210,6 +210,6 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Address.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(Address.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

@@ -41,7 +41,7 @@ public class FaxTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.FAX.toString(),
-                                          "/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class FaxTest {
         }};
 
         try {
-            Fax.fetcher("FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Fax.fetcher("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class FaxTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Fax.fetcher("FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Fax.fetcher("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -150,7 +150,7 @@ public class FaxTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.FAX.toString(),
-                                          "/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -160,7 +160,7 @@ public class FaxTest {
         }};
 
         try {
-            Fax.updater("FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Fax.updater("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -174,7 +174,7 @@ public class FaxTest {
             result = new ObjectMapper();
         }};
 
-        Fax.updater("FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Fax.updater("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -182,7 +182,7 @@ public class FaxTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.FAX.toString(),
-                                          "/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -192,7 +192,7 @@ public class FaxTest {
         }};
 
         try {
-            Fax.deleter("FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Fax.deleter("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,6 +206,6 @@ public class FaxTest {
             result = new ObjectMapper();
         }};
 
-        Fax.deleter("FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Fax.deleter("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 }

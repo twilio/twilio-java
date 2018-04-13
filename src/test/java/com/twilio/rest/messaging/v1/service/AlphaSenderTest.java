@@ -41,7 +41,7 @@ public class AlphaSenderTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.MESSAGING.toString(),
-                                          "/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders");
+                                          "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders");
             request.addPostParam("AlphaSender", serialize("alphaSender"));
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.creator("MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "alphaSender").create();
+            AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alphaSender").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        AlphaSender.creator("MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "alphaSender").create();
+        AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alphaSender").create();
     }
 
     @Test
@@ -73,7 +73,7 @@ public class AlphaSenderTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
-                                          "/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders");
+                                          "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.reader("MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            AlphaSender.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AlphaSender.reader("MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(AlphaSender.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class AlphaSenderTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
-                                          "/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.fetcher("MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            AlphaSender.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AlphaSender.fetcher("MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(AlphaSender.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -137,7 +137,7 @@ public class AlphaSenderTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.MESSAGING.toString(),
-                                          "/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.deleter("MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            AlphaSender.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,6 +161,6 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        AlphaSender.deleter("MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        AlphaSender.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 }

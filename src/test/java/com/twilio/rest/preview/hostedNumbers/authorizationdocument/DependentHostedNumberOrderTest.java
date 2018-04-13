@@ -41,7 +41,7 @@ public class DependentHostedNumberOrderTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders");
+                                          "/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DependentHostedNumberOrders");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class DependentHostedNumberOrderTest {
         }};
 
         try {
-            DependentHostedNumberOrder.reader("PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class DependentHostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(DependentHostedNumberOrder.reader("PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -77,6 +77,6 @@ public class DependentHostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(DependentHostedNumberOrder.reader("PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

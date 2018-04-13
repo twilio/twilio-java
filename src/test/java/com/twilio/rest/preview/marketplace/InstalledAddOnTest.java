@@ -42,7 +42,7 @@ public class InstalledAddOnTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.PREVIEW.toString(),
                                                       "/marketplace/InstalledAddOns");
-                        request.addPostParam("AvailableAddOnSid", serialize("XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+                        request.addPostParam("AvailableAddOnSid", serialize("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
         request.addPostParam("AcceptTermsOfService", serialize(true));
                         twilioRestClient.request(request);
                         times = 1;
@@ -52,7 +52,7 @@ public class InstalledAddOnTest {
                     }};
 
         try {
-            InstalledAddOn.creator("XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", true).create();
+            InstalledAddOn.creator("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", true).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -66,7 +66,7 @@ public class InstalledAddOnTest {
             result = new ObjectMapper();
         }};
 
-        InstalledAddOn.creator("XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", true).create();
+        InstalledAddOn.creator("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", true).create();
     }
 
     @Test
@@ -74,7 +74,7 @@ public class InstalledAddOnTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
-                                          "/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/marketplace/InstalledAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -84,7 +84,7 @@ public class InstalledAddOnTest {
         }};
 
         try {
-            InstalledAddOn.deleter("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            InstalledAddOn.deleter("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -98,7 +98,7 @@ public class InstalledAddOnTest {
             result = new ObjectMapper();
         }};
 
-        InstalledAddOn.deleter("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        InstalledAddOn.deleter("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -106,7 +106,7 @@ public class InstalledAddOnTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/marketplace/InstalledAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -116,7 +116,7 @@ public class InstalledAddOnTest {
         }};
 
         try {
-            InstalledAddOn.fetcher("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            InstalledAddOn.fetcher("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,7 +130,7 @@ public class InstalledAddOnTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(InstalledAddOn.fetcher("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(InstalledAddOn.fetcher("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -138,7 +138,7 @@ public class InstalledAddOnTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/marketplace/InstalledAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -148,7 +148,7 @@ public class InstalledAddOnTest {
         }};
 
         try {
-            InstalledAddOn.updater("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            InstalledAddOn.updater("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -162,7 +162,7 @@ public class InstalledAddOnTest {
             result = new ObjectMapper();
         }};
 
-        InstalledAddOn.updater("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        InstalledAddOn.updater("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test

@@ -117,7 +117,7 @@ public class AwsTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.ACCOUNTS.toString(),
-                                          "/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -127,7 +127,7 @@ public class AwsTest {
         }};
 
         try {
-            Aws.fetcher("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Aws.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class AwsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Aws.fetcher("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Aws.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class AwsTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.ACCOUNTS.toString(),
-                                          "/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -159,7 +159,7 @@ public class AwsTest {
         }};
 
         try {
-            Aws.updater("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Aws.updater("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class AwsTest {
             result = new ObjectMapper();
         }};
 
-        Aws.updater("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Aws.updater("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -181,7 +181,7 @@ public class AwsTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.ACCOUNTS.toString(),
-                                          "/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class AwsTest {
         }};
 
         try {
-            Aws.deleter("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Aws.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class AwsTest {
             result = new ObjectMapper();
         }};
 
-        Aws.deleter("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Aws.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 }

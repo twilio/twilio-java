@@ -117,7 +117,7 @@ public class PublicKeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.ACCOUNTS.toString(),
-                                          "/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -127,7 +127,7 @@ public class PublicKeyTest {
         }};
 
         try {
-            PublicKey.fetcher("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            PublicKey.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PublicKey.fetcher("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(PublicKey.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class PublicKeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.ACCOUNTS.toString(),
-                                          "/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -159,7 +159,7 @@ public class PublicKeyTest {
         }};
 
         try {
-            PublicKey.updater("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            PublicKey.updater("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
 
-        PublicKey.updater("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        PublicKey.updater("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -181,7 +181,7 @@ public class PublicKeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.ACCOUNTS.toString(),
-                                          "/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class PublicKeyTest {
         }};
 
         try {
-            PublicKey.deleter("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            PublicKey.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
 
-        PublicKey.deleter("CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        PublicKey.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 }

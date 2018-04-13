@@ -41,7 +41,7 @@ public class UserBindingTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class UserBindingTest {
         }};
 
         try {
-            UserBinding.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            UserBinding.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class UserBindingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(UserBinding.fetcher("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(UserBinding.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class UserBindingTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.NOTIFY.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class UserBindingTest {
         }};
 
         try {
-            UserBinding.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            UserBinding.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class UserBindingTest {
             result = new ObjectMapper();
         }};
 
-        UserBinding.deleter("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        UserBinding.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class UserBindingTest {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.NOTIFY.toString(),
-                                                      "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings");
+                                                      "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings");
                         request.addPostParam("BindingType", serialize(UserBinding.BindingType.APN));
         request.addPostParam("Address", serialize("address"));
                         twilioRestClient.request(request);
@@ -116,7 +116,7 @@ public class UserBindingTest {
                     }};
 
         try {
-            UserBinding.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", UserBinding.BindingType.APN, "address").create();
+            UserBinding.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", UserBinding.BindingType.APN, "address").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,7 +130,7 @@ public class UserBindingTest {
             result = new ObjectMapper();
         }};
 
-        UserBinding.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", UserBinding.BindingType.APN, "address").create();
+        UserBinding.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", UserBinding.BindingType.APN, "address").create();
     }
 
     @Test
@@ -142,7 +142,7 @@ public class UserBindingTest {
             result = new ObjectMapper();
         }};
 
-        UserBinding.creator("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", UserBinding.BindingType.APN, "address").create();
+        UserBinding.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", UserBinding.BindingType.APN, "address").create();
     }
 
     @Test
@@ -150,7 +150,7 @@ public class UserBindingTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
-                                          "/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings");
             
             twilioRestClient.request(request);
             times = 1;
@@ -160,7 +160,7 @@ public class UserBindingTest {
         }};
 
         try {
-            UserBinding.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            UserBinding.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -174,7 +174,7 @@ public class UserBindingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(UserBinding.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(UserBinding.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -186,6 +186,6 @@ public class UserBindingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(UserBinding.reader("ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(UserBinding.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

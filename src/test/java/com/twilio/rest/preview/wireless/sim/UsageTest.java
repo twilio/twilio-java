@@ -41,7 +41,7 @@ public class UsageTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/wireless/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage");
+                                          "/wireless/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Usage");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class UsageTest {
         }};
 
         try {
-            Usage.fetcher("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Usage.fetcher("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class UsageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Usage.fetcher("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Usage.fetcher("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 }

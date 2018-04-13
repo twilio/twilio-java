@@ -41,7 +41,7 @@ public class InstalledAddOnExtensionTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions/XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/marketplace/InstalledAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Extensions/XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class InstalledAddOnExtensionTest {
         }};
 
         try {
-            InstalledAddOnExtension.fetcher("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            InstalledAddOnExtension.fetcher("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class InstalledAddOnExtensionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(InstalledAddOnExtension.fetcher("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(InstalledAddOnExtension.fetcher("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class InstalledAddOnExtensionTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions/XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/marketplace/InstalledAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Extensions/XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             request.addPostParam("Enabled", serialize(true));
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class InstalledAddOnExtensionTest {
         }};
 
         try {
-            InstalledAddOnExtension.updater("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", true).update();
+            InstalledAddOnExtension.updater("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", true).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class InstalledAddOnExtensionTest {
             result = new ObjectMapper();
         }};
 
-        InstalledAddOnExtension.updater("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", true).update();
+        InstalledAddOnExtension.updater("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", true).update();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class InstalledAddOnExtensionTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions");
+                                          "/marketplace/InstalledAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Extensions");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class InstalledAddOnExtensionTest {
         }};
 
         try {
-            InstalledAddOnExtension.reader("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            InstalledAddOnExtension.reader("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class InstalledAddOnExtensionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(InstalledAddOnExtension.reader("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(InstalledAddOnExtension.reader("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -141,6 +141,6 @@ public class InstalledAddOnExtensionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(InstalledAddOnExtension.reader("XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(InstalledAddOnExtension.reader("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

@@ -41,7 +41,7 @@ public class AuthorizationDocumentTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class AuthorizationDocumentTest {
         }};
 
         try {
-            AuthorizationDocument.fetcher("PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            AuthorizationDocument.fetcher("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AuthorizationDocument.fetcher("PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(AuthorizationDocument.fetcher("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class AuthorizationDocumentTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class AuthorizationDocumentTest {
         }};
 
         try {
-            AuthorizationDocument.updater("PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            AuthorizationDocument.updater("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        AuthorizationDocument.updater("PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        AuthorizationDocument.updater("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test
@@ -151,7 +151,7 @@ public class AuthorizationDocumentTest {
                                                       Domains.PREVIEW.toString(),
                                                       "/HostedNumbers/AuthorizationDocuments");
                         request.addPostParam("HostedNumberOrderSids", serialize(Promoter.listOfOne("hostedNumberOrderSids")));
-        request.addPostParam("AddressSid", serialize("ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+        request.addPostParam("AddressSid", serialize("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
         request.addPostParam("Email", serialize("email"));
                         twilioRestClient.request(request);
                         times = 1;
@@ -161,7 +161,7 @@ public class AuthorizationDocumentTest {
                     }};
 
         try {
-            AuthorizationDocument.creator(Promoter.listOfOne("hostedNumberOrderSids"), "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "email").create();
+            AuthorizationDocument.creator(Promoter.listOfOne("hostedNumberOrderSids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -175,6 +175,6 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        AuthorizationDocument.creator(Promoter.listOfOne("hostedNumberOrderSids"), "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "email").create();
+        AuthorizationDocument.creator(Promoter.listOfOne("hostedNumberOrderSids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email").create();
     }
 }

@@ -41,7 +41,7 @@ public class TokenTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tokens.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tokens.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class TokenTest {
         }};
 
         try {
-            Token.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+            Token.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class TokenTest {
             result = new ObjectMapper();
         }};
 
-        Token.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+        Token.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 }

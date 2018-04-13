@@ -41,7 +41,7 @@ public class TrunkTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.TRUNKING.toString(),
-                                          "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class TrunkTest {
         }};
 
         try {
-            Trunk.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Trunk.fetcher("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Trunk.fetcher("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Trunk.fetcher("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class TrunkTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.TRUNKING.toString(),
-                                          "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class TrunkTest {
         }};
 
         try {
-            Trunk.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Trunk.deleter("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
 
-        Trunk.deleter("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Trunk.deleter("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -181,7 +181,7 @@ public class TrunkTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.TRUNKING.toString(),
-                                          "/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class TrunkTest {
         }};
 
         try {
-            Trunk.updater("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Trunk.updater("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
 
-        Trunk.updater("TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Trunk.updater("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

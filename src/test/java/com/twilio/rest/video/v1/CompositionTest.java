@@ -41,7 +41,7 @@ public class CompositionTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
-                                          "/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class CompositionTest {
         }};
 
         try {
-            Composition.fetcher("CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Composition.fetcher("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class CompositionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Composition.fetcher("CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Composition.fetcher("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class CompositionTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.VIDEO.toString(),
-                                          "/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -127,7 +127,7 @@ public class CompositionTest {
         }};
 
         try {
-            Composition.deleter("CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Composition.deleter("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class CompositionTest {
             result = new ObjectMapper();
         }};
 
-        Composition.deleter("CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Composition.deleter("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test

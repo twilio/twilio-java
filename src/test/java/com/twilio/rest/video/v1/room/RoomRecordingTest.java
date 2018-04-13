@@ -41,7 +41,7 @@ public class RoomRecordingTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
-                                          "/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class RoomRecordingTest {
         }};
 
         try {
-            RoomRecording.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            RoomRecording.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class RoomRecordingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RoomRecording.fetcher("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(RoomRecording.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class RoomRecordingTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
-                                          "/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings");
+                                          "/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class RoomRecordingTest {
         }};
 
         try {
-            RoomRecording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            RoomRecording.reader("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class RoomRecordingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RoomRecording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(RoomRecording.reader("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -109,6 +109,6 @@ public class RoomRecordingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RoomRecording.reader("RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(RoomRecording.reader("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

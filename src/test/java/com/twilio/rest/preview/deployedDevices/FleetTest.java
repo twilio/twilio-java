@@ -41,7 +41,7 @@ public class FleetTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class FleetTest {
         }};
 
         try {
-            Fleet.fetcher("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Fleet.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Fleet.fetcher("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Fleet.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class FleetTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class FleetTest {
         }};
 
         try {
-            Fleet.deleter("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            Fleet.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        Fleet.deleter("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        Fleet.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -181,7 +181,7 @@ public class FleetTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -191,7 +191,7 @@ public class FleetTest {
         }};
 
         try {
-            Fleet.updater("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Fleet.updater("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        Fleet.updater("FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Fleet.updater("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

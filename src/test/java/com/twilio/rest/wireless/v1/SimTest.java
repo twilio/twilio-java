@@ -41,7 +41,7 @@ public class SimTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.WIRELESS.toString(),
-                                          "/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class SimTest {
         }};
 
         try {
-            Sim.fetcher("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            Sim.fetcher("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sim.fetcher("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(Sim.fetcher("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class SimTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.WIRELESS.toString(),
-                                          "/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -127,7 +127,7 @@ public class SimTest {
         }};
 
         try {
-            Sim.updater("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            Sim.updater("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,6 +141,6 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        Sim.updater("DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        Sim.updater("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

@@ -41,7 +41,7 @@ public class HostedNumberOrderTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class HostedNumberOrderTest {
         }};
 
         try {
-            HostedNumberOrder.fetcher("HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch();
+            HostedNumberOrder.fetcher("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(HostedNumberOrder.fetcher("HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch());
+        assertNotNull(HostedNumberOrder.fetcher("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class HostedNumberOrderTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
-                                          "/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class HostedNumberOrderTest {
         }};
 
         try {
-            HostedNumberOrder.deleter("HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+            HostedNumberOrder.deleter("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.deleter("HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete();
+        HostedNumberOrder.deleter("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class HostedNumberOrderTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                          "/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class HostedNumberOrderTest {
         }};
 
         try {
-            HostedNumberOrder.updater("HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+            HostedNumberOrder.updater("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.updater("HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update();
+        HostedNumberOrder.updater("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test

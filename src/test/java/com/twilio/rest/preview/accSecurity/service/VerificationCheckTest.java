@@ -41,7 +41,7 @@ public class VerificationCheckTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/VerificationCheck");
+                                          "/Verification/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/VerificationCheck");
             request.addPostParam("Code", serialize("code"));
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class VerificationCheckTest {
         }};
 
         try {
-            VerificationCheck.creator("VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "code").create();
+            VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class VerificationCheckTest {
             result = new ObjectMapper();
         }};
 
-        VerificationCheck.creator("VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "code").create();
+        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
     }
 }

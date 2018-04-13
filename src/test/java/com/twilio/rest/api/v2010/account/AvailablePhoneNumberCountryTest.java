@@ -41,7 +41,7 @@ public class AvailablePhoneNumberCountryTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class AvailablePhoneNumberCountryTest {
         }};
 
         try {
-            AvailablePhoneNumberCountry.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read();
+            AvailablePhoneNumberCountry.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AvailablePhoneNumberCountryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AvailablePhoneNumberCountry.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(AvailablePhoneNumberCountry.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class AvailablePhoneNumberCountryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AvailablePhoneNumberCountry.reader("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").read());
+        assertNotNull(AvailablePhoneNumberCountry.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class AvailablePhoneNumberCountryTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -95,7 +95,7 @@ public class AvailablePhoneNumberCountryTest {
         }};
 
         try {
-            AvailablePhoneNumberCountry.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").fetch();
+            AvailablePhoneNumberCountry.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,6 +109,6 @@ public class AvailablePhoneNumberCountryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AvailablePhoneNumberCountry.fetcher("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "US").fetch());
+        assertNotNull(AvailablePhoneNumberCountry.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").fetch());
     }
 }

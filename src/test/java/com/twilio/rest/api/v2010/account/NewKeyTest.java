@@ -41,7 +41,7 @@ public class NewKeyTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys.json");
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Keys.json");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class NewKeyTest {
         }};
 
         try {
-            NewKey.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+            NewKey.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class NewKeyTest {
             result = new ObjectMapper();
         }};
 
-        NewKey.creator("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").create();
+        NewKey.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 }

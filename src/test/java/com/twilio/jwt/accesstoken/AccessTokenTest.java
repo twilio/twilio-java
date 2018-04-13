@@ -270,7 +270,8 @@ public class AccessTokenTest {
         params.put("foo", "bar");
 
         VoiceGrant pvg = new VoiceGrant()
-            .setOutgoingApplication("AP123", params);
+            .setOutgoingApplication("AP123", params)
+            .setIncomingAllow(true);
 
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
@@ -288,6 +289,10 @@ public class AccessTokenTest {
         Assert.assertEquals(1, decodedGrants.size());
 
         Map<String, Object> pvgGrant = (Map<String, Object>) decodedGrants.get("voice");
+
+        Map<String, Object> incoming = (Map<String, Object>) pvgGrant.get("incoming");
+        Assert.assertEquals(true, incoming.get("allow"));
+
         Map<String, Object> outgoing = (Map<String, Object>) pvgGrant.get("outgoing");
         Map<String, Object> outgoingParams = (Map<String, Object>) outgoing.get("params");
         Assert.assertEquals("AP123", outgoing.get("application_sid"));

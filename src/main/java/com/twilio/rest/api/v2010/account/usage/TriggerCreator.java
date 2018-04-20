@@ -63,8 +63,8 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * The HTTP method Twilio will use when making a request to the CallbackUrl. 
-     * GET or POST..
+     * Twilio will use this HTTP method when making a request to the CallbackUrl. 
+     * `GET` or `POST`.  The default is `POST`..
      * 
      * @param callbackMethod HTTP method to use with callback_url
      * @return this
@@ -75,7 +75,7 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * A user-specified, human-readable name for the trigger..
+     * A human readable description of the new trigger.  Maximum 64 characters..
      * 
      * @param friendlyName A user-specified, human-readable name for the trigger.
      * @return this
@@ -99,8 +99,11 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * The field in the UsageRecord that fires the trigger. One of `count`, `usage`,
-     * or `price`.
+     * The field in the
+     * [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) that will
+     * fire the trigger.  One of `count`, `usage`, or `price` as described in the
+     * [UsageRecords
+     * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).  The default is `usage`..
      * 
      * @param triggerBy The field in the UsageRecord that fires the trigger
      * @return this

@@ -143,36 +143,36 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The caller_name.
+     * Returns The String indicating the name of the owner of the phone number..
      * 
-     * @return The caller_name
+     * @return String indicating the name of the owner of the phone number.
      */
     public final Map<String, String> getCallerName() {
         return this.callerName;
     }
 
     /**
-     * Returns The The country_code.
+     * Returns The The ISO country code for the phone number..
      * 
-     * @return The country_code
+     * @return The ISO country code for the phone number.
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The The phone_number.
+     * Returns The The phone number, in E..
      * 
-     * @return The phone_number
+     * @return The phone number, in E.
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The national_format.
+     * Returns The The phone number, in national format..
      * 
-     * @return The national_format
+     * @return The phone number, in national format.
      */
     public final String getNationalFormat() {
         return this.nationalFormat;
@@ -188,9 +188,11 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The add_ons.
+     * Returns The Results of any Add-ons you have specified using the AddOn
+     * parameter in the request, as a JSON dictionary..
      * 
-     * @return The add_ons
+     * @return Results of any Add-ons you have specified using the AddOn parameter
+     *         in the request, as a JSON dictionary.
      */
     public final Map<String, Object> getAddOns() {
         return this.addOns;

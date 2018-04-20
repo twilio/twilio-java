@@ -184,72 +184,78 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that owns this Trunk..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that owns this Trunk.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The domain_name.
+     * Returns The The unique address you reserve on Twilio to which you route your
+     * SIP traffic..
      * 
-     * @return The domain_name
+     * @return The unique address you reserve on Twilio to which you route your SIP
+     *         traffic.
      */
     public final String getDomainName() {
         return this.domainName;
     }
 
     /**
-     * Returns The The disaster_recovery_method.
+     * Returns The The HTTP method Twilio will use when requesting the
+     * DisasterRecoveryUrl..
      * 
-     * @return The disaster_recovery_method
+     * @return The HTTP method Twilio will use when requesting the
+     *         DisasterRecoveryUrl.
      */
     public final HttpMethod getDisasterRecoveryMethod() {
         return this.disasterRecoveryMethod;
     }
 
     /**
-     * Returns The The disaster_recovery_url.
+     * Returns The The HTTP URL that Twilio will request if an error occurs while
+     * sending SIP traffic towards your configured Origination URL..
      * 
-     * @return The disaster_recovery_url
+     * @return The HTTP URL that Twilio will request if an error occurs while
+     *         sending SIP traffic towards your configured Origination URL.
      */
     public final URI getDisasterRecoveryUrl() {
         return this.disasterRecoveryUrl;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human-readable name for the Trunk..
      * 
-     * @return The friendly_name
+     * @return A human-readable name for the Trunk.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The secure.
+     * Returns The The Secure Trunking  settings for this trunk..
      * 
-     * @return The secure
+     * @return The Secure Trunking  settings for this trunk.
      */
     public final Boolean getSecure() {
         return this.secure;
     }
 
     /**
-     * Returns The The recording.
+     * Returns The The recording settings for this trunk..
      * 
-     * @return The recording
+     * @return The recording settings for this trunk.
      */
     public final Map<String, Object> getRecording() {
         return this.recording;
     }
 
     /**
-     * Returns The The auth_type.
+     * Returns The The types of authentication you have mapped to your domain..
      * 
-     * @return The auth_type
+     * @return The types of authentication you have mapped to your domain.
      */
     public final String getAuthType() {
         return this.authType;
@@ -265,36 +271,38 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Activity was created..
      * 
-     * @return The date_created
+     * @return The date this Activity was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Activity was updated..
      * 
-     * @return The date_updated
+     * @return The date this Activity was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies the SIP Trunk in
+     * Twilio..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies the SIP Trunk in
+     *         Twilio.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL for this resource, relative to https://trunking..
      * 
-     * @return The url
+     * @return The URL for this resource, relative to https://trunking.
      */
     public final URI getUrl() {
         return this.url;

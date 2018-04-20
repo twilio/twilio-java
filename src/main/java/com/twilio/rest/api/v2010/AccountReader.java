@@ -24,8 +24,8 @@ public class AccountReader extends Reader<Account> {
     private Account.Status status;
 
     /**
-     * Filter accounts where the friendly name exactly matches the desired
-     * FriendlyName.
+     * Only return the Account resources with friendly names that exactly match this
+     * name..
      * 
      * @param friendlyName FriendlyName to filter on
      * @return this
@@ -36,7 +36,8 @@ public class AccountReader extends Reader<Account> {
     }
 
     /**
-     * Only show accounts with the given Status.
+     * Only return Account resources with the given status. Can be `closed`,
+     * `suspended` or `active`..
      * 
      * @param status Status to filter on
      * @return this

@@ -37,9 +37,11 @@ public class NewKeyCreator extends Creator<NewKey> {
     }
 
     /**
-     * The friendly_name.
+     * A descriptive string for this resource, chosen by your application, up to 64
+     * characters long..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A descriptive string for this resource, chosen by your
+     *                     application, up to 64 characters long.
      * @return this
      */
     public NewKeyCreator setFriendlyName(final String friendlyName) {

@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2018-04-20] Version 7.19.1
+----------------------------
+**Twiml**
+- Gather input Enum: remove unnecessary "dtmf speech" value as you can now specify multiple enum values for this parameter and both "dtmf" and "speech" are already available.
+
+
 [2018-04-13] Version 7.19.0
 ----------------------------
 **Library**

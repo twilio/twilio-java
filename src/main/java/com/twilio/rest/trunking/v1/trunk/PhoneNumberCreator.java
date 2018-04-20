@@ -25,7 +25,8 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * Construct a new PhoneNumberCreator.
      * 
      * @param pathTrunkSid The trunk_sid
-     * @param phoneNumberSid The phone_number_sid
+     * @param phoneNumberSid The SID of the Incoming Phone Number that you want to
+     *                       associate with this trunk.
      */
     public PhoneNumberCreator(final String pathTrunkSid, 
                               final String phoneNumberSid) {

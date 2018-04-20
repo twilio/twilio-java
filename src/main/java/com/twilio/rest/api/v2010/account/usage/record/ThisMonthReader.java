@@ -43,9 +43,10 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     }
 
     /**
-     * The category.
+     * Only include usage of this [usage
+     * category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories)..
      * 
-     * @param category The category
+     * @param category Only include usage of this usage category.
      * @return this
      */
     public ThisMonthReader setCategory(final ThisMonth.Category category) {
@@ -54,9 +55,12 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     }
 
     /**
-     * The start_date.
+     * Only include usage that has occurred on or after this date.  Format is
+     * YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify
+     * offsets to today.  For example, `StartDate=-30days` will make `StartDate` be
+     * 30 days before today..
      * 
-     * @param startDate The start_date
+     * @param startDate Only include usage that has occurred on or after this date.
      * @return this
      */
     public ThisMonthReader setStartDate(final LocalDate startDate) {
@@ -65,9 +69,12 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     }
 
     /**
-     * The end_date.
+     * Only include usage that has occurred on or before this date.  Format is
+     * YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify
+     * offsets to today.  For example, `EndDate=+30days` will make `EndDate` be 30
+     * days from today..
      * 
-     * @param endDate The end_date
+     * @param endDate Only include usage that has occurred on or before this date.
      * @return this
      */
     public ThisMonthReader setEndDate(final LocalDate endDate) {

@@ -27,8 +27,8 @@ public class CredentialCreator extends Creator<Credential> {
      * Construct a new CredentialCreator.
      * 
      * @param pathCredentialListSid The credential_list_sid
-     * @param username The username
-     * @param password The password
+     * @param username The username for this credential.
+     * @param password The password will not be returned in the response.
      */
     public CredentialCreator(final String pathCredentialListSid, 
                              final String username, 
@@ -43,8 +43,8 @@ public class CredentialCreator extends Creator<Credential> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathCredentialListSid The credential_list_sid
-     * @param username The username
-     * @param password The password
+     * @param username The username for this credential.
+     * @param password The password will not be returned in the response.
      */
     public CredentialCreator(final String pathAccountSid, 
                              final String pathCredentialListSid, 

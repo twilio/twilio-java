@@ -62,8 +62,8 @@ public class Credential extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathCredentialListSid The credential_list_sid
-     * @param username The username
-     * @param password The password
+     * @param username The username for this credential.
+     * @param password The password will not be returned in the response.
      * @return CredentialCreator capable of executing the create
      */
     public static CredentialCreator creator(final String pathAccountSid, 
@@ -77,8 +77,8 @@ public class Credential extends Resource {
      * Create a CredentialCreator to execute create.
      * 
      * @param pathCredentialListSid The credential_list_sid
-     * @param username The username
-     * @param password The password
+     * @param username The username for this credential.
+     * @param password The password will not be returned in the response.
      * @return CredentialCreator capable of executing the create
      */
     public static CredentialCreator creator(final String pathCredentialListSid, 
@@ -236,18 +236,18 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account that responsible for this resource..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account that responsible for this resource.
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -263,36 +263,40 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The username.
+     * Returns The The username for this credential..
      * 
-     * @return The username
+     * @return The username for this credential.
      */
     public final String getUsername() {
         return this.username;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created, given as GMT in RFC 2822
+     * format..
      * 
-     * @return The date_created
+     * @return The date that this resource was created, given as GMT in RFC 2822
+     *         format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated, given as GMT in RFC
+     * 2822 format..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated, given as GMT in RFC
+     *         2822 format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI for this resource, relative to https://api..
      * 
-     * @return The uri
+     * @return The URI for this resource, relative to https://api.
      */
     public final String getUri() {
         return this.uri;

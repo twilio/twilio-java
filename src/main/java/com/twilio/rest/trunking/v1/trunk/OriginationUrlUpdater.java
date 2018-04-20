@@ -42,9 +42,12 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The weight.
+     * Weight is used to determine the share of load when more than one URI has the
+     * same priority. Its values range from 1 to 65535. The higher the value, the
+     * more load a URI is given. Defaults to 10..
      * 
-     * @param weight The weight
+     * @param weight Weight is used to determine the share of load when more than
+     *               one URI has the same priority.
      * @return this
      */
     public OriginationUrlUpdater setWeight(final Integer weight) {
@@ -53,9 +56,10 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The priority.
+     * Priority ranks the importance of the URI. Values range from 0 to 65535, where
+     * the lowest number represents the highest importance. Defaults to 10..
      * 
-     * @param priority The priority
+     * @param priority Priority ranks the importance of the URI.
      * @return this
      */
     public OriginationUrlUpdater setPriority(final Integer priority) {
@@ -64,9 +68,11 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The enabled.
+     * A boolean value indicating whether the URL is enabled or disabled. Defaults
+     * to true..
      * 
-     * @param enabled The enabled
+     * @param enabled A boolean value indicating whether the URL is enabled or
+     *                disabled.
      * @return this
      */
     public OriginationUrlUpdater setEnabled(final Boolean enabled) {
@@ -75,9 +81,10 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The friendly_name.
+     * A human readable descriptive text, up to 64 characters long..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human readable descriptive text, up to 64 characters
+     *                     long.
      * @return this
      */
     public OriginationUrlUpdater setFriendlyName(final String friendlyName) {
@@ -86,9 +93,11 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The sip_url.
+     * The SIP address you want Twilio to route your Origination calls to. This must
+     * be a `sip:` schema. `sips` is NOT supported.
      * 
-     * @param sipUrl The sip_url
+     * @param sipUrl The SIP address you want Twilio to route your Origination
+     *               calls to.
      * @return this
      */
     public OriginationUrlUpdater setSipUrl(final URI sipUrl) {
@@ -97,9 +106,11 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The sip_url.
+     * The SIP address you want Twilio to route your Origination calls to. This must
+     * be a `sip:` schema. `sips` is NOT supported.
      * 
-     * @param sipUrl The sip_url
+     * @param sipUrl The SIP address you want Twilio to route your Origination
+     *               calls to.
      * @return this
      */
     public OriginationUrlUpdater setSipUrl(final String sipUrl) {

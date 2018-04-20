@@ -64,11 +64,15 @@ public class OriginationUrl extends Resource {
      * Create a OriginationUrlCreator to execute create.
      * 
      * @param pathTrunkSid The trunk_sid
-     * @param weight The weight
-     * @param priority The priority
-     * @param enabled The enabled
-     * @param friendlyName The friendly_name
-     * @param sipUrl The sip_url
+     * @param weight Weight is used to determine the share of load when more than
+     *               one URI has the same priority.
+     * @param priority Priority ranks the importance of the URI.
+     * @param enabled A boolean value indicating whether the URL is enabled or
+     *                disabled.
+     * @param friendlyName A human readable descriptive text, up to 64 characters
+     *                     long.
+     * @param sipUrl The SIP address you want Twilio to route your Origination
+     *               calls to.
      * @return OriginationUrlCreator capable of executing the create
      */
     public static OriginationUrlCreator creator(final String pathTrunkSid, 
@@ -189,99 +193,105 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that owns this Origination URL..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that owns this Origination URL.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies the Origination
+     * URL in this Twilio Trunk..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies the Origination URL
+     *         in this Twilio Trunk.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The trunk_sid.
+     * Returns The The unique ID of the Trunk that owns this Origination URL..
      * 
-     * @return The trunk_sid
+     * @return The unique ID of the Trunk that owns this Origination URL.
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The weight.
+     * Returns The Weight is used to determine the share of load when more than one
+     * URI has the same priority..
      * 
-     * @return The weight
+     * @return Weight is used to determine the share of load when more than one URI
+     *         has the same priority.
      */
     public final Integer getWeight() {
         return this.weight;
     }
 
     /**
-     * Returns The The enabled.
+     * Returns The A boolean value indicating whether the URL is enabled or
+     * disabled..
      * 
-     * @return The enabled
+     * @return A boolean value indicating whether the URL is enabled or disabled.
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The The sip_url.
+     * Returns The The SIP address you want Twilio to route your Origination calls
+     * to..
      * 
-     * @return The sip_url
+     * @return The SIP address you want Twilio to route your Origination calls to.
      */
     public final URI getSipUrl() {
         return this.sipUrl;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human readable descriptive text, up to 64 characters long..
      * 
-     * @return The friendly_name
+     * @return A human readable descriptive text, up to 64 characters long.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The priority.
+     * Returns The Priority ranks the importance of the URI..
      * 
-     * @return The priority
+     * @return Priority ranks the importance of the URI.
      */
     public final Integer getPriority() {
         return this.priority;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Activity was created..
      * 
-     * @return The date_created
+     * @return The date this Activity was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Activity was updated..
      * 
-     * @return The date_updated
+     * @return The date this Activity was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL for this resource, relative to https://trunking..
      * 
-     * @return The url
+     * @return The URL for this resource, relative to https://trunking.
      */
     public final URI getUrl() {
         return this.url;

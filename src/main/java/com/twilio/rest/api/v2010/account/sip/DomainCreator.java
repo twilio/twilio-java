@@ -55,7 +55,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * A user-specified, human-readable name for the trigger..
+     * A human readable descriptive text, up to 64 characters long..
      * 
      * @param friendlyName A user-specified, human-readable name for the trigger.
      * @return this
@@ -77,7 +77,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL Twilio will request when this domain receives a call.
+     * The URL Twilio will request when this domain receives a call..
      * 
      * @param voiceUrl URL Twilio will request when receiving a call
      * @return this
@@ -88,7 +88,7 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL Twilio will request when this domain receives a call.
+     * The URL Twilio will request when this domain receives a call..
      * 
      * @param voiceUrl URL Twilio will request when receiving a call
      * @return this
@@ -98,7 +98,8 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The HTTP method to use with the voice_url.
+     * The HTTP method Twilio will use when requesting the above Url. Either `GET`
+     * or `POST`..
      * 
      * @param voiceMethod HTTP method to use with voice_url
      * @return this
@@ -109,8 +110,8 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will use if an error occurs retrieving or executing the
-     * TwiML requested by VoiceUrl.
+     * The URL that Twilio will request if an error occurs retrieving or executing
+     * the TwiML requested by VoiceUrl..
      * 
      * @param voiceFallbackUrl URL Twilio will request if an error occurs in
      *                         executing TwiML
@@ -122,8 +123,8 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will use if an error occurs retrieving or executing the
-     * TwiML requested by VoiceUrl.
+     * The URL that Twilio will request if an error occurs retrieving or executing
+     * the TwiML requested by VoiceUrl..
      * 
      * @param voiceFallbackUrl URL Twilio will request if an error occurs in
      *                         executing TwiML
@@ -134,7 +135,8 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the VoiceFallbackUrl.
+     * The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either
+     * `GET` or `POST`..
      * 
      * @param voiceFallbackMethod HTTP method used with voice_fallback_url
      * @return this
@@ -145,7 +147,8 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters.
+     * The URL that Twilio will request to pass status parameters (such as call
+     * ended) to your application..
      * 
      * @param voiceStatusCallbackUrl URL that Twilio will request with status
      *                               updates
@@ -157,7 +160,8 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters.
+     * The URL that Twilio will request to pass status parameters (such as call
+     * ended) to your application..
      * 
      * @param voiceStatusCallbackUrl URL that Twilio will request with status
      *                               updates
@@ -168,9 +172,11 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The voice_status_callback_method.
+     * The HTTP method Twilio will use to make requests to the StatusCallback URL.
+     * Either `GET` or `POST`..
      * 
-     * @param voiceStatusCallbackMethod The voice_status_callback_method
+     * @param voiceStatusCallbackMethod The HTTP method Twilio will use to make
+     *                                  requests to the StatusCallback URL.
      * @return this
      */
     public DomainCreator setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {

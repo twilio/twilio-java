@@ -50,7 +50,7 @@ public class TriggerUpdater extends Updater<Trigger> {
 
     /**
      * The HTTP method Twilio will use when making a request to the CallbackUrl. 
-     * GET or POST..
+     * `GET` or `POST`..
      * 
      * @param callbackMethod HTTP method to use with callback_url
      * @return this

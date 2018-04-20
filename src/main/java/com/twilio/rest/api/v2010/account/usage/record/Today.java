@@ -408,9 +408,9 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The Account that accrued the usage..
      * 
-     * @return The account_sid
+     * @return The Account that accrued the usage.
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -426,108 +426,115 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The category.
+     * Returns The The category of usage..
      * 
-     * @return The category
+     * @return The category of usage.
      */
     public final Today.Category getCategory() {
         return this.category;
     }
 
     /**
-     * Returns The The count.
+     * Returns The The number of usage events..
      * 
-     * @return The count
+     * @return The number of usage events.
      */
     public final String getCount() {
         return this.count;
     }
 
     /**
-     * Returns The The count_unit.
+     * Returns The The units in which Count is measured..
      * 
-     * @return The count_unit
+     * @return The units in which Count is measured.
      */
     public final String getCountUnit() {
         return this.countUnit;
     }
 
     /**
-     * Returns The The description.
+     * Returns The A human-readable description of the usage category..
      * 
-     * @return The description
+     * @return A human-readable description of the usage category.
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The The end_date.
+     * Returns The The last date for which usage is included in this UsageRecord,
+     * formatted as YYYY-MM-DD..
      * 
-     * @return The end_date
+     * @return The last date for which usage is included in this UsageRecord,
+     *         formatted as YYYY-MM-DD.
      */
     public final LocalDate getEndDate() {
         return this.endDate;
     }
 
     /**
-     * Returns The The price.
+     * Returns The The total price of the usage, in the currency associated with the
+     * account..
      * 
-     * @return The price
+     * @return The total price of the usage, in the currency associated with the
+     *         account.
      */
     public final BigDecimal getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The The price_unit.
+     * Returns The The currency in which Price is measured, in ISO 4127 format..
      * 
-     * @return The price_unit
+     * @return The currency in which Price is measured, in ISO 4127 format.
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The start_date.
+     * Returns The The first date for which usage is included in this UsageRecord,
+     * formatted as YYYY-MM-DD..
      * 
-     * @return The start_date
+     * @return The first date for which usage is included in this UsageRecord,
+     *         formatted as YYYY-MM-DD.
      */
     public final LocalDate getStartDate() {
         return this.startDate;
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The Subresource Uris for this UsageRecord..
      * 
-     * @return The subresource_uris
+     * @return Subresource Uris for this UsageRecord.
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI that returns only this UsageRecord, relative to
+     * https://api..
      * 
-     * @return The uri
+     * @return The URI that returns only this UsageRecord, relative to https://api.
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The usage.
+     * Returns The The amount of billed usage..
      * 
-     * @return The usage
+     * @return The amount of billed usage.
      */
     public final String getUsage() {
         return this.usage;
     }
 
     /**
-     * Returns The The usage_unit.
+     * Returns The The units in which Usage is measured..
      * 
-     * @return The usage_unit
+     * @return The units in which Usage is measured.
      */
     public final String getUsageUnit() {
         return this.usageUnit;

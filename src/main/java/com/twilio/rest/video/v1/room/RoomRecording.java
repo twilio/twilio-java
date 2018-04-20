@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomRecording extends Resource {
-    private static final long serialVersionUID = 153207399156996L;
+    private static final long serialVersionUID = 160548766967448L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -208,14 +208,15 @@ public class RoomRecording extends Resource {
     private final DateTime dateCreated;
     private final String sid;
     private final String sourceSid;
-    private final Integer size;
+    private final String size;
+    private final URI url;
     private final RoomRecording.Type type;
     private final Integer duration;
     private final RoomRecording.Format containerFormat;
     private final RoomRecording.Codec codec;
     private final Map<String, Object> groupingSids;
+    private final String trackName;
     private final String roomSid;
-    private final URI url;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -230,7 +231,9 @@ public class RoomRecording extends Resource {
                           @JsonProperty("source_sid")
                           final String sourceSid, 
                           @JsonProperty("size")
-                          final Integer size, 
+                          final String size, 
+                          @JsonProperty("url")
+                          final URI url, 
                           @JsonProperty("type")
                           final RoomRecording.Type type, 
                           @JsonProperty("duration")
@@ -241,10 +244,10 @@ public class RoomRecording extends Resource {
                           final RoomRecording.Codec codec, 
                           @JsonProperty("grouping_sids")
                           final Map<String, Object> groupingSids, 
+                          @JsonProperty("track_name")
+                          final String trackName, 
                           @JsonProperty("room_sid")
                           final String roomSid, 
-                          @JsonProperty("url")
-                          final URI url, 
                           @JsonProperty("links")
                           final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -253,13 +256,14 @@ public class RoomRecording extends Resource {
         this.sid = sid;
         this.sourceSid = sourceSid;
         this.size = size;
+        this.url = url;
         this.type = type;
         this.duration = duration;
         this.containerFormat = containerFormat;
         this.codec = codec;
         this.groupingSids = groupingSids;
+        this.trackName = trackName;
         this.roomSid = roomSid;
-        this.url = url;
         this.links = links;
     }
 
@@ -313,8 +317,17 @@ public class RoomRecording extends Resource {
      * 
      * @return The size
      */
-    public final Integer getSize() {
+    public final String getSize() {
         return this.size;
+    }
+
+    /**
+     * Returns The The url.
+     * 
+     * @return The url
+     */
+    public final URI getUrl() {
+        return this.url;
     }
 
     /**
@@ -363,21 +376,21 @@ public class RoomRecording extends Resource {
     }
 
     /**
+     * Returns The The track_name.
+     * 
+     * @return The track_name
+     */
+    public final String getTrackName() {
+        return this.trackName;
+    }
+
+    /**
      * Returns The The room_sid.
      * 
      * @return The room_sid
      */
     public final String getRoomSid() {
         return this.roomSid;
-    }
-
-    /**
-     * Returns The The url.
-     * 
-     * @return The url
-     */
-    public final URI getUrl() {
-        return this.url;
     }
 
     /**
@@ -407,13 +420,14 @@ public class RoomRecording extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(sourceSid, other.sourceSid) && 
                Objects.equals(size, other.size) && 
+               Objects.equals(url, other.url) && 
                Objects.equals(type, other.type) && 
                Objects.equals(duration, other.duration) && 
                Objects.equals(containerFormat, other.containerFormat) && 
                Objects.equals(codec, other.codec) && 
                Objects.equals(groupingSids, other.groupingSids) && 
+               Objects.equals(trackName, other.trackName) && 
                Objects.equals(roomSid, other.roomSid) && 
-               Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
 
@@ -425,13 +439,14 @@ public class RoomRecording extends Resource {
                             sid,
                             sourceSid,
                             size,
+                            url,
                             type,
                             duration,
                             containerFormat,
                             codec,
                             groupingSids,
+                            trackName,
                             roomSid,
-                            url,
                             links);
     }
 
@@ -444,13 +459,14 @@ public class RoomRecording extends Resource {
                           .add("sid", sid)
                           .add("sourceSid", sourceSid)
                           .add("size", size)
+                          .add("url", url)
                           .add("type", type)
                           .add("duration", duration)
                           .add("containerFormat", containerFormat)
                           .add("codec", codec)
                           .add("groupingSids", groupingSids)
+                          .add("trackName", trackName)
                           .add("roomSid", roomSid)
-                          .add("url", url)
                           .add("links", links)
                           .toString();
     }

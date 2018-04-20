@@ -92,7 +92,8 @@ public class PhoneNumber extends Resource {
      * Create a PhoneNumberCreator to execute create.
      * 
      * @param pathTrunkSid The trunk_sid
-     * @param phoneNumberSid The phone_number_sid
+     * @param phoneNumberSid The SID of the Incoming Phone Number that you want to
+     *                       associate with this trunk.
      * @return PhoneNumberCreator capable of executing the create
      */
     public static PhoneNumberCreator creator(final String pathTrunkSid, 

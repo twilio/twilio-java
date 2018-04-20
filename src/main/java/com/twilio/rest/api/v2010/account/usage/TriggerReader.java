@@ -41,8 +41,9 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that count over this interval. One of daily, monthly,
-     * or yearly.
+     * Only show UsageTriggers that count over this interval.  One of `daily`,
+     * `monthly`, or `yearly`.  To retrieve non-recurring triggers, leave this empty
+     * or use `alltime`..
      * 
      * @param recurring Filter by recurring
      * @return this
@@ -53,7 +54,9 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that trigger by this field in the UsagRecord.
+     * Only show UsageTriggers that trigger by this field in the UsageRecord.  Must
+     * be one of: `count`, `usage`, or `price` as described in the [UsageRecords
+     * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price)..
      * 
      * @param triggerBy Filter by trigger by
      * @return this
@@ -64,7 +67,9 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that watch this usage category.
+     * Only show UsageTriggers that watch this usage category.  Must be one of the
+     * supported [usage
+     * categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories)..
      * 
      * @param usageCategory Filter by Usage Category
      * @return this

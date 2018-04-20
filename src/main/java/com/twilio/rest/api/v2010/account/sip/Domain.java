@@ -361,9 +361,11 @@ public class Domain extends Resource {
     }
 
     /**
-     * Returns The The voice_status_callback_method.
+     * Returns The The HTTP method Twilio will use to make requests to the
+     * StatusCallback URL..
      * 
-     * @return The voice_status_callback_method
+     * @return The HTTP method Twilio will use to make requests to the
+     *         StatusCallback URL.
      */
     public final HttpMethod getVoiceStatusCallbackMethod() {
         return this.voiceStatusCallbackMethod;

@@ -70,9 +70,8 @@ class RequestCanonicalizer {
         canonicalRequest.append(canonicalQuery).append(NEW_LINE);
 
         // Normalize all the headers
-        Header[] lowercaseHeaders = LOWERCASE_KEYS.apply(headers);
-        Header[] strippedHeaders = STRIP_DEFAULT_HOST_PORT.apply(lowercaseHeaders);
-        Map<String, List<String>> combinedHeaders = COMBINE_HEADERS.apply(strippedHeaders);
+        Header[] normalizedHeaders = NORMALIZE_HEADERS.apply(headers);
+        Map<String, List<String>> combinedHeaders = COMBINE_HEADERS.apply(normalizedHeaders);
 
         // Add the headers that we care about
         for (String header : sortedIncludedHeaders) {
@@ -167,33 +166,25 @@ class RequestCanonicalizer {
         }
     };
 
-    private static Function<Header[], Header[]> LOWERCASE_KEYS = new Function<Header[], Header[]>() {
+    /**
+     * Normalizes the headers by setting all of the header keys to lower case and removing default ports from the host.
+     */
+    private static Function<Header[], Header[]> NORMALIZE_HEADERS = new Function<Header[], Header[]>() {
         @Override
         public Header[] apply(Header[] headers) {
-            Header[] lowercaseHeaders = new Header[headers.length];
+            Header[] newHeaders = new Header[headers.length];
             for (int i = 0; i < headers.length; i++) {
-                lowercaseHeaders[i] = new BasicHeader(headers[i].getName().toLowerCase(), headers[i].getValue());
-            }
-
-            return lowercaseHeaders;
-        }
-    };
-
-    private static Function<Header[], Header[]> STRIP_DEFAULT_HOST_PORT = new Function<Header[], Header[]>() {
-        @Override
-        public Header[] apply(Header[] headers) {
-            Header[] strippedHeaders = new Header[headers.length];
-            for (int i = 0; i < headers.length; i++) {
-                String headerName = headers[i].getName();
+                String headerName = headers[i].getName().toLowerCase();
                 String headerValue = headers[i].getValue();
+
                 if (headerName.equals("host") && (headerValue.contains(":443") || headerValue.contains(":80"))) {
-                    strippedHeaders[i] = new BasicHeader(headerName, headerValue.split(":")[0]);
-                } else {
-                    strippedHeaders[i] = headers[i];
+                    headerValue = headerValue.split(":")[0];
                 }
+
+                newHeaders[i] = new BasicHeader(headerName, headerValue);
             }
 
-            return strippedHeaders;
+            return newHeaders;
         }
     };
 

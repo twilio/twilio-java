@@ -172,7 +172,7 @@ class RequestCanonicalizer {
     private static Function<Header[], Header[]> NORMALIZE_HEADERS = new Function<Header[], Header[]>() {
         @Override
         public Header[] apply(Header[] headers) {
-            Header[] newHeaders = new Header[headers.length];
+            Header[] normalizedHeaders = new Header[headers.length];
             for (int i = 0; i < headers.length; i++) {
                 String headerName = headers[i].getName().toLowerCase();
                 String headerValue = headers[i].getValue();
@@ -181,10 +181,10 @@ class RequestCanonicalizer {
                     headerValue = headerValue.split(":")[0];
                 }
 
-                newHeaders[i] = new BasicHeader(headerName, headerValue);
+                normalizedHeaders[i] = new BasicHeader(headerName, headerValue);
             }
 
-            return newHeaders;
+            return normalizedHeaders;
         }
     };
 

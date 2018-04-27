@@ -71,7 +71,8 @@ class RequestCanonicalizer {
 
         // Normalize all the headers
         Header[] lowercaseHeaders = LOWERCASE_KEYS.apply(headers);
-        Map<String, List<String>> combinedHeaders = COMBINE_HEADERS.apply(lowercaseHeaders);
+        Header[] strippedHeaders = STRIP_DEFAULT_HOST_PORT.apply(lowercaseHeaders);
+        Map<String, List<String>> combinedHeaders = COMBINE_HEADERS.apply(strippedHeaders);
 
         // Add the headers that we care about
         for (String header : sortedIncludedHeaders) {
@@ -175,6 +176,24 @@ class RequestCanonicalizer {
             }
 
             return lowercaseHeaders;
+        }
+    };
+
+    private static Function<Header[], Header[]> STRIP_DEFAULT_HOST_PORT = new Function<Header[], Header[]>() {
+        @Override
+        public Header[] apply(Header[] headers) {
+            Header[] strippedHeaders = new Header[headers.length];
+            for (int i = 0; i < headers.length; i++) {
+                String headerName = headers[i].getName();
+                String headerValue = headers[i].getValue();
+                if (headerName.equals("host") && (headerValue.contains(":443") || headerValue.contains(":80"))) {
+                    strippedHeaders[i] = new BasicHeader(headerName, headerValue.split(":")[0]);
+                } else {
+                    strippedHeaders[i] = headers[i];
+                }
+            }
+
+            return strippedHeaders;
         }
     };
 

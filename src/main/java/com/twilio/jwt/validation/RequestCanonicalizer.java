@@ -70,8 +70,8 @@ class RequestCanonicalizer {
         canonicalRequest.append(canonicalQuery).append(NEW_LINE);
 
         // Normalize all the headers
-        Header[] lowercaseHeaders = LOWERCASE_KEYS.apply(headers);
-        Map<String, List<String>> combinedHeaders = COMBINE_HEADERS.apply(lowercaseHeaders);
+        Header[] normalizedHeaders = NORMALIZE_HEADERS.apply(headers);
+        Map<String, List<String>> combinedHeaders = COMBINE_HEADERS.apply(normalizedHeaders);
 
         // Add the headers that we care about
         for (String header : sortedIncludedHeaders) {
@@ -166,15 +166,25 @@ class RequestCanonicalizer {
         }
     };
 
-    private static Function<Header[], Header[]> LOWERCASE_KEYS = new Function<Header[], Header[]>() {
+    /**
+     * Normalizes the headers by setting all of the header keys to lower case and removing default ports from the host.
+     */
+    private static Function<Header[], Header[]> NORMALIZE_HEADERS = new Function<Header[], Header[]>() {
         @Override
         public Header[] apply(Header[] headers) {
-            Header[] lowercaseHeaders = new Header[headers.length];
+            Header[] normalizedHeaders = new Header[headers.length];
             for (int i = 0; i < headers.length; i++) {
-                lowercaseHeaders[i] = new BasicHeader(headers[i].getName().toLowerCase(), headers[i].getValue());
+                String headerName = headers[i].getName().toLowerCase();
+                String headerValue = headers[i].getValue();
+
+                if (headerName.equals("host") && (headerValue.endsWith(":443") || headerValue.endsWith(":80"))) {
+                    headerValue = headerValue.split(":")[0];
+                }
+
+                normalizedHeaders[i] = new BasicHeader(headerName, headerValue);
             }
 
-            return lowercaseHeaders;
+            return normalizedHeaders;
         }
     };
 

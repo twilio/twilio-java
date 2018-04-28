@@ -132,6 +132,33 @@ public class ValidationTokenTest {
         Assert.assertEquals("bd792c967c20d546c738b94068f5f72758a10d26c12979677501e1eefe58c65a", claims.get("rqh"));
     }
 
+    @Test
+    public void testTokenFromHttpRequestWithHostPort() throws IOException {
+        headers[0] = new BasicHeader("host", "api.twilio.com:443");
+        new Expectations() {{
+            request.getRequestLine().getMethod();
+            result = "GET";
+
+            request.getRequestLine().getUri();
+            result = "/Messages?PageSize=5&Limit=10";
+
+            request.getAllHeaders();
+            result = headers;
+        }};
+
+        Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
+        Claims claims =
+                Jwts.parser()
+                    .setSigningKey(privateKey)
+                    .parseClaimsJws(jwt.toJwt())
+                    .getBody();
+
+
+        this.validateToken(claims);
+        Assert.assertEquals("authorization;host", claims.get("hrh"));
+        Assert.assertEquals("4b3d2666845a38f00259a5231a08765bb2d12564bc4469fd5b2816204c588967", claims.get("rqh"));
+    }
+
     private void validateToken(Claims claims) {
         Assert.assertEquals(SIGNING_KEY_SID, claims.getIssuer());
         Assert.assertEquals(ACCOUNT_SID, claims.getSubject());

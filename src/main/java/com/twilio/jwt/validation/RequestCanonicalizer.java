@@ -177,7 +177,7 @@ class RequestCanonicalizer {
                 String headerName = headers[i].getName().toLowerCase();
                 String headerValue = headers[i].getValue();
 
-                if (headerName.equals("host") && (headerValue.contains(":443") || headerValue.contains(":80"))) {
+                if (headerName.equals("host") && (headerValue.endsWith(":443") || headerValue.endsWith(":80"))) {
                     headerValue = headerValue.split(":")[0];
                 }
 

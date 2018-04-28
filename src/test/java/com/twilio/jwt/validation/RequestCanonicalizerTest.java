@@ -52,6 +52,25 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
+    public void testCreateCanonicalRequestWithHostPort() throws Exception {
+        String queryParams = "PageSize=5&Limit=10";
+        headers[0] = new BasicHeader("host", "api.twilio.com:443");
+
+        String canonicalRequest = canonicalizeWithQueryParams(queryParams);
+
+        Assert.assertEquals("GET\n" + // action
+                            "/Messages\n" + // path
+                            "Limit=10&PageSize=5\n" + //queryParams
+                            "authorization:foobar\n" + // included header #1
+                            "duplicate:value1,value2\n" + // included header #2
+                            "host:api.twilio.com\n" + // included headar #3
+                            "\n" + // empty line after headers
+                            "authorization;duplicate;host\n" + // included headers
+                            "c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2", // body hash
+                            canonicalRequest);
+    }
+
+    @Test
     public void testReplacesEncodedWhitespaceInQueryParams() throws Exception {
         String queryParams = "key+with+whitespace=value+with+whitespace";
 

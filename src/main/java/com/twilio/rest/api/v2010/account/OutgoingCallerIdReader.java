@@ -41,7 +41,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     /**
-     * Only show the caller id resource that exactly matches this phone number.
+     * Only show the caller id resource that exactly matches this phone number..
      * 
      * @param phoneNumber Filter by phone number
      * @return this
@@ -52,7 +52,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     /**
-     * Only show the caller id resource that exactly matches this phone number.
+     * Only show the caller id resource that exactly matches this phone number..
      * 
      * @param phoneNumber Filter by phone number
      * @return this
@@ -62,7 +62,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     /**
-     * Only show the caller id resource that exactly matches this name.
+     * Only show the caller id resource that exactly matches this name..
      * 
      * @param friendlyName Filter by friendly name
      * @return this

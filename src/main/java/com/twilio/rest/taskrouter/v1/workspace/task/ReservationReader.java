@@ -37,9 +37,11 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     /**
-     * The reservation_status.
+     * Returns the list of reservations for a task with a specified
+     * ReservationStatus.
      * 
-     * @param reservationStatus The reservation_status
+     * @param reservationStatus Returns the list of reservations for a task with a
+     *                          specified ReservationStatus
      * @return this
      */
     public ReservationReader setReservationStatus(final Reservation.Status reservationStatus) {

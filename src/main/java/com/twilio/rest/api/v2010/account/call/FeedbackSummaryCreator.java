@@ -33,8 +33,8 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     /**
      * Construct a new FeedbackSummaryCreator.
      * 
-     * @param startDate The start_date
-     * @param endDate The end_date
+     * @param startDate Only include usage that has occurred on or after this date.
+     * @param endDate Only include usage that has occurred on or before this date.
      */
     public FeedbackSummaryCreator(final LocalDate startDate, 
                                   final LocalDate endDate) {
@@ -46,8 +46,8 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
      * Construct a new FeedbackSummaryCreator.
      * 
      * @param pathAccountSid The account_sid
-     * @param startDate The start_date
-     * @param endDate The end_date
+     * @param startDate Only include usage that has occurred on or after this date.
+     * @param endDate Only include usage that has occurred on or before this date.
      */
     public FeedbackSummaryCreator(final String pathAccountSid, 
                                   final LocalDate startDate, 
@@ -58,9 +58,12 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The include_subaccounts.
+     * true to include feedback entries for the master account and all subaccounts.
+     * false to include feedback entries for the specified account.
+     * IncludeSubaccounts is false by default..
      * 
-     * @param includeSubaccounts The include_subaccounts
+     * @param includeSubaccounts true to include feedback entries for the master
+     *                           account and all subaccounts.
      * @return this
      */
     public FeedbackSummaryCreator setIncludeSubaccounts(final Boolean includeSubaccounts) {
@@ -69,9 +72,10 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The status_callback.
+     * The URL that Twilio will request when the Feedback Summary is completed..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback The URL that Twilio will request when the Feedback
+     *                       Summary is completed.
      * @return this
      */
     public FeedbackSummaryCreator setStatusCallback(final URI statusCallback) {
@@ -80,9 +84,10 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The status_callback.
+     * The URL that Twilio will request when the Feedback Summary is completed..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback The URL that Twilio will request when the Feedback
+     *                       Summary is completed.
      * @return this
      */
     public FeedbackSummaryCreator setStatusCallback(final String statusCallback) {
@@ -90,9 +95,11 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The status_callback_method.
+     * The HTTP method Twilio will use to make requests to the StatusCallback URL.
+     * Either GET or POST..
      * 
-     * @param statusCallbackMethod The status_callback_method
+     * @param statusCallbackMethod The HTTP method Twilio will use to make requests
+     *                             to the StatusCallback URL.
      * @return this
      */
     public FeedbackSummaryCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {

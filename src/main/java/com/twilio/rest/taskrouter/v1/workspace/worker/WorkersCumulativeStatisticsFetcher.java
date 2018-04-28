@@ -36,9 +36,11 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
     }
 
     /**
-     * The end_date.
+     * Filter cumulative statistics by a end date. This is helpful for defining a
+     * range of statistics to capture. Input is a string of the format:
+     * yyyy-MM-dd’T’HH:mm:ss’Z’..
      * 
-     * @param endDate The end_date
+     * @param endDate Filter cumulative statistics by a end date.
      * @return this
      */
     public WorkersCumulativeStatisticsFetcher setEndDate(final DateTime endDate) {
@@ -47,9 +49,11 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
     }
 
     /**
-     * The minutes.
+     * Filter cumulative statistics by up to ‘x’ minutes in the past. This is
+     * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
+     * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
      * 
-     * @param minutes The minutes
+     * @param minutes Filter cumulative statistics by up to ‘x’ minutes in the past.
      * @return this
      */
     public WorkersCumulativeStatisticsFetcher setMinutes(final Integer minutes) {
@@ -58,9 +62,11 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
     }
 
     /**
-     * The start_date.
+     * Filter cumulative statistics by a start date. This is helpful for defining a
+     * range of statistics to capture. Input is a string of the format:
+     * yyyy-MM-dd’T’HH:mm:ss’Z’..
      * 
-     * @param startDate The start_date
+     * @param startDate Filter cumulative statistics by a start date.
      * @return this
      */
     public WorkersCumulativeStatisticsFetcher setStartDate(final DateTime startDate) {
@@ -69,9 +75,10 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
     }
 
     /**
-     * The task_channel.
+     * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice",
+     * "sms", "default", etc.) or a TaskChannelSid..
      * 
-     * @param taskChannel The task_channel
+     * @param taskChannel Filter cumulative statistics by TaskChannel.
      * @return this
      */
     public WorkersCumulativeStatisticsFetcher setTaskChannel(final String taskChannel) {

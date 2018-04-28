@@ -166,63 +166,65 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The activity_durations.
+     * Returns The The minimum, average, maximum and total time Workers spent in
+     * each Activity.
      * 
-     * @return The activity_durations
+     * @return The minimum, average, maximum and total time Workers spent in each
+     *         Activity
      */
     public final List<Map<String, Object>> getActivityDurations() {
         return this.activityDurations;
     }
 
     /**
-     * Returns The The reservations_created.
+     * Returns The The total number of Reservations that were created.
      * 
-     * @return The reservations_created
+     * @return The total number of Reservations that were created
      */
     public final Integer getReservationsCreated() {
         return this.reservationsCreated;
     }
 
     /**
-     * Returns The The reservations_accepted.
+     * Returns The The total number of Reservations that were accepted.
      * 
-     * @return The reservations_accepted
+     * @return The total number of Reservations that were accepted
      */
     public final Integer getReservationsAccepted() {
         return this.reservationsAccepted;
     }
 
     /**
-     * Returns The The reservations_rejected.
+     * Returns The The total number of Reservations that were rejected.
      * 
-     * @return The reservations_rejected
+     * @return The total number of Reservations that were rejected
      */
     public final Integer getReservationsRejected() {
         return this.reservationsRejected;
     }
 
     /**
-     * Returns The The reservations_timed_out.
+     * Returns The The total number of Reservations that were timed out.
      * 
-     * @return The reservations_timed_out
+     * @return The total number of Reservations that were timed out
      */
     public final Integer getReservationsTimedOut() {
         return this.reservationsTimedOut;
     }
 
     /**
-     * Returns The The reservations_canceled.
+     * Returns The The total number of Reservations that were canceled.
      * 
-     * @return The reservations_canceled
+     * @return The total number of Reservations that were canceled
      */
     public final Integer getReservationsCanceled() {
         return this.reservationsCanceled;
     }
 
     /**
-     * Returns The The reservations_rescinded.
+     * Returns The The total number of Reservations that were rescinded.
      * 
-     * @return The reservations_rescinded
+     * @return The total number of Reservations that were rescinded
      */
     public final Integer getReservationsRescinded() {
         return this.reservationsRescinded;

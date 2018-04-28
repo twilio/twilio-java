@@ -156,7 +156,8 @@ public class Message extends Resource {
      * @param pathAccountSid The account_sid
      * @param to The phone number to receive the message
      * @param from The phone number that initiated the message
-     * @param body The body
+     * @param body The text of the message you want to send, limited to 1600
+     *             characters.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathAccountSid, 
@@ -171,7 +172,8 @@ public class Message extends Resource {
      * 
      * @param to The phone number to receive the message
      * @param from The phone number that initiated the message
-     * @param body The body
+     * @param body The text of the message you want to send, limited to 1600
+     *             characters.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
@@ -186,7 +188,7 @@ public class Message extends Resource {
      * @param pathAccountSid The account_sid
      * @param to The phone number to receive the message
      * @param from The phone number that initiated the message
-     * @param mediaUrl The media_url
+     * @param mediaUrl The URL of the media you wish to send out with the message.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathAccountSid, 
@@ -201,7 +203,7 @@ public class Message extends Resource {
      * 
      * @param to The phone number to receive the message
      * @param from The phone number that initiated the message
-     * @param mediaUrl The media_url
+     * @param mediaUrl The URL of the media you wish to send out with the message.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
@@ -215,8 +217,10 @@ public class Message extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param to The phone number to receive the message
-     * @param messagingServiceSid The messaging_service_sid
-     * @param body The body
+     * @param messagingServiceSid The 34 character unique id of the Messaging
+     *                            Service you want to associate with this Message.
+     * @param body The text of the message you want to send, limited to 1600
+     *             characters.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathAccountSid, 
@@ -230,8 +234,10 @@ public class Message extends Resource {
      * Create a MessageCreator to execute create.
      * 
      * @param to The phone number to receive the message
-     * @param messagingServiceSid The messaging_service_sid
-     * @param body The body
+     * @param messagingServiceSid The 34 character unique id of the Messaging
+     *                            Service you want to associate with this Message.
+     * @param body The text of the message you want to send, limited to 1600
+     *             characters.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
@@ -245,8 +251,9 @@ public class Message extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param to The phone number to receive the message
-     * @param messagingServiceSid The messaging_service_sid
-     * @param mediaUrl The media_url
+     * @param messagingServiceSid The 34 character unique id of the Messaging
+     *                            Service you want to associate with this Message.
+     * @param mediaUrl The URL of the media you wish to send out with the message.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathAccountSid, 
@@ -260,8 +267,9 @@ public class Message extends Resource {
      * Create a MessageCreator to execute create.
      * 
      * @param to The phone number to receive the message
-     * @param messagingServiceSid The messaging_service_sid
-     * @param mediaUrl The media_url
+     * @param messagingServiceSid The 34 character unique id of the Messaging
+     *                            Service you want to associate with this Message.
+     * @param mediaUrl The URL of the media you wish to send out with the message.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
@@ -338,7 +346,8 @@ public class Message extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathSid The message to redact
-     * @param body The body
+     * @param body The text of the message you want to send, limited to 1600
+     *             characters.
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathAccountSid, 
@@ -351,7 +360,8 @@ public class Message extends Resource {
      * Create a MessageUpdater to execute update.
      * 
      * @param pathSid The message to redact
-     * @param body The body
+     * @param body The text of the message you want to send, limited to 1600
+     *             characters.
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathSid, 
@@ -572,9 +582,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The messaging_service_sid.
+     * Returns The The unique id of the Messaging Service used with the message..
      * 
-     * @return The messaging_service_sid
+     * @return The unique id of the Messaging Service used with the message.
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;

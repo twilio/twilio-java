@@ -37,7 +37,7 @@ public class ValidationRequest extends Resource {
      * Create a ValidationRequestCreator to execute create.
      * 
      * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone_number
+     * @param phoneNumber The phone number to verify.
      * @return ValidationRequestCreator capable of executing the create
      */
     public static ValidationRequestCreator creator(final String pathAccountSid, 
@@ -48,7 +48,7 @@ public class ValidationRequest extends Resource {
     /**
      * Create a ValidationRequestCreator to execute create.
      * 
-     * @param phoneNumber The phone_number
+     * @param phoneNumber The phone number to verify.
      * @return ValidationRequestCreator capable of executing the create
      */
     public static ValidationRequestCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -118,45 +118,49 @@ public class ValidationRequest extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account responsible for this Caller Id..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account responsible for this Caller Id.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The phone_number.
+     * Returns The The incoming phone number..
      * 
-     * @return The phone_number
+     * @return The incoming phone number.
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human readable descriptive text for this resource, up to 64
+     * characters long..
      * 
-     * @return The friendly_name
+     * @return A human readable descriptive text for this resource, up to 64
+     *         characters long.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The validation_code.
+     * Returns The The 6 digit validation code that must be entered via the phone to
+     * validate this phone number for Caller ID..
      * 
-     * @return The validation_code
+     * @return The 6 digit validation code that must be entered via the phone to
+     *         validate this phone number for Caller ID.
      */
     public final Integer getValidationCode() {
         return this.validationCode;
     }
 
     /**
-     * Returns The The call_sid.
+     * Returns The The unique id of the Call created for this validation attempt..
      * 
-     * @return The call_sid
+     * @return The unique id of the Call created for this validation attempt.
      */
     public final String getCallSid() {
         return this.callSid;

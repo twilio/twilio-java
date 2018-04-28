@@ -86,7 +86,8 @@ public class Activity extends Resource {
      * Create a ActivityCreator to execute create.
      * 
      * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable name for the Activity, such as 'On
+     *                     Call', 'Break', 'Email', etc.
      * @return ActivityCreator capable of executing the create
      */
     public static ActivityCreator creator(final String pathWorkspaceSid, 
@@ -169,63 +170,63 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that owns this Activity..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that owns this Activity.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The available.
+     * Returns The Filter by activities that are available or unavailable..
      * 
-     * @return The available
+     * @return Filter by activities that are available or unavailable.
      */
     public final Boolean getAvailable() {
         return this.available;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Activity was created..
      * 
-     * @return The date_created
+     * @return The date this Activity was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Activity was updated..
      * 
-     * @return The date_updated
+     * @return The date this Activity was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The Filter by an Activity's friendly name.
      * 
-     * @return The friendly_name
+     * @return Filter by an Activity's friendly name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique ID for this Activity..
      * 
-     * @return The sid
+     * @return The unique ID for this Activity.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The unique ID of the Workspace that this Activity belongs to..
      * 
-     * @return The workspace_sid
+     * @return The unique ID of the Workspace that this Activity belongs to.
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;

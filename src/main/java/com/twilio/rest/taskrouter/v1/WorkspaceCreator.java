@@ -31,16 +31,18 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * Construct a new WorkspaceCreator.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable description of this workspace
      */
     public WorkspaceCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
     /**
-     * The event_callback_url.
+     * If provided, the Workspace will publish events to this URL. You can use this
+     * to gather data for reporting. See Workspace Events for more information..
      * 
-     * @param eventCallbackUrl The event_callback_url
+     * @param eventCallbackUrl If provided, the Workspace will publish events to
+     *                         this URL.
      * @return this
      */
     public WorkspaceCreator setEventCallbackUrl(final URI eventCallbackUrl) {
@@ -49,9 +51,11 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * The event_callback_url.
+     * If provided, the Workspace will publish events to this URL. You can use this
+     * to gather data for reporting. See Workspace Events for more information..
      * 
-     * @param eventCallbackUrl The event_callback_url
+     * @param eventCallbackUrl If provided, the Workspace will publish events to
+     *                         this URL.
      * @return this
      */
     public WorkspaceCreator setEventCallbackUrl(final String eventCallbackUrl) {
@@ -59,9 +63,14 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * The events_filter.
+     * Use this parameter to receive webhooks on EventCallbackUrl for specific
+     * events on a workspace. For example if
+     * 'EventsFilter=task.created,task.canceled,worker.activity.update', then
+     * TaskRouter will webhook to EventCallbackUrl only when a task is created,
+     * canceled or a worker activity is updated..
      * 
-     * @param eventsFilter The events_filter
+     * @param eventsFilter Use this parameter to receive webhooks on
+     *                     EventCallbackUrl for specific events on a workspace.
      * @return this
      */
     public WorkspaceCreator setEventsFilter(final String eventsFilter) {
@@ -70,9 +79,15 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * The multi_task_enabled.
+     * Multi tasking allows workers to handle multiple tasks simultaneously. When
+     * enabled (MultiTaskEnabled=true), each worker will be eligible to receive
+     * parallel reservations up to the per-channel maximums defined in the Workers
+     * section. Default is disabled (MultiTaskEnabled=false), where each worker will
+     * only receive a new reservation when the previous task is completed. Learn
+     * more by visiting [Multitasking][/docs/taskrouter/multitasking]..
      * 
-     * @param multiTaskEnabled The multi_task_enabled
+     * @param multiTaskEnabled Multi tasking allows workers to handle multiple
+     *                         tasks simultaneously.
      * @return this
      */
     public WorkspaceCreator setMultiTaskEnabled(final Boolean multiTaskEnabled) {
@@ -81,9 +96,14 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * The template.
+     * One of the available template names. Will pre-configure this Workspace with
+     * the Workflow and Activities specified in the template. "NONE" will create a
+     * Workspace with a set of default activities and nothing else. "FIFO" will
+     * configure TaskRouter with a set of default activities and a single task queue
+     * for first-in, first-out distribution, useful if you want to see a simple
+     * TaskRouter configuration when getting started. Defaults to "NONE"..
      * 
-     * @param template The template
+     * @param template One of the available template names.
      * @return this
      */
     public WorkspaceCreator setTemplate(final String template) {
@@ -92,9 +112,16 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * The prioritize_queue_order.
+     * Use this parameter to configure whether to prioritize LIFO or FIFO when
+     * workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+     * Default is FIFO. [Click
+     * here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more
+     * about LIFO and the use of the parameter..
      * 
-     * @param prioritizeQueueOrder The prioritize_queue_order
+     * @param prioritizeQueueOrder Use this parameter to configure whether to
+     *                             prioritize LIFO or FIFO when workers are
+     *                             receiving Tasks from combination of LIFO and FIFO
+     *                             TaskQueues.
      * @return this
      */
     public WorkspaceCreator setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder) {

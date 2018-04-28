@@ -44,7 +44,8 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     }
 
     /**
-     * A human readable description of the caller ID.
+     * A human readable description of a Caller ID, with maximum length of 64
+     * characters. Defaults to a nicely formatted version of the phone number..
      * 
      * @param friendlyName A human readable description of the caller ID
      * @return this

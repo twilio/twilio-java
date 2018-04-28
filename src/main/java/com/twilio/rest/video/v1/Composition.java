@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -41,7 +42,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Composition extends Resource {
-    private static final long serialVersionUID = 247780808822825L;
+    private static final long serialVersionUID = 61658716109908L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -96,33 +97,6 @@ public class Composition extends Resource {
         @JsonCreator
         public static Format forValue(final String value) {
             return Promoter.enumFromString(value, Format.values());
-        }
-    }
-
-    public enum VideoLayout {
-        GRID("grid"),
-        SINGLE("single"),
-        PIP("pip"),
-        SEQUENCE("sequence");
-
-        private final String value;
-
-        private VideoLayout(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a VideoLayout from a string.
-         * @param value string value
-         * @return generated VideoLayout
-         */
-        @JsonCreator
-        public static VideoLayout forValue(final String value) {
-            return Promoter.enumFromString(value, VideoLayout.values());
         }
     }
 
@@ -208,16 +182,17 @@ public class Composition extends Resource {
     private final String dateCompleted;
     private final String dateDeleted;
     private final String sid;
+    private final String roomSid;
     private final List<String> audioSources;
-    private final List<String> videoSources;
-    private final Composition.VideoLayout videoLayout;
+    private final List<String> audioSourcesExcluded;
+    private final Map<String, Object> videoLayout;
     private final String resolution;
+    private final Boolean trim;
     private final Composition.Format format;
     private final Integer bitrate;
-    private final Integer size;
+    private final Long size;
     private final Integer duration;
     private final URI url;
-    private final String roomSid;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -233,26 +208,28 @@ public class Composition extends Resource {
                         final String dateDeleted, 
                         @JsonProperty("sid")
                         final String sid, 
+                        @JsonProperty("room_sid")
+                        final String roomSid, 
                         @JsonProperty("audio_sources")
                         final List<String> audioSources, 
-                        @JsonProperty("video_sources")
-                        final List<String> videoSources, 
+                        @JsonProperty("audio_sources_excluded")
+                        final List<String> audioSourcesExcluded, 
                         @JsonProperty("video_layout")
-                        final Composition.VideoLayout videoLayout, 
+                        final Map<String, Object> videoLayout, 
                         @JsonProperty("resolution")
                         final String resolution, 
+                        @JsonProperty("trim")
+                        final Boolean trim, 
                         @JsonProperty("format")
                         final Composition.Format format, 
                         @JsonProperty("bitrate")
                         final Integer bitrate, 
                         @JsonProperty("size")
-                        final Integer size, 
+                        final Long size, 
                         @JsonProperty("duration")
                         final Integer duration, 
                         @JsonProperty("url")
                         final URI url, 
-                        @JsonProperty("room_sid")
-                        final String roomSid, 
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -261,16 +238,17 @@ public class Composition extends Resource {
         this.dateCompleted = dateCompleted;
         this.dateDeleted = dateDeleted;
         this.sid = sid;
+        this.roomSid = roomSid;
         this.audioSources = audioSources;
-        this.videoSources = videoSources;
+        this.audioSourcesExcluded = audioSourcesExcluded;
         this.videoLayout = videoLayout;
         this.resolution = resolution;
+        this.trim = trim;
         this.format = format;
         this.bitrate = bitrate;
         this.size = size;
         this.duration = duration;
         this.url = url;
-        this.roomSid = roomSid;
         this.links = links;
     }
 
@@ -329,6 +307,15 @@ public class Composition extends Resource {
     }
 
     /**
+     * Returns The The room_sid.
+     * 
+     * @return The room_sid
+     */
+    public final String getRoomSid() {
+        return this.roomSid;
+    }
+
+    /**
      * Returns The The audio_sources.
      * 
      * @return The audio_sources
@@ -338,12 +325,12 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The video_sources.
+     * Returns The The audio_sources_excluded.
      * 
-     * @return The video_sources
+     * @return The audio_sources_excluded
      */
-    public final List<String> getVideoSources() {
-        return this.videoSources;
+    public final List<String> getAudioSourcesExcluded() {
+        return this.audioSourcesExcluded;
     }
 
     /**
@@ -351,7 +338,7 @@ public class Composition extends Resource {
      * 
      * @return The video_layout
      */
-    public final Composition.VideoLayout getVideoLayout() {
+    public final Map<String, Object> getVideoLayout() {
         return this.videoLayout;
     }
 
@@ -362,6 +349,15 @@ public class Composition extends Resource {
      */
     public final String getResolution() {
         return this.resolution;
+    }
+
+    /**
+     * Returns The The trim.
+     * 
+     * @return The trim
+     */
+    public final Boolean getTrim() {
+        return this.trim;
     }
 
     /**
@@ -387,7 +383,7 @@ public class Composition extends Resource {
      * 
      * @return The size
      */
-    public final Integer getSize() {
+    public final Long getSize() {
         return this.size;
     }
 
@@ -407,15 +403,6 @@ public class Composition extends Resource {
      */
     public final URI getUrl() {
         return this.url;
-    }
-
-    /**
-     * Returns The The room_sid.
-     * 
-     * @return The room_sid
-     */
-    public final String getRoomSid() {
-        return this.roomSid;
     }
 
     /**
@@ -445,16 +432,17 @@ public class Composition extends Resource {
                Objects.equals(dateCompleted, other.dateCompleted) && 
                Objects.equals(dateDeleted, other.dateDeleted) && 
                Objects.equals(sid, other.sid) && 
+               Objects.equals(roomSid, other.roomSid) && 
                Objects.equals(audioSources, other.audioSources) && 
-               Objects.equals(videoSources, other.videoSources) && 
+               Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) && 
                Objects.equals(videoLayout, other.videoLayout) && 
                Objects.equals(resolution, other.resolution) && 
+               Objects.equals(trim, other.trim) && 
                Objects.equals(format, other.format) && 
                Objects.equals(bitrate, other.bitrate) && 
                Objects.equals(size, other.size) && 
                Objects.equals(duration, other.duration) && 
                Objects.equals(url, other.url) && 
-               Objects.equals(roomSid, other.roomSid) && 
                Objects.equals(links, other.links);
     }
 
@@ -466,16 +454,17 @@ public class Composition extends Resource {
                             dateCompleted,
                             dateDeleted,
                             sid,
+                            roomSid,
                             audioSources,
-                            videoSources,
+                            audioSourcesExcluded,
                             videoLayout,
                             resolution,
+                            trim,
                             format,
                             bitrate,
                             size,
                             duration,
                             url,
-                            roomSid,
                             links);
     }
 
@@ -488,16 +477,17 @@ public class Composition extends Resource {
                           .add("dateCompleted", dateCompleted)
                           .add("dateDeleted", dateDeleted)
                           .add("sid", sid)
+                          .add("roomSid", roomSid)
                           .add("audioSources", audioSources)
-                          .add("videoSources", videoSources)
+                          .add("audioSourcesExcluded", audioSourcesExcluded)
                           .add("videoLayout", videoLayout)
                           .add("resolution", resolution)
+                          .add("trim", trim)
                           .add("format", format)
                           .add("bitrate", bitrate)
                           .add("size", size)
                           .add("duration", duration)
                           .add("url", url)
-                          .add("roomSid", roomSid)
                           .add("links", links)
                           .toString();
     }

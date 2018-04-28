@@ -29,7 +29,8 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * Construct a new PhoneNumberCreator.
      * 
      * @param pathServiceSid The service_sid
-     * @param phoneNumberSid The phone_number_sid
+     * @param phoneNumberSid Phone Number SID for the Phone Number being added to
+     *                       the Service.
      */
     public PhoneNumberCreator(final String pathServiceSid, 
                               final String phoneNumberSid) {

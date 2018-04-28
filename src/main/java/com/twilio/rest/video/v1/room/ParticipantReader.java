@@ -38,9 +38,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * The status.
+     * Only show Participants with the given Status.  For `in-progress` Rooms the
+     * default Status is `connected`, for `completed` Rooms only `disconnected`
+     * Participants are returned..
      * 
-     * @param status The status
+     * @param status Only show Participants with the given Status.
      * @return this
      */
     public ParticipantReader setStatus(final Participant.Status status) {
@@ -49,9 +51,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * The identity.
+     * Only show Participants that connected to the Room using the provided
+     * Identity..
      * 
-     * @param identity The identity
+     * @param identity Only show Participants that connected to the Room using the
+     *                 provided Identity.
      * @return this
      */
     public ParticipantReader setIdentity(final String identity) {

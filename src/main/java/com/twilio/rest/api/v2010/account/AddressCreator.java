@@ -32,12 +32,13 @@ public class AddressCreator extends Creator<Address> {
     /**
      * Construct a new AddressCreator.
      * 
-     * @param customerName The customer_name
-     * @param street The street
-     * @param city The city
-     * @param region The region
-     * @param postalCode The postal_code
-     * @param isoCountry The iso_country
+     * @param customerName Your name or business name, or that of your customer.
+     * @param street The number and street address where you or your customer is
+     *               located.
+     * @param city The city in which you or your customer is located.
+     * @param region The state or region in which you or your customer is located.
+     * @param postalCode The postal code in which you or your customer is located.
+     * @param isoCountry The ISO country code of your or your customer's address.
      */
     public AddressCreator(final String customerName, 
                           final String street, 
@@ -57,12 +58,13 @@ public class AddressCreator extends Creator<Address> {
      * Construct a new AddressCreator.
      * 
      * @param pathAccountSid The account_sid
-     * @param customerName The customer_name
-     * @param street The street
-     * @param city The city
-     * @param region The region
-     * @param postalCode The postal_code
-     * @param isoCountry The iso_country
+     * @param customerName Your name or business name, or that of your customer.
+     * @param street The number and street address where you or your customer is
+     *               located.
+     * @param city The city in which you or your customer is located.
+     * @param region The state or region in which you or your customer is located.
+     * @param postalCode The postal code in which you or your customer is located.
+     * @param isoCountry The ISO country code of your or your customer's address.
      */
     public AddressCreator(final String pathAccountSid, 
                           final String customerName, 
@@ -81,9 +83,9 @@ public class AddressCreator extends Creator<Address> {
     }
 
     /**
-     * The friendly_name.
+     * A human-readable description of the new address. Maximum 64 characters..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable description of the new address.
      * @return this
      */
     public AddressCreator setFriendlyName(final String friendlyName) {
@@ -103,9 +105,14 @@ public class AddressCreator extends Creator<Address> {
     }
 
     /**
-     * The auto_correct_address.
+     * If you don't set a value for this parameter, or if you set it to `true`, then
+     * the system will, if necessary, auto-correct the address you provide. If you
+     * don't want the system to auto-correct the address, you will explicitly need
+     * to set this value to `false`..
      * 
-     * @param autoCorrectAddress The auto_correct_address
+     * @param autoCorrectAddress If you don't set a value for this parameter, or if
+     *                           you set it to true, then the system will, if
+     *                           necessary, auto-correct the address you provide.
      * @return this
      */
     public AddressCreator setAutoCorrectAddress(final Boolean autoCorrectAddress) {

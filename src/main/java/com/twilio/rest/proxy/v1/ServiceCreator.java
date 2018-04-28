@@ -44,9 +44,10 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The default Time to Live for a Session, in seconds..
+     * The default time delay, in seconds, after which a session will be expired. 
+     * Will be used for sessions where ttl is not specified..
      * 
-     * @param defaultTtl Default TTL for a Session, in seconds.
+     * @param defaultTtl Default TTL for Sessions in Service, in seconds.
      * @return this
      */
     public ServiceCreator setDefaultTtl(final Integer defaultTtl) {
@@ -55,7 +56,7 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The URL Twilio will send callbacks to..
+     * The URL to which Twilio will make callbacks on interaction status changes..
      * 
      * @param callbackUrl URL Twilio will send callbacks to
      * @return this
@@ -66,7 +67,7 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The URL Twilio will send callbacks to..
+     * The URL to which Twilio will make callbacks on interaction status changes..
      * 
      * @param callbackUrl URL Twilio will send callbacks to
      * @return this
@@ -76,9 +77,10 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether to find proxy numbers in the same areacode..
+     * Options: country, area-code, extended-area-code. Default: country.  Levels
+     * lower than country are only available in North America..
      * 
-     * @param geoMatchLevel Whether to find proxy numbers in the same areacode.
+     * @param geoMatchLevel Whether to limit proxy numbers in the same areacode.
      * @return this
      */
     public ServiceCreator setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel) {
@@ -87,7 +89,7 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * What behavior to use when choosing a proxy number..
+     * Default: prefer-sticky Options: prefer-sticky, avoid-sticky.
      * 
      * @param numberSelectionBehavior What behavior to use when choosing a proxy
      *                                number.

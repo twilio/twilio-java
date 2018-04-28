@@ -91,9 +91,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The reservation_status.
+     * Yes.
      * 
-     * @param reservationStatus The reservation_status
+     * @param reservationStatus Yes
      * @return this
      */
     public ReservationUpdater setReservationStatus(final Reservation.Status reservationStatus) {
@@ -102,9 +102,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The worker_activity_sid.
+     * No.
      * 
-     * @param workerActivitySid The worker_activity_sid
+     * @param workerActivitySid No
      * @return this
      */
     public ReservationUpdater setWorkerActivitySid(final String workerActivitySid) {
@@ -113,9 +113,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The instruction.
+     * Yes.
      * 
-     * @param instruction The instruction
+     * @param instruction Yes
      * @return this
      */
     public ReservationUpdater setInstruction(final String instruction) {
@@ -124,9 +124,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_post_work_activity_sid.
+     * No.
      * 
-     * @param dequeuePostWorkActivitySid The dequeue_post_work_activity_sid
+     * @param dequeuePostWorkActivitySid No
      * @return this
      */
     public ReservationUpdater setDequeuePostWorkActivitySid(final String dequeuePostWorkActivitySid) {
@@ -135,9 +135,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_from.
+     * Yes.
      * 
-     * @param dequeueFrom The dequeue_from
+     * @param dequeueFrom Yes
      * @return this
      */
     public ReservationUpdater setDequeueFrom(final String dequeueFrom) {
@@ -146,9 +146,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_record.
+     * No.
      * 
-     * @param dequeueRecord The dequeue_record
+     * @param dequeueRecord No
      * @return this
      */
     public ReservationUpdater setDequeueRecord(final String dequeueRecord) {
@@ -157,9 +157,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_timeout.
+     * No.
      * 
-     * @param dequeueTimeout The dequeue_timeout
+     * @param dequeueTimeout No
      * @return this
      */
     public ReservationUpdater setDequeueTimeout(final Integer dequeueTimeout) {
@@ -168,9 +168,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_to.
+     * No.
      * 
-     * @param dequeueTo The dequeue_to
+     * @param dequeueTo No
      * @return this
      */
     public ReservationUpdater setDequeueTo(final String dequeueTo) {
@@ -179,9 +179,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_status_callback_url.
+     * No.
      * 
-     * @param dequeueStatusCallbackUrl The dequeue_status_callback_url
+     * @param dequeueStatusCallbackUrl No
      * @return this
      */
     public ReservationUpdater setDequeueStatusCallbackUrl(final URI dequeueStatusCallbackUrl) {
@@ -190,9 +190,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_status_callback_url.
+     * No.
      * 
-     * @param dequeueStatusCallbackUrl The dequeue_status_callback_url
+     * @param dequeueStatusCallbackUrl No
      * @return this
      */
     public ReservationUpdater setDequeueStatusCallbackUrl(final String dequeueStatusCallbackUrl) {
@@ -200,9 +200,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_from.
+     * Yes.
      * 
-     * @param callFrom The call_from
+     * @param callFrom Yes
      * @return this
      */
     public ReservationUpdater setCallFrom(final String callFrom) {
@@ -211,9 +211,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_record.
+     * No.
      * 
-     * @param callRecord The call_record
+     * @param callRecord No
      * @return this
      */
     public ReservationUpdater setCallRecord(final String callRecord) {
@@ -222,9 +222,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_timeout.
+     * No.
      * 
-     * @param callTimeout The call_timeout
+     * @param callTimeout No
      * @return this
      */
     public ReservationUpdater setCallTimeout(final Integer callTimeout) {
@@ -233,9 +233,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_to.
+     * No.
      * 
-     * @param callTo The call_to
+     * @param callTo No
      * @return this
      */
     public ReservationUpdater setCallTo(final String callTo) {
@@ -244,9 +244,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_url.
+     * Yes.
      * 
-     * @param callUrl The call_url
+     * @param callUrl Yes
      * @return this
      */
     public ReservationUpdater setCallUrl(final URI callUrl) {
@@ -255,9 +255,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_url.
+     * Yes.
      * 
-     * @param callUrl The call_url
+     * @param callUrl Yes
      * @return this
      */
     public ReservationUpdater setCallUrl(final String callUrl) {
@@ -265,9 +265,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_status_callback_url.
+     * No.
      * 
-     * @param callStatusCallbackUrl The call_status_callback_url
+     * @param callStatusCallbackUrl No
      * @return this
      */
     public ReservationUpdater setCallStatusCallbackUrl(final URI callStatusCallbackUrl) {
@@ -276,9 +276,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_status_callback_url.
+     * No.
      * 
-     * @param callStatusCallbackUrl The call_status_callback_url
+     * @param callStatusCallbackUrl No
      * @return this
      */
     public ReservationUpdater setCallStatusCallbackUrl(final String callStatusCallbackUrl) {
@@ -286,9 +286,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The call_accept.
+     * No.
      * 
-     * @param callAccept The call_accept
+     * @param callAccept No
      * @return this
      */
     public ReservationUpdater setCallAccept(final Boolean callAccept) {
@@ -297,9 +297,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The redirect_call_sid.
+     * Yes.
      * 
-     * @param redirectCallSid The redirect_call_sid
+     * @param redirectCallSid Yes
      * @return this
      */
     public ReservationUpdater setRedirectCallSid(final String redirectCallSid) {
@@ -308,9 +308,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The redirect_accept.
+     * No.
      * 
-     * @param redirectAccept The redirect_accept
+     * @param redirectAccept No
      * @return this
      */
     public ReservationUpdater setRedirectAccept(final Boolean redirectAccept) {
@@ -319,9 +319,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The redirect_url.
+     * Yes.
      * 
-     * @param redirectUrl The redirect_url
+     * @param redirectUrl Yes
      * @return this
      */
     public ReservationUpdater setRedirectUrl(final URI redirectUrl) {
@@ -330,9 +330,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The redirect_url.
+     * Yes.
      * 
-     * @param redirectUrl The redirect_url
+     * @param redirectUrl Yes
      * @return this
      */
     public ReservationUpdater setRedirectUrl(final String redirectUrl) {
@@ -340,9 +340,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The to.
+     * No.
      * 
-     * @param to The to
+     * @param to No
      * @return this
      */
     public ReservationUpdater setTo(final String to) {
@@ -351,9 +351,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The from.
+     * No.
      * 
-     * @param from The from
+     * @param from No
      * @return this
      */
     public ReservationUpdater setFrom(final String from) {
@@ -415,9 +415,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The timeout.
+     * No.
      * 
-     * @param timeout The timeout
+     * @param timeout No
      * @return this
      */
     public ReservationUpdater setTimeout(final Integer timeout) {
@@ -721,9 +721,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_status_callback_event.
+     * No.
      * 
-     * @param dequeueStatusCallbackEvent The dequeue_status_callback_event
+     * @param dequeueStatusCallbackEvent No
      * @return this
      */
     public ReservationUpdater setDequeueStatusCallbackEvent(final List<String> dequeueStatusCallbackEvent) {
@@ -732,9 +732,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The dequeue_status_callback_event.
+     * No.
      * 
-     * @param dequeueStatusCallbackEvent The dequeue_status_callback_event
+     * @param dequeueStatusCallbackEvent No
      * @return this
      */
     public ReservationUpdater setDequeueStatusCallbackEvent(final String dequeueStatusCallbackEvent) {
@@ -742,9 +742,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The post_work_activity_sid.
+     * No.
      * 
-     * @param postWorkActivitySid The post_work_activity_sid
+     * @param postWorkActivitySid No
      * @return this
      */
     public ReservationUpdater setPostWorkActivitySid(final String postWorkActivitySid) {

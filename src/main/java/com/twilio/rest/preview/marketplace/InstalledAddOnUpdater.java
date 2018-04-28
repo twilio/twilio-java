@@ -40,7 +40,9 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
     }
 
     /**
-     * The JSON object representing the configuration of the Add-on installation..
+     * Valid JSON object that conform to the configuration schema exposed by the
+     * associated Available Add-on resource. This is only required by Add-ons that
+     * need to be configured.
      * 
      * @param configuration The JSON object representing the configuration
      * @return this

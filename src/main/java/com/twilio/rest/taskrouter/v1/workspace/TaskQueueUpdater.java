@@ -40,9 +40,10 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The friendly_name.
+     * Human readable description of this TaskQueue (for example "Support – Tier 1",
+     * "Sales" or "Escalation").
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable description of this TaskQueue
      * @return this
      */
     public TaskQueueUpdater setFriendlyName(final String friendlyName) {
@@ -51,9 +52,14 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The target_workers.
+     * A string describing the Worker selection criteria for any Tasks that enter
+     * this TaskQueue. For example '"language" == "spanish"' If no TargetWorkers
+     * parameter is provided, Tasks will wait in this queue until they are either
+     * deleted or moved to another queue. Additional examples on how to describing
+     * Worker selection criteria below..
      * 
-     * @param targetWorkers The target_workers
+     * @param targetWorkers A string describing the Worker selection criteria for
+     *                      any Tasks that enter this TaskQueue.
      * @return this
      */
     public TaskQueueUpdater setTargetWorkers(final String targetWorkers) {
@@ -62,9 +68,12 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The reservation_activity_sid.
+     * ActivitySID that will be assigned to Workers when they are reserved for a
+     * task from this TaskQueue..
      * 
-     * @param reservationActivitySid The reservation_activity_sid
+     * @param reservationActivitySid ActivitySID that will be assigned to Workers
+     *                               when they are reserved for a task from this
+     *                               TaskQueue.
      * @return this
      */
     public TaskQueueUpdater setReservationActivitySid(final String reservationActivitySid) {
@@ -73,9 +82,12 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The assignment_activity_sid.
+     * ActivitySID that will be assigned to Workers when they are assigned a task
+     * from this TaskQueue..
      * 
-     * @param assignmentActivitySid The assignment_activity_sid
+     * @param assignmentActivitySid ActivitySID that will be assigned to Workers
+     *                              when they are assigned a task from this
+     *                              TaskQueue.
      * @return this
      */
     public TaskQueueUpdater setAssignmentActivitySid(final String assignmentActivitySid) {
@@ -84,9 +96,12 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The max_reserved_workers.
+     * The maximum amount of workers to create reservations for the assignment of a
+     * task while in this queue. Maximum of 50..
      * 
-     * @param maxReservedWorkers The max_reserved_workers
+     * @param maxReservedWorkers The maximum amount of workers to create
+     *                           reservations for the assignment of a task while in
+     *                           this queue.
      * @return this
      */
     public TaskQueueUpdater setMaxReservedWorkers(final Integer maxReservedWorkers) {
@@ -95,9 +110,14 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The task_order.
+     * TaskOrder will determine which order the Tasks will be assigned to Workers.
+     * Set this parameter to LIFO to assign most recently created Task first or FIFO
+     * to assign the oldest Task. Default is FIFO. [Click
+     * here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to
+     * learn more..
      * 
-     * @param taskOrder The task_order
+     * @param taskOrder TaskOrder will determine which order the Tasks will be
+     *                  assigned to Workers.
      * @return this
      */
     public TaskQueueUpdater setTaskOrder(final TaskQueue.TaskOrder taskOrder) {

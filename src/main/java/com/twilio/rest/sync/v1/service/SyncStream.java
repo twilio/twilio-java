@@ -43,7 +43,7 @@ public class SyncStream extends Resource {
     /**
      * Create a SyncStreamFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Instance SID or unique name.
      * @param pathSid Stream SID or unique name.
      * @return SyncStreamFetcher capable of executing the fetch
      */
@@ -55,7 +55,7 @@ public class SyncStream extends Resource {
     /**
      * Create a SyncStreamDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Instance SID or unique name.
      * @param pathSid Stream SID or unique name.
      * @return SyncStreamDeleter capable of executing the delete
      */
@@ -89,7 +89,7 @@ public class SyncStream extends Resource {
     /**
      * Create a SyncStreamReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Instance SID or unique name.
      * @return SyncStreamReader capable of executing the read
      */
     public static SyncStreamReader reader(final String pathServiceSid) {

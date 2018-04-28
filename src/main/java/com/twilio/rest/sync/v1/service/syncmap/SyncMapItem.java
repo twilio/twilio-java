@@ -249,99 +249,110 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The key.
+     * Returns The The unique user-defined key of this Map Item..
      * 
-     * @return The key
+     * @return The unique user-defined key of this Map Item.
      */
     public final String getKey() {
         return this.key;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique SID identifier of the Twilio Account..
      * 
-     * @return The account_sid
+     * @return The unique SID identifier of the Twilio Account.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The unique SID identifier of the Service Instance that hosts this
+     * Map object..
      * 
-     * @return The service_sid
+     * @return The unique SID identifier of the Service Instance that hosts this
+     *         Map object.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The map_sid.
+     * Returns The The unique 34-character SID identifier of the Map containing this
+     * Item..
      * 
-     * @return The map_sid
+     * @return The unique 34-character SID identifier of the Map containing this
+     *         Item.
      */
     public final String getMapSid() {
         return this.mapSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL for this Map..
      * 
-     * @return The url
+     * @return The absolute URL for this Map.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The revision.
+     * Returns The Contains the current revision of this Map, represented by a
+     * string identifier..
      * 
-     * @return The revision
+     * @return Contains the current revision of this Map, represented by a string
+     *         identifier.
      */
     public final String getRevision() {
         return this.revision;
     }
 
     /**
-     * Returns The The data.
+     * Returns The Contains arbitrary user-defined, schema-less data that this Map
+     * Item stores, represented by a JSON object, up to 16KB..
      * 
-     * @return The data
+     * @return Contains arbitrary user-defined, schema-less data that this Map Item
+     *         stores, represented by a JSON object, up to 16KB.
      */
     public final Map<String, Object> getData() {
         return this.data;
     }
 
     /**
-     * Returns The The date_expires.
+     * Returns The Contains the date this Map expires and gets deleted
+     * automatically..
      * 
-     * @return The date_expires
+     * @return Contains the date this Map expires and gets deleted automatically.
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Map was created, given in UTC ISO 8601 format..
      * 
-     * @return The date_created
+     * @return The date this Map was created, given in UTC ISO 8601 format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The Specifies the date this Map was last updated, given in UTC ISO
+     * 8601 format..
      * 
-     * @return The date_updated
+     * @return Specifies the date this Map was last updated, given in UTC ISO 8601
+     *         format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The created_by.
+     * Returns The The identity of the Map creator..
      * 
-     * @return The created_by
+     * @return The identity of the Map creator.
      */
     public final String getCreatedBy() {
         return this.createdBy;

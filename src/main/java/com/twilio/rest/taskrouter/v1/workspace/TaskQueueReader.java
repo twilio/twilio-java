@@ -35,9 +35,10 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     }
 
     /**
-     * The friendly_name.
+     * Filter by a human readable description of a TaskQueue (for example "Customer
+     * Support" or "2014 Election Campaign").
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Filter by a human readable description of a TaskQueue
      * @return this
      */
     public TaskQueueReader setFriendlyName(final String friendlyName) {
@@ -46,9 +47,13 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     }
 
     /**
-     * The evaluate_worker_attributes.
+     * Provide a Worker attributes expression, and this will return the list of
+     * TaskQueues that would distribute tasks to a worker with these attributes..
      * 
-     * @param evaluateWorkerAttributes The evaluate_worker_attributes
+     * @param evaluateWorkerAttributes Provide a Worker attributes expression, and
+     *                                 this will return the list of TaskQueues that
+     *                                 would distribute tasks to a worker with these
+     *                                 attributes.
      * @return this
      */
     public TaskQueueReader setEvaluateWorkerAttributes(final String evaluateWorkerAttributes) {

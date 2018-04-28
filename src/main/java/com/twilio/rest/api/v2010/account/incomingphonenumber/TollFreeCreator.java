@@ -44,7 +44,7 @@ public class TollFreeCreator extends Creator<TollFree> {
     /**
      * Construct a new TollFreeCreator.
      * 
-     * @param phoneNumber The phone_number
+     * @param phoneNumber The phone number you want to purchase.
      */
     public TollFreeCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -54,7 +54,7 @@ public class TollFreeCreator extends Creator<TollFree> {
      * Construct a new TollFreeCreator.
      * 
      * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone_number
+     * @param phoneNumber The phone number you want to purchase.
      */
     public TollFreeCreator(final String pathAccountSid, 
                            final com.twilio.type.PhoneNumber phoneNumber) {
@@ -63,9 +63,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The api_version.
+     * The Twilio REST API version to use for incoming calls made to this number. If
+     * omitted, uses `2010-04-01`..
      * 
-     * @param apiVersion The api_version
+     * @param apiVersion The Twilio REST API version to use for incoming calls made
+     *                   to this number.
      * @return this
      */
     public TollFreeCreator setApiVersion(final String apiVersion) {
@@ -74,9 +76,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The friendly_name.
+     * A human readable description of the new incoming phone number. Maximum 64
+     * characters. Defaults to a formatted version of the number..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human readable description of the new incoming phone
+     *                     number.
      * @return this
      */
     public TollFreeCreator setFriendlyName(final String friendlyName) {
@@ -85,9 +89,12 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The sms_application_sid.
+     * The 34 character sid of the application Twilio should use to handle SMSs sent
+     * to the new number. If a `SmsApplicationSid` is present, Twilio will ignore
+     * all of the SMS urls above and use those set on the application..
      * 
-     * @param smsApplicationSid The sms_application_sid
+     * @param smsApplicationSid The 34 character sid of the application Twilio
+     *                          should use to handle SMSs sent to the new number.
      * @return this
      */
     public TollFreeCreator setSmsApplicationSid(final String smsApplicationSid) {
@@ -96,9 +103,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The sms_fallback_method.
+     * The HTTP method that should be used to request the `SmsFallbackUrl`. Must be
+     * either `GET` or `POST`. Defaults to `POST`..
      * 
-     * @param smsFallbackMethod The sms_fallback_method
+     * @param smsFallbackMethod The HTTP method that should be used to request the
+     *                          SmsFallbackUrl.
      * @return this
      */
     public TollFreeCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
@@ -107,9 +116,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The sms_fallback_url.
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `SmsUrl`..
      * 
-     * @param smsFallbackUrl The sms_fallback_url
+     * @param smsFallbackUrl A URL that Twilio will request if an error occurs
+     *                       requesting or executing the TwiML defined by SmsUrl.
      * @return this
      */
     public TollFreeCreator setSmsFallbackUrl(final URI smsFallbackUrl) {
@@ -118,9 +129,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The sms_fallback_url.
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `SmsUrl`..
      * 
-     * @param smsFallbackUrl The sms_fallback_url
+     * @param smsFallbackUrl A URL that Twilio will request if an error occurs
+     *                       requesting or executing the TwiML defined by SmsUrl.
      * @return this
      */
     public TollFreeCreator setSmsFallbackUrl(final String smsFallbackUrl) {
@@ -128,9 +141,10 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The sms_method.
+     * The HTTP method that should be used to request the `SmsUrl`. Must be either
+     * `GET` or `POST`. Defaults to `POST`..
      * 
-     * @param smsMethod The sms_method
+     * @param smsMethod The HTTP method that should be used to request the SmsUrl.
      * @return this
      */
     public TollFreeCreator setSmsMethod(final HttpMethod smsMethod) {
@@ -139,9 +153,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The sms_url.
+     * The URL that Twilio should request when somebody sends an SMS to the phone
+     * number..
      * 
-     * @param smsUrl The sms_url
+     * @param smsUrl The URL that Twilio should request when somebody sends an SMS
+     *               to the phone number.
      * @return this
      */
     public TollFreeCreator setSmsUrl(final URI smsUrl) {
@@ -150,9 +166,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The sms_url.
+     * The URL that Twilio should request when somebody sends an SMS to the phone
+     * number..
      * 
-     * @param smsUrl The sms_url
+     * @param smsUrl The URL that Twilio should request when somebody sends an SMS
+     *               to the phone number.
      * @return this
      */
     public TollFreeCreator setSmsUrl(final String smsUrl) {
@@ -160,9 +178,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The status_callback.
+     * The URL that Twilio will request to pass status parameters (such as call
+     * ended) to your application..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback The URL that Twilio will request to pass status
+     *                       parameters to your application.
      * @return this
      */
     public TollFreeCreator setStatusCallback(final URI statusCallback) {
@@ -171,9 +191,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The status_callback.
+     * The URL that Twilio will request to pass status parameters (such as call
+     * ended) to your application..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback The URL that Twilio will request to pass status
+     *                       parameters to your application.
      * @return this
      */
     public TollFreeCreator setStatusCallback(final String statusCallback) {
@@ -181,9 +203,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The status_callback_method.
+     * The HTTP method Twilio will use to make requests to the `StatusCallback` URL.
+     * Either `GET` or `POST`. Defaults to `POST`..
      * 
-     * @param statusCallbackMethod The status_callback_method
+     * @param statusCallbackMethod The HTTP method Twilio will use to make requests
+     *                             to the StatusCallback URL.
      * @return this
      */
     public TollFreeCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -192,9 +216,15 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The voice_application_sid.
+     * The 34 character sid of the application Twilio should use to handle phone
+     * calls to the new number. If a `VoiceApplicationSid` is present, Twilio will
+     * ignore all of the voice urls above and use those set on the application.
+     * Setting a `VoiceApplicationSid` will automatically delete your `TrunkSid` and
+     * vice versa..
      * 
-     * @param voiceApplicationSid The voice_application_sid
+     * @param voiceApplicationSid The 34 character sid of the application Twilio
+     *                            should use to handle phone calls to the new
+     *                            number.
      * @return this
      */
     public TollFreeCreator setVoiceApplicationSid(final String voiceApplicationSid) {
@@ -203,9 +233,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The voice_caller_id_lookup.
+     * Do a lookup of a caller's name from the CNAM database and post it to your
+     * app. Either `true` or `false`. Defaults to `false`..
      * 
-     * @param voiceCallerIdLookup The voice_caller_id_lookup
+     * @param voiceCallerIdLookup Do a lookup of a caller's name from the CNAM
+     *                            database and post it to your app.
      * @return this
      */
     public TollFreeCreator setVoiceCallerIdLookup(final Boolean voiceCallerIdLookup) {
@@ -214,9 +246,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The voice_fallback_method.
+     * The HTTP method that should be used to request the `VoiceFallbackUrl`. Either
+     * `GET` or `POST`. Defaults to `POST`..
      * 
-     * @param voiceFallbackMethod The voice_fallback_method
+     * @param voiceFallbackMethod The HTTP method that should be used to request
+     *                            the VoiceFallbackUrl.
      * @return this
      */
     public TollFreeCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -225,9 +259,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The voice_fallback_url.
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML at `Url`..
      * 
-     * @param voiceFallbackUrl The voice_fallback_url
+     * @param voiceFallbackUrl A URL that Twilio will request if an error occurs
+     *                         requesting or executing the TwiML at Url.
      * @return this
      */
     public TollFreeCreator setVoiceFallbackUrl(final URI voiceFallbackUrl) {
@@ -236,9 +272,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The voice_fallback_url.
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML at `Url`..
      * 
-     * @param voiceFallbackUrl The voice_fallback_url
+     * @param voiceFallbackUrl A URL that Twilio will request if an error occurs
+     *                         requesting or executing the TwiML at Url.
      * @return this
      */
     public TollFreeCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
@@ -246,9 +284,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The voice_method.
+     * The HTTP method that should be used to request the `VoiceUrl`. Must be either
+     * `GET` or `POST`. Defaults to `POST`..
      * 
-     * @param voiceMethod The voice_method
+     * @param voiceMethod The HTTP method that should be used to request the
+     *                    VoiceUrl.
      * @return this
      */
     public TollFreeCreator setVoiceMethod(final HttpMethod voiceMethod) {
@@ -257,9 +297,12 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The voice_url.
+     * The URL that Twilio should request when somebody dials the new phone number.
+     * The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a
+     * `TrunkSid` is set..
      * 
-     * @param voiceUrl The voice_url
+     * @param voiceUrl The URL that Twilio should request when somebody dials the
+     *                 new phone number.
      * @return this
      */
     public TollFreeCreator setVoiceUrl(final URI voiceUrl) {
@@ -268,9 +311,12 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The voice_url.
+     * The URL that Twilio should request when somebody dials the new phone number.
+     * The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a
+     * `TrunkSid` is set..
      * 
-     * @param voiceUrl The voice_url
+     * @param voiceUrl The URL that Twilio should request when somebody dials the
+     *                 new phone number.
      * @return this
      */
     public TollFreeCreator setVoiceUrl(final String voiceUrl) {
@@ -289,9 +335,10 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The address_sid.
+     * The 34 character sid of the address Twilio should associate with the number..
      * 
-     * @param addressSid The address_sid
+     * @param addressSid The 34 character sid of the address Twilio should
+     *                   associate with the number.
      * @return this
      */
     public TollFreeCreator setAddressSid(final String addressSid) {

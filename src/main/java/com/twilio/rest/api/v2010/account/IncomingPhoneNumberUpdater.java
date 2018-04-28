@@ -68,7 +68,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The unique id of the Account to which you wish to transfer this phone number.
+     * The unique 34 character id of the account to which you wish to transfer this
+     * phone number. See [Exchanging Numbers Between
+     * Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers)..
      * 
      * @param accountSid The new owner of the phone number
      * @return this
@@ -80,7 +82,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
     /**
      * Calls to this phone number will start a new TwiML session with this API
-     * version..
+     * version. Either `2010-04-01` or `2008-08-01`..
      * 
      * @param apiVersion The Twilio REST API version to use
      * @return this
@@ -106,7 +108,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     /**
      * The 34 character sid of the application Twilio should use to handle SMSs sent
      * to this number. If a `SmsApplicationSid` is present, Twilio will ignore all
-     * of the SMS urls above and use those set on the application..
+     * of the SMS urls above and use those set on the application instead..
      * 
      * @param smsApplicationSid Unique string that identifies the application
      * @return this
@@ -117,8 +119,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the above URL. Either `GET`
-     * or `POST`..
+     * The HTTP method that should be used to request the `SmsFallbackUrl`. Either
+     * `GET` or `POST`..
      * 
      * @param smsFallbackMethod HTTP method used with sms fallback url
      * @return this
@@ -129,8 +131,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML from `SmsUrl`..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `SmsUrl`..
      * 
      * @param smsFallbackUrl URL Twilio will request if an error occurs in
      *                       executing TwiML
@@ -142,8 +144,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML from `SmsUrl`..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `SmsUrl`..
      * 
      * @param smsFallbackUrl URL Twilio will request if an error occurs in
      *                       executing TwiML
@@ -166,8 +168,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL Twilio will request when receiving an incoming SMS message to this
-     * number..
+     * The URL that Twilio should request when somebody sends an SMS to the new
+     * phone number..
      * 
      * @param smsUrl URL Twilio will request when receiving an SMS
      * @return this
@@ -178,8 +180,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL Twilio will request when receiving an incoming SMS message to this
-     * number..
+     * The URL that Twilio should request when somebody sends an SMS to the new
+     * phone number..
      * 
      * @param smsUrl URL Twilio will request when receiving an SMS
      * @return this
@@ -226,9 +228,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     /**
      * The 34 character sid of the application Twilio should use to handle phone
      * calls to this number. If a `VoiceApplicationSid` is present, Twilio will
-     * ignore all of the voice urls above and use those set on the application.
-     * Setting a `VoiceApplicationSid` will automatically delete your `TrunkSid` and
-     * vice versa..
+     * ignore all of the voice urls above and use those set on the application
+     * instead. Setting a `VoiceApplicationSid` will automatically delete your
+     * `TrunkSid` and vice versa..
      * 
      * @param voiceApplicationSid The unique sid of the application to handle this
      *                            number
@@ -264,8 +266,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML requested by `Url`..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `VoiceUrl`..
      * 
      * @param voiceFallbackUrl URL Twilio will request when an error occurs in TwiML
      * @return this
@@ -276,8 +278,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML requested by `Url`..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `VoiceUrl`..
      * 
      * @param voiceFallbackUrl URL Twilio will request when an error occurs in TwiML
      * @return this
@@ -299,7 +301,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL Twilio will request when this phone number receives a call. The
+     * The URL that Twilio should request when somebody dials the phone number. The
      * VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid`
      * is set..
      * 
@@ -312,7 +314,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL Twilio will request when this phone number receives a call. The
+     * The URL that Twilio should request when somebody dials the phone number. The
      * VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid`
      * is set..
      * 
@@ -385,8 +387,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The 34 character sid of the address Twilio should use to associate with the
-     * number. Addresses are required in some regions to meet local regulations.
+     * The 34 character sid of the address Twilio should associate with the number.
+     * If the number has address restrictions, only another address that satisfies
+     * the requirement can replace the existing one..
      * 
      * @param addressSid Unique string that identifies the address associated with
      *                   number

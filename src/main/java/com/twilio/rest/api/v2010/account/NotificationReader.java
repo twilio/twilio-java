@@ -44,7 +44,8 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Only show notifications for this log level.
+     * Only show notifications for this log, using the integer log values shown
+     * above..
      * 
      * @param log Filter by log level
      * @return this
@@ -55,8 +56,11 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Only show notifications for this date. Should be formatted as YYYY-MM-DD. You
-     * can also specify inequalities..
+     * Only show notifications for this date. Should be formatted as `YYYY-MM-DD`.
+     * You can also specify inequality, such as `MessageDate&lt;=YYYY-MM-DD` for
+     * messages logged at or before midnight on a date, and
+     * `MessageDate&gt;=YYYY-MM-DD` for messages logged at or after midnight on a
+     * date..
      * 
      * @param absoluteMessageDate Filter by date
      * @return this
@@ -68,8 +72,11 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Only show notifications for this date. Should be formatted as YYYY-MM-DD. You
-     * can also specify inequalities..
+     * Only show notifications for this date. Should be formatted as `YYYY-MM-DD`.
+     * You can also specify inequality, such as `MessageDate&lt;=YYYY-MM-DD` for
+     * messages logged at or before midnight on a date, and
+     * `MessageDate&gt;=YYYY-MM-DD` for messages logged at or after midnight on a
+     * date..
      * 
      * @param rangeMessageDate Filter by date
      * @return this

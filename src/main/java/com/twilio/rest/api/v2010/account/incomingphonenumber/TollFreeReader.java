@@ -43,9 +43,10 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The beta.
+     * Include phone numbers new to the Twilio platform. Possible values are either
+     * `true` or `false`. Default is `true`..
      * 
-     * @param beta The beta
+     * @param beta Include phone numbers new to the Twilio platform.
      * @return this
      */
     public TollFreeReader setBeta(final Boolean beta) {
@@ -54,9 +55,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The friendly_name.
+     * Only show the incoming phone number resources with friendly names that
+     * exactly match this name..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Only show the incoming phone number resources with
+     *                     friendly names that exactly match this name.
      * @return this
      */
     public TollFreeReader setFriendlyName(final String friendlyName) {
@@ -65,9 +68,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The phone_number.
+     * Only show the incoming phone number resources that match this pattern. You
+     * can specify partial numbers and use '*' as a wildcard for any digit..
      * 
-     * @param phoneNumber The phone_number
+     * @param phoneNumber Only show the incoming phone number resources that match
+     *                    this pattern.
      * @return this
      */
     public TollFreeReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -76,9 +81,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The phone_number.
+     * Only show the incoming phone number resources that match this pattern. You
+     * can specify partial numbers and use '*' as a wildcard for any digit..
      * 
-     * @param phoneNumber The phone_number
+     * @param phoneNumber Only show the incoming phone number resources that match
+     *                    this pattern.
      * @return this
      */
     public TollFreeReader setPhoneNumber(final String phoneNumber) {
@@ -86,9 +93,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The origin.
+     * Include phone numbers based on the origin, by default, phone numbers of all
+     * origin are included. Possible values are either `twilio` or `hosted`..
      * 
-     * @param origin The origin
+     * @param origin Include phone numbers based on the origin, by default, phone
+     *               numbers of all origin are included.
      * @return this
      */
     public TollFreeReader setOrigin(final String origin) {

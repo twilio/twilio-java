@@ -38,7 +38,8 @@ public class SharedCost extends Resource {
     /**
      * Create a SharedCostReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The 34 character string that uniquely identifies your
+     *                       account.
      * @param pathCountryCode The country_code
      * @return SharedCostReader capable of executing the read
      */

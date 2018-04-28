@@ -42,9 +42,11 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The friendly_name.
+     * A string representing a human readable name for this Workflow. Examples
+     * include 'Customer Support' or 'Sales Team'..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A string representing a human readable name for this
+     *                     Workflow.
      * @return this
      */
     public WorkflowUpdater setFriendlyName(final String friendlyName) {
@@ -53,9 +55,12 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The assignment_callback_url.
+     * A valid URL for the application that will process task assignment events. See
+     * [Handling Task Assignment
+     * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
      * 
-     * @param assignmentCallbackUrl The assignment_callback_url
+     * @param assignmentCallbackUrl A valid URL for the application that will
+     *                              process task assignment events.
      * @return this
      */
     public WorkflowUpdater setAssignmentCallbackUrl(final URI assignmentCallbackUrl) {
@@ -64,9 +69,12 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The assignment_callback_url.
+     * A valid URL for the application that will process task assignment events. See
+     * [Handling Task Assignment
+     * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
      * 
-     * @param assignmentCallbackUrl The assignment_callback_url
+     * @param assignmentCallbackUrl A valid URL for the application that will
+     *                              process task assignment events.
      * @return this
      */
     public WorkflowUpdater setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
@@ -74,9 +82,13 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The fallback_assignment_callback_url.
+     * If the request to the AssignmentCallbackUrl fails, the assignment callback
+     * will be made to this URL..
      * 
-     * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
+     * @param fallbackAssignmentCallbackUrl If the request to the
+     *                                      AssignmentCallbackUrl fails, the
+     *                                      assignment callback will be made to this
+     *                                      URL.
      * @return this
      */
     public WorkflowUpdater setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl) {
@@ -85,9 +97,13 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The fallback_assignment_callback_url.
+     * If the request to the AssignmentCallbackUrl fails, the assignment callback
+     * will be made to this URL..
      * 
-     * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
+     * @param fallbackAssignmentCallbackUrl If the request to the
+     *                                      AssignmentCallbackUrl fails, the
+     *                                      assignment callback will be made to this
+     *                                      URL.
      * @return this
      */
     public WorkflowUpdater setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
@@ -95,9 +111,11 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The configuration.
+     * JSON document configuring the rules for this Workflow. See [Configuring
+     * Workflows](https://www.twilio.com/docs/api/taskrouter/workflow-configuration)
+     * for more information..
      * 
-     * @param configuration The configuration
+     * @param configuration JSON document configuring the rules for this Workflow.
      * @return this
      */
     public WorkflowUpdater setConfiguration(final String configuration) {
@@ -106,9 +124,14 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * The task_reservation_timeout.
+     * An integer value controlling how long in seconds TaskRouter will wait for a
+     * confirmation response from your application after assigning a Task to a
+     * worker. Defaults to 120 seconds. Maximum value is 86400 (24 hours).
      * 
-     * @param taskReservationTimeout The task_reservation_timeout
+     * @param taskReservationTimeout An integer value controlling how long in
+     *                               seconds TaskRouter will wait for a confirmation
+     *                               response from your application after assigning
+     *                               a Task to a worker.
      * @return this
      */
     public WorkflowUpdater setTaskReservationTimeout(final Integer taskReservationTimeout) {

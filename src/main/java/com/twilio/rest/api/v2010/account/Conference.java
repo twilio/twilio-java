@@ -277,9 +277,11 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The region.
+     * Returns The A string representing the Twilio Region where the conference was
+     * mixed..
      * 
-     * @return The region
+     * @return A string representing the Twilio Region where the conference was
+     *         mixed.
      */
     public final String getRegion() {
         return this.region;

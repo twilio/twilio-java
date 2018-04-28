@@ -30,9 +30,11 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      * Construct a new TaskQueueCreator.
      * 
      * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName The friendly_name
-     * @param reservationActivitySid The reservation_activity_sid
-     * @param assignmentActivitySid The assignment_activity_sid
+     * @param friendlyName Human readable description of this TaskQueue
+     * @param reservationActivitySid ActivitySID to assign workers once a task is
+     *                               reserved for them
+     * @param assignmentActivitySid ActivitySID to assign workers once a task is
+     *                              assigned for them
      */
     public TaskQueueCreator(final String pathWorkspaceSid, 
                             final String friendlyName, 
@@ -45,9 +47,14 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     }
 
     /**
-     * The target_workers.
+     * A string describing the Worker selection criteria for any Tasks that enter
+     * this TaskQueue. For example `'"language" == "spanish"'` If no TargetWorkers
+     * parameter is provided, Tasks will wait in this TaskQueue until they are
+     * either deleted or moved to another TaskQueue. Additional examples on how to
+     * describing Worker selection criteria below. Defaults to 1==1..
      * 
-     * @param targetWorkers The target_workers
+     * @param targetWorkers A string describing the Worker selection criteria for
+     *                      any Tasks that enter this TaskQueue.
      * @return this
      */
     public TaskQueueCreator setTargetWorkers(final String targetWorkers) {
@@ -56,9 +63,12 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     }
 
     /**
-     * The max_reserved_workers.
+     * The maximum amount of workers to create reservations for the assignment of a
+     * task while in this queue. Defaults to 1, with a Maximum of 50..
      * 
-     * @param maxReservedWorkers The max_reserved_workers
+     * @param maxReservedWorkers The maximum amount of workers to create
+     *                           reservations for the assignment of a task while in
+     *                           this queue.
      * @return this
      */
     public TaskQueueCreator setMaxReservedWorkers(final Integer maxReservedWorkers) {
@@ -67,9 +77,14 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     }
 
     /**
-     * The task_order.
+     * TaskOrder will determine which order the Tasks will be assigned to Workers.
+     * Set this parameter to LIFO to assign most recently created Task first or FIFO
+     * to assign the oldest Task. Default is FIFO. [Click
+     * here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to
+     * learn more..
      * 
-     * @param taskOrder The task_order
+     * @param taskOrder TaskOrder will determine which order the Tasks will be
+     *                  assigned to Workers.
      * @return this
      */
     public TaskQueueCreator setTaskOrder(final TaskQueue.TaskOrder taskOrder) {

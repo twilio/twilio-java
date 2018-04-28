@@ -39,9 +39,11 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The minutes.
+     * Filter cumulative statistics by up to ‘x’ minutes in the past. This is
+     * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
+     * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
      * 
-     * @param minutes The minutes
+     * @param minutes Filter cumulative statistics by up to ‘x’ minutes in the past.
      * @return this
      */
     public WorkersStatisticsFetcher setMinutes(final Integer minutes) {
@@ -50,9 +52,11 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The start_date.
+     * Filter cumulative statistics by a start date. This is helpful for defining a
+     * range of statistics to capture. Input is a string of the format:
+     * yyyy-MM-dd’T’HH:mm:ss’Z’..
      * 
-     * @param startDate The start_date
+     * @param startDate Filter cumulative statistics by a start date.
      * @return this
      */
     public WorkersStatisticsFetcher setStartDate(final DateTime startDate) {
@@ -61,9 +65,11 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The end_date.
+     * Filter cumulative statistics by a end date. This is helpful for defining a
+     * range of statistics to capture. Input is a string of the format:
+     * yyyy-MM-dd’T’HH:mm:ss’Z’..
      * 
-     * @param endDate The end_date
+     * @param endDate Filter cumulative statistics by a end date.
      * @return this
      */
     public WorkersStatisticsFetcher setEndDate(final DateTime endDate) {
@@ -72,9 +78,11 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The task_queue_sid.
+     * Filter the real-time and cumulative statistics based on Workers tied to a
+     * particular queue.
      * 
-     * @param taskQueueSid The task_queue_sid
+     * @param taskQueueSid Filter the real-time and cumulative statistics based on
+     *                     Workers tied to a particular queue
      * @return this
      */
     public WorkersStatisticsFetcher setTaskQueueSid(final String taskQueueSid) {
@@ -83,9 +91,11 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The task_queue_name.
+     * Filter the real-time and cumulative statistics based on Workers tied to a
+     * particular queue.
      * 
-     * @param taskQueueName The task_queue_name
+     * @param taskQueueName Filter the real-time and cumulative statistics based on
+     *                      Workers tied to a particular queue
      * @return this
      */
     public WorkersStatisticsFetcher setTaskQueueName(final String taskQueueName) {
@@ -105,9 +115,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The task_channel.
+     * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice",
+     * "sms", "default", etc.) or a TaskChannelSid..
      * 
-     * @param taskChannel The task_channel
+     * @param taskChannel Filter cumulative statistics by TaskChannel.
      * @return this
      */
     public WorkersStatisticsFetcher setTaskChannel(final String taskChannel) {

@@ -195,9 +195,9 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The date this Phone Number was created.
+     * Returns The The date this Phone Number was added to the service.
      * 
-     * @return The date this Phone Number was created
+     * @return The date this Phone Number was added to the service
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;

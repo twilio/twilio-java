@@ -71,8 +71,8 @@ public class FeedbackSummary extends Resource {
      * Create a FeedbackSummaryCreator to execute create.
      * 
      * @param pathAccountSid The account_sid
-     * @param startDate The start_date
-     * @param endDate The end_date
+     * @param startDate Only include usage that has occurred on or after this date.
+     * @param endDate Only include usage that has occurred on or before this date.
      * @return FeedbackSummaryCreator capable of executing the create
      */
     public static FeedbackSummaryCreator creator(final String pathAccountSid, 
@@ -84,8 +84,8 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryCreator to execute create.
      * 
-     * @param startDate The start_date
-     * @param endDate The end_date
+     * @param startDate Only include usage that has occurred on or after this date.
+     * @param endDate Only include usage that has occurred on or before this date.
      * @return FeedbackSummaryCreator capable of executing the create
      */
     public static FeedbackSummaryCreator creator(final LocalDate startDate, 

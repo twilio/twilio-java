@@ -193,9 +193,9 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The date this Short Code was created.
+     * Returns The The date this Short Code was added to the service.
      * 
-     * @return The date this Short Code was created
+     * @return The date this Short Code was added to the service
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
@@ -229,9 +229,9 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The A list of capabilities..
      * 
-     * @return Nested resource URLs.
+     * @return A list of capabilities.
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;

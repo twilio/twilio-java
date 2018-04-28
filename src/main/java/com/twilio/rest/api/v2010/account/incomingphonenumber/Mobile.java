@@ -88,7 +88,7 @@ public class Mobile extends Resource {
      * Create a MobileCreator to execute create.
      * 
      * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone_number
+     * @param phoneNumber The phone number you want to purchase.
      * @return MobileCreator capable of executing the create
      */
     public static MobileCreator creator(final String pathAccountSid, 
@@ -99,7 +99,7 @@ public class Mobile extends Resource {
     /**
      * Create a MobileCreator to execute create.
      * 
-     * @param phoneNumber The phone_number
+     * @param phoneNumber The phone number you want to purchase.
      * @return MobileCreator capable of executing the create
      */
     public static MobileCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -260,81 +260,93 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account responsible for this phone number..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account responsible for this phone number.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The address_sid.
+     * Returns The The 34 character sid of the address associated with this number..
      * 
-     * @return The address_sid
+     * @return The 34 character sid of the address associated with this number.
      */
     public final String getAddressSid() {
         return this.addressSid;
     }
 
     /**
-     * Returns The The address_requirements.
+     * Returns The This indicates whether the phone number requires you or your
+     * customer to have an Address registered with Twilio..
      * 
-     * @return The address_requirements
+     * @return This indicates whether the phone number requires you or your
+     *         customer to have an Address registered with Twilio.
      */
     public final Mobile.AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The Calls to this phone number will start a new TwiML session with
+     * this API version..
      * 
-     * @return The api_version
+     * @return Calls to this phone number will start a new TwiML session with this
+     *         API version.
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The beta.
+     * Returns The Phone numbers new to the Twilio platform are marked as beta..
      * 
-     * @return The beta
+     * @return Phone numbers new to the Twilio platform are marked as beta.
      */
     public final Boolean getBeta() {
         return this.beta;
     }
 
     /**
-     * Returns The The capabilities.
+     * Returns The This is a set of boolean properties that indicate whether a phone
+     * number can receive calls or messages..
      * 
-     * @return The capabilities
+     * @return This is a set of boolean properties that indicate whether a phone
+     *         number can receive calls or messages.
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created, given as GMT RFC 2822
+     * format..
      * 
-     * @return The date_created
+     * @return The date that this resource was created, given as GMT RFC 2822
+     *         format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated, given as GMT RFC
+     * 2822 format..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated, given as GMT RFC 2822
+     *         format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human readable descriptive text for this resource, up to 64
+     * characters long..
      * 
-     * @return The friendly_name
+     * @return A human readable descriptive text for this resource, up to 64
+     *         characters long.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -350,162 +362,183 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The phone_number.
+     * Returns The The incoming phone number..
      * 
-     * @return The phone_number
+     * @return The incoming phone number.
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The origin.
+     * Returns The Twilio owned phone numbers are marked as twilio while hosted
+     * phone numbers are marked as hosted..
      * 
-     * @return The origin
+     * @return Twilio owned phone numbers are marked as twilio while hosted phone
+     *         numbers are marked as hosted.
      */
     public final String getOrigin() {
         return this.origin;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The sms_application_sid.
+     * Returns The The 34 character sid of the application Twilio should use to
+     * handle SMSs sent to this number..
      * 
-     * @return The sms_application_sid
+     * @return The 34 character sid of the application Twilio should use to handle
+     *         SMSs sent to this number.
      */
     public final String getSmsApplicationSid() {
         return this.smsApplicationSid;
     }
 
     /**
-     * Returns The The sms_fallback_method.
+     * Returns The The HTTP method Twilio will use when requesting the above URL..
      * 
-     * @return The sms_fallback_method
+     * @return The HTTP method Twilio will use when requesting the above URL.
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The The sms_fallback_url.
+     * Returns The The URL that Twilio will request if an error occurs retrieving or
+     * executing the TwiML from SmsUrl..
      * 
-     * @return The sms_fallback_url
+     * @return The URL that Twilio will request if an error occurs retrieving or
+     *         executing the TwiML from SmsUrl.
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The The sms_method.
+     * Returns The The HTTP method Twilio will use when making requests to the
+     * SmsUrl..
      * 
-     * @return The sms_method
+     * @return The HTTP method Twilio will use when making requests to the SmsUrl.
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The The sms_url.
+     * Returns The The URL Twilio will request when receiving an incoming SMS
+     * message to this number..
      * 
-     * @return The sms_url
+     * @return The URL Twilio will request when receiving an incoming SMS message
+     *         to this number.
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The The status_callback.
+     * Returns The The URL that Twilio will request to pass status parameters to
+     * your application..
      * 
-     * @return The status_callback
+     * @return The URL that Twilio will request to pass status parameters to your
+     *         application.
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The The status_callback_method.
+     * Returns The The HTTP method Twilio will use to make requests to the
+     * StatusCallback URL..
      * 
-     * @return The status_callback_method
+     * @return The HTTP method Twilio will use to make requests to the
+     *         StatusCallback URL.
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The The trunk_sid.
+     * Returns The The 34 character sid of the Trunk Twilio should use to handle
+     * phone calls to this number..
      * 
-     * @return The trunk_sid
+     * @return The 34 character sid of the Trunk Twilio should use to handle phone
+     *         calls to this number.
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI for this resource, relative to https://api..
      * 
-     * @return The uri
+     * @return The URI for this resource, relative to https://api.
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The voice_application_sid.
+     * Returns The The 34 character sid of the application Twilio should use to
+     * handle phone calls to this number..
      * 
-     * @return The voice_application_sid
+     * @return The 34 character sid of the application Twilio should use to handle
+     *         phone calls to this number.
      */
     public final String getVoiceApplicationSid() {
         return this.voiceApplicationSid;
     }
 
     /**
-     * Returns The The voice_caller_id_lookup.
+     * Returns The Look up the caller's caller-ID name from the CNAM database..
      * 
-     * @return The voice_caller_id_lookup
+     * @return Look up the caller's caller-ID name from the CNAM database.
      */
     public final Boolean getVoiceCallerIdLookup() {
         return this.voiceCallerIdLookup;
     }
 
     /**
-     * Returns The The voice_fallback_method.
+     * Returns The The HTTP method Twilio will use when requesting the
+     * VoiceFallbackUrl..
      * 
-     * @return The voice_fallback_method
+     * @return The HTTP method Twilio will use when requesting the VoiceFallbackUrl.
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The The voice_fallback_url.
+     * Returns The The URL that Twilio will request if an error occurs retrieving or
+     * executing the TwiML requested by Url..
      * 
-     * @return The voice_fallback_url
+     * @return The URL that Twilio will request if an error occurs retrieving or
+     *         executing the TwiML requested by Url.
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The The voice_method.
+     * Returns The The HTTP method Twilio will use when requesting the above Url..
      * 
-     * @return The voice_method
+     * @return The HTTP method Twilio will use when requesting the above Url.
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The The voice_url.
+     * Returns The The URL Twilio will request when this phone number receives a
+     * call..
      * 
-     * @return The voice_url
+     * @return The URL Twilio will request when this phone number receives a call.
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;

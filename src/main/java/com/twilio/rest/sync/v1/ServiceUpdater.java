@@ -41,9 +41,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The webhook_url.
+     * (optional) A URL that will receive event updates when objects are
+     * manipulated..
      * 
-     * @param webhookUrl The webhook_url
+     * @param webhookUrl A URL that will receive event updates when objects are
+     *                   manipulated.
      * @return this
      */
     public ServiceUpdater setWebhookUrl(final URI webhookUrl) {
@@ -52,9 +54,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The webhook_url.
+     * (optional) A URL that will receive event updates when objects are
+     * manipulated..
      * 
-     * @param webhookUrl The webhook_url
+     * @param webhookUrl A URL that will receive event updates when objects are
+     *                   manipulated.
      * @return this
      */
     public ServiceUpdater setWebhookUrl(final String webhookUrl) {
@@ -62,9 +66,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The friendly_name.
+     * (optional) Human-readable name for this service instance.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human-readable name for this service instance
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
@@ -73,9 +77,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The reachability_webhooks_enabled.
+     * (optional) True or false - controls whether this instance fires webhooks when
+     * client endpoints connect to Sync Defaults to false..
      * 
-     * @param reachabilityWebhooksEnabled The reachability_webhooks_enabled
+     * @param reachabilityWebhooksEnabled True or false - controls whether this
+     *                                    instance fires webhooks when client
+     *                                    endpoints connect to Sync
      * @return this
      */
     public ServiceUpdater setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
@@ -84,9 +91,14 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The acl_enabled.
+     * (optional) `true` or `false` - determines whether token identities must be
+     * granted access to Sync objects via the [Permissions
+     * API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in
+     * this Service..
      * 
-     * @param aclEnabled The acl_enabled
+     * @param aclEnabled true or false - determines whether token identities must
+     *                   be granted access to Sync objects via the Permissions API
+     *                   in this Service.
      * @return this
      */
     public ServiceUpdater setAclEnabled(final Boolean aclEnabled) {

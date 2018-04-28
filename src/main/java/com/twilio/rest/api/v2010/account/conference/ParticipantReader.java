@@ -47,7 +47,7 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only show participants that are muted or unmuted.
+     * Only show participants that are muted or unmuted. Either `true` or `false`..
      * 
      * @param muted Filter by muted participants
      * @return this
@@ -58,9 +58,9 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * The hold.
+     * Only show participants that are held or unheld. Either `true` or `false`..
      * 
-     * @param hold The hold
+     * @param hold Only show participants that are held or unheld.
      * @return this
      */
     public ParticipantReader setHold(final Boolean hold) {

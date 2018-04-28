@@ -39,9 +39,10 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     }
 
     /**
-     * The ttl.
+     * New time-to-live of this Map in seconds. In the range [1, 31 536 000 (1
+     * year)], or 0 for infinity..
      * 
-     * @param ttl The ttl
+     * @param ttl New time-to-live of this Map in seconds.
      * @return this
      */
     public SyncMapUpdater setTtl(final Integer ttl) {

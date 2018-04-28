@@ -27,9 +27,10 @@ public class AlertReader extends Reader<Alert> {
     private LocalDate endDate;
 
     /**
-     * The log_level.
+     * Only show alerts for this log-level.  One of 'error', 'warning', 'notice', or
+     * 'debug'..
      * 
-     * @param logLevel The log_level
+     * @param logLevel Only show alerts for this log-level.
      * @return this
      */
     public AlertReader setLogLevel(final String logLevel) {
@@ -38,9 +39,13 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * The start_date.
+     * Only show Alerts on or after this date.  Useful in combination with `EndDate`
+     * to define a date-range of Alerts.  Input is a [UTC ISO 8601
+     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
+     * ignored by the filter. Queries for Alerts older than 30 days are not
+     * supported..
      * 
-     * @param startDate The start_date
+     * @param startDate Only show Alerts on or after this date.
      * @return this
      */
     public AlertReader setStartDate(final LocalDate startDate) {
@@ -49,9 +54,13 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * The end_date.
+     * Only show Alerts on or before this date.  Useful in combination with
+     * `StartDate` to define a date-range of Alerts.  Input is a [UTC ISO 8601
+     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
+     * ignored by the filter. Queries for Alerts older than 30 days are not
+     * supported..
      * 
-     * @param endDate The end_date
+     * @param endDate Only show Alerts on or before this date.
      * @return this
      */
     public AlertReader setEndDate(final LocalDate endDate) {

@@ -35,10 +35,10 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     /**
      * Construct a new MessageInteractionCreator.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathParticipantSid Participant Sid.
-     * @param body The body
+     * @param pathServiceSid Service Sid
+     * @param pathSessionSid Session Sid
+     * @param pathParticipantSid Participant Sid
+     * @param body Message body
      */
     public MessageInteractionCreator(final String pathServiceSid, 
                                      final String pathSessionSid, 
@@ -53,9 +53,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     /**
      * Construct a new MessageInteractionCreator.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathParticipantSid Participant Sid.
+     * @param pathServiceSid Service Sid
+     * @param pathSessionSid Session Sid
+     * @param pathParticipantSid Participant Sid
      * @param mediaUrl The media_url
      */
     public MessageInteractionCreator(final String pathServiceSid, 
@@ -69,9 +69,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * The body.
+     * The message to send to the participant.
      * 
-     * @param body The body
+     * @param body Message body
      * @return this
      */
     public MessageInteractionCreator setBody(final String body) {

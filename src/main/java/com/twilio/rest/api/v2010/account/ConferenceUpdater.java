@@ -49,9 +49,10 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * The status.
+     * Specifying `completed` will end the conference and kick all participants.
      * 
-     * @param status The status
+     * @param status Specifying completed will end the conference and kick all
+     *               participants
      * @return this
      */
     public ConferenceUpdater setStatus(final Conference.UpdateStatus status) {

@@ -244,99 +244,109 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The ID of the account that owns this Task.
      * 
-     * @return The account_sid
+     * @return The ID of the account that owns this Task
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The age.
+     * Returns The The number of seconds since this task was created..
      * 
-     * @return The age
+     * @return The number of seconds since this task was created.
      */
     public final Integer getAge() {
         return this.age;
     }
 
     /**
-     * Returns The The assignment_status.
+     * Returns The Returns the list of all Tasks in the workspace with the specified
+     * AssignmentStatus..
      * 
-     * @return The assignment_status
+     * @return Returns the list of all Tasks in the workspace with the specified
+     *         AssignmentStatus.
      */
     public final Task.Status getAssignmentStatus() {
         return this.assignmentStatus;
     }
 
     /**
-     * Returns The The attributes.
+     * Returns The The user-defined JSON string describing the custom attributes of
+     * this work..
      * 
-     * @return The attributes
+     * @return The user-defined JSON string describing the custom attributes of
+     *         this work.
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The addons.
+     * Returns The The addon data for all installed addons is returned with this
+     * attribute.
      * 
-     * @return The addons
+     * @return The addon data for all installed addons is returned with this
+     *         attribute
      */
     public final String getAddons() {
         return this.addons;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The Date this task was created, given as ISO 8601 format..
      * 
-     * @return The date_created
+     * @return Date this task was created, given as ISO 8601 format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The Date this task was updated, given as ISO 8601 format..
      * 
-     * @return The date_updated
+     * @return Date this task was updated, given as ISO 8601 format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The priority.
+     * Returns The Retrieve the list of all Tasks in the workspace with the
+     * specified priority..
      * 
-     * @return The priority
+     * @return Retrieve the list of all Tasks in the workspace with the specified
+     *         priority.
      */
     public final Integer getPriority() {
         return this.priority;
     }
 
     /**
-     * Returns The The reason.
+     * Returns The The reason the task was canceled  or completed.
      * 
-     * @return The reason
+     * @return The reason the task was canceled  or completed
      */
     public final String getReason() {
         return this.reason;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique ID of the Task.
      * 
-     * @return The sid
+     * @return The unique ID of the Task
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The task_queue_sid.
+     * Returns The Returns the list of Tasks that are currently waiting in the
+     * TaskQueue identified by the Sid specified..
      * 
-     * @return The task_queue_sid
+     * @return Returns the list of Tasks that are currently waiting in the
+     *         TaskQueue identified by the Sid specified.
      */
     public final String getTaskQueueSid() {
         return this.taskQueueSid;
@@ -352,36 +362,38 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The task_channel_sid.
+     * Returns The The ID of the Task Channel.
      * 
-     * @return The task_channel_sid
+     * @return The ID of the Task Channel
      */
     public final String getTaskChannelSid() {
         return this.taskChannelSid;
     }
 
     /**
-     * Returns The The task_channel_unique_name.
+     * Returns The The unique name of the Task Channel.
      * 
-     * @return The task_channel_unique_name
+     * @return The unique name of the Task Channel
      */
     public final String getTaskChannelUniqueName() {
         return this.taskChannelUniqueName;
     }
 
     /**
-     * Returns The The timeout.
+     * Returns The The amount of time in seconds the task is allowed to live.
      * 
-     * @return The timeout
+     * @return The amount of time in seconds the task is allowed to live
      */
     public final Integer getTimeout() {
         return this.timeout;
     }
 
     /**
-     * Returns The The workflow_sid.
+     * Returns The Returns the list of Tasks that are being controlled by the
+     * Workflow with the specified Sid value..
      * 
-     * @return The workflow_sid
+     * @return Returns the list of Tasks that are being controlled by the Workflow
+     *         with the specified Sid value.
      */
     public final String getWorkflowSid() {
         return this.workflowSid;
@@ -397,9 +409,9 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The ID of the Workspace that holds this Task.
      * 
-     * @return The workspace_sid
+     * @return The ID of the Workspace that holds this Task
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;

@@ -131,9 +131,9 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The longest_task_waiting_age.
+     * Returns The The age of the longest waiting Task.
      * 
-     * @return The longest_task_waiting_age
+     * @return The age of the longest waiting Task
      */
     public final Integer getLongestTaskWaitingAge() {
         return this.longestTaskWaitingAge;
@@ -149,18 +149,18 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The tasks_by_status.
+     * Returns The The Tasks broken down by status.
      * 
-     * @return The tasks_by_status
+     * @return The Tasks broken down by status
      */
     public final Map<String, Object> getTasksByStatus() {
         return this.tasksByStatus;
     }
 
     /**
-     * Returns The The total_tasks.
+     * Returns The The total number of Tasks.
      * 
-     * @return The total_tasks
+     * @return The total number of Tasks
      */
     public final Integer getTotalTasks() {
         return this.totalTasks;

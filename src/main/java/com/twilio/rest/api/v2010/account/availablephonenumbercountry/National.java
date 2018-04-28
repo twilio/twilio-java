@@ -38,7 +38,8 @@ public class National extends Resource {
     /**
      * Create a NationalReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The 34 character string that uniquely identifies your
+     *                       account.
      * @param pathCountryCode The country_code
      * @return NationalReader capable of executing the read
      */

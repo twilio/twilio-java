@@ -35,9 +35,12 @@ public class ActivityUpdater extends Updater<Activity> {
     }
 
     /**
-     * The friendly_name.
+     * A human-readable name for the Activity, such as 'on-call', 'break', 'email',
+     * etc. These names will be used to calculate and expose statistics about
+     * workers, and give you visibility into the state of each of your workers..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable name for the Activity, such as
+     *                     'on-call', 'break', 'email', etc.
      * @return this
      */
     public ActivityUpdater setFriendlyName(final String friendlyName) {

@@ -41,7 +41,7 @@ public class DocumentPermission extends Resource {
     /**
      * Create a DocumentPermissionFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
      *                     Permission applies.
@@ -56,7 +56,7 @@ public class DocumentPermission extends Resource {
     /**
      * Create a DocumentPermissionDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
      *                     Permission applies.
@@ -71,7 +71,7 @@ public class DocumentPermission extends Resource {
     /**
      * Create a DocumentPermissionReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathDocumentSid Sync Document SID or unique name.
      * @return DocumentPermissionReader capable of executing the read
      */

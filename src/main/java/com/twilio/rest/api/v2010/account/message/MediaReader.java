@@ -50,8 +50,11 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * Only show media created on the given date, or before/after using date
-     * inequalities..
+     * Only show media created on the given date. Should be formatted as
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD` for media generated at or before midnight on a
+     * date, and `DateCreated&gt;=YYYY-MM-DD` for media generated at or after
+     * midnight on a date..
      * 
      * @param absoluteDateCreated Filter by date created
      * @return this
@@ -63,8 +66,11 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * Only show media created on the given date, or before/after using date
-     * inequalities..
+     * Only show media created on the given date. Should be formatted as
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD` for media generated at or before midnight on a
+     * date, and `DateCreated&gt;=YYYY-MM-DD` for media generated at or after
+     * midnight on a date..
      * 
      * @param rangeDateCreated Filter by date created
      * @return this

@@ -64,8 +64,8 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     }
 
     /**
-     * SMSs to this short code will start a new TwiML session with this API
-     * version..
+     * SMSs to this short code will start a new TwiML session with this API version.
+     * Either `2010-04-01` or `2008-08-01`..
      * 
      * @param apiVersion The API version to use
      * @return this
@@ -136,8 +136,8 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the above URL. Either `GET`
-     * or `POST`..
+     * The HTTP method that should be used to request the `SmsFallbackUrl`. Either
+     * `GET` or `POST`..
      * 
      * @param smsFallbackMethod HTTP method Twilio will use with sms fallback url
      * @return this

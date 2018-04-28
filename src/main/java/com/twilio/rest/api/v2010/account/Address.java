@@ -39,12 +39,13 @@ public class Address extends Resource {
      * Create a AddressCreator to execute create.
      * 
      * @param pathAccountSid The account_sid
-     * @param customerName The customer_name
-     * @param street The street
-     * @param city The city
-     * @param region The region
-     * @param postalCode The postal_code
-     * @param isoCountry The iso_country
+     * @param customerName Your name or business name, or that of your customer.
+     * @param street The number and street address where you or your customer is
+     *               located.
+     * @param city The city in which you or your customer is located.
+     * @param region The state or region in which you or your customer is located.
+     * @param postalCode The postal code in which you or your customer is located.
+     * @param isoCountry The ISO country code of your or your customer's address.
      * @return AddressCreator capable of executing the create
      */
     public static AddressCreator creator(final String pathAccountSid, 
@@ -60,12 +61,13 @@ public class Address extends Resource {
     /**
      * Create a AddressCreator to execute create.
      * 
-     * @param customerName The customer_name
-     * @param street The street
-     * @param city The city
-     * @param region The region
-     * @param postalCode The postal_code
-     * @param isoCountry The iso_country
+     * @param customerName Your name or business name, or that of your customer.
+     * @param street The number and street address where you or your customer is
+     *               located.
+     * @param city The city in which you or your customer is located.
+     * @param region The state or region in which you or your customer is located.
+     * @param postalCode The postal code in which you or your customer is located.
+     * @param isoCountry The ISO country code of your or your customer's address.
      * @return AddressCreator capable of executing the create
      */
     public static AddressCreator creator(final String customerName, 
@@ -260,27 +262,27 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account responsible for this address..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account responsible for this address.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The city.
+     * Returns The The city in which you or your customer is located..
      * 
-     * @return The city
+     * @return The city in which you or your customer is located.
      */
     public final String getCity() {
         return this.city;
     }
 
     /**
-     * Returns The The customer_name.
+     * Returns The Your name or business name, or that of your customer..
      * 
-     * @return The customer_name
+     * @return Your name or business name, or that of your customer.
      */
     public final String getCustomerName() {
         return this.customerName;
@@ -305,81 +307,86 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human-readable description of the address..
      * 
-     * @return The friendly_name
+     * @return A human-readable description of the address.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The iso_country.
+     * Returns The The ISO country code of your or your customer's address..
      * 
-     * @return The iso_country
+     * @return The ISO country code of your or your customer's address.
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The The postal_code.
+     * Returns The The postal code in which you or your customer is located..
      * 
-     * @return The postal_code
+     * @return The postal code in which you or your customer is located.
      */
     public final String getPostalCode() {
         return this.postalCode;
     }
 
     /**
-     * Returns The The region.
+     * Returns The The state or region in which you or your customer is located..
      * 
-     * @return The region
+     * @return The state or region in which you or your customer is located.
      */
     public final String getRegion() {
         return this.region;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this address..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this address.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The street.
+     * Returns The The number and street address where you or your customer is
+     * located..
      * 
-     * @return The street
+     * @return The number and street address where you or your customer is located.
      */
     public final String getStreet() {
         return this.street;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI for this resource, relative to https://api..
      * 
-     * @return The uri
+     * @return The URI for this resource, relative to https://api.
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The emergency_enabled.
+     * Returns The This is a value that indicates if emergency calling has been
+     * enabled on this number..
      * 
-     * @return The emergency_enabled
+     * @return This is a value that indicates if emergency calling has been enabled
+     *         on this number.
      */
     public final Boolean getEmergencyEnabled() {
         return this.emergencyEnabled;
     }
 
     /**
-     * Returns The The validated.
+     * Returns The In some countries, addresses are validated to comply with local
+     * regulation..
      * 
-     * @return The validated
+     * @return In some countries, addresses are validated to comply with local
+     *         regulation.
      */
     public final Boolean getValidated() {
         return this.validated;

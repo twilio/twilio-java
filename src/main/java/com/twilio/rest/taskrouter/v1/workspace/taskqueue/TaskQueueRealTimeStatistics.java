@@ -144,18 +144,18 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The activity_statistics.
+     * Returns The The current Worker status count breakdown by Activity.
      * 
-     * @return The activity_statistics
+     * @return The current Worker status count breakdown by Activity
      */
     public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
     }
 
     /**
-     * Returns The The longest_task_waiting_age.
+     * Returns The The age of the longest waiting Task.
      * 
-     * @return The longest_task_waiting_age
+     * @return The age of the longest waiting Task
      */
     public final Integer getLongestTaskWaitingAge() {
         return this.longestTaskWaitingAge;
@@ -171,45 +171,48 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The tasks_by_priority.
+     * Returns The The Tasks broken down by priority.
      * 
-     * @return The tasks_by_priority
+     * @return The Tasks broken down by priority
      */
     public final Map<String, Object> getTasksByPriority() {
         return this.tasksByPriority;
     }
 
     /**
-     * Returns The The tasks_by_status.
+     * Returns The The Tasks broken down by status.
      * 
-     * @return The tasks_by_status
+     * @return The Tasks broken down by status
      */
     public final Map<String, Object> getTasksByStatus() {
         return this.tasksByStatus;
     }
 
     /**
-     * Returns The The total_available_workers.
+     * Returns The The total number of Workers available for Tasks in this
+     * TaskQueue.
      * 
-     * @return The total_available_workers
+     * @return The total number of Workers available for Tasks in this TaskQueue
      */
     public final Integer getTotalAvailableWorkers() {
         return this.totalAvailableWorkers;
     }
 
     /**
-     * Returns The The total_eligible_workers.
+     * Returns The The total number of Workers eligible for Tasks in this TaskQueue,
+     * irrespective of Activity state..
      * 
-     * @return The total_eligible_workers
+     * @return The total number of Workers eligible for Tasks in this TaskQueue,
+     *         irrespective of Activity state.
      */
     public final Integer getTotalEligibleWorkers() {
         return this.totalEligibleWorkers;
     }
 
     /**
-     * Returns The The total_tasks.
+     * Returns The The total number of Tasks.
      * 
-     * @return The total_tasks
+     * @return The total number of Tasks
      */
     public final Integer getTotalTasks() {
         return this.totalTasks;

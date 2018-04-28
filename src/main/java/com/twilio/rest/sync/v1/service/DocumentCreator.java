@@ -40,9 +40,9 @@ public class DocumentCreator extends Creator<Document> {
     }
 
     /**
-     * The unique_name.
+     * (optional) Human-readable name for this document.
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName Human-readable name for this document
      * @return this
      */
     public DocumentCreator setUniqueName(final String uniqueName) {
@@ -51,9 +51,9 @@ public class DocumentCreator extends Creator<Document> {
     }
 
     /**
-     * The data.
+     * (optional) JSON data to be stored in this document.
      * 
-     * @param data The data
+     * @param data JSON data to be stored in this document
      * @return this
      */
     public DocumentCreator setData(final Map<String, Object> data) {
@@ -62,9 +62,11 @@ public class DocumentCreator extends Creator<Document> {
     }
 
     /**
-     * The ttl.
+     * (optional) Time-to-live of this Document in seconds, defaults to no
+     * expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity..
      * 
-     * @param ttl The ttl
+     * @param ttl Time-to-live of this Document in seconds, defaults to no
+     *            expiration.
      * @return this
      */
     public DocumentCreator setTtl(final Integer ttl) {

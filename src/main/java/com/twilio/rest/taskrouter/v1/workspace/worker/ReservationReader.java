@@ -37,9 +37,10 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     /**
-     * The reservation_status.
+     * Filter by a worker’s reservation status (pending, accepted, rejected,
+     * timeout, canceled, rescinded).
      * 
-     * @param reservationStatus The reservation_status
+     * @param reservationStatus Filter by a worker’s reservation status
      * @return this
      */
     public ReservationReader setReservationStatus(final Reservation.Status reservationStatus) {

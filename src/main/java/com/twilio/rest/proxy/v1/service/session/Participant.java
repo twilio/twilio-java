@@ -97,9 +97,9 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantUpdater to execute update.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Participant.
+     * @param pathServiceSid The service_sid
+     * @param pathSessionSid The session_sid
+     * @param pathSid The sid
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathServiceSid, 
@@ -257,9 +257,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The proxy_identifier.
+     * Returns The Proxy Identifier..
      * 
-     * @return The proxy_identifier
+     * @return Proxy Identifier.
      */
     public final String getProxyIdentifier() {
         return this.proxyIdentifier;

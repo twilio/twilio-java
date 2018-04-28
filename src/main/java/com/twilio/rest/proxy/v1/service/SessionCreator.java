@@ -47,8 +47,7 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * Provides a unique and addressable name to be assigned to this Session,
-     * assigned by the developer, to be optionally used in addition to SID..
+     * Your identifier for this Session such as a Job ID or conversation ID..
      * 
      * @param uniqueName A unique, developer assigned name of this Session.
      * @return this
@@ -59,9 +58,10 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The date that this Session was expiry, given in ISO 8601 format..
+     * An absolute time at which this Session should close. If this is populated, it
+     * takes precedence over TTL values..
      * 
-     * @param dateExpiry The date this Session was expiry
+     * @param dateExpiry The date this Session should expire
      * @return this
      */
     public SessionCreator setDateExpiry(final DateTime dateExpiry) {
@@ -70,7 +70,9 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The Time to Live for a Session, in seconds..
+     * The Time To Live for this Session. The amount of time, specified in seconds,
+     * that this Session should live for before closing. Keys off the last
+     * interaction or session creation time..
      * 
      * @param ttl TTL for a Session, in seconds.
      * @return this
@@ -81,8 +83,8 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The Mode of this Session. One of `message-only`, `voice-only` or
-     * `voice-and-message`..
+     * The type of communications mediums allowed on a Session. Defaults to
+     * voice-and-message, other options are voice-only OR message-only..
      * 
      * @param mode The Mode of this Session
      * @return this
@@ -93,10 +95,11 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The Status of this Session. One of `in-progress`, `closed`, `failed`,
-     * `unknown` or `completed`..
+     * Set this value to 'closed' to close the session. A Session can be re-opened
+     * by posting to a closed session with the value 'in-progress.'  This will be
+     * 'open' by default on create..
      * 
-     * @param status The Status of this Session
+     * @param status Session status
      * @return this
      */
     public SessionCreator setStatus(final Session.Status status) {
@@ -105,9 +108,9 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * A list of phone numbers to add to this Session..
+     * The participants.
      * 
-     * @param participants A list of phone numbers to add to this Session.
+     * @param participants The participants
      * @return this
      */
     public SessionCreator setParticipants(final List<Map<String, Object>> participants) {
@@ -116,9 +119,9 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * A list of phone numbers to add to this Session..
+     * The participants.
      * 
-     * @param participants A list of phone numbers to add to this Session.
+     * @param participants The participants
      * @return this
      */
     public SessionCreator setParticipants(final Map<String, Object> participants) {

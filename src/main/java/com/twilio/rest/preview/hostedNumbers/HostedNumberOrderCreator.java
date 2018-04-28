@@ -58,8 +58,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The unique SID identifier of the Account or Sub-Account to create
-     * this HostedNumberOrder on..
+     * This defaults to the AccountSid of the authorization the user is using. This
+     * can be provided to specify a subaccount to add the HostedNumberOrder to..
      * 
      * @param accountSid Account Sid.
      * @return this
@@ -70,8 +70,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. A human readable description of this resource, up to 64
-     * characters..
+     * A 64 character string that is a human readable text that describes this
+     * resource..
      * 
      * @param friendlyName A human readable description of this resource.
      * @return this
@@ -119,7 +119,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The SMS URL attached to the IncomingPhoneNumber resource..
+     * The URL that Twilio should request when somebody sends an SMS to the phone
+     * number. This will be copied onto the IncomingPhoneNumber resource..
      * 
      * @param smsUrl SMS URL.
      * @return this
@@ -130,7 +131,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The SMS URL attached to the IncomingPhoneNumber resource..
+     * The URL that Twilio should request when somebody sends an SMS to the phone
+     * number. This will be copied onto the IncomingPhoneNumber resource..
      * 
      * @param smsUrl SMS URL.
      * @return this
@@ -140,7 +142,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The SMS Method attached to the IncomingPhoneNumber resource..
+     * The HTTP method that should be used to request the SmsUrl. Must be either
+     * `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource..
      * 
      * @param smsMethod SMS Method.
      * @return this
@@ -151,7 +154,9 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The SMS Fallback URL attached to the IncomingPhoneNumber resource..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber
+     * resource..
      * 
      * @param smsFallbackUrl SMS Fallback URL.
      * @return this
@@ -162,7 +167,9 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The SMS Fallback URL attached to the IncomingPhoneNumber resource..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber
+     * resource..
      * 
      * @param smsFallbackUrl SMS Fallback URL.
      * @return this
@@ -172,7 +179,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The SMS Fallback Method attached to the IncomingPhoneNumber
+     * The HTTP method that should be used to request the SmsFallbackUrl. Must be
+     * either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber
      * resource..
      * 
      * @param smsFallbackMethod SMS Fallback Method.

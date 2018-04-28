@@ -39,7 +39,7 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
     }
 
     /**
-     * Time-to-live of this Stream in seconds. In the range [1, 31 536 000 (1
+     * New time-to-live of this Stream in seconds. In the range [1, 31 536 000 (1
      * year)], or 0 for infinity..
      * 
      * @param ttl Stream TTL.

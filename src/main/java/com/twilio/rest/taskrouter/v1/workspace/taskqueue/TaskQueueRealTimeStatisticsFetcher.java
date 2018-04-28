@@ -35,9 +35,10 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
     }
 
     /**
-     * The task_channel.
+     * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
+     * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
      * 
-     * @param taskChannel The task_channel
+     * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
      * @return this
      */
     public TaskQueueRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {

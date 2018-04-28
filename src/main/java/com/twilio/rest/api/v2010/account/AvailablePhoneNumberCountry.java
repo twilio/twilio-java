@@ -37,7 +37,8 @@ public class AvailablePhoneNumberCountry extends Resource {
     /**
      * Create a AvailablePhoneNumberCountryReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The 34 character string that uniquely identifies your
+     *                       account.
      * @return AvailablePhoneNumberCountryReader capable of executing the read
      */
     public static AvailablePhoneNumberCountryReader reader(final String pathAccountSid) {

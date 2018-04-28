@@ -360,9 +360,9 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The URL of the Twilio resource..
+     * Returns The The URL of the Twilio inbound resource..
      * 
-     * @return The URL of the Twilio resource.
+     * @return The URL of the Twilio inbound resource.
      */
     public final URI getInboundResourceUrl() {
         return this.inboundResourceUrl;
@@ -405,9 +405,9 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The URL of the Twilio resource..
+     * Returns The The URL of the Twilio outbound resource..
      * 
-     * @return The URL of the Twilio resource.
+     * @return The URL of the Twilio outbound resource.
      */
     public final URI getOutboundResourceUrl() {
         return this.outboundResourceUrl;

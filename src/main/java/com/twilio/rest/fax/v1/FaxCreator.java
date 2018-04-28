@@ -48,8 +48,9 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The quality setting to use for this fax. One of `standard`, `fine` or
-     * `superfine`..
+     * A [quality
+     * value](https://www.twilio.com/docs/api/fax/rest/faxes#fax-quality-values),
+     * which defaults to `fine`.
      * 
      * @param quality The quality of this fax
      * @return this
@@ -60,7 +61,9 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The URL that Twilio will request when the status of the fax changes..
+     * A [status
+     * callback](https://www.twilio.com/docs/api/fax/rest/faxes#fax-status-callback)
+     * URL that will receive a POST when the status of the fax changes.
      * 
      * @param statusCallback URL for fax status callbacks
      * @return this
@@ -71,7 +74,9 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The URL that Twilio will request when the status of the fax changes..
+     * A [status
+     * callback](https://www.twilio.com/docs/api/fax/rest/faxes#fax-status-callback)
+     * URL that will receive a POST when the status of the fax changes.
      * 
      * @param statusCallback URL for fax status callbacks
      * @return this

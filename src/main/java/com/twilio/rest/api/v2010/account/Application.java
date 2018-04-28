@@ -40,7 +40,7 @@ public class Application extends Resource {
      * Create a ApplicationCreator to execute create.
      * 
      * @param pathAccountSid The account_sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human readable description of the application
      * @return ApplicationCreator capable of executing the create
      */
     public static ApplicationCreator creator(final String pathAccountSid, 
@@ -51,7 +51,7 @@ public class Application extends Resource {
     /**
      * Create a ApplicationCreator to execute create.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human readable description of the application
      * @return ApplicationCreator capable of executing the create
      */
     public static ApplicationCreator creator(final String friendlyName) {

@@ -31,9 +31,10 @@ public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeSta
     }
 
     /**
-     * The task_channel.
+     * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice",
+     * "sms", "default", etc.) or a TaskChannelSid..
      * 
-     * @param taskChannel The task_channel
+     * @param taskChannel Filter cumulative statistics by TaskChannel.
      * @return this
      */
     public WorkersRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {

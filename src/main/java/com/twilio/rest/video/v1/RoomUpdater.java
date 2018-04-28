@@ -25,7 +25,7 @@ public class RoomUpdater extends Updater<Room> {
      * Construct a new RoomUpdater.
      * 
      * @param pathSid The sid
-     * @param status The status
+     * @param status Set to completed to end the Room.
      */
     public RoomUpdater(final String pathSid, 
                        final Room.RoomStatus status) {

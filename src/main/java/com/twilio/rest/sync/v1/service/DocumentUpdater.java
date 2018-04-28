@@ -43,9 +43,10 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
-     * The data.
+     * (optional) Contains an arbitrary JSON object to be stored in this Document.
+     * Serialized to string to respect HTTP form input, up to 16KB..
      * 
-     * @param data The data
+     * @param data Contains an arbitrary JSON object to be stored in this Document.
      * @return this
      */
     public DocumentUpdater setData(final Map<String, Object> data) {
@@ -54,9 +55,10 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
-     * The ttl.
+     * (optional) New time-to-live of this Document in seconds. In the range [1, 31
+     * 536 000 (1 year)], or 0 for infinity..
      * 
-     * @param ttl The ttl
+     * @param ttl New time-to-live of this Document in seconds.
      * @return this
      */
     public DocumentUpdater setTtl(final Integer ttl) {

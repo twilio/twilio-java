@@ -70,7 +70,8 @@ public class Service extends Resource {
     /**
      * Create a ServiceCreator to execute create.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters.
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String friendlyName) {
@@ -238,117 +239,135 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Unique 34 character ID of the Service..
      * 
-     * @return The sid
+     * @return Unique 34 character ID of the Service.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Unique 34 character ID of the Account that created this Service..
      * 
-     * @return The account_sid
+     * @return Unique 34 character ID of the Account that created this Service.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human readable descriptive text for this resource, up to 64
+     * characters..
      * 
-     * @return The friendly_name
+     * @return A human readable descriptive text for this resource, up to 64
+     *         characters.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created..
      * 
-     * @return The date_created
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The inbound_request_url.
+     * Returns The The URL Twilio will make a webhook request to when a message is
+     * received by any phone number or short code in your Service..
      * 
-     * @return The inbound_request_url
+     * @return The URL Twilio will make a webhook request to when a message is
+     *         received by any phone number or short code in your Service.
      */
     public final URI getInboundRequestUrl() {
         return this.inboundRequestUrl;
     }
 
     /**
-     * Returns The The inbound_method.
+     * Returns The The HTTP method Twilio will use when making requests to the
+     * Inbound Request URL..
      * 
-     * @return The inbound_method
+     * @return The HTTP method Twilio will use when making requests to the Inbound
+     *         Request URL.
      */
     public final HttpMethod getInboundMethod() {
         return this.inboundMethod;
     }
 
     /**
-     * Returns The The fallback_url.
+     * Returns The The URL that Twilio will request if an error occurs when
+     * retrieving or executing the TwiML from your Inbound Request URL..
      * 
-     * @return The fallback_url
+     * @return The URL that Twilio will request if an error occurs when retrieving
+     *         or executing the TwiML from your Inbound Request URL.
      */
     public final URI getFallbackUrl() {
         return this.fallbackUrl;
     }
 
     /**
-     * Returns The The fallback_method.
+     * Returns The The HTTP method Twilio will use when making requests to the
+     * Fallback URL..
      * 
-     * @return The fallback_method
+     * @return The HTTP method Twilio will use when making requests to the Fallback
+     *         URL.
      */
     public final HttpMethod getFallbackMethod() {
         return this.fallbackMethod;
     }
 
     /**
-     * Returns The The status_callback.
+     * Returns The The URL Twilio will make a webhook request to when passing you
+     * status updates about the delivery of your messages..
      * 
-     * @return The status_callback
+     * @return The URL Twilio will make a webhook request to when passing you
+     *         status updates about the delivery of your messages.
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The The sticky_sender.
+     * Returns The Configuration to enable or disable Sticky Sender on your Service
+     * instance..
      * 
-     * @return The sticky_sender
+     * @return Configuration to enable or disable Sticky Sender on your Service
+     *         instance.
      */
     public final Boolean getStickySender() {
         return this.stickySender;
     }
 
     /**
-     * Returns The The mms_converter.
+     * Returns The Configuration to enable or disable MMS Converter for messages
+     * sent through your Service instance..
      * 
-     * @return The mms_converter
+     * @return Configuration to enable or disable MMS Converter for messages sent
+     *         through your Service instance.
      */
     public final Boolean getMmsConverter() {
         return this.mmsConverter;
     }
 
     /**
-     * Returns The The smart_encoding.
+     * Returns The Configuration to enable or disable Smart Encoding for messages
+     * sent through your Service instance..
      * 
-     * @return The smart_encoding
+     * @return Configuration to enable or disable Smart Encoding for messages sent
+     *         through your Service instance.
      */
     public final Boolean getSmartEncoding() {
         return this.smartEncoding;
@@ -364,18 +383,22 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The fallback_to_long_code.
+     * Returns The Configuration to enable or disable Fallback to Long Code for
+     * messages sent through your Service instance..
      * 
-     * @return The fallback_to_long_code
+     * @return Configuration to enable or disable Fallback to Long Code for
+     *         messages sent through your Service instance.
      */
     public final Boolean getFallbackToLongCode() {
         return this.fallbackToLongCode;
     }
 
     /**
-     * Returns The The area_code_geomatch.
+     * Returns The Configuration to enable or disable Area Code Geomatch on your
+     * Service Instance..
      * 
-     * @return The area_code_geomatch
+     * @return Configuration to enable or disable Area Code Geomatch on your
+     *         Service Instance.
      */
     public final Boolean getAreaCodeGeomatch() {
         return this.areaCodeGeomatch;
@@ -391,9 +414,11 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The validity_period.
+     * Returns The The number of seconds all messages sent from your Service are
+     * valid for..
      * 
-     * @return The validity_period
+     * @return The number of seconds all messages sent from your Service are valid
+     *         for.
      */
     public final Integer getValidityPeriod() {
         return this.validityPeriod;

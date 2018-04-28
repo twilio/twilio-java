@@ -31,7 +31,8 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
     /**
      * Construct a new AvailablePhoneNumberCountryReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The 34 character string that uniquely identifies your
+     *                       account.
      */
     public AvailablePhoneNumberCountryReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

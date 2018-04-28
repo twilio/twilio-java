@@ -29,7 +29,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
      * Construct a new AlphaSenderCreator.
      * 
      * @param pathServiceSid The service_sid
-     * @param alphaSender The alpha_sender
+     * @param alphaSender An Alphanumeric Sender ID string, up to 11 characters.
      */
     public AlphaSenderCreator(final String pathServiceSid, 
                               final String alphaSender) {

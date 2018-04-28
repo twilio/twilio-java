@@ -36,9 +36,9 @@ public class SyncListCreator extends Creator<SyncList> {
     }
 
     /**
-     * The unique_name.
+     * (optional) Human-readable name for this list.
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName Human-readable name for this list
      * @return this
      */
     public SyncListCreator setUniqueName(final String uniqueName) {
@@ -47,9 +47,10 @@ public class SyncListCreator extends Creator<SyncList> {
     }
 
     /**
-     * The ttl.
+     * (optional) Time-to-live of this List in seconds, defaults to no expiration.
+     * In the range [1, 31 536 000 (1 year)], or 0 for infinity..
      * 
-     * @param ttl The ttl
+     * @param ttl Time-to-live of this List in seconds, defaults to no expiration.
      * @return this
      */
     public SyncListCreator setTtl(final Integer ttl) {

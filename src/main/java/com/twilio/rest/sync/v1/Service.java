@@ -201,9 +201,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The Human-readable name for this service instance.
      * 
-     * @return The friendly_name
+     * @return Human-readable name for this service instance
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -237,27 +237,32 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The webhook_url.
+     * Returns The A URL that will receive event updates when objects are
+     * manipulated..
      * 
-     * @return The webhook_url
+     * @return A URL that will receive event updates when objects are manipulated.
      */
     public final URI getWebhookUrl() {
         return this.webhookUrl;
     }
 
     /**
-     * Returns The The reachability_webhooks_enabled.
+     * Returns The true or false - controls whether this instance fires webhooks
+     * when client endpoints connect to Sync.
      * 
-     * @return The reachability_webhooks_enabled
+     * @return true or false - controls whether this instance fires webhooks when
+     *         client endpoints connect to Sync
      */
     public final Boolean getReachabilityWebhooksEnabled() {
         return this.reachabilityWebhooksEnabled;
     }
 
     /**
-     * Returns The The acl_enabled.
+     * Returns The true or false - determines whether token identities must be
+     * granted access to Sync objects via the Permissions API in this Service..
      * 
-     * @return The acl_enabled
+     * @return true or false - determines whether token identities must be granted
+     *         access to Sync objects via the Permissions API in this Service.
      */
     public final Boolean getAclEnabled() {
         return this.aclEnabled;

@@ -41,9 +41,11 @@ public class AddressReader extends Reader<Address> {
     }
 
     /**
-     * The customer_name.
+     * Only return the Address resources with customer names that exactly match this
+     * name..
      * 
-     * @param customerName The customer_name
+     * @param customerName Only return the Address resources with customer names
+     *                     that exactly match this name.
      * @return this
      */
     public AddressReader setCustomerName(final String customerName) {
@@ -52,9 +54,11 @@ public class AddressReader extends Reader<Address> {
     }
 
     /**
-     * The friendly_name.
+     * Only return the Address resources with friendly names that exactly match this
+     * name..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Only return the Address resources with friendly names
+     *                     that exactly match this name.
      * @return this
      */
     public AddressReader setFriendlyName(final String friendlyName) {
@@ -63,9 +67,9 @@ public class AddressReader extends Reader<Address> {
     }
 
     /**
-     * The iso_country.
+     * Only return the Address resources in this country..
      * 
-     * @param isoCountry The iso_country
+     * @param isoCountry Only return the Address resources in this country.
      * @return this
      */
     public AddressReader setIsoCountry(final String isoCountry) {

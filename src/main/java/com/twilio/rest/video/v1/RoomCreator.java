@@ -33,9 +33,10 @@ public class RoomCreator extends Creator<Room> {
     private String mediaRegion;
 
     /**
-     * The enable_turn.
+     * Use Twilio Network Traversal for TURN service. Defaults to true. Only
+     * applicable to Rooms with type `peer-to-peer`..
      * 
-     * @param enableTurn The enable_turn
+     * @param enableTurn Use Twilio Network Traversal for TURN service.
      * @return this
      */
     public RoomCreator setEnableTurn(final Boolean enableTurn) {
@@ -44,9 +45,9 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The type.
+     * Type of room, either `peer-to-peer` or `group`. Will be `group` by default..
      * 
-     * @param type The type
+     * @param type Type of room, either peer-to-peer or group.
      * @return this
      */
     public RoomCreator setType(final Room.RoomType type) {
@@ -55,9 +56,10 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The unique_name.
+     * Name of the Room.  This is unique for `in-progress` rooms. If not provided,
+     * Room name will be set to the Room Sid..
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName Name of the Room.
      * @return this
      */
     public RoomCreator setUniqueName(final String uniqueName) {
@@ -66,9 +68,11 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The status_callback.
+     * A URL that Twilio sends asynchronous webhook requests to on every room event.
+     * If not provided, status callback events will not be dispatched..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback A URL that Twilio sends asynchronous webhook requests
+     *                       to on every room event.
      * @return this
      */
     public RoomCreator setStatusCallback(final URI statusCallback) {
@@ -77,9 +81,11 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The status_callback.
+     * A URL that Twilio sends asynchronous webhook requests to on every room event.
+     * If not provided, status callback events will not be dispatched..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback A URL that Twilio sends asynchronous webhook requests
+     *                       to on every room event.
      * @return this
      */
     public RoomCreator setStatusCallback(final String statusCallback) {
@@ -87,9 +93,11 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The status_callback_method.
+     * HTTP method Twilio should use when requesting the above URL. Defaults to
+     * `POST`..
      * 
-     * @param statusCallbackMethod The status_callback_method
+     * @param statusCallbackMethod HTTP method Twilio should use when requesting
+     *                             the above URL.
      * @return this
      */
     public RoomCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -98,9 +106,10 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The max_participants.
+     * Maximum number of Participants in the Room. peer-to-peer rooms can have a
+     * maximum of 10 Participants..
      * 
-     * @param maxParticipants The max_participants
+     * @param maxParticipants Maximum number of Participants in the Room.
      * @return this
      */
     public RoomCreator setMaxParticipants(final Integer maxParticipants) {
@@ -109,9 +118,11 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The record_participants_on_connect.
+     * Start Participant recording when connected. ***This feature is not available
+     * in `peer-to-peer` rooms.***.
      * 
-     * @param recordParticipantsOnConnect The record_participants_on_connect
+     * @param recordParticipantsOnConnect Start Participant recording when
+     *                                    connected.
      * @return this
      */
     public RoomCreator setRecordParticipantsOnConnect(final Boolean recordParticipantsOnConnect) {
@@ -120,9 +131,12 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The video_codecs.
+     * An array of video codecs supported when publishing a Track in the Room. 
+     * `VP8` and `H264` codecs are supported.  ***This feature is not available in
+     * `peer-to-peer` rooms***.
      * 
-     * @param videoCodecs The video_codecs
+     * @param videoCodecs An array of video codecs supported when publishing a
+     *                    Track in the Room.
      * @return this
      */
     public RoomCreator setVideoCodecs(final List<Room.VideoCodec> videoCodecs) {
@@ -131,9 +145,12 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The video_codecs.
+     * An array of video codecs supported when publishing a Track in the Room. 
+     * `VP8` and `H264` codecs are supported.  ***This feature is not available in
+     * `peer-to-peer` rooms***.
      * 
-     * @param videoCodecs The video_codecs
+     * @param videoCodecs An array of video codecs supported when publishing a
+     *                    Track in the Room.
      * @return this
      */
     public RoomCreator setVideoCodecs(final Room.VideoCodec videoCodecs) {
@@ -141,9 +158,11 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The media_region.
+     * Region for the media server in Group Rooms.  Default region is `us1`.  See
+     * the list of [available Media
+     * Regions.](https://www.twilio.com/docs/api/video/ip-address-whitelisting#group-rooms-media-servers)***This feature is not available in `peer-to-peer` rooms.***.
      * 
-     * @param mediaRegion The media_region
+     * @param mediaRegion Region for the media server in Group Rooms.
      * @return this
      */
     public RoomCreator setMediaRegion(final String mediaRegion) {

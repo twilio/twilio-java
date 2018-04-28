@@ -39,9 +39,10 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The activity_name.
+     * Filter by workers that are in a particular Activity by Friendly Name.
      * 
-     * @param activityName The activity_name
+     * @param activityName Filter by workers that are in a particular Activity by
+     *                     Friendly Name
      * @return this
      */
     public WorkerReader setActivityName(final String activityName) {
@@ -50,9 +51,9 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The activity_sid.
+     * Filter by workers that are in a particular Activity by SID.
      * 
-     * @param activitySid The activity_sid
+     * @param activitySid Filter by workers that are in a particular Activity by SID
      * @return this
      */
     public WorkerReader setActivitySid(final String activitySid) {
@@ -61,9 +62,11 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The available.
+     * Filter by workers that are available or unavailable. (Note: This can be
+     * ‘true’, ‘1’’ or ‘yes’ to indicate a true value. All other values will
+     * represent false).
      * 
-     * @param available The available
+     * @param available Filter by workers that are available or unavailable.
      * @return this
      */
     public WorkerReader setAvailable(final String available) {
@@ -72,9 +75,9 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The friendly_name.
+     * Filter by a worker’s friendly name.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Filter by a worker’s friendly name
      * @return this
      */
     public WorkerReader setFriendlyName(final String friendlyName) {
@@ -83,9 +86,11 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The target_workers_expression.
+     * Filter by workers that would match an expression on a TaskQueue. This is
+     * helpful for debugging which workers would match a potential queue..
      * 
-     * @param targetWorkersExpression The target_workers_expression
+     * @param targetWorkersExpression Filter by workers that would match an
+     *                                expression on a TaskQueue.
      * @return this
      */
     public WorkerReader setTargetWorkersExpression(final String targetWorkersExpression) {
@@ -94,9 +99,10 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The task_queue_name.
+     * Filter by workers that are eligible for a TaskQueue by Friendly Name.
      * 
-     * @param taskQueueName The task_queue_name
+     * @param taskQueueName Filter by workers that are eligible for a TaskQueue by
+     *                      Friendly Name
      * @return this
      */
     public WorkerReader setTaskQueueName(final String taskQueueName) {
@@ -105,9 +111,10 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * The task_queue_sid.
+     * Filter by workers that are eligible for a TaskQueue by SID.
      * 
-     * @param taskQueueSid The task_queue_sid
+     * @param taskQueueSid Filter by workers that are eligible for a TaskQueue by
+     *                     SID
      * @return this
      */
     public WorkerReader setTaskQueueSid(final String taskQueueSid) {

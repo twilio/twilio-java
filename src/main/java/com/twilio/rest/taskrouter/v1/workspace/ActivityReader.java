@@ -34,9 +34,9 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * The friendly_name.
+     * Filter by an Activity's friendly name.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Filter by an Activity's friendly name
      * @return this
      */
     public ActivityReader setFriendlyName(final String friendlyName) {
@@ -45,9 +45,11 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * The available.
+     * Filter by activities that are available or unavailable. (Note: This can be
+     * 'true', '1'' or 'yes' to indicate a true value. All other values will
+     * represent false).
      * 
-     * @param available The available
+     * @param available Filter by activities that are available or unavailable.
      * @return this
      */
     public ActivityReader setAvailable(final String available) {

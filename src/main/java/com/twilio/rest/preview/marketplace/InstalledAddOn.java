@@ -259,9 +259,9 @@ public class InstalledAddOn extends Resource {
     }
 
     /**
-     * Returns The The links.
+     * Returns The A dictionary of URLs for related resource..
      * 
-     * @return The links
+     * @return A dictionary of URLs for related resource.
      */
     public final Map<String, String> getLinks() {
         return this.links;

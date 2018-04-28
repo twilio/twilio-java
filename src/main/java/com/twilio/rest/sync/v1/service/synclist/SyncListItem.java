@@ -247,99 +247,110 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The index.
+     * Returns The Contains the numeric index of this List Item..
      * 
-     * @return The index
+     * @return Contains the numeric index of this List Item.
      */
     public final Integer getIndex() {
         return this.index;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique SID identifier of the Twilio Account..
      * 
-     * @return The account_sid
+     * @return The unique SID identifier of the Twilio Account.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The unique SID identifier of the Service Instance that hosts this
+     * List object..
      * 
-     * @return The service_sid
+     * @return The unique SID identifier of the Service Instance that hosts this
+     *         List object.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The list_sid.
+     * Returns The The unique 34-character SID identifier of the List containing
+     * this Item..
      * 
-     * @return The list_sid
+     * @return The unique 34-character SID identifier of the List containing this
+     *         Item.
      */
     public final String getListSid() {
         return this.listSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL for this item..
      * 
-     * @return The url
+     * @return The absolute URL for this item.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The revision.
+     * Returns The Contains the current revision of this item, represented by a
+     * string identifier..
      * 
-     * @return The revision
+     * @return Contains the current revision of this item, represented by a string
+     *         identifier.
      */
     public final String getRevision() {
         return this.revision;
     }
 
     /**
-     * Returns The The data.
+     * Returns The Contains arbitrary user-defined, schema-less data that this List
+     * Item stores, represented by a JSON object, up to 16KB..
      * 
-     * @return The data
+     * @return Contains arbitrary user-defined, schema-less data that this List
+     *         Item stores, represented by a JSON object, up to 16KB.
      */
     public final Map<String, Object> getData() {
         return this.data;
     }
 
     /**
-     * Returns The The date_expires.
+     * Returns The Contains the date this item expires and gets deleted
+     * automatically..
      * 
-     * @return The date_expires
+     * @return Contains the date this item expires and gets deleted automatically.
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this item was created, given in UTC ISO 8601 format..
      * 
-     * @return The date_created
+     * @return The date this item was created, given in UTC ISO 8601 format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The Specifies the date this item was last updated, given in UTC ISO
+     * 8601 format..
      * 
-     * @return The date_updated
+     * @return Specifies the date this item was last updated, given in UTC ISO 8601
+     *         format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The created_by.
+     * Returns The The identity of this item's creator..
      * 
-     * @return The created_by
+     * @return The identity of this item's creator.
      */
     public final String getCreatedBy() {
         return this.createdBy;

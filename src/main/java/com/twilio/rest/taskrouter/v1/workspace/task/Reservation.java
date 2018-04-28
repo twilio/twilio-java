@@ -250,9 +250,9 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The ID of the Account that owns this Task.
      * 
-     * @return The account_sid
+     * @return The ID of the Account that owns this Task
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -277,54 +277,54 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The reservation_status.
+     * Returns The The current status of the reservation..
      * 
-     * @return The reservation_status
+     * @return The current status of the reservation.
      */
     public final Reservation.Status getReservationStatus() {
         return this.reservationStatus;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique ID of this Reservation..
      * 
-     * @return The sid
+     * @return The unique ID of this Reservation.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The task_sid.
+     * Returns The The ID of the reserved Task.
      * 
-     * @return The task_sid
+     * @return The ID of the reserved Task
      */
     public final String getTaskSid() {
         return this.taskSid;
     }
 
     /**
-     * Returns The The worker_name.
+     * Returns The Human readable description of the Worker that is reserved.
      * 
-     * @return The worker_name
+     * @return Human readable description of the Worker that is reserved
      */
     public final String getWorkerName() {
         return this.workerName;
     }
 
     /**
-     * Returns The The worker_sid.
+     * Returns The The ID of the reserved Worker.
      * 
-     * @return The worker_sid
+     * @return The ID of the reserved Worker
      */
     public final String getWorkerSid() {
         return this.workerSid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The ID of the Workspace that this task is contained within..
      * 
-     * @return The workspace_sid
+     * @return The ID of the Workspace that this task is contained within.
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;

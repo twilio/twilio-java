@@ -43,7 +43,8 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Include phone numbers new to the Twilio platform.
+     * Include phone numbers new to the Twilio platform. Possible values are either
+     * `true` or `false`. Default is `true`..
      * 
      * @param beta Include new phone numbers
      * @return this
@@ -55,7 +56,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
     /**
      * Only show the incoming phone number resources with friendly names that
-     * exactly match this name.
+     * exactly match this name..
      * 
      * @param friendlyName Filter by friendly name
      * @return this
@@ -66,7 +67,8 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Only show the incoming phone number resources that match this pattern.
+     * Only show the incoming phone number resources that match this pattern. You
+     * can specify partial numbers and use '*' as a wildcard for any digit..
      * 
      * @param phoneNumber Filter by incoming phone number
      * @return this
@@ -77,7 +79,8 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Only show the incoming phone number resources that match this pattern.
+     * Only show the incoming phone number resources that match this pattern. You
+     * can specify partial numbers and use '*' as a wildcard for any digit..
      * 
      * @param phoneNumber Filter by incoming phone number
      * @return this
@@ -87,9 +90,11 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * The origin.
+     * Include phone numbers based on the origin, by default, phone numbers of all
+     * origin are included. Possible values are either `twilio` or `hosted`..
      * 
-     * @param origin The origin
+     * @param origin Include phone numbers based on the origin, by default, phone
+     *               numbers of all origin are included.
      * @return this
      */
     public IncomingPhoneNumberReader setOrigin(final String origin) {

@@ -54,7 +54,8 @@ public class VoipReader extends Reader<Voip> {
     /**
      * Construct a new VoipReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The 34 character string that uniquely identifies your
+     *                       account.
      * @param pathCountryCode The country_code
      */
     public VoipReader(final String pathAccountSid, 

@@ -45,7 +45,8 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters..
+     * A human readable description of this resource, up to 64 characters. Should
+     * not include PII..
      * 
      * @param friendlyName A human readable description of this resource.
      * @return this
@@ -56,9 +57,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The proxy phone number for this Participant..
+     * The proxy phone number to use for this Participant. If not specified, Proxy
+     * will select a number from the pool..
      * 
-     * @param proxyIdentifier The proxy phone number for this Participant.
+     * @param proxyIdentifier The proxy phone number to use for this Participant.
      * @return this
      */
     public ParticipantCreator setProxyIdentifier(final String proxyIdentifier) {
@@ -67,9 +69,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The unique SID identifier of the Proxy Identifier..
+     * The proxy_identifier_sid.
      * 
-     * @param proxyIdentifierSid Proxy Identifier Sid.
+     * @param proxyIdentifierSid The proxy_identifier_sid
      * @return this
      */
     public ParticipantCreator setProxyIdentifierSid(final String proxyIdentifierSid) {

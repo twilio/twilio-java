@@ -46,7 +46,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Filter by messages to this number.
+     * Only show messages to this phone number..
      * 
      * @param to Filter by messages to this number
      * @return this
@@ -57,7 +57,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Filter by messages to this number.
+     * Only show messages to this phone number..
      * 
      * @param to Filter by messages to this number
      * @return this
@@ -67,7 +67,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Only show messages from this phone number.
+     * Only show messages from this phone number or alphanumeric sender ID..
      * 
      * @param from Filter by from number
      * @return this
@@ -78,7 +78,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Only show messages from this phone number.
+     * Only show messages from this phone number or alphanumeric sender ID..
      * 
      * @param from Filter by from number
      * @return this
@@ -88,7 +88,12 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Filter messages sent by this date.
+     * Only show messages sent on this date (in
+     * [GMT](https://en.wikipedia.org/wiki/Greenwich_Mean_Time) format), given as
+     * `YYYY-MM-DD`. Example: `DateSent=2009-07-06`. You can also specify
+     * inequality, such as `DateSent&lt;=YYYY-MM-DD` for messages that were sent on
+     * or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` for messages sent
+     * on or after midnight on a date..
      * 
      * @param absoluteDateSent Filter by date sent
      * @return this
@@ -100,7 +105,12 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Filter messages sent by this date.
+     * Only show messages sent on this date (in
+     * [GMT](https://en.wikipedia.org/wiki/Greenwich_Mean_Time) format), given as
+     * `YYYY-MM-DD`. Example: `DateSent=2009-07-06`. You can also specify
+     * inequality, such as `DateSent&lt;=YYYY-MM-DD` for messages that were sent on
+     * or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` for messages sent
+     * on or after midnight on a date..
      * 
      * @param rangeDateSent Filter by date sent
      * @return this

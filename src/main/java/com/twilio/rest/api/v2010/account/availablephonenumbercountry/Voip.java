@@ -38,7 +38,8 @@ public class Voip extends Resource {
     /**
      * Create a VoipReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The 34 character string that uniquely identifies your
+     *                       account.
      * @param pathCountryCode The country_code
      * @return VoipReader capable of executing the read
      */

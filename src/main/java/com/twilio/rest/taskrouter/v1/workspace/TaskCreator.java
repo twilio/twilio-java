@@ -35,9 +35,12 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The timeout.
+     * The amount of time in seconds the task is allowed to live up to a maximum of
+     * 2 weeks. Defaults to 24 hours. On timeout, `task.canceled` event will fire
+     * with description "Task TTL Exceeded"..
      * 
-     * @param timeout The timeout
+     * @param timeout The amount of time in seconds the task is allowed to live up
+     *                to a maximum of 2 weeks.
      * @return this
      */
     public TaskCreator setTimeout(final Integer timeout) {
@@ -46,9 +49,12 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The priority.
+     * Override priority for the Task. When supplied, the Task will take on the
+     * given priority unless it matches a Workflow Target with a Priority set. When
+     * not supplied, the Task will take on the priority of the matching Workflow
+     * Target..
      * 
-     * @param priority The priority
+     * @param priority Override priority for the Task.
      * @return this
      */
     public TaskCreator setPriority(final Integer priority) {
@@ -57,9 +63,12 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The task_channel.
+     * When MultiTasking is enabled specify the type of the task by passing either
+     * TaskChannel Unique Name or Task Channel Sid. Default value is "default".
      * 
-     * @param taskChannel The task_channel
+     * @param taskChannel When MultiTasking is enabled specify the type of the task
+     *                    by passing either TaskChannel Unique Name or Task Channel
+     *                    Sid.
      * @return this
      */
     public TaskCreator setTaskChannel(final String taskChannel) {
@@ -68,9 +77,13 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The workflow_sid.
+     * The WorkflowSid for the Workflow that you would like to handle routing for
+     * this Task. If there is only one Workflow defined for the Workspace that you
+     * are posting a task to, then this is an optional parameter, and that single
+     * workflow will be used..
      * 
-     * @param workflowSid The workflow_sid
+     * @param workflowSid The WorkflowSid for the Workflow that you would like to
+     *                    handle routing for this Task.
      * @return this
      */
     public TaskCreator setWorkflowSid(final String workflowSid) {
@@ -79,9 +92,13 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The attributes.
+     * Url-encoded JSON string describing the attributes of this task. This data
+     * will be passed back to the Workflow's AssignmentCallbackURL when the Task is
+     * assigned to a Worker. An example task: `{ "task_type": "call",
+     * "twilio_call_sid": "CAxxx", "customer_ticket_number": "12345" }`.
      * 
-     * @param attributes The attributes
+     * @param attributes Url-encoded JSON string describing the attributes of this
+     *                   task.
      * @return this
      */
     public TaskCreator setAttributes(final String attributes) {

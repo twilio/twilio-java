@@ -35,9 +35,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The status.
+     * Set to `disconnected` to remove participant..
      * 
-     * @param status The status
+     * @param status Set to disconnected to remove participant.
      * @return this
      */
     public ParticipantUpdater setStatus(final Participant.Status status) {

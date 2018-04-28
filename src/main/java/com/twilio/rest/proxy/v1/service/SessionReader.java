@@ -38,10 +38,9 @@ public class SessionReader extends Reader<Session> {
     }
 
     /**
-     * Provides a unique and addressable name to be assigned to this Session,
-     * assigned by the developer, to be optionally used in addition to SID..
+     * The unique_name.
      * 
-     * @param uniqueName A unique, developer assigned name of this Session.
+     * @param uniqueName The unique_name
      * @return this
      */
     public SessionReader setUniqueName(final String uniqueName) {

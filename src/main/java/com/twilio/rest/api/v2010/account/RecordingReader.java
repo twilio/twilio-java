@@ -45,8 +45,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings on the given date. Should be formatted as YYYY-MM-DD.
-     * You can also specify inequalities.
+     * Only show recordings created on the given date. Should be formatted as
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
+     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
+     * after midnight on a date..
      * 
      * @param absoluteDateCreated Filter by date created
      * @return this
@@ -58,8 +61,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings on the given date. Should be formatted as YYYY-MM-DD.
-     * You can also specify inequalities.
+     * Only show recordings created on the given date. Should be formatted as
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
+     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
+     * after midnight on a date..
      * 
      * @param rangeDateCreated Filter by date created
      * @return this

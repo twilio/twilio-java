@@ -33,9 +33,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * Construct a new ParticipantUpdater.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Participant.
+     * @param pathServiceSid The service_sid
+     * @param pathSessionSid The session_sid
+     * @param pathSid The sid
      */
     public ParticipantUpdater(final String pathServiceSid, 
                               final String pathSessionSid, 
@@ -46,9 +46,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The phone number of this Participant..
+     * The identifier.
      * 
-     * @param identifier The phone number of this Participant.
+     * @param identifier The identifier
      * @return this
      */
     public ParticipantUpdater setIdentifier(final String identifier) {
@@ -57,9 +57,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters..
+     * The friendly_name.
      * 
-     * @param friendlyName A human readable description of this resource.
+     * @param friendlyName The friendly_name
      * @return this
      */
     public ParticipantUpdater setFriendlyName(final String friendlyName) {
@@ -68,9 +68,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The proxy phone number for this Participant..
+     * The proxy_identifier.
      * 
-     * @param proxyIdentifier The proxy phone number for this Participant.
+     * @param proxyIdentifier The proxy_identifier
      * @return this
      */
     public ParticipantUpdater setProxyIdentifier(final String proxyIdentifier) {
@@ -79,9 +79,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The unique SID identifier of the Proxy Identifier..
+     * The proxy_identifier_sid.
      * 
-     * @param proxyIdentifierSid Proxy Identifier Sid.
+     * @param proxyIdentifierSid The proxy_identifier_sid
      * @return this
      */
     public ParticipantUpdater setProxyIdentifierSid(final String proxyIdentifierSid) {

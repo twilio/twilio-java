@@ -36,9 +36,9 @@ public class SyncMapCreator extends Creator<SyncMap> {
     }
 
     /**
-     * The unique_name.
+     * (optional) Human-readable name for this map.
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName Human-readable name for this map
      * @return this
      */
     public SyncMapCreator setUniqueName(final String uniqueName) {
@@ -47,9 +47,10 @@ public class SyncMapCreator extends Creator<SyncMap> {
     }
 
     /**
-     * The ttl.
+     * (optional) Time-to-live of this Map in seconds, defaults to no expiration. In
+     * the range [1, 31 536 000 (1 year)], or 0 for infinity..
      * 
-     * @param ttl The ttl
+     * @param ttl Time-to-live of this Map in seconds, defaults to no expiration.
      * @return this
      */
     public SyncMapCreator setTtl(final Integer ttl) {

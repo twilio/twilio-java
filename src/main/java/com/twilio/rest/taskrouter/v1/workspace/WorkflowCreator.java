@@ -32,8 +32,9 @@ public class WorkflowCreator extends Creator<Workflow> {
      * Construct a new WorkflowCreator.
      * 
      * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName The friendly_name
-     * @param configuration The configuration
+     * @param friendlyName A string representing a human readable name for this
+     *                     Workflow.
+     * @param configuration JSON document configuring the rules for this Workflow.
      */
     public WorkflowCreator(final String pathWorkspaceSid, 
                            final String friendlyName, 
@@ -44,9 +45,12 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * The assignment_callback_url.
+     * A valid URL for the application that will process task assignment events. See
+     * [Handling Task Assignment
+     * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
      * 
-     * @param assignmentCallbackUrl The assignment_callback_url
+     * @param assignmentCallbackUrl A valid URL for the application that will
+     *                              process task assignment events.
      * @return this
      */
     public WorkflowCreator setAssignmentCallbackUrl(final URI assignmentCallbackUrl) {
@@ -55,9 +59,12 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * The assignment_callback_url.
+     * A valid URL for the application that will process task assignment events. See
+     * [Handling Task Assignment
+     * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
      * 
-     * @param assignmentCallbackUrl The assignment_callback_url
+     * @param assignmentCallbackUrl A valid URL for the application that will
+     *                              process task assignment events.
      * @return this
      */
     public WorkflowCreator setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
@@ -65,9 +72,13 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * The fallback_assignment_callback_url.
+     * If the request to the AssignmentCallbackUrl fails, the assignment callback
+     * will be made to this URL..
      * 
-     * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
+     * @param fallbackAssignmentCallbackUrl If the request to the
+     *                                      AssignmentCallbackUrl fails, the
+     *                                      assignment callback will be made to this
+     *                                      URL.
      * @return this
      */
     public WorkflowCreator setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl) {
@@ -76,9 +87,13 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * The fallback_assignment_callback_url.
+     * If the request to the AssignmentCallbackUrl fails, the assignment callback
+     * will be made to this URL..
      * 
-     * @param fallbackAssignmentCallbackUrl The fallback_assignment_callback_url
+     * @param fallbackAssignmentCallbackUrl If the request to the
+     *                                      AssignmentCallbackUrl fails, the
+     *                                      assignment callback will be made to this
+     *                                      URL.
      * @return this
      */
     public WorkflowCreator setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
@@ -86,9 +101,15 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * The task_reservation_timeout.
+     * An integer value controlling how long in seconds TaskRouter will wait for a
+     * confirmation response from your application after assigning a Task to a
+     * worker. See Task Assignment Callback for more information. Defaults to 120
+     * seconds. Maximum value is 86400 (24 hours).
      * 
-     * @param taskReservationTimeout The task_reservation_timeout
+     * @param taskReservationTimeout An integer value controlling how long in
+     *                               seconds TaskRouter will wait for a confirmation
+     *                               response from your application after assigning
+     *                               a Task to a worker.
      * @return this
      */
     public WorkflowCreator setTaskReservationTimeout(final Integer taskReservationTimeout) {

@@ -20,7 +20,7 @@ import com.twilio.rest.Domains;
 public class AccountUpdater extends Updater<Account> {
     private String pathSid;
     private String friendlyName;
-    private Account.Status status;
+    private String status;
 
     /**
      * Construct a new AccountUpdater.
@@ -54,7 +54,7 @@ public class AccountUpdater extends Updater<Account> {
      * @param status Status to update the Account with
      * @return this
      */
-    public AccountUpdater setStatus(final Account.Status status) {
+    public AccountUpdater setStatus(final String status) {
         this.status = status;
         return this;
     }
@@ -110,7 +110,7 @@ public class AccountUpdater extends Updater<Account> {
         }
 
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            request.addPostParam("Status", status);
         }
     }
 }

@@ -34,33 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Account extends Resource {
-    private static final long serialVersionUID = 82837000699633L;
-
-    public enum Status {
-        ACTIVE("active"),
-        SUSPENDED("suspended"),
-        CLOSED("closed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Status from a string.
-         * @param value string value
-         * @return generated Status
-         */
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
+    private static final long serialVersionUID = 22639247246045L;
 
     public enum Type {
         TRIAL("Trial"),
@@ -186,7 +160,7 @@ public class Account extends Resource {
     private final String friendlyName;
     private final String ownerAccountSid;
     private final String sid;
-    private final Account.Status status;
+    private final String status;
     private final Map<String, String> subresourceUris;
     private final Account.Type type;
     private final String uri;
@@ -205,7 +179,7 @@ public class Account extends Resource {
                     @JsonProperty("sid")
                     final String sid, 
                     @JsonProperty("status")
-                    final Account.Status status, 
+                    final String status, 
                     @JsonProperty("subresource_uris")
                     final Map<String, String> subresourceUris, 
                     @JsonProperty("type")
@@ -284,7 +258,7 @@ public class Account extends Resource {
      * 
      * @return The status of this account
      */
-    public final Account.Status getStatus() {
+    public final String getStatus() {
         return this.status;
     }
 

@@ -90,7 +90,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * The HTTP method to be used when making a request to the
-     * `DeauthorizeCallbackUrl`..
+     * `DeauthorizeCallbackUrl`. Either `GET` or `POST`..
      * 
      * @param deauthorizeCallbackMethod HTTP method Twilio WIll use making requests
      *                                  to the url
@@ -138,7 +138,8 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * A human readable name for the Connect App..
+     * A human readable description of the Connect App, with maximum length 64
+     * characters..
      * 
      * @param friendlyName A human readable name for the Connect App.
      * @return this
@@ -172,7 +173,8 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The set of permissions that your ConnectApp requests..
+     * A comma-separated list of permssions you will request from users of this
+     * ConnectApp.  Valid permssions are `get-all` or `post-all`..
      * 
      * @param permissions The set of permissions that your ConnectApp requests.
      * @return this
@@ -183,7 +185,8 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The set of permissions that your ConnectApp requests..
+     * A comma-separated list of permssions you will request from users of this
+     * ConnectApp.  Valid permssions are `get-all` or `post-all`..
      * 
      * @param permissions The set of permissions that your ConnectApp requests.
      * @return this

@@ -51,10 +51,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * Provides a unique and addressable name to be assigned to this Session,
-     * assigned by the developer, to be optionally used in addition to SID..
+     * The unique_name.
      * 
-     * @param uniqueName A unique, developer assigned name of this Session.
+     * @param uniqueName The unique_name
      * @return this
      */
     public SessionUpdater setUniqueName(final String uniqueName) {
@@ -63,9 +62,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The date that this Session was expiry, given in ISO 8601 format..
+     * The date that this Session should be expired, given in ISO 8601 format..
      * 
-     * @param dateExpiry The date this Session was expiry
+     * @param dateExpiry The date this Session should ge expired
      * @return this
      */
     public SessionUpdater setDateExpiry(final DateTime dateExpiry) {
@@ -74,7 +73,8 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The Time to Live for a Session, in seconds..
+     * The time delay, in seconds, after which a session will be expired.  Keyed off
+     * of last interaction time..
      * 
      * @param ttl TTL for a Session, in seconds.
      * @return this
@@ -85,10 +85,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The Mode of this Session. One of `message-only`, `voice-only` or
-     * `voice-and-message`..
+     * The mode.
      * 
-     * @param mode The Mode of this Session
+     * @param mode The mode
      * @return this
      */
     public SessionUpdater setMode(final Session.Mode mode) {
@@ -97,8 +96,8 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The Status of this Session. One of `in-progress`, `closed`, `failed`,
-     * `unknown` or `completed`..
+     * The Status of this Session. Set `in-progress` to re-open a session, `closed`
+     * to close a session..
      * 
      * @param status The Status of this Session
      * @return this
@@ -109,9 +108,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * A list of phone numbers to add to this Session..
+     * The participants.
      * 
-     * @param participants A list of phone numbers to add to this Session.
+     * @param participants The participants
      * @return this
      */
     public SessionUpdater setParticipants(final List<Map<String, Object>> participants) {
@@ -120,9 +119,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * A list of phone numbers to add to this Session..
+     * The participants.
      * 
-     * @param participants A list of phone numbers to add to this Session.
+     * @param participants The participants
      * @return this
      */
     public SessionUpdater setParticipants(final Map<String, Object> participants) {

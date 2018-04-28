@@ -39,9 +39,10 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The attributes.
+     * The user-defined JSON data describing the custom attributes of this task..
      * 
-     * @param attributes The attributes
+     * @param attributes The user-defined JSON data describing the custom
+     *                   attributes of this task.
      * @return this
      */
     public TaskUpdater setAttributes(final String attributes) {
@@ -50,9 +51,13 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The assignment_status.
+     * A 'pending' or 'reserved' Task may be canceled by posting
+     * AssignmentStatus='canceled'. Post AssignmentStatus='wrapping' to move Task to
+     * 'wrapup' state and AssignmentStatus='completed' to move a Task to 'completed'
+     * state..
      * 
-     * @param assignmentStatus The assignment_status
+     * @param assignmentStatus A 'pending' or 'reserved' Task may be canceled by
+     *                         posting AssignmentStatus='canceled'.
      * @return this
      */
     public TaskUpdater setAssignmentStatus(final Task.Status assignmentStatus) {
@@ -61,9 +66,11 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The reason.
+     * This is only required if the Task is canceled or completed. This logs the
+     * reason the task was either canceled or completed and queues the task for
+     * deletion after 5 minutes..
      * 
-     * @param reason The reason
+     * @param reason This is only required if the Task is canceled or completed.
      * @return this
      */
     public TaskUpdater setReason(final String reason) {
@@ -72,9 +79,10 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The priority.
+     * Override priority for the Task. When supplied, the Task will take on the
+     * given priority unless it matches a Workflow Target with a Priority set..
      * 
-     * @param priority The priority
+     * @param priority Override priority for the Task.
      * @return this
      */
     public TaskUpdater setPriority(final Integer priority) {

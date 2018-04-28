@@ -30,7 +30,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
     /**
      * Construct a new SyncMapPermissionReader.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathMapSid Sync Map SID or unique name.
      */
     public SyncMapPermissionReader(final String pathServiceSid, 

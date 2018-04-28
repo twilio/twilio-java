@@ -291,9 +291,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to find proxy numbers in the same areacode..
+     * Returns The Whether to limit proxy numbers in the same areacode..
      * 
-     * @return Whether to find proxy numbers in the same areacode.
+     * @return Whether to limit proxy numbers in the same areacode.
      */
     public final Service.GeoMatchLevel getGeoMatchLevel() {
         return this.geoMatchLevel;

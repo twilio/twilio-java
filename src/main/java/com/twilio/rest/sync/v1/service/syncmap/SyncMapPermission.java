@@ -41,7 +41,7 @@ public class SyncMapPermission extends Resource {
     /**
      * Create a SyncMapPermissionFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathMapSid Sync Map SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Map Permission
      *                     applies.
@@ -56,7 +56,7 @@ public class SyncMapPermission extends Resource {
     /**
      * Create a SyncMapPermissionDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name
      * @param pathMapSid Sync Map SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Map Permission
      *                     applies.
@@ -71,7 +71,7 @@ public class SyncMapPermission extends Resource {
     /**
      * Create a SyncMapPermissionReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathMapSid Sync Map SID or unique name.
      * @return SyncMapPermissionReader capable of executing the read
      */

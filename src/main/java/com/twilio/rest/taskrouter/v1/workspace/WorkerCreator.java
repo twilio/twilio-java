@@ -27,7 +27,7 @@ public class WorkerCreator extends Creator<Worker> {
      * Construct a new WorkerCreator.
      * 
      * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName String representing user-friendly name for the Worker.
      */
     public WorkerCreator(final String pathWorkspaceSid, 
                          final String friendlyName) {
@@ -36,9 +36,11 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     /**
-     * The activity_sid.
+     * A valid Activity describing the worker's initial state. See Activities for
+     * more information. If not provided, new Workers will be use the
+     * DefaultActivitySid configured on the Workspace..
      * 
-     * @param activitySid The activity_sid
+     * @param activitySid A valid Activity describing the worker's initial state.
      * @return this
      */
     public WorkerCreator setActivitySid(final String activitySid) {
@@ -47,9 +49,11 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     /**
-     * The attributes.
+     * JSON object describing this worker. For example: `{ 'email: 'Bob@foo.com',
+     * 'phone': '8675309' }`. This data will be passed to the Assignment Callback
+     * URL whenever TaskRouter assigns a Task to this worker. Defaults to {}..
      * 
-     * @param attributes The attributes
+     * @param attributes JSON object describing this worker.
      * @return this
      */
     public WorkerCreator setAttributes(final String attributes) {

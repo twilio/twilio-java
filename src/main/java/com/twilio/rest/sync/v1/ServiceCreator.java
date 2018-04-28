@@ -31,9 +31,9 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean aclEnabled;
 
     /**
-     * The friendly_name.
+     * (optional) Human-readable name for this service instance.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human-readable name for this service instance
      * @return this
      */
     public ServiceCreator setFriendlyName(final String friendlyName) {
@@ -42,9 +42,11 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The webhook_url.
+     * (optional) A URL that will receive event updates when objects are
+     * manipulated..
      * 
-     * @param webhookUrl The webhook_url
+     * @param webhookUrl A URL that will receive event updates when objects are
+     *                   manipulated.
      * @return this
      */
     public ServiceCreator setWebhookUrl(final URI webhookUrl) {
@@ -53,9 +55,11 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The webhook_url.
+     * (optional) A URL that will receive event updates when objects are
+     * manipulated..
      * 
-     * @param webhookUrl The webhook_url
+     * @param webhookUrl A URL that will receive event updates when objects are
+     *                   manipulated.
      * @return this
      */
     public ServiceCreator setWebhookUrl(final String webhookUrl) {
@@ -63,9 +67,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The reachability_webhooks_enabled.
+     * (optional) `true` or `false` - controls whether this instance fires webhooks
+     * when client endpoints connect to Sync Defaults to false..
      * 
-     * @param reachabilityWebhooksEnabled The reachability_webhooks_enabled
+     * @param reachabilityWebhooksEnabled true or false - controls whether this
+     *                                    instance fires webhooks when client
+     *                                    endpoints connect to Sync
      * @return this
      */
     public ServiceCreator setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
@@ -74,9 +81,14 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The acl_enabled.
+     * (optional) `true` or `false` - determines whether token identities must be
+     * granted access to Sync objects via the [Permissions
+     * API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in
+     * this Service..
      * 
-     * @param aclEnabled The acl_enabled
+     * @param aclEnabled true or false - determines whether token identities must
+     *                   be granted access to Sync objects via the Permissions API
+     *                   in this Service.
      * @return this
      */
     public ServiceCreator setAclEnabled(final Boolean aclEnabled) {

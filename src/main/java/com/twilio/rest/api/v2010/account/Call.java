@@ -494,9 +494,9 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The duration.
+     * Returns The The length of the call in seconds..
      * 
-     * @return The duration
+     * @return The length of the call in seconds.
      */
     public final String getDuration() {
         return this.duration;
@@ -629,9 +629,9 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The status.
+     * Returns The A string representing the status of the call..
      * 
-     * @return The status
+     * @return A string representing the status of the call.
      */
     public final Call.Status getStatus() {
         return this.status;

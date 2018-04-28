@@ -54,7 +54,8 @@ public class NationalReader extends Reader<National> {
     /**
      * Construct a new NationalReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The 34 character string that uniquely identifies your
+     *                       account.
      * @param pathCountryCode The country_code
      */
     public NationalReader(final String pathAccountSid, 

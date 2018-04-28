@@ -30,10 +30,10 @@ public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
     /**
      * Construct a new MessageInteractionFetcher.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathParticipantSid Participant Sid.
-     * @param pathSid A string that uniquely identifies this Message Interaction.
+     * @param pathServiceSid The service_sid
+     * @param pathSessionSid The session_sid
+     * @param pathParticipantSid The participant_sid
+     * @param pathSid The sid
      */
     public MessageInteractionFetcher(final String pathServiceSid, 
                                      final String pathSessionSid, 

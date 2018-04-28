@@ -26,7 +26,8 @@ public class ActivityCreator extends Creator<Activity> {
      * Construct a new ActivityCreator.
      * 
      * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable name for the Activity, such as 'On
+     *                     Call', 'Break', 'Email', etc.
      */
     public ActivityCreator(final String pathWorkspaceSid, 
                            final String friendlyName) {
@@ -35,9 +36,14 @@ public class ActivityCreator extends Creator<Activity> {
     }
 
     /**
-     * The available.
+     * Boolean value indicating whether the worker should be eligible to receive a
+     * Task when they occupy this Activity. For example, a call center might have an
+     * activity named 'On Call' with an availability set to 'false'. Note: This can
+     * be 'true', '1' or 'yes' to indicate a true value. All other values will
+     * represent false. Defaults to false..
      * 
-     * @param available The available
+     * @param available Boolean value indicating whether the worker should be
+     *                  eligible to receive a Task when they occupy this Activity.
      * @return this
      */
     public ActivityCreator setAvailable(final Boolean available) {

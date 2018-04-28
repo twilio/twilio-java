@@ -215,7 +215,7 @@ public class Recording extends Resource {
     private final DateTime dateCreated;
     private final String sid;
     private final String sourceSid;
-    private final String size;
+    private final Long size;
     private final URI url;
     private final Recording.Type type;
     private final Integer duration;
@@ -237,7 +237,7 @@ public class Recording extends Resource {
                       @JsonProperty("source_sid")
                       final String sourceSid, 
                       @JsonProperty("size")
-                      final String size, 
+                      final Long size, 
                       @JsonProperty("url")
                       final URI url, 
                       @JsonProperty("type")
@@ -320,7 +320,7 @@ public class Recording extends Resource {
      * 
      * @return The size
      */
-    public final String getSize() {
+    public final Long getSize() {
         return this.size;
     }
 

@@ -146,7 +146,7 @@ public class Room extends Resource {
      * Create a RoomUpdater to execute update.
      * 
      * @param pathSid The sid
-     * @param status The status
+     * @param status Set to completed to end the Room.
      * @return RoomUpdater capable of executing the update
      */
     public static RoomUpdater updater(final String pathSid, 
@@ -268,126 +268,134 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A system-generated 34-character string that uniquely identifies
+     * this resource..
      * 
-     * @return The sid
+     * @return A system-generated 34-character string that uniquely identifies this
+     *         resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The status.
+     * Returns The A string representing the status of the Room..
      * 
-     * @return The status
+     * @return A string representing the status of the Room.
      */
     public final Room.RoomStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created, given as a UTC ISO 8601
+     * Timestamp..
      * 
-     * @return The date_created
+     * @return The date that this resource was created, given as a UTC ISO 8601
+     *         Timestamp.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated, given as a UTC ISO
+     * 8601 Timestamp..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated, given as a UTC ISO
+     *         8601 Timestamp.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account associated with this Room..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account associated with this Room.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The enable_turn.
+     * Returns The Enable Twilio's Network Traversal TURN service..
      * 
-     * @return The enable_turn
+     * @return Enable Twilio's Network Traversal TURN service.
      */
     public final Boolean getEnableTurn() {
         return this.enableTurn;
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The A developer-supplied Name of the Room..
      * 
-     * @return The unique_name
+     * @return A developer-supplied Name of the Room.
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The status_callback.
+     * Returns The A URL that Twilio sends asynchronous webhook requests to on every
+     * Room event..
      * 
-     * @return The status_callback
+     * @return A URL that Twilio sends asynchronous webhook requests to on every
+     *         Room event.
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The The status_callback_method.
+     * Returns The HTTP method Twilio should use when requesting the above URL..
      * 
-     * @return The status_callback_method
+     * @return HTTP method Twilio should use when requesting the above URL.
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The The end_time.
+     * Returns The The end time of the Room, given as a UTC ISO 8601 Timestamp..
      * 
-     * @return The end_time
+     * @return The end time of the Room, given as a UTC ISO 8601 Timestamp.
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The The duration.
+     * Returns The The duration of the Room in seconds..
      * 
-     * @return The duration
+     * @return The duration of the Room in seconds.
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The type.
+     * Returns The Type of Room, either peer-to-peer or group..
      * 
-     * @return The type
+     * @return Type of Room, either peer-to-peer or group.
      */
     public final Room.RoomType getType() {
         return this.type;
     }
 
     /**
-     * Returns The The max_participants.
+     * Returns The Maximum number of concurrent Participants allowed in the Room..
      * 
-     * @return The max_participants
+     * @return Maximum number of concurrent Participants allowed in the Room.
      */
     public final Integer getMaxParticipants() {
         return this.maxParticipants;
     }
 
     /**
-     * Returns The The record_participants_on_connect.
+     * Returns The Start recording when Participants connect..
      * 
-     * @return The record_participants_on_connect
+     * @return Start recording when Participants connect.
      */
     public final Boolean getRecordParticipantsOnConnect() {
         return this.recordParticipantsOnConnect;
@@ -403,18 +411,18 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The media_region.
+     * Returns The Region for the media server in Group Rooms..
      * 
-     * @return The media_region
+     * @return Region for the media server in Group Rooms.
      */
     public final String getMediaRegion() {
         return this.mediaRegion;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL for this resource..
      * 
-     * @return The url
+     * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
         return this.url;

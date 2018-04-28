@@ -59,8 +59,8 @@ public class ParticipantCreator extends Creator<Participant> {
      * Construct a new ParticipantCreator.
      * 
      * @param pathConferenceSid The conference_sid
-     * @param from The from
-     * @param to The to
+     * @param from number, client id
+     * @param to number, client id, sip address
      */
     public ParticipantCreator(final String pathConferenceSid, 
                               final com.twilio.type.PhoneNumber from, 
@@ -75,8 +75,8 @@ public class ParticipantCreator extends Creator<Participant> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The conference_sid
-     * @param from The from
-     * @param to The to
+     * @param from number, client id
+     * @param to number, client id, sip address
      */
     public ParticipantCreator(final String pathAccountSid, 
                               final String pathConferenceSid, 
@@ -89,9 +89,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The status_callback.
+     * absolute url.
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback absolute url
      * @return this
      */
     public ParticipantCreator setStatusCallback(final URI statusCallback) {
@@ -100,9 +100,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The status_callback.
+     * absolute url.
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback absolute url
      * @return this
      */
     public ParticipantCreator setStatusCallback(final String statusCallback) {
@@ -110,9 +110,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The status_callback_method.
+     * GET, POST.
      * 
-     * @param statusCallbackMethod The status_callback_method
+     * @param statusCallbackMethod GET, POST
      * @return this
      */
     public ParticipantCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -121,9 +121,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The status_callback_event.
+     * initiated, ringing, answered, completed.
      * 
-     * @param statusCallbackEvent The status_callback_event
+     * @param statusCallbackEvent initiated, ringing, answered, completed
      * @return this
      */
     public ParticipantCreator setStatusCallbackEvent(final List<String> statusCallbackEvent) {
@@ -132,9 +132,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The status_callback_event.
+     * initiated, ringing, answered, completed.
      * 
-     * @param statusCallbackEvent The status_callback_event
+     * @param statusCallbackEvent initiated, ringing, answered, completed
      * @return this
      */
     public ParticipantCreator setStatusCallbackEvent(final String statusCallbackEvent) {
@@ -142,9 +142,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The timeout.
+     * 5-600.
      * 
-     * @param timeout The timeout
+     * @param timeout 5-600
      * @return this
      */
     public ParticipantCreator setTimeout(final Integer timeout) {
@@ -153,9 +153,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The record.
+     * true, false.
      * 
-     * @param record The record
+     * @param record true, false
      * @return this
      */
     public ParticipantCreator setRecord(final Boolean record) {
@@ -164,9 +164,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The muted.
+     * true, false.
      * 
-     * @param muted The muted
+     * @param muted true, false
      * @return this
      */
     public ParticipantCreator setMuted(final Boolean muted) {
@@ -175,9 +175,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The beep.
+     * true, false, onEnter, onExit.
      * 
-     * @param beep The beep
+     * @param beep true, false, onEnter, onExit
      * @return this
      */
     public ParticipantCreator setBeep(final String beep) {
@@ -186,9 +186,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The start_conference_on_enter.
+     * true, false.
      * 
-     * @param startConferenceOnEnter The start_conference_on_enter
+     * @param startConferenceOnEnter true, false
      * @return this
      */
     public ParticipantCreator setStartConferenceOnEnter(final Boolean startConferenceOnEnter) {
@@ -197,9 +197,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The end_conference_on_exit.
+     * true, false.
      * 
-     * @param endConferenceOnExit The end_conference_on_exit
+     * @param endConferenceOnExit true, false
      * @return this
      */
     public ParticipantCreator setEndConferenceOnExit(final Boolean endConferenceOnExit) {
@@ -208,9 +208,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The wait_url.
+     * absolute url.
      * 
-     * @param waitUrl The wait_url
+     * @param waitUrl absolute url
      * @return this
      */
     public ParticipantCreator setWaitUrl(final URI waitUrl) {
@@ -219,9 +219,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The wait_url.
+     * absolute url.
      * 
-     * @param waitUrl The wait_url
+     * @param waitUrl absolute url
      * @return this
      */
     public ParticipantCreator setWaitUrl(final String waitUrl) {
@@ -229,9 +229,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The wait_method.
+     * GET, POST.
      * 
-     * @param waitMethod The wait_method
+     * @param waitMethod GET, POST
      * @return this
      */
     public ParticipantCreator setWaitMethod(final HttpMethod waitMethod) {
@@ -240,9 +240,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The early_media.
+     * true, false.
      * 
-     * @param earlyMedia The early_media
+     * @param earlyMedia true, false
      * @return this
      */
     public ParticipantCreator setEarlyMedia(final Boolean earlyMedia) {
@@ -251,9 +251,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The max_participants.
+     * 2-10.
      * 
-     * @param maxParticipants The max_participants
+     * @param maxParticipants 2-10
      * @return this
      */
     public ParticipantCreator setMaxParticipants(final Integer maxParticipants) {
@@ -262,9 +262,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_record.
+     * true, false, record-from-start, do-not-record.
      * 
-     * @param conferenceRecord The conference_record
+     * @param conferenceRecord true, false, record-from-start, do-not-record
      * @return this
      */
     public ParticipantCreator setConferenceRecord(final String conferenceRecord) {
@@ -273,9 +273,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_trim.
+     * trim-silence or do-not-trim.
      * 
-     * @param conferenceTrim The conference_trim
+     * @param conferenceTrim trim-silence or do-not-trim
      * @return this
      */
     public ParticipantCreator setConferenceTrim(final String conferenceTrim) {
@@ -284,9 +284,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_status_callback.
+     * absolute url.
      * 
-     * @param conferenceStatusCallback The conference_status_callback
+     * @param conferenceStatusCallback absolute url
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallback(final URI conferenceStatusCallback) {
@@ -295,9 +295,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_status_callback.
+     * absolute url.
      * 
-     * @param conferenceStatusCallback The conference_status_callback
+     * @param conferenceStatusCallback absolute url
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallback(final String conferenceStatusCallback) {
@@ -305,9 +305,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_status_callback_method.
+     * GET, POST.
      * 
-     * @param conferenceStatusCallbackMethod The conference_status_callback_method
+     * @param conferenceStatusCallbackMethod GET, POST
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod) {
@@ -316,9 +316,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_status_callback_event.
+     * start end join leave mute hold speaker.
      * 
-     * @param conferenceStatusCallbackEvent The conference_status_callback_event
+     * @param conferenceStatusCallbackEvent start end join leave mute hold speaker
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackEvent(final List<String> conferenceStatusCallbackEvent) {
@@ -327,9 +327,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_status_callback_event.
+     * start end join leave mute hold speaker.
      * 
-     * @param conferenceStatusCallbackEvent The conference_status_callback_event
+     * @param conferenceStatusCallbackEvent start end join leave mute hold speaker
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackEvent(final String conferenceStatusCallbackEvent) {
@@ -337,9 +337,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The recording_channels.
+     * mono, dual.
      * 
-     * @param recordingChannels The recording_channels
+     * @param recordingChannels mono, dual
      * @return this
      */
     public ParticipantCreator setRecordingChannels(final String recordingChannels) {
@@ -348,9 +348,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The recording_status_callback.
+     * absolute url.
      * 
-     * @param recordingStatusCallback The recording_status_callback
+     * @param recordingStatusCallback absolute url
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallback(final URI recordingStatusCallback) {
@@ -359,9 +359,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The recording_status_callback.
+     * absolute url.
      * 
-     * @param recordingStatusCallback The recording_status_callback
+     * @param recordingStatusCallback absolute url
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallback(final String recordingStatusCallback) {
@@ -369,9 +369,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The recording_status_callback_method.
+     * GET, POST.
      * 
-     * @param recordingStatusCallbackMethod The recording_status_callback_method
+     * @param recordingStatusCallbackMethod GET, POST
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
@@ -380,9 +380,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The sip_auth_username.
+     * sip username.
      * 
-     * @param sipAuthUsername The sip_auth_username
+     * @param sipAuthUsername sip username
      * @return this
      */
     public ParticipantCreator setSipAuthUsername(final String sipAuthUsername) {
@@ -391,9 +391,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The sip_auth_password.
+     * sip password.
      * 
-     * @param sipAuthPassword The sip_auth_password
+     * @param sipAuthPassword sip password
      * @return this
      */
     public ParticipantCreator setSipAuthPassword(final String sipAuthPassword) {
@@ -402,9 +402,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The region.
+     * us1, ie1, de1, sg1, br1, au1, jp1.
      * 
-     * @param region The region
+     * @param region us1, ie1, de1, sg1, br1, au1, jp1
      * @return this
      */
     public ParticipantCreator setRegion(final String region) {
@@ -413,10 +413,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_recording_status_callback.
+     * absolute url.
      * 
-     * @param conferenceRecordingStatusCallback The
-     *                                          conference_recording_status_callback
+     * @param conferenceRecordingStatusCallback absolute url
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
@@ -425,10 +424,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_recording_status_callback.
+     * absolute url.
      * 
-     * @param conferenceRecordingStatusCallback The
-     *                                          conference_recording_status_callback
+     * @param conferenceRecordingStatusCallback absolute url
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
@@ -436,10 +434,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_recording_status_callback_method.
+     * GET, POST.
      * 
-     * @param conferenceRecordingStatusCallbackMethod The
-     *                                                conference_recording_status_callback_method
+     * @param conferenceRecordingStatusCallbackMethod GET, POST
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {

@@ -160,9 +160,9 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The account owning this event.
      * 
-     * @return The account_sid
+     * @return The account owning this event
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -196,54 +196,54 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The description.
+     * Returns The A description of the event.
      * 
-     * @return The description
+     * @return A description of the event
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The The event_data.
+     * Returns The Data about this specific event..
      * 
-     * @return The event_data
+     * @return Data about this specific event.
      */
     public final Map<String, String> getEventData() {
         return this.eventData;
     }
 
     /**
-     * Returns The The event_date.
+     * Returns The The time this event was sent.
      * 
-     * @return The event_date
+     * @return The time this event was sent
      */
     public final DateTime getEventDate() {
         return this.eventDate;
     }
 
     /**
-     * Returns The The event_type.
+     * Returns The An identifier for this event.
      * 
-     * @return The event_type
+     * @return An identifier for this event
      */
     public final String getEventType() {
         return this.eventType;
     }
 
     /**
-     * Returns The The resource_sid.
+     * Returns The The sid of the object this event is most relevant to.
      * 
-     * @return The resource_sid
+     * @return The sid of the object this event is most relevant to
      */
     public final String getResourceSid() {
         return this.resourceSid;
     }
 
     /**
-     * Returns The The resource_type.
+     * Returns The The type of object this event is most relevant to.
      * 
-     * @return The resource_type
+     * @return The type of object this event is most relevant to
      */
     public final String getResourceType() {
         return this.resourceType;

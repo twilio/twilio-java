@@ -28,9 +28,9 @@ public class RoomReader extends Reader<Room> {
     private DateTime dateCreatedBefore;
 
     /**
-     * The status.
+     * Only show Rooms with the given status..
      * 
-     * @param status The status
+     * @param status Only show Rooms with the given status.
      * @return this
      */
     public RoomReader setStatus(final Room.RoomStatus status) {
@@ -39,9 +39,9 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The unique_name.
+     * Only show Rooms with the provided Name..
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName Only show Rooms with the provided Name.
      * @return this
      */
     public RoomReader setUniqueName(final String uniqueName) {
@@ -50,9 +50,10 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The date_created_after.
+     * Only show Rooms that started on or after this date, given as `YYYY-MM-DD`..
      * 
-     * @param dateCreatedAfter The date_created_after
+     * @param dateCreatedAfter Only show Rooms that started on or after this date,
+     *                         given as YYYY-MM-DD.
      * @return this
      */
     public RoomReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -61,9 +62,10 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The date_created_before.
+     * Only show Rooms that started before this date, given as `YYYY-MM-DD`..
      * 
-     * @param dateCreatedBefore The date_created_before
+     * @param dateCreatedBefore Only show Rooms that started before this date,
+     *                          given as YYYY-MM-DD.
      * @return this
      */
     public RoomReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

@@ -410,9 +410,9 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The encryption_details.
+     * Returns The Details for how to decrypt the recording..
      * 
-     * @return The encryption_details
+     * @return Details for how to decrypt the recording.
      */
     public final Map<String, Object> getEncryptionDetails() {
         return this.encryptionDetails;

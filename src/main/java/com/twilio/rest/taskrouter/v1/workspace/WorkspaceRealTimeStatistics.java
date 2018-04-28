@@ -134,18 +134,18 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The activity_statistics.
+     * Returns The A breakdown of Workers by Activity.
      * 
-     * @return The activity_statistics
+     * @return A breakdown of Workers by Activity
      */
     public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
     }
 
     /**
-     * Returns The The longest_task_waiting_age.
+     * Returns The The age of the longest waiting Task.
      * 
-     * @return The longest_task_waiting_age
+     * @return The age of the longest waiting Task
      */
     public final Integer getLongestTaskWaitingAge() {
         return this.longestTaskWaitingAge;
@@ -161,27 +161,27 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The tasks_by_status.
+     * Returns The The Tasks broken down by status.
      * 
-     * @return The tasks_by_status
+     * @return The Tasks broken down by status
      */
     public final Map<String, Object> getTasksByStatus() {
         return this.tasksByStatus;
     }
 
     /**
-     * Returns The The total_tasks.
+     * Returns The The total number of Tasks.
      * 
-     * @return The total_tasks
+     * @return The total number of Tasks
      */
     public final Integer getTotalTasks() {
         return this.totalTasks;
     }
 
     /**
-     * Returns The The total_workers.
+     * Returns The The total number of Workers in the workspace.
      * 
-     * @return The total_workers
+     * @return The total number of Workers in the workspace
      */
     public final Integer getTotalWorkers() {
         return this.totalWorkers;

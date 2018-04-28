@@ -29,7 +29,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
     /**
      * Construct a new SyncStreamReader.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Instance SID or unique name.
      */
     public SyncStreamReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

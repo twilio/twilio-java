@@ -41,7 +41,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     /**
      * Only show the ShortCode resources with friendly names that exactly match this
-     * name.
+     * name..
      * 
      * @param friendlyName Filter by friendly name
      * @return this
@@ -53,7 +53,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     /**
      * Only show the ShortCode resources that match this pattern. You can specify
-     * partial numbers and use '*' as a wildcard for any digit.
+     * partial numbers and use '*' as a wildcard for any digit..
      * 
      * @param shortCode Filter by ShortCode
      * @return this

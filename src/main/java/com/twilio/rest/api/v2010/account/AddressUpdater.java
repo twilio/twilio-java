@@ -51,9 +51,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The friendly_name.
+     * A human-readable description of the address. Maximum 64 characters..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable description of the address.
      * @return this
      */
     public AddressUpdater setFriendlyName(final String friendlyName) {
@@ -62,9 +62,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The customer_name.
+     * Your name or business name, or that of your customer..
      * 
-     * @param customerName The customer_name
+     * @param customerName Your name or business name, or that of your customer.
      * @return this
      */
     public AddressUpdater setCustomerName(final String customerName) {
@@ -73,9 +73,10 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The street.
+     * The number and street address where you or your customer is located..
      * 
-     * @param street The street
+     * @param street The number and street address where you or your customer is
+     *               located.
      * @return this
      */
     public AddressUpdater setStreet(final String street) {
@@ -84,9 +85,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The city.
+     * The city in which you or your customer is located..
      * 
-     * @param city The city
+     * @param city The city in which you or your customer is located.
      * @return this
      */
     public AddressUpdater setCity(final String city) {
@@ -95,9 +96,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The region.
+     * The state or region in which you or your customer is located..
      * 
-     * @param region The region
+     * @param region The state or region in which you or your customer is located.
      * @return this
      */
     public AddressUpdater setRegion(final String region) {
@@ -106,9 +107,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The postal_code.
+     * The postal code in which you or your customer is located..
      * 
-     * @param postalCode The postal_code
+     * @param postalCode The postal code in which you or your customer is located.
      * @return this
      */
     public AddressUpdater setPostalCode(final String postalCode) {
@@ -128,9 +129,14 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The auto_correct_address.
+     * If you don't set a value for this parameter, or if you set it to `true`, then
+     * the system will, if necessary, auto-correct the address you provide. If you
+     * don't want the system to auto-correct the address, you will explicitly need
+     * to set this value to `false`..
      * 
-     * @param autoCorrectAddress The auto_correct_address
+     * @param autoCorrectAddress If you don't set a value for this parameter, or if
+     *                           you set it to true, then the system will, if
+     *                           necessary, auto-correct the address you provide.
      * @return this
      */
     public AddressUpdater setAutoCorrectAddress(final Boolean autoCorrectAddress) {

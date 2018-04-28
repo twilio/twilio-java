@@ -94,7 +94,7 @@ public class Workspace extends Resource {
     /**
      * Create a WorkspaceCreator to execute create.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable description of this workspace
      * @return WorkspaceCreator capable of executing the create
      */
     public static WorkspaceCreator creator(final String friendlyName) {
@@ -214,117 +214,131 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The ID of the account that owns this Workflow.
      * 
-     * @return The account_sid
+     * @return The ID of the account that owns this Workflow
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The time the Workspace was created, given as GMT in ISO 8601
+     * format..
      * 
-     * @return The date_created
+     * @return The time the Workspace was created, given as GMT in ISO 8601 format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The time the Workspace was last updated, given as GMT in ISO 8601
+     * format..
      * 
-     * @return The date_updated
+     * @return The time the Workspace was last updated, given as GMT in ISO 8601
+     *         format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The default_activity_name.
+     * Returns The The human readable name of the default activity..
      * 
-     * @return The default_activity_name
+     * @return The human readable name of the default activity.
      */
     public final String getDefaultActivityName() {
         return this.defaultActivityName;
     }
 
     /**
-     * Returns The The default_activity_sid.
+     * Returns The The ID of the Activity that will be used when new Workers are
+     * created in this Workspace..
      * 
-     * @return The default_activity_sid
+     * @return The ID of the Activity that will be used when new Workers are
+     *         created in this Workspace.
      */
     public final String getDefaultActivitySid() {
         return this.defaultActivitySid;
     }
 
     /**
-     * Returns The The event_callback_url.
+     * Returns The If provided, the Workspace will publish events to this URL..
      * 
-     * @return The event_callback_url
+     * @return If provided, the Workspace will publish events to this URL.
      */
     public final URI getEventCallbackUrl() {
         return this.eventCallbackUrl;
     }
 
     /**
-     * Returns The The events_filter.
+     * Returns The Use this parameter to receive webhooks on EventCallbackUrl for
+     * specific events on a workspace..
      * 
-     * @return The events_filter
+     * @return Use this parameter to receive webhooks on EventCallbackUrl for
+     *         specific events on a workspace.
      */
     public final String getEventsFilter() {
         return this.eventsFilter;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The Filter by a workspace’s friendly name..
      * 
-     * @return The friendly_name
+     * @return Filter by a workspace’s friendly name.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The multi_task_enabled.
+     * Returns The Multi tasking allows workers to handle multiple tasks
+     * simultaneously..
      * 
-     * @return The multi_task_enabled
+     * @return Multi tasking allows workers to handle multiple tasks simultaneously.
      */
     public final Boolean getMultiTaskEnabled() {
         return this.multiTaskEnabled;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique ID of the Workspace.
      * 
-     * @return The sid
+     * @return The unique ID of the Workspace
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The timeout_activity_name.
+     * Returns The The human readable name of the timeout activity..
      * 
-     * @return The timeout_activity_name
+     * @return The human readable name of the timeout activity.
      */
     public final String getTimeoutActivityName() {
         return this.timeoutActivityName;
     }
 
     /**
-     * Returns The The timeout_activity_sid.
+     * Returns The The ID of the Activity that will be assigned to a Worker when a
+     * Task reservation times out without a response..
      * 
-     * @return The timeout_activity_sid
+     * @return The ID of the Activity that will be assigned to a Worker when a Task
+     *         reservation times out without a response.
      */
     public final String getTimeoutActivitySid() {
         return this.timeoutActivitySid;
     }
 
     /**
-     * Returns The The prioritize_queue_order.
+     * Returns The Use this parameter to configure whether to prioritize LIFO or
+     * FIFO when workers are receiving Tasks from combination of LIFO and FIFO
+     * TaskQueues..
      * 
-     * @return The prioritize_queue_order
+     * @return Use this parameter to configure whether to prioritize LIFO or FIFO
+     *         when workers are receiving Tasks from combination of LIFO and FIFO
+     *         TaskQueues.
      */
     public final Workspace.QueueOrder getPrioritizeQueueOrder() {
         return this.prioritizeQueueOrder;

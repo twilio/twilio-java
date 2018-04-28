@@ -8,6 +8,7 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -20,6 +21,7 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -27,17 +29,37 @@ import java.util.List;
  * access, please contact help@twilio.com.
  */
 public class CompositionCreator extends Creator<Composition> {
+    private String roomSid;
+    private Map<String, Object> videoLayout;
     private List<String> audioSources;
-    private List<String> videoSources;
-    private Composition.VideoLayout videoLayout;
+    private List<String> audioSourcesExcluded;
     private String resolution;
     private Composition.Format format;
-    private Integer desiredBitrate;
-    private Integer desiredMaxDuration;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private Boolean trim;
-    private Boolean reuse;
+
+    /**
+     * The room_sid.
+     * 
+     * @param roomSid The room_sid
+     * @return this
+     */
+    public CompositionCreator setRoomSid(final String roomSid) {
+        this.roomSid = roomSid;
+        return this;
+    }
+
+    /**
+     * The video_layout.
+     * 
+     * @param videoLayout The video_layout
+     * @return this
+     */
+    public CompositionCreator setVideoLayout(final Map<String, Object> videoLayout) {
+        this.videoLayout = videoLayout;
+        return this;
+    }
 
     /**
      * The audio_sources.
@@ -61,35 +83,24 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * The video_sources.
+     * The audio_sources_excluded.
      * 
-     * @param videoSources The video_sources
+     * @param audioSourcesExcluded The audio_sources_excluded
      * @return this
      */
-    public CompositionCreator setVideoSources(final List<String> videoSources) {
-        this.videoSources = videoSources;
+    public CompositionCreator setAudioSourcesExcluded(final List<String> audioSourcesExcluded) {
+        this.audioSourcesExcluded = audioSourcesExcluded;
         return this;
     }
 
     /**
-     * The video_sources.
+     * The audio_sources_excluded.
      * 
-     * @param videoSources The video_sources
+     * @param audioSourcesExcluded The audio_sources_excluded
      * @return this
      */
-    public CompositionCreator setVideoSources(final String videoSources) {
-        return setVideoSources(Promoter.listOfOne(videoSources));
-    }
-
-    /**
-     * The video_layout.
-     * 
-     * @param videoLayout The video_layout
-     * @return this
-     */
-    public CompositionCreator setVideoLayout(final Composition.VideoLayout videoLayout) {
-        this.videoLayout = videoLayout;
-        return this;
+    public CompositionCreator setAudioSourcesExcluded(final String audioSourcesExcluded) {
+        return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
     }
 
     /**
@@ -111,28 +122,6 @@ public class CompositionCreator extends Creator<Composition> {
      */
     public CompositionCreator setFormat(final Composition.Format format) {
         this.format = format;
-        return this;
-    }
-
-    /**
-     * The desired_bitrate.
-     * 
-     * @param desiredBitrate The desired_bitrate
-     * @return this
-     */
-    public CompositionCreator setDesiredBitrate(final Integer desiredBitrate) {
-        this.desiredBitrate = desiredBitrate;
-        return this;
-    }
-
-    /**
-     * The desired_max_duration.
-     * 
-     * @param desiredMaxDuration The desired_max_duration
-     * @return this
-     */
-    public CompositionCreator setDesiredMaxDuration(final Integer desiredMaxDuration) {
-        this.desiredMaxDuration = desiredMaxDuration;
         return this;
     }
 
@@ -176,17 +165,6 @@ public class CompositionCreator extends Creator<Composition> {
      */
     public CompositionCreator setTrim(final Boolean trim) {
         this.trim = trim;
-        return this;
-    }
-
-    /**
-     * The reuse.
-     * 
-     * @param reuse The reuse
-     * @return this
-     */
-    public CompositionCreator setReuse(final Boolean reuse) {
-        this.reuse = reuse;
         return this;
     }
 
@@ -235,20 +213,24 @@ public class CompositionCreator extends Creator<Composition> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (roomSid != null) {
+            request.addPostParam("RoomSid", roomSid);
+        }
+
+        if (videoLayout != null) {
+            request.addPostParam("VideoLayout", Converter.mapToJson(videoLayout));
+        }
+
         if (audioSources != null) {
             for (String prop : audioSources) {
                 request.addPostParam("AudioSources", prop);
             }
         }
 
-        if (videoSources != null) {
-            for (String prop : videoSources) {
-                request.addPostParam("VideoSources", prop);
+        if (audioSourcesExcluded != null) {
+            for (String prop : audioSourcesExcluded) {
+                request.addPostParam("AudioSourcesExcluded", prop);
             }
-        }
-
-        if (videoLayout != null) {
-            request.addPostParam("VideoLayout", videoLayout.toString());
         }
 
         if (resolution != null) {
@@ -257,14 +239,6 @@ public class CompositionCreator extends Creator<Composition> {
 
         if (format != null) {
             request.addPostParam("Format", format.toString());
-        }
-
-        if (desiredBitrate != null) {
-            request.addPostParam("DesiredBitrate", desiredBitrate.toString());
-        }
-
-        if (desiredMaxDuration != null) {
-            request.addPostParam("DesiredMaxDuration", desiredMaxDuration.toString());
         }
 
         if (statusCallback != null) {
@@ -277,10 +251,6 @@ public class CompositionCreator extends Creator<Composition> {
 
         if (trim != null) {
             request.addPostParam("Trim", trim.toString());
-        }
-
-        if (reuse != null) {
-            request.addPostParam("Reuse", reuse.toString());
         }
     }
 }

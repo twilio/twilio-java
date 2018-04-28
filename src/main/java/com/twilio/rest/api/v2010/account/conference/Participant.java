@@ -122,8 +122,8 @@ public class Participant extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The conference_sid
-     * @param from The from
-     * @param to The to
+     * @param from number, client id
+     * @param to number, client id, sip address
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathAccountSid, 
@@ -137,8 +137,8 @@ public class Participant extends Resource {
      * Create a ParticipantCreator to execute create.
      * 
      * @param pathConferenceSid The conference_sid
-     * @param from The from
-     * @param to The to
+     * @param from number, client id
+     * @param to number, client id, sip address
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathConferenceSid, 
@@ -345,9 +345,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The hold.
+     * Returns The true if this participant is currently held..
      * 
-     * @return The hold
+     * @return true if this participant is currently held.
      */
     public final Boolean getHold() {
         return this.hold;

@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2018-04-28] Version 7.20.0
+----------------------------
+**Library**
+- PR #408: Strip default ports in RequestCanonicalizer. Thanks to @pkiv!
+
+**Video**
+- Redesign API by adding custom `VideoLayout` object. **(breaking change)**
+
+
 [2018-04-20] Version 7.19.1
 ----------------------------
 **Twiml**

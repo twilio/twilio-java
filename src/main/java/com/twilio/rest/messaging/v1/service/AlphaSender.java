@@ -46,7 +46,7 @@ public class AlphaSender extends Resource {
      * Create a AlphaSenderCreator to execute create.
      * 
      * @param pathServiceSid The service_sid
-     * @param alphaSender The alpha_sender
+     * @param alphaSender An Alphanumeric Sender ID string, up to 11 characters.
      * @return AlphaSenderCreator capable of executing the create
      */
     public static AlphaSenderCreator creator(final String pathServiceSid, 
@@ -163,72 +163,74 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The 34 character unique sid of the Alpha Sender ID..
      * 
-     * @return The sid
+     * @return The 34 character unique sid of the Alpha Sender ID.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The 34 character unique sid of the Account..
      * 
-     * @return The account_sid
+     * @return The 34 character unique sid of the Account.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The 34 character unique sid of the Messaging Service..
      * 
-     * @return The service_sid
+     * @return The 34 character unique sid of the Messaging Service.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created..
      * 
-     * @return The date_created
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The alpha_sender.
+     * Returns The An Alphanumeric Sender ID string, up to 11 characters..
      * 
-     * @return The alpha_sender
+     * @return An Alphanumeric Sender ID string, up to 11 characters.
      */
     public final String getAlphaSender() {
         return this.alphaSender;
     }
 
     /**
-     * Returns The The capabilities.
+     * Returns The An array of values that indicate whether the number can receive
+     * calls or messages..
      * 
-     * @return The capabilities
+     * @return An array of values that indicate whether the number can receive
+     *         calls or messages.
      */
     public final List<Map<String, Object>> getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL for this resource..
      * 
-     * @return The url
+     * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
         return this.url;

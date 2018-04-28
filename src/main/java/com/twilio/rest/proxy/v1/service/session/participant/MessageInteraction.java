@@ -115,10 +115,10 @@ public class MessageInteraction extends Resource {
     /**
      * Create a MessageInteractionCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathParticipantSid Participant Sid.
-     * @param body The body
+     * @param pathServiceSid Service Sid
+     * @param pathSessionSid Session Sid
+     * @param pathParticipantSid Participant Sid
+     * @param body Message body
      * @return MessageInteractionCreator capable of executing the create
      */
     public static MessageInteractionCreator creator(final String pathServiceSid, 
@@ -131,9 +131,9 @@ public class MessageInteraction extends Resource {
     /**
      * Create a MessageInteractionCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathParticipantSid Participant Sid.
+     * @param pathServiceSid Service Sid
+     * @param pathSessionSid Session Sid
+     * @param pathParticipantSid Participant Sid
      * @param mediaUrl The media_url
      * @return MessageInteractionCreator capable of executing the create
      */
@@ -147,10 +147,10 @@ public class MessageInteraction extends Resource {
     /**
      * Create a MessageInteractionFetcher to execute fetch.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathParticipantSid Participant Sid.
-     * @param pathSid A string that uniquely identifies this Message Interaction.
+     * @param pathServiceSid The service_sid
+     * @param pathSessionSid The session_sid
+     * @param pathParticipantSid The participant_sid
+     * @param pathSid The sid
      * @return MessageInteractionFetcher capable of executing the fetch
      */
     public static MessageInteractionFetcher fetcher(final String pathServiceSid, 
@@ -163,9 +163,9 @@ public class MessageInteraction extends Resource {
     /**
      * Create a MessageInteractionReader to execute read.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathParticipantSid Participant Sid.
+     * @param pathServiceSid The service_sid
+     * @param pathSessionSid The session_sid
+     * @param pathParticipantSid The participant_sid
      * @return MessageInteractionReader capable of executing the read
      */
     public static MessageInteractionReader reader(final String pathServiceSid, 
@@ -333,9 +333,9 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Further details about an interaction..
+     * Returns The Message body.
      * 
-     * @return Further details about an interaction.
+     * @return Message body
      */
     public final String getData() {
         return this.data;
@@ -369,9 +369,9 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Inbound Resource Sid..
+     * Returns The Inbound message resource Sid..
      * 
-     * @return Inbound Resource Sid.
+     * @return Inbound message resource Sid.
      */
     public final String getInboundResourceSid() {
         return this.inboundResourceSid;
@@ -387,18 +387,18 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The type of the Inbound Resource, Call or Message..
+     * Returns The Message.
      * 
-     * @return The type of the Inbound Resource, Call or Message.
+     * @return Message
      */
     public final String getInboundResourceType() {
         return this.inboundResourceType;
     }
 
     /**
-     * Returns The The URL of the Twilio resource..
+     * Returns The The URL of the Twilio message resource..
      * 
-     * @return The URL of the Twilio resource.
+     * @return The URL of the Twilio message resource.
      */
     public final URI getInboundResourceUrl() {
         return this.inboundResourceUrl;
@@ -414,9 +414,9 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Outbound Resource Sid..
+     * Returns The Outbound message resource Sid..
      * 
-     * @return Outbound Resource Sid.
+     * @return Outbound message resource Sid.
      */
     public final String getOutboundResourceSid() {
         return this.outboundResourceSid;
@@ -432,18 +432,18 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The type of the Outbound Resource, Call or Message..
+     * Returns The Message.
      * 
-     * @return The type of the Outbound Resource, Call or Message.
+     * @return Message
      */
     public final String getOutboundResourceType() {
         return this.outboundResourceType;
     }
 
     /**
-     * Returns The The URL of the Twilio resource..
+     * Returns The The URL of the Twilio message resource..
      * 
-     * @return The URL of the Twilio resource.
+     * @return The URL of the Twilio message resource.
      */
     public final URI getOutboundResourceUrl() {
         return this.outboundResourceUrl;

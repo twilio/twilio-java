@@ -171,108 +171,114 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that owns this WorkerChannel..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that owns this WorkerChannel.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The assigned_tasks.
+     * Returns The The total number of tasks assigned to Worker for this TaskChannel
+     * type..
      * 
-     * @return The assigned_tasks
+     * @return The total number of tasks assigned to Worker for this TaskChannel
+     *         type.
      */
     public final Integer getAssignedTasks() {
         return this.assignedTasks;
     }
 
     /**
-     * Returns The The available.
+     * Returns The Boolean value indicating whether the worker should receive Tasks
+     * of this TaskChannel type..
      * 
-     * @return The available
+     * @return Boolean value indicating whether the worker should receive Tasks of
+     *         this TaskChannel type.
      */
     public final Boolean getAvailable() {
         return this.available;
     }
 
     /**
-     * Returns The The available_capacity_percentage.
+     * Returns The The current available capacity between 0 to 100 for this
+     * TaskChannel..
      * 
-     * @return The available_capacity_percentage
+     * @return The current available capacity between 0 to 100 for this TaskChannel.
      */
     public final Integer getAvailableCapacityPercentage() {
         return this.availableCapacityPercentage;
     }
 
     /**
-     * Returns The The configured_capacity.
+     * Returns The The current configured capacity for the WorkerChannel..
      * 
-     * @return The configured_capacity
+     * @return The current configured capacity for the WorkerChannel.
      */
     public final Integer getConfiguredCapacity() {
         return this.configuredCapacity;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Activity was created..
      * 
-     * @return The date_created
+     * @return The date this Activity was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Activity was updated..
      * 
-     * @return The date_updated
+     * @return The date this Activity was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique ID for this WorkerChannel..
      * 
-     * @return The sid
+     * @return The unique ID for this WorkerChannel.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The task_channel_sid.
+     * Returns The The unique ID of the TaskChannel..
      * 
-     * @return The task_channel_sid
+     * @return The unique ID of the TaskChannel.
      */
     public final String getTaskChannelSid() {
         return this.taskChannelSid;
     }
 
     /**
-     * Returns The The task_channel_unique_name.
+     * Returns The The unique name of TaskChannel, such as 'voice', 'sms', etc..
      * 
-     * @return The task_channel_unique_name
+     * @return The unique name of TaskChannel, such as 'voice', 'sms', etc.
      */
     public final String getTaskChannelUniqueName() {
         return this.taskChannelUniqueName;
     }
 
     /**
-     * Returns The The worker_sid.
+     * Returns The The unique ID of the Worker that this WorkerChannel belongs to..
      * 
-     * @return The worker_sid
+     * @return The unique ID of the Worker that this WorkerChannel belongs to.
      */
     public final String getWorkerSid() {
         return this.workerSid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The unique ID of the Workspace that this WorkerChannel belongs
+     * to..
      * 
-     * @return The workspace_sid
+     * @return The unique ID of the Workspace that this WorkerChannel belongs to.
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;

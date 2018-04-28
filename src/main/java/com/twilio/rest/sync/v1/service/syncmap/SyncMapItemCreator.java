@@ -50,9 +50,10 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     }
 
     /**
-     * The ttl.
+     * (optional) Time-to-live of this Map in seconds, defaults to no expiration. In
+     * the range [1, 31 536 000 (1 year)], or 0 for infinity..
      * 
-     * @param ttl The ttl
+     * @param ttl Time-to-live of this Map in seconds, defaults to no expiration.
      * @return this
      */
     public SyncMapItemCreator setTtl(final Integer ttl) {

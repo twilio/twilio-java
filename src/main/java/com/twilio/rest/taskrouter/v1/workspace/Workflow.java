@@ -86,8 +86,9 @@ public class Workflow extends Resource {
      * Create a WorkflowCreator to execute create.
      * 
      * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName The friendly_name
-     * @param configuration The configuration
+     * @param friendlyName A string representing a human readable name for this
+     *                     Workflow.
+     * @param configuration JSON document configuring the rules for this Workflow.
      * @return WorkflowCreator capable of executing the create
      */
     public static WorkflowCreator creator(final String pathWorkspaceSid, 
@@ -191,45 +192,47 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The ID of the account that owns this Workflow.
      * 
-     * @return The account_sid
+     * @return The ID of the account that owns this Workflow
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The assignment_callback_url.
+     * Returns The The URL that will be called whenever a task managed by this
+     * Workflow is assigned to a Worker..
      * 
-     * @return The assignment_callback_url
+     * @return The URL that will be called whenever a task managed by this Workflow
+     *         is assigned to a Worker.
      */
     public final URI getAssignmentCallbackUrl() {
         return this.assignmentCallbackUrl;
     }
 
     /**
-     * Returns The The configuration.
+     * Returns The JSON document configuring the rules for this Workflow..
      * 
-     * @return The configuration
+     * @return JSON document configuring the rules for this Workflow.
      */
     public final String getConfiguration() {
         return this.configuration;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this workflow was created..
      * 
-     * @return The date_created
+     * @return The date this workflow was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this workflow was last updated..
      * 
-     * @return The date_updated
+     * @return The date this workflow was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -245,45 +248,49 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The fallback_assignment_callback_url.
+     * Returns The If the request to the AssignmentCallbackUrl fails, the assignment
+     * callback will be made to this URL..
      * 
-     * @return The fallback_assignment_callback_url
+     * @return If the request to the AssignmentCallbackUrl fails, the assignment
+     *         callback will be made to this URL.
      */
     public final URI getFallbackAssignmentCallbackUrl() {
         return this.fallbackAssignmentCallbackUrl;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The Human readable description of this Workflow.
      * 
-     * @return The friendly_name
+     * @return Human readable description of this Workflow
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique ID of the Workflow.
      * 
-     * @return The sid
+     * @return The unique ID of the Workflow
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The task_reservation_timeout.
+     * Returns The Determines how long TaskRouter will wait for a confirmation
+     * response from your application after assigning a Task to a worker..
      * 
-     * @return The task_reservation_timeout
+     * @return Determines how long TaskRouter will wait for a confirmation response
+     *         from your application after assigning a Task to a worker.
      */
     public final Integer getTaskReservationTimeout() {
         return this.taskReservationTimeout;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The ID of the Workspace that contains this Workflow.
      * 
-     * @return The workspace_sid
+     * @return The ID of the Workspace that contains this Workflow
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;

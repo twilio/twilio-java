@@ -64,9 +64,9 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The area_code.
+     * Find phone numbers in the specified area code. (US and Canada only).
      * 
-     * @param areaCode The area_code
+     * @param areaCode Find phone numbers in the specified area code.
      * @return this
      */
     public TollFreeReader setAreaCode(final Integer areaCode) {
@@ -75,9 +75,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The contains.
+     * A pattern on which to match phone numbers. Valid characters are `'*'` and
+     * `[0-9a-zA-Z]`. The `'*'` character will match any single digit. See [Example
+     * 2](https://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-example-3) below. *NOTE:* Patterns must be at least two characters long..
      * 
-     * @param contains The contains
+     * @param contains A pattern on which to match phone numbers.
      * @return this
      */
     public TollFreeReader setContains(final String contains) {
@@ -86,9 +88,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The sms_enabled.
+     * This indicates whether the phone numbers can receive text messages. Possible
+     * values are `true` or `false`..
      * 
-     * @param smsEnabled The sms_enabled
+     * @param smsEnabled This indicates whether the phone numbers can receive text
+     *                   messages.
      * @return this
      */
     public TollFreeReader setSmsEnabled(final Boolean smsEnabled) {
@@ -97,9 +101,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The mms_enabled.
+     * This indicates whether the phone numbers can receive MMS messages. Possible
+     * values are `true` or `false`..
      * 
-     * @param mmsEnabled The mms_enabled
+     * @param mmsEnabled This indicates whether the phone numbers can receive MMS
+     *                   messages.
      * @return this
      */
     public TollFreeReader setMmsEnabled(final Boolean mmsEnabled) {
@@ -108,9 +114,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The voice_enabled.
+     * This indicates whether the phone numbers can receive calls. Possible values
+     * are `true` or `false`..
      * 
-     * @param voiceEnabled The voice_enabled
+     * @param voiceEnabled This indicates whether the phone numbers can receive
+     *                     calls.
      * @return this
      */
     public TollFreeReader setVoiceEnabled(final Boolean voiceEnabled) {
@@ -119,9 +127,13 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The exclude_all_address_required.
+     * Indicates whether the response includes phone numbers which require any
+     * [Address](https://www.twilio.com/docs/usage/api/addresses). Possible values
+     * are `true` or `false`. If not specified, the default is `false`, and results
+     * could include phone numbers with an Address required..
      * 
-     * @param excludeAllAddressRequired The exclude_all_address_required
+     * @param excludeAllAddressRequired Indicates whether the response includes
+     *                                  phone numbers which require any Address.
      * @return this
      */
     public TollFreeReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
@@ -130,9 +142,14 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The exclude_local_address_required.
+     * Indicates whether the response includes phone numbers which require a local
+     * [Address](https://www.twilio.com/docs/usage/api/addresses). Possible values
+     * are `true` or `false`. If not specified, the default is `false`, and results
+     * could include phone numbers with a local Address required..
      * 
-     * @param excludeLocalAddressRequired The exclude_local_address_required
+     * @param excludeLocalAddressRequired Indicates whether the response includes
+     *                                    phone numbers which require a local
+     *                                    Address.
      * @return this
      */
     public TollFreeReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
@@ -141,9 +158,14 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The exclude_foreign_address_required.
+     * Indicates whether the response includes phone numbers which require a foreign
+     * [Address](https://www.twilio.com/docs/usage/api/addresses). Possible values
+     * are `true` or `false`. If not specified, the default is `false`, and results
+     * could include phone numbers with a foreign Address required..
      * 
-     * @param excludeForeignAddressRequired The exclude_foreign_address_required
+     * @param excludeForeignAddressRequired Indicates whether the response includes
+     *                                      phone numbers which require a foreign
+     *                                      Address.
      * @return this
      */
     public TollFreeReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
@@ -152,9 +174,10 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The beta.
+     * Include phone numbers new to the Twilio platform. Possible values are either
+     * `true` or `false`. Default is `true`..
      * 
-     * @param beta The beta
+     * @param beta Include phone numbers new to the Twilio platform.
      * @return this
      */
     public TollFreeReader setBeta(final Boolean beta) {
@@ -163,9 +186,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The near_number.
+     * Given a phone number, find a geographically close number within `Distance`
+     * miles. Distance defaults to 25 miles..
      * 
-     * @param nearNumber The near_number
+     * @param nearNumber Given a phone number, find a geographically close number
+     *                   within Distance miles.
      * @return this
      */
     public TollFreeReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
@@ -174,9 +199,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The near_number.
+     * Given a phone number, find a geographically close number within `Distance`
+     * miles. Distance defaults to 25 miles..
      * 
-     * @param nearNumber The near_number
+     * @param nearNumber Given a phone number, find a geographically close number
+     *                   within Distance miles.
      * @return this
      */
     public TollFreeReader setNearNumber(final String nearNumber) {
@@ -184,9 +211,11 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The near_lat_long.
+     * Given a latitude/longitude pair `lat,long` find geographically close numbers
+     * within `Distance` miles..
      * 
-     * @param nearLatLong The near_lat_long
+     * @param nearLatLong Given a latitude/longitude pair lat,long find
+     *                    geographically close numbers within Distance miles.
      * @return this
      */
     public TollFreeReader setNearLatLong(final String nearLatLong) {
@@ -195,9 +224,10 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The distance.
+     * Specifies the search radius for a `Near-` query in miles. If not specified
+     * this defaults to 25 miles. Maximum searchable distance is 500 miles..
      * 
-     * @param distance The distance
+     * @param distance Specifies the search radius for a Near- query in miles.
      * @return this
      */
     public TollFreeReader setDistance(final Integer distance) {
@@ -206,9 +236,10 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The in_postal_code.
+     * Limit results to a particular postal code. Given a phone number, search
+     * within the same postal code as that number..
      * 
-     * @param inPostalCode The in_postal_code
+     * @param inPostalCode Limit results to a particular postal code.
      * @return this
      */
     public TollFreeReader setInPostalCode(final String inPostalCode) {
@@ -217,9 +248,10 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The in_region.
+     * Limit results to a particular region (i.e.  State/Province). Given a phone
+     * number, search within the same Region as that number..
      * 
-     * @param inRegion The in_region
+     * @param inRegion Limit results to a particular region.
      * @return this
      */
     public TollFreeReader setInRegion(final String inRegion) {
@@ -228,9 +260,13 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The in_rate_center.
+     * Limit results to a specific rate center, or given a phone number search
+     * within the same rate center as that number. Requires InLata to be set as
+     * well..
      * 
-     * @param inRateCenter The in_rate_center
+     * @param inRateCenter Limit results to a specific rate center, or given a
+     *                     phone number search within the same rate center as that
+     *                     number.
      * @return this
      */
     public TollFreeReader setInRateCenter(final String inRateCenter) {
@@ -239,9 +275,13 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The in_lata.
+     * Limit results to a specific Local access and transport area
+     * ([LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given
+     * a phone number, search within the same
+     * [LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
+     * number..
      * 
-     * @param inLata The in_lata
+     * @param inLata Limit results to a specific Local access and transport area.
      * @return this
      */
     public TollFreeReader setInLata(final String inLata) {
@@ -250,9 +290,10 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The in_locality.
+     * Limit results to a particular locality (i.e.  City). Given a phone number,
+     * search within the same Locality as that number..
      * 
-     * @param inLocality The in_locality
+     * @param inLocality Limit results to a particular locality.
      * @return this
      */
     public TollFreeReader setInLocality(final String inLocality) {
@@ -261,9 +302,10 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     /**
-     * The fax_enabled.
+     * This indicates whether the phone numbers can receive faxes. Possible values
+     * are `true` or `false`..
      * 
-     * @param faxEnabled The fax_enabled
+     * @param faxEnabled This indicates whether the phone numbers can receive faxes.
      * @return this
      */
     public TollFreeReader setFaxEnabled(final Boolean faxEnabled) {

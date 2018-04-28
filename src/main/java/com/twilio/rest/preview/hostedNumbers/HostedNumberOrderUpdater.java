@@ -48,7 +48,8 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters..
+     * A 64 character string that is a human readable text that describes this
+     * resource..
      * 
      * @param friendlyName A human readable description of this resource.
      * @return this
@@ -107,8 +108,9 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     }
 
     /**
-     * The Status of this HostedNumberOrder. User can only update this to
-     * `pending-loa` or `pending-verification`..
+     * User can only post to `pending-verification` status to transition the
+     * HostedNumberOrder to initiate a verification call or verification of
+     * ownership with a copy of a phone bill..
      * 
      * @param status The Status of this HostedNumberOrder.
      * @return this
@@ -156,9 +158,9 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     }
 
     /**
-     * The extension.
+     * Digits to dial after connecting the verification call..
      * 
-     * @param extension The extension
+     * @param extension Digits to dial after connecting the verification call.
      * @return this
      */
     public HostedNumberOrderUpdater setExtension(final String extension) {
@@ -167,9 +169,11 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     }
 
     /**
-     * The call_delay.
+     * The number of seconds, between 0 and 60, to delay before initiating the
+     * verification call. Defaults to 0..
      * 
-     * @param callDelay The call_delay
+     * @param callDelay The number of seconds, between 0 and 60, to delay before
+     *                  initiating the verification call.
      * @return this
      */
     public HostedNumberOrderUpdater setCallDelay(final Integer callDelay) {

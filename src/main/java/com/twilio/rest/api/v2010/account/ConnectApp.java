@@ -238,9 +238,9 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The HTTP method Twilio WIll use making requests to the url.
+     * Returns The HTTP method Twilio will use making requests to the url.
      * 
-     * @return HTTP method Twilio WIll use making requests to the url
+     * @return HTTP method Twilio will use making requests to the url
      */
     public final HttpMethod getDeauthorizeCallbackMethod() {
         return this.deauthorizeCallbackMethod;

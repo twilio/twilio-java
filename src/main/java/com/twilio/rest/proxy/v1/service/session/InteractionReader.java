@@ -42,14 +42,9 @@ public class InteractionReader extends Reader<Interaction> {
     }
 
     /**
-     * The Inbound Participant Status of this Interaction. One of `accepted`,
-     * `answered`, `busy`, `canceled`, `completed`, `deleted`, `delivered`,
-     * `delivery-unknown`, `failed`, `in-progress`, `initiated`, `no-answer`,
-     * `queued`, `received`, `receiving`, `ringing`, `scheduled`, `sending`, `sent`,
-     * `undelivered` or `unknown`..
+     * The inbound_participant_status.
      * 
-     * @param inboundParticipantStatus The Inbound Participant Status of this
-     *                                 Interaction
+     * @param inboundParticipantStatus The inbound_participant_status
      * @return this
      */
     public InteractionReader setInboundParticipantStatus(final Interaction.ResourceStatus inboundParticipantStatus) {
@@ -58,14 +53,9 @@ public class InteractionReader extends Reader<Interaction> {
     }
 
     /**
-     * The Outbound Participant Status of this Interaction. One of `accepted`,
-     * `answered`, `busy`, `canceled`, `completed`, `deleted`, `delivered`,
-     * `delivery-unknown`, `failed`, `in-progress`, `initiated`, `no-answer`,
-     * `queued`, `received`, `receiving`, `ringing`, `scheduled`, `sending`, `sent`,
-     * `undelivered` or `unknown`..
+     * The outbound_participant_status.
      * 
-     * @param outboundParticipantStatus The Outbound Participant Status of this
-     *                                  Interaction
+     * @param outboundParticipantStatus The outbound_participant_status
      * @return this
      */
     public InteractionReader setOutboundParticipantStatus(final Interaction.ResourceStatus outboundParticipantStatus) {

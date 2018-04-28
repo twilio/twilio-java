@@ -277,9 +277,9 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The reservation_status.
+     * Returns The Filter by a worker’s reservation status.
      * 
-     * @return The reservation_status
+     * @return Filter by a worker’s reservation status
      */
     public final Reservation.Status getReservationStatus() {
         return this.reservationStatus;

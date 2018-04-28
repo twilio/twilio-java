@@ -31,9 +31,9 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
     /**
      * Construct a new MessageInteractionReader.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathParticipantSid Participant Sid.
+     * @param pathServiceSid The service_sid
+     * @param pathSessionSid The session_sid
+     * @param pathParticipantSid The participant_sid
      */
     public MessageInteractionReader(final String pathServiceSid, 
                                     final String pathSessionSid, 

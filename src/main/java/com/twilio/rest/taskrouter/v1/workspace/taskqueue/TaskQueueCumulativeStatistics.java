@@ -185,9 +185,11 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The avg_task_acceptance_time.
+     * Returns The The average time from Task creation to reservation acceptance
+     * while in this TaskQueue.
      * 
-     * @return The avg_task_acceptance_time
+     * @return The average time from Task creation to reservation acceptance while
+     *         in this TaskQueue
      */
     public final Integer getAvgTaskAcceptanceTime() {
         return this.avgTaskAcceptanceTime;
@@ -212,63 +214,75 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The reservations_created.
+     * Returns The The total number of Reservations that were created for Tasks
+     * while in this TaskQueue.
      * 
-     * @return The reservations_created
+     * @return The total number of Reservations that were created for Tasks while
+     *         in this TaskQueue
      */
     public final Integer getReservationsCreated() {
         return this.reservationsCreated;
     }
 
     /**
-     * Returns The The reservations_accepted.
+     * Returns The The total number of Reservations that were accepted for Tasks
+     * while in this TaskQueue.
      * 
-     * @return The reservations_accepted
+     * @return The total number of Reservations that were accepted for Tasks while
+     *         in this TaskQueue
      */
     public final Integer getReservationsAccepted() {
         return this.reservationsAccepted;
     }
 
     /**
-     * Returns The The reservations_rejected.
+     * Returns The The total number of Reservations that were rejected for Tasks
+     * while in this TaskQueue.
      * 
-     * @return The reservations_rejected
+     * @return The total number of Reservations that were rejected for Tasks while
+     *         in this TaskQueue
      */
     public final Integer getReservationsRejected() {
         return this.reservationsRejected;
     }
 
     /**
-     * Returns The The reservations_timed_out.
+     * Returns The The total number of Reservations that were timed out for Tasks
+     * while in this TaskQueue.
      * 
-     * @return The reservations_timed_out
+     * @return The total number of Reservations that were timed out for Tasks while
+     *         in this TaskQueue
      */
     public final Integer getReservationsTimedOut() {
         return this.reservationsTimedOut;
     }
 
     /**
-     * Returns The The reservations_canceled.
+     * Returns The The total number of Reservations that were canceled for Tasks
+     * while in this TaskQueue.
      * 
-     * @return The reservations_canceled
+     * @return The total number of Reservations that were canceled for Tasks while
+     *         in this TaskQueue
      */
     public final Integer getReservationsCanceled() {
         return this.reservationsCanceled;
     }
 
     /**
-     * Returns The The reservations_rescinded.
+     * Returns The The total number of Reservations that were rescinded.
      * 
-     * @return The reservations_rescinded
+     * @return The total number of Reservations that were rescinded
      */
     public final Integer getReservationsRescinded() {
         return this.reservationsRescinded;
     }
 
     /**
-     * Returns The The split_by_wait_time.
+     * Returns The The splits of the tasks canceled and accepted based on the
+     * provided SplitByWaitTime parameter.
      * 
-     * @return The split_by_wait_time
+     * @return The splits of the tasks canceled and accepted based on the provided
+     *         SplitByWaitTime parameter
      */
     public final Map<String, Object> getSplitByWaitTime() {
         return this.splitByWaitTime;
@@ -284,63 +298,70 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The wait_duration_until_accepted.
+     * Returns The The wait duration stats for tasks that were accepted while in
+     * this TaskQueue.
      * 
-     * @return The wait_duration_until_accepted
+     * @return The wait duration stats for tasks that were accepted while in this
+     *         TaskQueue
      */
     public final Map<String, Object> getWaitDurationUntilAccepted() {
         return this.waitDurationUntilAccepted;
     }
 
     /**
-     * Returns The The wait_duration_until_canceled.
+     * Returns The The wait duration stats for tasks that were canceled while in
+     * this TaskQueue.
      * 
-     * @return The wait_duration_until_canceled
+     * @return The wait duration stats for tasks that were canceled while in this
+     *         TaskQueue
      */
     public final Map<String, Object> getWaitDurationUntilCanceled() {
         return this.waitDurationUntilCanceled;
     }
 
     /**
-     * Returns The The tasks_canceled.
+     * Returns The The total number of Tasks canceled while in this TaskQueue.
      * 
-     * @return The tasks_canceled
+     * @return The total number of Tasks canceled while in this TaskQueue
      */
     public final Integer getTasksCanceled() {
         return this.tasksCanceled;
     }
 
     /**
-     * Returns The The tasks_completed.
+     * Returns The The total number of Tasks completed while in this TaskQueue.
      * 
-     * @return The tasks_completed
+     * @return The total number of Tasks completed while in this TaskQueue
      */
     public final Integer getTasksCompleted() {
         return this.tasksCompleted;
     }
 
     /**
-     * Returns The The tasks_deleted.
+     * Returns The The total number of Tasks that were deleted while in this
+     * TaskQueue.
      * 
-     * @return The tasks_deleted
+     * @return The total number of Tasks that were deleted while in this TaskQueue
      */
     public final Integer getTasksDeleted() {
         return this.tasksDeleted;
     }
 
     /**
-     * Returns The The tasks_entered.
+     * Returns The The total number of Tasks entered into this TaskQueue.
      * 
-     * @return The tasks_entered
+     * @return The total number of Tasks entered into this TaskQueue
      */
     public final Integer getTasksEntered() {
         return this.tasksEntered;
     }
 
     /**
-     * Returns The The tasks_moved.
+     * Returns The The total number of Tasks moved to another TaskQueue from this
+     * TaskQueue.
      * 
-     * @return The tasks_moved
+     * @return The total number of Tasks moved to another TaskQueue from this
+     *         TaskQueue
      */
     public final Integer getTasksMoved() {
         return this.tasksMoved;

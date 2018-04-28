@@ -40,9 +40,11 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The default_activity_sid.
+     * The ID of the Activity that will be used when new Workers are created in this
+     * Workspace..
      * 
-     * @param defaultActivitySid The default_activity_sid
+     * @param defaultActivitySid The ID of the Activity that will be used when new
+     *                           Workers are created in this Workspace.
      * @return this
      */
     public WorkspaceUpdater setDefaultActivitySid(final String defaultActivitySid) {
@@ -51,9 +53,11 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The event_callback_url.
+     * The Workspace will publish events to this URL. You can use this to gather
+     * data for reporting. See [Events][/docs/taskrouter/api/events] for more
+     * information..
      * 
-     * @param eventCallbackUrl The event_callback_url
+     * @param eventCallbackUrl The Workspace will publish events to this URL.
      * @return this
      */
     public WorkspaceUpdater setEventCallbackUrl(final URI eventCallbackUrl) {
@@ -62,9 +66,11 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The event_callback_url.
+     * The Workspace will publish events to this URL. You can use this to gather
+     * data for reporting. See [Events][/docs/taskrouter/api/events] for more
+     * information..
      * 
-     * @param eventCallbackUrl The event_callback_url
+     * @param eventCallbackUrl The Workspace will publish events to this URL.
      * @return this
      */
     public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl) {
@@ -72,9 +78,14 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The events_filter.
+     * Use this parameter to receive webhooks on EventCallbackUrl for specific
+     * events on a workspace. For example if
+     * 'EventsFilter=task.created,task.canceled,worker.activity.update', then
+     * TaskRouter will webhook to EventCallbackUrl only when a task is created,
+     * canceled or a worker activity is updated..
      * 
-     * @param eventsFilter The events_filter
+     * @param eventsFilter Use this parameter to receive webhooks on
+     *                     EventCallbackUrl for specific events on a workspace.
      * @return this
      */
     public WorkspaceUpdater setEventsFilter(final String eventsFilter) {
@@ -83,9 +94,10 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The friendly_name.
+     * Human readable description of this workspace (for example "Sales Call Center"
+     * or "Customer Support Team").
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable description of this workspace
      * @return this
      */
     public WorkspaceUpdater setFriendlyName(final String friendlyName) {
@@ -94,9 +106,12 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The multi_task_enabled.
+     * Enable or Disable Multitasking by passing either *true* or *False* with the
+     * POST request. Learn more by visiting
+     * [Multitasking][/docs/taskrouter/multitasking]..
      * 
-     * @param multiTaskEnabled The multi_task_enabled
+     * @param multiTaskEnabled Enable or Disable Multitasking by passing either
+     *                         true or False with the POST request.
      * @return this
      */
     public WorkspaceUpdater setMultiTaskEnabled(final Boolean multiTaskEnabled) {
@@ -105,9 +120,12 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The timeout_activity_sid.
+     * The ID of the Activity that will be assigned to a Worker when a Task
+     * reservation times out without a response..
      * 
-     * @param timeoutActivitySid The timeout_activity_sid
+     * @param timeoutActivitySid The ID of the Activity that will be assigned to a
+     *                           Worker when a Task reservation times out without a
+     *                           response.
      * @return this
      */
     public WorkspaceUpdater setTimeoutActivitySid(final String timeoutActivitySid) {
@@ -116,9 +134,16 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The prioritize_queue_order.
+     * Use this parameter to configure whether to prioritize LIFO or FIFO when
+     * workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+     * Default is FIFO. [Click
+     * here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more
+     * about LIFO and the use of the parameter..
      * 
-     * @param prioritizeQueueOrder The prioritize_queue_order
+     * @param prioritizeQueueOrder Use this parameter to configure whether to
+     *                             prioritize LIFO or FIFO when workers are
+     *                             receiving Tasks from combination of LIFO and FIFO
+     *                             TaskQueues.
      * @return this
      */
     public WorkspaceUpdater setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder) {

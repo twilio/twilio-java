@@ -61,8 +61,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * A human readable descriptive text for this resource, up to 64 characters
-     * long..
+     * A human readable description of the application, with maximum length 64
+     * characters..
      * 
      * @param friendlyName Human readable description of this resource
      * @return this
@@ -73,8 +73,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * Requests to this application will start a new TwiML session with this API
-     * version..
+     * Requests to this application's URLs will start a new TwiML session with this
+     * API version. Either `2010-04-01` or `2008-08-01`..
      * 
      * @param apiVersion The API version to use
      * @return this
@@ -85,8 +85,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL Twilio will request when a phone number assigned to this application
-     * receives a call..
+     * The URL that Twilio should request when somebody dials a phone number
+     * assigned to this application..
      * 
      * @param voiceUrl URL Twilio will make requests to when relieving a call
      * @return this
@@ -97,8 +97,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL Twilio will request when a phone number assigned to this application
-     * receives a call..
+     * The URL that Twilio should request when somebody dials a phone number
+     * assigned to this application..
      * 
      * @param voiceUrl URL Twilio will make requests to when relieving a call
      * @return this
@@ -120,8 +120,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML requested by `Url`..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `VoiceUrl`..
      * 
      * @param voiceFallbackUrl Fallback URL
      * @return this
@@ -132,8 +132,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML requested by `Url`..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `VoiceUrl`..
      * 
      * @param voiceFallbackUrl Fallback URL
      * @return this
@@ -237,8 +237,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML from `SmsUrl`..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `SmsUrl`..
      * 
      * @param smsFallbackUrl Fallback URL if there's an error parsing TwiML
      * @return this
@@ -249,8 +249,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML from `SmsUrl`..
+     * A URL that Twilio will request if an error occurs requesting or executing the
+     * TwiML defined by `SmsUrl`..
      * 
      * @param smsFallbackUrl Fallback URL if there's an error parsing TwiML
      * @return this
@@ -260,8 +260,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the above URL. Either `GET`
-     * or `POST`..
+     * The HTTP method that should be used to request the `SmsFallbackUrl`. Either
+     * `GET` or `POST`..
      * 
      * @param smsFallbackMethod HTTP method to use with sms_fallback_method
      * @return this
@@ -274,7 +274,7 @@ public class ApplicationUpdater extends Updater<Application> {
     /**
      * The URL that Twilio will `POST` to when a message is sent via the
      * `/SMS/Messages` endpoint if you specify the `Sid` of this application on an
-     * outgoing SMS request..
+     * [outgoing SMS request](https://www.twilio.com/docs/sms/send-messages)..
      * 
      * @param smsStatusCallback URL Twilio with request with status updates
      * @return this
@@ -287,7 +287,7 @@ public class ApplicationUpdater extends Updater<Application> {
     /**
      * The URL that Twilio will `POST` to when a message is sent via the
      * `/SMS/Messages` endpoint if you specify the `Sid` of this application on an
-     * outgoing SMS request..
+     * [outgoing SMS request](https://www.twilio.com/docs/sms/send-messages)..
      * 
      * @param smsStatusCallback URL Twilio with request with status updates
      * @return this
@@ -300,7 +300,7 @@ public class ApplicationUpdater extends Updater<Application> {
      * Twilio will make a `POST` request to this URL to pass status parameters (such
      * as sent or failed) to your application if you use the `/Messages` endpoint to
      * send the message and specify this application's `Sid` as the `ApplicationSid`
-     * on an outgoing SMS request..
+     * on an [outgoing SMS request](https://www.twilio.com/docs/sms/send-messages)..
      * 
      * @param messageStatusCallback URL to make requests to with status updates
      * @return this
@@ -314,7 +314,7 @@ public class ApplicationUpdater extends Updater<Application> {
      * Twilio will make a `POST` request to this URL to pass status parameters (such
      * as sent or failed) to your application if you use the `/Messages` endpoint to
      * send the message and specify this application's `Sid` as the `ApplicationSid`
-     * on an outgoing SMS request..
+     * on an [outgoing SMS request](https://www.twilio.com/docs/sms/send-messages)..
      * 
      * @param messageStatusCallback URL to make requests to with status updates
      * @return this

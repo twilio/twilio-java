@@ -55,9 +55,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The default Time to Live for a Session, in seconds..
+     * The default time delay, in seconds, after which a session will be expired. 
+     * Will be used for sessions where ttl is not specified..
      * 
-     * @param defaultTtl Default TTL for a Session, in seconds.
+     * @param defaultTtl Default TTL for Sessions in Service, in seconds.
      * @return this
      */
     public ServiceUpdater setDefaultTtl(final Integer defaultTtl) {
@@ -66,7 +67,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The URL Twilio will send callbacks to..
+     * The URL to which Twilio will make callbacks on interaction status changes..
      * 
      * @param callbackUrl URL Twilio will send callbacks to
      * @return this
@@ -77,7 +78,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The URL Twilio will send callbacks to..
+     * The URL to which Twilio will make callbacks on interaction status changes..
      * 
      * @param callbackUrl URL Twilio will send callbacks to
      * @return this
@@ -87,7 +88,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether to find proxy numbers in the same areacode..
+     * Default: country Options: country, area-code, extended-area-code.
      * 
      * @param geoMatchLevel Whether to find proxy numbers in the same areacode.
      * @return this
@@ -98,7 +99,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * What behavior to use when choosing a proxy number..
+     * Default: prefer-sticky Options: prefer-sticky, avoid-sticky.
      * 
      * @param numberSelectionBehavior What behavior to use when choosing a proxy
      *                                number.
@@ -110,8 +111,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * A URL for Twilio call before each Interaction. An error status code will
-     * prevent the interaction from continuing..
+     * Fires on each interaction. If responded to with a 403 to this webhook, we
+     * will abort/block the interaction. For any other status or timeout, the
+     * interaction continues..
      * 
      * @param interceptCallbackUrl A URL for Twilio call before each Interaction.
      * @return this
@@ -122,8 +124,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * A URL for Twilio call before each Interaction. An error status code will
-     * prevent the interaction from continuing..
+     * Fires on each interaction. If responded to with a 403 to this webhook, we
+     * will abort/block the interaction. For any other status or timeout, the
+     * interaction continues..
      * 
      * @param interceptCallbackUrl A URL for Twilio call before each Interaction.
      * @return this

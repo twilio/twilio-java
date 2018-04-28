@@ -507,9 +507,11 @@ public class IncomingPhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The origin.
+     * Returns The Twilio owned phone numbers are marked as twilio while hosted
+     * phone numbers are marked as hosted..
      * 
-     * @return The origin
+     * @return Twilio owned phone numbers are marked as twilio while hosted phone
+     *         numbers are marked as hosted.
      */
     public final String getOrigin() {
         return this.origin;

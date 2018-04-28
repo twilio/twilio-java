@@ -118,18 +118,18 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The activity_statistics.
+     * Returns The The current Worker status count breakdown by Activity.
      * 
-     * @return The activity_statistics
+     * @return The current Worker status count breakdown by Activity
      */
     public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
     }
 
     /**
-     * Returns The The total_workers.
+     * Returns The The total number of Workers.
      * 
-     * @return The total_workers
+     * @return The total number of Workers
      */
     public final Integer getTotalWorkers() {
         return this.totalWorkers;

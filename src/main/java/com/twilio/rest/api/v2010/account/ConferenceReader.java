@@ -47,8 +47,11 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * Only show conferences that started on this date, given as YYYY-MM-DD. You can
-     * also specify inequality such as DateCreated&lt;=YYYY-MM-DD.
+     * Only show conferences that started on this date, given as `YYYY-MM-DD`. You
+     * can also specify inequality, such as `DateCreated&lt;=YYYY-MM-DD` for
+     * conferences that started at or before midnight on a date, and
+     * `DateCreated&gt;=YYYY-MM-DD` for conferences that started at or after
+     * midnight on a date..
      * 
      * @param absoluteDateCreated Filter by date created
      * @return this
@@ -60,8 +63,11 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * Only show conferences that started on this date, given as YYYY-MM-DD. You can
-     * also specify inequality such as DateCreated&lt;=YYYY-MM-DD.
+     * Only show conferences that started on this date, given as `YYYY-MM-DD`. You
+     * can also specify inequality, such as `DateCreated&lt;=YYYY-MM-DD` for
+     * conferences that started at or before midnight on a date, and
+     * `DateCreated&gt;=YYYY-MM-DD` for conferences that started at or after
+     * midnight on a date..
      * 
      * @param rangeDateCreated Filter by date created
      * @return this
@@ -74,8 +80,10 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Only show conferences that were last updated on this date, given as
-     * YYYY-MM-DD. You can also specify inequality such as
-     * DateUpdated&gt;=YYYY-MM-DD.
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateUpdated&lt;=YYYY-MM-DD` for conferences that were last updated at or
+     * before midnight on a date, and `DateUpdated&gt;=YYYY-MM-DD` for conferences
+     * that were updated at or after midnight on a date..
      * 
      * @param absoluteDateUpdated Filter by date updated
      * @return this
@@ -88,8 +96,10 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Only show conferences that were last updated on this date, given as
-     * YYYY-MM-DD. You can also specify inequality such as
-     * DateUpdated&gt;=YYYY-MM-DD.
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateUpdated&lt;=YYYY-MM-DD` for conferences that were last updated at or
+     * before midnight on a date, and `DateUpdated&gt;=YYYY-MM-DD` for conferences
+     * that were updated at or after midnight on a date..
      * 
      * @param rangeDateUpdated Filter by date updated
      * @return this

@@ -37,7 +37,8 @@ public class TokenCreator extends Creator<Token> {
     }
 
     /**
-     * The duration in seconds for which the generated credentials are valid.
+     * The duration in seconds for which the generated credentials are valid, the
+     * default value is 86400 (24 hours)..
      * 
      * @param ttl The duration in seconds the credentials are valid
      * @return this

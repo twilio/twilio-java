@@ -59,7 +59,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * Indicates if the participant should be muted.
+     * Specifying `true` will mute the participant, while `false` will un-mute.
+     * Anything other than `true` or `false` is interpreted as `false`..
      * 
      * @param muted Indicates if the participant should be muted
      * @return this
@@ -70,9 +71,10 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The hold.
+     * Specifying `true` will hold the participant, while `false` will un-hold..
      * 
-     * @param hold The hold
+     * @param hold Specifying true will hold the participant, while false will
+     *             un-hold.
      * @return this
      */
     public ParticipantUpdater setHold(final Boolean hold) {
@@ -81,9 +83,12 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The hold_url.
+     * The 'HoldUrl' attribute lets you specify a URL for music that plays when a
+     * participant is held. The URL may be an MP3, a WAV or a TwiML document that
+     * uses &lt;Play&gt; &lt;Say&gt; or &lt;Redirect&gt;..
      * 
-     * @param holdUrl The hold_url
+     * @param holdUrl The 'HoldUrl' attribute lets you specify a URL for music that
+     *                plays when a participant is held.
      * @return this
      */
     public ParticipantUpdater setHoldUrl(final URI holdUrl) {
@@ -92,9 +97,12 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The hold_url.
+     * The 'HoldUrl' attribute lets you specify a URL for music that plays when a
+     * participant is held. The URL may be an MP3, a WAV or a TwiML document that
+     * uses &lt;Play&gt; &lt;Say&gt; or &lt;Redirect&gt;..
      * 
-     * @param holdUrl The hold_url
+     * @param holdUrl The 'HoldUrl' attribute lets you specify a URL for music that
+     *                plays when a participant is held.
      * @return this
      */
     public ParticipantUpdater setHoldUrl(final String holdUrl) {
@@ -102,9 +110,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The hold_method.
+     * Specify GET or POST, defaults to GET.
      * 
-     * @param holdMethod The hold_method
+     * @param holdMethod Specify GET or POST, defaults to GET
      * @return this
      */
     public ParticipantUpdater setHoldMethod(final HttpMethod holdMethod) {

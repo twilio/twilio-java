@@ -41,7 +41,7 @@ public class SyncListPermission extends Resource {
     /**
      * Create a SyncListPermissionFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
      *                     applies.
@@ -56,7 +56,7 @@ public class SyncListPermission extends Resource {
     /**
      * Create a SyncListPermissionDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
      *                     applies.
@@ -71,7 +71,7 @@ public class SyncListPermission extends Resource {
     /**
      * Create a SyncListPermissionReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @return SyncListPermissionReader capable of executing the read
      */

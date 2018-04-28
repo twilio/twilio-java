@@ -50,7 +50,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls to this phone number or Client identifier.
+     * Only show calls to this phone number, SIP address, Client identifier or SIM
+     * SID..
      * 
      * @param to Phone number or Client identifier to filter `to` on
      * @return this
@@ -61,7 +62,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls to this phone number or Client identifier.
+     * Only show calls to this phone number, SIP address, Client identifier or SIM
+     * SID..
      * 
      * @param to Phone number or Client identifier to filter `to` on
      * @return this
@@ -71,7 +73,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls from this phone number or Client identifier.
+     * Only show calls from this phone number, SIP address, Client identifier or SIM
+     * SID..
      * 
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
@@ -82,7 +85,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls from this phone number or Client identifier.
+     * Only show calls from this phone number, SIP address, Client identifier or SIM
+     * SID..
      * 
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
@@ -92,7 +96,7 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls spawned by the call with this Sid.
+     * Only show calls spawned by the call with this SID..
      * 
      * @param parentCallSid Parent Call Sid to filter on
      * @return this
@@ -103,7 +107,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls currently in this status.
+     * Only show calls currently in this status. May be `queued`, `ringing`,
+     * `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`..
      * 
      * @param status Status to filter on
      * @return this
@@ -114,7 +119,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that started on this date.
+     * Only show calls that started on this date, given as `YYYY-MM-DD`. Also
+     * supports inequalities, such as `StartTime&lt;=YYYY-MM-DD` for calls that
+     * started at or before midnight on a date, and `StartTime&gt;=YYYY-MM-DD` for
+     * calls that started at or after midnight on a date..
      * 
      * @param absoluteStartTime StartTime to filter on
      * @return this
@@ -126,7 +134,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that started on this date.
+     * Only show calls that started on this date, given as `YYYY-MM-DD`. Also
+     * supports inequalities, such as `StartTime&lt;=YYYY-MM-DD` for calls that
+     * started at or before midnight on a date, and `StartTime&gt;=YYYY-MM-DD` for
+     * calls that started at or after midnight on a date..
      * 
      * @param rangeStartTime StartTime to filter on
      * @return this

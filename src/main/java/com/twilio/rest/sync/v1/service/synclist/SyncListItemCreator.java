@@ -46,9 +46,12 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     }
 
     /**
-     * The ttl.
+     * (optional) Time-to-live of this item in seconds, defaults to no expiration.
+     * In the range [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the
+     * list item will be cleaned up at least in a matter of hours, and often within
+     * seconds, making this a good tool for garbage management..
      * 
-     * @param ttl The ttl
+     * @param ttl Time-to-live of this item in seconds, defaults to no expiration.
      * @return this
      */
     public SyncListItemCreator setTtl(final Integer ttl) {

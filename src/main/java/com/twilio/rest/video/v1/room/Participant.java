@@ -187,99 +187,107 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The room_sid.
+     * Returns The A system-generated 34-character string that uniquely identifies..
      * 
-     * @return The room_sid
+     * @return A system-generated 34-character string that uniquely identifies.
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account associated with this Room..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account associated with this Room.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The status.
+     * Returns The A string representing the status of the Participant..
      * 
-     * @return The status
+     * @return A string representing the status of the Participant.
      */
     public final Participant.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The identity.
+     * Returns The The unique name identifier that is assigned to this Participant..
      * 
-     * @return The identity
+     * @return The unique name identifier that is assigned to this Participant.
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created, given as a UTC ISO 8601
+     * Timestamp..
      * 
-     * @return The date_created
+     * @return The date that this resource was created, given as a UTC ISO 8601
+     *         Timestamp.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated, given as a UTC ISO
+     * 8601 Timestamp..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated, given as a UTC ISO
+     *         8601 Timestamp.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The start_time.
+     * Returns The The time of Participant connected to the Room, given as a UTC ISO
+     * 8601 Timestamp..
      * 
-     * @return The start_time
+     * @return The time of Participant connected to the Room, given as a UTC ISO
+     *         8601 Timestamp.
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The end_time.
+     * Returns The The time of Participant disconnected from the Room, given as a
+     * UTC ISO 8601 Timestamp..
      * 
-     * @return The end_time
+     * @return The time of Participant disconnected from the Room, given as a UTC
+     *         ISO 8601 Timestamp.
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The The duration.
+     * Returns The Duration of time in seconds this Participant was connected..
      * 
-     * @return The duration
+     * @return Duration of time in seconds this Participant was connected.
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL for this resource..
      * 
-     * @return The url
+     * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
         return this.url;

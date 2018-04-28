@@ -26,7 +26,8 @@ public class MessageUpdater extends Updater<Message> {
      * Construct a new MessageUpdater.
      * 
      * @param pathSid The message to redact
-     * @param body The body
+     * @param body The text of the message you want to send, limited to 1600
+     *             characters.
      */
     public MessageUpdater(final String pathSid, 
                           final String body) {
@@ -39,7 +40,8 @@ public class MessageUpdater extends Updater<Message> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathSid The message to redact
-     * @param body The body
+     * @param body The text of the message you want to send, limited to 1600
+     *             characters.
      */
     public MessageUpdater(final String pathAccountSid, 
                           final String pathSid, 

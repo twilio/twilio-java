@@ -54,7 +54,8 @@ public class SharedCostReader extends Reader<SharedCost> {
     /**
      * Construct a new SharedCostReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The 34 character string that uniquely identifies your
+     *                       account.
      * @param pathCountryCode The country_code
      */
     public SharedCostReader(final String pathAccountSid, 

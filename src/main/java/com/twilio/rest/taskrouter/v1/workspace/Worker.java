@@ -50,7 +50,7 @@ public class Worker extends Resource {
      * Create a WorkerCreator to execute create.
      * 
      * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName String representing user-friendly name for the Worker.
      * @return WorkerCreator capable of executing the create
      */
     public static WorkerCreator creator(final String pathWorkspaceSid, 
@@ -188,99 +188,100 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The ID of the account that owns this worker.
      * 
-     * @return The account_sid
+     * @return The ID of the account that owns this worker
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The activity_name.
+     * Returns The Filter by workers that are in a particular Activity by Friendly
+     * Name.
      * 
-     * @return The activity_name
+     * @return Filter by workers that are in a particular Activity by Friendly Name
      */
     public final String getActivityName() {
         return this.activityName;
     }
 
     /**
-     * Returns The The activity_sid.
+     * Returns The Filter by workers that are in a particular Activity by SID.
      * 
-     * @return The activity_sid
+     * @return Filter by workers that are in a particular Activity by SID
      */
     public final String getActivitySid() {
         return this.activitySid;
     }
 
     /**
-     * Returns The The attributes.
+     * Returns The JSON object describing this worker..
      * 
-     * @return The attributes
+     * @return JSON object describing this worker.
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The available.
+     * Returns The Filter by workers that are available or unavailable..
      * 
-     * @return The available
+     * @return Filter by workers that are available or unavailable.
      */
     public final Boolean getAvailable() {
         return this.available;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The DateTime this worker was created.
      * 
-     * @return The date_created
+     * @return DateTime this worker was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_status_changed.
+     * Returns The DateTime of the last change to the Worker's activity..
      * 
-     * @return The date_status_changed
+     * @return DateTime of the last change to the Worker's activity.
      */
     public final DateTime getDateStatusChanged() {
         return this.dateStatusChanged;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The DateTime of the last update.
      * 
-     * @return The date_updated
+     * @return DateTime of the last update
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The Filter by a worker’s friendly name.
      * 
-     * @return The friendly_name
+     * @return Filter by a worker’s friendly name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique ID of the worker.
      * 
-     * @return The sid
+     * @return The unique ID of the worker
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The ID of the Workflow this worker is associated with.
      * 
-     * @return The workspace_sid
+     * @return The ID of the Workflow this worker is associated with
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;

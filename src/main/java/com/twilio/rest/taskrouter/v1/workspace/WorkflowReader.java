@@ -33,9 +33,10 @@ public class WorkflowReader extends Reader<Workflow> {
     }
 
     /**
-     * The friendly_name.
+     * Human readable description of this Workflow (for example "Customer Support"
+     * or "2014 Election Campaign").
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable description of this Workflow
      * @return this
      */
     public WorkflowReader setFriendlyName(final String friendlyName) {

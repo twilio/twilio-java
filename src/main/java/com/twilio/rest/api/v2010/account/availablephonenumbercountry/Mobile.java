@@ -151,117 +151,122 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A nicely-formatted version of the phone number..
      * 
-     * @return The friendly_name
+     * @return A nicely-formatted version of the phone number.
      */
     public final com.twilio.type.PhoneNumber getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The phone_number.
+     * Returns The The phone number, in E..
      * 
-     * @return The phone_number
+     * @return The phone number, in E.
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The lata.
+     * Returns The The LATA of this phone number..
      * 
-     * @return The lata
+     * @return The LATA of this phone number.
      */
     public final String getLata() {
         return this.lata;
     }
 
     /**
-     * Returns The The locality.
+     * Returns The The locality/city of this phone number..
      * 
-     * @return The locality
+     * @return The locality/city of this phone number.
      */
     public final String getLocality() {
         return this.locality;
     }
 
     /**
-     * Returns The The rate_center.
+     * Returns The The rate center of this phone number..
      * 
-     * @return The rate_center
+     * @return The rate center of this phone number.
      */
     public final String getRateCenter() {
         return this.rateCenter;
     }
 
     /**
-     * Returns The The latitude.
+     * Returns The The latitude coordinate of this phone number..
      * 
-     * @return The latitude
+     * @return The latitude coordinate of this phone number.
      */
     public final BigDecimal getLatitude() {
         return this.latitude;
     }
 
     /**
-     * Returns The The longitude.
+     * Returns The The longitude coordinate of this phone number..
      * 
-     * @return The longitude
+     * @return The longitude coordinate of this phone number.
      */
     public final BigDecimal getLongitude() {
         return this.longitude;
     }
 
     /**
-     * Returns The The region.
+     * Returns The The two-letter state or province abbreviation of this phone
+     * number..
      * 
-     * @return The region
+     * @return The two-letter state or province abbreviation of this phone number.
      */
     public final String getRegion() {
         return this.region;
     }
 
     /**
-     * Returns The The postal_code.
+     * Returns The The postal code of this phone number..
      * 
-     * @return The postal_code
+     * @return The postal code of this phone number.
      */
     public final String getPostalCode() {
         return this.postalCode;
     }
 
     /**
-     * Returns The The iso_country.
+     * Returns The The ISO country code of this phone number..
      * 
-     * @return The iso_country
+     * @return The ISO country code of this phone number.
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The The address_requirements.
+     * Returns The This indicates whether the phone number requires you or your
+     * customer to have an Address registered with Twilio..
      * 
-     * @return The address_requirements
+     * @return This indicates whether the phone number requires you or your
+     *         customer to have an Address registered with Twilio.
      */
     public final String getAddressRequirements() {
         return this.addressRequirements;
     }
 
     /**
-     * Returns The The beta.
+     * Returns The Phone numbers new to the Twilio platform are marked as beta..
      * 
-     * @return The beta
+     * @return Phone numbers new to the Twilio platform are marked as beta.
      */
     public final Boolean getBeta() {
         return this.beta;
     }
 
     /**
-     * Returns The The capabilities.
+     * Returns The This is a set of boolean properties that indicate whether a phone
+     * number can receive calls or messages..
      * 
-     * @return The capabilities
+     * @return This is a set of boolean properties that indicate whether a phone
+     *         number can receive calls or messages.
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;

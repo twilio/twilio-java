@@ -1,6 +1,13 @@
 twilio-java changelog
 =====================
 
+[2018-05-02] Version 7.18.1
+----------------------------
+This is a special release to fix a bug in RequestCanonicalizer in older releases of the library.
+
+**Library**
+- PR #408: Strip default ports in RequestCanonicalizer. Thanks to @pkiv!
+
 [2018-03-22] Version 7.18.0
 ----------------------------
 **Lookups**

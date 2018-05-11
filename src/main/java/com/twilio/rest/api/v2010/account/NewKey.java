@@ -116,53 +116,45 @@ public class NewKey extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this API Key..
+     * Returns The The sid.
      * 
-     * @return A 34 character string that uniquely identifies this API Key.
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A descriptive string for this resource, chosen by your
-     * application, up to 64 characters long..
+     * Returns The The friendly_name.
      * 
-     * @return A descriptive string for this resource, chosen by your application,
-     *         up to 64 characters long.
+     * @return The friendly_name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date-time this API Key was created, given as a RFC 2822
-     * Timestamp..
+     * Returns The The date_created.
      * 
-     * @return The date-time this API Key was created, given as a RFC 2822
-     *         Timestamp.
+     * @return The date_created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date-time this API Key was most recently updated, given as a 
-     * RFC 2822 Timestamp..
+     * Returns The The date_updated.
      * 
-     * @return The date-time this API Key was most recently updated, given as a 
-     *         RFC 2822 Timestamp.
+     * @return The date_updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The secret your application uses to sign Access Tokens and to
-     * authenticate to the REST API..
+     * Returns The The secret.
      * 
-     * @return The secret your application uses to sign Access Tokens and to
-     *         authenticate to the REST API.
+     * @return The secret
      */
     public final String getSecret() {
         return this.secret;

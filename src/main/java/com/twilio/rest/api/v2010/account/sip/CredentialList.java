@@ -58,7 +58,7 @@ public class CredentialList extends Resource {
      * Create a CredentialListCreator to execute create.
      * 
      * @param pathAccountSid The account_sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable descriptive text
      * @return CredentialListCreator capable of executing the create
      */
     public static CredentialListCreator creator(final String pathAccountSid, 
@@ -69,7 +69,7 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListCreator to execute create.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable descriptive text
      * @return CredentialListCreator capable of executing the create
      */
     public static CredentialListCreator creator(final String friendlyName) {
@@ -80,7 +80,7 @@ public class CredentialList extends Resource {
      * Create a CredentialListFetcher to execute fetch.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique credential Sid
+     * @param pathSid Fetch by unique credential list Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
     public static CredentialListFetcher fetcher(final String pathAccountSid, 
@@ -91,7 +91,7 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique credential Sid
+     * @param pathSid Fetch by unique credential list Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
     public static CredentialListFetcher fetcher(final String pathSid) {
@@ -103,7 +103,7 @@ public class CredentialList extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable descriptive text
      * @return CredentialListUpdater capable of executing the update
      */
     public static CredentialListUpdater updater(final String pathAccountSid, 
@@ -116,7 +116,7 @@ public class CredentialList extends Resource {
      * Create a CredentialListUpdater to execute update.
      * 
      * @param pathSid The sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable descriptive text
      * @return CredentialListUpdater capable of executing the update
      */
     public static CredentialListUpdater updater(final String pathSid, 
@@ -128,7 +128,7 @@ public class CredentialList extends Resource {
      * Create a CredentialListDeleter to execute delete.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique credential Sid
+     * @param pathSid Delete by unique credential list Sid
      * @return CredentialListDeleter capable of executing the delete
      */
     public static CredentialListDeleter deleter(final String pathAccountSid, 
@@ -139,7 +139,7 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique credential Sid
+     * @param pathSid Delete by unique credential list Sid
      * @return CredentialListDeleter capable of executing the delete
      */
     public static CredentialListDeleter deleter(final String pathSid) {
@@ -244,9 +244,9 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The Human readable descriptive text.
      * 
-     * @return The friendly_name
+     * @return Human readable descriptive text
      */
     public final String getFriendlyName() {
         return this.friendlyName;

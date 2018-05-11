@@ -45,9 +45,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The start_date.
+     * Only list Bindings created on or after the given date. Should be formatted as
+     * YYYY-MM-DD. All dates considered in UTC..
      * 
-     * @param startDate The start_date
+     * @param startDate Only list Bindings created on or after the given date.
      * @return this
      */
     public BindingReader setStartDate(final LocalDate startDate) {
@@ -56,9 +57,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The end_date.
+     * Only list Bindings created on or before the given date. Should be formatted
+     * as YYYY-MM-DD. All dates considered in UTC..
      * 
-     * @param endDate The end_date
+     * @param endDate Only list Bindings created on or before the given date.
      * @return this
      */
     public BindingReader setEndDate(final LocalDate endDate) {
@@ -67,9 +69,9 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The identity.
+     * Only list Bindings that have any of the specified Identities..
      * 
-     * @param identity The identity
+     * @param identity Only list Bindings that have any of the specified Identities.
      * @return this
      */
     public BindingReader setIdentity(final List<String> identity) {
@@ -78,9 +80,9 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The identity.
+     * Only list Bindings that have any of the specified Identities..
      * 
-     * @param identity The identity
+     * @param identity Only list Bindings that have any of the specified Identities.
      * @return this
      */
     public BindingReader setIdentity(final String identity) {
@@ -88,9 +90,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The tag.
+     * Only list Bindings that have all of the specified Tags. The following
+     * implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger.
+     * Maximum 5 tags are allowed..
      * 
-     * @param tag The tag
+     * @param tag Only list Bindings that have all of the specified Tags.
      * @return this
      */
     public BindingReader setTag(final List<String> tag) {
@@ -99,9 +103,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The tag.
+     * Only list Bindings that have all of the specified Tags. The following
+     * implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger.
+     * Maximum 5 tags are allowed..
      * 
-     * @param tag The tag
+     * @param tag Only list Bindings that have all of the specified Tags.
      * @return this
      */
     public BindingReader setTag(final String tag) {

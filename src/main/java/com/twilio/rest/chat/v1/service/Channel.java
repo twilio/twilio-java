@@ -216,90 +216,94 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the [Account][/console] responsible for this
+     * channel..
      * 
-     * @return The account_sid
+     * @return The unique id of the [Account][/console] responsible for this
+     *         channel.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The unique id of the [Service][service] this channel belongs to..
      * 
-     * @return The service_sid
+     * @return The unique id of the [Service][service] this channel belongs to.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The The human-readable name of this channel..
      * 
-     * @return The friendly_name
+     * @return The human-readable name of this channel.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The The unique, addressable name of this channel..
      * 
-     * @return The unique_name
+     * @return The unique, addressable name of this channel.
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The attributes.
+     * Returns The An optional string metadata field you can use to store any data
+     * you wish..
      * 
-     * @return The attributes
+     * @return An optional string metadata field you can use to store any data you
+     *         wish.
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The type.
+     * Returns The The visibility of this channel - either public or private.
      * 
-     * @return The type
+     * @return The visibility of this channel - either public or private
      */
     public final Channel.ChannelType getType() {
         return this.type;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created..
      * 
-     * @return The date_created
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The created_by.
+     * Returns The Identity of the channel's creator..
      * 
-     * @return The created_by
+     * @return Identity of the channel's creator.
      */
     public final String getCreatedBy() {
         return this.createdBy;
@@ -324,18 +328,20 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The An absolute URL for this channel..
      * 
-     * @return The url
+     * @return An absolute URL for this channel.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Absolute URLs to access the [Members][members] and
+     * [Messages][messages] for this channel..
      * 
-     * @return The links
+     * @return Absolute URLs to access the [Members][members] and
+     *         [Messages][messages] for this channel.
      */
     public final Map<String, String> getLinks() {
         return this.links;

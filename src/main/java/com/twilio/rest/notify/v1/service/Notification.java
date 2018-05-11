@@ -236,18 +236,18 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The identities.
+     * Returns The List of Identities..
      * 
-     * @return The identities
+     * @return List of Identities.
      */
     public final List<String> getIdentities() {
         return this.identities;
     }
 
     /**
-     * Returns The The tags.
+     * Returns The List of Tags.
      * 
-     * @return The tags
+     * @return List of Tags
      */
     public final List<String> getTags() {
         return this.tags;
@@ -263,108 +263,121 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The priority.
+     * Returns The Two priorities defined: low and high..
      * 
-     * @return The priority
+     * @return Two priorities defined: low and high.
      */
     public final Notification.Priority getPriority() {
         return this.priority;
     }
 
     /**
-     * Returns The The ttl.
+     * Returns The This parameter specifies how long the notification is valid..
      * 
-     * @return The ttl
+     * @return This parameter specifies how long the notification is valid.
      */
     public final Integer getTtl() {
         return this.ttl;
     }
 
     /**
-     * Returns The The title.
+     * Returns The Indicates the notification title..
      * 
-     * @return The title
+     * @return Indicates the notification title.
      */
     public final String getTitle() {
         return this.title;
     }
 
     /**
-     * Returns The The body.
+     * Returns The Indicates the notification body text..
      * 
-     * @return The body
+     * @return Indicates the notification body text.
      */
     public final String getBody() {
         return this.body;
     }
 
     /**
-     * Returns The The sound.
+     * Returns The Indicates a sound to be played..
      * 
-     * @return The sound
+     * @return Indicates a sound to be played.
      */
     public final String getSound() {
         return this.sound;
     }
 
     /**
-     * Returns The The action.
+     * Returns The Specifies the actions to be displayed for the notification..
      * 
-     * @return The action
+     * @return Specifies the actions to be displayed for the notification.
      */
     public final String getAction() {
         return this.action;
     }
 
     /**
-     * Returns The The data.
+     * Returns The This parameter specifies the custom key-value pairs of the
+     * notification’s payload..
      * 
-     * @return The data
+     * @return This parameter specifies the custom key-value pairs of the
+     *         notification’s payload.
      */
     public final Map<String, Object> getData() {
         return this.data;
     }
 
     /**
-     * Returns The The apn.
+     * Returns The APNS specific payload that overrides corresponding attributes in
+     * a generic payload for Bindings with the apn BindingType..
      * 
-     * @return The apn
+     * @return APNS specific payload that overrides corresponding attributes in a
+     *         generic payload for Bindings with the apn BindingType.
      */
     public final Map<String, Object> getApn() {
         return this.apn;
     }
 
     /**
-     * Returns The The gcm.
+     * Returns The GCM specific payload that overrides corresponding attributes in
+     * generic payload for Bindings with gcm BindingType..
      * 
-     * @return The gcm
+     * @return GCM specific payload that overrides corresponding attributes in
+     *         generic payload for Bindings with gcm BindingType.
      */
     public final Map<String, Object> getGcm() {
         return this.gcm;
     }
 
     /**
-     * Returns The The fcm.
+     * Returns The FCM specific payload that overrides corresponding attributes in
+     * generic payload for Bindings with fcm BindingType..
      * 
-     * @return The fcm
+     * @return FCM specific payload that overrides corresponding attributes in
+     *         generic payload for Bindings with fcm BindingType.
      */
     public final Map<String, Object> getFcm() {
         return this.fcm;
     }
 
     /**
-     * Returns The The sms.
+     * Returns The SMS specific payload that overrides corresponding attributes in
+     * generic payload for Bindings with sms BindingType..
      * 
-     * @return The sms
+     * @return SMS specific payload that overrides corresponding attributes in
+     *         generic payload for Bindings with sms BindingType.
      */
     public final Map<String, Object> getSms() {
         return this.sms;
     }
 
     /**
-     * Returns The The facebook_messenger.
+     * Returns The Messenger specific payload that overrides corresponding
+     * attributes in generic payload for Bindings with facebook-messenger
+     * BindingType..
      * 
-     * @return The facebook_messenger
+     * @return Messenger specific payload that overrides corresponding attributes
+     *         in generic payload for Bindings with facebook-messenger BindingType.
      */
     public final Map<String, Object> getFacebookMessenger() {
         return this.facebookMessenger;

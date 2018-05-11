@@ -342,15 +342,16 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A Twilio phone number (in [E.164](http://en.wikipedia.org/wiki/E.164)
-     * format),  [alphanumeric sender
+     * A Twilio phone number (in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format), 
+     * [alphanumeric sender
      * ID](https://www.twilio.com/docs/api/messaging/send-messages#alpha-sender-id)
      * or a [Channel Endpoint
      * address](https://www.twilio.com/docs/api/channels#channel-addresses) enabled
      * for the type of message you wish to send. Phone numbers or [short
      * codes](https://www.twilio.com/docs/sms/api/short-codes) purchased from Twilio
      * work here. You cannot (for example) spoof messages from your own cell phone
-     * number..
+     * number. *Should not be passed if you are using MessagingServiceSid.*.
      * 
      * @param from The phone number that initiated the message
      * @return this
@@ -361,15 +362,16 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A Twilio phone number (in [E.164](http://en.wikipedia.org/wiki/E.164)
-     * format),  [alphanumeric sender
+     * A Twilio phone number (in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format), 
+     * [alphanumeric sender
      * ID](https://www.twilio.com/docs/api/messaging/send-messages#alpha-sender-id)
      * or a [Channel Endpoint
      * address](https://www.twilio.com/docs/api/channels#channel-addresses) enabled
      * for the type of message you wish to send. Phone numbers or [short
      * codes](https://www.twilio.com/docs/sms/api/short-codes) purchased from Twilio
      * work here. You cannot (for example) spoof messages from your own cell phone
-     * number..
+     * number. *Should not be passed if you are using MessagingServiceSid.*.
      * 
      * @param from The phone number that initiated the message
      * @return this
@@ -380,7 +382,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * The 34 character unique id of the [Messaging
-     * Service](https://www.twilio.com/docs/api/messaging/send-messages#messaging-services) you want to associate with this Message. Set this parameter to use the Messaging Service Settings and [Copilot Features](https://www.twilio.com/docs/api/messaging/send-messages-copilot) you have configured. When only this parameter is set, Twilio will use your enabled Copilot Features to select the From phone number for delivery..
+     * Service](https://www.twilio.com/docs/api/messaging/send-messages#messaging-services) you want to associate with this Message. Set this parameter to use the Messaging Service Settings and [Copilot Features](https://www.twilio.com/docs/api/messaging/send-messages-copilot) you have configured. When only this parameter is set, Twilio will use your enabled Copilot Features to select the From phone number for delivery. *Should not be passed if you are using From.*.
      * 
      * @param messagingServiceSid The 34 character unique id of the Messaging
      *                            Service you want to associate with this Message.

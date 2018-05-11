@@ -29,9 +29,9 @@ public class RoleCreator extends Creator<Role> {
      * Construct a new RoleCreator.
      * 
      * @param pathServiceSid The service_sid
-     * @param friendlyName The friendly_name
-     * @param type The type
-     * @param permission The permission
+     * @param friendlyName The human-readable name of this role.
+     * @param type What kind of role this is.
+     * @param permission A permission this role should have.
      */
     public RoleCreator(final String pathServiceSid, 
                        final String friendlyName, 

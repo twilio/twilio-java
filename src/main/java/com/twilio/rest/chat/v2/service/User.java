@@ -64,7 +64,8 @@ public class User extends Resource {
      * Create a UserCreator to execute create.
      * 
      * @param pathServiceSid The service_sid
-     * @param identity The identity
+     * @param identity A unique string that identifies the user within this service
+     *                 - often a username or email address.
      * @return UserCreator capable of executing the create
      */
     public static UserCreator creator(final String pathServiceSid, 
@@ -192,108 +193,116 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account responsible for this user..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account responsible for this user.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The unique id of the Service this user belongs to..
      * 
-     * @return The service_sid
+     * @return The unique id of the Service this user belongs to.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The attributes.
+     * Returns The An optional string metadata field you can use to store any data
+     * you wish..
      * 
-     * @return The attributes
+     * @return An optional string metadata field you can use to store any data you
+     *         wish.
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The The human-readable name of this user..
      * 
-     * @return The friendly_name
+     * @return The human-readable name of this user.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The role_sid.
+     * Returns The The unique id of the [Role][role] assigned to this user..
      * 
-     * @return The role_sid
+     * @return The unique id of the [Role][role] assigned to this user.
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The The identity.
+     * Returns The A unique string that identifies the user within this service -
+     * often a username or email address..
      * 
-     * @return The identity
+     * @return A unique string that identifies the user within this service - often
+     *         a username or email address.
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The is_online.
+     * Returns The Indicates whether the User is actively connected to the Service
+     * instance and online..
      * 
-     * @return The is_online
+     * @return Indicates whether the User is actively connected to the Service
+     *         instance and online.
      */
     public final Boolean getIsOnline() {
         return this.isOnline;
     }
 
     /**
-     * Returns The The is_notifiable.
+     * Returns The Indicates whether the User has a potentially valid Push
+     * Notification registration  for the Service instance..
      * 
-     * @return The is_notifiable
+     * @return Indicates whether the User has a potentially valid Push Notification
+     *         registration  for the Service instance.
      */
     public final Boolean getIsNotifiable() {
         return this.isNotifiable;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created in ISO 8601 format..
      * 
-     * @return The date_created
+     * @return The date that this resource was created in ISO 8601 format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated in ISO 8601 format..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated in ISO 8601 format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The joined_channels_count.
+     * Returns The The number of Channels this User is a Member of..
      * 
-     * @return The joined_channels_count
+     * @return The number of Channels this User is a Member of.
      */
     public final Integer getJoinedChannelsCount() {
         return this.joinedChannelsCount;
@@ -309,9 +318,9 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The An absolute URL for this user..
      * 
-     * @return The url
+     * @return An absolute URL for this user.
      */
     public final URI getUrl() {
         return this.url;

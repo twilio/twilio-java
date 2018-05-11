@@ -31,10 +31,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsageRecord extends Resource {
     private static final long serialVersionUID = 59802698873070L;
@@ -138,45 +134,48 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The The sim_sid.
+     * Returns The The unique id of the SIM resource that this Usage Record is for..
      * 
-     * @return The sim_sid
+     * @return The unique id of the SIM resource that this Usage Record is for.
      */
     public final String getSimSid() {
         return this.simSid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account that the SIM belongs to..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account that the SIM belongs to.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The period.
+     * Returns The The time period for which usage is reported..
      * 
-     * @return The period
+     * @return The time period for which usage is reported.
      */
     public final Map<String, Object> getPeriod() {
         return this.period;
     }
 
     /**
-     * Returns The The commands.
+     * Returns The An object representing the Commands usage for the SIM over the
+     * period..
      * 
-     * @return The commands
+     * @return An object representing the Commands usage for the SIM over the
+     *         period.
      */
     public final Map<String, Object> getCommands() {
         return this.commands;
     }
 
     /**
-     * Returns The The data.
+     * Returns The An object representing the Data usage for the SIM over the
+     * period..
      * 
-     * @return The data
+     * @return An object representing the Data usage for the SIM over the period.
      */
     public final Map<String, Object> getData() {
         return this.data;

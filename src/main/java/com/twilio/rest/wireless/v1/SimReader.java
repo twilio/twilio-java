@@ -19,10 +19,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class SimReader extends Reader<Sim> {
     private Sim.Status status;
     private String iccid;
@@ -31,9 +27,9 @@ public class SimReader extends Reader<Sim> {
     private String simRegistrationCode;
 
     /**
-     * The status.
+     * Only return Sims with this status..
      * 
-     * @param status The status
+     * @param status Only return Sims with this status.
      * @return this
      */
     public SimReader setStatus(final Sim.Status status) {
@@ -42,9 +38,10 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The iccid.
+     * Return Sims with this Iccid. Currently this should be a list with maximum
+     * size 1..
      * 
-     * @param iccid The iccid
+     * @param iccid Return Sims with this Iccid.
      * @return this
      */
     public SimReader setIccid(final String iccid) {
@@ -53,9 +50,9 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The rate_plan.
+     * Only return Sims with this Rate Plan..
      * 
-     * @param ratePlan The rate_plan
+     * @param ratePlan Only return Sims with this Rate Plan.
      * @return this
      */
     public SimReader setRatePlan(final String ratePlan) {

@@ -39,9 +39,10 @@ public class SyncListUpdater extends Updater<SyncList> {
     }
 
     /**
-     * The ttl.
+     * Time-to-live of this List in seconds, defaults to no expiration. In the range
+     * [1, 31 536 000 (1 year)], or 0 for infinity..
      * 
-     * @param ttl The ttl
+     * @param ttl Time-to-live of this List in seconds, defaults to no expiration.
      * @return this
      */
     public SyncListUpdater setTtl(final Integer ttl) {

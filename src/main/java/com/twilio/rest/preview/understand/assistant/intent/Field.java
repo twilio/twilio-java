@@ -72,8 +72,10 @@ public class Field extends Resource {
      * 
      * @param pathAssistantSid The assistant_sid
      * @param pathIntentSid The intent_sid
-     * @param fieldType The field_type
-     * @param uniqueName The unique_name
+     * @param fieldType The unique name or sid of the FieldType
+     * @param uniqueName A user-provided string that uniquely identifies this
+     *                   resource as an alternative to the sid. Unique up to 64
+     *                   characters long.
      * @return FieldCreator capable of executing the create
      */
     public static FieldCreator creator(final String pathAssistantSid, 
@@ -175,72 +177,76 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that created this Field..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that created this Field.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created.
      * 
-     * @return The date_created
+     * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The field_type.
+     * Returns The The Field Type of this field. Can be the Field Type unique_name
+     * or the Field Type sid..
      * 
-     * @return The field_type
+     * @return The Field Type of this field. Can be the Field Type unique_name or
+     *         the Field Type sid.
      */
     public final String getFieldType() {
         return this.fieldType;
     }
 
     /**
-     * Returns The The intent_sid.
+     * Returns The The unique ID of the Intent associated with this Field..
      * 
-     * @return The intent_sid
+     * @return The unique ID of the Intent associated with this Field.
      */
     public final String getIntentSid() {
         return this.intentSid;
     }
 
     /**
-     * Returns The The assistant_sid.
+     * Returns The The unique ID of the parent Assistant..
      * 
-     * @return The assistant_sid
+     * @return The unique ID of the parent Assistant.
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The A user-provided string that uniquely identifies this resource as
+     * an alternative to the sid. Unique up to 64 characters long..
      * 
-     * @return The unique_name
+     * @return A user-provided string that uniquely identifies this resource as an
+     *         alternative to the sid. Unique up to 64 characters long.
      */
     public final String getUniqueName() {
         return this.uniqueName;

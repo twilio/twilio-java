@@ -42,9 +42,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The friendly_name.
+     * A human-readable name for the Channel. Optional..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable name for the Channel.
      * @return this
      */
     public ChannelUpdater setFriendlyName(final String friendlyName) {
@@ -53,9 +53,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The unique_name.
+     * A unique, addressable name for the Channel.  Optional..
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName A unique, addressable name for the Channel.
      * @return this
      */
     public ChannelUpdater setUniqueName(final String uniqueName) {
@@ -64,9 +64,11 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The attributes.
+     * An optional metadata field you can use to store any data you wish. No
+     * processing or validation is done on this field..
      * 
-     * @param attributes The attributes
+     * @param attributes An optional metadata field you can use to store any data
+     *                   you wish.
      * @return this
      */
     public ChannelUpdater setAttributes(final String attributes) {
@@ -75,9 +77,11 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The date_created.
+     * The optional ISO8601 time specifying the datetime the Channel should be set
+     * as being created..
      * 
-     * @param dateCreated The date_created
+     * @param dateCreated The optional ISO8601 time specifying the datetime the
+     *                    Channel should be set as being created.
      * @return this
      */
     public ChannelUpdater setDateCreated(final DateTime dateCreated) {
@@ -86,9 +90,11 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The date_updated.
+     * The optional ISO8601 time specifying the datetime the Channel should be set
+     * as having been last updated..
      * 
-     * @param dateUpdated The date_updated
+     * @param dateUpdated The optional ISO8601 time specifying the datetime the
+     *                    Channel should be set as having been last updated.
      * @return this
      */
     public ChannelUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -97,9 +103,10 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The created_by.
+     * Optional field to specify the Identity of the User that created the Channel..
      * 
-     * @param createdBy The created_by
+     * @param createdBy Optional field to specify the Identity of the User that
+     *                  created the Channel.
      * @return this
      */
     public ChannelUpdater setCreatedBy(final String createdBy) {

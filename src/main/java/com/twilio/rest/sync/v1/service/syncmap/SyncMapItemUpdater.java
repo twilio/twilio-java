@@ -47,8 +47,8 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     }
 
     /**
-     * (optional) Contains an arbitrary JSON object to be stored in this Map Item.
-     * Serialized to string to respect HTTP form input, up to 16KB..
+     * Contains an arbitrary JSON object to be stored in this Map Item. Serialized
+     * to string to respect HTTP form input, up to 16KB..
      * 
      * @param data Contains an arbitrary JSON object to be stored in this Map Item.
      * @return this

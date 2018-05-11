@@ -125,45 +125,47 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The country.
+     * Returns The Name of the country.
      * 
-     * @return The country
+     * @return Name of the country
      */
     public final String getCountry() {
         return this.country;
     }
 
     /**
-     * Returns The The iso_country.
+     * Returns The The ISO country code.
      * 
-     * @return The iso_country
+     * @return The ISO country code
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The The outbound_sms_prices.
+     * Returns The List of OutboundSMSPrice records.
      * 
-     * @return The outbound_sms_prices
+     * @return List of OutboundSMSPrice records
      */
     public final List<OutboundSmsPrice> getOutboundSmsPrices() {
         return this.outboundSmsPrices;
     }
 
     /**
-     * Returns The The inbound_sms_prices.
+     * Returns The List of InboundPrice records.
      * 
-     * @return The inbound_sms_prices
+     * @return List of InboundPrice records
      */
     public final List<InboundSmsPrice> getInboundSmsPrices() {
         return this.inboundSmsPrices;
     }
 
     /**
-     * Returns The The price_unit.
+     * Returns The The currency in which prices are measured, in ISO 4127 format
+     * (e.g. usd, eur, jpy)..
      * 
-     * @return The price_unit
+     * @return The currency in which prices are measured, in ISO 4127 format (e.g.
+     *         usd, eur, jpy).
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;

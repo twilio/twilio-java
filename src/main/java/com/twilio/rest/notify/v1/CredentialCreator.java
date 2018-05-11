@@ -33,16 +33,16 @@ public class CredentialCreator extends Creator<Credential> {
     /**
      * Construct a new CredentialCreator.
      * 
-     * @param type The type
+     * @param type Credential type, one of "gcm", "fcm", or "apn"
      */
     public CredentialCreator(final Credential.PushService type) {
         this.type = type;
     }
 
     /**
-     * The friendly_name.
+     * Friendly name for stored credential.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Friendly name for stored credential
      * @return this
      */
     public CredentialCreator setFriendlyName(final String friendlyName) {
@@ -51,9 +51,11 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * The certificate.
+     * [APN only] URL encoded representation of the certificate. Strip everything
+     * outside of the headers, e.g. `-----BEGIN
+     * CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`.
      * 
-     * @param certificate The certificate
+     * @param certificate [APN only] URL encoded representation of the certificate.
      * @return this
      */
     public CredentialCreator setCertificate(final String certificate) {
@@ -62,9 +64,11 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * The private_key.
+     * [APN only] URL encoded representation of the private key. Strip everything
+     * outside of the headers, e.g. `-----BEGIN RSA PRIVATE
+     * KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\n.-----END RSA PRIVATE KEY-----`.
      * 
-     * @param privateKey The private_key
+     * @param privateKey [APN only] URL encoded representation of the private key.
      * @return this
      */
     public CredentialCreator setPrivateKey(final String privateKey) {
@@ -73,9 +77,11 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * The sandbox.
+     * [APN only] use this credential for sending to production or sandbox APNs
+     * (string `true` or `false`).
      * 
-     * @param sandbox The sandbox
+     * @param sandbox [APN only] use this credential for sending to production or
+     *                sandbox APNs
      * @return this
      */
     public CredentialCreator setSandbox(final Boolean sandbox) {
@@ -84,9 +90,12 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * The api_key.
+     * [GCM only] This is the "Server key" of your project from Firebase console
+     * under Settings / Cloud messaging. Yes, you can use the server key from the
+     * Firebase console for GCM..
      * 
-     * @param apiKey The api_key
+     * @param apiKey [GCM only] This is the "Server key" of your project from
+     *               Firebase console under Settings / Cloud messaging.
      * @return this
      */
     public CredentialCreator setApiKey(final String apiKey) {
@@ -95,9 +104,11 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * The secret.
+     * [FCM only] This is the "Server key" of your project from Firebase console
+     * under Settings / Cloud messaging..
      * 
-     * @param secret The secret
+     * @param secret [FCM only] This is the "Server key" of your project from
+     *               Firebase console under Settings / Cloud messaging.
      * @return this
      */
     public CredentialCreator setSecret(final String secret) {

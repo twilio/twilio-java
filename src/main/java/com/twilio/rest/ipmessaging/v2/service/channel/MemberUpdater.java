@@ -45,9 +45,10 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The role_sid.
+     * The role to be assigned to this member. Defaults to the roles specified on
+     * the [Service](https://www.twilio.com/docs/api/chat/rest/services)..
      * 
-     * @param roleSid The role_sid
+     * @param roleSid The role to be assigned to this member.
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -56,9 +57,12 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The last_consumed_message_index.
+     * Optional field used to specify the last consumed Message index for the
+     * Channel for this Member..
      * 
-     * @param lastConsumedMessageIndex The last_consumed_message_index
+     * @param lastConsumedMessageIndex Optional field used to specify the last
+     *                                 consumed Message index for the Channel for
+     *                                 this Member.
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -67,9 +71,12 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The last_consumption_timestamp.
+     * Optional ISO8601 time indicating the last datetime the Member consumed a
+     * Message in the Channel..
      * 
-     * @param lastConsumptionTimestamp The last_consumption_timestamp
+     * @param lastConsumptionTimestamp Optional ISO8601 time indicating the last
+     *                                 datetime the Member consumed a Message in the
+     *                                 Channel.
      * @return this
      */
     public MemberUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
@@ -78,9 +85,11 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The date_created.
+     * The optional ISO8601 time specifying the datetime the Members should be set
+     * as being created..
      * 
-     * @param dateCreated The date_created
+     * @param dateCreated The optional ISO8601 time specifying the datetime the
+     *                    Members should be set as being created.
      * @return this
      */
     public MemberUpdater setDateCreated(final DateTime dateCreated) {
@@ -89,9 +98,11 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The date_updated.
+     * The optional ISO8601 time specifying the datetime the Member should be set as
+     * having been last updated..
      * 
-     * @param dateUpdated The date_updated
+     * @param dateUpdated The optional ISO8601 time specifying the datetime the
+     *                    Member should be set as having been last updated.
      * @return this
      */
     public MemberUpdater setDateUpdated(final DateTime dateUpdated) {

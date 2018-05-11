@@ -55,7 +55,7 @@ public class Member extends Resource {
      * 
      * @param pathServiceSid The service_sid
      * @param pathChannelSid The channel_sid
-     * @param identity The identity
+     * @param identity A unique string identifier for this User in this Service.
      * @return MemberCreator capable of executing the create
      */
     public static MemberCreator creator(final String pathServiceSid, 
@@ -190,99 +190,103 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account responsible for this member..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account responsible for this member.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The channel_sid.
+     * Returns The The unique id of the Channel for this member..
      * 
-     * @return The channel_sid
+     * @return The unique id of the Channel for this member.
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The unique id of the Service this member belongs to..
      * 
-     * @return The service_sid
+     * @return The unique id of the Service this member belongs to.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The identity.
+     * Returns The A unique string identifier for this User in this Service..
      * 
-     * @return The identity
+     * @return A unique string identifier for this User in this Service.
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created..
      * 
-     * @return The date_created
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The role_sid.
+     * Returns The The Role assigned to this member..
      * 
-     * @return The role_sid
+     * @return The Role assigned to this member.
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The The last_consumed_message_index.
+     * Returns The An Integer representing index of the last Message this Member has
+     * read within this Channel.
      * 
-     * @return The last_consumed_message_index
+     * @return An Integer representing index of the last Message this Member has
+     *         read within this Channel
      */
     public final Integer getLastConsumedMessageIndex() {
         return this.lastConsumedMessageIndex;
     }
 
     /**
-     * Returns The The last_consumption_timestamp.
+     * Returns The An ISO8601 based timestamp string representing the datetime of
+     * the last Message read event for this Member within this Channel.
      * 
-     * @return The last_consumption_timestamp
+     * @return An ISO8601 based timestamp string representing the datetime of the
+     *         last Message read event for this Member within this Channel
      */
     public final DateTime getLastConsumptionTimestamp() {
         return this.lastConsumptionTimestamp;
     }
 
     /**
-     * Returns The The url.
+     * Returns The An absolute URL for this member..
      * 
-     * @return The url
+     * @return An absolute URL for this member.
      */
     public final URI getUrl() {
         return this.url;

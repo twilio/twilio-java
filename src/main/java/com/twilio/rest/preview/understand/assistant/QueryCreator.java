@@ -34,8 +34,10 @@ public class QueryCreator extends Creator<Query> {
      * Construct a new QueryCreator.
      * 
      * @param pathAssistantSid The assistant_sid
-     * @param language The language
-     * @param query The query
+     * @param language An ISO language-country string of the sample.
+     * @param query A user-provided string that uniquely identifies this resource
+     *              as an alternative to the sid. It can be up to 2048 characters
+     *              long.
      */
     public QueryCreator(final String pathAssistantSid, 
                         final String language, 
@@ -46,9 +48,13 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * The intents.
+     * Constraints the query to a set of intents. Useful when you need to constrain
+     * the paths the user can take. Intents should be comma separated
+     * *intent-unique-name-1*, *intent-unique-name-2*.
      * 
-     * @param intents The intents
+     * @param intents Constraints the query to a set of intents. Useful when you
+     *                need to constrain the paths the user can take. Intents should
+     *                be comma separated intent-unique-name-1, intent-unique-name-2
      * @return this
      */
     public QueryCreator setIntents(final String intents) {
@@ -57,9 +63,10 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * The model_build.
+     * The Model Build Sid or unique name of the Model Build to be queried..
      * 
-     * @param modelBuild The model_build
+     * @param modelBuild The Model Build Sid or unique name of the Model Build to
+     *                   be queried.
      * @return this
      */
     public QueryCreator setModelBuild(final String modelBuild) {
@@ -68,9 +75,13 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * The field.
+     * Constraints the query to a given Field with an intent. Useful when you know
+     * the Field you are expecting. It accepts one field in the format
+     * *intent-unique-name-1*:*field-unique-name*.
      * 
-     * @param field The field
+     * @param field Constraints the query to a given Field with an intent. Useful
+     *              when you know the Field you are expecting. It accepts one field
+     *              in the format intent-unique-name-1:field-unique-name
      * @return this
      */
     public QueryCreator setField(final String field) {

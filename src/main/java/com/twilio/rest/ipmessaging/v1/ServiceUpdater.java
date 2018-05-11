@@ -104,9 +104,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The friendly_name.
+     * Human-readable name for this service instance.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human-readable name for this service instance
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
@@ -126,9 +126,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The default_channel_role_sid.
+     * Channel role assigned on channel join (see
+     * [Roles](https://www.twilio.com/docs/api/chat/rest/v1/roles) data model for
+     * the details).
      * 
-     * @param defaultChannelRoleSid The default_channel_role_sid
+     * @param defaultChannelRoleSid Channel role assigned on channel join
      * @return this
      */
     public ServiceUpdater setDefaultChannelRoleSid(final String defaultChannelRoleSid) {
@@ -137,9 +139,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The default_channel_creator_role_sid.
+     * Channel role assigned to creator of channel when joining for first time.
      * 
-     * @param defaultChannelCreatorRoleSid The default_channel_creator_role_sid
+     * @param defaultChannelCreatorRoleSid Channel role assigned to creator of
+     *                                     channel when joining for first time
      * @return this
      */
     public ServiceUpdater setDefaultChannelCreatorRoleSid(final String defaultChannelCreatorRoleSid) {
@@ -148,9 +151,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The read_status_enabled.
+     * `true` if the member read status feature is enabled, `false` if not. 
+     * Defaults to `true`..
      * 
-     * @param readStatusEnabled The read_status_enabled
+     * @param readStatusEnabled true if the member read status feature is enabled,
+     *                          false if not.
      * @return this
      */
     public ServiceUpdater setReadStatusEnabled(final Boolean readStatusEnabled) {
@@ -159,9 +164,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The reachability_enabled.
+     * `true` if the reachability feature should be enabled.  Defaults to `false`.
      * 
-     * @param reachabilityEnabled The reachability_enabled
+     * @param reachabilityEnabled true if the reachability feature should be
+     *                            enabled.
      * @return this
      */
     public ServiceUpdater setReachabilityEnabled(final Boolean reachabilityEnabled) {
@@ -170,9 +176,14 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The typing_indicator_timeout.
+     * ISO 8601 duration indicating the timeout after "started typing" event when
+     * client should assume that user is not typing anymore even if no "ended
+     * typing" message received.
      * 
-     * @param typingIndicatorTimeout The typing_indicator_timeout
+     * @param typingIndicatorTimeout ISO 8601 duration indicating the timeout after
+     *                               "started typing" event when client should
+     *                               assume that user is not typing anymore even if
+     *                               no "ended typing" message received
      * @return this
      */
     public ServiceUpdater setTypingIndicatorTimeout(final Integer typingIndicatorTimeout) {
@@ -181,9 +192,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The consumption_report_interval.
+     * ISO 8601 duration indicating the interval between consumption reports sent
+     * from client endpoints..
      * 
-     * @param consumptionReportInterval The consumption_report_interval
+     * @param consumptionReportInterval ISO 8601 duration indicating the interval
+     *                                  between consumption reports sent from client
+     *                                  endpoints.
      * @return this
      */
     public ServiceUpdater setConsumptionReportInterval(final Integer consumptionReportInterval) {
@@ -286,9 +300,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The pre_webhook_url.
+     * The webhook URL for PRE-Event webhooks. See [Webhook
+     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
      * 
-     * @param preWebhookUrl The pre_webhook_url
+     * @param preWebhookUrl The webhook URL for PRE-Event webhooks.
      * @return this
      */
     public ServiceUpdater setPreWebhookUrl(final URI preWebhookUrl) {
@@ -297,9 +312,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The pre_webhook_url.
+     * The webhook URL for PRE-Event webhooks. See [Webhook
+     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
      * 
-     * @param preWebhookUrl The pre_webhook_url
+     * @param preWebhookUrl The webhook URL for PRE-Event webhooks.
      * @return this
      */
     public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl) {
@@ -307,9 +323,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The post_webhook_url.
+     * The webhook URL for POST-Event webhooks. See [Webhook
+     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
      * 
-     * @param postWebhookUrl The post_webhook_url
+     * @param postWebhookUrl The webhook URL for POST-Event webhooks.
      * @return this
      */
     public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl) {
@@ -318,9 +335,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The post_webhook_url.
+     * The webhook URL for POST-Event webhooks. See [Webhook
+     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
      * 
-     * @param postWebhookUrl The post_webhook_url
+     * @param postWebhookUrl The webhook URL for POST-Event webhooks.
      * @return this
      */
     public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl) {
@@ -328,9 +346,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The webhook_method.
+     * The webhook request format to use.  Must be POST or GET. See [Webhook
+     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
      * 
-     * @param webhookMethod The webhook_method
+     * @param webhookMethod The webhook request format to use.
      * @return this
      */
     public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod) {
@@ -339,9 +358,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The webhook_filters.
+     * The list of WebHook events that are enabled for this Service instance. See
+     * [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more
+     * details..
      * 
-     * @param webhookFilters The webhook_filters
+     * @param webhookFilters The list of WebHook events that are enabled for this
+     *                       Service instance.
      * @return this
      */
     public ServiceUpdater setWebhookFilters(final List<String> webhookFilters) {
@@ -350,9 +372,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The webhook_filters.
+     * The list of WebHook events that are enabled for this Service instance. See
+     * [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more
+     * details..
      * 
-     * @param webhookFilters The webhook_filters
+     * @param webhookFilters The list of WebHook events that are enabled for this
+     *                       Service instance.
      * @return this
      */
     public ServiceUpdater setWebhookFilters(final String webhookFilters) {

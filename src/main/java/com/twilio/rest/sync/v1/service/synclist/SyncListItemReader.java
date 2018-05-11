@@ -43,7 +43,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     }
 
     /**
-     * (optional) A string; `asc` or `desc`.
+     * A string; `asc` or `desc`.
      * 
      * @param order A string; asc or desc
      * @return this
@@ -54,9 +54,8 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     }
 
     /**
-     * (optional) An integer representing Item index offset (inclusive). If not
-     * present, query is performed from the start or end, depending on the Order
-     * query parameter..
+     * An integer representing Item index offset (inclusive). If not present, query
+     * is performed from the start or end, depending on the Order query parameter..
      * 
      * @param from An integer representing Item index offset.
      * @return this

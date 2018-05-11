@@ -19,19 +19,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class CommandReader extends Reader<Command> {
     private String sim;
     private Command.Status status;
     private Command.Direction direction;
 
     /**
-     * The sim.
+     * Only return Commands to or from this SIM..
      * 
-     * @param sim The sim
+     * @param sim Only return Commands to or from this SIM.
      * @return this
      */
     public CommandReader setSim(final String sim) {
@@ -40,9 +36,9 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
-     * The status.
+     * Only return Commands with this status value..
      * 
-     * @param status The status
+     * @param status Only return Commands with this status value.
      * @return this
      */
     public CommandReader setStatus(final Command.Status status) {
@@ -51,9 +47,9 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
-     * The direction.
+     * Only return Commands with this direction value..
      * 
-     * @param direction The direction
+     * @param direction Only return Commands with this direction value.
      * @return this
      */
     public CommandReader setDirection(final Command.Direction direction) {

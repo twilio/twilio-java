@@ -28,7 +28,7 @@ public class InviteCreator extends Creator<Invite> {
      * 
      * @param pathServiceSid The service_sid
      * @param pathChannelSid The channel_sid
-     * @param identity The identity
+     * @param identity A unique string identifier for this User in this Service.
      */
     public InviteCreator(final String pathServiceSid, 
                          final String pathChannelSid, 
@@ -39,9 +39,10 @@ public class InviteCreator extends Creator<Invite> {
     }
 
     /**
-     * The role_sid.
+     * The [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this
+     * member..
      * 
-     * @param roleSid The role_sid
+     * @param roleSid The Role assigned to this member.
      * @return this
      */
     public InviteCreator setRoleSid(final String roleSid) {

@@ -75,7 +75,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialCreator to execute create.
      * 
-     * @param type The type
+     * @param type Credential type, one of "gcm", "fcm", or "apn"
      * @return CredentialCreator capable of executing the create
      */
     public static CredentialCreator creator(final Credential.PushService type) {
@@ -187,72 +187,76 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account responsible for this resource..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account responsible for this resource.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The The human-readable name of this resource..
      * 
-     * @return The friendly_name
+     * @return The human-readable name of this resource.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The type.
+     * Returns The Indicates which push notifications service this credential is for
+     * - either gcm, fcm, or apn.
      * 
-     * @return The type
+     * @return Indicates which push notifications service this credential is for -
+     *         either gcm, fcm, or apn
      */
     public final Credential.PushService getType() {
         return this.type;
     }
 
     /**
-     * Returns The The sandbox.
+     * Returns The [APN only] true when this resource should use the sandbox APN
+     * service..
      * 
-     * @return The sandbox
+     * @return [APN only] true when this resource should use the sandbox APN
+     *         service.
      */
     public final String getSandbox() {
         return this.sandbox;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created..
      * 
-     * @return The date_created
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The An absolute URL for this credential resource..
      * 
-     * @return The url
+     * @return An absolute URL for this credential resource.
      */
     public final URI getUrl() {
         return this.url;

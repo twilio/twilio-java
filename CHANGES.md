@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2018-05-11] Version 7.21.0
+----------------------------
+**Library**
+- PR #411: Update Jackson to version 2.8.11. Thanks to @jmctwilio!
+
+**Chat**
+- Add Channel Webhooks resource
+
+**Monitor**
+- Update event filtering to support date/time **(breaking change)**
+
+**Wireless**
+- Updated `maturity` to `ga` for all wireless apis
+
+
 [2018-04-28] Version 7.20.0
 ----------------------------
 **Library**

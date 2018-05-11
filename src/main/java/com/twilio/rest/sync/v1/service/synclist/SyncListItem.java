@@ -125,7 +125,8 @@ public class SyncListItem extends Resource {
      * 
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
-     * @param data The data
+     * @param data Contains arbitrary user-defined, schema-less data that this List
+     *             Item stores, represented by a JSON object, up to 16KB.
      * @return SyncListItemCreator capable of executing the create
      */
     public static SyncListItemCreator creator(final String pathServiceSid, 

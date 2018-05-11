@@ -32,10 +32,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataSession extends Resource {
     private static final long serialVersionUID = 147675841254752L;
@@ -153,135 +149,160 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique id of the Data Session resource that this Data Record
+     * is for..
      * 
-     * @return The sid
+     * @return The unique id of the Data Session resource that this Data Record is
+     *         for.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The sim_sid.
+     * Returns The The unique id of the SIM resource that this Data Session is for..
      * 
-     * @return The sim_sid
+     * @return The unique id of the SIM resource that this Data Session is for.
      */
     public final String getSimSid() {
         return this.simSid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account that the SIM belongs to..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account that the SIM belongs to.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The radio_link.
+     * Returns The The generation of wireless technology that the device was
+     * attached to the cellular tower using..
      * 
-     * @return The radio_link
+     * @return The generation of wireless technology that the device was attached
+     *         to the cellular tower using.
      */
     public final String getRadioLink() {
         return this.radioLink;
     }
 
     /**
-     * Returns The The operator_mcc.
+     * Returns The The 'mobile country code' is the unique id of the home country
+     * where the Data Session took place..
      * 
-     * @return The operator_mcc
+     * @return The 'mobile country code' is the unique id of the home country where
+     *         the Data Session took place.
      */
     public final String getOperatorMcc() {
         return this.operatorMcc;
     }
 
     /**
-     * Returns The The operator_mnc.
+     * Returns The The 'mobile network code' is the unique id specific to the mobile
+     * operator network where the Data Session took place..
      * 
-     * @return The operator_mnc
+     * @return The 'mobile network code' is the unique id specific to the mobile
+     *         operator network where the Data Session took place.
      */
     public final String getOperatorMnc() {
         return this.operatorMnc;
     }
 
     /**
-     * Returns The The operator_country.
+     * Returns The The three letter country code representing where the device's
+     * Data Session took place..
      * 
-     * @return The operator_country
+     * @return The three letter country code representing where the device's Data
+     *         Session took place.
      */
     public final String getOperatorCountry() {
         return this.operatorCountry;
     }
 
     /**
-     * Returns The The operator_name.
+     * Returns The The friendly name of the mobile operator network that the
+     * SIM-connected device is attached to..
      * 
-     * @return The operator_name
+     * @return The friendly name of the mobile operator network that the
+     *         SIM-connected device is attached to.
      */
     public final String getOperatorName() {
         return this.operatorName;
     }
 
     /**
-     * Returns The The cell_id.
+     * Returns The The unique id of the cellular tower that the device was attached
+     * to at the moment when the Data Session was last updated..
      * 
-     * @return The cell_id
+     * @return The unique id of the cellular tower that the device was attached to
+     *         at the moment when the Data Session was last updated.
      */
     public final String getCellId() {
         return this.cellId;
     }
 
     /**
-     * Returns The The cell_location_estimate.
+     * Returns The An object representing the estimated location where the device's
+     * Data Session took place..
      * 
-     * @return The cell_location_estimate
+     * @return An object representing the estimated location where the device's
+     *         Data Session took place.
      */
     public final Map<String, Object> getCellLocationEstimate() {
         return this.cellLocationEstimate;
     }
 
     /**
-     * Returns The The packets_uploaded.
+     * Returns The The number of packets uploaded by the device between the start
+     * time and when the Data Session was last updated..
      * 
-     * @return The packets_uploaded
+     * @return The number of packets uploaded by the device between the start time
+     *         and when the Data Session was last updated.
      */
     public final Integer getPacketsUploaded() {
         return this.packetsUploaded;
     }
 
     /**
-     * Returns The The packets_downloaded.
+     * Returns The The number of packets downloaded by the device between the start
+     * time and when the Data Session was last updated..
      * 
-     * @return The packets_downloaded
+     * @return The number of packets downloaded by the device between the start
+     *         time and when the Data Session was last updated.
      */
     public final Integer getPacketsDownloaded() {
         return this.packetsDownloaded;
     }
 
     /**
-     * Returns The The last_updated.
+     * Returns The The date that this resource was last updated, given as GMT in ISO
+     * 8601 format..
      * 
-     * @return The last_updated
+     * @return The date that this resource was last updated, given as GMT in ISO
+     *         8601 format.
      */
     public final DateTime getLastUpdated() {
         return this.lastUpdated;
     }
 
     /**
-     * Returns The The start.
+     * Returns The The date that this Data Session started, given as GMT in ISO 8601
+     * format..
      * 
-     * @return The start
+     * @return The date that this Data Session started, given as GMT in ISO 8601
+     *         format.
      */
     public final DateTime getStart() {
         return this.start;
     }
 
     /**
-     * Returns The The end.
+     * Returns The The date that this record ended, given as GMT in ISO 8601
+     * format..
      * 
-     * @return The end
+     * @return The date that this record ended, given as GMT in ISO 8601 format.
      */
     public final DateTime getEnd() {
         return this.end;

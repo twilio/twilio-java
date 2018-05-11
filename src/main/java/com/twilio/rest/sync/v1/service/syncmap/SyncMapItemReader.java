@@ -43,9 +43,12 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     }
 
     /**
-     * The order.
+     * A string; asc or desc. Map Items are [ordered
+     * lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by
+     * Item key..
      * 
-     * @param order The order
+     * @param order A string; asc or desc. Map Items are ordered lexicographically
+     *              by Item key.
      * @return this
      */
     public SyncMapItemReader setOrder(final SyncMapItem.QueryResultOrder order) {
@@ -54,9 +57,10 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     }
 
     /**
-     * The from.
+     * The Item key offset (including the specified key). If not present, query is
+     * performed from the start or end, depending on the Order query parameter..
      * 
-     * @param from The from
+     * @param from The Item key offset (including the specified key).
      * @return this
      */
     public SyncMapItemReader setFrom(final String from) {

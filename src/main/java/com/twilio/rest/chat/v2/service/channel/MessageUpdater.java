@@ -45,9 +45,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The body.
+     * The optional message body string. You can also send structured data by
+     * serializing it into a string. May be updated to empty string or `null`, will
+     * be set as empty string as a result in this cases..
      * 
-     * @param body The body
+     * @param body The optional message body string.
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -56,9 +58,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The attributes.
+     * The optional attributes metadata field you can use to store any data you
+     * wish.  The string value must contain structurally valid JSON if specified..
      * 
-     * @param attributes The attributes
+     * @param attributes The optional attributes metadata field you can use to
+     *                   store any data you wish.
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {
@@ -67,9 +71,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The date_created.
+     * The optional ISO8601 time specifying the datetime the Message should be set
+     * as being created..
      * 
-     * @param dateCreated The date_created
+     * @param dateCreated The optional ISO8601 time specifying the datetime the
+     *                    Message should be set as being created.
      * @return this
      */
     public MessageUpdater setDateCreated(final DateTime dateCreated) {
@@ -78,9 +84,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The date_updated.
+     * The optional ISO8601 time specifying the datetime the Message should be set
+     * as having been last updated..
      * 
-     * @param dateUpdated The date_updated
+     * @param dateUpdated The optional ISO8601 time specifying the datetime the
+     *                    Message should be set as having been last updated.
      * @return this
      */
     public MessageUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -89,9 +97,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The last_updated_by.
+     * Optional field to specify the Identity of the User that last updated the
+     * Message (if relevant).
      * 
-     * @param lastUpdatedBy The last_updated_by
+     * @param lastUpdatedBy Optional field to specify the Identity of the User that
+     *                      last updated the Message
      * @return this
      */
     public MessageUpdater setLastUpdatedBy(final String lastUpdatedBy) {

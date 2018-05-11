@@ -206,54 +206,60 @@ public class IpAccessControlListMapping extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account that responsible for this resource..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account that responsible for this resource.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created, given as GMT in RFC 2822
+     * format..
      * 
-     * @return The date_created
+     * @return The date that this resource was created, given as GMT in RFC 2822
+     *         format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated, given as GMT in RFC
+     * 2822 format..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated, given as GMT in RFC
+     *         2822 format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human readable descriptive text for this resource, up to 64
+     * characters long..
      * 
-     * @return The friendly_name
+     * @return A human readable descriptive text for this resource, up to 64
+     *         characters long.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI for this resource, relative to https://api.twilio.com.
      * 
-     * @return The uri
+     * @return The URI for this resource, relative to https://api.twilio.com
      */
     public final String getUri() {
         return this.uri;

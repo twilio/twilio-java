@@ -146,7 +146,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The Recording Sid that uniquely identifies the Recording to
+     *                fetch.
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathSid) {
@@ -165,7 +166,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The Recording Sid that uniquely identifies the Recording to
+     *                delete.
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathSid) {
@@ -271,117 +273,119 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Twilio Account SID..
      * 
-     * @return The account_sid
+     * @return Twilio Account SID.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of the Recording..
      * 
-     * @return The status
+     * @return The status of the Recording.
      */
     public final Recording.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The Date when the media recording began writing..
      * 
-     * @return The date_created
+     * @return Date when the media recording began writing.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34-character string that uniquely identifies this Recording..
      * 
-     * @return The sid
+     * @return A 34-character string that uniquely identifies this Recording.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The source_sid.
+     * Returns The A 34-character string that uniquely identifies the source of this
+     * Recording..
      * 
-     * @return The source_sid
+     * @return A 34-character string that uniquely identifies the source of this
+     *         Recording.
      */
     public final String getSourceSid() {
         return this.sourceSid;
     }
 
     /**
-     * Returns The The size.
+     * Returns The Size of the recorded track, in bytes..
      * 
-     * @return The size
+     * @return Size of the recorded track, in bytes.
      */
     public final Long getSize() {
         return this.size;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL for this resource..
      * 
-     * @return The url
+     * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The type.
+     * Returns The Indicates the media type for this recording..
      * 
-     * @return The type
+     * @return Indicates the media type for this recording.
      */
     public final Recording.Type getType() {
         return this.type;
     }
 
     /**
-     * Returns The The duration.
+     * Returns The Duration of the Recording in seconds..
      * 
-     * @return The duration
+     * @return Duration of the Recording in seconds.
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The container_format.
+     * Returns The The file format for this Recording..
      * 
-     * @return The container_format
+     * @return The file format for this Recording.
      */
     public final Recording.Format getContainerFormat() {
         return this.containerFormat;
     }
 
     /**
-     * Returns The The codec.
+     * Returns The The codec used to encode the track..
      * 
-     * @return The codec
+     * @return The codec used to encode the track.
      */
     public final Recording.Codec getCodec() {
         return this.codec;
     }
 
     /**
-     * Returns The The grouping_sids.
+     * Returns The A list of Sids related to this Recording..
      * 
-     * @return The grouping_sids
+     * @return A list of Sids related to this Recording.
      */
     public final Map<String, Object> getGroupingSids() {
         return this.groupingSids;
     }
 
     /**
-     * Returns The The track_name.
+     * Returns The The name that was given to the source track of this recording..
      * 
-     * @return The track_name
+     * @return The name that was given to the source track of this recording.
      */
     public final String getTrackName() {
         return this.trackName;

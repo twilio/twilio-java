@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class CommandCreator extends Creator<Command> {
     private final String command;
     private String sim;
@@ -35,16 +31,19 @@ public class CommandCreator extends Creator<Command> {
     /**
      * Construct a new CommandCreator.
      * 
-     * @param command The command
+     * @param command The message body of the Command or a Base64 encoded byte
+     *                string in binary mode.
      */
     public CommandCreator(final String command) {
         this.command = command;
     }
 
     /**
-     * The sim.
+     * The Sid or UniqueName of the
+     * [SIM](https://www.twilio.com/docs/api/wireless/rest-api/sim) to send the
+     * Command to..
      * 
-     * @param sim The sim
+     * @param sim The Sid or UniqueName of the SIM to send the Command to.
      * @return this
      */
     public CommandCreator setSim(final String sim) {
@@ -53,9 +52,11 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The callback_method.
+     * The HTTP method Twilio will use when making a request to the callback URL
+     * (valid options are GET or POST). Defaults to POST..
      * 
-     * @param callbackMethod The callback_method
+     * @param callbackMethod The HTTP method Twilio will use when making a request
+     *                       to the callback URL.
      * @return this
      */
     public CommandCreator setCallbackMethod(final HttpMethod callbackMethod) {
@@ -64,9 +65,11 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The callback_url.
+     * Twilio will make a request to this URL when the Command has finished sending
+     * (delivered or failed)..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl Twilio will make a request to this URL when the Command
+     *                    has finished sending.
      * @return this
      */
     public CommandCreator setCallbackUrl(final URI callbackUrl) {
@@ -75,9 +78,11 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The callback_url.
+     * Twilio will make a request to this URL when the Command has finished sending
+     * (delivered or failed)..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl Twilio will make a request to this URL when the Command
+     *                    has finished sending.
      * @return this
      */
     public CommandCreator setCallbackUrl(final String callbackUrl) {
@@ -85,9 +90,11 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The command_mode.
+     * A string representing which mode to send the SMS message using. May be `text`
+     * or `binary`. If omitted, the default SMS mode is `text`..
      * 
-     * @param commandMode The command_mode
+     * @param commandMode A string representing which mode to send the SMS message
+     *                    using.
      * @return this
      */
     public CommandCreator setCommandMode(final Command.CommandMode commandMode) {
@@ -96,9 +103,20 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The include_sid.
+     * When sending a Command to a SIM in text mode, Twilio can automatically
+     * include the Sid of the Command in the message body, which could be used to
+     * ensure that the device does not process the same Command more than once. The
+     * options for inclusion are `none`, `start` and `end`. The default behavior is
+     * `none`. When using `start` or `end`, the CommandSid will be prepended or
+     * appended to the message body, with a space character separating the
+     * CommandSid and the message body. The length of the CommandSid contributes
+     * toward the 160 character limit, i.e. the SMS body must be 128 characters or
+     * less before the Command Sid is included..
      * 
-     * @param includeSid The include_sid
+     * @param includeSid When sending a Command to a SIM in text mode, Twilio can
+     *                   automatically include the Sid of the Command in the message
+     *                   body, which could be used to ensure that the device does
+     *                   not process the same Command more than once.
      * @return this
      */
     public CommandCreator setIncludeSid(final String includeSid) {

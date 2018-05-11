@@ -26,7 +26,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
      * Construct a new CredentialListUpdater.
      * 
      * @param pathSid The sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable descriptive text
      */
     public CredentialListUpdater(final String pathSid, 
                                  final String friendlyName) {
@@ -39,7 +39,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable descriptive text
      */
     public CredentialListUpdater(final String pathAccountSid, 
                                  final String pathSid, 

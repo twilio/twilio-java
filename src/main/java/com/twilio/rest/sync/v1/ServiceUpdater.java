@@ -41,8 +41,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * (optional) A URL that will receive event updates when objects are
-     * manipulated..
+     * A URL that will receive event updates when objects are manipulated..
      * 
      * @param webhookUrl A URL that will receive event updates when objects are
      *                   manipulated.
@@ -54,8 +53,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * (optional) A URL that will receive event updates when objects are
-     * manipulated..
+     * A URL that will receive event updates when objects are manipulated..
      * 
      * @param webhookUrl A URL that will receive event updates when objects are
      *                   manipulated.
@@ -66,7 +64,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * (optional) Human-readable name for this service instance.
+     * Human-readable name for this service instance.
      * 
      * @param friendlyName Human-readable name for this service instance
      * @return this
@@ -77,8 +75,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * (optional) True or false - controls whether this instance fires webhooks when
-     * client endpoints connect to Sync Defaults to false..
+     * True or false - controls whether this instance fires webhooks when client
+     * endpoints connect to Sync Defaults to false..
      * 
      * @param reachabilityWebhooksEnabled True or false - controls whether this
      *                                    instance fires webhooks when client
@@ -91,8 +89,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * (optional) `true` or `false` - determines whether token identities must be
-     * granted access to Sync objects via the [Permissions
+     * `true` or `false` - determines whether token identities must be granted
+     * access to Sync objects via the [Permissions
      * API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in
      * this Service..
      * 

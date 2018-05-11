@@ -79,7 +79,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialCreator to execute create.
      * 
-     * @param type The type
+     * @param type Credential type, one of "gcm", "fcm", or "apn"
      * @return CredentialCreator capable of executing the create
      */
     public static CredentialCreator creator(final Credential.PushService type) {
@@ -209,27 +209,29 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The Friendly name for stored credential.
      * 
-     * @return The friendly_name
+     * @return Friendly name for stored credential
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The type.
+     * Returns The Credential type, one of "gcm", "fcm", or "apn".
      * 
-     * @return The type
+     * @return Credential type, one of "gcm", "fcm", or "apn"
      */
     public final Credential.PushService getType() {
         return this.type;
     }
 
     /**
-     * Returns The The sandbox.
+     * Returns The [APN only] use this credential for sending to production or
+     * sandbox APNs.
      * 
-     * @return The sandbox
+     * @return [APN only] use this credential for sending to production or sandbox
+     *         APNs
      */
     public final String getSandbox() {
         return this.sandbox;

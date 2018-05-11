@@ -44,11 +44,9 @@ public class KeyUpdater extends Updater<Key> {
     }
 
     /**
-     * A descriptive string for this resource, chosen by your application, up to 64
-     * characters long..
+     * The friendly_name.
      * 
-     * @param friendlyName A descriptive string for this resource, chosen by your
-     *                     application, up to 64 characters long.
+     * @param friendlyName The friendly_name
      * @return this
      */
     public KeyUpdater setFriendlyName(final String friendlyName) {

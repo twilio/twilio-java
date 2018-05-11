@@ -72,8 +72,9 @@ public class FieldValue extends Resource {
      * 
      * @param pathAssistantSid The assistant_sid
      * @param pathFieldTypeSid The field_type_sid
-     * @param language The language
-     * @param value The value
+     * @param language An ISO language-country string of the value.
+     * @param value A user-provided string that uniquely identifies this resource
+     *              as an alternative to the sid. Unique up to 64 characters long.
      * @return FieldValueCreator capable of executing the create
      */
     public static FieldValueCreator creator(final String pathAssistantSid, 
@@ -180,63 +181,64 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that created this Field Value..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that created this Field Value.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created.
      * 
-     * @return The date_created
+     * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The field_type_sid.
+     * Returns The The unique ID of the Field Type associated with this Field
+     * Value..
      * 
-     * @return The field_type_sid
+     * @return The unique ID of the Field Type associated with this Field Value.
      */
     public final String getFieldTypeSid() {
         return this.fieldTypeSid;
     }
 
     /**
-     * Returns The The language.
+     * Returns The An ISO language-country string of the value..
      * 
-     * @return The language
+     * @return An ISO language-country string of the value.
      */
     public final String getLanguage() {
         return this.language;
     }
 
     /**
-     * Returns The The assistant_sid.
+     * Returns The The unique ID of the Assistant..
      * 
-     * @return The assistant_sid
+     * @return The unique ID of the Assistant.
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;

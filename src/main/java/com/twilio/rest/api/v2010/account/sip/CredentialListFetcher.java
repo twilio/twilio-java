@@ -24,7 +24,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
     /**
      * Construct a new CredentialListFetcher.
      * 
-     * @param pathSid Fetch by unique credential Sid
+     * @param pathSid Fetch by unique credential list Sid
      */
     public CredentialListFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -34,7 +34,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
      * Construct a new CredentialListFetcher.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique credential Sid
+     * @param pathSid Fetch by unique credential list Sid
      */
     public CredentialListFetcher(final String pathAccountSid, 
                                  final String pathSid) {

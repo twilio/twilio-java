@@ -181,9 +181,9 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The description.
+     * Returns The A human-readable description of the event.  May be null..
      * 
-     * @return The description
+     * @return A human-readable description of the event.  May be null.
      */
     public final String getDescription() {
         return this.description;
@@ -235,18 +235,24 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this event..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this event.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The source.
+     * Returns The The originating system or interface that caused the event.  web
+     * for events caused by user action in the Twilio Console.  api for events
+     * caused through a request to the REST API.  twilio for events caused by an
+     * automated or internal Twilio system..
      * 
-     * @return The source
+     * @return The originating system or interface that caused the event.  web for
+     *         events caused by user action in the Twilio Console.  api for events
+     *         caused through a request to the REST API.  twilio for events caused
+     *         by an automated or internal Twilio system.
      */
     public final String getSource() {
         return this.source;

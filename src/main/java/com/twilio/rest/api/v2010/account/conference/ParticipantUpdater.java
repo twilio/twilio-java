@@ -85,7 +85,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * The 'HoldUrl' attribute lets you specify a URL for music that plays when a
      * participant is held. The URL may be an MP3, a WAV or a TwiML document that
-     * uses &lt;Play&gt; &lt;Say&gt; or &lt;Redirect&gt;..
+     * uses `&lt;Play&gt;`, `&lt;Say&gt;` or `&lt;Redirect&gt;`..
      * 
      * @param holdUrl The 'HoldUrl' attribute lets you specify a URL for music that
      *                plays when a participant is held.
@@ -99,7 +99,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * The 'HoldUrl' attribute lets you specify a URL for music that plays when a
      * participant is held. The URL may be an MP3, a WAV or a TwiML document that
-     * uses &lt;Play&gt; &lt;Say&gt; or &lt;Redirect&gt;..
+     * uses `&lt;Play&gt;`, `&lt;Say&gt;` or `&lt;Redirect&gt;`..
      * 
      * @param holdUrl The 'HoldUrl' attribute lets you specify a URL for music that
      *                plays when a participant is held.

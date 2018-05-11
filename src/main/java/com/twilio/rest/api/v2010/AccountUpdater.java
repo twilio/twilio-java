@@ -20,7 +20,7 @@ import com.twilio.rest.Domains;
 public class AccountUpdater extends Updater<Account> {
     private String pathSid;
     private String friendlyName;
-    private String status;
+    private Account.Status status;
 
     /**
      * Construct a new AccountUpdater.
@@ -49,12 +49,14 @@ public class AccountUpdater extends Updater<Account> {
     }
 
     /**
-     * Alter the status of this account with a given Status.
+     * Alter the status of this account: use `closed` to irreversibly close this
+     * account, `suspended` to temporarily suspend it, or `active` to reactivate
+     * it..
      * 
      * @param status Status to update the Account with
      * @return this
      */
-    public AccountUpdater setStatus(final String status) {
+    public AccountUpdater setStatus(final Account.Status status) {
         this.status = status;
         return this;
     }
@@ -110,7 +112,7 @@ public class AccountUpdater extends Updater<Account> {
         }
 
         if (status != null) {
-            request.addPostParam("Status", status);
+            request.addPostParam("Status", status.toString());
         }
     }
 }

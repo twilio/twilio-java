@@ -46,9 +46,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The friendly_name.
+     * Human-readable name for this service instance.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human-readable name for this service instance
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
@@ -57,9 +57,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The apn_credential_sid.
+     * The SID of the default Credential to be used for APN Bindings.
      * 
-     * @param apnCredentialSid The apn_credential_sid
+     * @param apnCredentialSid The SID of the default Credential to be used for APN
+     *                         Bindings
      * @return this
      */
     public ServiceUpdater setApnCredentialSid(final String apnCredentialSid) {
@@ -68,9 +69,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The gcm_credential_sid.
+     * The SID of the default Credential to be used for GCM Bindings.
      * 
-     * @param gcmCredentialSid The gcm_credential_sid
+     * @param gcmCredentialSid The SID of the default Credential to be used for GCM
+     *                         Bindings
      * @return this
      */
     public ServiceUpdater setGcmCredentialSid(final String gcmCredentialSid) {
@@ -79,9 +81,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The messaging_service_sid.
+     * The SID of the [Messaging
+     * Service](https://www.twilio.com/docs/api/rest/sending-messages#messaging-services) to be used for SMS Bindings. In order to send SMS notifications this parameter has to be set..
      * 
-     * @param messagingServiceSid The messaging_service_sid
+     * @param messagingServiceSid The SID of the Messaging Service to be used for
+     *                            SMS Bindings.
      * @return this
      */
     public ServiceUpdater setMessagingServiceSid(final String messagingServiceSid) {
@@ -90,9 +94,14 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The facebook_messenger_page_id.
+     * The Page ID to be used to send for Facebook Messenger Bindings. It has to
+     * match the Page ID you configured when you [enabled Facebook
+     * Messaging](https://www.twilio.com/console/sms/settings) on your account.
+     * Facebook Messenger integration is in beta. You need to be in the beta program
+     * to be able to enable Facebook Messaging for your account..
      * 
-     * @param facebookMessengerPageId The facebook_messenger_page_id
+     * @param facebookMessengerPageId The Page ID to be used to send for Facebook
+     *                                Messenger Bindings.
      * @return this
      */
     public ServiceUpdater setFacebookMessengerPageId(final String facebookMessengerPageId) {
@@ -101,10 +110,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The default_apn_notification_protocol_version.
+     * The version of the protocol to be used for sending APNS notifications. Can be
+     * overriden on a Binding by Binding basis when creating a Binding resource..
      * 
-     * @param defaultApnNotificationProtocolVersion The
-     *                                              default_apn_notification_protocol_version
+     * @param defaultApnNotificationProtocolVersion The version of the protocol to
+     *                                              be used for sending APNS
+     *                                              notifications.
      * @return this
      */
     public ServiceUpdater setDefaultApnNotificationProtocolVersion(final String defaultApnNotificationProtocolVersion) {
@@ -113,10 +124,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The default_gcm_notification_protocol_version.
+     * The version of the protocol to be used for sending GCM notifications. Can be
+     * overriden on a Binding by Binding basis when creating a Binding resource..
      * 
-     * @param defaultGcmNotificationProtocolVersion The
-     *                                              default_gcm_notification_protocol_version
+     * @param defaultGcmNotificationProtocolVersion The version of the protocol to
+     *                                              be used for sending GCM
+     *                                              notifications.
      * @return this
      */
     public ServiceUpdater setDefaultGcmNotificationProtocolVersion(final String defaultGcmNotificationProtocolVersion) {
@@ -125,9 +138,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The fcm_credential_sid.
+     * The SID of the default Credential to be used for FCM Bindings.
      * 
-     * @param fcmCredentialSid The fcm_credential_sid
+     * @param fcmCredentialSid The SID of the default Credential to be used for FCM
+     *                         Bindings
      * @return this
      */
     public ServiceUpdater setFcmCredentialSid(final String fcmCredentialSid) {
@@ -136,10 +150,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The default_fcm_notification_protocol_version.
+     * The version of the protocol to be used for sending FCM notifications. Can be
+     * overriden on a Binding by Binding basis when creating a Binding resource..
      * 
-     * @param defaultFcmNotificationProtocolVersion The
-     *                                              default_fcm_notification_protocol_version
+     * @param defaultFcmNotificationProtocolVersion The version of the protocol to
+     *                                              be used for sending FCM
+     *                                              notifications.
      * @return this
      */
     public ServiceUpdater setDefaultFcmNotificationProtocolVersion(final String defaultFcmNotificationProtocolVersion) {

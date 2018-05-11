@@ -32,9 +32,9 @@ public class RecordingReader extends Reader<Recording> {
     private DateTime dateCreatedBefore;
 
     /**
-     * The status.
+     * Only show Recordings with the given status..
      * 
-     * @param status The status
+     * @param status Only show Recordings with the given status.
      * @return this
      */
     public RecordingReader setStatus(final Recording.Status status) {
@@ -43,9 +43,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The source_sid.
+     * Only show the Recordings with the given source Sid (you can use this to
+     * filter Recordings by `TrackSid` for Video Room Recordings..
      * 
-     * @param sourceSid The source_sid
+     * @param sourceSid Only show the Recordings with the given source Sid.
      * @return this
      */
     public RecordingReader setSourceSid(final String sourceSid) {
@@ -54,9 +55,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The grouping_sid.
+     * Only show Recordings that have this GroupingSid, which may include a
+     * ParticipantSid and/or a RoomSid..
      * 
-     * @param groupingSid The grouping_sid
+     * @param groupingSid Only show Recordings that have this GroupingSid.
      * @return this
      */
     public RecordingReader setGroupingSid(final List<String> groupingSid) {
@@ -65,9 +67,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The grouping_sid.
+     * Only show Recordings that have this GroupingSid, which may include a
+     * ParticipantSid and/or a RoomSid..
      * 
-     * @param groupingSid The grouping_sid
+     * @param groupingSid Only show Recordings that have this GroupingSid.
      * @return this
      */
     public RecordingReader setGroupingSid(final String groupingSid) {
@@ -75,9 +78,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The date_created_after.
+     * Only show Recordings that started on or after this ISO8601 date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
      * 
-     * @param dateCreatedAfter The date_created_after
+     * @param dateCreatedAfter Only show Recordings that started on or after this
+     *                         ISO8601 date-time.
      * @return this
      */
     public RecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -86,9 +91,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The date_created_before.
+     * Only show Recordings that started before this this ISO8601 date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
      * 
-     * @param dateCreatedBefore The date_created_before
+     * @param dateCreatedBefore Only show Recordings that started before this this
+     *                          ISO8601 date-time.
      * @return this
      */
     public RecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

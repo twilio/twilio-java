@@ -29,7 +29,7 @@ public class RoleUpdater extends Updater<Role> {
      * 
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
-     * @param permission The permission
+     * @param permission A permission this role should have.
      */
     public RoleUpdater(final String pathServiceSid, 
                        final String pathSid, 

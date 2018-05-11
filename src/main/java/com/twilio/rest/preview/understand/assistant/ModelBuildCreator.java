@@ -61,9 +61,12 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     }
 
     /**
-     * The unique_name.
+     * A user-provided string that uniquely identifies this resource as an
+     * alternative to the sid. Unique up to 64 characters long. For example: v0.1.
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName A user-provided string that uniquely identifies this
+     *                   resource as an alternative to the sid. Unique up to 64
+     *                   characters long. For example: v0.1
      * @return this
      */
     public ModelBuildCreator setUniqueName(final String uniqueName) {

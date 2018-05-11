@@ -72,8 +72,9 @@ public class Sample extends Resource {
      * 
      * @param pathAssistantSid The assistant_sid
      * @param pathIntentSid The intent_sid
-     * @param language The language
-     * @param taggedText The tagged_text
+     * @param language An ISO language-country string of the sample.
+     * @param taggedText The text example of how end-users may express this intent.
+     *                   The sample may contain Field tag blocks.
      * @return SampleCreator capable of executing the create
      */
     public static SampleCreator creator(final String pathAssistantSid, 
@@ -193,72 +194,74 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that created this Sample..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that created this Sample.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created.
      * 
-     * @return The date_created
+     * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The intent_sid.
+     * Returns The The unique ID of the Intent associated with this Sample..
      * 
-     * @return The intent_sid
+     * @return The unique ID of the Intent associated with this Sample.
      */
     public final String getIntentSid() {
         return this.intentSid;
     }
 
     /**
-     * Returns The The language.
+     * Returns The An ISO language-country string of the sample..
      * 
-     * @return The language
+     * @return An ISO language-country string of the sample.
      */
     public final String getLanguage() {
         return this.language;
     }
 
     /**
-     * Returns The The assistant_sid.
+     * Returns The The unique ID of the Assistant..
      * 
-     * @return The assistant_sid
+     * @return The unique ID of the Assistant.
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The tagged_text.
+     * Returns The The text example of how end-users may express this intent. The
+     * sample may contain Field tag blocks..
      * 
-     * @return The tagged_text
+     * @return The text example of how end-users may express this intent. The
+     *         sample may contain Field tag blocks.
      */
     public final String getTaggedText() {
         return this.taggedText;
@@ -274,9 +277,13 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The source_channel.
+     * Returns The The communication channel the sample was captured. It can be:
+     * voice, sms, chat, alexa, google-assistant, or slack. If not included the
+     * value will be null.
      * 
-     * @return The source_channel
+     * @return The communication channel the sample was captured. It can be: voice,
+     *         sms, chat, alexa, google-assistant, or slack. If not included the
+     *         value will be null
      */
     public final String getSourceChannel() {
         return this.sourceChannel;

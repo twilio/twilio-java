@@ -30,7 +30,7 @@ public class FeedbackCreator extends Creator<Feedback> {
      * Construct a new FeedbackCreator.
      * 
      * @param pathCallSid The call_sid
-     * @param qualityScore The quality_score
+     * @param qualityScore An integer from 1 to 5
      */
     public FeedbackCreator(final String pathCallSid, 
                            final Integer qualityScore) {
@@ -43,7 +43,7 @@ public class FeedbackCreator extends Creator<Feedback> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathCallSid The call_sid
-     * @param qualityScore The quality_score
+     * @param qualityScore An integer from 1 to 5
      */
     public FeedbackCreator(final String pathAccountSid, 
                            final String pathCallSid, 
@@ -54,9 +54,11 @@ public class FeedbackCreator extends Creator<Feedback> {
     }
 
     /**
-     * The issue.
+     * One or more issues experienced during the call. The issues can be:
+     * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
+     * `digits-not-captured`, `audio-latency`, or `one-way-audio`..
      * 
-     * @param issue The issue
+     * @param issue Issues experienced during the call
      * @return this
      */
     public FeedbackCreator setIssue(final List<Feedback.Issues> issue) {
@@ -65,9 +67,11 @@ public class FeedbackCreator extends Creator<Feedback> {
     }
 
     /**
-     * The issue.
+     * One or more issues experienced during the call. The issues can be:
+     * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
+     * `digits-not-captured`, `audio-latency`, or `one-way-audio`..
      * 
-     * @param issue The issue
+     * @param issue Issues experienced during the call
      * @return this
      */
     public FeedbackCreator setIssue(final Feedback.Issues issue) {

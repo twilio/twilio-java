@@ -40,9 +40,13 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The identity.
+     * A unique string identifier for this
+     * [User](https://www.twilio.com/docs/api/chat/rest/v1/user) in this
+     * [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See the
+     * [access
+     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens)[/docs/api/chat/guides/create-tokens] docs for more details..
      * 
-     * @param identity The identity
+     * @param identity A unique string identifier for this User in this Service.
      * @return this
      */
     public InviteReader setIdentity(final List<String> identity) {
@@ -51,9 +55,13 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The identity.
+     * A unique string identifier for this
+     * [User](https://www.twilio.com/docs/api/chat/rest/v1/user) in this
+     * [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See the
+     * [access
+     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens)[/docs/api/chat/guides/create-tokens] docs for more details..
      * 
-     * @param identity The identity
+     * @param identity A unique string identifier for this User in this Service.
      * @return this
      */
     public InviteReader setIdentity(final String identity) {

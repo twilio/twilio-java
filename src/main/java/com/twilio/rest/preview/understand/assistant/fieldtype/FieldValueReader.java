@@ -42,9 +42,10 @@ public class FieldValueReader extends Reader<FieldValue> {
     }
 
     /**
-     * The language.
+     * An ISO language-country string of the value. For example: *en-US*.
      * 
-     * @param language The language
+     * @param language An ISO language-country string of the value. For example:
+     *                 en-US
      * @return this
      */
     public FieldValueReader setLanguage(final String language) {

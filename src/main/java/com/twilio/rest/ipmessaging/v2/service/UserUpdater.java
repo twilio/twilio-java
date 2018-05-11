@@ -37,9 +37,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The role_sid.
+     * The unique id of the [Role][role] assigned to this user..
      * 
-     * @param roleSid The role_sid
+     * @param roleSid The unique id of the [Role][role] assigned to this user.
      * @return this
      */
     public UserUpdater setRoleSid(final String roleSid) {
@@ -48,9 +48,11 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The attributes.
+     * An optional string used to contain any metadata or other information for the
+     * User.  The string must contain structurally valid JSON if specified..
      * 
-     * @param attributes The attributes
+     * @param attributes An optional string used to contain any metadata or other
+     *                   information for the User.
      * @return this
      */
     public UserUpdater setAttributes(final String attributes) {
@@ -59,9 +61,10 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The friendly_name.
+     * An optional human readable string representing the user.  Often used for
+     * display purposes..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName An optional human readable string representing the user.
      * @return this
      */
     public UserUpdater setFriendlyName(final String friendlyName) {

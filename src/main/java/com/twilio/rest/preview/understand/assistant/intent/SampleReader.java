@@ -42,9 +42,9 @@ public class SampleReader extends Reader<Sample> {
     }
 
     /**
-     * The language.
+     * An ISO language-country string of the sample..
      * 
-     * @param language The language
+     * @param language An ISO language-country string of the sample.
      * @return this
      */
     public SampleReader setLanguage(final String language) {

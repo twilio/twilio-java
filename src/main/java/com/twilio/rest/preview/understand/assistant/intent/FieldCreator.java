@@ -33,8 +33,10 @@ public class FieldCreator extends Creator<Field> {
      * 
      * @param pathAssistantSid The assistant_sid
      * @param pathIntentSid The intent_sid
-     * @param fieldType The field_type
-     * @param uniqueName The unique_name
+     * @param fieldType The unique name or sid of the FieldType
+     * @param uniqueName A user-provided string that uniquely identifies this
+     *                   resource as an alternative to the sid. Unique up to 64
+     *                   characters long.
      */
     public FieldCreator(final String pathAssistantSid, 
                         final String pathIntentSid, 

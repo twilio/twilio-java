@@ -36,7 +36,7 @@ public class SyncListCreator extends Creator<SyncList> {
     }
 
     /**
-     * (optional) Human-readable name for this list.
+     * Human-readable name for this list.
      * 
      * @param uniqueName Human-readable name for this list
      * @return this
@@ -47,8 +47,8 @@ public class SyncListCreator extends Creator<SyncList> {
     }
 
     /**
-     * (optional) Time-to-live of this List in seconds, defaults to no expiration.
-     * In the range [1, 31 536 000 (1 year)], or 0 for infinity..
+     * Time-to-live of this List in seconds, defaults to no expiration. In the range
+     * [1, 31 536 000 (1 year)], or 0 for infinity..
      * 
      * @param ttl Time-to-live of this List in seconds, defaults to no expiration.
      * @return this

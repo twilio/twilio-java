@@ -91,9 +91,9 @@ public class Role extends Resource {
      * Create a RoleCreator to execute create.
      * 
      * @param pathServiceSid The service_sid
-     * @param friendlyName The friendly_name
-     * @param type The type
-     * @param permission The permission
+     * @param friendlyName The human-readable name of this role.
+     * @param type What kind of role this is.
+     * @param permission A permission this role should have.
      * @return RoleCreator capable of executing the create
      */
     public static RoleCreator creator(final String pathServiceSid, 
@@ -118,7 +118,7 @@ public class Role extends Resource {
      * 
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
-     * @param permission The permission
+     * @param permission A permission this role should have.
      * @return RoleUpdater capable of executing the update
      */
     public static RoleUpdater updater(final String pathServiceSid, 
@@ -205,81 +205,81 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account responsible for this role..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account responsible for this role.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The unique id of the Service this role belongs to..
      * 
-     * @return The service_sid
+     * @return The unique id of the Service this role belongs to.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The The human-readable name of this role..
      * 
-     * @return The friendly_name
+     * @return The human-readable name of this role.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The type.
+     * Returns The What kind of role this is..
      * 
-     * @return The type
+     * @return What kind of role this is.
      */
     public final Role.RoleType getType() {
         return this.type;
     }
 
     /**
-     * Returns The The permissions.
+     * Returns The A JSON array of the permissions this role has..
      * 
-     * @return The permissions
+     * @return A JSON array of the permissions this role has.
      */
     public final List<String> getPermissions() {
         return this.permissions;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created in ISO 8601 format..
      * 
-     * @return The date_created
+     * @return The date that this resource was created in ISO 8601 format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated in ISO 8601 format..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated in ISO 8601 format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The An absolute URL for this role..
      * 
-     * @return The url
+     * @return An absolute URL for this role.
      */
     public final URI getUrl() {
         return this.url;

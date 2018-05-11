@@ -39,9 +39,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The friendly_name.
+     * A human-readable name for the Channel. Optional..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable name for the Channel.
      * @return this
      */
     public ChannelCreator setFriendlyName(final String friendlyName) {
@@ -50,9 +50,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The unique_name.
+     * A unique, addressable name for the Channel.  Optional..
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName A unique, addressable name for the Channel.
      * @return this
      */
     public ChannelCreator setUniqueName(final String uniqueName) {
@@ -61,9 +61,11 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The attributes.
+     * An optional metadata field you can use to store any data you wish. No
+     * processing or validation is done on this field..
      * 
-     * @param attributes The attributes
+     * @param attributes An optional metadata field you can use to store any data
+     *                   you wish.
      * @return this
      */
     public ChannelCreator setAttributes(final String attributes) {
@@ -72,9 +74,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The type.
+     * The visibility of the channel - `public` or `private`. Defaults to `public`..
      * 
-     * @param type The type
+     * @param type The visibility of the channel - public or private.
      * @return this
      */
     public ChannelCreator setType(final Channel.ChannelType type) {
@@ -83,9 +85,13 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The date_created.
+     * The optional ISO8601 time specifying the datetime the Channel should be set
+     * as being created.  Will be set to the current time by the Chat service if not
+     * specified.  Note that this should only be used in cases where a a Channel is
+     * being recreated from a backup/separate source.
      * 
-     * @param dateCreated The date_created
+     * @param dateCreated The optional ISO8601 time specifying the datetime the
+     *                    Channel should be set as being created.
      * @return this
      */
     public ChannelCreator setDateCreated(final DateTime dateCreated) {
@@ -94,9 +100,14 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The date_updated.
+     * The optional ISO8601 time specifying the datetime the Channel should be set
+     * as having been last updated.  Will be set to the `null` by the Chat service
+     * if not specified.  Note that this should only be used in cases where a
+     * Channel is being recreated from a backup/separate source  and where a Message
+     * was previously updated..
      * 
-     * @param dateUpdated The date_updated
+     * @param dateUpdated The optional ISO8601 time specifying the datetime the
+     *                    Channel should be set as having been last updated.
      * @return this
      */
     public ChannelCreator setDateUpdated(final DateTime dateUpdated) {
@@ -105,9 +116,11 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The created_by.
+     * Optional field to specify the Identity of the User that created the Channel. 
+     * Will be set to "system" if not specified..
      * 
-     * @param createdBy The created_by
+     * @param createdBy Optional field to specify the Identity of the User that
+     *                  created the Channel.
      * @return this
      */
     public ChannelCreator setCreatedBy(final String createdBy) {

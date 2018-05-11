@@ -47,9 +47,11 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     }
 
     /**
-     * The data.
+     * Contains arbitrary user-defined, schema-less data that this List Item stores,
+     * represented by a JSON object, up to 16KB..
      * 
-     * @param data The data
+     * @param data Contains arbitrary user-defined, schema-less data that this List
+     *             Item stores, represented by a JSON object, up to 16KB.
      * @return this
      */
     public SyncListItemUpdater setData(final Map<String, Object> data) {
@@ -58,9 +60,12 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     }
 
     /**
-     * The ttl.
+     * Time-to-live of this item in seconds, defaults to no expiration. In the range
+     * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the list item will
+     * be cleaned up at least in a matter of hours, and often within seconds, making
+     * this a good tool for garbage management..
      * 
-     * @param ttl The ttl
+     * @param ttl Time-to-live of this item in seconds, defaults to no expiration.
      * @return this
      */
     public SyncListItemUpdater setTtl(final Integer ttl) {

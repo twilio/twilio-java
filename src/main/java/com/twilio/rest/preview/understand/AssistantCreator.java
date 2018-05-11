@@ -35,9 +35,11 @@ public class AssistantCreator extends Creator<Assistant> {
     private String callbackEvents;
 
     /**
-     * The friendly_name.
+     * A text description for the Assistant. It is non-unique and can up to 255
+     * characters long..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A text description for the Assistant. It is non-unique
+     *                     and can up to 255 characters long.
      * @return this
      */
     public AssistantCreator setFriendlyName(final String friendlyName) {
@@ -46,9 +48,16 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The log_queries.
+     * A boolean that specifies whether queries should be logged for 30 days further
+     * training. If false, no queries will be stored, if true, queries will be
+     * stored for 30 days and deleted thereafter. Defaults to true if no value is
+     * provided..
      * 
-     * @param logQueries The log_queries
+     * @param logQueries A boolean that specifies whether queries should be logged
+     *                   for 30 days further training. If false, no queries will be
+     *                   stored, if true, queries will be stored for 30 days and
+     *                   deleted thereafter. Defaults to true if no value is
+     *                   provided.
      * @return this
      */
     public AssistantCreator setLogQueries(final Boolean logQueries) {
@@ -68,9 +77,12 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The unique_name.
+     * A user-provided string that uniquely identifies this resource as an
+     * alternative to the sid. Unique up to 64 characters long..
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName A user-provided string that uniquely identifies this
+     *                   resource as an alternative to the sid. Unique up to 64
+     *                   characters long.
      * @return this
      */
     public AssistantCreator setUniqueName(final String uniqueName) {
@@ -79,9 +91,11 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The response_url.
+     * The webhook URL called to fetch the response to an incoming communication
+     * expressed in Assistant TwiML..
      * 
-     * @param responseUrl The response_url
+     * @param responseUrl The webhook URL called to fetch the response to an
+     *                    incoming communication expressed in Assistant TwiML.
      * @return this
      */
     public AssistantCreator setResponseUrl(final URI responseUrl) {
@@ -90,9 +104,11 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The response_url.
+     * The webhook URL called to fetch the response to an incoming communication
+     * expressed in Assistant TwiML..
      * 
-     * @param responseUrl The response_url
+     * @param responseUrl The webhook URL called to fetch the response to an
+     *                    incoming communication expressed in Assistant TwiML.
      * @return this
      */
     public AssistantCreator setResponseUrl(final String responseUrl) {

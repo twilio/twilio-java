@@ -46,9 +46,9 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * The language.
+     * An ISO language-country string of the sample..
      * 
-     * @param language The language
+     * @param language An ISO language-country string of the sample.
      * @return this
      */
     public SampleUpdater setLanguage(final String language) {
@@ -57,9 +57,11 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * The tagged_text.
+     * The text example of how end-users may express this intent. The sample may
+     * contain Field tag blocks..
      * 
-     * @param taggedText The tagged_text
+     * @param taggedText The text example of how end-users may express this intent.
+     *                   The sample may contain Field tag blocks.
      * @return this
      */
     public SampleUpdater setTaggedText(final String taggedText) {
@@ -68,9 +70,13 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * The source_channel.
+     * The communication channel the sample was captured. It can be: *voice*, *sms*,
+     * *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value
+     * will be null.
      * 
-     * @param sourceChannel The source_channel
+     * @param sourceChannel The communication channel the sample was captured. It
+     *                      can be: voice, sms, chat, alexa, google-assistant, or
+     *                      slack. If not included the value will be null
      * @return this
      */
     public SampleUpdater setSourceChannel(final String sourceChannel) {

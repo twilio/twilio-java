@@ -35,7 +35,8 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
      * 
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
-     * @param data The data
+     * @param data Contains arbitrary user-defined, schema-less data that this List
+     *             Item stores, represented by a JSON object, up to 16KB.
      */
     public SyncListItemCreator(final String pathServiceSid, 
                                final String pathListSid, 
@@ -46,10 +47,10 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     }
 
     /**
-     * (optional) Time-to-live of this item in seconds, defaults to no expiration.
-     * In the range [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the
-     * list item will be cleaned up at least in a matter of hours, and often within
-     * seconds, making this a good tool for garbage management..
+     * Time-to-live of this item in seconds, defaults to no expiration. In the range
+     * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the list item will
+     * be cleaned up at least in a matter of hours, and often within seconds, making
+     * this a good tool for garbage management..
      * 
      * @param ttl Time-to-live of this item in seconds, defaults to no expiration.
      * @return this

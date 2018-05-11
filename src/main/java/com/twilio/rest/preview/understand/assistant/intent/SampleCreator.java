@@ -34,8 +34,9 @@ public class SampleCreator extends Creator<Sample> {
      * 
      * @param pathAssistantSid The assistant_sid
      * @param pathIntentSid The intent_sid
-     * @param language The language
-     * @param taggedText The tagged_text
+     * @param language An ISO language-country string of the sample.
+     * @param taggedText The text example of how end-users may express this intent.
+     *                   The sample may contain Field tag blocks.
      */
     public SampleCreator(final String pathAssistantSid, 
                          final String pathIntentSid, 
@@ -48,9 +49,13 @@ public class SampleCreator extends Creator<Sample> {
     }
 
     /**
-     * The source_channel.
+     * The communication channel the sample was captured. It can be: *voice*, *sms*,
+     * *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value
+     * will be null.
      * 
-     * @param sourceChannel The source_channel
+     * @param sourceChannel The communication channel the sample was captured. It
+     *                      can be: voice, sms, chat, alexa, google-assistant, or
+     *                      slack. If not included the value will be null
      * @return this
      */
     public SampleCreator setSourceChannel(final String sourceChannel) {

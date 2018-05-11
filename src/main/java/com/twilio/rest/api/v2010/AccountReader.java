@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 
 public class AccountReader extends Reader<Account> {
     private String friendlyName;
-    private String status;
+    private Account.Status status;
 
     /**
      * Only return the Account resources with friendly names that exactly match this
@@ -42,7 +42,7 @@ public class AccountReader extends Reader<Account> {
      * @param status Status to filter on
      * @return this
      */
-    public AccountReader setStatus(final String status) {
+    public AccountReader setStatus(final Account.Status status) {
         this.status = status;
         return this;
     }
@@ -182,7 +182,7 @@ public class AccountReader extends Reader<Account> {
         }
 
         if (status != null) {
-            request.addQueryParam("Status", status);
+            request.addQueryParam("Status", status.toString());
         }
 
         if (getPageSize() != null) {

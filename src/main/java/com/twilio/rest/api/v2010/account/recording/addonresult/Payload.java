@@ -297,9 +297,9 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The A dictionary of URIs for related resources.
      * 
-     * @return The subresource_uris
+     * @return A dictionary of URIs for related resources
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

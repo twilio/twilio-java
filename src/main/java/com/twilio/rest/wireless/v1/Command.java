@@ -33,10 +33,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Command extends Resource {
     private static final long serialVersionUID = 246232114569704L;
@@ -141,7 +137,8 @@ public class Command extends Resource {
     /**
      * Create a CommandCreator to execute create.
      * 
-     * @param command The command
+     * @param command The message body of the Command or a Base64 encoded byte
+     *                string in binary mode.
      * @return CommandCreator capable of executing the create
      */
     public static CommandCreator creator(final String command) {
@@ -230,90 +227,95 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account that this Command belongs to..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account that this Command belongs to.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The sim_sid.
+     * Returns The The unique ID of the SIM that this Command was sent to or from..
      * 
-     * @return The sim_sid
+     * @return The unique ID of the SIM that this Command was sent to or from.
      */
     public final String getSimSid() {
         return this.simSid;
     }
 
     /**
-     * Returns The The command.
+     * Returns The The message being sent to or from the SIM..
      * 
-     * @return The command
+     * @return The message being sent to or from the SIM.
      */
     public final String getCommand() {
         return this.command;
     }
 
     /**
-     * Returns The The command_mode.
+     * Returns The A string representing which mode the SMS was sent or received
+     * using..
      * 
-     * @return The command_mode
+     * @return A string representing which mode the SMS was sent or received using.
      */
     public final Command.CommandMode getCommandMode() {
         return this.commandMode;
     }
 
     /**
-     * Returns The The status.
+     * Returns The A string representing the status of the Command..
      * 
-     * @return The status
+     * @return A string representing the status of the Command.
      */
     public final Command.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The direction.
+     * Returns The The direction of the Command..
      * 
-     * @return The direction
+     * @return The direction of the Command.
      */
     public final Command.Direction getDirection() {
         return this.direction;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created, given as GMT in ISO 8601
+     * format..
      * 
-     * @return The date_created
+     * @return The date that this resource was created, given as GMT in ISO 8601
+     *         format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated, given as GMT in ISO
+     * 8601 format..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated, given as GMT in ISO
+     *         8601 format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL for this resource..
      * 
-     * @return The url
+     * @return The URL for this resource.
      */
     public final URI getUrl() {
         return this.url;

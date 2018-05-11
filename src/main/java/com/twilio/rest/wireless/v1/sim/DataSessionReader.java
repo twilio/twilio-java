@@ -21,10 +21,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class DataSessionReader extends Reader<DataSession> {
     private final String pathSimSid;
     private DateTime end;

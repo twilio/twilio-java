@@ -188,45 +188,49 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that created this Assistant..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that created this Assistant.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created.
      * 
-     * @return The date_created
+     * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A text description for the Assistant. It is non-unique and can up
+     * to 255 characters long..
      * 
-     * @return The friendly_name
+     * @return A text description for the Assistant. It is non-unique and can up to
+     *         255 characters long.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The latest_model_build_sid.
+     * Returns The The unique ID (Sid) of the latest model build. Null if no model
+     * has been built..
      * 
-     * @return The latest_model_build_sid
+     * @return The unique ID (Sid) of the latest model build. Null if no model has
+     *         been built.
      */
     public final String getLatestModelBuildSid() {
         return this.latestModelBuildSid;
@@ -242,18 +246,22 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The log_queries.
+     * Returns The A boolean that specifies whether queries should be logged for 30
+     * days further training. If false, no queries will be stored, if true, queries
+     * will be stored for 30 days and deleted thereafter..
      * 
-     * @return The log_queries
+     * @return A boolean that specifies whether queries should be logged for 30
+     *         days further training. If false, no queries will be stored, if true,
+     *         queries will be stored for 30 days and deleted thereafter.
      */
     public final Boolean getLogQueries() {
         return this.logQueries;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
@@ -269,9 +277,13 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The A user-provided string that uniquely identifies this resource as
+     * an alternative to the sid. You can use the unique name in the URL path.
+     * Unique up to 64 characters long..
      * 
-     * @return The unique_name
+     * @return A user-provided string that uniquely identifies this resource as an
+     *         alternative to the sid. You can use the unique name in the URL path.
+     *         Unique up to 64 characters long.
      */
     public final String getUniqueName() {
         return this.uniqueName;
@@ -287,9 +299,11 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The response_url.
+     * Returns The The webhook URL called to fetch the response to an incoming
+     * communication expressed in Assistant TwiML..
      * 
-     * @return The response_url
+     * @return The webhook URL called to fetch the response to an incoming
+     *         communication expressed in Assistant TwiML.
      */
     public final URI getResponseUrl() {
         return this.responseUrl;

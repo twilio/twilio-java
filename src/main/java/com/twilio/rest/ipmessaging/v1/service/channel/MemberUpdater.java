@@ -40,9 +40,10 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The role_sid.
+     * The [Role](https://www.twilio.com/docs/api/chat/rest/v1/roles) assigned to
+     * this member..
      * 
-     * @param roleSid The role_sid
+     * @param roleSid The Role assigned to this member.
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -51,9 +52,14 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The last_consumed_message_index.
+     * An Integer representing index of the last
+     * [Message](https://www.twilio.com/docs/api/chat/rest/v1/messages) this Member
+     * has read within this
+     * [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channels).
      * 
-     * @param lastConsumedMessageIndex The last_consumed_message_index
+     * @param lastConsumedMessageIndex An Integer representing index of the last
+     *                                 Message this Member has read within this
+     *                                 Channel
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {

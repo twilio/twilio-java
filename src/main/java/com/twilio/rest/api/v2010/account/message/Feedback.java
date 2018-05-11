@@ -168,9 +168,13 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The outcome.
+     * Returns The unconfirmed or confirmed. If ProvideFeedback=true in the initial
+     * HTTP POST, this value will default to unconfirmed. Make an HTTP POST to
+     * update this value to confirmed after the message arrives..
      * 
-     * @return The outcome
+     * @return unconfirmed or confirmed. If ProvideFeedback=true in the initial
+     *         HTTP POST, this value will default to unconfirmed. Make an HTTP POST
+     *         to update this value to confirmed after the message arrives.
      */
     public final Feedback.Outcome getOutcome() {
         return this.outcome;

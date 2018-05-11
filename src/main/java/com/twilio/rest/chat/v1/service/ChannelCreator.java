@@ -34,9 +34,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The friendly_name.
+     * A human-readable name for the Channel. Optional..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable name for the Channel.
      * @return this
      */
     public ChannelCreator setFriendlyName(final String friendlyName) {
@@ -45,9 +45,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The unique_name.
+     * A unique, addressable name for the Channel.  Optional..
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName A unique, addressable name for the Channel.
      * @return this
      */
     public ChannelCreator setUniqueName(final String uniqueName) {
@@ -56,9 +56,11 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The attributes.
+     * An optional metadata field you can use to store any data you wish. No
+     * processing or validation is done on this field..
      * 
-     * @param attributes The attributes
+     * @param attributes An optional metadata field you can use to store any data
+     *                   you wish.
      * @return this
      */
     public ChannelCreator setAttributes(final String attributes) {
@@ -67,9 +69,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The type.
+     * The visibility of the channel - `public` or `private`. Defaults to `public`..
      * 
-     * @param type The type
+     * @param type The visibility of the channel - public or private.
      * @return this
      */
     public ChannelCreator setType(final Channel.ChannelType type) {

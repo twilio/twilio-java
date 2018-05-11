@@ -46,7 +46,8 @@ public class ShortCode extends Resource {
      * Create a ShortCodeCreator to execute create.
      * 
      * @param pathServiceSid The service_sid
-     * @param shortCodeSid The short_code_sid
+     * @param shortCodeSid ShortCodeSid for the Shortcode being added to the
+     *                     Service.
      * @return ShortCodeCreator capable of executing the create
      */
     public static ShortCodeCreator creator(final String pathServiceSid, 
@@ -167,72 +168,74 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The 34 character unique sid of the Short Code.
      * 
-     * @return The sid
+     * @return The 34 character unique sid of the Short Code
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The 34 character unique sid of the Account..
      * 
-     * @return The account_sid
+     * @return The 34 character unique sid of the Account.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The 34 character unique sid of the Service..
      * 
-     * @return The service_sid
+     * @return The 34 character unique sid of the Service.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The he date that this resource was created..
      * 
-     * @return The date_created
+     * @return he date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The short_code.
+     * Returns The The E.164 format of the short code..
      * 
-     * @return The short_code
+     * @return The E.164 format of the short code.
      */
     public final String getShortCode() {
         return this.shortCode;
     }
 
     /**
-     * Returns The The country_code.
+     * Returns The The 2 character ISO Country Code of the number..
      * 
-     * @return The country_code
+     * @return The 2 character ISO Country Code of the number.
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The The capabilities.
+     * Returns The Any array of values that indicate whether the number can receive
+     * calls or messages..
      * 
-     * @return The capabilities
+     * @return Any array of values that indicate whether the number can receive
+     *         calls or messages.
      */
     public final List<Map<String, Object>> getCapabilities() {
         return this.capabilities;

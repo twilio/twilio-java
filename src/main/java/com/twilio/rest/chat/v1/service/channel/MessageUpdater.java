@@ -40,9 +40,10 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The body.
+     * The new message body string. You can also send structured data by serializing
+     * it into a string..
      * 
-     * @param body The body
+     * @param body The new message body string.
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -51,9 +52,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The attributes.
+     * The new attributes metadata field you can use to store any data you wish. 
+     * The string value must contain structurally valid JSON if specified..
      * 
-     * @param attributes The attributes
+     * @param attributes The new attributes metadata field you can use to store any
+     *                   data you wish.
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {

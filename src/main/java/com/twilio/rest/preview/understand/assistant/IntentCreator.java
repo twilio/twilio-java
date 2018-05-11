@@ -31,7 +31,9 @@ public class IntentCreator extends Creator<Intent> {
      * Construct a new IntentCreator.
      * 
      * @param pathAssistantSid The assistant_sid
-     * @param uniqueName The unique_name
+     * @param uniqueName A user-provided string that uniquely identifies this
+     *                   resource as an alternative to the sid. Unique up to 64
+     *                   characters long.
      */
     public IntentCreator(final String pathAssistantSid, 
                          final String uniqueName) {
@@ -40,9 +42,11 @@ public class IntentCreator extends Creator<Intent> {
     }
 
     /**
-     * The friendly_name.
+     * A user-provided string that identifies this resource. It is non-unique and
+     * can up to 255 characters long..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A user-provided string that identifies this resource. It
+     *                     is non-unique and can up to 255 characters long.
      * @return this
      */
     public IntentCreator setFriendlyName(final String friendlyName) {

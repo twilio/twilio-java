@@ -33,10 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatePlan extends Resource {
     private static final long serialVersionUID = 106587229564985L;
@@ -196,99 +192,114 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The A user-provided string that uniquely identifies this resource as
+     * an alternative to the sid..
      * 
-     * @return The unique_name
+     * @return A user-provided string that uniquely identifies this resource as an
+     *         alternative to the sid.
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account that this Rate Plan belongs to..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account that this Rate Plan belongs to.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A user-provided string that identifies this resource..
      * 
-     * @return The friendly_name
+     * @return A user-provided string that identifies this resource.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The data_enabled.
+     * Returns The Defines whether SIMs are capable of using GPRS/3G/4G/LTE data
+     * connectivity..
      * 
-     * @return The data_enabled
+     * @return Defines whether SIMs are capable of using GPRS/3G/4G/LTE data
+     *         connectivity.
      */
     public final Boolean getDataEnabled() {
         return this.dataEnabled;
     }
 
     /**
-     * Returns The The data_metering.
+     * Returns The The model by which to meter data usage, in accordance with the
+     * two available data metering models..
      * 
-     * @return The data_metering
+     * @return The model by which to meter data usage, in accordance with the two
+     *         available data metering models.
      */
     public final String getDataMetering() {
         return this.dataMetering;
     }
 
     /**
-     * Returns The The data_limit.
+     * Returns The Network-enforced limit specifying the total Megabytes of data
+     * usage allowed during one month on the home network..
      * 
-     * @return The data_limit
+     * @return Network-enforced limit specifying the total Megabytes of data usage
+     *         allowed during one month on the home network.
      */
     public final Integer getDataLimit() {
         return this.dataLimit;
     }
 
     /**
-     * Returns The The messaging_enabled.
+     * Returns The Defines whether SIMs are capable of making and sending and
+     * receiving SMS via Commands..
      * 
-     * @return The messaging_enabled
+     * @return Defines whether SIMs are capable of making and sending and receiving
+     *         SMS via Commands.
      */
     public final Boolean getMessagingEnabled() {
         return this.messagingEnabled;
     }
 
     /**
-     * Returns The The voice_enabled.
+     * Returns The Defines whether SIMs are capable of making and receiving voice
+     * calls..
      * 
-     * @return The voice_enabled
+     * @return Defines whether SIMs are capable of making and receiving voice calls.
      */
     public final Boolean getVoiceEnabled() {
         return this.voiceEnabled;
     }
 
     /**
-     * Returns The The national_roaming_enabled.
+     * Returns The Defines whether SIMs can roam onto other networks in the SIM's
+     * home country..
      * 
-     * @return The national_roaming_enabled
+     * @return Defines whether SIMs can roam onto other networks in the SIM's home
+     *         country.
      */
     public final Boolean getNationalRoamingEnabled() {
         return this.nationalRoamingEnabled;
     }
 
     /**
-     * Returns The The national_roaming_data_limit.
+     * Returns The Network-enforced limit specifying the total Megabytes of national
+     * roaming data usage allowed during one month..
      * 
-     * @return The national_roaming_data_limit
+     * @return Network-enforced limit specifying the total Megabytes of national
+     *         roaming data usage allowed during one month.
      */
     public final Integer getNationalRoamingDataLimit() {
         return this.nationalRoamingDataLimit;
@@ -313,27 +324,31 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created, given as GMT in ISO 8601
+     * format..
      * 
-     * @return The date_created
+     * @return The date that this resource was created, given as GMT in ISO 8601
+     *         format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated, given as GMT in ISO
+     * 8601 format..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated, given as GMT in ISO
+     *         8601 format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL for this resource..
      * 
-     * @return The url
+     * @return The URL for this resource.
      */
     public final URI getUrl() {
         return this.url;

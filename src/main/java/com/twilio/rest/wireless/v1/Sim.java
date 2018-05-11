@@ -33,10 +33,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sim extends Resource {
     private static final long serialVersionUID = 120029106133082L;
@@ -235,54 +231,56 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The A user-provided string that uniquely identifies this resource as
+     * an alternative to the sid..
      * 
-     * @return The unique_name
+     * @return A user-provided string that uniquely identifies this resource as an
+     *         alternative to the sid.
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account that this Sim belongs to..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account that this Sim belongs to.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The rate_plan_sid.
+     * Returns The The unique ID of the Rate Plan configured for this Sim..
      * 
-     * @return The rate_plan_sid
+     * @return The unique ID of the Rate Plan configured for this Sim.
      */
     public final String getRatePlanSid() {
         return this.ratePlanSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A user-provided string that identifies this resource..
      * 
-     * @return The friendly_name
+     * @return A user-provided string that identifies this resource.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The iccid.
+     * Returns The The ICCID associated with the SIM..
      * 
-     * @return The iccid
+     * @return The ICCID associated with the SIM.
      */
     public final String getIccid() {
         return this.iccid;
@@ -298,135 +296,156 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The status.
+     * Returns The A string representing the status of the Sim..
      * 
-     * @return The status
+     * @return A string representing the status of the Sim.
      */
     public final Sim.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The commands_callback_url.
+     * Returns The The URL that will receive a webhook when this Sim originates a
+     * machine-to-machine Command..
      * 
-     * @return The commands_callback_url
+     * @return The URL that will receive a webhook when this Sim originates a
+     *         machine-to-machine Command.
      */
     public final URI getCommandsCallbackUrl() {
         return this.commandsCallbackUrl;
     }
 
     /**
-     * Returns The The commands_callback_method.
+     * Returns The A string representing the HTTP method to use when making a
+     * request to commands_callback_url..
      * 
-     * @return The commands_callback_method
+     * @return A string representing the HTTP method to use when making a request
+     *         to commands_callback_url.
      */
     public final HttpMethod getCommandsCallbackMethod() {
         return this.commandsCallbackMethod;
     }
 
     /**
-     * Returns The The sms_fallback_method.
+     * Returns The The HTTP method Twilio will use when requesting the
+     * sms_fallback_url..
      * 
-     * @return The sms_fallback_method
+     * @return The HTTP method Twilio will use when requesting the sms_fallback_url.
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The The sms_fallback_url.
+     * Returns The The URL that Twilio will request if an error occurs retrieving or
+     * executing the TwiML requested by sms_url..
      * 
-     * @return The sms_fallback_url
+     * @return The URL that Twilio will request if an error occurs retrieving or
+     *         executing the TwiML requested by sms_url.
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The The sms_method.
+     * Returns The The HTTP method Twilio will use when requesting the above Url..
      * 
-     * @return The sms_method
+     * @return The HTTP method Twilio will use when requesting the above Url.
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The The sms_url.
+     * Returns The The URL Twilio will request when the SIM-connected device send an
+     * SMS that is not a Command..
      * 
-     * @return The sms_url
+     * @return The URL Twilio will request when the SIM-connected device send an
+     *         SMS that is not a Command.
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The The voice_fallback_method.
+     * Returns The The HTTP method Twilio will use when requesting the
+     * voice_fallback_url..
      * 
-     * @return The voice_fallback_method
+     * @return The HTTP method Twilio will use when requesting the
+     *         voice_fallback_url.
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The The voice_fallback_url.
+     * Returns The The URL that Twilio will request if an error occurs retrieving or
+     * executing the TwiML requested by voice_url..
      * 
-     * @return The voice_fallback_url
+     * @return The URL that Twilio will request if an error occurs retrieving or
+     *         executing the TwiML requested by voice_url.
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The The voice_method.
+     * Returns The The HTTP method Twilio will use when requesting the above Url..
      * 
-     * @return The voice_method
+     * @return The HTTP method Twilio will use when requesting the above Url.
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The The voice_url.
+     * Returns The The URL Twilio will request when the SIM-connected device makes a
+     * call..
      * 
-     * @return The voice_url
+     * @return The URL Twilio will request when the SIM-connected device makes a
+     *         call.
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created, given as GMT in ISO 8601
+     * format..
      * 
-     * @return The date_created
+     * @return The date that this resource was created, given as GMT in ISO 8601
+     *         format.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated, given as GMT in ISO
+     * 8601 format..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated, given as GMT in ISO
+     *         8601 format.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL for this resource..
      * 
-     * @return The url
+     * @return The URL for this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Each Sim instance resource supports a few subresources, listed
+     * here for convenience..
      * 
-     * @return The links
+     * @return Each Sim instance resource supports a few subresources, listed here
+     *         for convenience.
      */
     public final Map<String, String> getLinks() {
         return this.links;

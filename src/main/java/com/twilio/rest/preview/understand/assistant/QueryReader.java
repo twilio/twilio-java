@@ -40,9 +40,9 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The language.
+     * An ISO language-country string of the sample..
      * 
-     * @param language The language
+     * @param language An ISO language-country string of the sample.
      * @return this
      */
     public QueryReader setLanguage(final String language) {
@@ -51,9 +51,10 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The model_build.
+     * The Model Build Sid or unique name of the Model Build to be queried..
      * 
-     * @param modelBuild The model_build
+     * @param modelBuild The Model Build Sid or unique name of the Model Build to
+     *                   be queried.
      * @return this
      */
     public QueryReader setModelBuild(final String modelBuild) {
@@ -62,9 +63,11 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The status.
+     * A string that described the query status. The values can be: to_review,
+     * reviewed, discarded.
      * 
-     * @param status The status
+     * @param status A string that described the query status. The values can be:
+     *               to_review, reviewed, discarded
      * @return this
      */
     public QueryReader setStatus(final String status) {

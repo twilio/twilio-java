@@ -47,7 +47,8 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
     }
 
     /**
-     * A list of emails that this AuthorizationDocument will be carbon copied to..
+     * Email recipients who will be informed when an Authorization Document has been
+     * sent and signed..
      * 
      * @param ccEmails A list of emails.
      * @return this
@@ -58,7 +59,8 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
     }
 
     /**
-     * A list of emails that this AuthorizationDocument will be carbon copied to..
+     * Email recipients who will be informed when an Authorization Document has been
+     * sent and signed..
      * 
      * @param ccEmails A list of emails.
      * @return this

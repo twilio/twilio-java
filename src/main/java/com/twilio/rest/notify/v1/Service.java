@@ -220,9 +220,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The Human-readable name for this service instance.
      * 
-     * @return The friendly_name
+     * @return Human-readable name for this service instance
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -247,72 +247,76 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The apn_credential_sid.
+     * Returns The The SID of the Credential to be used for APN Bindings..
      * 
-     * @return The apn_credential_sid
+     * @return The SID of the Credential to be used for APN Bindings.
      */
     public final String getApnCredentialSid() {
         return this.apnCredentialSid;
     }
 
     /**
-     * Returns The The gcm_credential_sid.
+     * Returns The The SID of the Credential to be used for GCM Bindings..
      * 
-     * @return The gcm_credential_sid
+     * @return The SID of the Credential to be used for GCM Bindings.
      */
     public final String getGcmCredentialSid() {
         return this.gcmCredentialSid;
     }
 
     /**
-     * Returns The The fcm_credential_sid.
+     * Returns The The SID of the Credential to be used for FCM Bindings..
      * 
-     * @return The fcm_credential_sid
+     * @return The SID of the Credential to be used for FCM Bindings.
      */
     public final String getFcmCredentialSid() {
         return this.fcmCredentialSid;
     }
 
     /**
-     * Returns The The messaging_service_sid.
+     * Returns The The SID of the Messaging Service to be used for SMS Bindings..
      * 
-     * @return The messaging_service_sid
+     * @return The SID of the Messaging Service to be used for SMS Bindings.
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;
     }
 
     /**
-     * Returns The The facebook_messenger_page_id.
+     * Returns The The Page ID to be used to send for Facebook Messenger Bindings..
      * 
-     * @return The facebook_messenger_page_id
+     * @return The Page ID to be used to send for Facebook Messenger Bindings.
      */
     public final String getFacebookMessengerPageId() {
         return this.facebookMessengerPageId;
     }
 
     /**
-     * Returns The The default_apn_notification_protocol_version.
+     * Returns The The version of the protocol to be used for sending APNS
+     * notifications..
      * 
-     * @return The default_apn_notification_protocol_version
+     * @return The version of the protocol to be used for sending APNS
+     *         notifications.
      */
     public final String getDefaultApnNotificationProtocolVersion() {
         return this.defaultApnNotificationProtocolVersion;
     }
 
     /**
-     * Returns The The default_gcm_notification_protocol_version.
+     * Returns The The version of the protocol to be used for sending GCM
+     * notifications..
      * 
-     * @return The default_gcm_notification_protocol_version
+     * @return The version of the protocol to be used for sending GCM notifications.
      */
     public final String getDefaultGcmNotificationProtocolVersion() {
         return this.defaultGcmNotificationProtocolVersion;
     }
 
     /**
-     * Returns The The default_fcm_notification_protocol_version.
+     * Returns The The version of the protocol to be used for sending FCM
+     * notifications..
      * 
-     * @return The default_fcm_notification_protocol_version
+     * @return The version of the protocol to be used for sending FCM notifications.
      */
     public final String getDefaultFcmNotificationProtocolVersion() {
         return this.defaultFcmNotificationProtocolVersion;

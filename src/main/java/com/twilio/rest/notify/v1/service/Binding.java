@@ -99,9 +99,9 @@ public class Binding extends Resource {
      * Create a BindingCreator to execute create.
      * 
      * @param pathServiceSid The service_sid
-     * @param identity The identity
-     * @param bindingType The binding_type
-     * @param address The address
+     * @param identity The Identity to which this Binding belongs to.
+     * @param bindingType The type of the Binding.
+     * @param address The address specific to the channel.
      * @return BindingCreator capable of executing the create
      */
     public static BindingCreator creator(final String pathServiceSid, 
@@ -246,9 +246,11 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The credential_sid.
+     * Returns The The unique identifier of the Credential resource to be used to
+     * send notifications to this Binding..
      * 
-     * @return The credential_sid
+     * @return The unique identifier of the Credential resource to be used to send
+     *         notifications to this Binding.
      */
     public final String getCredentialSid() {
         return this.credentialSid;
@@ -273,54 +275,54 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The notification_protocol_version.
+     * Returns The The version of the protocol used to send the notification..
      * 
-     * @return The notification_protocol_version
+     * @return The version of the protocol used to send the notification.
      */
     public final String getNotificationProtocolVersion() {
         return this.notificationProtocolVersion;
     }
 
     /**
-     * Returns The The endpoint.
+     * Returns The DEPRECATED*.
      * 
-     * @return The endpoint
+     * @return DEPRECATED*
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The The identity.
+     * Returns The The Identity to which this Binding belongs to..
      * 
-     * @return The identity
+     * @return The Identity to which this Binding belongs to.
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The binding_type.
+     * Returns The The type of the Binding..
      * 
-     * @return The binding_type
+     * @return The type of the Binding.
      */
     public final String getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The The address.
+     * Returns The The address specific to the channel..
      * 
-     * @return The address
+     * @return The address specific to the channel.
      */
     public final String getAddress() {
         return this.address;
     }
 
     /**
-     * Returns The The tags.
+     * Returns The The list of tags associated with this Binding..
      * 
-     * @return The tags
+     * @return The list of tags associated with this Binding.
      */
     public final List<String> getTags() {
         return this.tags;

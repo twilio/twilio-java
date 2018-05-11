@@ -52,9 +52,11 @@ public class QueryUpdater extends Updater<Query> {
     }
 
     /**
-     * The status.
+     * A string that described the query status. The values can be: to_review,
+     * reviewed, discarded.
      * 
-     * @param status The status
+     * @param status A string that described the query status. The values can be:
+     *               to_review, reviewed, discarded
      * @return this
      */
     public QueryUpdater setStatus(final String status) {

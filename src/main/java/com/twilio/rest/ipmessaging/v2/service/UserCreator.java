@@ -28,7 +28,8 @@ public class UserCreator extends Creator<User> {
      * Construct a new UserCreator.
      * 
      * @param pathServiceSid The service_sid
-     * @param identity The identity
+     * @param identity A unique string that identifies the user within this service
+     *                 - often a username or email address.
      */
     public UserCreator(final String pathServiceSid, 
                        final String identity) {
@@ -37,9 +38,10 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The role_sid.
+     * The unique id of the [Role](https://www.twilio.com/docs/api/chat/rest/roles)
+     * assigned to this user..
      * 
-     * @param roleSid The role_sid
+     * @param roleSid The unique id of the Role assigned to this user.
      * @return this
      */
     public UserCreator setRoleSid(final String roleSid) {
@@ -48,9 +50,11 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The attributes.
+     * An optional string used to contain any metadata or other information for the
+     * User.  The string must contain structurally valid JSON if specified..
      * 
-     * @param attributes The attributes
+     * @param attributes An optional string used to contain any metadata or other
+     *                   information for the User.
      * @return this
      */
     public UserCreator setAttributes(final String attributes) {
@@ -59,9 +63,10 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The friendly_name.
+     * An optional human readable string representing the user.  Often used for
+     * display purposes..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName An optional human readable string representing the user.
      * @return this
      */
     public UserCreator setFriendlyName(final String friendlyName) {

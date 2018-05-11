@@ -125,18 +125,18 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The country.
+     * Returns The Name of the country.
      * 
-     * @return The country
+     * @return Name of the country
      */
     public final String getCountry() {
         return this.country;
     }
 
     /**
-     * Returns The The iso_country.
+     * Returns The The ISO country code.
      * 
-     * @return The iso_country
+     * @return The ISO country code
      */
     public final String getIsoCountry() {
         return this.isoCountry;
@@ -161,9 +161,11 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The price_unit.
+     * Returns The The currency in which prices are measured, in ISO 4127 format
+     * (e.g. usd, eur, jpy)..
      * 
-     * @return The price_unit
+     * @return The currency in which prices are measured, in ISO 4127 format (e.g.
+     *         usd, eur, jpy).
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;

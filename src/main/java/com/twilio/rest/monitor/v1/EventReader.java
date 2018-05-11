@@ -19,15 +19,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 public class EventReader extends Reader<Event> {
     private String actorSid;
     private String eventType;
     private String resourceSid;
     private String sourceIpAddress;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private DateTime startDate;
+    private DateTime endDate;
 
     /**
      * The actor_sid.
@@ -79,7 +79,7 @@ public class EventReader extends Reader<Event> {
      * @param startDate The start_date
      * @return this
      */
-    public EventReader setStartDate(final LocalDate startDate) {
+    public EventReader setStartDate(final DateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -90,7 +90,7 @@ public class EventReader extends Reader<Event> {
      * @param endDate The end_date
      * @return this
      */
-    public EventReader setEndDate(final LocalDate endDate) {
+    public EventReader setEndDate(final DateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -242,11 +242,11 @@ public class EventReader extends Reader<Event> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
+            request.addQueryParam("StartDate", startDate.toString());
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
+            request.addQueryParam("EndDate", endDate.toString());
         }
 
         if (getPageSize() != null) {

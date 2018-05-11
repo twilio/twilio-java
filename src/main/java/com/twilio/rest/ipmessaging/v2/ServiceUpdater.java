@@ -65,9 +65,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The friendly_name.
+     * Human-readable name for this service instance.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human-readable name for this service instance
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
@@ -87,9 +87,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The default_channel_role_sid.
+     * Channel role assigned on channel join (see
+     * [Roles](https://www.twilio.com/docs/chat/api/roles) data model for the
+     * details).
      * 
-     * @param defaultChannelRoleSid The default_channel_role_sid
+     * @param defaultChannelRoleSid Channel role assigned on channel join
      * @return this
      */
     public ServiceUpdater setDefaultChannelRoleSid(final String defaultChannelRoleSid) {
@@ -98,9 +100,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The default_channel_creator_role_sid.
+     * Channel role assigned to creator of channel when joining for first time.
      * 
-     * @param defaultChannelCreatorRoleSid The default_channel_creator_role_sid
+     * @param defaultChannelCreatorRoleSid Channel role assigned to creator of
+     *                                     channel when joining for first time
      * @return this
      */
     public ServiceUpdater setDefaultChannelCreatorRoleSid(final String defaultChannelCreatorRoleSid) {
@@ -109,9 +112,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The read_status_enabled.
+     * `true` if the member read status feature is enabled, `false` if not. 
+     * Defaults to `true`..
      * 
-     * @param readStatusEnabled The read_status_enabled
+     * @param readStatusEnabled true if the member read status feature is enabled,
+     *                          false if not.
      * @return this
      */
     public ServiceUpdater setReadStatusEnabled(final Boolean readStatusEnabled) {
@@ -120,9 +125,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The reachability_enabled.
+     * `true` if the reachability feature should be enabled.  Defaults to `false`.
      * 
-     * @param reachabilityEnabled The reachability_enabled
+     * @param reachabilityEnabled true if the reachability feature should be
+     *                            enabled.
      * @return this
      */
     public ServiceUpdater setReachabilityEnabled(final Boolean reachabilityEnabled) {
@@ -131,9 +137,14 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The typing_indicator_timeout.
+     * The duration in seconds indicating the timeout after "started typing" event
+     * when client should assume that user is not typing anymore even if no "ended
+     * typing" message received.
      * 
-     * @param typingIndicatorTimeout The typing_indicator_timeout
+     * @param typingIndicatorTimeout The duration in seconds indicating the timeout
+     *                               after "started typing" event when client should
+     *                               assume that user is not typing anymore even if
+     *                               no "ended typing" message received
      * @return this
      */
     public ServiceUpdater setTypingIndicatorTimeout(final Integer typingIndicatorTimeout) {
@@ -306,9 +317,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The pre_webhook_url.
+     * The webhook URL for PRE-Event webhooks. See [Webhook
+     * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
      * 
-     * @param preWebhookUrl The pre_webhook_url
+     * @param preWebhookUrl The webhook URL for PRE-Event webhooks.
      * @return this
      */
     public ServiceUpdater setPreWebhookUrl(final URI preWebhookUrl) {
@@ -317,9 +329,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The pre_webhook_url.
+     * The webhook URL for PRE-Event webhooks. See [Webhook
+     * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
      * 
-     * @param preWebhookUrl The pre_webhook_url
+     * @param preWebhookUrl The webhook URL for PRE-Event webhooks.
      * @return this
      */
     public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl) {
@@ -327,9 +340,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The post_webhook_url.
+     * The webhook URL for POST-Event webhooks. See [Webhook
+     * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
      * 
-     * @param postWebhookUrl The post_webhook_url
+     * @param postWebhookUrl The webhook URL for POST-Event webhooks.
      * @return this
      */
     public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl) {
@@ -338,9 +352,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The post_webhook_url.
+     * The webhook URL for POST-Event webhooks. See [Webhook
+     * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
      * 
-     * @param postWebhookUrl The post_webhook_url
+     * @param postWebhookUrl The webhook URL for POST-Event webhooks.
      * @return this
      */
     public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl) {
@@ -348,9 +363,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The webhook_method.
+     * The webhook request format to use.  Must be POST or GET. See [Webhook
+     * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
      * 
-     * @param webhookMethod The webhook_method
+     * @param webhookMethod The webhook request format to use.
      * @return this
      */
     public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod) {
@@ -359,9 +375,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The webhook_filters.
+     * The list of WebHook events that are enabled for this Service instance. See
+     * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
+     * details..
      * 
-     * @param webhookFilters The webhook_filters
+     * @param webhookFilters The list of WebHook events that are enabled for this
+     *                       Service instance.
      * @return this
      */
     public ServiceUpdater setWebhookFilters(final List<String> webhookFilters) {
@@ -370,9 +389,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The webhook_filters.
+     * The list of WebHook events that are enabled for this Service instance. See
+     * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
+     * details..
      * 
-     * @param webhookFilters The webhook_filters
+     * @param webhookFilters The list of WebHook events that are enabled for this
+     *                       Service instance.
      * @return this
      */
     public ServiceUpdater setWebhookFilters(final String webhookFilters) {
@@ -380,9 +402,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The limits.channel_members.
+     * The maximum number of Members that can be added to Channels within this
+     * Service.  The maximum allowed value is 1,000.
      * 
-     * @param limitsChannelMembers The limits.channel_members
+     * @param limitsChannelMembers The maximum number of Members that can be added
+     *                             to Channels within this Service.
      * @return this
      */
     public ServiceUpdater setLimitsChannelMembers(final Integer limitsChannelMembers) {
@@ -391,9 +415,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The limits.user_channels.
+     * The maximum number of Channels Users can be a Member of within this Service. 
+     * The maximum value allowed is 1,000.
      * 
-     * @param limitsUserChannels The limits.user_channels
+     * @param limitsUserChannels The maximum number of Channels Users can be a
+     *                           Member of within this Service.
      * @return this
      */
     public ServiceUpdater setLimitsUserChannels(final Integer limitsUserChannels) {
@@ -413,9 +439,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The pre_webhook_retry_count.
+     * Count of times webhook will be retried in case of timeout (5 seconds) or
+     * 429/503/504 HTTP responses. Default retry count is 0 times..
      * 
-     * @param preWebhookRetryCount The pre_webhook_retry_count
+     * @param preWebhookRetryCount Count of times webhook will be retried in case
+     *                             of timeout or 429/503/504 HTTP responses.
      * @return this
      */
     public ServiceUpdater setPreWebhookRetryCount(final Integer preWebhookRetryCount) {
@@ -424,9 +452,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The post_webhook_retry_count.
+     * Count of times webhook will be retried in case of timeout (5 seconds) or
+     * 429/503/504 HTTP responses. Default retry count is 0 times..
      * 
-     * @param postWebhookRetryCount The post_webhook_retry_count
+     * @param postWebhookRetryCount Count of times webhook will be retried in case
+     *                              of timeout or 429/503/504 HTTP responses.
      * @return this
      */
     public ServiceUpdater setPostWebhookRetryCount(final Integer postWebhookRetryCount) {

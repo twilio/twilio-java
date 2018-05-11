@@ -21,10 +21,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class UsageRecordReader extends Reader<UsageRecord> {
     private final String pathSimSid;
     private DateTime end;
@@ -41,9 +37,10 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * The end.
+     * Only include usage that has occurred on or before this date. Format is [ISO
+     * 8601](http://www.iso.org/iso/home/standards/iso8601.htm)..
      * 
-     * @param end The end
+     * @param end Only include usage that has occurred on or before this date.
      * @return this
      */
     public UsageRecordReader setEnd(final DateTime end) {
@@ -52,9 +49,10 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * The start.
+     * Only include usage that has occurred on or after this date. Format is [ISO
+     * 8601](http://www.iso.org/iso/home/standards/iso8601.htm)..
      * 
-     * @param start The start
+     * @param start Only include usage that has occurred on or after this date.
      * @return this
      */
     public UsageRecordReader setStart(final DateTime start) {
@@ -63,9 +61,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * The granularity.
+     * The time-based grouping that results are aggregated by. Valid values are
+     * `daily`, `hourly`, `all`. `all` will return one Usage Record for the entire
+     * period..
      * 
-     * @param granularity The granularity
+     * @param granularity The time-based grouping that results are aggregated by.
      * @return this
      */
     public UsageRecordReader setGranularity(final UsageRecord.Granularity granularity) {

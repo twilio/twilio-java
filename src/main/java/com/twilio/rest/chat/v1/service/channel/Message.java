@@ -224,45 +224,47 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account responsible for this message..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account responsible for this message.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The attributes.
+     * Returns The An optional string metadata field you can use to store any data
+     * you wish..
      * 
-     * @return The attributes
+     * @return An optional string metadata field you can use to store any data you
+     *         wish.
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The unique id of the Service this message belongs to..
      * 
-     * @return The service_sid
+     * @return The unique id of the Service this message belongs to.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The to.
+     * Returns The The unique id of the Channel this message was sent to..
      * 
-     * @return The to
+     * @return The unique id of the Channel this message was sent to.
      */
     public final String getTo() {
         return this.to;
@@ -278,63 +280,63 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created..
      * 
-     * @return The date_created
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The was_edited.
+     * Returns The true if the message has been updated since it was created..
      * 
-     * @return The was_edited
+     * @return true if the message has been updated since it was created.
      */
     public final Boolean getWasEdited() {
         return this.wasEdited;
     }
 
     /**
-     * Returns The The from.
+     * Returns The The identity of the message's author..
      * 
-     * @return The from
+     * @return The identity of the message's author.
      */
     public final String getFrom() {
         return this.from;
     }
 
     /**
-     * Returns The The body.
+     * Returns The The contents of the message..
      * 
-     * @return The body
+     * @return The contents of the message.
      */
     public final String getBody() {
         return this.body;
     }
 
     /**
-     * Returns The The index.
+     * Returns The The index of the message within the Channel.
      * 
-     * @return The index
+     * @return The index of the message within the Channel
      */
     public final Integer getIndex() {
         return this.index;
     }
 
     /**
-     * Returns The The url.
+     * Returns The An absolute URL for this message..
      * 
-     * @return The url
+     * @return An absolute URL for this message.
      */
     public final URI getUrl() {
         return this.url;

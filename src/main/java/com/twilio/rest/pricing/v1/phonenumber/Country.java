@@ -120,36 +120,38 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The country.
+     * Returns The Name of the country.
      * 
-     * @return The country
+     * @return Name of the country
      */
     public final String getCountry() {
         return this.country;
     }
 
     /**
-     * Returns The The iso_country.
+     * Returns The The ISO country code of this number.
      * 
-     * @return The iso_country
+     * @return The ISO country code of this number
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The The phone_number_prices.
+     * Returns The List of PhoneNumberPrices records.
      * 
-     * @return The phone_number_prices
+     * @return List of PhoneNumberPrices records
      */
     public final List<PhoneNumberPrice> getPhoneNumberPrices() {
         return this.phoneNumberPrices;
     }
 
     /**
-     * Returns The The price_unit.
+     * Returns The The currency in which prices are measured, in ISO 4127 format
+     * (e.g. usd, eur, jpy)..
      * 
-     * @return The price_unit
+     * @return The currency in which prices are measured, in ISO 4127 format (e.g.
+     *         usd, eur, jpy).
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;

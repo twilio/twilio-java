@@ -125,8 +125,9 @@ public class SyncMapItem extends Resource {
      * 
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
-     * @param key The key
-     * @param data The data
+     * @param key The unique user-defined key of this Map Item.
+     * @param data Contains arbitrary user-defined, schema-less data that this Map
+     *             Item stores, represented by a JSON object, up to 16KB.
      * @return SyncMapItemCreator capable of executing the create
      */
     public static SyncMapItemCreator creator(final String pathServiceSid, 

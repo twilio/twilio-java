@@ -38,9 +38,9 @@ public class BindingCreator extends Creator<Binding> {
      * Construct a new BindingCreator.
      * 
      * @param pathServiceSid The service_sid
-     * @param identity The identity
-     * @param bindingType The binding_type
-     * @param address The address
+     * @param identity The Identity to which this Binding belongs to.
+     * @param bindingType The type of the Binding.
+     * @param address The address specific to the channel.
      */
     public BindingCreator(final String pathServiceSid, 
                           final String identity, 
@@ -53,9 +53,10 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The tag.
+     * The list of tags associated with this Binding. Tags can be used to select the
+     * Bindings to use when sending a notification. Maximum 20 tags are allowed..
      * 
-     * @param tag The tag
+     * @param tag The list of tags associated with this Binding.
      * @return this
      */
     public BindingCreator setTag(final List<String> tag) {
@@ -64,9 +65,10 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The tag.
+     * The list of tags associated with this Binding. Tags can be used to select the
+     * Bindings to use when sending a notification. Maximum 20 tags are allowed..
      * 
-     * @param tag The tag
+     * @param tag The list of tags associated with this Binding.
      * @return this
      */
     public BindingCreator setTag(final String tag) {
@@ -74,9 +76,15 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The notification_protocol_version.
+     * The version of the protocol (data format) used to send the notification. This
+     * defaults to the value of DefaultXXXNotificationProtocolVersion in the
+     * [Service](https://www.twilio.com/docs/api/notify/rest/services). The current
+     * version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is
+     * not applicable to `sms` and `facebook-messenger` type Bindings as the data
+     * format is fixed..
      * 
-     * @param notificationProtocolVersion The notification_protocol_version
+     * @param notificationProtocolVersion The version of the protocol used to send
+     *                                    the notification.
      * @return this
      */
     public BindingCreator setNotificationProtocolVersion(final String notificationProtocolVersion) {
@@ -85,9 +93,13 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The credential_sid.
+     * The unique identifier (SID) of the Credential resource to be used to send
+     * notifications to this Binding. If present, this overrides the Credential
+     * specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm`
+     * type Bindings..
      * 
-     * @param credentialSid The credential_sid
+     * @param credentialSid The unique identifier of the Credential resource to be
+     *                      used to send notifications to this Binding.
      * @return this
      */
     public BindingCreator setCredentialSid(final String credentialSid) {
@@ -96,9 +108,9 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The endpoint.
+     * DEPRECATED*.
      * 
-     * @param endpoint The endpoint
+     * @param endpoint DEPRECATED*
      * @return this
      */
     public BindingCreator setEndpoint(final String endpoint) {

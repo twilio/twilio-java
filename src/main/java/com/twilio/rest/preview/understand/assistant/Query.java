@@ -68,8 +68,10 @@ public class Query extends Resource {
      * Create a QueryCreator to execute create.
      * 
      * @param pathAssistantSid The assistant_sid
-     * @param language The language
-     * @param query The query
+     * @param language An ISO language-country string of the sample.
+     * @param query A user-provided string that uniquely identifies this resource
+     *              as an alternative to the sid. It can be up to 2048 characters
+     *              long.
      * @return QueryCreator capable of executing the create
      */
     public static QueryCreator creator(final String pathAssistantSid, 
@@ -196,54 +198,56 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that created this Query..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that created this Query.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created.
      * 
-     * @return The date_created
+     * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The results.
+     * Returns The The natural language analysis results which include the Intent
+     * recognized, the confidence score and a list of identified Fields..
      * 
-     * @return The results
+     * @return The natural language analysis results which include the Intent
+     *         recognized, the confidence score and a list of identified Fields.
      */
     public final Map<String, Object> getResults() {
         return this.results;
     }
 
     /**
-     * Returns The The language.
+     * Returns The An ISO language-country string of the sample..
      * 
-     * @return The language
+     * @return An ISO language-country string of the sample.
      */
     public final String getLanguage() {
         return this.language;
     }
 
     /**
-     * Returns The The model_build_sid.
+     * Returns The The unique ID of the Model Build queried..
      * 
-     * @return The model_build_sid
+     * @return The unique ID of the Model Build queried.
      */
     public final String getModelBuildSid() {
         return this.modelBuildSid;
@@ -259,36 +263,38 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The sample_sid.
+     * Returns The An optional reference to the Sample created from this query..
      * 
-     * @return The sample_sid
+     * @return An optional reference to the Sample created from this query.
      */
     public final String getSampleSid() {
         return this.sampleSid;
     }
 
     /**
-     * Returns The The assistant_sid.
+     * Returns The The unique ID of the parent Assistant..
      * 
-     * @return The assistant_sid
+     * @return The unique ID of the parent Assistant.
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The status.
+     * Returns The A string that described the query status. The values can be:
+     * to_review, reviewed, discarded.
      * 
-     * @return The status
+     * @return A string that described the query status. The values can be:
+     *         to_review, reviewed, discarded
      */
     public final String getStatus() {
         return this.status;

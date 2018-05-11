@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.List;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class RatePlanCreator extends Creator<RatePlan> {
     private String uniqueName;
     private String friendlyName;
@@ -38,9 +34,11 @@ public class RatePlanCreator extends Creator<RatePlan> {
     private Integer internationalRoamingDataLimit;
 
     /**
-     * The unique_name.
+     * A user-provided string that uniquely identifies this resource as an
+     * alternative to the Sid..
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName A user-provided string that uniquely identifies this
+     *                   resource as an alternative to the Sid.
      * @return this
      */
     public RatePlanCreator setUniqueName(final String uniqueName) {
@@ -49,9 +47,9 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The friendly_name.
+     * A user-provided string that identifies this resource. Non-unique..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A user-provided string that identifies this resource.
      * @return this
      */
     public RatePlanCreator setFriendlyName(final String friendlyName) {
@@ -60,9 +58,10 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The data_enabled.
+     * Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity..
      * 
-     * @param dataEnabled The data_enabled
+     * @param dataEnabled Defines whether SIMs are capable of using GPRS/3G/LTE
+     *                    data connectivity.
      * @return this
      */
     public RatePlanCreator setDataEnabled(final Boolean dataEnabled) {
@@ -71,9 +70,13 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The data_limit.
+     * Network-enforced limit specifying the total Megabytes of data usage (download
+     * and upload combined) allowed during one month on the home network. Metering
+     * begins on the day of activation and ends on the same day of the following
+     * month.  Max value is 2TB..
      * 
-     * @param dataLimit The data_limit
+     * @param dataLimit Network-enforced limit specifying the total Megabytes of
+     *                  data usage allowed during one month on the home network.
      * @return this
      */
     public RatePlanCreator setDataLimit(final Integer dataLimit) {
@@ -82,9 +85,12 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The data_metering.
+     * The model by which to meter data usage, in accordance with the two available
+     * [data metering
+     * models](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#explanation-of-pooled-vs-individual). Valid options are `pooled` and `individual`..
      * 
-     * @param dataMetering The data_metering
+     * @param dataMetering The model by which to meter data usage, in accordance
+     *                     with the two available data metering models.
      * @return this
      */
     public RatePlanCreator setDataMetering(final String dataMetering) {
@@ -93,9 +99,14 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The messaging_enabled.
+     * Defines whether SIMs are capable of making and sending and receiving SMS
+     * messages via either
+     * [Commands](https://www.twilio.com/docs/wireless/api/commands) or Programmable
+     * SMS APIs..
      * 
-     * @param messagingEnabled The messaging_enabled
+     * @param messagingEnabled Defines whether SIMs are capable of making and
+     *                         sending and receiving SMS messages via either
+     *                         Commands or Programmable SMS APIs.
      * @return this
      */
     public RatePlanCreator setMessagingEnabled(final Boolean messagingEnabled) {
@@ -104,9 +115,10 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The voice_enabled.
+     * Defines whether SIMs are capable of making and receiving voice calls..
      * 
-     * @param voiceEnabled The voice_enabled
+     * @param voiceEnabled Defines whether SIMs are capable of making and receiving
+     *                     voice calls.
      * @return this
      */
     public RatePlanCreator setVoiceEnabled(final Boolean voiceEnabled) {
@@ -115,9 +127,12 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The national_roaming_enabled.
+     * Defines whether SIMs can roam onto other networks in the SIM's home country.
+     * See ['national'
+     * roaming](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#national-roaming)..
      * 
-     * @param nationalRoamingEnabled The national_roaming_enabled
+     * @param nationalRoamingEnabled Defines whether SIMs can roam onto other
+     *                               networks in the SIM's home country.
      * @return this
      */
     public RatePlanCreator setNationalRoamingEnabled(final Boolean nationalRoamingEnabled) {
@@ -147,9 +162,14 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The national_roaming_data_limit.
+     * Network-enforced limit specifying the total Megabytes of national roaming
+     * data usage (download and upload combined) allowed during one month.  Max
+     * value is 2TB. If unspecified, the default value is the lesser of `DataLimit`
+     * and 1000MB..
      * 
-     * @param nationalRoamingDataLimit The national_roaming_data_limit
+     * @param nationalRoamingDataLimit Network-enforced limit specifying the total
+     *                                 Megabytes of national roaming data usage
+     *                                 allowed during one month.
      * @return this
      */
     public RatePlanCreator setNationalRoamingDataLimit(final Integer nationalRoamingDataLimit) {

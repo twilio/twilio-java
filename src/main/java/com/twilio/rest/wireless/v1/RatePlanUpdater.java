@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class RatePlanUpdater extends Updater<RatePlan> {
     private final String pathSid;
     private String uniqueName;
@@ -36,9 +32,11 @@ public class RatePlanUpdater extends Updater<RatePlan> {
     }
 
     /**
-     * The unique_name.
+     * A user-provided string that uniquely identifies this resource as an
+     * alternative to the Sid..
      * 
-     * @param uniqueName The unique_name
+     * @param uniqueName A user-provided string that uniquely identifies this
+     *                   resource as an alternative to the Sid.
      * @return this
      */
     public RatePlanUpdater setUniqueName(final String uniqueName) {
@@ -47,9 +45,9 @@ public class RatePlanUpdater extends Updater<RatePlan> {
     }
 
     /**
-     * The friendly_name.
+     * A user-provided string that identifies this resource. Non-unique..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A user-provided string that identifies this resource.
      * @return this
      */
     public RatePlanUpdater setFriendlyName(final String friendlyName) {

@@ -40,7 +40,7 @@ public class DocumentCreator extends Creator<Document> {
     }
 
     /**
-     * (optional) Human-readable name for this document.
+     * Human-readable name for this document.
      * 
      * @param uniqueName Human-readable name for this document
      * @return this
@@ -51,7 +51,7 @@ public class DocumentCreator extends Creator<Document> {
     }
 
     /**
-     * (optional) JSON data to be stored in this document.
+     * JSON data to be stored in this document.
      * 
      * @param data JSON data to be stored in this document
      * @return this
@@ -62,8 +62,8 @@ public class DocumentCreator extends Creator<Document> {
     }
 
     /**
-     * (optional) Time-to-live of this Document in seconds, defaults to no
-     * expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity..
+     * Time-to-live of this Document in seconds, defaults to no expiration. In the
+     * range [1, 31 536 000 (1 year)], or 0 for infinity..
      * 
      * @param ttl Time-to-live of this Document in seconds, defaults to no
      *            expiration.

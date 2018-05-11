@@ -36,9 +36,9 @@ public class ServiceCreator extends Creator<Service> {
     private String defaultAlexaNotificationProtocolVersion;
 
     /**
-     * The friendly_name.
+     * Human-readable name for this service instance.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human-readable name for this service instance
      * @return this
      */
     public ServiceCreator setFriendlyName(final String friendlyName) {
@@ -47,9 +47,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The apn_credential_sid.
+     * The SID of the
+     * [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used
+     * for APN Bindings..
      * 
-     * @param apnCredentialSid The apn_credential_sid
+     * @param apnCredentialSid The SID of the Credential to be used for APN
+     *                         Bindings.
      * @return this
      */
     public ServiceCreator setApnCredentialSid(final String apnCredentialSid) {
@@ -58,9 +61,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The gcm_credential_sid.
+     * The SID of the
+     * [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used
+     * for GCM Bindings..
      * 
-     * @param gcmCredentialSid The gcm_credential_sid
+     * @param gcmCredentialSid The SID of the Credential to be used for GCM
+     *                         Bindings.
      * @return this
      */
     public ServiceCreator setGcmCredentialSid(final String gcmCredentialSid) {
@@ -69,9 +75,11 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The messaging_service_sid.
+     * The SID of the [Messaging
+     * Service](https://www.twilio.com/docs/api/rest/sending-messages#messaging-services) to be used for SMS Bindings. In order to send SMS notifications this parameter has to be set..
      * 
-     * @param messagingServiceSid The messaging_service_sid
+     * @param messagingServiceSid The SID of the Messaging Service to be used for
+     *                            SMS Bindings.
      * @return this
      */
     public ServiceCreator setMessagingServiceSid(final String messagingServiceSid) {
@@ -80,9 +88,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The facebook_messenger_page_id.
+     * The Page ID to be used to send for Facebook Messenger Bindings. It has to
+     * match the Page ID you configured when you [enabled Facebook
+     * Messaging](https://www.twilio.com/console/sms/settings) on your account..
      * 
-     * @param facebookMessengerPageId The facebook_messenger_page_id
+     * @param facebookMessengerPageId The Page ID to be used to send for Facebook
+     *                                Messenger Bindings.
      * @return this
      */
     public ServiceCreator setFacebookMessengerPageId(final String facebookMessengerPageId) {
@@ -91,10 +102,13 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The default_apn_notification_protocol_version.
+     * The version of the protocol to be used for sending APNS notifications. Can be
+     * overriden on a Binding by Binding basis when creating a
+     * [Binding](https://www.twilio.com/docs/notify/api/bindings) resource..
      * 
-     * @param defaultApnNotificationProtocolVersion The
-     *                                              default_apn_notification_protocol_version
+     * @param defaultApnNotificationProtocolVersion The version of the protocol to
+     *                                              be used for sending APNS
+     *                                              notifications.
      * @return this
      */
     public ServiceCreator setDefaultApnNotificationProtocolVersion(final String defaultApnNotificationProtocolVersion) {
@@ -103,10 +117,13 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The default_gcm_notification_protocol_version.
+     * The version of the protocol to be used for sending GCM notifications. Can be
+     * overriden on a Binding by Binding basis when creating a
+     * [Binding](https://www.twilio.com/docs/notify/api/bindings) resource..
      * 
-     * @param defaultGcmNotificationProtocolVersion The
-     *                                              default_gcm_notification_protocol_version
+     * @param defaultGcmNotificationProtocolVersion The version of the protocol to
+     *                                              be used for sending GCM
+     *                                              notifications.
      * @return this
      */
     public ServiceCreator setDefaultGcmNotificationProtocolVersion(final String defaultGcmNotificationProtocolVersion) {
@@ -115,9 +132,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The fcm_credential_sid.
+     * The SID of the
+     * [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used
+     * for FCM Bindings..
      * 
-     * @param fcmCredentialSid The fcm_credential_sid
+     * @param fcmCredentialSid The SID of the Credential to be used for FCM
+     *                         Bindings.
      * @return this
      */
     public ServiceCreator setFcmCredentialSid(final String fcmCredentialSid) {
@@ -126,10 +146,13 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The default_fcm_notification_protocol_version.
+     * The version of the protocol to be used for sending FCM notifications. Can be
+     * overriden on a Binding by Binding basis when creating a
+     * [Binding](https://www.twilio.com/docs/notify/api/bindings) resource..
      * 
-     * @param defaultFcmNotificationProtocolVersion The
-     *                                              default_fcm_notification_protocol_version
+     * @param defaultFcmNotificationProtocolVersion The version of the protocol to
+     *                                              be used for sending FCM
+     *                                              notifications.
      * @return this
      */
     public ServiceCreator setDefaultFcmNotificationProtocolVersion(final String defaultFcmNotificationProtocolVersion) {

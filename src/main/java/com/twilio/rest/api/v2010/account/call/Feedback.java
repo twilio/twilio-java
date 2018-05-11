@@ -73,7 +73,7 @@ public class Feedback extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathCallSid The call_sid
-     * @param qualityScore The quality_score
+     * @param qualityScore An integer from 1 to 5
      * @return FeedbackCreator capable of executing the create
      */
     public static FeedbackCreator creator(final String pathAccountSid, 
@@ -86,7 +86,7 @@ public class Feedback extends Resource {
      * Create a FeedbackCreator to execute create.
      * 
      * @param pathCallSid The call_sid
-     * @param qualityScore The quality_score
+     * @param qualityScore An integer from 1 to 5
      * @return FeedbackCreator capable of executing the create
      */
     public static FeedbackCreator creator(final String pathCallSid, 

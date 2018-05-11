@@ -24,7 +24,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
     /**
      * Construct a new CredentialListDeleter.
      * 
-     * @param pathSid Delete by unique credential Sid
+     * @param pathSid Delete by unique credential list Sid
      */
     public CredentialListDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -34,7 +34,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
      * Construct a new CredentialListDeleter.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique credential Sid
+     * @param pathSid Delete by unique credential list Sid
      */
     public CredentialListDeleter(final String pathAccountSid, 
                                  final String pathSid) {

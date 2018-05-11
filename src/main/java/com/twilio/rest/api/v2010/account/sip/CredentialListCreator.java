@@ -24,7 +24,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
     /**
      * Construct a new CredentialListCreator.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable descriptive text
      */
     public CredentialListCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -34,7 +34,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
      * Construct a new CredentialListCreator.
      * 
      * @param pathAccountSid The account_sid
-     * @param friendlyName The friendly_name
+     * @param friendlyName Human readable descriptive text
      */
     public CredentialListCreator(final String pathAccountSid, 
                                  final String friendlyName) {

@@ -34,8 +34,9 @@ public class FieldValueCreator extends Creator<FieldValue> {
      * 
      * @param pathAssistantSid The assistant_sid
      * @param pathFieldTypeSid The field_type_sid
-     * @param language The language
-     * @param value The value
+     * @param language An ISO language-country string of the value.
+     * @param value A user-provided string that uniquely identifies this resource
+     *              as an alternative to the sid. Unique up to 64 characters long.
      */
     public FieldValueCreator(final String pathAssistantSid, 
                              final String pathFieldTypeSid, 

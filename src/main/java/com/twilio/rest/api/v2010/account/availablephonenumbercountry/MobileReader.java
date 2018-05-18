@@ -187,10 +187,11 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Given a phone number, find a geographically close number within `Distance`
-     * miles. Distance defaults to 25 miles..
+     * miles. Distance defaults to 25 miles. *Limited to US and Canadian phone
+     * numbers.*.
      * 
      * @param nearNumber Given a phone number, find a geographically close number
-     *                   within Distance miles.
+     *                   within Distance miles. (US/Canada only)
      * @return this
      */
     public MobileReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
@@ -200,10 +201,11 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Given a phone number, find a geographically close number within `Distance`
-     * miles. Distance defaults to 25 miles..
+     * miles. Distance defaults to 25 miles. *Limited to US and Canadian phone
+     * numbers.*.
      * 
      * @param nearNumber Given a phone number, find a geographically close number
-     *                   within Distance miles.
+     *                   within Distance miles. (US/Canada only)
      * @return this
      */
     public MobileReader setNearNumber(final String nearNumber) {
@@ -212,10 +214,11 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Given a latitude/longitude pair `lat,long` find geographically close numbers
-     * within `Distance` miles..
+     * within `Distance` miles. *Limited to US and Canadian phone numbers.*.
      * 
      * @param nearLatLong Given a latitude/longitude pair lat,long find
      *                    geographically close numbers within Distance miles.
+     *                    (US/Canada only)
      * @return this
      */
     public MobileReader setNearLatLong(final String nearLatLong) {
@@ -225,9 +228,11 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Specifies the search radius for a `Near-` query in miles. If not specified
-     * this defaults to 25 miles. Maximum searchable distance is 500 miles..
+     * this defaults to 25 miles. Maximum searchable distance is 500 miles. *Limited
+     * to US and Canadian phone numbers.*.
      * 
      * @param distance Specifies the search radius for a Near- query in miles.
+     *                 (US/Canada only)
      * @return this
      */
     public MobileReader setDistance(final Integer distance) {
@@ -237,9 +242,11 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Limit results to a particular postal code. Given a phone number, search
-     * within the same postal code as that number..
+     * within the same postal code as that number. *Limited to US and Canadian phone
+     * numbers.*.
      * 
-     * @param inPostalCode Limit results to a particular postal code.
+     * @param inPostalCode Limit results to a particular postal code. (US/Canada
+     *                     only)
      * @return this
      */
     public MobileReader setInPostalCode(final String inPostalCode) {
@@ -248,10 +255,11 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     /**
-     * Limit results to a particular region (i.e.  State/Province). Given a phone
-     * number, search within the same Region as that number..
+     * Limit results to a particular region (i.e. State/Province). Given a phone
+     * number, search within the same Region as that number. *Limited to US and
+     * Canadian phone numbers.*.
      * 
-     * @param inRegion Limit results to a particular region.
+     * @param inRegion Limit results to a particular region. (US/Canada only)
      * @return this
      */
     public MobileReader setInRegion(final String inRegion) {
@@ -262,11 +270,11 @@ public class MobileReader extends Reader<Mobile> {
     /**
      * Limit results to a specific rate center, or given a phone number search
      * within the same rate center as that number. Requires InLata to be set as
-     * well..
+     * well. *Limited to US and Canadian phone numbers.*.
      * 
      * @param inRateCenter Limit results to a specific rate center, or given a
      *                     phone number search within the same rate center as that
-     *                     number.
+     *                     number. (US/Canada only)
      * @return this
      */
     public MobileReader setInRateCenter(final String inRateCenter) {
@@ -279,9 +287,10 @@ public class MobileReader extends Reader<Mobile> {
      * ([LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given
      * a phone number, search within the same
      * [LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
-     * number..
+     * number. *Limited to US and Canadian phone numbers.*.
      * 
      * @param inLata Limit results to a specific Local access and transport area.
+     *               (US/Canada only)
      * @return this
      */
     public MobileReader setInLata(final String inLata) {

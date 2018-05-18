@@ -45,7 +45,7 @@ public class User extends Resource {
      * Create a UserCreator to execute create.
      * 
      * @param pathServiceSid The service_sid
-     * @param identity The identity
+     * @param identity The identifier of the User, defined by your application.
      * @return UserCreator capable of executing the create
      */
     public static UserCreator creator(final String pathServiceSid, 
@@ -192,9 +192,9 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The identity.
+     * Returns The The identifier of the User, defined by your application..
      * 
-     * @return The identity
+     * @return The identifier of the User, defined by your application.
      */
     public final String getIdentity() {
         return this.identity;

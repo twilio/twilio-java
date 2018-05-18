@@ -72,10 +72,6 @@ public class Composition extends Resource {
     }
 
     public enum Format {
-        MKA("mka"),
-        MP3("mp3"),
-        M4A("m4a"),
-        MKV("mkv"),
         MP4("mp4"),
         WEBM("webm");
 
@@ -103,7 +99,8 @@ public class Composition extends Resource {
     /**
      * Create a CompositionFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The Composition Sid that uniquely identifies the Composition
+     *                to fetch.
      * @return CompositionFetcher capable of executing the fetch
      */
     public static CompositionFetcher fetcher(final String pathSid) {
@@ -122,7 +119,8 @@ public class Composition extends Resource {
     /**
      * Create a CompositionDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The Recording Composition Sid that uniquely identifies the
+     *                Recording Composition to delete.
      * @return CompositionDeleter capable of executing the delete
      */
     public static CompositionDeleter deleter(final String pathSid) {
@@ -253,117 +251,119 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Twilio Account SID..
      * 
-     * @return The account_sid
+     * @return Twilio Account SID.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of the Composition..
      * 
-     * @return The status
+     * @return The status of the Composition.
      */
     public final Composition.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The Date when the Composition Resource was created..
      * 
-     * @return The date_created
+     * @return Date when the Composition Resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_completed.
+     * Returns The Date when the media processing task finished..
      * 
-     * @return The date_completed
+     * @return Date when the media processing task finished.
      */
     public final String getDateCompleted() {
         return this.dateCompleted;
     }
 
     /**
-     * Returns The The date_deleted.
+     * Returns The Date when the Composition Resource generated media was deleted..
      * 
-     * @return The date_deleted
+     * @return Date when the Composition Resource generated media was deleted.
      */
     public final String getDateDeleted() {
         return this.dateDeleted;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34-character string that uniquely identifies this Composition..
      * 
-     * @return The sid
+     * @return A 34-character string that uniquely identifies this Composition.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The room_sid.
+     * Returns The A 34-character string that uniquely identifies the source of this
+     * Composition..
      * 
-     * @return The room_sid
+     * @return A 34-character string that uniquely identifies the source of this
+     *         Composition.
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The The audio_sources.
+     * Returns The A list of audio sources related to this Composition..
      * 
-     * @return The audio_sources
+     * @return A list of audio sources related to this Composition.
      */
     public final List<String> getAudioSources() {
         return this.audioSources;
     }
 
     /**
-     * Returns The The audio_sources_excluded.
+     * Returns The A list of audio sources excluded related to this Composition..
      * 
-     * @return The audio_sources_excluded
+     * @return A list of audio sources excluded related to this Composition.
      */
     public final List<String> getAudioSourcesExcluded() {
         return this.audioSourcesExcluded;
     }
 
     /**
-     * Returns The The video_layout.
+     * Returns The The JSON video layout description..
      * 
-     * @return The video_layout
+     * @return The JSON video layout description.
      */
     public final Map<String, Object> getVideoLayout() {
         return this.videoLayout;
     }
 
     /**
-     * Returns The The resolution.
+     * Returns The Pixel resolution of the composed video..
      * 
-     * @return The resolution
+     * @return Pixel resolution of the composed video.
      */
     public final String getResolution() {
         return this.resolution;
     }
 
     /**
-     * Returns The The trim.
+     * Returns The Boolean flag for clipping intervals that have no media..
      * 
-     * @return The trim
+     * @return Boolean flag for clipping intervals that have no media.
      */
     public final Boolean getTrim() {
         return this.trim;
     }
 
     /**
-     * Returns The The format.
+     * Returns The The file format for this Composition..
      * 
-     * @return The format
+     * @return The file format for this Composition.
      */
     public final Composition.Format getFormat() {
         return this.format;
@@ -379,36 +379,36 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The size.
+     * Returns The Size of the Composed media file expressed in bytes..
      * 
-     * @return The size
+     * @return Size of the Composed media file expressed in bytes.
      */
     public final Long getSize() {
         return this.size;
     }
 
     /**
-     * Returns The The duration.
+     * Returns The Duration of the Composed media in seconds..
      * 
-     * @return The duration
+     * @return Duration of the Composed media in seconds.
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL for this resource..
      * 
-     * @return The url
+     * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The JSON object with the URL where the media file can be fetched..
      * 
-     * @return The links
+     * @return JSON object with the URL where the media file can be fetched.
      */
     public final Map<String, String> getLinks() {
         return this.links;

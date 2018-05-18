@@ -64,7 +64,8 @@ public class IpAccessControlList extends Resource {
      * Create a IpAccessControlListCreator to execute create.
      * 
      * @param pathTrunkSid The trunk_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param ipAccessControlListSid The SID of the IP Access Control List that you
+     *                               want to associate with this trunk.
      * @return IpAccessControlListCreator capable of executing the create
      */
     public static IpAccessControlListCreator creator(final String pathTrunkSid, 
@@ -153,54 +154,54 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique sid that identifies this account.
      * 
-     * @return The account_sid
+     * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this resource.
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The trunk_sid.
+     * Returns The The unique sid that identifies the associated Trunk.
      * 
-     * @return The trunk_sid
+     * @return The unique sid that identifies the associated Trunk
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human readable description of this resource.
      * 
-     * @return The friendly_name
+     * @return A human readable description of this resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this resource was created.
      * 
-     * @return The date_created
+     * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

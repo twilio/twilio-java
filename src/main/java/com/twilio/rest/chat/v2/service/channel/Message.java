@@ -253,11 +253,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns The A string metadata field you can use to store any data you wish..
      * 
-     * @return An optional string metadata field you can use to store any data you
-     *         wish.
+     * @return A string metadata field you can use to store any data you wish.
      */
     public final String getAttributes() {
         return this.attributes;
@@ -309,11 +307,11 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The Optional field to specify the Identity of the User that last
-     * updated the Message.
+     * Returns The Field to specify the Identity of the User that last updated the
+     * Message.
      * 
-     * @return Optional field to specify the Identity of the User that last updated
-     *         the Message
+     * @return Field to specify the Identity of the User that last updated the
+     *         Message
      */
     public final String getLastUpdatedBy() {
         return this.lastUpdatedBy;
@@ -338,9 +336,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The Optional — the contents of the message..
+     * Returns The The contents of the message..
      * 
-     * @return Optional — the contents of the message.
+     * @return The contents of the message.
      */
     public final String getBody() {
         return this.body;
@@ -365,11 +363,11 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The Optional — if a Media resource instance is attached to the
-     * Message, this will contain the Media object for the attached Media..
+     * Returns The If a Media resource instance is attached to the Message, this
+     * will contain the Media object for the attached Media..
      * 
-     * @return Optional — if a Media resource instance is attached to the Message,
-     *         this will contain the Media object for the attached Media.
+     * @return If a Media resource instance is attached to the Message, this will
+     *         contain the Media object for the attached Media.
      */
     public final Map<String, Object> getMedia() {
         return this.media;

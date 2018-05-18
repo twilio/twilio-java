@@ -43,9 +43,11 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The from.
+     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
+     * message's author. Defaults to `system`..
      * 
-     * @param from The from
+     * @param from The identity of the message's author. Defaults to system if not
+     *             specified.
      * @return this
      */
     public MessageCreator setFrom(final String from) {
@@ -54,9 +56,13 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The attributes.
+     * An string metadata field you can use to store any data you wish. The string
+     * value must contain structurally valid JSON if specified. **Note** that this
+     * will always be null for resources returned via LIST GET operations, but will
+     * be present for single GET operations..
      * 
-     * @param attributes The attributes
+     * @param attributes The attributes metadata field you can use to store any
+     *                   data you wish.
      * @return this
      */
     public MessageCreator setAttributes(final String attributes) {
@@ -65,9 +71,13 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The date_created.
+     * The ISO8601 time specifying the datetime the Message should be set as being
+     * created. Will be set to the current time by the Chat service if not
+     * specified.  Note that this should only be used in cases where a Chat's
+     * history is being recreated from a backup/separate source..
      * 
-     * @param dateCreated The date_created
+     * @param dateCreated The ISO8601 time specifying the datetime the Message
+     *                    should be set as being created.
      * @return this
      */
     public MessageCreator setDateCreated(final DateTime dateCreated) {
@@ -76,9 +86,14 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The date_updated.
+     * The ISO8601 time specifying the datetime the Message should be set as having
+     * been last updated. Will be set to the `null` by the Chat service if not
+     * specified.  Note that this should only be used in cases where a Chat's
+     * history is being recreated from a backup/separate source  and where a Message
+     * was previously updated..
      * 
-     * @param dateUpdated The date_updated
+     * @param dateUpdated The ISO8601 time specifying the datetime the Message
+     *                    should be set as having been last updated.
      * @return this
      */
     public MessageCreator setDateUpdated(final DateTime dateUpdated) {
@@ -87,9 +102,10 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The last_updated_by.
+     * Specify the Identity of the User that last updated the Message (if relevant).
      * 
-     * @param lastUpdatedBy The last_updated_by
+     * @param lastUpdatedBy Specify the Identity of the User that last updated the
+     *                      Message
      * @return this
      */
     public MessageCreator setLastUpdatedBy(final String lastUpdatedBy) {
@@ -98,9 +114,11 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The body.
+     * A string message to send to this channel. You can also send structured data
+     * by serializing it into a string. May be empty string or `null`, will be set
+     * as empty string as a result in this cases..
      * 
-     * @param body The body
+     * @param body The message body string.
      * @return this
      */
     public MessageCreator setBody(final String body) {
@@ -109,9 +127,10 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The media_sid.
+     * The [Media](https://www.twilio.com/docs/api/chat/rest/media) Sid to be
+     * attached to this Message..
      * 
-     * @param mediaSid The media_sid
+     * @param mediaSid  The Media Sid to be attached to this Message.
      * @return this
      */
     public MessageCreator setMediaSid(final String mediaSid) {

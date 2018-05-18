@@ -46,7 +46,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * The role to be assigned to this member. Defaults to the roles specified on
-     * the [Service](https://www.twilio.com/docs/api/chat/rest/services)..
+     * the [Service](https://www.twilio.com/docs/chat/api/services)..
      * 
      * @param roleSid The role to be assigned to this member.
      * @return this
@@ -57,12 +57,13 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * Optional field used to specify the last consumed Message index for the
-     * Channel for this Member..
+     * Field used to specify the last consumed Message index for the Channel for
+     * this Member.  Should only be used when recreating a Member from a
+     * backup/separate source..
      * 
-     * @param lastConsumedMessageIndex Optional field used to specify the last
-     *                                 consumed Message index for the Channel for
-     *                                 this Member.
+     * @param lastConsumedMessageIndex Field used to specify the last consumed
+     *                                 Message index for the Channel for this
+     *                                 Member.
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -71,12 +72,12 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * Optional ISO8601 time indicating the last datetime the Member consumed a
-     * Message in the Channel..
+     * ISO8601 time indicating the last datetime the Member consumed a Message in
+     * the Channel.  Should only be used when recreating a Member from a
+     * backup/separate source.
      * 
-     * @param lastConsumptionTimestamp Optional ISO8601 time indicating the last
-     *                                 datetime the Member consumed a Message in the
-     *                                 Channel.
+     * @param lastConsumptionTimestamp ISO8601 time indicating the last datetime
+     *                                 the Member consumed a Message in the Channel.
      * @return this
      */
     public MemberUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
@@ -85,11 +86,13 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Members should be set
-     * as being created..
+     * The ISO8601 time specifying the datetime the Members should be set as being
+     * created.  Will be set to the current time by the Chat service if not
+     * specified.  Note that this should only be used in cases where a Member is
+     * being recreated from a backup/separate source.
      * 
-     * @param dateCreated The optional ISO8601 time specifying the datetime the
-     *                    Members should be set as being created.
+     * @param dateCreated The ISO8601 time specifying the datetime the Members
+     *                    should be set as being created.
      * @return this
      */
     public MemberUpdater setDateCreated(final DateTime dateCreated) {
@@ -98,11 +101,14 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Member should be set as
-     * having been last updated..
+     * The ISO8601 time specifying the datetime the Member should be set as having
+     * been last updated.  Will be set to the `null` by the Chat service if not
+     * specified.  Note that this should only be used in cases where a Member is
+     * being recreated from a backup/separate source  and where a Member was
+     * previously updated..
      * 
-     * @param dateUpdated The optional ISO8601 time specifying the datetime the
-     *                    Member should be set as having been last updated.
+     * @param dateUpdated The ISO8601 time specifying the datetime the Member
+     *                    should be set as having been last updated.
      * @return this
      */
     public MemberUpdater setDateUpdated(final DateTime dateUpdated) {

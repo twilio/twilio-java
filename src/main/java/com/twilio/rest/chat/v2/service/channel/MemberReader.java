@@ -40,9 +40,15 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * The identity.
+     * A unique string identifier for this
+     * [User](https://www.twilio.com/docs/api/chat/rest/users) in this
+     * [Service](https://www.twilio.com/docs/api/chat/rest/services). See the
+     * [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens)
+     * docs for more details..
      * 
-     * @param identity The identity
+     * @param identity A unique string identifier for this User in this Service.
+     *                 See the access tokens docs for more details. (📇 PII MTL: 120
+     *                 days)
      * @return this
      */
     public MemberReader setIdentity(final List<String> identity) {
@@ -51,9 +57,15 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * The identity.
+     * A unique string identifier for this
+     * [User](https://www.twilio.com/docs/api/chat/rest/users) in this
+     * [Service](https://www.twilio.com/docs/api/chat/rest/services). See the
+     * [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens)
+     * docs for more details..
      * 
-     * @param identity The identity
+     * @param identity A unique string identifier for this User in this Service.
+     *                 See the access tokens docs for more details. (📇 PII MTL: 120
+     *                 days)
      * @return this
      */
     public MemberReader setIdentity(final String identity) {

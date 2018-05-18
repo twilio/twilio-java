@@ -66,9 +66,10 @@ public class PublishedTrack extends Resource {
     /**
      * Create a PublishedTrackFetcher to execute fetch.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathParticipantSid The participant_sid
-     * @param pathSid The sid
+     * @param pathRoomSid Unique Room identifier where this Track is published.
+     * @param pathParticipantSid Unique Participant identifier that publishes this
+     *                           Track.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return PublishedTrackFetcher capable of executing the fetch
      */
     public static PublishedTrackFetcher fetcher(final String pathRoomSid, 
@@ -80,8 +81,9 @@ public class PublishedTrack extends Resource {
     /**
      * Create a PublishedTrackReader to execute read.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathParticipantSid The participant_sid
+     * @param pathRoomSid Unique Room identifier where this Track is published.
+     * @param pathParticipantSid Unique Participant identifier that publishes this
+     *                           Track.
      * @return PublishedTrackReader capable of executing the read
      */
     public static PublishedTrackReader reader(final String pathRoomSid, 
@@ -168,81 +170,81 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The participant_sid.
+     * Returns The Unique Participant identifier that publishes this Track..
      * 
-     * @return The participant_sid
+     * @return Unique Participant identifier that publishes this Track.
      */
     public final String getParticipantSid() {
         return this.participantSid;
     }
 
     /**
-     * Returns The The room_sid.
+     * Returns The Unique Room identifier where this Track is published..
      * 
-     * @return The room_sid
+     * @return Unique Room identifier where this Track is published.
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The The name.
+     * Returns The Track name. Limited to 128 characters..
      * 
-     * @return The name
+     * @return Track name. Limited to 128 characters.
      */
     public final String getName() {
         return this.name;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created..
      * 
-     * @return The date_created
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The enabled.
+     * Returns The Specifies whether the Track is enabled or not..
      * 
-     * @return The enabled
+     * @return Specifies whether the Track is enabled or not.
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The The kind.
+     * Returns The Specifies whether Track represents `audio`, `video` or `data`.
      * 
-     * @return The kind
+     * @return Specifies whether Track represents `audio`, `video` or `data`
      */
     public final PublishedTrack.Kind getKind() {
         return this.kind;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL for this resource..
      * 
-     * @return The url
+     * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
         return this.url;

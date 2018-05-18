@@ -64,9 +64,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * The date_created_after.
+     * Only show Participants that started after this date, given as an [UTC ISO
+     * 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC)..
      * 
-     * @param dateCreatedAfter The date_created_after
+     * @param dateCreatedAfter Only show Participants that started after this date,
+     *                         given as an UTC ISO 8601 Timestamp.
      * @return this
      */
     public ParticipantReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -75,9 +77,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * The date_created_before.
+     * Only show Participants that started before this date, given as an [UTC ISO
+     * 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC)..
      * 
-     * @param dateCreatedBefore The date_created_before
+     * @param dateCreatedBefore Only show Participants that started before this
+     *                          date, given as an UTC ISO 8601 Timestamp.
      * @return this
      */
     public ParticipantReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

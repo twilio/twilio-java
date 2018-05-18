@@ -26,6 +26,7 @@ public class MonthlyReader extends Reader<Monthly> {
     private Monthly.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
+    private Boolean includeSubaccounts;
 
     /**
      * Construct a new MonthlyReader.
@@ -79,6 +80,17 @@ public class MonthlyReader extends Reader<Monthly> {
      */
     public MonthlyReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
+        return this;
+    }
+
+    /**
+     * The include_subaccounts.
+     * 
+     * @param includeSubaccounts The include_subaccounts
+     * @return this
+     */
+    public MonthlyReader setIncludeSubaccounts(final Boolean includeSubaccounts) {
+        this.includeSubaccounts = includeSubaccounts;
         return this;
     }
 
@@ -224,6 +236,10 @@ public class MonthlyReader extends Reader<Monthly> {
 
         if (endDate != null) {
             request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
+        }
+
+        if (includeSubaccounts != null) {
+            request.addQueryParam("IncludeSubaccounts", includeSubaccounts.toString());
         }
 
         if (getPageSize() != null) {

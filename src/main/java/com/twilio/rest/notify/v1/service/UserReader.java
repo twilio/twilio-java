@@ -41,9 +41,9 @@ public class UserReader extends Reader<User> {
     }
 
     /**
-     * The identity.
+     * The identifier of the User, defined by your application..
      * 
-     * @param identity The identity
+     * @param identity The identifier of the User, defined by your application.
      * @return this
      */
     public UserReader setIdentity(final List<String> identity) {
@@ -52,9 +52,9 @@ public class UserReader extends Reader<User> {
     }
 
     /**
-     * The identity.
+     * The identifier of the User, defined by your application..
      * 
-     * @param identity The identity
+     * @param identity The identifier of the User, defined by your application.
      * @return this
      */
     public UserReader setIdentity(final String identity) {
@@ -62,9 +62,12 @@ public class UserReader extends Reader<User> {
     }
 
     /**
-     * The segment.
+     * The list of segments this User belongs to. Segments can be used to select
+     * recipients of a notification. Maximum 20 Segments per User allowed..
      * 
-     * @param segment The segment
+     * @param segment The list of segments this User belongs to. Segments can be
+     *                used to select recipients of a notification. Maximum 20
+     *                Segments per User allowed.
      * @return this
      */
     public UserReader setSegment(final String segment) {

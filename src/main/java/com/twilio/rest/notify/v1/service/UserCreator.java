@@ -33,7 +33,7 @@ public class UserCreator extends Creator<User> {
      * Construct a new UserCreator.
      * 
      * @param pathServiceSid The service_sid
-     * @param identity The identity
+     * @param identity The identifier of the User, defined by your application.
      */
     public UserCreator(final String pathServiceSid, 
                        final String identity) {
@@ -42,9 +42,12 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The segment.
+     * The list of segments this User belongs to. Segments can be used to select
+     * recipients of a notification. Maximum 20 Segments per User allowed..
      * 
-     * @param segment The segment
+     * @param segment The list of segments this User belongs to. Segments can be
+     *                used to select recipients of a notification. Maximum 20
+     *                Segments per User allowed.
      * @return this
      */
     public UserCreator setSegment(final List<String> segment) {
@@ -53,9 +56,12 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The segment.
+     * The list of segments this User belongs to. Segments can be used to select
+     * recipients of a notification. Maximum 20 Segments per User allowed..
      * 
-     * @param segment The segment
+     * @param segment The list of segments this User belongs to. Segments can be
+     *                used to select recipients of a notification. Maximum 20
+     *                Segments per User allowed.
      * @return this
      */
     public UserCreator setSegment(final String segment) {

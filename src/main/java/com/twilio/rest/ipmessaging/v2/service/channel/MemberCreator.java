@@ -34,7 +34,9 @@ public class MemberCreator extends Creator<Member> {
      * 
      * @param pathServiceSid The service_sid
      * @param pathChannelSid The channel_sid
-     * @param identity The identity
+     * @param identity A unique string identifier for this User in this Service.
+     *                 See the access tokens docs for more details. (📇 PII MTL: 120
+     *                 days)
      */
     public MemberCreator(final String pathServiceSid, 
                          final String pathChannelSid, 
@@ -45,9 +47,11 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The role_sid.
+     * The role to be assigned to this member. Defaults to the roles specified on
+     * the [Service](https://www.twilio.com/docs/chat/api/services)..
      * 
-     * @param roleSid The role_sid
+     * @param roleSid The role to be assigned to this member. Defaults to the roles
+     *                specified on the Service.
      * @return this
      */
     public MemberCreator setRoleSid(final String roleSid) {
@@ -56,9 +60,14 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The last_consumed_message_index.
+     * Field used to specify the last consumed Message index for the Channel for
+     * this Member.  Should only be used when recreating a Member from a
+     * backup/separate source..
      * 
-     * @param lastConsumedMessageIndex The last_consumed_message_index
+     * @param lastConsumedMessageIndex Field used to specify the last consumed
+     *                                 Message index for the Channel for this
+     *                                 Member.  Should only be used when recreating
+     *                                 a Member from a backup/separate source.
      * @return this
      */
     public MemberCreator setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -67,9 +76,14 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The last_consumption_timestamp.
+     * ISO8601 time indicating the last datetime the Member consumed a Message in
+     * the Channel.  Should only be used when recreating a Member from a
+     * backup/separate source.
      * 
-     * @param lastConsumptionTimestamp The last_consumption_timestamp
+     * @param lastConsumptionTimestamp ISO8601 time indicating the last datetime
+     *                                 the Member consumed a Message in the Channel.
+     *                                  Should only be used when recreating a Member
+     *                                 from a backup/separate source
      * @return this
      */
     public MemberCreator setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
@@ -78,9 +92,16 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The date_created.
+     * The ISO8601 time specifying the datetime the Members should be set as being
+     * created.  Will be set to the current time by the Chat service if not
+     * specified.  Note that this should only be used in cases where a Member is
+     * being recreated from a backup/separate source.
      * 
-     * @param dateCreated The date_created
+     * @param dateCreated The ISO8601 time specifying the datetime the Members
+     *                    should be set as being created.  Will be set to the
+     *                    current time by the Chat service if not specified.  Note
+     *                    that this should only be used in cases where a Member is
+     *                    being recreated from a backup/separate source
      * @return this
      */
     public MemberCreator setDateCreated(final DateTime dateCreated) {
@@ -89,9 +110,18 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The date_updated.
+     * The ISO8601 time specifying the datetime the Member should be set as having
+     * been last updated.  Will be set to the `null` by the Chat service if not
+     * specified.  Note that this should only be used in cases where a Member is
+     * being recreated from a backup/separate source  and where a Member was
+     * previously updated..
      * 
-     * @param dateUpdated The date_updated
+     * @param dateUpdated The ISO8601 time specifying the datetime the Member
+     *                    should be set as having been last updated.  Will be set to
+     *                    the null by the Chat service if not specified.  Note that
+     *                    this should only be used in cases where a Member is being
+     *                    recreated from a backup/separate source  and where a
+     *                    Member was previously updated.
      * @return this
      */
     public MemberCreator setDateUpdated(final DateTime dateUpdated) {

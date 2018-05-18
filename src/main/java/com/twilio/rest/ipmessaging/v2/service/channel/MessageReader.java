@@ -37,11 +37,11 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Optional.  Specifies sorting order for messages list, possible values are:
-     * `asc` or `desc`.  If no value is specified, then `asc` is used as the
-     * default..
+     * Specifies sorting order for messages list, possible values are: `asc` or
+     * `desc`. If no value is specified, then `asc` is used as the default..
      * 
-     * @param order Optional.
+     * @param order Specifies sorting order for messages list, possible values are:
+     *              `asc` or `desc`.
      * @return this
      */
     public MessageReader setOrder(final Message.OrderType order) {

@@ -25,9 +25,10 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
     /**
      * Construct a new PublishedTrackFetcher.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathParticipantSid The participant_sid
-     * @param pathSid The sid
+     * @param pathRoomSid Unique Room identifier where this Track is published.
+     * @param pathParticipantSid Unique Participant identifier that publishes this
+     *                           Track.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public PublishedTrackFetcher(final String pathRoomSid, 
                                  final String pathParticipantSid, 

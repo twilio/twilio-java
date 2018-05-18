@@ -45,11 +45,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The optional message body string. You can also send structured data by
-     * serializing it into a string. May be updated to empty string or `null`, will
-     * be set as empty string as a result in this cases..
+     * The message body string. You can also send structured data by serializing it
+     * into a string. May be updated to empty string or `null`, will be set as empty
+     * string as a result in this cases..
      * 
-     * @param body The optional message body string.
+     * @param body The message body string.
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -58,11 +58,13 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The optional attributes metadata field you can use to store any data you
-     * wish.  The string value must contain structurally valid JSON if specified..
+     * A string metadata field you can use to store any data you wish. The string
+     * value must contain structurally valid JSON if specified. **Note** that this
+     * will always be null for resources returned via LIST GET operations, but will
+     * be present for single GET operations..
      * 
-     * @param attributes The optional attributes metadata field you can use to
-     *                   store any data you wish.
+     * @param attributes The attributes metadata field you can use to store any
+     *                   data you wish.
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {
@@ -71,11 +73,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Message should be set
-     * as being created..
+     * The ISO8601 time specifying the datetime the Message should be set as being
+     * created..
      * 
-     * @param dateCreated The optional ISO8601 time specifying the datetime the
-     *                    Message should be set as being created.
+     * @param dateCreated The ISO8601 time specifying the datetime the Message
+     *                    should be set as being created.
      * @return this
      */
     public MessageUpdater setDateCreated(final DateTime dateCreated) {
@@ -84,11 +86,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Message should be set
-     * as having been last updated..
+     * The ISO8601 time specifying the datetime the Message should be set as having
+     * been last updated..
      * 
-     * @param dateUpdated The optional ISO8601 time specifying the datetime the
-     *                    Message should be set as having been last updated.
+     * @param dateUpdated The ISO8601 time specifying the datetime the Message
+     *                    should be set as having been last updated.
      * @return this
      */
     public MessageUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -97,11 +99,10 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * Optional field to specify the Identity of the User that last updated the
-     * Message (if relevant).
+     * Specify the Identity of the User that last updated the Message (if relevant).
      * 
-     * @param lastUpdatedBy Optional field to specify the Identity of the User that
-     *                      last updated the Message
+     * @param lastUpdatedBy Specify the Identity of the User that last updated the
+     *                      Message
      * @return this
      */
     public MessageUpdater setLastUpdatedBy(final String lastUpdatedBy) {

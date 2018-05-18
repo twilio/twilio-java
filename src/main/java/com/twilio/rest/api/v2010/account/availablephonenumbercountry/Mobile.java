@@ -160,9 +160,9 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The phone number, in E..
+     * Returns The The phone number, in E.164 format..
      * 
-     * @return The phone number, in E.
+     * @return The phone number, in E.164 format.
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;

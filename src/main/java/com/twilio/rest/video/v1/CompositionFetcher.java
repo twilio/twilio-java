@@ -28,7 +28,8 @@ public class CompositionFetcher extends Fetcher<Composition> {
     /**
      * Construct a new CompositionFetcher.
      * 
-     * @param pathSid The sid
+     * @param pathSid The Composition Sid that uniquely identifies the Composition
+     *                to fetch.
      */
     public CompositionFetcher(final String pathSid) {
         this.pathSid = pathSid;

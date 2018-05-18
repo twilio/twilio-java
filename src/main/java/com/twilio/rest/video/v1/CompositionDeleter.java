@@ -28,7 +28,8 @@ public class CompositionDeleter extends Deleter<Composition> {
     /**
      * Construct a new CompositionDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid The Recording Composition Sid that uniquely identifies the
+     *                Recording Composition to delete.
      */
     public CompositionDeleter(final String pathSid) {
         this.pathSid = pathSid;

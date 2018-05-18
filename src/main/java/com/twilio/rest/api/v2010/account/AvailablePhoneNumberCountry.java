@@ -166,9 +166,9 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The The beta.
+     * Returns The True if new to Twilio platform..
      * 
-     * @return The beta
+     * @return True if new to Twilio platform.
      */
     public final Boolean getBeta() {
         return this.beta;

@@ -33,9 +33,9 @@ public class CompositionReader extends Reader<Composition> {
     private String roomSid;
 
     /**
-     * The status.
+     * Only show Compositions with the given status..
      * 
-     * @param status The status
+     * @param status Only show Compositions with the given status.
      * @return this
      */
     public CompositionReader setStatus(final Composition.Status status) {
@@ -44,9 +44,11 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * The date_created_after.
+     * Only show Compositions that started on or after this ISO8601 date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
      * 
-     * @param dateCreatedAfter The date_created_after
+     * @param dateCreatedAfter Only show Compositions that started on or after this
+     *                         ISO8601 date-time.
      * @return this
      */
     public CompositionReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -55,9 +57,11 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * The date_created_before.
+     * Only show Compositions that started before this this ISO8601 date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
      * 
-     * @param dateCreatedBefore The date_created_before
+     * @param dateCreatedBefore Only show Compositions that started before this
+     *                          this ISO8601 date-time.
      * @return this
      */
     public CompositionReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

@@ -26,8 +26,8 @@ public class UserChannelReader extends Reader<UserChannel> {
     /**
      * Construct a new UserChannelReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathUserSid The user_sid
+     * @param pathServiceSid The unique id of the Service those channels belong to.
+     * @param pathUserSid The unique id of a User.
      */
     public UserChannelReader(final String pathServiceSid, 
                              final String pathUserSid) {

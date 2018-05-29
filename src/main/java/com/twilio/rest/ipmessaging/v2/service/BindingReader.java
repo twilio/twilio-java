@@ -37,9 +37,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The binding_type.
+     * The push technology used for the returned Bindings.  Supported values are
+     * apn, gcm and fcm.  See [push notification
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
      * 
-     * @param bindingType The binding_type
+     * @param bindingType The push technology used for the bindings returned.
      * @return this
      */
     public BindingReader setBindingType(final List<Binding.BindingType> bindingType) {
@@ -48,9 +50,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The binding_type.
+     * The push technology used for the returned Bindings.  Supported values are
+     * apn, gcm and fcm.  See [push notification
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
      * 
-     * @param bindingType The binding_type
+     * @param bindingType The push technology used for the bindings returned.
      * @return this
      */
     public BindingReader setBindingType(final Binding.BindingType bindingType) {

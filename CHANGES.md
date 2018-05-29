@@ -1,6 +1,19 @@
 twilio-java changelog
 =====================
 
+[2018-05-29] Version 7.21.2
+----------------------------
+**Chat**
+- Add Binding and UserBinding documentation
+
+**Studio**
+- Add endpoint to delete engagements
+
+**Trunking**
+- Added cnam_lookup_enabled parameter to Trunk resource.
+- Added case-insensitivity for recording parameter to Trunk resource.
+
+
 [2018-05-18] Version 7.21.1
 ----------------------------
 **Api**

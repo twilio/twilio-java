@@ -25,8 +25,9 @@ public class TrunkCreator extends Creator<Trunk> {
     private String domainName;
     private URI disasterRecoveryUrl;
     private HttpMethod disasterRecoveryMethod;
-    private String recording;
+    private Trunk.RecordingSetting recording;
     private Boolean secure;
+    private Boolean cnamLookupEnabled;
 
     /**
      * A human-readable name for the Trunk..
@@ -109,7 +110,7 @@ public class TrunkCreator extends Creator<Trunk> {
      * @param recording The recording settings for this trunk.
      * @return this
      */
-    public TrunkCreator setRecording(final String recording) {
+    public TrunkCreator setRecording(final Trunk.RecordingSetting recording) {
         this.recording = recording;
         return this;
     }
@@ -125,6 +126,17 @@ public class TrunkCreator extends Creator<Trunk> {
      */
     public TrunkCreator setSecure(final Boolean secure) {
         this.secure = secure;
+        return this;
+    }
+
+    /**
+     * The cnam_lookup_enabled.
+     * 
+     * @param cnamLookupEnabled The cnam_lookup_enabled
+     * @return this
+     */
+    public TrunkCreator setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
+        this.cnamLookupEnabled = cnamLookupEnabled;
         return this;
     }
 
@@ -190,11 +202,15 @@ public class TrunkCreator extends Creator<Trunk> {
         }
 
         if (recording != null) {
-            request.addPostParam("Recording", recording);
+            request.addPostParam("Recording", recording.toString());
         }
 
         if (secure != null) {
             request.addPostParam("Secure", secure.toString());
+        }
+
+        if (cnamLookupEnabled != null) {
+            request.addPostParam("CnamLookupEnabled", cnamLookupEnabled.toString());
         }
     }
 }

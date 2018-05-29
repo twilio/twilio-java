@@ -262,10 +262,9 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Tell Twilio to try and determine if a machine (like voicemail) or a human has
-     * answered the call. Possible value are `Continue` and `Hangup`..
+     * The if_machine.
      * 
-     * @param ifMachine Action to take if a machine has answered the call
+     * @param ifMachine The if_machine
      * @return this
      */
     public CallCreator setIfMachine(final String ifMachine) {

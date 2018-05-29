@@ -104,6 +104,18 @@ public class Engagement extends Resource {
     }
 
     /**
+     * Create a EngagementDeleter to execute delete.
+     * 
+     * @param pathFlowSid The flow_sid
+     * @param pathSid The sid
+     * @return EngagementDeleter capable of executing the delete
+     */
+    public static EngagementDeleter deleter(final String pathFlowSid, 
+                                            final String pathSid) {
+        return new EngagementDeleter(pathFlowSid, pathSid);
+    }
+
+    /**
      * Converts a JSON String into a Engagement object using the provided
      * ObjectMapper.
      * 

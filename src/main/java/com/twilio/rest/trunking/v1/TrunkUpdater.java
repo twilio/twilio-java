@@ -26,8 +26,9 @@ public class TrunkUpdater extends Updater<Trunk> {
     private String domainName;
     private URI disasterRecoveryUrl;
     private HttpMethod disasterRecoveryMethod;
-    private String recording;
+    private Trunk.RecordingSetting recording;
     private Boolean secure;
+    private Boolean cnamLookupEnabled;
 
     /**
      * Construct a new TrunkUpdater.
@@ -119,7 +120,7 @@ public class TrunkUpdater extends Updater<Trunk> {
      * @param recording The recording settings for this trunk.
      * @return this
      */
-    public TrunkUpdater setRecording(final String recording) {
+    public TrunkUpdater setRecording(final Trunk.RecordingSetting recording) {
         this.recording = recording;
         return this;
     }
@@ -135,6 +136,17 @@ public class TrunkUpdater extends Updater<Trunk> {
      */
     public TrunkUpdater setSecure(final Boolean secure) {
         this.secure = secure;
+        return this;
+    }
+
+    /**
+     * The cnam_lookup_enabled.
+     * 
+     * @param cnamLookupEnabled The cnam_lookup_enabled
+     * @return this
+     */
+    public TrunkUpdater setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
+        this.cnamLookupEnabled = cnamLookupEnabled;
         return this;
     }
 
@@ -200,11 +212,15 @@ public class TrunkUpdater extends Updater<Trunk> {
         }
 
         if (recording != null) {
-            request.addPostParam("Recording", recording);
+            request.addPostParam("Recording", recording.toString());
         }
 
         if (secure != null) {
             request.addPostParam("Secure", secure.toString());
+        }
+
+        if (cnamLookupEnabled != null) {
+            request.addPostParam("CnamLookupEnabled", cnamLookupEnabled.toString());
         }
     }
 }

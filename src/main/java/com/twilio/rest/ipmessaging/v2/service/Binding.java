@@ -188,108 +188,110 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique id of the Account responsible for this binding..
      * 
-     * @return The account_sid
+     * @return The unique id of the Account responsible for this binding.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The unique id of the Service this binding belongs to..
      * 
-     * @return The service_sid
+     * @return The unique id of the Service this binding belongs to.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this resource was created..
      * 
-     * @return The date_created
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The endpoint.
+     * Returns The The unique endpoint identifier for this Binding..
      * 
-     * @return The endpoint
+     * @return The unique endpoint identifier for this Binding.
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The The identity.
+     * Returns The A unique string identifier for the Binding for this User in this
+     * Service..
      * 
-     * @return The identity
+     * @return A unique string identifier for the Binding for this User in this
+     *         Service.
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The credential_sid.
+     * Returns The The unique id of the Credential for this binding..
      * 
-     * @return The credential_sid
+     * @return The unique id of the Credential for this binding.
      */
     public final String getCredentialSid() {
         return this.credentialSid;
     }
 
     /**
-     * Returns The The binding_type.
+     * Returns The The push technology to use for this binding..
      * 
-     * @return The binding_type
+     * @return The push technology to use for this binding.
      */
     public final Binding.BindingType getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The The message_types.
+     * Returns The List of message types for this binding..
      * 
-     * @return The message_types
+     * @return List of message types for this binding.
      */
     public final List<String> getMessageTypes() {
         return this.messageTypes;
     }
 
     /**
-     * Returns The The url.
+     * Returns The An absolute URL for this binding..
      * 
-     * @return The url
+     * @return An absolute URL for this binding.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Absolute URLs to access the Users for this Binding..
      * 
-     * @return The links
+     * @return Absolute URLs to access the Users for this Binding.
      */
     public final Map<String, String> getLinks() {
         return this.links;

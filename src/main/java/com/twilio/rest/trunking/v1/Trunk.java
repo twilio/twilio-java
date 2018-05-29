@@ -17,6 +17,7 @@ import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -36,7 +37,33 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trunk extends Resource {
-    private static final long serialVersionUID = 276011649758607L;
+    private static final long serialVersionUID = 237038422793901L;
+
+    public enum RecordingSetting {
+        DO_NOT_RECORD("do-not-record"),
+        RECORD_FROM_RINGING("record-from-ringing"),
+        RECORD_FROM_ANSWER("record-from-answer");
+
+        private final String value;
+
+        private RecordingSetting(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a RecordingSetting from a string.
+         * @param value string value
+         * @return generated RecordingSetting
+         */
+        @JsonCreator
+        public static RecordingSetting forValue(final String value) {
+            return Promoter.enumFromString(value, RecordingSetting.values());
+        }
+    }
 
     /**
      * Create a TrunkFetcher to execute fetch.
@@ -130,6 +157,7 @@ public class Trunk extends Resource {
     private final String friendlyName;
     private final Boolean secure;
     private final Map<String, Object> recording;
+    private final Boolean cnamLookupEnabled;
     private final String authType;
     private final List<String> authTypeSet;
     private final DateTime dateCreated;
@@ -153,6 +181,8 @@ public class Trunk extends Resource {
                   final Boolean secure, 
                   @JsonProperty("recording")
                   final Map<String, Object> recording, 
+                  @JsonProperty("cnam_lookup_enabled")
+                  final Boolean cnamLookupEnabled, 
                   @JsonProperty("auth_type")
                   final String authType, 
                   @JsonProperty("auth_type_set")
@@ -174,6 +204,7 @@ public class Trunk extends Resource {
         this.friendlyName = friendlyName;
         this.secure = secure;
         this.recording = recording;
+        this.cnamLookupEnabled = cnamLookupEnabled;
         this.authType = authType;
         this.authTypeSet = authTypeSet;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -250,6 +281,15 @@ public class Trunk extends Resource {
      */
     public final Map<String, Object> getRecording() {
         return this.recording;
+    }
+
+    /**
+     * Returns The The cnam_lookup_enabled.
+     * 
+     * @return The cnam_lookup_enabled
+     */
+    public final Boolean getCnamLookupEnabled() {
+        return this.cnamLookupEnabled;
     }
 
     /**
@@ -336,6 +376,7 @@ public class Trunk extends Resource {
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(secure, other.secure) && 
                Objects.equals(recording, other.recording) && 
+               Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) && 
                Objects.equals(authType, other.authType) && 
                Objects.equals(authTypeSet, other.authTypeSet) && 
                Objects.equals(dateCreated, other.dateCreated) && 
@@ -354,6 +395,7 @@ public class Trunk extends Resource {
                             friendlyName,
                             secure,
                             recording,
+                            cnamLookupEnabled,
                             authType,
                             authTypeSet,
                             dateCreated,
@@ -373,6 +415,7 @@ public class Trunk extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("secure", secure)
                           .add("recording", recording)
+                          .add("cnamLookupEnabled", cnamLookupEnabled)
                           .add("authType", authType)
                           .add("authTypeSet", authTypeSet)
                           .add("dateCreated", dateCreated)

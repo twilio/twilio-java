@@ -2,8 +2,14 @@ package com.twilio;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.twilio.http.TwilioRestClient;
+
+import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.NetworkHttpClient;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
 
 import java.util.concurrent.Executors;
 
@@ -153,6 +159,21 @@ public class Twilio {
      */
     public static void setExecutorService(final ListeningExecutorService executorService) {
         Twilio.executorService = executorService;
+    }
+
+    /**
+     * Check for an upgraded SSL certificate on api.twilio.com. Returns true if a new certificate was found, or
+     * false if no upgrade certificate is posted. If the check fails,
+     */
+    public static boolean validateSslCertificate() {
+        final NetworkHttpClient client = new NetworkHttpClient();
+        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        final Response response = client.makeRequest(request);
+        if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+            throw new ApiException("Unexpected response");
+        }
+
+        return true;
     }
 
     /**

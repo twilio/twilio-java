@@ -2,15 +2,26 @@ package com.twilio;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.twilio.http.TwilioRestClient;
+
+import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.NetworkHttpClient;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+
 import org.junit.Test;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import mockit.Mocked;
+import mockit.NonStrictExpectations;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class TwilioTest {
@@ -23,6 +34,9 @@ public class TwilioTest {
         // NOTE: This relies on the fact that integration tests only ever generate single element lists.
         return list.get(0).toString();
     }
+
+    @Mocked
+    private NetworkHttpClient networkHttpClient;
 
     @Test
     public void testGetExecutorService() {
@@ -66,4 +80,30 @@ public class TwilioTest {
         assertEquals(twilioRestClient, Twilio.getRestClient());
     }
 
+    @Test
+    public void testValidateSslCertificateError() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+            networkHttpClient.makeRequest(request);
+            times = 1;
+            result = new Response("", 500);
+        }};
+
+        try {
+            Twilio.validateSslCertificate();
+            fail("Expected ApiException to be thrown for 500");
+        } catch (ApiException e) {}
+    }
+
+    @Test
+    public void testValidateSslCertificateSuccess() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+            networkHttpClient.makeRequest(request);
+            times = 1;
+            result = new Response("", 200);
+        }};
+
+        assertTrue(Twilio.validateSslCertificate());
+    }
 }

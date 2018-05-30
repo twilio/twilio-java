@@ -20,6 +20,7 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -83,22 +84,31 @@ public class TwilioTest {
     @Test
     public void testValidateSslCertificateError() {
         new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+            final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
             networkHttpClient.makeRequest(request);
             times = 1;
             result = new Response("", 500);
         }};
 
-        try {
-            Twilio.validateSslCertificate();
-            fail("Expected ApiException to be thrown for 500");
-        } catch (ApiException e) {}
+        assertFalse(Twilio.validateSslCertificate());
+    }
+
+    @Test
+    public void testValidateSslCertificateException() {
+        new NonStrictExpectations() {{
+            final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+            networkHttpClient.makeRequest(request);
+            times = 1;
+            result = new ApiException("No");
+        }};
+
+        assertFalse(Twilio.validateSslCertificate());
     }
 
     @Test
     public void testValidateSslCertificateSuccess() {
         new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+            final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
             networkHttpClient.makeRequest(request);
             times = 1;
             result = new Response("", 200);

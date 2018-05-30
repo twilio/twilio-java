@@ -162,18 +162,20 @@ public class Twilio {
     }
 
     /**
-     * Check for an upgraded SSL certificate on api.twilio.com. Returns true if a new certificate was found, or
-     * false if no upgrade certificate is posted. If the check fails,
+     * Validate that we can connect to the new SSL certificate posted on api.twilio.com. Returns true if the
+     * connection was successful, or false if the connection failed.
      */
     public static boolean validateSslCertificate() {
         final NetworkHttpClient client = new NetworkHttpClient();
         final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
-        final Response response = client.makeRequest(request);
-        if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
-            throw new ApiException("Unexpected response");
-        }
 
-        return true;
+        try {
+            final Response response = client.makeRequest(request);
+
+            return TwilioRestClient.SUCCESS.apply(response.getStatusCode());
+        } catch (final ApiException e) {
+            return false;
+        }
     }
 
     /**

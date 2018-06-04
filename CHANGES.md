@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2018-06-04] Version 7.21.3
+----------------------------
+**Lookups**
+- Add back support for `fraud` lookup type
+
+
 [2018-05-29] Version 7.21.2
 ----------------------------
 **Chat**

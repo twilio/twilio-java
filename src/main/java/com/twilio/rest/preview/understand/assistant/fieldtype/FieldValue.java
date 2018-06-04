@@ -245,9 +245,9 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The value.
+     * Returns The The Field Value itself..
      * 
-     * @return The value
+     * @return The Field Value itself.
      */
     public final String getValue() {
         return this.value;
@@ -263,9 +263,11 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The synonym_of.
+     * Returns The A value that indicates this field value is a synonym of. Empty if
+     * the value is not a synonym..
      * 
-     * @return The synonym_of
+     * @return A value that indicates this field value is a synonym of. Empty if
+     *         the value is not a synonym.
      */
     public final String getSynonymOf() {
         return this.synonymOf;

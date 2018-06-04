@@ -70,9 +70,9 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * The room_sid.
+     * Only show Compositions with the given Room SID..
      * 
-     * @param roomSid The room_sid
+     * @param roomSid Only show Compositions with the given Room SID.
      * @return this
      */
     public CompositionReader setRoomSid(final String roomSid) {

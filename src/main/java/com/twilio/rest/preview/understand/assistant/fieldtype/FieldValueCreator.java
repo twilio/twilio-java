@@ -49,9 +49,11 @@ public class FieldValueCreator extends Creator<FieldValue> {
     }
 
     /**
-     * The synonym_of.
+     * A value that indicates this field value is a synonym of. Empty if the value
+     * is not a synonym..
      * 
-     * @param synonymOf The synonym_of
+     * @param synonymOf A value that indicates this field value is a synonym of.
+     *                  Empty if the value is not a synonym.
      * @return this
      */
     public FieldValueCreator setSynonymOf(final String synonymOf) {

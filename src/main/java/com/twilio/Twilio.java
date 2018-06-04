@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
+import com.twilio.exception.CertificateValidationException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
@@ -162,19 +163,24 @@ public class Twilio {
     }
 
     /**
-     * Validate that we can connect to the new SSL certificate posted on api.twilio.com. Returns true if the
-     * connection was successful, or false if the connection failed.
+     * Validate that we can connect to the new SSL certificate posted on api.twilio.com.
+     *
+     * @throws com.twilio.exception.CertificateValidationException if the connection fails
      */
-    public static boolean validateSslCertificate() {
+    public static void validateSslCertificate() {
         final NetworkHttpClient client = new NetworkHttpClient();
         final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
 
         try {
             final Response response = client.makeRequest(request);
 
-            return TwilioRestClient.SUCCESS.apply(response.getStatusCode());
+            if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+                throw new CertificateValidationException(
+                    "Unexpected response from certificate endpoint", request, response
+                );
+            }
         } catch (final ApiException e) {
-            return false;
+            throw new CertificateValidationException("Could not get response from certificate endpoint", request);
         }
     }
 

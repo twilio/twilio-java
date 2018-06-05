@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
+import com.twilio.exception.CertificateValidationException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
@@ -20,9 +21,7 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class TwilioTest {
@@ -90,7 +89,12 @@ public class TwilioTest {
             result = new Response("", 500);
         }};
 
-        assertFalse(Twilio.validateSslCertificate());
+        try {
+            Twilio.validateSslCertificate();
+            fail("Excepted CertificateValidationException");
+        } catch (final CertificateValidationException e) {
+            assertEquals("Unexpected response from certificate endpoint", e.getMessage());
+        }
     }
 
     @Test
@@ -102,7 +106,12 @@ public class TwilioTest {
             result = new ApiException("No");
         }};
 
-        assertFalse(Twilio.validateSslCertificate());
+        try {
+            Twilio.validateSslCertificate();
+            fail("Excepted CertificateValidationException");
+        } catch (final CertificateValidationException e) {
+            assertEquals("Could not get response from certificate endpoint", e.getMessage());
+        }
     }
 
     @Test
@@ -114,6 +123,6 @@ public class TwilioTest {
             result = new Response("", 200);
         }};
 
-        assertTrue(Twilio.validateSslCertificate());
+        Twilio.validateSslCertificate();
     }
 }

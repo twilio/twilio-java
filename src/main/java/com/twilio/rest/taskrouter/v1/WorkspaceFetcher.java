@@ -7,7 +7,7 @@
 
 package com.twilio.rest.taskrouter.v1;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.experimental.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,20 +33,20 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Workspace
+     * @return Generated request
      */
     @Override
-    @SuppressWarnings("checkstyle:linelength")
-    public Workspace fetch(final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathSid + "",
-            client.getRegion()
+    protected Request buildRequest(final TwilioRestClient client) {
+        return new Request(
+                HttpMethod.GET,
+                Domains.TASKROUTER.toString(),
+                "/v1/Workspaces/" + this.pathSid + "",
+                client.getRegion()
         );
+    }
 
-        Response response = client.request(request);
-
+    @Override
+    protected Workspace parseResponse(final Response response, final TwilioRestClient client) {
         if (response == null) {
             throw new ApiConnectionException("Workspace fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
@@ -56,14 +56,16 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
             }
 
             throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
+                    restException.getMessage(),
+                    restException.getCode(),
+                    restException.getMoreInfo(),
+                    restException.getStatus(),
+                    null
             );
         }
 
         return Workspace.fromJson(response.getStream(), client.getObjectMapper());
     }
+
+
 }

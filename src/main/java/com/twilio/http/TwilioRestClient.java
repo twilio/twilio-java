@@ -2,6 +2,7 @@ package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Predicate;
+import com.google.common.util.concurrent.ListenableFuture;
 
 public class TwilioRestClient {
 
@@ -21,6 +22,7 @@ public class TwilioRestClient {
     private final String accountSid;
     private final String region;
     private final HttpClient httpClient;
+    private final AsyncHttpClient asyncHttpClient;
 
     private TwilioRestClient(Builder b) {
         this.username = b.username;
@@ -28,6 +30,7 @@ public class TwilioRestClient {
         this.accountSid = b.accountSid;
         this.region = b.region;
         this.httpClient = b.httpClient;
+        this.asyncHttpClient = b.asyncHttpClient;
         this.objectMapper = new ObjectMapper();
     }
 
@@ -38,8 +41,17 @@ public class TwilioRestClient {
      * @return Response object
      */
     public Response request(final Request request) {
-        request.setAuth(username, password);
+        prepare(request);
         return httpClient.reliableRequest(request);
+    }
+
+    public ListenableFuture<Response> requestAsync(final Request request) {
+        prepare(request);
+        return asyncHttpClient.reliableRequest(request);
+    }
+
+    private void prepare(final Request request) {
+        request.setAuth(username, password);
     }
 
     public String getAccountSid() {
@@ -58,12 +70,17 @@ public class TwilioRestClient {
         return httpClient;
     }
 
+    public AsyncHttpClient getAsyncHttpClient() {
+        return asyncHttpClient;
+    }
+
     public static class Builder {
         private String username;
         private String password;
         private String accountSid;
         private String region;
         private HttpClient httpClient;
+        private AsyncHttpClient asyncHttpClient;
 
         /**
          * Create a new Twilio Rest Client.
@@ -92,6 +109,11 @@ public class TwilioRestClient {
             return this;
         }
 
+        public Builder asynchttpClient(AsyncHttpClient asyncHttpClient) {
+            this.asyncHttpClient = asyncHttpClient;
+            return this;
+        }
+
         /**
          * Build new TwilioRestClient.
          * 
@@ -100,6 +122,9 @@ public class TwilioRestClient {
         public TwilioRestClient build() {
             if (this.httpClient == null) {
                 this.httpClient = new NetworkHttpClient();
+            }
+            if (this.asyncHttpClient == null) {
+                this.asyncHttpClient = new ExecutorAsyncHttpClient(this.httpClient);
             }
             return new TwilioRestClient(this);
         }

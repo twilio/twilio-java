@@ -2,8 +2,15 @@ package com.twilio;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.twilio.http.TwilioRestClient;
+
+import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
+import com.twilio.exception.CertificateValidationException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.NetworkHttpClient;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
 
 import java.util.concurrent.Executors;
 
@@ -153,6 +160,28 @@ public class Twilio {
      */
     public static void setExecutorService(final ListeningExecutorService executorService) {
         Twilio.executorService = executorService;
+    }
+
+    /**
+     * Validate that we can connect to the new SSL certificate posted on api.twilio.com.
+     *
+     * @throws com.twilio.exception.CertificateValidationException if the connection fails
+     */
+    public static void validateSslCertificate() {
+        final NetworkHttpClient client = new NetworkHttpClient();
+        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+
+        try {
+            final Response response = client.makeRequest(request);
+
+            if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+                throw new CertificateValidationException(
+                    "Unexpected response from certificate endpoint", request, response
+                );
+            }
+        } catch (final ApiException e) {
+            throw new CertificateValidationException("Could not get response from certificate endpoint", request);
+        }
     }
 
     /**

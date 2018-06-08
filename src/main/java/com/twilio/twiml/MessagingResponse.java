@@ -71,5 +71,10 @@ public class MessagingResponse extends TwiML {
         public MessagingResponse build() {
             return new MessagingResponse(this);
         }
+
+        public Builder addText(String text) {
+            this.children.add(new Text(text));
+            return this;
+        }
     }
 }

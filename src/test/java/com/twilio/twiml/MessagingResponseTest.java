@@ -73,4 +73,25 @@ public class MessagingResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        MessagingResponse.Builder builder = new MessagingResponse.Builder();
+
+        builder.addText("before")
+               .message(new Message.Builder("body").build())
+               .addText("after");
+
+        MessagingResponse elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Response>" +
+            "before" +
+            "<Message>body</Message>" +
+            "after" +
+            "</Response>",
+            elem.toXml()
+        );
+    }
 }

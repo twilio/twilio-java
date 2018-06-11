@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,18 +26,15 @@ import javax.xml.transform.stream.StreamResult;
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
 public abstract class TwiML {
     private final String tagName;
-    private final List<TwiML> children;
-    private final Map<String, String> options;
+    private final Builder builder;
 
     /**
      * @param tagName Element tag name
-     * @param children Children elements of this tag
-     * @param options Additional attributes to set on this element
+     * @param builder Builder data for the element
      */
-    protected TwiML(String tagName, List<TwiML> children, Map<String, String> options) {
+    protected TwiML(String tagName, Builder builder) {
         this.tagName = tagName;
-        this.children = children;
-        this.options = options;
+        this.builder = builder;
     }
 
     /**
@@ -68,14 +66,14 @@ public abstract class TwiML {
      * Get children elements of this TwiML element.
      */
     public List<TwiML> getChildren() {
-        return this.children;
+        return this.builder.children;
     }
 
     /**
      * Get additional options set on this TwiML's generated XML.
      */
     public Map<String, String> getOptions() {
-        return this.options;
+        return this.builder.options;
     }
 
     /**
@@ -97,7 +95,7 @@ public abstract class TwiML {
             node.appendChild(child.buildXmlElement(parentDoc));
         }
 
-        for (Map.Entry<String, String> option : this.options.entrySet()) {
+        for (Map.Entry<String, String> option : this.getOptions().entrySet()) {
             node.setAttribute(option.getKey(), option.getValue());
         }
         return node;
@@ -182,5 +180,30 @@ public abstract class TwiML {
             .add("Children", this.getChildren())
             .add("Options", this.getOptions())
             .toString();
+    }
+
+    /**
+     * Create a new {@code TwiML} node
+     */
+    public static class Builder<T extends Builder<T>> {
+        protected Map<String, String> options = new HashMap<>();
+        protected List<TwiML> children = new ArrayList<>();
+
+        /**
+         * Set additional attributes on this TwiML element that will appear in generated
+         * XML.
+         */
+        public T option(String key, String value) {
+            this.options.put(key, value);
+            return (T)this;
+        }
+
+        /**
+         * Add a text node as a child element
+         */
+        public T addText(String text) {
+            this.children.add(new Text(text));
+            return (T)this;
+        }
     }
 }

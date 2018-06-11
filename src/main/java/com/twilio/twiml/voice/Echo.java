@@ -28,24 +28,13 @@ public class Echo extends TwiML {
      * Create a new {@code <Echo>} element
      */
     private Echo(Builder b) {
-        super("Echo", Collections.<TwiML>emptyList(), b.options);
+        super("Echo", b);
     }
 
     /**
      * Create a new {@code <Echo>} element
      */
-    public static class Builder {
-        private Map<String, String> options = new HashMap<>();
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
-            return this;
-        }
-
+    public static class Builder extends TwiML.Builder<Builder> {
         /**
          * Create and return resulting {@code <Echo>} element
          */

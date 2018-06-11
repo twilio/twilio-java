@@ -7,7 +7,7 @@ public class Text extends TwiML {
     private final String text;
 
     protected Text(final String text) {
-        super(null, null, null);
+        super(null, null);
         this.text = text;
     }
 

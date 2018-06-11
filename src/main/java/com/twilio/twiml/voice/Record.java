@@ -58,7 +58,7 @@ public class Record extends TwiML {
      * Create a new {@code <Record>} element
      */
     private Record(Builder b) {
-        super("Record", Collections.<TwiML>emptyList(), b.options);
+        super("Record", b);
         this.action = b.action;
         this.method = b.method;
         this.timeout = b.timeout;
@@ -220,7 +220,7 @@ public class Record extends TwiML {
     /**
      * Create a new {@code <Record>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private URI action;
         private HttpMethod method;
         private Integer timeout;
@@ -232,7 +232,6 @@ public class Record extends TwiML {
         private HttpMethod recordingStatusCallbackMethod;
         private Boolean transcribe;
         private URI transcribeCallback;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Action URL
@@ -343,15 +342,6 @@ public class Record extends TwiML {
          */
         public Builder transcribeCallback(String transcribeCallback) {
             this.transcribeCallback = Promoter.uriFromString(transcribeCallback);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

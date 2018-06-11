@@ -32,7 +32,7 @@ public class Task extends TwiML {
      * Create a new {@code <Task>} element
      */
     private Task(Builder b) {
-        super("Task", Collections.<TwiML>emptyList(), b.options);
+        super("Task", b);
         this.priority = b.priority;
         this.timeout = b.timeout;
         this.body = b.body;
@@ -96,11 +96,10 @@ public class Task extends TwiML {
     /**
      * Create a new {@code <Task>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private Integer priority;
         private Integer timeout;
         private String body;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Task>} with body
@@ -122,15 +121,6 @@ public class Task extends TwiML {
          */
         public Builder timeout(Integer timeout) {
             this.timeout = timeout;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

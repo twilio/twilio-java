@@ -30,7 +30,7 @@ public class Sim extends TwiML {
      * Create a new {@code <Sim>} element
      */
     private Sim(Builder b) {
-        super("Sim", Collections.<TwiML>emptyList(), b.options);
+        super("Sim", b);
         this.simSid = b.simSid;
     }
 
@@ -55,24 +55,14 @@ public class Sim extends TwiML {
     /**
      * Create a new {@code <Sim>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private String simSid;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Sim>} with simSid
          */
         public Builder(String simSid) {
             this.simSid = simSid;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
-            return this;
         }
 
         /**

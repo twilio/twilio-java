@@ -53,4 +53,21 @@ public class RejectTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Reject.Builder builder = new Reject.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Reject elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Reject>" +
+            "Hey no tags!" +
+            "</Reject>",
+            elem.toXml()
+        );
+    }
 }

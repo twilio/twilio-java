@@ -58,7 +58,7 @@ public class Number extends TwiML {
      * Create a new {@code <Number>} element
      */
     private Number(Builder b) {
-        super("Number", Collections.<TwiML>emptyList(), b.options);
+        super("Number", b);
         this.sendDigits = b.sendDigits;
         this.url = b.url;
         this.method = b.method;
@@ -186,7 +186,7 @@ public class Number extends TwiML {
     /**
      * Create a new {@code <Number>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private String sendDigits;
         private URI url;
         private HttpMethod method;
@@ -194,7 +194,6 @@ public class Number extends TwiML {
         private URI statusCallback;
         private HttpMethod statusCallbackMethod;
         private com.twilio.type.PhoneNumber phoneNumber;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Number>} with phoneNumber
@@ -279,15 +278,6 @@ public class Number extends TwiML {
          */
         public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

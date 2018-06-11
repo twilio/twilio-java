@@ -88,7 +88,7 @@ public class Say extends TwiML {
      * Create a new {@code <Say>} element
      */
     private Say(Builder b) {
-        super("Say", Collections.<TwiML>emptyList(), b.options);
+        super("Say", b);
         this.voice = b.voice;
         this.loop = b.loop;
         this.language = b.language;
@@ -165,12 +165,11 @@ public class Say extends TwiML {
     /**
      * Create a new {@code <Say>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private Say.Voice voice;
         private Integer loop;
         private Say.Language language;
         private String message;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Say>} with message
@@ -200,15 +199,6 @@ public class Say extends TwiML {
          */
         public Builder language(Say.Language language) {
             this.language = language;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

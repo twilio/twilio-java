@@ -38,7 +38,7 @@ public class Sms extends TwiML {
      * Create a new {@code <Sms>} element
      */
     private Sms(Builder b) {
-        super("Sms", Collections.<TwiML>emptyList(), b.options);
+        super("Sms", b);
         this.to = b.to;
         this.from = b.from;
         this.action = b.action;
@@ -141,14 +141,13 @@ public class Sms extends TwiML {
     /**
      * Create a new {@code <Sms>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private com.twilio.type.PhoneNumber to;
         private com.twilio.type.PhoneNumber from;
         private URI action;
         private HttpMethod method;
         private URI statusCallback;
         private String message;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Sms>} with message
@@ -226,15 +225,6 @@ public class Sms extends TwiML {
          */
         public Builder statusCallback(String statusCallback) {
             this.statusCallback = Promoter.uriFromString(statusCallback);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

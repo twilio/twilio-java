@@ -42,4 +42,21 @@ public class LeaveTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Leave.Builder builder = new Leave.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Leave elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Leave>" +
+            "Hey no tags!" +
+            "</Leave>",
+            elem.toXml()
+        );
+    }
 }

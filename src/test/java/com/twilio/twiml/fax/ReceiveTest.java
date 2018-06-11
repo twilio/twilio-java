@@ -56,4 +56,21 @@ public class ReceiveTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Receive.Builder builder = new Receive.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Receive elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Receive>" +
+            "Hey no tags!" +
+            "</Receive>",
+            elem.toXml()
+        );
+    }
 }

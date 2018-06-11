@@ -37,7 +37,7 @@ public class Queue extends TwiML {
      * Create a new {@code <Queue>} element
      */
     private Queue(Builder b) {
-        super("Queue", Collections.<TwiML>emptyList(), b.options);
+        super("Queue", b);
         this.url = b.url;
         this.method = b.method;
         this.reservationSid = b.reservationSid;
@@ -127,13 +127,12 @@ public class Queue extends TwiML {
     /**
      * Create a new {@code <Queue>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private URI url;
         private HttpMethod method;
         private String reservationSid;
         private String postWorkActivitySid;
         private String name;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Queue>} with name
@@ -179,15 +178,6 @@ public class Queue extends TwiML {
          */
         public Builder postWorkActivitySid(String postWorkActivitySid) {
             this.postWorkActivitySid = postWorkActivitySid;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

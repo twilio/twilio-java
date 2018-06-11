@@ -12,9 +12,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +37,7 @@ public class Enqueue extends TwiML {
      * Create a new {@code <Enqueue>} element
      */
     private Enqueue(Builder b) {
-        super("Enqueue", b.children, b.options);
+        super("Enqueue", b);
         this.action = b.action;
         this.method = b.method;
         this.waitUrl = b.waitUrl;
@@ -142,15 +140,13 @@ public class Enqueue extends TwiML {
     /**
      * Create a new {@code <Enqueue>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private URI action;
         private HttpMethod method;
         private URI waitUrl;
         private HttpMethod waitUrlMethod;
         private String workflowSid;
         private String name;
-        private Map<String, String> options = new HashMap<>();
-        private List<TwiML> children = new ArrayList<>();
 
         /**
          * Create a {@code <Enqueue>} with name
@@ -234,15 +230,6 @@ public class Enqueue extends TwiML {
          */
         public Builder task(Task task) {
             this.children.add(task);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

@@ -22,9 +22,7 @@ import com.twilio.twiml.voice.Reject;
 import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.voice.Sms;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,16 +40,13 @@ public class VoiceResponse extends TwiML {
      * Create a new {@code <VoiceResponse>} element
      */
     private VoiceResponse(Builder b) {
-        super("Response", b.children, b.options);
+        super("Response", b);
     }
 
     /**
      * Create a new {@code <Response>} element
      */
-    public static class Builder {
-        private Map<String, String> options = new HashMap<>();
-        private List<TwiML> children = new ArrayList<>();
-
+    public static class Builder extends TwiML.Builder<Builder> {
         /**
          * Add a child {@code <Dial>} element
          */
@@ -161,15 +156,6 @@ public class VoiceResponse extends TwiML {
          */
         public Builder sms(Sms sms) {
             this.children.add(sms);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

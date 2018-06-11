@@ -12,9 +12,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +37,7 @@ public class Message extends TwiML {
      * Create a new {@code <Message>} element
      */
     private Message(Builder b) {
-        super("Message", b.children, b.options);
+        super("Message", b);
         this.to = b.to;
         this.from = b.from;
         this.action = b.action;
@@ -142,15 +140,13 @@ public class Message extends TwiML {
     /**
      * Create a new {@code <Message>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private String to;
         private String from;
         private URI action;
         private HttpMethod method;
         private URI statusCallback;
         private String body;
-        private Map<String, String> options = new HashMap<>();
-        private List<TwiML> children = new ArrayList<>();
 
         /**
          * Create a {@code <Message>} with body
@@ -234,15 +230,6 @@ public class Message extends TwiML {
          */
         public Builder media(Media media) {
             this.children.add(media);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

@@ -34,7 +34,7 @@ public class Redirect extends TwiML {
      * Create a new {@code <Redirect>} element
      */
     private Redirect(Builder b) {
-        super("Redirect", Collections.<TwiML>emptyList(), b.options);
+        super("Redirect", b);
         this.method = b.method;
         this.url = b.url;
     }
@@ -85,10 +85,9 @@ public class Redirect extends TwiML {
     /**
      * Create a new {@code <Redirect>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private HttpMethod method;
         private URI url;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Redirect>} with url
@@ -109,15 +108,6 @@ public class Redirect extends TwiML {
          */
         public Builder method(HttpMethod method) {
             this.method = method;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

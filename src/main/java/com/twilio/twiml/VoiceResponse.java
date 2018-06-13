@@ -22,9 +22,6 @@ import com.twilio.twiml.voice.Reject;
 import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.voice.Sms;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * TwiML wrapper for {@code <Response>}
  */

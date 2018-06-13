@@ -9,9 +9,6 @@ package com.twilio.twiml;
 
 import com.twilio.twiml.fax.Receive;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * TwiML wrapper for {@code <Response>}
  */

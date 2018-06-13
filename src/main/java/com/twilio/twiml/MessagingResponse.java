@@ -10,9 +10,6 @@ package com.twilio.twiml;
 import com.twilio.twiml.messaging.Message;
 import com.twilio.twiml.messaging.Redirect;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * TwiML wrapper for {@code <Response>}
  */

@@ -12,7 +12,6 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 

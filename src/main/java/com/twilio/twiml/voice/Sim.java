@@ -9,10 +9,6 @@ package com.twilio.twiml.voice;
 
 import com.twilio.twiml.TwiML;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * TwiML wrapper for {@code <Sim>}
  */

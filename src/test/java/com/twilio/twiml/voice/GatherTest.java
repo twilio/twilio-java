@@ -96,4 +96,21 @@ public class GatherTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Gather.Builder builder = new Gather.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Gather elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Gather>" +
+            "Hey no tags!" +
+            "</Gather>",
+            elem.toXml()
+        );
+    }
 }

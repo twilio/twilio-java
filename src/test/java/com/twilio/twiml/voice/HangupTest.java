@@ -42,4 +42,21 @@ public class HangupTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Hangup.Builder builder = new Hangup.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Hangup elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Hangup>" +
+            "Hey no tags!" +
+            "</Hangup>",
+            elem.toXml()
+        );
+    }
 }

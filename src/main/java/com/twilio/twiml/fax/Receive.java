@@ -12,7 +12,6 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +33,7 @@ public class Receive extends TwiML {
      * Create a new {@code <Receive>} element
      */
     private Receive(Builder b) {
-        super("Receive", Collections.<TwiML>emptyList(), b.options);
+        super("Receive", b);
         this.action = b.action;
         this.method = b.method;
     }
@@ -79,10 +78,9 @@ public class Receive extends TwiML {
     /**
      * Create a new {@code <Receive>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private URI action;
         private HttpMethod method;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Receive action URL
@@ -105,15 +103,6 @@ public class Receive extends TwiML {
          */
         public Builder method(HttpMethod method) {
             this.method = method;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

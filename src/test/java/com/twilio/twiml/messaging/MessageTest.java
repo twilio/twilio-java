@@ -82,4 +82,21 @@ public class MessageTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Message.Builder builder = new Message.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Message elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Message>" +
+            "Hey no tags!" +
+            "</Message>",
+            elem.toXml()
+        );
+    }
 }

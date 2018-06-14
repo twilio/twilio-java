@@ -42,4 +42,21 @@ public class EchoTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Echo.Builder builder = new Echo.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Echo elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Echo>" +
+            "Hey no tags!" +
+            "</Echo>",
+            elem.toXml()
+        );
+    }
 }

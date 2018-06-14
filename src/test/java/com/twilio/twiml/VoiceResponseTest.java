@@ -175,4 +175,21 @@ public class VoiceResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        VoiceResponse.Builder builder = new VoiceResponse.Builder();
+
+        builder.addText("Hey no tags!");
+
+        VoiceResponse elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Response>" +
+            "Hey no tags!" +
+            "</Response>",
+            elem.toXml()
+        );
+    }
 }

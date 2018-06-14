@@ -9,7 +9,6 @@ package com.twilio.twiml.voice;
 
 import com.twilio.twiml.TwiML;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class Reject extends TwiML {
      * Create a new {@code <Reject>} element
      */
     private Reject(Builder b) {
-        super("Reject", Collections.<TwiML>emptyList(), b.options);
+        super("Reject", b);
         this.reason = b.reason;
     }
 
@@ -77,24 +76,14 @@ public class Reject extends TwiML {
     /**
      * Create a new {@code <Reject>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private Reject.Reason reason;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Rejection reason
          */
         public Builder reason(Reject.Reason reason) {
             this.reason = reason;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

@@ -79,4 +79,21 @@ public class EnqueueTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Enqueue.Builder builder = new Enqueue.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Enqueue elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Enqueue>" +
+            "Hey no tags!" +
+            "</Enqueue>",
+            elem.toXml()
+        );
+    }
 }

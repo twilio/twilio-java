@@ -12,7 +12,6 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -59,7 +58,7 @@ public class Sip extends TwiML {
      * Create a new {@code <Sip>} element
      */
     private Sip(Builder b) {
-        super("Sip", Collections.<TwiML>emptyList(), b.options);
+        super("Sip", b);
         this.username = b.username;
         this.password = b.password;
         this.url = b.url;
@@ -200,7 +199,7 @@ public class Sip extends TwiML {
     /**
      * Create a new {@code <Sip>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private String username;
         private String password;
         private URI url;
@@ -209,7 +208,6 @@ public class Sip extends TwiML {
         private URI statusCallback;
         private HttpMethod statusCallbackMethod;
         private URI sipUrl;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Sip>} with sipUrl
@@ -302,15 +300,6 @@ public class Sip extends TwiML {
          */
         public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

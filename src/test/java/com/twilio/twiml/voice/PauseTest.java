@@ -53,4 +53,21 @@ public class PauseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Pause.Builder builder = new Pause.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Pause elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Pause>" +
+            "Hey no tags!" +
+            "</Pause>",
+            elem.toXml()
+        );
+    }
 }

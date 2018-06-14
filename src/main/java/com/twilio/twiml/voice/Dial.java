@@ -12,7 +12,6 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -150,7 +149,7 @@ public class Dial extends TwiML {
      * Create a new {@code <Dial>} element
      */
     private Dial(Builder b) {
-        super("Dial", b.children, b.options);
+        super("Dial", b);
         this.action = b.action;
         this.method = b.method;
         this.timeout = b.timeout;
@@ -373,7 +372,7 @@ public class Dial extends TwiML {
     /**
      * Create a new {@code <Dial>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private URI action;
         private HttpMethod method;
         private Integer timeout;
@@ -388,8 +387,6 @@ public class Dial extends TwiML {
         private Boolean answerOnBridge;
         private Dial.RingTone ringTone;
         private String number;
-        private Map<String, String> options = new HashMap<>();
-        private List<TwiML> children = new ArrayList<>();
 
         /**
          * Create a {@code <Dial>} with number
@@ -579,15 +576,6 @@ public class Dial extends TwiML {
          */
         public Builder sip(Sip sip) {
             this.children.add(sip);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

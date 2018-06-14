@@ -149,4 +149,21 @@ public class DialTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Dial.Builder builder = new Dial.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Dial elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Dial>" +
+            "Hey no tags!" +
+            "</Dial>",
+            elem.toXml()
+        );
+    }
 }

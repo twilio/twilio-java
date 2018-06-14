@@ -12,7 +12,6 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -165,7 +164,7 @@ public class Gather extends TwiML {
      * Create a new {@code <Gather>} element
      */
     private Gather(Builder b) {
-        super("Gather", b.children, b.options);
+        super("Gather", b);
         this.input = b.input;
         this.action = b.action;
         this.method = b.method;
@@ -380,7 +379,7 @@ public class Gather extends TwiML {
     /**
      * Create a new {@code <Gather>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private List<Gather.Input> input;
         private URI action;
         private HttpMethod method;
@@ -395,8 +394,6 @@ public class Gather extends TwiML {
         private Gather.Language language;
         private String hints;
         private Boolean bargeIn;
-        private Map<String, String> options = new HashMap<>();
-        private List<TwiML> children = new ArrayList<>();
 
         /**
          * Input type Twilio should accept
@@ -556,15 +553,6 @@ public class Gather extends TwiML {
          */
         public Builder play(Play play) {
             this.children.add(play);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

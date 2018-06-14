@@ -10,11 +10,6 @@ package com.twilio.twiml;
 import com.twilio.twiml.messaging.Message;
 import com.twilio.twiml.messaging.Redirect;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * TwiML wrapper for {@code <Response>}
  */
@@ -30,16 +25,13 @@ public class MessagingResponse extends TwiML {
      * Create a new {@code <MessagingResponse>} element
      */
     private MessagingResponse(Builder b) {
-        super("Response", b.children, b.options);
+        super("Response", b);
     }
 
     /**
      * Create a new {@code <Response>} element
      */
-    public static class Builder {
-        private Map<String, String> options = new HashMap<>();
-        private List<TwiML> children = new ArrayList<>();
-
+    public static class Builder extends TwiML.Builder<Builder> {
         /**
          * Add a child {@code <Message>} element
          */
@@ -53,15 +45,6 @@ public class MessagingResponse extends TwiML {
          */
         public Builder redirect(Redirect redirect) {
             this.children.add(redirect);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

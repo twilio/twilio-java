@@ -73,4 +73,21 @@ public class MessagingResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        MessagingResponse.Builder builder = new MessagingResponse.Builder();
+
+        builder.addText("Hey no tags!");
+
+        MessagingResponse elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Response>" +
+            "Hey no tags!" +
+            "</Response>",
+            elem.toXml()
+        );
+    }
 }

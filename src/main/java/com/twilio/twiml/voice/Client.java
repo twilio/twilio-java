@@ -12,7 +12,6 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -57,7 +56,7 @@ public class Client extends TwiML {
      * Create a new {@code <Client>} element
      */
     private Client(Builder b) {
-        super("Client", Collections.<TwiML>emptyList(), b.options);
+        super("Client", b);
         this.url = b.url;
         this.method = b.method;
         this.statusCallbackEvent = b.statusCallbackEvent;
@@ -172,14 +171,13 @@ public class Client extends TwiML {
     /**
      * Create a new {@code <Client>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private URI url;
         private HttpMethod method;
         private List<Client.Event> statusCallbackEvent;
         private URI statusCallback;
         private HttpMethod statusCallbackMethod;
         private String name;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Client>} with name
@@ -249,15 +247,6 @@ public class Client extends TwiML {
          */
         public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

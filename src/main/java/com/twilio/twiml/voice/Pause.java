@@ -9,7 +9,6 @@ package com.twilio.twiml.voice;
 
 import com.twilio.twiml.TwiML;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ public class Pause extends TwiML {
      * Create a new {@code <Pause>} element
      */
     private Pause(Builder b) {
-        super("Pause", Collections.<TwiML>emptyList(), b.options);
+        super("Pause", b);
         this.length = b.length;
     }
 
@@ -62,24 +61,14 @@ public class Pause extends TwiML {
     /**
      * Create a new {@code <Pause>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private Integer length;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Length in seconds to pause
          */
         public Builder length(Integer length) {
             this.length = length;
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

@@ -11,7 +11,6 @@ import com.twilio.converter.Promoter;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +33,7 @@ public class Play extends TwiML {
      * Create a new {@code <Play>} element
      */
     private Play(Builder b) {
-        super("Play", Collections.<TwiML>emptyList(), b.options);
+        super("Play", b);
         this.loop = b.loop;
         this.digits = b.digits;
         this.url = b.url;
@@ -98,11 +97,10 @@ public class Play extends TwiML {
     /**
      * Create a new {@code <Play>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private Integer loop;
         private String digits;
         private URI url;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Play>} with url
@@ -153,15 +151,6 @@ public class Play extends TwiML {
          */
         public Builder url(String url) {
             this.url = Promoter.uriFromString(url);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

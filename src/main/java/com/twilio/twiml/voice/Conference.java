@@ -12,7 +12,6 @@ import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -158,7 +157,7 @@ public class Conference extends TwiML {
      * Create a new {@code <Conference>} element
      */
     private Conference(Builder b) {
-        super("Conference", Collections.<TwiML>emptyList(), b.options);
+        super("Conference", b);
         this.muted = b.muted;
         this.beep = b.beep;
         this.startConferenceOnEnter = b.startConferenceOnEnter;
@@ -454,7 +453,7 @@ public class Conference extends TwiML {
     /**
      * Create a new {@code <Conference>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private Boolean muted;
         private Conference.Beep beep;
         private Boolean startConferenceOnEnter;
@@ -474,7 +473,6 @@ public class Conference extends TwiML {
         private List<Conference.RecordingEvent> recordingStatusCallbackEvent;
         private URI eventCallbackUrl;
         private String name;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Conference>} with name
@@ -672,15 +670,6 @@ public class Conference extends TwiML {
          */
         public Builder eventCallbackUrl(String eventCallbackUrl) {
             this.eventCallbackUrl = Promoter.uriFromString(eventCallbackUrl);
-            return this;
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
             return this;
         }
 

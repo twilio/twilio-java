@@ -11,9 +11,6 @@ import com.twilio.converter.Promoter;
 import com.twilio.twiml.TwiML;
 
 import java.net.URI;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * TwiML wrapper for {@code <Media>}
@@ -32,7 +29,7 @@ public class Media extends TwiML {
      * Create a new {@code <Media>} element
      */
     private Media(Builder b) {
-        super("Media", Collections.<TwiML>emptyList(), b.options);
+        super("Media", b);
         this.url = b.url;
     }
 
@@ -57,9 +54,8 @@ public class Media extends TwiML {
     /**
      * Create a new {@code <Media>} element
      */
-    public static class Builder {
+    public static class Builder extends TwiML.Builder<Builder> {
         private URI url;
-        private Map<String, String> options = new HashMap<>();
 
         /**
          * Create a {@code <Media>} with url
@@ -73,15 +69,6 @@ public class Media extends TwiML {
          */
         public Builder(String url) {
             this.url = Promoter.uriFromString(url);
-        }
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
-            return this;
         }
 
         /**

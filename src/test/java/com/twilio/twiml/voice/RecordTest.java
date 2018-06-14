@@ -68,4 +68,21 @@ public class RecordTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        Record.Builder builder = new Record.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Record elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Record>" +
+            "Hey no tags!" +
+            "</Record>",
+            elem.toXml()
+        );
+    }
 }

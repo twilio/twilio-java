@@ -63,4 +63,21 @@ public class FaxResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithTextNode() {
+        FaxResponse.Builder builder = new FaxResponse.Builder();
+
+        builder.addText("Hey no tags!");
+
+        FaxResponse elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Response>" +
+            "Hey no tags!" +
+            "</Response>",
+            elem.toXml()
+        );
+    }
 }

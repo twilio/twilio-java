@@ -9,10 +9,6 @@ package com.twilio.twiml.voice;
 
 import com.twilio.twiml.TwiML;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * TwiML wrapper for {@code <Hangup>}
  */
@@ -28,24 +24,13 @@ public class Hangup extends TwiML {
      * Create a new {@code <Hangup>} element
      */
     private Hangup(Builder b) {
-        super("Hangup", Collections.<TwiML>emptyList(), b.options);
+        super("Hangup", b);
     }
 
     /**
      * Create a new {@code <Hangup>} element
      */
-    public static class Builder {
-        private Map<String, String> options = new HashMap<>();
-
-        /**
-         * Set additional attributes on this TwiML element that will appear in generated
-         * XML.
-         */
-        public Builder option(String key, String value) {
-            this.options.put(key, value);
-            return this;
-        }
-
+    public static class Builder extends TwiML.Builder<Builder> {
         /**
          * Create and return resulting {@code <Hangup>} element
          */

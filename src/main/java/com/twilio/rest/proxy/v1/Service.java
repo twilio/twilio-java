@@ -291,9 +291,11 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to limit proxy numbers in the same areacode..
+     * Returns The Whether proxy number selected must be in the same area code as
+     * the participant identifier..
      * 
-     * @return Whether to limit proxy numbers in the same areacode.
+     * @return Whether proxy number selected must be in the same area code as the
+     *         participant identifier.
      */
     public final Service.GeoMatchLevel getGeoMatchLevel() {
         return this.geoMatchLevel;
@@ -327,9 +329,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The date this Service was updated.
+     * Returns The The date this Service was last updated.
      * 
-     * @return The date this Service was updated
+     * @return The date this Service was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

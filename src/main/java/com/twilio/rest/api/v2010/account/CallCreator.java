@@ -52,7 +52,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * Construct a new CallCreator.
      * 
-     * @param to Phone number, SIP address or client identifier to call
+     * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      */
@@ -68,7 +68,7 @@ public class CallCreator extends Creator<Call> {
      * Construct a new CallCreator.
      * 
      * @param pathAccountSid The account_sid
-     * @param to Phone number, SIP address or client identifier to call
+     * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      */
@@ -85,7 +85,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * Construct a new CallCreator.
      * 
-     * @param to Phone number, SIP address or client identifier to call
+     * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
@@ -102,7 +102,7 @@ public class CallCreator extends Creator<Call> {
      * Construct a new CallCreator.
      * 
      * @param pathAccountSid The account_sid
-     * @param to Phone number, SIP address or client identifier to call
+     * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
@@ -118,7 +118,7 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The HTTP method Twilio should use when making its request to the above `Url`
+     * The HTTP method Twilio should use when making its request to the `Url`
      * parameter's value. Defaults to `POST`. If an `ApplicationSid` parameter is
      * present, this parameter is ignored..
      * 
@@ -171,7 +171,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * A URL that Twilio will send asynchronous webhook requests to on every call
      * event specified in the `StatusCallbackEvent` parameter. If no event is
-     * present, Twilio will send `completed` by default. If an `ApplicationSid`
+     * specified, Twilio will send `completed` by default. If an `ApplicationSid`
      * parameter is present, this parameter is ignored. URLs must contain a valid
      * hostname (underscores are not permitted)..
      * 
@@ -186,7 +186,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * A URL that Twilio will send asynchronous webhook requests to on every call
      * event specified in the `StatusCallbackEvent` parameter. If no event is
-     * present, Twilio will send `completed` by default. If an `ApplicationSid`
+     * specified, Twilio will send `completed` by default. If an `ApplicationSid`
      * parameter is present, this parameter is ignored. URLs must contain a valid
      * hostname (underscores are not permitted)..
      * 
@@ -198,12 +198,12 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The call progress events that Twilio will send webhooks on. Available values
-     * are `initiated`, `ringing`, `answered`, and `completed`. If you want to
-     * receive multiple events, please provide multiple `StatusCallbackEvent` values
-     * as individual parameters in the `POST` request. See the code sample for
-     * [monitoring call
-     * progress](https://www.twilio.com/docs/api/voice/making-calls#make-a-call-and-monitor-progress-events). If no event is specified, defaults to `completed`. If an `ApplicationSid` is present, this parameter is ignored..
+     * The call progress events that will trigger a webhook from Twilio. Available
+     * values are `initiated`, `ringing`, `answered`, and `completed`. If no event
+     * is specified, defaults to `completed`. If you want to receive multiple
+     * events, please provide multiple `StatusCallbackEvent` values as individual
+     * parameters in the `POST` request. See the code sample for [monitoring call
+     * progress](https://www.twilio.com/docs/voice/api/call?code-sample=code-create-a-call-and-specify-a-statuscallbackevent). If an `ApplicationSid` is present, this parameter is ignored..
      * 
      * @param statusCallbackEvent The call progress events that Twilio will send
      *                            webhooks on.
@@ -215,12 +215,12 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The call progress events that Twilio will send webhooks on. Available values
-     * are `initiated`, `ringing`, `answered`, and `completed`. If you want to
-     * receive multiple events, please provide multiple `StatusCallbackEvent` values
-     * as individual parameters in the `POST` request. See the code sample for
-     * [monitoring call
-     * progress](https://www.twilio.com/docs/api/voice/making-calls#make-a-call-and-monitor-progress-events). If no event is specified, defaults to `completed`. If an `ApplicationSid` is present, this parameter is ignored..
+     * The call progress events that will trigger a webhook from Twilio. Available
+     * values are `initiated`, `ringing`, `answered`, and `completed`. If no event
+     * is specified, defaults to `completed`. If you want to receive multiple
+     * events, please provide multiple `StatusCallbackEvent` values as individual
+     * parameters in the `POST` request. See the code sample for [monitoring call
+     * progress](https://www.twilio.com/docs/voice/api/call?code-sample=code-create-a-call-and-specify-a-statuscallbackevent). If an `ApplicationSid` is present, this parameter is ignored..
      * 
      * @param statusCallbackEvent The call progress events that Twilio will send
      *                            webhooks on.
@@ -231,9 +231,9 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting the above URL. Defaults to
-     * `POST`. If an `ApplicationSid` parameter is present, this parameter is
-     * ignored..
+     * The HTTP method Twilio should use when requesting the `StatusCallback` URL.
+     * Defaults to `POST`. If an `ApplicationSid` parameter is present, this
+     * parameter is ignored..
      * 
      * @param statusCallbackMethod HTTP Method to use with StatusCallback
      * @return this
@@ -247,7 +247,7 @@ public class CallCreator extends Creator<Call> {
      * A string of keys to dial after connecting to the number, maximum of 32
      * digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`'
      * and '`w`' (to insert a half second pause). For example, if you connected to a
-     * company phone number, and wanted to pause for one second, dial extension 1234
+     * company phone number and wanted to pause for one second, dial extension 1234,
      * and then the pound key, use `SendDigits=ww1234#`. Remember to URL-encode this
      * string, since the '`#`' character has special meaning in a URL. If both
      * `SendDigits` and `MachineDetection` parameters are provided, then
@@ -275,10 +275,10 @@ public class CallCreator extends Creator<Call> {
     /**
      * The integer number of seconds that Twilio should allow the phone to ring
      * before assuming there is no answer. Default is `60` seconds, the maximum is
-     * `600` seconds. For some call flows Twilio will add a 5 second buffer to the
+     * `600` seconds. For some call flows, Twilio will add a 5-second buffer to the
      * timeout value provided, so if you enter a timeout value of 10 seconds, you
      * could see actual timeout closer to 15 seconds. Note, you could set this to a
-     * low value, such as `15`, to hangup before reaching an answering machine or
+     * low value like `15` to hang up before reaching an answering machine or
      * voicemail..
      * 
      * @param timeout Number of seconds to wait for an answer
@@ -290,8 +290,8 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Set this parameter to true to record the entirety of a phone call. The
-     * RecordingUrl will be sent to the StatusCallback URL. Defaults to false..
+     * Set this parameter to `true` to record the entirety of a phone call. The
+     * `RecordingUrl` will be sent to the `StatusCallback` URL. Defaults to false..
      * 
      * @param record Whether or not to record the Call
      * @return this
@@ -302,12 +302,13 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * `mono` or `dual`Set this parameter to specify the number of channels in the
-     * final recording. Defaults to `mono`. In mono-channel, both legs of the call
-     * are mixed down into a single channel within a single recording file. With
-     * dual-channel, both legs use separate channels within a single recording file.
-     *  For dual-channel, the parent call will always be in the first channel and
-     * the child call will always be in the second channel..
+     * `mono` or `dual` – defaults to `mono`. Set this parameter to specify the
+     * number of channels in the final recording. In a mono-channel recording, both
+     * legs of the call are mixed down into a single channel within a single
+     * recording file. With dual-channel recording, both legs use separate channels
+     * within a single recording file. In dual-channel recordings, the parent call
+     * will always be in the first channel, and the child call will always be in the
+     * second channel..
      * 
      * @param recordingChannels mono or dualSet this parameter to specify the
      *                          number of channels in the final recording.
@@ -332,11 +333,12 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting the above URL. Defaults to
-     * `POST`..
+     * The HTTP method Twilio should use when requesting the
+     * `RecordingStatusCallback` URL. Defaults to `POST`..
      * 
      * @param recordingStatusCallbackMethod The HTTP method Twilio should use when
-     *                                      requesting the above URL.
+     *                                      requesting the `RecordingStatusCallback`
+     *                                      URL.
      * @return this
      */
     public CallCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
@@ -367,13 +369,13 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Detect if a human, answering machine or fax has picked up the call. Use
+     * Detect if a human, answering machine, or fax has picked up the call. Use
      * `Enable` if you would like Twilio to return an `AnsweredBy` value as soon as
      * it identifies the called party. If you would like to leave a message on an
-     * answering machine specify `DetectMessageEnd`. If both SendDigits and
-     * MachineDetection parameters are provided, then MachineDetection will be
+     * answering machine, specify `DetectMessageEnd`. If both `SendDigits` and
+     * `MachineDetection` parameters are provided, then MachineDetection will be
      * ignored. [Detailed documentation is
-     * here](https://www.twilio.com/docs/api/voice/answering-machine-detection)..
+     * here](https://www.twilio.com/docs/voice/answering-machine-detection)..
      * 
      * @param machineDetection Enable machine detection or end of greeting detection
      * @return this
@@ -398,11 +400,11 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The recording status changes that Twilio will send webhooks on to the URL
-     * specified in RecordingStatusCallback.  The available values are
-     * `in-progress`, `completed`, `failed`. To specify multiple values separate
-     * them with a space.  Defaults are `completed`, `failed`.  If any values are
-     * specified, the defaults are no longer applicable..
+     * The recording status events that will trigger Twilio to send webhooks on to
+     * the URL specified in `RecordingStatusCallback`. The available values are
+     * `in-progress`, `completed`, and `failed`. Defaults are `completed` and
+     * `failed`. To specify multiple values, separate them with a space. If any
+     * values are specified, the defaults are no longer applicable..
      * 
      * @param recordingStatusCallbackEvent The recording status changes that Twilio
      *                                     will send webhooks on to the URL
@@ -415,11 +417,11 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The recording status changes that Twilio will send webhooks on to the URL
-     * specified in RecordingStatusCallback.  The available values are
-     * `in-progress`, `completed`, `failed`. To specify multiple values separate
-     * them with a space.  Defaults are `completed`, `failed`.  If any values are
-     * specified, the defaults are no longer applicable..
+     * The recording status events that will trigger Twilio to send webhooks on to
+     * the URL specified in `RecordingStatusCallback`. The available values are
+     * `in-progress`, `completed`, and `failed`. Defaults are `completed` and
+     * `failed`. To specify multiple values, separate them with a space. If any
+     * values are specified, the defaults are no longer applicable..
      * 
      * @param recordingStatusCallbackEvent The recording status changes that Twilio
      *                                     will send webhooks on to the URL
@@ -431,7 +433,7 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * `trim-silence` or `do-not-trim`Set this parameter to define whether leading
+     * `trim-silence` or `do-not-trim`. Set this parameter to define whether leading
      * and trailing silence is trimmed from the recording.  Defaults to
      * `trim-silence`..
      * 
@@ -445,12 +447,13 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The phone number, SIP address or Client identifier that made this Call. Phone
-     * numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted
-     * as `name@company.com`..
+     * The phone number, SIP address, or Client identifier that made this Call.
+     * Phone numbers are in [E.164
+     * format](https://www.twilio.com/docs/glossary/what-e164) (e.g., +16175551212).
+     * SIP addresses are formatted as `name@company.com`..
      * 
-     * @param callerId The phone number, SIP address or Client identifier that made
-     *                 this Call. Phone numbers are in E.164 format (e.g.
+     * @param callerId The phone number, SIP address, or Client identifier that
+     *                 made this Call. Phone numbers are in E.164 format (e.g.,
      *                 +16175551212). SIP addresses are formatted as
      *                 `name@company.com`.
      * @return this
@@ -461,10 +464,9 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The fully qualified URL that should be consulted when the call connects. Just
-     * like when you set a URL on a phone number for handling inbound calls. See
-     * the [Url
-     * Parameter](https://www.twilio.com/docs/api/voice/making-calls#url-parameter) details in [Making Calls](https://www.twilio.com/docs/voice/make-calls) for more details..
+     * The fully qualified URL that hosts instructions for the call. Twilio will
+     * consult this URL when the call connects. See the [Url
+     * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) details in [Making Calls](https://www.twilio.com/docs/voice/make-calls) for more details..
      * 
      * @param url Url from which to fetch TwiML
      * @return this
@@ -475,10 +477,9 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The fully qualified URL that should be consulted when the call connects. Just
-     * like when you set a URL on a phone number for handling inbound calls. See
-     * the [Url
-     * Parameter](https://www.twilio.com/docs/api/voice/making-calls#url-parameter) details in [Making Calls](https://www.twilio.com/docs/voice/make-calls) for more details..
+     * The fully qualified URL that hosts instructions for the call. Twilio will
+     * consult this URL when the call connects. See the [Url
+     * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) details in [Making Calls](https://www.twilio.com/docs/voice/make-calls) for more details..
      * 
      * @param url Url from which to fetch TwiML
      * @return this
@@ -488,10 +489,10 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The 34 character SID of the application Twilio should use to handle this
+     * The 34-character SID of the application Twilio should use to handle this
      * phone call. If this parameter is present, Twilio will ignore all of the voice
      * URLs passed and use the URLs set on the application. See the [ApplicationSid
-     * Parameter](https://www.twilio.com/docs/api/voice/making-calls#applicationsid-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls) for more details..
+     * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-an-applicationsid-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls) for more details..
      * 
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML

@@ -96,7 +96,7 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls spawned by the call with this SID..
+     * Only show calls spawned by the Call with this SID..
      * 
      * @param parentCallSid Parent Call Sid to filter on
      * @return this
@@ -107,8 +107,9 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls currently in this status. May be `queued`, `ringing`,
-     * `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`..
+     * Only show calls currently in the specified status. May be `queued`,
+     * `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or
+     * `no-answer`..
      * 
      * @param status Status to filter on
      * @return this
@@ -149,7 +150,7 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show call that ended on this date.
+     * Only show calls that ended on this date.
      * 
      * @param absoluteEndTime EndTime to filter on
      * @return this
@@ -161,7 +162,7 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show call that ended on this date.
+     * Only show calls that ended on this date.
      * 
      * @param rangeEndTime EndTime to filter on
      * @return this

@@ -53,11 +53,9 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * The fully qualified URL that should be consulted when the call connects. Just
-     * like when you set a URL on a phone number for handling inbound calls. See the
-     * [Url
-     * Parameter](https://www.twilio.com/docs/api/voice/making-calls#url-parameter)
-     * section below for more details..
+     * that hosts instructions for the call. Twilio will consult this URL when the
+     * call connects. See the [Url
+     * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls) for more details..
      * 
      * @param url URL that returns TwiML
      * @return this
@@ -68,11 +66,9 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * The fully qualified URL that should be consulted when the call connects. Just
-     * like when you set a URL on a phone number for handling inbound calls. See the
-     * [Url
-     * Parameter](https://www.twilio.com/docs/api/voice/making-calls#url-parameter)
-     * section below for more details..
+     * that hosts instructions for the call. Twilio will consult this URL when the
+     * call connects. See the [Url
+     * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls) for more details..
      * 
      * @param url URL that returns TwiML
      * @return this
@@ -82,7 +78,7 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * The HTTP method Twilio should use when making its request to the above `Url`
+     * The HTTP method Twilio should use when making its request to the `Url`
      * parameter's value. Defaults to `POST`. If an `ApplicationSid` parameter is
      * present, this parameter is ignored..
      * 
@@ -96,9 +92,9 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * Either `canceled` or `completed`. Specifying `canceled` will attempt to hang
-     * up calls that are queued or ringing but not affect calls already in progress.
-     * Specifying `completed` will attempt to hang up a call even if it's already in
-     * progress..
+     * up calls that are queued or ringing, but will not affect calls already in
+     * progress. Specifying `completed` will attempt to hang up a call even if it's
+     * already in progress..
      * 
      * @param status Status to update the Call with
      * @return this
@@ -109,9 +105,9 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML at `Url`. If an `ApplicationSid` parameter is present, this parameter
-     * is ignored..
+     * A URL that Twilio will request if an error occurs when requesting or
+     * executing the TwiML at `Url`. If an `ApplicationSid` parameter is present,
+     * this parameter is ignored..
      * 
      * @param fallbackUrl Fallback URL in case of error
      * @return this
@@ -122,9 +118,9 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML at `Url`. If an `ApplicationSid` parameter is present, this parameter
-     * is ignored..
+     * A URL that Twilio will request if an error occurs when requesting or
+     * executing the TwiML at `Url`. If an `ApplicationSid` parameter is present,
+     * this parameter is ignored..
      * 
      * @param fallbackUrl Fallback URL in case of error
      * @return this
@@ -149,7 +145,7 @@ public class CallUpdater extends Updater<Call> {
     /**
      * A URL that Twilio will send asynchronous webhook requests to on every call
      * event specified in the `StatusCallbackEvent` parameter. If no event is
-     * present, Twilio will send `completed` by default. If an `ApplicationSid`
+     * specified, Twilio will send `completed` by default. If an `ApplicationSid`
      * parameter is present, this parameter is ignored. URLs must contain a valid
      * hostname (underscores are not permitted)..
      * 
@@ -164,7 +160,7 @@ public class CallUpdater extends Updater<Call> {
     /**
      * A URL that Twilio will send asynchronous webhook requests to on every call
      * event specified in the `StatusCallbackEvent` parameter. If no event is
-     * present, Twilio will send `completed` by default. If an `ApplicationSid`
+     * specified, Twilio will send `completed` by default. If an `ApplicationSid`
      * parameter is present, this parameter is ignored. URLs must contain a valid
      * hostname (underscores are not permitted)..
      * 
@@ -176,9 +172,9 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting the above URL. Defaults to
-     * `POST`. If an `ApplicationSid` parameter is present, this parameter is
-     * ignored..
+     * The HTTP method Twilio should use when requesting the `StatusCallback` URL.
+     * Defaults to `POST`. If an `ApplicationSid` parameter is present, this
+     * parameter is ignored..
      * 
      * @param statusCallbackMethod HTTP Method to use with StatusCallback
      * @return this

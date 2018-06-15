@@ -360,45 +360,45 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Inbound Participant Sid..
+     * Returns The Always empty for Message Interactions..
      * 
-     * @return Inbound Participant Sid.
+     * @return Always empty for Message Interactions.
      */
     public final String getInboundParticipantSid() {
         return this.inboundParticipantSid;
     }
 
     /**
-     * Returns The Inbound message resource Sid..
+     * Returns The Always empty for Message Interactions..
      * 
-     * @return Inbound message resource Sid.
+     * @return Always empty for Message Interactions.
      */
     public final String getInboundResourceSid() {
         return this.inboundResourceSid;
     }
 
     /**
-     * Returns The The Inbound Resource Status of this Message Interaction.
+     * Returns The Always empty for Message Interactions..
      * 
-     * @return The Inbound Resource Status of this Message Interaction
+     * @return Always empty for Message Interactions.
      */
     public final MessageInteraction.ResourceStatus getInboundResourceStatus() {
         return this.inboundResourceStatus;
     }
 
     /**
-     * Returns The Message.
+     * Returns The Always empty for Message Interactions..
      * 
-     * @return Message
+     * @return Always empty for Message Interactions.
      */
     public final String getInboundResourceType() {
         return this.inboundResourceType;
     }
 
     /**
-     * Returns The The URL of the Twilio message resource..
+     * Returns The Always empty for Message Interactions..
      * 
-     * @return The URL of the Twilio message resource.
+     * @return Always empty for Message Interactions.
      */
     public final URI getInboundResourceUrl() {
         return this.inboundResourceUrl;
@@ -459,9 +459,9 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The date this Message Interaction was updated.
+     * Returns The The date this Message Interaction was last updated.
      * 
-     * @return The date this Message Interaction was updated
+     * @return The date this Message Interaction was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

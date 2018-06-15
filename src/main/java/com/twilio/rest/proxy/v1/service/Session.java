@@ -302,27 +302,27 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The date this Session was interaction.
+     * Returns The The date this Session last had an interaction.
      * 
-     * @return The date this Session was interaction
+     * @return The date this Session last had an interaction
      */
     public final DateTime getDateLastInteraction() {
         return this.dateLastInteraction;
     }
 
     /**
-     * Returns The The date this Session was expiry.
+     * Returns The The date this Session should expire.
      * 
-     * @return The date this Session was expiry
+     * @return The date this Session should expire
      */
     public final DateTime getDateExpiry() {
         return this.dateExpiry;
     }
 
     /**
-     * Returns The A unique, developer assigned name of this Session..
+     * Returns The A unique, developer assigned identifier for this Session..
      * 
-     * @return A unique, developer assigned name of this Session.
+     * @return A unique, developer assigned identifier for this Session.
      */
     public final String getUniqueName() {
         return this.uniqueName;
@@ -374,9 +374,9 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The date this Session was updated.
+     * Returns The The date this Session was last updated.
      * 
-     * @return The date this Session was updated
+     * @return The date this Session was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

@@ -44,8 +44,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The default time delay, in seconds, after which a session will be expired. 
-     * Will be used for sessions where ttl is not specified..
+     * The default time delay in seconds after the latest of Session create time or
+     * the Session's last Interaction time, after which a session will expire.  Used
+     * for sessions where ttl is not specified..
      * 
      * @param defaultTtl Default TTL for Sessions in Service, in seconds.
      * @return this
@@ -77,10 +78,13 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Options: country, area-code, extended-area-code. Default: country.  Levels
-     * lower than country are only available in North America..
+     * Whether proxy number selected must be in the same area code as the
+     * participant identifier. Options: `country`, `area-code`,
+     * `extended-area-code`. Default: `country`. Levels lower than country are only
+     * available in North America..
      * 
-     * @param geoMatchLevel Whether to limit proxy numbers in the same areacode.
+     * @param geoMatchLevel Whether proxy number selected must be in the same area
+     *                      code as the participant identifier.
      * @return this
      */
     public ServiceCreator setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel) {
@@ -89,7 +93,7 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Default: prefer-sticky Options: prefer-sticky, avoid-sticky.
+     * Options: `prefer-sticky`, `avoid-sticky`. Default: `prefer-sticky`..
      * 
      * @param numberSelectionBehavior What behavior to use when choosing a proxy
      *                                number.
@@ -101,8 +105,8 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A URL for Twilio call before each Interaction. An error status code will
-     * prevent the interaction from continuing..
+     * A URL for Twilio call before each Interaction. Returning a 403 status code
+     * will prevent the interaction from continuing..
      * 
      * @param interceptCallbackUrl A URL for Twilio call before each Interaction.
      * @return this
@@ -113,8 +117,8 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A URL for Twilio call before each Interaction. An error status code will
-     * prevent the interaction from continuing..
+     * A URL for Twilio call before each Interaction. Returning a 403 status code
+     * will prevent the interaction from continuing..
      * 
      * @param interceptCallbackUrl A URL for Twilio call before each Interaction.
      * @return this
@@ -124,7 +128,8 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A URL for Twilio call when a new Interaction has no Session..
+     * A URL for Twilio call when a new Interaction has no
+     * [Session](https://www.twilio.com/docs/proxy/api/session)..
      * 
      * @param outOfSessionCallbackUrl A URL for Twilio call when a new Interaction
      *                                has no Session.
@@ -136,7 +141,8 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A URL for Twilio call when a new Interaction has no Session..
+     * A URL for Twilio call when a new Interaction has no
+     * [Session](https://www.twilio.com/docs/proxy/api/session)..
      * 
      * @param outOfSessionCallbackUrl A URL for Twilio call when a new Interaction
      *                                has no Session.

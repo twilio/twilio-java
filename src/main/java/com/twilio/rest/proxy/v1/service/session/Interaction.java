@@ -423,9 +423,9 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The date this Interaction was updated.
+     * Returns The The date this Interaction was last updated.
      * 
-     * @return The date this Interaction was updated
+     * @return The date this Interaction was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

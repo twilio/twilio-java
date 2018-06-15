@@ -293,9 +293,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The date this Participant was updated.
+     * Returns The The date this Participant was last updated.
      * 
-     * @return The date this Participant was updated
+     * @return The date this Participant was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

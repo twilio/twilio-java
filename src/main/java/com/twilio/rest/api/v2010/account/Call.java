@@ -128,7 +128,7 @@ public class Call extends Resource {
      * Create a CallCreator to execute create.
      * 
      * @param pathAccountSid The account_sid
-     * @param to Phone number, SIP address or client identifier to call
+     * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      * @return CallCreator capable of executing the create
@@ -143,7 +143,7 @@ public class Call extends Resource {
     /**
      * Create a CallCreator to execute create.
      * 
-     * @param to Phone number, SIP address or client identifier to call
+     * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url Url from which to fetch TwiML
      * @return CallCreator capable of executing the create
@@ -158,7 +158,7 @@ public class Call extends Resource {
      * Create a CallCreator to execute create.
      * 
      * @param pathAccountSid The account_sid
-     * @param to Phone number, SIP address or client identifier to call
+     * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
@@ -174,7 +174,7 @@ public class Call extends Resource {
     /**
      * Create a CallCreator to execute create.
      * 
-     * @param to Phone number, SIP address or client identifier to call
+     * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid ApplicationSid that configures from where to fetch
      *                       TwiML
@@ -432,31 +432,31 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The If this call was initiated with answering machine detection,
-     * either `human` or `machine`. Empty otherwise..
+     * Returns The Either `human` or `machine` if this Call was initiated with
+     * answering machine detection. Empty otherwise..
      * 
-     * @return If this call was initiated with answering machine detection, either
-     *         `human` or `machine`. Empty otherwise.
+     * @return Either `human` or `machine` if this Call was initiated with
+     *         answering machine detection. Empty otherwise.
      */
     public final String getAnsweredBy() {
         return this.answeredBy;
     }
 
     /**
-     * Returns The The API Version the Call was created through.
+     * Returns The The API Version used to create the Call.
      * 
-     * @return The API Version the Call was created through
+     * @return The API Version used to create the Call
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The If this call was an incoming call to a phone number with Caller
-     * ID Lookup enabled, the caller's name. Empty otherwise..
+     * Returns The The caller's name if this Call was an incoming call to a phone
+     * number with Caller ID Lookup enabled. Empty otherwise..
      * 
-     * @return If this call was an incoming call to a phone number with Caller ID
-     *         Lookup enabled, the caller's name. Empty otherwise.
+     * @return The caller's name if this Call was an incoming call to a phone
+     *         number with Caller ID Lookup enabled. Empty otherwise.
      */
     public final String getCallerName() {
         return this.callerName;
@@ -481,11 +481,11 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The A string describing the direction of the call. `inbound` for
+     * Returns The A string describing the direction of the Call. `inbound` for
      * inbound calls, `outbound-api` for calls initiated via the REST API or
      * `outbound-dial` for calls initiated by a `Dial` verb..
      * 
-     * @return A string describing the direction of the call. `inbound` for inbound
+     * @return A string describing the direction of the Call. `inbound` for inbound
      *         calls, `outbound-api` for calls initiated via the REST API or
      *         `outbound-dial` for calls initiated by a `Dial` verb.
      */
@@ -494,9 +494,9 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The length of the call in seconds..
+     * Returns The The length of the Call in seconds..
      * 
-     * @return The length of the call in seconds.
+     * @return The length of the Call in seconds.
      */
     public final String getDuration() {
         return this.duration;
@@ -514,13 +514,13 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The If this Call was an incoming call forwarded from another number,
-     * the forwarding phone number (depends on carrier supporting forwarding). Empty
-     * otherwise..
+     * Returns The The forwarding phone number if this Call was an incoming call
+     * forwarded from another number (depends on carrier supporting forwarding).
+     * Empty otherwise..
      * 
-     * @return If this Call was an incoming call forwarded from another number, the
-     *         forwarding phone number (depends on carrier supporting forwarding).
-     *         Empty otherwise.
+     * @return The forwarding phone number if this Call was an incoming call
+     *         forwarded from another number (depends on carrier supporting
+     *         forwarding). Empty otherwise.
      */
     public final String getForwardedFrom() {
         return this.forwardedFrom;
@@ -528,12 +528,12 @@ public class Call extends Resource {
 
     /**
      * Returns The The phone number, SIP address or Client identifier that made this
-     * Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses
+     * Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses
      * are formatted as `name@company.com`. Client identifiers are formatted
      * `client:name`..
      * 
      * @return The phone number, SIP address or Client identifier that made this
-     *         Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP
+     *         Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
      *         addresses are formatted as `name@company.com`. Client identifiers are
      *         formatted `client:name`.
      */
@@ -553,10 +553,10 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The A 34 character Group Sid associated with this Call. Empty if no
+     * Returns The A 34-character Group Sid associated with this Call. Empty if no
      * Group is associated with the Call..
      * 
-     * @return A 34 character Group Sid associated with this Call. Empty if no
+     * @return A 34-character Group Sid associated with this Call. Empty if no
      *         Group is associated with the Call.
      */
     public final String getGroupSid() {
@@ -564,10 +564,10 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies the Call that
+     * Returns The A 34-character string that uniquely identifies the Call that
      * created this leg..
      * 
-     * @return A 34 character string that uniquely identifies the Call that created
+     * @return A 34-character string that uniquely identifies the Call that created
      *         this leg.
      */
     public final String getParentCallSid() {
@@ -576,23 +576,24 @@ public class Call extends Resource {
 
     /**
      * Returns The If the call was inbound, this is the Sid of the
-     * IncomingPhoneNumber that received the call. If the call was outbound, it is
-     * the Sid of the OutgoingCallerId from which the call was placed..
+     * `IncomingPhoneNumber` that received the call. If the call was outbound, it is
+     * the Sid of the `OutgoingCallerId` from which the call was placed..
      * 
-     * @return If the call was inbound, this is the Sid of the IncomingPhoneNumber
-     *         that received the call. If the call was outbound, it is the Sid of
-     *         the OutgoingCallerId from which the call was placed.
+     * @return If the call was inbound, this is the Sid of the
+     *         `IncomingPhoneNumber` that received the call. If the call was
+     *         outbound, it is the Sid of the `OutgoingCallerId` from which the call
+     *         was placed.
      */
     public final String getPhoneNumberSid() {
         return this.phoneNumberSid;
     }
 
     /**
-     * Returns The The charge for this call, in the currency associated with the
+     * Returns The The charge for this Call, in the currency associated with the
      * account. Populated after the call is completed. May not be immediately
      * available..
      * 
-     * @return The charge for this call, in the currency associated with the
+     * @return The charge for this Call, in the currency associated with the
      *         account. Populated after the call is completed. May not be
      *         immediately available.
      */
@@ -610,9 +611,10 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The A 34-character string that uniquely identifies the Call
+     * resource..
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return A 34-character string that uniquely identifies the Call resource.
      */
     public final String getSid() {
         return this.sid;
@@ -629,9 +631,9 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The A string representing the status of the call..
+     * Returns The A string representing the status of the Call..
      * 
-     * @return A string representing the status of the call.
+     * @return A string representing the status of the Call.
      */
     public final Call.Status getStatus() {
         return this.status;
@@ -648,14 +650,14 @@ public class Call extends Resource {
 
     /**
      * Returns The The phone number, SIP address or Client identifier that received
-     * this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP
+     * this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
      * addresses are formatted as `name@company.com`. Client identifiers are
      * formatted `client:name`..
      * 
      * @return The phone number, SIP address or Client identifier that received
-     *         this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP
-     *         addresses are formatted as `name@company.com`. Client identifiers are
-     *         formatted `client:name`.
+     *         this Call. Phone numbers are in E.164 format (e.g., +16175551212).
+     *         SIP addresses are formatted as `name@company.com`. Client identifiers
+     *         are formatted `client:name`.
      */
     public final String getTo() {
         return this.to;

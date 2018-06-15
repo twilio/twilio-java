@@ -47,7 +47,8 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * Your identifier for this Session such as a Job ID or conversation ID..
+     * Your unique identifier for this Session such as a Job ID or conversation ID.
+     * Should not contain PII..
      * 
      * @param uniqueName A unique, developer assigned name of this Session.
      * @return this
@@ -58,8 +59,8 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * An absolute time at which this Session should close. If this is populated, it
-     * takes precedence over TTL values..
+     * An absolute time (ISO 8601) at which this Session should close. If this is
+     * populated, it takes precedence over TTL values..
      * 
      * @param dateExpiry The date this Session should expire
      * @return this
@@ -70,9 +71,8 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The Time To Live for this Session. The amount of time, specified in seconds,
-     * that this Session should live for before closing. Keys off the last
-     * interaction or session creation time..
+     * The time, in seconds, after the latest of Session create time or the
+     * Session's last Interaction time at which the session will expire..
      * 
      * @param ttl TTL for a Session, in seconds.
      * @return this
@@ -84,7 +84,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * The type of communications mediums allowed on a Session. Defaults to
-     * voice-and-message, other options are voice-only OR message-only..
+     * `voice-and-message`. Other options are `voice-only` or `message-only`..
      * 
      * @param mode The Mode of this Session
      * @return this
@@ -95,9 +95,9 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * Set this value to 'closed' to close the session. A Session can be re-opened
-     * by posting to a closed session with the value 'in-progress.'  This will be
-     * 'open' by default on create..
+     * Set this value to `closed` to close the session. A Session can be re-opened
+     * by posting to a closed session with the value `in-progress`.  This will be
+     * `open` by default on create..
      * 
      * @param status Session status
      * @return this

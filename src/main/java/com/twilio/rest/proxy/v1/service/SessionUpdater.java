@@ -62,9 +62,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The date that this Session should be expired, given in ISO 8601 format..
+     * The date that this Session should expire, given in ISO 8601 format..
      * 
-     * @param dateExpiry The date this Session should ge expired
+     * @param dateExpiry The date this Session should expire
      * @return this
      */
     public SessionUpdater setDateExpiry(final DateTime dateExpiry) {
@@ -73,8 +73,8 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The time delay, in seconds, after which a session will be expired.  Keyed off
-     * of last interaction time..
+     * The time, in seconds, after the latest of Session create time or the
+     * Session's last Interaction time at which the session will expire..
      * 
      * @param ttl TTL for a Session, in seconds.
      * @return this
@@ -96,8 +96,8 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The Status of this Session. Set `in-progress` to re-open a session, `closed`
-     * to close a session..
+     * The Status of this Session. Set to `in-progress` to re-open a session or
+     * `closed` to close a session..
      * 
      * @param status The Status of this Session
      * @return this

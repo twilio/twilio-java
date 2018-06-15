@@ -284,9 +284,9 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The cnam_lookup_enabled.
+     * Returns The The Caller ID Name (CNAM) lookup setting for this trunk..
      * 
-     * @return The cnam_lookup_enabled
+     * @return The Caller ID Name (CNAM) lookup setting for this trunk.
      */
     public final Boolean getCnamLookupEnabled() {
         return this.cnamLookupEnabled;

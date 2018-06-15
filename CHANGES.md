@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2018-06-15] Version 7.21.4
+----------------------------
+**Library**
+- PR #416: Allow adding text nodes under any TwiML element. Thanks to @ekarson!
+- PR #414: Convenience method for verifying your connection with the new SSL certificate. Thanks to @ekarson!
+
+**Twiml**
+- Add methods to helper libraries to inject arbitrary text under a TwiML node
+
+
 [2018-06-04] Version 7.21.3
 ----------------------------
 **Lookups**

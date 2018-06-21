@@ -80,4 +80,43 @@ public class FaxResponseTest {
             elem.toXml()
         );
     }
+
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag").addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        FaxResponse.Builder builder = new FaxResponse.Builder();
+        FaxResponse elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<Response>" +
+                "<genericTag>" +
+                "Some text" +
+                "</genericTag>" +
+                "</Response>",
+                elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        FaxResponse.Builder builder = new FaxResponse.Builder();
+        FaxResponse elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<Response>" +
+                "<genericTag key=\"value\">" +
+                "someText" +
+                "</genericTag>" +
+                "</Response>",
+                elem.toXml()
+        );
+    }
 }

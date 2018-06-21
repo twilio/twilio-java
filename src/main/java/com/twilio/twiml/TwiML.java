@@ -205,5 +205,15 @@ public abstract class TwiML {
             this.children.add(new Text(text));
             return (T)this;
         }
+
+        /**
+         * @return TwiML object
+         */
+        public T addChild(GenericNode node) {
+            this.children.add(node);
+            return (T)this;
+        }
+
+
     }
 }

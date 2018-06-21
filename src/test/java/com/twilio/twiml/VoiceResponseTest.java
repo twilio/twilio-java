@@ -192,4 +192,46 @@ public class VoiceResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testElementWithGenericNode() {
+        VoiceResponse.Builder builder = new VoiceResponse.Builder();
+
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+
+        GenericNode node = genericBuilder.build();
+
+        VoiceResponse elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                        "<Response>" +
+                        "<genericTag/>"+
+                        "</Response>",
+                elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        VoiceResponse.Builder builder = new VoiceResponse.Builder();
+
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+
+        genericBuilder.option("key", "value").addText("someText");
+
+        GenericNode node = genericBuilder.build();
+
+        VoiceResponse elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                        "<Response>" +
+                        "<genericTag key=\"value\">" +
+                "someText" +
+                        "</genericTag>" +
+                        "</Response>",
+                elem.toXml()
+        );
+    }
 }

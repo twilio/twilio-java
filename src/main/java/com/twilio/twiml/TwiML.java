@@ -55,6 +55,9 @@ public abstract class TwiML {
         return new HashMap<>();
     }
 
+    public Builder getBuilder() {
+        return this.builder;
+    }
     /**
      * Get tag name of this TwiML Element.
      */
@@ -87,7 +90,7 @@ public abstract class TwiML {
             node.appendChild(parentDoc.createTextNode(body));
         }
 
-        for (Map.Entry<String,String> attr : this.getElementAttributes().entrySet()) {
+        for (Map.Entry<String, String> attr : this.getElementAttributes().entrySet()) {
             node.setAttribute(attr.getKey(), attr.getValue());
         }
 
@@ -110,9 +113,9 @@ public abstract class TwiML {
     public String toXml() throws TwiMLException {
         try {
             Document doc = DocumentBuilderFactory
-                .newInstance()
-                .newDocumentBuilder()
-                .newDocument();
+                    .newInstance()
+                    .newDocumentBuilder()
+                    .newDocument();
             doc.setXmlStandalone(true);
             doc.appendChild(this.buildXmlElement(doc));
 
@@ -155,37 +158,40 @@ public abstract class TwiML {
 
         TwiML twiml = (TwiML) o;
         return Objects.equal(this.getTagName(), twiml.getTagName()) &&
-            Objects.equal(this.getElementBody(), twiml.getElementBody()) &&
-            Objects.equal(this.getElementAttributes(), twiml.getElementAttributes()) &&
-            Objects.equal(this.getOptions(), twiml.getOptions()) &&
-            Objects.equal(this.getChildren(), twiml.getChildren());
+                Objects.equal(this.getElementBody(), twiml.getElementBody()) &&
+                Objects.equal(this.getElementAttributes(), twiml.getElementAttributes()) &&
+                Objects.equal(this.getOptions(), twiml.getOptions()) &&
+                Objects.equal(this.getChildren(), twiml.getChildren());
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(
-            this.getTagName(),
-            this.getElementBody(),
-            this.getElementAttributes(),
-            this.getChildren(),
-            this.getOptions()
+                this.getTagName(),
+                this.getElementBody(),
+                this.getElementAttributes(),
+                this.getChildren(),
+                this.getOptions()
         );
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-            .add("Body", this.getElementBody())
-            .add("Attributes", this.getElementAttributes())
-            .add("Children", this.getChildren())
-            .add("Options", this.getOptions())
-            .toString();
+                .add("Body", this.getElementBody())
+                .add("Attributes", this.getElementAttributes())
+                .add("Children", this.getChildren())
+                .add("Options", this.getOptions())
+                .toString();
     }
+
+
 
     /**
      * Create a new {@code TwiML} node
      */
     public static class Builder<T extends Builder<T>> {
+
         protected Map<String, String> options = new HashMap<>();
         protected List<TwiML> children = new ArrayList<>();
 
@@ -205,5 +211,16 @@ public abstract class TwiML {
             this.children.add(new Text(text));
             return (T)this;
         }
+
+        /**
+         * @return TwiML object
+         */
+        public T addChild(GenericNode node) {
+            this.children.add(node);
+            return(T)this;
+        }
+
+
     }
+
 }

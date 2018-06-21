@@ -17,9 +17,9 @@ API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cu
 docker-build:
 	docker build -t twilio/twilio-java .
 	docker tag twilio/twilio-java twilio/twilio-java:${TRAVIS_TAG}
-	docker tag twilio/twilio-java twilio/twilio-java:${API_DEFINITIONS_SHA}
+	docker tag twilio/twilio-java twilio/twilio-java:apidefs-${API_DEFINITIONS_SHA}
 
 docker-push:
 	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 	docker push twilio/twilio-java:${TRAVIS_TAG}
-	docker push twilio/twilio-java:${API_DEFINITIONS_TAG}
+	docker push twilio/twilio-java:apidefs-${API_DEFINITIONS_TAG}

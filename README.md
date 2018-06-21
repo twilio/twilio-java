@@ -103,7 +103,7 @@ The documentation for the Twilio API can be found [here.](http://twilio.com/docs
 
 ## Docker Image
 
-The `Dockerfile` present in this repository and its respective `twilio/twilio-ruby` Docker image are used by Twilio for testing purposes only.
+The `Dockerfile` present in this repository and its respective `twilio/twilio-java` Docker image are currently used by Twilio for testing purposes only.
 
 # Getting help
 

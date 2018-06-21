@@ -318,10 +318,10 @@ public class Notification extends Resource {
 
     /**
      * Returns The This parameter specifies the custom key-value pairs of the
-     * notification’s payload..
+     * notification's payload..
      * 
      * @return This parameter specifies the custom key-value pairs of the
-     *         notification’s payload.
+     *         notification's payload.
      */
     public final Map<String, Object> getData() {
         return this.data;

@@ -261,9 +261,9 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The Filter by a worker’s friendly name.
+     * Returns The Filter by a worker's friendly name.
      * 
-     * @return Filter by a worker’s friendly name
+     * @return Filter by a worker's friendly name
      */
     public final String getFriendlyName() {
         return this.friendlyName;

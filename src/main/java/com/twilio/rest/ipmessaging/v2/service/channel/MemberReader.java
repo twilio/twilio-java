@@ -47,8 +47,7 @@ public class MemberReader extends Reader<Member> {
      * docs for more details..
      * 
      * @param identity A unique string identifier for this User in this Service.
-     *                 See the access tokens docs for more details. (📇 PII MTL: 120
-     *                 days)
+     *                 See the access tokens docs for more details.
      * @return this
      */
     public MemberReader setIdentity(final List<String> identity) {
@@ -64,8 +63,7 @@ public class MemberReader extends Reader<Member> {
      * docs for more details..
      * 
      * @param identity A unique string identifier for this User in this Service.
-     *                 See the access tokens docs for more details. (📇 PII MTL: 120
-     *                 days)
+     *                 See the access tokens docs for more details.
      * @return this
      */
     public MemberReader setIdentity(final String identity) {

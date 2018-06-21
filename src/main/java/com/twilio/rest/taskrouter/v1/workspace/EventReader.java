@@ -66,11 +66,11 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by up to ‘x’ minutes in the past. This is helpful for events
+     * Filter events by up to 'x' minutes in the past. This is helpful for events
      * for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to
      * see trends. Defaults to 15 minutes..
      * 
-     * @param minutes Filter events by up to ‘x’ minutes in the past.
+     * @param minutes Filter events by up to 'x' minutes in the past.
      * @return this
      */
     public EventReader setMinutes(final Integer minutes) {

@@ -149,7 +149,7 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
-     * This parameter specifies the custom key-value pairs of the notification’s
+     * This parameter specifies the custom key-value pairs of the notification's
      * payload. Translates to `data` dictionary in FCM and GCM payload. FCM and GCM
      * [reserves certain
      * keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that
@@ -163,7 +163,7 @@ public class NotificationCreator extends Creator<Notification> {
      * those channels..
      * 
      * @param data This parameter specifies the custom key-value pairs of the
-     *             notification’s payload.
+     *             notification's payload.
      * @return this
      */
     public NotificationCreator setData(final Map<String, Object> data) {

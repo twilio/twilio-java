@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2018-06-21] Version 7.21.5
+----------------------------
+**Api**
+- Add Fraud Lookups category to usage records
+
+**Video**
+- Allow user to set `ContentDisposition` when obtaining media URLs for Room Recordings and Compositions
+- Add Composition Settings resource
+
+
 [2018-06-15] Version 7.21.4
 ----------------------------
 **Library**

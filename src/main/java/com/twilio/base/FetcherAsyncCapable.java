@@ -1,64 +1,42 @@
-package com.twilio.base.experimental;
+package com.twilio.base;
 
 import com.google.common.base.Function;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.twilio.Twilio;
-import com.twilio.base.Resource;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 
 /**
- * Executor for fetches of a resource.
- * <p/>
- * Experimental version with real asynchronous support.
+ * Fetcher with real async capabilities. By separating the request
+ * generation and the response handling in two methods we no longer
+ * have to block a thread while waiting for the response.
+ * <br>
+ * This would be a drop-in replacement of the existing fetcher.
  *
  * @param <T> type of the resource
  */
-public abstract class Fetcher<T extends Resource> {
+public abstract class FetcherAsyncCapable<T extends Resource> extends Fetcher<T> {
 
     /**
-     * Execute an async request using default client.
-     *
-     * @return future that resolves to requested object
+     * {@inheritDoc}
      */
-    public final ListenableFuture<T> fetchAsync() {
-        return fetchAsync(Twilio.getRestClient());
-    }
-
-    /**
-     * Execute an async request using specified client.
-     *
-     * @param client client used to make request
-     * @return future that resolves to requested object
-     */
+    @Override
     public final ListenableFuture<T> fetchAsync(final TwilioRestClient client) {
         final Request request = buildRequest(client);
         final ListenableFuture<Response> future = client.requestAsync(request);
         return Futures.transform(future, new Function<Response, T>() {
             @Override
             public T apply(Response response) {
-                return Fetcher.this.parseResponse(response, client);
+            return FetcherAsyncCapable.this.parseResponse(response, client);
             }
         });
     }
 
     /**
-     * Execute a request using default client.
-     *
-     * @return Requested object
+     * {@inheritDoc}
      */
-    public final T fetch() {
-        return fetch(Twilio.getRestClient());
-    }
-
-    /**
-     * Execute a request using specified client.
-     *
-     * @param client client used to make request
-     * @return Requested object
-     */
+    @Override
     public final T fetch(final TwilioRestClient client) {
         final Request request = buildRequest(client);
         final Response response = client.request(request);

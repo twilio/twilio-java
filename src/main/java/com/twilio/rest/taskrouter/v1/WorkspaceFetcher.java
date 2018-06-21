@@ -7,7 +7,7 @@
 
 package com.twilio.rest.taskrouter.v1;
 
-import com.twilio.base.experimental.Fetcher;
+import com.twilio.base.FetcherAsyncCapable;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,7 +17,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class WorkspaceFetcher extends Fetcher<Workspace> {
+public class WorkspaceFetcher extends FetcherAsyncCapable<Workspace> {
     private final String pathSid;
 
     /**

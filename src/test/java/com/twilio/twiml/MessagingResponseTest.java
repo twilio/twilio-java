@@ -93,46 +93,38 @@ public class MessagingResponseTest {
 
     @Test
     public void testElementWithGenericNode() {
-        MessagingResponse.Builder builder = new MessagingResponse.Builder();
-
-        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
-
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag").addText("Some text");
         GenericNode node = genericBuilder.build();
 
+        MessagingResponse.Builder builder = new MessagingResponse.Builder();
         MessagingResponse elem = builder.addChild(node).build();
 
         Assert.assertEquals(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                        "<Response>" +
-                        "<genericTag/>"+
-                        "</Response>",
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<Response>" +
+                "<genericTag>" +
+                "Some text" +
+                "</genericTag>" +
+                "</Response>",
                 elem.toXml()
         );
     }
 
     @Test
     public void testElementWithGenericNodeAttributes() {
-        MessagingResponse.Builder builder = new MessagingResponse.Builder();
-
         GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
-        genericBuilder.option("key", "value").addText("someText");
-        GenericNode node = genericBuilder.build();
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
 
-        Message.Builder messageBuilder = new Message.Builder().addChild(node);
-
-        Message message = messageBuilder.build();
-
-        MessagingResponse elem = builder.message(message).build();
+        MessagingResponse.Builder builder = new MessagingResponse.Builder();
+        MessagingResponse elem = builder.addChild(node).build();
 
         Assert.assertEquals(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                        "<Response>" +
-                        "<Message>"+
-                        "<genericTag key=\"value\">"+
-                        "someText"+
-                        "</genericTag>"+
-                        "</Message>"+
-                        "</Response>",
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<Response>" +
+                "<genericTag key=\"value\">" +
+                "someText" +
+                "</genericTag>" +
+                "</Response>",
                 elem.toXml()
         );
     }

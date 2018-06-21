@@ -195,42 +195,38 @@ public class VoiceResponseTest {
 
     @Test
     public void testElementWithGenericNode() {
-        VoiceResponse.Builder builder = new VoiceResponse.Builder();
-
-        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
-
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag").addText("Some text");
         GenericNode node = genericBuilder.build();
 
+        VoiceResponse.Builder builder = new VoiceResponse.Builder();
         VoiceResponse elem = builder.addChild(node).build();
 
         Assert.assertEquals(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                        "<Response>" +
-                        "<genericTag/>"+
-                        "</Response>",
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<Response>" +
+                "<genericTag>" +
+                "Some text" +
+                "</genericTag>" +
+                "</Response>",
                 elem.toXml()
         );
     }
 
     @Test
     public void testElementWithGenericNodeAttributes() {
-        VoiceResponse.Builder builder = new VoiceResponse.Builder();
-
         GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
 
-        genericBuilder.option("key", "value").addText("someText");
-
-        GenericNode node = genericBuilder.build();
-
+        VoiceResponse.Builder builder = new VoiceResponse.Builder();
         VoiceResponse elem = builder.addChild(node).build();
 
         Assert.assertEquals(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                        "<Response>" +
-                        "<genericTag key=\"value\">" +
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<Response>" +
+                "<genericTag key=\"value\">" +
                 "someText" +
-                        "</genericTag>" +
-                        "</Response>",
+                "</genericTag>" +
+                "</Response>",
                 elem.toXml()
         );
     }

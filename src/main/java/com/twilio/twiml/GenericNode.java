@@ -14,7 +14,7 @@ public class GenericNode extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Response>} element
+         * Create and return resulting {@code <GenericNode>} element
          */
         public GenericNode build() {
             return new GenericNode(this);

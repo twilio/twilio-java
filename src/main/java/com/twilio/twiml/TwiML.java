@@ -51,13 +51,10 @@ public abstract class TwiML {
      *
      * @return A Map of attribute keys to values
      */
-    protected Map<String,String> getElementAttributes() {
+    protected Map<String, String> getElementAttributes() {
         return new HashMap<>();
     }
 
-    public Builder getBuilder() {
-        return this.builder;
-    }
     /**
      * Get tag name of this TwiML Element.
      */
@@ -214,7 +211,7 @@ public abstract class TwiML {
          */
         public T addChild(GenericNode node) {
             this.children.add(node);
-            return(T)this;
+            return (T)this;
         }
 
 

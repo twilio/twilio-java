@@ -87,8 +87,8 @@ public class FaxResponseTest {
         GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag").addText("Some text");
         GenericNode node = genericBuilder.build();
 
-        MessagingResponse.Builder builder = new MessagingResponse.Builder();
-        MessagingResponse elem = builder.addChild(node).build();
+        FaxResponse.Builder builder = new FaxResponse.Builder();
+        FaxResponse elem = builder.addChild(node).build();
 
         Assert.assertEquals(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +

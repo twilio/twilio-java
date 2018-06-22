@@ -7,6 +7,7 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -55,6 +56,26 @@ public class EchoTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Echo>" +
             "Hey no tags!" +
+            "</Echo>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Echo.Builder builder = new Echo.Builder();
+        Echo elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Echo>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
             "</Echo>",
             elem.toXml()
         );

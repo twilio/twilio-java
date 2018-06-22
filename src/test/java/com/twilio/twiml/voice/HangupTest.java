@@ -7,6 +7,7 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -55,6 +56,26 @@ public class HangupTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Hangup>" +
             "Hey no tags!" +
+            "</Hangup>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Hangup.Builder builder = new Hangup.Builder();
+        Hangup elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Hangup>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
             "</Hangup>",
             elem.toXml()
         );

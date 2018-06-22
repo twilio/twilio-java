@@ -195,20 +195,21 @@ public class VoiceResponseTest {
 
     @Test
     public void testElementWithGenericNode() {
-        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag").addText("Some text");
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
         GenericNode node = genericBuilder.build();
 
         VoiceResponse.Builder builder = new VoiceResponse.Builder();
         VoiceResponse elem = builder.addChild(node).build();
 
         Assert.assertEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                "<Response>" +
-                "<genericTag>" +
-                "Some text" +
-                "</genericTag>" +
-                "</Response>",
-                elem.toXml()
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Response>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
+            "</Response>",
+            elem.toXml()
         );
     }
 
@@ -221,13 +222,13 @@ public class VoiceResponseTest {
         VoiceResponse elem = builder.addChild(node).build();
 
         Assert.assertEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                "<Response>" +
-                "<genericTag key=\"value\">" +
-                "someText" +
-                "</genericTag>" +
-                "</Response>",
-                elem.toXml()
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Response>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
+            "</Response>",
+            elem.toXml()
         );
     }
 }

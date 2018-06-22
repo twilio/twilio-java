@@ -7,6 +7,7 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -55,6 +56,26 @@ public class LeaveTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Leave>" +
             "Hey no tags!" +
+            "</Leave>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Leave.Builder builder = new Leave.Builder();
+        Leave elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Leave>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
             "</Leave>",
             elem.toXml()
         );

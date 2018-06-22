@@ -8,6 +8,7 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -92,6 +93,45 @@ public class EnqueueTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue>" +
             "Hey no tags!" +
+            "</Enqueue>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Enqueue.Builder builder = new Enqueue.Builder();
+        Enqueue elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Enqueue>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
+            "</Enqueue>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Enqueue.Builder builder = new Enqueue.Builder();
+        Enqueue elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Enqueue>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
             "</Enqueue>",
             elem.toXml()
         );

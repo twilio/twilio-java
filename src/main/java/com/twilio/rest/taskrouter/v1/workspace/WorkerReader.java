@@ -63,7 +63,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Filter by workers that are available or unavailable. (Note: This can be
-     * 'true', '1' or 'yes' to indicate a true value. All other values will
+     * ‘true’, ‘1’’ or ‘yes’ to indicate a true value. All other values will
      * represent false).
      * 
      * @param available Filter by workers that are available or unavailable.
@@ -75,9 +75,9 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Filter by a worker's friendly name.
+     * Filter by a worker’s friendly name.
      * 
-     * @param friendlyName Filter by a worker's friendly name
+     * @param friendlyName Filter by a worker’s friendly name
      * @return this
      */
     public WorkerReader setFriendlyName(final String friendlyName) {

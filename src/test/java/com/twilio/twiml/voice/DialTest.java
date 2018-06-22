@@ -9,6 +9,7 @@ package com.twilio.twiml.voice;
 
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -162,6 +163,45 @@ public class DialTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
             "Hey no tags!" +
+            "</Dial>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Dial.Builder builder = new Dial.Builder();
+        Dial elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Dial>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
+            "</Dial>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Dial.Builder builder = new Dial.Builder();
+        Dial elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Dial>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
             "</Dial>",
             elem.toXml()
         );

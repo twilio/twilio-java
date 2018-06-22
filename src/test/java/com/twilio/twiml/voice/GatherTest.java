@@ -9,6 +9,7 @@ package com.twilio.twiml.voice;
 
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -109,6 +110,45 @@ public class GatherTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Gather>" +
             "Hey no tags!" +
+            "</Gather>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Gather.Builder builder = new Gather.Builder();
+        Gather elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Gather>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
+            "</Gather>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Gather.Builder builder = new Gather.Builder();
+        Gather elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Gather>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
             "</Gather>",
             elem.toXml()
         );

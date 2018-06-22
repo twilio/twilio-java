@@ -8,6 +8,7 @@
 package com.twilio.twiml.messaging;
 
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -95,6 +96,45 @@ public class MessageTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message>" +
             "Hey no tags!" +
+            "</Message>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Message.Builder builder = new Message.Builder();
+        Message elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Message>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
+            "</Message>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Message.Builder builder = new Message.Builder();
+        Message elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Message>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
             "</Message>",
             elem.toXml()
         );

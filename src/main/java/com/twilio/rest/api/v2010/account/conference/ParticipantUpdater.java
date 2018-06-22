@@ -121,12 +121,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The 'AnnounceUrl' attribute lets you specify a URL for announcing something
-     * to the participant. The URL may return an MP3, a WAV or a TwiML document with
-     * `&lt;Play&gt;` or `&lt;Say&gt;`..
+     * The announce_url.
      * 
-     * @param announceUrl The 'AnnounceUrl' attribute lets you specify a URL for
-     *                    announcing something to the participant.
+     * @param announceUrl The announce_url
      * @return this
      */
     public ParticipantUpdater setAnnounceUrl(final URI announceUrl) {
@@ -135,12 +132,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The 'AnnounceUrl' attribute lets you specify a URL for announcing something
-     * to the participant. The URL may return an MP3, a WAV or a TwiML document with
-     * `&lt;Play&gt;` or `&lt;Say&gt;`..
+     * The announce_url.
      * 
-     * @param announceUrl The 'AnnounceUrl' attribute lets you specify a URL for
-     *                    announcing something to the participant.
+     * @param announceUrl The announce_url
      * @return this
      */
     public ParticipantUpdater setAnnounceUrl(final String announceUrl) {
@@ -148,9 +142,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * Specify GET or POST, defaults to POST.
+     * The announce_method.
      * 
-     * @param announceMethod Specify GET or POST, defaults to POST
+     * @param announceMethod The announce_method
      * @return this
      */
     public ParticipantUpdater setAnnounceMethod(final HttpMethod announceMethod) {

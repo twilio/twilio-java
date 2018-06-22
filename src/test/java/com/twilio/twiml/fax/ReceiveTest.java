@@ -8,6 +8,7 @@
 package com.twilio.twiml.fax;
 
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -69,6 +70,26 @@ public class ReceiveTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Receive>" +
             "Hey no tags!" +
+            "</Receive>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Receive.Builder builder = new Receive.Builder();
+        Receive elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Receive>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
             "</Receive>",
             elem.toXml()
         );

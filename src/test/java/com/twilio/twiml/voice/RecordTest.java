@@ -8,6 +8,7 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -81,6 +82,26 @@ public class RecordTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Record>" +
             "Hey no tags!" +
+            "</Record>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Record.Builder builder = new Record.Builder();
+        Record elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Record>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
             "</Record>",
             elem.toXml()
         );

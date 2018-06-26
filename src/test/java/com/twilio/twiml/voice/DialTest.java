@@ -169,6 +169,28 @@ public class DialTest {
     }
 
     @Test
+    public void testMixedContent() {
+        GenericNode.Builder child = new GenericNode.Builder("Child");
+        child.addText("content");
+
+        Dial.Builder builder = new Dial.Builder();
+
+        builder.addText("before");
+        builder.addChild(child.build());
+        builder.addText("after");
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Dial>" +
+            "before" +
+            "<Child>content</Child>" +
+            "after" +
+            "</Dial>",
+            builder.build().toXml()
+        );
+    }
+
+    @Test
     public void testElementWithGenericNode() {
         GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
         genericBuilder.addText("Some text");

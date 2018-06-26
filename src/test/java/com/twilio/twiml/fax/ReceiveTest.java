@@ -76,6 +76,28 @@ public class ReceiveTest {
     }
 
     @Test
+    public void testMixedContent() {
+        GenericNode.Builder child = new GenericNode.Builder("Child");
+        child.addText("content");
+
+        Receive.Builder builder = new Receive.Builder();
+
+        builder.addText("before");
+        builder.addChild(child.build());
+        builder.addText("after");
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Receive>" +
+            "before" +
+            "<Child>content</Child>" +
+            "after" +
+            "</Receive>",
+            builder.build().toXml()
+        );
+    }
+
+    @Test
     public void testElementWithGenericNode() {
         GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
         genericBuilder.addText("Some text");

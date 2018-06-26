@@ -62,6 +62,28 @@ public class LeaveTest {
     }
 
     @Test
+    public void testMixedContent() {
+        GenericNode.Builder child = new GenericNode.Builder("Child");
+        child.addText("content");
+
+        Leave.Builder builder = new Leave.Builder();
+
+        builder.addText("before");
+        builder.addChild(child.build());
+        builder.addText("after");
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Leave>" +
+            "before" +
+            "<Child>content</Child>" +
+            "after" +
+            "</Leave>",
+            builder.build().toXml()
+        );
+    }
+
+    @Test
     public void testElementWithGenericNode() {
         GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
         genericBuilder.addText("Some text");

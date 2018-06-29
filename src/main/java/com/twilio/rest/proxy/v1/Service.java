@@ -246,9 +246,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this resource..
+     * Returns The A human-readable description of this resource..
      * 
-     * @return A human readable description of this resource.
+     * @return A human-readable description of this resource.
      */
     public final String getUniqueName() {
         return this.uniqueName;

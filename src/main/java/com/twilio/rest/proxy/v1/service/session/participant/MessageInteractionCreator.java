@@ -56,7 +56,7 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
      * @param pathServiceSid Service Sid
      * @param pathSessionSid Session Sid
      * @param pathParticipantSid Participant Sid
-     * @param mediaUrl The media_url
+     * @param mediaUrl Not supported in beta
      */
     public MessageInteractionCreator(final String pathServiceSid, 
                                      final String pathSessionSid, 
@@ -80,9 +80,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * The media_url.
+     * Not currently supported during beta..
      * 
-     * @param mediaUrl The media_url
+     * @param mediaUrl Not supported in beta
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final List<URI> mediaUrl) {
@@ -91,9 +91,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * The media_url.
+     * Not currently supported during beta..
      * 
-     * @param mediaUrl The media_url
+     * @param mediaUrl Not supported in beta
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final URI mediaUrl) {
@@ -101,9 +101,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * The media_url.
+     * Not currently supported during beta..
      * 
-     * @param mediaUrl The media_url
+     * @param mediaUrl Not supported in beta
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final String mediaUrl) {

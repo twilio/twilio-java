@@ -134,7 +134,7 @@ public class MessageInteraction extends Resource {
      * @param pathServiceSid Service Sid
      * @param pathSessionSid Session Sid
      * @param pathParticipantSid Participant Sid
-     * @param mediaUrl The media_url
+     * @param mediaUrl Not supported in beta
      * @return MessageInteractionCreator capable of executing the create
      */
     public static MessageInteractionCreator creator(final String pathServiceSid, 

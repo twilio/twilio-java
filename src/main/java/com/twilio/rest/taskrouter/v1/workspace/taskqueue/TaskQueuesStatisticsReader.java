@@ -52,10 +52,10 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * Filter the TaskQueue stats based on a TaskQueue’s name (only for list
+     * Filter the TaskQueue stats based on a TaskQueue's name (only for list
      * resource).
      * 
-     * @param friendlyName Filter the TaskQueue stats based on a TaskQueue’s name
+     * @param friendlyName Filter the TaskQueue stats based on a TaskQueue's name
      * @return this
      */
     public TaskQueuesStatisticsReader setFriendlyName(final String friendlyName) {
@@ -64,11 +64,11 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     }
 
     /**
-     * Filter cumulative statistics by up to ‘x’ minutes in the past. This is
+     * Filter cumulative statistics by up to 'x' minutes in the past. This is
      * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
      * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
      * 
-     * @param minutes Filter cumulative statistics by up to ‘x’ minutes in the past.
+     * @param minutes Filter cumulative statistics by up to 'x' minutes in the past.
      * @return this
      */
     public TaskQueuesStatisticsReader setMinutes(final Integer minutes) {

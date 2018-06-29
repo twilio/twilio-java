@@ -37,9 +37,10 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * A 34 character string that uniquely identifies this Phone Number..
+     * A Twilio
+     * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incoming-phone-numbers) Sid that represents the Twilio Number you would like to assign to your Proxy Service (e.g. `PN1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d`)..
      * 
-     * @param sid A string that uniquely identifies this Phone Number.
+     * @param sid Phone Number Sid of Twilio Number to assign to your Proxy Service
      * @return this
      */
     public PhoneNumberCreator setSid(final String sid) {
@@ -48,9 +49,11 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * The phone_number.
+     * A string that represents the Twilio Number you would like to assign to your
+     * Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164)
+     * format (e.g. `+16175551212`)..
      * 
-     * @param phoneNumber The phone_number
+     * @param phoneNumber Twilio Number to assign to your Proxy Service
      * @return this
      */
     public PhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -59,9 +62,11 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * The phone_number.
+     * A string that represents the Twilio Number you would like to assign to your
+     * Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164)
+     * format (e.g. `+16175551212`)..
      * 
-     * @param phoneNumber The phone_number
+     * @param phoneNumber Twilio Number to assign to your Proxy Service
      * @return this
      */
     public PhoneNumberCreator setPhoneNumber(final String phoneNumber) {

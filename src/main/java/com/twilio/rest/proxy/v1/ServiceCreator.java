@@ -46,7 +46,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * The default time delay in seconds after the latest of Session create time or
      * the Session's last Interaction time, after which a session will expire.  Used
-     * for sessions where ttl is not specified..
+     * for sessions where TTL is not specified..
      * 
      * @param defaultTtl Default TTL for Sessions in Service, in seconds.
      * @return this

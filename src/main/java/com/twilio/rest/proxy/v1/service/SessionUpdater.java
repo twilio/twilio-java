@@ -31,7 +31,6 @@ import java.util.Map;
 public class SessionUpdater extends Updater<Session> {
     private final String pathServiceSid;
     private final String pathSid;
-    private String uniqueName;
     private DateTime dateExpiry;
     private Integer ttl;
     private Session.Mode mode;
@@ -48,17 +47,6 @@ public class SessionUpdater extends Updater<Session> {
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
-    }
-
-    /**
-     * The unique_name.
-     * 
-     * @param uniqueName The unique_name
-     * @return this
-     */
-    public SessionUpdater setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
     }
 
     /**
@@ -173,10 +161,6 @@ public class SessionUpdater extends Updater<Session> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
-        }
-
         if (dateExpiry != null) {
             request.addPostParam("DateExpiry", dateExpiry.toString());
         }

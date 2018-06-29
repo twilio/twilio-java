@@ -45,10 +45,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters. Should
+     * A human-readable description of this resource, up to 64 characters. Should
      * not include PII..
      * 
-     * @param friendlyName A human readable description of this resource.
+     * @param friendlyName A human-readable description of this resource.
      * @return this
      */
     public ParticipantCreator setFriendlyName(final String friendlyName) {

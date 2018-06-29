@@ -35,8 +35,7 @@ public class MemberCreator extends Creator<Member> {
      * @param pathServiceSid The service_sid
      * @param pathChannelSid The channel_sid
      * @param identity A unique string identifier for this User in this Service.
-     *                 See the access tokens docs for more details. (📇 PII MTL: 120
-     *                 days)
+     *                 See the access tokens docs for more details.
      */
     public MemberCreator(final String pathServiceSid, 
                          final String pathChannelSid, 

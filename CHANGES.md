@@ -1,6 +1,14 @@
 twilio-java changelog
 =====================
 
+[2018-06-29] Version 7.21.6
+----------------------------
+**Library**
+- PR #421: Tests for mixed TwiML content. Thanks to @ekarson!
+- PR #420: Update tests with generated version. Thanks to @mbichoffe!
+- PR #419: Allow adding TwiML children with generic tag names. Thanks to @mbichoffe!
+
+
 [2018-06-21] Version 7.21.5
 ----------------------------
 **Api**

@@ -48,7 +48,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Your unique identifier for this Session such as a Job ID or conversation ID.
-     * Should not contain PII..
+     * *Should not contain PII.*.
      * 
      * @param uniqueName A unique, developer assigned name of this Session.
      * @return this

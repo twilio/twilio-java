@@ -56,8 +56,7 @@ public class Member extends Resource {
      * @param pathServiceSid The service_sid
      * @param pathChannelSid The channel_sid
      * @param identity A unique string identifier for this User in this Service.
-     *                 See the access tokens docs for more details. (📇 PII MTL: 120
-     *                 days)
+     *                 See the access tokens docs for more details.
      * @return MemberCreator capable of executing the create
      */
     public static MemberCreator creator(final String pathServiceSid, 

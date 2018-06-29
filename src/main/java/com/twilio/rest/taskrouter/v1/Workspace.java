@@ -284,9 +284,9 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The Filter by a workspace’s friendly name..
+     * Returns The Filter by a workspace's friendly name..
      * 
-     * @return Filter by a workspace’s friendly name.
+     * @return Filter by a workspace's friendly name.
      */
     public final String getFriendlyName() {
         return this.friendlyName;

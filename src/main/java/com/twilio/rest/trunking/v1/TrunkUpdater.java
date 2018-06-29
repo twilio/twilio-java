@@ -140,9 +140,14 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
-     * The cnam_lookup_enabled.
+     * The Caller ID Name (CNAM) lookup setting for this trunk. If turned on, all
+     * inbound calls to this SIP Trunk from the United States and Canada will
+     * automatically perform a CNAM Lookup and display Caller ID data on your phone.
+     * See [CNAM](https://www.twilio.com/docs/sip-trunking#CNAM) Lookups for more
+     * information..
      * 
-     * @param cnamLookupEnabled The cnam_lookup_enabled
+     * @param cnamLookupEnabled The Caller ID Name (CNAM) lookup setting for this
+     *                          trunk.
      * @return this
      */
     public TrunkUpdater setCnamLookupEnabled(final Boolean cnamLookupEnabled) {

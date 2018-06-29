@@ -95,20 +95,6 @@ public class Participant extends Resource {
     }
 
     /**
-     * Create a ParticipantUpdater to execute update.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSessionSid The session_sid
-     * @param pathSid The sid
-     * @return ParticipantUpdater capable of executing the update
-     */
-    public static ParticipantUpdater updater(final String pathServiceSid, 
-                                             final String pathSessionSid, 
-                                             final String pathSid) {
-        return new ParticipantUpdater(pathServiceSid, pathSessionSid, pathSid);
-    }
-
-    /**
      * Converts a JSON String into a Participant object using the provided
      * ObjectMapper.
      * 
@@ -239,9 +225,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this resource..
+     * Returns The A human-readable description of this resource..
      * 
-     * @return A human readable description of this resource.
+     * @return A human-readable description of this resource.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -275,9 +261,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The date this Participant was deleted.
+     * Returns The The date this Participant was removed.
      * 
-     * @return The date this Participant was deleted
+     * @return The date this Participant was removed
      */
     public final DateTime getDateDeleted() {
         return this.dateDeleted;

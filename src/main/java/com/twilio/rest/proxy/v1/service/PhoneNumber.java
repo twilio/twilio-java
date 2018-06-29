@@ -222,9 +222,9 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this resource..
+     * Returns The A human-readable description of this resource..
      * 
-     * @return A human readable description of this resource.
+     * @return A human-readable description of this resource.
      */
     public final String getFriendlyName() {
         return this.friendlyName;

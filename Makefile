@@ -20,6 +20,6 @@ docker-build:
 	docker tag twilio/twilio-java twilio/twilio-java:apidefs-${API_DEFINITIONS_SHA}
 
 docker-push:
-	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+	echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 	docker push twilio/twilio-java:${TRAVIS_TAG}
-	docker push twilio/twilio-java:apidefs-${API_DEFINITIONS_TAG}
+	docker push twilio/twilio-java:apidefs-${API_DEFINITIONS_SHA}

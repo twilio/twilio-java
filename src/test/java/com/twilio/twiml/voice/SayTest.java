@@ -16,7 +16,7 @@ import org.junit.Test;
 public class SayTest {
     @Test
     public void testElementWithParams() {
-        Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build();
+        Say elem = new Say.Builder("message").voice(Say.Voice.MAN.toString()).loop(1).language(Say.Language.DA_DK).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +

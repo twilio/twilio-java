@@ -79,7 +79,7 @@ public class GatherTest {
     public void testElementWithChildren() {
         Gather.Builder builder = new Gather.Builder();
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN.toString()).loop(1).language(Say.Language.DA_DK).build());
 
         builder.pause(new Pause.Builder().length(1).build());
 

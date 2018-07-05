@@ -26,7 +26,7 @@ public class TwiMLResponseExample {
     public static void main(final String[] args) throws TwiMLException, URISyntaxException {
         // Say
         Say say = new Say.Builder("Hello World!")
-            .voice(Say.Voice.MAN)
+            .voice(Say.Voice.MAN.toString())
             .loop(5)
             .build();
 

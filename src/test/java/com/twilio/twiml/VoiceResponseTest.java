@@ -142,7 +142,7 @@ public class VoiceResponseTest {
 
         builder.reject(new Reject.Builder().reason(Reject.Reason.REJECTED).build());
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN.toString()).loop(1).language(Say.Language.DA_DK).build());
 
         builder.sms(new Sms.Builder("message")
                     .to(new com.twilio.type.PhoneNumber("+15558675310"))

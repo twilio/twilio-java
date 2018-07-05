@@ -14,7 +14,7 @@ public class RequestValidatorTest {
     Map<String, String> params = new HashMap<>();
     String url = "https://mycompany.com/myapp.php?foo=1&bar=2";
     RequestValidator validator = new RequestValidator("12345");
-    String signature;
+    String signature = "RSOYDt4T1cUTdK1PDd93/VVr8B8=";
     String body = "{\"property\": \"value\", \"boolean\": true}";
     String bodySignature = "Ch/3Y02as7ldtcmi3+lBbkFQKyg6gMfPGWMmMvluZiA=";
 
@@ -25,8 +25,6 @@ public class RequestValidatorTest {
         params.put("Digits", "1234");
         params.put("From", "+14158675309");
         params.put("To", "+18005551212");
-
-        signature = "RSOYDt4T1cUTdK1PDd93/VVr8B8=";
     }
 
     @Test

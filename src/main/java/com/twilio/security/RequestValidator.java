@@ -1,10 +1,13 @@
 package com.twilio.security;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +26,24 @@ public class RequestValidator {
     public boolean validate(String url, Map<String, String> params, String expectedSignature) {
         String signature = getValidationSignature(url, params);
         return secureCompare(signature, expectedSignature);
+    }
+
+    public boolean validate(String url, Map<String, String> params, String body, String expectedSignature) {
+        return validate(url, params, expectedSignature) && validateBody(body, params.get("bodySHA256"));
+    }
+
+    public boolean validateBody(String body, String expectedSHA) {
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance(MessageDigestAlgorithms.SHA_256);
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        }
+
+        byte[] hash = digest.digest(body.getBytes(StandardCharsets.UTF_8));
+        String base64String = new String(Base64.encodeBase64(hash));
+
+        return secureCompare(expectedSHA, base64String);
     }
 
     private String getValidationSignature(String url, Map<String, String> params) {

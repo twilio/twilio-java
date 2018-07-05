@@ -101,6 +101,10 @@ That will output XML that looks like this:
 
 The documentation for the Twilio API can be found [here.](http://twilio.com/docs/api)
 
+## Docker Image
+
+The `Dockerfile` present in this repository and its respective `twilio/twilio-java` Docker image are currently used by Twilio for testing purposes only.
+
 # Getting help
 
 If you need help installing or using the library, please contact Twilio Support

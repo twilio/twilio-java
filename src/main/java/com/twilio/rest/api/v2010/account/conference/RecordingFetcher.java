@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account.call;
+package com.twilio.rest.api.v2010.account.conference;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,58 +17,59 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingDeleter extends Deleter<Recording> {
+public class RecordingFetcher extends Fetcher<Recording> {
     private String pathAccountSid;
-    private final String pathCallSid;
+    private final String pathConferenceSid;
     private final String pathSid;
 
     /**
-     * Construct a new RecordingDeleter.
+     * Construct a new RecordingFetcher.
      * 
-     * @param pathCallSid Delete by unique call Sid for the recording
-     * @param pathSid Delete by unique recording Sid
+     * @param pathConferenceSid Fetch by unique conference Sid for the recording
+     * @param pathSid Fetch by unique recording Sid
      */
-    public RecordingDeleter(final String pathCallSid, 
+    public RecordingFetcher(final String pathConferenceSid, 
                             final String pathSid) {
-        this.pathCallSid = pathCallSid;
+        this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Construct a new RecordingDeleter.
+     * Construct a new RecordingFetcher.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathCallSid Delete by unique call Sid for the recording
-     * @param pathSid Delete by unique recording Sid
+     * @param pathConferenceSid Fetch by unique conference Sid for the recording
+     * @param pathSid Fetch by unique recording Sid
      */
-    public RecordingDeleter(final String pathAccountSid, 
-                            final String pathCallSid, 
+    public RecordingFetcher(final String pathAccountSid, 
+                            final String pathConferenceSid, 
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
-        this.pathCallSid = pathCallSid;
+        this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched Recording
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
+    public Recording fetch(final TwilioRestClient client) {
         this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
-            HttpMethod.DELETE,
+            HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings/" + this.pathSid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Recordings/" + this.pathSid + ".json",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Recording fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -84,6 +85,6 @@ public class RecordingDeleter extends Deleter<Recording> {
             );
         }
 
-        return response.getStatusCode() == 204;
+        return Recording.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -24,7 +24,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     /**
      * Construct a new TranscriptionFetcher.
      * 
-     * @param pathSid Fetch by unique transcription Sid
+     * @param pathSid Fetch by unique transcription SID
      */
     public TranscriptionFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -34,7 +34,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
      * Construct a new TranscriptionFetcher.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique transcription Sid
+     * @param pathSid Fetch by unique transcription SID
      */
     public TranscriptionFetcher(final String pathAccountSid, 
                                 final String pathSid) {

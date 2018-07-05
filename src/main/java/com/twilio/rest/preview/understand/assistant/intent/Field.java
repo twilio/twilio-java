@@ -72,7 +72,9 @@ public class Field extends Resource {
      * 
      * @param pathAssistantSid The assistant_sid
      * @param pathIntentSid The intent_sid
-     * @param fieldType The unique name or sid of the FieldType
+     * @param fieldType The unique name or sid of the FieldType. It can be any
+     *                  Built-in Field Type or the unique_name or sid of a custom
+     *                  Field Type.
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -204,11 +206,11 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The Field Type of this field. Can be the Field Type unique_name
-     * or the Field Type sid..
+     * Returns The The Field Type of this field. It can be any Built-in Field Type
+     * or unique_name or the Field Type sid of a custom Field Type..
      * 
-     * @return The Field Type of this field. Can be the Field Type unique_name or
-     *         the Field Type sid.
+     * @return The Field Type of this field. It can be any Built-in Field Type or
+     *         unique_name or the Field Type sid of a custom Field Type.
      */
     public final String getFieldType() {
         return this.fieldType;

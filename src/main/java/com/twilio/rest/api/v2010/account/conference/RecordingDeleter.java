@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account.call;
+package com.twilio.rest.api.v2010.account.conference;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -19,18 +19,18 @@ import com.twilio.rest.Domains;
 
 public class RecordingDeleter extends Deleter<Recording> {
     private String pathAccountSid;
-    private final String pathCallSid;
+    private final String pathConferenceSid;
     private final String pathSid;
 
     /**
      * Construct a new RecordingDeleter.
      * 
-     * @param pathCallSid Delete by unique call Sid for the recording
+     * @param pathConferenceSid Fetch by unique conference Sid for the recording
      * @param pathSid Delete by unique recording Sid
      */
-    public RecordingDeleter(final String pathCallSid, 
+    public RecordingDeleter(final String pathConferenceSid, 
                             final String pathSid) {
-        this.pathCallSid = pathCallSid;
+        this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
     }
 
@@ -38,14 +38,14 @@ public class RecordingDeleter extends Deleter<Recording> {
      * Construct a new RecordingDeleter.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathCallSid Delete by unique call Sid for the recording
+     * @param pathConferenceSid Fetch by unique conference Sid for the recording
      * @param pathSid Delete by unique recording Sid
      */
     public RecordingDeleter(final String pathAccountSid, 
-                            final String pathCallSid, 
+                            final String pathConferenceSid, 
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
-        this.pathCallSid = pathCallSid;
+        this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
     }
 
@@ -61,7 +61,7 @@ public class RecordingDeleter extends Deleter<Recording> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings/" + this.pathSid + ".json",
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Recordings/" + this.pathSid + ".json",
             client.getRegion()
         );
 

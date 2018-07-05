@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.understand.assistant;
+package com.twilio.rest.api.v2010.account.conference;
 
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
@@ -17,66 +17,59 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class QueryUpdater extends Updater<Query> {
-    private final String pathAssistantSid;
+public class RecordingUpdater extends Updater<Recording> {
+    private String pathAccountSid;
+    private final String pathConferenceSid;
     private final String pathSid;
-    private String sampleSid;
-    private String status;
+    private final Recording.Status status;
 
     /**
-     * Construct a new QueryUpdater.
+     * Construct a new RecordingUpdater.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathConferenceSid The conference_sid
      * @param pathSid The sid
+     * @param status The status to change the recording to.
      */
-    public QueryUpdater(final String pathAssistantSid, 
-                        final String pathSid) {
-        this.pathAssistantSid = pathAssistantSid;
+    public RecordingUpdater(final String pathConferenceSid, 
+                            final String pathSid, 
+                            final Recording.Status status) {
+        this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
-    }
-
-    /**
-     * The sample_sid.
-     * 
-     * @param sampleSid The sample_sid
-     * @return this
-     */
-    public QueryUpdater setSampleSid(final String sampleSid) {
-        this.sampleSid = sampleSid;
-        return this;
-    }
-
-    /**
-     * A string that described the query status. The values can be: pending_review,
-     * reviewed, discarded.
-     * 
-     * @param status A string that described the query status. The values can be:
-     *               pending_review, reviewed, discarded
-     * @return this
-     */
-    public QueryUpdater setStatus(final String status) {
         this.status = status;
-        return this;
+    }
+
+    /**
+     * Construct a new RecordingUpdater.
+     * 
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The conference_sid
+     * @param pathSid The sid
+     * @param status The status to change the recording to.
+     */
+    public RecordingUpdater(final String pathAccountSid, 
+                            final String pathConferenceSid, 
+                            final String pathSid, 
+                            final Recording.Status status) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathSid = pathSid;
+        this.status = status;
     }
 
     /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Query
+     * @return Updated Recording
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Query update(final TwilioRestClient client) {
+    public Recording update(final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.POST,
-            Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
+            Domains.API.toString(),
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Recordings/" + this.pathSid + ".json",
             client.getRegion()
         );
 
@@ -84,7 +77,7 @@ public class QueryUpdater extends Updater<Query> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Query update failed: Unable to connect to server");
+            throw new ApiConnectionException("Recording update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -100,7 +93,7 @@ public class QueryUpdater extends Updater<Query> {
             );
         }
 
-        return Query.fromJson(response.getStream(), client.getObjectMapper());
+        return Recording.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -109,12 +102,8 @@ public class QueryUpdater extends Updater<Query> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (sampleSid != null) {
-            request.addPostParam("SampleSid", sampleSid);
-        }
-
         if (status != null) {
-            request.addPostParam("Status", status);
+            request.addPostParam("Status", status.toString());
         }
     }
 }

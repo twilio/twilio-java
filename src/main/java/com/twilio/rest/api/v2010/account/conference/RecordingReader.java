@@ -5,11 +5,13 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.understand.assistant;
+package com.twilio.rest.api.v2010.account.conference;
 
+import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,60 +20,64 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.LocalDate;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class QueryReader extends Reader<Query> {
-    private final String pathAssistantSid;
-    private String language;
-    private String modelBuild;
-    private String status;
+public class RecordingReader extends Reader<Recording> {
+    private String pathAccountSid;
+    private final String pathConferenceSid;
+    private LocalDate absoluteDateCreated;
+    private Range<LocalDate> rangeDateCreated;
 
     /**
-     * Construct a new QueryReader.
+     * Construct a new RecordingReader.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathConferenceSid The conference_sid
      */
-    public QueryReader(final String pathAssistantSid) {
-        this.pathAssistantSid = pathAssistantSid;
+    public RecordingReader(final String pathConferenceSid) {
+        this.pathConferenceSid = pathConferenceSid;
     }
 
     /**
-     * An ISO language-country string of the sample..
+     * Construct a new RecordingReader.
      * 
-     * @param language An ISO language-country string of the sample.
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The conference_sid
+     */
+    public RecordingReader(final String pathAccountSid, 
+                           final String pathConferenceSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
+    }
+
+    /**
+     * Only show recordings created on the given date. Should be formatted as
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
+     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
+     * after midnight on a date..
+     * 
+     * @param absoluteDateCreated Filter by date created
      * @return this
      */
-    public QueryReader setLanguage(final String language) {
-        this.language = language;
+    public RecordingReader setDateCreated(final LocalDate absoluteDateCreated) {
+        this.rangeDateCreated = null;
+        this.absoluteDateCreated = absoluteDateCreated;
         return this;
     }
 
     /**
-     * The Model Build Sid or unique name of the Model Build to be queried..
+     * Only show recordings created on the given date. Should be formatted as
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
+     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
+     * after midnight on a date..
      * 
-     * @param modelBuild The Model Build Sid or unique name of the Model Build to
-     *                   be queried.
+     * @param rangeDateCreated Filter by date created
      * @return this
      */
-    public QueryReader setModelBuild(final String modelBuild) {
-        this.modelBuild = modelBuild;
-        return this;
-    }
-
-    /**
-     * A string that described the query status. The values can be: pending_review,
-     * reviewed, discarded.
-     * 
-     * @param status A string that described the query status. The values can be:
-     *               pending_review, reviewed, discarded
-     * @return this
-     */
-    public QueryReader setStatus(final String status) {
-        this.status = status;
+    public RecordingReader setDateCreated(final Range<LocalDate> rangeDateCreated) {
+        this.absoluteDateCreated = null;
+        this.rangeDateCreated = rangeDateCreated;
         return this;
     }
 
@@ -79,10 +85,10 @@ public class QueryReader extends Reader<Query> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Query ResourceSet
+     * @return Recording ResourceSet
      */
     @Override
-    public ResourceSet<Query> read(final TwilioRestClient client) {
+    public ResourceSet<Recording> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -90,15 +96,16 @@ public class QueryReader extends Reader<Query> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Query ResourceSet
+     * @return Recording ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Query> firstPage(final TwilioRestClient client) {
+    public Page<Recording> firstPage(final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Queries",
+            Domains.API.toString(),
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Recordings.json",
             client.getRegion()
         );
 
@@ -111,11 +118,12 @@ public class QueryReader extends Reader<Query> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Query ResourceSet
+     * @return Recording ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Query> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Recording> getPage(final String targetUrl, final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -132,12 +140,12 @@ public class QueryReader extends Reader<Query> {
      * @return Next Page
      */
     @Override
-    public Page<Query> nextPage(final Page<Query> page, 
-                                final TwilioRestClient client) {
+    public Page<Recording> nextPage(final Page<Recording> page, 
+                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );
@@ -152,12 +160,12 @@ public class QueryReader extends Reader<Query> {
      * @return Previous Page
      */
     @Override
-    public Page<Query> previousPage(final Page<Query> page, 
-                                    final TwilioRestClient client) {
+    public Page<Recording> previousPage(final Page<Recording> page, 
+                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );
@@ -165,17 +173,17 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * Generate a Page of Query Resources for a given request.
+     * Generate a Page of Recording Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Query> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Recording> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Query read failed: Unable to connect to server");
+            throw new ApiConnectionException("Recording read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -192,9 +200,9 @@ public class QueryReader extends Reader<Query> {
         }
 
         return Page.fromJson(
-            "queries",
+            "recordings",
             response.getContent(),
-            Query.class,
+            Recording.class,
             client.getObjectMapper()
         );
     }
@@ -205,16 +213,10 @@ public class QueryReader extends Reader<Query> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (language != null) {
-            request.addQueryParam("Language", language);
-        }
-
-        if (modelBuild != null) {
-            request.addQueryParam("ModelBuild", modelBuild.toString());
-        }
-
-        if (status != null) {
-            request.addQueryParam("Status", status);
+        if (absoluteDateCreated != null) {
+            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
+        } else if (rangeDateCreated != null) {
+            request.addQueryDateRange("DateCreated", rangeDateCreated);
         }
 
         if (getPageSize() != null) {

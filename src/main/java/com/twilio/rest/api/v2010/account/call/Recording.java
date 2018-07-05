@@ -100,11 +100,63 @@ public class Recording extends Resource {
     }
 
     /**
-     * Create a RecordingFetcher to execute fetch.
+     * Create a RecordingCreator to execute create.
+     * 
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid The call_sid
+     * @return RecordingCreator capable of executing the create
+     */
+    public static RecordingCreator creator(final String pathAccountSid, 
+                                           final String pathCallSid) {
+        return new RecordingCreator(pathAccountSid, pathCallSid);
+    }
+
+    /**
+     * Create a RecordingCreator to execute create.
+     * 
+     * @param pathCallSid The call_sid
+     * @return RecordingCreator capable of executing the create
+     */
+    public static RecordingCreator creator(final String pathCallSid) {
+        return new RecordingCreator(pathCallSid);
+    }
+
+    /**
+     * Create a RecordingUpdater to execute update.
      * 
      * @param pathAccountSid The account_sid
      * @param pathCallSid The call_sid
      * @param pathSid The sid
+     * @param status The status to change the recording to.
+     * @return RecordingUpdater capable of executing the update
+     */
+    public static RecordingUpdater updater(final String pathAccountSid, 
+                                           final String pathCallSid, 
+                                           final String pathSid, 
+                                           final Recording.Status status) {
+        return new RecordingUpdater(pathAccountSid, pathCallSid, pathSid, status);
+    }
+
+    /**
+     * Create a RecordingUpdater to execute update.
+     * 
+     * @param pathCallSid The call_sid
+     * @param pathSid The sid
+     * @param status The status to change the recording to.
+     * @return RecordingUpdater capable of executing the update
+     */
+    public static RecordingUpdater updater(final String pathCallSid, 
+                                           final String pathSid, 
+                                           final Recording.Status status) {
+        return new RecordingUpdater(pathCallSid, pathSid, status);
+    }
+
+    /**
+     * Create a RecordingFetcher to execute fetch.
+     * 
+     * @param pathAccountSid The account_sid
+     * @param pathCallSid Fetch by unique call Sid for the recording
+     * @param pathSid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathAccountSid, 
@@ -116,8 +168,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid Fetch by unique call Sid for the recording
+     * @param pathSid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathCallSid, 
@@ -129,8 +181,8 @@ public class Recording extends Resource {
      * Create a RecordingDeleter to execute delete.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid Delete by unique call Sid for the recording
+     * @param pathSid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathAccountSid, 
@@ -142,8 +194,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingDeleter to execute delete.
      * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid Delete by unique call Sid for the recording
+     * @param pathSid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathCallSid, 
@@ -217,6 +269,7 @@ public class Recording extends Resource {
     private final String conferenceSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final DateTime startTime;
     private final String duration;
     private final String sid;
     private final BigDecimal price;
@@ -241,6 +294,8 @@ public class Recording extends Resource {
                       final String dateCreated, 
                       @JsonProperty("date_updated")
                       final String dateUpdated, 
+                      @JsonProperty("start_time")
+                      final String startTime, 
                       @JsonProperty("duration")
                       final String duration, 
                       @JsonProperty("sid")
@@ -268,6 +323,7 @@ public class Recording extends Resource {
         this.conferenceSid = conferenceSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.startTime = DateConverter.rfc2822DateTimeFromString(startTime);
         this.duration = duration;
         this.sid = sid;
         this.price = price;
@@ -281,144 +337,158 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique sid that identifies this account.
      * 
-     * @return The account_sid
+     * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The The version of the API in use during the recording..
      * 
-     * @return The api_version
+     * @return The version of the API in use during the recording.
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The call_sid.
+     * Returns The The unique id for the call leg that corresponds to the
+     * recording..
      * 
-     * @return The call_sid
+     * @return The unique id for the call leg that corresponds to the recording.
      */
     public final String getCallSid() {
         return this.callSid;
     }
 
     /**
-     * Returns The The conference_sid.
+     * Returns The The unique id for the conference associated with the recording,
+     * if a conference recording..
      * 
-     * @return The conference_sid
+     * @return The unique id for the conference associated with the recording, if a
+     *         conference recording.
      */
     public final String getConferenceSid() {
         return this.conferenceSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this resource was created.
      * 
-     * @return The date_created
+     * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The duration.
+     * Returns The The start time of the recording, given in RFC 2822 format..
      * 
-     * @return The duration
+     * @return The start time of the recording, given in RFC 2822 format.
+     */
+    public final DateTime getStartTime() {
+        return this.startTime;
+    }
+
+    /**
+     * Returns The The length of the recording, in seconds..
+     * 
+     * @return The length of the recording, in seconds.
      */
     public final String getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this recording.
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this recording
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The price.
+     * Returns The The one-time cost of creating this recording..
      * 
-     * @return The price
+     * @return The one-time cost of creating this recording.
      */
     public final BigDecimal getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI for this resource.
      * 
-     * @return The uri
+     * @return The URI for this resource
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The encryption_details.
+     * Returns The Details for how to decrypt the recording..
      * 
-     * @return The encryption_details
+     * @return Details for how to decrypt the recording.
      */
     public final Map<String, Object> getEncryptionDetails() {
         return this.encryptionDetails;
     }
 
     /**
-     * Returns The The price_unit.
+     * Returns The The currency used in the Price property..
      * 
-     * @return The price_unit
+     * @return The currency used in the Price property.
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of the recording..
      * 
-     * @return The status
+     * @return The status of the recording.
      */
     public final Recording.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The channels.
+     * Returns The The number of channels in the final recording file as an
+     * integer..
      * 
-     * @return The channels
+     * @return The number of channels in the final recording file as an integer.
      */
     public final Integer getChannels() {
         return this.channels;
     }
 
     /**
-     * Returns The The source.
+     * Returns The The way in which this recording was created..
      * 
-     * @return The source
+     * @return The way in which this recording was created.
      */
     public final Recording.Source getSource() {
         return this.source;
     }
 
     /**
-     * Returns The The error_code.
+     * Returns The More information about the recording failure, if Status is
+     * failed..
      * 
-     * @return The error_code
+     * @return More information about the recording failure, if Status is failed.
      */
     public final Integer getErrorCode() {
         return this.errorCode;
@@ -442,6 +512,7 @@ public class Recording extends Resource {
                Objects.equals(conferenceSid, other.conferenceSid) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
+               Objects.equals(startTime, other.startTime) && 
                Objects.equals(duration, other.duration) && 
                Objects.equals(sid, other.sid) && 
                Objects.equals(price, other.price) && 
@@ -462,6 +533,7 @@ public class Recording extends Resource {
                             conferenceSid,
                             dateCreated,
                             dateUpdated,
+                            startTime,
                             duration,
                             sid,
                             price,
@@ -483,6 +555,7 @@ public class Recording extends Resource {
                           .add("conferenceSid", conferenceSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("startTime", startTime)
                           .add("duration", duration)
                           .add("sid", sid)
                           .add("price", price)

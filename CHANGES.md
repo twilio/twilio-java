@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2018-07-05] Version 7.21.7
+----------------------------
+**Library**
+- PR #418: Add Dockerfile and related changes to build the Docker image. Thanks to @jonatasbaldin!
+
+**Api**
+- Release `Call Recording Controls` feature support in helper libraries
+- Add Voice Insights sub-category keys to usage records
+
+
 [2018-06-29] Version 7.21.6
 ----------------------------
 **Library**

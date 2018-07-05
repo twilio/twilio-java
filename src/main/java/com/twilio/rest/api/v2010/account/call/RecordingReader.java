@@ -50,9 +50,13 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The absolute_date_created.
+     * Only show recordings created on the given date. Should be formatted as
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
+     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
+     * after midnight on a date..
      * 
-     * @param absoluteDateCreated The absolute_date_created
+     * @param absoluteDateCreated Filter by date created
      * @return this
      */
     public RecordingReader setDateCreated(final LocalDate absoluteDateCreated) {
@@ -62,9 +66,13 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The range_date_created.
+     * Only show recordings created on the given date. Should be formatted as
+     * `YYYY-MM-DD`. You can also specify inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
+     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
+     * after midnight on a date..
      * 
-     * @param rangeDateCreated The range_date_created
+     * @param rangeDateCreated Filter by date created
      * @return this
      */
     public RecordingReader setDateCreated(final Range<LocalDate> rangeDateCreated) {

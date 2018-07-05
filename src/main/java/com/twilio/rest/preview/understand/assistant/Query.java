@@ -254,9 +254,9 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The query.
+     * Returns The The end-user's natural language input..
      * 
-     * @return The query
+     * @return The end-user's natural language input.
      */
     public final String getQuery() {
         return this.query;
@@ -291,10 +291,10 @@ public class Query extends Resource {
 
     /**
      * Returns The A string that described the query status. The values can be:
-     * to_review, reviewed, discarded.
+     * pending_review, reviewed, discarded.
      * 
      * @return A string that described the query status. The values can be:
-     *         to_review, reviewed, discarded
+     *         pending_review, reviewed, discarded
      */
     public final String getStatus() {
         return this.status;
@@ -310,9 +310,9 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The source_channel.
+     * Returns The The communication channel where this end-user input came from.
      * 
-     * @return The source_channel
+     * @return The communication channel where this end-user input came from
      */
     public final String getSourceChannel() {
         return this.sourceChannel;

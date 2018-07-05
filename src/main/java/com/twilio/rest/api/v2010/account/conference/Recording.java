@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account;
+package com.twilio.rest.api.v2010.account.conference;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
@@ -30,12 +31,14 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 243997298277448L;
+    private static final long serialVersionUID = 231172714460621L;
 
     public enum Status {
         IN_PROGRESS("in-progress"),
@@ -97,66 +100,107 @@ public class Recording extends Resource {
     }
 
     /**
+     * Create a RecordingUpdater to execute update.
+     * 
+     * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The conference_sid
+     * @param pathSid The sid
+     * @param status The status to change the recording to.
+     * @return RecordingUpdater capable of executing the update
+     */
+    public static RecordingUpdater updater(final String pathAccountSid, 
+                                           final String pathConferenceSid, 
+                                           final String pathSid, 
+                                           final Recording.Status status) {
+        return new RecordingUpdater(pathAccountSid, pathConferenceSid, pathSid, status);
+    }
+
+    /**
+     * Create a RecordingUpdater to execute update.
+     * 
+     * @param pathConferenceSid The conference_sid
+     * @param pathSid The sid
+     * @param status The status to change the recording to.
+     * @return RecordingUpdater capable of executing the update
+     */
+    public static RecordingUpdater updater(final String pathConferenceSid, 
+                                           final String pathSid, 
+                                           final Recording.Status status) {
+        return new RecordingUpdater(pathConferenceSid, pathSid, status);
+    }
+
+    /**
      * Create a RecordingFetcher to execute fetch.
      * 
      * @param pathAccountSid The account_sid
+     * @param pathConferenceSid Fetch by unique conference Sid for the recording
      * @param pathSid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathAccountSid, 
+                                           final String pathConferenceSid, 
                                            final String pathSid) {
-        return new RecordingFetcher(pathAccountSid, pathSid);
+        return new RecordingFetcher(pathAccountSid, pathConferenceSid, pathSid);
     }
 
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
+     * @param pathConferenceSid Fetch by unique conference Sid for the recording
      * @param pathSid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
      */
-    public static RecordingFetcher fetcher(final String pathSid) {
-        return new RecordingFetcher(pathSid);
+    public static RecordingFetcher fetcher(final String pathConferenceSid, 
+                                           final String pathSid) {
+        return new RecordingFetcher(pathConferenceSid, pathSid);
     }
 
     /**
      * Create a RecordingDeleter to execute delete.
      * 
      * @param pathAccountSid The account_sid
+     * @param pathConferenceSid Fetch by unique conference Sid for the recording
      * @param pathSid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathAccountSid, 
+                                           final String pathConferenceSid, 
                                            final String pathSid) {
-        return new RecordingDeleter(pathAccountSid, pathSid);
+        return new RecordingDeleter(pathAccountSid, pathConferenceSid, pathSid);
     }
 
     /**
      * Create a RecordingDeleter to execute delete.
      * 
+     * @param pathConferenceSid Fetch by unique conference Sid for the recording
      * @param pathSid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
      */
-    public static RecordingDeleter deleter(final String pathSid) {
-        return new RecordingDeleter(pathSid);
+    public static RecordingDeleter deleter(final String pathConferenceSid, 
+                                           final String pathSid) {
+        return new RecordingDeleter(pathConferenceSid, pathSid);
     }
 
     /**
      * Create a RecordingReader to execute read.
      * 
      * @param pathAccountSid The account_sid
+     * @param pathConferenceSid The conference_sid
      * @return RecordingReader capable of executing the read
      */
-    public static RecordingReader reader(final String pathAccountSid) {
-        return new RecordingReader(pathAccountSid);
+    public static RecordingReader reader(final String pathAccountSid, 
+                                         final String pathConferenceSid) {
+        return new RecordingReader(pathAccountSid, pathConferenceSid);
     }
 
     /**
      * Create a RecordingReader to execute read.
      * 
+     * @param pathConferenceSid The conference_sid
      * @return RecordingReader capable of executing the read
      */
-    public static RecordingReader reader() {
-        return new RecordingReader();
+    public static RecordingReader reader(final String pathConferenceSid) {
+        return new RecordingReader(pathConferenceSid);
     }
 
     /**
@@ -206,15 +250,14 @@ public class Recording extends Resource {
     private final DateTime startTime;
     private final String duration;
     private final String sid;
-    private final String price;
-    private final String priceUnit;
+    private final BigDecimal price;
+    private final Currency priceUnit;
     private final Recording.Status status;
     private final Integer channels;
     private final Recording.Source source;
     private final Integer errorCode;
-    private final String uri;
     private final Map<String, Object> encryptionDetails;
-    private final Map<String, String> subresourceUris;
+    private final String uri;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -236,9 +279,10 @@ public class Recording extends Resource {
                       @JsonProperty("sid")
                       final String sid, 
                       @JsonProperty("price")
-                      final String price, 
+                      final BigDecimal price, 
                       @JsonProperty("price_unit")
-                      final String priceUnit, 
+                      @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+                      final Currency priceUnit, 
                       @JsonProperty("status")
                       final Recording.Status status, 
                       @JsonProperty("channels")
@@ -247,12 +291,10 @@ public class Recording extends Resource {
                       final Recording.Source source, 
                       @JsonProperty("error_code")
                       final Integer errorCode, 
-                      @JsonProperty("uri")
-                      final String uri, 
                       @JsonProperty("encryption_details")
                       final Map<String, Object> encryptionDetails, 
-                      @JsonProperty("subresource_uris")
-                      final Map<String, String> subresourceUris) {
+                      @JsonProperty("uri")
+                      final String uri) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -268,9 +310,8 @@ public class Recording extends Resource {
         this.channels = channels;
         this.source = source;
         this.errorCode = errorCode;
-        this.uri = uri;
         this.encryptionDetails = encryptionDetails;
-        this.subresourceUris = subresourceUris;
+        this.uri = uri;
     }
 
     /**
@@ -302,11 +343,9 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The unique id for the conference associated with the recording,
-     * if a conference recording..
+     * Returns The The unique id for the conference associated with the recording..
      * 
-     * @return The unique id for the conference associated with the recording, if a
-     *         conference recording.
+     * @return The unique id for the conference associated with the recording.
      */
     public final String getConferenceSid() {
         return this.conferenceSid;
@@ -362,7 +401,7 @@ public class Recording extends Resource {
      * 
      * @return The one-time cost of creating this recording.
      */
-    public final String getPrice() {
+    public final BigDecimal getPrice() {
         return this.price;
     }
 
@@ -371,7 +410,7 @@ public class Recording extends Resource {
      * 
      * @return The currency used in the Price property.
      */
-    public final String getPriceUnit() {
+    public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
@@ -414,15 +453,6 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource.
-     * 
-     * @return The URI for this resource
-     */
-    public final String getUri() {
-        return this.uri;
-    }
-
-    /**
      * Returns The Details for how to decrypt the recording..
      * 
      * @return Details for how to decrypt the recording.
@@ -432,12 +462,12 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The The URI for this resource.
      * 
-     * @return The subresource_uris
+     * @return The URI for this resource
      */
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
+    public final String getUri() {
+        return this.uri;
     }
 
     @Override
@@ -467,9 +497,8 @@ public class Recording extends Resource {
                Objects.equals(channels, other.channels) && 
                Objects.equals(source, other.source) && 
                Objects.equals(errorCode, other.errorCode) && 
-               Objects.equals(uri, other.uri) && 
                Objects.equals(encryptionDetails, other.encryptionDetails) && 
-               Objects.equals(subresourceUris, other.subresourceUris);
+               Objects.equals(uri, other.uri);
     }
 
     @Override
@@ -489,9 +518,8 @@ public class Recording extends Resource {
                             channels,
                             source,
                             errorCode,
-                            uri,
                             encryptionDetails,
-                            subresourceUris);
+                            uri);
     }
 
     @Override
@@ -512,9 +540,8 @@ public class Recording extends Resource {
                           .add("channels", channels)
                           .add("source", source)
                           .add("errorCode", errorCode)
-                          .add("uri", uri)
                           .add("encryptionDetails", encryptionDetails)
-                          .add("subresourceUris", subresourceUris)
+                          .add("uri", uri)
                           .toString();
     }
 }

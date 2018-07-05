@@ -25,8 +25,8 @@ public class RecordingFetcher extends Fetcher<Recording> {
     /**
      * Construct a new RecordingFetcher.
      * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid Fetch by unique call Sid for the recording
+     * @param pathSid Fetch by unique recording Sid
      */
     public RecordingFetcher(final String pathCallSid, 
                             final String pathSid) {
@@ -38,8 +38,8 @@ public class RecordingFetcher extends Fetcher<Recording> {
      * Construct a new RecordingFetcher.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid Fetch by unique call Sid for the recording
+     * @param pathSid Fetch by unique recording Sid
      */
     public RecordingFetcher(final String pathAccountSid, 
                             final String pathCallSid, 

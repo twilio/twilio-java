@@ -7,7 +7,7 @@
 
 package com.twilio.rest.api.v2010.account.call;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,58 +17,67 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingDeleter extends Deleter<Recording> {
+public class RecordingUpdater extends Updater<Recording> {
     private String pathAccountSid;
     private final String pathCallSid;
     private final String pathSid;
+    private final Recording.Status status;
 
     /**
-     * Construct a new RecordingDeleter.
+     * Construct a new RecordingUpdater.
      * 
-     * @param pathCallSid Delete by unique call Sid for the recording
-     * @param pathSid Delete by unique recording Sid
+     * @param pathCallSid The call_sid
+     * @param pathSid The sid
+     * @param status The status to change the recording to.
      */
-    public RecordingDeleter(final String pathCallSid, 
-                            final String pathSid) {
+    public RecordingUpdater(final String pathCallSid, 
+                            final String pathSid, 
+                            final Recording.Status status) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
+        this.status = status;
     }
 
     /**
-     * Construct a new RecordingDeleter.
+     * Construct a new RecordingUpdater.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathCallSid Delete by unique call Sid for the recording
-     * @param pathSid Delete by unique recording Sid
+     * @param pathCallSid The call_sid
+     * @param pathSid The sid
+     * @param status The status to change the recording to.
      */
-    public RecordingDeleter(final String pathAccountSid, 
+    public RecordingUpdater(final String pathAccountSid, 
                             final String pathCallSid, 
-                            final String pathSid) {
+                            final String pathSid, 
+                            final Recording.Status status) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
+        this.status = status;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
+     * @return Updated Recording
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
+    public Recording update(final TwilioRestClient client) {
         this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
-            HttpMethod.DELETE,
+            HttpMethod.POST,
             Domains.API.toString(),
             "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings/" + this.pathSid + ".json",
             client.getRegion()
         );
 
+        addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Recording update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -84,6 +93,17 @@ public class RecordingDeleter extends Deleter<Recording> {
             );
         }
 
-        return response.getStatusCode() == 204;
+        return Recording.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested post parameters to the Request.
+     * 
+     * @param request Request to add post params to
+     */
+    private void addPostParams(final Request request) {
+        if (status != null) {
+            request.addPostParam("Status", status.toString());
+        }
     }
 }

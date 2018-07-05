@@ -69,7 +69,7 @@ public class Transcription extends Resource {
      * Create a TranscriptionFetcher to execute fetch.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique transcription Sid
+     * @param pathSid Fetch by unique transcription SID
      * @return TranscriptionFetcher capable of executing the fetch
      */
     public static TranscriptionFetcher fetcher(final String pathAccountSid, 
@@ -80,7 +80,7 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique transcription Sid
+     * @param pathSid Fetch by unique transcription SID
      * @return TranscriptionFetcher capable of executing the fetch
      */
     public static TranscriptionFetcher fetcher(final String pathSid) {
@@ -91,7 +91,7 @@ public class Transcription extends Resource {
      * Create a TranscriptionDeleter to execute delete.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique transcription Sid
+     * @param pathSid Delete by unique transcription SID
      * @return TranscriptionDeleter capable of executing the delete
      */
     public static TranscriptionDeleter deleter(final String pathAccountSid, 
@@ -102,7 +102,7 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique transcription Sid
+     * @param pathSid Delete by unique transcription SID
      * @return TranscriptionDeleter capable of executing the delete
      */
     public static TranscriptionDeleter deleter(final String pathSid) {

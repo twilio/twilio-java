@@ -18,4 +18,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    jdk: "8"
+    jdk: "oraclejdk8"

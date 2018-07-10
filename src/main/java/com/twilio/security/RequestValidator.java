@@ -2,14 +2,20 @@ package com.twilio.security;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.MessageDigestAlgorithms;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +34,23 @@ public class RequestValidator {
         return secureCompare(signature, expectedSignature);
     }
 
-    public boolean validate(String url, Map<String, String> params, String body, String expectedSignature) {
-        return validate(url, params, expectedSignature) && validateBody(body, params.get("bodySHA256"));
+    public boolean validate(String url, String body, String expectedSignature) throws URISyntaxException {
+        Map<String, String> empty = new HashMap<String, String>();
+        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), StandardCharsets.UTF_8.toString());
+
+        NameValuePair bodySHA256 = null;
+        for (NameValuePair param : params) {
+            if (param.getName().equals("bodySHA256")) {
+                bodySHA256 = param;
+                break;
+            }
+        }
+
+        if (bodySHA256 != null) {
+            return validate(url, empty, expectedSignature) && validateBody(body, bodySHA256.getValue());
+        } else {
+            return false;
+        }
     }
 
     public boolean validateBody(String body, String expectedSHA) {

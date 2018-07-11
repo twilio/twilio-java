@@ -166,6 +166,18 @@ public class RoomRecording extends Resource {
     }
 
     /**
+     * Create a RoomRecordingDeleter to execute delete.
+     * 
+     * @param pathRoomSid The room_sid
+     * @param pathSid The sid
+     * @return RoomRecordingDeleter capable of executing the delete
+     */
+    public static RoomRecordingDeleter deleter(final String pathRoomSid, 
+                                               final String pathSid) {
+        return new RoomRecordingDeleter(pathRoomSid, pathSid);
+    }
+
+    /**
      * Converts a JSON String into a RoomRecording object using the provided
      * ObjectMapper.
      * 

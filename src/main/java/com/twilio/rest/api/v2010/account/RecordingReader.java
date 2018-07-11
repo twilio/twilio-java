@@ -45,11 +45,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings created on the given date. Should be formatted as
-     * `YYYY-MM-DD`. You can also specify inequality, such as
-     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
-     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
-     * after midnight on a date..
+     * Only show recordings created on the given date. Should be formatted
+     * `YYYY-MM-DD`. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD`
+     * will return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
      * 
      * @param absoluteDateCreated Filter by date created
      * @return this
@@ -61,11 +61,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings created on the given date. Should be formatted as
-     * `YYYY-MM-DD`. You can also specify inequality, such as
-     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
-     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
-     * after midnight on a date..
+     * Only show recordings created on the given date. Should be formatted
+     * `YYYY-MM-DD`. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD`
+     * will return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
      * 
      * @param rangeDateCreated Filter by date created
      * @return this
@@ -77,7 +77,7 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings made during the call given by the indicated sid.
+     * Only show recordings made during the call indicated by this call SID.
      * 
      * @param callSid Filter by call_sid
      * @return this

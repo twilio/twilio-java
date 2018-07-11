@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IpAddress extends Resource {
-    private static final long serialVersionUID = 118701358673463L;
+    private static final long serialVersionUID = 129871129530105L;
 
     /**
      * Create a IpAddressReader to execute read.
@@ -207,6 +207,7 @@ public class IpAddress extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final String ipAddress;
+    private final Integer cidrPrefixLength;
     private final String ipAccessControlListSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
@@ -221,6 +222,8 @@ public class IpAddress extends Resource {
                       final String friendlyName, 
                       @JsonProperty("ip_address")
                       final String ipAddress, 
+                      @JsonProperty("cidr_prefix_length")
+                      final Integer cidrPrefixLength, 
                       @JsonProperty("ip_access_control_list_sid")
                       final String ipAccessControlListSid, 
                       @JsonProperty("date_created")
@@ -233,6 +236,7 @@ public class IpAddress extends Resource {
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
+        this.cidrPrefixLength = cidrPrefixLength;
         this.ipAccessControlListSid = ipAccessControlListSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
@@ -279,6 +283,19 @@ public class IpAddress extends Resource {
      */
     public final String getIpAddress() {
         return this.ipAddress;
+    }
+
+    /**
+     * Returns The An integer representing the length of the CIDR prefix to use with
+     * this IP address when accepting traffic. By default the entire IP address is
+     * used..
+     * 
+     * @return An integer representing the length of the CIDR prefix to use with
+     *         this IP address when accepting traffic. By default the entire IP
+     *         address is used.
+     */
+    public final Integer getCidrPrefixLength() {
+        return this.cidrPrefixLength;
     }
 
     /**
@@ -337,6 +354,7 @@ public class IpAddress extends Resource {
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(ipAddress, other.ipAddress) && 
+               Objects.equals(cidrPrefixLength, other.cidrPrefixLength) && 
                Objects.equals(ipAccessControlListSid, other.ipAccessControlListSid) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
@@ -349,6 +367,7 @@ public class IpAddress extends Resource {
                             accountSid,
                             friendlyName,
                             ipAddress,
+                            cidrPrefixLength,
                             ipAccessControlListSid,
                             dateCreated,
                             dateUpdated,
@@ -362,6 +381,7 @@ public class IpAddress extends Resource {
                           .add("accountSid", accountSid)
                           .add("friendlyName", friendlyName)
                           .add("ipAddress", ipAddress)
+                          .add("cidrPrefixLength", cidrPrefixLength)
                           .add("ipAccessControlListSid", ipAccessControlListSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)

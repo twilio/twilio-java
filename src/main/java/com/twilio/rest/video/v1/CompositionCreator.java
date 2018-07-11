@@ -70,7 +70,8 @@ public class CompositionCreator extends Creator<Composition> {
      * * Zero or more `MediaTrackSid`
      * * Zero or more `ParticipantSid`
      * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`).
+     * `student*`). The use of `[*]` has semantics "all if any" meaning zero or more
+     * (i.e. all) depending on whether the target room had video tracks..
      * 
      * @param audioSources A list of audio sources related to this Composition.
      * @return this
@@ -87,7 +88,8 @@ public class CompositionCreator extends Creator<Composition> {
      * * Zero or more `MediaTrackSid`
      * * Zero or more `ParticipantSid`
      * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`).
+     * `student*`). The use of `[*]` has semantics "all if any" meaning zero or more
+     * (i.e. all) depending on whether the target room had video tracks..
      * 
      * @param audioSources A list of audio sources related to this Composition.
      * @return this

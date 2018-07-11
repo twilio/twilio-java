@@ -100,7 +100,7 @@ public class Recording extends Resource {
      * Create a RecordingFetcher to execute fetch.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique recording Sid
+     * @param pathSid Fetch by unique recording SID
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathAccountSid, 
@@ -111,7 +111,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique recording Sid
+     * @param pathSid Fetch by unique recording SID
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathSid) {
@@ -122,7 +122,7 @@ public class Recording extends Resource {
      * Create a RecordingDeleter to execute delete.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique recording Sid
+     * @param pathSid Delete by unique recording SID
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathAccountSid, 
@@ -133,7 +133,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique recording Sid
+     * @param pathSid Delete by unique recording SID
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathSid) {
@@ -274,9 +274,9 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The unique SID that identifies this account.
      * 
-     * @return The unique sid that identifies this account
+     * @return The unique SID that identifies this account
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -292,21 +292,19 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The unique id for the call leg that corresponds to the
+     * Returns The The unique ID for the call leg that corresponds to the
      * recording..
      * 
-     * @return The unique id for the call leg that corresponds to the recording.
+     * @return The unique ID for the call leg that corresponds to the recording.
      */
     public final String getCallSid() {
         return this.callSid;
     }
 
     /**
-     * Returns The The unique id for the conference associated with the recording,
-     * if a conference recording..
+     * Returns The The unique ID for the conference associated with the recording..
      * 
-     * @return The unique id for the conference associated with the recording, if a
-     *         conference recording.
+     * @return The unique ID for the conference associated with the recording.
      */
     public final String getConferenceSid() {
         return this.conferenceSid;
@@ -331,18 +329,18 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The start time of the recording, given in RFC 2822 format..
+     * Returns The The start time of the recording, in RFC 2822 format..
      * 
-     * @return The start time of the recording, given in RFC 2822 format.
+     * @return The start time of the recording, in RFC 2822 format.
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The length of the recording, in seconds..
+     * Returns The The length of the recording in seconds..
      * 
-     * @return The length of the recording, in seconds.
+     * @return The length of the recording in seconds.
      */
     public final String getDuration() {
         return this.duration;

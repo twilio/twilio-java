@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account.conference;
+package com.twilio.rest.studio.v1.flow;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,65 +19,30 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ParticipantReader extends Reader<Participant> {
-    private String pathAccountSid;
-    private final String pathConferenceSid;
-    private Boolean muted;
-    private Boolean hold;
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class ExecutionReader extends Reader<Execution> {
+    private final String pathFlowSid;
 
     /**
-     * Construct a new ParticipantReader.
+     * Construct a new ExecutionReader.
      * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathFlowSid The flow_sid
      */
-    public ParticipantReader(final String pathConferenceSid) {
-        this.pathConferenceSid = pathConferenceSid;
-    }
-
-    /**
-     * Construct a new ParticipantReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     */
-    public ParticipantReader(final String pathAccountSid, 
-                             final String pathConferenceSid) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathConferenceSid = pathConferenceSid;
-    }
-
-    /**
-     * Only return participants that are muted or unmuted. Either `true` or
-     * `false`..
-     * 
-     * @param muted Filter by muted participants
-     * @return this
-     */
-    public ParticipantReader setMuted(final Boolean muted) {
-        this.muted = muted;
-        return this;
-    }
-
-    /**
-     * Only return participants that are on hold or not on hold. Either `true` or
-     * `false`..
-     * 
-     * @param hold Only show participants that are held or unheld.
-     * @return this
-     */
-    public ParticipantReader setHold(final Boolean hold) {
-        this.hold = hold;
-        return this;
+    public ExecutionReader(final String pathFlowSid) {
+        this.pathFlowSid = pathFlowSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Participant ResourceSet
+     * @return Execution ResourceSet
      */
     @Override
-    public ResourceSet<Participant> read(final TwilioRestClient client) {
+    public ResourceSet<Execution> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -85,16 +50,15 @@ public class ParticipantReader extends Reader<Participant> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Participant ResourceSet
+     * @return Execution ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Participant> firstPage(final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+    public Page<Execution> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json",
+            Domains.STUDIO.toString(),
+            "/v1/Flows/" + this.pathFlowSid + "/Executions",
             client.getRegion()
         );
 
@@ -107,12 +71,11 @@ public class ParticipantReader extends Reader<Participant> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Participant ResourceSet
+     * @return Execution ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Participant> getPage(final String targetUrl, final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+    public Page<Execution> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -129,12 +92,12 @@ public class ParticipantReader extends Reader<Participant> {
      * @return Next Page
      */
     @Override
-    public Page<Participant> nextPage(final Page<Participant> page, 
-                                      final TwilioRestClient client) {
+    public Page<Execution> nextPage(final Page<Execution> page, 
+                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.API.toString(),
+                Domains.STUDIO.toString(),
                 client.getRegion()
             )
         );
@@ -149,12 +112,12 @@ public class ParticipantReader extends Reader<Participant> {
      * @return Previous Page
      */
     @Override
-    public Page<Participant> previousPage(final Page<Participant> page, 
-                                          final TwilioRestClient client) {
+    public Page<Execution> previousPage(final Page<Execution> page, 
+                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.API.toString(),
+                Domains.STUDIO.toString(),
                 client.getRegion()
             )
         );
@@ -162,17 +125,17 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Generate a Page of Participant Resources for a given request.
+     * Generate a Page of Execution Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Participant> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Execution> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Participant read failed: Unable to connect to server");
+            throw new ApiConnectionException("Execution read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -189,9 +152,9 @@ public class ParticipantReader extends Reader<Participant> {
         }
 
         return Page.fromJson(
-            "participants",
+            "executions",
             response.getContent(),
-            Participant.class,
+            Execution.class,
             client.getObjectMapper()
         );
     }
@@ -202,14 +165,6 @@ public class ParticipantReader extends Reader<Participant> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (muted != null) {
-            request.addQueryParam("Muted", muted.toString());
-        }
-
-        if (hold != null) {
-            request.addQueryParam("Hold", hold.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

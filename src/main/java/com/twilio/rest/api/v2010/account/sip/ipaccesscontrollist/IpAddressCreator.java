@@ -22,6 +22,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
     private final String pathIpAccessControlListSid;
     private final String friendlyName;
     private final String ipAddress;
+    private Integer cidrPrefixLength;
 
     /**
      * Construct a new IpAddressCreator.
@@ -54,6 +55,17 @@ public class IpAddressCreator extends Creator<IpAddress> {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
+    }
+
+    /**
+     * The cidr_prefix_length.
+     * 
+     * @param cidrPrefixLength The cidr_prefix_length
+     * @return this
+     */
+    public IpAddressCreator setCidrPrefixLength(final Integer cidrPrefixLength) {
+        this.cidrPrefixLength = cidrPrefixLength;
+        return this;
     }
 
     /**
@@ -108,6 +120,10 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
         if (ipAddress != null) {
             request.addPostParam("IpAddress", ipAddress);
+        }
+
+        if (cidrPrefixLength != null) {
+            request.addPostParam("CidrPrefixLength", cidrPrefixLength.toString());
         }
     }
 }

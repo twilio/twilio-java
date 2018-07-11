@@ -23,6 +23,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     private final String pathSid;
     private String ipAddress;
     private String friendlyName;
+    private Integer cidrPrefixLength;
 
     /**
      * Construct a new IpAddressUpdater.
@@ -70,6 +71,17 @@ public class IpAddressUpdater extends Updater<IpAddress> {
      */
     public IpAddressUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The cidr_prefix_length.
+     * 
+     * @param cidrPrefixLength The cidr_prefix_length
+     * @return this
+     */
+    public IpAddressUpdater setCidrPrefixLength(final Integer cidrPrefixLength) {
+        this.cidrPrefixLength = cidrPrefixLength;
         return this;
     }
 
@@ -125,6 +137,10 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (cidrPrefixLength != null) {
+            request.addPostParam("CidrPrefixLength", cidrPrefixLength.toString());
         }
     }
 }

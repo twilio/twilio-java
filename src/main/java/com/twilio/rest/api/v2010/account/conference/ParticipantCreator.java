@@ -59,8 +59,8 @@ public class ParticipantCreator extends Creator<Participant> {
      * Construct a new ParticipantCreator.
      * 
      * @param pathConferenceSid The conference_sid
-     * @param from number, client id
-     * @param to number, client id, sip address
+     * @param from The `from` phone number used to invite a participant.
+     * @param to The number, client id, or sip address of the new participant.
      */
     public ParticipantCreator(final String pathConferenceSid, 
                               final com.twilio.type.PhoneNumber from, 
@@ -75,8 +75,8 @@ public class ParticipantCreator extends Creator<Participant> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The conference_sid
-     * @param from number, client id
-     * @param to number, client id, sip address
+     * @param from The `from` phone number used to invite a participant.
+     * @param to The number, client id, or sip address of the new participant.
      */
     public ParticipantCreator(final String pathAccountSid, 
                               final String pathConferenceSid, 
@@ -89,9 +89,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * The absolute URL where Twilio should send a webhook with conference event
+     * information that you request with the `StatusCallbackEvent` parameter..
      * 
-     * @param statusCallback absolute url
+     * @param statusCallback URL for conference event callback.
      * @return this
      */
     public ParticipantCreator setStatusCallback(final URI statusCallback) {
@@ -100,9 +101,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * The absolute URL where Twilio should send a webhook with conference event
+     * information that you request with the `StatusCallbackEvent` parameter..
      * 
-     * @param statusCallback absolute url
+     * @param statusCallback URL for conference event callback.
      * @return this
      */
     public ParticipantCreator setStatusCallback(final String statusCallback) {
@@ -110,9 +112,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * GET, POST.
+     * The method Twilio should use when requesting your `StatusCallback` URL.
+     * Options are `GET` and `POST`. Defaults to `POST`..
      * 
-     * @param statusCallbackMethod GET, POST
+     * @param statusCallbackMethod Method Twilio should use to reach the status
+     *                             callback URL.
      * @return this
      */
     public ParticipantCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -121,9 +125,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * initiated, ringing, answered, completed.
+     * Specifies which conference state changes should generate a webhook to the
+     * `StatusCallback` URL. Options are `initiated`, `ringing`, `answered`, and
+     * `completed`. To specify multiple values, separate each with a space. Defaults
+     * to `completed`..
      * 
-     * @param statusCallbackEvent initiated, ringing, answered, completed
+     * @param statusCallbackEvent Set state change events that will trigger a
+     *                            callback.
      * @return this
      */
     public ParticipantCreator setStatusCallbackEvent(final List<String> statusCallbackEvent) {
@@ -132,9 +140,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * initiated, ringing, answered, completed.
+     * Specifies which conference state changes should generate a webhook to the
+     * `StatusCallback` URL. Options are `initiated`, `ringing`, `answered`, and
+     * `completed`. To specify multiple values, separate each with a space. Defaults
+     * to `completed`..
      * 
-     * @param statusCallbackEvent initiated, ringing, answered, completed
+     * @param statusCallbackEvent Set state change events that will trigger a
+     *                            callback.
      * @return this
      */
     public ParticipantCreator setStatusCallbackEvent(final String statusCallbackEvent) {
@@ -142,9 +154,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * 5-600.
+     * The number of seconds (integer) that Twilio should allow the phone to ring
+     * before assuming there is no answer. Defaults to 60 seconds. Minimum allowed
+     * timeout is `5`, max is `600`. Twilio always adds a 5-second timeout buffer to
+     * outgoing calls, so if you enter a timeout value of 10 seconds, you will see
+     * an actual timeout closer to 15 seconds..
      * 
-     * @param timeout 5-600
+     * @param timeout Number of seconds Twilio will wait for an answer.
      * @return this
      */
     public ParticipantCreator setTimeout(final Integer timeout) {
@@ -153,9 +169,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * true, false.
+     * Records the agent and their conferences, including downtime between
+     * conferences. Values may be `true` or `false`. Defaults to `false`..
      * 
-     * @param record true, false
+     * @param record Record the agent and their conferences.
      * @return this
      */
     public ParticipantCreator setRecord(final Boolean record) {
@@ -164,9 +181,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * true, false.
+     * Specify whether the agent can speak in the conference. Values can be `true`
+     * or `false`. Defaults to `false`..
      * 
-     * @param muted true, false
+     * @param muted Mute the agent.
      * @return this
      */
     public ParticipantCreator setMuted(final Boolean muted) {
@@ -175,9 +193,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * true, false, onEnter, onExit.
+     * Play a notification beep to the conference when this participant joins.
+     * Options are `true`, `false`, `onEnter`, or `onExit`. Defaults to `true`..
      * 
-     * @param beep true, false, onEnter, onExit
+     * @param beep Play a beep when the participant joins the conference.
      * @return this
      */
     public ParticipantCreator setBeep(final String beep) {
@@ -186,9 +205,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * true, false.
+     * If the conference has not already begun, `true` will start the conference
+     * when this participant joins. Specifying `false` will mute the participant and
+     * play background music until the conference begins. Defaults to `true`..
      * 
-     * @param startConferenceOnEnter true, false
+     * @param startConferenceOnEnter Begin the conference when the participant
+     *                               joins.
      * @return this
      */
     public ParticipantCreator setStartConferenceOnEnter(final Boolean startConferenceOnEnter) {
@@ -197,9 +219,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * true, false.
+     * If `true`, will end the conference when this participant leaves. Defaults to
+     * `false`..
      * 
-     * @param endConferenceOnExit true, false
+     * @param endConferenceOnExit End the conference when the participant leaves.
      * @return this
      */
     public ParticipantCreator setEndConferenceOnExit(final Boolean endConferenceOnExit) {
@@ -208,9 +231,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * Specify an absolute URL that hosts music to play before the  conference
+     * starts. Defualts to Twilio's standard [hold
+     * music](https://www.twilio.com/labs/twimlets/holdmusic)..
      * 
-     * @param waitUrl absolute url
+     * @param waitUrl URL that hosts pre-conference hold music
      * @return this
      */
     public ParticipantCreator setWaitUrl(final URI waitUrl) {
@@ -219,9 +244,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * Specify an absolute URL that hosts music to play before the  conference
+     * starts. Defualts to Twilio's standard [hold
+     * music](https://www.twilio.com/labs/twimlets/holdmusic)..
      * 
-     * @param waitUrl absolute url
+     * @param waitUrl URL that hosts pre-conference hold music
      * @return this
      */
     public ParticipantCreator setWaitUrl(final String waitUrl) {
@@ -229,9 +256,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * GET, POST.
+     * Specify which method, `GET` or `POST`, Twilio should use to request the
+     * `WaitUrl` for this conference. Be sure to use `GET` if you are directly
+     * requesting static audio files so that Twilio properly caches the files.
+     * Defaults to `POST`..
      * 
-     * @param waitMethod GET, POST
+     * @param waitMethod The method Twilio should use to request `WaitUrl`.
      * @return this
      */
     public ParticipantCreator setWaitMethod(final HttpMethod waitMethod) {
@@ -240,9 +270,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * true, false.
+     * Allow an agent to hear the state of the outbound call, including ringing or
+     * disconnect messages. Can be `true` or `false`. Defaults to `true`..
      * 
-     * @param earlyMedia true, false
+     * @param earlyMedia Agents can hear the state of the outbound call.
      * @return this
      */
     public ParticipantCreator setEarlyMedia(final Boolean earlyMedia) {
@@ -251,9 +282,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * 2-10.
+     * The maximum number of participants within this agent conference. Values can
+     * be positive integers from `2`-`10`. Defaults to `10`..
      * 
-     * @param maxParticipants 2-10
+     * @param maxParticipants Maximum number of agent conference participants.
      * @return this
      */
     public ParticipantCreator setMaxParticipants(final Integer maxParticipants) {
@@ -262,9 +294,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * true, false, record-from-start, do-not-record.
+     * Records the conference that this participant is joining. Options are `true`,
+     * `false`, `record-from-start`, and `do-not-record`. Deafults to `false`.
      * 
-     * @param conferenceRecord true, false, record-from-start, do-not-record
+     * @param conferenceRecord Record the conference.
      * @return this
      */
     public ParticipantCreator setConferenceRecord(final String conferenceRecord) {
@@ -273,9 +306,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * trim-silence or do-not-trim.
+     * Specify whether to trim leading and trailing silence from your recorded
+     * conference audio files. Options are `trim-silence` and `do-not-trim`.
+     * Defaults to `trim-silence`.
      * 
-     * @param conferenceTrim trim-silence or do-not-trim
+     * @param conferenceTrim Trim silence from audio files.
      * @return this
      */
     public ParticipantCreator setConferenceTrim(final String conferenceTrim) {
@@ -284,9 +319,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * The absolute URL Twilio should request with conference events specified in
+     * `ConferenceStatusCallbackEvent`. This value is set by the first Participant
+     * to join the conference, and subsequent callback URLs will be ignored..
      * 
-     * @param conferenceStatusCallback absolute url
+     * @param conferenceStatusCallback Callback URL for conference events.
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallback(final URI conferenceStatusCallback) {
@@ -295,9 +332,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * The absolute URL Twilio should request with conference events specified in
+     * `ConferenceStatusCallbackEvent`. This value is set by the first Participant
+     * to join the conference, and subsequent callback URLs will be ignored..
      * 
-     * @param conferenceStatusCallback absolute url
+     * @param conferenceStatusCallback Callback URL for conference events.
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallback(final String conferenceStatusCallback) {
@@ -305,9 +344,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * GET, POST.
+     * The HTTP method Twilio should use when requesting the
+     * `ConferenceStatusCallback` URL. Either `GET` or `POST`. Defaults to `POST`..
      * 
-     * @param conferenceStatusCallbackMethod GET, POST
+     * @param conferenceStatusCallbackMethod HTTP method for requesting
+     *                                       `ConferenceStatusCallback` URL.
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod) {
@@ -316,9 +357,14 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * start end join leave mute hold speaker.
+     * Specifies which conference state changes should generate a webhook to the URL
+     * specified in the `ConferenceStatusCallback` attribute. Available values are
+     * `start`, `end`, `join`, `leave`, `mute`, `hold`, and `speaker`. To specify
+     * multiple values, separate them with a space. Defaults to `start` and `end`..
      * 
-     * @param conferenceStatusCallbackEvent start end join leave mute hold speaker
+     * @param conferenceStatusCallbackEvent Set which conference state changes
+     *                                      should webhook to the
+     *                                      `ConferenceStatusCallback`
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackEvent(final List<String> conferenceStatusCallbackEvent) {
@@ -327,9 +373,14 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * start end join leave mute hold speaker.
+     * Specifies which conference state changes should generate a webhook to the URL
+     * specified in the `ConferenceStatusCallback` attribute. Available values are
+     * `start`, `end`, `join`, `leave`, `mute`, `hold`, and `speaker`. To specify
+     * multiple values, separate them with a space. Defaults to `start` and `end`..
      * 
-     * @param conferenceStatusCallbackEvent start end join leave mute hold speaker
+     * @param conferenceStatusCallbackEvent Set which conference state changes
+     *                                      should webhook to the
+     *                                      `ConferenceStatusCallback`
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackEvent(final String conferenceStatusCallbackEvent) {
@@ -337,9 +388,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * mono, dual.
+     * Set the recording channels for the final agent/conference recording. Either
+     * `mono` or `dual`. Defaults to `mono`..
      * 
-     * @param recordingChannels mono, dual
+     * @param recordingChannels Specify `mono` or `dual` recording channels.
      * @return this
      */
     public ParticipantCreator setRecordingChannels(final String recordingChannels) {
@@ -348,9 +400,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * Specifies the `absolute URL` that Twilio should request when the recording is
+     * available if the agent and conference are recorded..
      * 
-     * @param recordingStatusCallback absolute url
+     * @param recordingStatusCallback The absolute URL for Twilio's webhook with
+     *                                recording status information.
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallback(final URI recordingStatusCallback) {
@@ -359,9 +413,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * Specifies the `absolute URL` that Twilio should request when the recording is
+     * available if the agent and conference are recorded..
      * 
-     * @param recordingStatusCallback absolute url
+     * @param recordingStatusCallback The absolute URL for Twilio's webhook with
+     *                                recording status information.
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallback(final String recordingStatusCallback) {
@@ -369,9 +425,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * GET, POST.
+     * The HTTP method Twilio should use when requesting the
+     * `RecordingStatusCallback`. `GET` or `POST`. Defaults to `POST`..
      * 
-     * @param recordingStatusCallbackMethod GET, POST
+     * @param recordingStatusCallbackMethod HTTP method for
+     *                                      `RecordingStatusCallback`
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
@@ -380,9 +438,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * sip username.
+     * SIP username used for authenticating..
      * 
-     * @param sipAuthUsername sip username
+     * @param sipAuthUsername SIP username used for authenticating.
      * @return this
      */
     public ParticipantCreator setSipAuthUsername(final String sipAuthUsername) {
@@ -391,9 +449,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * sip password.
+     * SIP password for authentication..
      * 
-     * @param sipAuthPassword sip password
+     * @param sipAuthPassword SIP password for authentication.
      * @return this
      */
     public ParticipantCreator setSipAuthPassword(final String sipAuthPassword) {
@@ -402,9 +460,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * us1, ie1, de1, sg1, br1, au1, jp1.
+     * Specifies the
+     * [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where Twilio should mix the recorded audio. Options are `us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, `jp1`..
      * 
-     * @param region us1, ie1, de1, sg1, br1, au1, jp1
+     * @param region The region where Twilio should mix the conference audio.
      * @return this
      */
     public ParticipantCreator setRegion(final String region) {
@@ -413,9 +472,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * The `absolute URL` Twilio should request when the conference recording is
+     * available..
      * 
-     * @param conferenceRecordingStatusCallback absolute url
+     * @param conferenceRecordingStatusCallback Conference recording callback URL.
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
@@ -424,9 +484,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * absolute url.
+     * The `absolute URL` Twilio should request when the conference recording is
+     * available..
      * 
-     * @param conferenceRecordingStatusCallback absolute url
+     * @param conferenceRecordingStatusCallback Conference recording callback URL.
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
@@ -434,9 +495,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * GET, POST.
+     * The HTTP method Twilio should use when requesting your recording status
+     * callback URL, either `GET` or `POST`. Defaults to `POST`..
      * 
-     * @param conferenceRecordingStatusCallbackMethod GET, POST
+     * @param conferenceRecordingStatusCallbackMethod Method Twilio should use to
+     *                                                request the
+     *                                                `ConferenceRecordingStatusCallback` URL.
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {

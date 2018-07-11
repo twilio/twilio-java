@@ -26,7 +26,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      * Construct a new ParticipantFetcher.
      * 
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Fetch by unique participant Call SID
      */
     public ParticipantFetcher(final String pathConferenceSid, 
                               final String pathCallSid) {
@@ -39,7 +39,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Fetch by unique participant Call SID
      */
     public ParticipantFetcher(final String pathAccountSid, 
                               final String pathConferenceSid, 

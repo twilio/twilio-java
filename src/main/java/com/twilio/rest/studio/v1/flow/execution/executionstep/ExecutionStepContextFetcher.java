@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account;
+package com.twilio.rest.studio.v1.flow.execution.executionstep;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,52 +17,50 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingFetcher extends Fetcher<Recording> {
-    private String pathAccountSid;
-    private final String pathSid;
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
+    private final String pathFlowSid;
+    private final String pathExecutionSid;
+    private final String pathStepSid;
 
     /**
-     * Construct a new RecordingFetcher.
+     * Construct a new ExecutionStepContextFetcher.
      * 
-     * @param pathSid Fetch by unique recording SID
+     * @param pathFlowSid The flow_sid
+     * @param pathExecutionSid The execution_sid
+     * @param pathStepSid The step_sid
      */
-    public RecordingFetcher(final String pathSid) {
-        this.pathSid = pathSid;
-    }
-
-    /**
-     * Construct a new RecordingFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique recording SID
-     */
-    public RecordingFetcher(final String pathAccountSid, 
-                            final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
+    public ExecutionStepContextFetcher(final String pathFlowSid, 
+                                       final String pathExecutionSid, 
+                                       final String pathStepSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
+        this.pathStepSid = pathStepSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Recording
+     * @return Fetched ExecutionStepContext
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Recording fetch(final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+    public ExecutionStepContext fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathSid + ".json",
+            Domains.STUDIO.toString(),
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathStepSid + "/Context",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("ExecutionStepContext fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -78,6 +76,6 @@ public class RecordingFetcher extends Fetcher<Recording> {
             );
         }
 
-        return Recording.fromJson(response.getStream(), client.getObjectMapper());
+        return ExecutionStepContext.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -106,12 +106,16 @@ public class AuthorizationDocument extends Resource {
      * @param hostedNumberOrderSids A list of HostedNumberOrder sids.
      * @param addressSid Address sid.
      * @param email Email.
+     * @param contactTitle Title of signee of this Authorization Document.
+     * @param contactPhoneNumber Authorization Document's signee's phone number.
      * @return AuthorizationDocumentCreator capable of executing the create
      */
     public static AuthorizationDocumentCreator creator(final List<String> hostedNumberOrderSids, 
                                                        final String addressSid, 
-                                                       final String email) {
-        return new AuthorizationDocumentCreator(hostedNumberOrderSids, addressSid, email);
+                                                       final String email, 
+                                                       final String contactTitle, 
+                                                       final String contactPhoneNumber) {
+        return new AuthorizationDocumentCreator(hostedNumberOrderSids, addressSid, email, contactTitle, contactPhoneNumber);
     }
 
     /**

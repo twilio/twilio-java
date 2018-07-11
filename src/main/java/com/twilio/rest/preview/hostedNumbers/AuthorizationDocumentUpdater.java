@@ -32,6 +32,8 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     private String email;
     private List<String> ccEmails;
     private AuthorizationDocument.Status status;
+    private String contactTitle;
+    private String contactPhoneNumber;
 
     /**
      * Construct a new AuthorizationDocumentUpdater.
@@ -126,6 +128,30 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     }
 
     /**
+     * The title of the person authorized to sign the Authorization Document for
+     * this phone number..
+     * 
+     * @param contactTitle Title of signee of this Authorization Document.
+     * @return this
+     */
+    public AuthorizationDocumentUpdater setContactTitle(final String contactTitle) {
+        this.contactTitle = contactTitle;
+        return this;
+    }
+
+    /**
+     * The contact phone number of the person authorized to sign the Authorization
+     * Document..
+     * 
+     * @param contactPhoneNumber Authorization Document's signee's phone number.
+     * @return this
+     */
+    public AuthorizationDocumentUpdater setContactPhoneNumber(final String contactPhoneNumber) {
+        this.contactPhoneNumber = contactPhoneNumber;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -192,6 +218,14 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
 
         if (status != null) {
             request.addPostParam("Status", status.toString());
+        }
+
+        if (contactTitle != null) {
+            request.addPostParam("ContactTitle", contactTitle);
+        }
+
+        if (contactPhoneNumber != null) {
+            request.addPostParam("ContactPhoneNumber", contactPhoneNumber);
         }
     }
 }

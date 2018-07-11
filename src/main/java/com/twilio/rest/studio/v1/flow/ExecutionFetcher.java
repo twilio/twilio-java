@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account;
+package com.twilio.rest.studio.v1.flow;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,51 +17,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingDeleter extends Deleter<Recording> {
-    private String pathAccountSid;
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class ExecutionFetcher extends Fetcher<Execution> {
+    private final String pathFlowSid;
     private final String pathSid;
 
     /**
-     * Construct a new RecordingDeleter.
+     * Construct a new ExecutionFetcher.
      * 
-     * @param pathSid Delete by unique recording SID
+     * @param pathFlowSid The flow_sid
+     * @param pathSid The sid
      */
-    public RecordingDeleter(final String pathSid) {
-        this.pathSid = pathSid;
-    }
-
-    /**
-     * Construct a new RecordingDeleter.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique recording SID
-     */
-    public RecordingDeleter(final String pathAccountSid, 
+    public ExecutionFetcher(final String pathFlowSid, 
                             final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
+        this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched Execution
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+    public Execution fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathSid + ".json",
+            HttpMethod.GET,
+            Domains.STUDIO.toString(),
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Execution fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -77,6 +72,6 @@ public class RecordingDeleter extends Deleter<Recording> {
             );
         }
 
-        return response.getStatusCode() == 204;
+        return Execution.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

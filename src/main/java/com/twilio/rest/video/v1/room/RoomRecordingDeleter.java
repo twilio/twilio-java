@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account;
+package com.twilio.rest.video.v1.room;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -17,28 +17,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingDeleter extends Deleter<Recording> {
-    private String pathAccountSid;
+public class RoomRecordingDeleter extends Deleter<RoomRecording> {
+    private final String pathRoomSid;
     private final String pathSid;
 
     /**
-     * Construct a new RecordingDeleter.
+     * Construct a new RoomRecordingDeleter.
      * 
-     * @param pathSid Delete by unique recording SID
+     * @param pathRoomSid The room_sid
+     * @param pathSid The sid
      */
-    public RecordingDeleter(final String pathSid) {
-        this.pathSid = pathSid;
-    }
-
-    /**
-     * Construct a new RecordingDeleter.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique recording SID
-     */
-    public RecordingDeleter(final String pathAccountSid, 
-                            final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
+    public RoomRecordingDeleter(final String pathRoomSid, 
+                                final String pathSid) {
+        this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
     }
 
@@ -50,18 +41,17 @@ public class RecordingDeleter extends Deleter<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathSid + ".json",
+            Domains.VIDEO.toString(),
+            "/v1/Rooms/" + this.pathRoomSid + "/Recordings/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording delete failed: Unable to connect to server");
+            throw new ApiConnectionException("RoomRecording delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

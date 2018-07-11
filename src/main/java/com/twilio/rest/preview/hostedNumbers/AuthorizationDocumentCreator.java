@@ -29,6 +29,8 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
     private final List<String> hostedNumberOrderSids;
     private final String addressSid;
     private final String email;
+    private final String contactTitle;
+    private final String contactPhoneNumber;
     private List<String> ccEmails;
 
     /**
@@ -37,13 +39,19 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
      * @param hostedNumberOrderSids A list of HostedNumberOrder sids.
      * @param addressSid Address sid.
      * @param email Email.
+     * @param contactTitle Title of signee of this Authorization Document.
+     * @param contactPhoneNumber Authorization Document's signee's phone number.
      */
     public AuthorizationDocumentCreator(final List<String> hostedNumberOrderSids, 
                                         final String addressSid, 
-                                        final String email) {
+                                        final String email, 
+                                        final String contactTitle, 
+                                        final String contactPhoneNumber) {
         this.hostedNumberOrderSids = hostedNumberOrderSids;
         this.addressSid = addressSid;
         this.email = email;
+        this.contactTitle = contactTitle;
+        this.contactPhoneNumber = contactPhoneNumber;
     }
 
     /**
@@ -126,6 +134,14 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
 
         if (email != null) {
             request.addPostParam("Email", email);
+        }
+
+        if (contactTitle != null) {
+            request.addPostParam("ContactTitle", contactTitle);
+        }
+
+        if (contactPhoneNumber != null) {
+            request.addPostParam("ContactPhoneNumber", contactPhoneNumber);
         }
 
         if (ccEmails != null) {

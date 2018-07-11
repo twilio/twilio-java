@@ -35,7 +35,7 @@ public class ParticipantUpdater extends Updater<Participant> {
      * Construct a new ParticipantUpdater.
      * 
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Update a participant by their Call SID
      */
     public ParticipantUpdater(final String pathConferenceSid, 
                               final String pathCallSid) {
@@ -48,7 +48,7 @@ public class ParticipantUpdater extends Updater<Participant> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Update a participant by their Call SID
      */
     public ParticipantUpdater(final String pathAccountSid, 
                               final String pathConferenceSid, 
@@ -71,7 +71,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * Specifying `true` will hold the participant, while `false` will un-hold..
+     * Specifying `true` will hold the participant, while `false` will remove them
+     * from hold..
      * 
      * @param hold Specifying true will hold the participant, while false will
      *             un-hold.
@@ -84,7 +85,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * The 'HoldUrl' attribute lets you specify a URL for music that plays when a
-     * participant is held. The URL may be an MP3, a WAV or a TwiML document that
+     * participant is on hold. The URL may be an MP3, a WAV or a TwiML document that
      * uses `&lt;Play&gt;`, `&lt;Say&gt;` or `&lt;Redirect&gt;`..
      * 
      * @param holdUrl The 'HoldUrl' attribute lets you specify a URL for music that
@@ -98,7 +99,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * The 'HoldUrl' attribute lets you specify a URL for music that plays when a
-     * participant is held. The URL may be an MP3, a WAV or a TwiML document that
+     * participant is on hold. The URL may be an MP3, a WAV or a TwiML document that
      * uses `&lt;Play&gt;`, `&lt;Say&gt;` or `&lt;Redirect&gt;`..
      * 
      * @param holdUrl The 'HoldUrl' attribute lets you specify a URL for music that
@@ -110,7 +111,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * Specify GET or POST, defaults to GET.
+     * Specify the HTTP method Twilio should use to request your `HoldUrl`, either
+     * `GET` or `POST`. Defaults to `GET`..
      * 
      * @param holdMethod Specify GET or POST, defaults to GET
      * @return this
@@ -148,7 +150,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * Specify GET or POST, defaults to POST.
+     * Specify the HTTP method Twilio should use to request your `AnnounceUrl`,
+     * either `GET` or `POST`. Defaults to `POST`..
      * 
      * @param announceMethod Specify GET or POST, defaults to POST
      * @return this

@@ -70,7 +70,7 @@ public class Participant extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Fetch by unique participant Call SID
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathAccountSid, 
@@ -83,7 +83,7 @@ public class Participant extends Resource {
      * Create a ParticipantFetcher to execute fetch.
      * 
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Fetch by unique participant Call SID
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathConferenceSid, 
@@ -96,7 +96,7 @@ public class Participant extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Update a participant by their Call SID
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathAccountSid, 
@@ -109,7 +109,7 @@ public class Participant extends Resource {
      * Create a ParticipantUpdater to execute update.
      * 
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Update a participant by their Call SID
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathConferenceSid, 
@@ -122,8 +122,8 @@ public class Participant extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The conference_sid
-     * @param from number, client id
-     * @param to number, client id, sip address
+     * @param from The `from` phone number used to invite a participant.
+     * @param to The number, client id, or sip address of the new participant.
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathAccountSid, 
@@ -137,8 +137,8 @@ public class Participant extends Resource {
      * Create a ParticipantCreator to execute create.
      * 
      * @param pathConferenceSid The conference_sid
-     * @param from number, client id
-     * @param to number, client id, sip address
+     * @param from The `from` phone number used to invite a participant.
+     * @param to The number, client id, or sip address of the new participant.
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathConferenceSid, 
@@ -152,7 +152,7 @@ public class Participant extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Delete by unique participant Call Sid
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathAccountSid, 
@@ -165,7 +165,7 @@ public class Participant extends Resource {
      * Create a ParticipantDeleter to execute delete.
      * 
      * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Delete by unique participant Call Sid
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathConferenceSid, 

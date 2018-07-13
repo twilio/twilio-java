@@ -1,29 +1,28 @@
 package com.twilio.http;
 
-import com.twilio.exception.ApiConnectionException;
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class ResponseTest {
 
-    @Test(expected = ApiConnectionException.class)
-    public void testGetContentIOException(@Mocked final InputStream stream) throws IOException {
+    @Test
+    public void testGetContentInputStream() {
+        String testValue = "Test";
+        TestInputStream stream = new TestInputStream(testValue);
         Response response = new Response(stream, TwilioRestClient.HTTP_STATUS_CODE_OK);
 
-        new NonStrictExpectations() {{
-            stream.available();
-            result = new IOException();
-        }};
+        assertEquals(testValue, response.getContent());
+    }
 
-        response.getContent();
-        fail("ApiConnectionException was expected");
+    @Test
+    public void testGetContentString() {
+        Response response = new Response("Test", TwilioRestClient.HTTP_STATUS_CODE_OK);
+        assertEquals("Test", response.getContent());
     }
 
     @Test
@@ -31,5 +30,22 @@ public class ResponseTest {
         Response response = new Response(stream, TwilioRestClient.HTTP_STATUS_CODE_OK);
         assertEquals(stream, response.getStream());
     }
+}
 
+class TestInputStream extends InputStream {
+    private byte[] string;
+    private int count = 0;
+
+    TestInputStream(String testValue) {
+        this.string = testValue.getBytes();
+    }
+
+    @Override
+    public int read() {
+        try {
+            Thread.sleep(1L); // Sleep so available() can return 0 but there is still more data
+        } catch (Exception ignore) { }
+
+        return count++ > string.length - 1 ? -1 : string[count-1];
+    }
 }

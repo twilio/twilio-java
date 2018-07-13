@@ -1,6 +1,5 @@
 package com.twilio.http;
 
-import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 
 import java.io.ByteArrayInputStream;
@@ -53,21 +52,21 @@ public class Response {
         if (content != null) {
             return content;
         }
-        // XXX we probably don't need this and should convert strings into
-        // streams in the mock scaffolding
-        try {
-            if (stream.available() == 0) {
+
+        if (stream != null) {
+            Scanner scanner = new Scanner(stream, "UTF-8").useDelimiter("\\A");
+
+            if (!scanner.hasNext()) {
                 return "";
             }
-        } catch (final IOException e) {
-            throw new ApiConnectionException("IOException during API request to Twilio", e);
+
+            String data = scanner.next();
+            scanner.close();
+
+            return data;
         }
 
-        Scanner scanner = new Scanner(stream, "UTF-8").useDelimiter("\\A");
-        String data = scanner.next();
-        scanner.close();
-
-        return data;
+        return "";
     }
 
     /**

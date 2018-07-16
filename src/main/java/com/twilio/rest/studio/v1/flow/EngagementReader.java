@@ -29,7 +29,7 @@ public class EngagementReader extends Reader<Engagement> {
     /**
      * Construct a new EngagementReader.
      * 
-     * @param pathFlowSid The flow_sid
+     * @param pathFlowSid Flow Sid.
      */
     public EngagementReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;

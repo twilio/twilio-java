@@ -30,8 +30,8 @@ public class StepReader extends Reader<Step> {
     /**
      * Construct a new StepReader.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathEngagementSid The engagement_sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathEngagementSid Engagement Sid.
      */
     public StepReader(final String pathFlowSid, 
                       final String pathEngagementSid) {

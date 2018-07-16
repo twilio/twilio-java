@@ -23,7 +23,7 @@ public class EventFetcher extends Fetcher<Event> {
     /**
      * Construct a new EventFetcher.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this event.
      */
     public EventFetcher(final String pathSid) {
         this.pathSid = pathSid;

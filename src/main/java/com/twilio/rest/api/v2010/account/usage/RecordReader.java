@@ -37,7 +37,7 @@ public class RecordReader extends Reader<Record> {
     /**
      * Construct a new RecordReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The Account that accrued the usage
      */
     public RecordReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
@@ -84,9 +84,12 @@ public class RecordReader extends Reader<Record> {
     }
 
     /**
-     * The include_subaccounts.
+     * `true` to include usage from the master account and all subaccounts. `false`
+     * to only retrieve usage from the specified account. `IncludeSubaccounts` is
+     * `true` by default..
      * 
-     * @param includeSubaccounts The include_subaccounts
+     * @param includeSubaccounts Include usage from the master account and all
+     *                           subaccounts
      * @return this
      */
     public RecordReader setIncludeSubaccounts(final Boolean includeSubaccounts) {

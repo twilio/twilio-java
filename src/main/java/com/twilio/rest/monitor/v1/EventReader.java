@@ -30,9 +30,10 @@ public class EventReader extends Reader<Event> {
     private DateTime endDate;
 
     /**
-     * The actor_sid.
+     * Only include Events initiated by this Actor. Useful for auditing actions
+     * taken by specific users or API credentials..
      * 
-     * @param actorSid The actor_sid
+     * @param actorSid Only include Events initiated by this Actor
      * @return this
      */
     public EventReader setActorSid(final String actorSid) {
@@ -41,9 +42,9 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The event_type.
+     * Only include Events of this EventType..
      * 
-     * @param eventType The event_type
+     * @param eventType Only include Events of this EventType
      * @return this
      */
     public EventReader setEventType(final String eventType) {
@@ -52,9 +53,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The resource_sid.
+     * Only include Events referring to this resource. Useful for discovering the
+     * history of a specific resource..
      * 
-     * @param resourceSid The resource_sid
+     * @param resourceSid Only include Events referring to this resource
      * @return this
      */
     public EventReader setResourceSid(final String resourceSid) {
@@ -63,9 +65,11 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The source_ip_address.
+     * Only include Events that originated from this IP address. Useful for tracking
+     * suspicious activity originating from the API or the Twilio Console..
      * 
-     * @param sourceIpAddress The source_ip_address
+     * @param sourceIpAddress Only include Events that originated from this IP
+     *                        address
      * @return this
      */
     public EventReader setSourceIpAddress(final String sourceIpAddress) {
@@ -74,9 +78,12 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The start_date.
+     * Only show events on or after this date. Useful in combination with `EndDate`
+     * to define a date-range of events. Input is a [UTC ISO 8601
+     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
+     * ignored by the filter..
      * 
-     * @param startDate The start_date
+     * @param startDate Only show events on or after this date
      * @return this
      */
     public EventReader setStartDate(final DateTime startDate) {
@@ -85,9 +92,12 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The end_date.
+     * Only show events on or before this date. Useful in combination with
+     * `StartDate` to define a date-range of events. Input is a [UTC ISO 8601
+     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
+     * ignored by the filter..
      * 
-     * @param endDate The end_date
+     * @param endDate Only show events on or before this date
      * @return this
      */
     public EventReader setEndDate(final DateTime endDate) {

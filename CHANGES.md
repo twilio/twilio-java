@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2018-07-16] Version 7.22.0
+----------------------------
+**Library**
+- PR #427: Update Response to use Scanner hasNext(). Thanks to @cjcodes!
+- PR #424: Add a method for validation of JSON body. Thanks to @cjcodes!
+
+**Twiml**
+- Add support for SSML on Say verb, the message body is changed to be optional **(breaking change)**
+
+
 [2018-07-11] Version 7.21.8
 ----------------------------
 **Library**

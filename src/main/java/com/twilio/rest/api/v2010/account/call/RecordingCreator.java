@@ -29,7 +29,6 @@ public class RecordingCreator extends Creator<Recording> {
     private HttpMethod recordingStatusCallbackMethod;
     private String trim;
     private String recordingChannels;
-    private Boolean playBeep;
 
     /**
      * Construct a new RecordingCreator.
@@ -130,19 +129,6 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * Possible values : true or false.  true will play a double beep before the
-     * recording is paused or stopped or a single beep after the recording is
-     * resumed. Defaults to false.
-     * 
-     * @param playBeep Whether to play beeps for recording status changes
-     * @return this
-     */
-    public RecordingCreator setPlayBeep(final Boolean playBeep) {
-        this.playBeep = playBeep;
-        return this;
-    }
-
-    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -208,10 +194,6 @@ public class RecordingCreator extends Creator<Recording> {
 
         if (recordingChannels != null) {
             request.addPostParam("RecordingChannels", recordingChannels);
-        }
-
-        if (playBeep != null) {
-            request.addPostParam("PlayBeep", playBeep.toString());
         }
     }
 }

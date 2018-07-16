@@ -19,7 +19,59 @@ public class Say extends TwiML {
     public enum Voice {
         MAN("man"),
         WOMAN("woman"),
-        ALICE("alice");
+        ALICE("alice"),
+        POLLY_GERAINT("Polly.Geraint"),
+        POLLY_GWYNETH("Polly.Gwyneth"),
+        POLLY_MADS("Polly.Mads"),
+        POLLY_NAJA("Polly.Naja"),
+        POLLY_HANS("Polly.Hans"),
+        POLLY_MARLENE("Polly.Marlene"),
+        POLLY_NICOLE("Polly.Nicole"),
+        POLLY_RUSSELL("Polly.Russell"),
+        POLLY_AMY("Polly.Amy"),
+        POLLY_BRIAN("Polly.Brian"),
+        POLLY_EMMA("Polly.Emma"),
+        POLLY_RAVEENA("Polly.Raveena"),
+        POLLY_IVY("Polly.Ivy"),
+        POLLY_JOANNA("Polly.Joanna"),
+        POLLY_JOEY("Polly.Joey"),
+        POLLY_JUSTIN("Polly.Justin"),
+        POLLY_KENDRA("Polly.Kendra"),
+        POLLY_KIMBERLY("Polly.Kimberly"),
+        POLLY_MATTHEW("Polly.Matthew"),
+        POLLY_SALLI("Polly.Salli"),
+        POLLY_CONCHITA("Polly.Conchita"),
+        POLLY_ENRIQUE("Polly.Enrique"),
+        POLLY_MIGUEL("Polly.Miguel"),
+        POLLY_PENELOPE("Polly.Penelope"),
+        POLLY_CHANTAL("Polly.Chantal"),
+        POLLY_CELINE("Polly.Celine"),
+        POLLY_MATHIEU("Polly.Mathieu"),
+        POLLY_DORA("Polly.Dora"),
+        POLLY_KARL("Polly.Karl"),
+        POLLY_CARLA("Polly.Carla"),
+        POLLY_GIORGIO("Polly.Giorgio"),
+        POLLY_MIZUKI("Polly.Mizuki"),
+        POLLY_LIV("Polly.Liv"),
+        POLLY_LOTTE("Polly.Lotte"),
+        POLLY_RUBEN("Polly.Ruben"),
+        POLLY_EWA("Polly.Ewa"),
+        POLLY_JACEK("Polly.Jacek"),
+        POLLY_JAN("Polly.Jan"),
+        POLLY_MAJA("Polly.Maja"),
+        POLLY_RICARDO("Polly.Ricardo"),
+        POLLY_VITORIA("Polly.Vitoria"),
+        POLLY_CRISTIANO("Polly.Cristiano"),
+        POLLY_INES("Polly.Ines"),
+        POLLY_CARMEN("Polly.Carmen"),
+        POLLY_MAXIM("Polly.Maxim"),
+        POLLY_TATYANA("Polly.Tatyana"),
+        POLLY_ASTRID("Polly.Astrid"),
+        POLLY_FILIZ("Polly.Filiz"),
+        POLLY_VICKI("Polly.Vicki"),
+        POLLY_TAKUMI("Polly.Takumi"),
+        POLLY_SEOYEON("Polly.Seoyeon"),
+        POLLY_ADITI("Polly.Aditi");
 
         private final String value;
 
@@ -80,7 +132,7 @@ public class Say extends TwiML {
      * For XML Serialization/Deserialization
      */
     private Say() {
-        this(new Builder((String) null));
+        this(new Builder());
     }
 
     /**
@@ -178,6 +230,12 @@ public class Say extends TwiML {
         }
 
         /**
+         * Create a {@code <Say>} with child elements
+         */
+        public Builder() {
+        }
+
+        /**
          * Voice to use
          */
         public Builder voice(Say.Voice voice) {
@@ -198,6 +256,78 @@ public class Say extends TwiML {
          */
         public Builder language(Say.Language language) {
             this.language = language;
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Break>} element
+         */
+        public Builder ssmlBreak(SsmlBreak ssmlBreak) {
+            this.children.add(ssmlBreak);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Emphasis>} element
+         */
+        public Builder ssmlEmphasis(SsmlEmphasis ssmlEmphasis) {
+            this.children.add(ssmlEmphasis);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <P>} element
+         */
+        public Builder ssmlP(SsmlP ssmlP) {
+            this.children.add(ssmlP);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Phoneme>} element
+         */
+        public Builder ssmlPhoneme(SsmlPhoneme ssmlPhoneme) {
+            this.children.add(ssmlPhoneme);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Prosody>} element
+         */
+        public Builder ssmlProsody(SsmlProsody ssmlProsody) {
+            this.children.add(ssmlProsody);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <S>} element
+         */
+        public Builder ssmlS(SsmlS ssmlS) {
+            this.children.add(ssmlS);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Say-As>} element
+         */
+        public Builder ssmlSayAs(SsmlSayAs ssmlSayAs) {
+            this.children.add(ssmlSayAs);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Sub>} element
+         */
+        public Builder ssmlSub(SsmlSub ssmlSub) {
+            this.children.add(ssmlSub);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <W>} element
+         */
+        public Builder ssmlW(SsmlW ssmlW) {
+            this.children.add(ssmlW);
             return this;
         }
 

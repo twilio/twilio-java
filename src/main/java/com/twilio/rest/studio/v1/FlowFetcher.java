@@ -27,7 +27,7 @@ public class FlowFetcher extends Fetcher<Flow> {
     /**
      * Construct a new FlowFetcher.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Flow.
      */
     public FlowFetcher(final String pathSid) {
         this.pathSid = pathSid;

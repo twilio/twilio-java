@@ -70,7 +70,7 @@ public class Engagement extends Resource {
     /**
      * Create a EngagementReader to execute read.
      * 
-     * @param pathFlowSid The flow_sid
+     * @param pathFlowSid Flow Sid.
      * @return EngagementReader capable of executing the read
      */
     public static EngagementReader reader(final String pathFlowSid) {
@@ -80,8 +80,8 @@ public class Engagement extends Resource {
     /**
      * Create a EngagementFetcher to execute fetch.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathSid Engagement Sid.
      * @return EngagementFetcher capable of executing the fetch
      */
     public static EngagementFetcher fetcher(final String pathFlowSid, 
@@ -92,9 +92,10 @@ public class Engagement extends Resource {
     /**
      * Create a EngagementCreator to execute create.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param to The to
-     * @param from The from
+     * @param pathFlowSid Flow Sid.
+     * @param to The Contact phone number to start a Studio Flow Engagement.
+     * @param from The Twilio phone number to send messages or initiate calls from
+     *             during the Flow Engagement.
      * @return EngagementCreator capable of executing the create
      */
     public static EngagementCreator creator(final String pathFlowSid, 
@@ -106,8 +107,8 @@ public class Engagement extends Resource {
     /**
      * Create a EngagementDeleter to execute delete.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathSid Engagement Sid.
      * @return EngagementDeleter capable of executing the delete
      */
     public static EngagementDeleter deleter(final String pathFlowSid, 
@@ -202,99 +203,101 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this Engagement..
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this Engagement.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The flow_sid.
+     * Returns The Flow Sid..
      * 
-     * @return The flow_sid
+     * @return Flow Sid.
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The The contact_sid.
+     * Returns The Contact Sid..
      * 
-     * @return The contact_sid
+     * @return Contact Sid.
      */
     public final String getContactSid() {
         return this.contactSid;
     }
 
     /**
-     * Returns The The contact_channel_address.
+     * Returns The The phone number, SIP address or Client identifier that triggered
+     * this Engagement..
      * 
-     * @return The contact_channel_address
+     * @return The phone number, SIP address or Client identifier that triggered
+     *         this Engagement.
      */
     public final String getContactChannelAddress() {
         return this.contactChannelAddress;
     }
 
     /**
-     * Returns The The context.
+     * Returns The Flow state..
      * 
-     * @return The context
+     * @return Flow state.
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The Status of this Engagement.
      * 
-     * @return The status
+     * @return The Status of this Engagement
      */
     public final Engagement.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Engagement was created.
      * 
-     * @return The date_created
+     * @return The date this Engagement was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Engagement was updated.
      * 
-     * @return The date_updated
+     * @return The date this Engagement was updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource..
      * 
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Nested resource URLs..
      * 
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

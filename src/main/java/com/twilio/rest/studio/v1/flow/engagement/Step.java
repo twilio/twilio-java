@@ -44,8 +44,8 @@ public class Step extends Resource {
     /**
      * Create a StepReader to execute read.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathEngagementSid The engagement_sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathEngagementSid Engagement Sid.
      * @return StepReader capable of executing the read
      */
     public static StepReader reader(final String pathFlowSid, 
@@ -56,9 +56,9 @@ public class Step extends Resource {
     /**
      * Create a StepFetcher to execute fetch.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathEngagementSid The engagement_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathEngagementSid Engagement Sid.
+     * @param pathSid Step Sid.
      * @return StepFetcher capable of executing the fetch
      */
     public static StepFetcher fetcher(final String pathFlowSid, 
@@ -157,45 +157,45 @@ public class Step extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this Step..
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this Step.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The flow_sid.
+     * Returns The Flow Sid..
      * 
-     * @return The flow_sid
+     * @return Flow Sid.
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The The engagement_sid.
+     * Returns The Engagement Sid..
      * 
-     * @return The engagement_sid
+     * @return Engagement Sid.
      */
     public final String getEngagementSid() {
         return this.engagementSid;
     }
 
     /**
-     * Returns The The name.
+     * Returns The The event that caused the flow to transition to this Step..
      * 
-     * @return The name
+     * @return The event that caused the flow to transition to this Step.
      */
     public final String getName() {
         return this.name;
@@ -211,45 +211,45 @@ public class Step extends Resource {
     }
 
     /**
-     * Returns The The transitioned_from.
+     * Returns The The Widget that preceded the Widget for this Step..
      * 
-     * @return The transitioned_from
+     * @return The Widget that preceded the Widget for this Step.
      */
     public final String getTransitionedFrom() {
         return this.transitionedFrom;
     }
 
     /**
-     * Returns The The transitioned_to.
+     * Returns The The Widget that will follow the Widget for this Step..
      * 
-     * @return The transitioned_to
+     * @return The Widget that will follow the Widget for this Step.
      */
     public final String getTransitionedTo() {
         return this.transitionedTo;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Step was created.
      * 
-     * @return The date_created
+     * @return The date this Step was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Step was updated.
      * 
-     * @return The date_updated
+     * @return The date this Step was updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource..
      * 
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

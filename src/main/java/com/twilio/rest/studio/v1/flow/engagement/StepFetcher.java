@@ -29,9 +29,9 @@ public class StepFetcher extends Fetcher<Step> {
     /**
      * Construct a new StepFetcher.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathEngagementSid The engagement_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathEngagementSid Engagement Sid.
+     * @param pathSid Step Sid.
      */
     public StepFetcher(final String pathFlowSid, 
                        final String pathEngagementSid, 

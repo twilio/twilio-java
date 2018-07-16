@@ -78,7 +78,7 @@ public class Flow extends Resource {
     /**
      * Create a FlowFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Flow.
      * @return FlowFetcher capable of executing the fetch
      */
     public static FlowFetcher fetcher(final String pathSid) {
@@ -88,7 +88,7 @@ public class Flow extends Resource {
     /**
      * Create a FlowDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Flow.
      * @return FlowDeleter capable of executing the delete
      */
     public static FlowDeleter deleter(final String pathSid) {
@@ -173,81 +173,81 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this Flow..
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this Flow.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human readable description of this resource..
      * 
-     * @return The friendly_name
+     * @return A human readable description of this resource.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The Status of this Flow.
      * 
-     * @return The status
+     * @return The Status of this Flow
      */
     public final Flow.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The version.
+     * Returns The The latest version number of this Flow's definition..
      * 
-     * @return The version
+     * @return The latest version number of this Flow's definition.
      */
     public final Integer getVersion() {
         return this.version;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Flow was created.
      * 
-     * @return The date_created
+     * @return The date this Flow was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Flow was updated.
      * 
-     * @return The date_updated
+     * @return The date this Flow was updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource..
      * 
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Nested resource URLs..
      * 
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

@@ -7,6 +7,7 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,12 +16,163 @@ import org.junit.Test;
  */
 public class SayTest {
     @Test
+    public void testEmptyElement() {
+        Say elem = new Say.Builder().build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Say/>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testEmptyElementUrl() {
+        Say elem = new Say.Builder().build();
+
+        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CSay%2F%3E", elem.toUrl());
+    }
+
+    @Test
     public void testElementWithParams() {
         Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithExtraAttributes() {
+        Say elem = new Say.Builder().option("foo", "bar").option("a", "b").build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Say a=\"b\" foo=\"bar\"/>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithChildren() {
+        Say.Builder builder = new Say.Builder();
+
+        builder.ssmlBreak(new SsmlBreak.Builder().strength(SsmlBreak.Strength.NONE).time("time").build());
+
+        builder.ssmlEmphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
+
+        builder.ssmlP(new SsmlP.Builder("words").build());
+
+        builder.ssmlPhoneme(new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build());
+
+        builder.ssmlProsody(new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build());
+
+        builder.ssmlS(new SsmlS.Builder("words").build());
+
+        builder.ssmlSayAs(new SsmlSayAs.Builder("words")
+                    .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
+                    .role(SsmlSayAs.Role.MDY)
+                    .build());
+
+        builder.ssmlSub(new SsmlSub.Builder("words").alias("alias").build());
+
+        builder.ssmlW(new SsmlW.Builder("words").role("role").build());
+
+        Say elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Say>" +
+                "<break strength=\"none\" time=\"time\"/>" +
+                "<emphasis level=\"strong\">words</emphasis>" +
+                "<p>words</p>" +
+                "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
+                "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +
+                "<s>words</s>" +
+                "<say-as interpret-as=\"character\" role=\"mdy\">words</say-as>" +
+                "<sub alias=\"alias\">words</sub>" +
+                "<w role=\"role\">words</w>" +
+            "</Say>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithTextNode() {
+        Say.Builder builder = new Say.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Say elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Say>" +
+            "Hey no tags!" +
+            "</Say>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testMixedContent() {
+        GenericNode.Builder child = new GenericNode.Builder("Child");
+        child.addText("content");
+
+        Say.Builder builder = new Say.Builder();
+
+        builder.addText("before");
+        builder.addChild(child.build());
+        builder.addText("after");
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Say>" +
+            "before" +
+            "<Child>content</Child>" +
+            "after" +
+            "</Say>",
+            builder.build().toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Say.Builder builder = new Say.Builder();
+        Say elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Say>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
+            "</Say>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Say.Builder builder = new Say.Builder();
+        Say elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Say>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
+            "</Say>",
             elem.toXml()
         );
     }

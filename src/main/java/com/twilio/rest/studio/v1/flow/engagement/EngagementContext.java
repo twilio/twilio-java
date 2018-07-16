@@ -42,8 +42,8 @@ public class EngagementContext extends Resource {
     /**
      * Create a EngagementContextFetcher to execute fetch.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathEngagementSid The engagement_sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathEngagementSid Engagement Sid.
      * @return EngagementContextFetcher capable of executing the fetch
      */
     public static EngagementContextFetcher fetcher(final String pathFlowSid, 
@@ -114,45 +114,45 @@ public class EngagementContext extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The context.
+     * Returns The Flow state..
      * 
-     * @return The context
+     * @return Flow state.
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The engagement_sid.
+     * Returns The Engagement Sid..
      * 
-     * @return The engagement_sid
+     * @return Engagement Sid.
      */
     public final String getEngagementSid() {
         return this.engagementSid;
     }
 
     /**
-     * Returns The The flow_sid.
+     * Returns The Flow Sid..
      * 
-     * @return The flow_sid
+     * @return Flow Sid.
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource..
      * 
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

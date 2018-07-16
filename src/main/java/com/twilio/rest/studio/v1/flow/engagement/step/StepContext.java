@@ -42,9 +42,9 @@ public class StepContext extends Resource {
     /**
      * Create a StepContextFetcher to execute fetch.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathEngagementSid The engagement_sid
-     * @param pathStepSid The step_sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathEngagementSid Engagement Sid.
+     * @param pathStepSid Step Sid.
      * @return StepContextFetcher capable of executing the fetch
      */
     public static StepContextFetcher fetcher(final String pathFlowSid, 
@@ -120,54 +120,54 @@ public class StepContext extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The context.
+     * Returns The Flow state..
      * 
-     * @return The context
+     * @return Flow state.
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The engagement_sid.
+     * Returns The Engagement Sid..
      * 
-     * @return The engagement_sid
+     * @return Engagement Sid.
      */
     public final String getEngagementSid() {
         return this.engagementSid;
     }
 
     /**
-     * Returns The The flow_sid.
+     * Returns The Flow Sid..
      * 
-     * @return The flow_sid
+     * @return Flow Sid.
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The The step_sid.
+     * Returns The Step Sid..
      * 
-     * @return The step_sid
+     * @return Step Sid.
      */
     public final String getStepSid() {
         return this.stepSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource..
      * 
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

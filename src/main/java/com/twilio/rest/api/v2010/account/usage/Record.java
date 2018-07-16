@@ -301,7 +301,7 @@ public class Record extends Resource {
     /**
      * Create a RecordReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The Account that accrued the usage
      * @return RecordReader capable of executing the read
      */
     public static RecordReader reader(final String pathAccountSid) {

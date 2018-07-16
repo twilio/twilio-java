@@ -28,8 +28,8 @@ public class EngagementFetcher extends Fetcher<Engagement> {
     /**
      * Construct a new EngagementFetcher.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathSid Engagement Sid.
      */
     public EngagementFetcher(final String pathFlowSid, 
                              final String pathSid) {

@@ -28,8 +28,8 @@ public class EngagementDeleter extends Deleter<Engagement> {
     /**
      * Construct a new EngagementDeleter.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathSid Engagement Sid.
      */
     public EngagementDeleter(final String pathFlowSid, 
                              final String pathSid) {

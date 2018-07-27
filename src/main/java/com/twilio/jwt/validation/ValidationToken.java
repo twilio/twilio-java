@@ -18,12 +18,7 @@ import org.apache.http.HttpRequest;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ValidationToken extends Jwt {
@@ -194,7 +189,12 @@ public class ValidationToken extends Jwt {
         }
 
         public Builder signedHeaders(List<String> signedHeaders) {
-            this.signedHeaders = new ArrayList<>(signedHeaders);
+            if (signedHeaders == null) {
+                this.signedHeaders = Collections.emptyList();
+            } else {
+                this.signedHeaders = new ArrayList<>(signedHeaders);
+            }
+
             return this;
         }
 

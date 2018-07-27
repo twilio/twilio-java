@@ -18,11 +18,7 @@ import org.apache.http.HttpRequest;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.PrivateKey;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ValidationToken extends Jwt {
@@ -92,14 +88,14 @@ public class ValidationToken extends Jwt {
 
     /**
      * Create a ValidationToken from an HTTP Request.
-     * 
+     *
      * @param  accountSid Twilio Account SID
      * @param  credentialSid Twilio Credential SID
      * @param  signingKeySid Twilio Signing Key SID
      * @param  privateKey Private Key
      * @param  request HTTP Request
      * @param  signedHeaders Headers to sign
-     * 
+     *
      * @throws IOException when unable to generate
      * @return The ValidationToken generated from the HttpRequest
      */
@@ -159,7 +155,7 @@ public class ValidationToken extends Jwt {
 
         /**
          * Create a new ValidationToken Builder.
-         * 
+         *
          * @param  accountSid Twilio Account SID
          * @param  credentialSid Twilio Crednetial SID
          * @param  signingKeySid Twilio Signing Key SID
@@ -193,7 +189,12 @@ public class ValidationToken extends Jwt {
         }
 
         public Builder signedHeaders(List<String> signedHeaders) {
-            this.signedHeaders = signedHeaders;
+            if (signedHeaders == null) {
+                this.signedHeaders = Collections.emptyList();
+            } else {
+                this.signedHeaders = new ArrayList<>(signedHeaders);
+            }
+
             return this;
         }
 

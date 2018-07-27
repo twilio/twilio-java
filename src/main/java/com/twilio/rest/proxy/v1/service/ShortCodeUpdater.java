@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1;
+package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
@@ -17,35 +17,52 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RoomUpdater extends Updater<Room> {
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class ShortCodeUpdater extends Updater<ShortCode> {
+    private final String pathServiceSid;
     private final String pathSid;
-    private final Room.RoomStatus status;
+    private Boolean isReserved;
 
     /**
-     * Construct a new RoomUpdater.
+     * Construct a new ShortCodeUpdater.
      * 
-     * @param pathSid The Room Sid or name that uniquely identifies this resource.
-     * @param status Set to completed to end the Room.
+     * @param pathServiceSid Service Sid.
+     * @param pathSid A string that uniquely identifies this Short Code.
      */
-    public RoomUpdater(final String pathSid, 
-                       final Room.RoomStatus status) {
+    public ShortCodeUpdater(final String pathServiceSid, 
+                            final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
-        this.status = status;
+    }
+
+    /**
+     * Whether or not the short code should be excluded from being assigned to a
+     * participant using proxy pool logic.
+     * 
+     * @param isReserved Reserve for manual assignment to participants only.
+     * @return this
+     */
+    public ShortCodeUpdater setIsReserved(final Boolean isReserved) {
+        this.isReserved = isReserved;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Room
+     * @return Updated ShortCode
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Room update(final TwilioRestClient client) {
+    public ShortCode update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathSid + "",
+            Domains.PROXY.toString(),
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -53,7 +70,7 @@ public class RoomUpdater extends Updater<Room> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Room update failed: Unable to connect to server");
+            throw new ApiConnectionException("ShortCode update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -69,7 +86,7 @@ public class RoomUpdater extends Updater<Room> {
             );
         }
 
-        return Room.fromJson(response.getStream(), client.getObjectMapper());
+        return ShortCode.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -78,8 +95,8 @@ public class RoomUpdater extends Updater<Room> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (status != null) {
-            request.addPostParam("Status", status.toString());
+        if (isReserved != null) {
+            request.addPostParam("IsReserved", isReserved.toString());
         }
     }
 }

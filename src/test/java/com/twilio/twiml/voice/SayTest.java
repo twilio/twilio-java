@@ -63,6 +63,8 @@ public class SayTest {
 
         builder.ssmlEmphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
 
+        builder.ssmlLang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build());
+
         builder.ssmlP(new SsmlP.Builder("words").build());
 
         builder.ssmlPhoneme(new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build());
@@ -87,6 +89,7 @@ public class SayTest {
             "<Say>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
+                "<lang xml:lang=\"da-DK\">words</lang>" +
                 "<p>words</p>" +
                 "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
                 "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +

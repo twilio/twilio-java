@@ -44,8 +44,8 @@ public class ExecutionStep extends Resource {
     /**
      * Create a ExecutionStepReader to execute read.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathExecutionSid The execution_sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathExecutionSid Execution Sid.
      * @return ExecutionStepReader capable of executing the read
      */
     public static ExecutionStepReader reader(final String pathFlowSid, 
@@ -56,9 +56,9 @@ public class ExecutionStep extends Resource {
     /**
      * Create a ExecutionStepFetcher to execute fetch.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathExecutionSid The execution_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathExecutionSid Execution Sid.
+     * @param pathSid Step Sid.
      * @return ExecutionStepFetcher capable of executing the fetch
      */
     public static ExecutionStepFetcher fetcher(final String pathFlowSid, 
@@ -158,45 +158,45 @@ public class ExecutionStep extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this Step..
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this Step.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The flow_sid.
+     * Returns The Flow Sid..
      * 
-     * @return The flow_sid
+     * @return Flow Sid.
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The The execution_sid.
+     * Returns The Execution Sid..
      * 
-     * @return The execution_sid
+     * @return Execution Sid.
      */
     public final String getExecutionSid() {
         return this.executionSid;
     }
 
     /**
-     * Returns The The name.
+     * Returns The The event that caused the flow to transition to this Step..
      * 
-     * @return The name
+     * @return The event that caused the flow to transition to this Step.
      */
     public final String getName() {
         return this.name;
@@ -212,45 +212,45 @@ public class ExecutionStep extends Resource {
     }
 
     /**
-     * Returns The The transitioned_from.
+     * Returns The The Widget that preceded the Widget for this Step..
      * 
-     * @return The transitioned_from
+     * @return The Widget that preceded the Widget for this Step.
      */
     public final String getTransitionedFrom() {
         return this.transitionedFrom;
     }
 
     /**
-     * Returns The The transitioned_to.
+     * Returns The The Widget that will follow the Widget for this Step..
      * 
-     * @return The transitioned_to
+     * @return The Widget that will follow the Widget for this Step.
      */
     public final String getTransitionedTo() {
         return this.transitionedTo;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Step was created.
      * 
-     * @return The date_created
+     * @return The date this Step was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Step was updated.
      * 
-     * @return The date_updated
+     * @return The date this Step was updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource..
      * 
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

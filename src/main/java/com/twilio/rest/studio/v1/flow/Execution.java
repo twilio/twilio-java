@@ -70,7 +70,7 @@ public class Execution extends Resource {
     /**
      * Create a ExecutionReader to execute read.
      * 
-     * @param pathFlowSid The flow_sid
+     * @param pathFlowSid Flow Sid.
      * @return ExecutionReader capable of executing the read
      */
     public static ExecutionReader reader(final String pathFlowSid) {
@@ -80,8 +80,8 @@ public class Execution extends Resource {
     /**
      * Create a ExecutionFetcher to execute fetch.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathSid Execution Sid.
      * @return ExecutionFetcher capable of executing the fetch
      */
     public static ExecutionFetcher fetcher(final String pathFlowSid, 
@@ -92,9 +92,10 @@ public class Execution extends Resource {
     /**
      * Create a ExecutionCreator to execute create.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param to The to
-     * @param from The from
+     * @param pathFlowSid Flow Sid.
+     * @param to The Contact phone number to start a Studio Flow Execution.
+     * @param from The Twilio phone number to send messages or initiate calls from
+     *             during the Flow Execution.
      * @return ExecutionCreator capable of executing the create
      */
     public static ExecutionCreator creator(final String pathFlowSid, 
@@ -106,8 +107,8 @@ public class Execution extends Resource {
     /**
      * Create a ExecutionDeleter to execute delete.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathSid Execution Sid.
      * @return ExecutionDeleter capable of executing the delete
      */
     public static ExecutionDeleter deleter(final String pathFlowSid, 
@@ -202,99 +203,101 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this Execution..
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this Execution.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The flow_sid.
+     * Returns The Flow Sid..
      * 
-     * @return The flow_sid
+     * @return Flow Sid.
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The The contact_sid.
+     * Returns The Contact Sid..
      * 
-     * @return The contact_sid
+     * @return Contact Sid.
      */
     public final String getContactSid() {
         return this.contactSid;
     }
 
     /**
-     * Returns The The contact_channel_address.
+     * Returns The The phone number, SIP address or Client identifier that triggered
+     * this Execution..
      * 
-     * @return The contact_channel_address
+     * @return The phone number, SIP address or Client identifier that triggered
+     *         this Execution.
      */
     public final String getContactChannelAddress() {
         return this.contactChannelAddress;
     }
 
     /**
-     * Returns The The context.
+     * Returns The Flow state..
      * 
-     * @return The context
+     * @return Flow state.
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The Status of this Execution.
      * 
-     * @return The status
+     * @return The Status of this Execution
      */
     public final Execution.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this Execution was created.
      * 
-     * @return The date_created
+     * @return The date this Execution was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this Execution was updated.
      * 
-     * @return The date_updated
+     * @return The date this Execution was updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource..
      * 
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Nested resource URLs..
      * 
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

@@ -66,7 +66,8 @@ public class Room extends Resource {
 
     public enum RoomType {
         PEER_TO_PEER("peer-to-peer"),
-        GROUP("group");
+        GROUP("group"),
+        GROUP_SMALL("group-small");
 
         private final String value;
 
@@ -117,7 +118,7 @@ public class Room extends Resource {
     /**
      * Create a RoomFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The Room Sid or name that uniquely identifies this resource.
      * @return RoomFetcher capable of executing the fetch
      */
     public static RoomFetcher fetcher(final String pathSid) {
@@ -145,7 +146,7 @@ public class Room extends Resource {
     /**
      * Create a RoomUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The Room Sid or name that uniquely identifies this resource.
      * @param status Set to completed to end the Room.
      * @return RoomUpdater capable of executing the update
      */
@@ -375,9 +376,9 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The Type of Room, either peer-to-peer or group..
+     * Returns The Type of Room, either peer-to-peer, group-small or group..
      * 
-     * @return Type of Room, either peer-to-peer or group.
+     * @return Type of Room, either peer-to-peer, group-small or group.
      */
     public final Room.RoomType getType() {
         return this.type;

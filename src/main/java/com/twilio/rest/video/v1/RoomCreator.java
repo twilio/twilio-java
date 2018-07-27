@@ -45,9 +45,10 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * Type of room, either `peer-to-peer` or `group`. Will be `group` by default..
+     * Type of room, either `peer-to-peer`, `group-small` or `group`. Will be
+     * `group` by default..
      * 
-     * @param type Type of room, either peer-to-peer or group.
+     * @param type Type of room, either peer-to-peer, group-small or group.
      * @return this
      */
     public RoomCreator setType(final Room.RoomType type) {
@@ -106,8 +107,9 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * Maximum number of Participants in the Room. peer-to-peer rooms can have a
-     * maximum of 10 Participants..
+     * Maximum number of Participants in the Room. Peer-to-peer rooms can have a
+     * maximum of 10 Participants. Small Group rooms can have a max of 4
+     * Participants. Group rooms can have a max of 50 Participants.
      * 
      * @param maxParticipants Maximum number of Participants in the Room.
      * @return this

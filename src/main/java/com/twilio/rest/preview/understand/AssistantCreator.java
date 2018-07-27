@@ -28,7 +28,6 @@ import java.net.URI;
 public class AssistantCreator extends Creator<Assistant> {
     private String friendlyName;
     private Boolean logQueries;
-    private Integer ttl;
     private String uniqueName;
     private URI responseUrl;
     private URI callbackUrl;
@@ -62,17 +61,6 @@ public class AssistantCreator extends Creator<Assistant> {
      */
     public AssistantCreator setLogQueries(final Boolean logQueries) {
         this.logQueries = logQueries;
-        return this;
-    }
-
-    /**
-     * The ttl.
-     * 
-     * @param ttl The ttl
-     * @return this
-     */
-    public AssistantCreator setTtl(final Integer ttl) {
-        this.ttl = ttl;
         return this;
     }
 
@@ -198,10 +186,6 @@ public class AssistantCreator extends Creator<Assistant> {
 
         if (logQueries != null) {
             request.addPostParam("LogQueries", logQueries.toString());
-        }
-
-        if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
         }
 
         if (uniqueName != null) {

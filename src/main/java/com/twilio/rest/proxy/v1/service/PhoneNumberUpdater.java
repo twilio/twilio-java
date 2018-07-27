@@ -7,8 +7,7 @@
 
 package com.twilio.rest.proxy.v1.service;
 
-import com.twilio.base.Creator;
-import com.twilio.converter.Promoter;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,56 +21,21 @@ import com.twilio.rest.Domains;
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
  */
-public class PhoneNumberCreator extends Creator<PhoneNumber> {
+public class PhoneNumberUpdater extends Updater<PhoneNumber> {
     private final String pathServiceSid;
-    private String sid;
-    private com.twilio.type.PhoneNumber phoneNumber;
+    private final String pathSid;
     private Boolean isReserved;
 
     /**
-     * Construct a new PhoneNumberCreator.
+     * Construct a new PhoneNumberUpdater.
      * 
      * @param pathServiceSid Service Sid.
+     * @param pathSid A string that uniquely identifies this Phone Number.
      */
-    public PhoneNumberCreator(final String pathServiceSid) {
+    public PhoneNumberUpdater(final String pathServiceSid, 
+                              final String pathSid) {
         this.pathServiceSid = pathServiceSid;
-    }
-
-    /**
-     * A Twilio
-     * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incoming-phone-numbers) Sid that represents the Twilio Number you would like to assign to your Proxy Service (e.g. `PN1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d`)..
-     * 
-     * @param sid Phone Number Sid of Twilio Number to assign to your Proxy Service
-     * @return this
-     */
-    public PhoneNumberCreator setSid(final String sid) {
-        this.sid = sid;
-        return this;
-    }
-
-    /**
-     * A string that represents the Twilio Number you would like to assign to your
-     * Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164)
-     * format (e.g. `+16175551212`)..
-     * 
-     * @param phoneNumber Twilio Number to assign to your Proxy Service
-     * @return this
-     */
-    public PhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
-
-    /**
-     * A string that represents the Twilio Number you would like to assign to your
-     * Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164)
-     * format (e.g. `+16175551212`)..
-     * 
-     * @param phoneNumber Twilio Number to assign to your Proxy Service
-     * @return this
-     */
-    public PhoneNumberCreator setPhoneNumber(final String phoneNumber) {
-        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
+        this.pathSid = pathSid;
     }
 
     /**
@@ -81,24 +45,24 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * @param isReserved Reserve for manual assignment to participants only.
      * @return this
      */
-    public PhoneNumberCreator setIsReserved(final Boolean isReserved) {
+    public PhoneNumberUpdater setIsReserved(final Boolean isReserved) {
         this.isReserved = isReserved;
         return this;
     }
 
     /**
-     * Make the request to the Twilio API to perform the create.
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created PhoneNumber
+     * @return Updated PhoneNumber
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public PhoneNumber create(final TwilioRestClient client) {
+    public PhoneNumber update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers",
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -106,7 +70,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PhoneNumber creation failed: Unable to connect to server");
+            throw new ApiConnectionException("PhoneNumber update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -131,14 +95,6 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (sid != null) {
-            request.addPostParam("Sid", sid);
-        }
-
-        if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
-        }
-
         if (isReserved != null) {
             request.addPostParam("IsReserved", isReserved.toString());
         }

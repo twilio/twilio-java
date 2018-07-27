@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Assistant extends Resource {
-    private static final long serialVersionUID = 74560960830334L;
+    private static final long serialVersionUID = 176565826381817L;
 
     /**
      * Create a AssistantFetcher to execute fetch.
@@ -135,7 +135,6 @@ public class Assistant extends Resource {
     private final Map<String, String> links;
     private final Boolean logQueries;
     private final String sid;
-    private final Integer ttl;
     private final String uniqueName;
     private final URI url;
     private final URI responseUrl;
@@ -159,8 +158,6 @@ public class Assistant extends Resource {
                       final Boolean logQueries, 
                       @JsonProperty("sid")
                       final String sid, 
-                      @JsonProperty("ttl")
-                      final Integer ttl, 
                       @JsonProperty("unique_name")
                       final String uniqueName, 
                       @JsonProperty("url")
@@ -179,7 +176,6 @@ public class Assistant extends Resource {
         this.links = links;
         this.logQueries = logQueries;
         this.sid = sid;
-        this.ttl = ttl;
         this.uniqueName = uniqueName;
         this.url = url;
         this.responseUrl = responseUrl;
@@ -268,15 +264,6 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The ttl.
-     * 
-     * @return The ttl
-     */
-    public final Integer getTtl() {
-        return this.ttl;
-    }
-
-    /**
      * Returns The A user-provided string that uniquely identifies this resource as
      * an alternative to the sid. You can use the unique name in the URL path.
      * Unique up to 64 characters long..
@@ -347,7 +334,6 @@ public class Assistant extends Resource {
                Objects.equals(links, other.links) && 
                Objects.equals(logQueries, other.logQueries) && 
                Objects.equals(sid, other.sid) && 
-               Objects.equals(ttl, other.ttl) && 
                Objects.equals(uniqueName, other.uniqueName) && 
                Objects.equals(url, other.url) && 
                Objects.equals(responseUrl, other.responseUrl) && 
@@ -365,7 +351,6 @@ public class Assistant extends Resource {
                             links,
                             logQueries,
                             sid,
-                            ttl,
                             uniqueName,
                             url,
                             responseUrl,
@@ -384,7 +369,6 @@ public class Assistant extends Resource {
                           .add("links", links)
                           .add("logQueries", logQueries)
                           .add("sid", sid)
-                          .add("ttl", ttl)
                           .add("uniqueName", uniqueName)
                           .add("url", url)
                           .add("responseUrl", responseUrl)

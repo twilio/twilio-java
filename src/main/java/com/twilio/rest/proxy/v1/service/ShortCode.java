@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShortCode extends Resource {
-    private static final long serialVersionUID = 205194223187327L;
+    private static final long serialVersionUID = 62346607367423L;
 
     /**
      * Create a ShortCodeCreator to execute create.
@@ -85,6 +85,18 @@ public class ShortCode extends Resource {
     public static ShortCodeFetcher fetcher(final String pathServiceSid, 
                                            final String pathSid) {
         return new ShortCodeFetcher(pathServiceSid, pathSid);
+    }
+
+    /**
+     * Create a ShortCodeUpdater to execute update.
+     * 
+     * @param pathServiceSid Service Sid.
+     * @param pathSid A string that uniquely identifies this Short Code.
+     * @return ShortCodeUpdater capable of executing the update
+     */
+    public static ShortCodeUpdater updater(final String pathServiceSid, 
+                                           final String pathSid) {
+        return new ShortCodeUpdater(pathServiceSid, pathSid);
     }
 
     /**
@@ -134,6 +146,7 @@ public class ShortCode extends Resource {
     private final String isoCountry;
     private final PhoneNumberCapabilities capabilities;
     private final URI url;
+    private final Boolean isReserved;
 
     @JsonCreator
     private ShortCode(@JsonProperty("sid")
@@ -153,7 +166,9 @@ public class ShortCode extends Resource {
                       @JsonProperty("capabilities")
                       final PhoneNumberCapabilities capabilities, 
                       @JsonProperty("url")
-                      final URI url) {
+                      final URI url, 
+                      @JsonProperty("is_reserved")
+                      final Boolean isReserved) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -163,6 +178,7 @@ public class ShortCode extends Resource {
         this.isoCountry = isoCountry;
         this.capabilities = capabilities;
         this.url = url;
+        this.isReserved = isReserved;
     }
 
     /**
@@ -246,6 +262,15 @@ public class ShortCode extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The Reserve for manual assignment to participants only..
+     * 
+     * @return Reserve for manual assignment to participants only.
+     */
+    public final Boolean getIsReserved() {
+        return this.isReserved;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -266,7 +291,8 @@ public class ShortCode extends Resource {
                Objects.equals(shortCode, other.shortCode) && 
                Objects.equals(isoCountry, other.isoCountry) && 
                Objects.equals(capabilities, other.capabilities) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(isReserved, other.isReserved);
     }
 
     @Override
@@ -279,7 +305,8 @@ public class ShortCode extends Resource {
                             shortCode,
                             isoCountry,
                             capabilities,
-                            url);
+                            url,
+                            isReserved);
     }
 
     @Override
@@ -294,6 +321,7 @@ public class ShortCode extends Resource {
                           .add("isoCountry", isoCountry)
                           .add("capabilities", capabilities)
                           .add("url", url)
+                          .add("isReserved", isReserved)
                           .toString();
     }
 }

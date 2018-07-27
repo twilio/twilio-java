@@ -276,6 +276,14 @@ public class Say extends TwiML {
         }
 
         /**
+         * Add a child {@code <Lang>} element
+         */
+        public Builder ssmlLang(SsmlLang ssmlLang) {
+            this.children.add(ssmlLang);
+            return this;
+        }
+
+        /**
          * Add a child {@code <P>} element
          */
         public Builder ssmlP(SsmlP ssmlP) {

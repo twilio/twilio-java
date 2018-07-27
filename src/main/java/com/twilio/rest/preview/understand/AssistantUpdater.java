@@ -29,7 +29,6 @@ public class AssistantUpdater extends Updater<Assistant> {
     private final String pathSid;
     private String friendlyName;
     private Boolean logQueries;
-    private Integer ttl;
     private String uniqueName;
     private URI responseUrl;
     private URI callbackUrl;
@@ -72,17 +71,6 @@ public class AssistantUpdater extends Updater<Assistant> {
      */
     public AssistantUpdater setLogQueries(final Boolean logQueries) {
         this.logQueries = logQueries;
-        return this;
-    }
-
-    /**
-     * The ttl.
-     * 
-     * @param ttl The ttl
-     * @return this
-     */
-    public AssistantUpdater setTtl(final Integer ttl) {
-        this.ttl = ttl;
         return this;
     }
 
@@ -208,10 +196,6 @@ public class AssistantUpdater extends Updater<Assistant> {
 
         if (logQueries != null) {
             request.addPostParam("LogQueries", logQueries.toString());
-        }
-
-        if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
         }
 
         if (uniqueName != null) {

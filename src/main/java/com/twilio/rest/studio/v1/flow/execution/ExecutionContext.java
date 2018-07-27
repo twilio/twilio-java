@@ -42,8 +42,8 @@ public class ExecutionContext extends Resource {
     /**
      * Create a ExecutionContextFetcher to execute fetch.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathExecutionSid The execution_sid
+     * @param pathFlowSid Flow Sid.
+     * @param pathExecutionSid Execution Sid.
      * @return ExecutionContextFetcher capable of executing the fetch
      */
     public static ExecutionContextFetcher fetcher(final String pathFlowSid, 
@@ -114,45 +114,45 @@ public class ExecutionContext extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The context.
+     * Returns The Flow state..
      * 
-     * @return The context
+     * @return Flow state.
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The flow_sid.
+     * Returns The Flow Sid..
      * 
-     * @return The flow_sid
+     * @return Flow Sid.
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The The execution_sid.
+     * Returns The Execution Sid..
      * 
-     * @return The execution_sid
+     * @return Execution Sid.
      */
     public final String getExecutionSid() {
         return this.executionSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this resource..
      * 
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

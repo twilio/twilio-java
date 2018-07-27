@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.studio.v1.flow;
+package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -17,23 +17,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class ExecutionDeleter extends Deleter<Execution> {
-    private final String pathFlowSid;
+public class AuthCallsCredentialListMappingDeleter extends Deleter<AuthCallsCredentialListMapping> {
+    private String pathAccountSid;
+    private final String pathDomainSid;
     private final String pathSid;
 
     /**
-     * Construct a new ExecutionDeleter.
+     * Construct a new AuthCallsCredentialListMappingDeleter.
      * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Execution Sid.
+     * @param pathDomainSid The domain_sid
+     * @param pathSid Delete by unique credential list Sid
      */
-    public ExecutionDeleter(final String pathFlowSid, 
-                            final String pathSid) {
-        this.pathFlowSid = pathFlowSid;
+    public AuthCallsCredentialListMappingDeleter(final String pathDomainSid, 
+                                                 final String pathSid) {
+        this.pathDomainSid = pathDomainSid;
+        this.pathSid = pathSid;
+    }
+
+    /**
+     * Construct a new AuthCallsCredentialListMappingDeleter.
+     * 
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
+     * @param pathSid Delete by unique credential list Sid
+     */
+    public AuthCallsCredentialListMappingDeleter(final String pathAccountSid, 
+                                                 final String pathDomainSid, 
+                                                 final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
     }
 
@@ -45,17 +57,18 @@ public class ExecutionDeleter extends Deleter<Execution> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + "",
+            Domains.API.toString(),
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Calls/CredentialListMappings/" + this.pathSid + ".json",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Execution delete failed: Unable to connect to server");
+            throw new ApiConnectionException("AuthCallsCredentialListMapping delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

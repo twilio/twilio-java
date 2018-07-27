@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.studio.v1.flow;
+package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,30 +19,39 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class ExecutionReader extends Reader<Execution> {
-    private final String pathFlowSid;
+public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCredentialListMapping> {
+    private String pathAccountSid;
+    private final String pathDomainSid;
 
     /**
-     * Construct a new ExecutionReader.
+     * Construct a new AuthCallsCredentialListMappingReader.
      * 
-     * @param pathFlowSid Flow Sid.
+     * @param pathDomainSid The domain_sid
      */
-    public ExecutionReader(final String pathFlowSid) {
-        this.pathFlowSid = pathFlowSid;
+    public AuthCallsCredentialListMappingReader(final String pathDomainSid) {
+        this.pathDomainSid = pathDomainSid;
+    }
+
+    /**
+     * Construct a new AuthCallsCredentialListMappingReader.
+     * 
+     * @param pathAccountSid The account_sid
+     * @param pathDomainSid The domain_sid
+     */
+    public AuthCallsCredentialListMappingReader(final String pathAccountSid, 
+                                                final String pathDomainSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Execution ResourceSet
+     * @return AuthCallsCredentialListMapping ResourceSet
      */
     @Override
-    public ResourceSet<Execution> read(final TwilioRestClient client) {
+    public ResourceSet<AuthCallsCredentialListMapping> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -50,15 +59,16 @@ public class ExecutionReader extends Reader<Execution> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Execution ResourceSet
+     * @return AuthCallsCredentialListMapping ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Execution> firstPage(final TwilioRestClient client) {
+    public Page<AuthCallsCredentialListMapping> firstPage(final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
-            Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions",
+            Domains.API.toString(),
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Calls/CredentialListMappings.json",
             client.getRegion()
         );
 
@@ -71,11 +81,12 @@ public class ExecutionReader extends Reader<Execution> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Execution ResourceSet
+     * @return AuthCallsCredentialListMapping ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Execution> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<AuthCallsCredentialListMapping> getPage(final String targetUrl, final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -92,12 +103,12 @@ public class ExecutionReader extends Reader<Execution> {
      * @return Next Page
      */
     @Override
-    public Page<Execution> nextPage(final Page<Execution> page, 
-                                    final TwilioRestClient client) {
+    public Page<AuthCallsCredentialListMapping> nextPage(final Page<AuthCallsCredentialListMapping> page, 
+                                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.STUDIO.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );
@@ -112,12 +123,12 @@ public class ExecutionReader extends Reader<Execution> {
      * @return Previous Page
      */
     @Override
-    public Page<Execution> previousPage(final Page<Execution> page, 
-                                        final TwilioRestClient client) {
+    public Page<AuthCallsCredentialListMapping> previousPage(final Page<AuthCallsCredentialListMapping> page, 
+                                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
+                Domains.API.toString(),
                 client.getRegion()
             )
         );
@@ -125,17 +136,18 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     /**
-     * Generate a Page of Execution Resources for a given request.
+     * Generate a Page of AuthCallsCredentialListMapping Resources for a given
+     * request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Execution> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<AuthCallsCredentialListMapping> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Execution read failed: Unable to connect to server");
+            throw new ApiConnectionException("AuthCallsCredentialListMapping read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -152,9 +164,9 @@ public class ExecutionReader extends Reader<Execution> {
         }
 
         return Page.fromJson(
-            "executions",
+            "contents",
             response.getContent(),
-            Execution.class,
+            AuthCallsCredentialListMapping.class,
             client.getObjectMapper()
         );
     }

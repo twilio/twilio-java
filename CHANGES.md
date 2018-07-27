@@ -1,6 +1,24 @@
 twilio-java changelog
 =====================
 
+[2018-07-26] Version 7.22.1
+----------------------------
+**Api**
+- Add support for sip domains to map credential lists for registrations
+
+**Preview**
+- Remove `ttl` from Assistants
+
+**Proxy**
+- Enable setting a proxy number as reserved
+
+**Video**
+- Add `group-small` room type
+
+**Twiml**
+- Add support for SSML lang tag on Say verb
+
+
 [2018-07-16] Version 7.22.0
 ----------------------------
 **Library**

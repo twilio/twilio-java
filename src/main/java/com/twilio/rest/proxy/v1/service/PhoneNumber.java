@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 266492066414172L;
+    private static final long serialVersionUID = 254723895203736L;
 
     /**
      * Create a PhoneNumberCreator to execute create.
@@ -83,6 +83,18 @@ public class PhoneNumber extends Resource {
     public static PhoneNumberFetcher fetcher(final String pathServiceSid, 
                                              final String pathSid) {
         return new PhoneNumberFetcher(pathServiceSid, pathSid);
+    }
+
+    /**
+     * Create a PhoneNumberUpdater to execute update.
+     * 
+     * @param pathServiceSid Service Sid.
+     * @param pathSid A string that uniquely identifies this Phone Number.
+     * @return PhoneNumberUpdater capable of executing the update
+     */
+    public static PhoneNumberUpdater updater(final String pathServiceSid, 
+                                             final String pathSid) {
+        return new PhoneNumberUpdater(pathServiceSid, pathSid);
     }
 
     /**
@@ -133,6 +145,7 @@ public class PhoneNumber extends Resource {
     private final String isoCountry;
     private final PhoneNumberCapabilities capabilities;
     private final URI url;
+    private final Boolean isReserved;
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("sid")
@@ -154,7 +167,9 @@ public class PhoneNumber extends Resource {
                         @JsonProperty("capabilities")
                         final PhoneNumberCapabilities capabilities, 
                         @JsonProperty("url")
-                        final URI url) {
+                        final URI url, 
+                        @JsonProperty("is_reserved")
+                        final Boolean isReserved) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -165,6 +180,7 @@ public class PhoneNumber extends Resource {
         this.isoCountry = isoCountry;
         this.capabilities = capabilities;
         this.url = url;
+        this.isReserved = isReserved;
     }
 
     /**
@@ -257,6 +273,15 @@ public class PhoneNumber extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The Reserve for manual assignment to participants only..
+     * 
+     * @return Reserve for manual assignment to participants only.
+     */
+    public final Boolean getIsReserved() {
+        return this.isReserved;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -278,7 +303,8 @@ public class PhoneNumber extends Resource {
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(isoCountry, other.isoCountry) && 
                Objects.equals(capabilities, other.capabilities) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(isReserved, other.isReserved);
     }
 
     @Override
@@ -292,7 +318,8 @@ public class PhoneNumber extends Resource {
                             friendlyName,
                             isoCountry,
                             capabilities,
-                            url);
+                            url,
+                            isReserved);
     }
 
     @Override
@@ -308,6 +335,7 @@ public class PhoneNumber extends Resource {
                           .add("isoCountry", isoCountry)
                           .add("capabilities", capabilities)
                           .add("url", url)
+                          .add("isReserved", isReserved)
                           .toString();
     }
 }

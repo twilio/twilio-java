@@ -1,15 +1,16 @@
 package com.twilio.jwt.validation;
 
 import com.google.common.collect.Lists;
+import com.twilio.http.ValidationInterceptor;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import mockit.Expectations;
 import mockit.Mocked;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpEntityEnclosingRequest;
+import org.apache.http.*;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicHttpEntityEnclosingRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +21,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ValidationTokenTest {
 
@@ -157,6 +164,40 @@ public class ValidationTokenTest {
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
         Assert.assertEquals("4b3d2666845a38f00259a5231a08765bb2d12564bc4469fd5b2816204c588967", claims.get("rqh"));
+    }
+
+    @Test
+    public void testMultithreadedValidations() throws InterruptedException, ExecutionException {
+        int numThreads = 10;
+
+        final ValidationInterceptor i = new ValidationInterceptor(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey);
+        ExecutorService service = Executors.newFixedThreadPool(numThreads);
+
+        Collection<Future<?>> futures = new ArrayList<>(numThreads);
+        for (int t = 0; t < numThreads; t++) {
+            futures.add(service.submit(new Runnable() {
+                public void run() {
+                    try {
+                        i.process(getBasicRequest(), new HttpClientContext());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Assert.fail(e.getMessage());
+                    }
+                }
+            }));
+        }
+
+        for (Future<?> f : futures) {
+            f.get();
+        }
+    }
+
+    private HttpEntityEnclosingRequest getBasicRequest() {
+        return new BasicHttpEntityEnclosingRequest(
+                "GET",
+                "/some-url?with=params",
+                new ProtocolVersion("HTTP", 1, 1)
+        );
     }
 
     private void validateToken(Claims claims) {

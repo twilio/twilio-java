@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2018-07-27] Version 7.22.2
+----------------------------
+**Library**
+- PR #433: Clone the headers object and add test for thread safety. Thanks to @cjcodes!
+
+
 [2018-07-26] Version 7.22.1
 ----------------------------
 **Api**

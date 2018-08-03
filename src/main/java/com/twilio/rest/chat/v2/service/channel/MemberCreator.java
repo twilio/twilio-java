@@ -32,8 +32,9 @@ public class MemberCreator extends Creator<Member> {
     /**
      * Construct a new MemberCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid Sid of the Service this member belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this member
+     *                       belongs to.
      * @param identity A unique string identifier for this User in this Service.
      *                 See the access tokens docs for more details.
      */

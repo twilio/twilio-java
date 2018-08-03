@@ -27,7 +27,7 @@ public class UserCreator extends Creator<User> {
     /**
      * Construct a new UserCreator.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sid of the Service this user belongs to.
      * @param identity A unique string that identifies the user within this service
      *                 - often a username or email address.
      */

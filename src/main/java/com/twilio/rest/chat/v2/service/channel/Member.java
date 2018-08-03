@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -36,12 +37,38 @@ import java.util.Objects;
 public class Member extends Resource {
     private static final long serialVersionUID = 102574959310114L;
 
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a WebhookEnabledType from a string.
+         * @param value string value
+         * @return generated WebhookEnabledType
+         */
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
     /**
      * Create a MemberFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this member belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this member
+     *                       belongs to.
+     * @param pathSid Key that uniquely defines the member to fetch.
      * @return MemberFetcher capable of executing the fetch
      */
     public static MemberFetcher fetcher(final String pathServiceSid, 
@@ -53,8 +80,9 @@ public class Member extends Resource {
     /**
      * Create a MemberCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid Sid of the Service this member belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this member
+     *                       belongs to.
      * @param identity A unique string identifier for this User in this Service.
      *                 See the access tokens docs for more details.
      * @return MemberCreator capable of executing the create
@@ -68,8 +96,9 @@ public class Member extends Resource {
     /**
      * Create a MemberReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid Sid of the Service this member belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this member
+     *                       belongs to.
      * @return MemberReader capable of executing the read
      */
     public static MemberReader reader(final String pathServiceSid, 
@@ -80,9 +109,10 @@ public class Member extends Resource {
     /**
      * Create a MemberDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this member belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this member
+     *                       belongs to.
+     * @param pathSid Key that uniquely defines the member to delete.
      * @return MemberDeleter capable of executing the delete
      */
     public static MemberDeleter deleter(final String pathServiceSid, 
@@ -94,9 +124,10 @@ public class Member extends Resource {
     /**
      * Create a MemberUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this member belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this member
+     *                       belongs to.
+     * @param pathSid Key that uniquely defines the member to update.
      * @return MemberUpdater capable of executing the update
      */
     public static MemberUpdater updater(final String pathServiceSid, 

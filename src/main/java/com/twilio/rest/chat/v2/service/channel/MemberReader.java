@@ -30,8 +30,9 @@ public class MemberReader extends Reader<Member> {
     /**
      * Construct a new MemberReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid Sid of the Service this member belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this member
+     *                       belongs to.
      */
     public MemberReader(final String pathServiceSid, 
                         final String pathChannelSid) {

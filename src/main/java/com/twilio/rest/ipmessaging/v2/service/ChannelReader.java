@@ -29,16 +29,16 @@ public class ChannelReader extends Reader<Channel> {
     /**
      * Construct a new ChannelReader.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sid of the Service this channel belongs to.
      */
     public ChannelReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * The type.
+     * The visibility of the channel - `public` or `private`. Defaults to `public`..
      * 
-     * @param type The type
+     * @param type The visibility of the channel - public or private.
      * @return this
      */
     public ChannelReader setType(final List<Channel.ChannelType> type) {
@@ -47,9 +47,9 @@ public class ChannelReader extends Reader<Channel> {
     }
 
     /**
-     * The type.
+     * The visibility of the channel - `public` or `private`. Defaults to `public`..
      * 
-     * @param type The type
+     * @param type The visibility of the channel - public or private.
      * @return this
      */
     public ChannelReader setType(final Channel.ChannelType type) {

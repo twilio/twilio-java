@@ -24,8 +24,8 @@ public class UserDeleter extends Deleter<User> {
     /**
      * Construct a new UserDeleter.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this user belongs to.
+     * @param pathSid Key that uniquely defines the user to delete.
      */
     public UserDeleter(final String pathServiceSid, 
                        final String pathSid) {

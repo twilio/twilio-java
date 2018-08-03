@@ -74,6 +74,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     private String sipAuthPassword;
     private List<String> dequeueStatusCallbackEvent;
     private String postWorkActivitySid;
+    private Reservation.SupervisorMode supervisorMode;
+    private String supervisor;
 
     /**
      * Construct a new ReservationUpdater.
@@ -91,9 +93,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * New reservation status.
      * 
-     * @param reservationStatus Yes
+     * @param reservationStatus New reservation status
      * @return this
      */
     public ReservationUpdater setReservationStatus(final Reservation.Status reservationStatus) {
@@ -102,9 +104,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * New worker activity sid if rejecting a reservation.
      * 
-     * @param workerActivitySid No
+     * @param workerActivitySid New worker activity sid if rejecting a reservation
      * @return this
      */
     public ReservationUpdater setWorkerActivitySid(final String workerActivitySid) {
@@ -113,9 +115,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * Assignment instruction for reservation.
      * 
-     * @param instruction Yes
+     * @param instruction Assignment instruction for reservation
      * @return this
      */
     public ReservationUpdater setInstruction(final String instruction) {
@@ -124,9 +126,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * New worker activity sid after executing a Dequeue instruction.
      * 
-     * @param dequeuePostWorkActivitySid No
+     * @param dequeuePostWorkActivitySid New worker activity sid after executing a
+     *                                   Dequeue instruction
      * @return this
      */
     public ReservationUpdater setDequeuePostWorkActivitySid(final String dequeuePostWorkActivitySid) {
@@ -135,9 +138,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * Caller ID for the call to the worker when executing a Dequeue instruction.
      * 
-     * @param dequeueFrom Yes
+     * @param dequeueFrom Caller ID for the call to the worker when executing a
+     *                    Dequeue instruction
      * @return this
      */
     public ReservationUpdater setDequeueFrom(final String dequeueFrom) {
@@ -146,9 +150,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Attribute to record both legs of a call when executing a Dequeue instruction.
      * 
-     * @param dequeueRecord No
+     * @param dequeueRecord Attribute to record both legs of a call when executing
+     *                      a Dequeue instruction
      * @return this
      */
     public ReservationUpdater setDequeueRecord(final String dequeueRecord) {
@@ -157,9 +162,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Timeout for call when executing a Dequeue instruction.
      * 
-     * @param dequeueTimeout No
+     * @param dequeueTimeout Timeout for call when executing a Dequeue instruction
      * @return this
      */
     public ReservationUpdater setDequeueTimeout(final Integer dequeueTimeout) {
@@ -168,9 +173,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Contact URI of the worker when executing a Dequeue instruction.
      * 
-     * @param dequeueTo No
+     * @param dequeueTo Contact URI of the worker when executing a Dequeue
+     *                  instruction
      * @return this
      */
     public ReservationUpdater setDequeueTo(final String dequeueTo) {
@@ -179,9 +185,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Callback URL for completed call event when executing a Dequeue instruction.
      * 
-     * @param dequeueStatusCallbackUrl No
+     * @param dequeueStatusCallbackUrl Callback URL for completed call event when
+     *                                 executing a Dequeue instruction
      * @return this
      */
     public ReservationUpdater setDequeueStatusCallbackUrl(final URI dequeueStatusCallbackUrl) {
@@ -190,9 +197,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Callback URL for completed call event when executing a Dequeue instruction.
      * 
-     * @param dequeueStatusCallbackUrl No
+     * @param dequeueStatusCallbackUrl Callback URL for completed call event when
+     *                                 executing a Dequeue instruction
      * @return this
      */
     public ReservationUpdater setDequeueStatusCallbackUrl(final String dequeueStatusCallbackUrl) {
@@ -200,9 +208,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * Caller ID for the outbound call when executing a Call instruction.
      * 
-     * @param callFrom Yes
+     * @param callFrom Caller ID for the outbound call when executing a Call
+     *                 instruction
      * @return this
      */
     public ReservationUpdater setCallFrom(final String callFrom) {
@@ -211,9 +220,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Attribute to record both legs of a call when executing a Call instruction.
      * 
-     * @param callRecord No
+     * @param callRecord Attribute to record both legs of a call when executing a
+     *                   Call instruction
      * @return this
      */
     public ReservationUpdater setCallRecord(final String callRecord) {
@@ -222,9 +232,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Timeout for call when executing a Call instruction.
      * 
-     * @param callTimeout No
+     * @param callTimeout Timeout for call when executing a Call instruction
      * @return this
      */
     public ReservationUpdater setCallTimeout(final Integer callTimeout) {
@@ -233,9 +243,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Contact URI of the worker when executing a Call instruction.
      * 
-     * @param callTo No
+     * @param callTo Contact URI of the worker when executing a Call instruction
      * @return this
      */
     public ReservationUpdater setCallTo(final String callTo) {
@@ -244,9 +254,11 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * TwiML URI executed on answering the worker's leg as a result of the Call
+     * instruction.
      * 
-     * @param callUrl Yes
+     * @param callUrl TwiML URI executed on answering the worker's leg as a result
+     *                of the Call instruction
      * @return this
      */
     public ReservationUpdater setCallUrl(final URI callUrl) {
@@ -255,9 +267,11 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * TwiML URI executed on answering the worker's leg as a result of the Call
+     * instruction.
      * 
-     * @param callUrl Yes
+     * @param callUrl TwiML URI executed on answering the worker's leg as a result
+     *                of the Call instruction
      * @return this
      */
     public ReservationUpdater setCallUrl(final String callUrl) {
@@ -265,9 +279,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Callback URL for completed call event when executing a Call instruction.
      * 
-     * @param callStatusCallbackUrl No
+     * @param callStatusCallbackUrl Callback URL for completed call event when
+     *                              executing a Call instruction
      * @return this
      */
     public ReservationUpdater setCallStatusCallbackUrl(final URI callStatusCallbackUrl) {
@@ -276,9 +291,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Callback URL for completed call event when executing a Call instruction.
      * 
-     * @param callStatusCallbackUrl No
+     * @param callStatusCallbackUrl Callback URL for completed call event when
+     *                              executing a Call instruction
      * @return this
      */
     public ReservationUpdater setCallStatusCallbackUrl(final String callStatusCallbackUrl) {
@@ -286,9 +302,11 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Flag to determine if reservation should be accepted when executing a Call
+     * instruction.
      * 
-     * @param callAccept No
+     * @param callAccept Flag to determine if reservation should be accepted when
+     *                   executing a Call instruction
      * @return this
      */
     public ReservationUpdater setCallAccept(final Boolean callAccept) {
@@ -297,9 +315,11 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * Call sid of the call parked in the queue when executing a Redirect
+     * instruction.
      * 
-     * @param redirectCallSid Yes
+     * @param redirectCallSid Call sid of the call parked in the queue when
+     *                        executing a Redirect instruction
      * @return this
      */
     public ReservationUpdater setRedirectCallSid(final String redirectCallSid) {
@@ -308,9 +328,11 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Flag to determine if reservation should be accepted when executing a Redirect
+     * instruction.
      * 
-     * @param redirectAccept No
+     * @param redirectAccept Flag to determine if reservation should be accepted
+     *                       when executing a Redirect instruction
      * @return this
      */
     public ReservationUpdater setRedirectAccept(final Boolean redirectAccept) {
@@ -319,9 +341,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * TwiML URI to redirect the call to when executing the Redirect instruction.
      * 
-     * @param redirectUrl Yes
+     * @param redirectUrl TwiML URI to redirect the call to when executing the
+     *                    Redirect instruction
      * @return this
      */
     public ReservationUpdater setRedirectUrl(final URI redirectUrl) {
@@ -330,9 +353,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Yes.
+     * TwiML URI to redirect the call to when executing the Redirect instruction.
      * 
-     * @param redirectUrl Yes
+     * @param redirectUrl TwiML URI to redirect the call to when executing the
+     *                    Redirect instruction
      * @return this
      */
     public ReservationUpdater setRedirectUrl(final String redirectUrl) {
@@ -340,9 +364,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Contact URI of the worker when executing a Conference instruction.
      * 
-     * @param to No
+     * @param to Contact URI of the worker when executing a Conference instruction
      * @return this
      */
     public ReservationUpdater setTo(final String to) {
@@ -351,9 +375,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Caller ID for the call to the worker when executing a Conference instruction.
      * 
-     * @param from No
+     * @param from Caller ID for the call to the worker when executing a Conference
+     *             instruction
      * @return this
      */
     public ReservationUpdater setFrom(final String from) {
@@ -415,9 +440,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Timeout for call when executing a Conference instruction.
      * 
-     * @param timeout No
+     * @param timeout Timeout for call when executing a Conference instruction
      * @return this
      */
     public ReservationUpdater setTimeout(final Integer timeout) {
@@ -721,9 +746,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Call progress events sent via webhooks as a result of a Dequeue instruction.
      * 
-     * @param dequeueStatusCallbackEvent No
+     * @param dequeueStatusCallbackEvent Call progress events sent via webhooks as
+     *                                   a result of a Dequeue instruction
      * @return this
      */
     public ReservationUpdater setDequeueStatusCallbackEvent(final List<String> dequeueStatusCallbackEvent) {
@@ -732,9 +758,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * Call progress events sent via webhooks as a result of a Dequeue instruction.
      * 
-     * @param dequeueStatusCallbackEvent No
+     * @param dequeueStatusCallbackEvent Call progress events sent via webhooks as
+     *                                   a result of a Dequeue instruction
      * @return this
      */
     public ReservationUpdater setDequeueStatusCallbackEvent(final String dequeueStatusCallbackEvent) {
@@ -742,13 +769,37 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * No.
+     * New worker activity sid after executing a Conference instruction.
      * 
-     * @param postWorkActivitySid No
+     * @param postWorkActivitySid New worker activity sid after executing a
+     *                            Conference instruction
      * @return this
      */
     public ReservationUpdater setPostWorkActivitySid(final String postWorkActivitySid) {
         this.postWorkActivitySid = postWorkActivitySid;
+        return this;
+    }
+
+    /**
+     * Supervisor mode when executing the Supervise instruction.
+     * 
+     * @param supervisorMode Supervisor mode when executing the Supervise
+     *                       instruction
+     * @return this
+     */
+    public ReservationUpdater setSupervisorMode(final Reservation.SupervisorMode supervisorMode) {
+        this.supervisorMode = supervisorMode;
+        return this;
+    }
+
+    /**
+     * Supervisor sid/uri when executing the Supervise instruction.
+     * 
+     * @param supervisor Supervisor sid/uri when executing the Supervise instruction
+     * @return this
+     */
+    public ReservationUpdater setSupervisor(final String supervisor) {
+        this.supervisor = supervisor;
         return this;
     }
 
@@ -997,6 +1048,14 @@ public class ReservationUpdater extends Updater<Reservation> {
 
         if (postWorkActivitySid != null) {
             request.addPostParam("PostWorkActivitySid", postWorkActivitySid);
+        }
+
+        if (supervisorMode != null) {
+            request.addPostParam("SupervisorMode", supervisorMode.toString());
+        }
+
+        if (supervisor != null) {
+            request.addPostParam("Supervisor", supervisor);
         }
     }
 }

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -36,11 +37,36 @@ import java.util.Objects;
 public class User extends Resource {
     private static final long serialVersionUID = 15176818292650L;
 
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a WebhookEnabledType from a string.
+         * @param value string value
+         * @return generated WebhookEnabledType
+         */
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
     /**
      * Create a UserFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this user belongs to.
+     * @param pathSid Key that uniquely defines the user to fetch.
      * @return UserFetcher capable of executing the fetch
      */
     public static UserFetcher fetcher(final String pathServiceSid, 
@@ -51,8 +77,8 @@ public class User extends Resource {
     /**
      * Create a UserDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this user belongs to.
+     * @param pathSid Key that uniquely defines the user to delete.
      * @return UserDeleter capable of executing the delete
      */
     public static UserDeleter deleter(final String pathServiceSid, 
@@ -63,7 +89,7 @@ public class User extends Resource {
     /**
      * Create a UserCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sid of the Service this user belongs to.
      * @param identity A unique string that identifies the user within this service
      *                 - often a username or email address.
      * @return UserCreator capable of executing the create
@@ -76,7 +102,7 @@ public class User extends Resource {
     /**
      * Create a UserReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sid of the Service this user belongs to.
      * @return UserReader capable of executing the read
      */
     public static UserReader reader(final String pathServiceSid) {
@@ -86,8 +112,8 @@ public class User extends Resource {
     /**
      * Create a UserUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this user belongs to.
+     * @param pathSid Key that uniquely defines the user to update.
      * @return UserUpdater capable of executing the update
      */
     public static UserUpdater updater(final String pathServiceSid, 

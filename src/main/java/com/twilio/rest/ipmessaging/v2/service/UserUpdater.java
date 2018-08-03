@@ -27,8 +27,8 @@ public class UserUpdater extends Updater<User> {
     /**
      * Construct a new UserUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this user belongs to.
+     * @param pathSid Key that uniquely defines the user to update.
      */
     public UserUpdater(final String pathServiceSid, 
                        final String pathSid) {

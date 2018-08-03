@@ -63,12 +63,38 @@ public class Message extends Resource {
         }
     }
 
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a WebhookEnabledType from a string.
+         * @param value string value
+         * @return generated WebhookEnabledType
+         */
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
     /**
      * Create a MessageFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this message belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this message
+     *                       belongs to.
+     * @param pathSid Key that uniquely defines the message to fetch.
      * @return MessageFetcher capable of executing the fetch
      */
     public static MessageFetcher fetcher(final String pathServiceSid, 
@@ -80,8 +106,9 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid Sid of the Service this message belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this message
+     *                       belongs to.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathServiceSid, 
@@ -92,8 +119,9 @@ public class Message extends Resource {
     /**
      * Create a MessageReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid Sid of the Service this message belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this message
+     *                       belongs to.
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader(final String pathServiceSid, 
@@ -104,9 +132,10 @@ public class Message extends Resource {
     /**
      * Create a MessageDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this message belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this message
+     *                       belongs to.
+     * @param pathSid Key that uniquely defines the message to delete.
      * @return MessageDeleter capable of executing the delete
      */
     public static MessageDeleter deleter(final String pathServiceSid, 
@@ -118,9 +147,10 @@ public class Message extends Resource {
     /**
      * Create a MessageUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this message belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this message
+     *                       belongs to.
+     * @param pathSid Key that uniquely defines the message to update.
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathServiceSid, 

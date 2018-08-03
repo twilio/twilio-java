@@ -33,8 +33,9 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid Sid of the Service this message belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this message
+     *                       belongs to.
      */
     public MessageCreator(final String pathServiceSid, 
                           final String pathChannelSid) {

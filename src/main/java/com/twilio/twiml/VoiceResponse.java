@@ -7,6 +7,7 @@
 
 package com.twilio.twiml;
 
+import com.twilio.twiml.voice.Connect;
 import com.twilio.twiml.voice.Dial;
 import com.twilio.twiml.voice.Echo;
 import com.twilio.twiml.voice.Enqueue;
@@ -44,6 +45,14 @@ public class VoiceResponse extends TwiML {
      * Create a new {@code <Response>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Add a child {@code <Connect>} element
+         */
+        public Builder connect(Connect connect) {
+            this.children.add(connect);
+            return this;
+        }
+
         /**
          * Add a child {@code <Dial>} element
          */

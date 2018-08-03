@@ -123,6 +123,32 @@ public class Reservation extends Resource {
         }
     }
 
+    public enum SupervisorMode {
+        MONITOR("monitor"),
+        WHISPER("whisper"),
+        BARGE("barge");
+
+        private final String value;
+
+        private SupervisorMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a SupervisorMode from a string.
+         * @param value string value
+         * @return generated SupervisorMode
+         */
+        @JsonCreator
+        public static SupervisorMode forValue(final String value) {
+            return Promoter.enumFromString(value, SupervisorMode.values());
+        }
+    }
+
     /**
      * Create a ReservationReader to execute read.
      * 

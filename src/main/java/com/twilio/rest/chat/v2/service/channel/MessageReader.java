@@ -27,8 +27,9 @@ public class MessageReader extends Reader<Message> {
     /**
      * Construct a new MessageReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid Sid of the Service this message belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this message
+     *                       belongs to.
      */
     public MessageReader(final String pathServiceSid, 
                          final String pathChannelSid) {

@@ -28,13 +28,15 @@ public class MessageUpdater extends Updater<Message> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String lastUpdatedBy;
+    private String from;
 
     /**
      * Construct a new MessageUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this message belongs to.
+     * @param pathChannelSid Key that uniquely defines the channel this message
+     *                       belongs to.
+     * @param pathSid Key that uniquely defines the message to update.
      */
     public MessageUpdater(final String pathServiceSid, 
                           final String pathChannelSid, 
@@ -111,6 +113,18 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
+     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
+     * message's author..
+     * 
+     * @param from The identity of the message's author.
+     * @return this
+     */
+    public MessageUpdater setFrom(final String from) {
+        this.from = from;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -173,6 +187,10 @@ public class MessageUpdater extends Updater<Message> {
 
         if (lastUpdatedBy != null) {
             request.addPostParam("LastUpdatedBy", lastUpdatedBy);
+        }
+
+        if (from != null) {
+            request.addPostParam("From", from);
         }
     }
 }

@@ -62,11 +62,36 @@ public class Channel extends Resource {
         }
     }
 
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a WebhookEnabledType from a string.
+         * @param value string value
+         * @return generated WebhookEnabledType
+         */
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
     /**
      * Create a ChannelFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this channel belongs to.
+     * @param pathSid Key that uniquely defines the channel to fetch.
      * @return ChannelFetcher capable of executing the fetch
      */
     public static ChannelFetcher fetcher(final String pathServiceSid, 
@@ -77,8 +102,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this channel belongs to.
+     * @param pathSid Key that uniquely defines the channel to delete.
      * @return ChannelDeleter capable of executing the delete
      */
     public static ChannelDeleter deleter(final String pathServiceSid, 
@@ -89,7 +114,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sid of the Service this channel belongs to.
      * @return ChannelCreator capable of executing the create
      */
     public static ChannelCreator creator(final String pathServiceSid) {
@@ -99,7 +124,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sid of the Service this channel belongs to.
      * @return ChannelReader capable of executing the read
      */
     public static ChannelReader reader(final String pathServiceSid) {
@@ -109,8 +134,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Sid of the Service this channel belongs to.
+     * @param pathSid Key that uniquely defines the channel to fetch.
      * @return ChannelUpdater capable of executing the update
      */
     public static ChannelUpdater updater(final String pathServiceSid, 

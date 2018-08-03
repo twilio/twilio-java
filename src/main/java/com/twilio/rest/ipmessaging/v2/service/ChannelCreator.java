@@ -32,7 +32,7 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * Construct a new ChannelCreator.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Sid of the Service this channel belongs to.
      */
     public ChannelCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

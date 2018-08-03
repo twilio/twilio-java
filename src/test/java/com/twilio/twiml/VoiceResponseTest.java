@@ -9,6 +9,7 @@ package com.twilio.twiml;
 
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.voice.Connect;
 import com.twilio.twiml.voice.Dial;
 import com.twilio.twiml.voice.Echo;
 import com.twilio.twiml.voice.Enqueue;
@@ -65,6 +66,8 @@ public class VoiceResponseTest {
     @Test
     public void testElementWithChildren() {
         VoiceResponse.Builder builder = new VoiceResponse.Builder();
+
+        builder.connect(new Connect.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
 
         builder.dial(new Dial.Builder("number")
                     .action(URI.create("https://example.com"))
@@ -157,6 +160,7 @@ public class VoiceResponseTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
+                "<Connect action=\"https://example.com\" method=\"GET\"/>" +
                 "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" ringTone=\"at\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
                 "<Echo/>" +
                 "<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +

@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2018-08-03] Version 7.23.0
+----------------------------
+**Library**
+- PR #426: Tag and push Docker latest image when deploying with TravisCI. Thanks to @jonatasbaldin!
+
+**Chat**
+- Make message From field updatable
+- Add REST API webhooks
+
+**Notify**
+- Removing deprecated `segments`, `users`, `segment_memberships`, `user_bindings` classes from helper libraries. **(breaking change)**
+
+**Twiml**
+- Add `Connect` and `Room` for Programmable Video Rooms
+
+
 [2018-07-27] Version 7.22.2
 ----------------------------
 **Library**

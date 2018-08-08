@@ -36,11 +36,11 @@ public class OutboundPrefixPriceWithOrigin {
      * @param currentPrice current price
      */
     @JsonCreator
-    public OutboundPrefixPrice(@JsonProperty("destination_prefixes") final List<String> destination_prefixes,
-                               @JsonProperty("origination_prefixes") final List<String> origination_prefixes,
-                               @JsonProperty("friendly_name") final String friendlyName,
-                               @JsonProperty("base_price") final double basePrice,
-                               @JsonProperty("current_price") final double currentPrice) {
+    public OutboundPrefixPriceWithOrigin(@JsonProperty("destination_prefixes") final List<String> destination_prefixes,
+                                         @JsonProperty("origination_prefixes") final List<String> origination_prefixes,
+                                         @JsonProperty("friendly_name") final String friendlyName,
+                                         @JsonProperty("base_price") final double basePrice,
+                                         @JsonProperty("current_price") final double currentPrice) {
         this.destination_prefixes = destination_prefixes;
         this.origination_prefixes = origination_prefixes;
         this.friendlyName = friendlyName;

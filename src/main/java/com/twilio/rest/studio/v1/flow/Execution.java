@@ -34,10 +34,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Execution extends Resource {
     private static final long serialVersionUID = 259041091594783L;
@@ -250,9 +246,9 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The Flow state..
+     * Returns The The context.
      * 
-     * @return Flow state.
+     * @return The context
      */
     public final Map<String, Object> getContext() {
         return this.context;

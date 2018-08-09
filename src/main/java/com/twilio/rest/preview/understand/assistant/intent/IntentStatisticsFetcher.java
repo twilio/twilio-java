@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.studio.flow.engagement;
+package com.twilio.rest.preview.understand.assistant.intent;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -22,46 +22,42 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class StepFetcher extends Fetcher<Step> {
-    private final String pathFlowSid;
-    private final String pathEngagementSid;
-    private final String pathSid;
+public class IntentStatisticsFetcher extends Fetcher<IntentStatistics> {
+    private final String pathAssistantSid;
+    private final String pathIntentSid;
 
     /**
-     * Construct a new StepFetcher.
+     * Construct a new IntentStatisticsFetcher.
      * 
-     * @param pathFlowSid The flow_sid
-     * @param pathEngagementSid The engagement_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The assistant_sid
+     * @param pathIntentSid The intent_sid
      */
-    public StepFetcher(final String pathFlowSid, 
-                       final String pathEngagementSid, 
-                       final String pathSid) {
-        this.pathFlowSid = pathFlowSid;
-        this.pathEngagementSid = pathEngagementSid;
-        this.pathSid = pathSid;
+    public IntentStatisticsFetcher(final String pathAssistantSid, 
+                                   final String pathIntentSid) {
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathIntentSid = pathIntentSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Step
+     * @return Fetched IntentStatistics
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Step fetch(final TwilioRestClient client) {
+    public IntentStatistics fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Studio/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps/" + this.pathSid + "",
+            "/understand/Assistants/" + this.pathAssistantSid + "/Intents/" + this.pathIntentSid + "/Statistics",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Step fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("IntentStatistics fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -77,6 +73,6 @@ public class StepFetcher extends Fetcher<Step> {
             );
         }
 
-        return Step.fromJson(response.getStream(), client.getObjectMapper());
+        return IntentStatistics.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

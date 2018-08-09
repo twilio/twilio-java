@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2018-08-09] Version 7.23.1
+----------------------------
+**Preview**
+- Add new Intent Statistics endpoint
+- Remove `ttl` from Assistants
+
+**Studio**
+- Studio is now GA
+
+
 [2018-08-03] Version 7.23.0
 ----------------------------
 **Library**

@@ -11,11 +11,6 @@ import java.util.Objects;
 /**
  * Outbound prices for prefixes with origin.
  *
- * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/api/pricing/voice#outbound-prefix-price>Pricing docs</a>
- *     TODO TODO TODO
- * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OutboundPrefixPriceWithOrigin {

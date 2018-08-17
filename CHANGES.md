@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2018-08-17] Version 7.24.0
+----------------------------
+**Library**
+- PR #434:  add type OutboundPrefixPriceWithOrigin. Thanks to @jbonner89!
+
+**Api**
+- Add Proxy Active Sessions category to usage records
+
+**Preview**
+- Add `Actions` endpoints and remove `ResponseUrl` from assistants on the Understand api
+
+**Pricing**
+- add voice_country resource (v2)
+
+
 [2018-08-09] Version 7.23.1
 ----------------------------
 **Preview**

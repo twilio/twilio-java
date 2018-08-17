@@ -25,60 +25,27 @@ import java.util.Map;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class IntentUpdater extends Updater<Intent> {
+public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiationActions> {
     private final String pathAssistantSid;
-    private final String pathSid;
-    private String friendlyName;
-    private String uniqueName;
-    private Map<String, Object> actions;
+    private Map<String, Object> initiationActions;
 
     /**
-     * Construct a new IntentUpdater.
+     * Construct a new AssistantInitiationActionsUpdater.
      * 
      * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
      */
-    public IntentUpdater(final String pathAssistantSid, 
-                         final String pathSid) {
+    public AssistantInitiationActionsUpdater(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
-        this.pathSid = pathSid;
     }
 
     /**
-     * A user-provided string that identifies this resource. It is non-unique and
-     * can up to 255 characters long..
+     * The initiation_actions.
      * 
-     * @param friendlyName A user-provided string that identifies this resource. It
-     *                     is non-unique and can up to 255 characters long.
+     * @param initiationActions The initiation_actions
      * @return this
      */
-    public IntentUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
-
-    /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. Unique up to 64 characters long..
-     * 
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long.
-     * @return this
-     */
-    public IntentUpdater setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
-
-    /**
-     * The actions.
-     * 
-     * @param actions The actions
-     * @return this
-     */
-    public IntentUpdater setActions(final Map<String, Object> actions) {
-        this.actions = actions;
+    public AssistantInitiationActionsUpdater setInitiationActions(final Map<String, Object> initiationActions) {
+        this.initiationActions = initiationActions;
         return this;
     }
 
@@ -86,15 +53,15 @@ public class IntentUpdater extends Updater<Intent> {
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Intent
+     * @return Updated AssistantInitiationActions
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Intent update(final TwilioRestClient client) {
+    public AssistantInitiationActions update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Intents/" + this.pathSid + "",
+            "/understand/Assistants/" + this.pathAssistantSid + "/InitiationActions",
             client.getRegion()
         );
 
@@ -102,7 +69,7 @@ public class IntentUpdater extends Updater<Intent> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Intent update failed: Unable to connect to server");
+            throw new ApiConnectionException("AssistantInitiationActions update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -118,7 +85,7 @@ public class IntentUpdater extends Updater<Intent> {
             );
         }
 
-        return Intent.fromJson(response.getStream(), client.getObjectMapper());
+        return AssistantInitiationActions.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -127,16 +94,8 @@ public class IntentUpdater extends Updater<Intent> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
-
-        if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
-        }
-
-        if (actions != null) {
-            request.addPostParam("Actions", Converter.mapToJson(actions));
+        if (initiationActions != null) {
+            request.addPostParam("InitiationActions", Converter.mapToJson(initiationActions));
         }
     }
 }

@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Assistant extends Resource {
-    private static final long serialVersionUID = 176565826381817L;
+    private static final long serialVersionUID = 17320483220293L;
 
     /**
      * Create a AssistantFetcher to execute fetch.
@@ -137,7 +137,6 @@ public class Assistant extends Resource {
     private final String sid;
     private final String uniqueName;
     private final URI url;
-    private final URI responseUrl;
     private final URI callbackUrl;
     private final String callbackEvents;
 
@@ -162,8 +161,6 @@ public class Assistant extends Resource {
                       final String uniqueName, 
                       @JsonProperty("url")
                       final URI url, 
-                      @JsonProperty("response_url")
-                      final URI responseUrl, 
                       @JsonProperty("callback_url")
                       final URI callbackUrl, 
                       @JsonProperty("callback_events")
@@ -178,7 +175,6 @@ public class Assistant extends Resource {
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.url = url;
-        this.responseUrl = responseUrl;
         this.callbackUrl = callbackUrl;
         this.callbackEvents = callbackEvents;
     }
@@ -286,17 +282,6 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The webhook URL called to fetch the response to an incoming
-     * communication expressed in Assistant TwiML..
-     * 
-     * @return The webhook URL called to fetch the response to an incoming
-     *         communication expressed in Assistant TwiML.
-     */
-    public final URI getResponseUrl() {
-        return this.responseUrl;
-    }
-
-    /**
      * Returns The The callback_url.
      * 
      * @return The callback_url
@@ -336,7 +321,6 @@ public class Assistant extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(uniqueName, other.uniqueName) && 
                Objects.equals(url, other.url) && 
-               Objects.equals(responseUrl, other.responseUrl) && 
                Objects.equals(callbackUrl, other.callbackUrl) && 
                Objects.equals(callbackEvents, other.callbackEvents);
     }
@@ -353,7 +337,6 @@ public class Assistant extends Resource {
                             sid,
                             uniqueName,
                             url,
-                            responseUrl,
                             callbackUrl,
                             callbackEvents);
     }
@@ -371,7 +354,6 @@ public class Assistant extends Resource {
                           .add("sid", sid)
                           .add("uniqueName", uniqueName)
                           .add("url", url)
-                          .add("responseUrl", responseUrl)
                           .add("callbackUrl", callbackUrl)
                           .add("callbackEvents", callbackEvents)
                           .toString();

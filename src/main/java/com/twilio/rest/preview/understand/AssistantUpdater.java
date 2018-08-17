@@ -8,6 +8,7 @@
 package com.twilio.rest.preview.understand;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -19,6 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 import java.net.URI;
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -30,9 +32,10 @@ public class AssistantUpdater extends Updater<Assistant> {
     private String friendlyName;
     private Boolean logQueries;
     private String uniqueName;
-    private URI responseUrl;
     private URI callbackUrl;
     private String callbackEvents;
+    private Map<String, Object> fallbackActions;
+    private Map<String, Object> initiationActions;
 
     /**
      * Construct a new AssistantUpdater.
@@ -89,31 +92,6 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The webhook URL called to fetch the response to an incoming communication
-     * expressed in Assistant TwiML..
-     * 
-     * @param responseUrl The webhook URL called to fetch the response to an
-     *                    incoming communication expressed in Assistant TwiML.
-     * @return this
-     */
-    public AssistantUpdater setResponseUrl(final URI responseUrl) {
-        this.responseUrl = responseUrl;
-        return this;
-    }
-
-    /**
-     * The webhook URL called to fetch the response to an incoming communication
-     * expressed in Assistant TwiML..
-     * 
-     * @param responseUrl The webhook URL called to fetch the response to an
-     *                    incoming communication expressed in Assistant TwiML.
-     * @return this
-     */
-    public AssistantUpdater setResponseUrl(final String responseUrl) {
-        return setResponseUrl(Promoter.uriFromString(responseUrl));
-    }
-
-    /**
      * The callback_url.
      * 
      * @param callbackUrl The callback_url
@@ -142,6 +120,28 @@ public class AssistantUpdater extends Updater<Assistant> {
      */
     public AssistantUpdater setCallbackEvents(final String callbackEvents) {
         this.callbackEvents = callbackEvents;
+        return this;
+    }
+
+    /**
+     * The fallback_actions.
+     * 
+     * @param fallbackActions The fallback_actions
+     * @return this
+     */
+    public AssistantUpdater setFallbackActions(final Map<String, Object> fallbackActions) {
+        this.fallbackActions = fallbackActions;
+        return this;
+    }
+
+    /**
+     * The initiation_actions.
+     * 
+     * @param initiationActions The initiation_actions
+     * @return this
+     */
+    public AssistantUpdater setInitiationActions(final Map<String, Object> initiationActions) {
+        this.initiationActions = initiationActions;
         return this;
     }
 
@@ -202,16 +202,20 @@ public class AssistantUpdater extends Updater<Assistant> {
             request.addPostParam("UniqueName", uniqueName);
         }
 
-        if (responseUrl != null) {
-            request.addPostParam("ResponseUrl", responseUrl.toString());
-        }
-
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
         }
 
         if (callbackEvents != null) {
             request.addPostParam("CallbackEvents", callbackEvents);
+        }
+
+        if (fallbackActions != null) {
+            request.addPostParam("FallbackActions", Converter.mapToJson(fallbackActions));
+        }
+
+        if (initiationActions != null) {
+            request.addPostParam("InitiationActions", Converter.mapToJson(initiationActions));
         }
     }
 }

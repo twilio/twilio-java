@@ -253,18 +253,18 @@ public class Domain extends Resource {
     }
 
     /**
-     * Returns The The unique id of the account that sent the message.
+     * Returns The The unique id of the account that sent the call.
      * 
-     * @return The unique id of the account that sent the message
+     * @return The unique id of the account that sent the call
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The Twilio API version used to process the message.
+     * Returns The The Twilio API version used to process the call.
      * 
-     * @return The Twilio API version used to process the message
+     * @return The Twilio API version used to process the call
      */
     public final String getApiVersion() {
         return this.apiVersion;

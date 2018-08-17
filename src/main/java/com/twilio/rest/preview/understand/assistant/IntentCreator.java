@@ -8,6 +8,7 @@
 package com.twilio.rest.preview.understand.assistant;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -26,6 +29,7 @@ public class IntentCreator extends Creator<Intent> {
     private final String pathAssistantSid;
     private final String uniqueName;
     private String friendlyName;
+    private Map<String, Object> actions;
 
     /**
      * Construct a new IntentCreator.
@@ -51,6 +55,17 @@ public class IntentCreator extends Creator<Intent> {
      */
     public IntentCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The actions.
+     * 
+     * @param actions The actions
+     * @return this
+     */
+    public IntentCreator setActions(final Map<String, Object> actions) {
+        this.actions = actions;
         return this;
     }
 
@@ -105,6 +120,10 @@ public class IntentCreator extends Creator<Intent> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (actions != null) {
+            request.addPostParam("Actions", Converter.mapToJson(actions));
         }
     }
 }

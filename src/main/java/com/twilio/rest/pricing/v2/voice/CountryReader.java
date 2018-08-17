@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.proxy.v1.service;
+package com.twilio.rest.pricing.v2.voice;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,55 +19,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class SessionReader extends Reader<Session> {
-    private final String pathServiceSid;
-    private String uniqueName;
-    private Session.Status status;
-
-    /**
-     * Construct a new SessionReader.
-     * 
-     * @param pathServiceSid Service Sid.
-     */
-    public SessionReader(final String pathServiceSid) {
-        this.pathServiceSid = pathServiceSid;
-    }
-
-    /**
-     * The unique_name.
-     * 
-     * @param uniqueName The unique_name
-     * @return this
-     */
-    public SessionReader setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
-
-    /**
-     * The Status of this Session. One of `in-progress`, `closed`, `failed`,
-     * `unknown`..
-     * 
-     * @param status The Status of this Session
-     * @return this
-     */
-    public SessionReader setStatus(final Session.Status status) {
-        this.status = status;
-        return this;
-    }
-
+public class CountryReader extends Reader<Country> {
     /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Session ResourceSet
+     * @return Country ResourceSet
      */
     @Override
-    public ResourceSet<Session> read(final TwilioRestClient client) {
+    public ResourceSet<Country> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -75,15 +35,15 @@ public class SessionReader extends Reader<Session> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Session ResourceSet
+     * @return Country ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Session> firstPage(final TwilioRestClient client) {
+    public Page<Country> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions",
+            Domains.PRICING.toString(),
+            "/v2/Voice/Countries",
             client.getRegion()
         );
 
@@ -96,11 +56,11 @@ public class SessionReader extends Reader<Session> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Session ResourceSet
+     * @return Country ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Session> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Country> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -117,12 +77,12 @@ public class SessionReader extends Reader<Session> {
      * @return Next Page
      */
     @Override
-    public Page<Session> nextPage(final Page<Session> page, 
+    public Page<Country> nextPage(final Page<Country> page, 
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PROXY.toString(),
+                Domains.PRICING.toString(),
                 client.getRegion()
             )
         );
@@ -137,12 +97,12 @@ public class SessionReader extends Reader<Session> {
      * @return Previous Page
      */
     @Override
-    public Page<Session> previousPage(final Page<Session> page, 
+    public Page<Country> previousPage(final Page<Country> page, 
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PROXY.toString(),
+                Domains.PRICING.toString(),
                 client.getRegion()
             )
         );
@@ -150,17 +110,17 @@ public class SessionReader extends Reader<Session> {
     }
 
     /**
-     * Generate a Page of Session Resources for a given request.
+     * Generate a Page of Country Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Session> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Country> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Session read failed: Unable to connect to server");
+            throw new ApiConnectionException("Country read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -177,9 +137,9 @@ public class SessionReader extends Reader<Session> {
         }
 
         return Page.fromJson(
-            "sessions",
+            "countries",
             response.getContent(),
-            Session.class,
+            Country.class,
             client.getObjectMapper()
         );
     }
@@ -190,14 +150,6 @@ public class SessionReader extends Reader<Session> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (uniqueName != null) {
-            request.addQueryParam("UniqueName", uniqueName);
-        }
-
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

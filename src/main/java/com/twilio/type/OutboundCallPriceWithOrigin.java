@@ -17,7 +17,7 @@ public class OutboundCallPriceWithOrigin {
     @JsonCreator
     public OutboundCallPriceWithOrigin(@JsonProperty("base_price") final double basePrice,
                                        @JsonProperty("current_price") final double currentPrice,
-                                       @JsonProperty("origination_prefixes") final List<String> origination_prefixes) {
+                                       @JsonProperty("origination_prefixes") final List<String> originationPrefixes) {
         this.basePrice = basePrice;
         this.currentPrice = currentPrice;
         this.originationPrefixes = originationPrefixes;

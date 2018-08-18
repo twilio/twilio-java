@@ -45,7 +45,7 @@ public class OutboundCallPriceWithOrigin {
     }
 
     @Override
-    public int hashCode() { return Objects.hash(this.basePrice, this.currentPrice, this.originationPrefixes) }
+    public int hashCode() { return Objects.hash(this.basePrice, this.currentPrice, this.originationPrefixes); }
 
     @Override
     public String toString() {

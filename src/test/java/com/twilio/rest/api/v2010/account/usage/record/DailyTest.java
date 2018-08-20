@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -34,6 +35,25 @@ public class DailyTest {
     @Before
     public void setUp() throws Exception {
         Twilio.init("AC123", "AUTH TOKEN");
+    }
+
+    @Test
+    public void testThrowingAPIConnectionExceptionInCaseOfEmptyResponse() throws Exception {
+        try {
+           new NonStrictExpectations() {
+                {
+                    twilioRestClient.request(((Request) (any)));
+                    result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_OK);
+                    twilioRestClient.getObjectMapper();
+                    result = new ObjectMapper();
+                }
+            };
+            Daily.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            org.junit.Assert.fail("should have thrown ApiConnectionException");
+        } catch (ApiConnectionException expected) {
+            final String newLine = System.getProperty("line.separator");
+            assertEquals("Unable to deserialize response: No content to map due to end-of-input" + newLine + " at [Source: ; line: 1, column: 0]"+ newLine + "JSON: ", expected.getMessage());
+        }
     }
 
     @Test

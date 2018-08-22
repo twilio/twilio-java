@@ -3,6 +3,7 @@ package com.twilio.twiml;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
+import com.google.common.collect.ImmutableMap;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,6 +28,7 @@ import javax.xml.transform.stream.StreamResult;
 public abstract class TwiML {
     private final String tagName;
     private final Builder builder;
+    private static final ImmutableMap<String, String> attrNameMapper = ImmutableMap.of("for_","for");
 
     /**
      * @param tagName Element tag name
@@ -77,6 +79,13 @@ public abstract class TwiML {
     }
 
     /**
+     * Get transformed attribute name for this Twiml element.
+     */
+    private String getTransformedAttrName(final String attrName) {
+        return attrNameMapper.containsKey(attrName) ? attrNameMapper.get(attrName) : attrName;
+    }
+
+    /**
      * @param parentDoc Root XML Document
      */
     protected Node buildXmlElement(Document parentDoc) {
@@ -88,7 +97,7 @@ public abstract class TwiML {
         }
 
         for (Map.Entry<String,String> attr : this.getElementAttributes().entrySet()) {
-            node.setAttribute(attr.getKey(), attr.getValue());
+            node.setAttribute(getTransformedAttrName(attr.getKey()), attr.getValue());
         }
 
         for (TwiML child : this.getChildren()) {

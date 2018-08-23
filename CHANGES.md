@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2018-08-23] Version 7.24.1
+----------------------------
+**Library**
+- PR #436: Create new class, OutboundCallPriceWithOrigin. Thanks to @jbonner89!
+
+**Chat**
+- Add User Channel instance resource
+
+
 [2018-08-17] Version 7.24.0
 ----------------------------
 **Library**

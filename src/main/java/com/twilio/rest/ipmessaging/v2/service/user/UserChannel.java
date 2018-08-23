@@ -27,12 +27,13 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserChannel extends Resource {
-    private static final long serialVersionUID = 254880238496884L;
+    private static final long serialVersionUID = 97342858560464L;
 
     public enum ChannelStatus {
         JOINED("joined"),
@@ -60,6 +61,31 @@ public class UserChannel extends Resource {
         }
     }
 
+    public enum NotificationLevel {
+        DEFAULT("default"),
+        MUTED("muted");
+
+        private final String value;
+
+        private NotificationLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a NotificationLevel from a string.
+         * @param value string value
+         * @return generated NotificationLevel
+         */
+        @JsonCreator
+        public static NotificationLevel forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationLevel.values());
+        }
+    }
+
     /**
      * Create a UserChannelReader to execute read.
      * 
@@ -70,6 +96,37 @@ public class UserChannel extends Resource {
     public static UserChannelReader reader(final String pathServiceSid, 
                                            final String pathUserSid) {
         return new UserChannelReader(pathServiceSid, pathUserSid);
+    }
+
+    /**
+     * Create a UserChannelFetcher to execute fetch.
+     * 
+     * @param pathServiceSid The unique id of the Service those channels belong to.
+     * @param pathUserSid The unique id of a User.
+     * @param pathChannelSid The unique id of a Channel.
+     * @return UserChannelFetcher capable of executing the fetch
+     */
+    public static UserChannelFetcher fetcher(final String pathServiceSid, 
+                                             final String pathUserSid, 
+                                             final String pathChannelSid) {
+        return new UserChannelFetcher(pathServiceSid, pathUserSid, pathChannelSid);
+    }
+
+    /**
+     * Create a UserChannelUpdater to execute update.
+     * 
+     * @param pathServiceSid The unique id of the Service those channels belong to.
+     * @param pathUserSid The unique id of a User.
+     * @param pathChannelSid The unique id of a Channel.
+     * @param notificationLevel Push notification level to be assigned to Channel
+     *                          of the User.
+     * @return UserChannelUpdater capable of executing the update
+     */
+    public static UserChannelUpdater updater(final String pathServiceSid, 
+                                             final String pathUserSid, 
+                                             final String pathChannelSid, 
+                                             final UserChannel.NotificationLevel notificationLevel) {
+        return new UserChannelUpdater(pathServiceSid, pathUserSid, pathChannelSid, notificationLevel);
     }
 
     /**
@@ -113,11 +170,14 @@ public class UserChannel extends Resource {
     private final String accountSid;
     private final String serviceSid;
     private final String channelSid;
+    private final String userSid;
     private final String memberSid;
     private final UserChannel.ChannelStatus status;
     private final Integer lastConsumedMessageIndex;
     private final Integer unreadMessagesCount;
     private final Map<String, String> links;
+    private final URI url;
+    private final UserChannel.NotificationLevel notificationLevel;
 
     @JsonCreator
     private UserChannel(@JsonProperty("account_sid")
@@ -126,6 +186,8 @@ public class UserChannel extends Resource {
                         final String serviceSid, 
                         @JsonProperty("channel_sid")
                         final String channelSid, 
+                        @JsonProperty("user_sid")
+                        final String userSid, 
                         @JsonProperty("member_sid")
                         final String memberSid, 
                         @JsonProperty("status")
@@ -135,15 +197,22 @@ public class UserChannel extends Resource {
                         @JsonProperty("unread_messages_count")
                         final Integer unreadMessagesCount, 
                         @JsonProperty("links")
-                        final Map<String, String> links) {
+                        final Map<String, String> links, 
+                        @JsonProperty("url")
+                        final URI url, 
+                        @JsonProperty("notification_level")
+                        final UserChannel.NotificationLevel notificationLevel) {
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
         this.channelSid = channelSid;
+        this.userSid = userSid;
         this.memberSid = memberSid;
         this.status = status;
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         this.unreadMessagesCount = unreadMessagesCount;
         this.links = links;
+        this.url = url;
+        this.notificationLevel = notificationLevel;
     }
 
     /**
@@ -171,6 +240,15 @@ public class UserChannel extends Resource {
      */
     public final String getChannelSid() {
         return this.channelSid;
+    }
+
+    /**
+     * Returns The The unique id of the User this Channel belongs to..
+     * 
+     * @return The unique id of the User this Channel belongs to.
+     */
+    public final String getUserSid() {
+        return this.userSid;
     }
 
     /**
@@ -219,6 +297,24 @@ public class UserChannel extends Resource {
         return this.links;
     }
 
+    /**
+     * Returns The An absolute URL for this User Channel..
+     * 
+     * @return An absolute URL for this User Channel.
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    /**
+     * Returns The The notification level of the User for this Channel..
+     * 
+     * @return The notification level of the User for this Channel.
+     */
+    public final UserChannel.NotificationLevel getNotificationLevel() {
+        return this.notificationLevel;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -234,11 +330,14 @@ public class UserChannel extends Resource {
         return Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(serviceSid, other.serviceSid) && 
                Objects.equals(channelSid, other.channelSid) && 
+               Objects.equals(userSid, other.userSid) && 
                Objects.equals(memberSid, other.memberSid) && 
                Objects.equals(status, other.status) && 
                Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
                Objects.equals(unreadMessagesCount, other.unreadMessagesCount) && 
-               Objects.equals(links, other.links);
+               Objects.equals(links, other.links) && 
+               Objects.equals(url, other.url) && 
+               Objects.equals(notificationLevel, other.notificationLevel);
     }
 
     @Override
@@ -246,11 +345,14 @@ public class UserChannel extends Resource {
         return Objects.hash(accountSid,
                             serviceSid,
                             channelSid,
+                            userSid,
                             memberSid,
                             status,
                             lastConsumedMessageIndex,
                             unreadMessagesCount,
-                            links);
+                            links,
+                            url,
+                            notificationLevel);
     }
 
     @Override
@@ -259,11 +361,14 @@ public class UserChannel extends Resource {
                           .add("accountSid", accountSid)
                           .add("serviceSid", serviceSid)
                           .add("channelSid", channelSid)
+                          .add("userSid", userSid)
                           .add("memberSid", memberSid)
                           .add("status", status)
                           .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
                           .add("unreadMessagesCount", unreadMessagesCount)
                           .add("links", links)
+                          .add("url", url)
+                          .add("notificationLevel", notificationLevel)
                           .toString();
     }
 }

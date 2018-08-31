@@ -54,11 +54,12 @@ public class ParticipantCreator extends Creator<Participant> {
     private HttpMethod conferenceRecordingStatusCallbackMethod;
     private List<String> recordingStatusCallbackEvent;
     private List<String> conferenceRecordingStatusCallbackEvent;
+    private String callSidToCoach;
 
     /**
      * Construct a new ParticipantCreator.
      * 
-     * @param pathConferenceSid The conference_sid
+     * @param pathConferenceSid The string that uniquely identifies this conference
      * @param from The `from` phone number used to invite a participant.
      * @param to The number, client id, or sip address of the new participant.
      */
@@ -73,8 +74,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * Construct a new ParticipantCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathConferenceSid The conference_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathConferenceSid The string that uniquely identifies this conference
      * @param from The `from` phone number used to invite a participant.
      * @param to The number, client id, or sip address of the new participant.
      */
@@ -509,9 +510,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The recording_status_callback_event.
+     * Specifies which recording state changes should generate a webhook to the URL
+     * specified in the `RecordingStatusCallback` attribute. Available values are
+     * `in-progress`, `completed`, `failed`. To specify multiple values, separate
+     * them with a space. Defaults to `in-progress`, `completed`, `failed`..
      * 
-     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * @param recordingStatusCallbackEvent Set which recording state changes should
+     *                                     webhook to the `RecordingStatusCallback`
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent) {
@@ -520,9 +525,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The recording_status_callback_event.
+     * Specifies which recording state changes should generate a webhook to the URL
+     * specified in the `RecordingStatusCallback` attribute. Available values are
+     * `in-progress`, `completed`, `failed`. To specify multiple values, separate
+     * them with a space. Defaults to `in-progress`, `completed`, `failed`..
      * 
-     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * @param recordingStatusCallbackEvent Set which recording state changes should
+     *                                     webhook to the `RecordingStatusCallback`
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent) {
@@ -530,10 +539,16 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_recording_status_callback_event.
+     * Specifies which conference recording state changes should generate a webhook
+     * to the URL specified in the `ConferenceRecordingStatusCallback` attribute.
+     * Available values are `in-progress`, `completed`, `failed`. To specify
+     * multiple values, separate them with a space. Defaults to `in-progress`,
+     * `completed`, `failed`..
      * 
-     * @param conferenceRecordingStatusCallbackEvent The
-     *                                               conference_recording_status_callback_event
+     * @param conferenceRecordingStatusCallbackEvent Set which conference recording
+     *                                               state changes should webhook to
+     *                                               the
+     *                                               `ConferenceRecordingStatusCallback`
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final List<String> conferenceRecordingStatusCallbackEvent) {
@@ -542,14 +557,34 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_recording_status_callback_event.
+     * Specifies which conference recording state changes should generate a webhook
+     * to the URL specified in the `ConferenceRecordingStatusCallback` attribute.
+     * Available values are `in-progress`, `completed`, `failed`. To specify
+     * multiple values, separate them with a space. Defaults to `in-progress`,
+     * `completed`, `failed`..
      * 
-     * @param conferenceRecordingStatusCallbackEvent The
-     *                                               conference_recording_status_callback_event
+     * @param conferenceRecordingStatusCallbackEvent Set which conference recording
+     *                                               state changes should webhook to
+     *                                               the
+     *                                               `ConferenceRecordingStatusCallback`
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final String conferenceRecordingStatusCallbackEvent) {
         return setConferenceRecordingStatusCallbackEvent(Promoter.listOfOne(conferenceRecordingStatusCallbackEvent));
+    }
+
+    /**
+     * The string that uniquely identifies the participant that is being `coached`,
+     * i.e. the only participant who can hear the participant that is in `coach`
+     * mode..
+     * 
+     * @param callSidToCoach The string that uniquely identifies the participant
+     *                       that is being `coached`
+     * @return this
+     */
+    public ParticipantCreator setCallSidToCoach(final String callSidToCoach) {
+        this.callSidToCoach = callSidToCoach;
+        return this;
     }
 
     /**
@@ -724,6 +759,10 @@ public class ParticipantCreator extends Creator<Participant> {
             for (String prop : conferenceRecordingStatusCallbackEvent) {
                 request.addPostParam("ConferenceRecordingStatusCallbackEvent", prop);
             }
+        }
+
+        if (callSidToCoach != null) {
+            request.addPostParam("CallSidToCoach", callSidToCoach);
         }
     }
 }

@@ -36,7 +36,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      */
     public IncomingPhoneNumberReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

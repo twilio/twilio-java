@@ -43,7 +43,9 @@ public class Reservation extends Resource {
         REJECTED("rejected"),
         TIMEOUT("timeout"),
         CANCELED("canceled"),
-        RESCINDED("rescinded");
+        RESCINDED("rescinded"),
+        WRAPPING("wrapping"),
+        COMPLETED("completed");
 
         private final String value;
 

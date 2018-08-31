@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomRecording extends Resource {
-    private static final long serialVersionUID = 160548766967448L;
+    private static final long serialVersionUID = 32348280451006L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -228,6 +228,7 @@ public class RoomRecording extends Resource {
     private final RoomRecording.Codec codec;
     private final Map<String, Object> groupingSids;
     private final String trackName;
+    private final Long offset;
     private final String roomSid;
     private final Map<String, String> links;
 
@@ -258,6 +259,8 @@ public class RoomRecording extends Resource {
                           final Map<String, Object> groupingSids, 
                           @JsonProperty("track_name")
                           final String trackName, 
+                          @JsonProperty("offset")
+                          final Long offset, 
                           @JsonProperty("room_sid")
                           final String roomSid, 
                           @JsonProperty("links")
@@ -275,6 +278,7 @@ public class RoomRecording extends Resource {
         this.codec = codec;
         this.groupingSids = groupingSids;
         this.trackName = trackName;
+        this.offset = offset;
         this.roomSid = roomSid;
         this.links = links;
     }
@@ -397,6 +401,15 @@ public class RoomRecording extends Resource {
     }
 
     /**
+     * Returns The The offset.
+     * 
+     * @return The offset
+     */
+    public final Long getOffset() {
+        return this.offset;
+    }
+
+    /**
      * Returns The The room_sid.
      * 
      * @return The room_sid
@@ -439,6 +452,7 @@ public class RoomRecording extends Resource {
                Objects.equals(codec, other.codec) && 
                Objects.equals(groupingSids, other.groupingSids) && 
                Objects.equals(trackName, other.trackName) && 
+               Objects.equals(offset, other.offset) && 
                Objects.equals(roomSid, other.roomSid) && 
                Objects.equals(links, other.links);
     }
@@ -458,6 +472,7 @@ public class RoomRecording extends Resource {
                             codec,
                             groupingSids,
                             trackName,
+                            offset,
                             roomSid,
                             links);
     }
@@ -478,6 +493,7 @@ public class RoomRecording extends Resource {
                           .add("codec", codec)
                           .add("groupingSids", groupingSids)
                           .add("trackName", trackName)
+                          .add("offset", offset)
                           .add("roomSid", roomSid)
                           .add("links", links)
                           .toString();

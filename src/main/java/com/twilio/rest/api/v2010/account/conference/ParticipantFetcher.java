@@ -37,7 +37,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     /**
      * Construct a new ParticipantFetcher.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathConferenceSid The string that uniquely identifies this conference
      * @param pathCallSid Fetch by unique participant Call SID
      */

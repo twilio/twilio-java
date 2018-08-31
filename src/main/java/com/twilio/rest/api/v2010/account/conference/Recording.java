@@ -38,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 231172714460621L;
+    private static final long serialVersionUID = 119371438714806L;
 
     public enum Status {
         IN_PROGRESS("in-progress"),
@@ -104,7 +104,9 @@ public class Recording extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The conference_sid
-     * @param pathSid The sid
+     * @param pathSid The recording sid (or use 'Twilio.CURRENT' instead of
+     *                recording sid to reference current active recording for
+     *                update.)
      * @param status The status to change the recording to.
      * @return RecordingUpdater capable of executing the update
      */
@@ -119,7 +121,9 @@ public class Recording extends Resource {
      * Create a RecordingUpdater to execute update.
      * 
      * @param pathConferenceSid The conference_sid
-     * @param pathSid The sid
+     * @param pathSid The recording sid (or use 'Twilio.CURRENT' instead of
+     *                recording sid to reference current active recording for
+     *                update.)
      * @param status The status to change the recording to.
      * @return RecordingUpdater capable of executing the update
      */

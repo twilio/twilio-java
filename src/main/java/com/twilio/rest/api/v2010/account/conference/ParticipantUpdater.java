@@ -46,7 +46,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * Construct a new ParticipantUpdater.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathConferenceSid The string that uniquely identifies this conference
      * @param pathCallSid Update a participant by their Call SID
      */

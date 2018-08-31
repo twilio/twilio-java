@@ -44,6 +44,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private String trunkSid;
     private String identitySid;
     private String addressSid;
+    private IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
@@ -57,7 +58,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberCreator.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param phoneNumber The phone number
      */
     public IncomingPhoneNumberCreator(final String pathAccountSid, 
@@ -78,7 +79,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberCreator.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param areaCode The desired area code for the new number
      */
     public IncomingPhoneNumberCreator(final String pathAccountSid, 
@@ -333,9 +334,11 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
-     * The emergency_status.
+     * The configuration status parameter determining whether this phone number is
+     * enabled for emergency calling.
      * 
-     * @param emergencyStatus The emergency_status
+     * @param emergencyStatus Status determining whether the number is enabled for
+     *                        emergency calling
      * @return this
      */
     public IncomingPhoneNumberCreator setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus) {
@@ -344,9 +347,11 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
-     * The emergency_address_sid.
+     * The 34 character sid of the EmergencyAddress configuration to leverage
+     * emergency calling for this phone number.
      * 
-     * @param emergencyAddressSid The emergency_address_sid
+     * @param emergencyAddressSid EmergencyAddress configuration to leverage
+     *                            emergency calling
      * @return this
      */
     public IncomingPhoneNumberCreator setEmergencyAddressSid(final String emergencyAddressSid) {
@@ -392,6 +397,18 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      */
     public IncomingPhoneNumberCreator setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
+        return this;
+    }
+
+    /**
+     * The configuration parameter for this phone number to receive incoming voice
+     * calls or faxes. Must be either `fax` or `voice`. Defaults to `voice`.
+     * 
+     * @param voiceReceiveMode Incoming call type: `fax` or `voice`
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setVoiceReceiveMode(final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode) {
+        this.voiceReceiveMode = voiceReceiveMode;
         return this;
     }
 
@@ -570,6 +587,10 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
+        }
+
+        if (voiceReceiveMode != null) {
+            request.addPostParam("VoiceReceiveMode", voiceReceiveMode.toString());
         }
     }
 }

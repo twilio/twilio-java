@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account;
+package com.twilio.rest.preview.understand.assistant;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,51 +17,47 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
-    private String pathAccountSid;
+/**
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
+ */
+public class DialogueFetcher extends Fetcher<Dialogue> {
+    private final String pathAssistantSid;
     private final String pathSid;
 
     /**
-     * Construct a new IncomingPhoneNumberDeleter.
+     * Construct a new DialogueFetcher.
      * 
-     * @param pathSid Delete by unique phone-number Sid
+     * @param pathAssistantSid The assistant_sid
+     * @param pathSid The sid
      */
-    public IncomingPhoneNumberDeleter(final String pathSid) {
+    public DialogueFetcher(final String pathAssistantSid, 
+                           final String pathSid) {
+        this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Construct a new IncomingPhoneNumberDeleter.
-     * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Delete by unique phone-number Sid
-     */
-    public IncomingPhoneNumberDeleter(final String pathAccountSid, 
-                                      final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
-    }
-
-    /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched Dialogue
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+    public Dialogue fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json",
+            HttpMethod.GET,
+            Domains.PREVIEW.toString(),
+            "/understand/Assistants/" + this.pathAssistantSid + "/Dialogues/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IncomingPhoneNumber delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Dialogue fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -77,6 +73,6 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
             );
         }
 
-        return response.getStatusCode() == 204;
+        return Dialogue.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

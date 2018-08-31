@@ -119,7 +119,7 @@ public class IncomingPhoneNumber extends Resource {
      * Create a IncomingPhoneNumberUpdater to execute update.
      * 
      * @param pathAccountSid The new owner of the phone number
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this resource
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
     public static IncomingPhoneNumberUpdater updater(final String pathAccountSid, 
@@ -130,7 +130,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this resource
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
     public static IncomingPhoneNumberUpdater updater(final String pathSid) {
@@ -140,7 +140,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid Fetch by unique incoming-phone-number Sid
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
@@ -162,7 +162,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid Delete by unique phone-number Sid
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
@@ -184,7 +184,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @return IncomingPhoneNumberReader capable of executing the read
      */
     public static IncomingPhoneNumberReader reader(final String pathAccountSid) {
@@ -203,7 +203,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param phoneNumber The phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
@@ -225,7 +225,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param areaCode The desired area code for the new number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */

@@ -33,7 +33,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberFetcher.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid Fetch by unique incoming-phone-number Sid
      */
     public IncomingPhoneNumberFetcher(final String pathAccountSid, 

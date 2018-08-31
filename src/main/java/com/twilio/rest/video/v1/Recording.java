@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recording extends Resource {
-    private static final long serialVersionUID = 66126851640411L;
+    private static final long serialVersionUID = 75716728838736L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -225,6 +225,7 @@ public class Recording extends Resource {
     private final Recording.Codec codec;
     private final Map<String, Object> groupingSids;
     private final String trackName;
+    private final Long offset;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -254,6 +255,8 @@ public class Recording extends Resource {
                       final Map<String, Object> groupingSids, 
                       @JsonProperty("track_name")
                       final String trackName, 
+                      @JsonProperty("offset")
+                      final Long offset, 
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -269,6 +272,7 @@ public class Recording extends Resource {
         this.codec = codec;
         this.groupingSids = groupingSids;
         this.trackName = trackName;
+        this.offset = offset;
         this.links = links;
     }
 
@@ -392,6 +396,15 @@ public class Recording extends Resource {
     }
 
     /**
+     * Returns The Offset in miliseconds for this track..
+     * 
+     * @return Offset in miliseconds for this track.
+     */
+    public final Long getOffset() {
+        return this.offset;
+    }
+
+    /**
      * Returns The The links.
      * 
      * @return The links
@@ -425,6 +438,7 @@ public class Recording extends Resource {
                Objects.equals(codec, other.codec) && 
                Objects.equals(groupingSids, other.groupingSids) && 
                Objects.equals(trackName, other.trackName) && 
+               Objects.equals(offset, other.offset) && 
                Objects.equals(links, other.links);
     }
 
@@ -443,6 +457,7 @@ public class Recording extends Resource {
                             codec,
                             groupingSids,
                             trackName,
+                            offset,
                             links);
     }
 
@@ -462,6 +477,7 @@ public class Recording extends Resource {
                           .add("codec", codec)
                           .add("groupingSids", groupingSids)
                           .add("trackName", trackName)
+                          .add("offset", offset)
                           .add("links", links)
                           .toString();
     }

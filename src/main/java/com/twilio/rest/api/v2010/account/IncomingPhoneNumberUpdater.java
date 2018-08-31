@@ -49,7 +49,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this resource
      */
     public IncomingPhoneNumberUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -59,7 +59,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
      * Construct a new IncomingPhoneNumberUpdater.
      * 
      * @param pathAccountSid The new owner of the phone number
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this resource
      */
     public IncomingPhoneNumberUpdater(final String pathAccountSid, 
                                       final String pathSid) {
@@ -326,9 +326,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The emergency_status.
+     * The configuration status parameter determining whether this phone number is
+     * enabled for emergency calling.
      * 
-     * @param emergencyStatus The emergency_status
+     * @param emergencyStatus Status determining whether the number is enabled for
+     *                        emergency calling
      * @return this
      */
     public IncomingPhoneNumberUpdater setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus) {
@@ -337,9 +339,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The emergency_address_sid.
+     * The 34 character sid of the EmergencyAddress configuration to leverage
+     * emergency calling for this phone number.
      * 
-     * @param emergencyAddressSid The emergency_address_sid
+     * @param emergencyAddressSid EmergencyAddress configuration to leverage
+     *                            emergency calling
      * @return this
      */
     public IncomingPhoneNumberUpdater setEmergencyAddressSid(final String emergencyAddressSid) {
@@ -363,9 +367,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The voice_receive_mode.
+     * The configuration parameter for this phone number to receive incoming voice
+     * calls or faxes. Must be either `fax` or `voice`. Defaults to `voice`.
      * 
-     * @param voiceReceiveMode The voice_receive_mode
+     * @param voiceReceiveMode Incoming call type: `fax` or `voice`
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceReceiveMode(final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode) {

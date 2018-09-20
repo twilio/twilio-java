@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.accSecurity.service;
+package com.twilio.rest.verify.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private final String pathServiceSid;
@@ -30,7 +29,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     /**
      * Construct a new VerificationCheckCreator.
      * 
-     * @param pathServiceSid A string that uniquely identifies the Service.
+     * @param pathServiceSid The SID of the Verify Service to be used to check a
+     *                       verification.
      * @param code The verification string
      */
     public VerificationCheckCreator(final String pathServiceSid, 
@@ -61,8 +61,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     public VerificationCheck create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.PREVIEW.toString(),
-            "/Verification/Services/" + this.pathServiceSid + "/VerificationCheck",
+            Domains.VERIFY.toString(),
+            "/v1/Services/" + this.pathServiceSid + "/VerificationCheck",
             client.getRegion()
         );
 

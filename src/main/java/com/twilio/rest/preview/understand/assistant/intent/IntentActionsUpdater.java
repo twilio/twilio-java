@@ -33,8 +33,8 @@ public class IntentActionsUpdater extends Updater<IntentActions> {
     /**
      * Construct a new IntentActionsUpdater.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathIntentSid The intent_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathIntentSid The unique ID of the Intent.
      */
     public IntentActionsUpdater(final String pathAssistantSid, 
                                 final String pathIntentSid) {
@@ -43,9 +43,10 @@ public class IntentActionsUpdater extends Updater<IntentActions> {
     }
 
     /**
-     * The actions.
+     * The JSON actions that instruct the Assistant how to perform this task..
      * 
-     * @param actions The actions
+     * @param actions The JSON actions that instruct the Assistant how to perform
+     *                this task.
      * @return this
      */
     public IntentActionsUpdater setActions(final Map<String, Object> actions) {

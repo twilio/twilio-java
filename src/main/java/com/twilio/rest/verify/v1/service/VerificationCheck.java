@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.accSecurity.service;
+package com.twilio.rest.verify.v1.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,9 +33,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VerificationCheck extends Resource {
@@ -69,7 +68,8 @@ public class VerificationCheck extends Resource {
     /**
      * Create a VerificationCheckCreator to execute create.
      * 
-     * @param pathServiceSid A string that uniquely identifies the Service.
+     * @param pathServiceSid The SID of the Verify Service to be used to check a
+     *                       verification.
      * @param code The verification string
      * @return VerificationCheckCreator capable of executing the create
      */

@@ -25,7 +25,8 @@ public enum Domains {
     MESSAGING("messaging"),
     WIRELESS("wireless"),
     SYNC("sync"),
-    STUDIO("studio");
+    STUDIO("studio"),
+    VERIFY("verify");
 
     private final String value;
 

@@ -52,9 +52,13 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback_event.
+     * The recording status changes that should generate a request to the URL
+     * specified in RecordingStatusCallback. Possible values: `in-progress`,
+     * `completed`, `failed`. To specify multiple values separate them with a space.
+     * Defaults to `completed`..
      * 
-     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * @param recordingStatusCallbackEvent The recording status changes that should
+     *                                     generate a callback
      * @return this
      */
     public RecordingCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent) {
@@ -63,9 +67,13 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback_event.
+     * The recording status changes that should generate a request to the URL
+     * specified in RecordingStatusCallback. Possible values: `in-progress`,
+     * `completed`, `failed`. To specify multiple values separate them with a space.
+     * Defaults to `completed`..
      * 
-     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * @param recordingStatusCallbackEvent The recording status changes that should
+     *                                     generate a callback
      * @return this
      */
     public RecordingCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent) {
@@ -73,9 +81,10 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback.
+     * The URL which Twilio will make its GET or POST request to for the recording
+     * events specified in parameter RecordingStatusCallbackEvent..
      * 
-     * @param recordingStatusCallback The recording_status_callback
+     * @param recordingStatusCallback The callback URL for recording actions
      * @return this
      */
     public RecordingCreator setRecordingStatusCallback(final URI recordingStatusCallback) {
@@ -84,9 +93,10 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback.
+     * The URL which Twilio will make its GET or POST request to for the recording
+     * events specified in parameter RecordingStatusCallbackEvent..
      * 
-     * @param recordingStatusCallback The recording_status_callback
+     * @param recordingStatusCallback The callback URL for recording actions
      * @return this
      */
     public RecordingCreator setRecordingStatusCallback(final String recordingStatusCallback) {
@@ -94,9 +104,13 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback_method.
+     * The HTTP method Twilio should use when making a request to the
+     * RecordingStatusCallback URL. Possible values: `GET`, `POST`. Defaults to
+     * `POST`..
      * 
-     * @param recordingStatusCallbackMethod The recording_status_callback_method
+     * @param recordingStatusCallbackMethod The HTTP method Twilio should use when
+     *                                      making a request to the
+     *                                      RecordingStatusCallback URL
      * @return this
      */
     public RecordingCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
@@ -105,9 +119,9 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * Possible values `trim-silence` or `do-not-trim`. `trim-silence` will trim the
-     * silence from the beginning and end of the recording. `do-not-trim` will not
-     * trim the silence. Defaults to `do-not-trim`.
+     * Possible values: `trim-silence` or `do-not-trim`. `trim-silence` will trim
+     * the silence from the beginning and end of the recording. `do-not-trim` will
+     * not trim the silence. Defaults to `do-not-trim`.
      * 
      * @param trim Whether to trim the silence in the recording
      * @return this
@@ -118,9 +132,12 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_channels.
+     * Possible values: `mono` or `dual`. `mono` records all parties of your call
+     * into one channel. `dual` records a 2 party call into separate channels.
+     * Defaults to `mono`..
      * 
-     * @param recordingChannels The recording_channels
+     * @param recordingChannels The number of channels that the output recording
+     *                          will be configured with
      * @return this
      */
     public RecordingCreator setRecordingChannels(final String recordingChannels) {

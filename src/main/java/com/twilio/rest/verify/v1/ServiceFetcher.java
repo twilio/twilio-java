@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.understand.assistant.intent;
+package com.twilio.rest.verify.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -18,46 +18,41 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class IntentActionsFetcher extends Fetcher<IntentActions> {
-    private final String pathAssistantSid;
-    private final String pathIntentSid;
+public class ServiceFetcher extends Fetcher<Service> {
+    private final String pathSid;
 
     /**
-     * Construct a new IntentActionsFetcher.
+     * Construct a new ServiceFetcher.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathIntentSid The unique ID of the Intent.
+     * @param pathSid Verification Service Instance SID.
      */
-    public IntentActionsFetcher(final String pathAssistantSid, 
-                                final String pathIntentSid) {
-        this.pathAssistantSid = pathAssistantSid;
-        this.pathIntentSid = pathIntentSid;
+    public ServiceFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched IntentActions
+     * @return Fetched Service
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IntentActions fetch(final TwilioRestClient client) {
+    public Service fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Intents/" + this.pathIntentSid + "/Actions",
+            Domains.VERIFY.toString(),
+            "/v1/Services/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IntentActions fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Service fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -73,6 +68,6 @@ public class IntentActionsFetcher extends Fetcher<IntentActions> {
             );
         }
 
-        return IntentActions.fromJson(response.getStream(), client.getObjectMapper());
+        return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

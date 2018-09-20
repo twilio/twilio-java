@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.accSecurity.service;
+package com.twilio.rest.preview.authy;
 
-import com.twilio.base.Creator;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,47 +22,43 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class VerificationCheckCreator extends Creator<VerificationCheck> {
-    private final String pathServiceSid;
-    private final String code;
-    private String to;
+public class ServiceUpdater extends Updater<Service> {
+    private final String pathSid;
+    private String friendlyName;
 
     /**
-     * Construct a new VerificationCheckCreator.
+     * Construct a new ServiceUpdater.
      * 
-     * @param pathServiceSid A string that uniquely identifies the Service.
-     * @param code The verification string
+     * @param pathSid A string that uniquely identifies this Service.
      */
-    public VerificationCheckCreator(final String pathServiceSid, 
-                                    final String code) {
-        this.pathServiceSid = pathServiceSid;
-        this.code = code;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
-     * The To phonenumber of the phone being verified.
+     * A human readable description of this resource, up to 64 characters..
      * 
-     * @param to To phonenumber
+     * @param friendlyName A human readable description of this resource.
      * @return this
      */
-    public VerificationCheckCreator setTo(final String to) {
-        this.to = to;
+    public ServiceUpdater setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
         return this;
     }
 
     /**
-     * Make the request to the Twilio API to perform the create.
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created VerificationCheck
+     * @return Updated Service
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public VerificationCheck create(final TwilioRestClient client) {
+    public Service update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Verification/Services/" + this.pathServiceSid + "/VerificationCheck",
+            "/Authy/Services/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -70,7 +66,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("VerificationCheck creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Service update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -86,7 +82,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
             );
         }
 
-        return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());
+        return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -95,12 +91,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (code != null) {
-            request.addPostParam("Code", code);
-        }
-
-        if (to != null) {
-            request.addPostParam("To", to);
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
         }
     }
 }

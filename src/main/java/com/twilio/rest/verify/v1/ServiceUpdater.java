@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.accSecurity.service;
+package com.twilio.rest.verify.v1;
 
-import com.twilio.base.Creator;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,51 +18,59 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class VerificationCheckCreator extends Creator<VerificationCheck> {
-    private final String pathServiceSid;
-    private final String code;
-    private String to;
+public class ServiceUpdater extends Updater<Service> {
+    private final String pathSid;
+    private String friendlyName;
+    private Integer codeLength;
 
     /**
-     * Construct a new VerificationCheckCreator.
+     * Construct a new ServiceUpdater.
      * 
-     * @param pathServiceSid A string that uniquely identifies the Service.
-     * @param code The verification string
+     * @param pathSid Service Sid.
      */
-    public VerificationCheckCreator(final String pathServiceSid, 
-                                    final String code) {
-        this.pathServiceSid = pathServiceSid;
-        this.code = code;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
-     * The To phonenumber of the phone being verified.
+     * A 1-64 character string with friendly name of service.
      * 
-     * @param to To phonenumber
+     * @param friendlyName Friendly name of the service
      * @return this
      */
-    public VerificationCheckCreator setTo(final String to) {
-        this.to = to;
+    public ServiceUpdater setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
         return this;
     }
 
     /**
-     * Make the request to the Twilio API to perform the create.
+     * The length of the verification code to be generated. Must be an integer value
+     * between 4-10.
+     * 
+     * @param codeLength Length of verification code. Valid values are 4-10
+     * @return this
+     */
+    public ServiceUpdater setCodeLength(final Integer codeLength) {
+        this.codeLength = codeLength;
+        return this;
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created VerificationCheck
+     * @return Updated Service
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public VerificationCheck create(final TwilioRestClient client) {
+    public Service update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.PREVIEW.toString(),
-            "/Verification/Services/" + this.pathServiceSid + "/VerificationCheck",
+            Domains.VERIFY.toString(),
+            "/v1/Services/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -70,7 +78,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("VerificationCheck creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Service update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -86,7 +94,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
             );
         }
 
-        return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());
+        return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -95,12 +103,12 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (code != null) {
-            request.addPostParam("Code", code);
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
         }
 
-        if (to != null) {
-            request.addPostParam("To", to);
+        if (codeLength != null) {
+            request.addPostParam("CodeLength", codeLength.toString());
         }
     }
 }

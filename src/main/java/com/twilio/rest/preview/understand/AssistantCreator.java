@@ -114,9 +114,11 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The fallback_actions.
+     * The JSON actions to be executed when the user's input is not recognized as
+     * matching any Intent..
      * 
-     * @param fallbackActions The fallback_actions
+     * @param fallbackActions The JSON actions to be executed when the user's input
+     *                        is not recognized as matching any Intent.
      * @return this
      */
     public AssistantCreator setFallbackActions(final Map<String, Object> fallbackActions) {
@@ -125,9 +127,11 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The initiation_actions.
+     * The JSON actions to be executed on inbound phone calls when the Assistant has
+     * to say something first..
      * 
-     * @param initiationActions The initiation_actions
+     * @param initiationActions The JSON actions to be executed on inbound phone
+     *                          calls when the Assistant has to say something first.
      * @return this
      */
     public AssistantCreator setInitiationActions(final Map<String, Object> initiationActions) {

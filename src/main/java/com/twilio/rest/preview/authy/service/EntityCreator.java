@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.accSecurity.service;
+package com.twilio.rest.preview.authy.service;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -22,47 +22,35 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class VerificationCheckCreator extends Creator<VerificationCheck> {
+public class EntityCreator extends Creator<Entity> {
     private final String pathServiceSid;
-    private final String code;
-    private String to;
+    private final String identity;
 
     /**
-     * Construct a new VerificationCheckCreator.
+     * Construct a new EntityCreator.
      * 
-     * @param pathServiceSid A string that uniquely identifies the Service.
-     * @param code The verification string
+     * @param pathServiceSid Service Sid.
+     * @param identity Unique identity of the Entity
      */
-    public VerificationCheckCreator(final String pathServiceSid, 
-                                    final String code) {
+    public EntityCreator(final String pathServiceSid, 
+                         final String identity) {
         this.pathServiceSid = pathServiceSid;
-        this.code = code;
-    }
-
-    /**
-     * The To phonenumber of the phone being verified.
-     * 
-     * @param to To phonenumber
-     * @return this
-     */
-    public VerificationCheckCreator setTo(final String to) {
-        this.to = to;
-        return this;
+        this.identity = identity;
     }
 
     /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created VerificationCheck
+     * @return Created Entity
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public VerificationCheck create(final TwilioRestClient client) {
+    public Entity create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Verification/Services/" + this.pathServiceSid + "/VerificationCheck",
+            "/Authy/Services/" + this.pathServiceSid + "/Entities",
             client.getRegion()
         );
 
@@ -70,7 +58,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("VerificationCheck creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Entity creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -86,7 +74,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
             );
         }
 
-        return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());
+        return Entity.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -95,12 +83,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (code != null) {
-            request.addPostParam("Code", code);
-        }
-
-        if (to != null) {
-            request.addPostParam("To", to);
+        if (identity != null) {
+            request.addPostParam("Identity", identity);
         }
     }
 }

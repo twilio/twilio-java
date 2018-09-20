@@ -43,8 +43,8 @@ public class IntentActions extends Resource {
     /**
      * Create a IntentActionsFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathIntentSid The intent_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathIntentSid The unique ID of the Intent.
      * @return IntentActionsFetcher capable of executing the fetch
      */
     public static IntentActionsFetcher fetcher(final String pathAssistantSid, 
@@ -55,8 +55,8 @@ public class IntentActions extends Resource {
     /**
      * Create a IntentActionsUpdater to execute update.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathIntentSid The intent_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathIntentSid The unique ID of the Intent.
      * @return IntentActionsUpdater capable of executing the update
      */
     public static IntentActionsUpdater updater(final String pathAssistantSid, 
@@ -127,27 +127,27 @@ public class IntentActions extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique ID of the Account that created this Field..
      * 
-     * @return The account_sid
+     * @return The unique ID of the Account that created this Field.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The assistant_sid.
+     * Returns The The unique ID of the parent Assistant..
      * 
-     * @return The assistant_sid
+     * @return The unique ID of the parent Assistant.
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The intent_sid.
+     * Returns The The unique ID of the Intent..
      * 
-     * @return The intent_sid
+     * @return The unique ID of the Intent.
      */
     public final String getIntentSid() {
         return this.intentSid;

@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.accSecurity.service;
+package com.twilio.rest.preview.permissions.voicepermission;
 
-import com.twilio.base.Creator;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,47 +22,35 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class VerificationCheckCreator extends Creator<VerificationCheck> {
-    private final String pathServiceSid;
-    private final String code;
-    private String to;
+public class SettingsUpdater extends Updater<Settings> {
+    private Boolean inheritance;
 
     /**
-     * Construct a new VerificationCheckCreator.
+     * Set true to enable inheritance of outbound voice permissions and blocklist,
+     * false to disable.
      * 
-     * @param pathServiceSid A string that uniquely identifies the Service.
-     * @param code The verification string
-     */
-    public VerificationCheckCreator(final String pathServiceSid, 
-                                    final String code) {
-        this.pathServiceSid = pathServiceSid;
-        this.code = code;
-    }
-
-    /**
-     * The To phonenumber of the phone being verified.
-     * 
-     * @param to To phonenumber
+     * @param inheritance Set true to enable inheritance voice permissions
+     *                    settings, false to disable
      * @return this
      */
-    public VerificationCheckCreator setTo(final String to) {
-        this.to = to;
+    public SettingsUpdater setInheritance(final Boolean inheritance) {
+        this.inheritance = inheritance;
         return this;
     }
 
     /**
-     * Make the request to the Twilio API to perform the create.
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created VerificationCheck
+     * @return Updated Settings
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public VerificationCheck create(final TwilioRestClient client) {
+    public Settings update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Verification/Services/" + this.pathServiceSid + "/VerificationCheck",
+            "/permissions/VoicePermissions/Settings",
             client.getRegion()
         );
 
@@ -70,7 +58,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("VerificationCheck creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Settings update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -86,7 +74,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
             );
         }
 
-        return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());
+        return Settings.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -95,12 +83,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (code != null) {
-            request.addPostParam("Code", code);
-        }
-
-        if (to != null) {
-            request.addPostParam("To", to);
+        if (inheritance != null) {
+            request.addPostParam("Inheritance", inheritance.toString());
         }
     }
 }

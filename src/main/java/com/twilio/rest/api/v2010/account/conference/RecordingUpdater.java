@@ -22,14 +22,14 @@ public class RecordingUpdater extends Updater<Recording> {
     private final String pathConferenceSid;
     private final String pathSid;
     private final Recording.Status status;
+    private String pauseBehavior;
 
     /**
      * Construct a new RecordingUpdater.
      * 
      * @param pathConferenceSid The conference_sid
-     * @param pathSid The recording sid (or use 'Twilio.CURRENT' instead of
-     *                recording sid to reference current active recording for
-     *                update.)
+     * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
+     *                of recording sid to reference current active recording)
      * @param status The status to change the recording to.
      */
     public RecordingUpdater(final String pathConferenceSid, 
@@ -45,9 +45,8 @@ public class RecordingUpdater extends Updater<Recording> {
      * 
      * @param pathAccountSid The account_sid
      * @param pathConferenceSid The conference_sid
-     * @param pathSid The recording sid (or use 'Twilio.CURRENT' instead of
-     *                recording sid to reference current active recording for
-     *                update.)
+     * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
+     *                of recording sid to reference current active recording)
      * @param status The status to change the recording to.
      */
     public RecordingUpdater(final String pathAccountSid, 
@@ -58,6 +57,19 @@ public class RecordingUpdater extends Updater<Recording> {
         this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
         this.status = status;
+    }
+
+    /**
+     * Possible values: `skip` or `silence`. `skip` will result in no recording at
+     * all during the pause period. `silence` will replace the actual audio of the
+     * call with silence during the pause period.  Defaults to `silence`.
+     * 
+     * @param pauseBehavior Whether to record or not during the pause period.
+     * @return this
+     */
+    public RecordingUpdater setPauseBehavior(final String pauseBehavior) {
+        this.pauseBehavior = pauseBehavior;
+        return this;
     }
 
     /**
@@ -108,6 +120,10 @@ public class RecordingUpdater extends Updater<Recording> {
     private void addPostParams(final Request request) {
         if (status != null) {
             request.addPostParam("Status", status.toString());
+        }
+
+        if (pauseBehavior != null) {
+            request.addPostParam("PauseBehavior", pauseBehavior);
         }
     }
 }

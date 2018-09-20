@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.accSecurity.service;
+package com.twilio.rest.verify.v1.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,13 +33,12 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VerificationCheck extends Resource {
-    private static final long serialVersionUID = 135291297208530L;
+public class Verification extends Resource {
+    private static final long serialVersionUID = 209968229129653L;
 
     public enum Channel {
         SMS("sms"),
@@ -67,29 +66,31 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Create a VerificationCheckCreator to execute create.
+     * Create a VerificationCreator to execute create.
      * 
-     * @param pathServiceSid A string that uniquely identifies the Service.
-     * @param code The verification string
-     * @return VerificationCheckCreator capable of executing the create
+     * @param pathServiceSid Service Sid.
+     * @param to To phonenumber
+     * @param channel sms or call
+     * @return VerificationCreator capable of executing the create
      */
-    public static VerificationCheckCreator creator(final String pathServiceSid, 
-                                                   final String code) {
-        return new VerificationCheckCreator(pathServiceSid, code);
+    public static VerificationCreator creator(final String pathServiceSid, 
+                                              final String to, 
+                                              final String channel) {
+        return new VerificationCreator(pathServiceSid, to, channel);
     }
 
     /**
-     * Converts a JSON String into a VerificationCheck object using the provided
+     * Converts a JSON String into a Verification object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return VerificationCheck object represented by the provided JSON
+     * @return Verification object represented by the provided JSON
      */
-    public static VerificationCheck fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Verification fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, VerificationCheck.class);
+            return objectMapper.readValue(json, Verification.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -98,17 +99,17 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a VerificationCheck object using the
-     * provided ObjectMapper.
+     * Converts a JSON InputStream into a Verification object using the provided
+     * ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return VerificationCheck object represented by the provided JSON
+     * @return Verification object represented by the provided JSON
      */
-    public static VerificationCheck fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Verification fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, VerificationCheck.class);
+            return objectMapper.readValue(json, Verification.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -119,32 +120,32 @@ public class VerificationCheck extends Resource {
     private final String sid;
     private final String serviceSid;
     private final String accountSid;
-    private final String to;
-    private final VerificationCheck.Channel channel;
+    private final com.twilio.type.PhoneNumber to;
+    private final Verification.Channel channel;
     private final String status;
     private final Boolean valid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
 
     @JsonCreator
-    private VerificationCheck(@JsonProperty("sid")
-                              final String sid, 
-                              @JsonProperty("service_sid")
-                              final String serviceSid, 
-                              @JsonProperty("account_sid")
-                              final String accountSid, 
-                              @JsonProperty("to")
-                              final String to, 
-                              @JsonProperty("channel")
-                              final VerificationCheck.Channel channel, 
-                              @JsonProperty("status")
-                              final String status, 
-                              @JsonProperty("valid")
-                              final Boolean valid, 
-                              @JsonProperty("date_created")
-                              final String dateCreated, 
-                              @JsonProperty("date_updated")
-                              final String dateUpdated) {
+    private Verification(@JsonProperty("sid")
+                         final String sid, 
+                         @JsonProperty("service_sid")
+                         final String serviceSid, 
+                         @JsonProperty("account_sid")
+                         final String accountSid, 
+                         @JsonProperty("to")
+                         final com.twilio.type.PhoneNumber to, 
+                         @JsonProperty("channel")
+                         final Verification.Channel channel, 
+                         @JsonProperty("status")
+                         final String status, 
+                         @JsonProperty("valid")
+                         final Boolean valid, 
+                         @JsonProperty("date_created")
+                         final String dateCreated, 
+                         @JsonProperty("date_updated")
+                         final String dateUpdated) {
         this.sid = sid;
         this.serviceSid = serviceSid;
         this.accountSid = accountSid;
@@ -157,9 +158,9 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Verification Check..
+     * Returns The A string that uniquely identifies this Verification..
      * 
-     * @return A string that uniquely identifies this Verification Check.
+     * @return A string that uniquely identifies this Verification.
      */
     public final String getSid() {
         return this.sid;
@@ -188,7 +189,7 @@ public class VerificationCheck extends Resource {
      * 
      * @return To phonenumber
      */
-    public final String getTo() {
+    public final com.twilio.type.PhoneNumber getTo() {
         return this.to;
     }
 
@@ -197,7 +198,7 @@ public class VerificationCheck extends Resource {
      * 
      * @return sms or call
      */
-    public final VerificationCheck.Channel getChannel() {
+    public final Verification.Channel getChannel() {
         return this.channel;
     }
 
@@ -220,18 +221,18 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The date this Verification Check was created.
+     * Returns The The date this Verification was created.
      * 
-     * @return The date this Verification Check was created
+     * @return The date this Verification was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Verification Check was updated.
+     * Returns The The date this Verification was updated.
      * 
-     * @return The date this Verification Check was updated
+     * @return The date this Verification was updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -247,7 +248,7 @@ public class VerificationCheck extends Resource {
             return false;
         }
 
-        VerificationCheck other = (VerificationCheck) o;
+        Verification other = (Verification) o;
 
         return Objects.equals(sid, other.sid) && 
                Objects.equals(serviceSid, other.serviceSid) && 

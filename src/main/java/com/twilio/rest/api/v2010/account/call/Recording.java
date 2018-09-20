@@ -126,9 +126,8 @@ public class Recording extends Resource {
      * 
      * @param pathAccountSid The account_sid
      * @param pathCallSid The call_sid
-     * @param pathSid The recording sid (or use 'Twilio.CURRENT' instead of
-     *                recording sid to reference current active recording for
-     *                update.)
+     * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
+     *                of recording sid to reference current active recording)
      * @param status The status to change the recording to.
      * @return RecordingUpdater capable of executing the update
      */
@@ -143,9 +142,8 @@ public class Recording extends Resource {
      * Create a RecordingUpdater to execute update.
      * 
      * @param pathCallSid The call_sid
-     * @param pathSid The recording sid (or use 'Twilio.CURRENT' instead of
-     *                recording sid to reference current active recording for
-     *                update.)
+     * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
+     *                of recording sid to reference current active recording)
      * @param status The status to change the recording to.
      * @return RecordingUpdater capable of executing the update
      */

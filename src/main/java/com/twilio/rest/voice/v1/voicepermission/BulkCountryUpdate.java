@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission;
+package com.twilio.rest.voice.v1.voicepermission;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,7 +26,6 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
@@ -36,39 +35,31 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Settings extends Resource {
-    private static final long serialVersionUID = 208860281036240L;
+public class BulkCountryUpdate extends Resource {
+    private static final long serialVersionUID = 82168182663718L;
 
     /**
-     * Create a SettingsFetcher to execute fetch.
+     * Create a BulkCountryUpdateCreator to execute create.
      * 
-     * @return SettingsFetcher capable of executing the fetch
+     * @param updateRequest URL encoded JSON array of update objects
+     * @return BulkCountryUpdateCreator capable of executing the create
      */
-    public static SettingsFetcher fetcher() {
-        return new SettingsFetcher();
+    public static BulkCountryUpdateCreator creator(final String updateRequest) {
+        return new BulkCountryUpdateCreator(updateRequest);
     }
 
     /**
-     * Create a SettingsUpdater to execute update.
-     * 
-     * @return SettingsUpdater capable of executing the update
-     */
-    public static SettingsUpdater updater() {
-        return new SettingsUpdater();
-    }
-
-    /**
-     * Converts a JSON String into a Settings object using the provided
+     * Converts a JSON String into a BulkCountryUpdate object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return Settings object represented by the provided JSON
+     * @return BulkCountryUpdate object represented by the provided JSON
      */
-    public static Settings fromJson(final String json, final ObjectMapper objectMapper) {
+    public static BulkCountryUpdate fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Settings.class);
+            return objectMapper.readValue(json, BulkCountryUpdate.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -77,17 +68,17 @@ public class Settings extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Settings object using the provided
-     * ObjectMapper.
+     * Converts a JSON InputStream into a BulkCountryUpdate object using the
+     * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return Settings object represented by the provided JSON
+     * @return BulkCountryUpdate object represented by the provided JSON
      */
-    public static Settings fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static BulkCountryUpdate fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Settings.class);
+            return objectMapper.readValue(json, BulkCountryUpdate.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -95,36 +86,34 @@ public class Settings extends Resource {
         }
     }
 
-    private final Boolean inheritance;
-    private final URI url;
+    private final Integer updateCount;
+    private final String updateRequest;
 
     @JsonCreator
-    private Settings(@JsonProperty("inheritance")
-                     final Boolean inheritance, 
-                     @JsonProperty("url")
-                     final URI url) {
-        this.inheritance = inheritance;
-        this.url = url;
+    private BulkCountryUpdate(@JsonProperty("update_count")
+                              final Integer updateCount, 
+                              @JsonProperty("update_request")
+                              final String updateRequest) {
+        this.updateCount = updateCount;
+        this.updateRequest = updateRequest;
     }
 
     /**
-     * Returns The The status of  inheritance of outbound voice permissions and
-     * blocklist.
+     * Returns The The number of countries updated.
      * 
-     * @return The status of  inheritance of outbound voice permissions and
-     *         blocklist
+     * @return The number of countries updated
      */
-    public final Boolean getInheritance() {
-        return this.inheritance;
+    public final Integer getUpdateCount() {
+        return this.updateCount;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The update_request.
      * 
-     * @return The url
+     * @return The update_request
      */
-    public final URI getUrl() {
-        return this.url;
+    public final String getUpdateRequest() {
+        return this.updateRequest;
     }
 
     @Override
@@ -137,23 +126,23 @@ public class Settings extends Resource {
             return false;
         }
 
-        Settings other = (Settings) o;
+        BulkCountryUpdate other = (BulkCountryUpdate) o;
 
-        return Objects.equals(inheritance, other.inheritance) && 
-               Objects.equals(url, other.url);
+        return Objects.equals(updateCount, other.updateCount) && 
+               Objects.equals(updateRequest, other.updateRequest);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inheritance,
-                            url);
+        return Objects.hash(updateCount,
+                            updateRequest);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("inheritance", inheritance)
-                          .add("url", url)
+                          .add("updateCount", updateCount)
+                          .add("updateRequest", updateRequest)
                           .toString();
     }
 }

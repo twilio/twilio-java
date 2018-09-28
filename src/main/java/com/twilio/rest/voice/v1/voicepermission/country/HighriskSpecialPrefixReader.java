@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission.country;
+package com.twilio.rest.voice.v1.voicepermission.country;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -25,15 +25,15 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
-    private final String pathParentIsoCode;
+    private final String pathIsoCode;
 
     /**
      * Construct a new HighriskSpecialPrefixReader.
      * 
-     * @param pathParentIsoCode The ISO country code
+     * @param pathIsoCode The ISO country code
      */
-    public HighriskSpecialPrefixReader(final String pathParentIsoCode) {
-        this.pathParentIsoCode = pathParentIsoCode;
+    public HighriskSpecialPrefixReader(final String pathIsoCode) {
+        this.pathIsoCode = pathIsoCode;
     }
 
     /**
@@ -58,8 +58,8 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
     public Page<HighriskSpecialPrefix> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/permissions/VoicePermissions/Countries/" + this.pathParentIsoCode + "/HighRiskSpecialPrefixes",
+            Domains.VOICE.toString(),
+            "/v1/DialingPermissions/Countries/" + this.pathIsoCode + "/HighRiskSpecialPrefixes",
             client.getRegion()
         );
 
@@ -98,7 +98,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.VOICE.toString(),
                 client.getRegion()
             )
         );
@@ -118,7 +118,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.VOICE.toString(),
                 client.getRegion()
             )
         );

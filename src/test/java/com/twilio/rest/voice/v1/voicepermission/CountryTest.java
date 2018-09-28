@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission;
+package com.twilio.rest.voice.v1.voicepermission;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -40,8 +40,8 @@ public class CountryTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          Domains.PREVIEW.toString(),
-                                          "/permissions/VoicePermissions/Countries/US");
+                                          Domains.VOICE.toString(),
+                                          "/v1/DialingPermissions/Countries/US");
             
             twilioRestClient.request(request);
             times = 1;
@@ -60,7 +60,7 @@ public class CountryTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"iso_code\": \"US\",\"name\": \"United States/Canada\",\"country_codes\": [\"+1\"],\"continent\": \"NORTH_AMERICA\",\"low_risk_numbers_enabled\": false,\"high_risk_special_numbers_enabled\": false,\"high_risk_tollfraud_numbers_enabled\": false,\"url\": \"https://preview.twilio.com/permissions/VoicePermissions/Countries/US\",\"links\": {\"highrisk_special_prefixes\": \"https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"iso_code\": \"US\",\"name\": \"United States/Canada\",\"country_codes\": [\"+1\"],\"continent\": \"NORTH_AMERICA\",\"low_risk_numbers_enabled\": false,\"high_risk_special_numbers_enabled\": false,\"high_risk_tollfraud_numbers_enabled\": false,\"url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/US\",\"links\": {\"highrisk_special_prefixes\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -72,8 +72,8 @@ public class CountryTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          Domains.PREVIEW.toString(),
-                                          "/permissions/VoicePermissions/Countries");
+                                          Domains.VOICE.toString(),
+                                          "/v1/DialingPermissions/Countries");
             
             twilioRestClient.request(request);
             times = 1;
@@ -92,7 +92,7 @@ public class CountryTest {
     public void testReadUsResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"content\": [{\"iso_code\": \"US\",\"name\": \"United States/Canada\",\"country_codes\": [\"+1\"],\"continent\": \"NORTH_AMERICA\",\"low_risk_numbers_enabled\": false,\"high_risk_special_numbers_enabled\": false,\"high_risk_tollfraud_numbers_enabled\": false,\"url\": \"https://preview.twilio.com/permissions/VoicePermissions/Countries/US\",\"links\": {\"highrisk_special_prefixes\": \"https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes\"}}],\"meta\": {\"first_page_url\": \"https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0\",\"key\": \"content\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"content\": [{\"iso_code\": \"US\",\"name\": \"United States/Canada\",\"country_codes\": [\"+1\"],\"continent\": \"NORTH_AMERICA\",\"low_risk_numbers_enabled\": false,\"high_risk_special_numbers_enabled\": false,\"high_risk_tollfraud_numbers_enabled\": false,\"url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/US\",\"links\": {\"highrisk_special_prefixes\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes\"}}],\"meta\": {\"first_page_url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0\",\"key\": \"content\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

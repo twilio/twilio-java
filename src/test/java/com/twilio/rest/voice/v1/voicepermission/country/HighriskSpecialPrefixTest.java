@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission.country;
+package com.twilio.rest.voice.v1.voicepermission.country;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -40,8 +40,8 @@ public class HighriskSpecialPrefixTest {
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          Domains.PREVIEW.toString(),
-                                          "/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes");
+                                          Domains.VOICE.toString(),
+                                          "/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes");
             
             twilioRestClient.request(request);
             times = 1;
@@ -60,7 +60,7 @@ public class HighriskSpecialPrefixTest {
     public void testReadUsResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"content\": [{\"prefix\": \"+37181\"},{\"prefix\": \"+3719000\"}],\"meta\": {\"first_page_url\": \"https://preview.twilio.com/permissions/VoicePermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0\",\"key\": \"content\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://preview.twilio.com/permissions/VoicePermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"content\": [{\"prefix\": \"+37181\"},{\"prefix\": \"+3719000\"}],\"meta\": {\"first_page_url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0\",\"key\": \"content\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

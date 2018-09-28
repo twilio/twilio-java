@@ -54,7 +54,6 @@ public class ParticipantCreator extends Creator<Participant> {
     private HttpMethod conferenceRecordingStatusCallbackMethod;
     private List<String> recordingStatusCallbackEvent;
     private List<String> conferenceRecordingStatusCallbackEvent;
-    private String callSidToCoach;
 
     /**
      * Construct a new ParticipantCreator.
@@ -574,20 +573,6 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The string that uniquely identifies the participant that is being `coached`,
-     * i.e. the only participant who can hear the participant that is in `coach`
-     * mode..
-     * 
-     * @param callSidToCoach The string that uniquely identifies the participant
-     *                       that is being `coached`
-     * @return this
-     */
-    public ParticipantCreator setCallSidToCoach(final String callSidToCoach) {
-        this.callSidToCoach = callSidToCoach;
-        return this;
-    }
-
-    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -759,10 +744,6 @@ public class ParticipantCreator extends Creator<Participant> {
             for (String prop : conferenceRecordingStatusCallbackEvent) {
                 request.addPostParam("ConferenceRecordingStatusCallbackEvent", prop);
             }
-        }
-
-        if (callSidToCoach != null) {
-            request.addPostParam("CallSidToCoach", callSidToCoach);
         }
     }
 }

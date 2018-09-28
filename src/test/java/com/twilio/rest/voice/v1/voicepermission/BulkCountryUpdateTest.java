@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission;
+package com.twilio.rest.voice.v1.voicepermission;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -40,8 +40,8 @@ public class BulkCountryUpdateTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          Domains.PREVIEW.toString(),
-                                          "/permissions/VoicePermissions/BulkCountryUpdates");
+                                          Domains.VOICE.toString(),
+                                          "/v1/DialingPermissions/BulkCountryUpdates");
             request.addPostParam("UpdateRequest", serialize("updateRequest"));
             twilioRestClient.request(request);
             times = 1;

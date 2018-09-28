@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission;
+package com.twilio.rest.voice.v1.voicepermission;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -33,9 +33,11 @@ public class CountryReader extends Reader<Country> {
     private Boolean highRiskTollfraudNumbersEnabled;
 
     /**
-     * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+     * Filter to retrieve the country permissions by specifying the [ISO country
+     * code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
      * 
-     * @param isoCode The ISO country code
+     * @param isoCode Filter to retrieve the country permissions by specifying the
+     *                ISO country code
      * @return this
      */
     public CountryReader setIsoCode(final String isoCode) {
@@ -44,9 +46,10 @@ public class CountryReader extends Reader<Country> {
     }
 
     /**
-     * Filter the results by specified continent.
+     * Filter to retrieve the country permissions by specifying the continent.
      * 
-     * @param continent Filter the results by specified continent
+     * @param continent Filter to retrieve the country permissions by specifying
+     *                  the continent
      * @return this
      */
     public CountryReader setContinent(final String continent) {
@@ -55,7 +58,8 @@ public class CountryReader extends Reader<Country> {
     }
 
     /**
-     * Filter the results by specified [country codes](https://countrycode.org/).
+     * Filter the results by specified [country
+     * codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html).
      * 
      * @param countryCode country codes
      * @return this
@@ -66,10 +70,12 @@ public class CountryReader extends Reader<Country> {
     }
 
     /**
-     * Filter the results by specified  low risk special status.
+     * Filter to retrieve the country permissions with dialing to low-risk numbers
+     * enabled set to true / false.
      * 
-     * @param lowRiskNumbersEnabled Filter the results by specified  low risk
-     *                              special status
+     * @param lowRiskNumbersEnabled Filter to retrieve the country permissions with
+     *                              dialing to low-risk numbers enabled set to true
+     *                              / false
      * @return this
      */
     public CountryReader setLowRiskNumbersEnabled(final Boolean lowRiskNumbersEnabled) {
@@ -78,10 +84,13 @@ public class CountryReader extends Reader<Country> {
     }
 
     /**
-     * Filter the results by specified the status of high risk special.
+     * Filter to retrieve the country permissions with dialing to high-risk special
+     * service numbers enabled set to true / false.
      * 
-     * @param highRiskSpecialNumbersEnabled Filter the results by specified the
-     *                                      status of high risk special
+     * @param highRiskSpecialNumbersEnabled Filter to retrieve the country
+     *                                      permissions with dialing to high-risk
+     *                                      special service numbers enabled set to
+     *                                      true / false
      * @return this
      */
     public CountryReader setHighRiskSpecialNumbersEnabled(final Boolean highRiskSpecialNumbersEnabled) {
@@ -90,10 +99,14 @@ public class CountryReader extends Reader<Country> {
     }
 
     /**
-     * Filter the results by specified the status of high risk tollfraud special.
+     * Filter to retrieve the country permissions with dialing to high-risk [toll
+     * fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers
+     * enabled set to true / false.
      * 
-     * @param highRiskTollfraudNumbersEnabled Filter the results by specified the
-     *                                        status of high risk tollfraud special
+     * @param highRiskTollfraudNumbersEnabled Filter to retrieve the country
+     *                                        permissions with dialing to high-risk
+     *                                        toll fraud numbers enabled set to true
+     *                                        / false
      * @return this
      */
     public CountryReader setHighRiskTollfraudNumbersEnabled(final Boolean highRiskTollfraudNumbersEnabled) {
@@ -123,8 +136,8 @@ public class CountryReader extends Reader<Country> {
     public Page<Country> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/permissions/VoicePermissions/Countries",
+            Domains.VOICE.toString(),
+            "/v1/DialingPermissions/Countries",
             client.getRegion()
         );
 
@@ -163,7 +176,7 @@ public class CountryReader extends Reader<Country> {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.VOICE.toString(),
                 client.getRegion()
             )
         );
@@ -183,7 +196,7 @@ public class CountryReader extends Reader<Country> {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.VOICE.toString(),
                 client.getRegion()
             )
         );

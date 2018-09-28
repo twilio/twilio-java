@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission;
+package com.twilio.rest.voice.v1.voicepermission;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -28,7 +28,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
     /**
      * Construct a new BulkCountryUpdateCreator.
      * 
-     * @param updateRequest Json list of update objects
+     * @param updateRequest URL encoded JSON array of update objects
      */
     public BulkCountryUpdateCreator(final String updateRequest) {
         this.updateRequest = updateRequest;
@@ -45,8 +45,8 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
     public BulkCountryUpdate create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.PREVIEW.toString(),
-            "/permissions/VoicePermissions/BulkCountryUpdates",
+            Domains.VOICE.toString(),
+            "/v1/DialingPermissions/BulkCountryUpdates",
             client.getRegion()
         );
 

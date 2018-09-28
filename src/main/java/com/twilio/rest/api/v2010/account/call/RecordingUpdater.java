@@ -60,9 +60,10 @@ public class RecordingUpdater extends Updater<Recording> {
     }
 
     /**
-     * Possible values: `skip` or `silence`. `skip` will result in no recording at
-     * all during the pause period. `silence` will replace the actual audio of the
-     * call with silence during the pause period.  Defaults to `silence`.
+     * Only applicable when setting Status parameter to `paused`. Possible values:
+     * `skip` or `silence`. `skip` will result in no recording at all during the
+     * pause period. `silence` will replace the actual audio of the call with
+     * silence during the pause period.  Defaults to `silence`.
      * 
      * @param pauseBehavior Whether to record or not during the pause period.
      * @return this

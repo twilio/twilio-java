@@ -7,7 +7,7 @@
 
 package com.twilio.rest.video.v1;
 
-import com.twilio.base.Creator;
+import com.twilio.base.Updater;
 import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -28,37 +28,55 @@ import java.util.Map;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class CompositionCreator extends Creator<Composition> {
-    private String roomSid;
+public class CompositionHookUpdater extends Updater<CompositionHook> {
+    private final String pathSid;
+    private final String friendlyName;
+    private Boolean enabled;
     private Map<String, Object> videoLayout;
     private List<String> audioSources;
     private List<String> audioSourcesExcluded;
+    private Boolean trim;
+    private CompositionHook.Format format;
     private String resolution;
-    private Composition.Format format;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
-    private Boolean trim;
 
     /**
-     * Group Room SID owning the media tracks to be used as Composition sources..
+     * Construct a new CompositionHookUpdater.
      * 
-     * @param roomSid Twilio Room SID.
+     * @param pathSid A 34-character string that uniquely identifies this
+     *                Composition Hook.
+     * @param friendlyName Friendly name of the Composition Hook to be shown in the
+     *                     console.
+     */
+    public CompositionHookUpdater(final String pathSid, 
+                                  final String friendlyName) {
+        this.pathSid = pathSid;
+        this.friendlyName = friendlyName;
+    }
+
+    /**
+     * When activated, the Composition Hook is enabled and a composition will be
+     * triggered for every Video room completed by this account from this point
+     * onwards; `false` indicates the Composition Hook is left inactive..
+     * 
+     * @param enabled Boolean flag for activating the Composition Hook.
      * @return this
      */
-    public CompositionCreator setRoomSid(final String roomSid) {
-        this.roomSid = roomSid;
+    public CompositionHookUpdater setEnabled(final Boolean enabled) {
+        this.enabled = enabled;
         return this;
     }
 
     /**
-     * A JSON object defining the video layout of the Composition in terms of
+     * A JSON object defining the video layout of the Composition Hook in terms of
      * regions. See the section [Managing Video Layouts](#managing-video-layouts)
      * below for further information..
      * 
      * @param videoLayout The JSON video layout description.
      * @return this
      */
-    public CompositionCreator setVideoLayout(final Map<String, Object> videoLayout) {
+    public CompositionHookUpdater setVideoLayout(final Map<String, Object> videoLayout) {
         this.videoLayout = videoLayout;
         return this;
     }
@@ -66,17 +84,14 @@ public class CompositionCreator extends Creator<Composition> {
     /**
      * An array of audio sources to merge. All the specified sources must belong to
      * the same Group Room. It can include: 
-     * * Zero or more `RecordingTrackSid`
-     * * Zero or more `MediaTrackSid`
-     * * Zero or more `ParticipantSid`
      * * Zero or more Track names. These can be specified using wildcards (e.g.
      * `student*`). The use of `[*]` has semantics "all if any" meaning zero or more
-     * (i.e. all) depending on whether the target room had audio tracks..
+     * (i.e. all) depending on whether the Group Room had audio tracks..
      * 
-     * @param audioSources A list of audio sources related to this Composition.
+     * @param audioSources A list of audio sources related to this Composition Hook.
      * @return this
      */
-    public CompositionCreator setAudioSources(final List<String> audioSources) {
+    public CompositionHookUpdater setAudioSources(final List<String> audioSources) {
         this.audioSources = audioSources;
         return this;
     }
@@ -84,57 +99,81 @@ public class CompositionCreator extends Creator<Composition> {
     /**
      * An array of audio sources to merge. All the specified sources must belong to
      * the same Group Room. It can include: 
-     * * Zero or more `RecordingTrackSid`
-     * * Zero or more `MediaTrackSid`
-     * * Zero or more `ParticipantSid`
      * * Zero or more Track names. These can be specified using wildcards (e.g.
      * `student*`). The use of `[*]` has semantics "all if any" meaning zero or more
-     * (i.e. all) depending on whether the target room had audio tracks..
+     * (i.e. all) depending on whether the Group Room had audio tracks..
      * 
-     * @param audioSources A list of audio sources related to this Composition.
+     * @param audioSources A list of audio sources related to this Composition Hook.
      * @return this
      */
-    public CompositionCreator setAudioSources(final String audioSources) {
+    public CompositionHookUpdater setAudioSources(final String audioSources) {
         return setAudioSources(Promoter.listOfOne(audioSources));
     }
 
     /**
-     * An array of audio sources to exclude from the Composition. Any new
-     * Composition shall include all audio sources specified in `AudioSources`
-     * except for the ones specified in `AudioSourcesExcluded`. This parameter may
-     * include: 
-     * * Zero or more `RecordingTrackSid`
-     * * Zero or more `MediaTrackSid`
-     * * Zero or more `ParticipantSid`
+     * An array of audio sources to exclude from the Composition Hook. Any new
+     * Composition triggered by the Composition Hook shall include all audio sources
+     * specified in `AudioSources` except for the ones specified in
+     * `AudioSourcesExcluded`. This parameter may include: 
      * * Zero or more Track names. These can be specified using wildcards (e.g.
      * `student*`).
      * 
      * @param audioSourcesExcluded A list of audio sources excluded related to this
-     *                             Composition.
+     *                             Composition Hook.
      * @return this
      */
-    public CompositionCreator setAudioSourcesExcluded(final List<String> audioSourcesExcluded) {
+    public CompositionHookUpdater setAudioSourcesExcluded(final List<String> audioSourcesExcluded) {
         this.audioSourcesExcluded = audioSourcesExcluded;
         return this;
     }
 
     /**
-     * An array of audio sources to exclude from the Composition. Any new
-     * Composition shall include all audio sources specified in `AudioSources`
-     * except for the ones specified in `AudioSourcesExcluded`. This parameter may
-     * include: 
-     * * Zero or more `RecordingTrackSid`
-     * * Zero or more `MediaTrackSid`
-     * * Zero or more `ParticipantSid`
+     * An array of audio sources to exclude from the Composition Hook. Any new
+     * Composition triggered by the Composition Hook shall include all audio sources
+     * specified in `AudioSources` except for the ones specified in
+     * `AudioSourcesExcluded`. This parameter may include: 
      * * Zero or more Track names. These can be specified using wildcards (e.g.
      * `student*`).
      * 
      * @param audioSourcesExcluded A list of audio sources excluded related to this
-     *                             Composition.
+     *                             Composition Hook.
      * @return this
      */
-    public CompositionCreator setAudioSourcesExcluded(final String audioSourcesExcluded) {
+    public CompositionHookUpdater setAudioSourcesExcluded(final String audioSourcesExcluded) {
         return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
+    }
+
+    /**
+     * When activated, clips all the intervals where there is no active media in the
+     * Compositions triggered by the Composition Hook. This results in shorter
+     * compositions in cases when the Room was created but no Participant joined for
+     * some time, or if all the Participants left the room and joined at a later
+     * stage, as those gaps will be removed. You can find further information in the
+     * [Managing Video Layouts](#managing-video-layouts) section. Defaults to
+     * `true`..
+     * 
+     * @param trim Boolean flag for clipping intervals that have no media.
+     * @return this
+     */
+    public CompositionHookUpdater setTrim(final Boolean trim) {
+        this.trim = trim;
+        return this;
+    }
+
+    /**
+     * Container format of the Composition media files created by the Composition
+     * Hook. Can be any of the following: `mp4`, `webm`. The use of `mp4` or `webm`
+     * makes mandatory the specification of `AudioSources` and/or one `VideoLayout`
+     * element containing a valid `video_sources` list, otherwise an error is fired.
+     * Defaults to `webm`..
+     * 
+     * @param format Container format of the Composition Hook media file. Any of
+     *               the following: `mp4`, `webm`.
+     * @return this
+     */
+    public CompositionHookUpdater setFormat(final CompositionHook.Format format) {
+        this.format = format;
+        return this;
     }
 
     /**
@@ -159,23 +198,8 @@ public class CompositionCreator extends Creator<Composition> {
      * @param resolution Pixel resolution of the composed video.
      * @return this
      */
-    public CompositionCreator setResolution(final String resolution) {
+    public CompositionHookUpdater setResolution(final String resolution) {
         this.resolution = resolution;
-        return this;
-    }
-
-    /**
-     * Container format of the Composition media file. Can be any of the following:
-     * `mp4`, `webm`. The use of `mp4` or `webm` makes mandatory the specification
-     * of `AudioSources` and/or one `VideoLayout` element containing a valid
-     * `video_sources` list, otherwise an error is fired. Defaults to `webm`..
-     * 
-     * @param format Container format of the Composition media file. Any of the
-     *               following: `mp4`, `webm`.
-     * @return this
-     */
-    public CompositionCreator setFormat(final Composition.Format format) {
-        this.format = format;
         return this;
     }
 
@@ -187,7 +211,7 @@ public class CompositionCreator extends Creator<Composition> {
      *                       to on every composition event.
      * @return this
      */
-    public CompositionCreator setStatusCallback(final URI statusCallback) {
+    public CompositionHookUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
@@ -200,7 +224,7 @@ public class CompositionCreator extends Creator<Composition> {
      *                       to on every composition event.
      * @return this
      */
-    public CompositionCreator setStatusCallback(final String statusCallback) {
+    public CompositionHookUpdater setStatusCallback(final String statusCallback) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
@@ -212,40 +236,24 @@ public class CompositionCreator extends Creator<Composition> {
      *                             the above URL.
      * @return this
      */
-    public CompositionCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+    public CompositionHookUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
     /**
-     * When activated, clips all the Composition intervals where there is no active
-     * media. This results in shorter compositions in cases when the Room was
-     * created but no Participant joined for some time, or if all the Participants
-     * left the room and joined at a later stage, as those gaps will be removed. You
-     * can find further information in the [Managing Video
-     * Layouts](#managing-video-layouts) section. Defaults to `true`..
-     * 
-     * @param trim Boolean flag for clipping intervals that have no media.
-     * @return this
-     */
-    public CompositionCreator setTrim(final Boolean trim) {
-        this.trim = trim;
-        return this;
-    }
-
-    /**
-     * Make the request to the Twilio API to perform the create.
+     * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created Composition
+     * @return Updated CompositionHook
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Composition create(final TwilioRestClient client) {
+    public CompositionHook update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Compositions",
+            "/v1/CompositionHooks/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -253,7 +261,7 @@ public class CompositionCreator extends Creator<Composition> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Composition creation failed: Unable to connect to server");
+            throw new ApiConnectionException("CompositionHook update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -269,7 +277,7 @@ public class CompositionCreator extends Creator<Composition> {
             );
         }
 
-        return Composition.fromJson(response.getStream(), client.getObjectMapper());
+        return CompositionHook.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -278,8 +286,12 @@ public class CompositionCreator extends Creator<Composition> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (roomSid != null) {
-            request.addPostParam("RoomSid", roomSid);
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (enabled != null) {
+            request.addPostParam("Enabled", enabled.toString());
         }
 
         if (videoLayout != null) {
@@ -298,12 +310,16 @@ public class CompositionCreator extends Creator<Composition> {
             }
         }
 
-        if (resolution != null) {
-            request.addPostParam("Resolution", resolution);
+        if (trim != null) {
+            request.addPostParam("Trim", trim.toString());
         }
 
         if (format != null) {
             request.addPostParam("Format", format.toString());
+        }
+
+        if (resolution != null) {
+            request.addPostParam("Resolution", resolution);
         }
 
         if (statusCallback != null) {
@@ -312,10 +328,6 @@ public class CompositionCreator extends Creator<Composition> {
 
         if (statusCallbackMethod != null) {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
-        }
-
-        if (trim != null) {
-            request.addPostParam("Trim", trim.toString());
         }
     }
 }

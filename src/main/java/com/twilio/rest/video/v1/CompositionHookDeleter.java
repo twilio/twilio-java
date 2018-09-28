@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission;
+package com.twilio.rest.video.v1;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,27 +22,38 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class SettingsFetcher extends Fetcher<Settings> {
+public class CompositionHookDeleter extends Deleter<CompositionHook> {
+    private final String pathSid;
+
     /**
-     * Make the request to the Twilio API to perform the fetch.
+     * Construct a new CompositionHookDeleter.
+     * 
+     * @param pathSid The Recording Composition Hook Sid that uniquely identifies
+     *                the Recording Composition Hook to delete.
+     */
+    public CompositionHookDeleter(final String pathSid) {
+        this.pathSid = pathSid;
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the delete.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Settings
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Settings fetch(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/permissions/VoicePermissions/Settings",
+            HttpMethod.DELETE,
+            Domains.VIDEO.toString(),
+            "/v1/CompositionHooks/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Settings fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("CompositionHook delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -58,6 +69,6 @@ public class SettingsFetcher extends Fetcher<Settings> {
             );
         }
 
-        return Settings.fromJson(response.getStream(), client.getObjectMapper());
+        return response.getStatusCode() == 204;
     }
 }

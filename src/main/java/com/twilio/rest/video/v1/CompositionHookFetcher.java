@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission;
+package com.twilio.rest.video.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -22,38 +22,39 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class CountryFetcher extends Fetcher<Country> {
-    private final String pathIsoCode;
+public class CompositionHookFetcher extends Fetcher<CompositionHook> {
+    private final String pathSid;
 
     /**
-     * Construct a new CountryFetcher.
+     * Construct a new CompositionHookFetcher.
      * 
-     * @param pathIsoCode The ISO country code
+     * @param pathSid The Composition Hook Sid that uniquely identifies the
+     *                Composition Hook to fetch.
      */
-    public CountryFetcher(final String pathIsoCode) {
-        this.pathIsoCode = pathIsoCode;
+    public CompositionHookFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Country
+     * @return Fetched CompositionHook
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Country fetch(final TwilioRestClient client) {
+    public CompositionHook fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/permissions/VoicePermissions/Countries/" + this.pathIsoCode + "",
+            Domains.VIDEO.toString(),
+            "/v1/CompositionHooks/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Country fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("CompositionHook fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -69,6 +70,6 @@ public class CountryFetcher extends Fetcher<Country> {
             );
         }
 
-        return Country.fromJson(response.getStream(), client.getObjectMapper());
+        return CompositionHook.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

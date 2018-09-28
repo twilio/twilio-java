@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.permissions.voicepermission;
+package com.twilio.rest.voice.v1.voicepermission;
 
-import com.twilio.base.Updater;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,43 +22,38 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class SettingsUpdater extends Updater<Settings> {
-    private Boolean inheritance;
+public class CountryFetcher extends Fetcher<Country> {
+    private final String pathIsoCode;
 
     /**
-     * Set true to enable inheritance of outbound voice permissions and blocklist,
-     * false to disable.
+     * Construct a new CountryFetcher.
      * 
-     * @param inheritance Set true to enable inheritance voice permissions
-     *                    settings, false to disable
-     * @return this
+     * @param pathIsoCode The ISO country code
      */
-    public SettingsUpdater setInheritance(final Boolean inheritance) {
-        this.inheritance = inheritance;
-        return this;
+    public CountryFetcher(final String pathIsoCode) {
+        this.pathIsoCode = pathIsoCode;
     }
 
     /**
-     * Make the request to the Twilio API to perform the update.
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Settings
+     * @return Fetched Country
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Settings update(final TwilioRestClient client) {
+    public Country fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.PREVIEW.toString(),
-            "/permissions/VoicePermissions/Settings",
+            HttpMethod.GET,
+            Domains.VOICE.toString(),
+            "/v1/DialingPermissions/Countries/" + this.pathIsoCode + "",
             client.getRegion()
         );
 
-        addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Settings update failed: Unable to connect to server");
+            throw new ApiConnectionException("Country fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -74,17 +69,6 @@ public class SettingsUpdater extends Updater<Settings> {
             );
         }
 
-        return Settings.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested post parameters to the Request.
-     * 
-     * @param request Request to add post params to
-     */
-    private void addPostParams(final Request request) {
-        if (inheritance != null) {
-            request.addPostParam("Inheritance", inheritance.toString());
-        }
+        return Country.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

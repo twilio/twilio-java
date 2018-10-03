@@ -87,7 +87,7 @@ public class ValidationClient extends HttpClient {
                 response.getStatusLine().getStatusCode()
             );
         } catch (IOException e) {
-            throw new ApiException(e.getMessage());
+            throw new ApiException(e.getMessage(), e);
         }
     }
 }

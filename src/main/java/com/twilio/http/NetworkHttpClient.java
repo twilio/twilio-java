@@ -125,7 +125,7 @@ public class NetworkHttpClient extends HttpClient {
                 response.getStatusLine().getStatusCode()
             );
         } catch (IOException e) {
-            throw new ApiException(e.getMessage());
+            throw new ApiException(e.getMessage(), e);
         } finally {
 
             // Ensure this response is properly closed

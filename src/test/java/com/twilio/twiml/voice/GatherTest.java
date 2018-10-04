@@ -55,11 +55,12 @@ public class GatherTest {
             .language(Gather.Language.AF_ZA)
             .hints("hints")
             .bargeIn(true)
+            .debug(true)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Gather action=\"https://example.com\" bargeIn=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>",
+            "<Gather action=\"https://example.com\" bargeIn=\"true\" debug=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>",
             elem.toXml()
         );
     }

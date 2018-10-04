@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.twiml.video;
+package com.twilio.twiml.voice;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,11 +16,11 @@ import org.junit.Test;
 public class RoomTest {
     @Test
     public void testElementWithParams() {
-        Room elem = new Room.Builder("name").build();
+        Room elem = new Room.Builder("name").participantidentity("participantIdentity").build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Room>name</Room>",
+            "<Room participantidentity=\"participantIdentity\">name</Room>",
             elem.toXml()
         );
     }

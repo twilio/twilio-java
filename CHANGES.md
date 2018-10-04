@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2018-10-04] Version 7.27.0
+----------------------------
+**Library**
+- PR #439: Nest IOException inside APIException. Thanks to @yannieyip!
+
+**Twiml**
+- Add `debug` to `Gather`
+- Add `participantIdentity` to `Room`
+
+
 [2018-09-28] Version 7.26.0
 ----------------------------
 **Api**

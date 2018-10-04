@@ -9,7 +9,6 @@ package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import com.twilio.twiml.video.Room;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -63,14 +62,14 @@ public class ConnectTest {
     public void testElementWithChildren() {
         Connect.Builder builder = new Connect.Builder();
 
-        builder.room(new Room.Builder("name").build());
+        builder.room(new Room.Builder("name").participantidentity("participantIdentity").build());
 
         Connect elem = builder.build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Connect>" +
-                "<Room>name</Room>" +
+                "<Room participantidentity=\"participantIdentity\">name</Room>" +
             "</Connect>",
             elem.toXml()
         );

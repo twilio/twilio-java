@@ -10,7 +10,6 @@ package com.twilio.twiml.voice;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
-import com.twilio.twiml.video.Room;
 
 import java.net.URI;
 import java.util.HashMap;

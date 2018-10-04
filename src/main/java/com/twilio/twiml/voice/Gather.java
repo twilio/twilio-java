@@ -152,6 +152,7 @@ public class Gather extends TwiML {
     private final Gather.Language language;
     private final String hints;
     private final Boolean bargeIn;
+    private final Boolean debug;
 
     /**
      * For XML Serialization/Deserialization
@@ -179,6 +180,7 @@ public class Gather extends TwiML {
         this.language = b.language;
         this.hints = b.hints;
         this.bargeIn = b.bargeIn;
+        this.debug = b.debug;
     }
 
     /**
@@ -231,6 +233,9 @@ public class Gather extends TwiML {
         }
         if (this.isBargeIn() != null) {
             attrs.put("bargeIn", this.isBargeIn().toString());
+        }
+        if (this.isDebug() != null) {
+            attrs.put("debug", this.isDebug().toString());
         }
 
         return attrs;
@@ -377,6 +382,15 @@ public class Gather extends TwiML {
     }
 
     /**
+     * Allow debug for gather
+     * 
+     * @return Allow debug for gather
+     */
+    public Boolean isDebug() {
+        return debug;
+    }
+
+    /**
      * Create a new {@code <Gather>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
@@ -394,6 +408,7 @@ public class Gather extends TwiML {
         private Gather.Language language;
         private String hints;
         private Boolean bargeIn;
+        private Boolean debug;
 
         /**
          * Input type Twilio should accept
@@ -529,6 +544,14 @@ public class Gather extends TwiML {
          */
         public Builder bargeIn(Boolean bargeIn) {
             this.bargeIn = bargeIn;
+            return this;
+        }
+
+        /**
+         * Allow debug for gather
+         */
+        public Builder debug(Boolean debug) {
+            this.debug = debug;
             return this;
         }
 

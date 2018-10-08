@@ -82,9 +82,9 @@ public class VoiceGrant implements Grant {
          * @param  grant VoiceGrant
          */
         public Payload(VoiceGrant grant) {
-            if (grant.incomingAllow == true) {
+            if (grant.incomingAllow != null) {
               this.incoming = new HashMap<>();
-              this.incoming.put("allow", true);
+              this.incoming.put("allow", grant.incomingAllow);
             }
 
             if (!Strings.isNullOrEmpty(grant.outgoingApplicationSid)) {

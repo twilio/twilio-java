@@ -31,6 +31,40 @@ public class AccessTokenTest {
         Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
     }
 
+    private void testVoiceToken(Boolean allow) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("foo", "bar");
+
+        VoiceGrant pvg = new VoiceGrant()
+            .setOutgoingApplication("AP123", params)
+            .setIncomingAllow(allow);
+
+        Jwt token =
+            new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                .grant(pvg)
+                .build();
+
+        Claims claims =
+            Jwts.parser()
+                .setSigningKey(SECRET.getBytes())
+                .parseClaimsJws(token.toJwt())
+                .getBody();
+
+        validateToken(claims);
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Assert.assertEquals(1, decodedGrants.size());
+
+        Map<String, Object> pvgGrant = (Map<String, Object>) decodedGrants.get("voice");
+
+        Map<String, Object> incoming = (Map<String, Object>) pvgGrant.get("incoming");
+        Assert.assertEquals(allow, incoming.get("allow"));
+
+        Map<String, Object> outgoing = (Map<String, Object>) pvgGrant.get("outgoing");
+        Map<String, Object> outgoingParams = (Map<String, Object>) outgoing.get("params");
+        Assert.assertEquals("AP123", outgoing.get("application_sid"));
+        Assert.assertEquals("bar", outgoingParams.get("foo"));
+    }
+
     @Test
     public void testEmptyToken() {
         Jwt token =
@@ -265,13 +299,18 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testVoiceToken() {
+    public void testVoiceTokenWithIncoming() {
+      testVoiceToken(true);
+      testVoiceToken(false);
+    }
+
+    @Test
+    public void testVoiceTokenWithoutIncoming() {
         Map<String, Object> params = new HashMap<>();
         params.put("foo", "bar");
 
         VoiceGrant pvg = new VoiceGrant()
-            .setOutgoingApplication("AP123", params)
-            .setIncomingAllow(true);
+            .setOutgoingApplication("AP123", params);
 
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
@@ -290,8 +329,7 @@ public class AccessTokenTest {
 
         Map<String, Object> pvgGrant = (Map<String, Object>) decodedGrants.get("voice");
 
-        Map<String, Object> incoming = (Map<String, Object>) pvgGrant.get("incoming");
-        Assert.assertEquals(true, incoming.get("allow"));
+        Assert.assertEquals(null, pvgGrant.get("incoming"));
 
         Map<String, Object> outgoing = (Map<String, Object>) pvgGrant.get("outgoing");
         Map<String, Object> outgoingParams = (Map<String, Object>) outgoing.get("params");

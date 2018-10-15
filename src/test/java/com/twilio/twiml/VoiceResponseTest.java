@@ -17,7 +17,9 @@ import com.twilio.twiml.voice.Gather;
 import com.twilio.twiml.voice.Hangup;
 import com.twilio.twiml.voice.Leave;
 import com.twilio.twiml.voice.Pause;
+import com.twilio.twiml.voice.Pay;
 import com.twilio.twiml.voice.Play;
+import com.twilio.twiml.voice.Prompt;
 import com.twilio.twiml.voice.Queue;
 import com.twilio.twiml.voice.Record;
 import com.twilio.twiml.voice.Redirect;
@@ -156,6 +158,32 @@ public class VoiceResponseTest {
                     .statusCallback(URI.create("https://example.com"))
                     .build());
 
+        builder.pay(new Pay.Builder()
+                    .input(Pay.Input.DTMF)
+                    .action(URI.create("https://example.com"))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(Pay.StatusCallbackMethod.GET)
+                    .timeout(1)
+                    .maxAttempts(1)
+                    .securityCode(true)
+                    .postalCode("postal_code")
+                    .paymentConnector("payment_connector")
+                    .tokenType(Pay.TokenType.ONE_TIME)
+                    .chargeAmount("charge_amount")
+                    .currency(Pay.Currency.USD)
+                    .credentialSid("credential_sid")
+                    .description("description")
+                    .validCardTypes(Promoter.listOfOne(Pay.ValidCardTypes.VISA))
+                    .language(Pay.Language.DE_DE)
+                    .build());
+
+        builder.prompt(new Prompt.Builder()
+                    .for_(Prompt.For.PAYMENT_CARD_NUMBER)
+                    .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
+                    .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
+                    .attempts(Promoter.listOfOne(1))
+                    .build());
+
         VoiceResponse elem = builder.build();
 
         Assert.assertEquals(
@@ -176,6 +204,8 @@ public class VoiceResponseTest {
                 "<Reject reason=\"rejected\"/>" +
                 "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
+                "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" credentialSid=\"credential_sid\" currency=\"usd\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
+                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
             "</Response>",
             elem.toXml()
         );

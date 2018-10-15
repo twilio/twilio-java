@@ -15,7 +15,9 @@ import com.twilio.twiml.voice.Gather;
 import com.twilio.twiml.voice.Hangup;
 import com.twilio.twiml.voice.Leave;
 import com.twilio.twiml.voice.Pause;
+import com.twilio.twiml.voice.Pay;
 import com.twilio.twiml.voice.Play;
+import com.twilio.twiml.voice.Prompt;
 import com.twilio.twiml.voice.Queue;
 import com.twilio.twiml.voice.Record;
 import com.twilio.twiml.voice.Redirect;
@@ -162,6 +164,22 @@ public class VoiceResponse extends TwiML {
          */
         public Builder sms(Sms sms) {
             this.children.add(sms);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Pay>} element
+         */
+        public Builder pay(Pay pay) {
+            this.children.add(pay);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Prompt>} element
+         */
+        public Builder prompt(Prompt prompt) {
+            this.children.add(prompt);
             return this;
         }
 

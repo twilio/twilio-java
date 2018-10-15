@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2018-10-15] Version 7.29.0
+----------------------------
+**Api**
+- Add <Pay> Verb Transactions category to usage records
+
+**Twiml**
+- Add support for `Pay` verb
+
+
 [2018-10-15] Version 7.28.0
 ----------------------------
 **Library**

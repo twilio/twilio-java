@@ -29,8 +29,8 @@ public class QueryDeleter extends Deleter<Query> {
     /**
      * Construct a new QueryDeleter.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public QueryDeleter(final String pathAssistantSid, 
                         final String pathSid) {

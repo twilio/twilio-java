@@ -43,13 +43,13 @@ public class Client extends TwiML {
     private final List<Client.Event> statusCallbackEvent;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
-    private final String name;
+    private final String identity;
 
     /**
      * For XML Serialization/Deserialization
      */
     private Client() {
-        this(new Builder((String) null));
+        this(new Builder());
     }
 
     /**
@@ -62,7 +62,7 @@ public class Client extends TwiML {
         this.statusCallbackEvent = b.statusCallbackEvent;
         this.statusCallback = b.statusCallback;
         this.statusCallbackMethod = b.statusCallbackMethod;
-        this.name = b.name;
+        this.identity = b.identity;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Client extends TwiML {
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
-        return this.getName() == null ? null : this.getName();
+        return this.getIdentity() == null ? null : this.getIdentity();
     }
 
     /**
@@ -160,12 +160,12 @@ public class Client extends TwiML {
     }
 
     /**
-     * Client name
+     * Client identity
      * 
-     * @return Client name
+     * @return Client identity
      */
-    public String getName() {
-        return name;
+    public String getIdentity() {
+        return identity;
     }
 
     /**
@@ -177,13 +177,19 @@ public class Client extends TwiML {
         private List<Client.Event> statusCallbackEvent;
         private URI statusCallback;
         private HttpMethod statusCallbackMethod;
-        private String name;
+        private String identity;
 
         /**
-         * Create a {@code <Client>} with name
+         * Create a {@code <Client>} with identity
          */
-        public Builder(String name) {
-            this.name = name;
+        public Builder(String identity) {
+            this.identity = identity;
+        }
+
+        /**
+         * Create a {@code <Client>} with child elements
+         */
+        public Builder() {
         }
 
         /**
@@ -247,6 +253,30 @@ public class Client extends TwiML {
          */
         public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
+            return this;
+        }
+
+        /**
+         * Client identity
+         */
+        public Builder identity(String identity) {
+            this.identity = identity;
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Identity>} element
+         */
+        public Builder identity(Identity identity) {
+            this.children.add(identity);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Parameter>} element
+         */
+        public Builder parameter(Parameter parameter) {
+            this.children.add(parameter);
             return this;
         }
 

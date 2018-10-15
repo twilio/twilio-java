@@ -36,11 +36,12 @@ public class AssistantUpdater extends Updater<Assistant> {
     private String callbackEvents;
     private Map<String, Object> fallbackActions;
     private Map<String, Object> initiationActions;
+    private Map<String, Object> styleSheet;
 
     /**
      * Construct a new AssistantUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public AssistantUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -92,9 +93,9 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The callback_url.
+     * A user-provided URL to send event callbacks to..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl A user-provided URL to send event callbacks to.
      * @return this
      */
     public AssistantUpdater setCallbackUrl(final URI callbackUrl) {
@@ -103,9 +104,9 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The callback_url.
+     * A user-provided URL to send event callbacks to..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl A user-provided URL to send event callbacks to.
      * @return this
      */
     public AssistantUpdater setCallbackUrl(final String callbackUrl) {
@@ -113,9 +114,10 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The callback_events.
+     * Space-separated list of callback events that will trigger callbacks..
      * 
-     * @param callbackEvents The callback_events
+     * @param callbackEvents Space-separated list of callback events that will
+     *                       trigger callbacks.
      * @return this
      */
     public AssistantUpdater setCallbackEvents(final String callbackEvents) {
@@ -125,10 +127,10 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * The JSON actions to be executed when the user's input is not recognized as
-     * matching any Intent..
+     * matching any Task..
      * 
      * @param fallbackActions The JSON actions to be executed when the user's input
-     *                        is not recognized as matching any Intent.
+     *                        is not recognized as matching any Task.
      * @return this
      */
     public AssistantUpdater setFallbackActions(final Map<String, Object> fallbackActions) {
@@ -146,6 +148,18 @@ public class AssistantUpdater extends Updater<Assistant> {
      */
     public AssistantUpdater setInitiationActions(final Map<String, Object> initiationActions) {
         this.initiationActions = initiationActions;
+        return this;
+    }
+
+    /**
+     * The JSON object that holds the style sheet for the assistant.
+     * 
+     * @param styleSheet The JSON object that holds the style sheet for the
+     *                   assistant
+     * @return this
+     */
+    public AssistantUpdater setStyleSheet(final Map<String, Object> styleSheet) {
+        this.styleSheet = styleSheet;
         return this;
     }
 
@@ -220,6 +234,10 @@ public class AssistantUpdater extends Updater<Assistant> {
 
         if (initiationActions != null) {
             request.addPostParam("InitiationActions", Converter.mapToJson(initiationActions));
+        }
+
+        if (styleSheet != null) {
+            request.addPostParam("StyleSheet", Converter.mapToJson(styleSheet));
         }
     }
 }

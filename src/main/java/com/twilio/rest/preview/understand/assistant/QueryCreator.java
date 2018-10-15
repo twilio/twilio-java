@@ -26,14 +26,14 @@ public class QueryCreator extends Creator<Query> {
     private final String pathAssistantSid;
     private final String language;
     private final String query;
-    private String intents;
+    private String tasks;
     private String modelBuild;
     private String field;
 
     /**
      * Construct a new QueryCreator.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param language An ISO language-country string of the sample.
      * @param query A user-provided string that uniquely identifies this resource
      *              as an alternative to the sid. It can be up to 2048 characters
@@ -48,17 +48,17 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * Constraints the query to a set of intents. Useful when you need to constrain
-     * the paths the user can take. Intents should be comma separated
-     * *intent-unique-name-1*, *intent-unique-name-2*.
+     * Constraints the query to a set of tasks. Useful when you need to constrain
+     * the paths the user can take. Tasks should be comma separated
+     * *task-unique-name-1*, *task-unique-name-2*.
      * 
-     * @param intents Constraints the query to a set of intents. Useful when you
-     *                need to constrain the paths the user can take. Intents should
-     *                be comma separated intent-unique-name-1, intent-unique-name-2
+     * @param tasks Constraints the query to a set of tasks. Useful when you need
+     *              to constrain the paths the user can take. Tasks should be comma
+     *              separated task-unique-name-1, task-unique-name-2
      * @return this
      */
-    public QueryCreator setIntents(final String intents) {
-        this.intents = intents;
+    public QueryCreator setTasks(final String tasks) {
+        this.tasks = tasks;
         return this;
     }
 
@@ -75,13 +75,13 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * Constraints the query to a given Field with an intent. Useful when you know
-     * the Field you are expecting. It accepts one field in the format
-     * *intent-unique-name-1*:*field-unique-name*.
+     * Constraints the query to a given Field with an task. Useful when you know the
+     * Field you are expecting. It accepts one field in the format
+     * *task-unique-name-1*:*field-unique-name*.
      * 
-     * @param field Constraints the query to a given Field with an intent. Useful
+     * @param field Constraints the query to a given Field with an task. Useful
      *              when you know the Field you are expecting. It accepts one field
-     *              in the format intent-unique-name-1:field-unique-name
+     *              in the format task-unique-name-1:field-unique-name
      * @return this
      */
     public QueryCreator setField(final String field) {
@@ -142,8 +142,8 @@ public class QueryCreator extends Creator<Query> {
             request.addPostParam("Query", query);
         }
 
-        if (intents != null) {
-            request.addPostParam("Intents", intents);
+        if (tasks != null) {
+            request.addPostParam("Tasks", tasks);
         }
 
         if (modelBuild != null) {

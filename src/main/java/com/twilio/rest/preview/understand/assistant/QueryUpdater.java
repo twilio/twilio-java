@@ -31,8 +31,8 @@ public class QueryUpdater extends Updater<Query> {
     /**
      * Construct a new QueryUpdater.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public QueryUpdater(final String pathAssistantSid, 
                         final String pathSid) {
@@ -41,9 +41,9 @@ public class QueryUpdater extends Updater<Query> {
     }
 
     /**
-     * The sample_sid.
+     * An optional reference to the Sample created from this query..
      * 
-     * @param sampleSid The sample_sid
+     * @param sampleSid An optional reference to the Sample created from this query.
      * @return this
      */
     public QueryUpdater setSampleSid(final String sampleSid) {

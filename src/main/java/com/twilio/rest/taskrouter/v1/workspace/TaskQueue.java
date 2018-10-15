@@ -101,17 +101,11 @@ public class TaskQueue extends Resource {
      * 
      * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName Human readable description of this TaskQueue
-     * @param reservationActivitySid ActivitySID to assign workers once a task is
-     *                               reserved for them
-     * @param assignmentActivitySid ActivitySID to assign workers once a task is
-     *                              assigned for them
      * @return TaskQueueCreator capable of executing the create
      */
     public static TaskQueueCreator creator(final String pathWorkspaceSid, 
-                                           final String friendlyName, 
-                                           final String reservationActivitySid, 
-                                           final String assignmentActivitySid) {
-        return new TaskQueueCreator(pathWorkspaceSid, friendlyName, reservationActivitySid, assignmentActivitySid);
+                                           final String friendlyName) {
+        return new TaskQueueCreator(pathWorkspaceSid, friendlyName);
     }
 
     /**

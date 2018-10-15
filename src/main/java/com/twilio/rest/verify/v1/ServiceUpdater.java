@@ -25,6 +25,7 @@ public class ServiceUpdater extends Updater<Service> {
     private final String pathSid;
     private String friendlyName;
     private Integer codeLength;
+    private Boolean lookupEnabled;
 
     /**
      * Construct a new ServiceUpdater.
@@ -55,6 +56,19 @@ public class ServiceUpdater extends Updater<Service> {
      */
     public ServiceUpdater setCodeLength(final Integer codeLength) {
         this.codeLength = codeLength;
+        return this;
+    }
+
+    /**
+     * Boolean value that indicates if a lookup should be performed with each
+     * verification started and associated info returned.
+     * 
+     * @param lookupEnabled Indicates whether or not to perform a lookup with each
+     *                      verification started
+     * @return this
+     */
+    public ServiceUpdater setLookupEnabled(final Boolean lookupEnabled) {
+        this.lookupEnabled = lookupEnabled;
         return this;
     }
 
@@ -109,6 +123,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (codeLength != null) {
             request.addPostParam("CodeLength", codeLength.toString());
+        }
+
+        if (lookupEnabled != null) {
+            request.addPostParam("LookupEnabled", lookupEnabled.toString());
         }
     }
 }

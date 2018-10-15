@@ -64,12 +64,15 @@ public class ConnectTest {
 
         builder.room(new Room.Builder("name").participantidentity("participantIdentity").build());
 
+        builder.autopilot(new Autopilot.Builder("name").build());
+
         Connect elem = builder.build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Connect>" +
                 "<Room participantidentity=\"participantIdentity\">name</Room>" +
+                "<Autopilot>name</Autopilot>" +
             "</Connect>",
             elem.toXml()
         );

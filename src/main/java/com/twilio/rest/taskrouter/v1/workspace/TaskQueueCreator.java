@@ -20,30 +20,22 @@ import com.twilio.rest.Domains;
 public class TaskQueueCreator extends Creator<TaskQueue> {
     private final String pathWorkspaceSid;
     private final String friendlyName;
-    private final String reservationActivitySid;
-    private final String assignmentActivitySid;
     private String targetWorkers;
     private Integer maxReservedWorkers;
     private TaskQueue.TaskOrder taskOrder;
+    private String reservationActivitySid;
+    private String assignmentActivitySid;
 
     /**
      * Construct a new TaskQueueCreator.
      * 
      * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName Human readable description of this TaskQueue
-     * @param reservationActivitySid ActivitySID to assign workers once a task is
-     *                               reserved for them
-     * @param assignmentActivitySid ActivitySID to assign workers once a task is
-     *                              assigned for them
      */
     public TaskQueueCreator(final String pathWorkspaceSid, 
-                            final String friendlyName, 
-                            final String reservationActivitySid, 
-                            final String assignmentActivitySid) {
+                            final String friendlyName) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
-        this.reservationActivitySid = reservationActivitySid;
-        this.assignmentActivitySid = assignmentActivitySid;
     }
 
     /**
@@ -89,6 +81,30 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      */
     public TaskQueueCreator setTaskOrder(final TaskQueue.TaskOrder taskOrder) {
         this.taskOrder = taskOrder;
+        return this;
+    }
+
+    /**
+     * ActivitySID to assign workers once a task is reserved for them.
+     * 
+     * @param reservationActivitySid ActivitySID to assign workers once a task is
+     *                               reserved for them
+     * @return this
+     */
+    public TaskQueueCreator setReservationActivitySid(final String reservationActivitySid) {
+        this.reservationActivitySid = reservationActivitySid;
+        return this;
+    }
+
+    /**
+     * ActivitySID to assign workers once a task is assigned for them.
+     * 
+     * @param assignmentActivitySid ActivitySID to assign workers once a task is
+     *                              assigned for them
+     * @return this
+     */
+    public TaskQueueCreator setAssignmentActivitySid(final String assignmentActivitySid) {
+        this.assignmentActivitySid = assignmentActivitySid;
         return this;
     }
 
@@ -141,14 +157,6 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
             request.addPostParam("FriendlyName", friendlyName);
         }
 
-        if (reservationActivitySid != null) {
-            request.addPostParam("ReservationActivitySid", reservationActivitySid);
-        }
-
-        if (assignmentActivitySid != null) {
-            request.addPostParam("AssignmentActivitySid", assignmentActivitySid);
-        }
-
         if (targetWorkers != null) {
             request.addPostParam("TargetWorkers", targetWorkers);
         }
@@ -159,6 +167,14 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
         if (taskOrder != null) {
             request.addPostParam("TaskOrder", taskOrder.toString());
+        }
+
+        if (reservationActivitySid != null) {
+            request.addPostParam("ReservationActivitySid", reservationActivitySid);
+        }
+
+        if (assignmentActivitySid != null) {
+            request.addPostParam("AssignmentActivitySid", assignmentActivitySid);
         }
     }
 }

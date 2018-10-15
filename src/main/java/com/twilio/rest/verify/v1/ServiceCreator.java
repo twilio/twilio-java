@@ -24,6 +24,7 @@ import com.twilio.rest.Domains;
 public class ServiceCreator extends Creator<Service> {
     private final String friendlyName;
     private Integer codeLength;
+    private Boolean lookupEnabled;
 
     /**
      * Construct a new ServiceCreator.
@@ -43,6 +44,19 @@ public class ServiceCreator extends Creator<Service> {
      */
     public ServiceCreator setCodeLength(final Integer codeLength) {
         this.codeLength = codeLength;
+        return this;
+    }
+
+    /**
+     * Boolean value that indicates if a lookup should be performed with each
+     * verification started and associated info returned.
+     * 
+     * @param lookupEnabled Indicates whether or not to perform a lookup with each
+     *                      verification started
+     * @return this
+     */
+    public ServiceCreator setLookupEnabled(final Boolean lookupEnabled) {
+        this.lookupEnabled = lookupEnabled;
         return this;
     }
 
@@ -97,6 +111,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (codeLength != null) {
             request.addPostParam("CodeLength", codeLength.toString());
+        }
+
+        if (lookupEnabled != null) {
+            request.addPostParam("LookupEnabled", lookupEnabled.toString());
         }
     }
 }

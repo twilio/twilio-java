@@ -45,8 +45,8 @@ public class Query extends Resource {
     /**
      * Create a QueryFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return QueryFetcher capable of executing the fetch
      */
     public static QueryFetcher fetcher(final String pathAssistantSid, 
@@ -57,7 +57,7 @@ public class Query extends Resource {
     /**
      * Create a QueryReader to execute read.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @return QueryReader capable of executing the read
      */
     public static QueryReader reader(final String pathAssistantSid) {
@@ -67,7 +67,7 @@ public class Query extends Resource {
     /**
      * Create a QueryCreator to execute create.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param language An ISO language-country string of the sample.
      * @param query A user-provided string that uniquely identifies this resource
      *              as an alternative to the sid. It can be up to 2048 characters
@@ -83,8 +83,8 @@ public class Query extends Resource {
     /**
      * Create a QueryUpdater to execute update.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return QueryUpdater capable of executing the update
      */
     public static QueryUpdater updater(final String pathAssistantSid, 
@@ -95,8 +95,8 @@ public class Query extends Resource {
     /**
      * Create a QueryDeleter to execute delete.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return QueryDeleter capable of executing the delete
      */
     public static QueryDeleter deleter(final String pathAssistantSid, 
@@ -225,10 +225,10 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The natural language analysis results which include the Intent
+     * Returns The The natural language analysis results which include the Task
      * recognized, the confidence score and a list of identified Fields..
      * 
-     * @return The natural language analysis results which include the Intent
+     * @return The natural language analysis results which include the Task
      *         recognized, the confidence score and a list of identified Fields.
      */
     public final Map<String, Object> getResults() {

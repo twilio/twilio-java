@@ -28,7 +28,7 @@ public class AssistantDeleter extends Deleter<Assistant> {
     /**
      * Construct a new AssistantDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public AssistantDeleter(final String pathSid) {
         this.pathSid = pathSid;

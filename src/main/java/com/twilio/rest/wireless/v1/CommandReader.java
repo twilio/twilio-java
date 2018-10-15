@@ -23,6 +23,7 @@ public class CommandReader extends Reader<Command> {
     private String sim;
     private Command.Status status;
     private Command.Direction direction;
+    private Command.Transport transport;
 
     /**
      * Only return Commands to or from this SIM..
@@ -54,6 +55,17 @@ public class CommandReader extends Reader<Command> {
      */
     public CommandReader setDirection(final Command.Direction direction) {
         this.direction = direction;
+        return this;
+    }
+
+    /**
+     * The transport.
+     * 
+     * @param transport The transport
+     * @return this
+     */
+    public CommandReader setTransport(final Command.Transport transport) {
+        this.transport = transport;
         return this;
     }
 
@@ -197,6 +209,10 @@ public class CommandReader extends Reader<Command> {
 
         if (direction != null) {
             request.addQueryParam("Direction", direction.toString());
+        }
+
+        if (transport != null) {
+            request.addQueryParam("Transport", transport.toString());
         }
 
         if (getPageSize() != null) {

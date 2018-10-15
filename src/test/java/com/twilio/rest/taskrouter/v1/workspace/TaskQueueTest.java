@@ -146,22 +146,20 @@ public class TaskQueueTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.TASKROUTER.toString(),
-                                                      "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
-        request.addPostParam("ReservationActivitySid", serialize("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
-        request.addPostParam("AssignmentActivitySid", serialize("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.TASKROUTER.toString(),
+                                          "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues");
+            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
-            TaskQueue.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            TaskQueue.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -175,7 +173,7 @@ public class TaskQueueTest {
             result = new ObjectMapper();
         }};
 
-        TaskQueue.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        TaskQueue.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
     }
 
     @Test

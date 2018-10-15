@@ -64,11 +64,12 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * An optional metadata field you can use to store any data you wish. No
-     * processing or validation is done on this field..
+     * An optional string metadata field you can use to store any data you wish. The
+     * string value must contain structurally valid JSON if specified.  **Note**
+     * that if the attributes are not set "{}" will be returned..
      * 
-     * @param attributes An optional metadata field you can use to store any data
-     *                   you wish.
+     * @param attributes An optional string metadata field you can use to store any
+     *                   data you wish.
      * @return this
      */
     public ChannelUpdater setAttributes(final String attributes) {

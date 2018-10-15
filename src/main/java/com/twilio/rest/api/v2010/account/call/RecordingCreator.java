@@ -82,7 +82,9 @@ public class RecordingCreator extends Creator<Recording> {
 
     /**
      * The URL which Twilio will make its GET or POST request to for the recording
-     * events specified in parameter RecordingStatusCallbackEvent..
+     * events specified in parameter RecordingStatusCallbackEvent. See
+     * [RecordingStatusCallback
+     * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback) for more details..
      * 
      * @param recordingStatusCallback The callback URL for recording actions
      * @return this
@@ -94,7 +96,9 @@ public class RecordingCreator extends Creator<Recording> {
 
     /**
      * The URL which Twilio will make its GET or POST request to for the recording
-     * events specified in parameter RecordingStatusCallbackEvent..
+     * events specified in parameter RecordingStatusCallbackEvent. See
+     * [RecordingStatusCallback
+     * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback) for more details..
      * 
      * @param recordingStatusCallback The callback URL for recording actions
      * @return this

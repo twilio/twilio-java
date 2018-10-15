@@ -44,7 +44,7 @@ public class Assistant extends Resource {
     /**
      * Create a AssistantFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return AssistantFetcher capable of executing the fetch
      */
     public static AssistantFetcher fetcher(final String pathSid) {
@@ -72,7 +72,7 @@ public class Assistant extends Resource {
     /**
      * Create a AssistantUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return AssistantUpdater capable of executing the update
      */
     public static AssistantUpdater updater(final String pathSid) {
@@ -82,7 +82,7 @@ public class Assistant extends Resource {
     /**
      * Create a AssistantDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return AssistantDeleter capable of executing the delete
      */
     public static AssistantDeleter deleter(final String pathSid) {
@@ -282,18 +282,19 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The callback_url.
+     * Returns The A user-provided URL to send event callbacks to..
      * 
-     * @return The callback_url
+     * @return A user-provided URL to send event callbacks to.
      */
     public final URI getCallbackUrl() {
         return this.callbackUrl;
     }
 
     /**
-     * Returns The The callback_events.
+     * Returns The Space-separated list of callback events that will trigger
+     * callbacks..
      * 
-     * @return The callback_events
+     * @return Space-separated list of callback events that will trigger callbacks.
      */
     public final String getCallbackEvents() {
         return this.callbackEvents;

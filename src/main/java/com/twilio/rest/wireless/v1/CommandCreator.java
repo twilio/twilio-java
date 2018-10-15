@@ -27,6 +27,7 @@ public class CommandCreator extends Creator<Command> {
     private URI callbackUrl;
     private Command.CommandMode commandMode;
     private String includeSid;
+    private Boolean deliveryReceiptRequested;
 
     /**
      * Construct a new CommandCreator.
@@ -125,6 +126,17 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
+     * The delivery_receipt_requested.
+     * 
+     * @param deliveryReceiptRequested The delivery_receipt_requested
+     * @return this
+     */
+    public CommandCreator setDeliveryReceiptRequested(final Boolean deliveryReceiptRequested) {
+        this.deliveryReceiptRequested = deliveryReceiptRequested;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -191,6 +203,10 @@ public class CommandCreator extends Creator<Command> {
 
         if (includeSid != null) {
             request.addPostParam("IncludeSid", includeSid);
+        }
+
+        if (deliveryReceiptRequested != null) {
+            request.addPostParam("DeliveryReceiptRequested", deliveryReceiptRequested.toString());
         }
     }
 }

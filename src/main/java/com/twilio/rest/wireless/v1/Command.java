@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Command extends Resource {
-    private static final long serialVersionUID = 246232114569704L;
+    private static final long serialVersionUID = 13823495312115L;
 
     public enum Direction {
         FROM_SIM("from_sim"),
@@ -115,6 +115,31 @@ public class Command extends Resource {
         }
     }
 
+    public enum Transport {
+        SMS("sms"),
+        IP("ip");
+
+        private final String value;
+
+        private Transport(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Transport from a string.
+         * @param value string value
+         * @return generated Transport
+         */
+        @JsonCreator
+        public static Transport forValue(final String value) {
+            return Promoter.enumFromString(value, Transport.values());
+        }
+    }
+
     /**
      * Create a CommandFetcher to execute fetch.
      * 
@@ -187,6 +212,8 @@ public class Command extends Resource {
     private final String simSid;
     private final String command;
     private final Command.CommandMode commandMode;
+    private final Command.Transport transport;
+    private final Boolean deliveryReceiptRequested;
     private final Command.Status status;
     private final Command.Direction direction;
     private final DateTime dateCreated;
@@ -204,6 +231,10 @@ public class Command extends Resource {
                     final String command, 
                     @JsonProperty("command_mode")
                     final Command.CommandMode commandMode, 
+                    @JsonProperty("transport")
+                    final Command.Transport transport, 
+                    @JsonProperty("delivery_receipt_requested")
+                    final Boolean deliveryReceiptRequested, 
                     @JsonProperty("status")
                     final Command.Status status, 
                     @JsonProperty("direction")
@@ -219,6 +250,8 @@ public class Command extends Resource {
         this.simSid = simSid;
         this.command = command;
         this.commandMode = commandMode;
+        this.transport = transport;
+        this.deliveryReceiptRequested = deliveryReceiptRequested;
         this.status = status;
         this.direction = direction;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -270,6 +303,24 @@ public class Command extends Resource {
      */
     public final Command.CommandMode getCommandMode() {
         return this.commandMode;
+    }
+
+    /**
+     * Returns The The transport.
+     * 
+     * @return The transport
+     */
+    public final Command.Transport getTransport() {
+        return this.transport;
+    }
+
+    /**
+     * Returns The The delivery_receipt_requested.
+     * 
+     * @return The delivery_receipt_requested
+     */
+    public final Boolean getDeliveryReceiptRequested() {
+        return this.deliveryReceiptRequested;
     }
 
     /**
@@ -338,6 +389,8 @@ public class Command extends Resource {
                Objects.equals(simSid, other.simSid) && 
                Objects.equals(command, other.command) && 
                Objects.equals(commandMode, other.commandMode) && 
+               Objects.equals(transport, other.transport) && 
+               Objects.equals(deliveryReceiptRequested, other.deliveryReceiptRequested) && 
                Objects.equals(status, other.status) && 
                Objects.equals(direction, other.direction) && 
                Objects.equals(dateCreated, other.dateCreated) && 
@@ -352,6 +405,8 @@ public class Command extends Resource {
                             simSid,
                             command,
                             commandMode,
+                            transport,
+                            deliveryReceiptRequested,
                             status,
                             direction,
                             dateCreated,
@@ -367,6 +422,8 @@ public class Command extends Resource {
                           .add("simSid", simSid)
                           .add("command", command)
                           .add("commandMode", commandMode)
+                          .add("transport", transport)
+                          .add("deliveryReceiptRequested", deliveryReceiptRequested)
                           .add("status", status)
                           .add("direction", direction)
                           .add("dateCreated", dateCreated)

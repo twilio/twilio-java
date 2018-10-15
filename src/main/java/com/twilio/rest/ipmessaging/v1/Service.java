@@ -290,9 +290,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Enable the Message Constumption Horizon feature..
+     * Returns The Enable the Message Consumption Horizon feature..
      * 
-     * @return Enable the Message Constumption Horizon feature.
+     * @return Enable the Message Consumption Horizon feature.
      */
     public final Boolean getReadStatusEnabled() {
         return this.readStatusEnabled;

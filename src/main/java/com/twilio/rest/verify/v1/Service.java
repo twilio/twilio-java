@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 155217082741021L;
+    private static final long serialVersionUID = 263367154121834L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -58,6 +58,16 @@ public class Service extends Resource {
      */
     public static ServiceFetcher fetcher(final String pathSid) {
         return new ServiceFetcher(pathSid);
+    }
+
+    /**
+     * Create a ServiceDeleter to execute delete.
+     * 
+     * @param pathSid Verification Service Instance SID.
+     * @return ServiceDeleter capable of executing the delete
+     */
+    public static ServiceDeleter deleter(final String pathSid) {
+        return new ServiceDeleter(pathSid);
     }
 
     /**
@@ -120,6 +130,7 @@ public class Service extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final Integer codeLength;
+    private final Boolean lookupEnabled;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -134,6 +145,8 @@ public class Service extends Resource {
                     final String friendlyName, 
                     @JsonProperty("code_length")
                     final Integer codeLength, 
+                    @JsonProperty("lookup_enabled")
+                    final Boolean lookupEnabled, 
                     @JsonProperty("date_created")
                     final String dateCreated, 
                     @JsonProperty("date_updated")
@@ -146,6 +159,7 @@ public class Service extends Resource {
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
         this.codeLength = codeLength;
+        this.lookupEnabled = lookupEnabled;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -186,6 +200,17 @@ public class Service extends Resource {
      */
     public final Integer getCodeLength() {
         return this.codeLength;
+    }
+
+    /**
+     * Returns The Indicates whether or not to perform a lookup with each
+     * verification started.
+     * 
+     * @return Indicates whether or not to perform a lookup with each verification
+     *         started
+     */
+    public final Boolean getLookupEnabled() {
+        return this.lookupEnabled;
     }
 
     /**
@@ -240,6 +265,7 @@ public class Service extends Resource {
                Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(codeLength, other.codeLength) && 
+               Objects.equals(lookupEnabled, other.lookupEnabled) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url) && 
@@ -252,6 +278,7 @@ public class Service extends Resource {
                             accountSid,
                             friendlyName,
                             codeLength,
+                            lookupEnabled,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -265,6 +292,7 @@ public class Service extends Resource {
                           .add("accountSid", accountSid)
                           .add("friendlyName", friendlyName)
                           .add("codeLength", codeLength)
+                          .add("lookupEnabled", lookupEnabled)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

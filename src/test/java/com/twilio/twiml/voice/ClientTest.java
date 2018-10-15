@@ -9,6 +9,7 @@ package com.twilio.twiml.voice;
 
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,8 +21,26 @@ import java.util.List;
  */
 public class ClientTest {
     @Test
+    public void testEmptyElement() {
+        Client elem = new Client.Builder().build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Client/>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testEmptyElementUrl() {
+        Client elem = new Client.Builder().build();
+
+        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CClient%2F%3E", elem.toUrl());
+    }
+
+    @Test
     public void testElementWithParams() {
-        Client elem = new Client.Builder("name")
+        Client elem = new Client.Builder("identity")
             .url(URI.create("https://example.com"))
             .method(HttpMethod.GET)
             .statusCallbackEvents(Promoter.listOfOne(Client.Event.INITIATED))
@@ -31,7 +50,116 @@ public class ClientTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">name</Client>",
+            "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithExtraAttributes() {
+        Client elem = new Client.Builder().option("foo", "bar").option("a", "b").build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Client a=\"b\" foo=\"bar\"/>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithChildren() {
+        Client.Builder builder = new Client.Builder();
+
+        builder.identity(new Identity.Builder("client_identity").build());
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        Client elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Client>" +
+                "<Identity>client_identity</Identity>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Client>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithTextNode() {
+        Client.Builder builder = new Client.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Client elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Client>" +
+            "Hey no tags!" +
+            "</Client>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testMixedContent() {
+        GenericNode.Builder child = new GenericNode.Builder("Child");
+        child.addText("content");
+
+        Client.Builder builder = new Client.Builder();
+
+        builder.addText("before");
+        builder.addChild(child.build());
+        builder.addText("after");
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Client>" +
+            "before" +
+            "<Child>content</Child>" +
+            "after" +
+            "</Client>",
+            builder.build().toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Client.Builder builder = new Client.Builder();
+        Client elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Client>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
+            "</Client>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Client.Builder builder = new Client.Builder();
+        Client elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Client>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
+            "</Client>",
             elem.toXml()
         );
     }

@@ -35,6 +35,7 @@ public class AssistantCreator extends Creator<Assistant> {
     private String callbackEvents;
     private Map<String, Object> fallbackActions;
     private Map<String, Object> initiationActions;
+    private Map<String, Object> styleSheet;
 
     /**
      * A text description for the Assistant. It is non-unique and can up to 255
@@ -82,9 +83,9 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The callback_url.
+     * A user-provided URL to send event callbacks to..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl A user-provided URL to send event callbacks to.
      * @return this
      */
     public AssistantCreator setCallbackUrl(final URI callbackUrl) {
@@ -93,9 +94,9 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The callback_url.
+     * A user-provided URL to send event callbacks to..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl A user-provided URL to send event callbacks to.
      * @return this
      */
     public AssistantCreator setCallbackUrl(final String callbackUrl) {
@@ -103,9 +104,10 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The callback_events.
+     * Space-separated list of callback events that will trigger callbacks..
      * 
-     * @param callbackEvents The callback_events
+     * @param callbackEvents Space-separated list of callback events that will
+     *                       trigger callbacks.
      * @return this
      */
     public AssistantCreator setCallbackEvents(final String callbackEvents) {
@@ -115,10 +117,10 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * The JSON actions to be executed when the user's input is not recognized as
-     * matching any Intent..
+     * matching any Task..
      * 
      * @param fallbackActions The JSON actions to be executed when the user's input
-     *                        is not recognized as matching any Intent.
+     *                        is not recognized as matching any Task.
      * @return this
      */
     public AssistantCreator setFallbackActions(final Map<String, Object> fallbackActions) {
@@ -136,6 +138,18 @@ public class AssistantCreator extends Creator<Assistant> {
      */
     public AssistantCreator setInitiationActions(final Map<String, Object> initiationActions) {
         this.initiationActions = initiationActions;
+        return this;
+    }
+
+    /**
+     * The JSON object that holds the style sheet for the assistant.
+     * 
+     * @param styleSheet The JSON object that holds the style sheet for the
+     *                   assistant
+     * @return this
+     */
+    public AssistantCreator setStyleSheet(final Map<String, Object> styleSheet) {
+        this.styleSheet = styleSheet;
         return this;
     }
 
@@ -210,6 +224,10 @@ public class AssistantCreator extends Creator<Assistant> {
 
         if (initiationActions != null) {
             request.addPostParam("InitiationActions", Converter.mapToJson(initiationActions));
+        }
+
+        if (styleSheet != null) {
+            request.addPostParam("StyleSheet", Converter.mapToJson(styleSheet));
         }
     }
 }

@@ -33,7 +33,7 @@ public class QueryReader extends Reader<Query> {
     /**
      * Construct a new QueryReader.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      */
     public QueryReader(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;

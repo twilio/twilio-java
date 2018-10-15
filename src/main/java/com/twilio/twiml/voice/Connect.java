@@ -115,6 +115,14 @@ public class Connect extends TwiML {
         }
 
         /**
+         * Add a child {@code <Autopilot>} element
+         */
+        public Builder autopilot(Autopilot autopilot) {
+            this.children.add(autopilot);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Connect>} element
          */
         public Connect build() {

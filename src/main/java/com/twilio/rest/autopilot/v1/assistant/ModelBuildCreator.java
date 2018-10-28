@@ -33,7 +33,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     /**
      * Construct a new ModelBuildCreator.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      */
     public ModelBuildCreator(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;

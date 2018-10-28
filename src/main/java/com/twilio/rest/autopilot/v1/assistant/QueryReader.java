@@ -33,18 +33,19 @@ public class QueryReader extends Reader<Query> {
     /**
      * Construct a new QueryReader.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      */
     public QueryReader(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
     }
 
     /**
-     * An ISO language-country string that specifies the language used for this
-     * query. For example: en-US..
+     * An [ISO language-country
+     * string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html)
+     * that specifies the language used for this query. For example: `en-US`..
      * 
-     * @param language An ISO language-country string that specifies the language
-     *                 used for this query. For example: en-US.
+     * @param language An [ISO language-country
+     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
      * @return this
      */
     public QueryReader setLanguage(final String language) {
@@ -53,10 +54,11 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The Model Build Sid or unique name of the Model Build to be queried..
+     * The Sid or unique name of the [Model
+     * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
      * 
-     * @param modelBuild The Model Build Sid or unique name of the Model Build to
-     *                   be queried.
+     * @param modelBuild The Sid or unique name of the [Model
+     *                   Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
      * @return this
      */
     public QueryReader setModelBuild(final String modelBuild) {

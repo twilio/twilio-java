@@ -43,10 +43,12 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
     }
 
     /**
-     * The JSON actions that instruct the Assistant how to perform this task..
+     * The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that
+     * instruct the Assistant how to perform this task..
      * 
-     * @param actions The JSON actions that instruct the Assistant how to perform
-     *                this task.
+     * @param actions The JSON
+     *                [actions](https://www.twilio.com/docs/autopilot/actions) that
+     *                instruct the Assistant how to perform this task.
      * @return this
      */
     public TaskActionsUpdater setActions(final Map<String, Object> actions) {

@@ -163,9 +163,11 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The data.
+     * Returns The The JSON [actions](https://www.twilio.com/docs/autopilot/actions)
+     * that instruct the Assistant how to perform this task..
      * 
-     * @return The data
+     * @return The JSON [actions](https://www.twilio.com/docs/autopilot/actions)
+     *         that instruct the Assistant how to perform this task.
      */
     public final Map<String, Object> getData() {
         return this.data;

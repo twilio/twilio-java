@@ -30,7 +30,7 @@ public class TaskReader extends Reader<Task> {
     /**
      * Construct a new TaskReader.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
      */
     public TaskReader(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;

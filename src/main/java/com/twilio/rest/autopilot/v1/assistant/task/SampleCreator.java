@@ -32,12 +32,13 @@ public class SampleCreator extends Creator<Sample> {
     /**
      * Construct a new SampleCreator.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
-     * @param language An ISO language-country string that specifies the language
-     *                 used for this sample. For example: en-US.
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Sample.
+     * @param language An [ISO language-country
+     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
      * @param taggedText The text example of how end-users may express this task.
-     *                   The sample may contain Field tag blocks.
+     *                   The sample may contain [Field tag
+     *                   blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
      */
     public SampleCreator(final String pathAssistantSid, 
                          final String pathTaskSid, 
@@ -52,12 +53,12 @@ public class SampleCreator extends Creator<Sample> {
     /**
      * The communication channel from which the sample was captured. It can be:
      * *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not
-     * included the value will be null.
+     * included, the value will be `null`.
      * 
      * @param sourceChannel The communication channel from which the sample was
      *                      captured. It can be: voice, sms, chat, alexa,
-     *                      google-assistant, or slack. If not included the value
-     *                      will be null
+     *                      google-assistant, or slack. If not included, the value
+     *                      will be `null`
      * @return this
      */
     public SampleCreator setSourceChannel(final String sourceChannel) {

@@ -31,8 +31,8 @@ public class FieldReader extends Reader<Field> {
     /**
      * Construct a new FieldReader.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Field.
      */
     public FieldReader(final String pathAssistantSid, 
                        final String pathTaskSid) {

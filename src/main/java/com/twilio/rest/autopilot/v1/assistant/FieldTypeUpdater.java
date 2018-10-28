@@ -31,8 +31,8 @@ public class FieldTypeUpdater extends Updater<FieldType> {
     /**
      * Construct a new FieldTypeUpdater.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      */
     public FieldTypeUpdater(final String pathAssistantSid, 
                             final String pathSid) {

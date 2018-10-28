@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 38310522618070L;
+    private static final long serialVersionUID = 93456310387892L;
 
     public enum GeoMatchLevel {
         AREA_CODE("area-code"),
@@ -183,6 +183,7 @@ public class Service extends Resource {
     private final String sid;
     private final String uniqueName;
     private final String accountSid;
+    private final String chatInstanceSid;
     private final URI callbackUrl;
     private final Integer defaultTtl;
     private final Service.NumberSelectionBehavior numberSelectionBehavior;
@@ -201,6 +202,8 @@ public class Service extends Resource {
                     final String uniqueName, 
                     @JsonProperty("account_sid")
                     final String accountSid, 
+                    @JsonProperty("chat_instance_sid")
+                    final String chatInstanceSid, 
                     @JsonProperty("callback_url")
                     final URI callbackUrl, 
                     @JsonProperty("default_ttl")
@@ -224,6 +227,7 @@ public class Service extends Resource {
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.accountSid = accountSid;
+        this.chatInstanceSid = chatInstanceSid;
         this.callbackUrl = callbackUrl;
         this.defaultTtl = defaultTtl;
         this.numberSelectionBehavior = numberSelectionBehavior;
@@ -261,6 +265,15 @@ public class Service extends Resource {
      */
     public final String getAccountSid() {
         return this.accountSid;
+    }
+
+    /**
+     * Returns The The Chat Service Instance sid managed by Proxy Service.
+     * 
+     * @return The Chat Service Instance sid managed by Proxy Service
+     */
+    public final String getChatInstanceSid() {
+        return this.chatInstanceSid;
     }
 
     /**
@@ -370,6 +383,7 @@ public class Service extends Resource {
         return Objects.equals(sid, other.sid) && 
                Objects.equals(uniqueName, other.uniqueName) && 
                Objects.equals(accountSid, other.accountSid) && 
+               Objects.equals(chatInstanceSid, other.chatInstanceSid) && 
                Objects.equals(callbackUrl, other.callbackUrl) && 
                Objects.equals(defaultTtl, other.defaultTtl) && 
                Objects.equals(numberSelectionBehavior, other.numberSelectionBehavior) && 
@@ -387,6 +401,7 @@ public class Service extends Resource {
         return Objects.hash(sid,
                             uniqueName,
                             accountSid,
+                            chatInstanceSid,
                             callbackUrl,
                             defaultTtl,
                             numberSelectionBehavior,
@@ -405,6 +420,7 @@ public class Service extends Resource {
                           .add("sid", sid)
                           .add("uniqueName", uniqueName)
                           .add("accountSid", accountSid)
+                          .add("chatInstanceSid", chatInstanceSid)
                           .add("callbackUrl", callbackUrl)
                           .add("defaultTtl", defaultTtl)
                           .add("numberSelectionBehavior", numberSelectionBehavior)

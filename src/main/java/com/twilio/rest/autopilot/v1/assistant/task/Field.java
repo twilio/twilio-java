@@ -44,9 +44,9 @@ public class Field extends Resource {
     /**
      * Create a FieldFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Field.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return FieldFetcher capable of executing the fetch
      */
     public static FieldFetcher fetcher(final String pathAssistantSid, 
@@ -58,8 +58,8 @@ public class Field extends Resource {
     /**
      * Create a FieldReader to execute read.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @return FieldReader capable of executing the read
      */
     public static FieldReader reader(final String pathAssistantSid, 
@@ -70,11 +70,10 @@ public class Field extends Resource {
     /**
      * Create a FieldCreator to execute create.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
-     * @param fieldType The unique name or sid of the FieldType. It can be any
-     *                  Built-in Field Type or the unique_name or sid of a custom
-     *                  Field Type.
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Field.
+     * @param fieldType The Field Type of this field. It can be either a Built-in
+     *                  Field Type or the unique_name or sid of a custom Field Type.
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -90,9 +89,9 @@ public class Field extends Resource {
     /**
      * Create a FieldDeleter to execute delete.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Field.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return FieldDeleter capable of executing the delete
      */
     public static FieldDeleter deleter(final String pathAssistantSid, 
@@ -206,11 +205,11 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The Field Type of this field. It can be any Built-in Field Type
-     * or unique_name or the Field Type sid of a custom Field Type..
+     * Returns The The Field Type of this field. It can be either a Built-in Field
+     * Type or the unique_name or sid of a custom Field Type..
      * 
-     * @return The Field Type of this field. It can be any Built-in Field Type or
-     *         unique_name or the Field Type sid of a custom Field Type.
+     * @return The Field Type of this field. It can be either a Built-in Field Type
+     *         or the unique_name or sid of a custom Field Type.
      */
     public final String getFieldType() {
         return this.fieldType;
@@ -226,18 +225,18 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The The unique ID of the Assistant..
      * 
-     * @return The unique ID of the parent Assistant.
+     * @return The unique ID of the Assistant.
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The A 34-character string that uniquely identifies this resource..
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return A 34-character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;

@@ -60,15 +60,15 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A boolean that specifies whether queries should be logged for 30 days further
-     * training. If false, no queries will be stored, if true, queries will be
-     * stored for 30 days and deleted thereafter. Defaults to true if no value is
+     * A boolean that specifies whether queries should be logged for 30 days past
+     * training. If `false`, no queries will be stored. If `true`, queries will be
+     * stored for 30 days and deleted thereafter. Defaults to `true` if no value is
      * provided..
      * 
      * @param logQueries A boolean that specifies whether queries should be logged
-     *                   for 30 days further training. If false, no queries will be
-     *                   stored, if true, queries will be stored for 30 days and
-     *                   deleted thereafter. Defaults to true if no value is
+     *                   for 30 days past training. If `false`, no queries will be
+     *                   stored. If `true`, queries will be stored for 30 days and
+     *                   deleted thereafter. Defaults to `true` if no value is
      *                   provided.
      * @return this
      */
@@ -79,7 +79,8 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. Unique up to 64 characters long..
+     * alternative to the sid. You can use the unique name in the URL path when
+     * addressing this resource. Unique up to 64 characters long..
      * 
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
@@ -113,9 +114,10 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The callback_events.
+     * A space-separated list of callback events that will trigger callbacks.
      * 
-     * @param callbackEvents The callback_events
+     * @param callbackEvents A space-separated list of callback events that will
+     *                       trigger callbacks
      * @return this
      */
     public AssistantUpdater setCallbackEvents(final String callbackEvents) {
@@ -124,9 +126,11 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A JSON object that defines the assistant style sheet.
+     * A JSON object that defines the assistant [style
+     * sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet).
      * 
-     * @param styleSheet A JSON object that defines the assistant style sheet
+     * @param styleSheet A JSON object that defines the assistant [style
+     *                   sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
      * @return this
      */
     public AssistantUpdater setStyleSheet(final Map<String, Object> styleSheet) {
@@ -135,11 +139,12 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A JSON object that defines the assistant's default tasks for various
-     * scenarios.
+     * A JSON object that defines the assistant's [default
+     * tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for
+     * various scenarios, including initation actions and fallback tasks..
      * 
-     * @param defaults A JSON object that defines the assistant's default tasks for
-     *                 various scenarios
+     * @param defaults A JSON object that defines the assistant's [default
+     *                 tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
      * @return this
      */
     public AssistantUpdater setDefaults(final Map<String, Object> defaults) {

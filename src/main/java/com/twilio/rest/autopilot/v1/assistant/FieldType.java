@@ -44,8 +44,8 @@ public class FieldType extends Resource {
     /**
      * Create a FieldTypeFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return FieldTypeFetcher capable of executing the fetch
      */
     public static FieldTypeFetcher fetcher(final String pathAssistantSid, 
@@ -56,7 +56,7 @@ public class FieldType extends Resource {
     /**
      * Create a FieldTypeReader to execute read.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
      * @return FieldTypeReader capable of executing the read
      */
     public static FieldTypeReader reader(final String pathAssistantSid) {
@@ -66,7 +66,7 @@ public class FieldType extends Resource {
     /**
      * Create a FieldTypeCreator to execute create.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -80,8 +80,8 @@ public class FieldType extends Resource {
     /**
      * Create a FieldTypeUpdater to execute update.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return FieldTypeUpdater capable of executing the update
      */
     public static FieldTypeUpdater updater(final String pathAssistantSid, 
@@ -92,8 +92,8 @@ public class FieldType extends Resource {
     /**
      * Create a FieldTypeDeleter to execute delete.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return FieldTypeDeleter capable of executing the delete
      */
     public static FieldTypeDeleter deleter(final String pathAssistantSid, 
@@ -236,9 +236,9 @@ public class FieldType extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The A 34-character string that uniquely identifies this resource..
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return A 34-character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;

@@ -32,8 +32,9 @@ public class FieldValueCreator extends Creator<FieldValue> {
     /**
      * Construct a new FieldValueCreator.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathFieldTypeSid The field_type_sid
+     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
+     *                         Field Value
      * @param language An ISO language-country string that specifies the language
      *                 used for this field value. For example: en-US
      * @param value A user-provided string that uniquely identifies this resource

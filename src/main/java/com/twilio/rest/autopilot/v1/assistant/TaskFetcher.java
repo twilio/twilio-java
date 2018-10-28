@@ -29,8 +29,8 @@ public class TaskFetcher extends Fetcher<Task> {
     /**
      * Construct a new TaskFetcher.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      */
     public TaskFetcher(final String pathAssistantSid, 
                        final String pathSid) {

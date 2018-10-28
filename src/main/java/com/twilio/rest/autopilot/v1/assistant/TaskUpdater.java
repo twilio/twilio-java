@@ -38,8 +38,8 @@ public class TaskUpdater extends Updater<Task> {
     /**
      * Construct a new TaskUpdater.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      */
     public TaskUpdater(final String pathAssistantSid, 
                        final String pathSid) {
@@ -62,7 +62,8 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. Unique up to 64 characters long..
+     * alternative to the sid. You can use the unique name in the URL path when
+     * addressing this resource. Unique up to 64 characters long..
      * 
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
@@ -75,9 +76,11 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The actions.
+     * A user-provided JSON object encoded as a string to specify the actions for
+     * this task. It is optional and non-unique..
      * 
-     * @param actions The actions
+     * @param actions A user-provided JSON object encoded as a string to specify
+     *                the actions for this task. It is optional and non-unique.
      * @return this
      */
     public TaskUpdater setActions(final Map<String, Object> actions) {
@@ -86,9 +89,10 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The actions_url.
+     * User-provided HTTP endpoint where the assistant can fetch actions..
      * 
-     * @param actionsUrl The actions_url
+     * @param actionsUrl User-provided HTTP endpoint where the assistant can fetch
+     *                   actions.
      * @return this
      */
     public TaskUpdater setActionsUrl(final URI actionsUrl) {
@@ -97,9 +101,10 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The actions_url.
+     * User-provided HTTP endpoint where the assistant can fetch actions..
      * 
-     * @param actionsUrl The actions_url
+     * @param actionsUrl User-provided HTTP endpoint where the assistant can fetch
+     *                   actions.
      * @return this
      */
     public TaskUpdater setActionsUrl(final String actionsUrl) {

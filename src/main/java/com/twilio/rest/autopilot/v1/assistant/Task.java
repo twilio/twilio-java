@@ -44,8 +44,8 @@ public class Task extends Resource {
     /**
      * Create a TaskFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return TaskFetcher capable of executing the fetch
      */
     public static TaskFetcher fetcher(final String pathAssistantSid, 
@@ -56,7 +56,7 @@ public class Task extends Resource {
     /**
      * Create a TaskReader to execute read.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
      * @return TaskReader capable of executing the read
      */
     public static TaskReader reader(final String pathAssistantSid) {
@@ -66,7 +66,7 @@ public class Task extends Resource {
     /**
      * Create a TaskCreator to execute create.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -80,8 +80,8 @@ public class Task extends Resource {
     /**
      * Create a TaskUpdater to execute update.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return TaskUpdater capable of executing the update
      */
     public static TaskUpdater updater(final String pathAssistantSid, 
@@ -92,8 +92,8 @@ public class Task extends Resource {
     /**
      * Create a TaskDeleter to execute delete.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return TaskDeleter capable of executing the delete
      */
     public static TaskDeleter deleter(final String pathAssistantSid, 
@@ -239,9 +239,9 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The A 34-character string that uniquely identifies this resource..
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return A 34-character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
@@ -259,10 +259,10 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The User-provided HTTP endpoint where the assistant can fetch
+     * Returns The A user-provided HTTP endpoint where the assistant can fetch
      * actions..
      * 
-     * @return User-provided HTTP endpoint where the assistant can fetch actions.
+     * @return A user-provided HTTP endpoint where the assistant can fetch actions.
      */
     public final URI getActionsUrl() {
         return this.actionsUrl;

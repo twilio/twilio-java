@@ -32,8 +32,9 @@ public class FieldValueReader extends Reader<FieldValue> {
     /**
      * Construct a new FieldValueReader.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathFieldTypeSid The field_type_sid
+     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
+     *                         Field Value
      */
     public FieldValueReader(final String pathAssistantSid, 
                             final String pathFieldTypeSid) {

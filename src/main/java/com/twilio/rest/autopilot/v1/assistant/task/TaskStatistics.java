@@ -42,8 +42,8 @@ public class TaskStatistics extends Resource {
     /**
      * Create a TaskStatisticsFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @return TaskStatisticsFetcher capable of executing the fetch
      */
     public static TaskStatisticsFetcher fetcher(final String pathAssistantSid, 
@@ -118,18 +118,18 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field..
+     * Returns The The unique ID of the Account that created this resource..
      * 
-     * @return The unique ID of the Account that created this Field.
+     * @return The unique ID of the Account that created this resource.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The The unique ID of the Assistant..
      * 
-     * @return The unique ID of the parent Assistant.
+     * @return The unique ID of the Assistant.
      */
     public final String getAssistantSid() {
         return this.assistantSid;

@@ -127,7 +127,7 @@ public class Account extends Resource {
     /**
      * Create a AccountUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid Update by unique Account Sid
      * @return AccountUpdater capable of executing the update
      */
     public static AccountUpdater updater(final String pathSid) {

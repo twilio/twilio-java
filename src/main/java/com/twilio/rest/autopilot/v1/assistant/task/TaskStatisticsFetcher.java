@@ -29,8 +29,8 @@ public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
     /**
      * Construct a new TaskStatisticsFetcher.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Field.
      */
     public TaskStatisticsFetcher(final String pathAssistantSid, 
                                  final String pathTaskSid) {

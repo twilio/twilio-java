@@ -31,7 +31,7 @@ public class AccountUpdater extends Updater<Account> {
     /**
      * Construct a new AccountUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid Update by unique Account Sid
      */
     public AccountUpdater(final String pathSid) {
         this.pathSid = pathSid;

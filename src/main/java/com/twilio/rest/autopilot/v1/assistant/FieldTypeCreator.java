@@ -30,7 +30,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
     /**
      * Construct a new FieldTypeCreator.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.

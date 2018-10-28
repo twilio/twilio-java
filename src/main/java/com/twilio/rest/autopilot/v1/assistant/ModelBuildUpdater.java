@@ -30,8 +30,8 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
     /**
      * Construct a new ModelBuildUpdater.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      */
     public ModelBuildUpdater(final String pathAssistantSid, 
                              final String pathSid) {

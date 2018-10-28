@@ -37,7 +37,7 @@ public class TaskCreator extends Creator<Task> {
     /**
      * Construct a new TaskCreator.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the Assistant.
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -62,9 +62,11 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The actions.
+     * A user-provided JSON object encoded as a string to specify the actions for
+     * this task. It is optional and non-unique..
      * 
-     * @param actions The actions
+     * @param actions A user-provided JSON object encoded as a string to specify
+     *                the actions for this task. It is optional and non-unique.
      * @return this
      */
     public TaskCreator setActions(final Map<String, Object> actions) {
@@ -73,9 +75,10 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The actions_url.
+     * User-provided HTTP endpoint where the assistant can fetch actions..
      * 
-     * @param actionsUrl The actions_url
+     * @param actionsUrl User-provided HTTP endpoint where the assistant can fetch
+     *                   actions.
      * @return this
      */
     public TaskCreator setActionsUrl(final URI actionsUrl) {
@@ -84,9 +87,10 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The actions_url.
+     * User-provided HTTP endpoint where the assistant can fetch actions..
      * 
-     * @param actionsUrl The actions_url
+     * @param actionsUrl User-provided HTTP endpoint where the assistant can fetch
+     *                   actions.
      * @return this
      */
     public TaskCreator setActionsUrl(final String actionsUrl) {

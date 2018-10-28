@@ -32,9 +32,9 @@ public class QueryCreator extends Creator<Query> {
     /**
      * Construct a new QueryCreator.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param language An ISO language-country string that specifies the language
-     *                 used for this query. For example: en-US.
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param language An [ISO language-country
+     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
      * @param query A user-provided string that uniquely identifies this resource
      *              as an alternative to the sid. It can be up to 2048 characters
      *              long.
@@ -63,10 +63,11 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * The Model Build Sid or unique name of the Model Build to be queried..
+     * The Sid or unique name of the [Model
+     * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
      * 
-     * @param modelBuild The Model Build Sid or unique name of the Model Build to
-     *                   be queried.
+     * @param modelBuild The Sid or unique name of the [Model
+     *                   Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
      * @return this
      */
     public QueryCreator setModelBuild(final String modelBuild) {

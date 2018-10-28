@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2018-10-28] Version 7.30.0
+----------------------------
+**Api**
+- Add new Balance resource:
+    - url: '/v1/Accounts/{account sid}/Balance'
+    - supported methods: GET
+    - returns the balance of the account
+
+**Proxy**
+- Add chat_instance_sid to Service
+
+**Verify**
+- Add `Locale` optional parameter on Verification creation.
+
+
 [2018-10-15] Version 7.29.0
 ----------------------------
 **Api**

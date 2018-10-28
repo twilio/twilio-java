@@ -27,6 +27,7 @@ public class VerificationCreator extends Creator<Verification> {
     private final String channel;
     private String customMessage;
     private String sendDigits;
+    private String locale;
 
     /**
      * Construct a new VerificationCreator.
@@ -63,6 +64,19 @@ public class VerificationCreator extends Creator<Verification> {
      */
     public VerificationCreator setSendDigits(final String sendDigits) {
         this.sendDigits = sendDigits;
+        return this;
+    }
+
+    /**
+     * Supported values are af, ar, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr,
+     * hu, id, it, ja, ko, ms, nb, nl, pl, pt, pr-BR, ro, ru, sv, th, tl, tr, vi,
+     * zh, zh-CN, zh-HK.
+     * 
+     * @param locale Locale used in the sms or call.
+     * @return this
+     */
+    public VerificationCreator setLocale(final String locale) {
+        this.locale = locale;
         return this;
     }
 
@@ -125,6 +139,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (sendDigits != null) {
             request.addPostParam("SendDigits", sendDigits);
+        }
+
+        if (locale != null) {
+            request.addPostParam("Locale", locale);
         }
     }
 }

@@ -44,9 +44,10 @@ public class FieldValue extends Resource {
     /**
      * Create a FieldValueFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathFieldTypeSid The field_type_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
+     *                         Field Value
+     * @param pathSid A 34 character string that uniquely identifies this resource
      * @return FieldValueFetcher capable of executing the fetch
      */
     public static FieldValueFetcher fetcher(final String pathAssistantSid, 
@@ -58,8 +59,9 @@ public class FieldValue extends Resource {
     /**
      * Create a FieldValueReader to execute read.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathFieldTypeSid The field_type_sid
+     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
+     *                         Field Value
      * @return FieldValueReader capable of executing the read
      */
     public static FieldValueReader reader(final String pathAssistantSid, 
@@ -70,8 +72,9 @@ public class FieldValue extends Resource {
     /**
      * Create a FieldValueCreator to execute create.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathFieldTypeSid The field_type_sid
+     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
+     *                         Field Value
      * @param language An ISO language-country string that specifies the language
      *                 used for this field value. For example: en-US
      * @param value A user-provided string that uniquely identifies this resource
@@ -88,9 +91,10 @@ public class FieldValue extends Resource {
     /**
      * Create a FieldValueDeleter to execute delete.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathFieldTypeSid The field_type_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
+     *                         Field Value
+     * @param pathSid A 34 character string that uniquely identifies this resource
      * @return FieldValueDeleter capable of executing the delete
      */
     public static FieldValueDeleter deleter(final String pathAssistantSid, 

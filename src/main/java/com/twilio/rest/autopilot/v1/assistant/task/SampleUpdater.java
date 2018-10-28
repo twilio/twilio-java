@@ -33,9 +33,9 @@ public class SampleUpdater extends Updater<Sample> {
     /**
      * Construct a new SampleUpdater.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathTaskSid The task_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathTaskSid The unique ID of the Task associated with this Sample.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      */
     public SampleUpdater(final String pathAssistantSid, 
                          final String pathTaskSid, 
@@ -46,11 +46,12 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * An ISO language-country string that specifies the language used for this
-     * sample. For example: en-US..
+     * An [ISO language-country
+     * string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html)
+     * that specifies the language used for this sample. For example: `en-US`..
      * 
-     * @param language An ISO language-country string that specifies the language
-     *                 used for this sample. For example: en-US.
+     * @param language An [ISO language-country
+     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
      * @return this
      */
     public SampleUpdater setLanguage(final String language) {
@@ -60,10 +61,12 @@ public class SampleUpdater extends Updater<Sample> {
 
     /**
      * The text example of how end-users may express this task. The sample may
-     * contain Field tag blocks..
+     * contain [Field tag
+     * blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging)..
      * 
      * @param taggedText The text example of how end-users may express this task.
-     *                   The sample may contain Field tag blocks.
+     *                   The sample may contain [Field tag
+     *                   blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
      * @return this
      */
     public SampleUpdater setTaggedText(final String taggedText) {
@@ -74,12 +77,12 @@ public class SampleUpdater extends Updater<Sample> {
     /**
      * The communication channel from which the sample was captured. It can be:
      * *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not
-     * included the value will be null.
+     * included, the value will be `null`.
      * 
      * @param sourceChannel The communication channel from which the sample was
      *                      captured. It can be: voice, sms, chat, alexa,
-     *                      google-assistant, or slack. If not included the value
-     *                      will be null
+     *                      google-assistant, or slack. If not included, the value
+     *                      will be `null`
      * @return this
      */
     public SampleUpdater setSourceChannel(final String sourceChannel) {

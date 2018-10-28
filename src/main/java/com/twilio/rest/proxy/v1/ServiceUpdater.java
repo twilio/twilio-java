@@ -33,6 +33,7 @@ public class ServiceUpdater extends Updater<Service> {
     private Service.NumberSelectionBehavior numberSelectionBehavior;
     private URI interceptCallbackUrl;
     private URI outOfSessionCallbackUrl;
+    private String chatInstanceSid;
 
     /**
      * Construct a new ServiceUpdater.
@@ -165,6 +166,19 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * The Chat Service Instance sid managed by Proxy Service. Enables Proxy to
+     * forward sms and channel messages to this chat instance. This is a one-to-one
+     * relationship..
+     * 
+     * @param chatInstanceSid The Chat Service Instance sid managed by Proxy Service
+     * @return this
+     */
+    public ServiceUpdater setChatInstanceSid(final String chatInstanceSid) {
+        this.chatInstanceSid = chatInstanceSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -235,6 +249,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (outOfSessionCallbackUrl != null) {
             request.addPostParam("OutOfSessionCallbackUrl", outOfSessionCallbackUrl.toString());
+        }
+
+        if (chatInstanceSid != null) {
+            request.addPostParam("ChatInstanceSid", chatInstanceSid);
         }
     }
 }

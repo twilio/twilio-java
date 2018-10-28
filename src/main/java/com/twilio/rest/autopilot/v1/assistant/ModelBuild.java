@@ -73,8 +73,8 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return ModelBuildFetcher capable of executing the fetch
      */
     public static ModelBuildFetcher fetcher(final String pathAssistantSid, 
@@ -85,7 +85,7 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildReader to execute read.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @return ModelBuildReader capable of executing the read
      */
     public static ModelBuildReader reader(final String pathAssistantSid) {
@@ -95,7 +95,7 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildCreator to execute create.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @return ModelBuildCreator capable of executing the create
      */
     public static ModelBuildCreator creator(final String pathAssistantSid) {
@@ -105,8 +105,8 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildUpdater to execute update.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return ModelBuildUpdater capable of executing the update
      */
     public static ModelBuildUpdater updater(final String pathAssistantSid, 
@@ -117,8 +117,8 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildDeleter to execute delete.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return ModelBuildDeleter capable of executing the delete
      */
     public static ModelBuildDeleter deleter(final String pathAssistantSid, 
@@ -245,9 +245,9 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The A 34-character string that uniquely identifies this resource..
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return A 34-character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;

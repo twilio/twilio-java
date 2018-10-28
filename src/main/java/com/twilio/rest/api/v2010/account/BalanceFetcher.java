@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.autopilot.v1.assistant;
+package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,47 +17,45 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class QueryFetcher extends Fetcher<Query> {
-    private final String pathAssistantSid;
-    private final String pathSid;
+public class BalanceFetcher extends Fetcher<Balance> {
+    private String pathAccountSid;
 
     /**
-     * Construct a new QueryFetcher.
-     * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * Construct a new BalanceFetcher.
      */
-    public QueryFetcher(final String pathAssistantSid, 
-                        final String pathSid) {
-        this.pathAssistantSid = pathAssistantSid;
-        this.pathSid = pathSid;
+    public BalanceFetcher() {
+    }
+
+    /**
+     * Construct a new BalanceFetcher.
+     * 
+     * @param pathAccountSid Account Sid.
+     */
+    public BalanceFetcher(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Query
+     * @return Fetched Balance
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Query fetch(final TwilioRestClient client) {
+    public Balance fetch(final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
-            Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
+            Domains.API.toString(),
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Balance.json",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Query fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Balance fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -73,6 +71,6 @@ public class QueryFetcher extends Fetcher<Query> {
             );
         }
 
-        return Query.fromJson(response.getStream(), client.getObjectMapper());
+        return Balance.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

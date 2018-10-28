@@ -45,8 +45,8 @@ public class Query extends Resource {
     /**
      * Create a QueryFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return QueryFetcher capable of executing the fetch
      */
     public static QueryFetcher fetcher(final String pathAssistantSid, 
@@ -57,7 +57,7 @@ public class Query extends Resource {
     /**
      * Create a QueryReader to execute read.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @return QueryReader capable of executing the read
      */
     public static QueryReader reader(final String pathAssistantSid) {
@@ -67,9 +67,9 @@ public class Query extends Resource {
     /**
      * Create a QueryCreator to execute create.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param language An ISO language-country string that specifies the language
-     *                 used for this query. For example: en-US.
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param language An [ISO language-country
+     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
      * @param query A user-provided string that uniquely identifies this resource
      *              as an alternative to the sid. It can be up to 2048 characters
      *              long.
@@ -84,8 +84,8 @@ public class Query extends Resource {
     /**
      * Create a QueryUpdater to execute update.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return QueryUpdater capable of executing the update
      */
     public static QueryUpdater updater(final String pathAssistantSid, 
@@ -96,8 +96,8 @@ public class Query extends Resource {
     /**
      * Create a QueryDeleter to execute delete.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return QueryDeleter capable of executing the delete
      */
     public static QueryDeleter deleter(final String pathAssistantSid, 
@@ -226,31 +226,39 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The natural language analysis results which include the Task
-     * recognized, the confidence score and a list of identified Fields..
+     * Returns The The natural language analysis results which include the
+     * [Task](https://www.twilio.com/docs/autopilot/api/task) recognized, the
+     * confidence score, and a list of identified
+     * [Fields](https://www.twilio.com/docs/autopilot/api/task-field)..
      * 
-     * @return The natural language analysis results which include the Task
-     *         recognized, the confidence score and a list of identified Fields.
+     * @return The natural language analysis results which include the
+     *         [Task](https://www.twilio.com/docs/autopilot/api/task) recognized,
+     *         the confidence score, and a list of identified
+     *         [Fields](https://www.twilio.com/docs/autopilot/api/task-field).
      */
     public final Map<String, Object> getResults() {
         return this.results;
     }
 
     /**
-     * Returns The An ISO language-country string that specifies the language used
-     * for this query. For example: en-US.
+     * Returns The An [ISO language-country
+     * string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html)
+     * that specifies the language used for this query. For example: `en-US`.
      * 
-     * @return An ISO language-country string that specifies the language used for
-     *         this query. For example: en-US
+     * @return An [ISO language-country
+     *         string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`
      */
     public final String getLanguage() {
         return this.language;
     }
 
     /**
-     * Returns The The unique ID of the Model Build queried..
+     * Returns The The unique ID of the [Model
+     * Build](https://www.twilio.com/docs/autopilot/api/model-build) queried..
      * 
-     * @return The unique ID of the Model Build queried.
+     * @return The unique ID of the [Model
+     *         Build](https://www.twilio.com/docs/autopilot/api/model-build)
+     *         queried.
      */
     public final String getModelBuildSid() {
         return this.modelBuildSid;
@@ -284,9 +292,9 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The A 34-character string that uniquely identifies this resource..
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return A 34-character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;

@@ -30,7 +30,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
     /**
      * Construct a new ModelBuildReader.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      */
     public ModelBuildReader(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;

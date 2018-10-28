@@ -44,7 +44,7 @@ public class Assistant extends Resource {
     /**
      * Create a AssistantFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return AssistantFetcher capable of executing the fetch
      */
     public static AssistantFetcher fetcher(final String pathSid) {
@@ -82,7 +82,7 @@ public class Assistant extends Resource {
     /**
      * Create a AssistantDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34-character string that uniquely identifies this resource.
      * @return AssistantDeleter capable of executing the delete
      */
     public static AssistantDeleter deleter(final String pathSid) {
@@ -218,11 +218,9 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The unique ID (Sid) of the latest model build. Null if no model
-     * has been built..
+     * Returns The The latest_model_build_sid.
      * 
-     * @return The unique ID (Sid) of the latest model build. Null if no model has
-     *         been built.
+     * @return The latest_model_build_sid
      */
     public final String getLatestModelBuildSid() {
         return this.latestModelBuildSid;
@@ -239,11 +237,11 @@ public class Assistant extends Resource {
 
     /**
      * Returns The A boolean that specifies whether queries should be logged for 30
-     * days further training. If false, no queries will be stored, if true, queries
+     * days past training. If `false`, no queries will be stored. If `true`, queries
      * will be stored for 30 days and deleted thereafter..
      * 
      * @return A boolean that specifies whether queries should be logged for 30
-     *         days further training. If false, no queries will be stored, if true,
+     *         days past training. If `false`, no queries will be stored. If `true`,
      *         queries will be stored for 30 days and deleted thereafter.
      */
     public final Boolean getLogQueries() {
@@ -251,9 +249,9 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The A 34-character string that uniquely identifies this resource..
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return A 34-character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
@@ -261,12 +259,10 @@ public class Assistant extends Resource {
 
     /**
      * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. You can use the unique name in the URL path.
-     * Unique up to 64 characters long..
+     * an alternative to the sid. Unique up to 64 characters long..
      * 
      * @return A user-provided string that uniquely identifies this resource as an
-     *         alternative to the sid. You can use the unique name in the URL path.
-     *         Unique up to 64 characters long.
+     *         alternative to the sid. Unique up to 64 characters long.
      */
     public final String getUniqueName() {
         return this.uniqueName;

@@ -30,6 +30,8 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     private final String key;
     private final Map<String, Object> data;
     private Integer ttl;
+    private Integer itemTtl;
+    private Integer collectionTtl;
 
     /**
      * Construct a new SyncMapItemCreator.
@@ -51,14 +53,41 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     }
 
     /**
-     * Time-to-live of this Map in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity..
+     * Alias for item_ttl. If both are provided, this value is ignored..
      * 
-     * @param ttl Time-to-live of this Map in seconds, defaults to no expiration.
+     * @param ttl Alias for item_ttl
      * @return this
      */
     public SyncMapItemCreator setTtl(final Integer ttl) {
         this.ttl = ttl;
+        return this;
+    }
+
+    /**
+     * Time-to-live of this item in seconds, defaults to no expiration. In the range
+     * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the map item will
+     * be cleaned up at least in a matter of hours, and often within seconds, making
+     * this a good tool for garbage management..
+     * 
+     * @param itemTtl Time-to-live of this item in seconds, defaults to no
+     *                expiration.
+     * @return this
+     */
+    public SyncMapItemCreator setItemTtl(final Integer itemTtl) {
+        this.itemTtl = itemTtl;
+        return this;
+    }
+
+    /**
+     * Time-to-live of this item's parent Map in seconds, defaults to no expiration.
+     * In the range [1, 31 536 000 (1 year)], or 0 for infinity..
+     * 
+     * @param collectionTtl Time-to-live of this item's parent Map in seconds,
+     *                      defaults to no expiration.
+     * @return this
+     */
+    public SyncMapItemCreator setCollectionTtl(final Integer collectionTtl) {
+        this.collectionTtl = collectionTtl;
         return this;
     }
 
@@ -117,6 +146,14 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
+        }
+
+        if (itemTtl != null) {
+            request.addPostParam("ItemTtl", itemTtl.toString());
+        }
+
+        if (collectionTtl != null) {
+            request.addPostParam("CollectionTtl", collectionTtl.toString());
         }
     }
 }

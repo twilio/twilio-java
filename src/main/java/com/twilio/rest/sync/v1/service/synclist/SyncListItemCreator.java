@@ -29,6 +29,8 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     private final String pathListSid;
     private final Map<String, Object> data;
     private Integer ttl;
+    private Integer itemTtl;
+    private Integer collectionTtl;
 
     /**
      * Construct a new SyncListItemCreator.
@@ -47,16 +49,41 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     }
 
     /**
+     * Alias for item_ttl. If both are provided, this value is ignored..
+     * 
+     * @param ttl Alias for item_ttl
+     * @return this
+     */
+    public SyncListItemCreator setTtl(final Integer ttl) {
+        this.ttl = ttl;
+        return this;
+    }
+
+    /**
      * Time-to-live of this item in seconds, defaults to no expiration. In the range
      * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the list item will
      * be cleaned up at least in a matter of hours, and often within seconds, making
      * this a good tool for garbage management..
      * 
-     * @param ttl Time-to-live of this item in seconds, defaults to no expiration.
+     * @param itemTtl Time-to-live of this item in seconds, defaults to no
+     *                expiration.
      * @return this
      */
-    public SyncListItemCreator setTtl(final Integer ttl) {
-        this.ttl = ttl;
+    public SyncListItemCreator setItemTtl(final Integer itemTtl) {
+        this.itemTtl = itemTtl;
+        return this;
+    }
+
+    /**
+     * Time-to-live of this item's parent List in seconds, defaults to no
+     * expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity..
+     * 
+     * @param collectionTtl Time-to-live of this item's parent List in seconds,
+     *                      defaults to no expiration.
+     * @return this
+     */
+    public SyncListItemCreator setCollectionTtl(final Integer collectionTtl) {
+        this.collectionTtl = collectionTtl;
         return this;
     }
 
@@ -111,6 +138,14 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
+        }
+
+        if (itemTtl != null) {
+            request.addPostParam("ItemTtl", itemTtl.toString());
+        }
+
+        if (collectionTtl != null) {
+            request.addPostParam("CollectionTtl", collectionTtl.toString());
         }
     }
 }

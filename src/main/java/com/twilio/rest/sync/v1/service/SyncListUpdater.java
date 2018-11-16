@@ -25,6 +25,7 @@ public class SyncListUpdater extends Updater<SyncList> {
     private final String pathServiceSid;
     private final String pathSid;
     private Integer ttl;
+    private Integer collectionTtl;
 
     /**
      * Construct a new SyncListUpdater.
@@ -39,14 +40,26 @@ public class SyncListUpdater extends Updater<SyncList> {
     }
 
     /**
-     * Time-to-live of this List in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity..
+     * Alias for collection_ttl. If both are provided, this value is ignored..
      * 
-     * @param ttl Time-to-live of this List in seconds, defaults to no expiration.
+     * @param ttl Alias for collection_ttl
      * @return this
      */
     public SyncListUpdater setTtl(final Integer ttl) {
         this.ttl = ttl;
+        return this;
+    }
+
+    /**
+     * Time-to-live of this List in seconds, defaults to no expiration. In the range
+     * [1, 31 536 000 (1 year)], or 0 for infinity..
+     * 
+     * @param collectionTtl Time-to-live of this List in seconds, defaults to no
+     *                      expiration.
+     * @return this
+     */
+    public SyncListUpdater setCollectionTtl(final Integer collectionTtl) {
+        this.collectionTtl = collectionTtl;
         return this;
     }
 
@@ -97,6 +110,10 @@ public class SyncListUpdater extends Updater<SyncList> {
     private void addPostParams(final Request request) {
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
+        }
+
+        if (collectionTtl != null) {
+            request.addPostParam("CollectionTtl", collectionTtl.toString());
         }
     }
 }

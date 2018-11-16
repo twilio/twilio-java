@@ -40,7 +40,9 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
 
     /**
      * Whether or not the number should be excluded from being assigned to a
-     * participant using proxy pool logic.
+     * participant using proxy pool logic. See [Reserved Phone
+     * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
+     * information..
      * 
      * @param isReserved Reserve for manual assignment to participants only.
      * @return this

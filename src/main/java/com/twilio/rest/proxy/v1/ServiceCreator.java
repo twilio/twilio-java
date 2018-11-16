@@ -130,7 +130,10 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * A URL for Twilio call when a new Interaction has no
-     * [Session](https://www.twilio.com/docs/proxy/api/session)..
+     * [Session](https://www.twilio.com/docs/proxy/api/session). See [Out-of-Session
+     * Callback Response
+     * Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide)
+     * for more information..
      * 
      * @param outOfSessionCallbackUrl A URL for Twilio call when a new Interaction
      *                                has no Session.
@@ -143,7 +146,10 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * A URL for Twilio call when a new Interaction has no
-     * [Session](https://www.twilio.com/docs/proxy/api/session)..
+     * [Session](https://www.twilio.com/docs/proxy/api/session). See [Out-of-Session
+     * Callback Response
+     * Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide)
+     * for more information..
      * 
      * @param outOfSessionCallbackUrl A URL for Twilio call when a new Interaction
      *                                has no Session.

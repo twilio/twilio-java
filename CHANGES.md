@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2018-11-16] Version 7.31.0
+----------------------------
+**Messaging**
+- Session API
+
+**Twiml**
+- Change `master-card` to `mastercard` as `cardType` for `Pay` and `Prompt`, remove attribute `credential_sid` from `Pay` **(breaking change)**
+
+
 [2018-10-28] Version 7.30.0
 ----------------------------
 **Api**

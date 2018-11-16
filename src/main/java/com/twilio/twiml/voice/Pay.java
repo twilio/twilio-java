@@ -82,7 +82,7 @@ public class Pay extends TwiML {
 
     public enum ValidCardTypes {
         VISA("visa"),
-        MASTER_CARD("master-card"),
+        MASTERCARD("mastercard"),
         AMEX("amex"),
         MAESTRO("maestro"),
         DISCOVER("discover"),
@@ -142,7 +142,6 @@ public class Pay extends TwiML {
     private final Pay.TokenType tokenType;
     private final String chargeAmount;
     private final Pay.Currency currency;
-    private final String credentialSid;
     private final String description;
     private final List<Pay.ValidCardTypes> validCardTypes;
     private final Pay.Language language;
@@ -171,7 +170,6 @@ public class Pay extends TwiML {
         this.tokenType = b.tokenType;
         this.chargeAmount = b.chargeAmount;
         this.currency = b.currency;
-        this.credentialSid = b.credentialSid;
         this.description = b.description;
         this.validCardTypes = b.validCardTypes;
         this.language = b.language;
@@ -221,9 +219,6 @@ public class Pay extends TwiML {
         }
         if (this.getCurrency() != null) {
             attrs.put("currency", this.getCurrency().toString());
-        }
-        if (this.getCredentialSid() != null) {
-            attrs.put("credentialSid", this.getCredentialSid());
         }
         if (this.getDescription() != null) {
             attrs.put("description", this.getDescription());
@@ -350,15 +345,6 @@ public class Pay extends TwiML {
     }
 
     /**
-     * SID for API keys to communicate with payment provider
-     * 
-     * @return SID for API keys to communicate with payment provider
-     */
-    public String getCredentialSid() {
-        return credentialSid;
-    }
-
-    /**
      * Details regarding the payment
      * 
      * @return Details regarding the payment
@@ -413,7 +399,6 @@ public class Pay extends TwiML {
         private Pay.TokenType tokenType;
         private String chargeAmount;
         private Pay.Currency currency;
-        private String credentialSid;
         private String description;
         private List<Pay.ValidCardTypes> validCardTypes;
         private Pay.Language language;
@@ -528,14 +513,6 @@ public class Pay extends TwiML {
          */
         public Builder currency(Pay.Currency currency) {
             this.currency = currency;
-            return this;
-        }
-
-        /**
-         * SID for API keys to communicate with payment provider
-         */
-        public Builder credentialSid(String credentialSid) {
-            this.credentialSid = credentialSid;
             return this;
         }
 

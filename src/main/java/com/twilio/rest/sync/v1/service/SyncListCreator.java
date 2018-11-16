@@ -25,6 +25,7 @@ public class SyncListCreator extends Creator<SyncList> {
     private final String pathServiceSid;
     private String uniqueName;
     private Integer ttl;
+    private Integer collectionTtl;
 
     /**
      * Construct a new SyncListCreator.
@@ -47,14 +48,26 @@ public class SyncListCreator extends Creator<SyncList> {
     }
 
     /**
-     * Time-to-live of this List in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity..
+     * Alias for collection_ttl. If both are provided, this value is ignored..
      * 
-     * @param ttl Time-to-live of this List in seconds, defaults to no expiration.
+     * @param ttl Alias for collection_ttl
      * @return this
      */
     public SyncListCreator setTtl(final Integer ttl) {
         this.ttl = ttl;
+        return this;
+    }
+
+    /**
+     * Time-to-live of this List in seconds, defaults to no expiration. In the range
+     * [1, 31 536 000 (1 year)], or 0 for infinity..
+     * 
+     * @param collectionTtl Time-to-live of this List in seconds, defaults to no
+     *                      expiration.
+     * @return this
+     */
+    public SyncListCreator setCollectionTtl(final Integer collectionTtl) {
+        this.collectionTtl = collectionTtl;
         return this;
     }
 
@@ -109,6 +122,10 @@ public class SyncListCreator extends Creator<SyncList> {
 
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
+        }
+
+        if (collectionTtl != null) {
+            request.addPostParam("CollectionTtl", collectionTtl.toString());
         }
     }
 }

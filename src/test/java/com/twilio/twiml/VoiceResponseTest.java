@@ -171,7 +171,6 @@ public class VoiceResponseTest {
                     .tokenType(Pay.TokenType.ONE_TIME)
                     .chargeAmount("charge_amount")
                     .currency(Pay.Currency.USD)
-                    .credentialSid("credential_sid")
                     .description("description")
                     .validCardTypes(Promoter.listOfOne(Pay.ValidCardTypes.VISA))
                     .language(Pay.Language.DE_DE)
@@ -204,7 +203,7 @@ public class VoiceResponseTest {
                 "<Reject reason=\"rejected\"/>" +
                 "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
-                "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" credentialSid=\"credential_sid\" currency=\"usd\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
+                "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" currency=\"usd\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
             "</Response>",
             elem.toXml()

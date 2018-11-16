@@ -58,7 +58,7 @@ public class Prompt extends TwiML {
 
     public enum CardType {
         VISA("visa"),
-        MASTER_CARD("master-card"),
+        MASTERCARD("mastercard"),
         AMEX("amex"),
         MAESTRO("maestro"),
         DISCOVER("discover"),

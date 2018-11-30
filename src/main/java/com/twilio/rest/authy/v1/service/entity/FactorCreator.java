@@ -26,9 +26,8 @@ public class FactorCreator extends Creator<Factor> {
     private final String pathServiceSid;
     private final String pathIdentity;
     private final String binding;
-    private final String factorType;
     private final String friendlyName;
-    private String config;
+    private final Factor.FactorTypes type;
 
     /**
      * Construct a new FactorCreator.
@@ -36,30 +35,19 @@ public class FactorCreator extends Creator<Factor> {
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param binding A unique binding for this Factor
-     * @param factorType The Type of this Factor
      * @param friendlyName The friendly name of this Factor
+     * @param type The Type of this Factor
      */
     public FactorCreator(final String pathServiceSid, 
                          final String pathIdentity, 
                          final String binding, 
-                         final String factorType, 
-                         final String friendlyName) {
+                         final String friendlyName, 
+                         final Factor.FactorTypes type) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
         this.binding = binding;
-        this.factorType = factorType;
         this.friendlyName = friendlyName;
-    }
-
-    /**
-     * Optional configuration for the Factor.
-     * 
-     * @param config Factor configuration
-     * @return this
-     */
-    public FactorCreator setConfig(final String config) {
-        this.config = config;
-        return this;
+        this.type = type;
     }
 
     /**
@@ -111,16 +99,12 @@ public class FactorCreator extends Creator<Factor> {
             request.addPostParam("Binding", binding);
         }
 
-        if (factorType != null) {
-            request.addPostParam("FactorType", factorType);
-        }
-
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
 
-        if (config != null) {
-            request.addPostParam("Config", config);
+        if (type != null) {
+            request.addPostParam("Type", type.toString());
         }
     }
 }

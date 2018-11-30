@@ -28,6 +28,7 @@ public class VerificationCreator extends Creator<Verification> {
     private String customMessage;
     private String sendDigits;
     private String locale;
+    private String customCode;
 
     /**
      * Construct a new VerificationCreator.
@@ -77,6 +78,17 @@ public class VerificationCreator extends Creator<Verification> {
      */
     public VerificationCreator setLocale(final String locale) {
         this.locale = locale;
+        return this;
+    }
+
+    /**
+     * Pass in a pre-generated code. Code length can be between 4-10 characters..
+     * 
+     * @param customCode A pre-generated code
+     * @return this
+     */
+    public VerificationCreator setCustomCode(final String customCode) {
+        this.customCode = customCode;
         return this;
     }
 
@@ -143,6 +155,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (locale != null) {
             request.addPostParam("Locale", locale);
+        }
+
+        if (customCode != null) {
+            request.addPostParam("CustomCode", customCode);
         }
     }
 }

@@ -40,15 +40,15 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Factor extends Resource {
-    private static final long serialVersionUID = 128189623489110L;
+    private static final long serialVersionUID = 146610731901109L;
 
-    public enum FactorStatus {
+    public enum FactorStatuses {
         UNVERIFIED("unverified"),
         VERIFIED("verified");
 
         private final String value;
 
-        private FactorStatus(final String value) {
+        private FactorStatuses(final String value) {
             this.value = value;
         }
 
@@ -57,13 +57,39 @@ public class Factor extends Resource {
         }
 
         /**
-         * Generate a FactorStatus from a string.
+         * Generate a FactorStatuses from a string.
          * @param value string value
-         * @return generated FactorStatus
+         * @return generated FactorStatuses
          */
         @JsonCreator
-        public static FactorStatus forValue(final String value) {
-            return Promoter.enumFromString(value, FactorStatus.values());
+        public static FactorStatuses forValue(final String value) {
+            return Promoter.enumFromString(value, FactorStatuses.values());
+        }
+    }
+
+    public enum FactorTypes {
+        APP_PUSH("app-push"),
+        SMS("sms"),
+        TOTP("totp");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a FactorTypes from a string.
+         * @param value string value
+         * @return generated FactorTypes
+         */
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
         }
     }
 
@@ -73,16 +99,16 @@ public class Factor extends Resource {
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param binding A unique binding for this Factor
-     * @param factorType The Type of this Factor
      * @param friendlyName The friendly name of this Factor
+     * @param type The Type of this Factor
      * @return FactorCreator capable of executing the create
      */
     public static FactorCreator creator(final String pathServiceSid, 
                                         final String pathIdentity, 
                                         final String binding, 
-                                        final String factorType, 
-                                        final String friendlyName) {
-        return new FactorCreator(pathServiceSid, pathIdentity, binding, factorType, friendlyName);
+                                        final String friendlyName, 
+                                        final Factor.FactorTypes type) {
+        return new FactorCreator(pathServiceSid, pathIdentity, binding, friendlyName, type);
     }
 
     /**
@@ -184,8 +210,8 @@ public class Factor extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String friendlyName;
-    private final Factor.FactorStatus status;
-    private final String type;
+    private final Factor.FactorStatuses status;
+    private final Factor.FactorTypes type;
     private final URI url;
     private final Map<String, String> links;
 
@@ -207,9 +233,9 @@ public class Factor extends Resource {
                    @JsonProperty("friendly_name")
                    final String friendlyName, 
                    @JsonProperty("status")
-                   final Factor.FactorStatus status, 
+                   final Factor.FactorStatuses status, 
                    @JsonProperty("type")
-                   final String type, 
+                   final Factor.FactorTypes type, 
                    @JsonProperty("url")
                    final URI url, 
                    @JsonProperty("links")
@@ -305,7 +331,7 @@ public class Factor extends Resource {
      * 
      * @return The Status of this Factor
      */
-    public final Factor.FactorStatus getStatus() {
+    public final Factor.FactorStatuses getStatus() {
         return this.status;
     }
 
@@ -314,7 +340,7 @@ public class Factor extends Resource {
      * 
      * @return The Type of this Factor
      */
-    public final String getType() {
+    public final Factor.FactorTypes getType() {
         return this.type;
     }
 

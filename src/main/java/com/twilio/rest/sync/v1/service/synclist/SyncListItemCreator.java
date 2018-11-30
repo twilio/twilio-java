@@ -76,7 +76,9 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
     /**
      * Time-to-live of this item's parent List in seconds, defaults to no
-     * expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity..
+     * expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity. This
+     * parameter can only be used when the list item's data or ttl is updated in the
+     * same request..
      * 
      * @param collectionTtl Time-to-live of this item's parent List in seconds,
      *                      defaults to no expiration.

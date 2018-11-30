@@ -24,7 +24,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
     /**
      * Construct a new IpAccessControlListDeleter.
      * 
-     * @param pathSid Delete by unique ip-access-control-list Sid
+     * @param pathSid Delete by unique IpAccessControlList Sid
      */
     public IpAccessControlListDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -34,7 +34,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
      * Construct a new IpAccessControlListDeleter.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique ip-access-control-list Sid
+     * @param pathSid Delete by unique IpAccessControlList Sid
      */
     public IpAccessControlListDeleter(final String pathAccountSid, 
                                       final String pathSid) {

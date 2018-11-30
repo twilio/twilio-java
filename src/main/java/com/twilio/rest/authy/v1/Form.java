@@ -39,16 +39,16 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Form extends Resource {
-    private static final long serialVersionUID = 179001436690478L;
+    private static final long serialVersionUID = 45745163572544L;
 
-    public enum FormType {
+    public enum FormTypes {
         FORM_APP_PUSH("form-app-push"),
         FORM_SMS("form-sms"),
         FORM_TOTP("form-totp");
 
         private final String value;
 
-        private FormType(final String value) {
+        private FormTypes(final String value) {
             this.value = value;
         }
 
@@ -57,24 +57,24 @@ public class Form extends Resource {
         }
 
         /**
-         * Generate a FormType from a string.
+         * Generate a FormTypes from a string.
          * @param value string value
-         * @return generated FormType
+         * @return generated FormTypes
          */
         @JsonCreator
-        public static FormType forValue(final String value) {
-            return Promoter.enumFromString(value, FormType.values());
+        public static FormTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FormTypes.values());
         }
     }
 
     /**
      * Create a FormFetcher to execute fetch.
      * 
-     * @param pathFormType The Form Type of this Form
+     * @param pathType The Type of this Form
      * @return FormFetcher capable of executing the fetch
      */
-    public static FormFetcher fetcher(final Form.FormType pathFormType) {
-        return new FormFetcher(pathFormType);
+    public static FormFetcher fetcher(final Form.FormTypes pathType) {
+        return new FormFetcher(pathType);
     }
 
     /**
@@ -114,58 +114,57 @@ public class Form extends Resource {
         }
     }
 
-    private final Form.FormType formType;
+    private final Form.FormTypes type;
     private final Map<String, Object> forms;
     private final Map<String, Object> formMeta;
     private final URI url;
 
     @JsonCreator
-    private Form(@JsonProperty("form_type")
-                 final Form.FormType formType, 
+    private Form(@JsonProperty("type")
+                 final Form.FormTypes type, 
                  @JsonProperty("forms")
                  final Map<String, Object> forms, 
                  @JsonProperty("form_meta")
                  final Map<String, Object> formMeta, 
                  @JsonProperty("url")
                  final URI url) {
-        this.formType = formType;
+        this.type = type;
         this.forms = forms;
         this.formMeta = formMeta;
         this.url = url;
     }
 
     /**
-     * Returns The The Form Type of this Form.
+     * Returns The The Type of this Form.
      * 
-     * @return The Form Type of this Form
+     * @return The Type of this Form
      */
-    public final Form.FormType getFormType() {
-        return this.formType;
+    public final Form.FormTypes getType() {
+        return this.type;
     }
 
     /**
-     * Returns The Object that contains the available forms for this form type..
+     * Returns The Object that contains the available forms for this type..
      * 
-     * @return Object that contains the available forms for this form type.
+     * @return Object that contains the available forms for this type.
      */
     public final Map<String, Object> getForms() {
         return this.forms;
     }
 
     /**
-     * Returns The Additional information for the available forms for this form
-     * type..
+     * Returns The Additional information for the available forms for this type..
      * 
-     * @return Additional information for the available forms for this form type.
+     * @return Additional information for the available forms for this type.
      */
     public final Map<String, Object> getFormMeta() {
         return this.formMeta;
     }
 
     /**
-     * Returns The The URL to access the forms for this form type..
+     * Returns The The URL to access the forms for this type..
      * 
-     * @return The URL to access the forms for this form type.
+     * @return The URL to access the forms for this type.
      */
     public final URI getUrl() {
         return this.url;
@@ -183,7 +182,7 @@ public class Form extends Resource {
 
         Form other = (Form) o;
 
-        return Objects.equals(formType, other.formType) && 
+        return Objects.equals(type, other.type) && 
                Objects.equals(forms, other.forms) && 
                Objects.equals(formMeta, other.formMeta) && 
                Objects.equals(url, other.url);
@@ -191,7 +190,7 @@ public class Form extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(formType,
+        return Objects.hash(type,
                             forms,
                             formMeta,
                             url);
@@ -200,7 +199,7 @@ public class Form extends Resource {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("formType", formType)
+                          .add("type", type)
                           .add("forms", forms)
                           .add("formMeta", formMeta)
                           .add("url", url)

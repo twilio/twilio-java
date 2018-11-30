@@ -80,7 +80,7 @@ public class IpAccessControlList extends Resource {
      * Create a IpAccessControlListFetcher to execute fetch.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique ip-access-control-list Sid
+     * @param pathSid Fetch by unique IpAccessControlList Sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
     public static IpAccessControlListFetcher fetcher(final String pathAccountSid, 
@@ -91,7 +91,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique ip-access-control-list Sid
+     * @param pathSid Fetch by unique IpAccessControlList Sid
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
     public static IpAccessControlListFetcher fetcher(final String pathSid) {
@@ -128,7 +128,7 @@ public class IpAccessControlList extends Resource {
      * Create a IpAccessControlListDeleter to execute delete.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique ip-access-control-list Sid
+     * @param pathSid Delete by unique IpAccessControlList Sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
     public static IpAccessControlListDeleter deleter(final String pathAccountSid, 
@@ -139,7 +139,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique ip-access-control-list Sid
+     * @param pathSid Delete by unique IpAccessControlList Sid
      * @return IpAccessControlListDeleter capable of executing the delete
      */
     public static IpAccessControlListDeleter deleter(final String pathSid) {

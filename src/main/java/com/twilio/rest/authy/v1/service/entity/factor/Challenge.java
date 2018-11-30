@@ -40,9 +40,9 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Challenge extends Resource {
-    private static final long serialVersionUID = 213822403549577L;
+    private static final long serialVersionUID = 97589410773330L;
 
-    public enum ChallengeStatus {
+    public enum ChallengeStatuses {
         PENDING("pending"),
         EXPIRED("expired"),
         APPROVED("approved"),
@@ -50,7 +50,7 @@ public class Challenge extends Resource {
 
         private final String value;
 
-        private ChallengeStatus(final String value) {
+        private ChallengeStatuses(final String value) {
             this.value = value;
         }
 
@@ -59,24 +59,24 @@ public class Challenge extends Resource {
         }
 
         /**
-         * Generate a ChallengeStatus from a string.
+         * Generate a ChallengeStatuses from a string.
          * @param value string value
-         * @return generated ChallengeStatus
+         * @return generated ChallengeStatuses
          */
         @JsonCreator
-        public static ChallengeStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChallengeStatus.values());
+        public static ChallengeStatuses forValue(final String value) {
+            return Promoter.enumFromString(value, ChallengeStatuses.values());
         }
     }
 
-    public enum ChallengeReason {
+    public enum ChallengeReasons {
         NONE("none"),
         NOT_NEEDED("not_needed"),
         NOT_REQUESTED("not_requested");
 
         private final String value;
 
-        private ChallengeReason(final String value) {
+        private ChallengeReasons(final String value) {
             this.value = value;
         }
 
@@ -85,13 +85,39 @@ public class Challenge extends Resource {
         }
 
         /**
-         * Generate a ChallengeReason from a string.
+         * Generate a ChallengeReasons from a string.
          * @param value string value
-         * @return generated ChallengeReason
+         * @return generated ChallengeReasons
          */
         @JsonCreator
-        public static ChallengeReason forValue(final String value) {
-            return Promoter.enumFromString(value, ChallengeReason.values());
+        public static ChallengeReasons forValue(final String value) {
+            return Promoter.enumFromString(value, ChallengeReasons.values());
+        }
+    }
+
+    public enum FactorTypes {
+        APP_PUSH("app-push"),
+        SMS("sms"),
+        TOTP("totp");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a FactorTypes from a string.
+         * @param value string value
+         * @return generated FactorTypes
+         */
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
         }
     }
 
@@ -205,12 +231,11 @@ public class Challenge extends Resource {
     private final DateTime dateUpdated;
     private final DateTime dateResponded;
     private final DateTime expirationDate;
-    private final String verificationSid;
-    private final Challenge.ChallengeStatus status;
-    private final Challenge.ChallengeReason reason;
+    private final Challenge.ChallengeStatuses status;
+    private final Challenge.ChallengeReasons respondedReason;
     private final String details;
     private final String hiddenDetails;
-    private final String type;
+    private final Challenge.FactorTypes type;
     private final URI url;
 
     @JsonCreator
@@ -234,18 +259,16 @@ public class Challenge extends Resource {
                       final String dateResponded, 
                       @JsonProperty("expiration_date")
                       final String expirationDate, 
-                      @JsonProperty("verification_sid")
-                      final String verificationSid, 
                       @JsonProperty("status")
-                      final Challenge.ChallengeStatus status, 
-                      @JsonProperty("reason")
-                      final Challenge.ChallengeReason reason, 
+                      final Challenge.ChallengeStatuses status, 
+                      @JsonProperty("responded_reason")
+                      final Challenge.ChallengeReasons respondedReason, 
                       @JsonProperty("details")
                       final String details, 
                       @JsonProperty("hidden_details")
                       final String hiddenDetails, 
                       @JsonProperty("type")
-                      final String type, 
+                      final Challenge.FactorTypes type, 
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -258,9 +281,8 @@ public class Challenge extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.dateResponded = DateConverter.iso8601DateTimeFromString(dateResponded);
         this.expirationDate = DateConverter.iso8601DateTimeFromString(expirationDate);
-        this.verificationSid = verificationSid;
         this.status = status;
-        this.reason = reason;
+        this.respondedReason = respondedReason;
         this.details = details;
         this.hiddenDetails = hiddenDetails;
         this.type = type;
@@ -358,20 +380,11 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Verification Sid..
-     * 
-     * @return Verification Sid.
-     */
-    public final String getVerificationSid() {
-        return this.verificationSid;
-    }
-
-    /**
      * Returns The The Status of this Challenge.
      * 
      * @return The Status of this Challenge
      */
-    public final Challenge.ChallengeStatus getStatus() {
+    public final Challenge.ChallengeStatuses getStatus() {
         return this.status;
     }
 
@@ -380,8 +393,8 @@ public class Challenge extends Resource {
      * 
      * @return The Reason of this Challenge `status`
      */
-    public final Challenge.ChallengeReason getReason() {
-        return this.reason;
+    public final Challenge.ChallengeReasons getRespondedReason() {
+        return this.respondedReason;
     }
 
     /**
@@ -403,11 +416,11 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The Factor Type of this Challenge.
+     * Returns The The Type of this Challenge.
      * 
-     * @return The Factor Type of this Challenge
+     * @return The Type of this Challenge
      */
-    public final String getType() {
+    public final Challenge.FactorTypes getType() {
         return this.type;
     }
 
@@ -442,9 +455,8 @@ public class Challenge extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(dateResponded, other.dateResponded) && 
                Objects.equals(expirationDate, other.expirationDate) && 
-               Objects.equals(verificationSid, other.verificationSid) && 
                Objects.equals(status, other.status) && 
-               Objects.equals(reason, other.reason) && 
+               Objects.equals(respondedReason, other.respondedReason) && 
                Objects.equals(details, other.details) && 
                Objects.equals(hiddenDetails, other.hiddenDetails) && 
                Objects.equals(type, other.type) && 
@@ -463,9 +475,8 @@ public class Challenge extends Resource {
                             dateUpdated,
                             dateResponded,
                             expirationDate,
-                            verificationSid,
                             status,
-                            reason,
+                            respondedReason,
                             details,
                             hiddenDetails,
                             type,
@@ -485,9 +496,8 @@ public class Challenge extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("dateResponded", dateResponded)
                           .add("expirationDate", expirationDate)
-                          .add("verificationSid", verificationSid)
                           .add("status", status)
-                          .add("reason", reason)
+                          .add("respondedReason", respondedReason)
                           .add("details", details)
                           .add("hiddenDetails", hiddenDetails)
                           .add("type", type)

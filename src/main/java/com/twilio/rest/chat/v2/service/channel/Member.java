@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Member extends Resource {
-    private static final long serialVersionUID = 102574959310114L;
+    private static final long serialVersionUID = 35425349237098L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -184,6 +184,7 @@ public class Member extends Resource {
     private final Integer lastConsumedMessageIndex;
     private final DateTime lastConsumptionTimestamp;
     private final URI url;
+    private final String attributes;
 
     @JsonCreator
     private Member(@JsonProperty("sid")
@@ -207,7 +208,9 @@ public class Member extends Resource {
                    @JsonProperty("last_consumption_timestamp")
                    final String lastConsumptionTimestamp, 
                    @JsonProperty("url")
-                   final URI url) {
+                   final URI url, 
+                   @JsonProperty("attributes")
+                   final String attributes) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.channelSid = channelSid;
@@ -219,6 +222,7 @@ public class Member extends Resource {
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         this.lastConsumptionTimestamp = DateConverter.iso8601DateTimeFromString(lastConsumptionTimestamp);
         this.url = url;
+        this.attributes = attributes;
     }
 
     /**
@@ -324,6 +328,17 @@ public class Member extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The An optional string metadata field you can use to store any data
+     * you wish..
+     * 
+     * @return An optional string metadata field you can use to store any data you
+     *         wish.
+     */
+    public final String getAttributes() {
+        return this.attributes;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -346,7 +361,8 @@ public class Member extends Resource {
                Objects.equals(roleSid, other.roleSid) && 
                Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
                Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(attributes, other.attributes);
     }
 
     @Override
@@ -361,7 +377,8 @@ public class Member extends Resource {
                             roleSid,
                             lastConsumedMessageIndex,
                             lastConsumptionTimestamp,
-                            url);
+                            url,
+                            attributes);
     }
 
     @Override
@@ -378,6 +395,7 @@ public class Member extends Resource {
                           .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
                           .add("lastConsumptionTimestamp", lastConsumptionTimestamp)
                           .add("url", url)
+                          .add("attributes", attributes)
                           .toString();
     }
 }

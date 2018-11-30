@@ -28,6 +28,7 @@ public class MemberCreator extends Creator<Member> {
     private DateTime lastConsumptionTimestamp;
     private DateTime dateCreated;
     private DateTime dateUpdated;
+    private String attributes;
 
     /**
      * Construct a new MemberCreator.
@@ -130,6 +131,20 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
+     * An optional string metadata field you can use to store any data you wish. The
+     * string value must contain structurally valid JSON if specified.  **Note**
+     * that if the attributes are not set "{}" will be returned..
+     * 
+     * @param attributes An optional string metadata field you can use to store any
+     *                   data you wish.
+     * @return this
+     */
+    public MemberCreator setAttributes(final String attributes) {
+        this.attributes = attributes;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -196,6 +211,10 @@ public class MemberCreator extends Creator<Member> {
 
         if (dateUpdated != null) {
             request.addPostParam("DateUpdated", dateUpdated.toString());
+        }
+
+        if (attributes != null) {
+            request.addPostParam("Attributes", attributes);
         }
     }
 }

@@ -24,7 +24,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
     /**
      * Construct a new IpAccessControlListFetcher.
      * 
-     * @param pathSid Fetch by unique ip-access-control-list Sid
+     * @param pathSid Fetch by unique IpAccessControlList Sid
      */
     public IpAccessControlListFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -34,7 +34,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
      * Construct a new IpAccessControlListFetcher.
      * 
      * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique ip-access-control-list Sid
+     * @param pathSid Fetch by unique IpAccessControlList Sid
      */
     public IpAccessControlListFetcher(final String pathAccountSid, 
                                       final String pathSid) {

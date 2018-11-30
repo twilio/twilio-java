@@ -43,8 +43,8 @@ public class FactorTest {
                                                       Domains.AUTHY.toString(),
                                                       "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors");
                         request.addPostParam("Binding", serialize("binding"));
-        request.addPostParam("FactorType", serialize("factorType"));
         request.addPostParam("FriendlyName", serialize("friendlyName"));
+        request.addPostParam("Type", serialize(Factor.FactorTypes.APP_PUSH));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -53,7 +53,7 @@ public class FactorTest {
                     }};
 
         try {
-            Factor.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "binding", "factorType", "friendlyName").create();
+            Factor.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "binding", "friendlyName", Factor.FactorTypes.APP_PUSH).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -67,7 +67,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        Factor.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "binding", "factorType", "friendlyName").create();
+        Factor.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "binding", "friendlyName", Factor.FactorTypes.APP_PUSH).create();
     }
 
     @Test

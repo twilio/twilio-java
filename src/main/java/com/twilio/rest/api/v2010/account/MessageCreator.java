@@ -40,6 +40,7 @@ public class MessageCreator extends Creator<Message> {
     private Message.ContentRetention contentRetention;
     private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
+    private String interactiveData;
 
     /**
      * Construct a new MessageCreator.
@@ -354,6 +355,18 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * A JSON string that represents interactive message which is a category of
+     * messages including list picker, time picker, and an Apple Pay request..
+     * 
+     * @param interactiveData JSON string representing interactive data message.
+     * @return this
+     */
+    public MessageCreator setInteractiveData(final String interactiveData) {
+        this.interactiveData = interactiveData;
+        return this;
+    }
+
+    /**
      * A Twilio phone number (in
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format), 
      * [alphanumeric sender
@@ -567,6 +580,10 @@ public class MessageCreator extends Creator<Message> {
 
         if (smartEncoded != null) {
             request.addPostParam("SmartEncoded", smartEncoded.toString());
+        }
+
+        if (interactiveData != null) {
+            request.addPostParam("InteractiveData", interactiveData);
         }
     }
 }

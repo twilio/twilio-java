@@ -88,7 +88,8 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * Time-to-live of this item's parent Map in seconds, defaults to no expiration.
-     * In the range [1, 31 536 000 (1 year)], or 0 for infinity..
+     * In the range [1, 31 536 000 (1 year)], or 0 for infinity. This parameter can
+     * only be used when the map item's data or ttl is updated in the same request..
      * 
      * @param collectionTtl Time-to-live of this item's parent Map in seconds,
      *                      defaults to no expiration.

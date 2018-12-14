@@ -46,7 +46,7 @@ public class Recording extends Resource {
         STOPPED("stopped"),
         PROCESSING("processing"),
         COMPLETED("completed"),
-        FAILED("failed");
+        ABSENT("absent");
 
         private final String value;
 
@@ -445,10 +445,11 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The More information about the recording failure, if Status is
-     * failed..
+     * Returns The More information about why the recording is missing, if Status is
+     * `absent`..
      * 
-     * @return More information about the recording failure, if Status is failed.
+     * @return More information about why the recording is missing, if Status is
+     *         `absent`.
      */
     public final Integer getErrorCode() {
         return this.errorCode;

@@ -26,7 +26,8 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     /**
      * Construct a new CredentialListMappingReader.
      * 
-     * @param pathDomainSid The domain_sid
+     * @param pathDomainSid A string that identifies the SIP Domain that includes
+     *                      the resource to read
      */
     public CredentialListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -35,8 +36,9 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     /**
      * Construct a new CredentialListMappingReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathDomainSid A string that identifies the SIP Domain that includes
+     *                      the resource to read
      */
     public CredentialListMappingReader(final String pathAccountSid, 
                                        final String pathDomainSid) {

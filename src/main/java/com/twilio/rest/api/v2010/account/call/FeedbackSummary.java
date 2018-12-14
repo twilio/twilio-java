@@ -70,9 +70,9 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param startDate Only include usage that has occurred on or after this date.
-     * @param endDate Only include usage that has occurred on or before this date.
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param startDate Only include feedback given on or after this date
+     * @param endDate Only include feedback given on or before this date
      * @return FeedbackSummaryCreator capable of executing the create
      */
     public static FeedbackSummaryCreator creator(final String pathAccountSid, 
@@ -84,8 +84,8 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryCreator to execute create.
      * 
-     * @param startDate Only include usage that has occurred on or after this date.
-     * @param endDate Only include usage that has occurred on or before this date.
+     * @param startDate Only include feedback given on or after this date
+     * @param endDate Only include feedback given on or before this date
      * @return FeedbackSummaryCreator capable of executing the create
      */
     public static FeedbackSummaryCreator creator(final LocalDate startDate, 
@@ -96,8 +96,9 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      * @return FeedbackSummaryFetcher capable of executing the fetch
      */
     public static FeedbackSummaryFetcher fetcher(final String pathAccountSid, 
@@ -108,7 +109,8 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      * @return FeedbackSummaryFetcher capable of executing the fetch
      */
     public static FeedbackSummaryFetcher fetcher(final String pathSid) {
@@ -118,8 +120,9 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      * @return FeedbackSummaryDeleter capable of executing the delete
      */
     public static FeedbackSummaryDeleter deleter(final String pathAccountSid, 
@@ -130,7 +133,8 @@ public class FeedbackSummary extends Resource {
     /**
      * Create a FeedbackSummaryDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      * @return FeedbackSummaryDeleter capable of executing the delete
      */
     public static FeedbackSummaryDeleter deleter(final String pathSid) {
@@ -236,126 +240,126 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique sid that identifies this account.
      * 
-     * @return The account_sid
+     * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The call_count.
+     * Returns The The total number of calls.
      * 
-     * @return The call_count
+     * @return The total number of calls
      */
     public final Integer getCallCount() {
         return this.callCount;
     }
 
     /**
-     * Returns The The call_feedback_count.
+     * Returns The The total number of calls with a feedback entry.
      * 
-     * @return The call_feedback_count
+     * @return The total number of calls with a feedback entry
      */
     public final Integer getCallFeedbackCount() {
         return this.callFeedbackCount;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this resource was created.
      * 
-     * @return The date_created
+     * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The end_date.
+     * Returns The The latest feedback entry date in the summary.
      * 
-     * @return The end_date
+     * @return The latest feedback entry date in the summary
      */
     public final DateTime getEndDate() {
         return this.endDate;
     }
 
     /**
-     * Returns The The include_subaccounts.
+     * Returns The Whether the feedback summary includes subaccounts.
      * 
-     * @return The include_subaccounts
+     * @return Whether the feedback summary includes subaccounts
      */
     public final Boolean getIncludeSubaccounts() {
         return this.includeSubaccounts;
     }
 
     /**
-     * Returns The The issues.
+     * Returns The Issues experienced during the call.
      * 
-     * @return The issues
+     * @return Issues experienced during the call
      */
     public final List<FeedbackIssue> getIssues() {
         return this.issues;
     }
 
     /**
-     * Returns The The quality_score_average.
+     * Returns The The average QualityScore of the feedback entries.
      * 
-     * @return The quality_score_average
+     * @return The average QualityScore of the feedback entries
      */
     public final BigDecimal getQualityScoreAverage() {
         return this.qualityScoreAverage;
     }
 
     /**
-     * Returns The The quality_score_median.
+     * Returns The The median QualityScore of the feedback entries.
      * 
-     * @return The quality_score_median
+     * @return The median QualityScore of the feedback entries
      */
     public final BigDecimal getQualityScoreMedian() {
         return this.qualityScoreMedian;
     }
 
     /**
-     * Returns The The quality_score_standard_deviation.
+     * Returns The The standard deviation of the quality scores.
      * 
-     * @return The quality_score_standard_deviation
+     * @return The standard deviation of the quality scores
      */
     public final BigDecimal getQualityScoreStandardDeviation() {
         return this.qualityScoreStandardDeviation;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this feedback entry.
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this feedback entry
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The start_date.
+     * Returns The The earliest feedback entry date in the summary.
      * 
-     * @return The start_date
+     * @return The earliest feedback entry date in the summary
      */
     public final DateTime getStartDate() {
         return this.startDate;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of the feedback summary.
      * 
-     * @return The status
+     * @return The status of the feedback summary
      */
     public final FeedbackSummary.Status getStatus() {
         return this.status;

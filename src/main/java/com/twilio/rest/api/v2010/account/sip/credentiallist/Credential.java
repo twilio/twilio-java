@@ -38,8 +38,10 @@ public class Credential extends Resource {
     /**
      * Create a CredentialReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credentials
      * @return CredentialReader capable of executing the read
      */
     public static CredentialReader reader(final String pathAccountSid, 
@@ -50,7 +52,8 @@ public class Credential extends Resource {
     /**
      * Create a CredentialReader to execute read.
      * 
-     * @param pathCredentialListSid The credential_list_sid
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credentials
      * @return CredentialReader capable of executing the read
      */
     public static CredentialReader reader(final String pathCredentialListSid) {
@@ -60,8 +63,10 @@ public class Credential extends Resource {
     /**
      * Create a CredentialCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list to include the created credential
      * @param username The username for this credential.
      * @param password The password will not be returned in the response.
      * @return CredentialCreator capable of executing the create
@@ -76,7 +81,8 @@ public class Credential extends Resource {
     /**
      * Create a CredentialCreator to execute create.
      * 
-     * @param pathCredentialListSid The credential_list_sid
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list to include the created credential
      * @param username The username for this credential.
      * @param password The password will not be returned in the response.
      * @return CredentialCreator capable of executing the create
@@ -90,9 +96,11 @@ public class Credential extends Resource {
     /**
      * Create a CredentialFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credential
+     * @param pathSid The unique id that identifies the resource to fetch.
      * @return CredentialFetcher capable of executing the fetch
      */
     public static CredentialFetcher fetcher(final String pathAccountSid, 
@@ -104,8 +112,9 @@ public class Credential extends Resource {
     /**
      * Create a CredentialFetcher to execute fetch.
      * 
-     * @param pathCredentialListSid The credential_list_sid
-     * @param pathSid The sid
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credential
+     * @param pathSid The unique id that identifies the resource to fetch.
      * @return CredentialFetcher capable of executing the fetch
      */
     public static CredentialFetcher fetcher(final String pathCredentialListSid, 
@@ -116,9 +125,11 @@ public class Credential extends Resource {
     /**
      * Create a CredentialUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that includes this credential
+     * @param pathSid The unique id that identifies the resource to update
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater updater(final String pathAccountSid, 
@@ -130,8 +141,9 @@ public class Credential extends Resource {
     /**
      * Create a CredentialUpdater to execute update.
      * 
-     * @param pathCredentialListSid The credential_list_sid
-     * @param pathSid The sid
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that includes this credential
+     * @param pathSid The unique id that identifies the resource to update
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater updater(final String pathCredentialListSid, 
@@ -142,9 +154,11 @@ public class Credential extends Resource {
     /**
      * Create a CredentialDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credentials
+     * @param pathSid The unique id that identifies the resource to delete
      * @return CredentialDeleter capable of executing the delete
      */
     public static CredentialDeleter deleter(final String pathAccountSid, 
@@ -156,8 +170,9 @@ public class Credential extends Resource {
     /**
      * Create a CredentialDeleter to execute delete.
      * 
-     * @param pathCredentialListSid The credential_list_sid
-     * @param pathSid The sid
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credentials
+     * @param pathSid The unique id that identifies the resource to delete
      * @return CredentialDeleter capable of executing the delete
      */
     public static CredentialDeleter deleter(final String pathCredentialListSid, 
@@ -245,18 +260,21 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account that responsible for this resource..
+     * Returns The The unique id of the Account that is responsible for this
+     * resource..
      * 
-     * @return The unique id of the Account that responsible for this resource.
+     * @return The unique id of the Account that is responsible for this resource.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The credential_list_sid.
+     * Returns The The unique id that identifies the credential list that includes
+     * this credential.
      * 
-     * @return The credential_list_sid
+     * @return The unique id that identifies the credential list that includes this
+     *         credential
      */
     public final String getCredentialListSid() {
         return this.credentialListSid;

@@ -25,8 +25,10 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
     /**
      * Construct a new IpAddressDeleter.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   delete
+     * @param pathSid A string that identifies the resource to delete
      */
     public IpAddressDeleter(final String pathIpAccessControlListSid, 
                             final String pathSid) {
@@ -37,9 +39,11 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
     /**
      * Construct a new IpAddressDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   delete
+     * @param pathSid A string that identifies the resource to delete
      */
     public IpAddressDeleter(final String pathAccountSid, 
                             final String pathIpAccessControlListSid, 

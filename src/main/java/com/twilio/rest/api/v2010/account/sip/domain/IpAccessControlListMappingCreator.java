@@ -25,8 +25,9 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
     /**
      * Construct a new IpAccessControlListMappingCreator.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param ipAccessControlListSid The unique id of the IP access control list to
+     *                               map to the SIP domain
      */
     public IpAccessControlListMappingCreator(final String pathDomainSid, 
                                              final String ipAccessControlListSid) {
@@ -37,9 +38,11 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
     /**
      * Construct a new IpAccessControlListMappingCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param ipAccessControlListSid The unique id of the IP access control list to
+     *                               map to the SIP domain
      */
     public IpAccessControlListMappingCreator(final String pathAccountSid, 
                                              final String pathDomainSid, 

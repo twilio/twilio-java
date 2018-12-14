@@ -126,9 +126,13 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The delivery_receipt_requested.
+     * A boolean representing whether to request delivery receipt from the
+     * recipient. For Commands that request delivery receipt, the Command state
+     * transitions to 'delivered' once the server has received a delivery receipt
+     * from the device. Defaults to true..
      * 
-     * @param deliveryReceiptRequested The delivery_receipt_requested
+     * @param deliveryReceiptRequested A boolean representing whether to request
+     *                                 delivery receipt from the recipient.
      * @return this
      */
     public CommandCreator setDeliveryReceiptRequested(final Boolean deliveryReceiptRequested) {

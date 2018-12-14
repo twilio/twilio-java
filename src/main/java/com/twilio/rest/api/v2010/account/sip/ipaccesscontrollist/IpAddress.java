@@ -38,8 +38,9 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to read
      * @return IpAddressReader capable of executing the read
      */
     public static IpAddressReader reader(final String pathAccountSid, 
@@ -50,7 +51,8 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressReader to execute read.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to read
      * @return IpAddressReader capable of executing the read
      */
     public static IpAddressReader reader(final String pathIpAccessControlListSid) {
@@ -60,10 +62,15 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param friendlyName The friendly_name
-     * @param ipAddress The ip_address
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
+     *                                   associate the created IpAddress resource
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters long.
+     * @param ipAddress An IP address in dotted decimal notation from which you
+     *                  want to accept traffic. Any SIP requests from this IP
+     *                  address will be allowed by Twilio. IPv4 only supported
+     *                  today.
      * @return IpAddressCreator capable of executing the create
      */
     public static IpAddressCreator creator(final String pathAccountSid, 
@@ -76,9 +83,14 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressCreator to execute create.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param friendlyName The friendly_name
-     * @param ipAddress The ip_address
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
+     *                                   associate the created IpAddress resource
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters long.
+     * @param ipAddress An IP address in dotted decimal notation from which you
+     *                  want to accept traffic. Any SIP requests from this IP
+     *                  address will be allowed by Twilio. IPv4 only supported
+     *                  today.
      * @return IpAddressCreator capable of executing the create
      */
     public static IpAddressCreator creator(final String pathIpAccessControlListSid, 
@@ -90,9 +102,10 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to fetch
+     * @param pathSid A string that identifies the IpAddress resource to fetch
      * @return IpAddressFetcher capable of executing the fetch
      */
     public static IpAddressFetcher fetcher(final String pathAccountSid, 
@@ -104,8 +117,9 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressFetcher to execute fetch.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to fetch
+     * @param pathSid A string that identifies the IpAddress resource to fetch
      * @return IpAddressFetcher capable of executing the fetch
      */
     public static IpAddressFetcher fetcher(final String pathIpAccessControlListSid, 
@@ -116,9 +130,11 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   update
+     * @param pathSid A string that identifies the IpAddress resource to update
      * @return IpAddressUpdater capable of executing the update
      */
     public static IpAddressUpdater updater(final String pathAccountSid, 
@@ -130,8 +146,10 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressUpdater to execute update.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   update
+     * @param pathSid A string that identifies the IpAddress resource to update
      * @return IpAddressUpdater capable of executing the update
      */
     public static IpAddressUpdater updater(final String pathIpAccessControlListSid, 
@@ -142,9 +160,11 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   delete
+     * @param pathSid A string that identifies the resource to delete
      * @return IpAddressDeleter capable of executing the delete
      */
     public static IpAddressDeleter deleter(final String pathAccountSid, 
@@ -156,8 +176,10 @@ public class IpAddress extends Resource {
     /**
      * Create a IpAddressDeleter to execute delete.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   delete
+     * @param pathSid A string that identifies the resource to delete
      * @return IpAddressDeleter capable of executing the delete
      */
     public static IpAddressDeleter deleter(final String pathIpAccessControlListSid, 
@@ -253,9 +275,10 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account that responsible for this resource..
+     * Returns The The unique id of the Account that is responsible for this
+     * resource..
      * 
-     * @return The unique id of the Account that responsible for this resource.
+     * @return The unique id of the Account that is responsible for this resource.
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -299,9 +322,11 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The The ip_access_control_list_sid.
+     * Returns The The unique id of the IpAccessControlList resource that includes
+     * this resource..
      * 
-     * @return The ip_access_control_list_sid
+     * @return The unique id of the IpAccessControlList resource that includes this
+     *         resource.
      */
     public final String getIpAccessControlListSid() {
         return this.ipAccessControlListSid;

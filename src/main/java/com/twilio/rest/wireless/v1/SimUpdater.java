@@ -42,7 +42,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * Construct a new SimUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public SimUpdater(final String pathSid) {
         this.pathSid = pathSid;

@@ -31,7 +31,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Read by unique call Sid for the recording
      */
     public RecordingReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -40,8 +40,8 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid Read by unique call Sid for the recording
      */
     public RecordingReader(final String pathAccountSid, 
                            final String pathCallSid) {

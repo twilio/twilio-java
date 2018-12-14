@@ -1,6 +1,31 @@
 twilio-java changelog
 =====================
 
+[2018-12-14] Version 7.33.0
+----------------------------
+**Authy**
+- Reverted the change to `FactorType` and `FormType`, avoiding conflicts with Helper Libraries reserved words (`type`) **(breaking change)**
+
+**Proxy**
+- Remove incorrect parameter for Session List
+
+**Studio**
+- Support date created filtering on list of executions
+
+**Taskrouter**
+- Adding ability to Create, Modify and Delete Task Channels.
+
+**Verify**
+- Add `SkipSmsToLandlines`, `TtsName`, `DtmfInputRequired` optional parameters on Service resource creation or update.
+
+**Wireless**
+- Added delete action on Command resource.
+- Added delete action on Sim resource.
+
+**Twiml**
+- Change `currency` from enum to string for `Pay` **(breaking change)**
+
+
 [2018-11-30] Version 7.32.0
 ----------------------------
 **Library**

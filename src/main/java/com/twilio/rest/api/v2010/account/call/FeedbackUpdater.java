@@ -29,8 +29,8 @@ public class FeedbackUpdater extends Updater<Feedback> {
     /**
      * Construct a new FeedbackUpdater.
      * 
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
     public FeedbackUpdater(final String pathCallSid, 
                            final Integer qualityScore) {
@@ -41,9 +41,9 @@ public class FeedbackUpdater extends Updater<Feedback> {
     /**
      * Construct a new FeedbackUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
     public FeedbackUpdater(final String pathAccountSid, 
                            final String pathCallSid, 

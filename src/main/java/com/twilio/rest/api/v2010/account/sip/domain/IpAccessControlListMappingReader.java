@@ -26,7 +26,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
     /**
      * Construct a new IpAccessControlListMappingReader.
      * 
-     * @param pathDomainSid The domain_sid
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
      */
     public IpAccessControlListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -35,8 +35,9 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
     /**
      * Construct a new IpAccessControlListMappingReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
      */
     public IpAccessControlListMappingReader(final String pathAccountSid, 
                                             final String pathDomainSid) {

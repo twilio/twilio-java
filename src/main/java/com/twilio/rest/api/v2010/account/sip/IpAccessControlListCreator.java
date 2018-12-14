@@ -33,7 +33,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
     /**
      * Construct a new IpAccessControlListCreator.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param friendlyName A human readable description of this resource
      */
     public IpAccessControlListCreator(final String pathAccountSid, 

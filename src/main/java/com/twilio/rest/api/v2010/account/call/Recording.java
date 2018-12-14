@@ -46,7 +46,7 @@ public class Recording extends Resource {
         STOPPED("stopped"),
         PROCESSING("processing"),
         COMPLETED("completed"),
-        FAILED("failed");
+        ABSENT("absent");
 
         private final String value;
 
@@ -102,8 +102,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid Create by unique call Sid for the recording
      * @return RecordingCreator capable of executing the create
      */
     public static RecordingCreator creator(final String pathAccountSid, 
@@ -114,7 +114,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingCreator to execute create.
      * 
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Create by unique call Sid for the recording
      * @return RecordingCreator capable of executing the create
      */
     public static RecordingCreator creator(final String pathCallSid) {
@@ -124,8 +124,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid Fetch by unique call Sid for the recording
      * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
      *                of recording sid to reference current active recording)
      * @param status The status to change the recording to.
@@ -141,7 +141,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingUpdater to execute update.
      * 
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Fetch by unique call Sid for the recording
      * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
      *                of recording sid to reference current active recording)
      * @param status The status to change the recording to.
@@ -156,7 +156,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathCallSid Fetch by unique call Sid for the recording
      * @param pathSid Fetch by unique recording Sid
      * @return RecordingFetcher capable of executing the fetch
@@ -182,7 +182,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathCallSid Delete by unique call Sid for the recording
      * @param pathSid Delete by unique recording Sid
      * @return RecordingDeleter capable of executing the delete
@@ -208,8 +208,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid Read by unique call Sid for the recording
      * @return RecordingReader capable of executing the read
      */
     public static RecordingReader reader(final String pathAccountSid, 
@@ -220,7 +220,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingReader to execute read.
      * 
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Read by unique call Sid for the recording
      * @return RecordingReader capable of executing the read
      */
     public static RecordingReader reader(final String pathCallSid) {
@@ -487,10 +487,11 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The More information about the recording failure, if Status is
-     * failed..
+     * Returns The More information about why the recording is missing, if Status is
+     * `absent`..
      * 
-     * @return More information about the recording failure, if Status is failed.
+     * @return More information about why the recording is missing, if Status is
+     *         `absent`.
      */
     public final Integer getErrorCode() {
         return this.errorCode;

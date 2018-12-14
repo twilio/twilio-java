@@ -7,12 +7,14 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Test class for {@link Record}
@@ -48,13 +50,14 @@ public class RecordTest {
             .trim(Record.Trim.TRIM_SILENCE)
             .recordingStatusCallback(URI.create("https://example.com"))
             .recordingStatusCallbackMethod(HttpMethod.GET)
+            .recordingStatusCallbackEvents(Promoter.listOfOne(Record.RecordingEvent.IN_PROGRESS))
             .transcribe(true)
             .transcribeCallback(URI.create("https://example.com"))
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>",
+            "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>",
             elem.toXml()
         );
     }

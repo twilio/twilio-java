@@ -38,7 +38,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @return IpAccessControlListReader capable of executing the read
      */
     public static IpAccessControlListReader reader(final String pathAccountSid) {
@@ -57,7 +57,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListCreator capable of executing the create
      */
@@ -79,8 +79,8 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique IpAccessControlList Sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that identifies the resource to fetch
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
     public static IpAccessControlListFetcher fetcher(final String pathAccountSid, 
@@ -91,7 +91,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique IpAccessControlList Sid
+     * @param pathSid A string that identifies the resource to fetch
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
     public static IpAccessControlListFetcher fetcher(final String pathSid) {
@@ -101,8 +101,8 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that identifies the resource to update
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
@@ -115,7 +115,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that identifies the resource to update
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
@@ -127,8 +127,8 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique IpAccessControlList Sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that identifies the resource to delete
      * @return IpAccessControlListDeleter capable of executing the delete
      */
     public static IpAccessControlListDeleter deleter(final String pathAccountSid, 
@@ -139,7 +139,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique IpAccessControlList Sid
+     * @param pathSid A string that identifies the resource to delete
      * @return IpAccessControlListDeleter capable of executing the delete
      */
     public static IpAccessControlListDeleter deleter(final String pathSid) {
@@ -262,9 +262,9 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The The IP addresses associated with this resource..
      * 
-     * @return The subresource_uris
+     * @return The IP addresses associated with this resource.
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

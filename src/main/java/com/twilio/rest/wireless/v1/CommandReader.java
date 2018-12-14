@@ -59,9 +59,9 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
-     * The transport.
+     * Only return Commands with this transport value..
      * 
-     * @param transport The transport
+     * @param transport Only return Commands with this transport value.
      * @return this
      */
     public CommandReader setTransport(final Command.Transport transport) {

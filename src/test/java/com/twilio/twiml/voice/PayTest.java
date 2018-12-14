@@ -51,7 +51,7 @@ public class PayTest {
             .paymentConnector("payment_connector")
             .tokenType(Pay.TokenType.ONE_TIME)
             .chargeAmount("charge_amount")
-            .currency(Pay.Currency.USD)
+            .currency("currency")
             .description("description")
             .validCardTypes(Promoter.listOfOne(Pay.ValidCardTypes.VISA))
             .language(Pay.Language.DE_DE)
@@ -59,7 +59,7 @@ public class PayTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" currency=\"usd\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>",
+            "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>",
             elem.toXml()
         );
     }

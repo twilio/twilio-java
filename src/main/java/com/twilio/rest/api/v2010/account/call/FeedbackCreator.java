@@ -29,8 +29,8 @@ public class FeedbackCreator extends Creator<Feedback> {
     /**
      * Construct a new FeedbackCreator.
      * 
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
     public FeedbackCreator(final String pathCallSid, 
                            final Integer qualityScore) {
@@ -41,9 +41,9 @@ public class FeedbackCreator extends Creator<Feedback> {
     /**
      * Construct a new FeedbackCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
     public FeedbackCreator(final String pathAccountSid, 
                            final String pathCallSid, 
@@ -54,7 +54,7 @@ public class FeedbackCreator extends Creator<Feedback> {
     }
 
     /**
-     * One or more issues experienced during the call. The issues can be:
+     * A list of one or more issues experienced during the call. Issues can be:
      * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
      * `digits-not-captured`, `audio-latency`, or `one-way-audio`..
      * 
@@ -67,7 +67,7 @@ public class FeedbackCreator extends Creator<Feedback> {
     }
 
     /**
-     * One or more issues experienced during the call. The issues can be:
+     * A list of one or more issues experienced during the call. Issues can be:
      * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
      * `digits-not-captured`, `audio-latency`, or `one-way-audio`..
      * 

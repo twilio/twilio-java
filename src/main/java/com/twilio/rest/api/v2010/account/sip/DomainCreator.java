@@ -24,7 +24,6 @@ public class DomainCreator extends Creator<Domain> {
     private String pathAccountSid;
     private final String domainName;
     private String friendlyName;
-    private String authType;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
     private URI voiceFallbackUrl;
@@ -45,7 +44,7 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * Construct a new DomainCreator.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param domainName The unique address on Twilio to route SIP traffic
      */
     public DomainCreator(final String pathAccountSid, 
@@ -57,22 +56,11 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * A human readable descriptive text, up to 64 characters long..
      * 
-     * @param friendlyName A user-specified, human-readable name for the trigger.
+     * @param friendlyName A user-specified, human-readable name for the domain.
      * @return this
      */
     public DomainCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
-        return this;
-    }
-
-    /**
-     * The types of authentication you have mapped to your domain.
-     * 
-     * @param authType The types of authentication mapped to the domain
-     * @return this
-     */
-    public DomainCreator setAuthType(final String authType) {
-        this.authType = authType;
         return this;
     }
 
@@ -185,9 +173,10 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The sip_registration.
+     * This boolean can be enabled to allow SIP Endpoints to register with this
+     * domain to receive calls..
      * 
-     * @param sipRegistration The sip_registration
+     * @param sipRegistration If SIP registration is allowed
      * @return this
      */
     public DomainCreator setSipRegistration(final Boolean sipRegistration) {
@@ -247,10 +236,6 @@ public class DomainCreator extends Creator<Domain> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-        }
-
-        if (authType != null) {
-            request.addPostParam("AuthType", authType);
         }
 
         if (voiceUrl != null) {

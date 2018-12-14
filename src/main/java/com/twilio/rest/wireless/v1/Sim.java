@@ -71,7 +71,7 @@ public class Sim extends Resource {
     /**
      * Create a SimFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SimFetcher capable of executing the fetch
      */
     public static SimFetcher fetcher(final String pathSid) {
@@ -90,11 +90,21 @@ public class Sim extends Resource {
     /**
      * Create a SimUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SimUpdater capable of executing the update
      */
     public static SimUpdater updater(final String pathSid) {
         return new SimUpdater(pathSid);
+    }
+
+    /**
+     * Create a SimDeleter to execute delete.
+     * 
+     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @return SimDeleter capable of executing the delete
+     */
+    public static SimDeleter deleter(final String pathSid) {
+        return new SimDeleter(pathSid);
     }
 
     /**

@@ -25,7 +25,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
     /**
      * Construct a new CredentialListUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid Update by unique credential list Sid
      * @param friendlyName Human readable descriptive text
      */
     public CredentialListUpdater(final String pathSid, 
@@ -37,8 +37,9 @@ public class CredentialListUpdater extends Updater<CredentialList> {
     /**
      * Construct a new CredentialListUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathSid Update by unique credential list Sid
      * @param friendlyName Human readable descriptive text
      */
     public CredentialListUpdater(final String pathAccountSid, 

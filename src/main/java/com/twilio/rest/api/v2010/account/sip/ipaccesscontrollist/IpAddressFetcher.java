@@ -25,8 +25,9 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
     /**
      * Construct a new IpAddressFetcher.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to fetch
+     * @param pathSid A string that identifies the IpAddress resource to fetch
      */
     public IpAddressFetcher(final String pathIpAccessControlListSid, 
                             final String pathSid) {
@@ -37,9 +38,10 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
     /**
      * Construct a new IpAddressFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to fetch
+     * @param pathSid A string that identifies the IpAddress resource to fetch
      */
     public IpAddressFetcher(final String pathAccountSid, 
                             final String pathIpAccessControlListSid, 

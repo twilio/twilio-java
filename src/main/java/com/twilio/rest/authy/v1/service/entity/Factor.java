@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Factor extends Resource {
-    private static final long serialVersionUID = 146610731901109L;
+    private static final long serialVersionUID = 171608504161461L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -100,15 +100,15 @@ public class Factor extends Resource {
      * @param pathIdentity Unique identity of the Entity
      * @param binding A unique binding for this Factor
      * @param friendlyName The friendly name of this Factor
-     * @param type The Type of this Factor
+     * @param factorType The Type of this Factor
      * @return FactorCreator capable of executing the create
      */
     public static FactorCreator creator(final String pathServiceSid, 
                                         final String pathIdentity, 
                                         final String binding, 
                                         final String friendlyName, 
-                                        final Factor.FactorTypes type) {
-        return new FactorCreator(pathServiceSid, pathIdentity, binding, friendlyName, type);
+                                        final Factor.FactorTypes factorType) {
+        return new FactorCreator(pathServiceSid, pathIdentity, binding, friendlyName, factorType);
     }
 
     /**
@@ -211,7 +211,7 @@ public class Factor extends Resource {
     private final DateTime dateUpdated;
     private final String friendlyName;
     private final Factor.FactorStatuses status;
-    private final Factor.FactorTypes type;
+    private final Factor.FactorTypes factorType;
     private final URI url;
     private final Map<String, String> links;
 
@@ -234,8 +234,8 @@ public class Factor extends Resource {
                    final String friendlyName, 
                    @JsonProperty("status")
                    final Factor.FactorStatuses status, 
-                   @JsonProperty("type")
-                   final Factor.FactorTypes type, 
+                   @JsonProperty("factor_type")
+                   final Factor.FactorTypes factorType, 
                    @JsonProperty("url")
                    final URI url, 
                    @JsonProperty("links")
@@ -249,7 +249,7 @@ public class Factor extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
         this.status = status;
-        this.type = type;
+        this.factorType = factorType;
         this.url = url;
         this.links = links;
     }
@@ -340,8 +340,8 @@ public class Factor extends Resource {
      * 
      * @return The Type of this Factor
      */
-    public final Factor.FactorTypes getType() {
-        return this.type;
+    public final Factor.FactorTypes getFactorType() {
+        return this.factorType;
     }
 
     /**
@@ -383,7 +383,7 @@ public class Factor extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(status, other.status) && 
-               Objects.equals(type, other.type) && 
+               Objects.equals(factorType, other.factorType) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -399,7 +399,7 @@ public class Factor extends Resource {
                             dateUpdated,
                             friendlyName,
                             status,
-                            type,
+                            factorType,
                             url,
                             links);
     }
@@ -416,7 +416,7 @@ public class Factor extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("friendlyName", friendlyName)
                           .add("status", status)
-                          .add("type", type)
+                          .add("factorType", factorType)
                           .add("url", url)
                           .add("links", links)
                           .toString();

@@ -33,7 +33,7 @@ public class DomainFetcher extends Fetcher<Domain> {
     /**
      * Construct a new DomainFetcher.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid Fetch by unique Domain Sid
      */
     public DomainFetcher(final String pathAccountSid, 

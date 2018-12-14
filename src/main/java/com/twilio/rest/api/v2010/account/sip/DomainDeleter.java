@@ -24,7 +24,7 @@ public class DomainDeleter extends Deleter<Domain> {
     /**
      * Construct a new DomainDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies the SIP Domain
      */
     public DomainDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class DomainDeleter extends Deleter<Domain> {
     /**
      * Construct a new DomainDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the account responsible for this
+     *                       domain
+     * @param pathSid A string that uniquely identifies the SIP Domain
      */
     public DomainDeleter(final String pathAccountSid, 
                          final String pathSid) {

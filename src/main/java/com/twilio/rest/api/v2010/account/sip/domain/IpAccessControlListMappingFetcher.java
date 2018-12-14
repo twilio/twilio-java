@@ -25,8 +25,9 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
     /**
      * Construct a new IpAccessControlListMappingFetcher.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param pathSid A 34 character string that uniquely identifies the resource
+     *                to fetch.
      */
     public IpAccessControlListMappingFetcher(final String pathDomainSid, 
                                              final String pathSid) {
@@ -37,9 +38,11 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
     /**
      * Construct a new IpAccessControlListMappingFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param pathSid A 34 character string that uniquely identifies the resource
+     *                to fetch.
      */
     public IpAccessControlListMappingFetcher(final String pathAccountSid, 
                                              final String pathDomainSid, 

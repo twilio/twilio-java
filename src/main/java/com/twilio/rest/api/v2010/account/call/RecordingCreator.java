@@ -33,7 +33,7 @@ public class RecordingCreator extends Creator<Recording> {
     /**
      * Construct a new RecordingCreator.
      * 
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Create by unique call Sid for the recording
      */
     public RecordingCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -42,8 +42,8 @@ public class RecordingCreator extends Creator<Recording> {
     /**
      * Construct a new RecordingCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid Create by unique call Sid for the recording
      */
     public RecordingCreator(final String pathAccountSid, 
                             final String pathCallSid) {
@@ -54,8 +54,8 @@ public class RecordingCreator extends Creator<Recording> {
     /**
      * The recording status changes that should generate a request to the URL
      * specified in RecordingStatusCallback. Possible values: `in-progress`,
-     * `completed`, `failed`. To specify multiple values separate them with a space.
-     * Defaults to `completed`..
+     * `completed` and `absent`. To specify multiple values separate them with a
+     * space. Defaults to `completed`..
      * 
      * @param recordingStatusCallbackEvent The recording status changes that should
      *                                     generate a callback
@@ -69,8 +69,8 @@ public class RecordingCreator extends Creator<Recording> {
     /**
      * The recording status changes that should generate a request to the URL
      * specified in RecordingStatusCallback. Possible values: `in-progress`,
-     * `completed`, `failed`. To specify multiple values separate them with a space.
-     * Defaults to `completed`..
+     * `completed` and `absent`. To specify multiple values separate them with a
+     * space. Defaults to `completed`..
      * 
      * @param recordingStatusCallbackEvent The recording status changes that should
      *                                     generate a callback

@@ -23,15 +23,15 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class FormFetcher extends Fetcher<Form> {
-    private final Form.FormTypes pathType;
+    private final Form.FormTypes pathFormType;
 
     /**
      * Construct a new FormFetcher.
      * 
-     * @param pathType The Type of this Form
+     * @param pathFormType The Type of this Form
      */
-    public FormFetcher(final Form.FormTypes pathType) {
-        this.pathType = pathType;
+    public FormFetcher(final Form.FormTypes pathFormType) {
+        this.pathFormType = pathFormType;
     }
 
     /**
@@ -46,7 +46,7 @@ public class FormFetcher extends Fetcher<Form> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTHY.toString(),
-            "/v1/Forms/" + this.pathType + "",
+            "/v1/Forms/" + this.pathFormType + "",
             client.getRegion()
         );
 

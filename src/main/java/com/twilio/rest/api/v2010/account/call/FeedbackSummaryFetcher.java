@@ -24,7 +24,8 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
     /**
      * Construct a new FeedbackSummaryFetcher.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      */
     public FeedbackSummaryFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +34,9 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
     /**
      * Construct a new FeedbackSummaryFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      */
     public FeedbackSummaryFetcher(final String pathAccountSid, 
                                   final String pathSid) {

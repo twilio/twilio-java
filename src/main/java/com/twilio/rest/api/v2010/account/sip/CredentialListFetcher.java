@@ -33,7 +33,8 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
     /**
      * Construct a new CredentialListFetcher.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @param pathSid Fetch by unique credential list Sid
      */
     public CredentialListFetcher(final String pathAccountSid, 

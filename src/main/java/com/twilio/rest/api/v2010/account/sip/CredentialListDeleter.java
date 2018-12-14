@@ -33,7 +33,8 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
     /**
      * Construct a new CredentialListDeleter.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @param pathSid Delete by unique credential list Sid
      */
     public CredentialListDeleter(final String pathAccountSid, 

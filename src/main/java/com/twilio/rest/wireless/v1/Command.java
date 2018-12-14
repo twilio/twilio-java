@@ -143,7 +143,7 @@ public class Command extends Resource {
     /**
      * Create a CommandFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return CommandFetcher capable of executing the fetch
      */
     public static CommandFetcher fetcher(final String pathSid) {
@@ -168,6 +168,16 @@ public class Command extends Resource {
      */
     public static CommandCreator creator(final String command) {
         return new CommandCreator(command);
+    }
+
+    /**
+     * Create a CommandDeleter to execute delete.
+     * 
+     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @return CommandDeleter capable of executing the delete
+     */
+    public static CommandDeleter deleter(final String pathSid) {
+        return new CommandDeleter(pathSid);
     }
 
     /**

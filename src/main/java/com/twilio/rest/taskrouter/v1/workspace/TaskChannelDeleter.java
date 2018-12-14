@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account.call;
+package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -17,35 +17,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingDeleter extends Deleter<Recording> {
-    private String pathAccountSid;
-    private final String pathCallSid;
+public class TaskChannelDeleter extends Deleter<TaskChannel> {
+    private final String pathWorkspaceSid;
     private final String pathSid;
 
     /**
-     * Construct a new RecordingDeleter.
+     * Construct a new TaskChannelDeleter.
      * 
-     * @param pathCallSid Delete by unique call Sid for the recording
-     * @param pathSid Delete by unique recording Sid
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      */
-    public RecordingDeleter(final String pathCallSid, 
-                            final String pathSid) {
-        this.pathCallSid = pathCallSid;
-        this.pathSid = pathSid;
-    }
-
-    /**
-     * Construct a new RecordingDeleter.
-     * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathCallSid Delete by unique call Sid for the recording
-     * @param pathSid Delete by unique recording Sid
-     */
-    public RecordingDeleter(final String pathAccountSid, 
-                            final String pathCallSid, 
-                            final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathCallSid = pathCallSid;
+    public TaskChannelDeleter(final String pathWorkspaceSid, 
+                              final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
@@ -57,18 +41,17 @@ public class RecordingDeleter extends Deleter<Recording> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings/" + this.pathSid + ".json",
+            Domains.TASKROUTER.toString(),
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording delete failed: Unable to connect to server");
+            throw new ApiConnectionException("TaskChannel delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

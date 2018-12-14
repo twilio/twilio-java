@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account.sip;
+package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
@@ -17,52 +17,47 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
-    private String pathAccountSid;
+public class TaskChannelUpdater extends Updater<TaskChannel> {
+    private final String pathWorkspaceSid;
     private final String pathSid;
-    private final String friendlyName;
+    private String friendlyName;
 
     /**
-     * Construct a new IpAccessControlListUpdater.
+     * Construct a new TaskChannelUpdater.
      * 
-     * @param pathSid A string that identifies the resource to update
-     * @param friendlyName A human readable description of this resource
+     * @param pathWorkspaceSid The workspace_sid
+     * @param pathSid The sid
      */
-    public IpAccessControlListUpdater(final String pathSid, 
-                                      final String friendlyName) {
+    public TaskChannelUpdater(final String pathWorkspaceSid, 
+                              final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
-        this.friendlyName = friendlyName;
     }
 
     /**
-     * Construct a new IpAccessControlListUpdater.
+     * Toggle the FriendlyName for the TaskChannel.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid A string that identifies the resource to update
-     * @param friendlyName A human readable description of this resource
+     * @param friendlyName Toggle the FriendlyName for the TaskChannel
+     * @return this
      */
-    public IpAccessControlListUpdater(final String pathAccountSid, 
-                                      final String pathSid, 
-                                      final String friendlyName) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
+    public TaskChannelUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated IpAccessControlList
+     * @return Updated TaskChannel
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public IpAccessControlList update(final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+    public TaskChannel update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathSid + ".json",
+            Domains.TASKROUTER.toString(),
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -70,7 +65,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IpAccessControlList update failed: Unable to connect to server");
+            throw new ApiConnectionException("TaskChannel update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -86,7 +81,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
             );
         }
 
-        return IpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());
+        return TaskChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**

@@ -31,7 +31,8 @@ public class CredentialListReader extends Reader<CredentialList> {
     /**
      * Construct a new CredentialListReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      */
     public CredentialListReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

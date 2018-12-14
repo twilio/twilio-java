@@ -27,9 +27,14 @@ public class IpAddressCreator extends Creator<IpAddress> {
     /**
      * Construct a new IpAddressCreator.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param friendlyName The friendly_name
-     * @param ipAddress The ip_address
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
+     *                                   associate the created IpAddress resource
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters long.
+     * @param ipAddress An IP address in dotted decimal notation from which you
+     *                  want to accept traffic. Any SIP requests from this IP
+     *                  address will be allowed by Twilio. IPv4 only supported
+     *                  today.
      */
     public IpAddressCreator(final String pathIpAccessControlListSid, 
                             final String friendlyName, 
@@ -42,10 +47,15 @@ public class IpAddressCreator extends Creator<IpAddress> {
     /**
      * Construct a new IpAddressCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param friendlyName The friendly_name
-     * @param ipAddress The ip_address
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
+     *                                   associate the created IpAddress resource
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters long.
+     * @param ipAddress An IP address in dotted decimal notation from which you
+     *                  want to accept traffic. Any SIP requests from this IP
+     *                  address will be allowed by Twilio. IPv4 only supported
+     *                  today.
      */
     public IpAddressCreator(final String pathAccountSid, 
                             final String pathIpAccessControlListSid, 
@@ -58,9 +68,12 @@ public class IpAddressCreator extends Creator<IpAddress> {
     }
 
     /**
-     * The cidr_prefix_length.
+     * An integer representing the length of the CIDR prefix to use with this IP
+     * address when accepting traffic. By default the entire IP address is used..
      * 
-     * @param cidrPrefixLength The cidr_prefix_length
+     * @param cidrPrefixLength An integer representing the length of the CIDR
+     *                         prefix to use with this IP address when accepting
+     *                         traffic. By default the entire IP address is used.
      * @return this
      */
     public IpAddressCreator setCidrPrefixLength(final Integer cidrPrefixLength) {

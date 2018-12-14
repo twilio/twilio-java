@@ -26,7 +26,8 @@ public class IpAddressReader extends Reader<IpAddress> {
     /**
      * Construct a new IpAddressReader.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to read
      */
     public IpAddressReader(final String pathIpAccessControlListSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -35,8 +36,9 @@ public class IpAddressReader extends Reader<IpAddress> {
     /**
      * Construct a new IpAddressReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to read
      */
     public IpAddressReader(final String pathAccountSid, 
                            final String pathIpAccessControlListSid) {

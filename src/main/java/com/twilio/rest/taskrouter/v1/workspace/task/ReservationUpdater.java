@@ -76,6 +76,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     private String postWorkActivitySid;
     private Reservation.SupervisorMode supervisorMode;
     private String supervisor;
+    private Boolean endConferenceOnCustomerExit;
+    private Boolean beepOnCustomerEntrance;
 
     /**
      * Construct a new ReservationUpdater.
@@ -804,6 +806,28 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
+     * The end_conference_on_customer_exit.
+     * 
+     * @param endConferenceOnCustomerExit The end_conference_on_customer_exit
+     * @return this
+     */
+    public ReservationUpdater setEndConferenceOnCustomerExit(final Boolean endConferenceOnCustomerExit) {
+        this.endConferenceOnCustomerExit = endConferenceOnCustomerExit;
+        return this;
+    }
+
+    /**
+     * The beep_on_customer_entrance.
+     * 
+     * @param beepOnCustomerEntrance The beep_on_customer_entrance
+     * @return this
+     */
+    public ReservationUpdater setBeepOnCustomerEntrance(final Boolean beepOnCustomerEntrance) {
+        this.beepOnCustomerEntrance = beepOnCustomerEntrance;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -1056,6 +1080,14 @@ public class ReservationUpdater extends Updater<Reservation> {
 
         if (supervisor != null) {
             request.addPostParam("Supervisor", supervisor);
+        }
+
+        if (endConferenceOnCustomerExit != null) {
+            request.addPostParam("EndConferenceOnCustomerExit", endConferenceOnCustomerExit.toString());
+        }
+
+        if (beepOnCustomerEntrance != null) {
+            request.addPostParam("BeepOnCustomerEntrance", beepOnCustomerEntrance.toString());
         }
     }
 }

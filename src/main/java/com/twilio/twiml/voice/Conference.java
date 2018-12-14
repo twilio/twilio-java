@@ -113,7 +113,7 @@ public class Conference extends TwiML {
         PAUSED("paused"),
         RESUMED("resumed"),
         COMPLETED("completed"),
-        FAILED("failed");
+        ABSENT("absent");
 
         private final String value;
 

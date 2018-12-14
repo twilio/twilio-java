@@ -31,7 +31,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     /**
      * Construct a new IpAccessControlListReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      */
     public IpAccessControlListReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

@@ -25,8 +25,9 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
     /**
      * Construct a new CredentialListMappingDeleter.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathDomainSid A string that identifies the SIP Domain that includes
+     *                      the resource to delete
+     * @param pathSid A string that identifies the resource to delete
      */
     public CredentialListMappingDeleter(final String pathDomainSid, 
                                         final String pathSid) {
@@ -37,9 +38,10 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
     /**
      * Construct a new CredentialListMappingDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathDomainSid A string that identifies the SIP Domain that includes
+     *                      the resource to delete
+     * @param pathSid A string that identifies the resource to delete
      */
     public CredentialListMappingDeleter(final String pathAccountSid, 
                                         final String pathDomainSid, 

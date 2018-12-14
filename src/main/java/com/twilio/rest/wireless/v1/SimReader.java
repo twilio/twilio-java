@@ -61,9 +61,9 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The e_id.
+     * Only return Sims with this EID..
      * 
-     * @param eId The e_id
+     * @param eId Only return Sims with this EID.
      * @return this
      */
     public SimReader setEId(final String eId) {
@@ -72,9 +72,9 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The sim_registration_code.
+     * Only return Sims with this registration code..
      * 
-     * @param simRegistrationCode The sim_registration_code
+     * @param simRegistrationCode Only return Sims with this registration code.
      * @return this
      */
     public SimReader setSimRegistrationCode(final String simRegistrationCode) {

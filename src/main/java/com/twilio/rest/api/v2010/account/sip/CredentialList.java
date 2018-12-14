@@ -38,7 +38,8 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @return CredentialListReader capable of executing the read
      */
     public static CredentialListReader reader(final String pathAccountSid) {
@@ -57,7 +58,8 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @param friendlyName Human readable descriptive text
      * @return CredentialListCreator capable of executing the create
      */
@@ -79,7 +81,8 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @param pathSid Fetch by unique credential list Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
@@ -101,8 +104,9 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathSid Update by unique credential list Sid
      * @param friendlyName Human readable descriptive text
      * @return CredentialListUpdater capable of executing the update
      */
@@ -115,7 +119,7 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid Update by unique credential list Sid
      * @param friendlyName Human readable descriptive text
      * @return CredentialListUpdater capable of executing the update
      */
@@ -127,7 +131,8 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @param pathSid Delete by unique credential list Sid
      * @return CredentialListDeleter capable of executing the delete
      */
@@ -262,9 +267,9 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The The list of credentials associated with this credential list..
      * 
-     * @return The subresource_uris
+     * @return The list of credentials associated with this credential list.
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

@@ -26,7 +26,8 @@ public class CredentialCreator extends Creator<Credential> {
     /**
      * Construct a new CredentialCreator.
      * 
-     * @param pathCredentialListSid The credential_list_sid
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list to include the created credential
      * @param username The username for this credential.
      * @param password The password will not be returned in the response.
      */
@@ -41,8 +42,10 @@ public class CredentialCreator extends Creator<Credential> {
     /**
      * Construct a new CredentialCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list to include the created credential
      * @param username The username for this credential.
      * @param password The password will not be returned in the response.
      */

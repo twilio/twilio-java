@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.authy.v1.service.entity;
+package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -17,52 +17,40 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class FactorCreator extends Creator<Factor> {
-    private final String pathServiceSid;
-    private final String pathIdentity;
-    private final String binding;
+public class TaskChannelCreator extends Creator<TaskChannel> {
+    private final String pathWorkspaceSid;
     private final String friendlyName;
-    private final Factor.FactorTypes factorType;
+    private final String uniqueName;
 
     /**
-     * Construct a new FactorCreator.
+     * Construct a new TaskChannelCreator.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param binding A unique binding for this Factor
-     * @param friendlyName The friendly name of this Factor
-     * @param factorType The Type of this Factor
+     * @param pathWorkspaceSid The workspace_sid
+     * @param friendlyName String representing user-friendly name for the
+     *                     TaskChannel
+     * @param uniqueName String representing unique name for the TaskChannel
      */
-    public FactorCreator(final String pathServiceSid, 
-                         final String pathIdentity, 
-                         final String binding, 
-                         final String friendlyName, 
-                         final Factor.FactorTypes factorType) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathIdentity = pathIdentity;
-        this.binding = binding;
+    public TaskChannelCreator(final String pathWorkspaceSid, 
+                              final String friendlyName, 
+                              final String uniqueName) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
-        this.factorType = factorType;
+        this.uniqueName = uniqueName;
     }
 
     /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Created Factor
+     * @return Created TaskChannel
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Factor create(final TwilioRestClient client) {
+    public TaskChannel create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors",
+            Domains.TASKROUTER.toString(),
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels",
             client.getRegion()
         );
 
@@ -70,7 +58,7 @@ public class FactorCreator extends Creator<Factor> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Factor creation failed: Unable to connect to server");
+            throw new ApiConnectionException("TaskChannel creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -86,7 +74,7 @@ public class FactorCreator extends Creator<Factor> {
             );
         }
 
-        return Factor.fromJson(response.getStream(), client.getObjectMapper());
+        return TaskChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -95,16 +83,12 @@ public class FactorCreator extends Creator<Factor> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (binding != null) {
-            request.addPostParam("Binding", binding);
-        }
-
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
 
-        if (factorType != null) {
-            request.addPostParam("FactorType", factorType.toString());
+        if (uniqueName != null) {
+            request.addPostParam("UniqueName", uniqueName);
         }
     }
 }

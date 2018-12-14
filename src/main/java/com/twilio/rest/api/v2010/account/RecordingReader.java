@@ -38,7 +38,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      */
     public RecordingReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
@@ -88,9 +88,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The conference_sid.
+     * The unique ID for the conference associated with the recording, if the
+     * recording is of a conference..
      * 
-     * @param conferenceSid The conference_sid
+     * @param conferenceSid The unique ID for the conference associated with the
+     *                      recording.
      * @return this
      */
     public RecordingReader setConferenceSid(final String conferenceSid) {

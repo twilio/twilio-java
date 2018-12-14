@@ -33,7 +33,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
     /**
      * Construct a new FeedbackFetcher.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathCallSid The call sid that uniquely identifies the call
      */
     public FeedbackFetcher(final String pathAccountSid, 

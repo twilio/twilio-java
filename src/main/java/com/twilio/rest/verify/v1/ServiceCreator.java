@@ -25,6 +25,9 @@ public class ServiceCreator extends Creator<Service> {
     private final String friendlyName;
     private Integer codeLength;
     private Boolean lookupEnabled;
+    private Boolean skipSmsToLandlines;
+    private Boolean dtmfInputRequired;
+    private String ttsName;
 
     /**
      * Construct a new ServiceCreator.
@@ -57,6 +60,44 @@ public class ServiceCreator extends Creator<Service> {
      */
     public ServiceCreator setLookupEnabled(final Boolean lookupEnabled) {
         this.lookupEnabled = lookupEnabled;
+        return this;
+    }
+
+    /**
+     * Boolean value that indicates whether or not to ignore SMS verifications for
+     * landlines, depends on lookup_enabled flag.
+     * 
+     * @param skipSmsToLandlines Indicates whether or not to ignore SMS
+     *                           verifications for landlines
+     * @return this
+     */
+    public ServiceCreator setSkipSmsToLandlines(final Boolean skipSmsToLandlines) {
+        this.skipSmsToLandlines = skipSmsToLandlines;
+        return this;
+    }
+
+    /**
+     * Boolean value that indicates whether or not to require a random number input
+     * to deliver the verify code via phone calls.
+     * 
+     * @param dtmfInputRequired Indicates whether or not to require a random number
+     *                          input to deliver the verify code via phone calls
+     * @return this
+     */
+    public ServiceCreator setDtmfInputRequired(final Boolean dtmfInputRequired) {
+        this.dtmfInputRequired = dtmfInputRequired;
+        return this;
+    }
+
+    /**
+     * Alternative to be used as Service friendly name in phone calls, only applies
+     * to TTS languages.
+     * 
+     * @param ttsName Alternative to be used as Service friendly name in phone calls
+     * @return this
+     */
+    public ServiceCreator setTtsName(final String ttsName) {
+        this.ttsName = ttsName;
         return this;
     }
 
@@ -115,6 +156,18 @@ public class ServiceCreator extends Creator<Service> {
 
         if (lookupEnabled != null) {
             request.addPostParam("LookupEnabled", lookupEnabled.toString());
+        }
+
+        if (skipSmsToLandlines != null) {
+            request.addPostParam("SkipSmsToLandlines", skipSmsToLandlines.toString());
+        }
+
+        if (dtmfInputRequired != null) {
+            request.addPostParam("DtmfInputRequired", dtmfInputRequired.toString());
+        }
+
+        if (ttsName != null) {
+            request.addPostParam("TtsName", ttsName);
         }
     }
 }

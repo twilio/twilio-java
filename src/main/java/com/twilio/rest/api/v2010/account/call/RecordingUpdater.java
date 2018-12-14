@@ -27,7 +27,7 @@ public class RecordingUpdater extends Updater<Recording> {
     /**
      * Construct a new RecordingUpdater.
      * 
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Fetch by unique call Sid for the recording
      * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
      *                of recording sid to reference current active recording)
      * @param status The status to change the recording to.
@@ -43,8 +43,8 @@ public class RecordingUpdater extends Updater<Recording> {
     /**
      * Construct a new RecordingUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid Fetch by unique call Sid for the recording
      * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
      *                of recording sid to reference current active recording)
      * @param status The status to change the recording to.

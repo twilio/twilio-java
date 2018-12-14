@@ -24,7 +24,8 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
     /**
      * Construct a new FeedbackSummaryDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      */
     public FeedbackSummaryDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +34,9 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
     /**
      * Construct a new FeedbackSummaryDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      */
     public FeedbackSummaryDeleter(final String pathAccountSid, 
                                   final String pathSid) {

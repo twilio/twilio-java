@@ -10,6 +10,7 @@ package com.twilio.rest.studio.v1.flow;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,9 +19,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class ExecutionReader extends Reader<Execution> {
     private final String pathFlowSid;
+    private DateTime dateCreatedFrom;
+    private DateTime dateCreatedTo;
 
     /**
      * Construct a new ExecutionReader.
@@ -29,6 +33,32 @@ public class ExecutionReader extends Reader<Execution> {
      */
     public ExecutionReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
+    }
+
+    /**
+     * Only show Executions that started on or after this ISO8601 date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * 
+     * @param dateCreatedFrom Only show Executions that started on or after this
+     *                        ISO8601 date-time.
+     * @return this
+     */
+    public ExecutionReader setDateCreatedFrom(final DateTime dateCreatedFrom) {
+        this.dateCreatedFrom = dateCreatedFrom;
+        return this;
+    }
+
+    /**
+     * Only show Executions that started before this this ISO8601 date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * 
+     * @param dateCreatedTo Only show Executions that started before this this
+     *                      ISO8601 date-time.
+     * @return this
+     */
+    public ExecutionReader setDateCreatedTo(final DateTime dateCreatedTo) {
+        this.dateCreatedTo = dateCreatedTo;
+        return this;
     }
 
     /**
@@ -161,6 +191,14 @@ public class ExecutionReader extends Reader<Execution> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (dateCreatedFrom != null) {
+            request.addQueryParam("DateCreatedFrom", dateCreatedFrom.toString());
+        }
+
+        if (dateCreatedTo != null) {
+            request.addQueryParam("DateCreatedTo", dateCreatedTo.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

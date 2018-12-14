@@ -33,7 +33,8 @@ public class CredentialListCreator extends Creator<CredentialList> {
     /**
      * Construct a new CredentialListCreator.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @param friendlyName Human readable descriptive text
      */
     public CredentialListCreator(final String pathAccountSid, 

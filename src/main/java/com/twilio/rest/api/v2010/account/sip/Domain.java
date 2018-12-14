@@ -39,7 +39,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @return DomainReader capable of executing the read
      */
     public static DomainReader reader(final String pathAccountSid) {
@@ -58,7 +58,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return DomainCreator capable of executing the create
      */
@@ -80,7 +80,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid Fetch by unique Domain Sid
      * @return DomainFetcher capable of executing the fetch
      */
@@ -102,8 +102,8 @@ public class Domain extends Resource {
     /**
      * Create a DomainUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid Fetch by unique Domain Sid
      * @return DomainUpdater capable of executing the update
      */
     public static DomainUpdater updater(final String pathAccountSid, 
@@ -114,7 +114,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid Fetch by unique Domain Sid
      * @return DomainUpdater capable of executing the update
      */
     public static DomainUpdater updater(final String pathSid) {
@@ -124,8 +124,9 @@ public class Domain extends Resource {
     /**
      * Create a DomainDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the account responsible for this
+     *                       domain
+     * @param pathSid A string that uniquely identifies the SIP Domain
      * @return DomainDeleter capable of executing the delete
      */
     public static DomainDeleter deleter(final String pathAccountSid, 
@@ -136,7 +137,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies the SIP Domain
      * @return DomainDeleter capable of executing the delete
      */
     public static DomainDeleter deleter(final String pathSid) {
@@ -253,9 +254,9 @@ public class Domain extends Resource {
     }
 
     /**
-     * Returns The The unique id of the account that sent the call.
+     * Returns The The unique id of the account responsible for this domain.
      * 
-     * @return The unique id of the account that sent the call
+     * @return The unique id of the account responsible for this domain
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -307,9 +308,9 @@ public class Domain extends Resource {
     }
 
     /**
-     * Returns The A user-specified, human-readable name for the trigger..
+     * Returns The A user-specified, human-readable name for the domain..
      * 
-     * @return A user-specified, human-readable name for the trigger.
+     * @return A user-specified, human-readable name for the domain.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -390,9 +391,9 @@ public class Domain extends Resource {
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The The list mapping resources associated with this resource..
      * 
-     * @return The subresource_uris
+     * @return The list mapping resources associated with this resource.
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

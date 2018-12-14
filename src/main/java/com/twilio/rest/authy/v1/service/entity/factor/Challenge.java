@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Challenge extends Resource {
-    private static final long serialVersionUID = 97589410773330L;
+    private static final long serialVersionUID = 218254684366686L;
 
     public enum ChallengeStatuses {
         PENDING("pending"),
@@ -235,7 +235,7 @@ public class Challenge extends Resource {
     private final Challenge.ChallengeReasons respondedReason;
     private final String details;
     private final String hiddenDetails;
-    private final Challenge.FactorTypes type;
+    private final Challenge.FactorTypes factorType;
     private final URI url;
 
     @JsonCreator
@@ -267,8 +267,8 @@ public class Challenge extends Resource {
                       final String details, 
                       @JsonProperty("hidden_details")
                       final String hiddenDetails, 
-                      @JsonProperty("type")
-                      final Challenge.FactorTypes type, 
+                      @JsonProperty("factor_type")
+                      final Challenge.FactorTypes factorType, 
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -285,7 +285,7 @@ public class Challenge extends Resource {
         this.respondedReason = respondedReason;
         this.details = details;
         this.hiddenDetails = hiddenDetails;
-        this.type = type;
+        this.factorType = factorType;
         this.url = url;
     }
 
@@ -416,12 +416,12 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The Type of this Challenge.
+     * Returns The The Factor Type of this Challenge.
      * 
-     * @return The Type of this Challenge
+     * @return The Factor Type of this Challenge
      */
-    public final Challenge.FactorTypes getType() {
-        return this.type;
+    public final Challenge.FactorTypes getFactorType() {
+        return this.factorType;
     }
 
     /**
@@ -459,7 +459,7 @@ public class Challenge extends Resource {
                Objects.equals(respondedReason, other.respondedReason) && 
                Objects.equals(details, other.details) && 
                Objects.equals(hiddenDetails, other.hiddenDetails) && 
-               Objects.equals(type, other.type) && 
+               Objects.equals(factorType, other.factorType) && 
                Objects.equals(url, other.url);
     }
 
@@ -479,7 +479,7 @@ public class Challenge extends Resource {
                             respondedReason,
                             details,
                             hiddenDetails,
-                            type,
+                            factorType,
                             url);
     }
 
@@ -500,7 +500,7 @@ public class Challenge extends Resource {
                           .add("respondedReason", respondedReason)
                           .add("details", details)
                           .add("hiddenDetails", hiddenDetails)
-                          .add("type", type)
+                          .add("factorType", factorType)
                           .add("url", url)
                           .toString();
     }

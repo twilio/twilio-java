@@ -25,8 +25,9 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
     /**
      * Construct a new CredentialListMappingFetcher.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathDomainSid A string that identifies the SIP Domain that includes
+     *                      the resource to fetch
+     * @param pathSid A string that identifies the resource to fetch
      */
     public CredentialListMappingFetcher(final String pathDomainSid, 
                                         final String pathSid) {
@@ -37,9 +38,10 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
     /**
      * Construct a new CredentialListMappingFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathDomainSid A string that identifies the SIP Domain that includes
+     *                      the resource to fetch
+     * @param pathSid A string that identifies the resource to fetch
      */
     public CredentialListMappingFetcher(final String pathAccountSid, 
                                         final String pathDomainSid, 

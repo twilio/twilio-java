@@ -57,7 +57,7 @@ public class Dial extends TwiML {
     public enum RecordingEvent {
         IN_PROGRESS("in-progress"),
         COMPLETED("completed"),
-        FAILED("failed");
+        ABSENT("absent");
 
         private final String value;
 

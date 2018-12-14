@@ -64,22 +64,6 @@ public class Pay extends TwiML {
         }
     }
 
-    public enum Currency {
-        USD("usd"),
-        EUR("eur"),
-        GBP("gbp");
-
-        private final String value;
-
-        private Currency(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-    }
-
     public enum ValidCardTypes {
         VISA("visa"),
         MASTERCARD("mastercard"),
@@ -141,7 +125,7 @@ public class Pay extends TwiML {
     private final String paymentConnector;
     private final Pay.TokenType tokenType;
     private final String chargeAmount;
-    private final Pay.Currency currency;
+    private final String currency;
     private final String description;
     private final List<Pay.ValidCardTypes> validCardTypes;
     private final Pay.Language language;
@@ -218,7 +202,7 @@ public class Pay extends TwiML {
             attrs.put("chargeAmount", this.getChargeAmount());
         }
         if (this.getCurrency() != null) {
-            attrs.put("currency", this.getCurrency().toString());
+            attrs.put("currency", this.getCurrency());
         }
         if (this.getDescription() != null) {
             attrs.put("description", this.getDescription());
@@ -340,7 +324,7 @@ public class Pay extends TwiML {
      * 
      * @return Currency of the amount attribute
      */
-    public Pay.Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
@@ -398,7 +382,7 @@ public class Pay extends TwiML {
         private String paymentConnector;
         private Pay.TokenType tokenType;
         private String chargeAmount;
-        private Pay.Currency currency;
+        private String currency;
         private String description;
         private List<Pay.ValidCardTypes> validCardTypes;
         private Pay.Language language;
@@ -511,7 +495,7 @@ public class Pay extends TwiML {
         /**
          * Currency of the amount attribute
          */
-        public Builder currency(Pay.Currency currency) {
+        public Builder currency(String currency) {
             this.currency = currency;
             return this;
         }

@@ -28,8 +28,10 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     /**
      * Construct a new IpAddressUpdater.
      * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   update
+     * @param pathSid A string that identifies the IpAddress resource to update
      */
     public IpAddressUpdater(final String pathIpAccessControlListSid, 
                             final String pathSid) {
@@ -40,9 +42,11 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     /**
      * Construct a new IpAddressUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   update
+     * @param pathSid A string that identifies the IpAddress resource to update
      */
     public IpAddressUpdater(final String pathAccountSid, 
                             final String pathIpAccessControlListSid, 
@@ -53,9 +57,14 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * The ip_address.
+     * An IP address in dotted decimal notation from which you want to accept
+     * traffic. Any SIP requests from this IP address will be allowed by Twilio.
+     * IPv4 only supported today..
      * 
-     * @param ipAddress The ip_address
+     * @param ipAddress An IP address in dotted decimal notation from which you
+     *                  want to accept traffic. Any SIP requests from this IP
+     *                  address will be allowed by Twilio. IPv4 only supported
+     *                  today.
      * @return this
      */
     public IpAddressUpdater setIpAddress(final String ipAddress) {
@@ -64,9 +73,11 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * The friendly_name.
+     * A human readable descriptive text for this resource, up to 64 characters
+     * long..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters long.
      * @return this
      */
     public IpAddressUpdater setFriendlyName(final String friendlyName) {
@@ -75,9 +86,12 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * The cidr_prefix_length.
+     * An integer representing the length of the CIDR prefix to use with this IP
+     * address when accepting traffic. By default the entire IP address is used..
      * 
-     * @param cidrPrefixLength The cidr_prefix_length
+     * @param cidrPrefixLength An integer representing the length of the CIDR
+     *                         prefix to use with this IP address when accepting
+     *                         traffic. By default the entire IP address is used.
      * @return this
      */
     public IpAddressUpdater setCidrPrefixLength(final Integer cidrPrefixLength) {

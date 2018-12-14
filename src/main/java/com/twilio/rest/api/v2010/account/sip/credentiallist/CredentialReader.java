@@ -26,7 +26,8 @@ public class CredentialReader extends Reader<Credential> {
     /**
      * Construct a new CredentialReader.
      * 
-     * @param pathCredentialListSid The credential_list_sid
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credentials
      */
     public CredentialReader(final String pathCredentialListSid) {
         this.pathCredentialListSid = pathCredentialListSid;
@@ -35,8 +36,10 @@ public class CredentialReader extends Reader<Credential> {
     /**
      * Construct a new CredentialReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credentials
      */
     public CredentialReader(final String pathAccountSid, 
                             final String pathCredentialListSid) {

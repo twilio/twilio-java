@@ -25,8 +25,10 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
     /**
      * Construct a new CredentialListMappingCreator.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid The credential_list_sid
+     * @param pathDomainSid A string that identifies the SIP Domain for which the
+     *                      CredentialList resource will be mapped
+     * @param credentialListSid A string that identifies the CredentialList
+     *                          resource to map to the SIP domain
      */
     public CredentialListMappingCreator(final String pathDomainSid, 
                                         final String credentialListSid) {
@@ -37,9 +39,11 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
     /**
      * Construct a new CredentialListMappingCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid The credential_list_sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathDomainSid A string that identifies the SIP Domain for which the
+     *                      CredentialList resource will be mapped
+     * @param credentialListSid A string that identifies the CredentialList
+     *                          resource to map to the SIP domain
      */
     public CredentialListMappingCreator(final String pathAccountSid, 
                                         final String pathDomainSid, 

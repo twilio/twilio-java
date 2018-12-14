@@ -33,7 +33,7 @@ public class RecordingDeleter extends Deleter<Recording> {
     /**
      * Construct a new RecordingDeleter.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid Delete by unique recording SID
      */
     public RecordingDeleter(final String pathAccountSid, 

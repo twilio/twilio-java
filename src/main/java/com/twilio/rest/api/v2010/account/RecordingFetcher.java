@@ -33,7 +33,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
     /**
      * Construct a new RecordingFetcher.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid Fetch by unique recording SID
      */
     public RecordingFetcher(final String pathAccountSid, 

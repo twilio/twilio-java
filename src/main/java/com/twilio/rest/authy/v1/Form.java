@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Form extends Resource {
-    private static final long serialVersionUID = 45745163572544L;
+    private static final long serialVersionUID = 262438037114282L;
 
     public enum FormTypes {
         FORM_APP_PUSH("form-app-push"),
@@ -70,11 +70,11 @@ public class Form extends Resource {
     /**
      * Create a FormFetcher to execute fetch.
      * 
-     * @param pathType The Type of this Form
+     * @param pathFormType The Type of this Form
      * @return FormFetcher capable of executing the fetch
      */
-    public static FormFetcher fetcher(final Form.FormTypes pathType) {
-        return new FormFetcher(pathType);
+    public static FormFetcher fetcher(final Form.FormTypes pathFormType) {
+        return new FormFetcher(pathFormType);
     }
 
     /**
@@ -114,21 +114,21 @@ public class Form extends Resource {
         }
     }
 
-    private final Form.FormTypes type;
+    private final Form.FormTypes formType;
     private final Map<String, Object> forms;
     private final Map<String, Object> formMeta;
     private final URI url;
 
     @JsonCreator
-    private Form(@JsonProperty("type")
-                 final Form.FormTypes type, 
+    private Form(@JsonProperty("form_type")
+                 final Form.FormTypes formType, 
                  @JsonProperty("forms")
                  final Map<String, Object> forms, 
                  @JsonProperty("form_meta")
                  final Map<String, Object> formMeta, 
                  @JsonProperty("url")
                  final URI url) {
-        this.type = type;
+        this.formType = formType;
         this.forms = forms;
         this.formMeta = formMeta;
         this.url = url;
@@ -139,8 +139,8 @@ public class Form extends Resource {
      * 
      * @return The Type of this Form
      */
-    public final Form.FormTypes getType() {
-        return this.type;
+    public final Form.FormTypes getFormType() {
+        return this.formType;
     }
 
     /**
@@ -182,7 +182,7 @@ public class Form extends Resource {
 
         Form other = (Form) o;
 
-        return Objects.equals(type, other.type) && 
+        return Objects.equals(formType, other.formType) && 
                Objects.equals(forms, other.forms) && 
                Objects.equals(formMeta, other.formMeta) && 
                Objects.equals(url, other.url);
@@ -190,7 +190,7 @@ public class Form extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(type,
+        return Objects.hash(formType,
                             forms,
                             formMeta,
                             url);
@@ -199,7 +199,7 @@ public class Form extends Resource {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("type", type)
+                          .add("formType", formType)
                           .add("forms", forms)
                           .add("formMeta", formMeta)
                           .add("url", url)

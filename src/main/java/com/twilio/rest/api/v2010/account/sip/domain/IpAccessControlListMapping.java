@@ -38,9 +38,11 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param pathSid A 34 character string that uniquely identifies the resource
+     *                to fetch.
      * @return IpAccessControlListMappingFetcher capable of executing the fetch
      */
     public static IpAccessControlListMappingFetcher fetcher(final String pathAccountSid, 
@@ -52,8 +54,9 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingFetcher to execute fetch.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param pathSid A 34 character string that uniquely identifies the resource
+     *                to fetch.
      * @return IpAccessControlListMappingFetcher capable of executing the fetch
      */
     public static IpAccessControlListMappingFetcher fetcher(final String pathDomainSid, 
@@ -64,9 +67,11 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param ipAccessControlListSid The unique id of the IP access control list to
+     *                               map to the SIP domain
      * @return IpAccessControlListMappingCreator capable of executing the create
      */
     public static IpAccessControlListMappingCreator creator(final String pathAccountSid, 
@@ -78,8 +83,9 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingCreator to execute create.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param ipAccessControlListSid The ip_access_control_list_sid
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param ipAccessControlListSid The unique id of the IP access control list to
+     *                               map to the SIP domain
      * @return IpAccessControlListMappingCreator capable of executing the create
      */
     public static IpAccessControlListMappingCreator creator(final String pathDomainSid, 
@@ -90,8 +96,9 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
      * @return IpAccessControlListMappingReader capable of executing the read
      */
     public static IpAccessControlListMappingReader reader(final String pathAccountSid, 
@@ -102,7 +109,7 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingReader to execute read.
      * 
-     * @param pathDomainSid The domain_sid
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
      * @return IpAccessControlListMappingReader capable of executing the read
      */
     public static IpAccessControlListMappingReader reader(final String pathDomainSid) {
@@ -112,9 +119,11 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param pathSid A 34 character string that uniquely identifies the resource
+     *                to delete.
      * @return IpAccessControlListMappingDeleter capable of executing the delete
      */
     public static IpAccessControlListMappingDeleter deleter(final String pathAccountSid, 
@@ -126,8 +135,9 @@ public class IpAccessControlListMapping extends Resource {
     /**
      * Create a IpAccessControlListMappingDeleter to execute delete.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param pathSid A 34 character string that uniquely identifies the resource
+     *                to delete.
      * @return IpAccessControlListMappingDeleter capable of executing the delete
      */
     public static IpAccessControlListMappingDeleter deleter(final String pathDomainSid, 
@@ -206,9 +216,10 @@ public class IpAccessControlListMapping extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account that responsible for this resource..
+     * Returns The The unique id of the Account that is responsible for this
+     * resource..
      * 
-     * @return The unique id of the Account that responsible for this resource.
+     * @return The unique id of the Account that is responsible for this resource.
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -266,9 +277,9 @@ public class IpAccessControlListMapping extends Resource {
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The The list of IP addresses associated with this domain..
      * 
-     * @return The subresource_uris
+     * @return The list of IP addresses associated with this domain.
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

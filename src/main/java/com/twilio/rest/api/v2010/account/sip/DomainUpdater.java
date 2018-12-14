@@ -23,7 +23,6 @@ import java.net.URI;
 public class DomainUpdater extends Updater<Domain> {
     private String pathAccountSid;
     private final String pathSid;
-    private String authType;
     private String friendlyName;
     private HttpMethod voiceFallbackMethod;
     private URI voiceFallbackUrl;
@@ -32,11 +31,12 @@ public class DomainUpdater extends Updater<Domain> {
     private URI voiceStatusCallbackUrl;
     private URI voiceUrl;
     private Boolean sipRegistration;
+    private String domainName;
 
     /**
      * Construct a new DomainUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid Fetch by unique Domain Sid
      */
     public DomainUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -45,8 +45,8 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * Construct a new DomainUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid Fetch by unique Domain Sid
      */
     public DomainUpdater(final String pathAccountSid, 
                          final String pathSid) {
@@ -55,20 +55,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The auth_type.
+     * A human readable descriptive text, up to 64 characters long..
      * 
-     * @param authType The auth_type
-     * @return this
-     */
-    public DomainUpdater setAuthType(final String authType) {
-        this.authType = authType;
-        return this;
-    }
-
-    /**
-     * A user-specified, human-readable name for the trigger..
-     * 
-     * @param friendlyName A user-specified, human-readable name for the trigger.
+     * @param friendlyName A user-specified, human-readable name for the domain.
      * @return this
      */
     public DomainUpdater setFriendlyName(final String friendlyName) {
@@ -77,9 +66,10 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_method.
+     * The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either
+     * `GET` or `POST`..
      * 
-     * @param voiceFallbackMethod The voice_fallback_method
+     * @param voiceFallbackMethod HTTP method used with voice_fallback_url
      * @return this
      */
     public DomainUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -88,9 +78,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_url.
+     * The URL that Twilio will request if an error occurs retrieving or executing
+     * the TwiML requested by VoiceUrl..
      * 
-     * @param voiceFallbackUrl The voice_fallback_url
+     * @param voiceFallbackUrl URL Twilio will request if an error occurs in
+     *                         executing TwiML
      * @return this
      */
     public DomainUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
@@ -99,9 +91,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_url.
+     * The URL that Twilio will request if an error occurs retrieving or executing
+     * the TwiML requested by VoiceUrl..
      * 
-     * @param voiceFallbackUrl The voice_fallback_url
+     * @param voiceFallbackUrl URL Twilio will request if an error occurs in
+     *                         executing TwiML
      * @return this
      */
     public DomainUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
@@ -120,9 +114,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_method.
+     * The HTTP method Twilio will use to make requests to the StatusCallback URL.
+     * Either `GET` or `POST`..
      * 
-     * @param voiceStatusCallbackMethod The voice_status_callback_method
+     * @param voiceStatusCallbackMethod The HTTP method Twilio will use to make
+     *                                  requests to the StatusCallback URL.
      * @return this
      */
     public DomainUpdater setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {
@@ -131,9 +127,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_url.
+     * The URL that Twilio will request to pass status parameters (such as call
+     * ended) to your application..
      * 
-     * @param voiceStatusCallbackUrl The voice_status_callback_url
+     * @param voiceStatusCallbackUrl URL that Twilio will request with status
+     *                               updates
      * @return this
      */
     public DomainUpdater setVoiceStatusCallbackUrl(final URI voiceStatusCallbackUrl) {
@@ -142,9 +140,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_url.
+     * The URL that Twilio will request to pass status parameters (such as call
+     * ended) to your application..
      * 
-     * @param voiceStatusCallbackUrl The voice_status_callback_url
+     * @param voiceStatusCallbackUrl URL that Twilio will request with status
+     *                               updates
      * @return this
      */
     public DomainUpdater setVoiceStatusCallbackUrl(final String voiceStatusCallbackUrl) {
@@ -152,9 +152,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_url.
+     * The URL Twilio will request when this domain receives a call..
      * 
-     * @param voiceUrl The voice_url
+     * @param voiceUrl URL Twilio will request when receiving a call
      * @return this
      */
     public DomainUpdater setVoiceUrl(final URI voiceUrl) {
@@ -163,9 +163,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_url.
+     * The URL Twilio will request when this domain receives a call..
      * 
-     * @param voiceUrl The voice_url
+     * @param voiceUrl URL Twilio will request when receiving a call
      * @return this
      */
     public DomainUpdater setVoiceUrl(final String voiceUrl) {
@@ -173,13 +173,26 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The sip_registration.
+     * This boolean can be enabled to allow SIP Endpoints to register with this
+     * domain to receive calls..
      * 
-     * @param sipRegistration The sip_registration
+     * @param sipRegistration If SIP registration is allowed
      * @return this
      */
     public DomainUpdater setSipRegistration(final Boolean sipRegistration) {
         this.sipRegistration = sipRegistration;
+        return this;
+    }
+
+    /**
+     * The unique address you reserve on Twilio to which you route your SIP traffic.
+     * Domain names can contain letters, digits, and "-"..
+     * 
+     * @param domainName The unique address on Twilio to route SIP traffic
+     * @return this
+     */
+    public DomainUpdater setDomainName(final String domainName) {
+        this.domainName = domainName;
         return this;
     }
 
@@ -229,10 +242,6 @@ public class DomainUpdater extends Updater<Domain> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (authType != null) {
-            request.addPostParam("AuthType", authType);
-        }
-
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
@@ -263,6 +272,10 @@ public class DomainUpdater extends Updater<Domain> {
 
         if (sipRegistration != null) {
             request.addPostParam("SipRegistration", sipRegistration.toString());
+        }
+
+        if (domainName != null) {
+            request.addPostParam("DomainName", domainName);
         }
     }
 }

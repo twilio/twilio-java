@@ -13,6 +13,8 @@ import com.twilio.twiml.TwiML;
 
 import java.net.URI;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +36,22 @@ public class Record extends TwiML {
         }
     }
 
+    public enum RecordingEvent {
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        ABSENT("absent");
+
+        private final String value;
+
+        private RecordingEvent(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final URI action;
     private final HttpMethod method;
     private final Integer timeout;
@@ -43,6 +61,7 @@ public class Record extends TwiML {
     private final Record.Trim trim;
     private final URI recordingStatusCallback;
     private final HttpMethod recordingStatusCallbackMethod;
+    private final List<Record.RecordingEvent> recordingStatusCallbackEvent;
     private final Boolean transcribe;
     private final URI transcribeCallback;
 
@@ -67,6 +86,7 @@ public class Record extends TwiML {
         this.trim = b.trim;
         this.recordingStatusCallback = b.recordingStatusCallback;
         this.recordingStatusCallbackMethod = b.recordingStatusCallbackMethod;
+        this.recordingStatusCallbackEvent = b.recordingStatusCallbackEvent;
         this.transcribe = b.transcribe;
         this.transcribeCallback = b.transcribeCallback;
     }
@@ -106,6 +126,9 @@ public class Record extends TwiML {
         }
         if (this.getRecordingStatusCallbackMethod() != null) {
             attrs.put("recordingStatusCallbackMethod", this.getRecordingStatusCallbackMethod().toString());
+        }
+        if (this.getRecordingStatusCallbackEvents() != null) {
+            attrs.put("recordingStatusCallbackEvent", this.getRecordingStatusCallbackEventsAsString());
         }
         if (this.isTranscribe() != null) {
             attrs.put("transcribe", this.isTranscribe().toString());
@@ -199,6 +222,27 @@ public class Record extends TwiML {
     }
 
     /**
+     * Recording status callback events
+     * 
+     * @return Recording status callback events
+     */
+    public List<Record.RecordingEvent> getRecordingStatusCallbackEvents() {
+        return recordingStatusCallbackEvent;
+    }
+
+    protected String getRecordingStatusCallbackEventsAsString() {
+        StringBuilder sb = new StringBuilder();
+        Iterator<Record.RecordingEvent> iter = this.getRecordingStatusCallbackEvents().iterator();
+        while (iter.hasNext()) {
+            sb.append(iter.next().toString());
+            if (iter.hasNext()) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
      * Transcribe the recording
      * 
      * @return Transcribe the recording
@@ -229,6 +273,7 @@ public class Record extends TwiML {
         private Record.Trim trim;
         private URI recordingStatusCallback;
         private HttpMethod recordingStatusCallbackMethod;
+        private List<Record.RecordingEvent> recordingStatusCallbackEvent;
         private Boolean transcribe;
         private URI transcribeCallback;
 
@@ -317,6 +362,22 @@ public class Record extends TwiML {
          */
         public Builder recordingStatusCallbackMethod(HttpMethod recordingStatusCallbackMethod) {
             this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
+            return this;
+        }
+
+        /**
+         * Recording status callback events
+         */
+        public Builder recordingStatusCallbackEvents(List<Record.RecordingEvent> recordingStatusCallbackEvent) {
+            this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
+            return this;
+        }
+
+        /**
+         * Recording status callback events
+         */
+        public Builder recordingStatusCallbackEvents(Record.RecordingEvent recordingStatusCallbackEvent) {
+            this.recordingStatusCallbackEvent = Promoter.listOfOne(recordingStatusCallbackEvent);
             return this;
         }
 

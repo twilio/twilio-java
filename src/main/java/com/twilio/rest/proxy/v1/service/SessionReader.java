@@ -49,10 +49,9 @@ public class SessionReader extends Reader<Session> {
     }
 
     /**
-     * The Status of this Session. One of `in-progress`, `closed`, `failed`,
-     * `unknown`..
+     * The status.
      * 
-     * @param status The Status of this Session
+     * @param status The status
      * @return this
      */
     public SessionReader setStatus(final Session.Status status) {

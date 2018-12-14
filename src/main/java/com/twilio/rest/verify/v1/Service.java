@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 263367154121834L;
+    private static final long serialVersionUID = 206392011345600L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -131,6 +131,9 @@ public class Service extends Resource {
     private final String friendlyName;
     private final Integer codeLength;
     private final Boolean lookupEnabled;
+    private final Boolean skipSmsToLandlines;
+    private final Boolean dtmfInputRequired;
+    private final String ttsName;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -147,6 +150,12 @@ public class Service extends Resource {
                     final Integer codeLength, 
                     @JsonProperty("lookup_enabled")
                     final Boolean lookupEnabled, 
+                    @JsonProperty("skip_sms_to_landlines")
+                    final Boolean skipSmsToLandlines, 
+                    @JsonProperty("dtmf_input_required")
+                    final Boolean dtmfInputRequired, 
+                    @JsonProperty("tts_name")
+                    final String ttsName, 
                     @JsonProperty("date_created")
                     final String dateCreated, 
                     @JsonProperty("date_updated")
@@ -160,6 +169,9 @@ public class Service extends Resource {
         this.friendlyName = friendlyName;
         this.codeLength = codeLength;
         this.lookupEnabled = lookupEnabled;
+        this.skipSmsToLandlines = skipSmsToLandlines;
+        this.dtmfInputRequired = dtmfInputRequired;
+        this.ttsName = ttsName;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -211,6 +223,36 @@ public class Service extends Resource {
      */
     public final Boolean getLookupEnabled() {
         return this.lookupEnabled;
+    }
+
+    /**
+     * Returns The Indicates whether or not to ignore SMS verifications for
+     * landlines.
+     * 
+     * @return Indicates whether or not to ignore SMS verifications for landlines
+     */
+    public final Boolean getSkipSmsToLandlines() {
+        return this.skipSmsToLandlines;
+    }
+
+    /**
+     * Returns The Indicates whether or not to require a random number input to
+     * deliver the verify code via phone calls.
+     * 
+     * @return Indicates whether or not to require a random number input to deliver
+     *         the verify code via phone calls
+     */
+    public final Boolean getDtmfInputRequired() {
+        return this.dtmfInputRequired;
+    }
+
+    /**
+     * Returns The Alternative to be used as Service friendly name in phone calls.
+     * 
+     * @return Alternative to be used as Service friendly name in phone calls
+     */
+    public final String getTtsName() {
+        return this.ttsName;
     }
 
     /**
@@ -266,6 +308,9 @@ public class Service extends Resource {
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(codeLength, other.codeLength) && 
                Objects.equals(lookupEnabled, other.lookupEnabled) && 
+               Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) && 
+               Objects.equals(dtmfInputRequired, other.dtmfInputRequired) && 
+               Objects.equals(ttsName, other.ttsName) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(url, other.url) && 
@@ -279,6 +324,9 @@ public class Service extends Resource {
                             friendlyName,
                             codeLength,
                             lookupEnabled,
+                            skipSmsToLandlines,
+                            dtmfInputRequired,
+                            ttsName,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -293,6 +341,9 @@ public class Service extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("codeLength", codeLength)
                           .add("lookupEnabled", lookupEnabled)
+                          .add("skipSmsToLandlines", skipSmsToLandlines)
+                          .add("dtmfInputRequired", dtmfInputRequired)
+                          .add("ttsName", ttsName)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

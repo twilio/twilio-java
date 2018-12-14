@@ -71,9 +71,9 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      * @return FeedbackCreator capable of executing the create
      */
     public static FeedbackCreator creator(final String pathAccountSid, 
@@ -85,8 +85,8 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackCreator to execute create.
      * 
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      * @return FeedbackCreator capable of executing the create
      */
     public static FeedbackCreator creator(final String pathCallSid, 
@@ -97,7 +97,7 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathCallSid The call sid that uniquely identifies the call
      * @return FeedbackFetcher capable of executing the fetch
      */
@@ -119,9 +119,9 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
     public static FeedbackUpdater updater(final String pathAccountSid, 
@@ -133,8 +133,8 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackUpdater to execute update.
      * 
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
     public static FeedbackUpdater updater(final String pathCallSid, 
@@ -209,36 +209,36 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The unique sid that identifies this account.
      * 
-     * @return The account_sid
+     * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this resource was created.
      * 
-     * @return The date_created
+     * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The issues.
+     * Returns The Issues experienced during the call.
      * 
-     * @return The issues
+     * @return Issues experienced during the call
      */
     public final List<Feedback.Issues> getIssues() {
         return this.issues;
@@ -254,9 +254,9 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A string that uniquely identifies this feedback resource.
      * 
-     * @return The sid
+     * @return A string that uniquely identifies this feedback resource
      */
     public final String getSid() {
         return this.sid;

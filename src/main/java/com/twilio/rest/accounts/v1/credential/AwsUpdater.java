@@ -24,16 +24,16 @@ public class AwsUpdater extends Updater<Aws> {
     /**
      * Construct a new AwsUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid Fetch by unique Credential Sid
      */
     public AwsUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The friendly_name.
+     * A human readable description of this resource, up to 64 characters..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human readable description of this resource
      * @return this
      */
     public AwsUpdater setFriendlyName(final String friendlyName) {

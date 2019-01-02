@@ -48,7 +48,8 @@ public class Aws extends Resource {
     /**
      * Create a AwsCreator to execute create.
      * 
-     * @param credentials The credentials
+     * @param credentials String containing AWS access credentials with format
+     *                    &lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;
      * @return AwsCreator capable of executing the create
      */
     public static AwsCreator creator(final String credentials) {
@@ -58,7 +59,7 @@ public class Aws extends Resource {
     /**
      * Create a AwsFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid Fetch by unique Credential Sid
      * @return AwsFetcher capable of executing the fetch
      */
     public static AwsFetcher fetcher(final String pathSid) {
@@ -68,7 +69,7 @@ public class Aws extends Resource {
     /**
      * Create a AwsUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid Fetch by unique Credential Sid
      * @return AwsUpdater capable of executing the update
      */
     public static AwsUpdater updater(final String pathSid) {
@@ -78,7 +79,7 @@ public class Aws extends Resource {
     /**
      * Create a AwsDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return AwsDeleter capable of executing the delete
      */
     public static AwsDeleter deleter(final String pathSid) {
@@ -151,54 +152,55 @@ public class Aws extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The AccountSid the Credential resource belongs to.
      * 
-     * @return The account_sid
+     * @return AccountSid the Credential resource belongs to
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human readable description of this resource.
      * 
-     * @return The friendly_name
+     * @return A human readable description of this resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date this resource was created.
      * 
-     * @return The date_created
+     * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date this resource was last updated.
      * 
-     * @return The date_updated
+     * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URI for this resource, relative to
+     * `https://accounts.twilio.com`.
      * 
-     * @return The url
+     * @return The URI for this resource, relative to `https://accounts.twilio.com`
      */
     public final URI getUrl() {
         return this.url;

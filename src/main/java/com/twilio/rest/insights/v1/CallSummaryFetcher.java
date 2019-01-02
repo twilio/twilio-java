@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.accounts.v1.credential;
+package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,38 +17,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AwsFetcher extends Fetcher<Aws> {
-    private final String pathSid;
+/**
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
+ */
+public class CallSummaryFetcher extends Fetcher<CallSummary> {
+    private final String pathCallSid;
 
     /**
-     * Construct a new AwsFetcher.
+     * Construct a new CallSummaryFetcher.
      * 
-     * @param pathSid Fetch by unique Credential Sid
+     * @param pathCallSid The call_sid
      */
-    public AwsFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public CallSummaryFetcher(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Aws
+     * @return Fetched CallSummary
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Aws fetch(final TwilioRestClient client) {
+    public CallSummary fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS/" + this.pathSid + "",
+            Domains.INSIGHTS.toString(),
+            "/v1/Voice/" + this.pathCallSid + "/Summary",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Aws fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("CallSummary fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -64,6 +69,6 @@ public class AwsFetcher extends Fetcher<Aws> {
             );
         }
 
-        return Aws.fromJson(response.getStream(), client.getObjectMapper());
+        return CallSummary.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

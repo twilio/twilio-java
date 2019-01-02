@@ -23,7 +23,7 @@ public class AwsDeleter extends Deleter<Aws> {
     /**
      * Construct a new AwsDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public AwsDeleter(final String pathSid) {
         this.pathSid = pathSid;

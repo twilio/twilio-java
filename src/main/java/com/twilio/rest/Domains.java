@@ -29,7 +29,8 @@ public enum Domains {
     SYNC("sync"),
     STUDIO("studio"),
     VERIFY("verify"),
-    VOICE("voice");
+    VOICE("voice"),
+    INSIGHTS("insights");
 
     private final String value;
 

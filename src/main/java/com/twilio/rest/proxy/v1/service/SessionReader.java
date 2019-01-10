@@ -25,8 +25,6 @@ import com.twilio.rest.Domains;
  */
 public class SessionReader extends Reader<Session> {
     private final String pathServiceSid;
-    private String uniqueName;
-    private Session.Status status;
 
     /**
      * Construct a new SessionReader.
@@ -35,28 +33,6 @@ public class SessionReader extends Reader<Session> {
      */
     public SessionReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
-    }
-
-    /**
-     * The unique_name.
-     * 
-     * @param uniqueName The unique_name
-     * @return this
-     */
-    public SessionReader setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
-
-    /**
-     * The status.
-     * 
-     * @param status The status
-     * @return this
-     */
-    public SessionReader setStatus(final Session.Status status) {
-        this.status = status;
-        return this;
     }
 
     /**
@@ -189,14 +165,6 @@ public class SessionReader extends Reader<Session> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (uniqueName != null) {
-            request.addQueryParam("UniqueName", uniqueName);
-        }
-
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

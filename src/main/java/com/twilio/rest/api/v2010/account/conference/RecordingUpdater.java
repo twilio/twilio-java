@@ -27,10 +27,9 @@ public class RecordingUpdater extends Updater<Recording> {
     /**
      * Construct a new RecordingUpdater.
      * 
-     * @param pathConferenceSid The conference_sid
-     * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
-     *                of recording sid to reference current active recording)
-     * @param status The status to change the recording to.
+     * @param pathConferenceSid Update by unique Conference SID for the recording
+     * @param pathSid The unique string that identifies this resource
+     * @param status The new status of the resource
      */
     public RecordingUpdater(final String pathConferenceSid, 
                             final String pathSid, 
@@ -43,11 +42,11 @@ public class RecordingUpdater extends Updater<Recording> {
     /**
      * Construct a new RecordingUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathConferenceSid The conference_sid
-     * @param pathSid The recording sid to update. (or use 'Twilio.CURRENT' instead
-     *                of recording sid to reference current active recording)
-     * @param status The status to change the recording to.
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathConferenceSid Update by unique Conference SID for the recording
+     * @param pathSid The unique string that identifies this resource
+     * @param status The new status of the resource
      */
     public RecordingUpdater(final String pathAccountSid, 
                             final String pathConferenceSid, 
@@ -60,12 +59,13 @@ public class RecordingUpdater extends Updater<Recording> {
     }
 
     /**
-     * Only applicable when setting Status parameter to `paused`. Possible values:
-     * `skip` or `silence`. `skip` will result in no recording at all during the
-     * pause period. `silence` will replace the actual audio of the call with
-     * silence during the pause period.  Defaults to `silence`.
+     * Whether to record during a pause. Can be: `skip` or `silence` and the default
+     * is `silence`.  `skip` does not record during the pause period, while
+     * `silence` will replace the actual audio of the call with silence during the
+     * pause period. This parameter only applies when setting `status` is set to
+     * `paused`..
      * 
-     * @param pauseBehavior Whether to record or not during the pause period.
+     * @param pauseBehavior Whether to record during a pause
      * @return this
      */
     public RecordingUpdater setPauseBehavior(final String pauseBehavior) {

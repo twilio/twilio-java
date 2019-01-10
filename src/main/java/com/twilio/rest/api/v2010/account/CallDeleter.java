@@ -24,7 +24,7 @@ public class CallDeleter extends Deleter<Call> {
     /**
      * Construct a new CallDeleter.
      * 
-     * @param pathSid Call Sid that uniquely identifies the Call to delete
+     * @param pathSid The unique string that identifies this resource
      */
     public CallDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class CallDeleter extends Deleter<Call> {
     /**
      * Construct a new CallDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Call Sid that uniquely identifies the Call to delete
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       delete
+     * @param pathSid The unique string that identifies this resource
      */
     public CallDeleter(final String pathAccountSid, 
                        final String pathSid) {

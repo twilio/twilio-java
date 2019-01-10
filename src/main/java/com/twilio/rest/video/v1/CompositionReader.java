@@ -44,11 +44,11 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Only show Compositions that started on or after this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Compositions created on or after this ISO8601 date-time with
+     * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
      * 
-     * @param dateCreatedAfter Only show Compositions that started on or after this
-     *                         ISO8601 date-time.
+     * @param dateCreatedAfter Only show Compositions created on or after this
+     *                         ISO8601 date-time with timezone.
      * @return this
      */
     public CompositionReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -57,11 +57,11 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Only show Compositions that started before this this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Compositions created before this ISO8601 date-time with timezone,
+     * given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
      * 
-     * @param dateCreatedBefore Only show Compositions that started before this
-     *                          this ISO8601 date-time.
+     * @param dateCreatedBefore Only show Compositions created before this ISO8601
+     *                          date-time with timezone.
      * @return this
      */
     public CompositionReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

@@ -23,7 +23,8 @@ public class TrunkDeleter extends Deleter<Trunk> {
     /**
      * Construct a new TrunkDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
+     *                in Twilio.
      */
     public TrunkDeleter(final String pathSid) {
         this.pathSid = pathSid;

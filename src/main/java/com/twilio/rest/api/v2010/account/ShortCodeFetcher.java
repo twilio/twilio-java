@@ -24,7 +24,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
     /**
      * Construct a new ShortCodeFetcher.
      * 
-     * @param pathSid Fetch by unique short-code Sid
+     * @param pathSid The unique string that identifies this resource
      */
     public ShortCodeFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
     /**
      * Construct a new ShortCodeFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique short-code Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      */
     public ShortCodeFetcher(final String pathAccountSid, 
                             final String pathSid) {

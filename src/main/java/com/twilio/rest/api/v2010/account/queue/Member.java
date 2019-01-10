@@ -39,9 +39,10 @@ public class Member extends Resource {
     /**
      * Create a MemberFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
      * @param pathQueueSid The Queue in which to find the members
-     * @param pathCallSid The call_sid
+     * @param pathCallSid The Call SID of the resource(s) to fetch
      * @return MemberFetcher capable of executing the fetch
      */
     public static MemberFetcher fetcher(final String pathAccountSid, 
@@ -54,7 +55,7 @@ public class Member extends Resource {
      * Create a MemberFetcher to execute fetch.
      * 
      * @param pathQueueSid The Queue in which to find the members
-     * @param pathCallSid The call_sid
+     * @param pathCallSid The Call SID of the resource(s) to fetch
      * @return MemberFetcher capable of executing the fetch
      */
     public static MemberFetcher fetcher(final String pathQueueSid, 
@@ -65,11 +66,12 @@ public class Member extends Resource {
     /**
      * Create a MemberUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
      * @param pathQueueSid The Queue in which to find the members
-     * @param pathCallSid The call_sid
-     * @param url The url
-     * @param method The method
+     * @param pathCallSid The Call SID of the resource(s) to update
+     * @param url The absolute URL of this Queue resource
+     * @param method How to pass the update request data
      * @return MemberUpdater capable of executing the update
      */
     public static MemberUpdater updater(final String pathAccountSid, 
@@ -84,9 +86,9 @@ public class Member extends Resource {
      * Create a MemberUpdater to execute update.
      * 
      * @param pathQueueSid The Queue in which to find the members
-     * @param pathCallSid The call_sid
-     * @param url The url
-     * @param method The method
+     * @param pathCallSid The Call SID of the resource(s) to update
+     * @param url The absolute URL of this Queue resource
+     * @param method How to pass the update request data
      * @return MemberUpdater capable of executing the update
      */
     public static MemberUpdater updater(final String pathQueueSid, 
@@ -99,7 +101,8 @@ public class Member extends Resource {
     /**
      * Create a MemberReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      * @param pathQueueSid The Queue in which to find members
      * @return MemberReader capable of executing the read
      */
@@ -180,9 +183,9 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The Unique string that identifies this resource.
+     * Returns The The SID of the Call this resource is associated with.
      * 
-     * @return Unique string that identifies this resource
+     * @return The SID of the Call this resource is associated with
      */
     public final String getCallSid() {
         return this.callSid;
@@ -207,9 +210,9 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
      * 
-     * @return The uri
+     * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

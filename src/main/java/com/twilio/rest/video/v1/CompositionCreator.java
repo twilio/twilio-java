@@ -66,6 +66,7 @@ public class CompositionCreator extends Creator<Composition> {
     /**
      * An array of audio sources to merge. All the specified sources must belong to
      * the same Group Room. It can include: 
+     * 
      * * Zero or more `RecordingTrackSid`
      * * Zero or more `MediaTrackSid`
      * * Zero or more `ParticipantSid`
@@ -84,6 +85,7 @@ public class CompositionCreator extends Creator<Composition> {
     /**
      * An array of audio sources to merge. All the specified sources must belong to
      * the same Group Room. It can include: 
+     * 
      * * Zero or more `RecordingTrackSid`
      * * Zero or more `MediaTrackSid`
      * * Zero or more `ParticipantSid`
@@ -103,6 +105,7 @@ public class CompositionCreator extends Creator<Composition> {
      * Composition shall include all audio sources specified in `AudioSources`
      * except for the ones specified in `AudioSourcesExcluded`. This parameter may
      * include: 
+     * 
      * * Zero or more `RecordingTrackSid`
      * * Zero or more `MediaTrackSid`
      * * Zero or more `ParticipantSid`
@@ -123,6 +126,7 @@ public class CompositionCreator extends Creator<Composition> {
      * Composition shall include all audio sources specified in `AudioSources`
      * except for the ones specified in `AudioSourcesExcluded`. This parameter may
      * include: 
+     * 
      * * Zero or more `RecordingTrackSid`
      * * Zero or more `MediaTrackSid`
      * * Zero or more `ParticipantSid`
@@ -138,18 +142,22 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * A string representing the numbers of pixels for rows (width) and columns
+     * A string representing the number of pixels for rows (width) and columns
      * (height) of the generated composed video. This string must have the format
      * `{width}x{height}`. This parameter must comply with the following
      * constraints: 
+     * 
      * * `width &gt;= 16 &amp;&amp; width &lt;= 1280`
      * * `height &gt;= 16 &amp;&amp; height &lt;= 1280`
      * * `width * height &lt;= 921,600`
+     * 
      * Typical values are: 
+     * 
      * * HD = `1280x720`
      * * PAL = `1024x576`
      * * VGA = `640x480`
      * * CIF = `320x240`
+     * 
      * Note that the `Resolution` implicitly imposes an aspect ratio to the
      * resulting composition. When the original video tracks get constrained by this
      * aspect ratio they are scaled-down to fit. You can find detailed information

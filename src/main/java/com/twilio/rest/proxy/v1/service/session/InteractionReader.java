@@ -26,8 +26,6 @@ import com.twilio.rest.Domains;
 public class InteractionReader extends Reader<Interaction> {
     private final String pathServiceSid;
     private final String pathSessionSid;
-    private Interaction.ResourceStatus inboundParticipantStatus;
-    private Interaction.ResourceStatus outboundParticipantStatus;
 
     /**
      * Construct a new InteractionReader.
@@ -39,28 +37,6 @@ public class InteractionReader extends Reader<Interaction> {
                              final String pathSessionSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
-    }
-
-    /**
-     * The inbound_participant_status.
-     * 
-     * @param inboundParticipantStatus The inbound_participant_status
-     * @return this
-     */
-    public InteractionReader setInboundParticipantStatus(final Interaction.ResourceStatus inboundParticipantStatus) {
-        this.inboundParticipantStatus = inboundParticipantStatus;
-        return this;
-    }
-
-    /**
-     * The outbound_participant_status.
-     * 
-     * @param outboundParticipantStatus The outbound_participant_status
-     * @return this
-     */
-    public InteractionReader setOutboundParticipantStatus(final Interaction.ResourceStatus outboundParticipantStatus) {
-        this.outboundParticipantStatus = outboundParticipantStatus;
-        return this;
     }
 
     /**
@@ -193,14 +169,6 @@ public class InteractionReader extends Reader<Interaction> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (inboundParticipantStatus != null) {
-            request.addQueryParam("InboundParticipantStatus", inboundParticipantStatus.toString());
-        }
-
-        if (outboundParticipantStatus != null) {
-            request.addQueryParam("OutboundParticipantStatus", outboundParticipantStatus.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

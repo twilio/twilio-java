@@ -36,7 +36,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
     }
 
     /**
-     * The unique and addressable name of this Stream. Optional, up to 256
+     * The unique and addressable name of this Stream. Optional, up to 320
      * characters long..
      * 
      * @param uniqueName Stream unique name.

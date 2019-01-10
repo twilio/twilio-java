@@ -108,9 +108,9 @@ public class BulkCountryUpdate extends Resource {
     }
 
     /**
-     * Returns The The update_request.
+     * Returns The A URL encoded JSON array of update objects.
      * 
-     * @return The update_request
+     * @return A URL encoded JSON array of update objects
      */
     public final String getUpdateRequest() {
         return this.updateRequest;

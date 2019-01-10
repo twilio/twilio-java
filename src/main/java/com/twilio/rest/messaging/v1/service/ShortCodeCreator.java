@@ -28,9 +28,8 @@ public class ShortCodeCreator extends Creator<ShortCode> {
     /**
      * Construct a new ShortCodeCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param shortCodeSid ShortCodeSid for the Shortcode being added to the
-     *                     Service.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param shortCodeSid SID of the ShortCode being added to the Service.
      */
     public ShortCodeCreator(final String pathServiceSid, 
                             final String shortCodeSid) {

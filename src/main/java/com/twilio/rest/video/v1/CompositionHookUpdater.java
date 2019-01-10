@@ -44,8 +44,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     /**
      * Construct a new CompositionHookUpdater.
      * 
-     * @param pathSid A 34-character string that uniquely identifies this
-     *                Composition Hook.
+     * @param pathSid A 34-character string that uniquely identifies the
+     *                Composition Hook to update, specified as a path parameter.
      * @param friendlyName Friendly name of the Composition Hook to be shown in the
      *                     console.
      */
@@ -56,11 +56,12 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * When activated, the Composition Hook is enabled and a composition will be
-     * triggered for every Video room completed by this account from this point
-     * onwards; `false` indicates the Composition Hook is left inactive..
+     * Boolean flag indicating if the Composition Hook is active. Possible values
+     * are `true` or `false`. When `true`, the Composition Hook will be triggered
+     * for every completed Group Room on this account. When `false`, the Composition
+     * Hook never triggers..
      * 
-     * @param enabled Boolean flag for activating the Composition Hook.
+     * @param enabled Boolean flag indicating if the Composition Hook is active.
      * @return this
      */
     public CompositionHookUpdater setEnabled(final Boolean enabled) {
@@ -83,10 +84,10 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
 
     /**
      * An array of audio sources to merge. All the specified sources must belong to
-     * the same Group Room. It can include: 
-     * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`). The use of `[*]` has semantics "all if any" meaning zero or more
-     * (i.e. all) depending on whether the Group Room had audio tracks..
+     * the same Group Room. It can include zero or more Track names. These can be
+     * specified using wildcards (e.g. `student*`). The use of `[*]` has semantics
+     * "all if any" meaning zero or more (i.e. all) depending on whether the Group
+     * Room had audio tracks..
      * 
      * @param audioSources A list of audio sources related to this Composition Hook.
      * @return this
@@ -98,10 +99,10 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
 
     /**
      * An array of audio sources to merge. All the specified sources must belong to
-     * the same Group Room. It can include: 
-     * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`). The use of `[*]` has semantics "all if any" meaning zero or more
-     * (i.e. all) depending on whether the Group Room had audio tracks..
+     * the same Group Room. It can include zero or more Track names. These can be
+     * specified using wildcards (e.g. `student*`). The use of `[*]` has semantics
+     * "all if any" meaning zero or more (i.e. all) depending on whether the Group
+     * Room had audio tracks..
      * 
      * @param audioSources A list of audio sources related to this Composition Hook.
      * @return this
@@ -114,9 +115,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
      * An array of audio sources to exclude from the Composition Hook. Any new
      * Composition triggered by the Composition Hook shall include all audio sources
      * specified in `AudioSources` except for the ones specified in
-     * `AudioSourcesExcluded`. This parameter may include: 
-     * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`).
+     * `AudioSourcesExcluded`. This parameter may include zero or more Track names.
+     * These can be specified using wildcards (e.g. `student*`)..
      * 
      * @param audioSourcesExcluded A list of audio sources excluded related to this
      *                             Composition Hook.
@@ -131,9 +131,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
      * An array of audio sources to exclude from the Composition Hook. Any new
      * Composition triggered by the Composition Hook shall include all audio sources
      * specified in `AudioSources` except for the ones specified in
-     * `AudioSourcesExcluded`. This parameter may include: 
-     * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`).
+     * `AudioSourcesExcluded`. This parameter may include zero or more Track names.
+     * These can be specified using wildcards (e.g. `student*`)..
      * 
      * @param audioSourcesExcluded A list of audio sources excluded related to this
      *                             Composition Hook.
@@ -177,18 +176,12 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * A string representing the numbers of pixels for rows (width) and columns
+     * A string representing the number of pixels for rows (width) and columns
      * (height) of the generated composed video. This string must have the format
      * `{width}x{height}`. This parameter must comply with the following
-     * constraints: 
-     * * `width &gt;= 16 &amp;&amp; width &lt;= 1280`
-     * * `height &gt;= 16 &amp;&amp; height &lt;= 1280`
-     * * `width * height &lt;= 921,600`
-     * Typical values are: 
-     * * HD = `1280x720`
-     * * PAL = `1024x576`
-     * * VGA = `640x480`
-     * * CIF = `320x240`
+     * constraints: `width &gt;= 16 &amp;&amp; width &lt;= 1280`, `height &gt;= 16
+     * &amp;&amp; height &lt;= 1280`, `width * height &lt;= 921,600`. Typical values
+     * are: HD = `1280x720`, PAL = `1024x576`, VGA = `640x480`, CIF = `320x240`.
      * Note that the `Resolution` implicitly imposes an aspect ratio to the
      * resulting composition. When the original video tracks get constrained by this
      * aspect ratio they are scaled-down to fit. You can find detailed information

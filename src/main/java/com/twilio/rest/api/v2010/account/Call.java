@@ -127,10 +127,10 @@ public class Call extends Resource {
     /**
      * Create a CallCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that will create the resource
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
-     * @param url Url from which to fetch TwiML
+     * @param url The absolute URL that returns TwiML for this call
      * @return CallCreator capable of executing the create
      */
     public static CallCreator creator(final String pathAccountSid, 
@@ -145,7 +145,7 @@ public class Call extends Resource {
      * 
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
-     * @param url Url from which to fetch TwiML
+     * @param url The absolute URL that returns TwiML for this call
      * @return CallCreator capable of executing the create
      */
     public static CallCreator creator(final com.twilio.type.Endpoint to, 
@@ -157,11 +157,11 @@ public class Call extends Resource {
     /**
      * Create a CallCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that will create the resource
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
-     * @param applicationSid ApplicationSid that configures from where to fetch
-     *                       TwiML
+     * @param applicationSid The SID of the Application resource that will handle
+     *                       the call
      * @return CallCreator capable of executing the create
      */
     public static CallCreator creator(final String pathAccountSid, 
@@ -176,8 +176,8 @@ public class Call extends Resource {
      * 
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
-     * @param applicationSid ApplicationSid that configures from where to fetch
-     *                       TwiML
+     * @param applicationSid The SID of the Application resource that will handle
+     *                       the call
      * @return CallCreator capable of executing the create
      */
     public static CallCreator creator(final com.twilio.type.Endpoint to, 
@@ -189,8 +189,9 @@ public class Call extends Resource {
     /**
      * Create a CallDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Call Sid that uniquely identifies the Call to delete
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       delete
+     * @param pathSid The unique string that identifies this resource
      * @return CallDeleter capable of executing the delete
      */
     public static CallDeleter deleter(final String pathAccountSid, 
@@ -201,7 +202,7 @@ public class Call extends Resource {
     /**
      * Create a CallDeleter to execute delete.
      * 
-     * @param pathSid Call Sid that uniquely identifies the Call to delete
+     * @param pathSid The unique string that identifies this resource
      * @return CallDeleter capable of executing the delete
      */
     public static CallDeleter deleter(final String pathSid) {
@@ -211,8 +212,9 @@ public class Call extends Resource {
     /**
      * Create a CallFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Call Sid that uniquely identifies the Call to fetch
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      * @return CallFetcher capable of executing the fetch
      */
     public static CallFetcher fetcher(final String pathAccountSid, 
@@ -223,7 +225,7 @@ public class Call extends Resource {
     /**
      * Create a CallFetcher to execute fetch.
      * 
-     * @param pathSid Call Sid that uniquely identifies the Call to fetch
+     * @param pathSid The unique string that identifies this resource
      * @return CallFetcher capable of executing the fetch
      */
     public static CallFetcher fetcher(final String pathSid) {
@@ -233,7 +235,8 @@ public class Call extends Resource {
     /**
      * Create a CallReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      * @return CallReader capable of executing the read
      */
     public static CallReader reader(final String pathAccountSid) {
@@ -252,8 +255,9 @@ public class Call extends Resource {
     /**
      * Create a CallUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Call Sid that uniquely identifies the Call to update
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathSid The unique string that identifies this resource
      * @return CallUpdater capable of executing the update
      */
     public static CallUpdater updater(final String pathAccountSid, 
@@ -264,7 +268,7 @@ public class Call extends Resource {
     /**
      * Create a CallUpdater to execute update.
      * 
-     * @param pathSid Call Sid that uniquely identifies the Call to update
+     * @param pathSid The unique string that identifies this resource
      * @return CallUpdater capable of executing the update
      */
     public static CallUpdater updater(final String pathSid) {
@@ -414,28 +418,28 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for creating this Call.
+     * Returns The The SID of the Account that created this resource.
      * 
-     * @return The unique id of the Account responsible for creating this Call
+     * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The annotation provided for the Call.
+     * Returns The The annotation provided for the call.
      * 
-     * @return The annotation provided for the Call
+     * @return The annotation provided for the call
      */
     public final String getAnnotation() {
         return this.annotation;
     }
 
     /**
-     * Returns The Either `human` or `machine` if this Call was initiated with
+     * Returns The Either `human` or `machine` if this call was initiated with
      * answering machine detection. Empty otherwise..
      * 
-     * @return Either `human` or `machine` if this Call was initiated with
+     * @return Either `human` or `machine` if this call was initiated with
      *         answering machine detection. Empty otherwise.
      */
     public final String getAnsweredBy() {
@@ -443,49 +447,50 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The API Version used to create the Call.
+     * Returns The The API Version used to create the call.
      * 
-     * @return The API Version used to create the Call
+     * @return The API Version used to create the call
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The caller's name if this Call was an incoming call to a phone
-     * number with Caller ID Lookup enabled. Empty otherwise..
+     * Returns The The caller's name if this call was an incoming call to a phone
+     * number with caller ID Lookup enabled. Otherwise, empty..
      * 
-     * @return The caller's name if this Call was an incoming call to a phone
-     *         number with Caller ID Lookup enabled. Empty otherwise.
+     * @return The caller's name if this call was an incoming call to a phone
+     *         number with caller ID Lookup enabled. Otherwise, empty.
      */
     public final String getCallerName() {
         return this.callerName;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that this resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A string describing the direction of the Call. `inbound` for
+     * Returns The A string describing the direction of the call. `inbound` for
      * inbound calls, `outbound-api` for calls initiated via the REST API or
      * `outbound-dial` for calls initiated by a `Dial` verb..
      * 
-     * @return A string describing the direction of the Call. `inbound` for inbound
+     * @return A string describing the direction of the call. `inbound` for inbound
      *         calls, `outbound-api` for calls initiated via the REST API or
      *         `outbound-dial` for calls initiated by a `Dial` verb.
      */
@@ -494,19 +499,19 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The length of the Call in seconds..
+     * Returns The The length of the call in seconds..
      * 
-     * @return The length of the Call in seconds.
+     * @return The length of the call in seconds.
      */
     public final String getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The end time of the Call. Null if the call did not complete
+     * Returns The The end time of the call. Null if the call did not complete
      * successfully..
      * 
-     * @return The end time of the Call. Null if the call did not complete
+     * @return The end time of the call. Null if the call did not complete
      *         successfully.
      */
     public final DateTime getEndTime() {
@@ -514,13 +519,13 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The forwarding phone number if this Call was an incoming call
+     * Returns The The forwarding phone number if this call was an incoming call
      * forwarded from another number (depends on carrier supporting forwarding).
-     * Empty otherwise..
+     * Otherwise, empty..
      * 
-     * @return The forwarding phone number if this Call was an incoming call
+     * @return The forwarding phone number if this call was an incoming call
      *         forwarded from another number (depends on carrier supporting
-     *         forwarding). Empty otherwise.
+     *         forwarding). Otherwise, empty.
      */
     public final String getForwardedFrom() {
         return this.forwardedFrom;
@@ -528,12 +533,12 @@ public class Call extends Resource {
 
     /**
      * Returns The The phone number, SIP address or Client identifier that made this
-     * Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses
+     * call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses
      * are formatted as `name@company.com`. Client identifiers are formatted
      * `client:name`..
      * 
      * @return The phone number, SIP address or Client identifier that made this
-     *         Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
+     *         call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
      *         addresses are formatted as `name@company.com`. Client identifiers are
      *         formatted `client:name`.
      */
@@ -542,58 +547,56 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The phone number, SIP address or Client identifier that made this
-     * Call. Formatted for display..
+     * Returns The The calling phone number, SIP address, or Client identifier
+     * formatted for display..
      * 
-     * @return The phone number, SIP address or Client identifier that made this
-     *         Call. Formatted for display.
+     * @return The calling phone number, SIP address, or Client identifier
+     *         formatted for display.
      */
     public final String getFromFormatted() {
         return this.fromFormatted;
     }
 
     /**
-     * Returns The A 34-character Group Sid associated with this Call. Empty if no
-     * Group is associated with the Call..
+     * Returns The The Group SID associated with this call. If no Group is
+     * associated with the call, the field is empty..
      * 
-     * @return A 34-character Group Sid associated with this Call. Empty if no
-     *         Group is associated with the Call.
+     * @return The Group SID associated with this call. If no Group is associated
+     *         with the call, the field is empty.
      */
     public final String getGroupSid() {
         return this.groupSid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies the Call that
-     * created this leg..
+     * Returns The The SID that identifies the call that created this leg..
      * 
-     * @return A 34-character string that uniquely identifies the Call that created
-     *         this leg.
+     * @return The SID that identifies the call that created this leg.
      */
     public final String getParentCallSid() {
         return this.parentCallSid;
     }
 
     /**
-     * Returns The If the call was inbound, this is the Sid of the
-     * `IncomingPhoneNumber` that received the call. If the call was outbound, it is
-     * the Sid of the `OutgoingCallerId` from which the call was placed..
+     * Returns The If the call was inbound, this is the SID of the
+     * IncomingPhoneNumber resource that received the call. If the call was
+     * outbound, it is the SID of the OutgoingCallerId resource from which the call
+     * was placed..
      * 
-     * @return If the call was inbound, this is the Sid of the
-     *         `IncomingPhoneNumber` that received the call. If the call was
-     *         outbound, it is the Sid of the `OutgoingCallerId` from which the call
-     *         was placed.
+     * @return If the call was inbound, this is the SID of the IncomingPhoneNumber
+     *         resource that received the call. If the call was outbound, it is the
+     *         SID of the OutgoingCallerId resource from which the call was placed.
      */
     public final String getPhoneNumberSid() {
         return this.phoneNumberSid;
     }
 
     /**
-     * Returns The The charge for this Call, in the currency associated with the
+     * Returns The The charge for this call, in the currency associated with the
      * account. Populated after the call is completed. May not be immediately
      * available..
      * 
-     * @return The charge for this Call, in the currency associated with the
+     * @return The charge for this call, in the currency associated with the
      *         account. Populated after the call is completed. May not be
      *         immediately available.
      */
@@ -611,38 +614,37 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies the Call
-     * resource..
+     * Returns The The unique string that identifies this resource.
      * 
-     * @return A 34-character string that uniquely identifies the Call resource.
+     * @return The unique string that identifies this resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The start time of the Call. Null if the call has not yet been
+     * Returns The The start time of the call. Null if the call has not yet been
      * dialed..
      * 
-     * @return The start time of the Call. Null if the call has not yet been dialed.
+     * @return The start time of the call. Null if the call has not yet been dialed.
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The A string representing the status of the Call..
+     * Returns The The status of this call..
      * 
-     * @return A string representing the status of the Call.
+     * @return The status of this call.
      */
     public final Call.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The Call Instance Subresources.
+     * Returns The A list of related subresources identified by their relative URIs.
      * 
-     * @return Call Instance Subresources
+     * @return A list of related subresources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;
@@ -650,12 +652,12 @@ public class Call extends Resource {
 
     /**
      * Returns The The phone number, SIP address or Client identifier that received
-     * this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
+     * this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
      * addresses are formatted as `name@company.com`. Client identifiers are
      * formatted `client:name`..
      * 
      * @return The phone number, SIP address or Client identifier that received
-     *         this Call. Phone numbers are in E.164 format (e.g., +16175551212).
+     *         this call. Phone numbers are in E.164 format (e.g., +16175551212).
      *         SIP addresses are formatted as `name@company.com`. Client identifiers
      *         are formatted `client:name`.
      */
@@ -665,19 +667,19 @@ public class Call extends Resource {
 
     /**
      * Returns The The phone number, SIP address or Client identifier that received
-     * this Call. Formatted for display..
+     * this call. Formatted for display..
      * 
      * @return The phone number, SIP address or Client identifier that received
-     *         this Call. Formatted for display.
+     *         this call. Formatted for display.
      */
     public final String getToFormatted() {
         return this.toFormatted;
     }
 
     /**
-     * Returns The The URI for this resource, relative to `https://api.twilio.com`.
+     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource, relative to `https://api.twilio.com`
+     * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trunk extends Resource {
-    private static final long serialVersionUID = 237038422793901L;
+    private static final long serialVersionUID = 232614357517076L;
 
     public enum RecordingSetting {
         DO_NOT_RECORD("do-not-record"),
@@ -68,7 +68,8 @@ public class Trunk extends Resource {
     /**
      * Create a TrunkFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
+     *                in Twilio.
      * @return TrunkFetcher capable of executing the fetch
      */
     public static TrunkFetcher fetcher(final String pathSid) {
@@ -78,7 +79,8 @@ public class Trunk extends Resource {
     /**
      * Create a TrunkDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
+     *                in Twilio.
      * @return TrunkDeleter capable of executing the delete
      */
     public static TrunkDeleter deleter(final String pathSid) {
@@ -106,7 +108,8 @@ public class Trunk extends Resource {
     /**
      * Create a TrunkUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
+     *                in Twilio.
      * @return TrunkUpdater capable of executing the update
      */
     public static TrunkUpdater updater(final String pathSid) {

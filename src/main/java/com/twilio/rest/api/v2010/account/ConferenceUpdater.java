@@ -30,7 +30,7 @@ public class ConferenceUpdater extends Updater<Conference> {
     /**
      * Construct a new ConferenceUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies this resource
      */
     public ConferenceUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -39,8 +39,9 @@ public class ConferenceUpdater extends Updater<Conference> {
     /**
      * Construct a new ConferenceUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathSid The unique string that identifies this resource
      */
     public ConferenceUpdater(final String pathAccountSid, 
                              final String pathSid) {
@@ -49,10 +50,11 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * Specifying `completed` will end the conference and kick all participants.
+     * The new status of the resource. Can be:  Can be: `init`, `in-progress`, or
+     * `completed`. Specifying `completed` will end the conference and hang up all
+     * participants.
      * 
-     * @param status Specifying completed will end the conference and kick all
-     *               participants
+     * @param status The new status of the resource
      * @return this
      */
     public ConferenceUpdater setStatus(final Conference.UpdateStatus status) {
@@ -61,12 +63,12 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * The 'AnnounceUrl' attribute lets you specify a URL for announcing something
-     * into a conference. The URL may return an MP3, a WAV or a TwiML document with
-     * `&lt;Play&gt;` or `&lt;Say&gt;`..
+     * The URL we should call to announce something into the conference. The URL can
+     * return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
+     * `&lt;Say&gt;`..
      * 
-     * @param announceUrl The 'AnnounceUrl' attribute lets you specify a URL for
-     *                    announcing something into a conference.
+     * @param announceUrl The URL we should call to announce something into the
+     *                    conference
      * @return this
      */
     public ConferenceUpdater setAnnounceUrl(final URI announceUrl) {
@@ -75,12 +77,12 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * The 'AnnounceUrl' attribute lets you specify a URL for announcing something
-     * into a conference. The URL may return an MP3, a WAV or a TwiML document with
-     * `&lt;Play&gt;` or `&lt;Say&gt;`..
+     * The URL we should call to announce something into the conference. The URL can
+     * return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
+     * `&lt;Say&gt;`..
      * 
-     * @param announceUrl The 'AnnounceUrl' attribute lets you specify a URL for
-     *                    announcing something into a conference.
+     * @param announceUrl The URL we should call to announce something into the
+     *                    conference
      * @return this
      */
     public ConferenceUpdater setAnnounceUrl(final String announceUrl) {
@@ -88,9 +90,10 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * Specify GET or POST, defaults to POST.
+     * The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the
+     * default is `POST`.
      * 
-     * @param announceMethod Specify GET or POST, defaults to POST
+     * @param announceMethod he HTTP method used to call announce_url
      * @return this
      */
     public ConferenceUpdater setAnnounceMethod(final HttpMethod announceMethod) {

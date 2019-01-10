@@ -31,7 +31,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathCallSid Read by unique call Sid for the recording
+     * @param pathCallSid The Call SID of the resource(s) to read
      */
     public RecordingReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -40,8 +40,9 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathCallSid Read by unique call Sid for the recording
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
+     * @param pathCallSid The Call SID of the resource(s) to read
      */
     public RecordingReader(final String pathAccountSid, 
                            final String pathCallSid) {
@@ -50,13 +51,12 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings created on the given date. Should be formatted as
-     * `YYYY-MM-DD`. You can also specify inequality, such as
-     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
-     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
-     * after midnight on a date..
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality, such as `&lt;=YYYY-MM-DD` for
+     * recordings generated at or before midnight on a date, and `&gt;=YYYY-MM-DD`
+     * for recordings generated at or after midnight on a date..
      * 
-     * @param absoluteDateCreated Filter by date created
+     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public RecordingReader setDateCreated(final LocalDate absoluteDateCreated) {
@@ -66,13 +66,12 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings created on the given date. Should be formatted as
-     * `YYYY-MM-DD`. You can also specify inequality, such as
-     * `DateCreated&lt;=YYYY-MM-DD` for recordings generated at or before midnight
-     * on a date, and `DateCreated&gt;=YYYY-MM-DD` for recordings generated at or
-     * after midnight on a date..
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality, such as `&lt;=YYYY-MM-DD` for
+     * recordings generated at or before midnight on a date, and `&gt;=YYYY-MM-DD`
+     * for recordings generated at or after midnight on a date..
      * 
-     * @param rangeDateCreated Filter by date created
+     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public RecordingReader setDateCreated(final Range<LocalDate> rangeDateCreated) {

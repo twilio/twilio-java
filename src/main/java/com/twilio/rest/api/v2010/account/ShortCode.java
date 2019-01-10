@@ -39,8 +39,9 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique short-code Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      * @return ShortCodeFetcher capable of executing the fetch
      */
     public static ShortCodeFetcher fetcher(final String pathAccountSid, 
@@ -51,7 +52,7 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique short-code Sid
+     * @param pathSid The unique string that identifies this resource
      * @return ShortCodeFetcher capable of executing the fetch
      */
     public static ShortCodeFetcher fetcher(final String pathSid) {
@@ -61,8 +62,9 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathSid The unique string that identifies this resource
      * @return ShortCodeUpdater capable of executing the update
      */
     public static ShortCodeUpdater updater(final String pathAccountSid, 
@@ -73,7 +75,7 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies this resource
      * @return ShortCodeUpdater capable of executing the update
      */
     public static ShortCodeUpdater updater(final String pathSid) {
@@ -83,7 +85,8 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      * @return ShortCodeReader capable of executing the read
      */
     public static ShortCodeReader reader(final String pathAccountSid) {
@@ -190,45 +193,46 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created this resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The API version to use.
+     * Returns The The API version used to start a new TwiML session.
      * 
-     * @return The API version to use
+     * @return The API version used to start a new TwiML session
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that this resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human readable description of this resource.
+     * Returns The A string that you assigned to describe this resource.
      * 
-     * @return A human readable description of this resource
+     * @return A string that you assigned to describe this resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -244,18 +248,18 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this short-codes.
+     * Returns The The unique string that identifies this resource.
      * 
-     * @return A string that uniquely identifies this short-codes
+     * @return The unique string that identifies this resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The HTTP method Twilio will use with sms fallback url.
+     * Returns The HTTP method we use to call the sms_fallback_url.
      * 
-     * @return HTTP method Twilio will use with sms fallback url
+     * @return HTTP method we use to call the sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
@@ -280,18 +284,19 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The URL Twilio will request when receiving an SMS.
+     * Returns The URL we call when receiving an incoming SMS message to this short
+     * code.
      * 
-     * @return URL Twilio will request when receiving an SMS
+     * @return URL we call when receiving an incoming SMS message to this short code
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

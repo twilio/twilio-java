@@ -42,11 +42,11 @@ public class Session extends Resource {
     private static final long serialVersionUID = 199644364043028L;
 
     public enum Status {
+        OPEN("open"),
         IN_PROGRESS("in-progress"),
         CLOSED("closed"),
         FAILED("failed"),
-        UNKNOWN("unknown"),
-        COMPLETED("completed");
+        UNKNOWN("unknown");
 
         private final String value;
 

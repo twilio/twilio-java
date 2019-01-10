@@ -173,62 +173,49 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The true, if dialing to low-risk numbers is enabled, else false.
+     * Returns The `true`, if dialing to low-risk numbers is enabled, else `false`.
      * 
-     * @return true, if dialing to low-risk numbers is enabled, else false
+     * @return `true`, if dialing to low-risk numbers is enabled, else `false`
      */
     public final Boolean getLowRiskNumbersEnabled() {
         return this.lowRiskNumbersEnabled;
     }
 
     /**
-     * Returns The true, if dialing to high-risk special services numbers is
-     * enabled, else false. This group of prefixes, are number ranges allocated by
-     * the corresponding country. They consist of number types such as premium
-     * numbers, special services, shared cost and others.
+     * Returns The `true`, if dialing to high-risk special services numbers is
+     * enabled, else `false`.
      * 
-     * @return true, if dialing to high-risk special services numbers is enabled,
-     *         else false. This group of prefixes, are number ranges allocated by
-     *         the corresponding country. They consist of number types such as
-     *         premium numbers, special services, shared cost and others
+     * @return `true`, if dialing to high-risk special services numbers is enabled,
+     *         else `false`
      */
     public final Boolean getHighRiskSpecialNumbersEnabled() {
         return this.highRiskSpecialNumbersEnabled;
     }
 
     /**
-     * Returns The true, if dialing to high-risk toll fraud numbers is enabled, else
-     * false. This group of prefixes are narrow number ranges that have a high-risk
-     * of international revenue sharing fraud (IRSF) attacks also called toll fraud.
-     * The group of prefixes is formed through integration with anti-fraud databases
-     * and verified by analyzing calls on the Twilio Super Network. This group of
-     * prefixes are not available for download and are updated frequently.
+     * Returns The `true`, if dialing to high-risk toll fraud numbers is enabled,
+     * else `false`.
      * 
-     * @return true, if dialing to high-risk toll fraud numbers is enabled, else
-     *         false. This group of prefixes are narrow number ranges that have a
-     *         high-risk of international revenue sharing fraud (IRSF) attacks also
-     *         called toll fraud. The group of prefixes is formed through
-     *         integration with anti-fraud databases and verified by analyzing calls
-     *         on the Twilio Super Network. This group of prefixes are not available
-     *         for download and are updated frequently
+     * @return `true`, if dialing to high-risk toll fraud numbers is enabled, else
+     *         `false`
      */
     public final Boolean getHighRiskTollfraudNumbersEnabled() {
         return this.highRiskTollfraudNumbersEnabled;
     }
 
     /**
-     * Returns The The URL for this resource.
+     * Returns The The absolute URL of this resource.
      * 
-     * @return The URL for this resource
+     * @return The absolute URL of this resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The A list of URLs related to this resource.
      * 
-     * @return The links
+     * @return A list of URLs related to this resource
      */
     public final Map<String, String> getLinks() {
         return this.links;

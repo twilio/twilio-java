@@ -114,8 +114,8 @@ public class CompositionHook extends Resource {
     /**
      * Create a CompositionHookUpdater to execute update.
      * 
-     * @param pathSid A 34-character string that uniquely identifies this
-     *                Composition Hook.
+     * @param pathSid A 34-character string that uniquely identifies the
+     *                Composition Hook to update, specified as a path parameter.
      * @param friendlyName Friendly name of the Composition Hook to be shown in the
      *                     console.
      * @return CompositionHookUpdater capable of executing the update
@@ -247,9 +247,9 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The Boolean flag for activating the Composition Hook..
+     * Returns The Boolean flag indicating if the Composition Hook is active..
      * 
-     * @return Boolean flag for activating the Composition Hook.
+     * @return Boolean flag indicating if the Composition Hook is active.
      */
     public final Boolean getEnabled() {
         return this.enabled;
@@ -341,18 +341,20 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The status_callback.
+     * Returns The A URL that Twilio sends asynchronous webhook requests to on every
+     * composition event..
      * 
-     * @return The status_callback
+     * @return A URL that Twilio sends asynchronous webhook requests to on every
+     *         composition event.
      */
     public final String getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The The status_callback_method.
+     * Returns The HTTP method Twilio should use when requesting the above URL..
      * 
-     * @return The status_callback_method
+     * @return HTTP method Twilio should use when requesting the above URL.
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;

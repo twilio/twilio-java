@@ -25,8 +25,9 @@ public class MediaDeleter extends Deleter<Media> {
     /**
      * Construct a new MediaDeleter.
      * 
-     * @param pathMessageSid The message_sid
-     * @param pathSid Delete by unique media Sid
+     * @param pathMessageSid The SID of the Message resource that this Media
+     *                       resource belongs to
+     * @param pathSid The unique string that identifies this resource
      */
     public MediaDeleter(final String pathMessageSid, 
                         final String pathSid) {
@@ -37,9 +38,11 @@ public class MediaDeleter extends Deleter<Media> {
     /**
      * Construct a new MediaDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathMessageSid The message_sid
-     * @param pathSid Delete by unique media Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       delete
+     * @param pathMessageSid The SID of the Message resource that this Media
+     *                       resource belongs to
+     * @param pathSid The unique string that identifies this resource
      */
     public MediaDeleter(final String pathAccountSid, 
                         final String pathMessageSid, 

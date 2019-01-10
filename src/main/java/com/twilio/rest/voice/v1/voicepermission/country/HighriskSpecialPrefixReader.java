@@ -30,7 +30,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
     /**
      * Construct a new HighriskSpecialPrefixReader.
      * 
-     * @param pathIsoCode The ISO country code
+     * @param pathIsoCode The ISO 3166-1 country code
      */
     public HighriskSpecialPrefixReader(final String pathIsoCode) {
         this.pathIsoCode = pathIsoCode;

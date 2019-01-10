@@ -35,7 +35,8 @@ public class MemberReader extends Reader<Member> {
     /**
      * Construct a new MemberReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      * @param pathQueueSid The Queue in which to find members
      */
     public MemberReader(final String pathAccountSid, 

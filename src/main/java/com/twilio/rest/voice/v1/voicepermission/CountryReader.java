@@ -61,7 +61,7 @@ public class CountryReader extends Reader<Country> {
      * Filter the results by specified [country
      * codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html).
      * 
-     * @param countryCode country codes
+     * @param countryCode Country code filter
      * @return this
      */
     public CountryReader setCountryCode(final String countryCode) {
@@ -71,11 +71,10 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Filter to retrieve the country permissions with dialing to low-risk numbers
-     * enabled set to true / false.
+     * enabled. Can be: `true` or `false`..
      * 
      * @param lowRiskNumbersEnabled Filter to retrieve the country permissions with
-     *                              dialing to low-risk numbers enabled set to true
-     *                              / false
+     *                              dialing to low-risk numbers enabled
      * @return this
      */
     public CountryReader setLowRiskNumbersEnabled(final Boolean lowRiskNumbersEnabled) {
@@ -85,12 +84,11 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Filter to retrieve the country permissions with dialing to high-risk special
-     * service numbers enabled set to true / false.
+     * service numbers enabled. Can be: `true` or `false`.
      * 
      * @param highRiskSpecialNumbersEnabled Filter to retrieve the country
      *                                      permissions with dialing to high-risk
-     *                                      special service numbers enabled set to
-     *                                      true / false
+     *                                      special service numbers enabled
      * @return this
      */
     public CountryReader setHighRiskSpecialNumbersEnabled(final Boolean highRiskSpecialNumbersEnabled) {
@@ -101,12 +99,11 @@ public class CountryReader extends Reader<Country> {
     /**
      * Filter to retrieve the country permissions with dialing to high-risk [toll
      * fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers
-     * enabled set to true / false.
+     * enabled. Can be: `true` or `false`..
      * 
      * @param highRiskTollfraudNumbersEnabled Filter to retrieve the country
      *                                        permissions with dialing to high-risk
-     *                                        toll fraud numbers enabled set to true
-     *                                        / false
+     *                                        toll fraud numbers enabled
      * @return this
      */
     public CountryReader setHighRiskTollfraudNumbersEnabled(final Boolean highRiskTollfraudNumbersEnabled) {

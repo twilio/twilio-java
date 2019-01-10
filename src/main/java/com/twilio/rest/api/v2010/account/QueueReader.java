@@ -31,7 +31,8 @@ public class QueueReader extends Reader<Queue> {
     /**
      * Construct a new QueueReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      */
     public QueueReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

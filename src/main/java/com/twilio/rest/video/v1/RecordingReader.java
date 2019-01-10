@@ -78,11 +78,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show Recordings that started on or after this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Recordings that started on or after this ISO8601 date-time with
+     * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
      * 
      * @param dateCreatedAfter Only show Recordings that started on or after this
-     *                         ISO8601 date-time.
+     *                         ISO8601 date-time with timezone.
      * @return this
      */
     public RecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -91,11 +91,11 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show Recordings that started before this this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Recordings that started before this ISO8601 date-time with
+     * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
      * 
-     * @param dateCreatedBefore Only show Recordings that started before this this
-     *                          ISO8601 date-time.
+     * @param dateCreatedBefore Only show Recordings that started before this
+     *                          ISO8601 date-time with timezone.
      * @return this
      */
     public RecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

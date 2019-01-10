@@ -23,7 +23,8 @@ public class TrunkFetcher extends Fetcher<Trunk> {
     /**
      * Construct a new TrunkFetcher.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
+     *                in Twilio.
      */
     public TrunkFetcher(final String pathSid) {
         this.pathSid = pathSid;

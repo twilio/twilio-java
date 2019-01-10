@@ -24,7 +24,7 @@ public class QueueDeleter extends Deleter<Queue> {
     /**
      * Construct a new QueueDeleter.
      * 
-     * @param pathSid Delete by unique queue Sid
+     * @param pathSid The unique string that identifies this resource
      */
     public QueueDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class QueueDeleter extends Deleter<Queue> {
     /**
      * Construct a new QueueDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique queue Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       delete
+     * @param pathSid The unique string that identifies this resource
      */
     public QueueDeleter(final String pathAccountSid, 
                         final String pathSid) {

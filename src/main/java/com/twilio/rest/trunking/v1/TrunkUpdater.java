@@ -33,7 +33,8 @@ public class TrunkUpdater extends Updater<Trunk> {
     /**
      * Construct a new TrunkUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
+     *                in Twilio.
      */
     public TrunkUpdater(final String pathSid) {
         this.pathSid = pathSid;

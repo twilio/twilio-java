@@ -45,9 +45,8 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param shortCodeSid ShortCodeSid for the Shortcode being added to the
-     *                     Service.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param shortCodeSid SID of the ShortCode being added to the Service.
      * @return ShortCodeCreator capable of executing the create
      */
     public static ShortCodeCreator creator(final String pathServiceSid, 
@@ -58,8 +57,8 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies this resource
      * @return ShortCodeDeleter capable of executing the delete
      */
     public static ShortCodeDeleter deleter(final String pathServiceSid, 
@@ -70,7 +69,7 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resource from
      * @return ShortCodeReader capable of executing the read
      */
     public static ShortCodeReader reader(final String pathServiceSid) {
@@ -80,8 +79,8 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies this resource
      * @return ShortCodeFetcher capable of executing the fetch
      */
     public static ShortCodeFetcher fetcher(final String pathServiceSid, 
@@ -168,45 +167,46 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The 34 character unique sid of the Short Code.
+     * Returns The The unique string that identifies this resource.
      * 
-     * @return The 34 character unique sid of the Short Code
+     * @return The unique string that identifies this resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The 34 character unique sid of the Account..
+     * Returns The The SID of the Account that created this resource.
      * 
-     * @return The 34 character unique sid of the Account.
+     * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The 34 character unique sid of the Service..
+     * Returns The The SID of the Service that this resource is associated with.
      * 
-     * @return The 34 character unique sid of the Service.
+     * @return The SID of the Service that this resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The he date that this resource was created..
+     * Returns The The RFC 2822 date and time in GMT that this resource was created.
      * 
-     * @return he date that this resource was created.
+     * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated.
+     * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -222,9 +222,9 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The 2 character ISO Country Code of the number..
+     * Returns The The 2-character ISO Country Code of the number..
      * 
-     * @return The 2 character ISO Country Code of the number.
+     * @return The 2-character ISO Country Code of the number.
      */
     public final String getCountryCode() {
         return this.countryCode;
@@ -242,9 +242,9 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of this ShortCode resource.
      * 
-     * @return The url
+     * @return The absolute URL of this ShortCode resource
      */
     public final URI getUrl() {
         return this.url;

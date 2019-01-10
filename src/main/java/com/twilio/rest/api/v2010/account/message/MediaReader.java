@@ -31,7 +31,8 @@ public class MediaReader extends Reader<Media> {
     /**
      * Construct a new MediaReader.
      * 
-     * @param pathMessageSid The message_sid
+     * @param pathMessageSid The SID of the Message resource that this Media
+     *                       resource belongs to
      */
     public MediaReader(final String pathMessageSid) {
         this.pathMessageSid = pathMessageSid;
@@ -40,8 +41,10 @@ public class MediaReader extends Reader<Media> {
     /**
      * Construct a new MediaReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathMessageSid The message_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
+     * @param pathMessageSid The SID of the Message resource that this Media
+     *                       resource belongs to
      */
     public MediaReader(final String pathAccountSid, 
                        final String pathMessageSid) {
@@ -50,13 +53,13 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * Only show media created on the given date. Should be formatted as
-     * `YYYY-MM-DD`. You can also specify inequality, such as
-     * `DateCreated&lt;=YYYY-MM-DD` for media generated at or before midnight on a
-     * date, and `DateCreated&gt;=YYYY-MM-DD` for media generated at or after
-     * midnight on a date..
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality, such as `DateCreated&lt;=YYYY-MM-DD`
+     * for media generated at or before midnight on a date, and
+     * `DateCreated&gt;=YYYY-MM-DD` for media generated at or after midnight on a
+     * date..
      * 
-     * @param absoluteDateCreated Filter by date created
+     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public MediaReader setDateCreated(final DateTime absoluteDateCreated) {
@@ -66,13 +69,13 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * Only show media created on the given date. Should be formatted as
-     * `YYYY-MM-DD`. You can also specify inequality, such as
-     * `DateCreated&lt;=YYYY-MM-DD` for media generated at or before midnight on a
-     * date, and `DateCreated&gt;=YYYY-MM-DD` for media generated at or after
-     * midnight on a date..
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality, such as `DateCreated&lt;=YYYY-MM-DD`
+     * for media generated at or before midnight on a date, and
+     * `DateCreated&gt;=YYYY-MM-DD` for media generated at or after midnight on a
+     * date..
      * 
-     * @param rangeDateCreated Filter by date created
+     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public MediaReader setDateCreated(final Range<DateTime> rangeDateCreated) {

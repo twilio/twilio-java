@@ -24,7 +24,7 @@ public class QueueFetcher extends Fetcher<Queue> {
     /**
      * Construct a new QueueFetcher.
      * 
-     * @param pathSid Fetch by unique queue Sid
+     * @param pathSid The unique string that identifies this resource
      */
     public QueueFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class QueueFetcher extends Fetcher<Queue> {
     /**
      * Construct a new QueueFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique queue Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      */
     public QueueFetcher(final String pathAccountSid, 
                         final String pathSid) {

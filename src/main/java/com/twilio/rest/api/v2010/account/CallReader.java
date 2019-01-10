@@ -43,7 +43,8 @@ public class CallReader extends Reader<Call> {
     /**
      * Construct a new CallReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      */
     public CallReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
@@ -53,7 +54,7 @@ public class CallReader extends Reader<Call> {
      * Only show calls to this phone number, SIP address, Client identifier or SIM
      * SID..
      * 
-     * @param to Phone number or Client identifier to filter `to` on
+     * @param to Phone number or Client identifier of calls to include
      * @return this
      */
     public CallReader setTo(final com.twilio.type.PhoneNumber to) {
@@ -65,7 +66,7 @@ public class CallReader extends Reader<Call> {
      * Only show calls to this phone number, SIP address, Client identifier or SIM
      * SID..
      * 
-     * @param to Phone number or Client identifier to filter `to` on
+     * @param to Phone number or Client identifier of calls to include
      * @return this
      */
     public CallReader setTo(final String to) {
@@ -73,8 +74,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls from this phone number, SIP address, Client identifier or SIM
-     * SID..
+     * Only include calls from this phone number, SIP address, Client identifier or
+     * SIM SID..
      * 
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
@@ -85,8 +86,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls from this phone number, SIP address, Client identifier or SIM
-     * SID..
+     * Only include calls from this phone number, SIP address, Client identifier or
+     * SIM SID..
      * 
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
@@ -96,9 +97,9 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls spawned by the Call with this SID..
+     * Only include calls spawned by calls with this SID..
      * 
-     * @param parentCallSid Parent Call Sid to filter on
+     * @param parentCallSid Parent call SID to filter on
      * @return this
      */
     public CallReader setParentCallSid(final String parentCallSid) {
@@ -107,11 +108,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls currently in the specified status. May be `queued`,
-     * `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or
-     * `no-answer`..
+     * The status of the calls to include. Can be: `queued`, `ringing`,
+     * `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`..
      * 
-     * @param status Status to filter on
+     * @param status The status of the resources to read
      * @return this
      */
     public CallReader setStatus(final Call.Status status) {
@@ -120,12 +120,11 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that started on this date, given as `YYYY-MM-DD`. Also
-     * supports inequalities, such as `StartTime&lt;=YYYY-MM-DD` for calls that
-     * started at or before midnight on a date, and `StartTime&gt;=YYYY-MM-DD` for
-     * calls that started at or after midnight on a date..
+     * Only include calls that started on or after this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`..
      * 
-     * @param absoluteStartTime StartTime to filter on
+     * @param absoluteStartTime Only include calls that started on or after this
+     *                          date
      * @return this
      */
     public CallReader setStartTime(final DateTime absoluteStartTime) {
@@ -135,12 +134,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that started on this date, given as `YYYY-MM-DD`. Also
-     * supports inequalities, such as `StartTime&lt;=YYYY-MM-DD` for calls that
-     * started at or before midnight on a date, and `StartTime&gt;=YYYY-MM-DD` for
-     * calls that started at or after midnight on a date..
+     * Only include calls that started on or after this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`..
      * 
-     * @param rangeStartTime StartTime to filter on
+     * @param rangeStartTime Only include calls that started on or after this date
      * @return this
      */
     public CallReader setStartTime(final Range<DateTime> rangeStartTime) {
@@ -150,9 +147,11 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that ended on this date.
+     * Only include calls that occurred on or before this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`..
      * 
-     * @param absoluteEndTime EndTime to filter on
+     * @param absoluteEndTime Only include usage that occurred on or before this
+     *                        date
      * @return this
      */
     public CallReader setEndTime(final DateTime absoluteEndTime) {
@@ -162,9 +161,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that ended on this date.
+     * Only include calls that occurred on or before this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`..
      * 
-     * @param rangeEndTime EndTime to filter on
+     * @param rangeEndTime Only include usage that occurred on or before this date
      * @return this
      */
     public CallReader setEndTime(final Range<DateTime> rangeEndTime) {

@@ -33,17 +33,18 @@ public class ShortCodeReader extends Reader<ShortCode> {
     /**
      * Construct a new ShortCodeReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      */
     public ShortCodeReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show the ShortCode resources with friendly names that exactly match this
-     * name..
+     * The string that identifies the ShortCode resources to read..
      * 
-     * @param friendlyName Filter by friendly name
+     * @param friendlyName The string that identifies the ShortCode resources to
+     *                     read
      * @return this
      */
     public ShortCodeReader setFriendlyName(final String friendlyName) {

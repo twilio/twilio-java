@@ -24,7 +24,7 @@ public class CallFetcher extends Fetcher<Call> {
     /**
      * Construct a new CallFetcher.
      * 
-     * @param pathSid Call Sid that uniquely identifies the Call to fetch
+     * @param pathSid The unique string that identifies this resource
      */
     public CallFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class CallFetcher extends Fetcher<Call> {
     /**
      * Construct a new CallFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Call Sid that uniquely identifies the Call to fetch
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      */
     public CallFetcher(final String pathAccountSid, 
                        final String pathSid) {

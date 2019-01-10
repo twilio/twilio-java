@@ -25,7 +25,7 @@ public class QueueCreator extends Creator<Queue> {
     /**
      * Construct a new QueueCreator.
      * 
-     * @param friendlyName A user-provided string that identifies this queue.
+     * @param friendlyName A string to describe this resource
      */
     public QueueCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -34,8 +34,8 @@ public class QueueCreator extends Creator<Queue> {
     /**
      * Construct a new QueueCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param friendlyName A user-provided string that identifies this queue.
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param friendlyName A string to describe this resource
      */
     public QueueCreator(final String pathAccountSid, 
                         final String friendlyName) {
@@ -44,8 +44,8 @@ public class QueueCreator extends Creator<Queue> {
     }
 
     /**
-     * The upper limit of calls allowed to be in the queue. The default is 100. The
-     * maximum is 5000..
+     * The maximum number of calls allowed to be in the queue. The default is 100.
+     * The maximum is 5000..
      * 
      * @param maxSize The max number of calls allowed in the queue
      * @return this

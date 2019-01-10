@@ -26,7 +26,6 @@ import com.twilio.rest.Domains;
 public class ParticipantReader extends Reader<Participant> {
     private final String pathServiceSid;
     private final String pathSessionSid;
-    private String identifier;
 
     /**
      * Construct a new ParticipantReader.
@@ -38,17 +37,6 @@ public class ParticipantReader extends Reader<Participant> {
                              final String pathSessionSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
-    }
-
-    /**
-     * The identifier.
-     * 
-     * @param identifier The identifier
-     * @return this
-     */
-    public ParticipantReader setIdentifier(final String identifier) {
-        this.identifier = identifier;
-        return this;
     }
 
     /**
@@ -181,10 +169,6 @@ public class ParticipantReader extends Reader<Participant> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (identifier != null) {
-            request.addQueryParam("Identifier", identifier);
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

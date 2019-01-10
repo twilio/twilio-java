@@ -25,8 +25,8 @@ public class RecordingFetcher extends Fetcher<Recording> {
     /**
      * Construct a new RecordingFetcher.
      * 
-     * @param pathConferenceSid Fetch by unique conference Sid for the recording
-     * @param pathSid Fetch by unique recording Sid
+     * @param pathConferenceSid Fetch by unique Conference SID for the recording
+     * @param pathSid The unique string that identifies this resource
      */
     public RecordingFetcher(final String pathConferenceSid, 
                             final String pathSid) {
@@ -37,9 +37,10 @@ public class RecordingFetcher extends Fetcher<Recording> {
     /**
      * Construct a new RecordingFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathConferenceSid Fetch by unique conference Sid for the recording
-     * @param pathSid Fetch by unique recording Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathConferenceSid Fetch by unique Conference SID for the recording
+     * @param pathSid The unique string that identifies this resource
      */
     public RecordingFetcher(final String pathAccountSid, 
                             final String pathConferenceSid, 

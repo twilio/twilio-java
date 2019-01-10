@@ -396,9 +396,9 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The Offset in miliseconds for this track..
+     * Returns The Offset in milliseconds for this track..
      * 
-     * @return Offset in miliseconds for this track.
+     * @return Offset in milliseconds for this track.
      */
     public final Long getOffset() {
         return this.offset;

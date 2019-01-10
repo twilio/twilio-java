@@ -38,8 +38,9 @@ public class Queue extends Resource {
     /**
      * Create a QueueFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique queue Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      * @return QueueFetcher capable of executing the fetch
      */
     public static QueueFetcher fetcher(final String pathAccountSid, 
@@ -50,7 +51,7 @@ public class Queue extends Resource {
     /**
      * Create a QueueFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique queue Sid
+     * @param pathSid The unique string that identifies this resource
      * @return QueueFetcher capable of executing the fetch
      */
     public static QueueFetcher fetcher(final String pathSid) {
@@ -60,8 +61,9 @@ public class Queue extends Resource {
     /**
      * Create a QueueUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathSid The unique string that identifies this resource
      * @return QueueUpdater capable of executing the update
      */
     public static QueueUpdater updater(final String pathAccountSid, 
@@ -72,7 +74,7 @@ public class Queue extends Resource {
     /**
      * Create a QueueUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies this resource
      * @return QueueUpdater capable of executing the update
      */
     public static QueueUpdater updater(final String pathSid) {
@@ -82,8 +84,9 @@ public class Queue extends Resource {
     /**
      * Create a QueueDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique queue Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       delete
+     * @param pathSid The unique string that identifies this resource
      * @return QueueDeleter capable of executing the delete
      */
     public static QueueDeleter deleter(final String pathAccountSid, 
@@ -94,7 +97,7 @@ public class Queue extends Resource {
     /**
      * Create a QueueDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique queue Sid
+     * @param pathSid The unique string that identifies this resource
      * @return QueueDeleter capable of executing the delete
      */
     public static QueueDeleter deleter(final String pathSid) {
@@ -104,7 +107,8 @@ public class Queue extends Resource {
     /**
      * Create a QueueReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      * @return QueueReader capable of executing the read
      */
     public static QueueReader reader(final String pathAccountSid) {
@@ -123,8 +127,8 @@ public class Queue extends Resource {
     /**
      * Create a QueueCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param friendlyName A user-provided string that identifies this queue.
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param friendlyName A string to describe this resource
      * @return QueueCreator capable of executing the create
      */
     public static QueueCreator creator(final String pathAccountSid, 
@@ -135,7 +139,7 @@ public class Queue extends Resource {
     /**
      * Create a QueueCreator to execute create.
      * 
-     * @param friendlyName A user-provided string that identifies this queue.
+     * @param friendlyName A string to describe this resource
      * @return QueueCreator capable of executing the create
      */
     public static QueueCreator creator(final String friendlyName) {
@@ -220,9 +224,9 @@ public class Queue extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created this resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -238,36 +242,37 @@ public class Queue extends Resource {
     }
 
     /**
-     * Returns The The count of calls currently in the queue..
+     * Returns The The number of calls currently in the queue..
      * 
-     * @return The count of calls currently in the queue.
+     * @return The number of calls currently in the queue.
      */
     public final Integer getCurrentSize() {
         return this.currentSize;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT that this resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A user-provided string that identifies this queue..
+     * Returns The A string that you assigned to describe this resource.
      * 
-     * @return A user-provided string that identifies this queue.
+     * @return A string that you assigned to describe this resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -283,18 +288,18 @@ public class Queue extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this queue.
+     * Returns The The unique string that identifies this resource.
      * 
-     * @return A string that uniquely identifies this queue
+     * @return The unique string that identifies this resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
      * 
-     * @return The uri
+     * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

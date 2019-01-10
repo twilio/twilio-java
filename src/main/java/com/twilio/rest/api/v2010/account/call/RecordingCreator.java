@@ -33,7 +33,7 @@ public class RecordingCreator extends Creator<Recording> {
     /**
      * Construct a new RecordingCreator.
      * 
-     * @param pathCallSid Create by unique call Sid for the recording
+     * @param pathCallSid The SID of the Call to associate this resource with
      */
     public RecordingCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -42,8 +42,8 @@ public class RecordingCreator extends Creator<Recording> {
     /**
      * Construct a new RecordingCreator.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathCallSid Create by unique call Sid for the recording
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathCallSid The SID of the Call to associate this resource with
      */
     public RecordingCreator(final String pathAccountSid, 
                             final String pathCallSid) {
@@ -52,10 +52,10 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording status changes that should generate a request to the URL
-     * specified in RecordingStatusCallback. Possible values: `in-progress`,
-     * `completed` and `absent`. To specify multiple values separate them with a
-     * space. Defaults to `completed`..
+     * The recording status events on which we should call the
+     * `recording_status_callback` URL. Can be: `in-progress`, `completed` and
+     * `absent` and the default is `completed`. Separate multiple event values with
+     * a space. .
      * 
      * @param recordingStatusCallbackEvent The recording status changes that should
      *                                     generate a callback
@@ -67,10 +67,10 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording status changes that should generate a request to the URL
-     * specified in RecordingStatusCallback. Possible values: `in-progress`,
-     * `completed` and `absent`. To specify multiple values separate them with a
-     * space. Defaults to `completed`..
+     * The recording status events on which we should call the
+     * `recording_status_callback` URL. Can be: `in-progress`, `completed` and
+     * `absent` and the default is `completed`. Separate multiple event values with
+     * a space. .
      * 
      * @param recordingStatusCallbackEvent The recording status changes that should
      *                                     generate a callback
@@ -81,12 +81,13 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The URL which Twilio will make its GET or POST request to for the recording
-     * events specified in parameter RecordingStatusCallbackEvent. See
-     * [RecordingStatusCallback
-     * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback) for more details..
+     * The URL we call using the `recording_status_callback_method` on each
+     * recording event specified in  `recording_status_callback_event`. For more
+     * information, see [RecordingStatusCallback
+     * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback)..
      * 
-     * @param recordingStatusCallback The callback URL for recording actions
+     * @param recordingStatusCallback The callback URL on each selected recording
+     *                                event
      * @return this
      */
     public RecordingCreator setRecordingStatusCallback(final URI recordingStatusCallback) {
@@ -95,12 +96,13 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The URL which Twilio will make its GET or POST request to for the recording
-     * events specified in parameter RecordingStatusCallbackEvent. See
-     * [RecordingStatusCallback
-     * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback) for more details..
+     * The URL we call using the `recording_status_callback_method` on each
+     * recording event specified in  `recording_status_callback_event`. For more
+     * information, see [RecordingStatusCallback
+     * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback)..
      * 
-     * @param recordingStatusCallback The callback URL for recording actions
+     * @param recordingStatusCallback The callback URL on each selected recording
+     *                                event
      * @return this
      */
     public RecordingCreator setRecordingStatusCallback(final String recordingStatusCallback) {
@@ -108,13 +110,12 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The HTTP method Twilio should use when making a request to the
-     * RecordingStatusCallback URL. Possible values: `GET`, `POST`. Defaults to
-     * `POST`..
+     * The HTTP method we should use when calling the `recording_status_callback`
+     * URL. Can be: `GET`, `POST` and the default is `POST`..
      * 
-     * @param recordingStatusCallbackMethod The HTTP method Twilio should use when
-     *                                      making a request to the
-     *                                      RecordingStatusCallback URL
+     * @param recordingStatusCallbackMethod The HTTP method we should use when
+     *                                      calling the recording_status_callback
+     *                                      URL
      * @return this
      */
     public RecordingCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
@@ -123,9 +124,10 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * Possible values: `trim-silence` or `do-not-trim`. `trim-silence` will trim
-     * the silence from the beginning and end of the recording. `do-not-trim` will
-     * not trim the silence. Defaults to `do-not-trim`.
+     * Whether to trim any leading and trailing silence in the recording. Can be:
+     * `trim-silence` or `do-not-trim` and the default is `do-not-trim`.
+     * `trim-silence` trims the silence from the beginning and end of the recording
+     * and `do-not-trim` does not..
      * 
      * @param trim Whether to trim the silence in the recording
      * @return this
@@ -136,9 +138,9 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * Possible values: `mono` or `dual`. `mono` records all parties of your call
-     * into one channel. `dual` records a 2 party call into separate channels.
-     * Defaults to `mono`..
+     * The number of channels used in the recording. Can be: `mono` or `dual` and
+     * the default is `mono`. `mono` records all parties of the call into one
+     * channel. `dual` records each party of a 2-party call into separate channels..
      * 
      * @param recordingChannels The number of channels that the output recording
      *                          will be configured with

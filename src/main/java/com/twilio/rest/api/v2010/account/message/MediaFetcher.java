@@ -25,8 +25,9 @@ public class MediaFetcher extends Fetcher<Media> {
     /**
      * Construct a new MediaFetcher.
      * 
-     * @param pathMessageSid The message_sid
-     * @param pathSid Fetch by unique media Sid
+     * @param pathMessageSid The SID of the Message resource that this Media
+     *                       resource belongs to
+     * @param pathSid The unique string that identifies this resource
      */
     public MediaFetcher(final String pathMessageSid, 
                         final String pathSid) {
@@ -37,9 +38,11 @@ public class MediaFetcher extends Fetcher<Media> {
     /**
      * Construct a new MediaFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathMessageSid The message_sid
-     * @param pathSid Fetch by unique media Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathMessageSid The SID of the Message resource that this Media
+     *                       resource belongs to
+     * @param pathSid The unique string that identifies this resource
      */
     public MediaFetcher(final String pathAccountSid, 
                         final String pathMessageSid, 

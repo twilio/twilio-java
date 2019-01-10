@@ -89,8 +89,9 @@ public class Conference extends Resource {
     /**
      * Create a ConferenceFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique conference Sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      * @return ConferenceFetcher capable of executing the fetch
      */
     public static ConferenceFetcher fetcher(final String pathAccountSid, 
@@ -101,7 +102,7 @@ public class Conference extends Resource {
     /**
      * Create a ConferenceFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique conference Sid
+     * @param pathSid The unique string that identifies this resource
      * @return ConferenceFetcher capable of executing the fetch
      */
     public static ConferenceFetcher fetcher(final String pathSid) {
@@ -111,7 +112,8 @@ public class Conference extends Resource {
     /**
      * Create a ConferenceReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      * @return ConferenceReader capable of executing the read
      */
     public static ConferenceReader reader(final String pathAccountSid) {
@@ -130,8 +132,9 @@ public class Conference extends Resource {
     /**
      * Create a ConferenceUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathSid The unique string that identifies this resource
      * @return ConferenceUpdater capable of executing the update
      */
     public static ConferenceUpdater updater(final String pathAccountSid, 
@@ -142,7 +145,7 @@ public class Conference extends Resource {
     /**
      * Create a ConferenceUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies this resource
      * @return ConferenceUpdater capable of executing the update
      */
     public static ConferenceUpdater updater(final String pathSid) {
@@ -232,92 +235,93 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created this resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that this resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The The API version used to create this conference.
      * 
-     * @return The api_version
+     * @return The API version used to create this conference
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The A human readable description of this resource.
+     * Returns The A string that you assigned to describe this conference room.
      * 
-     * @return A human readable description of this resource
+     * @return A string that you assigned to describe this conference room
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A string representing the Twilio Region where the conference was
-     * mixed..
+     * Returns The A string that represents the Twilio Region where the conference
+     * was mixed.
      * 
-     * @return A string representing the Twilio Region where the conference was
-     *         mixed.
+     * @return A string that represents the Twilio Region where the conference was
+     *         mixed
      */
     public final String getRegion() {
         return this.region;
     }
 
     /**
-     * Returns The A string that uniquely identifies this conference.
+     * Returns The The unique string that identifies this resource.
      * 
-     * @return A string that uniquely identifies this conference
+     * @return The unique string that identifies this resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The status of the conference.
+     * Returns The The status of this conference.
      * 
-     * @return The status of the conference
+     * @return The status of this conference
      */
     public final Conference.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The A list of related resources identified by their relative URIs.
      * 
-     * @return The subresource_uris
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

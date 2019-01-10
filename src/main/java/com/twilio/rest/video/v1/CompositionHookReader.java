@@ -43,11 +43,11 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     }
 
     /**
-     * Only show Composition Hooks created on or after this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Composition Hooks created on or after this ISO8601 date-time with
+     * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
      * 
      * @param dateCreatedAfter Only show Composition Hooks created on or after this
-     *                         ISO8601 date-time.
+     *                         ISO8601 date-time with timezone.
      * @return this
      */
     public CompositionHookReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -56,11 +56,11 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     }
 
     /**
-     * Only show Composition Hooks created before this this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Composition Hooks created before this ISO8601 date-time with
+     * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
      * 
      * @param dateCreatedBefore Only show Composition Hooks created before this
-     *                          this ISO8601 date-time.
+     *                          ISO8601 date-time with timezone.
      * @return this
      */
     public CompositionHookReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

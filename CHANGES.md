@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2019-01-10] Version 7.34.0
+----------------------------
+**Chat**
+- Mark Member attributes as PII
+
+**Proxy**
+- Remove unsupported query parameters **(breaking change)**
+- Remove invalid session statuses in doc
+
+
 [2019-01-02] Version 7.33.1
 ----------------------------
 **Insights**

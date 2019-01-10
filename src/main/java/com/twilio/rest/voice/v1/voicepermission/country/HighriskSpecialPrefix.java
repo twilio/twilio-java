@@ -41,7 +41,7 @@ public class HighriskSpecialPrefix extends Resource {
     /**
      * Create a HighriskSpecialPrefixReader to execute read.
      * 
-     * @param pathIsoCode The ISO country code
+     * @param pathIsoCode The ISO 3166-1 country code
      * @return HighriskSpecialPrefixReader capable of executing the read
      */
     public static HighriskSpecialPrefixReader reader(final String pathIsoCode) {

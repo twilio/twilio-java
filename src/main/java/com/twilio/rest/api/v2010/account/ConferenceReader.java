@@ -40,20 +40,20 @@ public class ConferenceReader extends Reader<Conference> {
     /**
      * Construct a new ConferenceReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      */
     public ConferenceReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show conferences that started on this date, given as `YYYY-MM-DD`. You
-     * can also specify inequality – for conferences that started at or before
-     * midnight on a date use  `DateCreated&lt;=YYYY-MM-DD`, or specify  conferences
-     * that started at or after midnight on a date with
-     * `DateCreated&gt;=YYYY-MM-DD`..
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that started on or before midnight on a date, use
+     * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
+     * midnight on a date, use `&gt;=YYYY-MM-DD`..
      * 
-     * @param absoluteDateCreated Filter by date created
+     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public ConferenceReader setDateCreated(final LocalDate absoluteDateCreated) {
@@ -63,13 +63,12 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * Only show conferences that started on this date, given as `YYYY-MM-DD`. You
-     * can also specify inequality – for conferences that started at or before
-     * midnight on a date use  `DateCreated&lt;=YYYY-MM-DD`, or specify  conferences
-     * that started at or after midnight on a date with
-     * `DateCreated&gt;=YYYY-MM-DD`..
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that started on or before midnight on a date, use
+     * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
+     * midnight on a date, use `&gt;=YYYY-MM-DD`..
      * 
-     * @param rangeDateCreated Filter by date created
+     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public ConferenceReader setDateCreated(final Range<LocalDate> rangeDateCreated) {
@@ -79,13 +78,12 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * Only show conferences that were last updated on this date, given as
-     * `YYYY-MM-DD`. You can also specify inequality – for conferences that were
-     * last updated at or before midnight on a date use
-     * `DateUpdated&lt;=YYYY-MM-DD`, or specify conferences updated at or after
-     * midnight on a given date with   `DateUpdated&gt;=YYYY-MM-DD`..
+     * The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that were last updated on or before midnight on a
+     * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
+     * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
      * 
-     * @param absoluteDateUpdated Filter by date updated
+     * @param absoluteDateUpdated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public ConferenceReader setDateUpdated(final LocalDate absoluteDateUpdated) {
@@ -95,13 +93,12 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * Only show conferences that were last updated on this date, given as
-     * `YYYY-MM-DD`. You can also specify inequality – for conferences that were
-     * last updated at or before midnight on a date use
-     * `DateUpdated&lt;=YYYY-MM-DD`, or specify conferences updated at or after
-     * midnight on a given date with   `DateUpdated&gt;=YYYY-MM-DD`..
+     * The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that were last updated on or before midnight on a
+     * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
+     * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
      * 
-     * @param rangeDateUpdated Filter by date updated
+     * @param rangeDateUpdated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public ConferenceReader setDateUpdated(final Range<LocalDate> rangeDateUpdated) {
@@ -111,9 +108,10 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * Only show results who's friendly name exactly matches the string.
+     * The string that identifies the Conference resources to read..
      * 
-     * @param friendlyName Filter by friendly name
+     * @param friendlyName The string that identifies the Conference resources to
+     *                     read
      * @return this
      */
     public ConferenceReader setFriendlyName(final String friendlyName) {
@@ -122,10 +120,10 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * A string representing the status of the conference. May be `init`,
-     * `in-progress`, or `completed`..
+     * The status of the resources to read. Can be: `init`, `in-progress`, or
+     * `completed`..
      * 
-     * @param status The status of the conference
+     * @param status The status of the resources to read
      * @return this
      */
     public ConferenceReader setStatus(final Conference.Status status) {

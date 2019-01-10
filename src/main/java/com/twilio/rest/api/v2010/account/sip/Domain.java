@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Domain extends Resource {
-    private static final long serialVersionUID = 8739716800197L;
+    private static final long serialVersionUID = 249455221641772L;
 
     /**
      * Create a DomainReader to execute read.

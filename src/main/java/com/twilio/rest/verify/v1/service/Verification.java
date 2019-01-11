@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -38,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Verification extends Resource {
-    private static final long serialVersionUID = 209968229129653L;
+    private static final long serialVersionUID = 187834137535873L;
 
     public enum Channel {
         SMS("sms"),
@@ -124,6 +125,7 @@ public class Verification extends Resource {
     private final Verification.Channel channel;
     private final String status;
     private final Boolean valid;
+    private final Map<String, Object> lookup;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
 
@@ -142,6 +144,8 @@ public class Verification extends Resource {
                          final String status, 
                          @JsonProperty("valid")
                          final Boolean valid, 
+                         @JsonProperty("lookup")
+                         final Map<String, Object> lookup, 
                          @JsonProperty("date_created")
                          final String dateCreated, 
                          @JsonProperty("date_updated")
@@ -153,6 +157,7 @@ public class Verification extends Resource {
         this.channel = channel;
         this.status = status;
         this.valid = valid;
+        this.lookup = lookup;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
@@ -221,6 +226,15 @@ public class Verification extends Resource {
     }
 
     /**
+     * Returns The Info about the phone number.
+     * 
+     * @return Info about the phone number
+     */
+    public final Map<String, Object> getLookup() {
+        return this.lookup;
+    }
+
+    /**
      * Returns The The date this Verification was created.
      * 
      * @return The date this Verification was created
@@ -257,6 +271,7 @@ public class Verification extends Resource {
                Objects.equals(channel, other.channel) && 
                Objects.equals(status, other.status) && 
                Objects.equals(valid, other.valid) && 
+               Objects.equals(lookup, other.lookup) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated);
     }
@@ -270,6 +285,7 @@ public class Verification extends Resource {
                             channel,
                             status,
                             valid,
+                            lookup,
                             dateCreated,
                             dateUpdated);
     }
@@ -284,6 +300,7 @@ public class Verification extends Resource {
                           .add("channel", channel)
                           .add("status", status)
                           .add("valid", valid)
+                          .add("lookup", lookup)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .toString();

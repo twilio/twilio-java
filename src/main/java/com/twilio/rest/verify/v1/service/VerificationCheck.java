@@ -184,9 +184,9 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The To phonenumber.
+     * Returns The To phone number.
      * 
-     * @return To phonenumber
+     * @return To phone number
      */
     public final String getTo() {
         return this.to;

@@ -25,6 +25,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private final String pathServiceSid;
     private final String code;
     private String to;
+    private String verificationSid;
 
     /**
      * Construct a new VerificationCheckCreator.
@@ -40,13 +41,25 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     }
 
     /**
-     * The To phonenumber of the phone being verified.
+     * The To phone number of the phone being verified.
      * 
-     * @param to To phonenumber
+     * @param to To phone number
      * @return this
      */
     public VerificationCheckCreator setTo(final String to) {
         this.to = to;
+        return this;
+    }
+
+    /**
+     * A SID that uniquely identifies this Verification Check, either this parameter
+     * or the To phone number must be specified.
+     * 
+     * @param verificationSid A SID that uniquely identifies this Verification Check
+     * @return this
+     */
+    public VerificationCheckCreator setVerificationSid(final String verificationSid) {
+        this.verificationSid = verificationSid;
         return this;
     }
 
@@ -101,6 +114,10 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
         if (to != null) {
             request.addPostParam("To", to);
+        }
+
+        if (verificationSid != null) {
+            request.addPostParam("VerificationSid", verificationSid);
         }
     }
 }

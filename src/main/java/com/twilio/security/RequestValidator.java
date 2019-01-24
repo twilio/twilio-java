@@ -1,5 +1,6 @@
 package com.twilio.security;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 import org.apache.http.NameValuePair;
@@ -62,9 +63,9 @@ public class RequestValidator {
         }
 
         byte[] hash = digest.digest(body.getBytes(StandardCharsets.UTF_8));
-        String base64String = new String(Base64.encodeBase64(hash));
+        String hexString = new String(Hex.encodeHex(hash));
 
-        return secureCompare(expectedSHA, base64String);
+        return secureCompare(expectedSHA, hexString);
     }
 
     private String getValidationSignature(String url, Map<String, String> params) {

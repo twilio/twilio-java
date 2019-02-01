@@ -10,7 +10,7 @@ import mockit.Mocked;
 import org.apache.http.*;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.message.BasicHttpEntityEnclosingRequest;
+import org.apache.http.message.BasicHttpRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +41,10 @@ public class ValidationTokenTest {
     private PrivateKey privateKey;
 
     @Mocked
-    private HttpEntityEnclosingRequest request;
+    private HttpRequest request;
+
+    @Mocked
+    private HttpEntityEnclosingRequest requestWithEntity;
 
     @Mocked
     private HttpEntity entity;
@@ -85,7 +88,7 @@ public class ValidationTokenTest {
     public void testTokenFromHttpRequest() throws IOException {
         new Expectations() {{
             request.getRequestLine().getMethod();
-            result = "GET";
+            result = "POST";
 
             request.getRequestLine().getUri();
             result = "/Messages?PageSize=5&Limit=10";
@@ -104,29 +107,29 @@ public class ValidationTokenTest {
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("4b3d2666845a38f00259a5231a08765bb2d12564bc4469fd5b2816204c588967", claims.get("rqh"));
+        Assert.assertEquals("712fbbec9dcb4fe58ed8caecf925d2fe10889f5d3f4b48e748157a4a1113697d", claims.get("rqh"));
     }
 
     @Test
-    public void testTokenFromPostRequest() throws IOException {
+    public void testTokenFromEntityRequest() throws IOException {
         new Expectations() {{
-            request.getRequestLine().getMethod();
+            requestWithEntity.getRequestLine().getMethod();
             result = "POST";
 
-            request.getRequestLine().getUri();
+            requestWithEntity.getRequestLine().getUri();
             result = "/Messages";
 
-            request.getAllHeaders();
+            requestWithEntity.getAllHeaders();
             result = headers;
 
-            request.getEntity();
+            requestWithEntity.getEntity();
             result = entity;
 
             entity.getContent();
             result = new ByteArrayInputStream("testbody".getBytes(StandardCharsets.UTF_8));
         }};
 
-        Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
+        Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
         Claims claims =
             Jwts.parser()
                 .setSigningKey(privateKey)
@@ -192,8 +195,8 @@ public class ValidationTokenTest {
         }
     }
 
-    private HttpEntityEnclosingRequest getBasicRequest() {
-        return new BasicHttpEntityEnclosingRequest(
+    private BasicHttpRequest getBasicRequest() {
+        return new BasicHttpRequest(
                 "GET",
                 "/some-url?with=params",
                 new ProtocolVersion("HTTP", 1, 1)

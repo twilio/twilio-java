@@ -124,8 +124,14 @@ public class ValidationToken extends Jwt {
         builder.headers(request.getAllHeaders());
         builder.signedHeaders(signedHeaders);
 
-        if (HttpMethod.POST.toString().equals(method.toUpperCase())) {
-            HttpEntity entity = ((HttpEntityEnclosingRequest)request).getEntity();
+        /**
+         * If the request encloses an "entity", use it for the body. Note that this is dependent on several factors
+         * during request building and is not solely based on the specified method.
+         *
+         * @see org.apache.http.client.methods.RequestBuilder#build
+         */
+        if (request instanceof HttpEntityEnclosingRequest) {
+            HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
             builder.requestBody(CharStreams.toString(new InputStreamReader(entity.getContent(), Charsets.UTF_8)));
         }
 

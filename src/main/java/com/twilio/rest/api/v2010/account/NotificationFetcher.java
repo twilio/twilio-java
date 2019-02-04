@@ -24,7 +24,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
     /**
      * Construct a new NotificationFetcher.
      * 
-     * @param pathSid Fetch by unique notification Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public NotificationFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class NotificationFetcher extends Fetcher<Notification> {
     /**
      * Construct a new NotificationFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique notification Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public NotificationFetcher(final String pathAccountSid, 
                                final String pathSid) {

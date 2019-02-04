@@ -38,8 +38,9 @@ public class OutgoingCallerId extends Resource {
     /**
      * Create a OutgoingCallerIdFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique outgoing-caller-id Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return OutgoingCallerIdFetcher capable of executing the fetch
      */
     public static OutgoingCallerIdFetcher fetcher(final String pathAccountSid, 
@@ -50,7 +51,7 @@ public class OutgoingCallerId extends Resource {
     /**
      * Create a OutgoingCallerIdFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique outgoing-caller-id Sid
+     * @param pathSid The unique string that identifies the resource
      * @return OutgoingCallerIdFetcher capable of executing the fetch
      */
     public static OutgoingCallerIdFetcher fetcher(final String pathSid) {
@@ -60,8 +61,9 @@ public class OutgoingCallerId extends Resource {
     /**
      * Create a OutgoingCallerIdUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Update by unique outgoing-caller-id Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return OutgoingCallerIdUpdater capable of executing the update
      */
     public static OutgoingCallerIdUpdater updater(final String pathAccountSid, 
@@ -72,7 +74,7 @@ public class OutgoingCallerId extends Resource {
     /**
      * Create a OutgoingCallerIdUpdater to execute update.
      * 
-     * @param pathSid Update by unique outgoing-caller-id Sid
+     * @param pathSid The unique string that identifies the resource
      * @return OutgoingCallerIdUpdater capable of executing the update
      */
     public static OutgoingCallerIdUpdater updater(final String pathSid) {
@@ -82,8 +84,9 @@ public class OutgoingCallerId extends Resource {
     /**
      * Create a OutgoingCallerIdDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique outgoing-caller-id Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return OutgoingCallerIdDeleter capable of executing the delete
      */
     public static OutgoingCallerIdDeleter deleter(final String pathAccountSid, 
@@ -94,7 +97,7 @@ public class OutgoingCallerId extends Resource {
     /**
      * Create a OutgoingCallerIdDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique outgoing-caller-id Sid
+     * @param pathSid The unique string that identifies the resource
      * @return OutgoingCallerIdDeleter capable of executing the delete
      */
     public static OutgoingCallerIdDeleter deleter(final String pathSid) {
@@ -104,7 +107,8 @@ public class OutgoingCallerId extends Resource {
     /**
      * Create a OutgoingCallerIdReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return OutgoingCallerIdReader capable of executing the read
      */
     public static OutgoingCallerIdReader reader(final String pathAccountSid) {
@@ -191,63 +195,64 @@ public class OutgoingCallerId extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this outgoing-caller-ids.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this outgoing-caller-ids
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human readable description for this resource.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable description for this resource
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The incoming phone number.
+     * Returns The The phone number in E.164 format.
      * 
-     * @return The incoming phone number
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

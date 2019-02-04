@@ -37,17 +37,18 @@ public class YesterdayReader extends Reader<Yesterday> {
     /**
      * Construct a new YesterdayReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public YesterdayReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only include usage of this [usage
-     * category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories)..
+     * The [usage
+     * category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved..
      * 
-     * @param category Only include usage of this usage category.
+     * @param category The usage category of the UsageRecord resources to read
      * @return this
      */
     public YesterdayReader setCategory(final Yesterday.Category category) {
@@ -56,12 +57,12 @@ public class YesterdayReader extends Reader<Yesterday> {
     }
 
     /**
-     * Only include usage that has occurred on or after this date.  Format is
-     * YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify
-     * offsets to today.  For example, `StartDate=-30days` will make `StartDate` be
-     * 30 days before today..
+     * Only include usage that has occurred on or after this date. Specify the date
+     * in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the
+     * current date, such as: `-30days`, which will set the start date to be 30 days
+     * before the current date..
      * 
-     * @param startDate Only include usage that has occurred on or after this date.
+     * @param startDate Only include usage that has occurred on or after this date
      * @return this
      */
     public YesterdayReader setStartDate(final LocalDate startDate) {
@@ -70,12 +71,12 @@ public class YesterdayReader extends Reader<Yesterday> {
     }
 
     /**
-     * Only include usage that has occurred on or before this date.  Format is
-     * YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify
-     * offsets to today.  For example, `EndDate=+30days` will make `EndDate` be 30
-     * days from today..
+     * Only include usage that occurred on or before this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the
+     * current date, such as: `+30days`, which will set the end date to 30 days from
+     * the current date..
      * 
-     * @param endDate Only include usage that has occurred on or before this date.
+     * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
     public YesterdayReader setEndDate(final LocalDate endDate) {
@@ -84,9 +85,12 @@ public class YesterdayReader extends Reader<Yesterday> {
     }
 
     /**
-     * The include_subaccounts.
+     * Whether to include usage from the master account and all its subaccounts. Can
+     * be: `true` (the default) to include usage from the master account and all
+     * subaccounts or `false` to retrieve usage from only the specified account..
      * 
-     * @param includeSubaccounts The include_subaccounts
+     * @param includeSubaccounts Whether to include usage from the master account
+     *                           and all its subaccounts
      * @return this
      */
     public YesterdayReader setIncludeSubaccounts(final Boolean includeSubaccounts) {

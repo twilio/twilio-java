@@ -64,8 +64,9 @@ public class ConnectApp extends Resource {
     /**
      * Create a ConnectAppFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique connect-app Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return ConnectAppFetcher capable of executing the fetch
      */
     public static ConnectAppFetcher fetcher(final String pathAccountSid, 
@@ -76,7 +77,7 @@ public class ConnectApp extends Resource {
     /**
      * Create a ConnectAppFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique connect-app Sid
+     * @param pathSid The unique string that identifies the resource
      * @return ConnectAppFetcher capable of executing the fetch
      */
     public static ConnectAppFetcher fetcher(final String pathSid) {
@@ -86,8 +87,9 @@ public class ConnectApp extends Resource {
     /**
      * Create a ConnectAppUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return ConnectAppUpdater capable of executing the update
      */
     public static ConnectAppUpdater updater(final String pathAccountSid, 
@@ -98,7 +100,7 @@ public class ConnectApp extends Resource {
     /**
      * Create a ConnectAppUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return ConnectAppUpdater capable of executing the update
      */
     public static ConnectAppUpdater updater(final String pathSid) {
@@ -108,7 +110,8 @@ public class ConnectApp extends Resource {
     /**
      * Create a ConnectAppReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return ConnectAppReader capable of executing the read
      */
     public static ConnectAppReader reader(final String pathAccountSid) {
@@ -211,64 +214,63 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The URIL Twilio sends requests when users authorize.
+     * Returns The The URL to redirect the user to after authorization.
      * 
-     * @return URIL Twilio sends requests when users authorize
+     * @return The URL to redirect the user to after authorization
      */
     public final URI getAuthorizeRedirectUrl() {
         return this.authorizeRedirectUrl;
     }
 
     /**
-     * Returns The The company name set for this Connect App..
+     * Returns The The company name set for the Connect App.
      * 
-     * @return The company name set for this Connect App.
+     * @return The company name set for the Connect App
      */
     public final String getCompanyName() {
         return this.companyName;
     }
 
     /**
-     * Returns The HTTP method Twilio will use making requests to the url.
+     * Returns The The HTTP method we use to call deauthorize_callback_url.
      * 
-     * @return HTTP method Twilio will use making requests to the url
+     * @return The HTTP method we use to call deauthorize_callback_url
      */
     public final HttpMethod getDeauthorizeCallbackMethod() {
         return this.deauthorizeCallbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will send a request when a user de-authorizes this
-     * app.
+     * Returns The The URL we call to de-authorize the Connect App.
      * 
-     * @return URL Twilio will send a request when a user de-authorizes this app
+     * @return The URL we call to de-authorize the Connect App
      */
     public final URI getDeauthorizeCallbackUrl() {
         return this.deauthorizeCallbackUrl;
     }
 
     /**
-     * Returns The A more detailed human readable description.
+     * Returns The The description of the Connect App.
      * 
-     * @return A more detailed human readable description
+     * @return The description of the Connect App
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The A human readable name for the Connect App..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable name for the Connect App.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -284,27 +286,27 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The set of permissions that your ConnectApp requests..
+     * Returns The The set of permissions that your ConnectApp requests.
      * 
-     * @return The set of permissions that your ConnectApp requests.
+     * @return The set of permissions that your ConnectApp requests
      */
     public final List<ConnectApp.Permission> getPermissions() {
         return this.permissions;
     }
 
     /**
-     * Returns The A string that uniquely identifies this connect-apps.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this connect-apps
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

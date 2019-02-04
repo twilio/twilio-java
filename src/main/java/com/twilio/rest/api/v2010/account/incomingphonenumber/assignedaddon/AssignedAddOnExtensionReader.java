@@ -31,8 +31,10 @@ public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension>
     /**
      * Construct a new AssignedAddOnExtensionReader.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param pathAssignedAddOnSid The assigned_add_on_sid
+     * @param pathResourceSid The SID of the Phone Number to which the Add-on is
+     *                        assigned
+     * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
+     *                             Add-on installation
      */
     public AssignedAddOnExtensionReader(final String pathResourceSid, 
                                         final String pathAssignedAddOnSid) {
@@ -43,9 +45,12 @@ public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension>
     /**
      * Construct a new AssignedAddOnExtensionReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param pathAssignedAddOnSid The assigned_add_on_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathResourceSid The SID of the Phone Number to which the Add-on is
+     *                        assigned
+     * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
+     *                             Add-on installation
      */
     public AssignedAddOnExtensionReader(final String pathAccountSid, 
                                         final String pathResourceSid, 

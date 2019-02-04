@@ -24,7 +24,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberFetcher.
      * 
-     * @param pathSid Fetch by unique incoming-phone-number Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public IncomingPhoneNumberFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberFetcher.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Fetch by unique incoming-phone-number Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public IncomingPhoneNumberFetcher(final String pathAccountSid, 
                                       final String pathSid) {

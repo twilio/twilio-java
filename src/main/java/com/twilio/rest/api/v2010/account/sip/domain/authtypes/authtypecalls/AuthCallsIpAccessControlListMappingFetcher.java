@@ -25,8 +25,9 @@ public class AuthCallsIpAccessControlListMappingFetcher extends Fetcher<AuthCall
     /**
      * Construct a new AuthCallsIpAccessControlListMappingFetcher.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Fetch by unique IP Access Control List Sid
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public AuthCallsIpAccessControlListMappingFetcher(final String pathDomainSid, 
                                                       final String pathSid) {
@@ -37,9 +38,11 @@ public class AuthCallsIpAccessControlListMappingFetcher extends Fetcher<AuthCall
     /**
      * Construct a new AuthCallsIpAccessControlListMappingFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Fetch by unique IP Access Control List Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public AuthCallsIpAccessControlListMappingFetcher(final String pathAccountSid, 
                                                       final String pathDomainSid, 

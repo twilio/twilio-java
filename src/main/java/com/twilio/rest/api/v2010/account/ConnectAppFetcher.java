@@ -24,7 +24,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
     /**
      * Construct a new ConnectAppFetcher.
      * 
-     * @param pathSid Fetch by unique connect-app Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public ConnectAppFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
     /**
      * Construct a new ConnectAppFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique connect-app Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public ConnectAppFetcher(final String pathAccountSid, 
                              final String pathSid) {

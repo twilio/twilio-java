@@ -24,7 +24,7 @@ public class ApplicationFetcher extends Fetcher<Application> {
     /**
      * Construct a new ApplicationFetcher.
      * 
-     * @param pathSid Fetch by unique Application Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public ApplicationFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class ApplicationFetcher extends Fetcher<Application> {
     /**
      * Construct a new ApplicationFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique Application Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public ApplicationFetcher(final String pathAccountSid, 
                               final String pathSid) {

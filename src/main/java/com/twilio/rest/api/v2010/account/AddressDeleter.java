@@ -24,7 +24,7 @@ public class AddressDeleter extends Deleter<Address> {
     /**
      * Construct a new AddressDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public AddressDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class AddressDeleter extends Deleter<Address> {
     /**
      * Construct a new AddressDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that is responsible for the
+     *                       resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public AddressDeleter(final String pathAccountSid, 
                           final String pathSid) {

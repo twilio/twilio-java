@@ -37,8 +37,8 @@ public class AvailablePhoneNumberCountry extends Resource {
     /**
      * Create a AvailablePhoneNumberCountryReader to execute read.
      * 
-     * @param pathAccountSid The 34 character string that uniquely identifies your
-     *                       account.
+     * @param pathAccountSid The SID of the Account requesting the available phone
+     *                       number Country resources
      * @return AvailablePhoneNumberCountryReader capable of executing the read
      */
     public static AvailablePhoneNumberCountryReader reader(final String pathAccountSid) {
@@ -57,8 +57,10 @@ public class AvailablePhoneNumberCountry extends Resource {
     /**
      * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCountryCode The country_code
+     * @param pathAccountSid The SID of the Account requesting the available phone
+     *                       number Country resource
+     * @param pathCountryCode The ISO country code of the country to fetch
+     *                        available phone number information about
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
     public static AvailablePhoneNumberCountryFetcher fetcher(final String pathAccountSid, 
@@ -69,7 +71,8 @@ public class AvailablePhoneNumberCountry extends Resource {
     /**
      * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
      * 
-     * @param pathCountryCode The country_code
+     * @param pathCountryCode The ISO country code of the country to fetch
+     *                        available phone number information about
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
     public static AvailablePhoneNumberCountryFetcher fetcher(final String pathCountryCode) {
@@ -139,45 +142,48 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The The ISO Country code to lookup phone numbers for..
+     * Returns The The ISO-3166-1 country code of the country..
      * 
-     * @return The ISO Country code to lookup phone numbers for.
+     * @return The ISO-3166-1 country code of the country.
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The The country.
+     * Returns The The name of the country.
      * 
-     * @return The country
+     * @return The name of the country
      */
     public final String getCountry() {
         return this.country;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI of the Country resource, relative to
+     * `https://api.twilio.com`.
      * 
-     * @return The uri
+     * @return The URI of the Country resource, relative to `https://api.twilio.com`
      */
     public final URI getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The True if new to Twilio platform..
+     * Returns The Whether all phone numbers available in the country are new to the
+     * Twilio platform..
      * 
-     * @return True if new to Twilio platform.
+     * @return Whether all phone numbers available in the country are new to the
+     *         Twilio platform.
      */
     public final Boolean getBeta() {
         return this.beta;
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The A list of related resources identified by their relative URIs.
      * 
-     * @return The subresource_uris
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

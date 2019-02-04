@@ -30,6 +30,7 @@ public class RecordingReader extends Reader<Recording> {
     private List<String> groupingSid;
     private DateTime dateCreatedAfter;
     private DateTime dateCreatedBefore;
+    private Recording.Type mediaType;
 
     /**
      * Only show Recordings with the given status..
@@ -100,6 +101,18 @@ public class RecordingReader extends Reader<Recording> {
      */
     public RecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    /**
+     * Only show Recordings that have this media type. Can be either `audio` or
+     * `video`..
+     * 
+     * @param mediaType Only show Recordings that have this media type.
+     * @return this
+     */
+    public RecordingReader setMediaType(final Recording.Type mediaType) {
+        this.mediaType = mediaType;
         return this;
     }
 
@@ -253,6 +266,10 @@ public class RecordingReader extends Reader<Recording> {
 
         if (dateCreatedBefore != null) {
             request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+        }
+
+        if (mediaType != null) {
+            request.addQueryParam("MediaType", mediaType.toString());
         }
 
         if (getPageSize() != null) {

@@ -38,9 +38,10 @@ public class Local extends Resource {
     /**
      * Create a LocalReader to execute read.
      * 
-     * @param pathAccountSid The 34 character string that uniquely identifies your
-     *                       account.
-     * @param pathCountryCode The country_code
+     * @param pathAccountSid The SID of the Account requesting the
+     *                       AvailablePhoneNumber resources
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      * @return LocalReader capable of executing the read
      */
     public static LocalReader reader(final String pathAccountSid, 
@@ -51,7 +52,8 @@ public class Local extends Resource {
     /**
      * Create a LocalReader to execute read.
      * 
-     * @param pathCountryCode The country_code
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      * @return LocalReader capable of executing the read
      */
     public static LocalReader reader(final String pathCountryCode) {
@@ -152,63 +154,63 @@ public class Local extends Resource {
     }
 
     /**
-     * Returns The A nicely-formatted version of the phone number..
+     * Returns The A formatted version of the phone number.
      * 
-     * @return A nicely-formatted version of the phone number.
+     * @return A formatted version of the phone number
      */
     public final com.twilio.type.PhoneNumber getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The phone number, in E..
+     * Returns The The phone number in E.164 format.
      * 
-     * @return The phone number, in E.
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The LATA of this phone number..
+     * Returns The The LATA of this phone number.
      * 
-     * @return The LATA of this phone number.
+     * @return The LATA of this phone number
      */
     public final String getLata() {
         return this.lata;
     }
 
     /**
-     * Returns The The locality/city of this phone number..
+     * Returns The The locality or city of this phone number's location.
      * 
-     * @return The locality/city of this phone number.
+     * @return The locality or city of this phone number's location
      */
     public final String getLocality() {
         return this.locality;
     }
 
     /**
-     * Returns The The rate center of this phone number..
+     * Returns The The rate center of this phone number.
      * 
-     * @return The rate center of this phone number.
+     * @return The rate center of this phone number
      */
     public final String getRateCenter() {
         return this.rateCenter;
     }
 
     /**
-     * Returns The The latitude coordinate of this phone number..
+     * Returns The The latitude of this phone number's location.
      * 
-     * @return The latitude coordinate of this phone number.
+     * @return The latitude of this phone number's location
      */
     public final BigDecimal getLatitude() {
         return this.latitude;
     }
 
     /**
-     * Returns The The longitude coordinate of this phone number..
+     * Returns The The longitude of this phone number's location.
      * 
-     * @return The longitude coordinate of this phone number.
+     * @return The longitude of this phone number's location
      */
     public final BigDecimal getLongitude() {
         return this.longitude;
@@ -216,58 +218,55 @@ public class Local extends Resource {
 
     /**
      * Returns The The two-letter state or province abbreviation of this phone
-     * number..
+     * number's location.
      * 
-     * @return The two-letter state or province abbreviation of this phone number.
+     * @return The two-letter state or province abbreviation of this phone number's
+     *         location
      */
     public final String getRegion() {
         return this.region;
     }
 
     /**
-     * Returns The The postal code of this phone number..
+     * Returns The The postal or ZIP code of this phone number's location.
      * 
-     * @return The postal code of this phone number.
+     * @return The postal or ZIP code of this phone number's location
      */
     public final String getPostalCode() {
         return this.postalCode;
     }
 
     /**
-     * Returns The The ISO country code of this phone number..
+     * Returns The The ISO country code of this phone number.
      * 
-     * @return The ISO country code of this phone number.
+     * @return The ISO country code of this phone number
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The This indicates whether the phone number requires you or your
-     * customer to have an Address registered with Twilio..
+     * Returns The The type of Address resource the phone number requires.
      * 
-     * @return This indicates whether the phone number requires you or your
-     *         customer to have an Address registered with Twilio.
+     * @return The type of Address resource the phone number requires
      */
     public final String getAddressRequirements() {
         return this.addressRequirements;
     }
 
     /**
-     * Returns The Phone numbers new to the Twilio platform are marked as beta..
+     * Returns The Whether the phone number is new to the Twilio platform.
      * 
-     * @return Phone numbers new to the Twilio platform are marked as beta.
+     * @return Whether the phone number is new to the Twilio platform
      */
     public final Boolean getBeta() {
         return this.beta;
     }
 
     /**
-     * Returns The This is a set of boolean properties that indicate whether a phone
-     * number can receive calls or messages..
+     * Returns The Whether a phone number can receive calls or messages.
      * 
-     * @return This is a set of boolean properties that indicate whether a phone
-     *         number can receive calls or messages.
+     * @return Whether a phone number can receive calls or messages
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;

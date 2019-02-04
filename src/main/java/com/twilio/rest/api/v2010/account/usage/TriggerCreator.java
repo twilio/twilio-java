@@ -32,8 +32,8 @@ public class TriggerCreator extends Creator<Trigger> {
     /**
      * Construct a new TriggerCreator.
      * 
-     * @param callbackUrl URL Twilio will request when the trigger fires
-     * @param triggerValue the value at which the trigger will fire
+     * @param callbackUrl The URL we call when the trigger fires
+     * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      */
     public TriggerCreator(final URI callbackUrl, 
@@ -47,9 +47,9 @@ public class TriggerCreator extends Creator<Trigger> {
     /**
      * Construct a new TriggerCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param callbackUrl URL Twilio will request when the trigger fires
-     * @param triggerValue the value at which the trigger will fire
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param callbackUrl The URL we call when the trigger fires
+     * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      */
     public TriggerCreator(final String pathAccountSid, 
@@ -63,10 +63,10 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * Twilio will use this HTTP method when making a request to the CallbackUrl. 
-     * `GET` or `POST`.  The default is `POST`..
+     * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
+     * and the default is `POST`..
      * 
-     * @param callbackMethod HTTP method to use with callback_url
+     * @param callbackMethod The HTTP method to use to call callback_url
      * @return this
      */
     public TriggerCreator setCallbackMethod(final HttpMethod callbackMethod) {
@@ -75,9 +75,10 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * A human readable description of the new trigger.  Maximum 64 characters..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A user-specified, human-readable name for the trigger.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public TriggerCreator setFriendlyName(final String friendlyName) {
@@ -86,11 +87,11 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * How this trigger recurs. Empty for non-recurring triggers. One of `daily`,
-     * `monthly`, or `yearly` for recurring triggers.  A trigger will only fire once
-     * during each recurring period.  Recurring periods are in GMT..
+     * The frequency of a recurring UsageTrigger.  Can be: `daily`, `monthly`, or
+     * `yearly` for recurring triggers or empty for non-recurring triggers. A
+     * trigger will only fire once during each period. Recurring times are in GMT..
      * 
-     * @param recurring How this trigger recurs
+     * @param recurring The frequency of a recurring UsageTrigger
      * @return this
      */
     public TriggerCreator setRecurring(final Trigger.Recurring recurring) {
@@ -100,12 +101,12 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * The field in the
-     * [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) that will
-     * fire the trigger.  One of `count`, `usage`, or `price` as described in the
-     * [UsageRecords
+     * [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) resource
+     * that should fire the trigger.  Can be: `count`, `usage`, or `price` as
+     * described in the [UsageRecords
      * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).  The default is `usage`..
      * 
-     * @param triggerBy The field in the UsageRecord that fires the trigger
+     * @param triggerBy The field in the UsageRecord resource that fires the trigger
      * @return this
      */
     public TriggerCreator setTriggerBy(final Trigger.TriggerField triggerBy) {

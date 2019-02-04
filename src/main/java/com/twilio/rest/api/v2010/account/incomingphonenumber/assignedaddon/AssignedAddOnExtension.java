@@ -40,10 +40,13 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Create a AssignedAddOnExtensionFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param pathAssignedAddOnSid The assigned_add_on_sid
-     * @param pathSid The unique Extension Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathResourceSid The SID of the Phone Number to which the Add-on is
+     *                        assigned
+     * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
+     *                             Add-on installation
+     * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnExtensionFetcher capable of executing the fetch
      */
     public static AssignedAddOnExtensionFetcher fetcher(final String pathAccountSid, 
@@ -56,9 +59,11 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Create a AssignedAddOnExtensionFetcher to execute fetch.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param pathAssignedAddOnSid The assigned_add_on_sid
-     * @param pathSid The unique Extension Sid
+     * @param pathResourceSid The SID of the Phone Number to which the Add-on is
+     *                        assigned
+     * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
+     *                             Add-on installation
+     * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnExtensionFetcher capable of executing the fetch
      */
     public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid, 
@@ -70,9 +75,12 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Create a AssignedAddOnExtensionReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param pathAssignedAddOnSid The assigned_add_on_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathResourceSid The SID of the Phone Number to which the Add-on is
+     *                        assigned
+     * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
+     *                             Add-on installation
      * @return AssignedAddOnExtensionReader capable of executing the read
      */
     public static AssignedAddOnExtensionReader reader(final String pathAccountSid, 
@@ -84,8 +92,10 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Create a AssignedAddOnExtensionReader to execute read.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param pathAssignedAddOnSid The assigned_add_on_sid
+     * @param pathResourceSid The SID of the Phone Number to which the Add-on is
+     *                        assigned
+     * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
+     *                             Add-on installation
      * @return AssignedAddOnExtensionReader capable of executing the read
      */
     public static AssignedAddOnExtensionReader reader(final String pathResourceSid, 
@@ -172,82 +182,85 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Extension.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Extension
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The Account id that has installed this Add-on.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The Account id that has installed this Add-on
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The Phone Number id that has installed this Add-on.
+     * Returns The The SID of the Phone Number to which the Add-on is assigned.
      * 
-     * @return The Phone Number id that has installed this Add-on
+     * @return The SID of the Phone Number to which the Add-on is assigned
      */
     public final String getResourceSid() {
         return this.resourceSid;
     }
 
     /**
-     * Returns The A string that uniquely identifies the assigned Add-on
+     * Returns The The SID that uniquely identifies the assigned Add-on
      * installation.
      * 
-     * @return A string that uniquely identifies the assigned Add-on installation
+     * @return The SID that uniquely identifies the assigned Add-on installation
      */
     public final String getAssignedAddOnSid() {
         return this.assignedAddOnSid;
     }
 
     /**
-     * Returns The A human-readable description of this Extension.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human-readable description of this Extension
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A human-readable description of the Extension's Product.
+     * Returns The A string that you assigned to describe the Product this Extension
+     * is used within.
      * 
-     * @return A human-readable description of the Extension's Product
+     * @return A string that you assigned to describe the Product this Extension is
+     *         used within
      */
     public final String getProductName() {
         return this.productName;
     }
 
     /**
-     * Returns The The string that uniquely identifies this Extension.
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return The string that uniquely identifies this Extension
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The uri
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The A Boolean indicating if the Extension will be invoked.
+     * Returns The Whether the Extension will be invoked.
      * 
-     * @return A Boolean indicating if the Extension will be invoked
+     * @return Whether the Extension will be invoked
      */
     public final Boolean getEnabled() {
         return this.enabled;

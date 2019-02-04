@@ -1,6 +1,20 @@
 twilio-java changelog
 =====================
 
+[2019-02-04] Version 7.35.0
+----------------------------
+**Library**
+- PR #448: Switch body validator to use hex instead of base64. Thanks to @cjcodes!
+- PR #447: Upgrade jackson library to 2.9.8. Thanks to @mbichoffe!
+
+**Video**
+- [Recordings] Add media type filter to list operation
+- [Composer] Filter Composition Hook resources by FriendlyName
+
+**Twiml**
+- Update `language` enum for `Gather` to fix language code for Filipino (Philippines) and include additional supported languages **(breaking change)**
+
+
 [2019-01-11] Version 7.34.1
 ----------------------------
 **Verify**

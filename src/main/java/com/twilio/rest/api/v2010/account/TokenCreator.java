@@ -30,14 +30,14 @@ public class TokenCreator extends Creator<Token> {
     /**
      * Construct a new TokenCreator.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that will create the resource
      */
     public TokenCreator(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * The duration in seconds for which the generated credentials are valid, the
+     * The duration in seconds for which the generated credentials are valid. The
      * default value is 86400 (24 hours)..
      * 
      * @param ttl The duration in seconds the credentials are valid

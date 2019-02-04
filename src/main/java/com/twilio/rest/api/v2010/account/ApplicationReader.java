@@ -32,17 +32,18 @@ public class ApplicationReader extends Reader<Application> {
     /**
      * Construct a new ApplicationReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public ApplicationReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only return application resources with friendly names that match exactly with
-     * this name.
+     * The string that identifies the Application resources to read..
      * 
-     * @param friendlyName Filter by friendly name
+     * @param friendlyName The string that identifies the Application resources to
+     *                     read
      * @return this
      */
     public ApplicationReader setFriendlyName(final String friendlyName) {

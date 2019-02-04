@@ -34,18 +34,19 @@ public class TriggerReader extends Reader<Trigger> {
     /**
      * Construct a new TriggerReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public TriggerReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show UsageTriggers that count over this interval.  One of `daily`,
-     * `monthly`, or `yearly`.  To retrieve non-recurring triggers, leave this empty
-     * or use `alltime`..
+     * The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`,
+     * or `yearly` to read recurring UsageTriggers. An empty value or a value of
+     * `alltime` reads non-recurring UsageTriggers..
      * 
-     * @param recurring Filter by recurring
+     * @param recurring The frequency of recurring UsageTriggers to read
      * @return this
      */
     public TriggerReader setRecurring(final Trigger.Recurring recurring) {
@@ -54,11 +55,11 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that trigger by this field in the UsageRecord.  Must
-     * be one of: `count`, `usage`, or `price` as described in the [UsageRecords
+     * The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or
+     * `price` as described in the [UsageRecords
      * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price)..
      * 
-     * @param triggerBy Filter by trigger by
+     * @param triggerBy The trigger field of the UsageTriggers to read
      * @return this
      */
     public TriggerReader setTriggerBy(final Trigger.TriggerField triggerBy) {
@@ -67,11 +68,10 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that watch this usage category.  Must be one of the
-     * supported [usage
+     * The usage category of the UsageTriggers to read. Must be a supported [usage
      * categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories)..
      * 
-     * @param usageCategory Filter by Usage Category
+     * @param usageCategory The usage category of the UsageTriggers to read
      * @return this
      */
     public TriggerReader setUsageCategory(final Trigger.UsageCategory usageCategory) {

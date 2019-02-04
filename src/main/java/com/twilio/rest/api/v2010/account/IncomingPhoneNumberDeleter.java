@@ -24,7 +24,7 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberDeleter.
      * 
-     * @param pathSid Delete by unique phone-number Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public IncomingPhoneNumberDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberDeleter.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Delete by unique phone-number Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      */
     public IncomingPhoneNumberDeleter(final String pathAccountSid, 
                                       final String pathSid) {

@@ -30,16 +30,18 @@ public class NewKeyCreator extends Creator<NewKey> {
     /**
      * Construct a new NewKeyCreator.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that will be responsible for
+     *                       the new Key resource
      */
     public NewKeyCreator(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * The friendly_name.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public NewKeyCreator setFriendlyName(final String friendlyName) {

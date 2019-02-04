@@ -34,18 +34,17 @@ public class AddressReader extends Reader<Address> {
     /**
      * Construct a new AddressReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that is responsible for this
+     *                       address
      */
     public AddressReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only return the Address resources with customer names that exactly match this
-     * name..
+     * The `customer_name` of the Address resources to read..
      * 
-     * @param customerName Only return the Address resources with customer names
-     *                     that exactly match this name.
+     * @param customerName The `customer_name` of the Address resources to read
      * @return this
      */
     public AddressReader setCustomerName(final String customerName) {
@@ -54,11 +53,9 @@ public class AddressReader extends Reader<Address> {
     }
 
     /**
-     * Only return the Address resources with friendly names that exactly match this
-     * name..
+     * The string that identifies the Address resources to read..
      * 
-     * @param friendlyName Only return the Address resources with friendly names
-     *                     that exactly match this name.
+     * @param friendlyName The string that identifies the Address resources to read
      * @return this
      */
     public AddressReader setFriendlyName(final String friendlyName) {
@@ -67,9 +64,9 @@ public class AddressReader extends Reader<Address> {
     }
 
     /**
-     * Only return the Address resources in this country..
+     * The ISO country code of the Address resources to read..
      * 
-     * @param isoCountry Only return the Address resources in this country.
+     * @param isoCountry The ISO country code of the Address resources to read
      * @return this
      */
     public AddressReader setIsoCountry(final String isoCountry) {

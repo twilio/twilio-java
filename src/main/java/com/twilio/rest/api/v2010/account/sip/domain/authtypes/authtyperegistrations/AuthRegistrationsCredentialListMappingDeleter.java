@@ -25,8 +25,9 @@ public class AuthRegistrationsCredentialListMappingDeleter extends Deleter<AuthR
     /**
      * Construct a new AuthRegistrationsCredentialListMappingDeleter.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique credential list Sid
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public AuthRegistrationsCredentialListMappingDeleter(final String pathDomainSid, 
                                                          final String pathSid) {
@@ -37,9 +38,11 @@ public class AuthRegistrationsCredentialListMappingDeleter extends Deleter<AuthR
     /**
      * Construct a new AuthRegistrationsCredentialListMappingDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique credential list Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public AuthRegistrationsCredentialListMappingDeleter(final String pathAccountSid, 
                                                          final String pathDomainSid, 

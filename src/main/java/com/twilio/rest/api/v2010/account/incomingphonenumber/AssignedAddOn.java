@@ -43,9 +43,10 @@ public class AssignedAddOn extends Resource {
     /**
      * Create a AssignedAddOnFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The unique Installed Add-on Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnFetcher capable of executing the fetch
      */
     public static AssignedAddOnFetcher fetcher(final String pathAccountSid, 
@@ -57,8 +58,8 @@ public class AssignedAddOn extends Resource {
     /**
      * Create a AssignedAddOnFetcher to execute fetch.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The unique Installed Add-on Sid
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnFetcher capable of executing the fetch
      */
     public static AssignedAddOnFetcher fetcher(final String pathResourceSid, 
@@ -69,8 +70,9 @@ public class AssignedAddOn extends Resource {
     /**
      * Create a AssignedAddOnReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @return AssignedAddOnReader capable of executing the read
      */
     public static AssignedAddOnReader reader(final String pathAccountSid, 
@@ -81,7 +83,7 @@ public class AssignedAddOn extends Resource {
     /**
      * Create a AssignedAddOnReader to execute read.
      * 
-     * @param pathResourceSid The resource_sid
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @return AssignedAddOnReader capable of executing the read
      */
     public static AssignedAddOnReader reader(final String pathResourceSid) {
@@ -91,10 +93,9 @@ public class AssignedAddOn extends Resource {
     /**
      * Create a AssignedAddOnCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param installedAddOnSid A string that uniquely identifies the Add-on
-     *                          installation
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathResourceSid The SID of the Phone Number to assign the Add-on
+     * @param installedAddOnSid The SID that identifies the Add-on installation
      * @return AssignedAddOnCreator capable of executing the create
      */
     public static AssignedAddOnCreator creator(final String pathAccountSid, 
@@ -106,9 +107,8 @@ public class AssignedAddOn extends Resource {
     /**
      * Create a AssignedAddOnCreator to execute create.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param installedAddOnSid A string that uniquely identifies the Add-on
-     *                          installation
+     * @param pathResourceSid The SID of the Phone Number to assign the Add-on
+     * @param installedAddOnSid The SID that identifies the Add-on installation
      * @return AssignedAddOnCreator capable of executing the create
      */
     public static AssignedAddOnCreator creator(final String pathResourceSid, 
@@ -119,9 +119,10 @@ public class AssignedAddOn extends Resource {
     /**
      * Create a AssignedAddOnDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The Installed Add-on Sid to remove
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnDeleter capable of executing the delete
      */
     public static AssignedAddOnDeleter deleter(final String pathAccountSid, 
@@ -133,8 +134,8 @@ public class AssignedAddOn extends Resource {
     /**
      * Create a AssignedAddOnDeleter to execute delete.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The Installed Add-on Sid to remove
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnDeleter capable of executing the delete
      */
     public static AssignedAddOnDeleter deleter(final String pathResourceSid, 
@@ -229,37 +230,36 @@ public class AssignedAddOn extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this assigned Add-on
-     * installation.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this assigned Add-on installation
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The Account id that has installed this Add-on.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The Account id that has installed this Add-on
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The Phone Number id that has installed this Add-on.
+     * Returns The The SID of the Phone Number that installed this Add-on.
      * 
-     * @return The Phone Number id that has installed this Add-on
+     * @return The SID of the Phone Number that installed this Add-on
      */
     public final String getResourceSid() {
         return this.resourceSid;
     }
 
     /**
-     * Returns The A description of this Add-on installation.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A description of this Add-on installation
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -275,54 +275,56 @@ public class AssignedAddOn extends Resource {
     }
 
     /**
-     * Returns The The JSON object representing the current configuration.
+     * Returns The A JSON string that represents the current configuration.
      * 
-     * @return The JSON object representing the current configuration
+     * @return A JSON string that represents the current configuration
      */
     public final Map<String, Object> getConfiguration() {
         return this.configuration;
     }
 
     /**
-     * Returns The The string that uniquely identifies this Add-on installation.
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return The string that uniquely identifies this Add-on installation
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The date this Add-on was installed.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this Add-on was installed
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Add-on installation was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this Add-on installation was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The uri
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The subresource_uris.
+     * Returns The A list of related resources identified by their relative URIs.
      * 
-     * @return The subresource_uris
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

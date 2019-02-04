@@ -303,7 +303,8 @@ public class Record extends Resource {
     /**
      * Create a RecordReader to execute read.
      * 
-     * @param pathAccountSid The Account that accrued the usage
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return RecordReader capable of executing the read
      */
     public static RecordReader reader(final String pathAccountSid) {
@@ -418,18 +419,18 @@ public class Record extends Resource {
     }
 
     /**
-     * Returns The The Account that accrued the usage.
+     * Returns The The SID of the Account accrued the usage.
      * 
-     * @return The Account that accrued the usage
+     * @return The SID of the Account accrued the usage
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The The API version used to create the resource.
      * 
-     * @return The api_version
+     * @return The API version used to create the resource
      */
     public final String getApiVersion() {
         return this.apiVersion;
@@ -445,36 +446,36 @@ public class Record extends Resource {
     }
 
     /**
-     * Returns The The number of usage events (e.g. the number of calls)..
+     * Returns The The number of usage events.
      * 
-     * @return The number of usage events (e.g. the number of calls).
+     * @return The number of usage events
      */
     public final String getCount() {
         return this.count;
     }
 
     /**
-     * Returns The The unit in which `Count` is measured.
+     * Returns The The units in which count is measured.
      * 
-     * @return The unit in which `Count` is measured
+     * @return The units in which count is measured
      */
     public final String getCountUnit() {
         return this.countUnit;
     }
 
     /**
-     * Returns The A human-readable description of the usage category..
+     * Returns The A plain-language description of the usage category.
      * 
-     * @return A human-readable description of the usage category.
+     * @return A plain-language description of the usage category
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The The last date usage is included in this record.
+     * Returns The The last date for which usage is included in the UsageRecord.
      * 
-     * @return The last date usage is included in this record
+     * @return The last date for which usage is included in the UsageRecord
      */
     public final LocalDate getEndDate() {
         return this.endDate;
@@ -490,36 +491,36 @@ public class Record extends Resource {
     }
 
     /**
-     * Returns The The currency in which `Price` is measured.
+     * Returns The The currency in which `price` is measured.
      * 
-     * @return The currency in which `Price` is measured
+     * @return The currency in which `price` is measured
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The first date usage is included in this record.
+     * Returns The The first date for which usage is included in this UsageRecord.
      * 
-     * @return The first date usage is included in this record
+     * @return The first date for which usage is included in this UsageRecord
      */
     public final LocalDate getStartDate() {
         return this.startDate;
     }
 
     /**
-     * Returns The Subresources Uris for this UsageRecord.
+     * Returns The A list of related resources identified by their relative URIs.
      * 
-     * @return Subresources Uris for this UsageRecord
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
@@ -535,9 +536,9 @@ public class Record extends Resource {
     }
 
     /**
-     * Returns The The units in which `Usage` is measured.
+     * Returns The The units in which usage is measured.
      * 
-     * @return The units in which `Usage` is measured
+     * @return The units in which usage is measured
      */
     public final String getUsageUnit() {
         return this.usageUnit;

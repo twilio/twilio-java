@@ -38,14 +38,14 @@ public class Address extends Resource {
     /**
      * Create a AddressCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param customerName Your name or business name, or that of your customer.
-     * @param street The number and street address where you or your customer is
-     *               located.
-     * @param city The city in which you or your customer is located.
-     * @param region The state or region in which you or your customer is located.
-     * @param postalCode The postal code in which you or your customer is located.
-     * @param isoCountry The ISO country code of your or your customer's address.
+     * @param pathAccountSid The SID of the Account that will be responsible for
+     *                       the new Address resource
+     * @param customerName The name to associate with the new address
+     * @param street The number and street address of the new address
+     * @param city The city of the new address
+     * @param region The state or region of the new address
+     * @param postalCode The postal code of the new address
+     * @param isoCountry The ISO country code of the new address
      * @return AddressCreator capable of executing the create
      */
     public static AddressCreator creator(final String pathAccountSid, 
@@ -61,13 +61,12 @@ public class Address extends Resource {
     /**
      * Create a AddressCreator to execute create.
      * 
-     * @param customerName Your name or business name, or that of your customer.
-     * @param street The number and street address where you or your customer is
-     *               located.
-     * @param city The city in which you or your customer is located.
-     * @param region The state or region in which you or your customer is located.
-     * @param postalCode The postal code in which you or your customer is located.
-     * @param isoCountry The ISO country code of your or your customer's address.
+     * @param customerName The name to associate with the new address
+     * @param street The number and street address of the new address
+     * @param city The city of the new address
+     * @param region The state or region of the new address
+     * @param postalCode The postal code of the new address
+     * @param isoCountry The ISO country code of the new address
      * @return AddressCreator capable of executing the create
      */
     public static AddressCreator creator(final String customerName, 
@@ -82,8 +81,9 @@ public class Address extends Resource {
     /**
      * Create a AddressDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that is responsible for the
+     *                       resources to delete
+     * @param pathSid The unique string that identifies the resource
      * @return AddressDeleter capable of executing the delete
      */
     public static AddressDeleter deleter(final String pathAccountSid, 
@@ -94,7 +94,7 @@ public class Address extends Resource {
     /**
      * Create a AddressDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return AddressDeleter capable of executing the delete
      */
     public static AddressDeleter deleter(final String pathSid) {
@@ -104,8 +104,9 @@ public class Address extends Resource {
     /**
      * Create a AddressFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that is responsible for this
+     *                       address
+     * @param pathSid The unique string that identifies the resource
      * @return AddressFetcher capable of executing the fetch
      */
     public static AddressFetcher fetcher(final String pathAccountSid, 
@@ -116,7 +117,7 @@ public class Address extends Resource {
     /**
      * Create a AddressFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return AddressFetcher capable of executing the fetch
      */
     public static AddressFetcher fetcher(final String pathSid) {
@@ -126,8 +127,9 @@ public class Address extends Resource {
     /**
      * Create a AddressUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that is responsible for the
+     *                       resource to update
+     * @param pathSid The unique string that identifies the resource
      * @return AddressUpdater capable of executing the update
      */
     public static AddressUpdater updater(final String pathAccountSid, 
@@ -138,7 +140,7 @@ public class Address extends Resource {
     /**
      * Create a AddressUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return AddressUpdater capable of executing the update
      */
     public static AddressUpdater updater(final String pathSid) {
@@ -148,7 +150,8 @@ public class Address extends Resource {
     /**
      * Create a AddressReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that is responsible for this
+     *                       address
      * @return AddressReader capable of executing the read
      */
     public static AddressReader reader(final String pathAccountSid) {
@@ -262,131 +265,129 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this address..
+     * Returns The The SID of the Account that is responsible for the resource.
      * 
-     * @return The unique id of the Account responsible for this address.
+     * @return The SID of the Account that is responsible for the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The city in which you or your customer is located..
+     * Returns The The city in which the address is located.
      * 
-     * @return The city in which you or your customer is located.
+     * @return The city in which the address is located
      */
     public final String getCity() {
         return this.city;
     }
 
     /**
-     * Returns The Your name or business name, or that of your customer..
+     * Returns The The name associated with the address.
      * 
-     * @return Your name or business name, or that of your customer.
+     * @return The name associated with the address
      */
     public final String getCustomerName() {
         return this.customerName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human-readable description of the address..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human-readable description of the address.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The ISO country code of your or your customer's address..
+     * Returns The The ISO country code of the address.
      * 
-     * @return The ISO country code of your or your customer's address.
+     * @return The ISO country code of the address
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The The postal code in which you or your customer is located..
+     * Returns The The postal code of the address.
      * 
-     * @return The postal code in which you or your customer is located.
+     * @return The postal code of the address
      */
     public final String getPostalCode() {
         return this.postalCode;
     }
 
     /**
-     * Returns The The state or region in which you or your customer is located..
+     * Returns The The state or region of the address.
      * 
-     * @return The state or region in which you or your customer is located.
+     * @return The state or region of the address
      */
     public final String getRegion() {
         return this.region;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this address..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this address.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The number and street address where you or your customer is
-     * located..
+     * Returns The The number and street address of the address.
      * 
-     * @return The number and street address where you or your customer is located.
+     * @return The number and street address of the address
      */
     public final String getStreet() {
         return this.street;
     }
 
     /**
-     * Returns The The URI for this resource, relative to https://api..
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource, relative to https://api.
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The This is a value that indicates if emergency calling has been
-     * enabled on this number..
+     * Returns The Whether emergency calling has been enabled on this number.
      * 
-     * @return This is a value that indicates if emergency calling has been enabled
-     *         on this number.
+     * @return Whether emergency calling has been enabled on this number
      */
     public final Boolean getEmergencyEnabled() {
         return this.emergencyEnabled;
     }
 
     /**
-     * Returns The In some countries, addresses are validated to comply with local
-     * regulation..
+     * Returns The Whether the address has been validated to comply with local
+     * regulation.
      * 
-     * @return In some countries, addresses are validated to comply with local
-     *         regulation.
+     * @return Whether the address has been validated to comply with local
+     *         regulation
      */
     public final Boolean getValidated() {
         return this.validated;

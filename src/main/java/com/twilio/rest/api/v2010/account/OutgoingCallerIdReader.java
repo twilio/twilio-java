@@ -34,16 +34,17 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     /**
      * Construct a new OutgoingCallerIdReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public OutgoingCallerIdReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show the caller id resource that exactly matches this phone number..
+     * The phone number of the OutgoingCallerId resources to read..
      * 
-     * @param phoneNumber Filter by phone number
+     * @param phoneNumber The phone number of the OutgoingCallerId resources to read
      * @return this
      */
     public OutgoingCallerIdReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -52,9 +53,9 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     /**
-     * Only show the caller id resource that exactly matches this phone number..
+     * The phone number of the OutgoingCallerId resources to read..
      * 
-     * @param phoneNumber Filter by phone number
+     * @param phoneNumber The phone number of the OutgoingCallerId resources to read
      * @return this
      */
     public OutgoingCallerIdReader setPhoneNumber(final String phoneNumber) {
@@ -62,9 +63,10 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     /**
-     * Only show the caller id resource that exactly matches this name..
+     * The string that identifies the OutgoingCallerId resources to read..
      * 
-     * @param friendlyName Filter by friendly name
+     * @param friendlyName The string that identifies the OutgoingCallerId
+     *                     resources to read
      * @return this
      */
     public OutgoingCallerIdReader setFriendlyName(final String friendlyName) {

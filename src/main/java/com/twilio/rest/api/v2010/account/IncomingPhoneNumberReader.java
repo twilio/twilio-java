@@ -36,17 +36,18 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     /**
      * Construct a new IncomingPhoneNumberReader.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public IncomingPhoneNumberReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Include phone numbers new to the Twilio platform. Possible values are either
-     * `true` or `false`. Default is `true`..
+     * Whether to include phone numbers new to the Twilio platform. Can be: `true`
+     * or `false` and the default is `true`..
      * 
-     * @param beta Include new phone numbers
+     * @param beta Whether to include new phone numbers
      * @return this
      */
     public IncomingPhoneNumberReader setBeta(final Boolean beta) {
@@ -55,10 +56,10 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Only show the incoming phone number resources with friendly names that
-     * exactly match this name..
+     * A string that identifies the IncomingPhoneNumber resources to read..
      * 
-     * @param friendlyName Filter by friendly name
+     * @param friendlyName A string that identifies the IncomingPhoneNumber
+     *                     resources to read
      * @return this
      */
     public IncomingPhoneNumberReader setFriendlyName(final String friendlyName) {
@@ -67,10 +68,11 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Only show the incoming phone number resources that match this pattern. You
-     * can specify partial numbers and use '*' as a wildcard for any digit..
+     * The phone numbers of the IncomingPhoneNumber resources to read. You can
+     * specify partial numbers and use '*' as a wildcard for any digit..
      * 
-     * @param phoneNumber Filter by incoming phone number
+     * @param phoneNumber The phone numbers of the IncomingPhoneNumber resources to
+     *                    read
      * @return this
      */
     public IncomingPhoneNumberReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -79,10 +81,11 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Only show the incoming phone number resources that match this pattern. You
-     * can specify partial numbers and use '*' as a wildcard for any digit..
+     * The phone numbers of the IncomingPhoneNumber resources to read. You can
+     * specify partial numbers and use '*' as a wildcard for any digit..
      * 
-     * @param phoneNumber Filter by incoming phone number
+     * @param phoneNumber The phone numbers of the IncomingPhoneNumber resources to
+     *                    read
      * @return this
      */
     public IncomingPhoneNumberReader setPhoneNumber(final String phoneNumber) {
@@ -90,10 +93,10 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     /**
-     * Include phone numbers based on the origin, by default, phone numbers of all
-     * origin are included. Possible values are either `twilio` or `hosted`..
+     * Whether to include phone numbers based on their origin. Can be: `twilio` or
+     * `hosted`. By default, phone numbers of all origin are included..
      * 
-     * @param origin Include phone numbers based on the origin, by default, phone
+     * @param origin Include phone numbers based on their origin. By default, phone
      *               numbers of all origin are included.
      * @return this
      */

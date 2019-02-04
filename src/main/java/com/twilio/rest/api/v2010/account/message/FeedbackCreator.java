@@ -25,7 +25,8 @@ public class FeedbackCreator extends Creator<Feedback> {
     /**
      * Construct a new FeedbackCreator.
      * 
-     * @param pathMessageSid The message_sid
+     * @param pathMessageSid The SID of the Message resource for which the feedback
+     *                       was provided
      */
     public FeedbackCreator(final String pathMessageSid) {
         this.pathMessageSid = pathMessageSid;
@@ -34,8 +35,9 @@ public class FeedbackCreator extends Creator<Feedback> {
     /**
      * Construct a new FeedbackCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathMessageSid The message_sid
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathMessageSid The SID of the Message resource for which the feedback
+     *                       was provided
      */
     public FeedbackCreator(final String pathAccountSid, 
                            final String pathMessageSid) {
@@ -44,9 +46,13 @@ public class FeedbackCreator extends Creator<Feedback> {
     }
 
     /**
-     * The outcome.
+     * Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If
+     * `provide_feedback`=`true` in [the initial HTTP
+     * POST](https://www.twilio.com/docs/sms/api/message#create-a-message-resource),
+     * the initial value of this property is `unconfirmed`. After the message
+     * arrives, update the value to `confirmed`..
      * 
-     * @param outcome The outcome
+     * @param outcome Whether the feedback has arrived
      * @return this
      */
     public FeedbackCreator setOutcome(final Feedback.Outcome outcome) {

@@ -30,7 +30,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     /**
      * Construct a new TriggerUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public TriggerUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -39,8 +39,9 @@ public class TriggerUpdater extends Updater<Trigger> {
     /**
      * Construct a new TriggerUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
     public TriggerUpdater(final String pathAccountSid, 
                           final String pathSid) {
@@ -49,10 +50,10 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * The HTTP method Twilio will use when making a request to the CallbackUrl. 
-     * `GET` or `POST`..
+     * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
+     * and the default is `POST`..
      * 
-     * @param callbackMethod HTTP method to use with callback_url
+     * @param callbackMethod The HTTP method to use to call callback_url
      * @return this
      */
     public TriggerUpdater setCallbackMethod(final HttpMethod callbackMethod) {
@@ -61,9 +62,9 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * Twilio will make a request to this url when the trigger fires..
+     * The URL we should call using `callback_method` when the trigger fires..
      * 
-     * @param callbackUrl URL Twilio will request when the trigger fires
+     * @param callbackUrl The URL we call when the trigger fires
      * @return this
      */
     public TriggerUpdater setCallbackUrl(final URI callbackUrl) {
@@ -72,9 +73,9 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * Twilio will make a request to this url when the trigger fires..
+     * The URL we should call using `callback_method` when the trigger fires..
      * 
-     * @param callbackUrl URL Twilio will request when the trigger fires
+     * @param callbackUrl The URL we call when the trigger fires
      * @return this
      */
     public TriggerUpdater setCallbackUrl(final String callbackUrl) {
@@ -82,9 +83,10 @@ public class TriggerUpdater extends Updater<Trigger> {
     }
 
     /**
-     * A user-specified, human-readable name for the trigger..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A user-specified, human-readable name for the trigger.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public TriggerUpdater setFriendlyName(final String friendlyName) {

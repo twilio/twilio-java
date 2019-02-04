@@ -24,7 +24,7 @@ public class ApplicationDeleter extends Deleter<Application> {
     /**
      * Construct a new ApplicationDeleter.
      * 
-     * @param pathSid The application sid to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public ApplicationDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class ApplicationDeleter extends Deleter<Application> {
     /**
      * Construct a new ApplicationDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The application sid to delete
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      */
     public ApplicationDeleter(final String pathAccountSid, 
                               final String pathSid) {

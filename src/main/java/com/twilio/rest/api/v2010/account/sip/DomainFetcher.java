@@ -24,7 +24,7 @@ public class DomainFetcher extends Fetcher<Domain> {
     /**
      * Construct a new DomainFetcher.
      * 
-     * @param pathSid Fetch by unique Domain Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public DomainFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class DomainFetcher extends Fetcher<Domain> {
     /**
      * Construct a new DomainFetcher.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Fetch by unique Domain Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public DomainFetcher(final String pathAccountSid, 
                          final String pathSid) {

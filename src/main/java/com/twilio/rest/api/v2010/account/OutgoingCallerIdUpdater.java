@@ -25,7 +25,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     /**
      * Construct a new OutgoingCallerIdUpdater.
      * 
-     * @param pathSid Update by unique outgoing-caller-id Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public OutgoingCallerIdUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -34,8 +34,9 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     /**
      * Construct a new OutgoingCallerIdUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Update by unique outgoing-caller-id Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
     public OutgoingCallerIdUpdater(final String pathAccountSid, 
                                    final String pathSid) {
@@ -44,10 +45,10 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     }
 
     /**
-     * A human readable description of a Caller ID, with maximum length of 64
-     * characters. Defaults to a nicely formatted version of the phone number..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A human readable description of the caller ID
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public OutgoingCallerIdUpdater setFriendlyName(final String friendlyName) {

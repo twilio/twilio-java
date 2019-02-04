@@ -39,8 +39,9 @@ public class Notification extends Resource {
     /**
      * Create a NotificationFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique notification Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationFetcher capable of executing the fetch
      */
     public static NotificationFetcher fetcher(final String pathAccountSid, 
@@ -51,7 +52,7 @@ public class Notification extends Resource {
     /**
      * Create a NotificationFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique notification Sid
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationFetcher capable of executing the fetch
      */
     public static NotificationFetcher fetcher(final String pathSid) {
@@ -61,8 +62,9 @@ public class Notification extends Resource {
     /**
      * Create a NotificationDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique notification Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationDeleter capable of executing the delete
      */
     public static NotificationDeleter deleter(final String pathAccountSid, 
@@ -73,7 +75,7 @@ public class Notification extends Resource {
     /**
      * Create a NotificationDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique notification Sid
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationDeleter capable of executing the delete
      */
     public static NotificationDeleter deleter(final String pathSid) {
@@ -83,7 +85,8 @@ public class Notification extends Resource {
     /**
      * Create a NotificationReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return NotificationReader capable of executing the read
      */
     public static NotificationReader reader(final String pathAccountSid) {
@@ -210,45 +213,46 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The version of the Twilio API in use.
+     * Returns The The API version used to generate the notification.
      * 
-     * @return The version of the Twilio API in use
+     * @return The API version used to generate the notification
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The string that uniquely identifies the call.
+     * Returns The The SID of the Call the resource is associated with.
      * 
-     * @return The string that uniquely identifies the call
+     * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
         return this.callSid;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -282,9 +286,9 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The text of the notification..
+     * Returns The The text of the notification.
      * 
-     * @return The text of the notification.
+     * @return The text of the notification
      */
     public final String getMessageText() {
         return this.messageText;
@@ -327,36 +331,36 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The HTTP body returned by your server..
+     * Returns The The HTTP body returned by your server.
      * 
-     * @return The HTTP body returned by your server.
+     * @return The HTTP body returned by your server
      */
     public final String getResponseBody() {
         return this.responseBody;
     }
 
     /**
-     * Returns The The HTTP headers returned by your server..
+     * Returns The The HTTP headers returned by your server.
      * 
-     * @return The HTTP headers returned by your server.
+     * @return The HTTP headers returned by your server
      */
     public final String getResponseHeaders() {
         return this.responseHeaders;
     }
 
     /**
-     * Returns The A string that uniquely identifies this notification.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this notification
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

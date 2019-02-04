@@ -66,8 +66,9 @@ public class AuthorizedConnectApp extends Resource {
     /**
      * Create a AuthorizedConnectAppFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathConnectAppSid The connect_app_sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathConnectAppSid The SID of the Connect App to fetch
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
     public static AuthorizedConnectAppFetcher fetcher(final String pathAccountSid, 
@@ -78,7 +79,7 @@ public class AuthorizedConnectApp extends Resource {
     /**
      * Create a AuthorizedConnectAppFetcher to execute fetch.
      * 
-     * @param pathConnectAppSid The connect_app_sid
+     * @param pathConnectAppSid The SID of the Connect App to fetch
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
     public static AuthorizedConnectAppFetcher fetcher(final String pathConnectAppSid) {
@@ -88,7 +89,8 @@ public class AuthorizedConnectApp extends Resource {
     /**
      * Create a AuthorizedConnectAppReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return AuthorizedConnectAppReader capable of executing the read
      */
     public static AuthorizedConnectAppReader reader(final String pathAccountSid) {
@@ -187,90 +189,91 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The company name set for this Connect App..
+     * Returns The The company name set for the Connect App.
      * 
-     * @return The company name set for this Connect App.
+     * @return The company name set for the Connect App
      */
     public final String getConnectAppCompanyName() {
         return this.connectAppCompanyName;
     }
 
     /**
-     * Returns The Human readable description of the app.
+     * Returns The A detailed description of the app.
      * 
-     * @return Human readable description of the app
+     * @return A detailed description of the app
      */
     public final String getConnectAppDescription() {
         return this.connectAppDescription;
     }
 
     /**
-     * Returns The A human readable name for the Connect App..
+     * Returns The The name of the Connect App.
      * 
-     * @return A human readable name for the Connect App.
+     * @return The name of the Connect App
      */
     public final String getConnectAppFriendlyName() {
         return this.connectAppFriendlyName;
     }
 
     /**
-     * Returns The The public URL for this Connect App..
+     * Returns The The public URL for the Connect App.
      * 
-     * @return The public URL for this Connect App.
+     * @return The public URL for the Connect App
      */
     public final URI getConnectAppHomepageUrl() {
         return this.connectAppHomepageUrl;
     }
 
     /**
-     * Returns The A string that uniquely identifies this app.
+     * Returns The The SID that we assigned to the Connect App.
      * 
-     * @return A string that uniquely identifies this app
+     * @return The SID that we assigned to the Connect App
      */
     public final String getConnectAppSid() {
         return this.connectAppSid;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Permissions authorized to this app.
+     * Returns The Permissions authorized to the app.
      * 
-     * @return Permissions authorized to this app
+     * @return Permissions authorized to the app
      */
     public final List<AuthorizedConnectApp.Permission> getPermissions() {
         return this.permissions;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

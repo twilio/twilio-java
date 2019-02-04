@@ -38,9 +38,10 @@ public class National extends Resource {
     /**
      * Create a NationalReader to execute read.
      * 
-     * @param pathAccountSid The 34 character string that uniquely identifies your
-     *                       account.
-     * @param pathCountryCode The country_code
+     * @param pathAccountSid The SID of the Account requesting the
+     *                       AvailablePhoneNumber resources
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      * @return NationalReader capable of executing the read
      */
     public static NationalReader reader(final String pathAccountSid, 
@@ -51,7 +52,8 @@ public class National extends Resource {
     /**
      * Create a NationalReader to execute read.
      * 
-     * @param pathCountryCode The country_code
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      * @return NationalReader capable of executing the read
      */
     public static NationalReader reader(final String pathCountryCode) {
@@ -153,117 +155,119 @@ public class National extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A formatted version of the phone number.
      * 
-     * @return The friendly_name
+     * @return A formatted version of the phone number
      */
     public final com.twilio.type.PhoneNumber getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The phone_number.
+     * Returns The The phone number in E.164 format.
      * 
-     * @return The phone_number
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The lata.
+     * Returns The The LATA of this phone number.
      * 
-     * @return The lata
+     * @return The LATA of this phone number
      */
     public final String getLata() {
         return this.lata;
     }
 
     /**
-     * Returns The The locality.
+     * Returns The The locality or city of this phone number's location.
      * 
-     * @return The locality
+     * @return The locality or city of this phone number's location
      */
     public final String getLocality() {
         return this.locality;
     }
 
     /**
-     * Returns The The rate_center.
+     * Returns The The rate center of this phone number.
      * 
-     * @return The rate_center
+     * @return The rate center of this phone number
      */
     public final String getRateCenter() {
         return this.rateCenter;
     }
 
     /**
-     * Returns The The latitude.
+     * Returns The The latitude of this phone number's location.
      * 
-     * @return The latitude
+     * @return The latitude of this phone number's location
      */
     public final BigDecimal getLatitude() {
         return this.latitude;
     }
 
     /**
-     * Returns The The longitude.
+     * Returns The The longitude of this phone number's location.
      * 
-     * @return The longitude
+     * @return The longitude of this phone number's location
      */
     public final BigDecimal getLongitude() {
         return this.longitude;
     }
 
     /**
-     * Returns The The region.
+     * Returns The The two-letter state or province abbreviation of this phone
+     * number's location.
      * 
-     * @return The region
+     * @return The two-letter state or province abbreviation of this phone number's
+     *         location
      */
     public final String getRegion() {
         return this.region;
     }
 
     /**
-     * Returns The The postal_code.
+     * Returns The The postal or ZIP code of this phone number's location.
      * 
-     * @return The postal_code
+     * @return The postal or ZIP code of this phone number's location
      */
     public final String getPostalCode() {
         return this.postalCode;
     }
 
     /**
-     * Returns The The iso_country.
+     * Returns The The ISO country code of this phone number.
      * 
-     * @return The iso_country
+     * @return The ISO country code of this phone number
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The The address_requirements.
+     * Returns The The type of Address resource the phone number requires.
      * 
-     * @return The address_requirements
+     * @return The type of Address resource the phone number requires
      */
     public final String getAddressRequirements() {
         return this.addressRequirements;
     }
 
     /**
-     * Returns The The beta.
+     * Returns The Whether the phone number is new to the Twilio platform.
      * 
-     * @return The beta
+     * @return Whether the phone number is new to the Twilio platform
      */
     public final Boolean getBeta() {
         return this.beta;
     }
 
     /**
-     * Returns The The capabilities.
+     * Returns The Whether a phone number can receive calls or messages.
      * 
-     * @return The capabilities
+     * @return Whether a phone number can receive calls or messages
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;

@@ -24,7 +24,8 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
     /**
      * Construct a new AvailablePhoneNumberCountryFetcher.
      * 
-     * @param pathCountryCode The country_code
+     * @param pathCountryCode The ISO country code of the country to fetch
+     *                        available phone number information about
      */
     public AvailablePhoneNumberCountryFetcher(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -33,8 +34,10 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
     /**
      * Construct a new AvailablePhoneNumberCountryFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCountryCode The country_code
+     * @param pathAccountSid The SID of the Account requesting the available phone
+     *                       number Country resource
+     * @param pathCountryCode The ISO country code of the country to fetch
+     *                        available phone number information about
      */
     public AvailablePhoneNumberCountryFetcher(final String pathAccountSid, 
                                               final String pathCountryCode) {

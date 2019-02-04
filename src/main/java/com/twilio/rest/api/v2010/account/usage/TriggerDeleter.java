@@ -24,7 +24,7 @@ public class TriggerDeleter extends Deleter<Trigger> {
     /**
      * Construct a new TriggerDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public TriggerDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class TriggerDeleter extends Deleter<Trigger> {
     /**
      * Construct a new TriggerDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      */
     public TriggerDeleter(final String pathAccountSid, 
                           final String pathSid) {

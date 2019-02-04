@@ -36,7 +36,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * Construct a new DomainUpdater.
      * 
-     * @param pathSid Fetch by unique Domain Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public DomainUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -45,8 +45,9 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * Construct a new DomainUpdater.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Fetch by unique Domain Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
     public DomainUpdater(final String pathAccountSid, 
                          final String pathSid) {
@@ -55,9 +56,10 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * A human readable descriptive text, up to 64 characters long..
+     * A descriptive string that you created to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A user-specified, human-readable name for the domain.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public DomainUpdater setFriendlyName(final String friendlyName) {
@@ -66,10 +68,10 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either
-     * `GET` or `POST`..
+     * The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or
+     * `POST`..
      * 
-     * @param voiceFallbackMethod HTTP method used with voice_fallback_url
+     * @param voiceFallbackMethod The HTTP method used with voice_fallback_url
      * @return this
      */
     public DomainUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -78,10 +80,10 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML requested by VoiceUrl..
+     * The URL that we should call when an error occurs while retrieving or
+     * executing the TwiML requested by `voice_url`..
      * 
-     * @param voiceFallbackUrl URL Twilio will request if an error occurs in
+     * @param voiceFallbackUrl The URL we should call when an error occurs in
      *                         executing TwiML
      * @return this
      */
@@ -91,10 +93,10 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML requested by VoiceUrl..
+     * The URL that we should call when an error occurs while retrieving or
+     * executing the TwiML requested by `voice_url`..
      * 
-     * @param voiceFallbackUrl URL Twilio will request if an error occurs in
+     * @param voiceFallbackUrl The URL we should call when an error occurs in
      *                         executing TwiML
      * @return this
      */
@@ -103,9 +105,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The HTTP method to use with the voice_url.
+     * The HTTP method we should use to call `voice_url`.
      * 
-     * @param voiceMethod HTTP method to use with voice_url
+     * @param voiceMethod The HTTP method we should use with voice_url
      * @return this
      */
     public DomainUpdater setVoiceMethod(final HttpMethod voiceMethod) {
@@ -114,11 +116,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The HTTP method Twilio will use to make requests to the StatusCallback URL.
-     * Either `GET` or `POST`..
+     * The HTTP method we should use to call `voice_status_callback_url`. Can be:
+     * `GET` or `POST`..
      * 
-     * @param voiceStatusCallbackMethod The HTTP method Twilio will use to make
-     *                                  requests to the StatusCallback URL.
+     * @param voiceStatusCallbackMethod The HTTP method we should use to call
+     *                                  voice_status_callback_url
      * @return this
      */
     public DomainUpdater setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {
@@ -127,10 +129,10 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters (such as call
-     * ended) to your application..
+     * The URL that we should call to pass status parameters (such as call ended) to
+     * your application..
      * 
-     * @param voiceStatusCallbackUrl URL that Twilio will request with status
+     * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
      * @return this
      */
@@ -140,10 +142,10 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters (such as call
-     * ended) to your application..
+     * The URL that we should call to pass status parameters (such as call ended) to
+     * your application..
      * 
-     * @param voiceStatusCallbackUrl URL that Twilio will request with status
+     * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
      * @return this
      */
@@ -152,9 +154,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The URL Twilio will request when this domain receives a call..
+     * The URL we should call when the domain receives a call..
      * 
-     * @param voiceUrl URL Twilio will request when receiving a call
+     * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
     public DomainUpdater setVoiceUrl(final URI voiceUrl) {
@@ -163,9 +165,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The URL Twilio will request when this domain receives a call..
+     * The URL we should call when the domain receives a call..
      * 
-     * @param voiceUrl URL Twilio will request when receiving a call
+     * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
     public DomainUpdater setVoiceUrl(final String voiceUrl) {
@@ -173,10 +175,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * This boolean can be enabled to allow SIP Endpoints to register with this
-     * domain to receive calls..
+     * Whether to allow SIP Endpoints to register with the domain to receive calls.
+     * Can be `true` or `false`. `true` allows SIP Endpoints to register with the
+     * domain to receive calls, `false` does not..
      * 
-     * @param sipRegistration If SIP registration is allowed
+     * @param sipRegistration Whether SIP registration is allowed
      * @return this
      */
     public DomainUpdater setSipRegistration(final Boolean sipRegistration) {

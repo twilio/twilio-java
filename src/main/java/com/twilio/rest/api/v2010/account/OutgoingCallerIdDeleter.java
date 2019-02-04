@@ -24,7 +24,7 @@ public class OutgoingCallerIdDeleter extends Deleter<OutgoingCallerId> {
     /**
      * Construct a new OutgoingCallerIdDeleter.
      * 
-     * @param pathSid Delete by unique outgoing-caller-id Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public OutgoingCallerIdDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class OutgoingCallerIdDeleter extends Deleter<OutgoingCallerId> {
     /**
      * Construct a new OutgoingCallerIdDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique outgoing-caller-id Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      */
     public OutgoingCallerIdDeleter(final String pathAccountSid, 
                                    final String pathSid) {

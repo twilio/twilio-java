@@ -29,8 +29,8 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
     /**
      * Construct a new AssignedAddOnFetcher.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The unique Installed Add-on Sid
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      */
     public AssignedAddOnFetcher(final String pathResourceSid, 
                                 final String pathSid) {
@@ -41,9 +41,10 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
     /**
      * Construct a new AssignedAddOnFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The unique Installed Add-on Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      */
     public AssignedAddOnFetcher(final String pathAccountSid, 
                                 final String pathResourceSid, 

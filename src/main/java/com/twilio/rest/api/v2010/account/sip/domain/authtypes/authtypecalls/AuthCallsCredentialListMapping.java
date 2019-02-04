@@ -38,10 +38,11 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Create a AuthCallsCredentialListMappingCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid A string that uniquely identifies this credential
-     *                          list resource
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param credentialListSid The SID of the CredentialList resource to map to
+     *                          the SIP domain
      * @return AuthCallsCredentialListMappingCreator capable of executing the create
      */
     public static AuthCallsCredentialListMappingCreator creator(final String pathAccountSid, 
@@ -53,9 +54,10 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Create a AuthCallsCredentialListMappingCreator to execute create.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid A string that uniquely identifies this credential
-     *                          list resource
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param credentialListSid The SID of the CredentialList resource to map to
+     *                          the SIP domain
      * @return AuthCallsCredentialListMappingCreator capable of executing the create
      */
     public static AuthCallsCredentialListMappingCreator creator(final String pathDomainSid, 
@@ -66,8 +68,10 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Create a AuthCallsCredentialListMappingReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      * @return AuthCallsCredentialListMappingReader capable of executing the read
      */
     public static AuthCallsCredentialListMappingReader reader(final String pathAccountSid, 
@@ -78,7 +82,8 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Create a AuthCallsCredentialListMappingReader to execute read.
      * 
-     * @param pathDomainSid The domain_sid
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      * @return AuthCallsCredentialListMappingReader capable of executing the read
      */
     public static AuthCallsCredentialListMappingReader reader(final String pathDomainSid) {
@@ -88,9 +93,11 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Create a AuthCallsCredentialListMappingFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Fetch by unique credential list Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      fetch
+     * @param pathSid The unique string that identifies the resource
      * @return AuthCallsCredentialListMappingFetcher capable of executing the fetch
      */
     public static AuthCallsCredentialListMappingFetcher fetcher(final String pathAccountSid, 
@@ -102,8 +109,9 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Create a AuthCallsCredentialListMappingFetcher to execute fetch.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Fetch by unique credential list Sid
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      fetch
+     * @param pathSid The unique string that identifies the resource
      * @return AuthCallsCredentialListMappingFetcher capable of executing the fetch
      */
     public static AuthCallsCredentialListMappingFetcher fetcher(final String pathDomainSid, 
@@ -114,9 +122,11 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Create a AuthCallsCredentialListMappingDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique credential list Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      delete
+     * @param pathSid The unique string that identifies the resource
      * @return AuthCallsCredentialListMappingDeleter capable of executing the delete
      */
     public static AuthCallsCredentialListMappingDeleter deleter(final String pathAccountSid, 
@@ -128,8 +138,9 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Create a AuthCallsCredentialListMappingDeleter to execute delete.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique credential list Sid
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      delete
+     * @param pathSid The unique string that identifies the resource
      * @return AuthCallsCredentialListMappingDeleter capable of executing the delete
      */
     public static AuthCallsCredentialListMappingDeleter deleter(final String pathDomainSid, 
@@ -202,45 +213,46 @@ public class AuthCallsCredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human readable description of this resource.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable description of this resource
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this resource
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;

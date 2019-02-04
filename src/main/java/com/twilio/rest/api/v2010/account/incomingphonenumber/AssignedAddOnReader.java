@@ -30,7 +30,7 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
     /**
      * Construct a new AssignedAddOnReader.
      * 
-     * @param pathResourceSid The resource_sid
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      */
     public AssignedAddOnReader(final String pathResourceSid) {
         this.pathResourceSid = pathResourceSid;
@@ -39,8 +39,9 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
     /**
      * Construct a new AssignedAddOnReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      */
     public AssignedAddOnReader(final String pathAccountSid, 
                                final String pathResourceSid) {

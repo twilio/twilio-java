@@ -24,7 +24,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     /**
      * Construct a new AuthorizedConnectAppFetcher.
      * 
-     * @param pathConnectAppSid The connect_app_sid
+     * @param pathConnectAppSid The SID of the Connect App to fetch
      */
     public AuthorizedConnectAppFetcher(final String pathConnectAppSid) {
         this.pathConnectAppSid = pathConnectAppSid;
@@ -33,8 +33,9 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
     /**
      * Construct a new AuthorizedConnectAppFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathConnectAppSid The connect_app_sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathConnectAppSid The SID of the Connect App to fetch
      */
     public AuthorizedConnectAppFetcher(final String pathAccountSid, 
                                        final String pathConnectAppSid) {

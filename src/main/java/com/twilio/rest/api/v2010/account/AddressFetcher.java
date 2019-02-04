@@ -24,7 +24,7 @@ public class AddressFetcher extends Fetcher<Address> {
     /**
      * Construct a new AddressFetcher.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public AddressFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class AddressFetcher extends Fetcher<Address> {
     /**
      * Construct a new AddressFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that is responsible for this
+     *                       address
+     * @param pathSid The unique string that identifies the resource
      */
     public AddressFetcher(final String pathAccountSid, 
                           final String pathSid) {

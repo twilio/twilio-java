@@ -29,8 +29,8 @@ public class AssignedAddOnDeleter extends Deleter<AssignedAddOn> {
     /**
      * Construct a new AssignedAddOnDeleter.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The Installed Add-on Sid to remove
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      */
     public AssignedAddOnDeleter(final String pathResourceSid, 
                                 final String pathSid) {
@@ -41,9 +41,10 @@ public class AssignedAddOnDeleter extends Deleter<AssignedAddOn> {
     /**
      * Construct a new AssignedAddOnDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The Installed Add-on Sid to remove
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      */
     public AssignedAddOnDeleter(final String pathAccountSid, 
                                 final String pathResourceSid, 

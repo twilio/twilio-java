@@ -64,8 +64,9 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathMessageSid The message_sid
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathMessageSid The SID of the Message resource for which the feedback
+     *                       was provided
      * @return FeedbackCreator capable of executing the create
      */
     public static FeedbackCreator creator(final String pathAccountSid, 
@@ -76,7 +77,8 @@ public class Feedback extends Resource {
     /**
      * Create a FeedbackCreator to execute create.
      * 
-     * @param pathMessageSid The message_sid
+     * @param pathMessageSid The SID of the Message resource for which the feedback
+     *                       was provided
      * @return FeedbackCreator capable of executing the create
      */
     public static FeedbackCreator creator(final String pathMessageSid) {
@@ -150,58 +152,56 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The message_sid.
+     * Returns The The SID of the Message resource for which the feedback was
+     * provided.
      * 
-     * @return The message_sid
+     * @return The SID of the Message resource for which the feedback was provided
      */
     public final String getMessageSid() {
         return this.messageSid;
     }
 
     /**
-     * Returns The unconfirmed or confirmed. If ProvideFeedback=true in the initial
-     * HTTP POST, this value will default to unconfirmed. Make an HTTP POST to
-     * update this value to confirmed after the message arrives..
+     * Returns The Whether the feedback has arrived.
      * 
-     * @return unconfirmed or confirmed. If ProvideFeedback=true in the initial
-     *         HTTP POST, this value will default to unconfirmed. Make an HTTP POST
-     *         to update this value to confirmed after the message arrives.
+     * @return Whether the feedback has arrived
      */
     public final Feedback.Outcome getOutcome() {
         return this.outcome;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The uri
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

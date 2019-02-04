@@ -39,7 +39,8 @@ public class Domain extends Resource {
     /**
      * Create a DomainReader to execute read.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return DomainReader capable of executing the read
      */
     public static DomainReader reader(final String pathAccountSid) {
@@ -58,7 +59,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainCreator to execute create.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathAccountSid The SID of the Account that will create the resource
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return DomainCreator capable of executing the create
      */
@@ -80,8 +81,9 @@ public class Domain extends Resource {
     /**
      * Create a DomainFetcher to execute fetch.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Fetch by unique Domain Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return DomainFetcher capable of executing the fetch
      */
     public static DomainFetcher fetcher(final String pathAccountSid, 
@@ -92,7 +94,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique Domain Sid
+     * @param pathSid The unique string that identifies the resource
      * @return DomainFetcher capable of executing the fetch
      */
     public static DomainFetcher fetcher(final String pathSid) {
@@ -102,8 +104,9 @@ public class Domain extends Resource {
     /**
      * Create a DomainUpdater to execute update.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Fetch by unique Domain Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return DomainUpdater capable of executing the update
      */
     public static DomainUpdater updater(final String pathAccountSid, 
@@ -114,7 +117,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainUpdater to execute update.
      * 
-     * @param pathSid Fetch by unique Domain Sid
+     * @param pathSid The unique string that identifies the resource
      * @return DomainUpdater capable of executing the update
      */
     public static DomainUpdater updater(final String pathSid) {
@@ -124,9 +127,9 @@ public class Domain extends Resource {
     /**
      * Create a DomainDeleter to execute delete.
      * 
-     * @param pathAccountSid The unique id of the account responsible for this
-     *                       domain
-     * @param pathSid A string that uniquely identifies the SIP Domain
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return DomainDeleter capable of executing the delete
      */
     public static DomainDeleter deleter(final String pathAccountSid, 
@@ -137,7 +140,7 @@ public class Domain extends Resource {
     /**
      * Create a DomainDeleter to execute delete.
      * 
-     * @param pathSid A string that uniquely identifies the SIP Domain
+     * @param pathSid The unique string that identifies the resource
      * @return DomainDeleter capable of executing the delete
      */
     public static DomainDeleter deleter(final String pathSid) {
@@ -254,18 +257,18 @@ public class Domain extends Resource {
     }
 
     /**
-     * Returns The The unique id of the account responsible for this domain.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the account responsible for this domain
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The Twilio API version used to process the call.
+     * Returns The The API version used to process the call.
      * 
-     * @return The Twilio API version used to process the call
+     * @return The API version used to process the call
      */
     public final String getApiVersion() {
         return this.apiVersion;
@@ -281,18 +284,19 @@ public class Domain extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -308,101 +312,99 @@ public class Domain extends Resource {
     }
 
     /**
-     * Returns The A user-specified, human-readable name for the domain..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A user-specified, human-readable name for the domain.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A string that uniquely identifies the SIP Domain.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies the SIP Domain
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The HTTP method used with voice_fallback_url.
+     * Returns The The HTTP method used with voice_fallback_url.
      * 
-     * @return HTTP method used with voice_fallback_url
+     * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will request if an error occurs in executing TwiML.
+     * Returns The The URL we call when an error occurs while executing TwiML.
      * 
-     * @return URL Twilio will request if an error occurs in executing TwiML
+     * @return The URL we call when an error occurs while executing TwiML
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method to use with voice_url.
+     * Returns The The HTTP method to use with voice_url.
      * 
-     * @return HTTP method to use with voice_url
+     * @return The HTTP method to use with voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use to make requests to the
-     * StatusCallback URL..
+     * Returns The The HTTP method we use to call voice_status_callback_url.
      * 
-     * @return The HTTP method Twilio will use to make requests to the
-     *         StatusCallback URL.
+     * @return The HTTP method we use to call voice_status_callback_url
      */
     public final HttpMethod getVoiceStatusCallbackMethod() {
         return this.voiceStatusCallbackMethod;
     }
 
     /**
-     * Returns The URL that Twilio will request with status updates.
+     * Returns The The URL that we call with status updates.
      * 
-     * @return URL that Twilio will request with status updates
+     * @return The URL that we call with status updates
      */
     public final URI getVoiceStatusCallbackUrl() {
         return this.voiceStatusCallbackUrl;
     }
 
     /**
-     * Returns The URL Twilio will request when receiving a call.
+     * Returns The The URL we call when receiving a call.
      * 
-     * @return URL Twilio will request when receiving a call
+     * @return The URL we call when receiving a call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;
     }
 
     /**
-     * Returns The The list mapping resources associated with this resource..
+     * Returns The A list mapping resources associated with the SIP Domain resource.
      * 
-     * @return The list mapping resources associated with this resource.
+     * @return A list mapping resources associated with the SIP Domain resource
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;
     }
 
     /**
-     * Returns The If SIP registration is allowed.
+     * Returns The Whether SIP registration is allowed.
      * 
-     * @return If SIP registration is allowed
+     * @return Whether SIP registration is allowed
      */
     public final Boolean getSipRegistration() {
         return this.sipRegistration;

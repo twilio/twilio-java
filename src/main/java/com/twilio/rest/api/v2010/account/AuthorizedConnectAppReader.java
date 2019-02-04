@@ -31,7 +31,8 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
     /**
      * Construct a new AuthorizedConnectAppReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public AuthorizedConnectAppReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

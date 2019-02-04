@@ -354,8 +354,9 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique usage-trigger Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerFetcher capable of executing the fetch
      */
     public static TriggerFetcher fetcher(final String pathAccountSid, 
@@ -366,7 +367,7 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique usage-trigger Sid
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerFetcher capable of executing the fetch
      */
     public static TriggerFetcher fetcher(final String pathSid) {
@@ -376,8 +377,9 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerUpdater capable of executing the update
      */
     public static TriggerUpdater updater(final String pathAccountSid, 
@@ -388,7 +390,7 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerUpdater capable of executing the update
      */
     public static TriggerUpdater updater(final String pathSid) {
@@ -398,8 +400,9 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerDeleter capable of executing the delete
      */
     public static TriggerDeleter deleter(final String pathAccountSid, 
@@ -410,7 +413,7 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerDeleter capable of executing the delete
      */
     public static TriggerDeleter deleter(final String pathSid) {
@@ -420,9 +423,9 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param callbackUrl URL Twilio will request when the trigger fires
-     * @param triggerValue the value at which the trigger will fire
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param callbackUrl The URL we call when the trigger fires
+     * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
@@ -436,8 +439,8 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerCreator to execute create.
      * 
-     * @param callbackUrl URL Twilio will request when the trigger fires
-     * @param triggerValue the value at which the trigger will fire
+     * @param callbackUrl The URL we call when the trigger fires
+     * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
@@ -450,7 +453,8 @@ public class Trigger extends Resource {
     /**
      * Create a TriggerReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return TriggerReader capable of executing the read
      */
     public static TriggerReader reader(final String pathAccountSid) {
@@ -572,126 +576,128 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The account this trigger monitors..
+     * Returns The The SID of the Account that this trigger monitors.
      * 
-     * @return The account this trigger monitors.
+     * @return The SID of the Account that this trigger monitors
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The The API version used to create the resource.
      * 
-     * @return The api_version
+     * @return The API version used to create the resource
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The HTTP method to use with callback_url.
+     * Returns The The HTTP method we use to call callback_url.
      * 
-     * @return HTTP method to use with callback_url
+     * @return The HTTP method we use to call callback_url
      */
     public final HttpMethod getCallbackMethod() {
         return this.callbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will request when the trigger fires.
+     * Returns The he URL we call when the trigger fires.
      * 
-     * @return URL Twilio will request when the trigger fires
+     * @return he URL we call when the trigger fires
      */
     public final URI getCallbackUrl() {
         return this.callbackUrl;
     }
 
     /**
-     * Returns The The current value of the field the trigger is watching..
+     * Returns The The current value of the field the trigger is watching.
      * 
-     * @return The current value of the field the trigger is watching.
+     * @return The current value of the field the trigger is watching
      */
     public final String getCurrentValue() {
         return this.currentValue;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date the trigger was last fired.
+     * Returns The The RFC 2822 date and time in GMT that the trigger was last
+     * fired.
      * 
-     * @return The date the trigger was last fired
+     * @return The RFC 2822 date and time in GMT that the trigger was last fired
      */
     public final DateTime getDateFired() {
         return this.dateFired;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A user-specified, human-readable name for the trigger..
+     * Returns The The string that you assigned to describe the trigger.
      * 
-     * @return A user-specified, human-readable name for the trigger.
+     * @return The string that you assigned to describe the trigger
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The How this trigger recurs.
+     * Returns The The frequency of a recurring UsageTrigger.
      * 
-     * @return How this trigger recurs
+     * @return The frequency of a recurring UsageTrigger
      */
     public final Trigger.Recurring getRecurring() {
         return this.recurring;
     }
 
     /**
-     * Returns The The trigger's unique Sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The trigger's unique Sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The field in the UsageRecord that fires the trigger.
+     * Returns The The field in the UsageRecord resource that fires the trigger.
      * 
-     * @return The field in the UsageRecord that fires the trigger
+     * @return The field in the UsageRecord resource that fires the trigger
      */
     public final Trigger.TriggerField getTriggerBy() {
         return this.triggerBy;
     }
 
     /**
-     * Returns The the value at which the trigger will fire.
+     * Returns The The value at which the trigger will fire.
      * 
-     * @return the value at which the trigger will fire
+     * @return The value at which the trigger will fire
      */
     public final String getTriggerValue() {
         return this.triggerValue;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
@@ -707,9 +713,9 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The URI of the UsageRecord this trigger is watching.
+     * Returns The The URI of the UsageRecord resource this trigger watches.
      * 
-     * @return The URI of the UsageRecord this trigger is watching
+     * @return The URI of the UsageRecord resource this trigger watches
      */
     public final String getUsageRecordUri() {
         return this.usageRecordUri;

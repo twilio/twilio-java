@@ -25,9 +25,10 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
     /**
      * Construct a new AuthRegistrationsCredentialListMappingCreator.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid A string that uniquely identifies credential list
-     *                          resource
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param credentialListSid The SID of the CredentialList resource to map to
+     *                          the SIP domain
      */
     public AuthRegistrationsCredentialListMappingCreator(final String pathDomainSid, 
                                                          final String credentialListSid) {
@@ -38,10 +39,11 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
     /**
      * Construct a new AuthRegistrationsCredentialListMappingCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid A string that uniquely identifies credential list
-     *                          resource
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param credentialListSid The SID of the CredentialList resource to map to
+     *                          the SIP domain
      */
     public AuthRegistrationsCredentialListMappingCreator(final String pathAccountSid, 
                                                          final String pathDomainSid, 

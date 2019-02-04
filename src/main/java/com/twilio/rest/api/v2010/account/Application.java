@@ -39,8 +39,8 @@ public class Application extends Resource {
     /**
      * Create a ApplicationCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param friendlyName A human readable description of the application
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param friendlyName A string to describe the new resource
      * @return ApplicationCreator capable of executing the create
      */
     public static ApplicationCreator creator(final String pathAccountSid, 
@@ -51,7 +51,7 @@ public class Application extends Resource {
     /**
      * Create a ApplicationCreator to execute create.
      * 
-     * @param friendlyName A human readable description of the application
+     * @param friendlyName A string to describe the new resource
      * @return ApplicationCreator capable of executing the create
      */
     public static ApplicationCreator creator(final String friendlyName) {
@@ -61,8 +61,9 @@ public class Application extends Resource {
     /**
      * Create a ApplicationDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The application sid to delete
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return ApplicationDeleter capable of executing the delete
      */
     public static ApplicationDeleter deleter(final String pathAccountSid, 
@@ -73,7 +74,7 @@ public class Application extends Resource {
     /**
      * Create a ApplicationDeleter to execute delete.
      * 
-     * @param pathSid The application sid to delete
+     * @param pathSid The unique string that identifies the resource
      * @return ApplicationDeleter capable of executing the delete
      */
     public static ApplicationDeleter deleter(final String pathSid) {
@@ -83,8 +84,9 @@ public class Application extends Resource {
     /**
      * Create a ApplicationFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique Application Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return ApplicationFetcher capable of executing the fetch
      */
     public static ApplicationFetcher fetcher(final String pathAccountSid, 
@@ -95,7 +97,7 @@ public class Application extends Resource {
     /**
      * Create a ApplicationFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique Application Sid
+     * @param pathSid The unique string that identifies the resource
      * @return ApplicationFetcher capable of executing the fetch
      */
     public static ApplicationFetcher fetcher(final String pathSid) {
@@ -105,7 +107,8 @@ public class Application extends Resource {
     /**
      * Create a ApplicationReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return ApplicationReader capable of executing the read
      */
     public static ApplicationReader reader(final String pathAccountSid) {
@@ -124,8 +127,8 @@ public class Application extends Resource {
     /**
      * Create a ApplicationUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathSid The unique string that identifies the resource
      * @return ApplicationUpdater capable of executing the update
      */
     public static ApplicationUpdater updater(final String pathAccountSid, 
@@ -136,7 +139,7 @@ public class Application extends Resource {
     /**
      * Create a ApplicationUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return ApplicationUpdater capable of executing the update
      */
     public static ApplicationUpdater updater(final String pathSid) {
@@ -266,180 +269,185 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return A string that uniquely identifies this resource
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The API version to use.
+     * Returns The The API version used to start a new TwiML session.
      * 
-     * @return The API version to use
+     * @return The API version used to start a new TwiML session
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The Date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return Date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return Date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Human readable description of this resource.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return Human readable description of this resource
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The URL to make requests to with status updates.
+     * Returns The The URL to send message status information to your application.
      * 
-     * @return URL to make requests to with status updates
+     * @return The URL to send message status information to your application
      */
     public final URI getMessageStatusCallback() {
         return this.messageStatusCallback;
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this resource
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The HTTP method to use with sms_fallback_method.
+     * Returns The The HTTP method used with sms_fallback_url.
      * 
-     * @return HTTP method to use with sms_fallback_method
+     * @return The HTTP method used with sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The Fallback URL if there's an error parsing TwiML.
+     * Returns The The URL that we call when an error occurs while retrieving or
+     * executing the TwiML.
      * 
-     * @return Fallback URL if there's an error parsing TwiML
+     * @return The URL that we call when an error occurs while retrieving or
+     *         executing the TwiML
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method to use with sms_url.
+     * Returns The The HTTP method to use with sms_url.
      * 
-     * @return HTTP method to use with sms_url
+     * @return The HTTP method to use with sms_url
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The URL Twilio with request with status updates.
+     * Returns The The URL to send status information to your application.
      * 
-     * @return URL Twilio with request with status updates
+     * @return The URL to send status information to your application
      */
     public final URI getSmsStatusCallback() {
         return this.smsStatusCallback;
     }
 
     /**
-     * Returns The URL Twilio will request when receiving an SMS.
+     * Returns The The URL we call when the phone number receives an incoming SMS
+     * message.
      * 
-     * @return URL Twilio will request when receiving an SMS
+     * @return The URL we call when the phone number receives an incoming SMS
+     *         message
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The URL to hit with status updates.
+     * Returns The The URL to send status information to your application.
      * 
-     * @return URL to hit with status updates
+     * @return The URL to send status information to your application
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The HTTP method to use with the status callback.
+     * Returns The The HTTP method we use to call status_callback.
      * 
-     * @return HTTP method to use with the status callback
+     * @return The HTTP method we use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The True or False.
+     * Returns The Whether to lookup the caller's name.
      * 
-     * @return True or False
+     * @return Whether to lookup the caller's name
      */
     public final Boolean getVoiceCallerIdLookup() {
         return this.voiceCallerIdLookup;
     }
 
     /**
-     * Returns The HTTP method to use with the fallback url.
+     * Returns The The HTTP method used with voice_fallback_url.
      * 
-     * @return HTTP method to use with the fallback url
+     * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The Fallback URL.
+     * Returns The The URL we call when a TwiML error occurs.
      * 
-     * @return Fallback URL
+     * @return The URL we call when a TwiML error occurs
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method to use with the URL.
+     * Returns The The HTTP method used with the voice_url.
      * 
-     * @return HTTP method to use with the URL
+     * @return The HTTP method used with the voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The URL Twilio will make requests to when relieving a call.
+     * Returns The The URL we call when the phone number receives a call.
      * 
-     * @return URL Twilio will make requests to when relieving a call
+     * @return The URL we call when the phone number receives a call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;

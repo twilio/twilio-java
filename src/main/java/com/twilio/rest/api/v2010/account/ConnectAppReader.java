@@ -31,7 +31,8 @@ public class ConnectAppReader extends Reader<ConnectApp> {
     /**
      * Construct a new ConnectAppReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public ConnectAppReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

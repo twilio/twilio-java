@@ -24,7 +24,7 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
     /**
      * Construct a new OutgoingCallerIdFetcher.
      * 
-     * @param pathSid Fetch by unique outgoing-caller-id Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public OutgoingCallerIdFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
     /**
      * Construct a new OutgoingCallerIdFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique outgoing-caller-id Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public OutgoingCallerIdFetcher(final String pathAccountSid, 
                                    final String pathSid) {

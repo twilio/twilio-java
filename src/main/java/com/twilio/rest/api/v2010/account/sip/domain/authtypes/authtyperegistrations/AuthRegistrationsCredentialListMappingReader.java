@@ -26,7 +26,8 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
     /**
      * Construct a new AuthRegistrationsCredentialListMappingReader.
      * 
-     * @param pathDomainSid The domain_sid
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      */
     public AuthRegistrationsCredentialListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -35,8 +36,10 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
     /**
      * Construct a new AuthRegistrationsCredentialListMappingReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      */
     public AuthRegistrationsCredentialListMappingReader(final String pathAccountSid, 
                                                         final String pathDomainSid) {

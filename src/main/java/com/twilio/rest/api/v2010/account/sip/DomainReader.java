@@ -31,7 +31,8 @@ public class DomainReader extends Reader<Domain> {
     /**
      * Construct a new DomainReader.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public DomainReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

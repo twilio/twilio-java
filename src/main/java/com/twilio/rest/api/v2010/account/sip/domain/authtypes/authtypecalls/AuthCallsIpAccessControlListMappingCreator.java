@@ -25,9 +25,10 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
     /**
      * Construct a new AuthCallsIpAccessControlListMappingCreator.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param ipAccessControlListSid A string that uniquely identifies IP Access
-     *                               Control List
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param ipAccessControlListSid The SID of the IpAccessControlList resource to
+     *                               map to the SIP domain
      */
     public AuthCallsIpAccessControlListMappingCreator(final String pathDomainSid, 
                                                       final String ipAccessControlListSid) {
@@ -38,10 +39,11 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
     /**
      * Construct a new AuthCallsIpAccessControlListMappingCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param ipAccessControlListSid A string that uniquely identifies IP Access
-     *                               Control List
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param ipAccessControlListSid The SID of the IpAccessControlList resource to
+     *                               map to the SIP domain
      */
     public AuthCallsIpAccessControlListMappingCreator(final String pathAccountSid, 
                                                       final String pathDomainSid, 

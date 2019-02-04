@@ -29,9 +29,8 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
     /**
      * Construct a new AssignedAddOnCreator.
      * 
-     * @param pathResourceSid The resource_sid
-     * @param installedAddOnSid A string that uniquely identifies the Add-on
-     *                          installation
+     * @param pathResourceSid The SID of the Phone Number to assign the Add-on
+     * @param installedAddOnSid The SID that identifies the Add-on installation
      */
     public AssignedAddOnCreator(final String pathResourceSid, 
                                 final String installedAddOnSid) {
@@ -42,10 +41,9 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
     /**
      * Construct a new AssignedAddOnCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param installedAddOnSid A string that uniquely identifies the Add-on
-     *                          installation
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathResourceSid The SID of the Phone Number to assign the Add-on
+     * @param installedAddOnSid The SID that identifies the Add-on installation
      */
     public AssignedAddOnCreator(final String pathAccountSid, 
                                 final String pathResourceSid, 

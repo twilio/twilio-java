@@ -118,8 +118,9 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberUpdater to execute update.
      * 
-     * @param pathAccountSid The new owner of the phone number
-     * @param pathSid A string that uniquely identifies this resource
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
     public static IncomingPhoneNumberUpdater updater(final String pathAccountSid, 
@@ -130,7 +131,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberUpdater to execute update.
      * 
-     * @param pathSid A string that uniquely identifies this resource
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
     public static IncomingPhoneNumberUpdater updater(final String pathSid) {
@@ -140,8 +141,9 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberFetcher to execute fetch.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Fetch by unique incoming-phone-number Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
     public static IncomingPhoneNumberFetcher fetcher(final String pathAccountSid, 
@@ -152,7 +154,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique incoming-phone-number Sid
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
     public static IncomingPhoneNumberFetcher fetcher(final String pathSid) {
@@ -162,8 +164,9 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberDeleter to execute delete.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Delete by unique phone-number Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
     public static IncomingPhoneNumberDeleter deleter(final String pathAccountSid, 
@@ -174,7 +177,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique phone-number Sid
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
     public static IncomingPhoneNumberDeleter deleter(final String pathSid) {
@@ -184,7 +187,8 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberReader to execute read.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return IncomingPhoneNumberReader capable of executing the read
      */
     public static IncomingPhoneNumberReader reader(final String pathAccountSid) {
@@ -203,8 +207,8 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param phoneNumber The phone number
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param phoneNumber The phone number to purchase in E.164 format
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
     public static IncomingPhoneNumberCreator creator(final String pathAccountSid, 
@@ -215,7 +219,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
-     * @param phoneNumber The phone number
+     * @param phoneNumber The phone number to purchase in E.164 format
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
     public static IncomingPhoneNumberCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -225,8 +229,8 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param areaCode The desired area code for the new number
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param areaCode The desired area code for the new phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
     public static IncomingPhoneNumberCreator creator(final String pathAccountSid, 
@@ -237,7 +241,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
      * 
-     * @param areaCode The desired area code for the new number
+     * @param areaCode The desired area code for the new phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
     public static IncomingPhoneNumberCreator creator(final String areaCode) {
@@ -407,45 +411,46 @@ public class IncomingPhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Unique string that identifies the address associated with number.
+     * Returns The The SID of the Address resource associated with the phone number.
      * 
-     * @return Unique string that identifies the address associated with number
+     * @return The SID of the Address resource associated with the phone number
      */
     public final String getAddressSid() {
         return this.addressSid;
     }
 
     /**
-     * Returns The Indicates if the customer requires an address.
+     * Returns The Whether the phone number requires an Address registered with
+     * Twilio..
      * 
-     * @return Indicates if the customer requires an address
+     * @return Whether the phone number requires an Address registered with Twilio.
      */
     public final IncomingPhoneNumber.AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
     /**
-     * Returns The The Twilio REST API version to use.
+     * Returns The The API version used to start a new TwiML session.
      * 
-     * @return The Twilio REST API version to use
+     * @return The API version used to start a new TwiML session
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The Indicates if the phone number is a beta number.
+     * Returns The Whether the phone number is new to the Twilio platform.
      * 
-     * @return Indicates if the phone number is a beta number
+     * @return Whether the phone number is new to the Twilio platform
      */
     public final Boolean getBeta() {
         return this.beta;
@@ -461,219 +466,224 @@ public class IncomingPhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human readable description of this resouce.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable description of this resouce
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Unique string that identifies the identity associated with
-     * number.
+     * Returns The The SID of the Identity resource associated with number.
      * 
-     * @return Unique string that identifies the identity associated with number
+     * @return The SID of the Identity resource associated with number
      */
     public final String getIdentitySid() {
         return this.identitySid;
     }
 
     /**
-     * Returns The The incoming phone number.
+     * Returns The The phone number in E.164 format.
      * 
-     * @return The incoming phone number
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The Twilio owned phone numbers are marked as twilio while hosted
-     * phone numbers are marked as hosted..
+     * Returns The The phone number's origin. Can be twilio or hosted..
      * 
-     * @return Twilio owned phone numbers are marked as twilio while hosted phone
-     *         numbers are marked as hosted.
+     * @return The phone number's origin. Can be twilio or hosted.
      */
     public final String getOrigin() {
         return this.origin;
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this resource
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Unique string that identifies the application.
+     * Returns The The SID of the application that handles SMS messages sent to the
+     * phone number.
      * 
-     * @return Unique string that identifies the application
+     * @return The SID of the application that handles SMS messages sent to the
+     *         phone number
      */
     public final String getSmsApplicationSid() {
         return this.smsApplicationSid;
     }
 
     /**
-     * Returns The HTTP method used with sms fallback url.
+     * Returns The The HTTP method used with sms_fallback_url.
      * 
-     * @return HTTP method used with sms fallback url
+     * @return The HTTP method used with sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will request if an error occurs in executing TwiML.
+     * Returns The The URL that we call when an error occurs while retrieving or
+     * executing the TwiML.
      * 
-     * @return URL Twilio will request if an error occurs in executing TwiML
+     * @return The URL that we call when an error occurs while retrieving or
+     *         executing the TwiML
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method to use with sms url.
+     * Returns The The HTTP method to use with sms_url.
      * 
-     * @return HTTP method to use with sms url
+     * @return The HTTP method to use with sms_url
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The URL Twilio will request when receiving an SMS.
+     * Returns The The URL we call when the phone number receives an incoming SMS
+     * message.
      * 
-     * @return URL Twilio will request when receiving an SMS
+     * @return The URL we call when the phone number receives an incoming SMS
+     *         message
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The URL Twilio will use to pass status parameters.
+     * Returns The The URL to send status information to your application.
      * 
-     * @return URL Twilio will use to pass status parameters
+     * @return The URL to send status information to your application
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The HTTP method twilio will use with status callback.
+     * Returns The The HTTP method we use to call status_callback.
      * 
-     * @return HTTP method twilio will use with status callback
+     * @return The HTTP method we use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The Unique string to identify the trunk.
+     * Returns The The SID of the Trunk that handles calls to the phone number.
      * 
-     * @return Unique string to identify the trunk
+     * @return The SID of the Trunk that handles calls to the phone number
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The unique sid of the application to handle this number.
+     * Returns The The SID of the application that handles calls to the phone
+     * number.
      * 
-     * @return The unique sid of the application to handle this number
+     * @return The SID of the application that handles calls to the phone number
      */
     public final String getVoiceApplicationSid() {
         return this.voiceApplicationSid;
     }
 
     /**
-     * Returns The Look up the caller's caller-ID.
+     * Returns The Whether to lookup the caller's name.
      * 
-     * @return Look up the caller's caller-ID
+     * @return Whether to lookup the caller's name
      */
     public final Boolean getVoiceCallerIdLookup() {
         return this.voiceCallerIdLookup;
     }
 
     /**
-     * Returns The HTTP method used with fallback_url.
+     * Returns The The HTTP method used with voice_fallback_url.
      * 
-     * @return HTTP method used with fallback_url
+     * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will request when an error occurs in TwiML.
+     * Returns The The URL we call when an error occurs in TwiML.
      * 
-     * @return URL Twilio will request when an error occurs in TwiML
+     * @return The URL we call when an error occurs in TwiML
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method used with the voice url.
+     * Returns The The HTTP method used with the voice_url.
      * 
-     * @return HTTP method used with the voice url
+     * @return The HTTP method used with the voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The URL Twilio will request when receiving a call.
+     * Returns The The URL we call when the phone number receives a call.
      * 
-     * @return URL Twilio will request when receiving a call
+     * @return The URL we call when the phone number receives a call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;
     }
 
     /**
-     * Returns The The emergency_status.
+     * Returns The Whether the phone number is enabled for emergency calling.
      * 
-     * @return The emergency_status
+     * @return Whether the phone number is enabled for emergency calling
      */
     public final IncomingPhoneNumber.EmergencyStatus getEmergencyStatus() {
         return this.emergencyStatus;
     }
 
     /**
-     * Returns The The emergency_address_sid.
+     * Returns The The emergency address configuration to use for emergency calling.
      * 
-     * @return The emergency_address_sid
+     * @return The emergency address configuration to use for emergency calling
      */
     public final String getEmergencyAddressSid() {
         return this.emergencyAddressSid;

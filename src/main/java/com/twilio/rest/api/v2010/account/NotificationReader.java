@@ -37,15 +37,17 @@ public class NotificationReader extends Reader<Notification> {
     /**
      * Construct a new NotificationReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public NotificationReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show notifications for this log, using the integer log values shown
-     * above..
+     * Only read notifications of the specified log level. Can be:  `0` to read only
+     * ERROR notifications or `1` to read only WARNING notifications. By default,
+     * all notifications are read..
      * 
      * @param log Filter by log level
      * @return this
@@ -56,11 +58,10 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Only show notifications for this date. Should be formatted as `YYYY-MM-DD`.
-     * You can also specify inequality, such as `MessageDate&lt;=YYYY-MM-DD` for
-     * messages logged at or before midnight on a date, and
-     * `MessageDate&gt;=YYYY-MM-DD` for messages logged at or after midnight on a
-     * date..
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
      * 
      * @param absoluteMessageDate Filter by date
      * @return this
@@ -72,11 +73,10 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Only show notifications for this date. Should be formatted as `YYYY-MM-DD`.
-     * You can also specify inequality, such as `MessageDate&lt;=YYYY-MM-DD` for
-     * messages logged at or before midnight on a date, and
-     * `MessageDate&gt;=YYYY-MM-DD` for messages logged at or after midnight on a
-     * date..
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
      * 
      * @param rangeMessageDate Filter by date
      * @return this

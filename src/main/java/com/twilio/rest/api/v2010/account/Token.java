@@ -40,7 +40,7 @@ public class Token extends Resource {
     /**
      * Create a TokenCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that will create the resource
      * @return TokenCreator capable of executing the create
      */
     public static TokenCreator creator(final String pathAccountSid) {
@@ -126,27 +126,28 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -180,9 +181,9 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The temporary username that uniquely identifies a Token..
+     * Returns The The temporary username that uniquely identifies a Token.
      * 
-     * @return The temporary username that uniquely identifies a Token.
+     * @return The temporary username that uniquely identifies a Token
      */
     public final String getUsername() {
         return this.username;

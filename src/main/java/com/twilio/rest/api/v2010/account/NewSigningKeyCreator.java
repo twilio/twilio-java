@@ -30,16 +30,18 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
     /**
      * Construct a new NewSigningKeyCreator.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that will be responsible for
+     *                       the new Key resource
      */
     public NewSigningKeyCreator(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * The friendly_name.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public NewSigningKeyCreator setFriendlyName(final String friendlyName) {

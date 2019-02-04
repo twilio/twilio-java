@@ -52,8 +52,8 @@ public class CompositionCreator extends Creator<Composition> {
 
     /**
      * A JSON object defining the video layout of the Composition in terms of
-     * regions. See the section [Managing Video Layouts](#managing-video-layouts)
-     * below for further information..
+     * regions. See the section [Specifying Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) below for further information..
      * 
      * @param videoLayout The JSON video layout description.
      * @return this
@@ -161,8 +161,8 @@ public class CompositionCreator extends Creator<Composition> {
      * Note that the `Resolution` implicitly imposes an aspect ratio to the
      * resulting composition. When the original video tracks get constrained by this
      * aspect ratio they are scaled-down to fit. You can find detailed information
-     * in the [Managing Video Layouts](#managing-video-layouts) section. Defaults to
-     * `640x480`..
+     * in the [Specifying Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) section. Defaults to `640x480`..
      * 
      * @param resolution Pixel resolution of the composed video.
      * @return this
@@ -230,8 +230,8 @@ public class CompositionCreator extends Creator<Composition> {
      * media. This results in shorter compositions in cases when the Room was
      * created but no Participant joined for some time, or if all the Participants
      * left the room and joined at a later stage, as those gaps will be removed. You
-     * can find further information in the [Managing Video
-     * Layouts](#managing-video-layouts) section. Defaults to `true`..
+     * can find further information in the [Specifying Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) section. Defaults to `true`..
      * 
      * @param trim Boolean flag for clipping intervals that have no media.
      * @return this

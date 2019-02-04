@@ -38,7 +38,8 @@ public class NewKey extends Resource {
     /**
      * Create a NewKeyCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that will be responsible for
+     *                       the new Key resource
      * @return NewKeyCreator capable of executing the create
      */
     public static NewKeyCreator creator(final String pathAccountSid) {
@@ -116,45 +117,48 @@ public class NewKey extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return The friendly_name
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The secret.
+     * Returns The The secret your application uses to sign Access Tokens and to
+     * authenticate to the REST API..
      * 
-     * @return The secret
+     * @return The secret your application uses to sign Access Tokens and to
+     *         authenticate to the REST API.
      */
     public final String getSecret() {
         return this.secret;

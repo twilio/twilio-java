@@ -45,7 +45,8 @@ public class SharedCostReader extends Reader<SharedCost> {
     /**
      * Construct a new SharedCostReader.
      * 
-     * @param pathCountryCode The country_code
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      */
     public SharedCostReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -54,9 +55,10 @@ public class SharedCostReader extends Reader<SharedCost> {
     /**
      * Construct a new SharedCostReader.
      * 
-     * @param pathAccountSid The 34 character string that uniquely identifies your
-     *                       account.
-     * @param pathCountryCode The country_code
+     * @param pathAccountSid The SID of the Account requesting the
+     *                       AvailablePhoneNumber resources
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      */
     public SharedCostReader(final String pathAccountSid, 
                             final String pathCountryCode) {
@@ -65,9 +67,10 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The area_code.
+     * The area code of the phone numbers to read. Applies to only phone numbers in
+     * the US and Canada..
      * 
-     * @param areaCode The area_code
+     * @param areaCode The area code of the phone numbers to read
      * @return this
      */
     public SharedCostReader setAreaCode(final Integer areaCode) {
@@ -76,9 +79,12 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The contains.
+     * The pattern on which to match phone numbers. Valid characters are `*`, `0-9`,
+     * `a-z`, and `A-Z`. The `*` character matches any single digit. For examples,
+     * see [Example
+     * 2](https://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-example-3). If specified, this value must have at least two characters..
      * 
-     * @param contains The contains
+     * @param contains The pattern on which to match phone numbers
      * @return this
      */
     public SharedCostReader setContains(final String contains) {
@@ -87,9 +93,10 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The sms_enabled.
+     * Whether the phone numbers can receive text messages. Can be: `true` or
+     * `false`..
      * 
-     * @param smsEnabled The sms_enabled
+     * @param smsEnabled Whether the phone numbers can receive text messages
      * @return this
      */
     public SharedCostReader setSmsEnabled(final Boolean smsEnabled) {
@@ -98,9 +105,10 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The mms_enabled.
+     * Whether the phone numbers can receive MMS messages. Can be: `true` or
+     * `false`..
      * 
-     * @param mmsEnabled The mms_enabled
+     * @param mmsEnabled Whether the phone numbers can receive MMS messages
      * @return this
      */
     public SharedCostReader setMmsEnabled(final Boolean mmsEnabled) {
@@ -109,9 +117,9 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The voice_enabled.
+     * Whether the phone numbers can receive calls. Can be: `true` or `false`..
      * 
-     * @param voiceEnabled The voice_enabled
+     * @param voiceEnabled Whether the phone numbers can receive calls.
      * @return this
      */
     public SharedCostReader setVoiceEnabled(final Boolean voiceEnabled) {
@@ -120,9 +128,12 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The exclude_all_address_required.
+     * Whether to exclude phone numbers that require an
+     * [Address](https://www.twilio.com/docs/usage/api/addresses). Can be: `true` or
+     * `false` and the default is `false`..
      * 
-     * @param excludeAllAddressRequired The exclude_all_address_required
+     * @param excludeAllAddressRequired Whether to exclude phone numbers that
+     *                                  require an Address
      * @return this
      */
     public SharedCostReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
@@ -131,9 +142,12 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The exclude_local_address_required.
+     * Whether to exclude phone numbers that require a local
+     * [Address](https://www.twilio.com/docs/usage/api/addresses). Can be: `true` or
+     * `false` and the default is `false`..
      * 
-     * @param excludeLocalAddressRequired The exclude_local_address_required
+     * @param excludeLocalAddressRequired Whether to exclude phone numbers that
+     *                                    require a local address
      * @return this
      */
     public SharedCostReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
@@ -142,9 +156,12 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The exclude_foreign_address_required.
+     * Whether to exclude phone numbers that require a foreign
+     * [Address](https://www.twilio.com/docs/usage/api/addresses). Can be: `true` or
+     * `false` and the default is `false`..
      * 
-     * @param excludeForeignAddressRequired The exclude_foreign_address_required
+     * @param excludeForeignAddressRequired Whether to exclude phone numbers that
+     *                                      require a foreign address
      * @return this
      */
     public SharedCostReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
@@ -153,9 +170,10 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The beta.
+     * Whether to read phone numbers that are new to the Twilio platform. Can be:
+     * `true` or `false` and the default is `true`..
      * 
-     * @param beta The beta
+     * @param beta Whether to read phone numbers new to the Twilio platform
      * @return this
      */
     public SharedCostReader setBeta(final Boolean beta) {
@@ -164,9 +182,12 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The near_number.
+     * Given a phone number, find a geographically close number within `distance`
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
      * 
-     * @param nearNumber The near_number
+     * @param nearNumber Given a phone number, find a geographically close number
+     *                   within distance miles. (US/Canada only)
      * @return this
      */
     public SharedCostReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
@@ -175,9 +196,12 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The near_number.
+     * Given a phone number, find a geographically close number within `distance`
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
      * 
-     * @param nearNumber The near_number
+     * @param nearNumber Given a phone number, find a geographically close number
+     *                   within distance miles. (US/Canada only)
      * @return this
      */
     public SharedCostReader setNearNumber(final String nearNumber) {
@@ -185,9 +209,12 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The near_lat_long.
+     * Given a latitude/longitude pair `lat,long` find geographically close numbers
+     * within `distance` miles. Applies to only phone numbers in the US and Canada..
      * 
-     * @param nearLatLong The near_lat_long
+     * @param nearLatLong Given a latitude/longitude pair lat,long find
+     *                    geographically close numbers within distance miles.
+     *                    (US/Canada only)
      * @return this
      */
     public SharedCostReader setNearLatLong(final String nearLatLong) {
@@ -196,9 +223,11 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The distance.
+     * The search radius, in miles, for a `near_` query.  Can be up to `500` and the
+     * default is `25`. Applies to only phone numbers in the US and Canada..
      * 
-     * @param distance The distance
+     * @param distance The search radius, in miles, for a near_ query. (US/Canada
+     *                 only)
      * @return this
      */
     public SharedCostReader setDistance(final Integer distance) {
@@ -207,9 +236,12 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The in_postal_code.
+     * Limit results to a particular postal code. Given a phone number, search
+     * within the same postal code as that number. Applies to only phone numbers in
+     * the US and Canada..
      * 
-     * @param inPostalCode The in_postal_code
+     * @param inPostalCode Limit results to a particular postal code. (US/Canada
+     *                     only)
      * @return this
      */
     public SharedCostReader setInPostalCode(final String inPostalCode) {
@@ -218,9 +250,11 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The in_region.
+     * Limit results to a particular region, state, or province. Given a phone
+     * number, search within the same region as that number. Applies to only phone
+     * numbers in the US and Canada..
      * 
-     * @param inRegion The in_region
+     * @param inRegion Limit results to a particular region. (US/Canada only)
      * @return this
      */
     public SharedCostReader setInRegion(final String inRegion) {
@@ -229,9 +263,13 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The in_rate_center.
+     * Limit results to a specific rate center, or given a phone number search
+     * within the same rate center as that number. Requires `in_lata` to be set as
+     * well. Applies to only phone numbers in the US and Canada..
      * 
-     * @param inRateCenter The in_rate_center
+     * @param inRateCenter Limit results to a specific rate center, or given a
+     *                     phone number search within the same rate center as that
+     *                     number. (US/Canada only)
      * @return this
      */
     public SharedCostReader setInRateCenter(final String inRateCenter) {
@@ -240,9 +278,14 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The in_lata.
+     * Limit results to a specific local access and transport area
+     * ([LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given
+     * a phone number, search within the same
+     * [LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
+     * number. Applies to only phone numbers in the US and Canada..
      * 
-     * @param inLata The in_lata
+     * @param inLata Limit results to a specific local access and transport area.
+     *               (US/Canada only)
      * @return this
      */
     public SharedCostReader setInLata(final String inLata) {
@@ -251,9 +294,10 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The in_locality.
+     * Limit results to a particular locality or city. Given a phone number, search
+     * within the same Locality as that number..
      * 
-     * @param inLocality The in_locality
+     * @param inLocality Limit results to a particular locality
      * @return this
      */
     public SharedCostReader setInLocality(final String inLocality) {
@@ -262,9 +306,9 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     /**
-     * The fax_enabled.
+     * Whether the phone numbers can receive faxes. Can be: `true` or `false`..
      * 
-     * @param faxEnabled The fax_enabled
+     * @param faxEnabled Whether the phone numbers can receive faxes
      * @return this
      */
     public SharedCostReader setFaxEnabled(final Boolean faxEnabled) {

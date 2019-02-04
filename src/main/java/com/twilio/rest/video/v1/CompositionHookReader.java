@@ -30,6 +30,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     private Boolean enabled;
     private DateTime dateCreatedAfter;
     private DateTime dateCreatedBefore;
+    private String friendlyName;
 
     /**
      * Only show Composition Hooks that are enabled or disabled..
@@ -65,6 +66,20 @@ public class CompositionHookReader extends Reader<CompositionHook> {
      */
     public CompositionHookReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    /**
+     * Only show Composition Hooks with friendly name that match this
+     * case-insensitive string, of up to 100 characters in length. Filtering by
+     * partial friendly names is allowed, using wildcards (e.g. `*my*hook*`)..
+     * 
+     * @param friendlyName Only show Composition Hooks with friendly name that
+     *                     match this name.
+     * @return this
+     */
+    public CompositionHookReader setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
         return this;
     }
 
@@ -208,6 +223,10 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
         if (dateCreatedBefore != null) {
             request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+        }
+
+        if (friendlyName != null) {
+            request.addQueryParam("FriendlyName", friendlyName);
         }
 
         if (getPageSize() != null) {

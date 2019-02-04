@@ -26,7 +26,8 @@ public class AuthCallsIpAccessControlListMappingReader extends Reader<AuthCallsI
     /**
      * Construct a new AuthCallsIpAccessControlListMappingReader.
      * 
-     * @param pathDomainSid The domain_sid
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      */
     public AuthCallsIpAccessControlListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -35,8 +36,10 @@ public class AuthCallsIpAccessControlListMappingReader extends Reader<AuthCallsI
     /**
      * Construct a new AuthCallsIpAccessControlListMappingReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      */
     public AuthCallsIpAccessControlListMappingReader(final String pathAccountSid, 
                                                      final String pathDomainSid) {

@@ -25,8 +25,9 @@ public class AuthCallsIpAccessControlListMappingDeleter extends Deleter<AuthCall
     /**
      * Construct a new AuthCallsIpAccessControlListMappingDeleter.
      * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique IP Access Control List Sid
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public AuthCallsIpAccessControlListMappingDeleter(final String pathDomainSid, 
                                                       final String pathSid) {
@@ -37,9 +38,11 @@ public class AuthCallsIpAccessControlListMappingDeleter extends Deleter<AuthCall
     /**
      * Construct a new AuthCallsIpAccessControlListMappingDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique IP Access Control List Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public AuthCallsIpAccessControlListMappingDeleter(final String pathAccountSid, 
                                                       final String pathDomainSid, 

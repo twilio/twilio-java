@@ -32,7 +32,7 @@ public class AddressUpdater extends Updater<Address> {
     /**
      * Construct a new AddressUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public AddressUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,8 +41,9 @@ public class AddressUpdater extends Updater<Address> {
     /**
      * Construct a new AddressUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that is responsible for the
+     *                       resource to update
+     * @param pathSid The unique string that identifies the resource
      */
     public AddressUpdater(final String pathAccountSid, 
                           final String pathSid) {
@@ -51,9 +52,10 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * A human-readable description of the address. Maximum 64 characters..
+     * A descriptive string that you create to describe the address. It can be up to
+     * 64 characters long..
      * 
-     * @param friendlyName A human-readable description of the address.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public AddressUpdater setFriendlyName(final String friendlyName) {
@@ -62,9 +64,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * Your name or business name, or that of your customer..
+     * The name to associate with the address..
      * 
-     * @param customerName Your name or business name, or that of your customer.
+     * @param customerName The name to associate with the address
      * @return this
      */
     public AddressUpdater setCustomerName(final String customerName) {
@@ -73,10 +75,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The number and street address where you or your customer is located..
+     * The number and street address of the address..
      * 
-     * @param street The number and street address where you or your customer is
-     *               located.
+     * @param street The number and street address of the address
      * @return this
      */
     public AddressUpdater setStreet(final String street) {
@@ -85,9 +86,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The city in which you or your customer is located..
+     * The city of the address..
      * 
-     * @param city The city in which you or your customer is located.
+     * @param city The city of the address
      * @return this
      */
     public AddressUpdater setCity(final String city) {
@@ -96,9 +97,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The state or region in which you or your customer is located..
+     * The state or region of the address..
      * 
-     * @param region The state or region in which you or your customer is located.
+     * @param region The state or region of the address
      * @return this
      */
     public AddressUpdater setRegion(final String region) {
@@ -107,9 +108,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The postal code in which you or your customer is located..
+     * The postal code of the address..
      * 
-     * @param postalCode The postal code in which you or your customer is located.
+     * @param postalCode The postal code of the address
      * @return this
      */
     public AddressUpdater setPostalCode(final String postalCode) {
@@ -118,9 +119,10 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The emergency_enabled.
+     * Whether to enable emergency calling on the address. Can be: `true` or
+     * `false`..
      * 
-     * @param emergencyEnabled The emergency_enabled
+     * @param emergencyEnabled Whether to enable emergency calling on the address
      * @return this
      */
     public AddressUpdater setEmergencyEnabled(final Boolean emergencyEnabled) {
@@ -129,14 +131,12 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * If you don't set a value for this parameter, or if you set it to `true`, then
-     * the system will, if necessary, auto-correct the address you provide. If you
-     * don't want the system to auto-correct the address, you will explicitly need
-     * to set this value to `false`..
+     * Whether we should automatically correct the address. Can be: `true` or
+     * `false` and the default is `true`. If empty or `true`, we will correct the
+     * address you provide if necessary. If `false`, we won't alter the address you
+     * provide..
      * 
-     * @param autoCorrectAddress If you don't set a value for this parameter, or if
-     *                           you set it to true, then the system will, if
-     *                           necessary, auto-correct the address you provide.
+     * @param autoCorrectAddress Whether we should automatically correct the address
      * @return this
      */
     public AddressUpdater setAutoCorrectAddress(final Boolean autoCorrectAddress) {

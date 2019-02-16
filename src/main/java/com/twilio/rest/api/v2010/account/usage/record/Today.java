@@ -40,6 +40,7 @@ public class Today extends Resource {
     private static final long serialVersionUID = 96248709903219L;
 
     public enum Category {
+        AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),
         AUTHY_CALLS_OUTBOUND("authy-calls-outbound"),

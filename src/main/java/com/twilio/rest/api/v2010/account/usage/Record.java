@@ -40,6 +40,7 @@ public class Record extends Resource {
     private static final long serialVersionUID = 71406401031495L;
 
     public enum Category {
+        AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),
         AUTHY_CALLS_OUTBOUND("authy-calls-outbound"),

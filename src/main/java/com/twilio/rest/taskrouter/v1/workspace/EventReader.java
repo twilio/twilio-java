@@ -32,11 +32,14 @@ public class EventReader extends Reader<Event> {
     private String taskSid;
     private String workerSid;
     private String workflowSid;
+    private String taskChannel;
+    private String sid;
 
     /**
      * Construct a new EventReader.
      * 
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid Filter events by those pertaining to a particular
+     *                         workspace
      */
     public EventReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -136,13 +139,36 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The workflow_sid.
+     * Filter events by those pertaining to a particular workflow.
      * 
-     * @param workflowSid The workflow_sid
+     * @param workflowSid Filter events by those pertaining to a particular workflow
      * @return this
      */
     public EventReader setWorkflowSid(final String workflowSid) {
         this.workflowSid = workflowSid;
+        return this;
+    }
+
+    /**
+     * Filter events by those pertaining to a particular task channel.
+     * 
+     * @param taskChannel Filter events by those pertaining to a particular task
+     *                    channel
+     * @return this
+     */
+    public EventReader setTaskChannel(final String taskChannel) {
+        this.taskChannel = taskChannel;
+        return this;
+    }
+
+    /**
+     * Filter events by those pertaining to a particular event.
+     * 
+     * @param sid Filter events by those pertaining to a particular event
+     * @return this
+     */
+    public EventReader setSid(final String sid) {
+        this.sid = sid;
         return this;
     }
 
@@ -310,6 +336,14 @@ public class EventReader extends Reader<Event> {
 
         if (workflowSid != null) {
             request.addQueryParam("WorkflowSid", workflowSid);
+        }
+
+        if (taskChannel != null) {
+            request.addQueryParam("TaskChannel", taskChannel);
+        }
+
+        if (sid != null) {
+            request.addQueryParam("Sid", sid);
         }
 
         if (getPageSize() != null) {

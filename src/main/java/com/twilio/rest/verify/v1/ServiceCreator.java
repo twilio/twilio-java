@@ -28,6 +28,7 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean skipSmsToLandlines;
     private Boolean dtmfInputRequired;
     private String ttsName;
+    private Boolean psd2Enabled;
 
     /**
      * Construct a new ServiceCreator.
@@ -102,6 +103,18 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * Boolean value that enables to pass PSD2 transaction parameters when starting
+     * a verification.
+     * 
+     * @param psd2Enabled Indicates whether PSD2 parameters are enabled or not
+     * @return this
+     */
+    public ServiceCreator setPsd2Enabled(final Boolean psd2Enabled) {
+        this.psd2Enabled = psd2Enabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -168,6 +181,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (ttsName != null) {
             request.addPostParam("TtsName", ttsName);
+        }
+
+        if (psd2Enabled != null) {
+            request.addPostParam("Psd2Enabled", psd2Enabled.toString());
         }
     }
 }

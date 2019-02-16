@@ -41,6 +41,7 @@ public class MessageCreator extends Creator<Message> {
     private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
     private String interactiveData;
+    private Boolean forceOptIn;
 
     /**
      * Construct a new MessageCreator.
@@ -367,6 +368,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * A boolean that forcefully whitelists a from:to pair when set to true..
+     * 
+     * @param forceOptIn Boolean representing force opt in for a message.
+     * @return this
+     */
+    public MessageCreator setForceOptIn(final Boolean forceOptIn) {
+        this.forceOptIn = forceOptIn;
+        return this;
+    }
+
+    /**
      * A Twilio phone number (in
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format), 
      * [alphanumeric sender
@@ -584,6 +596,10 @@ public class MessageCreator extends Creator<Message> {
 
         if (interactiveData != null) {
             request.addPostParam("InteractiveData", interactiveData);
+        }
+
+        if (forceOptIn != null) {
+            request.addPostParam("ForceOptIn", forceOptIn.toString());
         }
     }
 }

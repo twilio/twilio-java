@@ -140,7 +140,7 @@ public class TriggerTest {
                                                       "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Usage/Triggers.json");
                         request.addPostParam("CallbackUrl", serialize(URI.create("https://example.com")));
         request.addPostParam("TriggerValue", serialize("triggerValue"));
-        request.addPostParam("UsageCategory", serialize(Trigger.UsageCategory.ANSWERING_MACHINE_DETECTION));
+        request.addPostParam("UsageCategory", serialize(Trigger.UsageCategory.AGENT_CONFERENCE));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -149,7 +149,7 @@ public class TriggerTest {
                     }};
 
         try {
-            Trigger.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), "triggerValue", Trigger.UsageCategory.ANSWERING_MACHINE_DETECTION).create();
+            Trigger.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), "triggerValue", Trigger.UsageCategory.AGENT_CONFERENCE).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -163,7 +163,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
 
-        Trigger.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), "triggerValue", Trigger.UsageCategory.ANSWERING_MACHINE_DETECTION).create();
+        Trigger.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), "triggerValue", Trigger.UsageCategory.AGENT_CONFERENCE).create();
     }
 
     @Test

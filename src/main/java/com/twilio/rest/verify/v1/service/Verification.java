@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Verification extends Resource {
-    private static final long serialVersionUID = 187834137535873L;
+    private static final long serialVersionUID = 110706069064815L;
 
     public enum Channel {
         SMS("sms"),
@@ -126,6 +126,8 @@ public class Verification extends Resource {
     private final String status;
     private final Boolean valid;
     private final Map<String, Object> lookup;
+    private final String amount;
+    private final String payee;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
 
@@ -146,6 +148,10 @@ public class Verification extends Resource {
                          final Boolean valid, 
                          @JsonProperty("lookup")
                          final Map<String, Object> lookup, 
+                         @JsonProperty("amount")
+                         final String amount, 
+                         @JsonProperty("payee")
+                         final String payee, 
                          @JsonProperty("date_created")
                          final String dateCreated, 
                          @JsonProperty("date_updated")
@@ -158,6 +164,8 @@ public class Verification extends Resource {
         this.status = status;
         this.valid = valid;
         this.lookup = lookup;
+        this.amount = amount;
+        this.payee = payee;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
@@ -235,6 +243,24 @@ public class Verification extends Resource {
     }
 
     /**
+     * Returns The Amount of the associated PSD2 compliant transaction..
+     * 
+     * @return Amount of the associated PSD2 compliant transaction.
+     */
+    public final String getAmount() {
+        return this.amount;
+    }
+
+    /**
+     * Returns The Payee of the associated PSD2 compliant transaction..
+     * 
+     * @return Payee of the associated PSD2 compliant transaction.
+     */
+    public final String getPayee() {
+        return this.payee;
+    }
+
+    /**
      * Returns The The date this Verification was created.
      * 
      * @return The date this Verification was created
@@ -272,6 +298,8 @@ public class Verification extends Resource {
                Objects.equals(status, other.status) && 
                Objects.equals(valid, other.valid) && 
                Objects.equals(lookup, other.lookup) && 
+               Objects.equals(amount, other.amount) && 
+               Objects.equals(payee, other.payee) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated);
     }
@@ -286,6 +314,8 @@ public class Verification extends Resource {
                             status,
                             valid,
                             lookup,
+                            amount,
+                            payee,
                             dateCreated,
                             dateUpdated);
     }
@@ -301,6 +331,8 @@ public class Verification extends Resource {
                           .add("status", status)
                           .add("valid", valid)
                           .add("lookup", lookup)
+                          .add("amount", amount)
+                          .add("payee", payee)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .toString();

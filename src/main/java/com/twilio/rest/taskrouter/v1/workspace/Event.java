@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -34,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event extends Resource {
-    private static final long serialVersionUID = 208699778685630L;
+    private static final long serialVersionUID = 88063843569402L;
 
     /**
      * Create a EventFetcher to execute fetch.
@@ -51,7 +52,8 @@ public class Event extends Resource {
     /**
      * Create a EventReader to execute read.
      * 
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid Filter events by those pertaining to a particular
+     *                         workspace
      * @return EventReader capable of executing the read
      */
     public static EventReader reader(final String pathWorkspaceSid) {
@@ -100,8 +102,9 @@ public class Event extends Resource {
     private final String actorType;
     private final URI actorUrl;
     private final String description;
-    private final Map<String, String> eventData;
+    private final Map<String, Object> eventData;
     private final DateTime eventDate;
+    private final Long eventDateMs;
     private final String eventType;
     private final String resourceSid;
     private final String resourceType;
@@ -110,6 +113,7 @@ public class Event extends Resource {
     private final String source;
     private final String sourceIpAddress;
     private final URI url;
+    private final String workspaceSid;
 
     @JsonCreator
     private Event(@JsonProperty("account_sid")
@@ -123,9 +127,11 @@ public class Event extends Resource {
                   @JsonProperty("description")
                   final String description, 
                   @JsonProperty("event_data")
-                  final Map<String, String> eventData, 
+                  final Map<String, Object> eventData, 
                   @JsonProperty("event_date")
                   final String eventDate, 
+                  @JsonProperty("event_date_ms")
+                  final Long eventDateMs, 
                   @JsonProperty("event_type")
                   final String eventType, 
                   @JsonProperty("resource_sid")
@@ -141,7 +147,9 @@ public class Event extends Resource {
                   @JsonProperty("source_ip_address")
                   final String sourceIpAddress, 
                   @JsonProperty("url")
-                  final URI url) {
+                  final URI url, 
+                  @JsonProperty("workspace_sid")
+                  final String workspaceSid) {
         this.accountSid = accountSid;
         this.actorSid = actorSid;
         this.actorType = actorType;
@@ -149,6 +157,7 @@ public class Event extends Resource {
         this.description = description;
         this.eventData = eventData;
         this.eventDate = DateConverter.iso8601DateTimeFromString(eventDate);
+        this.eventDateMs = eventDateMs;
         this.eventType = eventType;
         this.resourceSid = resourceSid;
         this.resourceType = resourceType;
@@ -157,6 +166,7 @@ public class Event extends Resource {
         this.source = source;
         this.sourceIpAddress = sourceIpAddress;
         this.url = url;
+        this.workspaceSid = workspaceSid;
     }
 
     /**
@@ -209,7 +219,7 @@ public class Event extends Resource {
      * 
      * @return Data about this specific event.
      */
-    public final Map<String, String> getEventData() {
+    public final Map<String, Object> getEventData() {
         return this.eventData;
     }
 
@@ -220,6 +230,15 @@ public class Event extends Resource {
      */
     public final DateTime getEventDate() {
         return this.eventDate;
+    }
+
+    /**
+     * Returns The The time this event was sent in ms.
+     * 
+     * @return The time this event was sent in ms
+     */
+    public final Long getEventDateMs() {
+        return this.eventDateMs;
     }
 
     /**
@@ -294,6 +313,15 @@ public class Event extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The workspace_sid.
+     * 
+     * @return The workspace_sid
+     */
+    public final String getWorkspaceSid() {
+        return this.workspaceSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -313,6 +341,7 @@ public class Event extends Resource {
                Objects.equals(description, other.description) && 
                Objects.equals(eventData, other.eventData) && 
                Objects.equals(eventDate, other.eventDate) && 
+               Objects.equals(eventDateMs, other.eventDateMs) && 
                Objects.equals(eventType, other.eventType) && 
                Objects.equals(resourceSid, other.resourceSid) && 
                Objects.equals(resourceType, other.resourceType) && 
@@ -320,7 +349,8 @@ public class Event extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(source, other.source) && 
                Objects.equals(sourceIpAddress, other.sourceIpAddress) && 
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) && 
+               Objects.equals(workspaceSid, other.workspaceSid);
     }
 
     @Override
@@ -332,6 +362,7 @@ public class Event extends Resource {
                             description,
                             eventData,
                             eventDate,
+                            eventDateMs,
                             eventType,
                             resourceSid,
                             resourceType,
@@ -339,7 +370,8 @@ public class Event extends Resource {
                             sid,
                             source,
                             sourceIpAddress,
-                            url);
+                            url,
+                            workspaceSid);
     }
 
     @Override
@@ -352,6 +384,7 @@ public class Event extends Resource {
                           .add("description", description)
                           .add("eventData", eventData)
                           .add("eventDate", eventDate)
+                          .add("eventDateMs", eventDateMs)
                           .add("eventType", eventType)
                           .add("resourceSid", resourceSid)
                           .add("resourceType", resourceType)
@@ -360,6 +393,7 @@ public class Event extends Resource {
                           .add("source", source)
                           .add("sourceIpAddress", sourceIpAddress)
                           .add("url", url)
+                          .add("workspaceSid", workspaceSid)
                           .toString();
     }
 }

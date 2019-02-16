@@ -38,6 +38,7 @@ public class Trigger extends Resource {
     private static final long serialVersionUID = 174561249107274L;
 
     public enum UsageCategory {
+        AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),
         AUTHY_CALLS_OUTBOUND("authy-calls-outbound"),

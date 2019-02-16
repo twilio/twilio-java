@@ -14,6 +14,7 @@ public enum Domains {
     AUTOPILOT("autopilot"),
     CHAT("chat"),
     FAX("fax"),
+    FLEXAPI("flex"),
     IPMESSAGING("chat"),
     LOOKUPS("lookups"),
     MONITOR("monitor"),

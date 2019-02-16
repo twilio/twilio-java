@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 206392011345600L;
+    private static final long serialVersionUID = 102125426973308L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -131,6 +131,7 @@ public class Service extends Resource {
     private final String friendlyName;
     private final Integer codeLength;
     private final Boolean lookupEnabled;
+    private final Boolean psd2Enabled;
     private final Boolean skipSmsToLandlines;
     private final Boolean dtmfInputRequired;
     private final String ttsName;
@@ -150,6 +151,8 @@ public class Service extends Resource {
                     final Integer codeLength, 
                     @JsonProperty("lookup_enabled")
                     final Boolean lookupEnabled, 
+                    @JsonProperty("psd2_enabled")
+                    final Boolean psd2Enabled, 
                     @JsonProperty("skip_sms_to_landlines")
                     final Boolean skipSmsToLandlines, 
                     @JsonProperty("dtmf_input_required")
@@ -169,6 +172,7 @@ public class Service extends Resource {
         this.friendlyName = friendlyName;
         this.codeLength = codeLength;
         this.lookupEnabled = lookupEnabled;
+        this.psd2Enabled = psd2Enabled;
         this.skipSmsToLandlines = skipSmsToLandlines;
         this.dtmfInputRequired = dtmfInputRequired;
         this.ttsName = ttsName;
@@ -223,6 +227,15 @@ public class Service extends Resource {
      */
     public final Boolean getLookupEnabled() {
         return this.lookupEnabled;
+    }
+
+    /**
+     * Returns The Indicates whether PSD2 parameters are enabled or not.
+     * 
+     * @return Indicates whether PSD2 parameters are enabled or not
+     */
+    public final Boolean getPsd2Enabled() {
+        return this.psd2Enabled;
     }
 
     /**
@@ -308,6 +321,7 @@ public class Service extends Resource {
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(codeLength, other.codeLength) && 
                Objects.equals(lookupEnabled, other.lookupEnabled) && 
+               Objects.equals(psd2Enabled, other.psd2Enabled) && 
                Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) && 
                Objects.equals(dtmfInputRequired, other.dtmfInputRequired) && 
                Objects.equals(ttsName, other.ttsName) && 
@@ -324,6 +338,7 @@ public class Service extends Resource {
                             friendlyName,
                             codeLength,
                             lookupEnabled,
+                            psd2Enabled,
                             skipSmsToLandlines,
                             dtmfInputRequired,
                             ttsName,
@@ -341,6 +356,7 @@ public class Service extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("codeLength", codeLength)
                           .add("lookupEnabled", lookupEnabled)
+                          .add("psd2Enabled", psd2Enabled)
                           .add("skipSmsToLandlines", skipSmsToLandlines)
                           .add("dtmfInputRequired", dtmfInputRequired)
                           .add("ttsName", ttsName)

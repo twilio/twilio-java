@@ -23,6 +23,7 @@ public class WorkerUpdater extends Updater<Worker> {
     private String activitySid;
     private String attributes;
     private String friendlyName;
+    private Boolean rejectPendingReservations;
 
     /**
      * Construct a new WorkerUpdater.
@@ -66,6 +67,17 @@ public class WorkerUpdater extends Updater<Worker> {
      */
     public WorkerUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The reject_pending_reservations.
+     * 
+     * @param rejectPendingReservations The reject_pending_reservations
+     * @return this
+     */
+    public WorkerUpdater setRejectPendingReservations(final Boolean rejectPendingReservations) {
+        this.rejectPendingReservations = rejectPendingReservations;
         return this;
     }
 
@@ -124,6 +136,10 @@ public class WorkerUpdater extends Updater<Worker> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (rejectPendingReservations != null) {
+            request.addPostParam("RejectPendingReservations", rejectPendingReservations.toString());
         }
     }
 }

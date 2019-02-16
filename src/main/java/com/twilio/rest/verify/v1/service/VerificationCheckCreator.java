@@ -26,6 +26,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private final String code;
     private String to;
     private String verificationSid;
+    private String amount;
+    private String payee;
 
     /**
      * Construct a new VerificationCheckCreator.
@@ -60,6 +62,30 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
      */
     public VerificationCheckCreator setVerificationSid(final String verificationSid) {
         this.verificationSid = verificationSid;
+        return this;
+    }
+
+    /**
+     * Amount of the associated PSD2 compliant transaction. Requires the PSD2
+     * Service flag enabled..
+     * 
+     * @param amount Amount of the associated PSD2 compliant transaction.
+     * @return this
+     */
+    public VerificationCheckCreator setAmount(final String amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    /**
+     * Payee of the associated PSD2 compliant transaction. Requires the PSD2 Service
+     * flag enabled..
+     * 
+     * @param payee Payee of the associated PSD2 compliant transaction.
+     * @return this
+     */
+    public VerificationCheckCreator setPayee(final String payee) {
+        this.payee = payee;
         return this;
     }
 
@@ -118,6 +144,14 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
         if (verificationSid != null) {
             request.addPostParam("VerificationSid", verificationSid);
+        }
+
+        if (amount != null) {
+            request.addPostParam("Amount", amount);
+        }
+
+        if (payee != null) {
+            request.addPostParam("Payee", payee);
         }
     }
 }

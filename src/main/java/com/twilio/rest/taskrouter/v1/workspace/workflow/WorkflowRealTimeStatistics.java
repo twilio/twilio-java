@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkflowRealTimeStatistics extends Resource {
-    private static final long serialVersionUID = 202087989924L;
+    private static final long serialVersionUID = 195171007786684L;
 
     /**
      * Create a WorkflowRealTimeStatisticsFetcher to execute fetch.
@@ -87,6 +87,7 @@ public class WorkflowRealTimeStatistics extends Resource {
 
     private final String accountSid;
     private final Integer longestTaskWaitingAge;
+    private final String longestTaskWaitingSid;
     private final Map<String, Object> tasksByPriority;
     private final Map<String, Object> tasksByStatus;
     private final Integer totalTasks;
@@ -99,6 +100,8 @@ public class WorkflowRealTimeStatistics extends Resource {
                                        final String accountSid, 
                                        @JsonProperty("longest_task_waiting_age")
                                        final Integer longestTaskWaitingAge, 
+                                       @JsonProperty("longest_task_waiting_sid")
+                                       final String longestTaskWaitingSid, 
                                        @JsonProperty("tasks_by_priority")
                                        final Map<String, Object> tasksByPriority, 
                                        @JsonProperty("tasks_by_status")
@@ -113,6 +116,7 @@ public class WorkflowRealTimeStatistics extends Resource {
                                        final URI url) {
         this.accountSid = accountSid;
         this.longestTaskWaitingAge = longestTaskWaitingAge;
+        this.longestTaskWaitingSid = longestTaskWaitingSid;
         this.tasksByPriority = tasksByPriority;
         this.tasksByStatus = tasksByStatus;
         this.totalTasks = totalTasks;
@@ -137,6 +141,15 @@ public class WorkflowRealTimeStatistics extends Resource {
      */
     public final Integer getLongestTaskWaitingAge() {
         return this.longestTaskWaitingAge;
+    }
+
+    /**
+     * Returns The The SID of the longest waiting Task.
+     * 
+     * @return The SID of the longest waiting Task
+     */
+    public final String getLongestTaskWaitingSid() {
+        return this.longestTaskWaitingSid;
     }
 
     /**
@@ -207,6 +220,7 @@ public class WorkflowRealTimeStatistics extends Resource {
 
         return Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(longestTaskWaitingAge, other.longestTaskWaitingAge) && 
+               Objects.equals(longestTaskWaitingSid, other.longestTaskWaitingSid) && 
                Objects.equals(tasksByPriority, other.tasksByPriority) && 
                Objects.equals(tasksByStatus, other.tasksByStatus) && 
                Objects.equals(totalTasks, other.totalTasks) && 
@@ -219,6 +233,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             longestTaskWaitingAge,
+                            longestTaskWaitingSid,
                             tasksByPriority,
                             tasksByStatus,
                             totalTasks,
@@ -232,6 +247,7 @@ public class WorkflowRealTimeStatistics extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
                           .add("longestTaskWaitingAge", longestTaskWaitingAge)
+                          .add("longestTaskWaitingSid", longestTaskWaitingSid)
                           .add("tasksByPriority", tasksByPriority)
                           .add("tasksByStatus", tasksByStatus)
                           .add("totalTasks", totalTasks)

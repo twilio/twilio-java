@@ -29,6 +29,7 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean skipSmsToLandlines;
     private Boolean dtmfInputRequired;
     private String ttsName;
+    private Boolean psd2Enabled;
 
     /**
      * Construct a new ServiceUpdater.
@@ -114,6 +115,18 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * Boolean value that enables to pass PSD2 transaction parameters when starting
+     * a verification.
+     * 
+     * @param psd2Enabled Indicates whether PSD2 parameters are enabled or not
+     * @return this
+     */
+    public ServiceUpdater setPsd2Enabled(final Boolean psd2Enabled) {
+        this.psd2Enabled = psd2Enabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -180,6 +193,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (ttsName != null) {
             request.addPostParam("TtsName", ttsName);
+        }
+
+        if (psd2Enabled != null) {
+            request.addPostParam("Psd2Enabled", psd2Enabled.toString());
         }
     }
 }

@@ -29,6 +29,8 @@ public class VerificationCreator extends Creator<Verification> {
     private String sendDigits;
     private String locale;
     private String customCode;
+    private String amount;
+    private String payee;
 
     /**
      * Construct a new VerificationCreator.
@@ -89,6 +91,30 @@ public class VerificationCreator extends Creator<Verification> {
      */
     public VerificationCreator setCustomCode(final String customCode) {
         this.customCode = customCode;
+        return this;
+    }
+
+    /**
+     * Amount of the associated PSD2 compliant transaction. Requires the PSD2
+     * Service flag enabled..
+     * 
+     * @param amount Amount of the associated PSD2 compliant transaction.
+     * @return this
+     */
+    public VerificationCreator setAmount(final String amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    /**
+     * Payee of the associated PSD2 compliant transaction. Requires the PSD2 Service
+     * flag enabled..
+     * 
+     * @param payee Payee of the associated PSD2 compliant transaction.
+     * @return this
+     */
+    public VerificationCreator setPayee(final String payee) {
+        this.payee = payee;
         return this;
     }
 
@@ -159,6 +185,14 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (customCode != null) {
             request.addPostParam("CustomCode", customCode);
+        }
+
+        if (amount != null) {
+            request.addPostParam("Amount", amount);
+        }
+
+        if (payee != null) {
+            request.addPostParam("Payee", payee);
         }
     }
 }
